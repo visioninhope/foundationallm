@@ -12,6 +12,14 @@
                     "SplitIntoChunks": true
                 }
             ]
+        },
+        {
+            "ContainerName": "analytics-source",
+            "TextFiles": [{
+                    "FileName": "surveydata.txt",
+                    "SplitIntoChunks": false
+                }
+            ]
         }
     ]
 }
