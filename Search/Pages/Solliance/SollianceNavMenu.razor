@@ -3,12 +3,12 @@
 @inject IChatManager chatManager
 
 
-<div class="h-100 d-flex flex-column" style="min-width: 275px;">
+<div class="h-100 d-flex flex-column" style="min-width: 275px;visibility:hidden">
 
-    <div class="flex-column navbar navbar-dark bg-gray" style="background-color: black">
+    <div class="flex-column navbar navbar-dark bg-gray" style="background-color: white">
         <div class="container-fluid justify-content-between">
             <div class="flex-fill">
-                <img src="customer-logo.png" style="max-width: 150px;" />
+                <img src="solliance/solliance.svg" style="max-width: 150px;" />
             </div>
             <button class="navbar-toggler border-0" @onclick="ToggleNavMenu">
                 <i class="bi bi-arrow-left-square-fill"></i>
@@ -253,6 +253,7 @@
 
         _loadingComplete = false;
 
+        //We want ChatSessions to remain empty on init to always create new
         ChatSessions = await chatManager.GetAllChatSessionsAsync();
         if (CurrentSession is not null && ChatSessions is not null & ChatSessions?.Count > 0)
         {
@@ -266,7 +267,10 @@
         }
 
         _loadingComplete = true;
+
+        await NewChat();
         await LoadCurrentChatAsync();
+        await ToggleNavMenu();
 
     }
 
@@ -285,7 +289,8 @@
 
             if (ChatSessions is not null & ChatSessions?.Count > 0)
             {
-                var match = ChatSessions?.FirstOrDefault();
+                //Get the "new" chat session which should be last
+                var match = ChatSessions?.LastOrDefault();//ChatSessions?.FirstOrDefault();
                 if (match is not null)
                 {
                     CurrentSession.SessionId = match.SessionId;

@@ -20,6 +20,14 @@
                     "SplitIntoChunks": false
                 }
             ]
+        },
+        {
+            "ContainerName": "about-source",
+            "TextFiles": [{
+                    "FileName": "about.txt",
+                    "SplitIntoChunks": false
+                }
+            ]
         }
     ]
 }
