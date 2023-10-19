@@ -58,7 +58,13 @@ else {
 $apiUrl = "https://$domain"
 Write-Host "API URL: $apiUrl" -ForegroundColor Yellow
 
-$appConfig = $(az appconfig list -g $resourceGroup -o json | ConvertFrom-Json).name
+$appConfigInstances = @(az appconfig list -g $resourceGroup -o json | ConvertFrom-Json)
+if ($appConfigInstances.Length -lt 1) {
+    Write-Host "Error getting app config" -ForegroundColor Red
+    exit 1
+}
+$appConfig = $appConfigInstances.name
+
 $appConfigEndpoint = $(az appconfig show -g $resourceGroup -n $appConfig --query 'endpoint' -o json | ConvertFrom-Json)
 $appConfigConnectionString = $(az appconfig credential list -n $appConfig -g $resourceGroup --query "[?name=='Primary Read Only'].{connectionString: connectionString}" -o json | ConvertFrom-Json).connectionString
 
