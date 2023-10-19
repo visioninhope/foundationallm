@@ -143,15 +143,19 @@ $tokens.apiUrl = $apiUrl
 $tokens.cosmosConnectionString = "AccountEndpoint=$($docdb.documentEndpoint);AccountKey=$docdbKey"
 $tokens.cosmosEndpoint = $docdb.documentEndpoint
 $tokens.cosmosKey = $docdbKey
-$tokens.agentFactoryApiMiClientId = $agentFactoryApiMiClientId
-$tokens.agentHubApiMiClientId = $agentHubApiMiClientId
-$tokens.chatUiMiClientId = $chatUiMiClientId
-$tokens.coreApiMiClientId = $coreApiMiClientId
-$tokens.dataSourceHubApiMiClientId = $dataSourceHubApiMiClientId
-$tokens.gatekeeperApiMiClientId = $gatekeeperApiMiClientId
-$tokens.langChainApiMiClientId = $langChainApiMiClientId
-$tokens.promptHubApiMiClientId = $promptHubApiMiClientId
-$tokens.semanticKernelApiMiClientId = $semanticKernelApiMiClientId
+
+if ($deployAks) {
+    $tokens.agentFactoryApiMiClientId = $agentFactoryApiMiClientId
+    $tokens.agentHubApiMiClientId = $agentHubApiMiClientId
+    $tokens.chatUiMiClientId = $chatUiMiClientId
+    $tokens.coreApiMiClientId = $coreApiMiClientId
+    $tokens.dataSourceHubApiMiClientId = $dataSourceHubApiMiClientId
+    $tokens.gatekeeperApiMiClientId = $gatekeeperApiMiClientId
+    $tokens.langChainApiMiClientId = $langChainApiMiClientId
+    $tokens.promptHubApiMiClientId = $promptHubApiMiClientId
+    $tokens.semanticKernelApiMiClientId = $semanticKernelApiMiClientId
+}
+
 $tokens.tenantId = $tenantId
 $tokens.appConfigEndpoint = $appConfigEndpoint
 $tokens.appConfigConnectionString = $appConfigConnectionString
@@ -169,12 +173,14 @@ if ($ingressClass -eq "nginx") {
 Write-Host ($tokens | ConvertTo-Json) -ForegroundColor Yellow
 Write-Host "===========================================================" -ForegroundColor Yellow
 
+Write-Host "Generating gvalues file..." -ForegroundColor Yellow
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 $gvaluesTemplatePath = $(./Join-Path-Recursively -pathParts $gvaluesTemplate.Split(","))
 $outputFilePath = $(./Join-Path-Recursively -pathParts $outputFile.Split(","))
 & ./Token-Replace.ps1 -inputFile $gvaluesTemplatePath -outputFile $outputFilePath -tokens $tokens
 Pop-Location
 
+Write-Host "Generating migration settings file..." -ForegroundColor Yellow
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 $migrationSettingsTemplatePath = $(./Join-Path-Recursively -pathParts $migrationSettingsTemplate.Split(","))
 $outputFilePath = $(./Join-Path-Recursively -pathParts .., migrationsettings.json)
