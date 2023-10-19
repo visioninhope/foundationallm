@@ -73,7 +73,7 @@ namespace FoundationaLLM.Core.API
             {
                 logging.IncludeScopes = true;
                 logging.AddConsoleExporter()
-                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.CoreAPI"))
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.CoreAPI", serviceVersion: "0.0.1"))
                 .AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
             });
 
@@ -82,9 +82,10 @@ namespace FoundationaLLM.Core.API
                 builder
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
-                .AddConsoleExporter()
+                //.AddConsoleExporter()
+                .AddJaegerExporter()
                 .AddSource("FoundationaLLM.CoreAPI")
-                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.CoreAPI"));
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.CoreAPI", serviceVersion: "0.0.1"));
                 //.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
             });
 
@@ -95,8 +96,8 @@ namespace FoundationaLLM.Core.API
             // Setup Traces
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
                 .AddSource("FoundationaLLM.CoreAPI")
-                .AddConsoleExporter()
-                .AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
+                //.AddConsoleExporter()
+                //.AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
                 .Build();
 
             builder.Services.AddOptions<CosmosDbSettings>()

@@ -1,4 +1,5 @@
 using Azure.Identity;
+using Azure.Monitor.OpenTelemetry.Exporter;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
@@ -8,8 +9,10 @@ using FoundationaLLM.SemanticKernel.Core.Interfaces;
 using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.SemanticKernel.MemorySource;
-
+using OpenTelemetry;
 using OpenTelemetry.Logs;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 namespace FoundationaLLM.SemanticKernel.API
 {
@@ -25,14 +28,6 @@ namespace FoundationaLLM.SemanticKernel.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            var loggerFactory = LoggerFactory.Create(builder =>
-            {
-                builder.AddOpenTelemetry(logging =>
-                {
-                    logging.AddConsoleExporter();
-                });
-            });
 
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
@@ -97,6 +92,33 @@ namespace FoundationaLLM.SemanticKernel.API
                 .Bind(builder.Configuration.GetSection("FoundationaLLM:BlobStorageMemorySource"));
             builder.Services.AddTransient<IMemorySource, BlobStorageMemorySource>();
 
+            builder.Services.AddOpenTelemetry().WithTracing(builder =>
+            {
+                builder
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddConsoleExporter()
+                .AddJaegerExporter()
+                .AddSource("FoundationaLLM.SemanticKernelAPI")
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.SemanticKernelAPI"));
+            });
+
+            builder.Logging.AddOpenTelemetry(logging =>
+            {
+                logging.IncludeScopes = true;
+
+                logging.AddConsoleExporter().SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.SemanticKernelAPI"));
+
+                logging.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
+            });
+
+            // Setup Traces
+            using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+                .AddSource("FoundationaLLM.SemanticKernelAPI")
+                .AddConsoleExporter()
+                .AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
+                .Build();
+
             var app = builder.Build();
 
             app.UseExceptionHandler(exceptionHandlerApp
@@ -111,9 +133,7 @@ namespace FoundationaLLM.SemanticKernel.API
             app.UseAuthorization();
             app.MapControllers();
 
-            app.Run();
-
-            loggerFactory.Dispose();
+            app.Run();            
         }
     }
 }

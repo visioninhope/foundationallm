@@ -24,6 +24,7 @@ using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Diagnostics;
 using Azure.Monitor.OpenTelemetry.Exporter;
+using OpenTelemetry.Resources;
 
 namespace FoundationaLLM.AgentFactory.API
 {
@@ -48,14 +49,13 @@ namespace FoundationaLLM.AgentFactory.API
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-            
-
             // Add services to the container.
             builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
             {
                 ConnectionString = builder.Configuration["FoundationaLLM:APIs:AgentFactoryAPI:AppInsightsConnectionString"],
                 DeveloperMode = builder.Environment.IsDevelopment()
             });
+
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ContractResolver = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings().ContractResolver;
@@ -98,36 +98,10 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 
-            var loggerFactory = LoggerFactory.Create(builder =>
-            {
-                builder.AddOpenTelemetry(logging =>
-                {
-                    logging.IncludeScopes = true;
-
-                    logging.AddConsoleExporter();
-
-                    logging.AddAzureMonitorLogExporter();
-                });
-            });
-
-            var logger = loggerFactory.CreateLogger<Program>();
-
-            builder.Services.AddSingleton(logger);
-
-            // Setup Traces
-            using var tracerProvider = Sdk.CreateTracerProviderBuilder()
-                .AddSource("FoundationaLLM.Chat")
-                .AddConsoleExporter()
-                .AddAzureMonitorTraceExporter()
-                .Build();
-
-            builder.Services.AddSingleton(tracerProvider);
-
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
-
 
             builder.Services
                 .AddApiVersioning(options =>
@@ -168,6 +142,34 @@ namespace FoundationaLLM.AgentFactory.API
                     options.AddAPIKeyAuth();
                 });
 
+            builder.Services.AddOpenTelemetry().WithTracing(builder =>
+            {
+                builder
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                //.AddConsoleExporter()
+                .AddJaegerExporter()
+                .AddSource("FoundationaLLM.AgentFactoryAPI")
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.AgentFactoryAPI"));
+            });
+
+            builder.Logging.AddOpenTelemetry(logging =>
+            {
+                logging.IncludeScopes = true;
+
+                logging
+                //.AddConsoleExporter()
+                //.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.AgentFactoryAPI"));
+            });
+
+            // Setup Traces
+            using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+                .AddSource("FoundationaLLM.AgentFactoryAPI")
+                //.AddConsoleExporter()
+                //.AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
+                .Build();
+
             var app = builder.Build();
 
             // Register the middleware to set the user identity context.
@@ -198,8 +200,6 @@ namespace FoundationaLLM.AgentFactory.API
             app.MapControllers();
 
             app.Run();
-
-            loggerFactory.Dispose();
         }
 
         /// <summary>

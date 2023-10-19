@@ -3,6 +3,8 @@ using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.AspNetCore.Mvc;
+using OpenTelemetry.Context.Propagation;
+using System.Diagnostics;
 
 namespace FoundationaLLM.AgentFactory.API.Controllers
 {
@@ -14,6 +16,9 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
     {
         private readonly IAgentFactoryService _agentFactoryService;
         private readonly ILogger<OrchestrationController> _logger;
+
+        private static readonly ActivitySource Activity = new(nameof(OrchestrationController));
+        private static readonly TextMapPropagator Propagator = Propagators.DefaultTextMapPropagator;
 
         public OrchestrationController(
             IAgentFactoryService agentFactoryService,
