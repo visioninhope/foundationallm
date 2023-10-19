@@ -105,7 +105,7 @@ if ($stepDeployArm) {
         }
     }
     # Deploy ARM
-    & ./Deploy-Arm-Azure.ps1 -resourceGroup $resourceGroup -location $location -template $armTemplate -deployAks $deployAks -openAiEndpoint $openAi.properties.endpoint -openAiKey $openAiKey -openAiCompletionsDeployment $openAiCompletionsDeployment -openAiEmbeddingsDeployment $openAiEmbeddingsDeployment
+    & ./Deploy-Arm-Azure.ps1 -resourcePrefix $resourcePrefix -resourceGroup $resourceGroup -location $location -template $armTemplate -deployAks $deployAks -openAiEndpoint $openAi.properties.endpoint -openAiKey $openAiKey -openAiCompletionsDeployment $openAiCompletionsDeployment -openAiEmbeddingsDeployment $openAiEmbeddingsDeployment
 }
 
 if ($deployAks)
