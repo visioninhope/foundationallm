@@ -58,9 +58,9 @@ else {
 $apiUrl = "https://$domain"
 Write-Host "API URL: $apiUrl" -ForegroundColor Yellow
 
-$appConfig=$(az appconfig list -g $resourceGroup -o json | ConvertFrom-Json).name
-$appConfigEndpoint=$(az appconfig show -g $resourceGroup -n $appConfig --query 'endpoint' -o json | ConvertFrom-Json)
-$appConfigConnectionString=$(az appconfig credential list -n $appConfig -g $resourceGroup --query "[?name=='Primary Read Only'].{connectionString: connectionString}" -o json | ConvertFrom-Json).connectionString
+$appConfig = $(az appconfig list -g $resourceGroup -o json | ConvertFrom-Json).name
+$appConfigEndpoint = $(az appconfig show -g $resourceGroup -n $appConfig --query 'endpoint' -o json | ConvertFrom-Json)
+$appConfigConnectionString = $(az appconfig credential list -n $appConfig -g $resourceGroup --query "[?name=='Primary Read Only'].{connectionString: connectionString}" -o json | ConvertFrom-Json).connectionString
 
 ## Getting CosmosDb info
 $docdb = $(az cosmosdb list -g $resourceGroup --query "[?kind=='GlobalDocumentDB'].{name: name, kind:kind, documentEndpoint:documentEndpoint}" -o json | ConvertFrom-Json)
@@ -68,39 +68,39 @@ $docdb = EnsureAndReturnFirstItem $docdb "CosmosDB (Document Db)"
 $docdbKey = $(az cosmosdb keys list -g $resourceGroup -n $docdb.name -o json --query primaryMasterKey | ConvertFrom-Json)
 Write-Host "Document Db Account: $($docdb.name)" -ForegroundColor Yellow
 
-$resourcePrefix=$(az deployment group show -n foundationallm-azuredeploy -g $resourceGroup --query "properties.outputs.resourcePrefix.value" -o json | ConvertFrom-Json)
-$agentFactoryApiMiClientId=$(az identity show -g $resourceGroup -n $resourcePrefix-agent-factory-mi -o json | ConvertFrom-Json).clientId
-$agentHubApiMiClientId=$(az identity show -g $resourceGroup -n $resourcePrefix-agent-hub-mi -o json | ConvertFrom-Json).clientId
-$chatUiMiClientId=$(az identity show -g $resourceGroup -n $resourcePrefix-chat-ui-mi -o json | ConvertFrom-Json).clientId
-$coreApiMiClientId=$(az identity show -g $resourceGroup -n $resourcePrefix-core-mi -o json | ConvertFrom-Json).clientId
-$dataSourceHubApiMiClientId=$(az identity show -g $resourceGroup -n $resourcePrefix-data-source-hub-mi -o json | ConvertFrom-Json).clientId
-$gatekeeperApiMiClientId=$(az identity show -g $resourceGroup -n $resourcePrefix-gatekeeper-mi -o json | ConvertFrom-Json).clientId
-$langChainApiMiClientId=$(az identity show -g $resourceGroup -n $resourcePrefix-langchain-mi -o json | ConvertFrom-Json).clientId
-$promptHubApiMiClientId=$(az identity show -g $resourceGroup -n $resourcePrefix-prompt-hub-mi -o json | ConvertFrom-Json).clientId
-$semanticKernelApiMiClientId=$(az identity show -g $resourceGroup -n $resourcePrefix-semantic-kernel-mi -o json | ConvertFrom-Json).clientId
-$tenantId=$(az account show --query homeTenantId --output tsv)
+$resourcePrefix = $(az deployment group show -n foundationallm-azuredeploy -g $resourceGroup --query "properties.outputs.resourcePrefix.value" -o json | ConvertFrom-Json)
+$agentFactoryApiMiClientId = $(az identity show -g $resourceGroup -n $resourcePrefix-agent-factory-mi -o json | ConvertFrom-Json).clientId
+$agentHubApiMiClientId = $(az identity show -g $resourceGroup -n $resourcePrefix-agent-hub-mi -o json | ConvertFrom-Json).clientId
+$chatUiMiClientId = $(az identity show -g $resourceGroup -n $resourcePrefix-chat-ui-mi -o json | ConvertFrom-Json).clientId
+$coreApiMiClientId = $(az identity show -g $resourceGroup -n $resourcePrefix-core-mi -o json | ConvertFrom-Json).clientId
+$dataSourceHubApiMiClientId = $(az identity show -g $resourceGroup -n $resourcePrefix-data-source-hub-mi -o json | ConvertFrom-Json).clientId
+$gatekeeperApiMiClientId = $(az identity show -g $resourceGroup -n $resourcePrefix-gatekeeper-mi -o json | ConvertFrom-Json).clientId
+$langChainApiMiClientId = $(az identity show -g $resourceGroup -n $resourcePrefix-langchain-mi -o json | ConvertFrom-Json).clientId
+$promptHubApiMiClientId = $(az identity show -g $resourceGroup -n $resourcePrefix-prompt-hub-mi -o json | ConvertFrom-Json).clientId
+$semanticKernelApiMiClientId = $(az identity show -g $resourceGroup -n $resourcePrefix-semantic-kernel-mi -o json | ConvertFrom-Json).clientId
+$tenantId = $(az account show --query homeTenantId --output tsv)
 
 ## Showing Values that will be used
 
 Write-Host "===========================================================" -ForegroundColor Yellow
 Write-Host "gvalues file will be generated with values:"
 
-$tokens.apiUrl=$apiUrl
-$tokens.cosmosConnectionString="AccountEndpoint=$($docdb.documentEndpoint);AccountKey=$docdbKey"
-$tokens.cosmosEndpoint=$docdb.documentEndpoint
-$tokens.cosmosKey=$docdbKey
-$tokens.agentFactoryApiMiClientId=$agentFactoryApiMiClientId
-$tokens.agentHubApiMiClientId=$agentHubApiMiClientId
-$tokens.chatUiMiClientId=$chatUiMiClientId
-$tokens.coreApiMiClientId=$coreApiMiClientId
-$tokens.dataSourceHubApiMiClientId=$dataSourceHubApiMiClientId
-$tokens.gatekeeperApiMiClientId=$gatekeeperApiMiClientId
-$tokens.langChainApiMiClientId=$langChainApiMiClientId
-$tokens.promptHubApiMiClientId=$promptHubApiMiClientId
-$tokens.semanticKernelApiMiClientId=$semanticKernelApiMiClientId
-$tokens.tenantId=$tenantId
-$tokens.appConfigEndpoint=$appConfigEndpoint
-$tokens.appConfigConnectionString=$appConfigConnectionString
+$tokens.apiUrl = $apiUrl
+$tokens.cosmosConnectionString = "AccountEndpoint=$($docdb.documentEndpoint);AccountKey=$docdbKey"
+$tokens.cosmosEndpoint = $docdb.documentEndpoint
+$tokens.cosmosKey = $docdbKey
+$tokens.agentFactoryApiMiClientId = $agentFactoryApiMiClientId
+$tokens.agentHubApiMiClientId = $agentHubApiMiClientId
+$tokens.chatUiMiClientId = $chatUiMiClientId
+$tokens.coreApiMiClientId = $coreApiMiClientId
+$tokens.dataSourceHubApiMiClientId = $dataSourceHubApiMiClientId
+$tokens.gatekeeperApiMiClientId = $gatekeeperApiMiClientId
+$tokens.langChainApiMiClientId = $langChainApiMiClientId
+$tokens.promptHubApiMiClientId = $promptHubApiMiClientId
+$tokens.semanticKernelApiMiClientId = $semanticKernelApiMiClientId
+$tokens.tenantId = $tenantId
+$tokens.appConfigEndpoint = $appConfigEndpoint
+$tokens.appConfigConnectionString = $appConfigConnectionString
 
 # Standard fixed tokens
 $tokens.ingressclass = $ingressClass
