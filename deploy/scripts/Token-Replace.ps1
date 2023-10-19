@@ -20,7 +20,9 @@ if ([string]::IsNullOrEmpty($content)) {
     $content = Get-Content -Raw $inputFile
 }
 
-$tokens.Keys | ForEach-Object ($_) {
+Write-Host "Replacing tokens..." -ForegroundColor Yellow
+$tokens.Keys | ForEach-Object {
+    Write-Host "Replacing $_" -ForegroundColor Yellow
     $content = $content -replace "{{$_}}", $tokens[$_]
 }
 

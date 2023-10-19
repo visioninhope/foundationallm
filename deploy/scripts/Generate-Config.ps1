@@ -134,11 +134,7 @@ if ($deployAks) {
 
 $tenantId = $(az account show --query homeTenantId --output tsv)
 
-## Showing Values that will be used
-
-Write-Host "===========================================================" -ForegroundColor Yellow
-Write-Host "gvalues file will be generated with values:"
-
+# Setting tokens
 $tokens.apiUrl = $apiUrl
 $tokens.cosmosConnectionString = "AccountEndpoint=$($docdb.documentEndpoint);AccountKey=$docdbKey"
 $tokens.cosmosEndpoint = $docdb.documentEndpoint
@@ -170,6 +166,9 @@ if ($ingressClass -eq "nginx") {
     $tokens.ingressrewritetarget = "`$2"
 }
 
+## Showing Values that will be used
+Write-Host "===========================================================" -ForegroundColor Yellow
+Write-Host "gvalues file will be generated with values:"
 Write-Host ($tokens | ConvertTo-Json) -ForegroundColor Yellow
 Write-Host "===========================================================" -ForegroundColor Yellow
 
