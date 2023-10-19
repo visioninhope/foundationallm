@@ -1,17 +1,20 @@
 #! /usr/bin/pwsh
 
 Param (
-    [parameter(Mandatory=$true)][string]$resourceGroup,
-    [parameter(Mandatory=$false)][string]$openAiName,
-    [parameter(Mandatory=$false)][string]$openAiRg,
-    [parameter(Mandatory=$false)][string]$openAiDeployment,
-    [parameter(Mandatory=$false)][string[]]$outputFile=$null,
-    [parameter(Mandatory=$false)][string[]]$gvaluesTemplate="..,gvalues.template.yml",
-    [parameter(Mandatory=$false)][string[]]$migrationSettingsTemplate="..,migrationsettings.template.json",
-    [parameter(Mandatory=$false)][string]$ingressClass="addon-http-application-routing",
-    [parameter(Mandatory=$false)][string]$domain,
-    [parameter(Mandatory=$true)][string]$deployAks
+    [parameter(Mandatory = $true)][string]$resourceGroup,
+    [parameter(Mandatory = $false)][string]$openAiName,
+    [parameter(Mandatory = $false)][string]$openAiRg,
+    # [parameter(Mandatory = $false)][string]$openAiDeployment,
+    [parameter(Mandatory = $false)][string[]]$outputFile = $null,
+    [parameter(Mandatory = $false)][string[]]$gvaluesTemplate = "..,gvalues.template.yml",
+    [parameter(Mandatory = $false)][string[]]$migrationSettingsTemplate = "..,migrationsettings.template.json",
+    [parameter(Mandatory = $false)][string]$ingressClass = "addon-http-application-routing",
+    [parameter(Mandatory = $false)][string]$domain,
+    [parameter(Mandatory = $true)][bool]$deployAks
 )
+
+Set-StrictMode -Version 3.0
+$ErrorActionPreference = "Stop"
 
 function EnsureAndReturnFirstItem($arr, $restype) {
     if (-not $arr -or $arr.Length -ne 1) {
@@ -23,7 +26,7 @@ function EnsureAndReturnFirstItem($arr, $restype) {
 }
 
 # Check the rg
-$rg=$(az group show -n $resourceGroup -o json | ConvertFrom-Json)
+$rg = $(az group show -n $resourceGroup -o json | ConvertFrom-Json)
 
 if (-not $rg) {
     Write-Host "Fatal: Resource group not found" -ForegroundColor Red
@@ -31,7 +34,7 @@ if (-not $rg) {
 }
 
 ### Getting Resources
-$tokens=@{}
+$tokens = @{}
 
 ## Getting storage info
 # $storage=$(az storage account list -g $resourceGroup --query "[].{name: name, blob: primaryEndpoints.blob}" -o json | ConvertFrom-Json)
@@ -39,8 +42,8 @@ $tokens=@{}
 # Write-Host "Storage Account: $($storage.name)" -ForegroundColor Yellow
 
 ## Getting API URL domain
-if ($deployAks)
-{
+if ($deployAks) {
+    Write-Host "Getting AKS info" -ForegroundColor Yellow
     if ([String]::IsNullOrEmpty($domain)) {
         $domain = $(az aks show -n $aksName -g $resourceGroup -o json --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName | ConvertFrom-Json)
         if (-not $domain) {
@@ -48,9 +51,8 @@ if ($deployAks)
         }
     }
 }
-else
-{
-    $domain=$(az deployment group show -g $resourceGroup -n foundationallm-azuredeploy -o json --query properties.outputs.apiFqdn.value | ConvertFrom-Json)
+else {
+    $domain = $(az deployment group show -g $resourceGroup -n foundationallm-azuredeploy -o json --query properties.outputs.apiFqdn.value | ConvertFrom-Json)
 }
 
 $apiUrl = "https://$domain"
@@ -61,9 +63,9 @@ $appConfigEndpoint=$(az appconfig show -g $resourceGroup -n $appConfig --query '
 $appConfigConnectionString=$(az appconfig credential list -n $appConfig -g $resourceGroup --query "[?name=='Primary Read Only'].{connectionString: connectionString}" -o json | ConvertFrom-Json).connectionString
 
 ## Getting CosmosDb info
-$docdb=$(az cosmosdb list -g $resourceGroup --query "[?kind=='GlobalDocumentDB'].{name: name, kind:kind, documentEndpoint:documentEndpoint}" -o json | ConvertFrom-Json)
-$docdb=EnsureAndReturnFirstItem $docdb "CosmosDB (Document Db)"
-$docdbKey=$(az cosmosdb keys list -g $resourceGroup -n $docdb.name -o json --query primaryMasterKey | ConvertFrom-Json)
+$docdb = $(az cosmosdb list -g $resourceGroup --query "[?kind=='GlobalDocumentDB'].{name: name, kind:kind, documentEndpoint:documentEndpoint}" -o json | ConvertFrom-Json)
+$docdb = EnsureAndReturnFirstItem $docdb "CosmosDB (Document Db)"
+$docdbKey = $(az cosmosdb keys list -g $resourceGroup -n $docdb.name -o json --query primaryMasterKey | ConvertFrom-Json)
 Write-Host "Document Db Account: $($docdb.name)" -ForegroundColor Yellow
 
 $resourcePrefix=$(az deployment group show -n foundationallm-azuredeploy -g $resourceGroup --query "properties.outputs.resourcePrefix.value" -o json | ConvertFrom-Json)
@@ -101,26 +103,26 @@ $tokens.appConfigEndpoint=$appConfigEndpoint
 $tokens.appConfigConnectionString=$appConfigConnectionString
 
 # Standard fixed tokens
-$tokens.ingressclass=$ingressClass
-$tokens.ingressrewritepath="(/|$)(.*)"
-$tokens.ingressrewritetarget="`$2"
+$tokens.ingressclass = $ingressClass
+$tokens.ingressrewritepath = "(/|$)(.*)"
+$tokens.ingressrewritetarget = "`$2"
 
-if($ingressClass -eq "nginx") {
-    $tokens.ingressrewritepath="(/|$)(.*)" 
-    $tokens.ingressrewritetarget="`$2"
+if ($ingressClass -eq "nginx") {
+    $tokens.ingressrewritepath = "(/|$)(.*)" 
+    $tokens.ingressrewritetarget = "`$2"
 }
 
 Write-Host ($tokens | ConvertTo-Json) -ForegroundColor Yellow
 Write-Host "===========================================================" -ForegroundColor Yellow
 
 Push-Location $($MyInvocation.InvocationName | Split-Path)
-$gvaluesTemplatePath=$(./Join-Path-Recursively -pathParts $gvaluesTemplate.Split(","))
-$outputFilePath=$(./Join-Path-Recursively -pathParts $outputFile.Split(","))
+$gvaluesTemplatePath = $(./Join-Path-Recursively -pathParts $gvaluesTemplate.Split(","))
+$outputFilePath = $(./Join-Path-Recursively -pathParts $outputFile.Split(","))
 & ./Token-Replace.ps1 -inputFile $gvaluesTemplatePath -outputFile $outputFilePath -tokens $tokens
 Pop-Location
 
 Push-Location $($MyInvocation.InvocationName | Split-Path)
-$migrationSettingsTemplatePath=$(./Join-Path-Recursively -pathParts $migrationSettingsTemplate.Split(","))
-$outputFilePath=$(./Join-Path-Recursively -pathParts ..,migrationsettings.json)
+$migrationSettingsTemplatePath = $(./Join-Path-Recursively -pathParts $migrationSettingsTemplate.Split(","))
+$outputFilePath = $(./Join-Path-Recursively -pathParts .., migrationsettings.json)
 & ./Token-Replace.ps1 -inputFile $migrationSettingsTemplatePath -outputFile $outputFilePath -tokens $tokens
 Pop-Location
