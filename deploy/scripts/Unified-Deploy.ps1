@@ -118,6 +118,7 @@ if ($stepDeployArm) {
         -openAiEmbeddingsDeployment $openAiEmbeddingsDeployment
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Error deploying ARM" -ForegroundColor Red
+        Pop-Location
         exit $LASTEXITCODE
     }
 }
