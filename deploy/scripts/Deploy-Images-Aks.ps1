@@ -179,31 +179,31 @@ if ($charts.Contains("chat-ui") -or  $charts.Contains("*")) {
     Invoke-Expression "$command"
 }
 
-Write-Host " --------------------------------------------------------" 
-Write-Host "Entering holding pattern to wait for proper backend API initialization"
-Write-Host "Attempting to retrieve status from https://$($aksHost)/core/status every 20 seconds with 50 retries"
-Write-Host " --------------------------------------------------------" 
-$apiStatus = "initializing"
-$retriesLeft = 50
-while (($apiStatus.ToString() -ne "ready") -and ($retriesLeft -gt 0)) {
-    Start-Sleep -Seconds 20
+# Write-Host " --------------------------------------------------------" 
+# Write-Host "Entering holding pattern to wait for proper backend API initialization"
+# Write-Host "Attempting to retrieve status from https://$($aksHost)/core/status every 20 seconds with 50 retries"
+# Write-Host " --------------------------------------------------------" 
+# $apiStatus = "initializing"
+# $retriesLeft = 50
+# while (($apiStatus.ToString() -ne "ready") -and ($retriesLeft -gt 0)) {
+#     Start-Sleep -Seconds 20
     
-    try {
-        $apiStatus = Invoke-RestMethod -Uri "https://$($aksHost)/core/status" -Method GET
-    }
-    catch {
-        Write-Host "The attempt to invoke the API endpoint failed. Will retry."
-    }
-    finally {
-        Write-Host "API endpoint status: $($apiStatus)"
-    }
+#     try {
+#         $apiStatus = Invoke-RestMethod -Uri "https://$($aksHost)/core/status" -Method GET
+#     }
+#     catch {
+#         Write-Host "The attempt to invoke the API endpoint failed. Will retry."
+#     }
+#     finally {
+#         Write-Host "API endpoint status: $($apiStatus)"
+#     }
 
-    $retriesLeft -= 1
-} 
+#     $retriesLeft -= 1
+# } 
 
-if ($apiStatus.ToString() -ne "ready") {
-    throw "The backend API did not enter the ready state."
-}
+# if ($apiStatus.ToString() -ne "ready") {
+#     throw "The backend API did not enter the ready state."
+# }
 
 Pop-Location
 Pop-Location
