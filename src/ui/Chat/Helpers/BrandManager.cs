@@ -20,7 +20,12 @@ namespace FoundationaLLM.Chat.Helpers
         /// <inheritdoc/>
         public async Task<ClientBrandingConfiguration> GetBrandAsync()
         {
-            var client = await _authenticatedHttpClientFactory.CreateClientAsync(HttpClients.CoreAPI, _entraSettings.Scopes);
+            var activity = Common.Logging.ActivitySources.ChatActivitySource.CreateActivity("GetBrandAsync", System.Diagnostics.ActivityKind.Client);
+            activity.Start();
+
+            var client = await _authenticatedHttpClientFactory.CreateClientAsync(HttpClients.CoreAPI, _entraSettings.Scopes, activity.Id);
+
+            activity.Stop();
 
             return await client.GetFromJsonAsync<ClientBrandingConfiguration>($"branding") ?? 
                    throw new InvalidOperationException("Could not retrieve the site branding configuration. Please try again.");

@@ -42,6 +42,13 @@ namespace FoundationaLLM.Common.Middleware
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext context, IUserClaimsProviderService claimsProviderService, IUserIdentityContext userIdentityContext)
         {
+            try
+            {
+                string correlationId = context.Request.Headers[Constants.HttpHeaders.CorrelationId];
+            }
+            catch (Exception ex)
+            { }
+
             if (context.User is {Identity.IsAuthenticated: true})
             {
                 // Extract from ClaimsPrincipal if available:

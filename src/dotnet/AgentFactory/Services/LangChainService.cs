@@ -51,7 +51,7 @@ namespace FoundationaLLM.AgentFactory.Services
         /// <returns>Returns a completion response from the orchestration engine.</returns>
         public async Task<LLMOrchestrationCompletionResponse> GetCompletion(LLMOrchestrationCompletionRequest request)
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);           
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI, string.Empty);           
 
             var body = JsonConvert.SerializeObject(request, _jsonSerializerSettings);
             var responseMessage = await client.PostAsync("orchestration/completion",
@@ -91,7 +91,7 @@ namespace FoundationaLLM.AgentFactory.Services
         /// <returns>Returns a summary of the input text.</returns>
         public async Task<string> GetSummary(string userPrompt)
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI, string.Empty);
 
             var request = new LLMOrchestrationCompletionRequest()
             {
@@ -134,7 +134,7 @@ namespace FoundationaLLM.AgentFactory.Services
         /// <returns>True if the service is ready. Otherwise, returns false.</returns>
         private bool GetServiceStatus()
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI, string.Empty);
             var responseMessage = client.Send(
                 new HttpRequestMessage(HttpMethod.Get, "status"));
 

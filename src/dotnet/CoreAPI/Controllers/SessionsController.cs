@@ -71,6 +71,10 @@ namespace FoundationaLLM.Core.API.Controllers
         [HttpPost("{sessionId}/completion", Name = "GetChatCompletion")]
         public async Task<Completion> GetChatCompletion(string sessionId, [FromBody] string userPrompt)
         {
+            string correlationId = this.Request.Headers["CorrelationId"];
+            _logger.BeginScope("CoreAPI:Get Chat Completion", correlationId, userPrompt);
+            _logger.LogInformation("CoreAPI:Get Chat Completion", correlationId, userPrompt);
+            
             return await _coreService.GetChatCompletionAsync(sessionId, userPrompt);
         }
 

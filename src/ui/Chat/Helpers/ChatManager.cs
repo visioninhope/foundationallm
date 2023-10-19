@@ -5,6 +5,8 @@ using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration.Authentication;
 using Microsoft.Identity.Abstractions;
 using Microsoft.Identity.Web;
+using OpenTelemetry.Context.Propagation;
+using System.Diagnostics;
 
 namespace FoundationaLLM.Chat.Helpers
 {
@@ -18,8 +20,13 @@ namespace FoundationaLLM.Chat.Helpers
         private readonly EntraSettings _entraSettings;
         private readonly IAuthenticatedHttpClientFactory _authenticatedHttpClientFactory;
         private readonly MicrosoftIdentityConsentAndConditionalAccessHandler _consentHandler;
+        private readonly ILogger _logger;
+
+        private static readonly ActivitySource Activity = new(nameof(ChatManager));
+        private static readonly TextMapPropagator Propagator = Propagators.DefaultTextMapPropagator;
 
         public ChatManager(
+            ILogger<ChatManager> logger,
             IOptions<EntraSettings> entraSettings,
             IAuthenticatedHttpClientFactory authenticatedHttpClientFactory,
             MicrosoftIdentityConsentAndConditionalAccessHandler consentHandler)
@@ -27,6 +34,7 @@ namespace FoundationaLLM.Chat.Helpers
             _entraSettings = entraSettings.Value;
             _authenticatedHttpClientFactory = authenticatedHttpClientFactory;
             _consentHandler = consentHandler;
+            _logger = logger;
         }
 
         /// <summary>
@@ -153,28 +161,41 @@ namespace FoundationaLLM.Chat.Helpers
 
         private async Task<T> SendRequest<T>(HttpMethod method, string requestUri, object payload = null)
         {
-            var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes);
-            HttpResponseMessage responseMessage;
-            switch (method)
+            //var activity = Common.Logging.ActivitySources.ChatActivitySource.CreateActivity("SendRequest", System.Diagnostics.ActivityKind.Client);
+            //activity.Start();
+            using (var activity = Common.Logging.ActivitySources.ChatActivitySource.CreateActivity("FoundationaLL:Chat:SendRequest", ActivityKind.Producer))
             {
-                case HttpMethod m when m == HttpMethod.Get:
-                    responseMessage = await client.GetAsync($"{requestUri}");
-                    break;
-                case HttpMethod m when m == HttpMethod.Post:
-                    responseMessage = await client.PostAsync($"{requestUri}",
-                        payload == null ? null : JsonContent.Create(payload, payload.GetType()));
-                    break;
-                default:
-                    throw new NotImplementedException($"The Http method {method.Method} is not supported.");
-            }
+                activity.Start();
 
-            var content = await responseMessage.Content.ReadAsStringAsync();
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(content);
+                Console.WriteLine($"Starting a new request : {activity.Id}");
+
+                var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes, activity!.Id);
+
+                HttpResponseMessage responseMessage;
+                switch (method)
+                {
+                    case HttpMethod m when m == HttpMethod.Get:
+                        responseMessage = await client.GetAsync($"{requestUri}");
+                        break;
+                    case HttpMethod m when m == HttpMethod.Post:
+                        responseMessage = await client.PostAsync($"{requestUri}",
+                            payload == null ? null : JsonContent.Create(payload, payload.GetType()));
+                        break;
+                    default:
+                        throw new NotImplementedException($"The Http method {method.Method} is not supported.");
+                }
+
+                var content = await responseMessage.Content.ReadAsStringAsync();
+
+                activity.Stop();
+
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(content);
+            }
         }
 
         private async Task SendRequest(HttpMethod method, string requestUri)
         {
-            var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes);
+            var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes, Guid.NewGuid().ToString());
             switch (method)
             {
                 case HttpMethod m when m == HttpMethod.Delete:
@@ -185,11 +206,11 @@ namespace FoundationaLLM.Chat.Helpers
             }
         }
 
-        private async Task<HttpClient> GetHttpClientAsync(string clientName, string scopes)
+        private async Task<HttpClient> GetHttpClientAsync(string clientName, string scopes, string correlationId)
         {
             try
             {
-                var client = await _authenticatedHttpClientFactory.CreateClientAsync(clientName, scopes);
+                var client = await _authenticatedHttpClientFactory.CreateClientAsync(clientName, scopes, correlationId);
                 return client;
             }
             catch (Exception e)

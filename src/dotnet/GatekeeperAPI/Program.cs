@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Azure.Identity;
+using Azure.Monitor.OpenTelemetry.Exporter;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Extensions;
@@ -15,6 +16,10 @@ using FoundationaLLM.Gatekeeper.Core.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -32,6 +37,14 @@ namespace FoundationaLLM.Gatekeeper.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddOpenTelemetry(logging =>
+                {
+                    logging.AddConsoleExporter();
+                });
+            });
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -125,6 +138,32 @@ namespace FoundationaLLM.Gatekeeper.API
                     // Adds auth via X-API-KEY header
                     options.AddAPIKeyAuth();
                 });
+
+            builder.Services.AddOpenTelemetry().WithTracing(builder =>
+            {
+                builder
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddConsoleExporter()
+                .AddSource("FoundationaLLM.GatekeeperAPI")
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.GatekeeperAPI"));
+            });
+
+            builder.Logging.AddOpenTelemetry(logging =>
+            {
+                logging.IncludeScopes = true;
+
+                logging.AddConsoleExporter().SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.GatekeeperAPI"));
+
+                logging.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
+            });
+
+            // Setup Traces
+            using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+                .AddSource("FoundationaLLM.GatekeeperAPI")
+                .AddConsoleExporter()
+                .AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
+                .Build();
 
             var app = builder.Build();
 

@@ -17,8 +17,13 @@ using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.Extensions.Options;
+using OpenTelemetry;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Trace;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Diagnostics;
+using Azure.Monitor.OpenTelemetry.Exporter;
 
 namespace FoundationaLLM.AgentFactory.API
 {
@@ -39,8 +44,11 @@ namespace FoundationaLLM.AgentFactory.API
                     options.SetCredential(new DefaultAzureCredential());
                 });
             });
+            
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
+            
 
             // Add services to the container.
             builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
@@ -89,6 +97,31 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Services.AddScoped<IUserIdentityContext, UserIdentityContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
+
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddOpenTelemetry(logging =>
+                {
+                    logging.IncludeScopes = true;
+
+                    logging.AddConsoleExporter();
+
+                    logging.AddAzureMonitorLogExporter();
+                });
+            });
+
+            var logger = loggerFactory.CreateLogger<Program>();
+
+            builder.Services.AddSingleton(logger);
+
+            // Setup Traces
+            using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+                .AddSource("FoundationaLLM.Chat")
+                .AddConsoleExporter()
+                .AddAzureMonitorTraceExporter()
+                .Build();
+
+            builder.Services.AddSingleton(tracerProvider);
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
@@ -165,6 +198,8 @@ namespace FoundationaLLM.AgentFactory.API
             app.MapControllers();
 
             app.Run();
+
+            loggerFactory.Dispose();
         }
 
         /// <summary>

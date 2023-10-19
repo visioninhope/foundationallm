@@ -9,6 +9,8 @@ using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.SemanticKernel.MemorySource;
 
+using OpenTelemetry.Logs;
+
 namespace FoundationaLLM.SemanticKernel.API
 {
     /// <summary>
@@ -23,6 +25,14 @@ namespace FoundationaLLM.SemanticKernel.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddOpenTelemetry(logging =>
+                {
+                    logging.AddConsoleExporter();
+                });
+            });
 
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
@@ -102,6 +112,8 @@ namespace FoundationaLLM.SemanticKernel.API
             app.MapControllers();
 
             app.Run();
+
+            loggerFactory.Dispose();
         }
     }
 }

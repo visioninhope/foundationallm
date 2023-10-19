@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Services;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FoundationaLLM.Common.Services;
@@ -25,6 +26,14 @@ using Newtonsoft.Json;
 using Azure.Identity;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+
+using OpenTelemetry;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Trace;
+using OpenTelemetry.Resources;
+
+using Azure.Monitor.OpenTelemetry.Exporter;
+using OpenTelemetry.Metrics;
 
 namespace FoundationaLLM.Core.API
 {
@@ -59,6 +68,36 @@ namespace FoundationaLLM.Core.API
                         policy.AllowAnyMethod();
                     });
             });
+
+            builder.Logging.AddOpenTelemetry(logging =>
+            {
+                logging.IncludeScopes = true;
+                logging.AddConsoleExporter()
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.CoreAPI"))
+                .AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
+            });
+
+            builder.Services.AddOpenTelemetry().WithTracing(builder =>
+            {
+                builder
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddConsoleExporter()
+                .AddSource("FoundationaLLM.CoreAPI")
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.CoreAPI"));
+                //.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
+            });
+
+            //.WithMetrics(builder => builder
+            //.AddAspNetCoreInstrumentation()
+            //.AddConsoleExporter());
+
+            // Setup Traces
+            using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+                .AddSource("FoundationaLLM.CoreAPI")
+                .AddConsoleExporter()
+                .AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
+                .Build();
 
             builder.Services.AddOptions<CosmosDbSettings>()
                 .Bind(builder.Configuration.GetSection("FoundationaLLM:CosmosDB"));

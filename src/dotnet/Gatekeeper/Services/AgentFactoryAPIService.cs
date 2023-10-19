@@ -41,7 +41,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 UserPromptEmbedding = new float[] { 0 }
             };
 
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentFactoryAPI);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentFactoryAPI, string.Empty);
 
             var responseMessage = await client.PostAsync("orchestration/completion",
             new StringContent(
@@ -71,7 +71,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 Summary = "[No Summary]"
             };
 
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentFactoryAPI);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentFactoryAPI, string.Empty);
 
             var responseMessage = await client.PostAsync("orchestration/summary",
                 new StringContent(
@@ -96,7 +96,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         /// <returns>True if the preffered orchestration service was set. Otherwise, returns False.</returns>
         public async Task<bool> SetLLMOrchestrationPreference(string orchestrationService)
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentFactoryAPI);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentFactoryAPI, string.Empty);
 
             var responseMessage = await client.PostAsync("orchestration/preference",
                 new StringContent(orchestrationService));

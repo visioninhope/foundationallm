@@ -16,15 +16,18 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
     public class OrchestrationController : ControllerBase
     {
         private readonly IGatekeeperService _gatekeeperService;
+        private readonly ILogger<OrchestrationController> _logger;
 
         /// <summary>
         /// Constructor for the Gatekeeper API orchestration controller.
         /// </summary>
         /// <param name="gatekeeperService"></param>
         public OrchestrationController(
-            IGatekeeperService gatekeeperService)
+            IGatekeeperService gatekeeperService,
+            ILogger<OrchestrationController> logger)
         {
             _gatekeeperService = gatekeeperService;
+            _logger = logger;
         }
 
         /// <summary>
@@ -35,6 +38,10 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         [HttpPost("completion")]
         public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
+            string correlationId = this.Request.Headers["CorrelationId"];
+            _logger.BeginScope("GateKeeperAPI:Get Chat Completion", correlationId, completionRequest.UserPrompt);
+            _logger.LogInformation("GateKeeperAPI:Get Chat Completion", correlationId, completionRequest.UserPrompt);
+
             return await _gatekeeperService.GetCompletion(completionRequest);
         }
 

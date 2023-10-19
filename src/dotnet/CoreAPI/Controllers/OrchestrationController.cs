@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using Newtonsoft.Json;
+using OpenTelemetry.Context.Propagation;
+using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FoundationaLLM.Core.API.Controllers
 {
@@ -22,6 +25,9 @@ namespace FoundationaLLM.Core.API.Controllers
         private readonly IGatekeeperAPIService _gatekeeperAPIService;
         private readonly ILogger<OrchestrationController> _logger;
 
+        private static readonly ActivitySource Activity = new(nameof(OrchestrationController));
+        private static readonly TextMapPropagator Propagator = Propagators.DefaultTextMapPropagator;
+
         public OrchestrationController(IGatekeeperAPIService gatekeeperAPIService,
             ILogger<OrchestrationController> logger)
         {
@@ -33,9 +39,27 @@ namespace FoundationaLLM.Core.API.Controllers
         [HttpPost("completion", Name = "GetCompletion")]
         public async Task<IActionResult> GetCompletion(CompletionRequest completionRequest)
         {
-            var completionResponse = await _gatekeeperAPIService.GetCompletion(completionRequest);
+            using (var activity = Activity.StartActivity("GetCompletion", ActivityKind.Producer))
+            {
+                //var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.CreateActivity("GetCompletion", System.Diagnostics.ActivityKind.Client);
+                //Activity activity = new Activity("GetCompletion");
 
-            return Ok(completionResponse);
+                if (this.Request.Headers.ContainsKey("correlationId"))
+                {
+                    string correlationId = this.Request.Headers["correlationId"];
+                    activity.SetParentId(correlationId);
+                    activity.SetTag("user_prompt", completionRequest.UserPrompt);
+                    activity.Start();
+                    completionRequest.CorrelationId = correlationId;
+                }
+
+                var completionResponse = await _gatekeeperAPIService.GetCompletion(completionRequest);
+
+                if (this.Request.Headers.ContainsKey("correlationId"))
+                    activity.Stop();
+
+                return Ok(completionResponse);
+            }
         }
 
         [AllowAnonymous]

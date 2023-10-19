@@ -31,7 +31,7 @@ public class PromptHubAPIService : IPromptHubAPIService
     {
         try
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.PromptHubAPI);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.PromptHubAPI, string.Empty);
 
             var responseMessage = await client.GetAsync("status");
 
@@ -56,7 +56,7 @@ public class PromptHubAPIService : IPromptHubAPIService
         {
             PromptHubRequest phm = new PromptHubRequest { AgentName = agentName };
             
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.PromptHubAPI);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.PromptHubAPI, string.Empty);
             var body = JsonConvert.SerializeObject(phm, _jsonSerializerSettings);
             var responseMessage = await client.PostAsync("resolve", new StringContent(
                     body,

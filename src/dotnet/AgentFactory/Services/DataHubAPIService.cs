@@ -31,7 +31,7 @@ public class DataSourceHubAPIService : IDataSourceHubAPIService
     {
         try
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.DataSourceHubAPI);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.DataSourceHubAPI, string.Empty);
 
             var responseMessage = await client.GetAsync("status");
 
@@ -55,7 +55,7 @@ public class DataSourceHubAPIService : IDataSourceHubAPIService
         try
         {
             DataSourceHubRequest phm = new DataSourceHubRequest { DataSources =  sources };
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.DataSourceHubAPI);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.DataSourceHubAPI, string.Empty);
             
             var responseMessage = await client.PostAsync("resolve", new StringContent(
                     JsonConvert.SerializeObject(phm, _jsonSerializerSettings),

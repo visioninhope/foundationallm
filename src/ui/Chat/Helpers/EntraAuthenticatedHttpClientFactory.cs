@@ -26,11 +26,12 @@ namespace FoundationaLLM.Chat.Helpers
         /// <param name="clientName">The named <see cref="HttpClient"/> client configuration.</param>
         /// <param name="scopes">List of permissions to request from the service.</param>
         /// <returns></returns>
-        public async Task<HttpClient> CreateClientAsync(string clientName, string scopes)
+        public async Task<HttpClient> CreateClientAsync(string clientName, string scopes, string correlationId)
         {
             var client = _httpClientFactory.CreateClient(clientName);
             string accessToken = await _authorizationHeaderProvider.CreateAuthorizationHeaderForUserAsync(new [] { scopes });
             client.DefaultRequestHeaders.Add("Authorization", accessToken);
+            client.DefaultRequestHeaders.Add("CorrelationId", correlationId);
             return client;
         }
     }

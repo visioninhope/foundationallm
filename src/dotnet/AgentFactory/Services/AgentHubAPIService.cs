@@ -40,7 +40,7 @@ public class AgentHubAPIService : IAgentHubAPIService
     {
         try
         {
-            var client = _httpClientFactoryService.CreateClient(HttpClients.AgentHubAPI);
+            var client = _httpClientFactoryService.CreateClient(HttpClients.AgentHubAPI, string.Empty);
 
             var responseMessage = await client.GetAsync("status");
 
@@ -65,7 +65,7 @@ public class AgentHubAPIService : IAgentHubAPIService
         {
             AgentHubRequest ahm = new AgentHubRequest { UserPrompt=userPrompt };
             
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentHubAPI);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentHubAPI, string.Empty);
                         
             var responseMessage = await client.PostAsync("resolve", new StringContent(
                     JsonConvert.SerializeObject(ahm, _jsonSerializerSettings),

@@ -38,7 +38,7 @@ namespace FoundationaLLM.Common.Services
         }
 
         /// <inheritdoc/>
-        public HttpClient CreateClient(string clientName)
+        public HttpClient CreateClient(string clientName, string correlationId)
         {
             var httpClient = _httpClientFactory.CreateClient(clientName);
             httpClient.Timeout = TimeSpan.FromSeconds(600);
@@ -48,6 +48,8 @@ namespace FoundationaLLM.Common.Services
             {
                 httpClient.DefaultRequestHeaders.Add(Constants.HttpHeaders.APIKey, settings.APIKey);
             }
+
+            httpClient.DefaultRequestHeaders.Add(Constants.HttpHeaders.CorrelationId, correlationId);
 
             // Optionally add the user identity header.
             if (_userIdentityContext.CurrentUserIdentity != null)

@@ -24,7 +24,7 @@ namespace Gatekeeper.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             var service = new AgentFactoryAPIService(httpClientFactoryService);
 
@@ -50,7 +50,7 @@ namespace Gatekeeper.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             var service = new AgentFactoryAPIService(httpClientFactoryService);
 
@@ -76,7 +76,7 @@ namespace Gatekeeper.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             var service = new AgentFactoryAPIService(httpClientFactoryService);
 
@@ -102,7 +102,7 @@ namespace Gatekeeper.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             var service = new AgentFactoryAPIService(httpClientFactoryService);
 
@@ -128,7 +128,7 @@ namespace Gatekeeper.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             var service = new AgentFactoryAPIService(httpClientFactoryService);
 
@@ -153,7 +153,7 @@ namespace Gatekeeper.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             var service = new AgentFactoryAPIService(httpClientFactoryService);
 

@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Core.Interfaces;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,17 @@ namespace FoundationaLLM.Core.Services
     {
         private readonly IHttpClientFactoryService _httpClientFactoryService;
         readonly JsonSerializerSettings _jsonSerializerSettings;
+        private readonly ILogger<GatekeeperAPIService> _logger;
 
-        public GatekeeperAPIService(IHttpClientFactoryService httpClientFactoryService, IUserIdentityContext userIdentityContext)
+        public GatekeeperAPIService(
+            IHttpClientFactoryService httpClientFactoryService, 
+            IUserIdentityContext userIdentityContext,
+            ILogger<GatekeeperAPIService> logger
+            )
         {
             _httpClientFactoryService = httpClientFactoryService;
             _jsonSerializerSettings = CommonJsonSerializerSettings.GetJsonSerializerSettings();
+            _logger = logger;
         }
 
         public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
@@ -28,20 +35,30 @@ namespace FoundationaLLM.Core.Services
             // TODO: Call RefinementService to refine userPrompt
             // await _refinementService.RefineUserPrompt(completionRequest);
 
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI);
-                       
-            var responseMessage = await client.PostAsync("orchestration/completion",
-            new StringContent(
-                    JsonConvert.SerializeObject(completionRequest, _jsonSerializerSettings),
-                    Encoding.UTF8, "application/json"));
-
-            if (responseMessage.IsSuccessStatusCode)
+            using (var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.CreateActivity("GetCompletion", System.Diagnostics.ActivityKind.Client))
             {
-                var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var completionResponse = JsonConvert.DeserializeObject<CompletionResponse>(responseContent);
+                //activity.SetParentId(completionRequest.CorrelationId);
+                activity.Start();
 
-                return completionResponse;
+                var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI, activity.Id);
+
+                var responseMessage = await client.PostAsync("orchestration/completion",
+                new StringContent(
+                        JsonConvert.SerializeObject(completionRequest, _jsonSerializerSettings),
+                        Encoding.UTF8, "application/json"));
+
+                activity.Stop();
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var responseContent = await responseMessage.Content.ReadAsStringAsync();
+                    var completionResponse = JsonConvert.DeserializeObject<CompletionResponse>(responseContent);
+
+                    return completionResponse;
+                }
             }
+
+            _logger.LogInformation("CoreAPI:A problem on my side prevented me from responding.");
 
             return new CompletionResponse
             {
@@ -58,7 +75,10 @@ namespace FoundationaLLM.Core.Services
             // TODO: Call RefinementService to refine userPrompt
             // await _refinementService.RefineUserPrompt(content);
 
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI);
+            var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.CreateActivity("GetSummary", System.Diagnostics.ActivityKind.Client);
+            activity.Start();
+
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI, activity.Id);
 
             var responseMessage = await client.PostAsync("orchestration/summary",
                 new StringContent(
@@ -78,7 +98,10 @@ namespace FoundationaLLM.Core.Services
 
         public async Task<bool> SetLLMOrchestrationPreference(string orchestrationService)
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI);
+            var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.CreateActivity("SetLLMOrchestrationPreference", System.Diagnostics.ActivityKind.Client);
+            activity.Start();
+
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI, activity.Id);
 
             var responseMessage = await client.PostAsync("orchestration/preference",
                 new StringContent(orchestrationService));

@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Core.Services;
 using FoundationaLLM.TestUtils.Helpers;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using System.Net;
 
@@ -14,10 +15,11 @@ namespace FoundationaLLM.Core.Tests.Services
 
         private readonly IHttpClientFactoryService _httpClientFactoryService = Substitute.For<IHttpClientFactoryService>();
         private readonly IUserIdentityContext _userIdentityContext = Substitute.For<IUserIdentityContext>();
+        private readonly ILogger<GatekeeperAPIService> _logger = Substitute.For<ILogger<GatekeeperAPIService>>();
 
         public GatekeeperAPIServiceTests()
         {
-            _testedService = new GatekeeperAPIService(_httpClientFactoryService, _userIdentityContext);
+            _testedService = new GatekeeperAPIService(_httpClientFactoryService, _userIdentityContext, _logger);
         }
 
         #region GetCompletion
@@ -35,7 +37,7 @@ namespace FoundationaLLM.Core.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            _httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            _httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             // Act
             var actual = await _testedService.GetCompletion(completionRequest);
@@ -58,7 +60,7 @@ namespace FoundationaLLM.Core.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            _httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            _httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             // Act
             var actual = await _testedService.GetCompletion(completionRequest);
@@ -86,7 +88,7 @@ namespace FoundationaLLM.Core.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            _httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            _httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             // Act
             var actual = await _testedService.GetSummary(summaryRequest);
@@ -109,7 +111,7 @@ namespace FoundationaLLM.Core.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            _httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            _httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             // Act
             var actual = await _testedService.GetSummary(summaryRequest);
@@ -136,7 +138,7 @@ namespace FoundationaLLM.Core.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            _httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            _httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             // Act
             bool actual = await _testedService.SetLLMOrchestrationPreference(orchestrationServiceString);
@@ -158,7 +160,7 @@ namespace FoundationaLLM.Core.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            _httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
+            _httpClientFactoryService.CreateClient(Arg.Any<string>(), string.Empty).Returns(httpClient);
 
             // Act
             bool actual = await _testedService.SetLLMOrchestrationPreference(orchestrationServiceString);

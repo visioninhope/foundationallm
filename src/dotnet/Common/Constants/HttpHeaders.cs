@@ -19,5 +19,10 @@ namespace FoundationaLLM.Common.Constants
         /// User identity header used by APIs to pass user identity information.
         /// </summary>
         public const string UserIdentity = "X-USER-IDENTITY";
+
+        /// <summary>
+        /// The correlation id used to map all traces for a single user prompt
+        /// </summary>
+        public const string CorrelationId = "correlationId";
     }
 }
