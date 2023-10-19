@@ -1,6 +1,24 @@
 import uvicorn
 from fastapi import FastAPI
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from app.routers import resolve, status
+
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import (
+    BatchSpanProcessor,
+    ConsoleSpanExporter,
+)
+
+provider = TracerProvider()
+processor = BatchSpanProcessor(ConsoleSpanExporter())
+provider.add_span_processor(processor)
+
+# Sets the global default tracer provider
+trace.set_tracer_provider(provider)
+
+# Creates a tracer from the global tracer provider
+tracer = trace.get_tracer("FoundationaLLM.AgentHubAPI")
 
 app = FastAPI(
     title='FoundationaLLM AgentHubAPI',
@@ -21,6 +39,8 @@ app = FastAPI(
     }
 )
 
+FastAPIInstrumentor.instrument_app(app)
+
 app.include_router(resolve.router)
 app.include_router(status.router)
 
@@ -35,6 +55,7 @@ async def root():
         Returns a JSON object containing a message and value.
     """
     return { 'message': 'FoundationaLLM AgentHubAPI' }
+
 
 if __name__ == '__main__':
     uvicorn.run('main:app', host='0.0.0.0', port=8742, reload=True, forwarded_allow_ips='*', proxy_headers=True)

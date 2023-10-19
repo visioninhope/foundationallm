@@ -110,6 +110,7 @@
     <Compile Include="foundationallm\langchain\__init__.py" />
     <Compile Include="foundationallm\hubs\prompt\prompt_hub_request.py" />
     <Compile Include="foundationallm\hubs\prompt\prompt_hub_response.py" />
+    <Compile Include="foundationallm\logging\instrumentation.py" />
     <Compile Include="foundationallm\models\metadata\agent.py" />
     <Compile Include="foundationallm\models\metadata\data_source.py" />
     <Compile Include="foundationallm\models\metadata\language_model.py" />
@@ -163,6 +164,7 @@
     <Folder Include="foundationallm\models\orchestration\" />
     <Folder Include="foundationallm\hubs\" />
     <Folder Include="foundationallm\credentials\" />
+    <Folder Include="foundationallm\logging\" />
     <Folder Include="foundationallm\storage\" />
   </ItemGroup>
   <ItemGroup>

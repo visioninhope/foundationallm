@@ -1,6 +1,24 @@
 import uvicorn
 from fastapi import FastAPI
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from app.routers import orchestration, status
+
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import (
+    BatchSpanProcessor,
+    ConsoleSpanExporter,
+)
+
+provider = TracerProvider()
+processor = BatchSpanProcessor(ConsoleSpanExporter())
+provider.add_span_processor(processor)
+
+# Sets the global default tracer provider
+trace.set_tracer_provider(provider)
+
+# Creates a tracer from the global tracer provider
+tracer = trace.get_tracer("FoundationaLLM.LangChainAPI")
 
 app = FastAPI(
     title='FoundationaLLM LangChainAPI',
@@ -20,6 +38,8 @@ app = FastAPI(
         "url": "https://www.foundationallm.ai/license",
     }
 )
+
+FastAPIInstrumentor.instrument_app(app)
 
 app.include_router(orchestration.router)
 app.include_router(status.router)
