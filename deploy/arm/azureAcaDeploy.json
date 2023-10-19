@@ -691,7 +691,7 @@
         "agenthub": {},
         "datasourcehub": {},
         "langchain": {},
-        "prompthub": {},
+        "prompthub": {}
       }
     },
     "safetySettings": {
