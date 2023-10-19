@@ -158,7 +158,7 @@ namespace FoundationaLLM.AgentFactory.API
                 logging.IncludeScopes = true;
 
                 logging
-                //.AddConsoleExporter()
+                .AddConsoleExporter()
                 //.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.AgentFactoryAPI"));
             });
@@ -166,7 +166,7 @@ namespace FoundationaLLM.AgentFactory.API
             // Setup Traces
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
                 .AddSource("FoundationaLLM.AgentFactoryAPI")
-                //.AddConsoleExporter()
+                .AddConsoleExporter()
                 //.AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
                 .Build();
 

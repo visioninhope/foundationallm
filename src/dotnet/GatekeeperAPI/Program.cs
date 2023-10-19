@@ -155,7 +155,8 @@ namespace FoundationaLLM.Gatekeeper.API
                 logging.IncludeScopes = true;
 
                 logging
-                //.AddConsoleExporter()
+                .AddConsoleExporter()
+                //.AddOtlpExporter()
                 //.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.GatekeeperAPI"));
             });
@@ -163,7 +164,7 @@ namespace FoundationaLLM.Gatekeeper.API
             // Setup Traces
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
                 .AddSource("FoundationaLLM.GatekeeperAPI")
-                //.AddConsoleExporter()
+                .AddConsoleExporter()
                 //.AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
                 .Build();
 

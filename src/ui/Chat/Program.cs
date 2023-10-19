@@ -50,10 +50,10 @@ builder.Services.AddHttpClient(FoundationaLLM.Common.Constants.HttpClients.CoreA
 builder.Logging.AddOpenTelemetry(logging =>
 {
     logging.IncludeScopes = true;
-    
+
     logging.AddConsoleExporter()
-    .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.Chat", serviceVersion: "0.0.1"))
-    .AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
+    .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.Chat", serviceVersion: "0.0.1"));
+    //.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
 });
 
 builder.Services.AddOpenTelemetry().WithTracing(builder =>
@@ -61,16 +61,16 @@ builder.Services.AddOpenTelemetry().WithTracing(builder =>
     builder
     .AddHttpClientInstrumentation()
     //.AddConsoleExporter()
+    .AddJaegerExporter()
     .AddSource("ChatManager")
     .AddSource("FoundationaLLM.Chat")
-    .AddJaegerExporter()
     .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.Chat", serviceVersion: "0.0.1"));
 });
 
 // Setup Traces
 using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+    .AddConsoleExporter()
     .AddSource("FoundationaLLM.Chat")
-    //.AddConsoleExporter()
     //.AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
     .Build();
 

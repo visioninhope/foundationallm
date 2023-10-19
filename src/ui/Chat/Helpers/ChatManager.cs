@@ -163,12 +163,8 @@ namespace FoundationaLLM.Chat.Helpers
         {
             //var activity = Common.Logging.ActivitySources.ChatActivitySource.CreateActivity("SendRequest", System.Diagnostics.ActivityKind.Client);
             //activity.Start();
-            using (var activity = Common.Logging.ActivitySources.ChatActivitySource.CreateActivity("FoundationaLL:Chat:SendRequest", ActivityKind.Producer))
+            using (var activity = Common.Logging.ActivitySources.ChatActivitySource.CreateActivity("FoundationaLL:Chat:SendRequest", ActivityKind.Client))
             {
-                activity.Start();
-
-                Console.WriteLine($"Starting a new request : {activity.Id}");
-
                 var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes, activity!.Id);
 
                 HttpResponseMessage responseMessage;
@@ -186,8 +182,6 @@ namespace FoundationaLLM.Chat.Helpers
                 }
 
                 var content = await responseMessage.Content.ReadAsStringAsync();
-
-                activity.Stop();
 
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(content);
             }
