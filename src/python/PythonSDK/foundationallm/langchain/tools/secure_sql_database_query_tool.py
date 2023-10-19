@@ -25,7 +25,7 @@ class SecureSQLDatabaseQueryTool(BaseSQLDatabaseTool, BaseTool):
         run_manager: Optional[CallbackManagerForToolRun] = None,
     ) -> str:
         """Conditionally, wrap the query with EXECUTE AS USER and REVERT statements."""
-        if (self.apply_row_level_security) and (self.db.dialect=='mssql') :
+        if (self.apply_row_level_security) and (self.db.dialect=='mssql'):
             query = (
                 f"EXECUTE AS USER = '{self.username}'; "
                 f"{query}; "

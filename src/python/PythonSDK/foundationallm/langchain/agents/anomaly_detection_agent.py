@@ -4,17 +4,16 @@ from sqlalchemy import create_engine
 
 from langchain.agents import create_sql_agent, create_pandas_dataframe_agent, initialize_agent, Tool
 from langchain.agents.agent_toolkits import create_python_agent
-from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 from langchain.agents.agent_types import AgentType
 from langchain.callbacks import get_openai_callback
 from langchain.prompts import PromptTemplate
-
 from langchain.tools.python.tool import PythonREPLTool
 
 from foundationallm.config import Configuration
 from foundationallm.langchain.agents import AgentBase
 from foundationallm.langchain.language_models import LanguageModelBase
 from foundationallm.langchain.data_sources.sql import SQLDatabaseFactory
+from foundationallm.langchain.toolkits import SecureSQLDatabaseToolkit
 from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
 from foundationallm.langchain.data_sources.sql import SQLDatabaseConfiguration
 from foundationallm.langchain.data_sources.sql.mssql import MicrosoftSQLServer
@@ -57,10 +56,12 @@ class AnomalyDetectionAgent(AgentBase):
         
         self.sql_agent = create_sql_agent(
             llm = self.llm,
-            toolkit = SQLDatabaseToolkit(
+            toolkit = SecureSQLDatabaseToolkit(
                 db = SQLDatabaseFactory(sql_db_config = self.sql_db_config, config = config).get_sql_database(),
                 llm=self.llm,
-                reduce_k_below_max_tokens=True
+                reduce_k_below_max_tokens=True,
+                username = self.sql_db_config.username, # TODO: This should be the logged in user.
+                apply_row_level_security = self.sql_db_config.row_level_security_enabled
             ),
             agent_type = AgentType.ZERO_SHOT_REACT_DESCRIPTION,
             verbose = True,

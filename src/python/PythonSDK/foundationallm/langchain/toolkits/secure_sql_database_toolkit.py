@@ -64,8 +64,8 @@ class SecureSQLDatabaseToolkit(BaseToolkit):
             db=self.db, llm=self.llm, description=query_sql_checker_tool_description
         )
         return [
-            info_sql_database_tool,
             list_sql_database_tool,
+            info_sql_database_tool,
             query_sql_checker_tool,
             secure_sql_database_query_tool
         ]
