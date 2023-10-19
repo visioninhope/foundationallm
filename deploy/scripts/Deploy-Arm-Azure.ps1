@@ -50,6 +50,10 @@ if ($deployAks) {
 else {
     az deployment group create -g $resourceGroup -n $deploymentName --template-file $script --parameters openAiEndpoint=$openAiEndpoint --parameters openAiKey=$openAiKey --parameters openAiCompletionsDeployment=$openAiCompletionsDeployment --parameters openAiEmbeddingsDeployment=$openAiEmbeddingsDeployment
 }
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ARM deployment failed" -ForegroundColor Red
+    exit 1
+}
 
 $outputVal = (az deployment group show -g $resourceGroup -n $deploymentName --query properties.outputs.resourcePrefix.value) | ConvertFrom-Json
 Set-Variable -Name resourcePrefix -Value $outputVal.ToString() -Scope 1
