@@ -22,8 +22,15 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FoundationaLLM.AgentFactory.API
 {
+    /// <summary>
+    /// Program class for the Agent Factory API
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Entry point for the Agent Factory API
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -177,8 +184,8 @@ namespace FoundationaLLM.AgentFactory.API
 
             var agentHubAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentHubAPI}:APIUrl"],
-                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentHubAPI}:APIKey"]
+                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentHubAPI}:APIUrl"]!,
+                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentHubAPI}:APIKey"]!
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.AgentHubAPI] = agentHubAPISettings;
 
@@ -191,8 +198,8 @@ namespace FoundationaLLM.AgentFactory.API
 
             var dataSourceHubAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.DataSourceHubAPI}:APIUrl"],
-                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.DataSourceHubAPI}:APIKey"]
+                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.DataSourceHubAPI}:APIUrl"]!,
+                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.DataSourceHubAPI}:APIKey"]!
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.DataSourceHubAPI] = dataSourceHubAPISettings;
 
@@ -205,8 +212,8 @@ namespace FoundationaLLM.AgentFactory.API
 
             var promptHubAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.PromptHubAPI}:APIUrl"],
-                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.PromptHubAPI}:APIKey"]
+                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.PromptHubAPI}:APIUrl"]!,
+                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.PromptHubAPI}:APIKey"]!
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.PromptHubAPI] = promptHubAPISettings;
 
@@ -219,8 +226,8 @@ namespace FoundationaLLM.AgentFactory.API
 
             var langChainAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.LangChainAPI}:APIUrl"],
-                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.LangChainAPI}:APIKey"]
+                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.LangChainAPI}:APIUrl"]!,
+                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.LangChainAPI}:APIKey"]!
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.LangChainAPI] = langChainAPISettings;
 
@@ -233,8 +240,8 @@ namespace FoundationaLLM.AgentFactory.API
 
             var semanticKernelAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.SemanticKernelAPI}:APIUrl"],
-                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.SemanticKernelAPI}:APIKey"]
+                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.SemanticKernelAPI}:APIUrl"]!,
+                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.SemanticKernelAPI}:APIKey"]!
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.SemanticKernelAPI] = semanticKernelAPISettings;
 

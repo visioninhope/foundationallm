@@ -16,6 +16,9 @@ using FoundationaLLM.Common.Interfaces;
 
 namespace FoundationaLLM.AgentFactory.Core.Services;
 
+/// <summary>
+/// AgentFactoryService class.
+/// </summary>
 public class AgentFactoryService : IAgentFactoryService
 {
     private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices;
@@ -27,6 +30,22 @@ public class AgentFactoryService : IAgentFactoryService
     private readonly ILogger<AgentFactoryService> _logger;
     private readonly IUserIdentityContext _userIdentity;
 
+
+    //private LLMOrchestrationService _llmOrchestrationService = LLMOrchestrationService.LangChain;
+
+    /// <summary>
+    /// Constructor for the Agent Factory Service
+    /// </summary>
+    /// <param name="orchestrationServices"></param>
+    /// <param name="agentFactorySettings"></param>
+    /// <param name="agentHubService"></param>
+    /// <param name="agentHubSettings"></param>
+    /// <param name="promptHubService"></param>
+    /// <param name="promptHubSettings"></param>
+    /// <param name="dataSourceHubService"></param>
+    /// <param name="dataSourceHubSettings"></param>
+    /// <param name="logger"></param>
+    /// <param name="userIdentity"></param>
     public AgentFactoryService(
         IEnumerable<ILLMOrchestrationService> orchestrationServices,
 
@@ -49,8 +68,12 @@ public class AgentFactoryService : IAgentFactoryService
 
         _logger = logger;
         _userIdentity = userIdentity;
+
     }
 
+    /// <summary>
+    /// Returns the status of the Semantic kernal.
+    /// </summary>
     public string Status
     {
         get
