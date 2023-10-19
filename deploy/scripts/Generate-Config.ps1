@@ -100,43 +100,39 @@ if ($deployAks) {
     EnsureSuccess "Error getting chat ui mi"
     $chatUiMiClientId = $chatUiMi.clientId
     Write-Host "Chat UI MI Client Id: $chatUiMiClientId" -ForegroundColor Yellow
+
+    $coreApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-core-mi -o json | ConvertFrom-Json)
+    EnsureSuccess "Error getting core mi"
+    $coreApiMiClientId = $coreApiMi.clientId
+    Write-Host "Core MI Client Id: $coreApiMiClientId" -ForegroundColor Yellow
+
+    $dataSourceHubApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-data-source-hub-mi -o json | ConvertFrom-Json)
+    EnsureSuccess "Error getting data source hub mi"
+    $dataSourceHubApiMiClientId = $dataSourceHubApiMi.clientId
+    Write-Host "Data Source Hub MI Client Id: $dataSourceHubApiMiClientId" -ForegroundColor Yellow
+
+    $gatekeeperApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-gatekeeper-mi -o json | ConvertFrom-Json)
+    EnsureSuccess "Error getting gatekeeper mi"
+    $gatekeeperApiMiClientId = $gatekeeperApiMi.clientId
+    Write-Host "Gatekeeper MI Client Id: $gatekeeperApiMiClientId" -ForegroundColor Yellow
+
+    $langChainApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-langchain-mi -o json | ConvertFrom-Json)
+    EnsureSuccess "Error getting langchain mi"
+    $langChainApiMiClientId = $langChainApiMi.clientId
+    Write-Host "LangChain MI Client Id: $langChainApiMiClientId" -ForegroundColor Yellow
+
+    $promptHubApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-prompt-hub-mi -o json | ConvertFrom-Json)
+    EnsureSuccess "Error getting prompt hub mi"
+    $promptHubApiMiClientId = $promptHubApiMi.clientId
+    Write-Host "Prompt Hub MI Client Id: $promptHubApiMiClientId" -ForegroundColor Yellow
+
+    $semanticKernelApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-semantic-kernel-mi -o json | ConvertFrom-Json)
+    EnsureSuccess "Error getting semantic kernel mi"
+    $semanticKernelApiMiClientId = $semanticKernelApiMi.clientId
+    Write-Host "Semantic Kernel MI Client Id: $semanticKernelApiMiClientId" -ForegroundColor Yellow
 }
 
-
-
-
-$coreApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-core-mi -o json | ConvertFrom-Json)
-EnsureSuccess "Error getting core mi"
-$coreApiMiClientId = $coreApiMi.clientId
-Write-Host "Core MI Client Id: $coreApiMiClientId" -ForegroundColor Yellow
-
-$dataSourceHubApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-data-source-hub-mi -o json | ConvertFrom-Json)
-EnsureSuccess "Error getting data source hub mi"
-$dataSourceHubApiMiClientId = $dataSourceHubApiMi.clientId
-Write-Host "Data Source Hub MI Client Id: $dataSourceHubApiMiClientId" -ForegroundColor Yellow
-
-$gatekeeperApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-gatekeeper-mi -o json | ConvertFrom-Json)
-EnsureSuccess "Error getting gatekeeper mi"
-$gatekeeperApiMiClientId = $gatekeeperApiMi.clientId
-Write-Host "Gatekeeper MI Client Id: $gatekeeperApiMiClientId" -ForegroundColor Yellow
-
-$langChainApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-langchain-mi -o json | ConvertFrom-Json)
-EnsureSuccess "Error getting langchain mi"
-$langChainApiMiClientId = $langChainApiMi.clientId
-Write-Host "LangChain MI Client Id: $langChainApiMiClientId" -ForegroundColor Yellow
-
-$promptHubApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-prompt-hub-mi -o json | ConvertFrom-Json)
-EnsureSuccess "Error getting prompt hub mi"
-$promptHubApiMiClientId = $promptHubApiMi.clientId
-Write-Host "Prompt Hub MI Client Id: $promptHubApiMiClientId" -ForegroundColor Yellow
-
-$semanticKernelApiMi = $(az identity show -g $resourceGroup -n $resourcePrefix-semantic-kernel-mi -o json | ConvertFrom-Json)
-EnsureSuccess "Error getting semantic kernel mi"
-$semanticKernelApiMiClientId = $semanticKernelApiMi.clientId
-Write-Host "Semantic Kernel MI Client Id: $semanticKernelApiMiClientId" -ForegroundColor Yellow
-
 $tenantId = $(az account show --query homeTenantId --output tsv)
-
 
 ## Showing Values that will be used
 
