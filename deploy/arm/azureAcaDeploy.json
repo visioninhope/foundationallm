@@ -667,28 +667,43 @@
     },
     "dotnetAcaSettings": {
       "name": "[parameters('name')]",
-      "instances": {
-        "agentfactory": {
-          "image": "agent-factory-api",
-          "tag": "latest"
+      "instances": [
+        {
+          "key": "agentfactory"
         },
-        "core": {},
-        "gatekeeper": {},
-        "semantickernel": {},
-        "chatui": {}
-      }
+        {
+          "key": "core"
+        },
+        {
+          "key": "gatekeeper"
+        },
+        {
+          "key": "semantickernel"
+        },
+        {
+          "key": "chatui"
+        }
+      ]
     },
     "keyVaultSettings": {
       "name": "[format('{0}-kv', parameters('name'))]"
     },
     "pythonAcaSettings": {
       "name": "[parameters('name')]",
-      "instances": {
-        "agenthub": {},
-        "datasourcehub": {},
-        "langchain": {},
-        "prompthub": {}
-      }
+      "instances": [
+        {
+          "key": "agenthub"
+        },
+        {
+          "key": "datasourcehub"
+        },
+        {
+          "key": "langchain"
+        },
+        {
+          "key": "prompthub"
+        }
+      ]
     },
     "safetySettings": {
       "name": "[format('{0}', parameters('name'))]"
