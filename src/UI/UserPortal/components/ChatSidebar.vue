@@ -101,12 +101,12 @@ export default {
 
 	props: {
 		currentSession: {
-			type: Object as PropType<Session> | null,
+			type: [Object, null] as PropType<Session | null>,
 			required: true,
 		}
 	},
 
-	emits: ['change-session'],
+	emits: ['change-session', 'session-updated'],
 
 	expose: ['getSessions'],
 
@@ -124,7 +124,9 @@ export default {
 
 	async created() {
 		await this.getSessions();
-		this.handleSessionSelected(this.sessions[0]);
+		const sessionId = this.$nuxt._route.query.chat;
+		const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
+		this.handleSessionSelected(existingSession || this.sessions[0]);
 	},
 
 	methods: {
@@ -145,9 +147,10 @@ export default {
 
 		async handleRenameSession() {
 			const updatedSession = await api.renameSession(this.sessionToRename!.id, this.newSessionName);
-			const sessionIndex = this.sessions.findIndex(session => session.id === updatedSession.id);
+			const sessionIndex = this.sessions.findIndex((session) => session.id === updatedSession.id);
 			this.sessions[sessionIndex] = updatedSession;
 			this.sessionToRename = null;
+			this.$emit('session-updated', updatedSession);
 		},
 
 		async handleAddSession() {
