@@ -60,12 +60,12 @@
       "apiUrlConfigKeys": [
         {
           "key": "FoundationaLLM:APIs:AgentFactoryAPI:APIUrl",
-          "value": "agent-factory",
+          "value": "agentfactory",
           "contentType": null
         },
         {
           "key": "FoundationaLLM:APIs:AgentHubAPI:APIUrl",
-          "value": "agent-hub",
+          "value": "agenthub",
           "contentType": null
         },
         {
@@ -75,7 +75,7 @@
         },
         {
           "key": "FoundationaLLM:APIs:DataSourceHubAPI:APIUrl",
-          "value": "data-source-hub",
+          "value": "datasourcehub",
           "contentType": null
         },
         {
@@ -90,12 +90,12 @@
         },
         {
           "key": "FoundationaLLM:APIs:PromptHubAPI:APIUrl",
-          "value": "prompt-hub",
+          "value": "prompthub",
           "contentType": null
         },
         {
           "key": "FoundationaLLM:APIs:SemanticKernelAPI:APIUrl",
-          "value": "semantic-kernel",
+          "value": "semantickernel",
           "contentType": null
         }
       ],
@@ -684,10 +684,6 @@
     "pythonAcaSettings": {
       "name": "[parameters('name')]",
       "instances": {
-        "agentfactory": {
-          "image": "agent-factory-api",
-          "tag": "latest"
-        },
         "agenthub": {},
         "datasourcehub": {},
         "langchain": {},
@@ -765,22 +761,22 @@
         "[resourceId('Microsoft.AppConfiguration/configurationStores', variables('appConfigSettings').name)]"
       ]
     },
-    // {
-    //   "copy": {
-    //     "name": "configStoreKeyValue",
-    //     "count": "[length(variables('appConfigSettings').apiUrlConfigKeys)]"
-    //   },
-    //   "type": "Microsoft.AppConfiguration/configurationStores/keyValues",
-    //   "apiVersion": "2021-10-01-preview",
-    //   "name": "[format('{0}/{1}', variables('appConfigSettings').name, variables('appConfigSettings').apiUrlConfigKeys[copyIndex()].key)]",
-    //   "properties": {
-    //     "value": "[concat('https://',reference(resourceId('Microsoft.ContainerService/managedClusters', variables('aksSettings').name), '2023-01-02-preview').addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName,'/', variables('appConfigSettings').apiUrlConfigKeys[copyIndex()].value,'/')]",
-    //     "contentType": "[variables('appConfigSettings').apiUrlConfigKeys[copyIndex()].contentType]"
-    //   },
-    //   "dependsOn": [
-    //     "[resourceId('Microsoft.AppConfiguration/configurationStores', variables('appConfigSettings').name)]"
-    //   ]
-    // },
+    {
+      "copy": {
+        "name": "configStoreKeyValue",
+        "count": "[length(variables('appConfigSettings').apiUrlConfigKeys)]"
+      },
+      "type": "Microsoft.AppConfiguration/configurationStores/keyValues",
+      "apiVersion": "2021-10-01-preview",
+      "name": "[format('{0}/{1}', variables('appConfigSettings').name, variables('appConfigSettings').apiUrlConfigKeys[copyIndex()].key)]",
+      "properties": {
+        "value": "[concat('https://', reference(resourceId('Microsoft.App/containerApps', format('{0}{1}ca', parameters('name'), variables('appConfigSettings').apiUrlConfigKeys[copyIndex()].value)), providers('Microsoft.App', 'containerApps').apiVersions[0]).configuration.ingress.fqdn)]",
+        "contentType": "[variables('appConfigSettings').apiUrlConfigKeys[copyIndex()].contentType]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.AppConfiguration/configurationStores', variables('appConfigSettings').name)]"
+      ]
+    },
     {
       "type": "Microsoft.KeyVault/vaults",
       "apiVersion": "2022-07-01",
@@ -1344,30 +1340,46 @@
     }
   ],
   "outputs": {
-    // "webUrl": {
-    //   "type": "string",
-    //   "value": "[concat('https://', reference(resourceId('Microsoft.App/containerApps', format('{0}chatwebaca', parameters('name'))), providers('Microsoft.App', 'containerApps').apiVersions[0]).configuration.ingress.fqdn)]"
-    // },
-    // "webFqdn": {
-    //   "type": "string",
-    //   "value": "[reference(resourceId('Microsoft.App/containerApps', format('{0}chatwebaca', parameters('name'))), providers('Microsoft.App', 'containerApps').apiVersions[0]).configuration.ingress.fqdn]"
-    // },
-    // "apiFqdn": {
-    //   "type": "string",
-    //   "value": "[reference(resourceId('Microsoft.App/containerApps', format('{0}chatapiaca', parameters('name'))), providers('Microsoft.App', 'containerApps').apiVersions[0]).configuration.ingress.fqdn]"
-    // },
-    // "apiAcaName": {
-    //   "type": "string",
-    //   "value": "[format('{0}chatapiaca', parameters('name'))]"
-    // },
-    // "webAcaName": {
-    //   "type": "string",
-    //   "value": "[format('{0}chatwebaca', parameters('name'))]"
-    // },
-    // "langChainAcaName": {
-    //   "type": "string",
-    //   "value": "[format('{0}langchainaca', parameters('name'))]"
-    // },
+    "webUrl": {
+      "type": "string",
+      "value": "[concat('https://', reference(resourceId('Microsoft.App/containerApps', format('{0}chatuica', parameters('name'))), providers('Microsoft.App', 'containerApps').apiVersions[0]).configuration.ingress.fqdn)]"
+    },
+    "agentfactoryAcaName": {
+      "type": "string",
+      "value": "[format('{0}agentfactoryca', parameters('name'))]"
+    },
+    "agenthubAcaName": {
+      "type": "string",
+      "value": "[format('{0}agenthubca', parameters('name'))]"
+    },
+    "coreAcaName": {
+      "type": "string",
+      "value": "[format('{0}coreca', parameters('name'))]"
+    },
+    "datasourcehubAcaName": {
+      "type": "string",
+      "value": "[format('{0}datasourcehubca', parameters('name'))]"
+    },
+    "gatekeeperAcaName": {
+      "type": "string",
+      "value": "[format('{0}gatekeeperca', parameters('name'))]"
+    },
+    "langchainAcaName": {
+      "type": "string",
+      "value": "[format('{0}langchainca', parameters('name'))]"
+    },
+    "prompthubAcaName": {
+      "type": "string",
+      "value": "[format('{0}prompthubca', parameters('name'))]"
+    },
+    "semantickernelAcaName": {
+      "type": "string",
+      "value": "[format('{0}semantickernelca', parameters('name'))]"
+    },
+    "chatuiAcaName": {
+      "type": "string",
+      "value": "[format('{0}chatuica', parameters('name'))]"
+    },
     "resourcePrefix": {
       "type": "string",
       "value": "[parameters('name')]"
