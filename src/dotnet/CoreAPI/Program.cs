@@ -79,11 +79,12 @@ namespace FoundationaLLM.Core.API
             });
             */
 
-            builder.Services.AddOpenTelemetry().WithTracing(builder =>
+            builder.Services.AddOpenTelemetry().WithTracing(b =>
             {
-                builder
+                b
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
+                .AddAzureMonitorTraceExporter(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
                 .AddConsoleExporter()
                 .AddJaegerExporter()
                 .AddSource("FoundationaLLM.CoreAPI")

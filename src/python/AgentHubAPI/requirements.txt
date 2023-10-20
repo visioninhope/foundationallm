@@ -11,3 +11,4 @@ opentelemetry-distro
 opentelemetry-exporter-otlp
 opentelemetry-instrumentation-fastapi
 opentelemetry.exporter.jaeger
+azure-monitor-opentelemetry-exporter

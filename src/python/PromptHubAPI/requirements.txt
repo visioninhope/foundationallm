@@ -9,3 +9,4 @@ azure.monitor.opentelemetry==1.0.0
 opentelemetry-distro
 opentelemetry-exporter-otlp
 opentelemetry-instrumentation-fastapi
+azure-monitor-opentelemetry-exporter

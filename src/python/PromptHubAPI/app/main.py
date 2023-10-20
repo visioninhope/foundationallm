@@ -41,6 +41,18 @@ span_processor = BatchSpanProcessor(jaeger_exporter)
 # add to the tracer
 trace.get_tracer_provider().add_span_processor(span_processor)
 
+from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
+
+azure_exporter = AzureMonitorTraceExporter(
+    connection_string=os.environ["FoundationaLLM:AppInsights:ConnectionString"]
+)
+
+# Create a BatchSpanProcessor and add the exporter to it
+azure_span_processor = BatchSpanProcessor(azure_exporter)
+
+# add to the tracer
+trace.get_tracer_provider().add_span_processor(azure_span_processor)
+
 app = FastAPI(
     title='FoundationaLLM PromptHubAPI',
     summary='API for retrieving Prompt metadata',

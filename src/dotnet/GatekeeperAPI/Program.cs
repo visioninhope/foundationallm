@@ -139,13 +139,14 @@ namespace FoundationaLLM.Gatekeeper.API
                     options.AddAPIKeyAuth();
                 });
 
-            builder.Services.AddOpenTelemetry().WithTracing(builder =>
+            builder.Services.AddOpenTelemetry().WithTracing(b =>
             {
-                builder
+                b
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddConsoleExporter()
                 .AddJaegerExporter()
+                .AddAzureMonitorTraceExporter(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
                 .AddSource("FoundationaLLM.GatekeeperAPI")
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.GatekeeperAPI"));
             });

@@ -57,13 +57,16 @@ builder.Logging.AddOpenTelemetry(logging =>
 });
 */
 
-builder.Services.AddOpenTelemetry().WithTracing(builder =>
+var connString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"];
+
+builder.Services.AddOpenTelemetry().WithTracing(b =>
 {
-    builder
+    b
     .AddHttpClientInstrumentation()
     .AddAspNetCoreInstrumentation()
     .AddConsoleExporter()
     .AddJaegerExporter()
+    .AddAzureMonitorTraceExporter(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
     .AddSource("ChatManager")
     .AddSource("FoundationaLLM.Chat")
     .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.Chat", serviceVersion: "0.0.1"));

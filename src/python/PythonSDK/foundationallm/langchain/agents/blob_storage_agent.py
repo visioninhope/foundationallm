@@ -91,6 +91,8 @@ class BlobStorageAgent(AgentBase):
             Returns a CompletionResponse with the generated summary, the user_prompt,
             and token utilization and execution cost details.
         """
+        cb = None
+        
         try:
             index = self.__get_vector_index()
             query = self.prompt_prefix +"Request: "+ prompt + "\n"            
