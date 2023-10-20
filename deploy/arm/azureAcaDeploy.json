@@ -738,10 +738,33 @@
       "Key Vault Crypto User": "12338af0-0e69-4776-bea7-57ae8d297424",
       "Key Vault Reader": "21090545-7ca7-4776-b22c-e363652d74d2",
       "Key Vault Secrets Officer": "b86a8fe4-44ce-4948-aee5-eccb2c155cd7",
-      "Key Vault Secrets User": "4633458b-17de-408a-b874-0445c86b69e6"
+      "Key Vault Secrets User": "4633458b-17de-408a-b874-0445c86b69e6",
+      "App Configuration Data Reader": "516239f1-63e1-4d78-a4de-a74fb236a071"
     }
   },
   "resources": [
+        {
+        "type": "Microsoft.CognitiveServices/accounts",
+        "apiVersion": "2023-05-01",
+        "name": "[variables('safetySettings').name]",
+        "location": "[parameters('location')]",
+        "sku": {
+            "name": "S0"
+        },
+        "kind": "ContentSafety",
+        "identity": {
+            "type": "SystemAssigned"
+        },
+        "properties": {
+            "customSubDomainName": "[variables('safetySettings').name]",
+            "networkAcls": {
+                "defaultAction": "Allow",
+                "virtualNetworkRules": [],
+                "ipRules": []
+            },
+            "publicNetworkAccess": "Enabled"
+        }
+    },
     {
       "type": "Microsoft.AppConfiguration/configurationStores",
       "apiVersion": "2023-03-01",
@@ -811,14 +834,300 @@
     },
     {
       "type": "Microsoft.KeyVault/vaults/secrets",
-      "apiVersion": "2022-07-01",
-      "name": "[format('{0}/{1}', variables('keyVaultSettings').name, 'langchain-api-key')]",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-app-insights-connection-string')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]", "[resourceId('Microsoft.OperationalInsights/workspaces', variables('laSettings').name)]" ],
       "properties": {
-        "value": "[variables('langChainApiKey')]"
-      },
-      "dependsOn": [
-        "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]"
-      ]
+        "attributes": { "enabled": true },
+        "value": "[reference(resourceId('Microsoft.Insights/components', variables('aiSettings').name), '2014-04-01').InstrumentationKey]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-apis-agentfactoryapi-apikey')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[uniqueString(resourceGroup().id)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-apis-agenthubapi-apikey')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[uniqueString(resourceGroup().id)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-apis-datasourcehubapi-apikey')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[uniqueString(resourceGroup().id)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-apis-gatekeeperapi-apikey')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[uniqueString(resourceGroup().id)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-apis-langchainapi-apikey')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[uniqueString(resourceGroup().id)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-apis-prompthubapi-apikey')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[uniqueString(resourceGroup().id)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-apis-semantickernelapi-apikey')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[uniqueString(resourceGroup().id)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-agenthub-storagemanager-blobstorage-connectionstring')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', format('{0}sa', parameters('name')), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name'))), '2018-07-01').keys[0].value)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-azurecontentsafety-apikey')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" , "[resourceId('Microsoft.CognitiveServices/accounts', variables('safetySettings').name)]"],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[listKeys(resourceId('Microsoft.CognitiveServices/accounts', variables('safetySettings').name), '2023-05-01').key1]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-azureopenai-api-key')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[parameters('openAiKey')]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-blobstoragememorysource-blobstorageconnection')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]", "[resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name')))]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', format('{0}sa', parameters('name')), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name'))), '2018-07-01').keys[0].value)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-chat-entra-clientsecret')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": ""
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-cognitivesearch-configblobstorageconnection')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]", "[resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name')))]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', format('{0}sa', parameters('name')), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name'))), '2018-07-01').keys[0].value)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-cognitivesearch-key')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]", "[resourceId('Microsoft.Search/searchServices', variables('cognitiveSearchSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[listAdminKeys(resourceId('Microsoft.Search/searchServices', variables('cognitiveSearchSettings').name), '2015-08-19').PrimaryKey]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-cognitivesearchmemorysource-blobstorageconnection')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]", "[resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name')))]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', format('{0}sa', parameters('name')), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name'))), '2018-07-01').keys[0].value)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-cognitivesearchmemorysource-key')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]", "[resourceId('Microsoft.Search/searchServices', variables('cognitiveSearchSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[listAdminKeys(resourceId('Microsoft.Search/searchServices', variables('cognitiveSearchSettings').name), '2015-08-19').PrimaryKey]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-coreapi-entra-clientsecret')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": ""
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-cosmosdb-key')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]", "[resourceId('Microsoft.DocumentDB/databaseAccounts', variables('cosmosDbSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[listKeys(resourceId('Microsoft.DocumentDB/databaseAccounts', variables('cosmosDbSettings').name), '2019-12-12').primaryMasterKey]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]", "[resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name')))]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', format('{0}sa', parameters('name')), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name'))), '2018-07-01').keys[0].value)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-durablesystemprompt-blobstorageconnection')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]", "[resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name')))]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', format('{0}sa', parameters('name')), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name'))), '2018-07-01').keys[0].value)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-langchain-csvfile-url')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": ""
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-langchain-sqldatabase-testdb-password')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": ""
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-langchainapi-key')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[uniqueString(resourceGroup().id)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-openai-api-key')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[parameters('openAiKey')]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-prompthub-storagemanager-blobstorage-connectionstring')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]", "[resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name')))]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', format('{0}sa', parameters('name')), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', format('{0}sa', parameters('name'))), '2018-07-01').keys[0].value)]"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2023-02-01",
+      "name": "[concat(variables('keyVaultSettings').name, '/foundationallm-semantickernelapi-openai-key')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
+      "properties": {
+        "attributes": { "enabled": true },
+        "value": "[parameters('openAiKey')]"
+      }
     },
     {
       "type": "Microsoft.DocumentDB/databaseAccounts",
@@ -1041,7 +1350,7 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2021-09-01",
-      "name": "[format('{0}promptsa', parameters('name'))]",
+      "name": "[format('{0}sa', parameters('name'))]",
       "location": "[parameters('location')]",
       "kind": "Storage",
       "sku": {
@@ -1293,6 +1602,42 @@
     },
     {
       "copy": {
+        "name": "dotnetAcaSaiAppConfigRoles",
+        "count": "[length(variables('dotnetAcaSettings').instances)]"
+      },
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "scope": "[format('Microsoft.AppConfiguration/configurationStores/{0}', variables('appConfigSettings').name)]",
+      "name": "[guid(resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('dotnetAcaSettings').name, variables('dotnetAcaSettings').instances[copyIndex()].key)), 'appConfig')]",
+      "properties": {
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('roleIdMapping')['App Configuration Data Reader'])]",
+        "principalId": "[reference(resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('dotnetAcaSettings').name, variables('dotnetAcaSettings').instances[copyIndex()].key)), '2023-05-02-preview', 'full').identity.principalId]",
+        "principalType": "ServicePrincipal"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('dotnetAcaSettings').name, variables('dotnetAcaSettings').instances[copyIndex()].key))]"
+      ]
+    },
+    {
+      "copy": {
+        "name": "dotnetAcaSaiKeyVaultRoles",
+        "count": "[length(variables('dotnetAcaSettings').instances)]"
+      },
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "scope": "[format('Microsoft.KeyVault/vaults/{0}', variables('keyVaultSettings').name)]",
+      "name": "[guid(resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('dotnetAcaSettings').name, variables('dotnetAcaSettings').instances[copyIndex()].key)), 'keyVault')]",
+      "properties": {
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('roleIdMapping')['Key Vault Secrets User'])]",
+        "principalId": "[reference(resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('dotnetAcaSettings').name, variables('dotnetAcaSettings').instances[copyIndex()].key)), '2023-05-02-preview', 'full').identity.principalId]",
+        "principalType": "ServicePrincipal"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('dotnetAcaSettings').name, variables('dotnetAcaSettings').instances[copyIndex()].key))]"
+      ]
+    },
+    {
+      "copy": {
         "name": "pythonAcaInstances",
         "count": "[length(variables('pythonAcaSettings').instances)]"
       },
@@ -1358,12 +1703,52 @@
           "volumes": []
         }
       }
+    },
+    {
+      "copy": {
+        "name": "pythonAcaSaiAppConfigRoles",
+        "count": "[length(variables('pythonAcaSettings').instances)]"
+      },
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "scope": "[format('Microsoft.AppConfiguration/configurationStores/{0}', variables('appConfigSettings').name)]",
+      "name": "[guid(resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('pythonAcaSettings').name, variables('pythonAcaSettings').instances[copyIndex()].key)), 'appConfig')]",
+      "properties": {
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('roleIdMapping')['App Configuration Data Reader'])]",
+        "principalId": "[reference(resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('pythonAcaSettings').name, variables('pythonAcaSettings').instances[copyIndex()].key)), '2023-05-02-preview', 'full').identity.principalId]",
+        "principalType": "ServicePrincipal"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('pythonAcaSettings').name, variables('pythonAcaSettings').instances[copyIndex()].key))]"
+      ]
+    },
+    {
+      "copy": {
+        "name": "pythonAcaSaiKeyVaultRoles",
+        "count": "[length(variables('pythonAcaSettings').instances)]"
+      },
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "scope": "[format('Microsoft.KeyVault/vaults/{0}', variables('keyVaultSettings').name)]",
+      "name": "[guid(resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('pythonAcaSettings').name, variables('pythonAcaSettings').instances[copyIndex()].key)), 'keyVault')]",
+      "properties": {
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('roleIdMapping')['Key Vault Secrets User'])]",
+        "principalId": "[reference(resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('pythonAcaSettings').name, variables('pythonAcaSettings').instances[copyIndex()].key)), '2023-05-02-preview', 'full').identity.principalId]",
+        "principalType": "ServicePrincipal"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.App/containerapps', format('{0}{1}ca', variables('pythonAcaSettings').name, variables('pythonAcaSettings').instances[copyIndex()].key))]"
+      ]
     }
   ],
   "outputs": {
     "webUrl": {
       "type": "string",
       "value": "[concat('https://', reference(resourceId('Microsoft.App/containerApps', format('{0}chatuica', parameters('name'))), providers('Microsoft.App', 'containerApps').apiVersions[0]).configuration.ingress.fqdn)]"
+    },
+    "webFqdn": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.App/containerApps', format('{0}chatuica', parameters('name'))), providers('Microsoft.App', 'containerApps').apiVersions[0]).configuration.ingress.fqdn]"
     },
     "agentfactoryAcaName": {
       "type": "string",
