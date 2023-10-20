@@ -35,30 +35,22 @@ namespace FoundationaLLM.Core.Services
             // TODO: Call RefinementService to refine userPrompt
             // await _refinementService.RefineUserPrompt(completionRequest);
 
-            using (var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.CreateActivity("GetCompletion", System.Diagnostics.ActivityKind.Client))
+            using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetCompletion");
+
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI, string.Empty);
+
+            var responseMessage = await client.PostAsync("orchestration/completion",
+            new StringContent(
+                    JsonConvert.SerializeObject(completionRequest, _jsonSerializerSettings),
+                    Encoding.UTF8, "application/json"));
+
+            if (responseMessage.IsSuccessStatusCode)
             {
-                //activity.SetParentId(completionRequest.CorrelationId);
-                activity.Start();
+                var responseContent = await responseMessage.Content.ReadAsStringAsync();
+                var completionResponse = JsonConvert.DeserializeObject<CompletionResponse>(responseContent);
 
-                var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI, activity.Id);
-
-                var responseMessage = await client.PostAsync("orchestration/completion",
-                new StringContent(
-                        JsonConvert.SerializeObject(completionRequest, _jsonSerializerSettings),
-                        Encoding.UTF8, "application/json"));
-
-                activity.Stop();
-
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                    var completionResponse = JsonConvert.DeserializeObject<CompletionResponse>(responseContent);
-
-                    return completionResponse;
-                }
+                return completionResponse;
             }
-
-            _logger.LogInformation("CoreAPI:A problem on my side prevented me from responding.");
 
             return new CompletionResponse
             {
@@ -75,10 +67,9 @@ namespace FoundationaLLM.Core.Services
             // TODO: Call RefinementService to refine userPrompt
             // await _refinementService.RefineUserPrompt(content);
 
-            var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.CreateActivity("GetSummary", System.Diagnostics.ActivityKind.Client);
-            activity.Start();
+            using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetSummary");
 
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI, activity.Id);
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI, string.Empty);
 
             var responseMessage = await client.PostAsync("orchestration/summary",
                 new StringContent(

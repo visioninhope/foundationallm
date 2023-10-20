@@ -47,32 +47,37 @@ builder.Services.AddHttpClient(FoundationaLLM.Common.Constants.HttpClients.CoreA
         policyBuilder.WaitAndRetryAsync(
             3, retryNumber => TimeSpan.FromMilliseconds(600)));
 
+/*
 builder.Logging.AddOpenTelemetry(logging =>
 {
     logging.IncludeScopes = true;
-
     logging.AddConsoleExporter()
     .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.Chat", serviceVersion: "0.0.1"));
     //.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
 });
+*/
 
 builder.Services.AddOpenTelemetry().WithTracing(builder =>
 {
     builder
     .AddHttpClientInstrumentation()
-    //.AddConsoleExporter()
+    .AddAspNetCoreInstrumentation()
+    .AddConsoleExporter()
     .AddJaegerExporter()
     .AddSource("ChatManager")
     .AddSource("FoundationaLLM.Chat")
     .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.Chat", serviceVersion: "0.0.1"));
 });
 
+/*
 // Setup Traces
 using var tracerProvider = Sdk.CreateTracerProviderBuilder()
     .AddConsoleExporter()
+    .AddSource("ChatManager")
     .AddSource("FoundationaLLM.Chat")
     //.AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
     .Build();
+*/
 
 builder.Services.Configure<EntraSettings>(builder.Configuration.GetSection("FoundationaLLM:Chat:Entra"));
 builder.Services.AddOptions<KeyVaultConfigurationServiceSettings>()

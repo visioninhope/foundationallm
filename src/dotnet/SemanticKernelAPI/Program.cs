@@ -114,6 +114,7 @@ namespace FoundationaLLM.SemanticKernel.API
 
             // Setup Traces
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+                .AddAspNetCoreInstrumentation()
                 .AddSource("FoundationaLLM.SemanticKernelAPI")
                 .AddConsoleExporter()
                 //.AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")

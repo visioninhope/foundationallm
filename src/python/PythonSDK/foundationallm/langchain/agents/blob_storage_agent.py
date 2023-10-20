@@ -106,7 +106,18 @@ class BlobStorageAgent(AgentBase):
                     total_cost = cb.total_cost
                 )
         except Exception as e:
-            return CompletionResponse(
+
+            if ( cb == None):
+                cr = CompletionResponse(
+                    completion = "A problem on my side prevented me from responding.",
+                    user_prompt = prompt,
+                    completion_tokens = 0,
+                    prompt_tokens = 0,
+                    total_tokens = 0,
+                    total_cost = 0
+                )
+            else:
+                cr = CompletionResponse(
                     completion = "A problem on my side prevented me from responding.",
                     user_prompt = prompt,
                     completion_tokens = cb.completion_tokens,
@@ -114,3 +125,5 @@ class BlobStorageAgent(AgentBase):
                     total_tokens = cb.total_tokens,
                     total_cost = cb.total_cost
                 )
+    
+            return cr

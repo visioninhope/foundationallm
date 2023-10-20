@@ -144,12 +144,13 @@ namespace FoundationaLLM.Gatekeeper.API
                 builder
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
-                //.AddConsoleExporter()
+                .AddConsoleExporter()
                 .AddJaegerExporter()
                 .AddSource("FoundationaLLM.GatekeeperAPI")
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.GatekeeperAPI"));
             });
 
+            /*
             builder.Logging.AddOpenTelemetry(logging =>
             {
                 logging.IncludeScopes = true;
@@ -160,13 +161,17 @@ namespace FoundationaLLM.Gatekeeper.API
                 //.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.GatekeeperAPI"));
             });
+            */
 
+            /*
             // Setup Traces
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+                .AddAspNetCoreInstrumentation()
                 .AddSource("FoundationaLLM.GatekeeperAPI")
                 .AddConsoleExporter()
                 //.AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
                 .Build();
+            */
 
             var app = builder.Build();
 

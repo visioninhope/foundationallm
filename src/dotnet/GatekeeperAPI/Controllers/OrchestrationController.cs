@@ -38,9 +38,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         [HttpPost("completion")]
         public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
-            string correlationId = this.Request.Headers["CorrelationId"];
-            _logger.BeginScope("GateKeeperAPI:Get Chat Completion", correlationId, completionRequest.UserPrompt);
-            _logger.LogInformation("GateKeeperAPI:Get Chat Completion", correlationId, completionRequest.UserPrompt);
+            using var activity = Common.Logging.ActivitySources.GatekeeperAPIActivitySource.StartActivity("GetCompletion");
 
             return await _gatekeeperService.GetCompletion(completionRequest);
         }
@@ -53,6 +51,8 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         [HttpPost("summary")]
         public async Task<SummaryResponse> GetSummary(SummaryRequest summaryRequest)
         {
+            using var activity = Common.Logging.ActivitySources.GatekeeperAPIActivitySource.StartActivity("GetSummary");
+
             return await _gatekeeperService.GetSummary(summaryRequest);
         }
     }

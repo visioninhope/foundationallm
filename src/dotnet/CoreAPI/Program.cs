@@ -69,20 +69,22 @@ namespace FoundationaLLM.Core.API
                     });
             });
 
+            /*
             builder.Logging.AddOpenTelemetry(logging =>
             {
                 logging.IncludeScopes = true;
                 logging.AddConsoleExporter()
-                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.CoreAPI", serviceVersion: "0.0.1"))
-                .AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.CoreAPI", serviceVersion: "0.0.1"));
+                //.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
             });
+            */
 
             builder.Services.AddOpenTelemetry().WithTracing(builder =>
             {
                 builder
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
-                //.AddConsoleExporter()
+                .AddConsoleExporter()
                 .AddJaegerExporter()
                 .AddSource("FoundationaLLM.CoreAPI")
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "FoundationaLLM.CoreAPI", serviceVersion: "0.0.1"));
@@ -93,12 +95,15 @@ namespace FoundationaLLM.Core.API
             //.AddAspNetCoreInstrumentation()
             //.AddConsoleExporter());
 
+            /*
             // Setup Traces
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+                .AddAspNetCoreInstrumentation()
                 .AddSource("FoundationaLLM.CoreAPI")
                 .AddConsoleExporter()
                 //.AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
                 .Build();
+            */
 
             builder.Services.AddOptions<CosmosDbSettings>()
                 .Bind(builder.Configuration.GetSection("FoundationaLLM:CosmosDB"));

@@ -113,6 +113,8 @@ namespace FoundationaLLM.Chat.Helpers
         /// </summary>
         public async Task<string> GetChatCompletionAsync(string sessionId, string userPrompt)
         {
+            using var activity = Common.Logging.ActivitySources.ChatActivitySource.StartActivity("GetChatCompletionAsync");
+
             ArgumentNullException.ThrowIfNull(sessionId);
 
             var completion = await SendRequest<Completion>(HttpMethod.Post,
@@ -120,6 +122,7 @@ namespace FoundationaLLM.Chat.Helpers
             // Refresh the local messages cache:
             await GetChatSessionMessagesAsync(sessionId);
             return completion.Text;
+            
         }
 
         public async Task<CompletionPrompt> GetCompletionPrompt(string sessionId, string completionPromptId)
@@ -161,30 +164,25 @@ namespace FoundationaLLM.Chat.Helpers
 
         private async Task<T> SendRequest<T>(HttpMethod method, string requestUri, object payload = null)
         {
-            //var activity = Common.Logging.ActivitySources.ChatActivitySource.CreateActivity("SendRequest", System.Diagnostics.ActivityKind.Client);
-            //activity.Start();
-            using (var activity = Common.Logging.ActivitySources.ChatActivitySource.CreateActivity("FoundationaLL:Chat:SendRequest", ActivityKind.Client))
+            var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes, string.Empty);
+
+            HttpResponseMessage responseMessage;
+            switch (method)
             {
-                var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes, activity!.Id);
-
-                HttpResponseMessage responseMessage;
-                switch (method)
-                {
-                    case HttpMethod m when m == HttpMethod.Get:
-                        responseMessage = await client.GetAsync($"{requestUri}");
-                        break;
-                    case HttpMethod m when m == HttpMethod.Post:
-                        responseMessage = await client.PostAsync($"{requestUri}",
-                            payload == null ? null : JsonContent.Create(payload, payload.GetType()));
-                        break;
-                    default:
-                        throw new NotImplementedException($"The Http method {method.Method} is not supported.");
-                }
-
-                var content = await responseMessage.Content.ReadAsStringAsync();
-
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(content);
+                case HttpMethod m when m == HttpMethod.Get:
+                    responseMessage = await client.GetAsync($"{requestUri}");
+                    break;
+                case HttpMethod m when m == HttpMethod.Post:
+                    responseMessage = await client.PostAsync($"{requestUri}",
+                        payload == null ? null : JsonContent.Create(payload, payload.GetType()));
+                    break;
+                default:
+                    throw new NotImplementedException($"The Http method {method.Method} is not supported.");
             }
+
+            var content = await responseMessage.Content.ReadAsStringAsync();
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(content);
         }
 
         private async Task SendRequest(HttpMethod method, string requestUri)

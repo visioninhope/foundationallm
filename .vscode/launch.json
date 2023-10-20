@@ -46,8 +46,7 @@
             "env": {
                 "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python/LangChainAPI;C:/github/solliancenet/foundationallm/src/python/PythonSDK"
             },
-            "args": ["main:app","--reload", "--port", "8765"],
-            "python": "${workspaceFolder}/src/python/LangChainAPI/env/Scripts/python.exe"
+            "args": ["main:app","--reload", "--port", "8765"]
         },
         {
             "name": "Python: Current File",

@@ -39,33 +39,19 @@ namespace FoundationaLLM.Core.API.Controllers
         [HttpPost("completion", Name = "GetCompletion")]
         public async Task<IActionResult> GetCompletion(CompletionRequest completionRequest)
         {
-            using (var activity = Activity.StartActivity("GetCompletion", ActivityKind.Producer))
-            {
-                //var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.CreateActivity("GetCompletion", System.Diagnostics.ActivityKind.Client);
-                //Activity activity = new Activity("GetCompletion");
+            using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetCompletion");
 
-                if (this.Request.Headers.ContainsKey("correlationId"))
-                {
-                    string correlationId = this.Request.Headers["correlationId"];
-                    activity.SetParentId(correlationId);
-                    activity.SetTag("user_prompt", completionRequest.UserPrompt);
-                    activity.Start();
-                    completionRequest.CorrelationId = correlationId;
-                }
+            var completionResponse = await _gatekeeperAPIService.GetCompletion(completionRequest);
 
-                var completionResponse = await _gatekeeperAPIService.GetCompletion(completionRequest);
-
-                if (this.Request.Headers.ContainsKey("correlationId"))
-                    activity.Stop();
-
-                return Ok(completionResponse);
-            }
+            return Ok(completionResponse);
         }
 
         [AllowAnonymous]
         [HttpPost("summary", Name = "GetSummary")]
         public async Task<IActionResult> GetSummary(SummaryRequest summaryRequest)
         {
+            using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetSummary");
+
             var summaryResponse = await _gatekeeperAPIService.GetSummary(summaryRequest.UserPrompt);
 
             return Ok(summaryResponse);

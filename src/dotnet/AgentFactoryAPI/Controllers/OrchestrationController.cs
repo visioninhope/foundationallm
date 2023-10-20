@@ -36,6 +36,8 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
         [HttpPost("completion")]
         public async Task<CompletionResponse> GetCompletion([FromBody] CompletionRequest completionRequest)
         {
+            using var activity = Common.Logging.ActivitySources.AgentFactoryAPIActivitySource.StartActivity("GetCompletion");
+
             return await _agentFactoryService.GetCompletion(completionRequest);
         }
 
