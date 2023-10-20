@@ -1570,6 +1570,16 @@
               }
             ],
             "allowInsecure": false,
+            "corsPolicy": {
+              "allowedOrigins": [
+                "*"
+              ],
+              "allowedHeaders": [
+                "*"
+              ],
+              "maxAge": 0,
+              "allowCredentials": true
+            },
             "clientCertificateMode": "Ignore"
           }
         },
@@ -1674,6 +1684,16 @@
               }
             ],
             "allowInsecure": false,
+            "corsPolicy": {
+              "allowedOrigins": [
+                "*"
+              ],
+              "allowedHeaders": [
+                "*"
+              ],
+              "maxAge": 0,
+              "allowCredentials": true
+            },
             "clientCertificateMode": "Ignore"
           }
         },
