@@ -144,10 +144,10 @@ export default {
 		},
 
 		async handleRenameSession() {
-			const updatedSession = await api.renameSession(this.sessionToRename!.id, this.newSessionName);
-			const sessionIndex = this.sessions.findIndex(session => session.id === updatedSession.id);
-			this.sessions[sessionIndex] = updatedSession;
-			this.sessionToRename = null;
+			await api.renameSession(this.sessionToRename!.id, this.newSessionName).then(() => {
+				this.sessionToRename.name = this.newSessionName;
+				this.sessionToRename = null;
+			});
 		},
 
 		async handleAddSession() {

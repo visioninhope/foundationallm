@@ -93,8 +93,11 @@ export default {
 		},
 
 		async handleRateMessage(messageIndex: number, { message, like }: { message: Message; like: Message['rating'] }) {
-			const updatedMessage = await api.rateMessage(message, like);
-			this.messages[messageIndex] = updatedMessage;
+			const originalRating = this.messages[messageIndex].rating;
+			this.messages[messageIndex].rating = like;
+			await api.rateMessage(message, like).catch(() => {
+				this.messages[messageIndex].rating = originalRating;
+			});
 		},
 
 		async handleSend(text: string) {
@@ -119,8 +122,9 @@ export default {
 			if (this.messages.length === 2) {
 				const sessionFullText = this.messages.map((message) => message.text).join('\n');
 				const { text: newSessionName } = await api.summarizeSessionName(this.session.id, sessionFullText);
-				const updatedSession = await api.renameSession(this.session.id, newSessionName);
-				this.$emit('update-session', updatedSession);
+				await api.renameSession(this.session.id, newSessionName);
+				this.session.name = newSessionName;
+				this.$emit('update-session', this.session);
 			}
 		},
 	}
