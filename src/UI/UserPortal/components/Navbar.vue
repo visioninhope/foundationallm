@@ -23,7 +23,7 @@
 					<Button icon="pi pi-sign-in" label="Sign In" @click="signIn()"></Button>
 				</div>
 				<div class="navbar__content__right__item" v-else>
-					<span>Welcome {{ accountName }}</span>
+					<span :class="collapsedSidebar ? 'welcome-text sidebar-closed' : 'welcome-text'">Welcome {{ accountName }}</span>
 					<Button class="sign-out-button" icon="pi pi-sign-out" label="Sign Out" @click="signOut()"></Button>
 				</div>
 			</div>
@@ -94,6 +94,7 @@ export default {
 				this.signedIn = false;
 				this.accountName = '';
 				this.userName = '';
+				this.$router.push('/login');
 			});
 			// await msalInstance.logout();
 		}
@@ -148,6 +149,10 @@ export default {
 .navbar__content__right__item {
 	display: flex;
 	align-items: center;
+}
+
+.sidebar-closed {
+	color: var(--primary-text);
 }
 
 .sign-out-button {
