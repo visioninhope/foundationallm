@@ -17,7 +17,10 @@
 
 			<!-- Message text -->
 			<div class="message__body">
-				{{ message.text }}
+				<template v-if="message.sender === 'Assistant' && message.type === 'LoadingMessage'">
+					<i class="pi pi-spin pi-spinner"></i>
+				</template>
+				<span v-else>{{ displayText }}</span>
 			</div>
 
 			<div class="message__footer" v-if="message.sender !== 'User'">
@@ -25,6 +28,7 @@
 					<!-- Like -->
 					<span>
 						<Button
+							:disabled="message.type === 'LoadingMessage'"
 							size="small"
 							text
 							:icon="message.rating ? 'pi pi-thumbs-up-fill' : 'pi pi-thumbs-up'"
@@ -36,6 +40,7 @@
 					<!-- Dislike -->
 					<span>
 						<Button
+							:disabled="message.type === 'LoadingMessage'"
 							size="small"
 							text
 							:icon="message.rating === false ? 'pi pi-thumbs-down-fill' : 'pi pi-thumbs-down'"
@@ -48,6 +53,7 @@
 				<!-- View prompt -->
 				<span class="view-prompt">
 					<Button
+						:disabled="message.type === 'LoadingMessage'"
 						size="small"
 						text
 						icon="pi pi-book"
@@ -87,6 +93,11 @@ export default {
 			type: Object as PropType<Message>,
 			required: true,
 		},
+		showWordAnimation: {
+			type: Boolean,
+			required: false,
+			default: false,
+		}
 	},
 
 	emits: ['rate'],
@@ -95,10 +106,34 @@ export default {
 		return {
 			prompt: {} as CompletionPrompt,
 			viewPrompt: false,
+			displayText: '',
 		};
 	},
 
+	created() {
+		if (this.showWordAnimation) {
+			this.displayWordByWord();
+		} else {
+			this.displayText = this.message.text;
+		}
+	},
+
 	methods: {
+		displayWordByWord() {
+			const words = this.message.text.split(' ');
+			let index = 0;
+
+			const displayNextWord = () => {
+				if (index < words.length) {
+					this.displayText += words[index] + ' ';
+					index++;
+					setTimeout(displayNextWord, 10);
+				}
+			};
+
+			displayNextWord();
+		},
+
 		handleRate(message: Message, like: boolean) {
 			this.$emit('rate', { message, like: message.rating === like ? null : like })
 		},
@@ -116,11 +151,12 @@ export default {
 .message-row {
 	display: flex;
 	align-items: flex-end;
-	margin: 8px;
+	margin-top: 8px;
+	margin-bottom: 8px;
 }
 
 .message {
-	padding: 16px;
+	padding: 12px;
 	width: 80%;
 	box-shadow: 0 5px 10px 0 rgba(27, 29, 33, 0.1);
 }
@@ -143,15 +179,22 @@ export default {
 	margin-bottom: 12px;
 	display: flex;
 	justify-content: space-between;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-top: 8px;
 }
 
 .message__body {
 	white-space: pre-wrap;
 	overflow-wrap: break-word;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-top: 8px;
+	padding-bottom: 8px;
 }
 
 .message__footer {
-	margin-top: 12px;
+	margin-top: 8px;
 	display: flex;
 	justify-content: space-between;
 }
