@@ -45,10 +45,10 @@ $deploymentName = "foundationallm-azuredeploy"
 Write-Host "Begining the ARM deployment..." -ForegroundColor Yellow
 Push-Location $sourceFolder
 if ($deployAks) {
-    az deployment group create -g $resourceGroup -n $deploymentName --template-file $script --parameters k8sVersion=$aksLastVersion
+    az deployment group create -g $resourceGroup -n $deploymentName --template-file $script --parameters k8sVersion=$aksLastVersion --parameters name=$resourcePrefix
 }
 else {
-    az deployment group create -g $resourceGroup -n $deploymentName --template-file $script --parameters openAiEndpoint=$openAiEndpoint --parameters openAiKey=$openAiKey --parameters openAiCompletionsDeployment=$openAiCompletionsDeployment --parameters openAiEmbeddingsDeployment=$openAiEmbeddingsDeployment
+    az deployment group create -g $resourceGroup -n $deploymentName --template-file $script --parameters openAiEndpoint=$openAiEndpoint --parameters name=$resourcePrefix --parameters openAiKey=$openAiKey --parameters openAiCompletionsDeployment=$openAiCompletionsDeployment --parameters openAiEmbeddingsDeployment=$openAiEmbeddingsDeployment
 }
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ARM deployment failed" -ForegroundColor Red
