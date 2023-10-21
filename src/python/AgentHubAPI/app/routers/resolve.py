@@ -12,4 +12,8 @@ router = APIRouter(
 
 @router.post('')
 async def resolve(request: AgentHubRequest) -> AgentHubResponse:    
-    return AgentHub().resolve(request)
+
+    ah = AgentHub(config=request.app.config)
+    ah.resolve(request)
+
+    return 
