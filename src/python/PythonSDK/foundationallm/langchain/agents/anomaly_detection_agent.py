@@ -1,6 +1,7 @@
 from langchain.tools import PythonREPLTool
 import pandas as pd
 from sqlalchemy import create_engine
+from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
 
 from langchain.agents import create_sql_agent, create_pandas_dataframe_agent, initialize_agent, Tool
 from langchain.agents.agent_toolkits import create_python_agent
@@ -69,10 +70,14 @@ class AnomalyDetectionAgent(AgentBase):
                 'handle_parsing_errors': True
             }
         )
+
+        ce = create_engine(MicrosoftSQLServer(sql_db_config = self.sql_db_config, config = config).get_connection_string())
+
+        SQLAlchemyInstrumentor().instrument(engine=ce)
         
         self.df = pd.read_sql(
             'SELECT * FROM RumInventory',
-            create_engine(MicrosoftSQLServer(sql_db_config = self.sql_db_config, config = config).get_connection_string()),
+            ce,
             index_col='Id'
         )
 

@@ -92,6 +92,8 @@ namespace FoundationaLLM.SemanticKernel.API
                 .Bind(builder.Configuration.GetSection("FoundationaLLM:BlobStorageMemorySource"));
             builder.Services.AddTransient<IMemorySource, BlobStorageMemorySource>();
 
+            string connString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"];
+
             builder.Services.AddOpenTelemetry().WithTracing(b =>
             {
                 b
@@ -99,11 +101,12 @@ namespace FoundationaLLM.SemanticKernel.API
                 .AddHttpClientInstrumentation()
                 .AddConsoleExporter()
                 .AddJaegerExporter()
-                .AddAzureMonitorTraceExporter(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
+                .AddAzureMonitorTraceExporter(o => o.ConnectionString = connString)
                 .AddSource("FoundationaLLM.SemanticKernelAPI")
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.SemanticKernelAPI"));
             });
 
+            /*
             builder.Logging.AddOpenTelemetry(logging =>
             {
                 logging.IncludeScopes = true;
@@ -112,7 +115,9 @@ namespace FoundationaLLM.SemanticKernel.API
 
                 //logging.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/");
             });
+            */
 
+            /*
             // Setup Traces
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
                 .AddAspNetCoreInstrumentation()
@@ -120,6 +125,7 @@ namespace FoundationaLLM.SemanticKernel.API
                 .AddConsoleExporter()
                 //.AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=110912dc-f6eb-41c2-bc0b-2420492cc32e;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/")
                 .Build();
+            */
 
             var app = builder.Build();
 

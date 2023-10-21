@@ -26,3 +26,4 @@ opentelemetry-distro
 opentelemetry-exporter-otlp
 opentelemetry-instrumentation-fastapi
 azure-monitor-opentelemetry-exporter
+opentelemetry.instrumentation.sqlalchemy
