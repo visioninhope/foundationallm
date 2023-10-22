@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from fastapi import Request
 from app.dependencies import validate_api_key_header
 from foundationallm.hubs.agent import AgentHub, AgentHubRequest, AgentHubResponse
 
@@ -11,9 +12,7 @@ router = APIRouter(
 )
 
 @router.post('')
-async def resolve(request: AgentHubRequest) -> AgentHubResponse:    
+async def resolve(agentRequest: AgentHubRequest, request: Request ) -> AgentHubResponse:    
 
-    ah = AgentHub(config=request.app.config)
-    ah.resolve(request)
-
-    return 
+    ah = AgentHub(config=request.app.extra['config'])
+    return ah.resolve(agentRequest)
