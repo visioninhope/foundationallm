@@ -28,21 +28,13 @@ export default {
 		},
 	},
 
-	async created() {
-		await msalInstance.initialize();
-		const accounts = await msalInstance.getAllAccounts();
-		if (accounts.length > 0) {
-			this.$router.push('/');
-		}
-	},
-
 	methods: {
 		async signIn() {
 			const response = await msalInstance.loginPopup(loginRequest);
 			if (response.account) {
-				this.$router.push('/');
+				this.$router.push({ path: '/', query: this.$nuxt._route.query });
 			}
-		}
+		},
 	},
 };
 </script>

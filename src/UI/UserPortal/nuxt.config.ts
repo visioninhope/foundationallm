@@ -14,6 +14,9 @@ export default defineNuxtConfig({
 			],
 		},
 	},
+	routeRules: {
+		'/': { ssr: false },
+	},
 	css: [
 		'primevue/resources/themes/viva-light/theme.css',
 		'~/styles/fonts.scss',

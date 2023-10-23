@@ -123,10 +123,12 @@ export default {
 	},
 
 	async created() {
-		await this.getSessions();
-		const sessionId = this.$nuxt._route.query.chat;
-		const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
-		this.handleSessionSelected(existingSession || this.sessions[0]);
+		if (process.client) {
+			await this.getSessions();
+			const sessionId = this.$nuxt._route.query.chat;
+			const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
+			this.handleSessionSelected(existingSession || this.sessions[0]);
+		}
 	},
 
 	methods: {
