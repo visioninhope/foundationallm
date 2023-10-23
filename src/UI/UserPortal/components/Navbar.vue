@@ -76,12 +76,14 @@ export default {
 	},
 
 	async created() {
-		await msalInstance.initialize();
-		const accounts = await msalInstance.getAllAccounts();
-		if (accounts.length > 0) {
-			this.signedIn = true;
-			this.accountName = accounts[0].name;
-			this.userName = accounts[0].username;
+		if (process.client) {
+			await msalInstance.initialize();
+			const accounts = await msalInstance.getAllAccounts();
+			if (accounts.length > 0) {
+				this.signedIn = true;
+				this.accountName = accounts[0].name;
+				this.userName = accounts[0].username;
+			}
 		}
 	},
 
