@@ -122,7 +122,7 @@ export default {
 			this.signedIn = false;
 			this.accountName = '';
 			this.userName = '';
-			this.$router.push('/login');
+			this.$router.push({ path: '/login' });
 			// await msalInstance.logout();
 		}
 	},
