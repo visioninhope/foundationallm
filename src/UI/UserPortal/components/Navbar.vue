@@ -59,7 +59,7 @@ export default {
 		currentSession: {
 			type: [Object, null] as PropType<Session | null>,
 			required: true,
-		}
+		},
 	},
 
 	emits: ['collapse-sidebar'],
@@ -115,12 +115,12 @@ export default {
 			const logoutRequest = {
 				account: msalInstance.getAccountByUsername(this.userName),
 			};
-			await msalInstance.logoutPopup(logoutRequest).then((response) => {
-				this.signedIn = false;
-				this.accountName = '';
-				this.userName = '';
-				this.$router.push('/login');
-			});
+
+			await msalInstance.logoutPopup(logoutRequest);
+			this.signedIn = false;
+			this.accountName = '';
+			this.userName = '';
+			this.$router.push('/login');
 			// await msalInstance.logout();
 		}
 	},

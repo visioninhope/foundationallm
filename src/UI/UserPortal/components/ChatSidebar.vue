@@ -146,10 +146,10 @@ export default {
 		},
 
 		async handleRenameSession() {
-			await api.renameSession(this.sessionToRename!.id, this.newSessionName).then(() => {
-				this.sessionToRename.name = this.newSessionName;
-				this.sessionToRename = null;
-			});
+			await api.renameSession(this.sessionToRename!.id, this.newSessionName);
+			this.sessionToRename!.name = this.newSessionName;
+			this.$emit('session-updated', this.sessionToRename);
+			this.sessionToRename = null;
 		},
 
 		async handleAddSession() {

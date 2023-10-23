@@ -1,50 +1,70 @@
 /* eslint-disable prettier/prettier */
 import { Message, Session, CompletionPrompt } from '@/js/types';
 import { msalInstance } from '@/js/auth';
-const accounts = msalInstance.getAllAccounts();
-const account = accounts[0];
-let bearerToken = await msalInstance.acquireTokenSilent({account: account});
-bearerToken = bearerToken.accessToken;
-
 declare const API_URL: string;
 
-async function fetchWithHeader(url: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE', body?: any) {
-  return await $fetch(url, {
-    method,
-    headers: {
-      Authorization: `Bearer ${bearerToken}`
-    },
-    body: body ? JSON.stringify(body) : undefined
-  });
-}
-
 export default {
+	bearerToken: null as string | null,
+
+	async getBearerToken() {
+		if (this.bearerToken) return this.bearerToken;
+
+		const accounts = msalInstance.getAllAccounts();
+		const account = accounts[0];
+		const bearerToken = await msalInstance.acquireTokenSilent({ account });
+		
+		this.bearerToken = bearerToken.accessToken;
+		return this.bearerToken;
+	},
+
+  async fetch(url: string, opts: any = {}) {
+		const options = opts;
+		options.headers = opts.headers || {};
+
+		// if (options?.query) {
+		// 	url += '?' + (new URLSearchParams(options.query)).toString();
+		// }
+
+		const bearerToken = await this.getBearerToken();
+		options.headers['Authorization'] = `Bearer ${bearerToken}`;
+
+    return await $fetch(url, options);
+  },
+
   async getSessions() {
-    return await fetchWithHeader(`${API_URL}/sessions`, 'GET') as Array<Session>;
+    return await this.fetch(`${API_URL}/sessions`) as Array<Session>;
   },
 
   async addSession() {
-    return await fetchWithHeader(`${API_URL}/sessions`, 'POST') as Session;
+    return await this.fetch(`${API_URL}/sessions`, { method: 'POST' }) as Session;
   },
 
   async renameSession(sessionId: string, newChatSessionName: string) {
-    return await fetchWithHeader(`${API_URL}/sessions/${sessionId}/rename?newChatSessionName=${newChatSessionName}`, 'POST') as Session;
+    return await this.fetch(`${API_URL}/sessions/${sessionId}/rename`, {
+      method: 'POST',
+      params: {
+        newChatSessionName
+      }
+    }) as Session;
   },
 
   async summarizeSessionName(sessionId: string, text: string) {
-    return await fetchWithHeader(`${API_URL}/sessions/${sessionId}/summarize-name`, 'POST', text) as { text: string };
+    return await this.fetch(`${API_URL}/sessions/${sessionId}/summarize-name`, {
+      method: 'POST',
+      body: JSON.stringify(text),
+    }) as { text: string };
   },
 
   async deleteSession(sessionId: string) {
-    return await fetchWithHeader(`${API_URL}/sessions/${sessionId}`, 'DELETE') as Session;
+    return await this.fetch(`${API_URL}/sessions/${sessionId}`, { method: 'DELETE' }) as Session;
   },
 
   async getMessages(sessionId: string) {
-    return await fetchWithHeader(`${API_URL}/sessions/${sessionId}/messages`, 'GET') as Array<Message>;
+    return await this.fetch(`${API_URL}/sessions/${sessionId}/messages`) as Array<Message>;
   },
 
   async getPrompt(sessionId: string, promptId: string) {
-    return await fetchWithHeader(`${API_URL}/sessions/${sessionId}/completionprompts/${promptId}`, 'GET') as CompletionPrompt;
+    return await this.fetch(`${API_URL}/sessions/${sessionId}/completionprompts/${promptId}`) as CompletionPrompt;
   },
 
   async rateMessage(message: Message, rating: Message['rating']) {
@@ -52,13 +72,19 @@ export default {
       rating?: Message['rating']
     } = {};
     if (rating !== null) params.rating = rating;
-    return await fetchWithHeader(
-      `${API_URL}/sessions/${message.sessionId}/message/${message.id}/rate${rating !== null ? "?rating="+rating : ""}`,
-      'POST'
+
+    return await this.fetch(
+      `${API_URL}/sessions/${message.sessionId}/message/${message.id}/rate`, {
+        method: 'POST',
+        params
+      }
     ) as Message;
   },
 
   async sendMessage(sessionId: string, text: string) {
-    return (await fetchWithHeader(`${API_URL}/sessions/${sessionId}/completion`, 'POST', text)) as string;
+    return (await this.fetch(`${API_URL}/sessions/${sessionId}/completion`, {
+      method: 'POST',
+      body: JSON.stringify(text),
+    })) as string;
   },
 };

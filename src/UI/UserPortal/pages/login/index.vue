@@ -6,28 +6,16 @@
 </template>
 
 <script lang="ts">
-import { Session } from '@/js/types';
-import { msalInstance, loginRequest } from '@/js/auth'
+import { msalInstance, loginRequest } from '@/js/auth';
 
 export default {
 	name: 'Login',
 
-	data() {
-		return {
-			logoURL: this.$config.public.LOGO_URL,
-		};
-	},
-
-	async created() {
-		await msalInstance.initialize().then(async () => {
-			const accounts = await msalInstance.getAllAccounts();
-			if (accounts.length > 0) {
-				this.$router.push('/');
-			}
-		});
-	},
-
 	computed: {
+		logoURL() {
+			return this.$config.public.LOGO_URL;
+		},
+
 		style() {
 			return {
 				'--primary-bg': this.$config.public.BRANDING_BACKGROUND_COLOR,
@@ -37,16 +25,23 @@ export default {
 				'--primary-text': this.$config.public.BRANDING_PRIMARY_TEXT_COLOR,
 				'--secondary-text': this.$config.public.BRANDING_SECONDARY_TEXT_COLOR,
 			};
+		},
+	},
+
+	async created() {
+		await msalInstance.initialize();
+		const accounts = await msalInstance.getAllAccounts();
+		if (accounts.length > 0) {
+			this.$router.push('/');
 		}
 	},
 
 	methods: {
-		signIn() {
-			msalInstance.loginPopup(loginRequest).then((response) => {
-				if(response.account) {
-					this.$router.push('/');
-				}
-			});
+		async signIn() {
+			const response = await msalInstance.loginPopup(loginRequest);
+			if (response.account) {
+				this.$router.push('/');
+			}
 		}
 	},
 };

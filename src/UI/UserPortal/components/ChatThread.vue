@@ -71,7 +71,7 @@ export default {
 	},
 
 	watch: {
-		async session(newSession, oldSession) {
+		async session(newSession: Session, oldSession: Session) {
 			if (newSession.id === oldSession.id) return;
 			this.isLoading = true;
 			this.userSentMessage = false;
@@ -86,12 +86,9 @@ export default {
 			this.messages = data;
 		},
 
-		async handleRateMessage(messageIndex: number, { message, like }: { message: Message; like: Message['rating'] }) {
-			const originalRating = this.messages[messageIndex].rating;
-			this.messages[messageIndex].rating = like;
-			await api.rateMessage(message, like).catch(() => {
-				this.messages[messageIndex].rating = originalRating;
-			});
+		async handleRateMessage(messageIndex: number, { message, isLiked }: { message: Message; isLiked: Message['rating'] }) {
+			await api.rateMessage(message, isLiked);
+			this.messages[messageIndex].rating = isLiked;
 		},
 
 		async handleSend(text: string) {
@@ -134,9 +131,8 @@ export default {
 			if (this.messages.length === 2) {
 				const sessionFullText = this.messages.map((message) => message.text).join('\n');
 				const { text: newSessionName } = await api.summarizeSessionName(this.session!.id, sessionFullText);
-				await api.renameSession(this.session.id, newSessionName);
-				this.session.name = newSessionName;
-				this.$emit('update-session', this.session);
+				await api.renameSession(this.session!.id, newSessionName);
+				this.$emit('update-session', { ...this.session, name: newSessionName });
 			}
 		},
 	}
