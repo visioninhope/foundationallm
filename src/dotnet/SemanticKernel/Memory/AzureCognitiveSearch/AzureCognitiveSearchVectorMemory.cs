@@ -68,7 +68,9 @@ namespace FoundationaLLM.SemanticKernel.Memory.AzureCognitiveSearch
         public AzureCognitiveSearchVectorMemory(string endpoint, TokenCredential credentials, string indexName, ITextEmbeddingGeneration textEmbedding, ILogger logger)
         {
             _adminClient = new SearchIndexClient(new Uri(endpoint), credentials, GetSearchClientOptions());
+            _searchIndexName = indexName;
             _textEmbedding = textEmbedding;
+            _logger = logger;
         }
 
         /// <summary>
@@ -335,7 +337,7 @@ namespace FoundationaLLM.SemanticKernel.Memory.AzureCognitiveSearch
 
                 //By convention, the first item in the result is the embedding of the query.
                 //Once SK develops a more standardized way to expose embeddings, this should be removed.
-                yield return new MemoryQueryResult(null, 1, embedding);
+                yield return new MemoryQueryResult(null!, 1, embedding);
 
                 if (searchResult != null)
                 {
@@ -434,7 +436,7 @@ namespace FoundationaLLM.SemanticKernel.Memory.AzureCognitiveSearch
         private SearchClient GetSearchClient(string indexName)
         {
             // Search an available client from the local cache
-            if (!_clientsByIndex.TryGetValue(indexName, out SearchClient client))
+            if (!_clientsByIndex.TryGetValue(indexName, out SearchClient? client))
             {
                 client = _adminClient.GetSearchClient(indexName);
                 _clientsByIndex[indexName] = client;
@@ -535,7 +537,7 @@ namespace FoundationaLLM.SemanticKernel.Memory.AzureCognitiveSearch
 
             return new MemoryRecordMetadata(
                 isReference: false,
-                id: filteredDocument["id"].ToString(),
+                id: filteredDocument["id"].ToString()!,
                 text: string.Empty,
                 description: string.Empty,
                 externalSourceName: string.Empty,

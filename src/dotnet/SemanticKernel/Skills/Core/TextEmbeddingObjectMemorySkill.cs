@@ -90,7 +90,7 @@ namespace FoundationaLLM.SemanticKernel.Skills.Core
             if (_shortTermMemory != null)
             {
                 List<(MemoryRecord Record, double Relevance)> shortTermRecords = await _shortTermMemory
-                    .GetNearestMatchesAsync("short-term", memories.First().Embedding.Value, limit.Value, relevance.Value)
+                    .GetNearestMatchesAsync("short-term", memories.First().Embedding!.Value, limit.Value, relevance.Value)
                     .ToListAsync ()
                     .ConfigureAwait(false);
 
