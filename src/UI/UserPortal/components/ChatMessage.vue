@@ -134,8 +134,8 @@ export default {
 			displayNextWord();
 		},
 
-		handleRate(message: Message, like: boolean) {
-			this.$emit('rate', { message, like: message.rating === like ? null : like })
+		handleRate(message: Message, isLiked: boolean) {
+			this.$emit('rate', { message, isLiked: message.rating === isLiked ? null : isLiked });
 		},
 
 		async handleViewPrompt() {
