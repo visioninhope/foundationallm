@@ -21,6 +21,8 @@ namespace FoundationaLLM.Core.Tests.Services
 
         public CoreServiceTests()
         {
+            _brandingConfig.Value.Returns(new ClientBrandingConfiguration());
+
             _testedService = new CoreService(_cosmosDbService, _gatekeeperAPIService, _logger, _brandingConfig);
         }
 
