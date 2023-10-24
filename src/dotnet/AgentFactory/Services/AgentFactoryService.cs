@@ -16,57 +16,64 @@ using FoundationaLLM.Common.Interfaces;
 
 namespace FoundationaLLM.AgentFactory.Core.Services;
 
+/// <summary>
+/// AgentFactoryService class.
+/// </summary>
 public class AgentFactoryService : IAgentFactoryService
 {
     private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices;
     private readonly IAgentHubAPIService _agentHubAPIService;
     private readonly AgentFactorySettings _agentFactorySettings;
-    private readonly AgentHubSettings _agentHubSettings;
-    
-    private readonly PromptHubSettings _promptHubSettings;
     private readonly IPromptHubAPIService _promptHubAPIService;
-
-    private readonly DataSourceHubSettings _dataSourceHubSettings;
     private readonly IDataSourceHubAPIService _dataSourceHubAPIService;
 
     private readonly ILogger<AgentFactoryService> _logger;
     private readonly IUserIdentityContext _userIdentity;
 
-    private LLMOrchestrationService _llmOrchestrationService = LLMOrchestrationService.LangChain;
 
+    //private LLMOrchestrationService _llmOrchestrationService = LLMOrchestrationService.LangChain;
+
+    /// <summary>
+    /// Constructor for the Agent Factory Service
+    /// </summary>
+    /// <param name="orchestrationServices"></param>
+    /// <param name="agentFactorySettings"></param>
+    /// <param name="agentHubService"></param>
+    /// <param name="agentHubSettings"></param>
+    /// <param name="promptHubService"></param>
+    /// <param name="promptHubSettings"></param>
+    /// <param name="dataSourceHubService"></param>
+    /// <param name="dataSourceHubSettings"></param>
+    /// <param name="logger"></param>
+    /// <param name="userIdentity"></param>
     public AgentFactoryService(
         IEnumerable<ILLMOrchestrationService> orchestrationServices,
 
         IOptions<AgentFactorySettings> agentFactorySettings,
 
         IAgentHubAPIService agentHubService,
-        IOptions<AgentHubSettings> agentHubSettings,
-
         IPromptHubAPIService promptHubService,
-        IOptions<PromptHubSettings> promptHubSettings,
-
         IDataSourceHubAPIService dataSourceHubService,
-        IOptions<DataSourceHubSettings> dataSourceHubSettings,
 
         ILogger<AgentFactoryService> logger,
         IUserIdentityContext userIdentity)
     {
         _orchestrationServices = orchestrationServices;
-        
-        _agentHubAPIService = agentHubService;
+
         _agentFactorySettings = agentFactorySettings.Value;
-        _agentHubSettings = agentHubSettings.Value;
 
+        _agentHubAPIService = agentHubService;
         _promptHubAPIService = promptHubService;
-        _promptHubSettings = promptHubSettings.Value;
-
         _dataSourceHubAPIService = dataSourceHubService;
-        _dataSourceHubSettings = dataSourceHubSettings.Value;
 
         _logger = logger;
         _userIdentity = userIdentity;
+
     }
 
+    /// <summary>
+    /// Returns the status of the Semantic kernal.
+    /// </summary>
     public string Status
     {
         get

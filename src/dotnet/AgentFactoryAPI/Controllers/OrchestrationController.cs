@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FoundationaLLM.AgentFactory.API.Controllers
 {
+    /// <summary>
+    /// OrchestrationController class
+    /// </summary>
     [ApiVersion(1.0)]
     [ApiController]
     [APIKeyAuthentication]
@@ -15,6 +18,12 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
         private readonly IAgentFactoryService _agentFactoryService;
         private readonly ILogger<OrchestrationController> _logger;
 
+
+        /// <summary>
+        /// Constructor for the Agent Factory orchestration controller
+        /// </summary>
+        /// <param name="agentFactoryService"></param>
+        /// <param name="logger"></param>
         public OrchestrationController(
             IAgentFactoryService agentFactoryService,
             ILogger<OrchestrationController> logger)
@@ -34,6 +43,11 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
             return await _agentFactoryService.GetCompletion(completionRequest);
         }
 
+        /// <summary>
+        /// Gets a summary from the Agent Factory
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
         [HttpPost("summary")]
         public async Task<SummaryResponse> GetSummary([FromBody] SummaryRequest content)
         {

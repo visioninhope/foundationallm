@@ -9,9 +9,9 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
     public class SQLDatabaseDataSource: MetadataBase
     {
         /// <summary>
-        /// SQL Database configuration settings metadata.
+        /// SQL Database configuration settings.
         /// </summary>
         [JsonProperty("configuration")]
-        public SQLDatabaseConfiguration Configuration { get; set; }
+        public SQLDatabaseConfiguration? Configuration { get; set; }
     }
 }

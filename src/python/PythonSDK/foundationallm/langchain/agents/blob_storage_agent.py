@@ -7,7 +7,9 @@ from foundationallm.models.orchestration import CompletionRequest, CompletionRes
 from langchain.document_loaders import AzureBlobStorageFileLoader, AzureBlobStorageContainerLoader
 from langchain.indexes import VectorstoreIndexCreator
 from langchain.indexes.vectorstore import VectorStoreIndexWrapper
+from langchain.embeddings import OpenAIEmbeddings
 from foundationallm.models.orchestration import MessageHistoryItem
+from foundationallm.langchain.message_history import build_message_history
 
 class BlobStorageAgent(AgentBase):
     """
@@ -25,10 +27,12 @@ class BlobStorageAgent(AgentBase):
             and agent and data source metadata.       
         """        
         self.llm = llm.get_language_model()
-        self.prompt_prefix = completion_request.agent.prompt_template + self.__build_chat_history(completion_request.message_history)
+        self.prompt_prefix = completion_request.agent.prompt_template
         self.connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret)        
         self.container_name = completion_request.data_source.configuration.container        
-        self.file_names = completion_request.data_source.configuration.files        
+        self.file_names = completion_request.data_source.configuration.files
+        self.message_history = completion_request.message_history
+        self.__config = config        
         
     def __get_vector_index(self) -> VectorStoreIndexWrapper:
         """
@@ -47,22 +51,18 @@ class BlobStorageAgent(AgentBase):
         #       embeddings (defaults to langchain's own embeddings), 
         #       text_splitter(defaults to TextSplitter)
         #       vectorstore_cls (defaults to Chroma)
-        index = VectorstoreIndexCreator().from_loaders(loaders)
-        return index             
 
-    def __build_chat_history(self, messages:List[MessageHistoryItem]=None, human_label:str="Human", ai_label:str="Agent") -> str:
-        if messages is None or len(messages)==0:
-            return ""        
-        chat_history = "\n\nChat History:\n"
-        for msg in messages:
-            if msg.sender == "Agent":
-                chat_history += ai_label + ": " + msg.text + "\n"
-            else:
-                chat_history += human_label + ": " + msg.text + "\n"
-        chat_history += "\n\n"
-        return chat_history
-                    
- 
+        embeddings = OpenAIEmbeddings(
+            openai_api_base = self.__config.get_value("FoundationaLLM:AzureOpenAI:API:Endpoint"),
+            openai_api_version = self.__config.get_value("FoundationaLLM:AzureOpenAI:API:Version"),
+            openai_api_key = self.__config.get_value("FoundationaLLM:AzureOpenAI:API:Key"),
+            openai_api_type = "azure",
+            deployment = "embeddings",
+            chunk_size=1
+        )
+    
+        index = VectorstoreIndexCreator(embedding=embeddings).from_loaders(loaders)
+        return index             
        
     def run(self, prompt: str) -> CompletionResponse:
         """
@@ -81,7 +81,7 @@ class BlobStorageAgent(AgentBase):
         """
         try:
             index = self.__get_vector_index()
-            query = self.prompt_prefix +"Request: "+ prompt + "\n"            
+            query = self.prompt_prefix + build_message_history(self.message_history) + "Request: "+ prompt + "\n"            
             completion = index.query(query, self.llm)
        
             with get_openai_callback() as cb:
@@ -96,9 +96,5 @@ class BlobStorageAgent(AgentBase):
         except Exception as e:
             return CompletionResponse(
                     completion = "A problem on my side prevented me from responding.",
-                    user_prompt = prompt,
-                    completion_tokens = cb.completion_tokens,
-                    prompt_tokens = cb.prompt_tokens,
-                    total_tokens = cb.total_tokens,
-                    total_cost = cb.total_cost
+                    user_prompt = prompt
                 )

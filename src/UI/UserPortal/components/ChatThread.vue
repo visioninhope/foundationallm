@@ -1,15 +1,5 @@
 <template>
 	<div class="chat-thread">
-		<!-- Header -->
-		<div class="chat-thread__header">
-			<template v-if="session">
-				<span>{{ session.name }}</span>
-			</template>
-			<template v-else>
-				<span>Please select a session</span>
-			</template>
-		</div>
-
 		<!-- Message list -->
 		<div class="chat-thread__messages" :class="messages.length === 0 && 'empty'">
 			<template v-if="isLoading">
@@ -25,6 +15,7 @@
 						v-for="(message, index) in messages.slice().reverse()"
 						:key="message.id"
 						:message="message"
+						:showWordAnimation="index === 0 && userSentMessage && message.sender === 'Assistant'"
 						@rate="handleRateMessage(messages.length - 1 - index, $event)"
 					/>
 				</template>
@@ -44,7 +35,7 @@
 
 		<!-- Chat input -->
 		<div class="chat-thread__input">
-			<ChatInput @send="handleSend" />
+			<ChatInput :disabled="isLoading" @send="handleSend" />
 		</div>
 	</div>
 </template>
@@ -59,8 +50,13 @@ export default {
 
 	props: {
 		session: {
-			type: Object as PropType<Session>,
+			type: [Object, null] as PropType<Session | null>,
 			required: true,
+		},
+		sidebarClosed: {
+			type: Boolean,
+			required: false,
+			default: false,
 		},
 	},
 
@@ -70,21 +66,24 @@ export default {
 		return {
 			messages: [] as Array<Message>,
 			isLoading: true,
+			userSentMessage: false,
 		};
 	},
 
 	watch: {
-		session() {
-			this.getMessages();
+		async session(newSession, oldSession) {
+			if (newSession.id === oldSession.id) return;
+			this.isLoading = true;
+			this.userSentMessage = false;
+			await this.getMessages();
+			this.isLoading = false;
 		}
 	},
 
 	methods: {
 		async getMessages() {
-			this.isLoading = true;
-			const data = await api.getMessages(this.session.id);
+			const data = await api.getMessages(this.session!.id);
 			this.messages = data;
-			this.isLoading = false;
 		},
 
 		async handleRateMessage(messageIndex: number, { message, like }: { message: Message; like: Message['rating'] }) {
@@ -93,18 +92,50 @@ export default {
 		},
 
 		async handleSend(text: string) {
-			await api.sendMessage(this.session.id, text);
+			if (!text) return;
+
+			this.userSentMessage = true;
+
+			const tempUserMessage: Message = {
+				completionPromptId: null,
+				id: '',
+				rating: null,
+				sender: 'User',
+				sessionId: this.session!.id,
+				text,
+				timeStamp: new Date().toISOString(),
+				tokens: 0,
+				type: 'Message',
+				vector: [],
+			};
+			this.messages.push(tempUserMessage);
+
+			const tempAssistantMessage: Message = {
+				completionPromptId: null,
+				id: '',
+				rating: null,
+				sender: 'Assistant',
+				sessionId: this.session!.id,
+				text: '',
+				timeStamp: new Date().toISOString(),
+				tokens: 0,
+				type: 'LoadingMessage',
+				vector: [],
+			};
+			this.messages.push(tempAssistantMessage);
+
+			await api.sendMessage(this.session!.id, text);
 			await this.getMessages();
 
 			// Update the session name based on the message sent
 			if (this.messages.length === 2) {
 				const sessionFullText = this.messages.map((message) => message.text).join('\n');
-				const { text: newSessionName } = await api.summarizeSessionName(this.session.id, sessionFullText);
-				const updatedSession = await api.renameSession(this.session.id, newSessionName);
+				const { text: newSessionName } = await api.summarizeSessionName(this.session!.id, sessionFullText);
+				const updatedSession = await api.renameSession(this.session!.id, newSessionName);
 				this.$emit('update-session', updatedSession);
 			}
 		},
-	},
+	}
 };
 </script>
 
@@ -144,6 +175,8 @@ export default {
 
 .chat-thread__input {
 	display: flex;
+	margin: 24px;
+	// box-shadow: 0 -5px 10px 0 rgba(27, 29, 33, 0.1);
 }
 
 .empty {
@@ -155,15 +188,18 @@ export default {
 	padding: 10px;
 	border-radius: 6px;
 }
+
 .alert-header, .alert-header > i {
 	display: flex;
 	align-items: center;
 	font-size: 1.5rem;
 }
+
 .alert-header-text {
 	font-weight: 500;
 	margin-left: 8px;
 }
+
 .alert-body-text {
 	font-size: 1.2rem;
 	font-weight: 300;

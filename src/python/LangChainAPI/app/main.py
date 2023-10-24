@@ -2,7 +2,6 @@ import uvicorn
 from fastapi import FastAPI
 from app.routers import orchestration, status
 
-# FastAPI metadata info: https://fastapi.tiangolo.com/tutorial/metadata/
 app = FastAPI(
     title='FoundationaLLM LangChainAPI',
     summary='API for interacting with language models using LangChain.',
@@ -35,8 +34,7 @@ async def root():
     str
         Returns a JSON object containing a message and value.
     """
-    
     return { 'message': 'This is the Solliance AI Copilot powered by FoundationaLLM!' }
 
 if __name__ == '__main__':
-    uvicorn.run('app.main:app', host='0.0.0.0', port=8765, reload=True)
+    uvicorn.run('app.main:app', host='0.0.0.0', port=8765, reload=True, forwarded_allow_ips='*', proxy_headers=True)

@@ -8,6 +8,7 @@ using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
@@ -18,6 +19,15 @@ using System;
 var builder = WebApplication.CreateBuilder(args);
 
 
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
+
+builder.Configuration.Sources.Clear();
+builder.Configuration.AddJsonFile("appsettings.json", false, true);
+builder.Configuration.AddEnvironmentVariables();
 builder.Configuration.AddAzureAppConfiguration(options =>
 {
     options.Connect(builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
@@ -26,19 +36,19 @@ builder.Configuration.AddAzureAppConfiguration(options =>
         options.SetCredential(new DefaultAzureCredential());
     });
 });
+if (builder.Environment.IsDevelopment())
+    builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
 builder.Services.AddHttpClient(FoundationaLLM.Common.Constants.HttpClients.CoreAPI,
         httpClient =>
         {
-            httpClient.BaseAddress = new Uri(builder.Configuration["FoundationaLLM:ChatManager:APIUrl"]);
+            httpClient.BaseAddress = new Uri(builder.Configuration["FoundationaLLM:APIs:CoreAPI:APIUrl"]);
         })
     .AddTransientHttpErrorPolicy(policyBuilder =>
         policyBuilder.WaitAndRetryAsync(
             3, retryNumber => TimeSpan.FromMilliseconds(600)));
 
 builder.Services.Configure<EntraSettings>(builder.Configuration.GetSection("FoundationaLLM:Chat:Entra"));
-builder.Services.AddOptions<KeyVaultConfigurationServiceSettings>()
-    .Bind(builder.Configuration.GetSection("FoundationaLLM:Configuration"));
 
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(options =>
@@ -59,7 +69,6 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
-builder.RegisterConfiguration();
 builder.Services.AddRazorPages();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -68,6 +77,14 @@ builder.Services.AddServerSideBlazor()
 builder.Services.RegisterServices();
 
 var app = builder.Build();
+
+app.Use((context, next) =>
+{
+    context.Request.Scheme = "https";
+    return next(context);
+});
+
+app.UseForwardedHeaders();
 
 if (!app.Environment.IsDevelopment())
 {
@@ -95,12 +112,6 @@ await app.RunAsync();
 
 static class ProgramExtensions
 {
-    public static void RegisterConfiguration(this WebApplicationBuilder builder)
-    {
-        builder.Services.AddOptions<ChatManagerSettings>()
-            .Bind(builder.Configuration.GetSection("FoundationaLLM:ChatManager"));
-    }
-
     public static void RegisterServices(this IServiceCollection services)
     {
         services.AddScoped<IChatManager, ChatManager>();
