@@ -135,7 +135,7 @@ export default {
 				this.$emit('update-session', { ...this.session, name: newSessionName });
 			}
 		},
-	}
+	},
 };
 </script>
 

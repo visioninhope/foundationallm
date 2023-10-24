@@ -142,7 +142,7 @@ export default {
 			const prompt = await api.getPrompt(this.message.sessionId, this.message.completionPromptId);
 			this.prompt = prompt;
 			this.viewPrompt = true;
-		}
+		},
 	},
 };
 </script>

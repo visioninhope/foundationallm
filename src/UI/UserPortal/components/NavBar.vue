@@ -32,7 +32,6 @@
 
 			<!-- Right side content -->
 			<div class="navbar__content__right">
-
 				<!-- Auth button -->
 				<div v-if="!signedIn" class="navbar__content__right__item">
 					<Button class="button--auth" icon="pi pi-sign-in" label="Sign In" @click="signIn()"></Button>
