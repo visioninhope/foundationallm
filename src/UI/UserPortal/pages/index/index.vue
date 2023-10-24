@@ -1,6 +1,6 @@
 <template>
 	<div class="chat-app">
-		<Navbar :currentSession="currentSession" @collapse-sidebar="collapseSidebar" />
+		<NavBar :currentSession="currentSession" @collapse-sidebar="collapseSidebar" />
 		<div class="chat-content">
 			<ChatSidebar v-show="!closeSidebar" ref="sidebar" :currentSession="currentSession" @change-session="handleChangeSession" @session-updated="handleSessionUpdated" />
 			<ChatThread :session="currentSession" :sidebar-closed="closeSidebar" @update-session="handleUpdateSession" />
