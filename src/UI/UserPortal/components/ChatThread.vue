@@ -43,7 +43,7 @@
 <script lang="ts">
 import type { PropType } from 'vue';
 import { Message, Session } from '@/js/types';
-import api from '~/server/api';
+import api from '@/js/api';
 
 export default {
 	name: 'ChatThread',
