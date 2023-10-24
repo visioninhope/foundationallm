@@ -64,7 +64,7 @@ namespace FoundationaLLM.Core.Tests.Services
         public async Task GetChatSessionMessagesAsync_ShouldThrowExceptionWhenSessionIdIsNull()
         {
             // Arrange
-            string sessionId = null;
+            string sessionId = null!;
             _cosmosDbService.GetSessionMessagesAsync(sessionId).ReturnsNull();
 
             // Assert
@@ -131,7 +131,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(null, newChatSessionName);
+                await _testedService.RenameChatSessionAsync(null!, newChatSessionName);
             });
         }
 
@@ -144,7 +144,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(sessionId, null);
+                await _testedService.RenameChatSessionAsync(sessionId, null!);
             });
 
             await Assert.ThrowsAsync<ArgumentException>(async () =>
@@ -167,7 +167,7 @@ namespace FoundationaLLM.Core.Tests.Services
 
             // Act
             Task actual = _testedService.DeleteChatSessionAsync(sessionId);
-            actual.Wait();
+            await actual;
 
             // Assert
             Assert.True(actual.IsCompletedSuccessfully);
@@ -180,7 +180,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.DeleteChatSessionAsync(null);
+                await _testedService.DeleteChatSessionAsync(null!);
             });
         }
 
@@ -237,7 +237,7 @@ namespace FoundationaLLM.Core.Tests.Services
             var sessionId = Guid.NewGuid().ToString();
 
             // Act
-            var exception = Record.Exception(() => _testedService.GetChatCompletionAsync(sessionId, null).Result);
+            var exception = await Record.ExceptionAsync(async () => await _testedService.GetChatCompletionAsync(sessionId, null!));
 
             // Assert
             Assert.Null(exception);
@@ -250,7 +250,7 @@ namespace FoundationaLLM.Core.Tests.Services
             var userPrompt = "Prompt";
 
             // Act
-            var exception = Record.Exception(() => _testedService.GetChatCompletionAsync(null, userPrompt).Result);
+            var exception = await Record.ExceptionAsync(async () => await _testedService.GetChatCompletionAsync(null, userPrompt));
 
             // Assert
             Assert.Null(exception);
@@ -302,7 +302,7 @@ namespace FoundationaLLM.Core.Tests.Services
             var sessionId = Guid.NewGuid().ToString();
 
             // Act
-            var exception = Record.Exception(() => _testedService.SummarizeChatSessionNameAsync(sessionId, null).Result);
+            var exception = await Record.ExceptionAsync(async () => await _testedService.SummarizeChatSessionNameAsync(sessionId, null!));
 
             // Assert
             Assert.Null(exception);
@@ -315,7 +315,7 @@ namespace FoundationaLLM.Core.Tests.Services
             var prompt = "Prompt";
 
             // Act
-            var exception = Record.Exception(() => _testedService.SummarizeChatSessionNameAsync(null, prompt).Result);
+            var exception = await Record.ExceptionAsync(async () => await _testedService.SummarizeChatSessionNameAsync(null, prompt));
 
             // Assert
             Assert.Null(exception);
@@ -352,7 +352,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RateMessageAsync(null, sessionId, rating);
+                await _testedService.RateMessageAsync(null!, sessionId, rating);
             });
         }
 
@@ -366,7 +366,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RateMessageAsync(id, null, rating);
+                await _testedService.RateMessageAsync(id, null!, rating);
             });
         }
 
@@ -414,7 +414,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.GetCompletionPrompt(null, completionPromptId);
+                await _testedService.GetCompletionPrompt(null!, completionPromptId);
             });
         }
 
@@ -427,7 +427,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.GetCompletionPrompt(sessionId, null);
+                await _testedService.GetCompletionPrompt(sessionId, null!);
             });
         }
 
