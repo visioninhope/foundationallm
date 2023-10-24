@@ -31,11 +31,13 @@ class SqlDbAgent(AgentBase):
         config : Configuration
             Application configuration class for retrieving configuration settings.
         """
-        self.agent_prompt_prefix = PromptTemplate.from_template(completion_request.agent.prompt_template)
+        self.agent_prompt_prefix = completion_request.agent.prompt_template
+        self.agent_prompt_suffix = completion_request.agent.prompt_suffix
+            
         self.llm = llm.get_language_model()
         self.sql_db_config: SQLDatabaseConfiguration = completion_request.data_source.configuration
         self.context = context
-
+        
         self.agent = create_sql_agent(
             llm = self.llm,
             toolkit = SecureSQLDatabaseToolkit(
@@ -43,13 +45,14 @@ class SqlDbAgent(AgentBase):
                 llm=self.llm,
                 reduce_k_below_max_tokens=True,
                 username = self.context.get_upn(),
-                apply_row_level_security = self.sql_db_config.row_level_security_enabled
+                use_row_level_security = self.sql_db_config.row_level_security_enabled
             ),
             agent_type = AgentType.ZERO_SHOT_REACT_DESCRIPTION,
             verbose = True,
             prefix = self.agent_prompt_prefix,
+            suffix = self.agent_prompt_suffix,
             agent_executor_kwargs={
-                'handle_parsing_errors': True
+                'handle_parsing_errors': 'Check your output and make sure it conforms!'
             }
         )
         

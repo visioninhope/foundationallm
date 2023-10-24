@@ -20,7 +20,7 @@ class SecureSQLDatabaseToolkit(BaseToolkit):
     db: SQLDatabase = Field(exclude=True)
     llm: BaseLanguageModel = Field(exclude=True)
     username: str = Field(exclude=True)
-    apply_row_level_security: bool = Field(exclude=True)
+    use_row_level_security: bool = Field(exclude=True)
 
     @property
     def dialect(self) -> str:
@@ -53,7 +53,10 @@ class SecureSQLDatabaseToolkit(BaseToolkit):
             "to query the correct table fields."
         )
         secure_sql_database_query_tool = SecureSQLDatabaseQueryTool(
-            db=self.db, description=secure_sql_database_query_tool_description, username=self.username, apply_row_level_security=self.apply_row_level_security
+            db=self.db,
+            description=secure_sql_database_query_tool_description,
+            username=self.username,
+            use_row_level_security=self.use_row_level_security
         )
         query_sql_checker_tool_description = (
             "Use this tool to double check if your query is correct before executing "

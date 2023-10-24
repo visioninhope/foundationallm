@@ -7,30 +7,33 @@ from langchain.callbacks.manager import (
 )
 
 class SecureSQLDatabaseQueryTool(BaseSQLDatabaseTool, BaseTool):
-    """Tool for conditionally adding row-level security to a SQL query."""
+    """Tool for querying a SQL database."""
 
     name: str = "secure_sql_db_query"
-    description: str = (
-        "Input to this tool is a detailed and correct SQL query, output is a result from the database. "
-        "If the query is not correct, an error message will be returned. If an error is returned, rewrite the query, check the query, and try again. "
-        "If you encounter an issue with Unknown column 'xxxx' in 'field list', using sql_db_schema to query the correct table fields."
-    )
+    description: str = """
+        Input to this tool is a detailed and correct SQL query, output is a result from the database.
+        If the query is not correct, an error message will be returned.
+        If an error is returned, rewrite the query, check the query, and try again.
+        """
 
     username: str = Field(exclude=True)
-    apply_row_level_security: bool = Field(exclude=True)
+    use_row_level_security: bool = Field(exclude=True)
 
     def _run(
         self,
         query: str,
         run_manager: Optional[CallbackManagerForToolRun] = None,
     ) -> str:
-        """Conditionally, wrap the query with EXECUTE AS USER and REVERT statements."""
-        if (self.apply_row_level_security) and (self.db.dialect=='mssql'):
-            query = (
-                f"EXECUTE AS USER = '{self.username}'; "
-                f"{query}; "
-                "REVERT;"
-            )
+        """Execute the query, conditionally wrapping it in MSSQL row-level security statements. Return the results or an error message."""
+        if (self.use_row_level_security) and (self.db.dialect=='mssql') and (self.username!=''):
+            if (query.startswith(f"EXECUTE AS USER = '{self.username}';")) and (query.endswith('REVERT;')):
+                query = query
+            else:
+                query = (
+                    f"EXECUTE AS USER = '{self.username}'; "
+                    f"{query}; "
+                    "REVERT;"
+                )
         else:
             query = query
         
