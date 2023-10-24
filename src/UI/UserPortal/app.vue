@@ -15,7 +15,7 @@ export default {
 				'--secondary-text': this.$config.public.BRANDING_SECONDARY_TEXT_COLOR,
 			};
 		},
-	}
+	},
 };
 </script>
 

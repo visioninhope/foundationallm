@@ -44,17 +44,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
-html,
-body,
-#__nuxt,
-#__layout {
-	height: 100%;
-	margin: 0;
-	font-family: 'Poppins', sans-serif;
-}
-</style>
-
 <style lang="scss" scoped>
 .chat-app {
 	display: flex;
