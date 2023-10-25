@@ -73,13 +73,6 @@ The URL for the chat application is the root URL of the Core API. For example, i
 5. Select **Register**.
 6. The application's **Overview** pane displays upon successful registration. Record the **Application (client) ID** and **Directory (tenant) ID** to add to your App Configuration settings later.
 
-#### Add a redirect URI to the API application
-
-1. Under **Manage**, select **Authentication**.
-2. Under **Platform configurations**, select **Add a platform**. In the pane that opens, select **Web**.
-3. For For **Redirect URIs**, enter `<YOUR_CORE_API_URL>/signin-oidc`, replacing `<YOUR_CORE_API_URL>` with the Core API URL obtained in the [Pre-requisites](#pre-requisites) section above. For example, it should look something like `https://d85a09ce067141d5807a.eastus.aksapp.io/core/signin-oidc`.
-4. Add another **Redirect URI** for local development. For **Redirect URIs**, enter `https://localhost:63279/signin-oidc`.
-
 #### Implicit grant and hybrid flows for the API application
 
 1. Check **Access tokens** and **ID tokens** under **Implicit grant**.
