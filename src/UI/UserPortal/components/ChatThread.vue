@@ -43,7 +43,7 @@
 <script lang="ts">
 import type { PropType } from 'vue';
 import { Message, Session } from '@/js/types';
-import api from '~/server/api';
+import api from '@/js/api';
 
 export default {
 	name: 'ChatThread',
@@ -60,7 +60,7 @@ export default {
 		},
 	},
 
-	emits: ['update-session'],
+	emits: ['session-updated'],
 
 	data() {
 		return {
@@ -132,10 +132,10 @@ export default {
 				const sessionFullText = this.messages.map((message) => message.text).join('\n');
 				const { text: newSessionName } = await api.summarizeSessionName(this.session!.id, sessionFullText);
 				await api.renameSession(this.session!.id, newSessionName);
-				this.$emit('update-session', { ...this.session, name: newSessionName });
+				this.$emit('session-updated', { ...this.session, name: newSessionName });
 			}
 		},
-	}
+	},
 };
 </script>
 
