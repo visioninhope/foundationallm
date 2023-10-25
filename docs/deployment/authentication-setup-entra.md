@@ -153,3 +153,25 @@ Key Vault stores the secrets for the client and API applications. You need to up
 ## Next steps
 
 Now that Entra authentication is fully configured, restart the Core API and chat applications to apply the changes. Navigate to your chat application or refresh the page if it is already open. It should automatically prompt you to sign in with your Microsoft Entra account.
+
+### Restarting Core API and Chat UI applications in an ACA Deployment
+
+To restart the Core API and Chat applications in an Azure Container Apps (ACA) deployment, you will need to navigate to the Core API and Chat applications and restart their container revisions, as indicated in the following Azure Portal screenshot:
+
+   ![Restarting the Core API Azure Container App.](media/restart-coreapi-aca.png "Restarting the Container App in Azure Portal.")
+
+   1. From the `Revisions` blade in the left navigation panel of the Core API or Chat UI container app detail page in Azure Portal, select the name of the running revision.
+   2. A dialog panel titled `Revision details` should appear on the right side of the browser with a `Restart` button at the top.  Select the `Restart` button to restart the running container.
+
+Restarting in this manner will need to be performed for both the Core API container app and the Chat UI container app.
+
+### Restarting Core API and Chat UI applications in an AKS Deployment
+
+To restart the Core API and Chat applications in an Azure Kubernetes Service (AKS) deployment, you will need to navigate to the AKS detail page in Azure Portal and perform the following:
+
+   1. Select the `Workloads` blade from the left navigation panel.
+   2. Select the `Pods` tab from the `Workloads` detail page.
+   3. Select the Core API and Chat UI pods from the list (it helps if you select `default` in the `Filter by namespace` dropdown first).
+   4. Select the `Delete` button to terminate the currently running pods.  New pods will be instantiated to take their place.
+
+   ![Restarting containers in AKS.](media/restart-containers-aks.png "Restarting the Core API and Chat UI services in an AKS deployment.")
