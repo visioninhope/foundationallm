@@ -123,10 +123,12 @@ export default {
 	},
 
 	async created() {
-		await this.getSessions();
-		const sessionId = this.$nuxt._route.query.chat;
-		const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
-		this.handleSessionSelected(existingSession || this.sessions[0]);
+		if (process.client) {
+			await this.getSessions();
+			const sessionId = this.$nuxt._route.query.chat;
+			const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
+			this.handleSessionSelected(existingSession || this.sessions[0]);
+		}
 	},
 
 	methods: {
@@ -146,11 +148,10 @@ export default {
 		},
 
 		async handleRenameSession() {
-			const updatedSession = await api.renameSession(this.sessionToRename!.id, this.newSessionName);
-			const sessionIndex = this.sessions.findIndex((session) => session.id === updatedSession.id);
-			this.sessions[sessionIndex] = updatedSession;
+			await api.renameSession(this.sessionToRename!.id, this.newSessionName);
+			this.sessionToRename!.name = this.newSessionName;
+			this.$emit('session-updated', this.sessionToRename);
 			this.sessionToRename = null;
-			this.$emit('session-updated', updatedSession);
 		},
 
 		async handleAddSession() {
