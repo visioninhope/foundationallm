@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="foundationallm\context\context.py" />
+    <Compile Include="foundationallm\context\user_identity.py" />
+    <Compile Include="foundationallm\context\__init__.py" />
     <Compile Include="foundationallm\credentials\azure_credential.py" />
     <Compile Include="foundationallm\credentials\credential.py" />
     <Compile Include="foundationallm\credentials\__init__.py" />
@@ -110,8 +113,10 @@
     <Compile Include="foundationallm\langchain\orchestration\orchestration_manager.py" />
     <Compile Include="foundationallm\langchain\orchestration\__init__.py" />
     <Compile Include="foundationallm\langchain\toolkits\anomaly_detection_toolkit.py" />
+    <Compile Include="foundationallm\langchain\toolkits\secure_sql_database_toolkit.py" />
     <Compile Include="foundationallm\langchain\toolkits\__init__.py" />
     <Compile Include="foundationallm\langchain\tools\query_pandas_dataframe_tool.py" />
+    <Compile Include="foundationallm\langchain\tools\secure_sql_database_query_tool.py" />
     <Compile Include="foundationallm\langchain\tools\__init__.py" />
     <Compile Include="foundationallm\langchain\__init__.py" />
     <Compile Include="foundationallm\hubs\prompt\prompt_hub_request.py" />
@@ -171,6 +176,7 @@
     <Folder Include="foundationallm\models\orchestration\" />
     <Folder Include="foundationallm\hubs\" />
     <Folder Include="foundationallm\credentials\" />
+    <Folder Include="foundationallm\context\" />
     <Folder Include="foundationallm\storage\" />
   </ItemGroup>
   <ItemGroup>
