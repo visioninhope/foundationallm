@@ -25,9 +25,13 @@
     <Compile Include="foundationallm\credentials\azure_credential.py" />
     <Compile Include="foundationallm\credentials\credential.py" />
     <Compile Include="foundationallm\credentials\__init__.py" />
+    <Compile Include="foundationallm\hubs\agent\agent_type.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\blob_storage_authentication_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\blob_storage_data_source_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\__init__.py" />
+    <Compile Include="foundationallm\hubs\data_source\data_sources\csv\csv_authentication.py" />
+    <Compile Include="foundationallm\hubs\data_source\data_sources\csv\csv_data_source_metadata.py" />
+    <Compile Include="foundationallm\hubs\data_source\data_sources\csv\__init__.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\search_service\search_service_authentication_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\search_service\search_service_data_source_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\search_service\__init__.py" />
@@ -144,6 +148,7 @@
     <Folder Include="foundationallm\" />
     <Folder Include="foundationallm\hubs\data_source\data_sources\" />
     <Folder Include="foundationallm\hubs\data_source\data_sources\blob_storage\" />
+    <Folder Include="foundationallm\hubs\data_source\data_sources\csv\" />
     <Folder Include="foundationallm\hubs\data_source\data_sources\search_service\" />
     <Folder Include="foundationallm\hubs\data_source\data_sources\sql\" />
     <Folder Include="foundationallm\hubs\agent\" />
