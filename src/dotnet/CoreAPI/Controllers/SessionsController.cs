@@ -39,9 +39,9 @@ namespace FoundationaLLM.Core.API.Controllers
         }
 
         [HttpPost("{sessionId}/message/{messageId}/rate", Name = "RateMessage")]
-        public async Task RateMessage(string messageId, string sessionId, bool? rating)
+        public async Task<Message> RateMessage(string messageId, string sessionId, bool? rating)
         {
-            await _coreService.RateMessageAsync(messageId, sessionId, rating);
+            return await _coreService.RateMessageAsync(messageId, sessionId, rating);
         }
 
         [HttpGet("{sessionId}/completionprompts/{completionPromptId}", Name = "GetCompletionPrompt")]
@@ -57,9 +57,9 @@ namespace FoundationaLLM.Core.API.Controllers
         }
 
         [HttpPost("{sessionId}/rename", Name = "RenameChatSession")]
-        public async Task RenameChatSession(string sessionId, string newChatSessionName)
+        public async Task<Session> RenameChatSession(string sessionId, string newChatSessionName)
         {
-            await _coreService.RenameChatSessionAsync(sessionId, newChatSessionName);
+            return await _coreService.RenameChatSessionAsync(sessionId, newChatSessionName);
         }
 
         [HttpDelete("{sessionId}", Name = "DeleteChatSession")]
