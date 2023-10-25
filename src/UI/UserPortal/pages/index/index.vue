@@ -3,7 +3,7 @@
 		<NavBar :currentSession="currentSession" @collapse-sidebar="collapseSidebar" />
 		<div class="chat-content">
 			<ChatSidebar v-show="!closeSidebar" ref="sidebar" :currentSession="currentSession" @change-session="handleChangeSession" @session-updated="handleSessionUpdated" />
-			<ChatThread :session="currentSession" :sidebar-closed="closeSidebar" @update-session="handleUpdateSession" />
+			<ChatThread :session="currentSession" :sidebar-closed="closeSidebar" @session-updated="handleThreadSessionUpdated" />
 		</div>
 	</div>
 </template>
@@ -32,7 +32,7 @@ export default {
 			this.currentSession = session;
 		},
 
-		handleUpdateSession(session: Session) {
+		handleThreadSessionUpdated(session: Session) {
 			this.currentSession = session;
 			this.$refs.sidebar.getSessions();
 		},
