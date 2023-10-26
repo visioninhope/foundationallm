@@ -492,7 +492,7 @@
         },
         {
           "key": "FoundationaLLM:DurableSystemPrompt:BlobStorageContainer",
-          "value": "system-prompt",
+          "value": "prompts",
           "contentType": null
         },
         {
