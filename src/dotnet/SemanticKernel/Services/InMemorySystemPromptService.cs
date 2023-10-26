@@ -38,11 +38,11 @@ Summarize this prompt in one or two words to use as a label in a button on a web
     /// <param name="promptName">The system prompt name.</param>
     /// <param name="forceRefresh">The flag that inform the System Prompt service to do a cache refresh.</param>
     /// <returns>The system prompt text.</returns>
-    public Task<string> GetPrompt(string promptName, bool forceRefresh = false)
+    public async Task<string> GetPrompt(string promptName, bool forceRefresh = false)
     {
         if (!_prompts.ContainsKey(promptName))
             throw new ArgumentException($"The prompt {promptName} is not supported.");
 
-        return Task.FromResult(_prompts[promptName]);
+        return await Task.FromResult(_prompts[promptName]);
     }
 }
