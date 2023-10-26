@@ -884,7 +884,7 @@
       "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
       "properties": {
         "attributes": { "enabled": true },
-        "value": "[uniqueString(resourceGroup().id)]"
+        "value": "[uniqueString(resourceGroup().id, 'agent-factory')]"
       }
     },
     {
@@ -895,7 +895,7 @@
       "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
       "properties": {
         "attributes": { "enabled": true },
-        "value": "[uniqueString(resourceGroup().id)]"
+        "value": "[uniqueString(resourceGroup().id, 'agent-hub')]"
       }
     },
     {
@@ -906,7 +906,7 @@
       "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
       "properties": {
         "attributes": { "enabled": true },
-        "value": "[uniqueString(resourceGroup().id)]"
+        "value": "[uniqueString(resourceGroup().id, 'data-source-hub')]"
       }
     },
     {
@@ -917,7 +917,7 @@
       "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
       "properties": {
         "attributes": { "enabled": true },
-        "value": "[uniqueString(resourceGroup().id)]"
+        "value": "[uniqueString(resourceGroup().id, 'gatekeeper')]"
       }
     },
     {
@@ -928,7 +928,7 @@
       "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
       "properties": {
         "attributes": { "enabled": true },
-        "value": "[uniqueString(resourceGroup().id)]"
+        "value": "[uniqueString(resourceGroup().id, 'langchain')]"
       }
     },
     {
@@ -939,7 +939,7 @@
       "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
       "properties": {
         "attributes": { "enabled": true },
-        "value": "[uniqueString(resourceGroup().id)]"
+        "value": "[uniqueString(resourceGroup().id, 'prompt-hub')]"
       }
     },
     {
@@ -950,7 +950,7 @@
       "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
       "properties": {
         "attributes": { "enabled": true },
-        "value": "[uniqueString(resourceGroup().id)]"
+        "value": "[uniqueString(resourceGroup().id, 'semantic-kernel')]"
       }
     },
     {
