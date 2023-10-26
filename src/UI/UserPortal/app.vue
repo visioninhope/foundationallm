@@ -1,10 +1,24 @@
 <template>
-	<NuxtPage :style="style" />
+	<div>
+		<Head>
+			<Title>{{ pageTitle }}</Title>
+			<Meta name="description" :content="pageTitle" />
+		</Head>
+
+		<NuxtPage :style="style" />
+	</div>
 </template>
 
 <script lang="ts">
 import getAppConfigSetting from '@/js/config';
+
 export default {
+	data() {
+		return {
+			pageTitle: 'FoundationaLLM',
+		};
+	},
+
 	computed: {
 		async style() {
 			return {
