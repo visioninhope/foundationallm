@@ -16,24 +16,20 @@ export default {
 	data() {
 		return {
 			pageTitle: 'FoundationaLLM',
+			style: {},
 		};
-	},
-
-	computed: {
-		async style() {
-			return {
-				'--primary-bg': await getAppConfigSetting('FoundationaLLM:Branding:BackgroundColor'),
-				'--primary-color': await getAppConfigSetting('FoundationaLLM:Branding:PrimaryColor'),
-				'--secondary-color': await getAppConfigSetting('FoundationaLLM:Branding:SecondaryColor'),
-				'--accent-color': await getAppConfigSetting('FoundationaLLM:Branding:AccentColor'),
-				'--primary-text': await getAppConfigSetting('FoundationaLLM:Branding:PrimaryTextColor'),
-				'--secondary-text': await getAppConfigSetting('FoundationaLLM:Branding:SecondaryTextColor'),
-			};
-		},
 	},
 
 	async created() {
 		this.pageTitle = await getAppConfigSetting('FoundationaLLM:Branding:PageTitle');
+		this.style = {
+			'--primary-bg': await getAppConfigSetting('FoundationaLLM:Branding:BackgroundColor'),
+			'--primary-color': await getAppConfigSetting('FoundationaLLM:Branding:PrimaryColor'),
+			'--secondary-color': await getAppConfigSetting('FoundationaLLM:Branding:SecondaryColor'),
+			'--accent-color': await getAppConfigSetting('FoundationaLLM:Branding:AccentColor'),
+			'--primary-text': await getAppConfigSetting('FoundationaLLM:Branding:PrimaryTextColor'),
+			'--secondary-text': await getAppConfigSetting('FoundationaLLM:Branding:SecondaryTextColor'),
+		};
 	},
 };
 </script>
