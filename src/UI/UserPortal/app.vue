@@ -3,16 +3,17 @@
 </template>
 
 <script lang="ts">
+import getAppConfigSetting from '@/js/config';
 export default {
 	computed: {
-		style() {
+		async style() {
 			return {
-				'--primary-bg': this.$config.public.BRANDING_BACKGROUND_COLOR,
-				'--primary-color': this.$config.public.BRANDING_PRIMARY_COLOR,
-				'--secondary-color': this.$config.public.BRANDING_SECONDARY_COLOR,
-				'--accent-color': this.$config.public.BRANDING_ACCENT_COLOR,
-				'--primary-text': this.$config.public.BRANDING_PRIMARY_TEXT_COLOR,
-				'--secondary-text': this.$config.public.BRANDING_SECONDARY_TEXT_COLOR,
+				'--primary-bg': await getAppConfigSetting('FoundationaLLM:Branding:BackgroundColor'),
+				'--primary-color': await getAppConfigSetting('FoundationaLLM:Branding:PrimaryColor'),
+				'--secondary-color': await getAppConfigSetting('FoundationaLLM:Branding:SecondaryColor'),
+				'--accent-color': await getAppConfigSetting('FoundationaLLM:Branding:AccentColor'),
+				'--primary-text': await getAppConfigSetting('FoundationaLLM:Branding:PrimaryTextColor'),
+				'--secondary-text': await getAppConfigSetting('FoundationaLLM:Branding:SecondaryTextColor'),
 			};
 		},
 	},
