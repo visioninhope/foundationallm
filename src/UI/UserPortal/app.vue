@@ -31,6 +31,10 @@ export default {
 			};
 		},
 	},
+
+	async created() {
+		this.pageTitle = await getAppConfigSetting('FoundationaLLM:Branding:PageTitle');
+	},
 };
 </script>
 
