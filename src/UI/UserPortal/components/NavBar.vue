@@ -49,7 +49,7 @@
 <script lang="ts">
 import type { PropType } from 'vue';
 import { type Session } from '@/js/types';
-import { msalInstance, loginRequest } from '@/js/auth'
+import { msalInstance, loginRequest } from '@/js/auth';
 
 export default {
 	name: 'NavBar',
