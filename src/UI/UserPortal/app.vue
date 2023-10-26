@@ -1,12 +1,12 @@
 <template>
-	<div>
+	<main>
 		<Head>
 			<Title>{{ pageTitle }}</Title>
 			<Meta name="description" :content="pageTitle" />
 		</Head>
 
 		<NuxtPage :style="style" />
-	</div>
+	</main>
 </template>
 
 <script lang="ts">
@@ -38,7 +38,8 @@ export default {
 html,
 body,
 #__nuxt,
-#__layout {
+#__layout,
+main {
 	height: 100%;
 	margin: 0;
 	font-family: 'Poppins', sans-serif;
