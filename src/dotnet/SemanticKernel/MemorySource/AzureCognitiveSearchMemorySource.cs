@@ -14,7 +14,7 @@ using System.Text.Json;
 namespace FoundationaLLM.SemanticKernel.MemorySource
 {
     /// <summary>
-    /// Azure Cognitive Search memory source implementing <see cref="IMemorySource"/>
+    /// Azure Cognitive Search memory source implementing <see cref="IMemorySource"/>.
     /// </summary>
     public class AzureCognitiveSearchMemorySource : IMemorySource
     {
@@ -26,7 +26,7 @@ namespace FoundationaLLM.SemanticKernel.MemorySource
         private AzureCognitiveSearchMemorySourceConfig _config;
 
         /// <summary>
-        /// Constructor for the Azure Cognitive Search memory source
+        /// Constructor for the Azure Cognitive Search memory source.
         /// </summary>
         /// <param name="settings">The configuration options for the Azure Cognitive Search memory source.</param>
         /// <param name="logger">The logger for the Azure Cognitive Search memory source.</param>

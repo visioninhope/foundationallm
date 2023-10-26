@@ -42,8 +42,8 @@ namespace FoundationaLLM.SemanticKernel.Memory.AzureCognitiveSearch
         /// <summary>
         /// Create a new instance of semantic memory using Azure Cognitive Search.
         /// </summary>
-        /// <param name="endpoint">The Azure Cognitive Search endpoint, e.g. "https://contoso.search.windows.net"</param>
-        /// <param name="apiKey">The Azure Cognitive Search key</param>
+        /// <param name="endpoint">The Azure Cognitive Search endpoint, e.g. "https://contoso.search.windows.net".</param>
+        /// <param name="apiKey">The Azure Cognitive Search key.</param>
         /// <param name="indexName">The name of the search index.</param>
         /// <param name="textEmbedding">The text embedding generation service.</param>
         /// <param name="logger">The logger.</param>
@@ -60,8 +60,8 @@ namespace FoundationaLLM.SemanticKernel.Memory.AzureCognitiveSearch
         /// <summary>
         /// Create a new instance of semantic memory using Azure Cognitive Search.
         /// </summary>
-        /// <param name="endpoint">Azure Cognitive Search URI, e.g. "https://contoso.search.windows.net"</param>
-        /// <param name="credentials">Azure service</param>
+        /// <param name="endpoint">Azure Cognitive Search URI, e.g. "https://contoso.search.windows.net".</param>
+        /// <param name="credentials">Azure service credentials.</param>
         /// <param name="indexName">The name of the search index.</param>
         /// <param name="textEmbedding">The text embedding generation service.</param>
         /// <param name="logger">The logger.</param>
@@ -431,8 +431,8 @@ namespace FoundationaLLM.SemanticKernel.Memory.AzureCognitiveSearch
         /// Get a search client for the index specified.
         /// Note: the index might not exist, but we avoid checking everytime and the extra latency.
         /// </summary>
-        /// <param name="indexName">Index name</param>
-        /// <returns>Search client ready to read/write</returns>
+        /// <param name="indexName">The index name.</param>
+        /// <returns>A search client ready to read/write.</returns>
         private SearchClient GetSearchClient(string indexName)
         {
             // Search an available client from the local cache
@@ -448,8 +448,8 @@ namespace FoundationaLLM.SemanticKernel.Memory.AzureCognitiveSearch
         /// <summary>
         /// Create a new search index.
         /// </summary>
-        /// <param name="indexName">Index name</param>
-        /// <param name="cancellationToken">Task cancellation token</param>
+        /// <param name="indexName">The index name.</param>
+        /// <param name="cancellationToken">Task cancellation token.</param>
         private Task<Response<SearchIndex>> CreateIndexAsync(
             string indexName,
             CancellationToken cancellationToken = default)
@@ -564,8 +564,8 @@ namespace FoundationaLLM.SemanticKernel.Memory.AzureCognitiveSearch
         /// The method doesn't handle all the error scenarios, leaving it to the service
         /// to throw an error for edge cases not handled locally.
         /// </summary>
-        /// <param name="indexName">Value to normalize</param>
-        /// <returns>Normalized name</returns>
+        /// <param name="indexName">Value to normalize.</param>
+        /// <returns>Normalized name.</returns>
         private static string NormalizeIndexName(string indexName)
         {
             if (indexName.Length > 128)

@@ -10,7 +10,7 @@ using UglyToad.PdfPig;
 namespace FoundationaLLM.SemanticKernel.MemorySource
 {
     /// <summary>
-    /// Azure Blob Storage memory source implementing <see cref="IMemorySource"/>
+    /// Azure Blob Storage memory source implementing <see cref="IMemorySource"/>.
     /// </summary>
     public class BlobStorageMemorySource : IMemorySource
     {
@@ -23,7 +23,7 @@ namespace FoundationaLLM.SemanticKernel.MemorySource
         private readonly Dictionary<string, BlobContainerClient> _containerClients;
 
         /// <summary>
-        /// Constructor for the Azure Blob Storage memory source
+        /// Constructor for the Azure Blob Storage memory source.
         /// </summary>
         /// <param name="settings">The configuration options for the Azure Blob Storage memory source.</param>
         /// <param name="logger">The logger for the Azure Blob Storage memory source.</param>
