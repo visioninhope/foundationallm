@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import type { PropType } from 'vue';
-import { type Session } from '@/js/types';
+import type { Session } from '@/js/types';
 import { msalInstance, loginRequest } from '@/js/auth';
 
 export default {
