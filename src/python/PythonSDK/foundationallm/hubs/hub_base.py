@@ -9,3 +9,6 @@ class HubBase(ABC):
 
     def resolve(self, request):        
         return self.resolver.resolve(request)
+    
+    def list(self):
+        return self.resolver.list()
