@@ -150,7 +150,7 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 
 Key Vault stores the secrets for the client and API applications. You need to update the secrets with the values that you recorded earlier.
 
-1. Sign in to the [Azure portal](https://portal.azure.com/) as at least a Contributor.
+1. Return to the [Azure portal](https://portal.azure.com/).
 2. Navigate to the resource group that was created as part of the deployment.
 3. Select the **Key Vault** resource and select **Secrets**. If you cannot see the secrets, add your user account as a **Key Vault Secrets Officer** through Access Control (IAM). You need this role in order to access the secrets and update them as a required part of the authentication setup.
 4. Open the `foundationallm-chat-entra-clientsecret` secret, then select **+ New Version**.
