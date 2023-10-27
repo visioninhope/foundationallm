@@ -13,7 +13,7 @@ namespace FoundationaLLM.Chat.Helpers
         /// <summary>
         /// All data is cached in the _sessions List object.
         /// </summary>
-        private List<Session> _sessions { get; set; }
+        private List<Session> _sessions { get; set; } = null!;
 
         private readonly EntraSettings _entraSettings;
         private readonly IAuthenticatedHttpClientFactory _authenticatedHttpClientFactory;
@@ -126,7 +126,7 @@ namespace FoundationaLLM.Chat.Helpers
                 $"sessions/{sessionId}/completion", userPrompt);
             // Refresh the local messages cache:
             await GetChatSessionMessagesAsync(sessionId);
-            return completion.Text;
+            return completion.Text ?? string.Empty;
         }
 
         /// <summary>
@@ -157,9 +157,11 @@ namespace FoundationaLLM.Chat.Helpers
             var response = await SendRequest<Completion>(HttpMethod.Post,
                 $"sessions/{sessionId}/summarize-name", prompt);
 
+            if (response.Text == null) return prompt;
             await RenameChatSessionAsync(sessionId, response.Text, true);
 
             return response.Text;
+
         }
 
         /// <summary>
@@ -181,9 +183,9 @@ namespace FoundationaLLM.Chat.Helpers
             return await SendRequest<Message>(HttpMethod.Post, url);
         }
 
-        private async Task<T> SendRequest<T>(HttpMethod method, string requestUri, object payload = null)
+        private async Task<T> SendRequest<T>(HttpMethod method, string requestUri, object? payload = null)
         {
-            var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes);
+            var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes ?? string.Empty);
             HttpResponseMessage responseMessage;
             switch (method)
             {
@@ -199,12 +201,12 @@ namespace FoundationaLLM.Chat.Helpers
             }
 
             var content = await responseMessage.Content.ReadAsStringAsync();
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(content);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(content) ?? throw new InvalidOperationException();
         }
 
         private async Task SendRequest(HttpMethod method, string requestUri)
         {
-            var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes);
+            var client = await GetHttpClientAsync(Common.Constants.HttpClients.CoreAPI, _entraSettings.Scopes ?? string.Empty);
             switch (method)
             {
                 case HttpMethod m when m == HttpMethod.Delete:
