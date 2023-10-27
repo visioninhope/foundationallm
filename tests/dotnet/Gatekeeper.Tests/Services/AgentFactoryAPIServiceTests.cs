@@ -91,7 +91,6 @@ namespace Gatekeeper.Tests.Services
         public async Task GetSummary_UnsuccessfulDefaultResponse()
         {
             // Arrange
-            var httpClientFactoryService = Substitute.For<IHttpClientFactoryService>();
             var summaryRequest = new SummaryRequest { UserPrompt = "Prompt_1" };
 
             // Create a mock message handler
