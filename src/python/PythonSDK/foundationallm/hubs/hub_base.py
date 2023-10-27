@@ -11,4 +11,7 @@ class HubBase(ABC):
         return self.resolver.resolve(request)
     
     def list(self):
+        """
+        Returns a lightweight list (containing of name and description) of all configured metadata items.
+        """
         return self.resolver.list()
