@@ -12,7 +12,17 @@
 				</span>
 
 				<!-- Timestamp -->
-				<span>{{ $filters.timeAgo(new Date(message.timeStamp)) }}</span>
+				<span>
+					<Chip 
+						:label="`Tokens: ${message.tokens}`" 
+						:class="message.sender === 'User' ? 'token-chip--out' : 'token-chip--in'" 
+						:pt="{
+							root: { style: { borderRadius: '24px' } },
+							label: { style: { color: message.sender === 'User' ? 'black' : 'white' } }
+						}"
+					/>
+					{{ $filters.timeAgo(new Date(message.timeStamp)) }}
+				</span>
 			</div>
 
 			<!-- Message text -->
@@ -209,6 +219,18 @@ export default {
 	height: 32px;
 	border-radius: 50%;
 	margin-right: 12px;
+}
+
+.token-chip--out {
+	margin-right: 12px;
+	background-color: var(--accent-color);
+	color: 'white';
+}
+
+.token-chip--in {
+	margin-right: 12px;
+	background-color: var(--primary-color);
+	color: 'black';
 }
 
 .ratings {
