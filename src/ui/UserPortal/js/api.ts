@@ -3,7 +3,8 @@ import { Message, Session, CompletionPrompt } from '@/js/types';
 import { msalInstance } from '@/js/auth';
 import getAppConfigSetting from './config';
 
-const API_URL = await getAppConfigSetting("FoundationaLLM:APIs:CoreAPI:APIUrl");
+const API_URL = (await getAppConfigSetting("FoundationaLLM:APIs:CoreAPI:APIUrl")).replace(/\/$/, "");
+// API_URL = API_URL.endsWith('/') ? API_URL?.slice(0, -1) : API_URL;
 
 export default {
 	bearerToken: null as string | null,
