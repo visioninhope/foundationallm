@@ -21,7 +21,15 @@ def client():
     return TestClient(app)
 
 class ResolveTests:
-
+    """
+    ResolveTests is responsible for testing API responsible for the selection of the best-fit
+        agent to respond to a user prompt.
+        
+    This is an integration test class and expects the following environment variable to be set:
+        foundationallm-app-configuration-uri
+        
+    This test class also expects a valid Azure credential (DefaultAzureCredential) session.
+    """
     def test_invalid_api_key_should_return_401(self, client):
         response = client.post("/resolve", headers={ "X-API-Key": "invalid" })
         assert response.status_code == 401
@@ -33,6 +41,11 @@ class ResolveTests:
         
     def test_if_x_agent_hint_does_not_exist_should_return_default_agent(self, client, headers):
         headers["X-Agent-Hint"] = "invalid"
+        response = client.post("/resolve", headers=headers, json={"user_prompt": "Tell me about FoundationaLLM?"})                
+        assert response.json()["agent"]["name"] == "default"
+    
+    def test_if_x_agent_hint_is_empty_should_return_default_agent(self, client, headers):
+        headers["X-Agent-Hint"] = ""
         response = client.post("/resolve", headers=headers, json={"user_prompt": "Tell me about FoundationaLLM?"})                
         assert response.json()["agent"]["name"] == "default"
         
