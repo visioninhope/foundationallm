@@ -11,13 +11,13 @@
 					<span>{{ message.sender }}</span>
 				</span>
 
-				<!-- Timestamp -->
+				<!-- Tokens & Timestamp -->
 				<span>
 					<Chip 
 						:label="`Tokens: ${message.tokens}`" 
 						:class="message.sender === 'User' ? 'token-chip--out' : 'token-chip--in'" 
 						:pt="{
-							root: { style: { borderRadius: '24px' } },
+							root: { style: { borderRadius: '24px', marginRight: '12px' } },
 							label: { style: { color: message.sender === 'User' ? 'black' : 'white' } }
 						}"
 					/>
@@ -222,15 +222,11 @@ export default {
 }
 
 .token-chip--out {
-	margin-right: 12px;
 	background-color: var(--accent-color);
-	color: 'white';
 }
 
 .token-chip--in {
-	margin-right: 12px;
 	background-color: var(--primary-color);
-	color: 'black';
 }
 
 .ratings {
