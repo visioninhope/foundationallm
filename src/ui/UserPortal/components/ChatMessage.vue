@@ -82,7 +82,7 @@
 
 <script lang="ts">
 import type { PropType } from 'vue';
-import { Message, CompletionPrompt } from '@/js/types';
+import type { Message, CompletionPrompt } from '@/js/types';
 import api from '@/js/api';
 
 export default {
