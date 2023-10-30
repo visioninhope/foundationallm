@@ -12,6 +12,7 @@ using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
@@ -91,6 +92,7 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Services.AddScoped<IDataSourceHubAPIService, DataSourceHubAPIService>();
             builder.Services.AddScoped<IPromptHubAPIService, PromptHubAPIService>();
             builder.Services.AddScoped<IUserIdentityContext, UserIdentityContext>();
+            builder.Services.AddScoped<IAgentHintContext, AgentHintContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 
@@ -143,6 +145,8 @@ namespace FoundationaLLM.AgentFactory.API
 
             // Register the middleware to set the user identity context.
             app.UseMiddleware<UserIdentityMiddleware>();
+            // Register the middleware to extract any agent hints.
+            app.UseMiddleware<AgentHintMiddleware>();
 
             app.UseExceptionHandler(exceptionHandlerApp
                 => exceptionHandlerApp.Run(async context
