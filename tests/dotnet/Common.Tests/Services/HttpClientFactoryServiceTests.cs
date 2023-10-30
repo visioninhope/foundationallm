@@ -9,21 +9,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NSubstitute.Core;
 
 namespace FoundationaLLM.Common.Tests.Services
 {
     public class HttpClientFactoryServiceTests
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IUserIdentityContext _userIdentityContext;
-        private readonly IAgentHintContext _agentHintContext;
+        private readonly ICallContext _callContext;
         private readonly IDownstreamAPISettings _apiSettings;
 
         public HttpClientFactoryServiceTests()
         {
             _httpClientFactory = Substitute.For<IHttpClientFactory>();
-            _userIdentityContext = Substitute.For<IUserIdentityContext>();
-            _agentHintContext = Substitute.For<IAgentHintContext>();
+            _callContext = Substitute.For<ICallContext>();
             _apiSettings = Substitute.For<IDownstreamAPISettings>();
         }
 
@@ -52,13 +51,13 @@ namespace FoundationaLLM.Common.Tests.Services
                 }
             });
 
-            _userIdentityContext.CurrentUserIdentity.Returns(userContext);
-            _agentHintContext.AgentHint.Returns(agentHint);
+            _callContext.CurrentUserIdentity.Returns(userContext);
+            _callContext.AgentHint.Returns(agentHint);
 
             var httpClient = new HttpClient();
             _httpClientFactory.CreateClient(clientName).Returns(httpClient);
 
-            var service = new HttpClientFactoryService(_httpClientFactory, _userIdentityContext, _agentHintContext, _apiSettings);
+            var service = new HttpClientFactoryService(_httpClientFactory, _callContext, _apiSettings);
 
             // Act
             var result = service.CreateClient(clientName);
