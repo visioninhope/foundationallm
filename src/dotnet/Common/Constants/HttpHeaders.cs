@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace FoundationaLLM.Common.Constants
 {
     /// <summary>
-    /// Common HTTP headers used throughout the FoundationaLLM infrastructure..
+    /// Common HTTP headers used throughout the FoundationaLLM infrastructure.
     /// </summary>
     public static class HttpHeaders
     {
