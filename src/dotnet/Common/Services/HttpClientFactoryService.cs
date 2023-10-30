@@ -16,6 +16,7 @@ namespace FoundationaLLM.Common.Services
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IUserIdentityContext _userIdentityContext;
+        private readonly IAgentHintContext _agentHintContext;
         private readonly IDownstreamAPISettings _apiSettings;
 
         /// <summary>
@@ -25,15 +26,20 @@ namespace FoundationaLLM.Common.Services
         /// that allows access to <see cref="HttpClient"/> instances by name.</param>
         /// <param name="userIdentityContext">Stores a <see cref="UnifiedUserIdentity"/> object resolved from
         /// one or more services.</param>
+        /// <param name="agentHintContext">Stores the agent hint value extracted from the request header,
+        /// if any. If this value is not empty or null, the service adds its contents to the agent hint
+        /// header for the returned <see cref="HttpClient"/> instance.</param>
         /// <param name="apiSettings">A <see cref="DownstreamAPISettings"/> class that
         /// contains the configured path to the desired API key.</param>
         /// <exception cref="ArgumentNullException"></exception>
         public HttpClientFactoryService(IHttpClientFactory httpClientFactory,
             IUserIdentityContext userIdentityContext,
+            IAgentHintContext agentHintContext,
             IDownstreamAPISettings apiSettings)
         {
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
             _userIdentityContext = userIdentityContext ?? throw new ArgumentNullException(nameof(userIdentityContext));
+            _agentHintContext = agentHintContext ?? throw new ArgumentNullException(nameof(agentHintContext));
             _apiSettings = apiSettings ?? throw new ArgumentNullException(nameof(apiSettings));
         }
 
@@ -54,6 +60,12 @@ namespace FoundationaLLM.Common.Services
             {
                 var serializedIdentity = JsonConvert.SerializeObject(_userIdentityContext.CurrentUserIdentity);
                 httpClient.DefaultRequestHeaders.Add(Constants.HttpHeaders.UserIdentity, serializedIdentity);
+            }
+
+            // Add the X-AGENT-HINT header if present.
+            if (!string.IsNullOrEmpty(_agentHintContext.AgentHint))
+            {
+                httpClient.DefaultRequestHeaders.Add(Constants.HttpHeaders.AgentHint, _agentHintContext.AgentHint);
             }
 
             return httpClient;
