@@ -5,14 +5,12 @@ const AUTH_CLIENT_ID = await getAppConfigSetting("FoundationaLLM:Chat:Entra:Clie
 const AUTH_INSTANCE = await getAppConfigSetting("FoundationaLLM:Chat:Entra:Instance");
 const AUTH_TENANT_ID = await getAppConfigSetting("FoundationaLLM:Chat:Entra:TenantId");
 const AUTH_SCOPES = await getAppConfigSetting("FoundationaLLM:Chat:Entra:Scopes");
-const AUTH_CLIENT_SECRET = await getAppConfigSetting("FoundationaLLM:Chat:Entra:ClientSecret");
 const AUTH_CALLBACK_PATH = await getAppConfigSetting("FoundationaLLM:Chat:Entra:CallbackPath");
 
 export const msalConfig = {
 	auth: {
 		clientId: `${AUTH_CLIENT_ID}`,
 		authority: `${AUTH_INSTANCE}${AUTH_TENANT_ID}`,
-		clientSecret: `${AUTH_CLIENT_SECRET}`,
 		redirectUri: `${AUTH_CALLBACK_PATH}`, // Must be registered as a SPA redirectURI on your app registration
 		scopes: [`${AUTH_SCOPES}`],
 		postLogoutRedirectUri: '/', // Must be registered as a SPA redirectURI on your app registration
