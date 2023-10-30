@@ -15,8 +15,7 @@ namespace FoundationaLLM.Common.Services
     public class HttpClientFactoryService : IHttpClientFactoryService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IUserIdentityContext _userIdentityContext;
-        private readonly IAgentHintContext _agentHintContext;
+        private readonly ICallContext _callContext;
         private readonly IDownstreamAPISettings _apiSettings;
 
         /// <summary>
@@ -33,13 +32,11 @@ namespace FoundationaLLM.Common.Services
         /// contains the configured path to the desired API key.</param>
         /// <exception cref="ArgumentNullException"></exception>
         public HttpClientFactoryService(IHttpClientFactory httpClientFactory,
-            IUserIdentityContext userIdentityContext,
-            IAgentHintContext agentHintContext,
+            ICallContext callContext,
             IDownstreamAPISettings apiSettings)
         {
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
-            _userIdentityContext = userIdentityContext ?? throw new ArgumentNullException(nameof(userIdentityContext));
-            _agentHintContext = agentHintContext ?? throw new ArgumentNullException(nameof(agentHintContext));
+            _callContext = callContext ?? throw new ArgumentNullException(nameof(callContext));
             _apiSettings = apiSettings ?? throw new ArgumentNullException(nameof(apiSettings));
         }
 
@@ -56,16 +53,16 @@ namespace FoundationaLLM.Common.Services
             }
 
             // Optionally add the user identity header.
-            if (_userIdentityContext.CurrentUserIdentity != null)
+            if (_callContext.CurrentUserIdentity != null)
             {
-                var serializedIdentity = JsonConvert.SerializeObject(_userIdentityContext.CurrentUserIdentity);
+                var serializedIdentity = JsonConvert.SerializeObject(_callContext.CurrentUserIdentity);
                 httpClient.DefaultRequestHeaders.Add(Constants.HttpHeaders.UserIdentity, serializedIdentity);
             }
 
-            // Add the X-AGENT-HINT header if present.
-            if (!string.IsNullOrEmpty(_agentHintContext.AgentHint))
+            // Add the agent hint header if present.
+            if (!string.IsNullOrEmpty(_callContext.AgentHint))
             {
-                httpClient.DefaultRequestHeaders.Add(Constants.HttpHeaders.AgentHint, _agentHintContext.AgentHint);
+                httpClient.DefaultRequestHeaders.Add(Constants.HttpHeaders.AgentHint, _callContext.AgentHint);
             }
 
             return httpClient;
