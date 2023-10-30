@@ -49,7 +49,7 @@
 <script lang="ts">
 import type { PropType } from 'vue';
 import type { Session } from '@/js/types';
-import { msalInstance, loginRequest } from '@/js/auth';
+import { getMsalInstance, getLoginRequest } from '@/js/auth';
 import getAppConfigSetting from '@/js/config';
 
 export default {
@@ -77,7 +77,7 @@ export default {
 
 	async created() {
 		if (process.client) {
-			await msalInstance.initialize();
+			const msalInstance = await getMsalInstance();
 			const accounts = await msalInstance.getAllAccounts();
 			if (accounts.length > 0) {
 				this.signedIn = true;
@@ -107,6 +107,8 @@ export default {
 		},
 
 		async signIn() {
+			const loginRequest = await getLoginRequest();
+			const msalInstance = await getMsalInstance();
 			const response = await msalInstance.loginPopup(loginRequest);
 			if (response.account) {
 				this.signedIn = true;
@@ -116,8 +118,12 @@ export default {
 		},
 
 		async signOut() {
+			const msalInstance = await getMsalInstance();
+			const accountFilter = {
+				username: this.userName,
+			};
 			const logoutRequest = {
-				account: msalInstance.getAccountByUsername(this.userName),
+				account: msalInstance.getAccount(accountFilter),
 			};
 
 			await msalInstance.logoutPopup(logoutRequest);
