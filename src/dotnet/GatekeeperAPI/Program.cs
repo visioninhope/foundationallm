@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
@@ -81,6 +82,7 @@ namespace FoundationaLLM.Gatekeeper.API
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<IUserIdentityContext, UserIdentityContext>();
+            builder.Services.AddScoped<IAgentHintContext, AgentHintContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
             builder.Services.AddScoped<IGatekeeperService, GatekeeperService>();
@@ -128,6 +130,8 @@ namespace FoundationaLLM.Gatekeeper.API
 
             // Register the middleware to set the user identity context.
             app.UseMiddleware<UserIdentityMiddleware>();
+            // Register the middleware to extract any agent hints.
+            app.UseMiddleware<AgentHintMiddleware>();
 
             app.UseExceptionHandler(exceptionHandlerApp
                 => exceptionHandlerApp.Run(async context
