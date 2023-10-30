@@ -25,6 +25,7 @@ using Newtonsoft.Json;
 using Azure.Identity;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using FoundationaLLM.Common.Models.Chat;
 
 namespace FoundationaLLM.Core.API
 {
@@ -80,6 +81,7 @@ namespace FoundationaLLM.Core.API
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<IUserIdentityContext, UserIdentityContext>();
+            builder.Services.AddScoped<IAgentHintContext, AgentHintContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
             // Register the authentication services
@@ -137,6 +139,8 @@ namespace FoundationaLLM.Core.API
 
             // Register the middleware to set the user identity context.
             app.UseMiddleware<UserIdentityMiddleware>();
+            // Register the middleware to extract any agent hints.
+            app.UseMiddleware<AgentHintMiddleware>();
 
             app.UseExceptionHandler(exceptionHandlerApp
                     => exceptionHandlerApp.Run(async context
