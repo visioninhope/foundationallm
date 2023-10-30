@@ -10,7 +10,8 @@ class AgentResolver(Resolver):
     If a hint is provided, the resolver will return the agent with that name.
     """
     def resolve(self, request:AgentHubRequest, user_context:Context=None, hint:str=None) -> AgentHubResponse:
-        if hint is not None:
+        hint_feature_flag_enabled = self.config.get_feature_flag("FoundationaLLM-AllowAgentHint")
+        if hint_feature_flag_enabled and hint is not None:
             try:
                 return AgentHubResponse(agent=self.repository.get_metadata_by_name(hint))
             except:

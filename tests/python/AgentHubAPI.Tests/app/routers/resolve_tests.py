@@ -1,4 +1,3 @@
-from re import A
 import pytest
 from foundationallm.config import Configuration
 from app.main import app
@@ -14,7 +13,7 @@ def api_key(test_config):
 
 @pytest.fixture
 def headers(api_key):
-    return { "X-API-Key": api_key, "X-User-Identity": '{"name": "Test User","user_name": "testuser@foundationallm.ai","upn": "testuser@foundationallm.ai"}' }
+    return { "X-API-KEY": api_key, "X-USER-IDENTITY": '{"name": "Test User","user_name": "testuser@foundationallm.ai","upn": "testuser@foundationallm.ai"}' }
 
 @pytest.fixture
 def client():
@@ -28,24 +27,27 @@ class ResolveTests:
     This is an integration test class and expects the following environment variable to be set:
         foundationallm-app-configuration-uri
         
+    These tests also expect the following feature flag to be set and enabled:
+        FoundationaLLM-AllowAgentHint
+        
     This test class also expects a valid Azure credential (DefaultAzureCredential) session.
     """
     def test_invalid_api_key_should_return_401(self, client):
-        response = client.post("/resolve", headers={ "X-API-Key": "invalid" })
+        response = client.post("/resolve", headers={ "X-API-KEY": "invalid" })
         assert response.status_code == 401
         
     def test_x_agent_hint_should_return_desired_agent(self, client, headers):
-        headers["X-Agent-Hint"] = "weather"
+        headers["X-AGENT-HINT"] = "weather"
         response = client.post("/resolve", headers=headers, json={"user_prompt": "Tell me about FoundationaLLM?"})                
         assert response.json()["agent"]["name"] == "weather"
         
     def test_if_x_agent_hint_does_not_exist_should_return_default_agent(self, client, headers):
-        headers["X-Agent-Hint"] = "invalid"
+        headers["X-AGENT-HINT"] = "invalid"
         response = client.post("/resolve", headers=headers, json={"user_prompt": "Tell me about FoundationaLLM?"})                
         assert response.json()["agent"]["name"] == "default"
     
     def test_if_x_agent_hint_is_empty_should_return_default_agent(self, client, headers):
-        headers["X-Agent-Hint"] = ""
+        headers["X-AGENT-HINT"] = ""
         response = client.post("/resolve", headers=headers, json={"user_prompt": "Tell me about FoundationaLLM?"})                
         assert response.json()["agent"]["name"] == "default"
         
