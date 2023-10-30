@@ -17,7 +17,7 @@ namespace FoundationaLLM.Common.Middleware
     /// This enables the application to access the user identity information in a uniform way,
     /// whether the user identity is provided in the HTTP headers or in the JWT token, and whether
     /// accessing the user identity from a Controller action or from a service.
-    /// This middleware should be registered in the application's Startup.Configure method./>.
+    /// This middleware should be registered in the application's Startup.Configure method.
     /// </summary>
     public class UserIdentityMiddleware
     {
@@ -50,7 +50,7 @@ namespace FoundationaLLM.Common.Middleware
             else
             {
                 // Extract from HTTP headers if available:
-                string serializedIdentity = context.Request.Headers[Constants.HttpHeaders.UserIdentity].ToString();
+                var serializedIdentity = context.Request.Headers[Constants.HttpHeaders.UserIdentity].ToString();
                 if (!string.IsNullOrEmpty(serializedIdentity))
                 {
                     userIdentityContext.CurrentUserIdentity = JsonConvert.DeserializeObject<UnifiedUserIdentity>(serializedIdentity)!;
