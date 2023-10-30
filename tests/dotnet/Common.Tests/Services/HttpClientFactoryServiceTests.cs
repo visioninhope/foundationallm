@@ -28,7 +28,7 @@ namespace FoundationaLLM.Common.Tests.Services
         }
 
         [Fact]
-        public async Task CreateClient_WithValidClientName_ReturnsHttpClientWithHeaders()
+        public void CreateClient_WithValidClientName_ReturnsHttpClientWithHeaders()
         {
             // Arrange
             var clientName = "TestClient";
