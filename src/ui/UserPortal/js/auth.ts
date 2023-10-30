@@ -2,7 +2,6 @@ import { LogLevel, PublicClientApplication } from '@azure/msal-browser';
 import getAppConfigSetting from './config';
 
 let isConfigLoaded = false;
-let isInitialized = false;
 let AUTH_CLIENT_ID: string;
 let AUTH_INSTANCE: string;
 let AUTH_TENANT_ID: string;
