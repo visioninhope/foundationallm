@@ -50,10 +50,11 @@
 </template>
 
 <script lang="ts">
+import { mapStores } from 'pinia';
 import type { PropType } from 'vue';
 import type { Session } from '@/js/types';
+import { appConfig } from '@/stores/appConfig';
 import { getMsalInstance, getLoginRequest } from '@/js/auth';
-import getAppConfigSetting from '@/js/config';
 
 export default {
 	name: 'NavBar',
@@ -79,7 +80,16 @@ export default {
 		};
 	},
 
+	computed: {
+		...mapStores(appConfig),
+	},
+
 	async created() {
+		this.logoText = this.appConfigStore.logoText;
+		this.logoURL = this.appConfigStore.logoUrl;
+		this.isKioskMode = this.appConfigStore.isKioskMode;
+		this.closeSidebar(this.isKioskMode);
+
 		if (process.client) {
 			const msalInstance = await getMsalInstance();
 			const accounts = await msalInstance.getAllAccounts();
@@ -88,10 +98,6 @@ export default {
 				this.accountName = accounts[0].name;
 				this.userName = accounts[0].username;
 			}
-			this.logoText = await getAppConfigSetting('FoundationaLLM:Branding:LogoText');
-			this.logoURL = await getAppConfigSetting('FoundationaLLM:Branding:LogoUrl');
-			this.isKioskMode = Boolean(await getAppConfigSetting('FoundationaLLM:Branding:KioskMode'));
-			this.closeSidebar(this.isKioskMode);
 		}
 	},
 
