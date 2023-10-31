@@ -77,7 +77,7 @@ export default {
 			this.userSentMessage = false;
 			await this.getMessages();
 			this.isLoading = false;
-		}
+		},
 	},
 
 	methods: {
