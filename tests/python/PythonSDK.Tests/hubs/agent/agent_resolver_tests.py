@@ -1,8 +1,8 @@
-from numpy import isin
 import pytest
 from typing import List
+from unittest.mock import patch
 from foundationallm.config import Configuration
-from foundationallm.hubs.agent import AgentRepository, AgentResolver
+from foundationallm.hubs.agent import AgentRepository, AgentResolver, AgentHubRequest
 
 @pytest.fixture
 def test_config():
