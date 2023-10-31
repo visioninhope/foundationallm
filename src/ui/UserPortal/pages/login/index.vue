@@ -1,6 +1,6 @@
 <template>
 	<div class="login-page">
-		<img :src="logoURL" class="logo" />
+		<img :src="logoUrl" class="logo" />
 		<Button icon="pi pi-sign-in" label="Sign In" size="large" @click="signIn"></Button>
 	</div>
 </template>
@@ -18,7 +18,7 @@ export default {
 
 		logoUrl() {
 			return this.appConfigStore.logoUrl;
-		}
+		},
 	},
 
 	methods: {
