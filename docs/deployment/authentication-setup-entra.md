@@ -140,7 +140,7 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 
 6. The application's **Overview** pane displays upon successful registration. Record the **Application (client) ID** and **Directory (tenant) ID** to add to your App Configuration settings later.
 
-      ![The Entra app client ID and Directory ID values are highlighted in the Overview blade.](media/entra-api-app-overview.png)
+    ![The Entra app client ID and Directory ID values are highlighted in the Overview blade.](media/entra-api-app-overview.png)
 
 #### Implicit grant and hybrid flows for the API application
 
@@ -159,7 +159,7 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 5. Select **Add**.
 6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
 
-      ![The steps to create a client secret are highlighted.](media/entra-api-app-secret.png)
+    ![The steps to create a client secret are highlighted.](media/entra-api-app-secret.png)
 
 #### Expose an API for the API application
 
