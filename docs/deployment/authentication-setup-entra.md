@@ -2,6 +2,30 @@
 
 FoundationaLLM comes with out-of-the-box support for Microsoft Entra authentication. This means that you can use your Microsoft Entra account to log in to the chat interface.
 
+Table of contents:
+
+- [Authentication setup: Microsoft Entra](#authentication-setup-microsoft-entra)
+  - [Creating the Microsoft Entra applications](#creating-the-microsoft-entra-applications)
+    - [Pre-requisites](#pre-requisites)
+      - [Setup App Configuration access](#setup-app-configuration-access)
+      - [Obtain the URL for the chat UI application](#obtain-the-url-for-the-chat-ui-application)
+    - [Creating the client application](#creating-the-client-application)
+      - [Register the client application in the Microsoft Entra admin center](#register-the-client-application-in-the-microsoft-entra-admin-center)
+      - [Add a redirect URI to the client application](#add-a-redirect-uri-to-the-client-application)
+      - [Implicit grant and hybrid flows for the client application](#implicit-grant-and-hybrid-flows-for-the-client-application)
+      - [Client secret for the client application](#client-secret-for-the-client-application)
+    - [Creating the API application](#creating-the-api-application)
+      - [Register the API application in the Microsoft Entra admin center](#register-the-api-application-in-the-microsoft-entra-admin-center)
+      - [Implicit grant and hybrid flows for the API application](#implicit-grant-and-hybrid-flows-for-the-api-application)
+      - [Client secret for the API application](#client-secret-for-the-api-application)
+      - [Expose an API for the API application](#expose-an-api-for-the-api-application)
+      - [Add authorized client application](#add-authorized-client-application)
+    - [Update App Configuration settings](#update-app-configuration-settings)
+    - [Update Key Vault secrets](#update-key-vault-secrets)
+  - [Next steps](#next-steps)
+    - [Restart Core API and Chat UI applications in an ACA Deployment](#restart-core-api-and-chat-ui-applications-in-an-aca-deployment)
+    - [Restart Core API and Chat UI applications in an AKS Deployment](#restart-core-api-and-chat-ui-applications-in-an-aks-deployment)
+
 ## Creating the Microsoft Entra applications
 
 To enable Microsoft Entra authentication, you need to create two applications in the Microsoft Azure portal:
@@ -20,7 +44,7 @@ To enable Microsoft Entra authentication, you need to create two applications in
 2. Navigate to the Resource Group that was created as part of the deployment.
     > [!NOTE]
     > If you performed an Azure Container Apps (ACA) deployment, you will see an extra Resource Group that starts with `ME_` in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that **does not start with** `ME_` to access the App Configuration resource.
-3. Select the **App Configuration** resource and select **Configuration explorer** to view the values. If you cannot access the configurations, add your user account as an **App Configuration Data Owner** through Access Control (IAM). You need this role in order to update the configurations as a required part of the authentication setup.
+3. Select the **App Configuration** resource and select **Configuration explorer** to view the values. If you cannot access the configurations, add your user account as an **App Configuration Data Owner** through Access Control (IAM). You need this role in order to update the configurations as a required part of the authentication setup. To add your user account to the appropriate role, follow the instructions in the [Configure access control for services](../deployment/configure-access-control-for-services.md#azure-app-configuration-service) document.
 
 #### Obtain the URL for the chat UI application
 
@@ -162,7 +186,7 @@ Key Vault stores the secrets for the client and API applications. You need to up
 
 Now that Entra authentication is fully configured, restart the Core API and chat applications to apply the changes. Navigate to your chat application or refresh the page if it is already open. It should automatically prompt you to sign in with your Microsoft Entra account.
 
-### Restarting Core API and Chat UI applications in an ACA Deployment
+### Restart Core API and Chat UI applications in an ACA Deployment
 
 To restart the Core API and Chat applications in an Azure Container Apps (ACA) deployment, you will need to navigate to the Core API and Chat applications and restart their container revisions, as indicated in the following Azure Portal screenshot:
 
@@ -173,7 +197,7 @@ To restart the Core API and Chat applications in an Azure Container Apps (ACA) d
 
 Restarting in this manner will need to be performed for both the Core API container app and the Chat UI container app.
 
-### Restarting Core API and Chat UI applications in an AKS Deployment
+### Restart Core API and Chat UI applications in an AKS Deployment
 
 To restart the Core API and Chat applications in an Azure Kubernetes Service (AKS) deployment, you will need to navigate to the AKS detail page in Azure Portal and perform the following:
 
