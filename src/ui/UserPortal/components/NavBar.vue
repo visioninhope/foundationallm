@@ -144,7 +144,7 @@ export default {
 			this.userName = '';
 			this.$router.push({ path: '/login' });
 			// await msalInstance.logout();
-		}
+		},
 	},
 };
 </script>
