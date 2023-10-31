@@ -5,7 +5,7 @@
 			<img v-if="logoURL !== ''" :src="logoURL" />
 			<span v-else>{{ logoText }}</span>
 
-			<template v-if="!isKioskMode">
+			<template v-if="!appConfigStore.isKioskMode">
 				<Button v-if="isSidebarClosed" icon="pi pi-arrow-right" size="small" severity="secondary" @click="closeSidebar(false)" />
 				<Button v-else icon="pi pi-arrow-left" size="small" severity="secondary" @click="closeSidebar(true)" />
 			</template>
@@ -18,6 +18,7 @@
 					<template v-if="currentSession">
 						<span>{{ currentSession.name }}</span>
 						<Button
+							v-if="!appConfigStore.isKioskMode"
 							v-tooltip.bottom="'Copy link to chat session'"
 							class="button--share"
 							icon="pi pi-copy"
@@ -73,7 +74,6 @@ export default {
 			logoText: '',
 			logoURL: '',
 			isSidebarClosed: true,
-			isKioskMode: true,
 			signedIn: false,
 			accountName: '',
 			userName: '',
@@ -87,8 +87,7 @@ export default {
 	async created() {
 		this.logoText = this.appConfigStore.logoText;
 		this.logoURL = this.appConfigStore.logoUrl;
-		this.isKioskMode = this.appConfigStore.isKioskMode;
-		this.closeSidebar(this.isKioskMode);
+		this.closeSidebar(this.appConfigStore.isKioskMode);
 
 		if (process.client) {
 			const msalInstance = await getMsalInstance();
