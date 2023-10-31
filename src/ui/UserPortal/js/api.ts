@@ -33,19 +33,19 @@ export default {
 		const bearerToken = await this.getBearerToken();
 		options.headers['Authorization'] = `Bearer ${bearerToken}`;
 
-		return await $fetch(url, options);
+		return await $fetch(`${this.apiUrl}${url}`, options);
 	},
 
 	async getSessions() {
-		return await this.fetch(`${this.apiUrl}/sessions`) as Array<Session>;
+		return await this.fetch(`/sessions`) as Array<Session>;
 	},
 
 	async addSession() {
-		return await this.fetch(`${this.apiUrl}/sessions`, { method: 'POST' }) as Session;
+		return await this.fetch(`/sessions`, { method: 'POST' }) as Session;
 	},
 
 	async renameSession(sessionId: string, newChatSessionName: string) {
-		return await this.fetch(`${this.apiUrl}/sessions/${sessionId}/rename`, {
+		return await this.fetch(`/sessions/${sessionId}/rename`, {
 			method: 'POST',
 			params: {
 				newChatSessionName
@@ -54,22 +54,22 @@ export default {
 	},
 
 	async summarizeSessionName(sessionId: string, text: string) {
-		return await this.fetch(`${this.apiUrl}/sessions/${sessionId}/summarize-name`, {
+		return await this.fetch(`/sessions/${sessionId}/summarize-name`, {
 			method: 'POST',
 			body: JSON.stringify(text),
 		}) as { text: string };
 	},
 
 	async deleteSession(sessionId: string) {
-		return await this.fetch(`${this.apiUrl}/sessions/${sessionId}`, { method: 'DELETE' }) as Session;
+		return await this.fetch(`/sessions/${sessionId}`, { method: 'DELETE' }) as Session;
 	},
 
 	async getMessages(sessionId: string) {
-		return await this.fetch(`${this.apiUrl}/sessions/${sessionId}/messages`) as Array<Message>;
+		return await this.fetch(`/sessions/${sessionId}/messages`) as Array<Message>;
 	},
 
 	async getPrompt(sessionId: string, promptId: string) {
-		return await this.fetch(`${this.apiUrl}/sessions/${sessionId}/completionprompts/${promptId}`) as CompletionPrompt;
+		return await this.fetch(`/sessions/${sessionId}/completionprompts/${promptId}`) as CompletionPrompt;
 	},
 
 	async rateMessage(message: Message, rating: Message['rating']) {
@@ -79,7 +79,7 @@ export default {
 		if (rating !== null) params.rating = rating;
 
 		return await this.fetch(
-			`${this.apiUrl}/sessions/${message.sessionId}/message/${message.id}/rate`, {
+			`/sessions/${message.sessionId}/message/${message.id}/rate`, {
 				method: 'POST',
 				params
 			}
@@ -87,7 +87,7 @@ export default {
 	},
 
 	async sendMessage(sessionId: string, text: string) {
-		return (await this.fetch(`${this.apiUrl}/sessions/${sessionId}/completion`, {
+		return (await this.fetch(`/sessions/${sessionId}/completion`, {
 			method: 'POST',
 			body: JSON.stringify(text),
 		})) as string;
