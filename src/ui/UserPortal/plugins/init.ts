@@ -1,25 +1,19 @@
 import { defineNuxtPlugin } from '#app';
 import { appConfig } from '@/stores/appConfig';
 import api from '@/js/api';
-import { setConfig } from '@/js/auth';
+import { setAuthConfig } from '@/js/auth';
 
 export default defineNuxtPlugin(async (nuxtApp: any) => {
-	// Get the config variables server-side
+	// Load config variables server-side to ensure they are passed to the client via the store.
 	if (process.server) {
 		const appConfigStore = appConfig(nuxtApp.$pinia);
 		await appConfigStore.getConfigVariables();
 	}
 
-	// Set the api url
+	// Set the api url to use from the dynamic azure config.
 	const appConfigStore = appConfig(nuxtApp.$pinia);
 	api.setApiUrl(appConfigStore.apiUrl);
 
-	// Set auth variables
-	setConfig({
-		clientId: appConfigStore.auth.clientId,
-		instance: appConfigStore.auth.instance,
-		tenantId: appConfigStore.auth.tenantId,
-		scopes: appConfigStore.auth.scopes,
-		callbackPath: appConfigStore.auth.callbackPath,
-	});
+	// Set the auth configuration for MSAL from the dynamic azure config.
+	setAuthConfig(appConfigStore.auth);
 });
