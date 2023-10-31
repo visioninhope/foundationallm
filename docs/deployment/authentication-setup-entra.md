@@ -186,6 +186,8 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 3. Check the `Data.Read` authorized scope that you created.
 4. Select **Add application** to complete the client application addition.
 
+    ![The add a client application form is displayed as described.](media/entra-api-app-add-client-app.png)
+
 ### Update App Configuration settings
 
 1. Sign in to the [Azure portal](https://portal.azure.com/) as at least a Contributor.
