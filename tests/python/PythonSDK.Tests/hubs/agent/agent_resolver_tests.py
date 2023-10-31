@@ -1,8 +1,8 @@
-from numpy import isin
 import pytest
 from typing import List
+from unittest.mock import patch
 from foundationallm.config import Configuration
-from foundationallm.hubs.agent import AgentRepository, AgentResolver
+from foundationallm.hubs.agent import AgentRepository, AgentResolver, AgentHubRequest
 
 @pytest.fixture
 def test_config():
@@ -44,3 +44,21 @@ class AgentResolverTests:
         agent_name_list = [x["name"] for x in agent_resolver.list()]
         assert "default" in agent_name_list
         
+
+    
+    def test_agent_hint_flag_disabled_then_return_default_agent(self):
+        with patch.object(Configuration, 'get_feature_flag', return_value=False) as mock_method:
+            config = Configuration()
+            agent_resolver = AgentResolver(repository=AgentRepository(config=config), config=config)
+            agent_hub_request = AgentHubRequest(user_prompt="Tell me about FoundationaLLM?")
+            agent_hub_response = agent_resolver.resolve(request=agent_hub_request,hint="weather")
+            assert agent_hub_response.agent.name == "default"
+            
+    def test_agent_hint_flag_enabled_then_return_hinted_agent(self):
+        with patch.object(Configuration, 'get_feature_flag', return_value=True) as mock_method:
+            config = Configuration()
+            agent_resolver = AgentResolver(repository=AgentRepository(config=config), config=config)
+            agent_hub_request = AgentHubRequest(user_prompt="Tell me about FoundationaLLM?")
+            agent_hub_response = agent_resolver.resolve(request=agent_hub_request,hint="weather")
+            assert agent_hub_response.agent.name == "weather"
+            
