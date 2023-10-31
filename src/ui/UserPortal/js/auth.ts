@@ -1,5 +1,7 @@
 import { LogLevel, PublicClientApplication } from '@azure/msal-browser';
 
+const ENABLE_LOGS = false;
+
 let AUTH_CLIENT_ID: string;
 let AUTH_INSTANCE: string;
 let AUTH_TENANT_ID: string;
@@ -29,9 +31,12 @@ function getMsalConfig() {
 		system: {
 			loggerOptions: {
 				loggerCallback: (level: LogLevel, message: string, containsPii: boolean) => {
+					if (!ENABLE_LOGS) return;
+
 					if (containsPii) {
 						return;
 					}
+
 					switch (level) {
 						case LogLevel.Error:
 							console.error(message);
