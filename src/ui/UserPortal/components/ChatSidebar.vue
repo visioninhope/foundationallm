@@ -103,7 +103,7 @@ export default {
 		currentSession: {
 			type: [Object, null] as PropType<Session | null>,
 			required: true,
-		}
+		},
 	},
 
 	emits: ['change-session', 'session-updated'],
