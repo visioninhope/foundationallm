@@ -172,7 +172,12 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
    - **User consent description**: `Allows the app to read data on behalf of the signed-in user.`
    - **State**: **Enabled**
 2. Select **Add scope** to complete the scope addition.
+
+   ![The Add a scope form is displayed as described in the bulleted list above.](media/entra-api-app-add-scope.png)
+
 3. Copy the **Scope name** value to add to your App Configuration settings later. For example, it should look something like `api://d85a09ce067141d5807a/Data.Read`.
+
+   ![The new scope name is displayed with the Copy button highlighted.](media/entra-api-app-scope-copy-name.png)
 
 #### Add authorized client application
 
