@@ -76,11 +76,19 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 
 1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com/) as at least a Cloud Application Administrator.
 2. Browse to **Identity** > **Applications** > **App registrations**.
+
+    ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
+
 3. On the page that appears, select **+ New registration**.
 4. When the **Register an application** page appears, enter a name for your application, such as *FoundationaLLM-Client*. You should indicate that this is for the client application by appending *-Client* to the name.
 5. Under **Supported account types**, select *Accounts in this organizational directory only*.
 6. Select **Register**.
+
+    ![The new client app registration form is displayed.](media/entra-register-client-app.png)
+
 7. The application's **Overview** pane displays upon successful registration. Record the **Application (client) ID** and **Directory (tenant) ID** to add to your App Configuration settings later.
+
+    ![The Entra app client ID and Directory ID values are highlighted in the Overview blade.](media/entra-client-app-overview.png)
 
 #### Add a redirect URI to the client application
 
