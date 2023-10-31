@@ -129,16 +129,26 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 
 1. Return to the [Microsoft Entra admin center](https://entra.microsoft.com).
 2. Browse to **Identity** > **Applications** > **App registrations** and select **+ New registration**.
+
+    ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
+
 3. For **Name**, enter a name for the application. For example, enter *FoundationaLLM*. Users of the app will see this name, and can be changed later.
 4. Under **Supported account types**, select *Accounts in this organizational directory only*.
 5. Select **Register**.
+
+    ![The new API app registration form is displayed.](media/entra-register-api-app.png)
+
 6. The application's **Overview** pane displays upon successful registration. Record the **Application (client) ID** and **Directory (tenant) ID** to add to your App Configuration settings later.
+
+      ![The Entra app client ID and Directory ID values are highlighted in the Overview blade.](media/entra-api-app-overview.png)
 
 #### Implicit grant and hybrid flows for the API application
 
 1. Check **Access tokens** and **ID tokens** under **Implicit grant**.
 2. Select **Configure** to apply the changes.
 3. Select **Save** at the bottom of the page to save the changes.
+
+    ![Both the Access tokens and ID tokens checkboxes are checked and the Save button is highlighted.](media/entra-app-client-authentication-implicit-grant.png)
 
 #### Client secret for the API application
 
@@ -148,6 +158,8 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 4. Select a desired expiration date.
 5. Select **Add**.
 6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
+
+      ![The steps to create a client secret are highlighted.](media/entra-api-app-secret.png)
 
 #### Expose an API for the API application
 
