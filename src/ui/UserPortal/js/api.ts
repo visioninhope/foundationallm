@@ -1,9 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Message, Session, CompletionPrompt } from '@/js/types';
 import { getMsalInstance } from '@/js/auth';
-import getAppConfigSetting from './config';
+import getAppConfigSetting from '@/js/config';
 
-//const API_URL = await getAppConfigSetting("FoundationaLLM:APIs:CoreAPI:APIUrl");
 let API_URL: string;
 async function loadConfig() {
   const apiUrl = await getAppConfigSetting("FoundationaLLM:APIs:CoreAPI:APIUrl") as string;
