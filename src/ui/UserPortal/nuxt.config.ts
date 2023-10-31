@@ -28,12 +28,4 @@ export default defineNuxtConfig({
 	build: {
 		transpile: ['primevue'],
 	},
-	runtimeConfig: {
-		APP_CONFIG_ENDPOINT: JSON.stringify(process.env.APP_CONFIG_ENDPOINT),
-	},
-	// vite: {
-	// 	define: {
-	// 		APP_CONFIG_ENDPOINT: JSON.stringify(process.env.APP_CONFIG_ENDPOINT),
-	// 	},
-	// },
 });
