@@ -97,8 +97,12 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 3. For **Redirect URIs**, enter `<YOUR_CHAT_APP_URL>/signin-oidc`, replacing `<YOUR_CHAT_APP_URL>` with the chat UI application URL obtained in the [Pre-requisites](#pre-requisites) section above. For example, it should look something like `https://d85a09ce067141d5807a.eastus.aksapp.io/signin-oidc` for an AKS deployment, or `https://fllmaca002chatuica.graybush-c554b849.eastus.azurecontainerapps.io/signin-oidc` for an ACA deployment.
 4. Add another **Redirect URI** for local development. For **Redirect URIs**, enter `https://localhost:7258/signin-oidc`.
 5. Under **Platform configurations**, select **Add a platform**. In the pane that opens, select **Single-page application**. This is for the Vue.js version of the chat application.
-6. Add a **Redirect URI** under Single-page application for local development of the Vue.js application: `http://localhost:3000/signin-oidc`.
-7. Under **Front-channel logout URL**, enter `<YOUR_CHAT_APP_URL>/signout-oidc`.
+6. Add a **Redirect URI** under Single-page application for your deployed Vue.js application. Enter `<YOUR_CHAT_APP_URL>/signin-oidc`, replacing `<YOUR_CHAT_APP_URL>` with the chat UI application URL obtained in the [Pre-requisites](#pre-requisites) section above. For example, it should look something like `https://d85a09ce067141d5807a.eastus.aksapp.io/signin-oidc` for an AKS deployment, or `https://fllmaca002chatuica.graybush-c554b849.eastus.azurecontainerapps.io/signin-oidc` for an ACA deployment.
+7. Add a **Redirect URI** under Single-page application for local development of the Vue.js application: `http://localhost:3000/signin-oidc`.
+
+    ![The Authentication left-hand menu item and redirect URIs are highlighted.](media/entra-app-client-authentication-uris.png)
+
+<!-- 8. Under **Front-channel logout URL**, enter `<YOUR_CHAT_APP_URL>/signout-oidc`. -->
 
 #### Implicit grant and hybrid flows for the client application
 
