@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Message, Session, CompletionPrompt } from '@/js/types';
+import type { Message, Session, CompletionPrompt } from '@/js/types';
 import { getMsalInstance } from '@/js/auth';
 
 export default {
