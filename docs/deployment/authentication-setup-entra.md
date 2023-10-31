@@ -107,8 +107,10 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 #### Implicit grant and hybrid flows for the client application
 
 1. Check **Access tokens** and **ID tokens** under **Implicit grant**.
-2. Select **Configure** to apply the changes.
+2. Select **Configure** to apply the changes (if the button is present).
 3. Select **Save** at the bottom of the page to save the changes.
+
+    ![Both the Access tokens and ID tokens checkboxes are checked and the Save button is highlighted.](media/entra-app-client-authentication-implicit-grant.png)
 
 #### Client secret for the client application
 
@@ -118,6 +120,8 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 4. Select a desired expiration date.
 5. Select **Add**.
 6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
+
+    ![The steps to create a client secret are highlighted.](media/entra-client-app-secret.png)
 
 ### Creating the API application
 
