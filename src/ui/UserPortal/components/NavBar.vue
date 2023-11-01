@@ -146,9 +146,10 @@ export default {
 
 		handleAgentChange() {
 			this.appConfigStore.selectedAgents.set(this.currentSession.id, this.agentSelection.value);
+			const message = this.agentSelection.value ? `Agent changed to ${this.agentSelection.label}` : `Cleared agent hint selection`;
 			this.$toast.add({
 				severity: 'success',
-				detail: `Agent changed to ${this.agentSelection.label}`,
+				detail: message,
 				life: 2000,
 			});
 		},
