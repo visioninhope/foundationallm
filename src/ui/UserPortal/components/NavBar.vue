@@ -88,7 +88,7 @@ export default {
 			signedIn: false,
 			accountName: '',
 			userName: '',
-			agentSelection: '',
+			agentSelection: null,
 			agents: [],
 		};
 	},
@@ -135,7 +135,7 @@ export default {
 		},
 
 		handleAgentChange() {
-			this.appConfigStore.agent = this.agentSelection.value;
+			this.appConfigStore.selectedAgent = this.agentSelection.value;
 			this.$toast.add({
 				severity: 'success',
 				detail: `Agent changed to ${this.agentSelection.label}`,

@@ -130,7 +130,7 @@ export default {
 			};
 			this.messages.push(tempAssistantMessage);
 
-			await api.sendMessage(this.session!.id, text, this.appConfigStore.agent);
+			await api.sendMessage(this.session!.id, text, this.appConfigStore.selectedAgent);
 			await this.getMessages();
 
 			// Update the session name based on the message sent

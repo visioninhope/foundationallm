@@ -10,6 +10,7 @@ export const appConfig = defineStore('appConfig', {
 		// Layout: These settings impact the structural layout of the chat interface.
 		isKioskMode: false,
 		agents: [],
+		selectedAgent: '',
 
 		// Style: These settings impact the visual style of the chat interface.
 		pageTitle: null,
