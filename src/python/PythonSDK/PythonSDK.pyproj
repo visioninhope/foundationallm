@@ -132,8 +132,6 @@
     <Compile Include="foundationallm\models\orchestration\completion_request.py" />
     <Compile Include="foundationallm\models\orchestration\completion_response.py" />
     <Compile Include="foundationallm\models\orchestration\message_history_item.py" />
-    <Compile Include="foundationallm\models\orchestration\orchestration_request.py" />
-    <Compile Include="foundationallm\models\orchestration\orchestration_response.py" />
     <Compile Include="foundationallm\models\orchestration\__init__.py" />
     <Compile Include="foundationallm\models\__init__.py" />
     <Compile Include="foundationallm\config\configuration.py" />
