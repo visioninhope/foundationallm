@@ -72,6 +72,10 @@ export default {
 		};
 	},
 
+	computed: {
+		...mapStores(appConfig),
+	},
+
 	watch: {
 		async session(newSession: Session, oldSession: Session) {
 			if (newSession.id === oldSession.id) return;
@@ -80,10 +84,6 @@ export default {
 			await this.getMessages();
 			this.isLoading = false;
 		},
-	},
-
-	computed: {
-		...mapStores(appConfig),
 	},
 
 	methods: {
