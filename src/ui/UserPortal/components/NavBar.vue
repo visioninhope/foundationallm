@@ -98,12 +98,20 @@ export default {
 		...mapStores(appConfig),
 	},
 
+	watch: {
+		currentSession(newSession: Session, oldSession: Session) {
+			if (newSession.id === oldSession.id) return;
+			this.agentSelection = this.agents.find(agent => agent.value === this.appConfigStore.selectedAgents.get(newSession.id)) || null;
+		},
+	},
+
 	async created() {
 		this.allowAgentHint = this.appConfigStore.allowAgentHint.enabled;
 		this.logoText = this.appConfigStore.logoText;
 		this.logoURL = this.appConfigStore.logoUrl;
 		this.closeSidebar(this.appConfigStore.isKioskMode);
 
+		this.agents.push({ label: '--select--', value: null});
 		for (const agent of this.appConfigStore.agents) {
 			this.agents.push({ label: agent, value: agent });
 		}
@@ -137,7 +145,7 @@ export default {
 		},
 
 		handleAgentChange() {
-			this.appConfigStore.selectedAgent = this.agentSelection.value;
+			this.appConfigStore.selectedAgents.set(this.currentSession.id, this.agentSelection.value);
 			this.$toast.add({
 				severity: 'success',
 				detail: `Agent changed to ${this.agentSelection.label}`,
