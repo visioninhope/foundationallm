@@ -5,8 +5,33 @@ dns.setDefaultResultOrder('ipv4first');
 
 import { AppConfigurationClient } from '@azure/app-configuration';
 
+const validKeys = [
+	'FoundationaLLM:APIs:CoreAPI:APIUrl',
+	'FoundationaLLM:Branding:KioskMode',
+	'FoundationaLLM:Branding:PageTitle',
+	'FoundationaLLM:Branding:LogoUrl',
+	'FoundationaLLM:Branding:LogoText',
+	'FoundationaLLM:Branding:BackgroundColor',
+	'FoundationaLLM:Branding:PrimaryColor',
+	'FoundationaLLM:Branding:SecondaryColor',
+	'FoundationaLLM:Branding:AccentColor',
+	'FoundationaLLM:Branding:PrimaryTextColor',
+	'FoundationaLLM:Branding:SecondaryTextColor',
+	'FoundationaLLM:Chat:Entra:ClientId',
+	'FoundationaLLM:Chat:Entra:Instance',
+	'FoundationaLLM:Chat:Entra:TenantId',
+	'FoundationaLLM:Chat:Entra:Scopes',
+	'FoundationaLLM:Chat:Entra:CallbackPath',
+];
+
 export default defineEventHandler(async (event) => {
 	const key = getRouterParam(event, 'key');
+
+	if (!validKeys.includes(key)) {
+		setResponseStatus(event, 404, `Config value ${key} not found.`);
+		return '404';
+	}
+
 	const config = useRuntimeConfig();
 	const appConfigClient = new AppConfigurationClient(config.APP_CONFIG_ENDPOINT);
 
