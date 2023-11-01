@@ -7,8 +7,9 @@ class GenericResolverAgentOutputParser(AgentOutputParser):
     
     def parse(self, text: str) -> List[str]:
         """
-        The first line of the response is the agent name. The prompt already
-            includes the Final Answer:label.       
+        The first line of the response is the list of names. 
+        Example: "['Inaccuracy', 'Speed', 'Scalable']"
+        The prompt already includes the Final Answer:label.       
         """        
         final_answer = text.split("\n")[0].strip()
         match = re.search(r'\[(.*?)\]', final_answer)  
