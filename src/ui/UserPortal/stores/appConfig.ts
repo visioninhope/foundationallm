@@ -9,6 +9,7 @@ export const appConfig = defineStore('appConfig', {
 
 		// Layout: These settings impact the structural layout of the chat interface.
 		isKioskMode: false,
+		allowAgentHint: false,
 		agents: [],
 		selectedAgent: '',
 
@@ -38,6 +39,7 @@ export const appConfig = defineStore('appConfig', {
 			const [
 				apiUrl,
 				isKioskMode,
+				allowAgentHint,
 				agents,
 				pageTitle,
 				logoUrl,
@@ -56,6 +58,7 @@ export const appConfig = defineStore('appConfig', {
 			] = await Promise.all([
 				getAppConfigSetting('FoundationaLLM:APIs:CoreAPI:APIUrl'),
 				getAppConfigSetting('FoundationaLLM:Branding:KioskMode'),
+				getAppConfigSetting('.appconfig.featureflag/FoundationaLLM-AllowAgentHint'),
 				getAppConfigSetting('FoundationaLLM:Branding:AllowAgentSelection'),
 				getAppConfigSetting('FoundationaLLM:Branding:PageTitle'),
 				getAppConfigSetting('FoundationaLLM:Branding:LogoUrl'),
@@ -76,6 +79,7 @@ export const appConfig = defineStore('appConfig', {
 			this.apiUrl = apiUrl;
 
 			this.isKioskMode = JSON.parse(isKioskMode);
+			this.allowAgentHint = JSON.parse(allowAgentHint);
 			this.agents = agents.split(', ');
 
 			this.auth.clientId = authClientId;

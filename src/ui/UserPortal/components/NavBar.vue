@@ -33,7 +33,7 @@
 					</template>
 				</div>
 				<div class="navbar__content__left__item">
-					<template v-if="currentSession && agents.length > 0">
+					<template v-if="currentSession && allowAgentHint">
 						<Dropdown
 							v-model="agentSelection"
 							:options="agents"
@@ -88,6 +88,7 @@ export default {
 			signedIn: false,
 			accountName: '',
 			userName: '',
+			allowAgentHint: false,
 			agentSelection: null,
 			agents: [],
 		};
@@ -98,6 +99,7 @@ export default {
 	},
 
 	async created() {
+		this.allowAgentHint = this.appConfigStore.allowAgentHint.enabled;
 		this.logoText = this.appConfigStore.logoText;
 		this.logoURL = this.appConfigStore.logoUrl;
 		this.closeSidebar(this.appConfigStore.isKioskMode);
