@@ -17,7 +17,7 @@ def test_config():
 def test_completion_request():
      req = CompletionRequest(
                          user_prompt="What is FoundationaLLM?",
-                         agent=Agent(name="demo-resolver", type="generic-resolver", description="Useful for choosing one or more items from a list of FoundationaLLM demo options.", prompt_template="You are an option selector in the FoundationaLLM system. Your job is to select one or more options from a list of options that can best satisfy the incoming User Prompt. An option consists of a name and description. Evaluate each option by its description.\n\nYou are to select the number of options that are requested in the user prompt. If no specific number of options are requested, consider it to select one option. Respond with the option name in a comma delimited list with the label Final answer.\n\nExample:\nFinal Answer: ['option_1_name', 'option_2_name']\n\nDo not make anything up, do not create a fake conversation, use only the data provided here. Remember the final answer formatting instructions.\n\n{options}\n\nUser Prompt:{user_prompt}\n\nFinal Answer:\n"),
+                         agent=Agent(name="demo-resolver", type="generic-resolver", description="Useful for choosing one or more items from a list of FoundationaLLM demo options.", prompt_template="You are a demo option selector in the FoundationaLLM system. Your job is to select one or more options from a list of options that can best satisfy the incoming User Prompt. An option consists of a name and description. Evaluate each option by its description.\n\nYou are to select the number of options that are requested in the user prompt. Provide the answer in natural language.\n\nExample: The best option for your request is the default demo.\n\nDo not make anything up, do not create a fake conversation, use only the data provided here.\n\n{options}\n\nUser Prompt:{user_prompt}\n\nAnswer:\n"),
                          data_source=DataSource(name="foundationallm-demos", type="blob-storage", description="Information about FoundationaLLM demos.", configuration=BlobStorageConfiguration(connection_string_secret="FoundationaLLM:BlobStorage:ConnectionString", container="foundationallm-demo-source", files = ["demos.json"])),
                          language_model=LanguageModel(type=LanguageModelTypes.OPENAI, provider=LanguageModelProviders.MICROSOFT, temperature=0, use_chat=True),
                          message_history=[MessageHistoryItem(sender="User", text="What is FoundationaLLM?"),  
@@ -39,7 +39,8 @@ class GenericResolverAgentTests:
     This is an integration test class and expects the following environment variable to be set:
         foundationallm-app-configuration-uri
         
-    This test class also expects a valid Azure credential (DefaultAzureCredential) session.
+    This test class also expects a valid Azure credential (DefaultAzureCredential) session and
+        the file demos.json to be present in the Azure Blob Storage container foundationallm-demo-source.
     """
 
     def test_read_json_options_from_storage(self, test_completion_request, test_llm, test_config):
@@ -53,7 +54,7 @@ class GenericResolverAgentTests:
         test_completion_request.user_prompt = prompt
         agent = GenericResolverAgent(completion_request=test_completion_request,llm=test_llm, config=test_config)
         selection_list = (agent.run(prompt=user_prompt)).completion                      
-        assert len(selection_list) == 2 and 'default' in selection_list and 'about-solliance' in selection_list
+        assert 'default' in selection_list and 'about-solliance' in selection_list
         
     def test_run_should_return_one_name_survey_results(self, test_completion_request, test_llm, test_config):
         prompt = "What demo should I use to demonstrate the CSV features of FoundationaLLM?"        
@@ -61,4 +62,5 @@ class GenericResolverAgentTests:
         test_completion_request.user_prompt = prompt
         agent = GenericResolverAgent(completion_request=test_completion_request,llm=test_llm, config=test_config)
         selection_list = (agent.run(prompt=user_prompt)).completion        
-        assert len(selection_list)==1 and "survey-results" in selection_list
+        assert "survey-results" in selection_list        
+   

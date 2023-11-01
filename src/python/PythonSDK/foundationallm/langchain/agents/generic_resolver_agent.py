@@ -2,8 +2,8 @@ import json
 from typing import List
 from pydantic import parse_obj_as
 from langchain.prompts import PromptTemplate
+from langchain.schema.messages import AIMessage
 from foundationallm.langchain.agents.agent_base import AgentBase
-from foundationallm.langchain.output_parsers import GenericResolverAgentOutputParser
 from foundationallm.models.orchestration import OrchestrationResponse
 from langchain.base_language import BaseLanguageModel
 from foundationallm.config import Configuration
@@ -17,8 +17,8 @@ class GenericResolverAgent(AgentBase):
     The GenericResolverAgent is responsible for choosing one or more options from a list of options 
         consisting of a name and description from a JSON file in blob storage.
         
-        This agent determines the best matches based on the incoming user_prompt and message history.
-        The user prompt may request one or more options from the list.
+        This agent determines the best matches based on the incoming user_prompt.
+        The user prompt may request one or more options from the list.   
     """
     def __init__(self, completion_request: CompletionRequest, llm: BaseLanguageModel, config: Configuration):
         self.user_prompt = completion_request.user_prompt        
@@ -28,7 +28,7 @@ class GenericResolverAgent(AgentBase):
         self.file_names = completion_request.data_source.configuration.files
         # prompt template expects options list and user_prompt as inputs        
         self.prompt_template = PromptTemplate.from_template(completion_request.agent.prompt_template)        
-        self.options_list = self.build_options_list(options_list = self.load_options())
+        self.options_list = self.build_options_list(options_list = self.load_options())        
             
     def load_options(self) -> List[ListOption]:        
         options_list = []
@@ -74,20 +74,17 @@ class GenericResolverAgent(AgentBase):
         """
         try:           
             with get_openai_callback() as cb:
-                chain = self.prompt_template | self.llm | GenericResolverAgentOutputParser()                
-                completion = chain.invoke({"options": self.options_list, "user_prompt": prompt})
-                print(completion)
-                              
+                chain = self.prompt_template | self.llm          
+                completion_message:AIMessage = chain.invoke({"options": self.options_list, "user_prompt": prompt})                
                 return CompletionResponse(
-                    completion = completion,
+                    completion = completion_message.content,
                     user_prompt = prompt,
                     completion_tokens = cb.completion_tokens,
                     prompt_tokens = cb.prompt_tokens,
                     total_tokens = cb.total_tokens,
                     total_cost = cb.total_cost
                 )
-        except Exception as e: 
-            print(e)
+        except Exception as e:            
             return CompletionResponse(
                     completion = "A problem on my side prevented me from responding.",
                     user_prompt = prompt
