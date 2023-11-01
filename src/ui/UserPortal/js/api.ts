@@ -23,8 +23,12 @@ export default {
 		return this.bearerToken;
 	},
 
-	async getConfigValue(variable: string) {
-		return await $fetch(`/api/config/${variable}`);
+	async getConfigValue(key: string) {
+		return await $fetch(`/api/config/`, {
+			params: {
+				key
+			}
+		});
 	},
 
 	async fetch(url: string, opts: any = {}) {
