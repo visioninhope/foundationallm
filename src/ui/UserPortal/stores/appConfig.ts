@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { AuthConfigOptions } from '@js/auth';
-import { getAppConfigSetting } from '@/js/config';
+import api from '@/js/api';
 
 export const appConfig = defineStore('appConfig', {
 	state: () => ({
