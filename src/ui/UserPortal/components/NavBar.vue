@@ -33,7 +33,7 @@
 					</template>
 				</div>
 				<div class="navbar__content__left__item">
-					<template v-if="currentSession && allowAgentSelection">
+					<template v-if="currentSession && agents.length > 0">
 						<Dropdown
 							v-model="agentSelection"
 							:options="agents"
@@ -88,15 +88,8 @@ export default {
 			signedIn: false,
 			accountName: '',
 			userName: '',
-			allowAgentSelection: true,
 			agentSelection: '',
-			agents: [
-				{ label: 'Default', value: 'Default' },
-				{ label: 'SDZWA', value: 'SDZWA' },
-				{ label: 'Survey Data', value: 'SurveyData' },
-				{ label: 'Solliance', value: 'Solliance' },
-				{ label: 'FoundationaLLM', value: 'FoundationaLLM' }
-			]
+			agents: [],
 		};
 	},
 
@@ -108,8 +101,11 @@ export default {
 		this.logoText = this.appConfigStore.logoText;
 		this.logoURL = this.appConfigStore.logoUrl;
 		this.closeSidebar(this.appConfigStore.isKioskMode);
-		this.allowAgentSelection = this.appConfigStore.allowAgentSelection;
-		
+
+		for (const agent of this.appConfigStore.agents) {
+			this.agents.push({ label: agent, value: agent });
+		}
+
 		if (process.client) {
 			const msalInstance = await getMsalInstance();
 			const accounts = await msalInstance.getAllAccounts();
