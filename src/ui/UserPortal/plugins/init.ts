@@ -13,6 +13,8 @@ export default defineNuxtPlugin(async (nuxtApp: any) => {
 	// Set the api url
 	const appConfigStore = appConfig(nuxtApp.$pinia);
 	api.setApiUrl(appConfigStore.apiUrl);
+	
+	api.setAllowAgentSelection(appConfigStore.allowAgentSelection);
 
 	// Set auth variables
 	setConfig({

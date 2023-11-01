@@ -8,6 +8,9 @@ export const appConfig = defineStore('appConfig', {
 
 		// Layout settings
 		isKioskMode: false,
+		allowAgentSelection: false,
+
+		agent: null,
 
 		// Style settings
 		pageTitle: null,
@@ -35,6 +38,7 @@ export const appConfig = defineStore('appConfig', {
 			const [
 				apiUrl,
 				isKioskMode,
+				allowAgentSelection,
 				pageTitle,
 				logoUrl,
 				logoText,
@@ -52,6 +56,7 @@ export const appConfig = defineStore('appConfig', {
 			] = await Promise.all([
 				getAppConfigSetting('FoundationaLLM:APIs:CoreAPI:APIUrl'),
 				getAppConfigSetting('FoundationaLLM:Branding:KioskMode'),
+				getAppConfigSetting('FoundationaLLM:Branding:AllowAgentSelection'),
 				getAppConfigSetting('FoundationaLLM:Branding:PageTitle'),
 				getAppConfigSetting('FoundationaLLM:Branding:LogoUrl'),
 				getAppConfigSetting('FoundationaLLM:Branding:LogoText'),
@@ -71,6 +76,7 @@ export const appConfig = defineStore('appConfig', {
 			this.apiUrl = apiUrl;
 
 			this.isKioskMode = Boolean(isKioskMode);
+			this.allowAgentSelection = Boolean(allowAgentSelection);
 
 			this.auth.clientId = authClientId;
 			this.auth.instance = authInstance;

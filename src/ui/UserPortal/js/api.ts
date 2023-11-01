@@ -4,10 +4,15 @@ import { getMsalInstance } from '@/js/auth';
 
 export default {
 	apiUrl: null as string | null,
+	allowAgentSelection: null as boolean | null,
 	bearerToken: null as string | null,
 
 	setApiUrl(url: string) {
 		this.apiUrl = url;
+	},
+
+	setAllowAgentSelection(allowAgentSelection: boolean) {
+		this.allowAgentSelection = allowAgentSelection;
 	},
 
 	async getBearerToken() {
@@ -22,7 +27,7 @@ export default {
 		return this.bearerToken;
 	},
 
-	async fetch(url: string, opts: any = {}) {
+	async fetch(url: string, opts: any = {}, agent?: string) {
 		const options = opts;
 		options.headers = opts.headers || {};
 
@@ -33,6 +38,12 @@ export default {
 		const bearerToken = await this.getBearerToken();
 		options.headers['Authorization'] = `Bearer ${bearerToken}`;
 
+		// if (this.allowAgentSelection) {
+		// 	console.log('agent', agent);
+		// 	if (agent) {
+		// 		options.headers['X-AGENT-HINT'] = agent;
+		// 	}
+		// }
 		return await $fetch(`${this.apiUrl}${url}`, options);
 	},
 
@@ -82,14 +93,17 @@ export default {
 			`/sessions/${message.sessionId}/message/${message.id}/rate`, {
 				method: 'POST',
 				params
-			}
+			},
 		) as Message;
 	},
 
-	async sendMessage(sessionId: string, text: string) {
+	async sendMessage(sessionId: string, text: string, agent: string) {
 		return (await this.fetch(`/sessions/${sessionId}/completion`, {
 			method: 'POST',
 			body: JSON.stringify(text),
+			headers: {
+				'X-AGENT-HINT': agent,
+			}
 		})) as string;
 	},
 };

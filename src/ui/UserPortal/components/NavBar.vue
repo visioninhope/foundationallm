@@ -31,6 +31,17 @@
 						<span>Please select a session</span>
 					</template>
 				</div>
+				<div class="navbar__content__left__item">
+					<template v-if="currentSession && allowAgentSelection">
+						<Dropdown
+							v-model="agentSelection"
+							:options="agents"
+							optionLabel="label"
+							placeholder="--Select--"
+							@change="handleAgentChange"
+						/>
+					</template>
+				</div>
 			</div>
 
 			<!-- Right side content -->
@@ -77,6 +88,15 @@ export default {
 			signedIn: false,
 			accountName: '',
 			userName: '',
+			allowAgentSelection: true,
+			agentSelection: '',
+			agents: [
+				{ label: 'Default', value: 'Default' },
+				{ label: 'SDZWA', value: 'SDZWA' },
+				{ label: 'Survey Data', value: 'SurveyData' },
+				{ label: 'Solliance', value: 'Solliance' },
+				{ label: 'FoundationaLLM', value: 'FoundationaLLM' }
+			]
 		};
 	},
 
@@ -89,6 +109,7 @@ export default {
 		this.logoURL = this.appConfigStore.logoUrl;
 		this.isKioskMode = this.appConfigStore.isKioskMode;
 		this.closeSidebar(this.isKioskMode);
+		this.allowAgentSelection = this.appConfigStore.allowAgentSelection;
 
 		if (process.client) {
 			const msalInstance = await getMsalInstance();
@@ -114,6 +135,15 @@ export default {
 			this.$toast.add({
 				severity: 'success',
 				detail: 'Chat link copied!',
+				life: 2000,
+			});
+		},
+
+		handleAgentChange() {
+			this.appConfigStore.agent = this.agentSelection.value;
+			this.$toast.add({
+				severity: 'success',
+				detail: `Agent changed to ${this.agentSelection.label}`,
 				life: 2000,
 			});
 		},
@@ -194,6 +224,11 @@ export default {
 	padding: 24px;
 	border-bottom: 1px solid #EAEAEA;
 	background-color: var(--accent-color);
+}
+
+.navbar__content__left {
+	display: flex;
+	align-items: center;
 }
 
 .navbar__content__left__item {
