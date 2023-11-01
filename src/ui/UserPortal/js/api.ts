@@ -8,7 +8,8 @@ export default {
 	bearerToken: null as string | null,
 
 	setApiUrl(url: string) {
-		this.apiUrl = url;
+		// Set the api url and remove a trailing slash if there is one.
+		this.apiUrl = url.replace(/\/$/, '');
 	},
 
 	setAllowAgentSelection(allowAgentSelection: boolean) {

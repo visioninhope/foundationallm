@@ -1,7 +1,5 @@
-// Node seems to try dns resolution with IPv6 first which breaks the
-// azure app configuration service requests, so we need to force it use IPv4 instead
-// https://stackoverflow.com/questions/72390154/econnrefused-when-making-a-request-to-localhost-using-fetch-in-node-js
-// https://blog.codergautam.dev/how-to-fix-econnrefused-when-making-a-request-to-localhost-using-fetch-in-node-js/#the-problem
+// Node may try dns resolution with IPv6 first which breaks the azure app
+// configuration service requests, so we need to force it use IPv4 instead.
 if (process.server) {
 	const dns = require('node:dns');
 	dns.setDefaultResultOrder('ipv4first');

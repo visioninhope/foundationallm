@@ -1,18 +1,19 @@
 import { defineStore } from 'pinia';
+import type { AuthConfigOptions } from '@js/auth';
 import { getAppConfigSetting } from '@/js/config';
 
 export const appConfig = defineStore('appConfig', {
 	state: () => ({
-		// API
+		// API: Defines API-specific settings such as the base URL for application requests.
 		apiUrl: null,
 
-		// Layout settings
+		// Layout: These settings impact the structural layout of the chat interface.
 		isKioskMode: false,
 		allowAgentSelection: false,
 
 		agent: null,
 
-		// Style settings
+		// Style: These settings impact the visual style of the chat interface.
 		pageTitle: null,
 		logoUrl: null,
 		logoText: null,
@@ -23,14 +24,14 @@ export const appConfig = defineStore('appConfig', {
 		primaryText: null,
 		secondaryText: null,
 
-		// Auth
+		// Auth: These settings configure the MSAL authentication.
 		auth: {
 			clientId: null,
 			instance: null,
 			tenantId: null,
 			scopes: [],
 			callbackPath: null,
-		},
+		} as AuthConfigOptions,
 	}),
 	getters: {},
 	actions: {
@@ -75,7 +76,7 @@ export const appConfig = defineStore('appConfig', {
 
 			this.apiUrl = apiUrl;
 
-			this.isKioskMode = Boolean(isKioskMode);
+			this.isKioskMode = JSON.parse(isKioskMode);
 			this.allowAgentSelection = Boolean(allowAgentSelection);
 
 			this.auth.clientId = authClientId;

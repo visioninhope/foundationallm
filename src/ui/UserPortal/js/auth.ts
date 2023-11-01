@@ -2,28 +2,35 @@ import { LogLevel, PublicClientApplication } from '@azure/msal-browser';
 
 const ENABLE_LOGS = false;
 
-let AUTH_CLIENT_ID: string;
-let AUTH_INSTANCE: string;
-let AUTH_TENANT_ID: string;
-let AUTH_SCOPES: string;
-let AUTH_CALLBACK_PATH: string;
+export interface AuthConfigOptions {
+	clientId: string;
+	instance: string;
+	tenantId: string;
+	scopes: string;
+	callbackPath: string;
+}
 
-export function setConfig({ clientId, instance, tenantId, scopes, callbackPath }) {
-	AUTH_CLIENT_ID = clientId;
-	AUTH_INSTANCE = instance;
-	AUTH_TENANT_ID = tenantId;
-	AUTH_SCOPES = scopes;
-	AUTH_CALLBACK_PATH = callbackPath;
+let configOptions: AuthConfigOptions = {
+	clientId: '',
+	instance: '',
+	tenantId: '',
+	scopes: '',
+	callbackPath: '',
+};
+
+export function setAuthConfig(config: AuthConfigOptions) {
+	configOptions = config;
 }
 
 function getMsalConfig() {
 	return {
 		auth: {
-			clientId: AUTH_CLIENT_ID,
-			authority: `${AUTH_INSTANCE}${AUTH_TENANT_ID}`,
-			redirectUri: AUTH_CALLBACK_PATH,
-			scopes: [AUTH_SCOPES],
-			postLogoutRedirectUri: '/', // Must be registered as a SPA redirectURI on your app registration
+			clientId: configOptions.clientId,
+			authority: `${configOptions.instance}${configOptions.tenantId}`,
+			redirectUri: configOptions.callbackPath,
+			scopes: [configOptions.scopes],
+			// Must be registered as a SPA redirectURI on your app registration.
+			postLogoutRedirectUri: '/',
 		},
 		cache: {
 			cacheLocation: 'sessionStorage',
@@ -64,7 +71,7 @@ export async function getMsalInstance() {
 	return msalInstance;
 }
 
-// Add here scopes for id token to be used at MS Identity Platform endpoints.
+// Add scopes here for the id token to be used at MS Identity Platform endpoints.
 export function getLoginRequest() {
 	const msalConfig = getMsalConfig();
 	return {
@@ -72,7 +79,7 @@ export function getLoginRequest() {
 	};
 }
 
-// Add here the endpoints for MS Graph API services you would like to use.
+// Add the endpoints here for MS Graph API services you would like to use.
 export const graphConfig = {
 	graphMeEndpoint: 'https://graph.microsoft.com/v1.0/me',
 	graphMailEndpoint: 'https://graph.microsoft.com/v1.0/me/messages',
