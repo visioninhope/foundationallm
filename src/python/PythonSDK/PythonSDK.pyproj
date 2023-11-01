@@ -25,9 +25,6 @@
     <Compile Include="foundationallm\context\context.py" />
     <Compile Include="foundationallm\context\user_identity.py" />
     <Compile Include="foundationallm\context\__init__.py" />
-    <Compile Include="foundationallm\credentials\azure_credential.py" />
-    <Compile Include="foundationallm\credentials\credential.py" />
-    <Compile Include="foundationallm\credentials\__init__.py" />
     <Compile Include="foundationallm\models\list_option.py" />
     <Compile Include="foundationallm\resolvers\generic_resolver_agent.py" />
     <Compile Include="foundationallm\hubs\agent\agent_type.py" />
@@ -177,7 +174,6 @@
     <Folder Include="foundationallm\models\metadata\" />
     <Folder Include="foundationallm\models\orchestration\" />
     <Folder Include="foundationallm\hubs\" />
-    <Folder Include="foundationallm\credentials\" />
     <Folder Include="foundationallm\context\" />
     <Folder Include="foundationallm\resolvers\" />
     <Folder Include="foundationallm\storage\" />
