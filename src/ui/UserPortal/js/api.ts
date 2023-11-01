@@ -28,7 +28,7 @@ export default {
 		return this.bearerToken;
 	},
 
-	async fetch(url: string, opts: any = {}, agent?: string) {
+	async fetch(url: string, opts: any = {}) {
 		const options = opts;
 		options.headers = opts.headers || {};
 
@@ -39,12 +39,6 @@ export default {
 		const bearerToken = await this.getBearerToken();
 		options.headers['Authorization'] = `Bearer ${bearerToken}`;
 
-		// if (this.allowAgentSelection) {
-		// 	console.log('agent', agent);
-		// 	if (agent) {
-		// 		options.headers['X-AGENT-HINT'] = agent;
-		// 	}
-		// }
 		return await $fetch(`${this.apiUrl}${url}`, options);
 	},
 
