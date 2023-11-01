@@ -13,8 +13,6 @@ export default defineNuxtPlugin(async (nuxtApp: any) => {
 	// Set the api url to use from the dynamic azure config.
 	const appConfigStore = appConfig(nuxtApp.$pinia);
 	api.setApiUrl(appConfigStore.apiUrl);
-	
-	api.setAllowAgentSelection(appConfigStore.allowAgentSelection);
 
 	// Set the auth configuration for MSAL from the dynamic azure config.
 	setAuthConfig(appConfigStore.auth);

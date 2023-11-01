@@ -9,9 +9,7 @@ export const appConfig = defineStore('appConfig', {
 
 		// Layout: These settings impact the structural layout of the chat interface.
 		isKioskMode: false,
-		allowAgentSelection: false,
-
-		agent: null,
+		agents: [],
 
 		// Style: These settings impact the visual style of the chat interface.
 		pageTitle: null,
@@ -39,7 +37,7 @@ export const appConfig = defineStore('appConfig', {
 			const [
 				apiUrl,
 				isKioskMode,
-				allowAgentSelection,
+				agents,
 				pageTitle,
 				logoUrl,
 				logoText,
@@ -77,7 +75,7 @@ export const appConfig = defineStore('appConfig', {
 			this.apiUrl = apiUrl;
 
 			this.isKioskMode = JSON.parse(isKioskMode);
-			this.allowAgentSelection = Boolean(allowAgentSelection);
+			this.agents = agents.split(', ');
 
 			this.auth.clientId = authClientId;
 			this.auth.instance = authInstance;

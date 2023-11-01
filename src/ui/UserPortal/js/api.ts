@@ -4,16 +4,11 @@ import { getMsalInstance } from '@/js/auth';
 
 export default {
 	apiUrl: null as string | null,
-	allowAgentSelection: null as boolean | null,
 	bearerToken: null as string | null,
 
 	setApiUrl(url: string) {
 		// Set the api url and remove a trailing slash if there is one.
 		this.apiUrl = url.replace(/\/$/, '');
-	},
-
-	setAllowAgentSelection(allowAgentSelection: boolean) {
-		this.allowAgentSelection = allowAgentSelection;
 	},
 
 	async getBearerToken() {
@@ -93,12 +88,11 @@ export default {
 	},
 
 	async sendMessage(sessionId: string, text: string, agent: string) {
+		const headers = agent ? { 'X-AGENT-HINT': agent } : {};
 		return (await this.fetch(`/sessions/${sessionId}/completion`, {
 			method: 'POST',
 			body: JSON.stringify(text),
-			headers: {
-				'X-AGENT-HINT': agent,
-			}
+			headers,
 		})) as string;
 	},
 };
