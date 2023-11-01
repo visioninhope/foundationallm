@@ -7,6 +7,8 @@ import { AppConfigurationClient } from '@azure/app-configuration';
 
 const validKeys = [
 	'FoundationaLLM:APIs:CoreAPI:APIUrl',
+	'.appconfig.featureflag/FoundationaLLM-AllowAgentHint',
+	'FoundationaLLM:Branding:AllowAgentSelection',
 	'FoundationaLLM:Branding:KioskMode',
 	'FoundationaLLM:Branding:PageTitle',
 	'FoundationaLLM:Branding:LogoUrl',
