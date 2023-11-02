@@ -257,3 +257,10 @@ export default {
 	overflow-wrap: break-word;
 }
 </style>
+
+<style lang="scss">
+.p-chip .p-chip-text {
+	line-height: 1.1;
+	font-size: 0.75rem;
+}
+</style>
