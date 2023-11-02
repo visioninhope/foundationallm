@@ -246,6 +246,11 @@
           "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
         },
         {
+          "key": "FoundationaLLM:DataSources:AboutFoundationaLLM:BlobStorage:ConnectionString",
+          "value": "[concat('{\"uri\":\"https://',variables('keyVaultSettings').name, '.vault.azure.net/secrets/foundationallm-blobstoragememorysource-blobstorageconnection\"}')]",
+          "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
+        },
+        {
           "key": "FoundationaLLM:BlobStorageMemorySource:BlobStorageContainer",
           "value": "memory-source",
           "contentType": null
