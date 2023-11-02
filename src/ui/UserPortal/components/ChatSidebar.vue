@@ -92,8 +92,10 @@
 </template>
 
 <script lang="ts">
+import { mapStores } from 'pinia';
 import type { PropType } from 'vue';
-import { Session } from '@/js/types';
+import type { Session } from '@/js/types';
+import { appConfig } from '@/stores/appConfig';
 import api from '@/js/api';
 
 export default {
@@ -103,7 +105,7 @@ export default {
 		currentSession: {
 			type: [Object, null] as PropType<Session | null>,
 			required: true,
-		}
+		},
 	},
 
 	emits: ['change-session', 'session-updated'],
@@ -119,12 +121,22 @@ export default {
 		};
 	},
 
+	computed: {
+		...mapStores(appConfig),
+	},
+
 	async created() {
 		if (process.client) {
 			await this.getSessions();
-			const sessionId = this.$nuxt._route.query.chat;
-			const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
-			this.handleSessionSelected(existingSession || this.sessions[0]);
+
+			if (this.appConfigStore.isKioskMode) {
+				const newSession = await api.addSession();
+				this.handleSessionSelected(newSession);
+			} else {
+				const sessionId = this.$nuxt._route.query.chat;
+				const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
+				this.handleSessionSelected(existingSession || this.sessions[0]);
+			}
 		}
 	},
 

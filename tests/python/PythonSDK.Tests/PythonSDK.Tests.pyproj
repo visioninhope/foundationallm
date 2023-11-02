@@ -29,6 +29,7 @@
     <Compile Include="hubs\agent\agent_hub_tests.py" />
     <Compile Include="langchain\message_history\message_history_tests.py" />
     <Compile Include="pytest.ini" />
+    <Compile Include="langchain\agents\generic_resolver_agent_tests.py" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\python\PythonSDK\PythonSDK.pyproj">
@@ -46,6 +47,7 @@
     <Folder Include="langchain\" />
     <Folder Include="langchain\message_history\" />
     <Folder Include="config\" />
+    <Folder Include="langchain\agents\" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">

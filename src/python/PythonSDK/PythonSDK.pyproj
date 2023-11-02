@@ -28,6 +28,8 @@
     <Compile Include="foundationallm\credentials\azure_credential.py" />
     <Compile Include="foundationallm\credentials\credential.py" />
     <Compile Include="foundationallm\credentials\__init__.py" />
+    <Compile Include="foundationallm\models\list_option.py" />
+    <Compile Include="foundationallm\langchain\agents\generic_resolver_agent.py" />
     <Compile Include="foundationallm\hubs\agent\agent_type.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\blob_storage_authentication_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\blob_storage_data_source_metadata.py" />

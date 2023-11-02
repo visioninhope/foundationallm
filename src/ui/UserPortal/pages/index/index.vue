@@ -9,7 +9,9 @@
 </template>
 
 <script lang="ts">
-import { Session } from '@/js/types';
+import { mapStores } from 'pinia';
+import { appConfig } from '@/stores/appConfig';
+import type { Session } from '@/js/types';
 
 export default {
 	name: 'Index',
@@ -21,14 +23,22 @@ export default {
 		};
 	},
 
+	computed: {
+		...mapStores(appConfig),
+	},
+
 	methods: {
 		handleSessionUpdated(session: Session) {
 			this.currentSession = session;
 		},
 
 		handleChangeSession(session: Session) {
-			const query = { chat: session.id };
-			this.$router.push({ query });
+			if (this.appConfigStore.isKioskMode) {
+				this.$router.push({ query: {} });
+			} else {
+				const query = { chat: session.id };
+				this.$router.push({ query });
+			}
 			this.currentSession = session;
 		},
 

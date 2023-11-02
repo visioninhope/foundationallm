@@ -41,9 +41,11 @@
 </template>
 
 <script lang="ts">
+import { mapStores } from 'pinia';
 import type { PropType } from 'vue';
-import { Message, Session } from '@/js/types';
+import type { Message, Session } from '@/js/types';
 import api from '@/js/api';
+import { appConfig } from '@/stores/appConfig';
 
 export default {
 	name: 'ChatThread',
@@ -70,6 +72,10 @@ export default {
 		};
 	},
 
+	computed: {
+		...mapStores(appConfig),
+	},
+
 	watch: {
 		async session(newSession: Session, oldSession: Session) {
 			if (newSession.id === oldSession.id) return;
@@ -77,7 +83,7 @@ export default {
 			this.userSentMessage = false;
 			await this.getMessages();
 			this.isLoading = false;
-		}
+		},
 	},
 
 	methods: {
@@ -124,7 +130,7 @@ export default {
 			};
 			this.messages.push(tempAssistantMessage);
 
-			await api.sendMessage(this.session!.id, text);
+			await api.sendMessage(this.session!.id, text, this.appConfigStore.selectedAgents.get(this.session.id));
 			await this.getMessages();
 
 			// Update the session name based on the message sent
@@ -170,12 +176,12 @@ export default {
 	overflow-y: auto;
 	overscroll-behavior: auto;
 	scrollbar-gutter: stable;
-	padding: 24px;
+	padding: 24px 32px;
 }
 
 .chat-thread__input {
 	display: flex;
-	margin: 24px;
+	margin: 0px 24px 24px 24px;
 	// box-shadow: 0 -5px 10px 0 rgba(27, 29, 33, 0.1);
 }
 

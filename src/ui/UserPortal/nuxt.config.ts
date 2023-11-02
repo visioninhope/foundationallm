@@ -1,6 +1,23 @@
+import fs from 'fs';
+
+const buildLoadingTemplate = (() => {
+	const path = 'server/buildLoadingTemplate.html';
+
+	try {
+		const data = fs.readFileSync(path, 'utf8');
+		return data;
+	} catch (error) {
+		console.error('Error reading build loading template!', error);
+		return null;
+	}
+})();
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	devtools: { enabled: true },
+	modules: [
+		'@pinia/nuxt',
+	],
 	components: true,
 	app: {
 		head: {
@@ -15,7 +32,7 @@ export default defineNuxtConfig({
 		},
 	},
 	routeRules: {
-		'/': { ssr: false },
+		// '/': { ssr: false },
 	},
 	css: [
 		'primevue/resources/themes/viva-light/theme.css',
@@ -25,9 +42,14 @@ export default defineNuxtConfig({
 	build: {
 		transpile: ['primevue'],
 	},
-	vite: {
-		define: {
-			APP_CONFIG_ENDPOINT: JSON.stringify(process.env.APP_CONFIG_ENDPOINT),
-		},
+	devServer: {
+		...(buildLoadingTemplate
+			? {
+					loadingTemplate: () => buildLoadingTemplate,
+			  }
+			: {}),
+	},
+	runtimeConfig: {
+		APP_CONFIG_ENDPOINT: process.env.APP_CONFIG_ENDPOINT,
 	},
 });

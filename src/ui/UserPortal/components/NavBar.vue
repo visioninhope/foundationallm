@@ -5,7 +5,7 @@
 			<img v-if="logoURL !== ''" :src="logoURL" />
 			<span v-else>{{ logoText }}</span>
 
-			<template v-if="!isKioskMode">
+			<template v-if="!appConfigStore.isKioskMode">
 				<Button v-if="isSidebarClosed" icon="pi pi-arrow-right" size="small" severity="secondary" @click="closeSidebar(false)" />
 				<Button v-else icon="pi pi-arrow-left" size="small" severity="secondary" @click="closeSidebar(true)" />
 			</template>
@@ -18,6 +18,7 @@
 					<template v-if="currentSession">
 						<span>{{ currentSession.name }}</span>
 						<Button
+							v-if="!appConfigStore.isKioskMode"
 							v-tooltip.bottom="'Copy link to chat session'"
 							class="button--share"
 							icon="pi pi-copy"
@@ -29,6 +30,17 @@
 					</template>
 					<template v-else>
 						<span>Please select a session</span>
+					</template>
+				</div>
+				<div class="navbar__content__left__item">
+					<template v-if="currentSession && allowAgentHint">
+						<Dropdown
+							v-model="agentSelection"
+							:options="agents"
+							optionLabel="label"
+							placeholder="--Select--"
+							@change="handleAgentChange"
+						/>
 					</template>
 				</div>
 			</div>
@@ -50,10 +62,11 @@
 </template>
 
 <script lang="ts">
+import { mapStores } from 'pinia';
 import type { PropType } from 'vue';
 import type { Session } from '@/js/types';
+import { appConfig } from '@/stores/appConfig';
 import { getMsalInstance, getLoginRequest } from '@/js/auth';
-import getAppConfigSetting from '@/js/config';
 
 export default {
 	name: 'NavBar',
@@ -72,14 +85,37 @@ export default {
 			logoText: '',
 			logoURL: '',
 			isSidebarClosed: true,
-			isKioskMode: true,
 			signedIn: false,
 			accountName: '',
 			userName: '',
+			allowAgentHint: false,
+			agentSelection: null,
+			agents: [],
 		};
 	},
 
+	computed: {
+		...mapStores(appConfig),
+	},
+
+	watch: {
+		currentSession(newSession: Session, oldSession: Session) {
+			if (newSession.id === oldSession.id) return;
+			this.agentSelection = this.agents.find(agent => agent.value === this.appConfigStore.selectedAgents.get(newSession.id)) || null;
+		},
+	},
+
 	async created() {
+		this.allowAgentHint = this.appConfigStore.allowAgentHint.enabled;
+		this.logoText = this.appConfigStore.logoText;
+		this.logoURL = this.appConfigStore.logoUrl;
+		this.closeSidebar(this.appConfigStore.isKioskMode);
+
+		this.agents.push({ label: '--select--', value: null});
+		for (const agent of this.appConfigStore.agents) {
+			this.agents.push({ label: agent, value: agent });
+		}
+
 		if (process.client) {
 			const msalInstance = await getMsalInstance();
 			const accounts = await msalInstance.getAllAccounts();
@@ -88,10 +124,6 @@ export default {
 				this.accountName = accounts[0].name;
 				this.userName = accounts[0].username;
 			}
-			this.logoText = await getAppConfigSetting('FoundationaLLM:Branding:LogoText');
-			this.logoURL = await getAppConfigSetting('FoundationaLLM:Branding:LogoUrl');
-			this.isKioskMode = Boolean(await getAppConfigSetting('FoundationaLLM:Branding:KioskMode'));
-			this.closeSidebar(this.isKioskMode);
 		}
 	},
 
@@ -108,6 +140,16 @@ export default {
 			this.$toast.add({
 				severity: 'success',
 				detail: 'Chat link copied!',
+				life: 2000,
+			});
+		},
+
+		handleAgentChange() {
+			this.appConfigStore.selectedAgents.set(this.currentSession.id, this.agentSelection.value);
+			const message = this.agentSelection.value ? `Agent changed to ${this.agentSelection.label}` : `Cleared agent hint selection`;
+			this.$toast.add({
+				severity: 'success',
+				detail: message,
 				life: 2000,
 			});
 		},
@@ -138,7 +180,7 @@ export default {
 			this.userName = '';
 			this.$router.push({ path: '/login' });
 			// await msalInstance.logout();
-		}
+		},
 	},
 };
 </script>
@@ -188,6 +230,11 @@ export default {
 	padding: 24px;
 	border-bottom: 1px solid #EAEAEA;
 	background-color: var(--accent-color);
+}
+
+.navbar__content__left {
+	display: flex;
+	align-items: center;
 }
 
 .navbar__content__left__item {
