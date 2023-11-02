@@ -27,7 +27,8 @@ const validKeys = [
 ];
 
 export default defineEventHandler(async (event) => {
-	const key = getRouterParam(event, 'key');
+	const query = getQuery(event);
+	const key = query.key;
 
 	if (!validKeys.includes(key)) {
 		setResponseStatus(event, 404, `Config value ${key} not found.`);
