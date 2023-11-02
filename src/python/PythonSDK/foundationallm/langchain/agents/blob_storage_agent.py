@@ -85,6 +85,7 @@ class BlobStorageAgent(AgentBase):
         CompletionResponse
             Returns a CompletionResponse with the generated summary, the user_prompt,
             and token utilization and execution cost details.
+        """
 
         with get_openai_callback() as cb:
             index = self.__get_vector_index()
