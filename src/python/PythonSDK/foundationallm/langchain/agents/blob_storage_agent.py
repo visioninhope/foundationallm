@@ -41,9 +41,9 @@ class BlobStorageAgent(AgentBase):
         Creates a vector index from files in the indicated blob storage container and files list
         """
 
-        if self.container_name in vector_store:
+        if self.container_name in vector_store:            
             return vector_store[self.container_name]
-
+        
         loaders = []    
         if "*" in self.file_names:
             # Load all files in the container
@@ -85,23 +85,17 @@ class BlobStorageAgent(AgentBase):
         CompletionResponse
             Returns a CompletionResponse with the generated summary, the user_prompt,
             and token utilization and execution cost details.
-        """
-        try:          
-       
-            with get_openai_callback() as cb:
-                index = self.__get_vector_index()
-                query = self.prompt_prefix + build_message_history(self.message_history) + "Request: "+ prompt + "\n"            
-                completion = index.query(query, self.llm)
-                return CompletionResponse(
-                    completion = completion,
-                    user_prompt = prompt,
-                    completion_tokens = cb.completion_tokens,
-                    prompt_tokens = cb.prompt_tokens,
-                    total_tokens = cb.total_tokens,
-                    total_cost = cb.total_cost
-                )
-        except Exception as e:
+        """              
+        with get_openai_callback() as cb:
+            index = self.__get_vector_index()
+            query = self.prompt_prefix + build_message_history(self.message_history) + "Request: "+ prompt + "\n"            
+            completion = index.query(query, self.llm)
             return CompletionResponse(
-                    completion = "A problem on my side prevented me from responding.",
-                    user_prompt = prompt
-                )
+                completion = completion,
+                user_prompt = prompt,
+                completion_tokens = cb.completion_tokens,
+                prompt_tokens = cb.prompt_tokens,
+                total_tokens = cb.total_tokens,
+                total_cost = cb.total_cost
+            )
+       
