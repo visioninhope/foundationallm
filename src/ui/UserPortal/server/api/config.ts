@@ -6,7 +6,8 @@ dns.setDefaultResultOrder('ipv4first');
 import { AppConfigurationClient } from '@azure/app-configuration';
 
 export default defineEventHandler(async (event) => {
-	const key = getRouterParam(event, 'key');
+	const query = getQuery(event);
+	const key = query.key;
 	const config = useRuntimeConfig();
 	const appConfigClient = new AppConfigurationClient(config.APP_CONFIG_ENDPOINT);
 
