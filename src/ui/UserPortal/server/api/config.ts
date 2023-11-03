@@ -30,24 +30,29 @@ export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
 	const key = query.key;
 
+	// Respond with a 403 if the key is not in the allowed keys list.
 	if (!allowedKeys.includes(key)) {
 		console.error(`Config value "${key}" is not allowed to be accessed, please add it to the list of allowed keys if required.`);
 		setResponseStatus(event, 403, `Config value "${key}" is not an accessible key.`);
 		return '403';
 	}
 
+	// Respond with a 500 if the APP_CONFIG_ENDPOINT env is not set.
 	const config = useRuntimeConfig();
 	if (!config.APP_CONFIG_ENDPOINT) {
 		console.error('APP_CONFIG_ENDPOINT env not found. Please ensure it is set.');
 		setResponseStatus(event, 500, `Configuration endpoint missing.`);
 		return '500';
 	}
+
+	// This will throw a 500 with an error if the connection string is invalid.
 	const appConfigClient = new AppConfigurationClient(config.APP_CONFIG_ENDPOINT);
 
 	try {
 		const setting = await appConfigClient.getConfigurationSetting({ key });
 		return setting.value;
 	} catch (error) {
+		// Respond with a 404 if the key does not exist in the Azure config service.
 		console.error(`Failed to load config value for "${key}", please ensure it exists and is the correct format.`);
 		setResponseStatus(event, 404, `Config value "${key}" not found.`);
 		return '404';
