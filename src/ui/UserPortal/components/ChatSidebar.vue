@@ -184,6 +184,16 @@ export default {
 			await api.deleteSession(this.sessionToDelete!.id);
 			this.sessionToDelete = null;
 			await this.getSessions();
+
+			if (this.sessions.length === 0) {
+				this.handleAddSession();
+				return;
+			}
+
+			const lastSession = this.sessions[this.sessions.length - 1];
+			if (lastSession) {
+				this.handleSessionSelected(lastSession);
+			}
 		},
 	},
 };
