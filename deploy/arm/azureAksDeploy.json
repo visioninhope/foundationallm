@@ -1121,7 +1121,7 @@
       "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
       "properties": {
         "attributes": { "enabled": true },
-        "value": "[uniqueString(resourceGroup(), 'langchain')]"
+        "value": "[uniqueString(resourceGroup().id, 'langchain')]"
       }
     },
     {
