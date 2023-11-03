@@ -127,11 +127,18 @@ export default {
 
 	async created() {
 		if (process.client) {
-			await this.getSessions();
 
+			// No need to load sessions if in kiosk mode, simply create a new one and skip.
 			if (this.appConfigStore.isKioskMode) {
 				const newSession = await api.addSession();
 				this.handleSessionSelected(newSession);
+				return;
+			}
+
+			await this.getSessions();
+
+			if (this.sessions.length === 0) {
+				this.handleAddSession();
 			} else {
 				const sessionId = this.$nuxt._route.query.chat;
 				const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
