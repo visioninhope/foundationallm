@@ -30,6 +30,12 @@ export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
 	const key = query.key;
 
+	if (!key) {
+		console.error('The query item "key" was not provided.');
+		setResponseStatus(event, 400, 'The query item "key" was not provided.');
+		return '400';
+	}
+
 	// Respond with a 403 if the key is not in the allowed keys list.
 	if (!allowedKeys.includes(key)) {
 		console.error(`Config value "${key}" is not allowed to be accessed, please add it to the list of allowed keys if required.`);
