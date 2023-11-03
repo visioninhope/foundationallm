@@ -159,8 +159,7 @@ export default {
 		},
 
 		async getSessions() {
-			const session = await api.getSessions();
-			this.sessions = session;
+			this.sessions = await api.getSessions();
 		},
 
 		async handleRenameSession() {
@@ -171,8 +170,8 @@ export default {
 		},
 
 		async handleAddSession() {
-			const session = await api.addSession();
-			this.handleSessionSelected(session);
+			const newSession = await api.addSession();
+			this.handleSessionSelected(newSession);
 			await this.getSessions();
 		},
 
