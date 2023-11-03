@@ -16,5 +16,5 @@ class AgentResolver(Resolver):
         if hint_feature_flag_enabled and hint is not None:
             agent_metadata = self.repository.get_metadata_by_name(hint)            
         if agent_metadata is None:
-           agent_metadata = self.repository.get_metadata_by_name("anomaly")
+           agent_metadata = self.repository.get_metadata_by_name("default")
         return AgentHubResponse(agent=agent_metadata)
