@@ -61,7 +61,7 @@ if (-not $resourcePrefix) {
     $utf8 = New-Object -TypeName System.Text.UTF8Encoding
     $hash = [System.BitConverter]::ToString($crypt.ComputeHash($utf8.GetBytes($resourceGroup)))
     $hash = $hash.replace('-', '').toLower()
-    $resourcePrefix = $hash.Substring(0, 5)
+    $resourcePrefix = "fllm$($hash.Substring(0, 5))"
 }
 
 if ($stepDeployOpenAi) {
