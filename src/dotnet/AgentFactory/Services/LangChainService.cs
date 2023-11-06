@@ -58,25 +58,32 @@ namespace FoundationaLLM.AgentFactory.Services
                 new StringContent(
                     body,
                     Encoding.UTF8, "application/json"));
+            var responseContent = await responseMessage.Content.ReadAsStringAsync();
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                var responseContent = await responseMessage.Content.ReadAsStringAsync();
+                
                 var completionResponse = JsonConvert.DeserializeObject<LLMOrchestrationCompletionResponse>(responseContent);
 
                 return new LLMOrchestrationCompletionResponse
                 {
                     Completion = completionResponse!.Completion,
                     UserPrompt = completionResponse.UserPrompt,
+                    PromptTemplate = request.Agent?.PromptTemplate,
+                    AgentName = request.Agent?.Name,
                     PromptTokens = completionResponse.PromptTokens,
                     CompletionTokens = completionResponse.CompletionTokens
                 };
             }
 
+            _logger.LogWarning($"The LangChain orchestration service returned status code {responseMessage.StatusCode}: {responseContent}");
+
             return new LLMOrchestrationCompletionResponse
             {
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = request.UserPrompt,
+                PromptTemplate = request.Agent?.PromptTemplate,
+                AgentName = request.Agent?.Name,
                 PromptTokens = 0,
                 CompletionTokens = 0               
             };

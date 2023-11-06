@@ -52,6 +52,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
 
             switch (_agentMetadata.Type)
             {
+                case "csv":
+                case "generic-resolver":                   
                 case "blob-storage":
                     dataSourceMetadata = new BlobStorageDataSource
                     {
@@ -65,22 +67,11 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                             Files = dataSource.Files
                         }
                     };
-                    break;
-                case "csv":
-                    dataSourceMetadata = new CSVFileDataSource
-                    {
-                        Name = dataSource.Name,
-                        Type = _agentMetadata.Type,
-                        Description = dataSource.Description,
-                        Configuration = new CSVFileConfiguration
-                        {
-                           PathValueIsSecret = Convert.ToBoolean(dataSource.Authentication!["path_value_is_secret"]),
-                           SourceFilePath = dataSource.Authentication!["source_file_path"],
-                        }
-                    };
-                    break;
+                    break;              
+                    
                 case "search-service":
-                    break;
+                    break;                
+                case "anomaly":
                 case "sql":
                     dataSourceMetadata = new SQLDatabaseDataSource
                     {
@@ -94,14 +85,16 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                             Port = Convert.ToInt32(dataSource.Authentication["port"]),
                             DatabaseName = dataSource.Authentication["database"],
                             Username = dataSource.Authentication["username"],
-                            PasswordSecretName = dataSource.Authentication["password_secret"],
+                            PasswordSecretSettingKeyName = dataSource.Authentication["password_secret"],
                             IncludeTables = dataSource.IncludeTables!,
+                            ExcludeTables = dataSource.ExcludeTables!,
+                            RowLevelSecurityEnabled = dataSource.RowLevelSecurityEnabled ?? false,
                             FewShotExampleCount = dataSource.FewShotExampleCount ?? 0
                         }
                     };
                     break;
                 default:
-                    throw new ArgumentException($"The {dataSourceResponse.DataSources[0].UnderlyingImplementation} data source type is not supported.");
+                    throw new ArgumentException($"The {_agentMetadata.Type} data source type is not supported.");
             }
 
             //create LLMOrchestrationCompletionRequest template
@@ -143,6 +136,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             {
                 Completion = result.Completion!,
                 UserPrompt = completionRequest.UserPrompt,
+                PromptTemplate = result.PromptTemplate,
+                AgentName = result.AgentName,
                 PromptTokens = result.PromptTokens,
                 CompletionTokens = result.CompletionTokens,
             };
