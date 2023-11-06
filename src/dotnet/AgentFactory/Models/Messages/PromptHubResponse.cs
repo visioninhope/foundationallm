@@ -21,22 +21,21 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
     {
 
         /// <summary>
-        /// Name of the prompt
+        /// Name of the prompt.
         /// </summary>
         [JsonProperty("name")]
         public string? Name { get; set; }
 
         /// <summary>
-        /// Content of the prompt
+        /// Text of the prompt used by an agent.
         /// </summary>
         [JsonProperty("prompt")]
         public string? Prompt { get; set; }
 
         /// <summary>
-        /// The prompt suffix used by the LLM.
+        /// Text of the prompt suffix used by an agent.
         /// </summary>
         [JsonProperty("prompt_suffix")]
         public string? PromptSuffix { get; set; }
-
     }
 }
