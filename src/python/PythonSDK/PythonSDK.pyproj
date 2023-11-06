@@ -170,7 +170,6 @@
     <Folder Include="foundationallm\models\orchestration\" />
     <Folder Include="foundationallm\hubs\" />
     <Folder Include="foundationallm\resolvers\" />
-    <Folder Include="foundationallm\context\" />
     <Folder Include="foundationallm\storage\" />
   </ItemGroup>
   <ItemGroup>
