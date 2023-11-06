@@ -106,7 +106,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     Name = _agentMetadata.Name,
                     Type = _agentMetadata.Type,
                     Description = _agentMetadata.Description,
-                    PromptTemplate = promptResponse.Prompts![0].Prompt
+                    PromptTemplate = promptResponse.Prompts![0].Prompt,
+                    PromptSuffix = promptResponse.Prompts![0].PromptSuffix
                 },
                 LanguageModel = new LanguageModel()
                 {

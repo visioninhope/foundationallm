@@ -32,5 +32,11 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
         [JsonProperty("prompt")]
         public string? Prompt { get; set; }
 
+        /// <summary>
+        /// The prompt suffix used by the LLM.
+        /// </summary>
+        [JsonProperty("prompt_suffix")]
+        public string? PromptSuffix { get; set; }
+
     }
 }
