@@ -24,7 +24,7 @@ namespace FoundationaLLM.AgentFactory.Tests.Services
 
             var httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("http://nsubstitute.io")
+                BaseAddress = new Uri("http://example.com")
             };
 
             _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.PromptHubAPI).Returns(httpClient);
