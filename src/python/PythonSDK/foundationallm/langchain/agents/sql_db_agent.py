@@ -30,7 +30,7 @@ class SqlDbAgent(AgentBase):
         config : Configuration
             Application configuration class for retrieving configuration settings.
         """
-        self.agent_prompt_prefix = completion_request.agent.prompt_template
+        self.agent_prompt_prefix = completion_request.agent.prompt_prefix
         self.agent_prompt_suffix = completion_request.agent.prompt_suffix
             
         self.llm = llm.get_language_model()

@@ -35,7 +35,6 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         /// used to configure the DeafultAgent class.
         /// </summary>
         /// <param name="userPrompt"></param>
-        /// <param name="userContext"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public async override Task Configure(string userPrompt)
@@ -106,8 +105,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     Name = _agentMetadata.Name,
                     Type = _agentMetadata.Type,
                     Description = _agentMetadata.Description,
-                    PromptTemplate = promptResponse.Prompts![0].Prompt,
-                    PromptSuffix = promptResponse.Prompts![0].PromptSuffix
+                    PromptPrefix = promptResponse.Prompt?.PromptPrefix,
+                    PromptSuffix = promptResponse.Prompt?.PromptSuffix
                 },
                 LanguageModel = new LanguageModel()
                 {
