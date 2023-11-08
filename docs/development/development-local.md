@@ -1,10 +1,10 @@
 # Configure local development environment
 
 - [Configure local development environment](#configure-local-development-environment)
-  - [Requirements](#requirements)
+  - [Prerequisites](#prerequisites)
   - [UI](#ui)
     - [User Portal](#user-portal)
-    - [Chat](#chat)
+    - [Chat (deprecated)](#chat-deprecated)
       - [Chat app settings](#chat-app-settings)
   - [.NET projects](#net-projects)
     - [Core API](#core-api)
@@ -26,15 +26,44 @@
     - [LangChain API](#langchain-api)
       - [LangChain API Environment Variables](#langchain-api-environment-variables)
 
-## Requirements
+## Prerequisites
 
-Environment variable needs to be set for Application Configuration Service URL. This environment variable needs to be named `FoundationaLLM:AppConfig:ConnectionString`.
+- Environment variables:
+  - Create an environment variable for the Application Configuration Service connection string named `FoundationaLLM:AppConfig:ConnectionString`. This is used by the .NET projects.
+  - Create an environment variable for the Application Configuration Service URI named `foundationallm-app-configuration-uri`. This is used by the Python projects.
+- Backend (APIs and worker services):
+  - Visual Studio 2022 17.6 or later (required for passthrough Visual Studio authentication for the Docker container)
+  - [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet) or greater
+  - Docker Desktop (with WSL for Windows machines) ([Mac install](https://docs.docker.com/desktop/install/mac-install/) or [Windows install](https://docs.docker.com/desktop/install/windows-install/))
+  - Azure CLI ([v2.51.0 or greater](https://learn.microsoft.com/cli/azure/install-azure-cli))
+  - [Helm 3.11.1 or greater](https://helm.sh/docs/intro/install/)
+- Frontend (Vue.js (Nuxt) web app)
+  - [Visual Studio Code](https://code.visualstudio.com/Download) (recommended for development)
+  - [Node.js](https://nodejs.org/en/) v18.0.0 or newer
+  - [NPM](https://www.npmjs.com/)
+  - Recommended way to install the latest version of NPM and node.js on Windows:
+    - Install NVM from https://github.com/coreybutler/nvm-windows
+    - Run nvm install latest
+    - Run nvm list (to see the versions of NPM/node.js available)
+    - Run nvm use latest (to use the latest available version)
 
 ## UI
 
 ### User Portal
 
-### Chat
+The `UserPortal` project is a Vue.js (Nuxt) project. To run it locally, follow these steps:
+
+1. Open the `/src/UserPortal` folder in Visual Studio Code.
+2. Copy the `.env.example` file in the root directory to a new file named `.env` and update the values:
+   1. The `APP_CONFIG_ENDPOINT` value should be the Connection String for the Azure App Configuration service. This should be the same value as the `FoundationaLLM:AppConfig:ConnectionString` environment variable.
+   2. The `LOCAL_API_URL` should be the URL of the local Core API service (https://localhost:63279). **Important:** Only set this value if you wish to debug the entire solution locally and bypass the App Config service value for the CORE API URL. If you do not wish to debug the entire solution locally, leave this value empty or comment it out.
+3. Open a terminal in Visual Studio Code and run `npm install` to install the dependencies.
+4. Run `npm run dev` to start the local development server.
+5. Open a browser and navigate to http://localhost:3000.
+
+### Chat (deprecated)
+
+The `Chat` Blazor web app is deprecated and will be removed in a future release. It is only included in the solution for reference purposes.
 
 #### Chat app settings
 
