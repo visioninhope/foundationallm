@@ -26,6 +26,8 @@
     - [LangChain API](#langchain-api)
       - [LangChain API Environment Variables](#langchain-api-environment-variables)
   - [Running the solution locally](#running-the-solution-locally)
+    - [Configure and run the backend components](#configure-and-run-the-backend-components)
+    - [Configure and run the frontend components](#configure-and-run-the-frontend-components)
 
 ## Prerequisites
 
@@ -33,8 +35,9 @@
   - Create an environment variable for the Application Configuration Service connection string named `FoundationaLLM:AppConfig:ConnectionString`. This is used by the .NET projects.
   - Create an environment variable for the Application Configuration Service URI named `foundationallm-app-configuration-uri`. This is used by the Python projects.
 - Backend (APIs and worker services):
-  - Visual Studio 2022 17.6 or later (required for passthrough Visual Studio authentication for the Docker container)
+  - Visual Studio 2022 17.6 or later (required for passthrough Visual Studio authentication for the Docker container) with the [Python workload installed](https://learn.microsoft.com/visualstudio/python/installing-python-support-in-visual-studio?view=vs-2022)
   - [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet) or greater
+  - [Python 3.11](https://www.python.org/downloads/) or greater
   - Docker Desktop (with WSL for Windows machines) ([Mac install](https://docs.docker.com/desktop/install/mac-install/) or [Windows install](https://docs.docker.com/desktop/install/windows-install/))
   - Azure CLI ([v2.51.0 or greater](https://learn.microsoft.com/cli/azure/install-azure-cli))
   - [Helm 3.11.1 or greater](https://helm.sh/docs/intro/install/)
@@ -368,5 +371,72 @@ Create a local environment variable named `foundationallm-app-configuration-uri`
 
 ## Running the solution locally
 
+### Configure and run the backend components
+
+The backend components consist of the .NET projects and the Python projects. The .NET projects are all ASP.NET Core Web API projects. The Python projects are all FastAPI projects.
+
 1. Open the solution in Visual Studio 2022 17.6 or later. The solution file is located at `/src/FoundationaLLM.sln`.
-2. Reference the API sections above to configure the app settings for each project. This primarily involves just creating the `appsettings.Development.json` file for each of the .NET (located under the `dotnet` solution folder) API projects and adding the documented values within. For local development, use the `localhost` URLs for each of the API projects.
+2. Reference the API sections above to configure the app settings for each project. This primarily involves just creating the `appsettings.development.json` file for each of the .NET (located under the `dotnet` solution folder) API projects and adding the documented values within. For local development, use the `localhost` URLs for each of the API projects.
+
+    > [!NOTE]
+    > The `appsettings.development.json` files are excluded from source control. This is to prevent sensitive information from being committed to source control. You will need to create these files locally.
+
+    ![The appsettings.development.json files are displayed in Solution Explorer within Visual Studio.](media/appsettings-development-files.png)
+
+3. Expand the `python` solution folder.
+
+    ![The Visual Studio python solution folder is expanded.](media/vs-python-folder.png)
+
+4. Expand the `AgentHubAPI` project, then expand the `Python Environments` folder underneath it. You will likely see a warning icon next to an environment named `env`. This is because the Python environment has not been created yet.
+
+    ![The Python Environments folder is displayed with a warning icon.](media/python-env-with-warning.png)
+
+5. Right-click the `Python Environments` folder and select `Add Environment...`.
+
+    ![The Add Environment option is highlighted.](media/add-environment.png)
+
+6. Ensure the **Name** field is set to `env` and the **Version** field is set to `Python 3.11` (or your latest version). Also make sure the **Install packages from file** field is set to the `requirements.txt` file for the project. This will install the required Python packages after creating the environment. Click **Create**.
+
+    ![The Add Environment dialog is displayed with the name and version fields set.](media/add-python-environment-dialog.png)
+
+7. You should now see the `env` environment listed under the `Python Environments` folder. The warning icon should be gone.
+
+    ![The Python Environments folder is displayed with the env environment listed.](media/python-env-without-warning.png)
+
+8. Complete steps 4-7 for the `DataSourceHubAPI`, `LangChainAPI`, `PromptHubAPI`, and `PythonSDK` projects. You may optionally complete these steps for the Python test projects as well.
+
+9. Right-click the Solution in Visual Studio, then select `Configure Startup Projects...`.
+
+    ![The Configure Startup Projects option is highlighted.](media/configure-startup-projects.png)
+
+10. Select the `Multiple startup projects` option, then set the `Action` for the following projects to `Start`. Click **OK**.
+  
+      - AgentFactoryAPI
+      - AgentHubAPI
+      - CoreAPI
+      - DataSourceHubAPI
+      - GatekeeperAPI
+      - LangChainAPI
+      - PromptHubAPI
+      - SemanticKernelAPI
+  
+      ![The Multiple startup projects option is selected and the Action for the listed projects is set to Start.](media/multiple-startup-projects.png)
+
+11. Press `F5` to start debugging the solution. This will start all of the .NET projects and the Python projects. The Vue.js (Nuxt) web app will not be started by default. To start it, follow the steps below.
+
+### Configure and run the frontend components
+
+The frontend components consist of the Vue.js (Nuxt) web app.
+
+1. Open the `/src/UserPortal` folder in Visual Studio Code.
+
+2. Open the `.env` file and update the `LOCAL_API_URL` value to the URL of the local Core API service (https://localhost:63279). **Important:** Only set this value if you wish to debug the entire solution locally and bypass the App Config service value for the CORE API URL. If you do not wish to debug the entire solution locally, leave this value empty or comment it out.
+
+3. Open a terminal in Visual Studio Code and run the following commands:
+
+    ```bash
+    npm install
+    npm run dev
+    ```
+
+4. The web app should now be running at http://localhost:3000.
