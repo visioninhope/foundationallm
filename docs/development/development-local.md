@@ -25,6 +25,7 @@
       - [Prompt Hub API Environment Variables](#prompt-hub-api-environment-variables)
     - [LangChain API](#langchain-api)
       - [LangChain API Environment Variables](#langchain-api-environment-variables)
+  - [Running the solution locally](#running-the-solution-locally)
 
 ## Prerequisites
 
@@ -51,15 +52,12 @@
 
 ### User Portal
 
-The `UserPortal` project is a Vue.js (Nuxt) project. To run it locally, follow these steps:
+The `UserPortal` project is a Vue.js (Nuxt) project. To configure it to run locally, follow these steps:
 
 1. Open the `/src/UserPortal` folder in Visual Studio Code.
 2. Copy the `.env.example` file in the root directory to a new file named `.env` and update the values:
    1. The `APP_CONFIG_ENDPOINT` value should be the Connection String for the Azure App Configuration service. This should be the same value as the `FoundationaLLM:AppConfig:ConnectionString` environment variable.
    2. The `LOCAL_API_URL` should be the URL of the local Core API service (https://localhost:63279). **Important:** Only set this value if you wish to debug the entire solution locally and bypass the App Config service value for the CORE API URL. If you do not wish to debug the entire solution locally, leave this value empty or comment it out.
-3. Open a terminal in Visual Studio Code and run `npm install` to install the dependencies.
-4. Run `npm run dev` to start the local development server.
-5. Open a browser and navigate to http://localhost:3000.
 
 ### Chat (deprecated)
 
@@ -134,7 +132,7 @@ The `Chat` Blazor web app is deprecated and will be removed in a future release.
 {  
   "APIs": {
     "GatekeeperAPI": {
-      "APIUrl": "<...>"
+      "APIUrl": "<...>" // Default local value: https://localhost:7180/
     }
   }
 }
@@ -176,11 +174,7 @@ The `Chat` Blazor web app is deprecated and will be removed in a future release.
   "FoundationaLLM": {
     "APIs": {
       "AgentFactoryAPI": {
-        "APIUrl": "<...>"
-      },
-    
-      "GatekeeperAPI": {
-        "APIUrl": "<...>"
+        "APIUrl": "<...>"  // Default local value: https://localhost:7324/
       }
     }
   }
@@ -222,23 +216,20 @@ The `Chat` Blazor web app is deprecated and will be removed in a future release.
 {
   "FoundationaLLM": {
     "APIs": {
-      "AgentFactoryAPI": {
-        "APIUrl": "<...>"
-      },
       "LangChainAPI": {
-        "APIUrl": "<...>"
+        "APIUrl": "<...>"  // Default local value: http://localhost:8765/
       },
       "SemanticKernelAPI": {
-        "APIUrl": "<...>"
+        "APIUrl": "<...>"  // Default local value: https://localhost:7062/
       },
       "AgentHubAPI": {
-        "APIUrl": "<...>"
+        "APIUrl": "<...>"  // Default local value: http://localhost:8742/
       },
       "PromptHubAPI": {
-        "APIUrl": "<...>"
+        "APIUrl": "<...>"  // Default local value: http://localhost:8642/
       },
       "DataSourceHubAPI": {
-        "APIUrl": "<...>"
+        "APIUrl": "<...>"  // Default local value: http://localhost:8842/
       }
     }
   }
@@ -374,3 +365,8 @@ Create a local environment variable named `foundationallm-app-configuration-uri`
 
 | Name | Value | Description |
 | ---- | ----- | ----------- |
+
+## Running the solution locally
+
+1. Open the solution in Visual Studio 2022 17.6 or later. The solution file is located at `/src/FoundationaLLM.sln`.
+2. Reference the API sections above to configure the app settings for each project. This primarily involves just creating the `appsettings.Development.json` file for each of the .NET (located under the `dotnet` solution folder) API projects and adding the documented values within. For local development, use the `localhost` URLs for each of the API projects.
