@@ -1,7 +1,6 @@
 from langchain.agents import create_sql_agent
 from langchain.agents.agent_types import AgentType
 from langchain.callbacks import get_openai_callback
-from langchain.prompts import PromptTemplate
 
 from foundationallm.config import Configuration, Context
 from foundationallm.langchain.agents import AgentBase
