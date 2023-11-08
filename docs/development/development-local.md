@@ -37,7 +37,7 @@
 - Backend (APIs and worker services):
   - Visual Studio 2022 17.6 or later (required for passthrough Visual Studio authentication for the Docker container) with the [Python workload installed](https://learn.microsoft.com/visualstudio/python/installing-python-support-in-visual-studio?view=vs-2022)
   - [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet) or greater
-  - [Python 3.11](https://www.python.org/downloads/) or greater
+  - [Python 3.11](https://www.python.org/downloads/) or greater (learn more about [Python environments in Visual Studio](https://learn.microsoft.com/visualstudio/python/managing-python-environments-in-visual-studio?view=vs-2022))
   - Docker Desktop (with WSL for Windows machines) ([Mac install](https://docs.docker.com/desktop/install/mac-install/) or [Windows install](https://docs.docker.com/desktop/install/windows-install/))
   - Azure CLI ([v2.51.0 or greater](https://learn.microsoft.com/cli/azure/install-azure-cli))
   - [Helm 3.11.1 or greater](https://helm.sh/docs/intro/install/)
