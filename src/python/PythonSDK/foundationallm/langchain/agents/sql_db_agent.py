@@ -29,6 +29,8 @@ class SqlDbAgent(AgentBase):
             The language model to use for executing the completion request.
         config : Configuration
             Application configuration class for retrieving configuration settings.
+        context : Context
+            User context under which to run the completion request.
         """
         self.agent_prompt_prefix = completion_request.agent.prompt_prefix
         self.agent_prompt_suffix = completion_request.agent.prompt_suffix
