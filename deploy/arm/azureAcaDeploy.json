@@ -644,7 +644,7 @@
       "featureFlags": [
         {
           "key": ".appconfig.featureflag/FoundationaLLM-AllowAgentHint",
-          "value": "true"
+          "value": "false"
         }
       ]
     },
