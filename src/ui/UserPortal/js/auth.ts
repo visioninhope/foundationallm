@@ -65,13 +65,13 @@ function getMsalConfig() {
 	};
 }
 
-// Set up timer for refreshing access token upon expiration
+// Create a timer to refresh the token on expiration.
 let tokenExpirationTimer: any;
 export async function createTokenRefreshTimer() {
 	const accounts = await msalInstance.getAllAccounts();
 	if (accounts.length > 0) {
 		const account = accounts[0];
-		if (account.idTokenClaims && account.idTokenClaims.exp) {
+		if (account.idTokenClaims?.exp) {
 			const tokenExpirationTime = account.idTokenClaims.exp * 1000;
 			const currentTime = Date.now();
 			const timeUntilExpiration = tokenExpirationTime - currentTime;
@@ -86,7 +86,6 @@ export async function createTokenRefreshTimer() {
 	}
 }
 
-// Refresh access token
 export async function refreshToken(account: any) {
 	try {
 		await msalInstance.acquireTokenSilent({
@@ -126,6 +125,12 @@ export function getLoginRequest() {
 	};
 }
 
+// Add the endpoints here for MS Graph API services you would like to use.
+export const graphConfig = {
+	graphMeEndpoint: 'https://graph.microsoft.com/v1.0/me',
+	graphMailEndpoint: 'https://graph.microsoft.com/v1.0/me/messages',
+};
+
 export async function attemptLogin() {
 	const msalInstance = await getMsalInstance();
 	const loginRequest = await getLoginRequest();
@@ -137,9 +142,3 @@ export async function attemptLogin() {
 
 	return response;
 }
-
-// Add the endpoints here for MS Graph API services you would like to use.
-export const graphConfig = {
-	graphMeEndpoint: 'https://graph.microsoft.com/v1.0/me',
-	graphMailEndpoint: 'https://graph.microsoft.com/v1.0/me/messages',
-};
