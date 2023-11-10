@@ -12,7 +12,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
     public class StatusController : ControllerBase
     {
         /// <summary>
-        /// Returns the status of the Core service.
+        /// Returns the status of the Gatekeeper API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
         public IActionResult Get()
@@ -21,7 +21,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         }
 
         /// <summary>
-        /// Returns the allowed HTTP methods for the Core service.
+        /// Returns the allowed HTTP methods for the Gatekeeper API service.
         /// </summary>
         [HttpOptions]
         public IActionResult Options()
