@@ -1,7 +1,7 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FoundationaLLM.Core.API.Controllers
+namespace FoundationaLLM.Gatekeeper.API.Controllers
 {
     /// <summary>
     /// Provides methods for checking the status of the service.
@@ -27,7 +27,7 @@ namespace FoundationaLLM.Core.API.Controllers
         public IActionResult Options()
         {
             HttpContext.Response.Headers.Add("Allow", new[] { "GET", "POST", "OPTIONS" });
-            
+
             return Ok();
         }
     }
