@@ -6,7 +6,7 @@ router = APIRouter(
     responses={404: {'description':'Not found'}}
 )
 
-@router.get('/')
+@router.get('')
 async def get_status() -> str:
     """
     Retrieves the status of the API.
