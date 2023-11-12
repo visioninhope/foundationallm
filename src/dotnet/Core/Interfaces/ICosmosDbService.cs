@@ -11,15 +11,20 @@ public interface ICosmosDbService
     /// <summary>
     /// Gets a list of all current chat sessions.
     /// </summary>
+    /// <param name="type">The session type to return.</param>
+    /// <param name="upn">The user principal name used for retrieving
+    /// sessions for the signed in user.</param>
     /// <returns>List of distinct chat session items.</returns>
-    Task<List<Session>> GetSessionsAsync(string type);
+    Task<List<Session>> GetSessionsAsync(string type, string upn);
 
     /// <summary>
     /// Gets a list of all current chat messages for a specified session identifier.
     /// </summary>
-    /// <param name="sessionId">Chat session identifier used to filter messsages.</param>
+    /// <param name="sessionId">Chat session identifier used to filter messages.</param>
+    /// <param name="upn">The user principal name used for retrieving the messages for
+    /// the signed in user.</param>
     /// <returns>List of chat message items for the specified session.</returns>
-    Task<List<Message>> GetSessionMessagesAsync(string sessionId);
+    Task<List<Message>> GetSessionMessagesAsync(string sessionId, string upn);
 
     /// <summary>
     /// Performs a point read to retrieve a single chat session item.

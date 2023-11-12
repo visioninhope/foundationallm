@@ -26,7 +26,7 @@ namespace FoundationaLLM.Core.Services
         private readonly CosmosDbSettings _settings;
         private readonly ILogger _logger;
 
-        private const string SoftDeleteQueryRestriction = " (not IS_DEFINED(c.deleted) OR c.deleted = 0)";
+        private const string SoftDeleteQueryRestriction = " (not IS_DEFINED(c.deleted) OR c.deleted = false)";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CosmosDbService"/> class.
@@ -89,21 +89,25 @@ namespace FoundationaLLM.Core.Services
                 _containers.Add(containerName.Trim(), container);
             }
 
-            _sessions = _containers[CosmosDbContainers.Sessions];
-            _userSessions = _containers[CosmosDbContainers.UserSessions];
+            _sessions = database?.GetContainer(CosmosDbContainers.Sessions) ??
+                        throw new ArgumentException($"Unable to connect to existing Azure Cosmos DB container ({CosmosDbContainers.Sessions}).");
+            _userSessions = database?.GetContainer(CosmosDbContainers.UserSessions) ??
+                            throw new ArgumentException($"Unable to connect to existing Azure Cosmos DB container ({CosmosDbContainers.UserSessions}).");
             _logger.LogInformation("Cosmos DB service initialized.");
         }
 
         /// <summary>
         /// Gets a list of all current chat sessions.
         /// </summary>
-        /// <param name="type">Identifier for kiosk and normal session.</param>
+        /// <param name="type">The session type to return.</param>
+        /// <param name="upn">The user principal name used for retrieving
+        /// sessions for the signed in user.</param>
         /// <returns>List of distinct chat session items.</returns>
         public async Task<List<Session>> GetSessionsAsync(string type, string upn)
         {
             var query = new QueryDefinition($"SELECT DISTINCT * FROM c WHERE c.type = @type AND c.upn = @upn AND {SoftDeleteQueryRestriction} ORDER BY c._ts DESC")
                 .WithParameter("@type", type)
-                .WithParameter("upn", upn);
+                .WithParameter("@upn", upn);
 
             var response = _userSessions.GetItemQueryIterator<Session>(query);
 
@@ -134,6 +138,8 @@ namespace FoundationaLLM.Core.Services
         /// Gets a list of all current chat messages for a specified session identifier.
         /// </summary>
         /// <param name="sessionId">Chat session identifier used to filter messages.</param>
+        /// <param name="upn">The user principal name used for retrieving the messages for
+        /// the signed in user.</param>
         /// <returns>List of chat message items for the specified session.</returns>
         public async Task<List<Message>> GetSessionMessagesAsync(string sessionId, string upn)
         {
@@ -141,7 +147,7 @@ namespace FoundationaLLM.Core.Services
                 new QueryDefinition($"SELECT * FROM c WHERE c.sessionId = @sessionId AND c.type = @type AND c.upn = @upn AND {SoftDeleteQueryRestriction}")
                     .WithParameter("@sessionId", sessionId)
                     .WithParameter("@type", nameof(Message))
-                    .WithParameter("upn", upn);
+                    .WithParameter("@upn", upn);
 
             var results = _sessions.GetItemQueryIterator<Message>(query);
 
@@ -298,7 +304,7 @@ namespace FoundationaLLM.Core.Services
 
             // TODO: await container.DeleteAllItemsByPartitionKeyStreamAsync(partitionKey);
 
-            var query = new QueryDefinition("SELECT c.id FROM c WHERE c.sessionId = @sessionId")
+            var query = new QueryDefinition($"SELECT * FROM c WHERE c.sessionId = @sessionId AND {SoftDeleteQueryRestriction}")
                 .WithParameter("@sessionId", sessionId);
 
             var response = _sessions.GetItemQueryIterator<dynamic>(query);
