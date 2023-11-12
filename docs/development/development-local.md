@@ -414,6 +414,7 @@ The backend components consist of the .NET projects and the Python projects. The
       - AgentFactoryAPI
       - AgentHubAPI
       - CoreAPI
+      - CoreWorkerService
       - DataSourceHubAPI
       - GatekeeperAPI
       - LangChainAPI
