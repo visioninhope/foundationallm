@@ -127,8 +127,10 @@ public class CoreService : ICoreService
             var result = await _gatekeeperAPIService.GetCompletion(completionRequest);
 
             // Add to prompt and completion to cache, then persist in Cosmos as transaction.
-            var promptMessage = new Message(sessionId, nameof(Participants.User), result.PromptTokens, userPrompt, result.UserPromptEmbedding, null, _callContext.CurrentUserIdentity?.Name);
-            var completionMessage = new Message(sessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, result.AgentName);
+            // Add the user's UPN to the messages.
+            var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
+            var promptMessage = new Message(sessionId, nameof(Participants.User), result.PromptTokens, userPrompt, result.UserPromptEmbedding, null, upn, _callContext.CurrentUserIdentity?.Name);
+            var completionMessage = new Message(sessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName);
             var completionPromptText =
                 $"User prompt: {result.UserPrompt}{Environment.NewLine}Agent: {result.AgentName}{Environment.NewLine}Prompt template: {result.PromptTemplate}";
             var completionPrompt = new CompletionPrompt(sessionId, completionMessage.Id, completionPromptText);
@@ -174,9 +176,8 @@ public class CoreService : ICoreService
     /// </summary>
     private async Task<Message> AddPromptMessageAsync(string sessionId, string promptText)
     {
-        Message promptMessage = new(sessionId, nameof(Participants.User), default, promptText, null, null);
         var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding a prompt message.");
-        promptMessage.UPN = upn;
+        var promptMessage = new Message(sessionId, nameof(Participants.User), default, promptText, null, null, upn);
 
         return await _cosmosDbService.InsertMessageAsync(promptMessage);
     }
