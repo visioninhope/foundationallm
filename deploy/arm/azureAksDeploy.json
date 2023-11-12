@@ -106,6 +106,36 @@
           "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
         },
         {
+          "key": "FoundationaLLM:APIs:AgentHubAPI:AppInsightsConnectionString",
+          "value": "[concat('{\"uri\":\"https://',variables('keyVaultSettings').name, '.vault.azure.net/secrets/foundationallm-app-insights-connection-string\"}')]",
+          "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
+        },
+        {
+          "key": "FoundationaLLM:APIs:DataSourceHubAPI:AppInsightsConnectionString",
+          "value": "[concat('{\"uri\":\"https://',variables('keyVaultSettings').name, '.vault.azure.net/secrets/foundationallm-app-insights-connection-string\"}')]",
+          "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
+        },
+        {
+          "key": "FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString",
+          "value": "[concat('{\"uri\":\"https://',variables('keyVaultSettings').name, '.vault.azure.net/secrets/foundationallm-app-insights-connection-string\"}')]",
+          "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
+        },
+        {
+          "key": "FoundationaLLM:APIs:PromptHubAPI:AppInsightsConnectionString",
+          "value": "[concat('{\"uri\":\"https://',variables('keyVaultSettings').name, '.vault.azure.net/secrets/foundationallm-app-insights-connection-string\"}')]",
+          "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
+        },
+        {
+          "key": "FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString",
+          "value": "[concat('{\"uri\":\"https://',variables('keyVaultSettings').name, '.vault.azure.net/secrets/foundationallm-app-insights-connection-string\"}')]",
+          "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
+        },
+        {
+          "key": "FoundationaLLM:CoreWorkerService:AppInsightsConnectionString",
+          "value": "[concat('{\"uri\":\"https://',variables('keyVaultSettings').name, '.vault.azure.net/secrets/foundationallm-app-insights-connection-string\"}')]",
+          "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
+        },
+        {
           "key": "FoundationaLLM:APIs:AgentFactoryAPI:APIKey",
           "value": "[concat('{\"uri\":\"https://',variables('keyVaultSettings').name, '.vault.azure.net/secrets/foundationallm-apis-agentfactoryapi-apikey\"}')]",
           "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
