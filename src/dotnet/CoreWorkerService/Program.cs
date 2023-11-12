@@ -28,8 +28,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
         options.SetCredential(credential);
     });
 });
-if (builder.Environment.IsDevelopment())
-    builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
 builder.Services.AddOptions<CosmosDbSettings>()
     .Bind(builder.Configuration.GetSection("FoundationaLLM:CosmosDB"));
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>();
