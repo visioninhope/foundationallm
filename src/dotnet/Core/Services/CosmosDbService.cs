@@ -324,7 +324,8 @@ namespace FoundationaLLM.Core.Services
                 var results = await response.ReadNextAsync();
                 foreach (var item in results)
                 {
-                    batch.DeleteItem(item.id.ToString());
+                    item.deleted = true;
+                    batch.UpsertItem(item);
                     count++;
                     if (count >= 100) // Execute the batch after adding 100 items (100 actions per batch execution is the limit).
                     {
