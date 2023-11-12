@@ -74,7 +74,7 @@ public record Message
     /// Constructor for Message.
     /// </summary>
     public Message(string sessionId, string sender, int? tokens, string text,
-        float[]? vector, bool? rating, string? senderDisplayName = null)
+        float[]? vector, bool? rating, string upn, string? senderDisplayName = null)
     {
         Id = Guid.NewGuid().ToString();
         Type = nameof(Message);
@@ -86,5 +86,6 @@ public record Message
         Text = text;
         Rating = rating;
         Vector = vector;
+        UPN = upn;
     }
 }
