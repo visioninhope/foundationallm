@@ -76,7 +76,6 @@ namespace FoundationaLLM.Core.Services
                     .GetChangeFeedProcessorBuilder<Session>("ProcessUserSessions", ProcessUserSessionsChangeFeedHandler)
                     .WithInstanceName($"{Guid.NewGuid()}_ProcessUserSessions") // Prefix with a unique name to allow multiple instances to run at the same time.
                     .WithLeaseContainer(_leases)
-                    .WithStartTime(DateTime.MinValue.ToUniversalTime()) // Read from the beginning.
                     .Build();
 
                 await _changeFeedProcessorProcessUserSessions.StartAsync();
