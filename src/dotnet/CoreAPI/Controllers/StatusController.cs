@@ -1,10 +1,5 @@
 ﻿using Asp.Versioning;
-using FoundationaLLM.Core.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using FoundationaLLM.Common.Interfaces;
-using Microsoft.Identity.Web;
 
 namespace FoundationaLLM.Core.API.Controllers
 {
@@ -16,33 +11,17 @@ namespace FoundationaLLM.Core.API.Controllers
     [Route("[controller]")]
     public class StatusController : ControllerBase
     {
-        private readonly ICoreService _coreService;
-        private readonly ILogger<StatusController> _logger;
-
         /// <summary>
-        /// Constructor for the Status Controller.
-        /// </summary>
-        /// <param name="coreService">The Core service provides status methods.</param>
-        /// <param name="logger">The logging interface used to log under the
-        /// <see cref="StatusController"/> type name.</param>
-        public StatusController(ICoreService coreService,
-            ILogger<StatusController> logger)
-        {
-            _coreService = coreService;
-            _logger = logger;
-        }
-
-        /// <summary>
-        /// Returns the status of the Core service.
+        /// Returns the status of the Core API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
-        public string Get()
+        public IActionResult Get()
         {
-            return _coreService.Status;
+            return Ok();
         }
 
         /// <summary>
-        /// Returns the allowed HTTP methods for the Core service.
+        /// Returns the allowed HTTP methods for the Core API service.
         /// </summary>
         [HttpOptions]
         public IActionResult Options()

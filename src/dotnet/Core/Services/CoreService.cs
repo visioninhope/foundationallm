@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
 using Microsoft.Extensions.Logging;
@@ -15,26 +16,8 @@ public class CoreService : ICoreService
     private readonly ICosmosDbService _cosmosDbService;
     private readonly IGatekeeperAPIService _gatekeeperAPIService;
     private readonly ILogger<CoreService> _logger;
+    private readonly ICallContext _callContext;
     private readonly string _sessionType;
-
-    /// <summary>
-    /// Indicates whether the service is ready to accept requests.
-    /// </summary>
-    public string Status
-    {
-        get
-        {
-            if (_cosmosDbService.IsInitialized)
-                return "ready";
-
-            var status = new List<string>();
-
-            if (!_cosmosDbService.IsInitialized)
-                status.Add("CosmosDBService: initializing");
-
-            return string.Join(",", status);
-        }
-    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CoreService"/> class.
@@ -47,16 +30,19 @@ public class CoreService : ICoreService
     /// <see cref="CoreService"/> type name.</param>
     /// <param name="settings">The <see cref="ClientBrandingConfiguration"/>
     /// settings retrieved by the injected <see cref="IOptions{TOptions}"/>.</param>
+    /// <param name="callContext">Contains contextual data for the calling service.</param>
     public CoreService(
         ICosmosDbService cosmosDbService,
         IGatekeeperAPIService gatekeeperAPIService,
         ILogger<CoreService> logger,
-        IOptions<ClientBrandingConfiguration> settings)
+        IOptions<ClientBrandingConfiguration> settings,
+        ICallContext callContext)
     {
         _cosmosDbService = cosmosDbService;
         _gatekeeperAPIService = gatekeeperAPIService;
         _logger = logger;
         _sessionType = settings.Value.KioskMode ? SessionTypes.KioskSession : SessionTypes.Session;
+        _callContext = callContext;
     }
 
     /// <summary>
@@ -64,7 +50,8 @@ public class CoreService : ICoreService
     /// </summary>
     public async Task<List<Session>> GetAllChatSessionsAsync()
     {
-        return await _cosmosDbService.GetSessionsAsync(_sessionType);
+        return await _cosmosDbService.GetSessionsAsync(_sessionType, _callContext.CurrentUserIdentity?.UPN ?? 
+            throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat sessions."));
     }
 
     /// <summary>
@@ -73,7 +60,8 @@ public class CoreService : ICoreService
     public async Task<List<Message>> GetChatSessionMessagesAsync(string sessionId)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
-        return await _cosmosDbService.GetSessionMessagesAsync(sessionId);
+        return await _cosmosDbService.GetSessionMessagesAsync(sessionId, _callContext.CurrentUserIdentity?.UPN ??
+            throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat messages."));
     }
 
     /// <summary>
@@ -81,8 +69,11 @@ public class CoreService : ICoreService
     /// </summary>
     public async Task<Session> CreateNewChatSessionAsync()
     {
-        Session session = new();
-        session.Type = _sessionType;
+        Session session = new()
+        {
+            Type = _sessionType,
+            UPN = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when creating a new chat session.")
+        };
         return await _cosmosDbService.InsertSessionAsync(session);
     }
 
@@ -120,7 +111,8 @@ public class CoreService : ICoreService
             // However if you put this before the vector search it can get stuck on previous answers and not pull additional information. Worth experimenting
 
             // Retrieve conversation, including latest prompt.
-            var messages = await _cosmosDbService.GetSessionMessagesAsync(sessionId);
+            var messages = await _cosmosDbService.GetSessionMessagesAsync(sessionId, _callContext.CurrentUserIdentity?.UPN ??
+                throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat completions."));
             var messageHistoryList = messages
                 .Select(message => new MessageHistoryItem(message.Sender, message.Text))
                 .ToList();
@@ -135,8 +127,10 @@ public class CoreService : ICoreService
             var result = await _gatekeeperAPIService.GetCompletion(completionRequest);
 
             // Add to prompt and completion to cache, then persist in Cosmos as transaction.
-            var promptMessage = new Message(sessionId, nameof(Participants.User), result.PromptTokens, userPrompt, result.UserPromptEmbedding, null);
-            var completionMessage = new Message(sessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null);
+            // Add the user's UPN to the messages.
+            var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
+            var promptMessage = new Message(sessionId, nameof(Participants.User), result.PromptTokens, userPrompt, result.UserPromptEmbedding, null, upn, _callContext.CurrentUserIdentity?.Name);
+            var completionMessage = new Message(sessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName);
             var completionPromptText =
                 $"User prompt: {result.UserPrompt}{Environment.NewLine}Agent: {result.AgentName}{Environment.NewLine}Prompt template: {result.PromptTemplate}";
             var completionPrompt = new CompletionPrompt(sessionId, completionMessage.Id, completionPromptText);
@@ -182,7 +176,8 @@ public class CoreService : ICoreService
     /// </summary>
     private async Task<Message> AddPromptMessageAsync(string sessionId, string promptText)
     {
-        Message promptMessage = new(sessionId, nameof(Participants.User), default, promptText, null, null);
+        var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding a prompt message.");
+        var promptMessage = new Message(sessionId, nameof(Participants.User), default, promptText, null, null, upn);
 
         return await _cosmosDbService.InsertMessageAsync(promptMessage);
     }
@@ -198,6 +193,10 @@ public class CoreService : ICoreService
         // Update session cache with tokens used.
         session.TokensUsed += promptMessage.Tokens;
         session.TokensUsed += completionMessage.Tokens;
+        // Add the user's UPN to the messages.
+        var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
+        promptMessage.UPN = upn;
+        completionMessage.UPN = upn;
 
         await _cosmosDbService.UpsertSessionBatchAsync(promptMessage, completionMessage, completionPrompt, session);
     }

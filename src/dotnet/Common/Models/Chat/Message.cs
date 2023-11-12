@@ -33,6 +33,11 @@ public record Message
     [SimpleField]
     public string Sender { get; set; }
     /// <summary>
+    /// The display name of the message sender. This could be the name of the signed in user or the name of the agent.
+    /// </summary>
+    [SimpleField]
+    public string? SenderDisplayName { get; set; }
+    /// <summary>
     /// The number of tokens associated with the message, if any.
     /// </summary>
     [SimpleField]
@@ -48,6 +53,14 @@ public record Message
     [SimpleField]
     public bool? Rating { get; set; }
     /// <summary>
+    /// The UPN of the user who created the chat session.
+    /// </summary>
+    public string UPN { get; set; }
+    /// <summary>
+    /// Deleted flag used for soft delete.
+    /// </summary>
+    public bool Deleted { get; set; }
+    /// <summary>
     /// The vector associated with the message.
     /// </summary>
     [FieldBuilderIgnore]
@@ -60,16 +73,19 @@ public record Message
     /// <summary>
     /// Constructor for Message.
     /// </summary>
-    public Message(string sessionId, string sender, int? tokens, string text, float[]? vector, bool? rating)
+    public Message(string sessionId, string sender, int? tokens, string text,
+        float[]? vector, bool? rating, string upn, string? senderDisplayName = null)
     {
         Id = Guid.NewGuid().ToString();
         Type = nameof(Message);
         SessionId = sessionId;
         Sender = sender;
+        SenderDisplayName = senderDisplayName;
         Tokens = tokens ?? 0;
         TimeStamp = DateTime.UtcNow;
         Text = text;
         Rating = rating;
         Vector = vector;
+        UPN = upn;
     }
 }

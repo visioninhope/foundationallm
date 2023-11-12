@@ -24,7 +24,7 @@
     },
     "name": {
       "type": "string",
-      "defaultValue": "[uniqueString(resourceGroup().id)]",
+      "defaultValue": "[concat('fllm', uniqueString(resourceGroup().id))]",
       "maxLength": 15,
       "metadata": {
         "description": "Unique name for the deployed services below. Max length 15 characters, alphanumeric only:\r\n- Azure Cosmos DB for NoSQL\r\n- Azure Cosmos DB for MongoDB vCore\r\n- Azure OpenAI\r\n- Azure App Service\r\n- Azure Functions\r\n\r\nThe name defaults to a unique string generated from the resource group identifier.\r\n"
@@ -437,7 +437,7 @@
         },
         {
           "key": "FoundationaLLM:CosmosDB:Containers",
-          "value": "completions, customer, product",
+          "value": "Sessions, UserSessions",
           "contentType": null
         },
         {
@@ -457,7 +457,7 @@
         },
         {
           "key": "FoundationaLLM:CosmosDB:MonitoredContainers",
-          "value": "customer, product",
+          "value": "Sessions",
           "contentType": null
         },
         {
@@ -630,6 +630,20 @@
           "value": "[concat('{\"uri\":\"https://',variables('keyVaultSettings').name, '.vault.azure.net/secrets/foundationallm-semantickernelapi-openai-key\"}')]",
           "contentType": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8"
         }
+      ],
+      "featureFlags": [
+        {
+          "key": "FoundationaLLM-AllowAgentHint",
+          "label": "",
+          "value": {
+            "id": "FoundationaLLM-AllowAgentHint",
+            "description": "",
+            "enabled": false,
+            "conditions": {
+              "client_filters": []
+            }
+          }
+        }
       ]
     },
     "cognitiveSearchSettings": {
@@ -640,24 +654,14 @@
       "hostingMode": "default"
     },
     "cosmosContainers": {
-      "embeddingContainer": {
-        "name": "embedding",
-        "partitionKeyPath": "/id",
+      "userSessionsContainer": {
+        "name": "UserSessions",
+        "partitionKeyPath": "/upn",
         "maxThroughput": 1000
       },
-      "completionsContainer": {
-        "name": "completions",
+      "sessionsContainer": {
+        "name": "Sessions",
         "partitionKeyPath": "/sessionId",
-        "maxThroughput": 1000
-      },
-      "productContainer": {
-        "name": "product",
-        "partitionKeyPath": "/categoryId",
-        "maxThroughput": 1000
-      },
-      "customerContainer": {
-        "name": "customer",
-        "partitionKeyPath": "/customerId",
         "maxThroughput": 1000
       },
       "leasesContainer": {
@@ -796,7 +800,7 @@
     },
     {
       "copy": {
-        "name": "configStoreKeyValue",
+        "name": "apiUrlConfigKeyValue",
         "count": "[length(variables('appConfigSettings').apiUrlConfigKeys)]"
       },
       "type": "Microsoft.AppConfiguration/configurationStores/keyValues",
@@ -805,6 +809,22 @@
       "properties": {
         "value": "[concat('https://',reference(resourceId('Microsoft.ContainerService/managedClusters', variables('aksSettings').name), '2023-01-02-preview').addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName,'/', variables('appConfigSettings').apiUrlConfigKeys[copyIndex()].value,'/')]",
         "contentType": "[variables('appConfigSettings').apiUrlConfigKeys[copyIndex()].contentType]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.AppConfiguration/configurationStores', variables('appConfigSettings').name)]"
+      ]
+    },
+    {
+      "copy": {
+        "name": "featureFlagsKeyValue",
+        "count": "[length(variables('appConfigSettings').featureFlags)]"
+      },
+      "type": "Microsoft.AppConfiguration/configurationStores/keyValues",
+      "apiVersion": "2021-10-01-preview",
+      "name": "[format('{0}/{1}', variables('appConfigSettings').name, format('.appconfig.featureflag~2F{0}${1}', variables('appConfigSettings').featureFlags[copyIndex()].key, variables('appConfigSettings').featureFlags[copyIndex()].label))]",
+      "properties": {
+        "value": "[string(variables('appConfigSettings').featureFlags[copyIndex()].value)]",
+        "contentType": "application/vnd.microsoft.appconfig.ff+json;charset=utf-8"
       },
       "dependsOn": [
         "[resourceId('Microsoft.AppConfiguration/configurationStores', variables('appConfigSettings').name)]"
@@ -1121,7 +1141,7 @@
       "dependsOn": [ "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings').name)]" ],
       "properties": {
         "attributes": { "enabled": true },
-        "value": "[uniqueString(resourceGroup().id)]"
+        "value": "[uniqueString(resourceGroup().id, 'langchain')]"
       }
     },
     {

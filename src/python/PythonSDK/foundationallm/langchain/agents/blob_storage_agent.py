@@ -29,7 +29,7 @@ class BlobStorageAgent(AgentBase):
             and agent and data source metadata.       
         """        
         self.llm = llm.get_language_model()
-        self.prompt_prefix = completion_request.agent.prompt_template
+        self.prompt_prefix = completion_request.agent.prompt_prefix
         self.connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret)        
         self.container_name = completion_request.data_source.configuration.container        
         self.file_names = completion_request.data_source.configuration.files
@@ -64,7 +64,7 @@ class BlobStorageAgent(AgentBase):
             openai_api_key = self.__config.get_value("FoundationaLLM:AzureOpenAI:API:Key"),
             openai_api_type = "azure",
             deployment = "embeddings",
-            chunk_size=1
+            chunk_size=10     
         )
     
         index = VectorstoreIndexCreator(embedding=embeddings).from_loaders(loaders)
