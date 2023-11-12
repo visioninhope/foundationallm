@@ -34,6 +34,10 @@ builder.Services.AddOptions<CosmosDbSettings>()
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>();
 builder.Services.AddSingleton<ICosmosDbChangeFeedService, CosmosDbChangeFeedService>();
 builder.Services.AddHostedService<ChangeFeedWorker>();
+builder.Services.AddApplicationInsightsTelemetryWorkerService(options =>
+{
+    options.ConnectionString = builder.Configuration["FoundationaLLM:CoreWorkerService:AppInsightsConnectionString"];
+});
 
 var host = builder.Build();
 
