@@ -85,11 +85,11 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:CoreAPI:Entra:Scopes` | Data.Read |   |
 | `FoundationaLLM:CoreAPI:Entra:TenantId` |   |   |
 | `FoundationaLLM:CosmosDB:ChangeFeedLeaseContainer` | leases |   |
-| `FoundationaLLM:CosmosDB:Containers` | completions, customer, product |   |
+| `FoundationaLLM:CosmosDB:Containers` | Sessions, UserSessions |   |
 | `FoundationaLLM:CosmosDB:Database` | database |   |
 | `FoundationaLLM:CosmosDB:Endpoint` | Enter the URL to the service. |   |
 | `FoundationaLLM:CosmosDB:Key` | Key Vault secret name: `foundationallm-cosmosdb-key` | This is a Key Vault reference. |
-| `FoundationaLLM:CosmosDB:MonitoredContainers` | customer, product |   |
+| `FoundationaLLM:CosmosDB:MonitoredContainers` | Sessions |   |
 | `FoundationaLLM:DataSourceHub:DataSourceMetadata:StorageContainer` | data-sources |   |
 | `FoundationaLLM:DataSourceHub:StorageManager:BlobStorage:ConnectionString` | Key Vault secret name: `foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring` | This is a Key Vault reference. |
 | `FoundationaLLM:DataSources:AboutFoundationaLLM:BlobStorage:ConnectionString` | Key Vault secret name: `foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring` | This is a Key Vault reference. |
