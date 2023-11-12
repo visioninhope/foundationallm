@@ -35,8 +35,8 @@ namespace FoundationaLLM.AgentFactory.Tests.Models.Messages
 
             // Assert
             Assert.Equal(name, metadata.Name);
-            Assert.Equal(promptSufix, metadata.PromptPrefix);
-            Assert.Equal(promptPrefix, metadata.PromptSuffix);
+            Assert.Equal(promptSufix, metadata.PromptSuffix);
+            Assert.Equal(promptPrefix, metadata.PromptPrefix);
         }
     }
 }
