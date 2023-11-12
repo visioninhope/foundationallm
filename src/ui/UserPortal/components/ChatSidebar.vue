@@ -181,8 +181,10 @@ export default {
 
 		async handleDeleteSession() {
 			await api.deleteSession(this.sessionToDelete!.id);
-			this.sessionToDelete = null;
 			await this.getSessions();
+
+			this.sessions = this.sessions.filter((session: Session) => session.id !== this.sessionToDelete!.id);
+			this.sessionToDelete = null;
 
 			if (this.sessions.length === 0) {
 				this.handleAddSession();
