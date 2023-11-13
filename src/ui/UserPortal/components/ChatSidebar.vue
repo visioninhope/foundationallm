@@ -173,6 +173,8 @@ export default {
 			const newSession = await api.addSession();
 			this.handleSessionSelected(newSession);
 			await this.getSessions();
+
+			this.sessions = [newSession, ...this.sessions];
 		},
 
 		handleSessionSelected(session: Session) {
