@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import List, Optional, Union
-from foundationallm.models.orchestration import MessageHistoryItem
 
 class CompletionResponse(BaseModel):
     """
@@ -13,4 +12,3 @@ class CompletionResponse(BaseModel):
     completion_tokens: int = 0
     total_tokens: int = 0
     total_cost: float = 0.0
-    message_history: Optional[List[MessageHistoryItem]] = list()

@@ -59,11 +59,11 @@ class CSVAgent(AgentBase):
         for i in range(0, len(self.message_history), 2):
             history_pair = itemgetter(i,i+1)(self.message_history)
             for message in history_pair:
-                if message.sender == 'human':
-                    human_input = message.text
+                if message.sender.tolower() == 'user':
+                    user_input = message.text
                 else:
                     ai_output = message.text
-            memory.save_context({"input": human_input}, {"output": ai_output})
+            memory.save_context({"input": user_input}, {"output": ai_output})
             
         prompt = ZeroShotAgent.create_prompt(
             tools,
@@ -119,6 +119,5 @@ class CSVAgent(AgentBase):
                 completion_tokens = cb.completion_tokens,
                 prompt_tokens = cb.prompt_tokens,
                 total_tokens = cb.total_tokens,
-                total_cost = cb.total_cost,
-                message_history = [MessageHistoryItem(sender=message.type, text=message.content) for message in self.agent.memory.load_memory_variables({}).get('chat_history')]
+                total_cost = cb.total_cost
             )
