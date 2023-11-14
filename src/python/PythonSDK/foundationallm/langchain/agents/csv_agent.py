@@ -39,19 +39,21 @@ class CSVAgent(AgentBase):
         self.prompt_suffix = completion_request.agent.prompt_suffix
         self.llm = llm.get_language_model()
         self.message_history = completion_request.message_history
+
+        storage_manager = BlobStorageManager(
+            blob_connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret),
+            container_name = completion_request.data_source.configuration.container
+        )
         
-        connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret)
-        container_name = completion_request.data_source.configuration.container
         file_name = completion_request.data_source.configuration.files[0]
-        bsm = BlobStorageManager(blob_connection_string=connection_string, container_name=container_name)
-        file_content = bsm.read_file_content(file_name).decode('utf-8')
+        file_content = storage_manager.read_file_content(file_name).decode('utf-8')
         sio = StringIO(file_content)
         df = pd.read_csv(sio)
         tools = [
             PythonAstREPLTool(
                 locals={"df": df},
-                name=f'{completion_request.agent.name} data',
-                description=f'Useful for when you need to answer questions about {completion_request.agent.name} data.'
+                name=completion_request.data_source.data_description or 'CSV data',
+                description=completion_request.data_source.description or 'Useful for when you need to answer questions about data in CSV files.'
             )
         ]
         memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
@@ -59,7 +61,7 @@ class CSVAgent(AgentBase):
         for i in range(0, len(self.message_history), 2):
             history_pair = itemgetter(i,i+1)(self.message_history)
             for message in history_pair:
-                if message.sender.tolower() == 'user':
+                if message.sender.lower() == 'user':
                     user_input = message.text
                 else:
                     ai_output = message.text
