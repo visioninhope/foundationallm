@@ -1,12 +1,18 @@
+import pandas as pd
 from io import StringIO
-from langchain.agents import create_csv_agent
-from langchain.agents.agent_types import AgentType
+from operator import itemgetter
+from langchain.agents import AgentExecutor, ZeroShotAgent
+from langchain.chains import LLMChain
+from langchain.memory import ConversationBufferMemory
+from langchain.tools.python.tool import PythonAstREPLTool
 from langchain.callbacks import get_openai_callback
+
 from foundationallm.config import Configuration
 from foundationallm.langchain.agents import AgentBase
 from foundationallm.langchain.language_models import LanguageModelBase
 from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
 from foundationallm.storage import BlobStorageManager
+from foundationallm.models.orchestration import MessageHistoryItem
 
 class CSVAgent(AgentBase):
     """
@@ -29,20 +35,55 @@ class CSVAgent(AgentBase):
         config : Configuration
             Application configuration class for retrieving configuration settings.
         """
-        self.agent_prompt_prefix = completion_request.agent.prompt_prefix
+        self.prompt_prefix = completion_request.agent.prompt_prefix
+        self.prompt_suffix = completion_request.agent.prompt_suffix
         self.llm = llm.get_language_model()
-        connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret)        
-        container_name = completion_request.data_source.configuration.container        
-        file_name = completion_request.data_source.configuration.files[0]        
+        self.message_history = completion_request.message_history
+        
+        connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret)
+        container_name = completion_request.data_source.configuration.container
+        file_name = completion_request.data_source.configuration.files[0]
         bsm = BlobStorageManager(blob_connection_string=connection_string, container_name=container_name)
-        file_content = bsm.read_file_content(file_name).decode('utf-8')       
-        sio = StringIO(file_content)        
-        self.agent = create_csv_agent(
-            llm = self.llm,
-            path = sio,
-            verbose = True,
-            agent_type = AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-            prefix = self.agent_prompt_prefix
+        file_content = bsm.read_file_content(file_name).decode('utf-8')
+        sio = StringIO(file_content)
+        df = pd.read_csv(sio)
+        tools = [
+            PythonAstREPLTool(
+                locals={"df": df},
+                name=f'{completion_request.agent.name} data',
+                description=f'Useful for when you need to answer questions about {completion_request.agent.name} data.'
+            )
+        ]
+        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+        # Add previous messages to the memory
+        for i in range(0, len(self.message_history), 2):
+            history_pair = itemgetter(i,i+1)(self.message_history)
+            for message in history_pair:
+                if message.sender == 'human':
+                    human_input = message.text
+                else:
+                    ai_output = message.text
+            memory.save_context({"input": human_input}, {"output": ai_output})
+            
+        prompt = ZeroShotAgent.create_prompt(
+            tools,
+            prefix = self.prompt_prefix,
+            suffix = self.prompt_suffix,
+            input_variables = ['input', 'chat_history', 'df_head', 'agent_scratchpad']
+        )
+        partial_prompt = prompt.partial(
+            df_head=str(df.head(3).to_markdown())
+        )
+        zsa = ZeroShotAgent(
+            llm_chain=LLMChain(llm=self.llm, prompt=partial_prompt),
+            allowed_tools=[tool.name for tool in tools]
+        )
+        self.agent = AgentExecutor.from_agent_and_tools(
+            agent=zsa,
+            tools=tools,
+            verbose=True,
+            memory=memory,
+            handle_parsing_errors='Check your output and make sure it conforms!'
         )
 
     @property
@@ -78,5 +119,6 @@ class CSVAgent(AgentBase):
                 completion_tokens = cb.completion_tokens,
                 prompt_tokens = cb.prompt_tokens,
                 total_tokens = cb.total_tokens,
-                total_cost = cb.total_cost
+                total_cost = cb.total_cost,
+                message_history = [MessageHistoryItem(sender=message.type, text=message.content) for message in self.agent.memory.load_memory_variables({}).get('chat_history')]
             )
