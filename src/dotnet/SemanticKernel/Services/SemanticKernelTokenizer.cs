@@ -1,5 +1,5 @@
 ﻿using FoundationaLLM.SemanticKernel.Core.Interfaces;
-using Microsoft.SemanticKernel.Connectors.AI.OpenAI.Tokenizers;
+using Microsoft.ML.Tokenizers;
 
 namespace FoundationaLLM.SemanticKernel.Core.Services
 {
@@ -15,7 +15,10 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         /// <returns>The number of tokens.</returns>
         public int GetTokensCount(string text)
         {
-            return GPT3Tokenizer.Encode(text).Count;
+            Tokenizer tokenizer = new(new Bpe());
+            var tokens = tokenizer.Encode(text).Tokens;
+
+            return tokens.Count;
         }
     }
 }
