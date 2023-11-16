@@ -1661,6 +1661,9 @@
               "allowedOrigins": [
                 "*"
               ],
+              "allowedMethods": [
+                "*"
+              ],
               "allowedHeaders": [
                 "*"
               ],
