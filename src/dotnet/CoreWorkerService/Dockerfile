@@ -5,14 +5,21 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["dotnet/CoreWorkerService/CoreWorkerService.csproj", "dotnet/CoreWorkerService/"]
-RUN dotnet restore "dotnet/CoreWorkerService/CoreWorkerService.csproj"
 COPY . .
-WORKDIR "/src/dotnet/CoreWorkerService"
-RUN dotnet build "CoreWorkerService.csproj" -c Release -o /app/build
+
+RUN dotnet restore "dotnet/Common/Common.csproj"
+RUN dotnet build "dotnet/Common/Common.csproj" -c Release -o /app/build
+
+RUN dotnet restore "dotnet/Core/Core.csproj"
+RUN dotnet build "dotnet/Core/Core.csproj" -c Release -o /app/build
+
+RUN dotnet restore "dotnet/CoreWorkerService/CoreWorkerService.csproj"
+RUN dotnet build "dotnet/CoreWorkerService/CoreWorkerService.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CoreWorkerService.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/Common/Common.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/Core/Core.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/CoreWorkerService/CoreWorkerService.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
