@@ -11,7 +11,7 @@ namespace FoundationaLLM.Common.Services
 {
     /// <summary>
     /// Provides a common interface for retrieving and resolving user claims
-    /// from Microsoft Entra to a <see cref="UnifiedUserIdentity"/> object.
+    /// from Microsoft Entra ID to a <see cref="UnifiedUserIdentity"/> object.
     /// </summary>
     public class EntraUserClaimsProviderService : IUserClaimsProviderService
     {
