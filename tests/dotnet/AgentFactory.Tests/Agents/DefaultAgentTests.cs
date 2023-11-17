@@ -20,7 +20,7 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
             AllowedDataSourceNames = new List<string> { "TestDataSource" },
             LanguageModel = new LanguageModelMetadata
             {
-                ModelType = "TestModelType",
+                Type = "TestModelType",
                 Provider = "TestProvider",
                 Temperature = 0.5f,
                 UseChat = true
