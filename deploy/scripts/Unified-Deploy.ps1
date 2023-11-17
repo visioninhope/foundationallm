@@ -51,10 +51,10 @@ if ($stepLoginAzure) {
 # Write-Host "Choosing your subscription" -ForegroundColor Yellow
 az account set --subscription $subscription
 
-if (-Not (az group list --query '[].name' -o json | ConvertFrom-Json) -Contains $resourceGroup) {
+if (-Not (az group list --query "[?name=='$resourceGroup'].name" -o json | ConvertFrom-Json) -Contains $resourceGroup) {
     Write-Host("The resource group $resourceGroup was not found, creating it...")
     $rg = $(az group create -g $resourceGroup -l $location --subscription $subscription)
-    if (-Not (az group list --query '[].name' -o json | ConvertFrom-Json) -Contains $resourceGroup) {
+    if (-Not (az group list --query "[?name=='$resourceGroup'].name" -o json | ConvertFrom-Json) -Contains $resourceGroup) {
         Write-Error("The resource group $resourceGroup was not found, and could not be created.")
         exit 1
     }
