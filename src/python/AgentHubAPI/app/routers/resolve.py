@@ -16,7 +16,7 @@ router = APIRouter(
 @router.post('')
 async def resolve(request: AgentHubRequest, x_user_identity: Optional[str] = Header(None), x_agent_hint: Optional[str] = Header(None)) -> AgentHubResponse:
     """
-    Resolves an agent request.
+    Resolves the best agent to use for the specified user prompt.
 
     Parameters
     ----------
