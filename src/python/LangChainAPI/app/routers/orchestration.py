@@ -1,6 +1,6 @@
 import logging
 from typing import Optional
-from fastapi import APIRouter, Depends, Header
+from fastapi import APIRouter, Depends, Header, HTTPException
 from app.dependencies import validate_api_key_header
 
 from foundationallm.config import Configuration, Context
@@ -38,4 +38,7 @@ async def get_completion(completion_request: CompletionRequest, x_user_identity:
         return orchestration_manager.run(completion_request.user_prompt)
     except Exception as e:
         logging.error(e, stack_info=True, exc_info=True)
-        raise e
+        raise HTTPException(
+            status_code = 500,
+            detail = e.message
+        )
