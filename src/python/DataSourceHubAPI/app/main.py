@@ -5,8 +5,10 @@ from fastapi import FastAPI
 from app.routers import resolve, status
 from azure.monitor.opentelemetry import configure_azure_monitor
 
+config = get_config()
+
 configure_azure_monitor(
-    connection_string=os.environ['FoundationaLLM:APIs:DataSourceHubAPI:AppInsightsConnectionString'],
+    connection_string=config.get_value('FoundationaLLM:APIs:DataSourceHubAPI:AppInsightsConnectionString'),
     disable_offline_storage=True
 )
 

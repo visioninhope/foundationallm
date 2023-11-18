@@ -8,10 +8,8 @@ from azure.monitor.opentelemetry import configure_azure_monitor
 
 config = get_config()
 
-conn_str = config.get_value('FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString')
-
 configure_azure_monitor(
-    connection_string=conn_str,
+    connection_string=config.get_value('FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString'),
     disable_offline_storage=True
 )
 
