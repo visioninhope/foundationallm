@@ -1,11 +1,9 @@
 import logging
 import os
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from app.routers import orchestration, status
 from azure.monitor.opentelemetry import configure_azure_monitor
-from opentelemetry import trace
-from opentelemetry.propagate import extract
 
 configure_azure_monitor(
     connection_string=os.environ['FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString'],
@@ -35,7 +33,7 @@ app.include_router(orchestration.router)
 app.include_router(status.router)
 
 @app.get('/')
-async def root(request: Request):
+async def root():
     """
     Root path of the API.
     
