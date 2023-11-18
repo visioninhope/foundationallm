@@ -12,6 +12,19 @@ router = APIRouter(
 
 @router.post('')
 async def resolve(request: PromptHubRequest) -> PromptHubResponse:
+    """
+    Retrieves the prompt to use for a specified agent and prompt name.
+
+    Parameters
+    ----------
+    request : PromptHubRequest
+        The request object containing the agent and prompt names to use in resolving the prompt to return.
+    
+    Returns
+    -------
+    PromptHubResponse
+        Object containing the metadata for the resolved prompt.
+    """
     try:
         return PromptHub().resolve(request)
     except Exception as e:
