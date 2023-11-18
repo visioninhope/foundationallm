@@ -2,11 +2,16 @@ import logging
 import os
 import uvicorn
 from fastapi import FastAPI
+from app.dependencies import get_config
 from app.routers import orchestration, status
 from azure.monitor.opentelemetry import configure_azure_monitor
 
+config = get_config()
+
+conn_str = config.get_value('FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString')
+
 configure_azure_monitor(
-    connection_string=os.environ['FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString'],
+    connection_string=conn_str,
     disable_offline_storage=True
 )
 
