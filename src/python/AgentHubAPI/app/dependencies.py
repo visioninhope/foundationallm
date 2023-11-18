@@ -1,3 +1,4 @@
+import logging
 from typing import Annotated
 from fastapi import Depends, HTTPException
 from fastapi.security import APIKeyHeader
@@ -23,6 +24,7 @@ def validate_api_key_header(config: Annotated[Configuration, Depends()], x_api_k
     result = x_api_key == config.get_value('FoundationaLLM:APIs:AgentHubAPI:APIKey')
     
     if not result:
+        logging.error('Invalid API key. You must provide a valid API key in the X-API-KEY header.')
         raise HTTPException(
             status_code = 401,
             detail = f'Invalid API key. You must provide a valid API key in the X-API-KEY header.'
