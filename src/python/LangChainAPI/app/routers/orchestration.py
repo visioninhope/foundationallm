@@ -1,3 +1,4 @@
+import logging
 from typing import Optional
 from fastapi import APIRouter, Depends, Header
 from app.dependencies import validate_api_key_header
@@ -32,5 +33,9 @@ async def get_completion(completion_request: CompletionRequest, x_user_identity:
     CompletionResponse
         Object containing the completion response and token usage details.
     """
-    orchestration_manager = OrchestrationManager(completion_request = completion_request, configuration=config, context=Context(user_identity=x_user_identity))
-    return orchestration_manager.run(completion_request.user_prompt)
+    try:
+        orchestration_manager = OrchestrationManager(completion_request = completion_request, configuration=config, context=Context(user_identity=x_user_identity))
+        return orchestration_manager.run(completion_request.user_prompt)
+    except Exception as e:
+        logging.error(e, stack_info=True, exc_info=True)
+        raise e
