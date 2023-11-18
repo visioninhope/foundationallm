@@ -141,9 +141,10 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 
 #### Implicit grant and hybrid flows for the API application
 
-1. Check **Access tokens** and **ID tokens** under **Implicit grant**.
-2. Select **Configure** to apply the changes.
-3. Select **Save** at the bottom of the page to save the changes.
+1. Select **Authentication** under **Manage** in the left-hand menu.
+2. Check **Access tokens** and **ID tokens** under **Implicit grant**.
+3. Select **Configure** to apply the changes.
+4. Select **Save** at the bottom of the page to save the changes.
 
     ![Both the Access tokens and ID tokens checkboxes are checked and the Save button is highlighted.](media/entra-app-client-authentication-implicit-grant.png)
 
