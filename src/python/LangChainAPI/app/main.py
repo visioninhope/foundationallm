@@ -9,8 +9,7 @@ from opentelemetry.propagate import extract
 
 configure_azure_monitor(
     connection_string=os.environ['FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString'],
-    disable_offline_storage=True,
-    logger_name=logging.getLogger(__name__).name
+    disable_offline_storage=True
 )
 
 app = FastAPI(
@@ -32,10 +31,6 @@ app = FastAPI(
     }
 )
 
-tracer = trace.get_tracer(__name__, tracer_provider=trace.get_tracer_provider())
-logger = logging.getLogger(__name__)
-logger.info("LangChainAPI test")
-
 app.include_router(orchestration.router)
 app.include_router(status.router)
 
@@ -51,13 +46,7 @@ async def root(request: Request):
     """
     logging.warning('Logging root endpoint warning...')
     
-    with tracer.start_as_current_span(
-        'langchain_api_root_request',
-        context=extract(request.headers),
-        kind=trace.SpanKind.SERVER
-    ):    
-        logger.warning('Logger root endpoint warning...')
-        return { 'message': 'This is the Solliance AI Copilot powered by FoundationaLLM!' }
+    return { 'message': 'This is the Solliance AI Copilot powered by FoundationaLLM!' }
 
 if __name__ == '__main__':
     uvicorn.run('app.main:app', host='0.0.0.0', port=8765, reload=True, forwarded_allow_ips='*', proxy_headers=True)

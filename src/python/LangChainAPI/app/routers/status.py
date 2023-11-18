@@ -1,4 +1,3 @@
-import logging
 from fastapi import APIRouter
 
 router = APIRouter(
@@ -17,5 +16,4 @@ async def get_status() -> str:
     string
         String containing the current status of the API.
     """
-    logging.info('LangChainAPI status is "ready."')
     return 'ready'
