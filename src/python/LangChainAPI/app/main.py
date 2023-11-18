@@ -44,8 +44,6 @@ async def root(request: Request):
     str
         Returns a JSON object containing a message and value.
     """
-    logging.warning('Logging root endpoint warning...')
-    
     return { 'message': 'This is the Solliance AI Copilot powered by FoundationaLLM!' }
 
 if __name__ == '__main__':
