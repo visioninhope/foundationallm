@@ -2,6 +2,7 @@ import logging
 import os
 import uvicorn
 from fastapi import FastAPI
+from app.dependencies import get_config
 from app.routers import resolve, status
 from azure.monitor.opentelemetry import configure_azure_monitor
 
