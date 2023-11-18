@@ -1,6 +1,14 @@
+import logging
+import os
 import uvicorn
 from fastapi import FastAPI
 from app.routers import resolve, status
+from azure.monitor.opentelemetry import configure_azure_monitor
+
+configure_azure_monitor(
+    connection_string=os.environ['FoundationaLLM:APIs:PromptHubAPI:AppInsightsConnectionString'],
+    disable_offline_storage=True
+)
 
 app = FastAPI(
     title='FoundationaLLM PromptHubAPI',
@@ -16,8 +24,8 @@ app = FastAPI(
     docs_url='/swagger',
     redoc_url=None,
     license_info={
-        "name": "FoundationaLLM Software License",
-        "url": "https://www.foundationallm.ai/license",
+        'name': 'FoundationaLLM Software License',
+        'url': 'https://www.foundationallm.ai/license',
     }
 )
 
