@@ -34,6 +34,7 @@
 - Environment variables:
   - Create an environment variable for the Application Configuration Service connection string named `FoundationaLLM:AppConfig:ConnectionString`. This is used by the .NET projects.
   - Create an environment variable for the Application Configuration Service URI named `foundationallm-app-configuration-uri`. This is used by the Python projects.
+- Follow the instructions in [Configure access control for services](../deployment/configure-access-control-for-services.md) to grant your user account access to the Azure App Configuration and Key Vault services. You may need an Azure admin to perform these steps on your behalf.
 - Backend (APIs and worker services):
   - Visual Studio 2022 17.8 or later (required for passthrough Visual Studio authentication for the Docker container and .NET 8 support) with the [Python workload installed](https://learn.microsoft.com/visualstudio/python/installing-python-support-in-visual-studio?view=vs-2022)
   - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet) or greater
