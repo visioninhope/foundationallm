@@ -19,7 +19,7 @@ def test_zoo_completion_request():
      req = CompletionRequest(
                          user_prompt="How many species of ungulates live in Africa's savannas?",
                          agent=Agent(name="sdzwa", type="blob-storage", description="Provides details about the San Diego Zoo Wildlife Alliance originating from the 2022 and 2023 issues of the journal.", prompt_prefix="You are the San Diego Zoo assistant named Sandy. You are responsible for answering questions related to the San Diego Zoo that is contained in the journal publications. Only answer questions that relate to the Zoo and journal content. Do not make anything up. Use only the data provided."),
-                         data_source=DataSource(name="sdzwa", type="blob-storage", description="Information about the San Diego Zoo publications.", configuration=BlobStorageConfiguration(connection_string_secret="FoundationaLLM:BlobStorageMemorySource:BlobStorageConnection", container="zoo-source", files = ["SDZWA-Journal-July-2023.pdf","SDZWA-Journal-March-2023.pdf", "SDZWA-Journal-May-2023.pdf", "SDZWA-Journal-November-2023.pdf", "SDZWA-Journal-September-2023.pdf"])),
+                         data_source=DataSource(name="sdzwa-ds", type="blob-storage", description="Information about the San Diego Zoo publications.", configuration=BlobStorageConfiguration(connection_string_secret="FoundationaLLM:BlobStorageMemorySource:BlobStorageConnection", container="sdzwa-source", files = ["SDZWA-Journal-July-2023.pdf","SDZWA-Journal-March-2023.pdf", "SDZWA-Journal-May-2023.pdf", "SDZWA-Journal-November-2023.pdf", "SDZWA-Journal-September-2023.pdf"])),
                          language_model=LanguageModel(type=LanguageModelTypes.OPENAI, provider=LanguageModelProviders.MICROSOFT, temperature=0, use_chat=True),
                          message_history=[]
                          )
@@ -35,7 +35,7 @@ def test_fllm_completion_request():
      req = CompletionRequest(
                          user_prompt="What is FoundationaLLM?",
                          agent=Agent(name="default", type="blob-storage", description="Useful for answering questions from users.", prompt_prefix="You are an analytic agent named Khalil that helps people find information about FoundationaLLM.\nProvide concise answers that are polite and professional.\nDo not include in your answers things you are not sure about."),
-                         data_source=DataSource(name="about-foundationallm", type="blob-storage", description="Information about FoundationaLLM.", configuration=BlobStorageConfiguration(connection_string_secret="FoundationaLLM:BlobStorageMemorySource:BlobStorageConnection", container="foundationallm-source", files = ["about.txt"])),
+                         data_source=DataSource(name="about-foundationallm", type="blob-storage", description="Information about FoundationaLLM.", configuration=BlobStorageConfiguration(connection_string_secret="FoundationaLLM:DataSources:AboutFoundationaLLM:BlobStorage:ConnectionString", container="foundationallm-source", files = ["about.txt"])),
                          language_model=LanguageModel(type=LanguageModelTypes.OPENAI, provider=LanguageModelProviders.MICROSOFT, temperature=0, use_chat=True),
                          message_history=[]
                          )
@@ -66,7 +66,8 @@ class BlobStorageAgentTests:
 #       agent = BlobStorageAgent(completion_request=test_zoo_completion_request,llm=test_zoo_llm, config=test_config)
 #       completion_response = agent.run(prompt=test_zoo_completion_request.user_prompt)
 #       print(completion_response.completion)
-#       assert "bi-monthly" in completion_response.completion.lower()
+#       # test for bi-monthly and bimonthly
+#       assert "bimonthly" in completion_response.completion.lower().replace("-","")
 #   
 #   def test_agent_should_return_valid_response_beisaoryx_pdf(self, test_zoo_completion_request, test_zoo_llm, test_config):        
 #       test_zoo_completion_request.user_prompt = "What is a beisa oryx?"        

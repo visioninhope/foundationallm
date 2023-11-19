@@ -45,8 +45,8 @@ class BlobStorageAgent(AgentBase):
         Creates a vector index from files in the indicated blob storage container and files list
         """
 
-        #if self.container_name in vector_store:            
-        #    return vector_store[self.container_name]
+        if self.container_name in vector_store:            
+            return vector_store[self.container_name]
         
         docs = []
         if "*" in self.file_names:
@@ -70,7 +70,7 @@ class BlobStorageAgent(AgentBase):
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         splits = text_splitter.split_documents(docs)
         
-        index = Chroma.from_documents(documents=splits, embedding=embeddings)
+        index = Chroma.from_documents(documents=splits, embedding=embeddings, collection_name=self.container_name)
         vector_store[self.container_name] = index
         return index             
     
