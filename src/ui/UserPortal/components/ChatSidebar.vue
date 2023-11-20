@@ -188,7 +188,11 @@ export default {
 			this.handleSessionSelected(newSession);
 			await this.getSessions();
 
-			this.sessions = [newSession, ...this.sessions];
+			// Only add newSession to the list if it doesn't already exist.
+			// We optionally add it because the backend is sometimes slow to update the session list.
+			if (!this.sessions.find((session: Session) => session.id === newSession.id)) {
+				this.sessions = [newSession, ...this.sessions];
+			}
 		},
 
 		handleSessionSelected(session: Session) {
