@@ -53,7 +53,7 @@
 				</div>
 				<!-- Logged in user name -->
 				<div v-else class="navbar__content__right__item">
-					<span>Welcome {{ accountName }}</span>
+					<span>Welcome, {{ accountName }}</span>
 					<Button class="button--auth" icon="pi pi-sign-out" label="Sign Out" @click="signOut()"></Button>
 				</div>
 			</div>
