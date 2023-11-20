@@ -8,10 +8,10 @@ from azure.monitor.opentelemetry import configure_azure_monitor
 
 config = get_config()
 
-configure_azure_monitor(
-    connection_string=config.get_value('FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString'),
-    disable_offline_storage=True
-)
+# configure_azure_monitor(
+#     connection_string=config.get_value('FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString'),
+#     disable_offline_storage=True
+# )
 
 app = FastAPI(
     title='FoundationaLLM LangChainAPI',
