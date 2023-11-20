@@ -10,7 +10,6 @@ using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.SemanticKernel.SemanticFunctions;
 using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
 using FoundationaLLM.Common.Interfaces;
 
