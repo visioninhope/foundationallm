@@ -1,7 +1,9 @@
 <template>
 	<div class="login-page">
-		<img :src="logoUrl" class="logo" />
-		<Button icon="pi pi-sign-in" label="Sign In" size="large" @click="signIn"></Button>
+		<div class="login-container">
+			<img :src="logoUrl" class="logo" />
+			<Button icon="pi pi-microsoft" label="Sign in" size="large" @click="signIn"></Button>
+		</div>
 	</div>
 </template>
 
@@ -35,18 +37,28 @@ export default {
 <style lang="scss" scoped>
 .login-page {
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
-	background-color: var(--primary-bg);
-	background-image: url('/assets/splash.png');
-	background-size: cover;
+	background-color: var(--primary-color);
+	background: linear-gradient(45deg, var(--primary-color) 0%, var(--secondary-color) 50%);
+}
+
+.login-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 500px;
+	height: auto;
+	padding: 48px;
+	background-color: rgba(255, 255, 255, 0.05);
+	backdrop-filter: blur(300px);
 }
 
 .logo {
 	width: 300px;
 	height: auto;
-	margin-bottom: 24px;
+	margin-bottom: 48px;
 }
 </style>
