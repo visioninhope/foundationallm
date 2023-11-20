@@ -2,7 +2,7 @@
 	<div class="login-page">
 		<div class="login-container">
 			<img :src="logoUrl" class="logo" />
-			<Button icon="pi pi-microsoft" label="Sign in with Microsoft" size="large" @click="signIn"></Button>
+			<Button icon="pi pi-microsoft" label="Sign in" size="large" @click="signIn"></Button>
 		</div>
 	</div>
 </template>
