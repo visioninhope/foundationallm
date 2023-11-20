@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.AgentFactory.Core.Services;
 using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 
 namespace FoundationaLLM.AgentFactory.Tests.Services
@@ -22,18 +23,24 @@ namespace FoundationaLLM.AgentFactory.Tests.Services
             // Arrange
             var agentName = "TestAgentName";
 
-            var httpClient = new HttpClient()
+            var response = new HttpResponseMessage
             {
-                BaseAddress = new Uri("http://example.com")
+                Content = new StringContent("{\"Prompt\": {\"Name\":\"TestName\"}}"),
+                StatusCode = HttpStatusCode.OK
             };
 
-            _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.PromptHubAPI).Returns(httpClient);
+            var httpClient = new HttpClient(new FakeMessageHandler(response))
+            {
+                BaseAddress = new Uri("http://nsubstitute.io")
+            };
+            _httpClientFactoryService.CreateClient(HttpClients.PromptHubAPI).Returns(httpClient);
 
             // Act
             var result = await _promptHubAPIService.ResolveRequest(agentName);
 
             // Assert
             Assert.NotNull(result);
+            Assert.Equal("TestName", result?.Prompt?.Name);
         }
 
         [Fact]
