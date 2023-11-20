@@ -4,8 +4,6 @@
   - [Prerequisites](#prerequisites)
   - [UI](#ui)
     - [User Portal](#user-portal)
-    - [Chat (deprecated)](#chat-deprecated)
-      - [Chat app settings](#chat-app-settings)
   - [.NET projects](#net-projects)
     - [Core API](#core-api)
       - [Core API app settings](#core-api-app-settings)
@@ -36,6 +34,7 @@
 - Environment variables:
   - Create an environment variable for the Application Configuration Service connection string named `FoundationaLLM:AppConfig:ConnectionString`. This is used by the .NET projects.
   - Create an environment variable for the Application Configuration Service URI named `foundationallm-app-configuration-uri`. This is used by the Python projects.
+- Follow the instructions in [Configure access control for services](../deployment/configure-access-control-for-services.md) to grant your user account access to the Azure App Configuration and Key Vault services. You may need an Azure admin to perform these steps on your behalf.
 - Backend (APIs and worker services):
   - Visual Studio 2022 17.8 or later (required for passthrough Visual Studio authentication for the Docker container and .NET 8 support) with the [Python workload installed](https://learn.microsoft.com/visualstudio/python/installing-python-support-in-visual-studio?view=vs-2022)
   - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet) or greater
@@ -63,47 +62,6 @@ The `UserPortal` project is a Vue.js (Nuxt) project. To configure it to run loca
 2. Copy the `.env.example` file in the root directory to a new file named `.env` and update the values:
    1. The `APP_CONFIG_ENDPOINT` value should be the Connection String for the Azure App Configuration service. This should be the same value as the `FoundationaLLM:AppConfig:ConnectionString` environment variable.
    2. The `LOCAL_API_URL` should be the URL of the local Core API service (https://localhost:63279). **Important:** Only set this value if you wish to debug the entire solution locally and bypass the App Config service value for the CORE API URL. If you do not wish to debug the entire solution locally, leave this value empty or comment it out.
-
-### Chat (deprecated)
-
-The `Chat` Blazor web app is deprecated and will be removed in a future release. It is only included in the solution for reference purposes.
-
-#### Chat app settings
-
-> Make sure the contents of the `appsettings.json` file has this structure and similar values:
-
-```json
-{
-  "DetailedErrors": true,
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  },
-  "AllowedHosts": "*",
-  "FoundationaLLM": {
-    "AppConfig": {
-      "ConnectionString": ""
-    }
-  }
-}
-```
-
-> Create the `appsettings.Development.json` file or update it with the following content and replace all `<...>` placeholders with the values from your deployment:
-
-```json
-{
-  "FoundationaLLM": {
-    "APIs": {
-      "CoreAPI": {
-        "APIUrl": "<...>"
-      },
-    } 
-  }
- }
-
-```
 
 ## .NET projects
 
