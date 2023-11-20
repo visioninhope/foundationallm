@@ -174,7 +174,7 @@ export default {
 				account: msalInstance.getAccount(accountFilter),
 			};
 
-			await msalInstance.logoutPopup(logoutRequest);
+			await msalInstance.logoutRedirect(logoutRequest);
 			this.signedIn = false;
 			this.accountName = '';
 			this.userName = '';
