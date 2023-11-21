@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { mapStores } from 'pinia';
-import { appConfig } from '@/stores/appConfig';
+import { appConfig } from '@/stores/appConfigStore';
 import { attemptLogin } from '@/js/auth';
 
 export default {

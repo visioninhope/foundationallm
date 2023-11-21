@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { Session, Message } from '@/js/types';
-import { appConfig } from './appConfig';
+import { appConfig } from './appConfigStore';
 import api from '@/js/api';
 
 export const appStore = defineStore('app', {

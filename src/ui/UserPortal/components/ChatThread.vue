@@ -43,8 +43,8 @@
 <script lang="ts">
 import { mapStores } from 'pinia';
 import type { Message, Session } from '@/js/types';
-import { appConfig } from '@/stores/appConfig';
-import { appStore } from '@/stores/app';
+import { appConfig } from '@/stores/appConfigStore';
+import { appStore } from '@/stores/appStore';
 
 export default {
 	name: 'ChatThread',

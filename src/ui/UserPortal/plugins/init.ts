@@ -1,5 +1,5 @@
 import { defineNuxtPlugin } from '#app';
-import { appConfig } from '@/stores/appConfig';
+import { appConfig } from '@/stores/appConfigStore';
 import api from '@/js/api';
 import { setAuthConfig } from '@/js/auth';
 

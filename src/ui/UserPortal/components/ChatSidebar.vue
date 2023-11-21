@@ -94,8 +94,8 @@
 <script lang="ts">
 import { mapStores } from 'pinia';
 import type { Session } from '@/js/types';
-import { appConfig } from '@/stores/appConfig';
-import { appStore } from '@/stores/app';
+import { appConfig } from '@/stores/appConfigStore';
+import { appStore } from '@/stores/appStore';
 declare const process: any;
 
 export default {
