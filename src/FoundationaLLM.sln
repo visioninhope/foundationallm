@@ -57,7 +57,7 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "AgentHubAPI.Tests", "..\tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentFactory.Tests", "AgentFactory.Tests\AgentFactory.Tests.csproj", "{BD184A53-281D-4CC8-AF48-27A9325C93D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreWorkerService", "dotnet\CoreWorkerService\CoreWorkerService.csproj", "{0DEF31F7-72E4-428A-A32B-C11F9C28B192}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreWorker", "dotnet\CoreWorker\CoreWorker.csproj", "{0DEF31F7-72E4-428A-A32B-C11F9C28B192}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vectorization", "dotnet\Vectorization\Vectorization.csproj", "{3A73EEED-1602-4CAC-BAAD-56062A3431CC}"
 EndProject

@@ -7,8 +7,8 @@
   - [.NET projects](#net-projects)
     - [Core API](#core-api)
       - [Core API app settings](#core-api-app-settings)
-    - [CoreWorkerService](#coreworkerservice)
-      - [CoreWorkerService app settings](#coreworkerservice-app-settings)
+    - [CoreWorker](#CoreWorker)
+      - [CoreWorker app settings](#CoreWorker-app-settings)
     - [Gatekeeper API](#gatekeeper-api)
       - [Gatekeeper API app settings](#gatekeeper-api-app-settings)
     - [Agent Factory API](#agent-factory-api)
@@ -103,11 +103,11 @@ The `UserPortal` project is a Vue.js (Nuxt) project. To configure it to run loca
 }
 ```
 
-### CoreWorkerService
+### CoreWorker
 
-The `CoreWorkerService` project is a .NET worker service that acts as the Cosmos DB change feed processor. When you debug it locally, it runs within a Docker container. Because of this, it is important to make sure the App Configuration service connection string is set in the `appsettings.Development.json` file. This is because the Docker container will not have access to the environment variable.
+The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB change feed processor. When you debug it locally, it runs within a Docker container. Because of this, it is important to make sure the App Configuration service connection string is set in the `appsettings.Development.json` file. This is because the Docker container will not have access to the environment variable.
 
-#### CoreWorkerService app settings
+#### CoreWorker app settings
 
 > Make sure the contents of the `appsettings.json` file has this structure and similar values:
 
@@ -413,7 +413,7 @@ The backend components consist of the .NET projects and the Python projects. The
       - AgentFactoryAPI
       - AgentHubAPI
       - CoreAPI
-      - CoreWorkerService
+      - CoreWorker
       - DataSourceHubAPI
       - GatekeeperAPI
       - LangChainAPI
