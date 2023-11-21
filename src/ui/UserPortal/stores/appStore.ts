@@ -19,7 +19,7 @@ export const useAppStore = defineStore('app', {
 			// No need to load sessions if in kiosk mode, simply create a new one and skip.
 			if (appConfigStore.isKioskMode) {
 				const newSession = await api.addSession();
-				this.currentSession = newSession;
+				this.changeSession(newSession);
 				return;
 			}
 
