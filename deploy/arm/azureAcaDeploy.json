@@ -732,6 +732,10 @@
         {
           "key": "semantickernel",
           "containerPort": 80
+        },
+        {
+          "key": "vectorization",
+          "containerPort": 80
         }
       ]
     },
@@ -740,6 +744,9 @@
       "instances": [
         {
           "key": "corejob"
+        },
+        {
+          "key": "vectorizationjob"
         }
       ]
     },
@@ -2100,6 +2107,14 @@
     "semantickernelAcaName": {
       "type": "string",
       "value": "[format('{0}semantickernelca', parameters('name'))]"
+    },
+    "vectorizationAcaName": {
+      "type": "string",
+      "value": "[format('{0}vectorizationca', parameters('name'))]"
+    },
+    "vectorizationJobAcaName": {
+      "type": "string",
+      "value": "[format('{0}vectorizationjobca', parameters('name'))]"
     },
     "chatuiAcaName": {
       "type": "string",
