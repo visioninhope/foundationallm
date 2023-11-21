@@ -13,7 +13,7 @@ class AgentResolver(Resolver):
         hint_feature_flag_enabled = self.config.get_feature_flag("FoundationaLLM-AllowAgentHint")
         agent_metadata = None
         if hint_feature_flag_enabled and hint is not None:
-            agent_metadata = self.repository.get_metadata_by_name(hint)            
+            agent_metadata = self.repository.get_metadata_by_name(hint)
         if agent_metadata is None:
             agent_metadata = self.repository.get_metadata_by_name("default")
         return AgentHubResponse(agent=agent_metadata)

@@ -36,5 +36,5 @@ class SecureSQLDatabaseQueryTool(BaseSQLDatabaseTool, BaseTool):
                 )
         else:
             query = query
-        
+
         return self.db.run_no_throw(query)

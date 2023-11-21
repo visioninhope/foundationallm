@@ -23,7 +23,7 @@ class SQLDatabaseFactory():
         self.sql_db_config: SQLDatabaseConfiguration = sql_db_config
         self.config: Configuration = config
         self.dialect = self.sql_db_config.dialect
-        
+
     def get_sql_database(self) -> SQLDatabase:
         match self.dialect:
             case SQLDatabaseDialect.MARIADB:

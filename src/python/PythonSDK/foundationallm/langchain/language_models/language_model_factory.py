@@ -13,11 +13,11 @@ class LanguageModelFactory:
     """
     Factory class for determine which language models to use.
     """
-    
+
     def __init__(self, language_model: LanguageModel, config: Configuration):
         self.config = config
         self.language_model = language_model
-        
+
     def get_llm(self) -> BaseLanguageModel:
         """
         Retrieves the language model to use for completion requests.

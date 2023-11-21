@@ -9,7 +9,7 @@ from typing import List
 
 class DataSourceRepository(Repository):
     """ The DataSourceRepository is responsible for retrieving data source metadata from storage."""
-    
+
     def get_metadata_values(self, pattern:List[str]=None) -> List[DataSourceMetadata]:
         """
         Returns a list of DataSourceMetadata objects, optionally filtered by a pattern.
@@ -26,25 +26,25 @@ class DataSourceRepository(Repository):
             config_files = mgr.list_blobs()
         else:
             config_files = [datasourcename +".json" for datasourcename in pattern]
-       
+
         print(config_files)
         configs = []
         for config_file in config_files:
             common_datasource_metadata = {}
             try:
-                common_datasource_metadata = DataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))                
-                if common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SQL:                
+                common_datasource_metadata = DataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
+                if common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SQL:
                     configs.append(SQLDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))
                 elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.BLOB_STORAGE:
                     configs.append(BlobStorageDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))
                 elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SEARCH_SERVICE:
                     configs.append(SearchServiceDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))
-                elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.CSV:                    
-                    configs.append(CSVDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))                   
-            except:                
+                elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.CSV:
+                    configs.append(CSVDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))
+            except:
                 continue
         return configs
-    
+
     def get_metadata_by_name(self, name: str) -> DataSourceMetadata:
         """
         Returns a DataSourceMetadata object by its name.
@@ -58,10 +58,9 @@ class DataSourceRepository(Repository):
         if common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SQL:
             config = SQLDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
         elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.BLOB_STORAGE:
-            config = BlobStorageDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)) 
+            config = BlobStorageDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
         elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SEARCH_SERVICE:
             config = SearchServiceDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
         elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.CSV:
             config = CSVDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
         return config
-      

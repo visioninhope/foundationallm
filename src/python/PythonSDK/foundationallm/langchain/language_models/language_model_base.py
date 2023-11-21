@@ -5,7 +5,7 @@ from foundationallm.config import Configuration
 
 class LanguageModelBase(ABC):
     """Abstract base class for language models."""
-    
+
     def __init__(self, config: Configuration):
         """
         Initializer

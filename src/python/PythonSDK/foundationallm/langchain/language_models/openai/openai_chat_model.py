@@ -8,7 +8,7 @@ from foundationallm.langchain.language_models.openai import OpenAIModelBase
 class OpenAIChatModel(OpenAIModelBase):
     """OpenAI chat model."""
     config_value_base_name: str = 'FoundationaLLM:OpenAI:API'
-    
+
     def __init__(self, language_model: LanguageModel, config: Configuration):
         """
         Initializes an Open AI chat model.
@@ -24,7 +24,7 @@ class OpenAIChatModel(OpenAIModelBase):
         self.openai_api_base = self.config.get_value(f'{self.config_value_base_name}:Endpoint')
         self.temperature = self.config.get_value(f'{self.config_value_base_name}:Temperature')
         self.openai_api_key = self.config.get_value(f'{self.config_value_base_name}:Key')
-         
+
     def get_language_model(self) -> BaseLanguageModel:
         """
         Returns an OpenAI chat model.

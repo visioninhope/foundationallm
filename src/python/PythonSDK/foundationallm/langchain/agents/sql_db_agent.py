@@ -33,11 +33,11 @@ class SqlDbAgent(AgentBase):
         """
         self.agent_prompt_prefix = completion_request.agent.prompt_prefix
         self.agent_prompt_suffix = completion_request.agent.prompt_suffix
-            
+
         self.llm = llm.get_language_model()
         self.sql_db_config: SQLDatabaseConfiguration = completion_request.data_source.configuration
         self.context = context
-        
+
         self.agent = create_sql_agent(
             llm = self.llm,
             toolkit = SecureSQLDatabaseToolkit(
@@ -55,7 +55,7 @@ class SqlDbAgent(AgentBase):
                 'handle_parsing_errors': 'Check your output and make sure it conforms!'
             }
         )
-        
+
     @property
     def prompt_template(self) -> str:
         """
@@ -66,7 +66,7 @@ class SqlDbAgent(AgentBase):
             Returns the prompt template for the agent.
         """
         return self.agent.agent.llm_chain.prompt.template
-        
+
     def run(self, prompt: str) -> CompletionResponse:
         """
         Executes a query against a SQL database.

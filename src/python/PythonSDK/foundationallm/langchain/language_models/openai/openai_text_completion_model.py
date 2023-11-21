@@ -8,7 +8,7 @@ from foundationallm.langchain.language_models.openai import OpenAIModelBase
 class OpenAITextCompletionModel(OpenAIModelBase):
     """Azure OpenAI text completion model."""
     config_value_base_name: str = 'FoundationaLLM:OpenAI:API'
-    
+
     def __init__(self, language_model: LanguageModel, config: Configuration):
         """
         Initializes an Open AI text completion model.

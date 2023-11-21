@@ -6,4 +6,3 @@ class CSVDataSourceMetadata(DataSourceMetadata):
     CSVDataSourceMetadata contains the definition and authentication settings for a CSV data source.
     """
     authentication: CSVAuthentication
-    

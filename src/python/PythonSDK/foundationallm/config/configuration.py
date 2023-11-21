@@ -8,19 +8,19 @@ from azure.appconfiguration.provider import (
 from azure.identity import DefaultAzureCredential
 import json
 
-class Configuration():    
+class Configuration():
     def __init__(self):
         """Init"""
         try:
             app_config_uri = os.environ['foundationallm-app-configuration-uri']
         except Exception as e:
             raise e
-        
+
         credential = DefaultAzureCredential()
-        
+
         # Connect to Azure App Configuration.
         self.__config = load(endpoint=app_config_uri, credential=credential, key_vault_options=AzureAppConfigurationKeyVaultOptions(credential=credential))
-            
+
     def get_value(self, key: str) -> str:
         """
         Retrieves the value from Azure App Configuration.
@@ -40,30 +40,30 @@ class Configuration():
         """
         if key is None:
             raise Exception('The key parameter is required for Configuration.get_value().')
-        
+
         value = None
-        
+
         # will have future usage with Azure App Configuration
         # if foundationallm-configuration-allow-environment-variables exists and is True, then the environment variables will be checked first, then KV
         # if foundationallm-configuration-allow-environment-variables does not exist OR foundationallm-configuration-allow-environment-variables is False, then check App config and then KV
         allow_env_vars = False
         if "foundationallm-configuration-allow-environment-variables" in os.environ:
             allow_env_vars = bool(os.environ["foundationallm-configuration-allow-environment-variables"])
-               
+
         if allow_env_vars == True:
             value = os.environ.get(key)
-            
-        if value is None:               
+
+        if value is None:
             try:
-                value = self.__get_config_with_retry(name=key)                
-            except Exception as e:            
+                value = self.__get_config_with_retry(name=key)
+            except Exception as e:
                 pass
 
         if value is not None:
-            return value        
-        else:           
+            return value
+        else:
             raise Exception(f'The configuration variable {key} was not found.')
-        
+
     def get_feature_flag(self, key: str) -> bool:
         """
         Retrieves the feature flag from Azure App Configuration.
@@ -82,9 +82,9 @@ class Configuration():
         """
         if key is None:
             raise Exception('The key parameter is required for Configuration.get_feature_flag().')
-        
+
         value = False
-        
+
         if "FeatureManagementFeatureFlags" in self.__config.keys():
             if key in self.__config["FeatureManagementFeatureFlags"].keys():
                 try:

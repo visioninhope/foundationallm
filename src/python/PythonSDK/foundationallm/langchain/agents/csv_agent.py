@@ -17,7 +17,7 @@ class CSVAgent(AgentBase):
     """
     Agent for analyzing the contents of delimited files (e.g., CSV).
     """
-    
+
     def __init__(self, completion_request: CompletionRequest, llm: LanguageModelBase, config: Configuration):
         """
         Initializes a CSV agent.
@@ -43,7 +43,7 @@ class CSVAgent(AgentBase):
             blob_connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret),
             container_name = completion_request.data_source.configuration.container
         )
-        
+
         file_name = completion_request.data_source.configuration.files[0]
         file_content = storage_manager.read_file_content(file_name).decode('utf-8')
         sio = StringIO(file_content)
@@ -65,7 +65,7 @@ class CSVAgent(AgentBase):
                 else:
                     ai_output = message.text
             memory.save_context({"input": user_input}, {"output": ai_output})
-            
+
         prompt = ZeroShotAgent.create_prompt(
             tools,
             prefix = self.prompt_prefix,
@@ -97,7 +97,7 @@ class CSVAgent(AgentBase):
             Returns the prompt template for the agent.
         """
         return self.agent.agent.llm_chain.prompt.template
-    
+
     def run(self, prompt: str) -> CompletionResponse:
         """
         Executes a query against the contents of a CSV file.

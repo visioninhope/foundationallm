@@ -3,9 +3,9 @@ from foundationallm.hubs.agent import AgentMetadata, AgentHubStorageManager
 
 from typing import List
 
-class AgentRepository(Repository): 
+class AgentRepository(Repository):
     """ The AgentRepository is responsible for retrieving data source metadata from storage."""
-    
+
     def get_metadata_values(self, pattern:str=None) -> List[AgentMetadata]:
         """
         Returns a list of AgentMetadata objects, optionally filtered by a pattern.
@@ -21,8 +21,8 @@ class AgentRepository(Repository):
             pattern = ""
         agent_files = mgr.list_blobs(path=pattern)
         return [AgentMetadata.model_validate_json(mgr.read_file_content(agent_file)) for agent_file in agent_files]
-    
-    def get_metadata_by_name(self, name: str) -> AgentMetadata: 
+
+    def get_metadata_by_name(self, name: str) -> AgentMetadata:
         mgr = AgentHubStorageManager(config=self.config)
         agent_file = name + ".json"
         agent = None

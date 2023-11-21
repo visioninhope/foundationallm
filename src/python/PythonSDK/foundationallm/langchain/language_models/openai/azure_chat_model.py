@@ -10,7 +10,7 @@ class AzureChatModel(OpenAIModelBase):
     config_value_base_name: str = 'FoundationaLLM:AzureOpenAI:API'
     deployment_name: str
     model_version: str
-    
+
     def __init__(self, language_model: LanguageModel, config: Configuration):
         """
         Initializes the Azure Open AI chat model.
@@ -31,7 +31,7 @@ class AzureChatModel(OpenAIModelBase):
         self.max_tokens = self.config.get_value(f'{self.config_value_base_name}:Completions:MaxTokens')
         self.model_version = self.config.get_value(f'{self.config_value_base_name}:Completions:ModelVersion')
         self.temperature = self.config.get_value(f'{self.config_value_base_name}:Completions:Temperature')
-        
+
     def get_language_model(self) -> BaseLanguageModel:
         """
         Returns the Azure OpenAI chat model.

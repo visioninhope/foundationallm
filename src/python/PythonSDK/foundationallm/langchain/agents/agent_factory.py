@@ -14,7 +14,7 @@ class AgentFactory:
     """
     Factory to determine which agent to use.
     """
-    
+
     def __init__(self, completion_request: CompletionRequest, llm: BaseLanguageModel, config: Configuration, context: Context):
         """
         Initializes an AgentFactory for selecting which agent to use for completion.
@@ -32,7 +32,7 @@ class AgentFactory:
         self.llm = llm
         self.config = config
         self.context = context
-                        
+
     def get_agent(self) -> AgentBase:
         """
         Retrieves the best agent for responding to the user prompt.
