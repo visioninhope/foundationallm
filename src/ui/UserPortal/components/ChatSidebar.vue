@@ -140,7 +140,7 @@ export default {
 		},
 
 		handleSessionSelected(session: Session) {
-			this.appStore.currentSession = session;
+			this.appStore.changeSession(session);
 		},
 
 		async handleAddSession() {
