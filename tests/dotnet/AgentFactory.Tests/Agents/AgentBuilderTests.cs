@@ -40,11 +40,12 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
                     AllowedDataSourceNames = new List<string> { "DataSource_Test" } 
                 }
             };
+            var sessionId = "TestSessionId";
 
-            _agentHubAPIService.ResolveRequest(userPrompt).Returns(agentResponse);
+            _agentHubAPIService.ResolveRequest(userPrompt, sessionId).Returns(agentResponse);
 
             // Configure DataSourceHubAPIService
-            _dataSourceHubAPIService.ResolveRequest(Arg.Any<List<string>>()).Returns(new DataSourceHubResponse
+            _dataSourceHubAPIService.ResolveRequest(Arg.Any<List<string>>(), sessionId).Returns(new DataSourceHubResponse
             {
                 DataSources = new List<DataSourceMetadata>
                     {
@@ -64,11 +65,12 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
                     PromptSuffix = "TestSuffix"
                 },
             };
-            _promptHubAPIService.ResolveRequest(Arg.Any<string>(), Arg.Any<string>()).Returns(promptResponse);
+            _promptHubAPIService.ResolveRequest(Arg.Any<string>(), sessionId, Arg.Any<string>()).Returns(promptResponse);
 
             // Act
             var agent = await AgentBuilder.Build(
                 userPrompt,
+                sessionId,
                 _agentHubAPIService,
                 _orchestrationServices,
                 _promptHubAPIService,
@@ -86,13 +88,15 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
             {
                 Agent = new AgentMetadata { Orchestrator = "InvalidOrchestrator" }
             };
+            var sessionId = "TestSessionId";
 
-            _agentHubAPIService.ResolveRequest(userPrompt).Returns(agentResponse);
+            _agentHubAPIService.ResolveRequest(userPrompt, sessionId).Returns(agentResponse);
 
             // Act & Assert
             Assert.ThrowsAsync<ArgumentException>(async () =>
                 await AgentBuilder.Build(
                     userPrompt,
+                    sessionId,
                     _agentHubAPIService,
                     _orchestrationServices,
                     _promptHubAPIService,
