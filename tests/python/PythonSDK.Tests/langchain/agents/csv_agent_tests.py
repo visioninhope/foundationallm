@@ -18,8 +18,8 @@ def test_config():
 def test_completion_request():
      req = CompletionRequest(
                          user_prompt="How many survey responses are there?",
-                         agent=Agent(name="survey-results", type="csv", description="Useful for answering analytical questions about survey responses.", prompt_prefix="You are an analytic agent named Khalil that helps people find information about the results of a survey.\nProvide consise answers that are polite and professional.\nDo not make anything up, only use the data provided from the survey responses.\nAnswer any questions step-by-step.\n"),
-                         data_source=DataSource(name="survey-results-csv", type="blob-storage", description="Information about the survey collected by Hargrove.", configuration=BlobStorageConfiguration(connection_string_secret="FoundationaLLM:BlobStorage:ConnectionString", container="hai-source", files = ["surveydata.csv"])),
+                         agent=Agent(name="survey-results", type="csv", description="Useful for answering analytical questions about survey responses.", prompt_prefix="You are an analytic agent named Khalil that helps people find information about the results of a survey.\nProvide consise answers that are polite and professional.\nDo not make anything up, only use the data provided from the survey responses.\nAnswer any questions step-by-step.\n", prompt_suffix="This is the result of `print(df.head())`:\n{df_head}\n\nBegin!\n\n{chat_history}\nQuestion: {input}\n{agent_scratchpad}"),
+                         data_source=DataSource(name="survey-results-csv", type="blob-storage", description="Information about the survey collected by Hargrove.", configuration=BlobStorageConfiguration(connection_string_secret="FoundationaLLM:BlobStorageMemorySource:BlobStorageConnection", container="hai-source", files = ["surveydata.csv"])),
                          language_model=LanguageModel(type=LanguageModelTypes.OPENAI, provider=LanguageModelProviders.MICROSOFT, temperature=0, use_chat=True),
                          message_history=[]
                          )
