@@ -63,20 +63,13 @@
 
 <script lang="ts">
 import { mapStores } from 'pinia';
-import type { PropType } from 'vue';
 import type { Session } from '@/js/types';
 import { appConfig } from '@/stores/appConfig';
+import { appStore } from '@/stores/app';
 import { getMsalInstance, getLoginRequest } from '@/js/auth';
 
 export default {
 	name: 'NavBar',
-
-	props: {
-		currentSession: {
-			type: [Object, null] as PropType<Session | null>,
-			required: true,
-		},
-	},
 
 	emits: ['close-sidebar'],
 
@@ -96,6 +89,11 @@ export default {
 
 	computed: {
 		...mapStores(appConfig),
+		...mapStores(appStore),
+
+		currentSession() {
+			return this.appStore.currentSession;
+		},
 	},
 
 	watch: {
