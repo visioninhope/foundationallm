@@ -154,11 +154,20 @@ export const appStore = defineStore('app', {
 			}
 		},
 
-		// add preemptive rate for responsiveness
 		async rateMessage(messageToRate: Message, isLiked: Message['rating']) {
-			await api.rateMessage(messageToRate, isLiked);
-			const existingMessage = this.currentMessages.find((m) => m.id === messageToRate.id);
+			const existingMessage = this.currentMessages.find(
+				(message) => message.id === messageToRate.id,
+			);
+
+			// Pre-emptively rate the message for responsiveness, and revert the rating if the request fails.
+			const previousRating = existingMessage.rating;
 			existingMessage.rating = isLiked;
+
+			try {
+				await api.rateMessage(messageToRate, isLiked);
+			} catch (error) {
+				existingMessage.rating = previousRating;
+			}
 		},
 
 		handleChangeSession() {
