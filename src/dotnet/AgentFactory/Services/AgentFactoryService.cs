@@ -32,7 +32,7 @@ public class AgentFactoryService : IAgentFactoryService
     //private LLMOrchestrationService _llmOrchestrationService = LLMOrchestrationService.LangChain;
 
     /// <summary>
-    /// Constructor for the Agent Factory Service
+    /// Constructor for the Agent Factory Service.
     /// </summary>
     /// <param name="orchestrationServices"></param>
     /// <param name="agentFactorySettings"></param>
@@ -57,7 +57,7 @@ public class AgentFactoryService : IAgentFactoryService
     }
 
     /// <summary>
-    /// Returns the status of the Semantic kernal.
+    /// Returns the status of the Semantic Kernel.
     /// </summary>
     public string Status
     {
@@ -82,6 +82,7 @@ public class AgentFactoryService : IAgentFactoryService
         {
             var agent = await AgentBuilder.Build(
                 completionRequest.UserPrompt,
+                completionRequest.SessionId,
                 _agentHubAPIService,
                 _orchestrationServices,
                 _promptHubAPIService,
@@ -112,6 +113,7 @@ public class AgentFactoryService : IAgentFactoryService
         {
             var agent = await AgentBuilder.Build(
                 summaryRequest.UserPrompt,
+                summaryRequest.SessionId,
                 _agentHubAPIService,
                 _orchestrationServices,
                 _promptHubAPIService,
