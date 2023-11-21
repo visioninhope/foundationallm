@@ -54,7 +54,7 @@ export const useAppStore = defineStore('app', {
 
 		async addSession() {
 			const newSession = await api.addSession();
-			await this.getSessions();
+			await this.getSessions(newSession);
 
 			// Only add newSession to the list if it doesn't already exist.
 			// We optionally add it because the backend is sometimes slow to update the session list.
@@ -96,9 +96,9 @@ export const useAppStore = defineStore('app', {
 				return;
 			}
 
-			const lastSession = this.sessions[this.sessions.length - 1];
-			if (lastSession) {
-				this.changeSession(lastSession);
+			const firstSession = this.sessions[0];
+			if (firstSession) {
+				this.changeSession(firstSession);
 			}
 		},
 
