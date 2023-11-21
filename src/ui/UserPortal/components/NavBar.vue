@@ -11,7 +11,7 @@
 			</template>
 		</div>
 
-		<!-- Sidebar -->
+		<!-- Navbar content -->
 		<div class="navbar__content">
 			<div class="navbar__content__left">
 				<div class="navbar__content__left__item">
@@ -32,6 +32,7 @@
 						<span>Please select a session</span>
 					</template>
 				</div>
+
 				<div class="navbar__content__left__item">
 					<template v-if="currentSession && allowAgentHint">
 						<Dropdown
@@ -98,7 +99,7 @@ export default {
 
 	watch: {
 		currentSession(newSession: Session, oldSession: Session) {
-			if (newSession.id === oldSession.id) return;
+			if (newSession.id === oldSession?.id) return;
 			this.agentSelection = this.agents.find(agent => agent.value === this.appConfigStore.selectedAgents.get(newSession.id)) || null;
 		},
 	},

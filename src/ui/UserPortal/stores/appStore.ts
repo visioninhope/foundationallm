@@ -6,7 +6,7 @@ import api from '@/js/api';
 export const useAppStore = defineStore('app', {
 	state: () => ({
 		sessions: [] as Session[],
-		currentSession: {} as Session,
+		currentSession: null as Session | null,
 		currentMessages: [] as Message[],
 	}),
 
