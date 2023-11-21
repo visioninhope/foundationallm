@@ -44,6 +44,7 @@
     <Folder Include="app\routers\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="app\routers\list_agents_tests.py" />
     <Compile Include="app\routers\resolve_tests.py" />
   </ItemGroup>
   <ItemGroup>

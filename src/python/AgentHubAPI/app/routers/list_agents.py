@@ -13,7 +13,7 @@ router = APIRouter(
 )
 
 @router.get('')
-async def list() -> List:
+async def list_agents() -> List:
     """
     Retrieves a list of available agents.
     
@@ -28,5 +28,6 @@ async def list() -> List:
         logging.error(e, stack_info=True, exc_info=True)
         raise HTTPException(
             status_code = 500,
+            # pylint: disable=E1101
             detail = e.message
-        )
+        ) from e

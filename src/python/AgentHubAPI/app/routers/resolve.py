@@ -35,9 +35,10 @@ async def resolve(request: AgentHubRequest, x_user_identity: Optional[str] = Hea
     try:
         context = Context(user_identity=x_user_identity)   
         return AgentHub().resolve(request=request, user_context=context, hint=x_agent_hint)
-    except Exception as e:
+    except Exception as e:        
         logging.error(e, stack_info=True, exc_info=True)
         raise HTTPException(
             status_code = 500,
+            # pylint: disable=E1101
             detail = e.message
-        )
+        ) from e

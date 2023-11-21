@@ -32,5 +32,5 @@ def validate_api_key_header(config: Annotated[Configuration, Depends()], x_api_k
         logging.error('Invalid API key. You must provide a valid API key in the X-API-KEY header.')
         raise HTTPException(
             status_code = 401,
-            detail = f'Invalid API key. You must provide a valid API key in the X-API-KEY header.'
+            detail = 'Invalid API key. You must provide a valid API key in the X-API-KEY header.'
         )

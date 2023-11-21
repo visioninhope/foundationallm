@@ -1,10 +1,8 @@
-import logging
-import os
 import uvicorn
 from fastapi import FastAPI
 from app.dependencies import get_config
-from app.routers import resolve, status, list
-from azure.monitor.opentelemetry import configure_azure_monitor
+from app.routers import resolve, status, list_agents
+#from azure.monitor.opentelemetry import configure_azure_monitor
 
 config = get_config()
 
@@ -33,7 +31,7 @@ app = FastAPI(
 )
 
 app.include_router(resolve.router)
-app.include_router(list.router)
+app.include_router(list_agents.router)
 app.include_router(status.router)
 
 @app.get('/')
