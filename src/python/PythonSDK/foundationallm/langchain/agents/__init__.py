@@ -8,3 +8,4 @@ from .summary_agent import SummaryAgent
 from .blob_storage_agent import BlobStorageAgent
 from .generic_resolver_agent import GenericResolverAgent
 from .agent_factory import AgentFactory
+from .salesforce_data_cloud_agent import SalesforceDataCloudAgent

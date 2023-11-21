@@ -1,4 +1,6 @@
 import pandas as pd
+import requests
+
 from io import StringIO
 from operator import itemgetter
 from langchain.agents import AgentExecutor, ZeroShotAgent
@@ -14,7 +16,7 @@ from foundationallm.models.orchestration import CompletionRequest, CompletionRes
 from foundationallm.storage import BlobStorageManager
 from foundationallm.models.orchestration import MessageHistoryItem
 
-class SalesforceDataCloud(AgentBase):
+class SalesforceDataCloudAgent(AgentBase):
     """
     Agent for analyzing SalesForce DataCloud data
     """
@@ -37,10 +39,54 @@ class SalesforceDataCloud(AgentBase):
         self.prompt_suffix = completion_request.agent.prompt_suffix
         self.llm = llm.get_language_model()
         self.message_history = completion_request.message_history
+        
+        self.client_id = completion_request.data_source.configuration.client_id
+        self.client_secret = completion_request.data_source.configuration.client_secret
+        self.refresh_token = completion_request.data_source.configuration.refresh_token
+        self.instance_url = completion_request.data_source.configuration.instance_url
 
-        #Get the sales force data...
+        #get a new access token..
+        url = f'{self.instance_url}/services/oauth2/token'
 
+        resp = requests.post(
+            url=url,
+            data={
+                "grant_type": "refresh_token",
+                "client_id": self.client_id,
+                "client_secret": self.client_secret,
+                "refresh_token": self.refresh_token
+            }
+        )
 
+        access_token = resp.json['access_token']
+        
+        #Get the sales force data cloud token...
+        url = self.instance_url + "/services/a360/token"
+
+        resp = requests.post(
+            url=url,
+            data={
+                "grant_type": "urn:salesforce:grant-type:external:cdp",
+                "subject_token_type": 'urn:ietf:params:oauth:token-type:access_token',
+                "subject_token": access_token,
+            }
+        )
+        
+        cdp_resp = resp.json()
+
+        cdp_access_token = cdp_resp['access_token']
+
+        #run the query...
+        #https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_profile_meta.htm
+
+        url = f'https://{cdp_resp["instance_url"]}/api/v1/metadata'
+
+        resp = requests.get(
+            url=url,
+            headers={'Authorization' : f'Bearer {cdp_resp["access_token"]}'}
+        )
+
+        #turn the respone into csv
         df = pd.DataFrame()
         
         tools = [

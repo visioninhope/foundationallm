@@ -10,6 +10,7 @@ from foundationallm.langchain.agents import SummaryAgent
 from foundationallm.langchain.agents import BlobStorageAgent
 from foundationallm.langchain.agents import ConversationalAgent
 from foundationallm.langchain.agents import GenericResolverAgent
+from foundationallm.langchain.agents import SalesforceDataCloudAgent
 
 class AgentFactory:
     """
@@ -50,6 +51,8 @@ class AgentFactory:
                 return AnomalyDetectionAgent(self.completion_request, llm=self.llm, config=self.config)
             case 'csv':
                 return CSVAgent(self.completion_request, llm=self.llm, config=self.config)
+            case 'salesforce-datacloud':
+                return SalesfourceDataSourceAgent(self.completion_request, llm=self.llm, config=self.config)
             case 'sql':
                 return SqlDbAgent(self.completion_request, llm=self.llm, config=self.config, context=self.context)
             case 'summary':

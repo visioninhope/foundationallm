@@ -11,7 +11,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
     /// <summary>
     /// Blob storage configuration settings.
     /// </summary>
-    public class SalesforceDatacloudConfiguration : DataSourceBase
+    public class SalesforceDatacloudConfiguration
     {
         /// <summary>
         /// The connection string key vault secret name that is retrieved from key vault.
