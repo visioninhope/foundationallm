@@ -1,7 +1,6 @@
 from foundationallm.storage import StorageManagerBase
 from azure.storage.blob import BlobServiceClient
 from io import BytesIO
-from zipfile import ZIP_DEFLATED
 import fnmatch
 
 
@@ -11,9 +10,9 @@ class BlobStorageManager(StorageManagerBase):
     def __init__(self, blob_connection_string=None, container_name=None):
 
         if blob_connection_string is None or blob_connection_string == '':
-            raise ValueError(f'The blob_connection_string parameter must be set to a valid connection string.')
+            raise ValueError('The blob_connection_string parameter must be set to a valid connection string.')
         if container_name is None or container_name == '':
-            raise ValueError(f'The container_name parameter must be set to a valid container.')
+            raise ValueError('The container_name parameter must be set to a valid container.')
       
         self.blob_connection_string = blob_connection_string
         self.container_name = container_name        

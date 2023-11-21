@@ -1,4 +1,3 @@
-from foundationallm.config import Configuration
 from foundationallm.hubs import Repository
 from foundationallm.hubs.agent import AgentMetadata, AgentHubStorageManager
 

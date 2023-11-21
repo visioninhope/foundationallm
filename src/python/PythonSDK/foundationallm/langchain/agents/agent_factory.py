@@ -1,4 +1,3 @@
-from unittest.mock import Base
 from langchain.base_language import BaseLanguageModel
 from foundationallm.config import Configuration, Context
 from foundationallm.models.orchestration import CompletionRequest

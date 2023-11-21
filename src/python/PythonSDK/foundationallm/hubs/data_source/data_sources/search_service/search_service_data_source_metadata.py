@@ -1,4 +1,3 @@
-from foundationallm.hubs import Metadata
 from foundationallm.hubs.data_source import DataSourceMetadata
 from .search_service_authentication_metadata import SearchServiceAuthenticationMetadata
 

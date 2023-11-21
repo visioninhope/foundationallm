@@ -1,8 +1,6 @@
-from typing import List
-
 from foundationallm.config import Context
 from foundationallm.hubs import Resolver
-from foundationallm.hubs.agent import AgentMetadata, AgentHubRequest, AgentHubResponse, agent_metadata
+from foundationallm.hubs.agent import AgentHubRequest, AgentHubResponse
 
 class AgentResolver(Resolver):
     """
@@ -17,5 +15,5 @@ class AgentResolver(Resolver):
         if hint_feature_flag_enabled and hint is not None:
             agent_metadata = self.repository.get_metadata_by_name(hint)            
         if agent_metadata is None:
-           agent_metadata = self.repository.get_metadata_by_name("default")
+            agent_metadata = self.repository.get_metadata_by_name("default")
         return AgentHubResponse(agent=agent_metadata)

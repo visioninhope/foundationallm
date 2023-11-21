@@ -12,7 +12,6 @@ from foundationallm.langchain.agents import AgentBase
 from foundationallm.langchain.language_models import LanguageModelBase
 from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
 from foundationallm.storage import BlobStorageManager
-from foundationallm.models.orchestration import MessageHistoryItem
 
 class CSVAgent(AgentBase):
     """

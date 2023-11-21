@@ -4,7 +4,6 @@ Toolkit for performing anomaly detection.
 from typing import List
 from langchain.agents import AgentExecutor
 from langchain.agents.agent_toolkits.base import BaseToolkit
-from langchain.base_language import BaseLanguageModel
 from langchain.tools import BaseTool
 from langchain.pydantic_v1 import Field
 
@@ -29,7 +28,7 @@ class AnomalyDetectionToolkit(BaseToolkit):
         query_pandas_dataframe_tool_description = (
             "Input to this tool is a query to describe a feature within the DataFrame."
             "Output is the result of the describe query."
-            f"Always use this tool to generate statistics before executing a query with product_database."
+            "Always use this tool to generate statistics before executing a query with product_database."
         )
         query_pandas_dataframe_tool = QueryPandasDataFrameTool(agent=self.df_agent, description=query_pandas_dataframe_tool_description)
         
