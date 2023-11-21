@@ -23,6 +23,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".pylintrc" />
     <Content Include="pytest.ini" />
     <Content Include="requirements.txt" />
   </ItemGroup>
