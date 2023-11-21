@@ -66,12 +66,19 @@ export const useAppStore = defineStore('app', {
 		},
 
 		async renameSession(sessionToRename: Session, newSessionName: string) {
-			await api.renameSession(sessionToRename.id, newSessionName);
-
 			const existingSession = this.sessions.find(
 				(session: Session) => session.id === sessionToRename.id,
 			);
-			existingSession!.name = newSessionName;
+
+			// Preemptively rename the session for responsiveness, and revert the name if the request fails.
+			const previousName = existingSession.name;
+			existingSession.name = newSessionName;
+
+			try {
+				await api.renameSession(sessionToRename.id, newSessionName);
+			} catch (error) {
+				existingSession.name = previousName;
+			}
 		},
 
 		async deleteSession(sessionToDelete: Session) {

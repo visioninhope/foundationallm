@@ -149,8 +149,8 @@ export default {
 			await this.appStore.getSessions();
 		},
 
-		async handleRenameSession() {
-			await this.appStore.renameSession(this.sessionToRename!, this.newSessionName);
+		handleRenameSession() {
+			this.appStore.renameSession(this.sessionToRename!, this.newSessionName);
 			this.sessionToRename = null;
 		},
 
