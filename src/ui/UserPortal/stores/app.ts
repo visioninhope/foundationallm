@@ -142,7 +142,7 @@ export const appStore = defineStore('app', {
 			);
 			await this.getMessages();
 
-			// Update the session name based on the message sent
+			// Update the session name based on the message sent.
 			if (this.currentMessages.length === 2) {
 				const sessionFullText = this.currentMessages.map((message) => message.text).join('\n');
 				const { text: newSessionName } = await api.summarizeSessionName(
@@ -159,7 +159,7 @@ export const appStore = defineStore('app', {
 				(message) => message.id === messageToRate.id,
 			);
 
-			// Pre-emptively rate the message for responsiveness, and revert the rating if the request fails.
+			// Preemptively rate the message for responsiveness, and revert the rating if the request fails.
 			const previousRating = existingMessage.rating;
 			existingMessage.rating = isLiked;
 
