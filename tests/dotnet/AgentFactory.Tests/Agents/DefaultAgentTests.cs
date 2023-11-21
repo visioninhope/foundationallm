@@ -58,8 +58,9 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
 
         public DefaultAgentTests()
         {
-            _promptHubService.ResolveRequest(_agentMetadata.Name!).Returns(_promptResponse);
-            _dataSourceHubService.ResolveRequest(Arg.Any<List<string>>()).Returns(_dataSourceResponse);
+            var sessionId = "TestSessionId";
+            _promptHubService.ResolveRequest(_agentMetadata.Name!, sessionId).Returns(_promptResponse);
+            _dataSourceHubService.ResolveRequest(Arg.Any<List<string>>(), sessionId).Returns(_dataSourceResponse);
         }
 
         [Fact]
@@ -68,9 +69,10 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
             // Arrange
             _agentMetadata.Type = "search-service";
             var agent = new DefaultAgent(_agentMetadata, _orchestrationService, _promptHubService, _dataSourceHubService);
+            var sessionId = "TestSessionId";
 
             // Act
-            await agent.Configure("TestSearchService");
+            await agent.Configure("TestSearchService", sessionId);
 
             // Assert
             Assert.NotNull(agent);
@@ -82,9 +84,10 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
             // Arrange
             _agentMetadata.Type = "blob-storage";
             var agent = new DefaultAgent(_agentMetadata, _orchestrationService, _promptHubService, _dataSourceHubService);
+            var sessionId = "TestSessionId";
 
             // Act
-            await agent.Configure("TestBlobStorage");
+            await agent.Configure("TestBlobStorage", sessionId);
 
             // Assert
             Assert.NotNull(agent);
@@ -96,9 +99,10 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
             // Arrange
             _agentMetadata.Type = "sql";
             var agent = new DefaultAgent(_agentMetadata, _orchestrationService, _promptHubService, _dataSourceHubService);
+            var sessionId = "TestSessionId";
 
             // Act
-            await agent.Configure("TestSQL");
+            await agent.Configure("TestSQL", sessionId);
 
             // Assert
             Assert.NotNull(agent);
@@ -110,9 +114,10 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
             // Arrange
             _agentMetadata.Type = "UnsupportedType";
             var agent = new DefaultAgent(_agentMetadata, _orchestrationService, _promptHubService, _dataSourceHubService);
+            var sessionId = "TestSessionId";
 
             // Act and Assert
-            await Assert.ThrowsAsync<ArgumentException>(async () => await agent.Configure("TestUnsupportedType"));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await agent.Configure("TestUnsupportedType", sessionId));
         }
 
         [Fact]
@@ -123,12 +128,13 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
 
             var summaryRequest = new SummaryRequest
             {
+                SessionId = "TestSessionId",
                 UserPrompt = "TestUserPrompt"
             };
 
             var summaryResult = "TestSummary";
 
-            _orchestrationService.GetSummary(Arg.Any<string>()).Returns(summaryResult);
+            _orchestrationService.GetSummary(Arg.Any<LLMOrchestrationRequest>()).Returns(summaryResult);
 
             // Act
             var summaryResponse = await agent.GetSummary(summaryRequest);
@@ -144,6 +150,7 @@ namespace FoundationaLLM.AgentFactory.Tests.Agents
             // Arrange
             var completionRequest = new CompletionRequest
             {
+                SessionId = "TestSessionId",
                 UserPrompt = "TestPrompt",
                 MessageHistory = new List<MessageHistoryItem> { }
             };
