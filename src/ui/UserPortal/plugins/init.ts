@@ -11,7 +11,7 @@ export default defineNuxtPlugin(async (nuxtApp: any) => {
 	// }
 
 	// Set the api url to use from the dynamic azure config.
-	// const appConfigStore = appConfig(nuxtApp.$pinia);
+	// const appConfigStore = useAppConfigStore(nuxtApp.$pinia);
 	const config = useRuntimeConfig();
 
 	// Use LOCAL_API_URL from the .env file if it's set, otherwise use the Azure App Configuration value.
