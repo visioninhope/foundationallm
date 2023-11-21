@@ -1,7 +1,6 @@
+from typing import List
 from foundationallm.hubs import Repository
 from foundationallm.hubs.agent import AgentMetadata, AgentHubStorageManager
-
-from typing import List
 
 class AgentRepository(Repository):
     """ The AgentRepository is responsible for retrieving data source metadata from storage."""

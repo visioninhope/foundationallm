@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
+from typing import List
 from .metadata import Metadata
 from .repository import Repository
-from typing import List
-
 from foundationallm.config import Configuration, Context
 
 class Resolver(ABC):

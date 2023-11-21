@@ -1,6 +1,5 @@
-from pydantic import BaseModel
 from typing import List, Optional
-
+from pydantic import BaseModel
 from foundationallm.models.orchestration import MessageHistoryItem
 from foundationallm.models.metadata import Agent
 from foundationallm.models.metadata import DataSource

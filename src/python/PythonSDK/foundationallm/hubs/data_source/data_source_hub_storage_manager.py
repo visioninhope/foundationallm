@@ -1,6 +1,6 @@
+from typing import List
 from foundationallm.config import Configuration
 from foundationallm.storage import BlobStorageManager
-from typing import List
 
 class DataSourceHubStorageManager(BlobStorageManager):
     """The DataSourceHubStorageManager class is responsible for fetching available datasource values from Azure Blob Storage."""

@@ -1,6 +1,5 @@
-import tiktoken
 from typing import List
-
+import tiktoken
 from langchain.callbacks import get_openai_callback
 from langchain.chains.combine_documents.base import BaseCombineDocumentsChain
 from langchain.chains.summarize import load_summarize_chain

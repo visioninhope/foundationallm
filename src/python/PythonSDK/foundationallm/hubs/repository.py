@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
+from typing import List
 from foundationallm.config import Configuration
 from foundationallm.hubs import Metadata
-from typing import List
 
 class Repository(ABC):
     """The Repository class is responsible for fetching metadata values."""

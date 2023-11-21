@@ -1,7 +1,3 @@
-from foundationallm.config import Configuration
-from foundationallm.langchain.agents.agent_base import AgentBase
-from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
-from foundationallm.langchain.message_history import build_message_history
 from typing import List
 from langchain.base_language import BaseLanguageModel
 from langchain.callbacks import get_openai_callback
@@ -13,6 +9,10 @@ from langchain.prompts import PromptTemplate
 from langchain.schema.document import Document
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema import StrOutputParser
+from foundationallm.config import Configuration
+from foundationallm.langchain.agents.agent_base import AgentBase
+from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
+from foundationallm.langchain.message_history import build_message_history
 
 vector_store = {}
 

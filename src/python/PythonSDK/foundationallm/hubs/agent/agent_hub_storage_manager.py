@@ -1,6 +1,6 @@
+from typing import List
 from foundationallm.config import Configuration
 from foundationallm.storage import BlobStorageManager
-from typing import List
 
 class AgentHubStorageManager(BlobStorageManager):
     """The AgentHubStorageManager class is responsible for fetching available agent values from Azure Blob Storage."""

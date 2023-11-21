@@ -1,12 +1,12 @@
 import os
-from tenacity import retry, wait_random_exponential, stop_after_attempt, RetryError
 import logging
+import json
+from tenacity import retry, wait_random_exponential, stop_after_attempt, RetryError
 from azure.appconfiguration.provider import (
     AzureAppConfigurationKeyVaultOptions,
     load
 )
 from azure.identity import DefaultAzureCredential
-import json
 
 class Configuration():
     def __init__(self):

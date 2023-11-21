@@ -1,5 +1,5 @@
-from pydantic import BaseModel
 from typing import Optional
+from pydantic import BaseModel
 
 class PromptMetadata(BaseModel):
     """Class representing the metadata for a prompt."""

@@ -1,6 +1,5 @@
-from pydantic import confloat
 from typing import Annotated
-
+from pydantic import confloat
 from foundationallm.langchain.language_models import LanguageModelBase
 
 class OpenAIModelBase(LanguageModelBase):

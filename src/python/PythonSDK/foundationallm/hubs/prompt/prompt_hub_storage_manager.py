@@ -1,6 +1,6 @@
+from typing import List
 from foundationallm.config import Configuration
 from foundationallm.storage import BlobStorageManager
-from typing import List
 
 class PromptHubStorageManager(BlobStorageManager):
     """The PromptHubStorageManager class is responsible for fetching available prompt values from Azure Blob Storage."""

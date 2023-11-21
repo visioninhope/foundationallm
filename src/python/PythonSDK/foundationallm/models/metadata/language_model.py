@@ -1,6 +1,5 @@
-from pydantic import BaseModel, confloat
 from typing import Annotated
-
+from pydantic import BaseModel, confloat
 from foundationallm.langchain.language_models import LanguageModelTypes, LanguageModelProviders
 
 class LanguageModel(BaseModel):
