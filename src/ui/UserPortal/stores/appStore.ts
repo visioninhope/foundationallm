@@ -36,6 +36,7 @@ export const useAppStore = defineStore('app', {
 
 		async getSessions(session?: Session) {
 			const sessions = await api.getSessions();
+
 			if (session) {
 				// If the passed in session is already in the list, replace it.
 				// This is because the passed in session has been updated, most likely renamed.
@@ -65,7 +66,7 @@ export const useAppStore = defineStore('app', {
 		},
 
 		async renameSession(sessionToRename: Session, newSessionName: string) {
-			await api.renameSession(sessionToRename!.id, newSessionName);
+			await api.renameSession(sessionToRename.id, newSessionName);
 
 			const existingSession = this.sessions.find(
 				(session: Session) => session.id === sessionToRename.id,
@@ -74,8 +75,6 @@ export const useAppStore = defineStore('app', {
 		},
 
 		async deleteSession(sessionToDelete: Session) {
-			// when the currentSession is deleted, select the next session
-			// if there is no next session, select the last session
 			await api.deleteSession(sessionToDelete!.id);
 			await this.getSessions();
 
@@ -85,7 +84,8 @@ export const useAppStore = defineStore('app', {
 
 			// Ensure there is at least always 1 session
 			if (this.sessions.length === 0) {
-				this.addSession();
+				const newSession = await this.addSession();
+				this.changeSession(newSession);
 				return;
 			}
 

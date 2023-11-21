@@ -150,12 +150,12 @@ export default {
 		},
 
 		async handleRenameSession() {
-			await this.appStore.renameSession(this.sessionToRename, this.newSessionName);
+			await this.appStore.renameSession(this.sessionToRename!, this.newSessionName);
 			this.sessionToRename = null;
 		},
 
 		async handleDeleteSession() {
-			await this.appStore.deleteSession(this.sessionToDelete);
+			await this.appStore.deleteSession(this.sessionToDelete!);
 			this.sessionToDelete = null;
 		},
 	},
