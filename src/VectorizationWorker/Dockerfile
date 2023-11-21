@@ -22,4 +22,4 @@ RUN dotnet publish "./VectorizationWorker.csproj" -c $BUILD_CONFIGURATION -o /ap
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "VectorizationWorker.dll"]
+ENTRYPOINT ["dotnet", "FoundationaLLM.Vectorization.Worker.dll"]
