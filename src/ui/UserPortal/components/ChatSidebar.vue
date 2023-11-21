@@ -146,7 +146,6 @@ export default {
 		async handleAddSession() {
 			const newSession = await this.appStore.addSession();
 			this.handleSessionSelected(newSession);
-			await this.appStore.getSessions();
 		},
 
 		handleRenameSession() {
