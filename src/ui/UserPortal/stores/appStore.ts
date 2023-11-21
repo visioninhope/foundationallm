@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
+import { useAppConfigStore } from './appConfigStore';
 import type { Session, Message } from '@/js/types';
-import { appConfig } from './appConfigStore';
 import api from '@/js/api';
 
-export const appStore = defineStore('app', {
+export const useAppStore = defineStore('app', {
 	state: () => ({
 		sessions: [] as Session[],
 		currentSession: {} as Session,
@@ -14,7 +14,7 @@ export const appStore = defineStore('app', {
 
 	actions: {
 		async init(sessionId: string) {
-			const appConfigStore = appConfig();
+			const appConfigStore = useAppConfigStore();
 
 			// No need to load sessions if in kiosk mode, simply create a new one and skip.
 			if (appConfigStore.isKioskMode) {
@@ -134,7 +134,7 @@ export const appStore = defineStore('app', {
 			};
 			this.currentMessages.push(tempAssistantMessage);
 
-			const appConfigStore = appConfig();
+			const appConfigStore = useAppConfigStore();
 			await api.sendMessage(
 				this.currentSession!.id,
 				text,

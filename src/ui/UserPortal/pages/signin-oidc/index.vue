@@ -9,14 +9,14 @@
 
 <script lang="ts">
 import { mapStores } from 'pinia';
-import { appConfig } from '@/stores/appConfigStore';
+import { useAppConfigStore } from '@/stores/appConfigStore';
 import { attemptLogin } from '@/js/auth';
 
 export default {
 	name: 'Login',
 
 	computed: {
-		...mapStores(appConfig),
+		...mapStores(useAppConfigStore),
 
 		logoUrl() {
 			return this.appConfigStore.logoUrl;

@@ -1,12 +1,12 @@
 import { defineNuxtPlugin } from '#app';
-import { appConfig } from '@/stores/appConfigStore';
+import { useAppConfigStore } from '@/stores/appConfigStore';
 import api from '@/js/api';
 import { setAuthConfig } from '@/js/auth';
 
 export default defineNuxtPlugin(async (nuxtApp: any) => {
 	// Load config variables server-side to ensure they are passed to the client via the store.
 	// if (process.server) {
-		const appConfigStore = appConfig(nuxtApp.$pinia);
+		const appConfigStore = useAppConfigStore(nuxtApp.$pinia);
 		await appConfigStore.getConfigVariables();
 	// }
 

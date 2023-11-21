@@ -94,8 +94,8 @@
 <script lang="ts">
 import { mapStores } from 'pinia';
 import type { Session } from '@/js/types';
-import { appConfig } from '@/stores/appConfigStore';
-import { appStore } from '@/stores/appStore';
+import { useAppConfigStore } from '@/stores/appConfigStore';
+import { useAppStore } from '@/stores/appStore';
 declare const process: any;
 
 export default {
@@ -110,8 +110,8 @@ export default {
 	},
 
 	computed: {
-		...mapStores(appConfig),
-		...mapStores(appStore),
+		...mapStores(useAppConfigStore),
+		...mapStores(useAppStore),
 
 		sessions() {
 			return this.appStore.sessions;
