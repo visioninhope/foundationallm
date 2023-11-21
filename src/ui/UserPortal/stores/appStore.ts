@@ -27,10 +27,10 @@ export const useAppStore = defineStore('app', {
 
 			if (this.sessions.length === 0) {
 				await this.addSession();
-				this.currentSession = this.sessions[0];
+				this.changeSession(this.sessions[0]);
 			} else {
 				const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
-				this.currentSession = existingSession || this.sessions[0];
+				this.changeSession(existingSession || this.sessions[0]);
 			}
 		},
 
@@ -91,8 +91,7 @@ export const useAppStore = defineStore('app', {
 
 			const lastSession = this.sessions[this.sessions.length - 1];
 			if (lastSession) {
-				this.currentSession = lastSession;
-				// this.handleChangeSession(lastSession);
+				this.changeSession(lastSession);
 			}
 		},
 
@@ -170,14 +169,18 @@ export const useAppStore = defineStore('app', {
 			}
 		},
 
-		handleChangeSession() {
-			// if (this.appConfigStore.isKioskMode) {
-			// 	this.$router.push({ query: {} });
-			// } else {
-			// 	const query = { chat: session.id };
-			// 	this.$router.push({ query });
-			// }
-			// this.currentSession = session;
+		changeSession(newSession: Session) {
+			const nuxtApp = useNuxtApp();
+			const appConfigStore = useAppConfigStore();
+
+			if (appConfigStore.isKioskMode) {
+				nuxtApp.$router.push({ query: {} });
+			} else {
+				const query = { chat: newSession.id };
+				nuxtApp.$router.push({ query });
+			}
+
+			this.currentSession = newSession;
 		},
 	},
 });
