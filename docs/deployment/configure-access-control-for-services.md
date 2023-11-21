@@ -1,6 +1,6 @@
 # Configure access control for services
 
-FoundationaLLM takes a least privilege approach to access control. This means that by default, users have no access to any resources. You must explicitly grant access to users for each resource they need to access. This guide walks you through the process of granting access to users as needed.
+FoundationaLLM takes a least privileged approach to access control. This means that by default, users have no access to any resources. You must explicitly grant access to users for each resource they need to access. This guide walks you through the process of granting access to users as needed.
 
 Table of contents:
 

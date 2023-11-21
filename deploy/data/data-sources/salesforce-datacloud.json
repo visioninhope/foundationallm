@@ -1,0 +1,12 @@
+{
+    "name": "salesforce-datacloud",
+    "underlying_implementation": "salesforce-datacloud",
+    "authentication": {
+        "client_id": "FoundationaLLM:DataSources:SalesForceDataCloud:ClientId",
+        "client_secret": "FoundationaLLM:DataSources:SalesForceDataCloud:ClientSecret",
+        "refresh_token": "FoundationaLLM:DataSources:SalesForceDataCloud:RefreshToken",
+        "instance_url": "FoundationaLLM:DataSources:SalesForceDataCloud:InstanceUrl"
+    },   
+    "query": "select * from Accounts",
+    "description": "SalesForce Account data"
+}

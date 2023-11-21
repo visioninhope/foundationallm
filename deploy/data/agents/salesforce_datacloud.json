@@ -1,0 +1,11 @@
+{
+	"name": "salesforce",
+	"type": "salesforce",
+	"description": "Useful for answering questions from users.",
+	"allowed_data_source_names": [ "salesforce-datacloud" ],
+	"language_model": {
+		"type": "openai",
+		"provider": "microsoft",
+		"temperature": 0
+	}
+}

@@ -68,11 +68,27 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                         },
                         DataDescription = dataSource.DataDescription
                     };
-                    break;              
-                    
+                    break;
+                case "salesforce-datacloud":
+                    dataSourceMetadata = new SalesforceDatacloudDataSource
+                    {
+                        Name = dataSource.Name,
+                        Type = _agentMetadata.Type,
+                        Description = dataSource.Description,
+                        Configuration = new SalesforceDatacloudConfiguration
+                        {
+                            ClientId = dataSource.Authentication!["ClientId"],
+                            ClientSecret = dataSource.Authentication!["ClientSecret"],
+                            RefreshToken = dataSource.Authentication!["RefreshToken"],
+                            InstanceUrl = dataSource.Authentication!["InstanceUrl"],
+                        },
+                        DataDescription = dataSource.DataDescription
+                    };
+                    break;
                 case "search-service":
                     break;                
                 case "anomaly":
+
                 case "sql":
                     dataSourceMetadata = new SQLDatabaseDataSource
                     {

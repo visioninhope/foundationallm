@@ -1,6 +1,6 @@
 # Deployment - Standard
 
-Foundationa**LLM** deploys into your own Azure Subscription. By default it will deploy to Azure Container Apps (ACA) that make it fast to get started. When you want to deploy to production at scale, you can also deploy to Azure Kubernetes Service (AKS). Given that there are Azure Subscription quota limits to the number of Azure OpenAI Service resources you can deploy, you can choose to use an existing Azure OpenAI Service resource instead of a creating a new one with your deployment.
+Foundationa**LLM** deploys into your own Azure Subscription. By default, it will deploy to Azure Container Apps (ACA) that make it fast to get started. When you want to deploy to production at scale, you can also deploy to Azure Kubernetes Service (AKS). Given that there are Azure Subscription quota limits to the number of Azure OpenAI Service resources you can deploy, you can choose to use an existing Azure OpenAI Service resource instead of creating a new one with your deployment.
 
 ## Prerequisites
 
@@ -9,8 +9,10 @@ Foundationa**LLM** deploys into your own Azure Subscription. By default it will 
 - [.NET 7 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 - Docker Desktop
 - Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli))
+  > NOTE: Run `az upgrade` to ensure you have the latest version.  You may need to do a reboot after installing.
 - [Helm 3.11.1 or greater](https://helm.sh/docs/intro/install/)
 - Visual Studio 2022 (only needed if you plan to run/debug the solution locally)
+- ~13GB of free space to build the docker images
 
 ## Deployment steps
 
@@ -24,9 +26,9 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
     git clone https://github.com/solliancenet/foundationallm.git
     ```
 
-1. Open a PowerShell instance and run the following script to provision the infrastructure and deploy the API and frontend. This will provision all of the required infrastructure, deploy the API and web app services, and import data into Cosmos DB.
+1. Open a PowerShell instance and run the following script to provision the infrastructure and deploy the API and frontend. This will provision all of the required infrastructure, deploy the API and web app services, and import data into Cosmos DB.  **Verify docker is running**
 
-    1. Option 1: Full deployment using Microsoft Azure Container Apps (ACA)
+    1. Option 1: Full deployment using Microsoft Azure Container Apps (ACA).  The Azure deployment takes ~15 minutes and the image build and deploy takes another ~30 minutes.
 
         ```pwsh
         cd foundationallm

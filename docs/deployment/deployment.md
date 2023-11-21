@@ -52,6 +52,6 @@ Use the steps below to monitor the solution with Application Insights:
 
     ![Application Insights query](../media/monitoring-traces.png)
 
-3. Select the `Export` button to explort the results the query.
+3. Select the `Export` button to export the results of the query.
 
 4. In the query, replace `traces` with `requests` or `exceptions` to view the corresponding telemetry.
