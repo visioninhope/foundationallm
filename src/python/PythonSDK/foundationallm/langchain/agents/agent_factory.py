@@ -52,7 +52,7 @@ class AgentFactory:
             case 'csv':
                 return CSVAgent(self.completion_request, llm=self.llm, config=self.config)
             case 'salesforce-datacloud':
-                return SalesfourceDataSourceAgent(self.completion_request, llm=self.llm, config=self.config)
+                return SalesforceDataCloudAgent(self.completion_request, llm=self.llm, config=self.config)
             case 'sql':
                 return SqlDbAgent(self.completion_request, llm=self.llm, config=self.config, context=self.context)
             case 'summary':

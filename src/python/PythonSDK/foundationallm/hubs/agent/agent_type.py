@@ -8,4 +8,6 @@ class AgentType(str,Enum):
     ANOMALY = "anomaly",
     CONVERSATIONAL = "conversational",
     SUMMARY = "summary",
-    GENERIC_RESOLVER = "generic-resolver"
+    GENERIC_RESOLVER = "generic-resolver",
+    SALESFORCE = "salesforce"
+

@@ -5,5 +5,6 @@ class UnderlyingImplementation(Enum):
     SQL = "sql"
     BLOB_STORAGE = "blob-storage"
     SEARCH_SERVICE = "search-service",
-    CSV = "csv"
+    CSV = "csv",
+    SALESFORCE = "salesforce"
     

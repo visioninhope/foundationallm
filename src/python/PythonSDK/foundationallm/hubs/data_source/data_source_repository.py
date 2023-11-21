@@ -4,6 +4,7 @@ from .data_sources.sql import SQLDataSourceMetadata
 from .data_sources.blob_storage import BlobStorageDataSourceMetadata
 from .data_sources.search_service import SearchServiceDataSourceMetadata
 from .data_sources.csv import CSVDataSourceMetadata
+from .data_sources.salesforce import SalesforceDataSourceMetadata
 from foundationallm.hubs.data_source import DataSourceHubStorageManager
 from typing import List
 
@@ -41,6 +42,8 @@ class DataSourceRepository(Repository):
                     configs.append(SearchServiceDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))
                 elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.CSV:                    
                     configs.append(CSVDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))                   
+                elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SALESFORCE:
+                    configs.append(SalesforceDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))                   
             except:                
                 continue
         return configs
@@ -63,5 +66,7 @@ class DataSourceRepository(Repository):
             config = SearchServiceDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
         elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.CSV:
             config = CSVDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
+        elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SALESFORCE:
+            config = SalesforceDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
         return config
       
