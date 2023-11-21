@@ -44,7 +44,9 @@ class DataSourceRepository(Repository):
                     configs.append(CSVDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))                   
                 elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SALESFORCE:
                     configs.append(SalesforceDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))                   
-            except:                
+                elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SALESFORCEDATACLOUD:
+                    configs.append(SalesforceDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file)))                   
+            except Exception as e:
                 continue
         return configs
     
@@ -67,6 +69,8 @@ class DataSourceRepository(Repository):
         elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.CSV:
             config = CSVDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
         elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SALESFORCE:
+            config = SalesforceDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
+        elif common_datasource_metadata.underlying_implementation == UnderlyingImplementation.SALESFORCEDATACLOUD:
             config = SalesforceDataSourceMetadata.model_validate_json(mgr.read_file_content(config_file))
         return config
       

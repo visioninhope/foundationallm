@@ -1,4 +1,7 @@
 from foundationallm.hubs import Metadata
 
 class SalesforceAuthenticationMetadata(Metadata):
-    connection_string_secret: str
+    client_id: str
+    client_secret: str
+    refresh_token: str
+    instance_url: str

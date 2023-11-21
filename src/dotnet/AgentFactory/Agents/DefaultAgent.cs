@@ -69,6 +69,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                         DataDescription = dataSource.DataDescription
                     };
                     break;
+                case "salesforce":
                 case "salesforce-datacloud":
                     dataSourceMetadata = new SalesforceDatacloudDataSource
                     {

@@ -31,6 +31,22 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
 
     }
 
+    /// <summary>
+    /// Salesforce DataSource 
+    /// </summary>
+    public record SalesforceDataSourceMetadata : DataSourceMetadata
+    {
+
+    }
+
+    /// <summary>
+    /// Salesforce DataSource 
+    /// </summary>
+    public record SalesforceDatacloudDataSourceMetadata : DataSourceMetadata
+    {
+
+    }
+
 
     /// <summary>
     /// Default set of properties for a DataSource returned from DataSource Hub.
@@ -48,6 +64,12 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
         /// </summary>
         [JsonProperty("description")]
         public string? Description { get; set; }
+
+        /// <summary>
+        /// Query of data source
+        /// </summary>
+        [JsonProperty("query")]
+        public string? Query { get; set; }
 
         /// <summary>
         /// Type of data source

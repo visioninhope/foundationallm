@@ -4,6 +4,5 @@ from foundationallm.hubs.data_source import DataSourceMetadata
 
 class SalesforceDataSourceMetadata(DataSourceMetadata):    
     authentication: SalesforceAuthenticationMetadata
-    container: str
-    files: Optional[List[str]] = None
+    query: str
     
