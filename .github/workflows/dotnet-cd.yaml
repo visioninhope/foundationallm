@@ -74,7 +74,7 @@ jobs:
           type=sha
 
     - name: Build and push Docker images
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v5
       with:
         context: ${{ matrix.context }}
         file: ${{ matrix.dockerfile }}
@@ -146,7 +146,7 @@ jobs:
           type=sha
 
     - name: Build and push Docker images
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v5
       with:
         context: ${{ matrix.context }}
         file: ${{ matrix.dockerfile }}
