@@ -130,16 +130,3 @@ export const graphConfig = {
 	graphMeEndpoint: 'https://graph.microsoft.com/v1.0/me',
 	graphMailEndpoint: 'https://graph.microsoft.com/v1.0/me/messages',
 };
-
-export async function attemptLogin() {
-	const msalInstance = await getMsalInstance();
-	const loginRequest = await getLoginRequest();
-
-	await msalInstance.handleRedirectPromise();
-	const response = await msalInstance.loginRedirect(loginRequest);
-	if (response.account) {
-		createTokenRefreshTimer();
-	}
-
-	return response;
-}

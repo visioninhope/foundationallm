@@ -10,13 +10,14 @@
 <script lang="ts">
 import { mapStores } from 'pinia';
 import { useAppConfigStore } from '@/stores/appConfigStore';
-import { attemptLogin } from '@/js/auth';
+import { useAuthStore } from '@/stores/authStore';
 
 export default {
 	name: 'Login',
 
 	computed: {
 		...mapStores(useAppConfigStore),
+		...mapStores(useAuthStore),
 
 		logoUrl() {
 			return this.appConfigStore.logoUrl;
@@ -25,7 +26,7 @@ export default {
 
 	methods: {
 		async signIn() {
-			const response = await attemptLogin();
+			const response = await this.authStore.login();
 			if (response.account) {
 				this.$router.push({ path: '/', query: this.$nuxt._route.query });
 			}
