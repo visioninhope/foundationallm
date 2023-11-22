@@ -13,7 +13,7 @@ router = APIRouter(
 @router.post('')
 async def anonymize(text: str | None = None) -> str:
     """
-    Anonymize text with identified PII entities.
+    Anonymize text with identified PII (personally identifiable information) entities.
     
     Returns
     -------

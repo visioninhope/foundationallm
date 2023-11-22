@@ -27,7 +27,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         }
 
         /// <summary>
-        /// Analyze text to identify PII entities.
+        /// Analyze text to identify PII (personally identifiable information) entities.
         /// </summary>
         /// <param name="text">The input text.</param>
         /// <returns>A list of PII entities identified in the analyzed text.</returns>
@@ -38,7 +38,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         }
 
         /// <summary>
-        /// Anonymize text with identified PII entities.
+        /// Anonymize text with identified PII (personally identifiable information) entities.
         /// </summary>
         /// <param name="text">The input text.</param>
         /// <returns>The anonymized text.</returns>

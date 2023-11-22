@@ -14,12 +14,12 @@ router = APIRouter(
 @router.post('')
 async def analyze(text: str | None = None) -> List:
     """
-    Analyze text to identify PII entities.
+    Analyze text to identify PII (personally identifiable information) entities.
     
     Returns
     -------
     List
-        Returns a list of PII entities identified in the analyzed text.
+        Returns a list of PII (personally identifiable information) entities identified in the analyzed text.
     """
     try:
         return ["Not implemented"]
