@@ -9,7 +9,8 @@ on:
     branches: [main, release]
 
 env:
-  REGISTRY: ghcr.io/solliancenet
+  REGISTRY: ghcr.io
+  ORG: solliancenet
 
 jobs:
   prerelease:
@@ -38,7 +39,7 @@ jobs:
       uses: christian-draeger/increment-semantic-version@1.0.2
       with:
         current-version: ${{ steps.releaseVersion.outputs.release_tag && '0.1.0' || steps.releaseVersion.outputs.release_tag }}
-        version-fragment: 'rc'
+        version-fragment: 'alpha'
 
     - name: Create Prerelease
       env:
@@ -137,7 +138,7 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: |
-          ${{ env.REGISTRY }}/${{ matrix.name }}
+          ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.name }}
         tags: |
           type=ref,event=branch
           type=ref,event=pr
