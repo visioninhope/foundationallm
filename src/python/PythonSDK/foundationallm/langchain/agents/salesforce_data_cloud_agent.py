@@ -60,7 +60,8 @@ class SalesforceDataCloudAgent(AgentBase):
         for query in self.queries:
             dfs.append(self.query_data(query))
             
-        self.agent = create_pandas_dataframe_agent(self.llm, dfs, verbose=True, handle_parsing_errors="Check your output and make sure it conforms!")
+        self.agent = create_pandas_dataframe_agent(self.llm, dfs, verbose=True)
+        self.agent.handle_parsing_errors = True
 
     def query_data(self, query):
 
@@ -139,7 +140,16 @@ class SalesforceDataCloudAgent(AgentBase):
 
         column_names = []
 
-        for column in metadata.keys():
+        ht = {}
+
+        for key in metadata:
+            item = metadata[key]
+            ht[item['placeInOrder']] = key
+
+        count = 0
+
+        for i in range(len(ht)):
+            column = ht[i]
             name = column.replace('ssot__','')
             name = name.replace('__c','')
             name = name.replace('__','')
