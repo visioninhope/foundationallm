@@ -78,10 +78,11 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                         Description = dataSource.Description,
                         Configuration = new SalesforceDatacloudConfiguration
                         {
-                            ClientId = dataSource.Authentication!["ClientId"],
-                            ClientSecret = dataSource.Authentication!["ClientSecret"],
-                            RefreshToken = dataSource.Authentication!["RefreshToken"],
-                            InstanceUrl = dataSource.Authentication!["InstanceUrl"],
+                            ClientId = dataSource.Authentication!["client_id"],
+                            ClientSecret = dataSource.Authentication!["client_secret"],
+                            RefreshToken = dataSource.Authentication!["refresh_token"],
+                            InstanceUrl = dataSource.Authentication!["instance_url"],
+                            Query = dataSource.Query!
                         },
                         DataDescription = dataSource.DataDescription
                     };

@@ -51,6 +51,8 @@ class AgentFactory:
                 return AnomalyDetectionAgent(self.completion_request, llm=self.llm, config=self.config)
             case 'csv':
                 return CSVAgent(self.completion_request, llm=self.llm, config=self.config)
+            case 'salesforce':
+                return SalesforceDataCloudAgent(self.completion_request, llm=self.llm, config=self.config)
             case 'salesforce-datacloud':
                 return SalesforceDataCloudAgent(self.completion_request, llm=self.llm, config=self.config)
             case 'sql':

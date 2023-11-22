@@ -6,3 +6,4 @@ class SalesforceDataCloudConfiguration(DataSourceConfiguration):
     client_secret: str
     refresh_token: str
     instance_url: str
+    query : str

@@ -9,7 +9,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
     public class SalesforceDatacloudDataSource : DataSourceBase
     {
         /// <summary>
-        /// Blob storage configuration settings.
+        /// Data Cloud configuration settings.
         /// </summary>
         [JsonProperty("configuration")]
         public SalesforceDatacloudConfiguration? Configuration { get; set; }

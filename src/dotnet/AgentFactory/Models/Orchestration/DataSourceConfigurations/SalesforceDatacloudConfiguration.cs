@@ -36,5 +36,11 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
         /// </summary>
         [JsonProperty("instance_url")]
         public string? InstanceUrl { get; set; }
+
+        /// <summary>
+        /// Query to execute against the data source.
+        /// </summary>
+        [JsonProperty("query")]
+        public string? Query { get; set; }
     }
 }

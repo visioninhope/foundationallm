@@ -37,17 +37,25 @@ class SalesforceDataCloudAgent(AgentBase):
         """
         self.prompt_prefix = completion_request.agent.prompt_prefix
         self.prompt_suffix = completion_request.agent.prompt_suffix
+
+        self.prompt_suffix = completion_request.agent.prompt_suffix or """Begin!
+
+        Question: {input}
+        Thought: I should evaluate the question to see if it is related to the data. If so, I should look at the data to see what I can query. Then I should query the schema of the most relevant tables. If not, I should provide my name and details about the types of questions I can answer. Finally, create a nice sentence that answers the question.
+        {agent_scratchpad}"""
+
         self.llm = llm.get_language_model()
         self.message_history = completion_request.message_history
         
-        self.client_id = completion_request.data_source.configuration.client_id
-        self.client_secret = completion_request.data_source.configuration.client_secret
-        self.refresh_token = completion_request.data_source.configuration.refresh_token
-        self.instance_url = completion_request.data_source.configuration.instance_url
+        self.client_id = config.get_value(completion_request.data_source.configuration.client_id)
+        self.client_secret = config.get_value(completion_request.data_source.configuration.client_secret)
+        self.refresh_token = config.get_value(completion_request.data_source.configuration.refresh_token)
+        self.instance_url = config.get_value(completion_request.data_source.configuration.instance_url)
+        self.query = completion_request.data_source.configuration.query
 
         #get a new access token..
-        url = f'{self.instance_url}/services/oauth2/token'
-
+        url = 'https://login.salesforce.com/services/oauth2/token'
+        
         resp = requests.post(
             url=url,
             data={
@@ -58,7 +66,23 @@ class SalesforceDataCloudAgent(AgentBase):
             }
         )
 
-        access_token = resp.json['access_token']
+        access_token = resp.json()['access_token']
+        self.instance_url = resp.json()['instance_url']
+
+        #get an instance access token..
+        url = f'{self.instance_url}/services/oauth2/token'
+        
+        resp = requests.post(
+            url=url,
+            data={
+                "grant_type": "refresh_token",
+                "client_id": self.client_id,
+                "client_secret": self.client_secret,
+                "refresh_token": self.refresh_token
+            }
+        )
+
+        access_token = resp.json()['access_token']
         
         #Get the sales force data cloud token...
         url = self.instance_url + "/services/a360/token"
@@ -79,21 +103,30 @@ class SalesforceDataCloudAgent(AgentBase):
         #run the query...
         #https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_profile_meta.htm
 
-        url = f'https://{cdp_resp["instance_url"]}/api/v1/metadata'
+        url = f'https://{cdp_resp["instance_url"]}/api/v2/query'
 
-        resp = requests.get(
+        data = {
+            'sql' : self.query
+        }
+
+        resp = requests.post(
             url=url,
-            headers={'Authorization' : f'Bearer {cdp_resp["access_token"]}'}
+            json=data,
+            headers={'Authorization' : f'Bearer {cdp_resp["access_token"]}', 'content-type' : 'application/json'}
         )
 
-        #turn the respone into csv
-        df = pd.DataFrame()
+        jData = resp.json()
+        rows = jData['data']
+        metadata = jData['metadata']
+
+        #turn the respone into dataframe
+        df = pd.DataFrame(rows, columns=metadata.keys())
         
         tools = [
             PythonAstREPLTool(
                 locals={"df": df},
-                name=completion_request.data_source.data_description or 'CSV data',
-                description=completion_request.data_source.description or 'Useful for when you need to answer questions about data in CSV files.'
+                name=completion_request.data_source.data_description or 'SalesForce data',
+                description=completion_request.data_source.description or 'Useful for when you need to answer questions about data in Saleforce data cloud.'
             )
         ]
         memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
