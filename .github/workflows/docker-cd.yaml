@@ -27,6 +27,9 @@ jobs:
         echo "release_tag: Latest Tag is : $release_tag"
         echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
 
+    - name: Test
+      run: echo $release_tag
+
     - name: Bumping Prerelease Index
       id: bump_version_pre
       uses: cookbenjamin/update-version@v1.0.1
