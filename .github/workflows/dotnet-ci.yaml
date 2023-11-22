@@ -34,5 +34,5 @@ jobs:
 
     - name: Test 🧪
       working-directory: ./src
-      run: dotnet test ./dotnet/${{ matriix.service }}/${{ matrix.service }}.csproj ----configuration Release --no-build
+      run: dotnet test ./dotnet/${{ matrix.service }}/${{ matrix.service }}.csproj ----configuration Release --no-build
 
