@@ -2,9 +2,10 @@ name: Docker Image Release
 
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch: 
+    inputs: {}
   pull_request:
-    types: [closed]
+    types: [synchronize, opened, reopened, labeled, unlabeled, closed]
     branches: [main, release]
 
 env:
