@@ -22,7 +22,7 @@ jobs:
           dockerfile: ./src/dotnet/AgentFactoryAPI/Dockerfile
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
     - name: Fetching the Latest Release Tag number
@@ -92,7 +92,7 @@ jobs:
           dockerfile: ./dotnet/AgentFactoryAPI/Dockerfile
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
     - name: Fetching the Latest Release Tag number
