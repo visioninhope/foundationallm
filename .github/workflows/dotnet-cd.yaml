@@ -38,7 +38,7 @@ jobs:
       uses: christian-draeger/increment-semantic-version@1.0.2
       with:
         current-version: ${{ steps.releaseVersion.outputs.release_tag }}
-        version-fragment: 'pre'
+        version-fragment: 'rc'
 
     - name: Create Prerelease Version Release
       env:
