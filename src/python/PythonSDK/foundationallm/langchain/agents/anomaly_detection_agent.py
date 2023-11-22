@@ -1,13 +1,13 @@
-from langchain.tools import PythonREPLTool
+from langchain_experimental.tools import PythonREPLTool
 import pandas as pd
 from sqlalchemy import create_engine
 
-from langchain.agents import create_sql_agent, create_pandas_dataframe_agent, initialize_agent, Tool
-from langchain.agents.agent_toolkits import create_python_agent
+from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
+from langchain.agents import create_sql_agent, initialize_agent, Tool
+from langchain_experimental.agents.agent_toolkits import create_python_agent
 from langchain.agents.agent_types import AgentType
 from langchain.callbacks import get_openai_callback
 from langchain.prompts import PromptTemplate
-from langchain.tools.python.tool import PythonREPLTool
 
 from foundationallm.config import Configuration
 from foundationallm.langchain.agents import AgentBase

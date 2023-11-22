@@ -6,8 +6,10 @@ from operator import itemgetter
 from langchain.agents import AgentExecutor, ZeroShotAgent
 from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
-from langchain.tools.python.tool import PythonAstREPLTool
+from langchain_experimental.tools import PythonAstREPLTool
 from langchain.callbacks import get_openai_callback
+
+from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 
 from foundationallm.config import Configuration
 from foundationallm.langchain.agents import AgentBase
@@ -36,8 +38,6 @@ class SalesforceDataCloudAgent(AgentBase):
             Application configuration class for retrieving configuration settings.
         """
         self.prompt_prefix = completion_request.agent.prompt_prefix
-        self.prompt_suffix = completion_request.agent.prompt_suffix
-
         self.prompt_suffix = completion_request.agent.prompt_suffix or """Begin!
 
         Question: {input}
@@ -51,9 +51,45 @@ class SalesforceDataCloudAgent(AgentBase):
         self.client_secret = config.get_value(completion_request.data_source.configuration.client_secret)
         self.refresh_token = config.get_value(completion_request.data_source.configuration.refresh_token)
         self.instance_url = config.get_value(completion_request.data_source.configuration.instance_url)
-        self.query = completion_request.data_source.configuration.query
+        self.queries = completion_request.data_source.configuration.queries
 
-        #get a new access token..
+        self.login()
+
+        dfs = []
+
+        for query in self.queries:
+            dfs.append(self.query_data(query))
+            
+        self.agent = create_pandas_dataframe_agent(self.llm, dfs, verbose=True, handle_parsing_errors="Check your output and make sure it conforms!")
+
+    def query_data(self, query):
+
+        #run the query...
+        #https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_profile_meta.htm
+
+        url = f'https://{self.cdp_resp["instance_url"]}/api/v2/query'
+
+        data = {
+            'sql' : query
+        }
+
+        resp = requests.post(
+            url=url,
+            json=data,
+            headers={'Authorization' : f'Bearer {self.cdp_resp["access_token"]}', 'content-type' : 'application/json'}
+        )
+
+        jData = resp.json()
+        rows = jData['data']
+        metadata = self.parse_column_names(jData['metadata'])
+
+        #turn the respone into dataframe
+        df = pd.DataFrame(rows, columns=metadata)
+
+        return df
+
+    def login(self):
+         #get a new access token..
         url = 'https://login.salesforce.com/services/oauth2/token'
         
         resp = requests.post(
@@ -96,70 +132,8 @@ class SalesforceDataCloudAgent(AgentBase):
             }
         )
         
-        cdp_resp = resp.json()
-
-        cdp_access_token = cdp_resp['access_token']
-
-        #run the query...
-        #https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_profile_meta.htm
-
-        url = f'https://{cdp_resp["instance_url"]}/api/v2/query'
-
-        data = {
-            'sql' : self.query
-        }
-
-        resp = requests.post(
-            url=url,
-            json=data,
-            headers={'Authorization' : f'Bearer {cdp_resp["access_token"]}', 'content-type' : 'application/json'}
-        )
-
-        jData = resp.json()
-        rows = jData['data']
-        metadata = self.parse_column_names(jData['metadata'])
-
-        #turn the respone into dataframe
-        df = pd.DataFrame(rows, columns=metadata)
-        
-        tools = [
-            PythonAstREPLTool(
-                locals={"df": df},
-                name=completion_request.data_source.data_description or 'SalesForce Account data',
-                description=completion_request.data_source.description or 'Useful for when you need to answer questions about accounts in Saleforce CRM records.'
-            )
-        ]
-        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-        # Add previous messages to the memory
-        for i in range(0, len(self.message_history), 2):
-            history_pair = itemgetter(i,i+1)(self.message_history)
-            for message in history_pair:
-                if message.sender.lower() == 'user':
-                    user_input = message.text
-                else:
-                    ai_output = message.text
-            memory.save_context({"input": user_input}, {"output": ai_output})
-            
-        prompt = ZeroShotAgent.create_prompt(
-            tools,
-            prefix = self.prompt_prefix,
-            suffix = self.prompt_suffix,
-            input_variables = ['input', 'chat_history', 'df_head', 'agent_scratchpad']
-        )
-        partial_prompt = prompt.partial(
-            df_head=str(df.head(10).to_markdown())
-        )
-        zsa = ZeroShotAgent(
-            llm_chain=LLMChain(llm=self.llm, prompt=partial_prompt),
-            allowed_tools=[tool.name for tool in tools]
-        )
-        self.agent = AgentExecutor.from_agent_and_tools(
-            agent=zsa,
-            tools=tools,
-            verbose=True,
-            memory=memory,
-            handle_parsing_errors='Check your output and make sure it conforms!'
-        )
+        self.cdp_resp = resp.json()
+        self.cdp_access_token = self.cdp_resp['access_token']
 
     def parse_column_names(self, metadata):
 

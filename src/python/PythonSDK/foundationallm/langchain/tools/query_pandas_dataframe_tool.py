@@ -1,5 +1,6 @@
 from typing import Optional
-from langchain.agents import AgentExecutor, create_pandas_dataframe_agent
+from langchain.agents import AgentExecutor
+from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 from langchain.callbacks.manager import CallbackManagerForToolRun
 from pandas import DataFrame
 from langchain.pydantic_v1 import BaseModel, Extra, Field, root_validator

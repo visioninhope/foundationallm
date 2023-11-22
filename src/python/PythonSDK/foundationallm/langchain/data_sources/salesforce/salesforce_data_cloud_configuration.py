@@ -1,3 +1,5 @@
+from typing import List
+
 from foundationallm.langchain.data_sources import DataSourceConfiguration
 
 class SalesforceDataCloudConfiguration(DataSourceConfiguration):
@@ -6,4 +8,4 @@ class SalesforceDataCloudConfiguration(DataSourceConfiguration):
     client_secret: str
     refresh_token: str
     instance_url: str
-    query : str
+    queries : List[str]
