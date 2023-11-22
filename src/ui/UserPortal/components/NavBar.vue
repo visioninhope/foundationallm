@@ -6,8 +6,20 @@
 			<span v-else>{{ logoText }}</span>
 
 			<template v-if="!appConfigStore.isKioskMode">
-				<Button v-if="isSidebarClosed" icon="pi pi-arrow-right" size="small" severity="secondary" @click="closeSidebar(false)" />
-				<Button v-else icon="pi pi-arrow-left" size="small" severity="secondary" @click="closeSidebar(true)" />
+				<Button
+					v-if="isSidebarClosed"
+					icon="pi pi-arrow-right"
+					size="small"
+					severity="secondary"
+					@click="closeSidebar(false)"
+				/>
+				<Button
+					v-else
+					icon="pi pi-arrow-left"
+					size="small"
+					severity="secondary"
+					@click="closeSidebar(true)"
+				/>
 			</template>
 		</div>
 
@@ -51,7 +63,12 @@
 				<!-- Logged in user name and sign out -->
 				<div v-if="authStore.isAuthed" class="navbar__content__right__item">
 					<span>Welcome, {{ authStore.currentAccount?.name }}</span>
-					<Button class="button--auth" icon="pi pi-sign-out" label="Sign Out" @click="handleLogout()"></Button>
+					<Button
+						class="button--auth"
+						icon="pi pi-sign-out"
+						label="Sign Out"
+						@click="handleLogout()"
+					></Button>
 				</div>
 			</div>
 		</div>
