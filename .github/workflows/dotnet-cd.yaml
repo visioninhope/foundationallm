@@ -1,0 +1,152 @@
+name: .NET Docker Image Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main, release]
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  prerelease:
+    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.base.ref == main }}
+    strategy:
+      matrix:
+        include:
+        - name: agent-factory-api
+          context: ./src
+          dockerfile: ./dotnet/AgentFactoryAPI/Dockerfile
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Fetching the Latest Release Tag number
+      id: releaseVersion
+      run: |
+        release_json=$(curl https://api.github.com/repos/${{ github.repository }}/releases)
+        release_tag=$(echo "$release_json" | jq -r '.[0].tag_name')
+        echo "release_tag: Latest Tag is : $release_tag"
+        echo ::set-output name=release_tag::"$release_tag"
+
+    - name: Bumping Prerelease Index
+      id: bump_version_pre
+      uses: christian-draeger/increment-semantic-version@1.0.2
+      with:
+        current-version: ${{ steps.releaseVersion.outputs.release_tag }}
+        version-fragment: 'pre'
+
+    - name: Create Prerelease Version Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        curl \
+          -X POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/releases \
+          -d '{"tag_name":"${{ steps.bump_version_pre.outputs.next-version }}","target_commitish":"main","name":"${{ steps.bump_version_pre.outputs.next-version }}","body":"${{ github.event.pull_request.title }}","draft":false,"prerelease":true,"generate_release_notes":true}'
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: |
+          ${{ env.REGISTRY }}/${{ matrix.name }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=raw,prerelease
+          type=sha
+
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v3
+      with:
+        context: ${{ matrix.context }}
+        file: ${{ matrix.dockerfile }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+  release:
+    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.base.ref == release }}
+    strategy:
+      matrix:
+        include:
+        - name: agent-factory-api
+          context: ./src
+          dockerfile: ./dotnet/AgentFactoryAPI/Dockerfile
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Fetching the Latest Release Tag number
+      id: releaseVersion
+      run: |
+        release_json=$(curl https://api.github.com/repos/${{ github.repository }}/releases)
+        release_tag=$(echo "$release_json" | jq -r '.[0].tag_name')
+        echo "release_tag: Latest Tag is : $release_tag"
+        echo ::set-output name=release_tag::"$release_tag"
+
+    - name: Bumping Version
+      id: bump_version
+      uses: christian-draeger/increment-semantic-version@1.0.2
+      with:
+        current-version: ${{ steps.releaseVersion.outputs.release_tag }}
+        version-fragment: 'feature'
+
+    - name: Create Version Release
+      if: ${{ contains(github.event.*.labels.*.name, 'minor_version_update') }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        curl \
+          -X POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/releases \
+          -d '{"tag_name":"${{ steps.bump_version.outputs.next-version }}","target_commitish":"release","name":"${{ steps.bump_version.outputs.next-version }}","body":"${{ github.event.pull_request.title }}","draft":false,"prerelease":false,"generate_release_notes":true}'
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: |
+          ${{ env.REGISTRY }}/${{ matrix.name }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=raw,latest
+          type=semver,{{version}},value=${{ steps.bump_version.outputs.next-version }}
+          type=semver,{{major}}.{{minor}},value=${{ steps.bump_version.outputs.next-version }}
+          type=sha
+
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v3
+      with:
+        context: ${{ matrix.context }}
+        file: ${{ matrix.dockerfile }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
