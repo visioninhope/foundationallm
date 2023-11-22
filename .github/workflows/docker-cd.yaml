@@ -115,8 +115,7 @@ jobs:
           type=ref,event=branch
           type=ref,event=pr
           type=raw,prerelease
-          type=semver,{{version}},value=${{ steps.releaseVersion.outputs.release_tag }}
-          type=semver,{{major}}.{{minor}},value=${{ steps.releaseVersion.outputs.release_tag }}
+          type=semver,pattern={{version}},value=${{ steps.releaseVersion.outputs.release_tag }}
           type=sha
 
     - name: Build and push Docker images
