@@ -17,10 +17,7 @@ export const useAuthStore = defineStore('auth', {
 	actions: {
 		setAccounts(accounts: AccountInfo[]) {
 			this.accounts = accounts;
-		},
-
-		setCurrentAccount(account: AccountInfo) {
-			this.currentAccount = account;
+			this.currentAccount = accounts[0];
 		},
 
 		async login() {

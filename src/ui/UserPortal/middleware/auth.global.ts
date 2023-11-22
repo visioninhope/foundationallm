@@ -11,7 +11,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	if (accounts.length > 0) {
 		const authStore = useAuthStore();
 		authStore.setAccounts(accounts);
-		authStore.setCurrentAccount(accounts[0]);
 	}
 
 	if (accounts.length > 0 && to.path !== '/') {
