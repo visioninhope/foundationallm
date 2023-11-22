@@ -27,9 +27,6 @@ jobs:
         echo "release_tag: Latest Tag is : $release_tag"
         echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
 
-    - name: Test
-      run: echo ${{ steps.releaseVersion.outputs.release_tag }}
-
     - name: Bumping Prerelease Index
       id: bump_version_pre
       uses: cookbenjamin/update-version@v1.0.1
@@ -113,7 +110,7 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: |
-          ${{ env.REGISTRY }}/${{ matrix.name }}
+          ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.name }}
         tags: |
           type=ref,event=branch
           type=ref,event=pr
