@@ -28,7 +28,7 @@ jobs:
         echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
 
     - name: Test
-      run: echo $release_tag
+      run: echo ${{ steps.releaseVersion.outputs.release_tag }}
 
     - name: Bumping Prerelease Index
       id: bump_version_pre
