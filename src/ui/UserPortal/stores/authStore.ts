@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
+import type { AccountInfo } from '@azure/msal-browser';
 import { getMsalInstance, getLoginRequest, createTokenRefreshTimer } from '@/js/auth';
 
 export const useAuthStore = defineStore('auth', {
 	state: () => ({
-		accounts: [] as any[],
-		currentAccount: null,
+		accounts: [] as AccountInfo[],
+		currentAccount: null as AccountInfo | null,
 	}),
 
 	getters: {
