@@ -49,9 +49,6 @@
     <Compile Include="foundationallm\hubs\agent\agent_metadata.py" />
     <Compile Include="foundationallm\hubs\agent\agent_repository.py" />
     <Compile Include="foundationallm\hubs\agent\agent_resolver.py" />
-    <Compile Include="foundationallm\hubs\agent\language_model_metadata.py" />
-    <Compile Include="foundationallm\hubs\agent\language_model_provider.py" />
-    <Compile Include="foundationallm\hubs\agent\language_model_type.py" />
     <Compile Include="foundationallm\hubs\agent\__init__.py" />
     <Compile Include="foundationallm\hubs\data_source\data_source_hub_request.py" />
     <Compile Include="foundationallm\hubs\data_source\data_source_hub_response.py" />

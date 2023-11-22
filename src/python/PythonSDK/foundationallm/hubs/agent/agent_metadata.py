@@ -1,6 +1,6 @@
 from typing import List, Optional
 from foundationallm.hubs import Metadata
-from .language_model_metadata import LanguageModelMetadata
+from foundationallm.models.metadata import LanguageModel
 from .agent_type import AgentType
 
 class AgentMetadata(Metadata):
@@ -9,5 +9,5 @@ class AgentMetadata(Metadata):
     description: str
     type: AgentType
     allowed_data_source_names: Optional[List[str]] = None
-    language_model: Optional[LanguageModelMetadata] = None
+    language_model: Optional[LanguageModel] = None
     orchestrator: Optional[str] = None
