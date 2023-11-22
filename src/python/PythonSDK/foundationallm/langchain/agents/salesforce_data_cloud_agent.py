@@ -117,16 +117,16 @@ class SalesforceDataCloudAgent(AgentBase):
 
         jData = resp.json()
         rows = jData['data']
-        metadata = jData['metadata']
+        metadata = self.parse_column_names(jData['metadata'])
 
         #turn the respone into dataframe
-        df = pd.DataFrame(rows, columns=metadata.keys())
+        df = pd.DataFrame(rows, columns=metadata)
         
         tools = [
             PythonAstREPLTool(
                 locals={"df": df},
-                name=completion_request.data_source.data_description or 'SalesForce data',
-                description=completion_request.data_source.description or 'Useful for when you need to answer questions about data in Saleforce data cloud.'
+                name=completion_request.data_source.data_description or 'SalesForce Account data',
+                description=completion_request.data_source.description or 'Useful for when you need to answer questions about accounts in Saleforce CRM records.'
             )
         ]
         memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
@@ -147,7 +147,7 @@ class SalesforceDataCloudAgent(AgentBase):
             input_variables = ['input', 'chat_history', 'df_head', 'agent_scratchpad']
         )
         partial_prompt = prompt.partial(
-            df_head=str(df.head(3).to_markdown())
+            df_head=str(df.head(10).to_markdown())
         )
         zsa = ZeroShotAgent(
             llm_chain=LLMChain(llm=self.llm, prompt=partial_prompt),
@@ -160,6 +160,18 @@ class SalesforceDataCloudAgent(AgentBase):
             memory=memory,
             handle_parsing_errors='Check your output and make sure it conforms!'
         )
+
+    def parse_column_names(self, metadata):
+
+        column_names = []
+
+        for column in metadata.keys():
+            name = column.replace('ssot__','')
+            name = name.replace('__c','')
+            name = name.replace('__','')
+            column_names.append(name)
+
+        return column_names
 
     @property
     def prompt_template(self) -> str:
