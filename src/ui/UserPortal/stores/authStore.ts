@@ -49,7 +49,7 @@ export const useAuthStore = defineStore('auth', {
 			await msalInstance.logoutRedirect(logoutRequest);
 
 			const nuxtApp = useNuxtApp();
-			nuxtApp.$router.push({ path: '/signin-oidc' });
+			nuxtApp.$router.push({ name: 'auth/login' });
 		},
 	},
 });

@@ -18,8 +18,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 		return navigateTo({ path: '/', query: from.query });
 	}
 
-	if (accounts.length === 0 && to.path !== '/signin-oidc') {
-		return navigateTo({ path: '/signin-oidc', query: from.query });
+	if (accounts.length === 0 && to.name !== 'auth/login') {
+		return navigateTo({ name: 'auth/login', query: from.query });
 	} else {
 		createTokenRefreshTimer();
 	}

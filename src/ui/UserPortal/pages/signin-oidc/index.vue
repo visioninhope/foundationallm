@@ -7,6 +7,12 @@
 	</div>
 </template>
 
+<script setup lang="ts">
+definePageMeta({
+	name: 'auth/login',
+});
+</script>
+
 <script lang="ts">
 import { mapStores } from 'pinia';
 import { useAppConfigStore } from '@/stores/appConfigStore';
