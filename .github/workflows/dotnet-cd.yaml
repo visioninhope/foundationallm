@@ -19,7 +19,7 @@ jobs:
         include:
         - name: agent-factory-api
           context: ./src
-          dockerfile: ./dotnet/AgentFactoryAPI/Dockerfile
+          dockerfile: ./src/dotnet/AgentFactoryAPI/Dockerfile
     runs-on: ubuntu-latest
     permissions:
       contents: read
