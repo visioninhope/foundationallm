@@ -24,6 +24,7 @@
   <ItemGroup>
     <Compile Include="foundationallm\config\context.py" />
     <Compile Include="foundationallm\config\user_identity.py" />
+    <Compile Include="foundationallm\models\language_models\__init__.py" />
     <Compile Include="foundationallm\models\list_option.py" />
     <Compile Include="foundationallm\langchain\agents\generic_resolver_agent.py" />
     <Compile Include="foundationallm\hubs\agent\agent_type.py" />
@@ -77,7 +78,7 @@
     <Compile Include="foundationallm\langchain\data_sources\blob\blob_storage_configuration.py" />
     <Compile Include="foundationallm\langchain\data_sources\blob\__init__.py" />
     <Compile Include="foundationallm\langchain\data_sources\sql\mariadb.py" />
-    <Compile Include="foundationallm\langchain\language_models\language_model_types.py" />
+    <Compile Include="foundationallm\models\language_models\language_model_types.py" />
     <Compile Include="foundationallm\langchain\language_models\openai\azure_openai_api_types.py" />
     <Compile Include="foundationallm\langchain\agents\anomaly_detection_agent.py" />
     <Compile Include="foundationallm\langchain\agents\csv_agent.py" />
@@ -104,7 +105,7 @@
     <Compile Include="foundationallm\langchain\language_models\openai\openai_model_base.py" />
     <Compile Include="foundationallm\langchain\language_models\openai\openai_text_completion_model.py" />
     <Compile Include="foundationallm\langchain\language_models\openai\__init__.py" />
-    <Compile Include="foundationallm\langchain\language_models\language_model_providers.py" />
+    <Compile Include="foundationallm\models\language_models\language_model_providers.py" />
     <Compile Include="foundationallm\langchain\language_models\__init__.py" />
     <Compile Include="foundationallm\langchain\message_history\build_message_history.py" />
     <Compile Include="foundationallm\langchain\message_history\__init__.py" />
@@ -167,6 +168,7 @@
     <Folder Include="foundationallm\langchain\toolkits\" />
     <Folder Include="foundationallm\models\" />
     <Folder Include="foundationallm\models\metadata\" />
+    <Folder Include="foundationallm\models\language_models\" />
     <Folder Include="foundationallm\models\orchestration\" />
     <Folder Include="foundationallm\hubs\" />
     <Folder Include="foundationallm\resolvers\" />
