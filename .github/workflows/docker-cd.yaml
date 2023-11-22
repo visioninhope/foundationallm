@@ -30,18 +30,19 @@ jobs:
 
     - name: Bumping Prerelease Index
       id: bump_version_pre
-      uses: christian-draeger/increment-semantic-version@1.1.0
+      uses: cookbenjamin/update-version@v1.0.1
       with:
         current-version: ${{ steps.releaseVersion.outputs.release_tag && '0.1.0' || steps.releaseVersion.outputs.release_tag }}
-        version-fragment: 'pre'
+        increment-version-fragment: NONE
+        prerelease-fragment: ALPHA
 
     - name: Create Prerelease
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       uses: actions/create-release@v1
       with:
-        tag_name: ${{ steps.bump_version_pre.outputs.next-version }}
-        release_name: Release ${{ steps.bump_version_pre.outputs.next-version }}
+        tag_name: ${{ steps.bump_version_pre.outputs.updated-version }}
+        release_name: Release ${{ steps.bump_version_pre.outputs.updated-version }}
         body: |
           ${{ github.event.pull_request.title }}
         draft: false
@@ -141,20 +142,21 @@ jobs:
         echo "release_tag: Latest Tag is : $release_tag"
         echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
 
-    - name: Bumping Version
-      id: bump_version
-      uses: christian-draeger/increment-semantic-version@1.1.0
+    - name: Bumping Release Index
+      id: bump_version_pre
+      uses: cookbenjamin/update-version@v1.0.1
       with:
-        current-version: ${{ steps.releaseVersion.outputs.release_tag }}
-        version-fragment: 'feature'
+        current-version: ${{ steps.releaseVersion.outputs.release_tag && '0.1.0' || steps.releaseVersion.outputs.release_tag }}
+        increment-version-fragment: ${{ contains(github.event.*.labels.*.name, 'major-version-update') && 'MAJOR' || 'MINOR' }}
+        prerelease-fragment: REMOVE
 
     - name: Create Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       uses: actions/create-release@v1
       with:
-        tag_name: ${{ steps.bump_version.outputs.next-version }}
-        release_name: Release ${{ steps.bump_version.outputs.next-version }}
+        tag_name: ${{ steps.bump_version.outputs.updated-version }}
+        release_name: Release ${{ steps.bump_version.outputs.updated-version }}
         body: |
           ${{ github.event.pull_request.title }}
         draft: false
