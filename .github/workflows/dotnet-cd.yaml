@@ -31,7 +31,7 @@ jobs:
         release_json=$(curl https://api.github.com/repos/${{ github.repository }}/releases)
         release_tag=$(echo "$release_json" | jq -r '.[0].tag_name')
         echo "release_tag: Latest Tag is : $release_tag"
-        echo ::set-output name=release_tag::"$release_tag"
+        echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
 
     - name: Bumping Prerelease Index
       id: bump_version_pre
@@ -100,7 +100,7 @@ jobs:
         release_json=$(curl https://api.github.com/repos/${{ github.repository }}/releases)
         release_tag=$(echo "$release_json" | jq -r '.[0].tag_name')
         echo "release_tag: Latest Tag is : $release_tag"
-        echo ::set-output name=release_tag::"$release_tag"
+        echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
 
     - name: Bumping Version
       id: bump_version
