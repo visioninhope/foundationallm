@@ -21,6 +21,33 @@ jobs:
         - name: agent-factory-api
           context: ./src
           dockerfile: ./src/dotnet/AgentFactoryAPI/Dockerfile
+        - name: agent-hub-api
+          context: ./src/python
+          dockerfile: ./src/python/AgentHubAPI/Dockerfile
+        - name: chat-ui
+          context: ./src/ui/UserPortal
+          dockerfile: ./src/ui/UserPortal/Dockerfile
+        - name: core-api
+          context: ./src
+          dockerfile: ./src/dotnet/CoreAPI/Dockerfile
+        - name: core-job
+          context: ./src
+          dockerfile: ./src/dotnet/CoreWorker/Dockerfile
+        - name: data-source-hub-api
+          context: ./src/python
+          dockerfile: ./src/python/DataSourceHubAPI/Dockerfile
+        - name: gatekeeper-api
+          context: ./src
+          dockerfile: ./src/dotnet/GatekeeperAPI/Dockerfile
+        - name: langchain-api
+          context: ./src/python
+          dockerfile: ./src/python/LangChainAPI/Dockerfile
+        - name: prompt-hub-api
+          context: ./src/python
+          dockerfile: ./src/python/PromptHubAPI/Dockerfile
+        - name: semantic-kernel-api
+          context: ./src
+          dockerfile: ./src/dotnet/SemanticKernelAPI/Dockerfile
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -90,7 +117,34 @@ jobs:
         include:
         - name: agent-factory-api
           context: ./src
-          dockerfile: ./dotnet/AgentFactoryAPI/Dockerfile
+          dockerfile: ./src/dotnet/AgentFactoryAPI/Dockerfile
+        - name: agent-hub-api
+          context: ./src/python
+          dockerfile: ./src/python/AgentHubAPI/Dockerfile
+        - name: chat-ui
+          context: ./src/ui/UserPortal
+          dockerfile: ./src/ui/UserPortal/Dockerfile
+        - name: core-api
+          context: ./src
+          dockerfile: ./src/dotnet/CoreAPI/Dockerfile
+        - name: core-job
+          context: ./src
+          dockerfile: ./src/dotnet/CoreWorker/Dockerfile
+        - name: data-source-hub-api
+          context: ./src/python
+          dockerfile: ./src/python/DataSourceHubAPI/Dockerfile
+        - name: gatekeeper-api
+          context: ./src
+          dockerfile: ./src/dotnet/GatekeeperAPI/Dockerfile
+        - name: langchain-api
+          context: ./src/python
+          dockerfile: ./src/python/LangChainAPI/Dockerfile
+        - name: prompt-hub-api
+          context: ./src/python
+          dockerfile: ./src/python/PromptHubAPI/Dockerfile
+        - name: semantic-kernel-api
+          context: ./src
+          dockerfile: ./src/dotnet/SemanticKernelAPI/Dockerfile
     runs-on: ubuntu-latest
     permissions:
       contents: write
