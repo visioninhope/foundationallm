@@ -1,6 +1,8 @@
-name: .NET Docker Image Release
+name: Docker Image Release
+
 
 on:
+  workflow_dispatch: {}
   pull_request:
     types: [closed]
     branches: [main, release]
