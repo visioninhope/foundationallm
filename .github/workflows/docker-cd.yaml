@@ -48,7 +48,7 @@ jobs:
         prerelease: true
 
   prerelease_build:
-    if: ${{ github.event.pull_request.merged == false && github.event.pull_request.base.ref == 'main' }}
+    needs: prerelease
     strategy:
       matrix:
         include:
@@ -162,7 +162,7 @@ jobs:
         prerelease: false
 
   release_build:
-    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'release' }}
+    needs: release
     strategy:
       matrix:
         include:
