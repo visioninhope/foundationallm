@@ -32,7 +32,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         /// <param name="text">The input text.</param>
         /// <returns>A list of PII entities identified in the analyzed text.</returns>
         [HttpPost("analyze")]
-        public async Task<List<string>> GetCompletion(string text)
+        public async Task<List<string>> AnalyzeText(string text)
         {
             return await _gatekeeperIntegrationAPIService.AnalyzeText(text);
         }
@@ -43,7 +43,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         /// <param name="text">The input text.</param>
         /// <returns>The anonymized text.</returns>
         [HttpPost("anonymize")]
-        public async Task<string> GetSummary(string text)
+        public async Task<string> AnonymizeText(string text)
         {
             return await _gatekeeperIntegrationAPIService.AnonymizeText(text);
         }
