@@ -34,7 +34,7 @@ jobs:
       id: bump_version_pre
       uses: cookbenjamin/update-version@v1.0.1
       with:
-        current-version: ${{ steps.releaseVersion.outputs.release_tag && '0.1.0' || steps.releaseVersion.outputs.release_tag }}
+        current-version: ${{ steps.releaseVersion.outputs.release_tag }}
         increment-version-fragment: NONE
         prerelease-fragment: ALPHA
 
@@ -148,7 +148,7 @@ jobs:
       id: bump_version_pre
       uses: cookbenjamin/update-version@v1.0.1
       with:
-        current-version: ${{ steps.releaseVersion.outputs.release_tag && '0.1.0' || steps.releaseVersion.outputs.release_tag }}
+        current-version: ${{ steps.releaseVersion.outputs.release_tag }}
         increment-version-fragment: ${{ contains(github.event.*.labels.*.name, 'major-version-update') && 'MAJOR' || 'MINOR' }}
         prerelease-fragment: REMOVE
 
