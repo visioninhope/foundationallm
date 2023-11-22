@@ -30,7 +30,7 @@ jobs:
 
     - name: Bumping Prerelease Index
       id: bump_version_pre
-      uses: christian-draeger/increment-semantic-version@1.0.2
+      uses: christian-draeger/increment-semantic-version@1.1.0
       with:
         current-version: ${{ steps.releaseVersion.outputs.release_tag && '0.1.0' || steps.releaseVersion.outputs.release_tag }}
         version-fragment: 'alpha'
@@ -144,7 +144,7 @@ jobs:
 
     - name: Bumping Version
       id: bump_version
-      uses: christian-draeger/increment-semantic-version@1.0.2
+      uses: christian-draeger/increment-semantic-version@1.1.0
       with:
         current-version: ${{ steps.releaseVersion.outputs.release_tag }}
         version-fragment: 'feature'
