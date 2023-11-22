@@ -15,11 +15,11 @@ export const useAuthStore = defineStore('auth', {
 	},
 
 	actions: {
-		setAccounts(accounts: any[]) {
+		setAccounts(accounts: AccountInfo[]) {
 			this.accounts = accounts;
 		},
 
-		setCurrentAccount(account: any) {
+		setCurrentAccount(account: AccountInfo) {
 			this.currentAccount = account;
 		},
 
