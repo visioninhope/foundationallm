@@ -1,6 +1,6 @@
 from langchain.base_language import BaseLanguageModel
 from foundationallm.config import Configuration
-from foundationallm.langchain.models.language_models import LanguageModelProviders, LanguageModelTypes
+from foundationallm.langchain.models.language_models import LanguageModelProvider, LanguageModelType
 from foundationallm.langchain.language_models.openai import AzureChatModel
 from foundationallm.langchain.language_models.openai import AzureTextCompletionModel
 from foundationallm.langchain.language_models.openai import OpenAIChatModel
@@ -26,14 +26,14 @@ class LanguageModelFactory:
         BaseLanguageModel
             Returns the language model to use for completion requests.
         """
-        if self.language_model.type == LanguageModelTypes.OPENAI:
+        if self.language_model.type == LanguageModelType.OPENAI:
             match self.language_model.provider:
-                case LanguageModelProviders.MICROSOFT:
+                case LanguageModelProvider.MICROSOFT:
                     if self.language_model.use_chat:
                         return AzureChatModel(language_model = self.language_model, config = self.config)
                     else:
                         return AzureTextCompletionModel(language_model = self.language_model, config = self.config)
-                case LanguageModelProviders.OPENAI:
+                case LanguageModelProvider.OPENAI:
                     if self.language_model.use_chat:
                         return OpenAIChatModel(language_model = self.language_model, config = self.config)
                     else:

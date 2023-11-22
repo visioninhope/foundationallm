@@ -1,6 +1,6 @@
 from enum import Enum
 
-class LanguageModelProviders(str, Enum):
+class LanguageModelProvider(str, Enum):
     """Enumerator of the Language Model providers."""
 
     MICROSOFT = "microsoft"
