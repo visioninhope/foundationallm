@@ -97,7 +97,7 @@ export async function refreshToken(account: any) {
 	} catch (error) {
 		console.error('Token refresh error:', error);
 		sessionStorage.clear();
-		window.location = '/login';
+		window.location = configOptions.callbackPath;
 	}
 }
 
