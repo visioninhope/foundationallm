@@ -10,7 +10,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  ORG: solliancenet
 
 jobs:
   prerelease:
@@ -225,7 +224,7 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: |
-          ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.name }}
+          ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.name }}
         tags: |
           type=ref,event=branch
           type=ref,event=pr
