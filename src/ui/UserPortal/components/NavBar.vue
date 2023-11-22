@@ -48,12 +48,7 @@
 
 			<!-- Right side content -->
 			<div class="navbar__content__right">
-				<!-- Auth button -->
-				<!-- <div v-if="!signedIn" class="navbar__content__right__item">
-					<Button class="button--auth" icon="pi pi-sign-in" label="Sign In" @click="handleSignIn()"></Button>
-				</div> -->
-
-				<!-- Logged in user name -->
+				<!-- Logged in user name and sign out -->
 				<div v-if="authStore.isAuthed" class="navbar__content__right__item">
 					<span>Welcome, {{ authStore.currentAccount?.name }}</span>
 					<Button class="button--auth" icon="pi pi-sign-out" label="Sign Out" @click="handleLogout()"></Button>
