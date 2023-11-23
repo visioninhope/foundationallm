@@ -4,6 +4,7 @@ import requests
 from io import StringIO
 from operator import itemgetter
 from langchain.agents import AgentExecutor, ZeroShotAgent
+from langchain.agents.agent_types import AgentType
 from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
 from langchain_experimental.tools import PythonAstREPLTool
@@ -141,8 +142,28 @@ class SalesforceDataCloudAgent(AgentBase):
 
         print('hello')
         
-        self.agent = create_pandas_dataframe_agent(self.llm, all_dfs, verbose=True)
+        self.agent = create_pandas_dataframe_agent(
+            self.llm, 
+            all_dfs, 
+            verbose=True,
+            agent_type = AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+            memory=memory,
+            extra_tools = []
+            )
+
         self.agent.handle_parsing_errors = True
+
+        #self.agent = AgentExecutor.from_agent_and_tools(
+        #    agent=agent,
+        #    tools=tools,
+        #    extra_tools=tools,
+        #    verbose=True,
+            #return_intermediate_steps=return_intermediate_steps,
+            #max_iterations=max_iterations,
+            #max_execution_time=max_execution_time,
+            #early_stopping_method=early_stopping_method,
+        #    memory=memory
+        #)
 
     def query_data(self, query):
 
@@ -163,6 +184,8 @@ class SalesforceDataCloudAgent(AgentBase):
 
         jData = resp.json()
 
+        #TODO - cache the response...
+
         if ( 'error' in jData):
             raise Exception(jData['error'] + ' ' + jData['message'])
 
@@ -177,6 +200,12 @@ class SalesforceDataCloudAgent(AgentBase):
             if column.startswith('KQ_') or column.startswith('Converted'):
                 df = df.drop(column, axis=1)
 
+            if column.endswith('Id'):
+                try:
+                    df = df.drop(column, axis=1)
+                except:
+                    pass
+
         #remove columns that are not needed...
         for column in self.columns_to_remove:
             if column in df.columns:
@@ -185,7 +214,10 @@ class SalesforceDataCloudAgent(AgentBase):
         return df
 
     def login(self):
-         #get a new access token..
+
+        #TODO - cache the token!
+
+        #get a new access token..
         url = 'https://login.salesforce.com/services/oauth2/token'
         
         resp = requests.post(
@@ -229,6 +261,8 @@ class SalesforceDataCloudAgent(AgentBase):
         )
         
         self.cdp_resp = resp.json()
+
+        #TODO - cache the token!
         self.cdp_access_token = self.cdp_resp['access_token']
 
     def parse_column_names(self, metadata):
