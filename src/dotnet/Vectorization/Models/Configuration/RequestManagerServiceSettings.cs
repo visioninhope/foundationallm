@@ -8,7 +8,7 @@ namespace FoundationaLLM.Vectorization.Models.Configuration
 {
     public record RequestManagerServiceSettings
     {
-        public required string Name;
+        public required string RequestSourceName;
 
         public required Type HandlerType;
 
