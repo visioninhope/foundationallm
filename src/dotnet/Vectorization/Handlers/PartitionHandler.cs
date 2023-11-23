@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
-    public class TextExtractionHandler
+    public class PartitionHandler
     {
     }
 }
