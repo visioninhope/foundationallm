@@ -47,6 +47,27 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
 
     }
 
+    public record SalesforceQuery
+    {
+        /// <summary>
+        /// Name of data source
+        /// </summary>
+        [JsonProperty("name")]
+        public string? Name { get; set; }
+
+        /// <summary>
+        /// Name of data source
+        /// </summary>
+        [JsonProperty("query")]
+        public string? Query { get; set; }
+
+        /// <summary>
+        /// Name of data source
+        /// </summary>
+        [JsonProperty("description")]
+        public string? Description { get; set; }
+    }
+
 
     /// <summary>
     /// Default set of properties for a DataSource returned from DataSource Hub.
@@ -70,6 +91,18 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
         /// </summary>
         [JsonProperty("query")]
         public string? Query { get; set; }
+
+        /// <summary>
+        /// Query of data source
+        /// </summary>
+        [JsonProperty("queries")]
+        public List<SalesforceQuery>? Queries { get; set; }
+
+        /// <summary>
+        /// Query of data source
+        /// </summary>
+        [JsonProperty("columns_to_remove")]
+        public List<string>? ColumnsToRemove { get; set; }
 
         /// <summary>
         /// Type of data source

@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
+﻿using FoundationaLLM.AgentFactory.Core.Models.Messages;
+using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,5 +43,17 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
         /// </summary>
         [JsonProperty("query")]
         public string? Query { get; set; }
+
+        /// <summary>
+        /// Query to execute against the data source.
+        /// </summary>
+        [JsonProperty("queries")]
+        public List<SalesforceQuery>? Queries { get; set; }
+
+        /// <summary>
+        /// Query to execute against the data source.
+        /// </summary>
+        [JsonProperty("columns_to_remove")]
+        public List<string>? ColumnsToRemove { get; set; }
     }
 }

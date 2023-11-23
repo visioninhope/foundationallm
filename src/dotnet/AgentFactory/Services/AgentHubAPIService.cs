@@ -86,6 +86,8 @@ public class AgentHubAPIService : IAgentHubAPIService
             var request = new AgentHubRequest { UserPrompt = userPrompt, SessionId = sessionId };
 
             var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentHubAPI);
+
+            client.DefaultRequestHeaders.Add("X-Agent-Hint", "salesforce-datacloud");
                         
             var responseMessage = await client.PostAsync("resolve", new StringContent(
                     JsonConvert.SerializeObject(request, _jsonSerializerSettings),

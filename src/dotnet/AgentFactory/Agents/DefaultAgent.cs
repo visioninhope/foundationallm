@@ -82,7 +82,9 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                             ClientSecret = dataSource.Authentication!["client_secret"],
                             RefreshToken = dataSource.Authentication!["refresh_token"],
                             InstanceUrl = dataSource.Authentication!["instance_url"],
-                            Query = dataSource.Query!
+                            Query = dataSource.Query!,
+                            Queries = dataSource.Queries,
+                            ColumnsToRemove = dataSource.ColumnsToRemove
                         },
                         DataDescription = dataSource.DataDescription
                     };

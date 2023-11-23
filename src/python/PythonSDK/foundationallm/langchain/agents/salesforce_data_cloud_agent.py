@@ -52,15 +52,96 @@ class SalesforceDataCloudAgent(AgentBase):
         self.refresh_token = config.get_value(completion_request.data_source.configuration.refresh_token)
         self.instance_url = config.get_value(completion_request.data_source.configuration.instance_url)
         self.queries = completion_request.data_source.configuration.queries
+        self.columns_to_remove = completion_request.data_source.configuration.columns_to_remove
 
         self.login()
 
-        dfs = []
+        tools = []
 
-        for query in self.queries:
-            dfs.append(self.query_data(query))
+        all_dfs = []
+        dfs = []
+        dfs_names = []
+        df_list = ''
+        
+        self.partial_variables = {
+            'input' : completion_request.user_prompt
+        }
+
+        for item in self.queries:
             
-        self.agent = create_pandas_dataframe_agent(self.llm, dfs, verbose=True)
+            try:
+                query = item['query']
+                name = item['name']
+                description = item['description']
+
+                df = self.query_data(query)
+
+                tools.append(
+                    PythonAstREPLTool(
+                        locals={f"df_{name}": df},
+                        name=name,
+                        description=description
+                    ))
+
+                all_dfs.append(df)
+
+                dfs.append(
+                    {
+                        "name": f"df_{name}",
+                        "df" : df,
+                        'markdown' : df.head(3).to_markdown()
+                    }
+                )
+
+                dfs_names.append(f"df_{name}")
+                df_list = f'{df_list}Sample {name} data:\r\n{{df_{name}}}\r\n'
+
+                #self.partial_variables[f"df_{name}"] = df.head(3).to_markdown()
+            except Exception as e:
+                print(e)
+
+        df_list = ''
+        
+        memory = ConversationBufferMemory(memory_key="chat_history", input_key="input", return_messages=True)
+        # Add previous messages to the memory
+        for i in range(0, len(self.message_history), 2):
+            history_pair = itemgetter(i,i+1)(self.message_history)
+            for message in history_pair:
+                if message.sender.lower() == 'user':
+                    user_input = message.text
+                else:
+                    ai_output = message.text
+            memory.save_context({"input": user_input}, {"output": ai_output})
+
+        #local_agent = create_pandas_dataframe_agent(self.llm, dfs, verbose=True)
+
+        prompt = ZeroShotAgent.create_prompt(
+            tools,
+            prefix = self.prompt_prefix ,
+            suffix = self.prompt_suffix.replace('{df_list}', df_list),
+            input_variables = ['input', 'chat_history', 'agent_scratchpad'] #+ dfs_names
+        )
+
+        #prompt.partial_variables = partial_variables
+
+        #partial_prompt = prompt.partial(input=completion_request.user_prompt)
+
+        zsa = ZeroShotAgent(
+            llm_chain=LLMChain(llm=self.llm, prompt=prompt),
+            allowed_tools=[tool.name for tool in tools]
+        )
+        
+        self.agent = AgentExecutor.from_agent_and_tools(
+            agent=zsa,
+            tools=tools,
+            verbose=True,
+            memory=memory,
+            handle_parsing_errors=True
+        )
+
+        print('hello')
+        
+        self.agent = create_pandas_dataframe_agent(self.llm, all_dfs, verbose=True)
         self.agent.handle_parsing_errors = True
 
     def query_data(self, query):
@@ -81,11 +162,25 @@ class SalesforceDataCloudAgent(AgentBase):
         )
 
         jData = resp.json()
+
+        if ( 'error' in jData):
+            raise Exception(jData['error'] + ' ' + jData['message'])
+
         rows = jData['data']
         metadata = self.parse_column_names(jData['metadata'])
 
         #turn the respone into dataframe
         df = pd.DataFrame(rows, columns=metadata)
+
+        #remove any KQ columns...
+        for column in df.columns:
+            if column.startswith('KQ_') or column.startswith('Converted'):
+                df = df.drop(column, axis=1)
+
+        #remove columns that are not needed...
+        for column in self.columns_to_remove:
+            if column in df.columns:
+                df = df.drop(column, axis=1)
 
         return df
 
@@ -185,7 +280,7 @@ class SalesforceDataCloudAgent(AgentBase):
         """
         with get_openai_callback() as cb:
             return CompletionResponse(
-                completion = self.agent.run(prompt),
+                completion = self.agent.run(self.partial_variables),
                 user_prompt = prompt,
                 completion_tokens = cb.completion_tokens,
                 prompt_tokens = cb.prompt_tokens,
