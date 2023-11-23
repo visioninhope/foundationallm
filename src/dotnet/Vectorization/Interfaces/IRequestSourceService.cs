@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FoundationaLLM.Vectorization.Models;
 using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Interfaces
 {
     public interface IRequestSourceService
     {
+        Task<VectorizationRequest> ReadRequest();
+
+        Task CreateRequest(VectorizationRequest request);
     }
 }

@@ -61,9 +61,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreWorker", "dotnet\CoreWo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vectorization", "dotnet\Vectorization\Vectorization.csproj", "{3A73EEED-1602-4CAC-BAAD-56062A3431CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorizationAPI", "VectorizationAPI\VectorizationAPI.csproj", "{3D8E64BB-C0D0-433A-AC4C-B9FFCFA4E013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorizationAPI", "dotnet\VectorizationAPI\VectorizationAPI.csproj", "{3D8E64BB-C0D0-433A-AC4C-B9FFCFA4E013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorizationWorker", "VectorizationWorker\VectorizationWorker.csproj", "{7EE65CBF-9052-4C02-BCDD-61C88A1E10E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorizationWorker", "dotnet\VectorizationWorker\VectorizationWorker.csproj", "{7EE65CBF-9052-4C02-BCDD-61C88A1E10E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

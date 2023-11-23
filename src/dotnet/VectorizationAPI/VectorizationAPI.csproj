@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\dotnet\Vectorization\Vectorization.csproj" />
+    <ProjectReference Include="..\Vectorization\Vectorization.csproj" />
   </ItemGroup>
 
 </Project>

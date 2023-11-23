@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Interfaces
 {
     public interface IVectorizationStepHandler
     {
+        Task Invoke(string index, string step);
     }
 }
