@@ -54,6 +54,17 @@
 			</div>
 		</div>
 
+		<div class="chat-sidebar__section-footer">
+            <Avatar icon="pi pi-user" class="avatar" size="large" @click="toggleAvatarOverlay" />
+            <span class="chat-sidebar__username">{{ accountName }}</span>
+            <OverlayPanel ref="avatar" class="avatar-overlay-panel">
+                <div class="overlay-panel__option" @click="signOut()">
+                    <i class="pi pi-sign-out sign-out-icon"></i>
+                    <span>Sign Out</span>
+                </div>
+            </OverlayPanel>
+        </div>
+
 		<!-- Rename session dialog -->
 		<Dialog
 			:visible="sessionToRename !== null"
@@ -96,6 +107,7 @@ import { mapStores } from 'pinia';
 import type { Session } from '@/js/types';
 import { useAppConfigStore } from '@/stores/appConfigStore';
 import { useAppStore } from '@/stores/appStore';
+import { getMsalInstance } from '@/js/auth';
 declare const process: any;
 
 export default {
@@ -106,6 +118,8 @@ export default {
 			sessionToRename: null as Session | null,
 			newSessionName: '' as string,
 			sessionToDelete: null as Session | null,
+			accountName: '' as string,
+            userName: '' as string,
 		};
 	},
 
@@ -125,6 +139,12 @@ export default {
 	async created() {
 		if (process.client) {
 			await this.appStore.init(this.$nuxt._route.query.chat);
+			const msalInstance = await getMsalInstance();
+			const accounts = await msalInstance.getAllAccounts();
+			if (accounts.length > 0) {
+				this.accountName = accounts[0].name;
+				this.userName = accounts[0].username;
+			}
 		}
 	},
 
@@ -157,6 +177,22 @@ export default {
 			await this.appStore.deleteSession(this.sessionToDelete!);
 			this.sessionToDelete = null;
 		},
+
+		toggleAvatarOverlay(event) {
+            this.$refs.avatar.toggle(event);
+        },
+
+		async signOut() {
+            const msalInstance = await getMsalInstance();
+            const accountFilter = {
+                username: this.userName,
+            };
+            const logoutRequest = {
+                account: msalInstance.getAccount(accountFilter),
+            };
+            await msalInstance.logoutRedirect(logoutRequest);
+            this.$router.push({ path: '/login' });
+        }
 	},
 };
 </script>
@@ -266,4 +302,45 @@ export default {
 	flex-shrink: 0;
 	margin-left: 12px;
 }
+
+.chat-sidebar__section-footer {
+	display: flex;
+    align-items: center;
+    height: auto;
+    padding: 12px 24px;
+    justify-content: flex-start;
+    text-transform: inherit;
+}
+
+.avatar {
+    margin-right: 12px;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.p-overlaypanel-content {
+    background-color: var(--primary-color);
+}
+
+.overlay-panel__option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.overlay-panel__option:hover {
+    color: var(--primary-color);
+}
+
+.sign-out-icon {
+    margin-right: 8px;
+}
+
+.chat-sidebar__username {
+	color: var(--primary-text);
+	font-weight: 600;
+	font-size: 0.875rem;
+	text-transform: capitalize;
+}
+
 </style>

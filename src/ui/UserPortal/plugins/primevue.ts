@@ -7,6 +7,8 @@ import Chip from 'primevue/chip';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
 import Dropdown from 'primevue/dropdown';
+import Avatar from 'primevue/avatar';
+import OverlayPanel from 'primevue/overlaypanel';
 import { defineNuxtPlugin } from '#app';
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -17,6 +19,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.component('Toast', Toast);
 	nuxtApp.vueApp.component('Chip', Chip);
 	nuxtApp.vueApp.component('Dropdown', Dropdown);
+	nuxtApp.vueApp.component('Avatar', Avatar);
+    nuxtApp.vueApp.component('OverlayPanel', OverlayPanel);
 
 	nuxtApp.vueApp.use(ToastService);
 	nuxtApp.vueApp.directive('tooltip', Tooltip);

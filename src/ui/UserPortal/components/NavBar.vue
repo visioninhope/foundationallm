@@ -32,31 +32,19 @@
 						<span>Please select a session</span>
 					</template>
 				</div>
-
-				<div class="navbar__content__left__item">
-					<template v-if="currentSession && allowAgentHint">
-						<Dropdown
-							v-model="agentSelection"
-							:options="agents"
-							optionLabel="label"
-							placeholder="--Select--"
-							@change="handleAgentChange"
-						/>
-					</template>
-				</div>
 			</div>
 
 			<!-- Right side content -->
 			<div class="navbar__content__right">
-				<!-- Auth button -->
-				<div v-if="!signedIn" class="navbar__content__right__item">
-					<Button class="button--auth" icon="pi pi-sign-in" label="Sign In" @click="signIn()"></Button>
-				</div>
-				<!-- Logged in user name -->
-				<div v-else class="navbar__content__right__item">
-					<span>Welcome, {{ accountName }}</span>
-					<Button class="button--auth" icon="pi pi-sign-out" label="Sign Out" @click="signOut()"></Button>
-				</div>
+				<template v-if="currentSession && allowAgentHint">
+					<Dropdown
+						v-model="agentSelection"
+						:options="agents"
+						optionLabel="label"
+						placeholder="--Select--"
+						@change="handleAgentChange"
+					/>
+				</template>
 			</div>
 		</div>
 	</div>
