@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FoundationaLLM.Vectorization.Models;
 using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Interfaces
 {
     public interface IVectorizationStateService
     {
+        Task<VectorizationState> ReadState(string hash);
+
+        Task UpdateState(string hash, VectorizationState state);
     }
 }
