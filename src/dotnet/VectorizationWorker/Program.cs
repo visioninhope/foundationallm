@@ -1,30 +1,25 @@
-using Azure.Identity;
-using FoundationaLLM.Vectorization.Interfaces;
+var builder = WebApplication.CreateBuilder(args);
 
-var builder = Host.CreateApplicationBuilder(args);
+// Add services to the container.
 
-builder.Configuration.Sources.Clear();
-builder.Configuration.AddJsonFile("appsettings.json", false, true);
-if (builder.Environment.IsDevelopment())
-    builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
-builder.Configuration.AddEnvironmentVariables();
-builder.Configuration.AddAzureAppConfiguration(options =>
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    options.Connect(builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-    options.ConfigureKeyVault(options =>
-    {
-        options.SetCredential(new DefaultAzureCredential());
-    });
-});
+app.UseHttpsRedirection();
 
-///TODO: builder.Services.AddHostedService<VectorizationWorker>();
+app.UseAuthorization();
 
-builder.Services.AddApplicationInsightsTelemetryWorkerService(options =>
-{
-    options.ConnectionString = builder.Configuration["FoundationaLLM:VectorizationWorker:AppInsightsConnectionString"];
-});
+app.MapControllers();
 
-var host = builder.Build();
-
-host.Run();
+app.Run();
