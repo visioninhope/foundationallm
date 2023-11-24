@@ -176,8 +176,8 @@ namespace FoundationaLLM.Gatekeeper.API
 
             var agentFactoryAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentFactoryAPI}:APIUrl"] ?? "",
-                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentFactoryAPI}:APIKey"] ?? ""
+                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentFactoryAPI}:APIUrl"]!,
+                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentFactoryAPI}:APIKey"]!
             };
 
             downstreamAPISettings.DownstreamAPIs[HttpClients.AgentFactoryAPI] = agentFactoryAPISettings;
@@ -185,6 +185,30 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services
                     .AddHttpClient(HttpClients.AgentFactoryAPI,
                         client => { client.BaseAddress = new Uri(agentFactoryAPISettings.APIUrl); })
+                    .AddResilienceHandler(
+                        "DownstreamPipeline",
+                        static strategyBuilder =>
+                        {
+                            // See: https://www.pollydocs.org/strategies/retry.html
+                            strategyBuilder.AddRetry(new HttpRetryStrategyOptions
+                            {
+                                BackoffType = DelayBackoffType.Exponential,
+                                MaxRetryAttempts = 5,
+                                UseJitter = true
+                            });
+                        });
+
+            var gatekeeperIntegrationAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.GatekeeperIntegrationAPI}:APIUrl"]!,
+                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.GatekeeperIntegrationAPI}:APIKey"]!
+            };
+
+            downstreamAPISettings.DownstreamAPIs[HttpClients.GatekeeperIntegrationAPI] = gatekeeperIntegrationAPISettings;
+
+            builder.Services
+                    .AddHttpClient(HttpClients.GatekeeperIntegrationAPI,
+                        client => { client.BaseAddress = new Uri(gatekeeperIntegrationAPISettings.APIUrl); })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>
