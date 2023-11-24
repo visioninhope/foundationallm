@@ -24,6 +24,7 @@
   <ItemGroup>
     <Compile Include="foundationallm\config\context.py" />
     <Compile Include="foundationallm\config\user_identity.py" />
+    <Compile Include="foundationallm\models\language_models\embedding_model.py" />
     <Compile Include="foundationallm\models\language_models\__init__.py" />
     <Compile Include="foundationallm\models\list_option.py" />
     <Compile Include="foundationallm\langchain\agents\generic_resolver_agent.py" />

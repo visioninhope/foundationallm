@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from langchain.base_language import BaseLanguageModel
+from langchain.embeddings.base import Embeddings
 from foundationallm.config import Configuration
 
 class LanguageModelBase(ABC):
@@ -27,4 +28,14 @@ class LanguageModelBase(ABC):
         BaseLanguageModel
             The language model to use.
         """
-    
+
+    @abstractmethod    
+    def get_embedding_model(self) -> Embeddings:
+        """
+        Retrieve embedding model.
+        
+        Returns
+        -------
+        Embeddings
+            The embeddings models to use.
+        """
