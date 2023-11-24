@@ -34,7 +34,7 @@ class SummaryAgent(AgentBase):
         """        
         self.config = config        
         self.summarizer_chain_prompt = PromptTemplate.from_template(completion_request.agent.prompt_prefix)
-        self.llm = llm.get_completion_model()
+        self.llm = llm.get_completion_model(completion_request.language_model)
         self.model_name = self.config.get_value("FoundationaLLM:LangChain:Summary:ModelName")
         self.max_tokens = self.config.get_value("FoundationaLLM:LangChain:Summary:MaxTokens")
         

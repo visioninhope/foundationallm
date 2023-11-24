@@ -34,7 +34,7 @@ class SqlDbAgent(AgentBase):
         self.agent_prompt_prefix = completion_request.agent.prompt_prefix
         self.agent_prompt_suffix = completion_request.agent.prompt_suffix
             
-        self.llm = llm.get_completion_model()
+        self.llm = llm.get_completion_model(completion_request.language_model)
         self.sql_db_config: SQLDatabaseConfiguration = completion_request.data_source.configuration
         self.context = context
         

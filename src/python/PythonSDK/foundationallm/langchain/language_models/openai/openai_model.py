@@ -99,6 +99,7 @@ class OpenAIModel(LanguageModelBase):
         """
         if embedding_model.provider == LanguageModelProvider.MICROSOFT:
             config_value_base_name = 'FoundationaLLM:AzureOpenAI:API'
+            openai_api_type = AzureOpenAIAPIType.AZURE
         else:
             config_value_base_name = 'FoundationaLLM:OpenAI:API'
             openai_api_type = None
@@ -109,7 +110,7 @@ class OpenAIModel(LanguageModelBase):
             openai_api_type = openai_api_type,
             openai_api_version = self.config.get_value(f'{config_value_base_name}:Version'),
             chunk_size = embedding_model.chunk_size,
-            deployment = embedding_model.deployment_name or self.config.get_value(f'{config_value_base_name}:Embeddings:DeploymentName'),
-            model = embedding_model.model_name or self.config.get_value(f'{config_value_base_name}:Embeddings:ModelName')
+            deployment = embedding_model.deployment or self.config.get_value(f'{config_value_base_name}:Embeddings:DeploymentName'),
+            model = embedding_model.model or self.config.get_value(f'{config_value_base_name}:Embeddings:ModelName')
         )
     

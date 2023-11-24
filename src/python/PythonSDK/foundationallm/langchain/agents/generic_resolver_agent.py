@@ -21,7 +21,7 @@ class GenericResolverAgent(AgentBase):
     """
     def __init__(self, completion_request: CompletionRequest, llm: BaseLanguageModel, config: Configuration):
         self.user_prompt = completion_request.user_prompt        
-        self.llm = llm.get_completion_model()
+        self.llm = llm.get_completion_model(completion_request.language_model)
         self.connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret)
         self.container_name = completion_request.data_source.configuration.container
         self.file_names = completion_request.data_source.configuration.files
