@@ -10,6 +10,8 @@ from langchain.memory import ConversationBufferMemory
 from langchain_experimental.tools import PythonAstREPLTool
 from langchain.callbacks import get_openai_callback
 
+from langchain_core.callbacks.manager import CallbackManager
+
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 
 from foundationallm.config import Configuration
@@ -19,6 +21,8 @@ from foundationallm.models.orchestration import CompletionRequest, CompletionRes
 from foundationallm.caching import CacheManager
 from foundationallm.storage import BlobStorageManager, LocalStorageManager
 from foundationallm.models.orchestration import MessageHistoryItem
+
+from foundationallm.langchain.parsers import FLLMOutputParser
 
 class SalesforceDataCloudAgent(AgentBase):
     """
@@ -73,6 +77,8 @@ class SalesforceDataCloudAgent(AgentBase):
             'input' : completion_request.user_prompt
         }
 
+        locals = {}
+
         for item in self.queries:
             
             try:
@@ -91,6 +97,8 @@ class SalesforceDataCloudAgent(AgentBase):
 
                 all_dfs.append(df)
 
+                locals[f"df_{name}"] = df
+
                 dfs.append(
                     {
                         "name": f"df_{name}",
@@ -106,7 +114,12 @@ class SalesforceDataCloudAgent(AgentBase):
             except Exception as e:
                 print(e)
 
-        df_list = ''
+        single_tool = PythonAstREPLTool(
+                    locals=locals
+                )
+
+        tools.clear()
+        tools.append(single_tool)
         
         memory = ConversationBufferMemory(memory_key="chat_history", input_key="input", return_messages=True)
         # Add previous messages to the memory
@@ -124,7 +137,7 @@ class SalesforceDataCloudAgent(AgentBase):
         prompt = ZeroShotAgent.create_prompt(
             tools,
             prefix = self.prompt_prefix ,
-            suffix = self.prompt_suffix.replace('{df_list}', df_list),
+            suffix = self.prompt_suffix,
             input_variables = ['input', 'chat_history', 'agent_scratchpad'] #+ dfs_names
         )
 
@@ -143,8 +156,6 @@ class SalesforceDataCloudAgent(AgentBase):
             memory=memory,
             handle_parsing_errors=True
         )
-
-        print('hello')
         
         self.agent = create_pandas_dataframe_agent(
             self.llm, 
@@ -155,7 +166,19 @@ class SalesforceDataCloudAgent(AgentBase):
             extra_tools = []
             )
 
+        self.agent.tools = tools
+
+        self.agent.agent.llm_chain.prompt.template = self.prompt_prefix + self.agent.agent.llm_chain.prompt.template
+        self.agent.agent.llm_chain.prompt.template = self.agent.agent.llm_chain.prompt.template.replace('You are working with {num_dfs} pandas dataframes in Python named df1, df2, etc.', f'You are working with {{num_dfs}} pandas dataframes in Python named {str(dfs_names)}.')
+        self.agent.agent.llm_chain.prompt.template = self.agent.agent.llm_chain.prompt.template.replace('Action: the action to take', f'Action: the action to take with no quotes')
+        
+        #self.agent.agent.llm_chain.prompt.template = self.agent.agent.llm_chain.prompt.template.replace('This is the result of `print(df.head())` for each dataframe', '')
+        #self.agent.agent.llm_chain.prompt.template = self.agent.agent.llm_chain.prompt.template.replace('This is the result of `print(df.head())` for each dataframe', 'This is the result of `print(df.head())`')
+
         self.agent.handle_parsing_errors = True
+
+        #self.agent.callback_manager =  CallbackManager(None)
+        self.agent.agent.output_parser = FLLMOutputParser()
 
         #self.agent = AgentExecutor.from_agent_and_tools(
         #    agent=agent,
@@ -326,8 +349,9 @@ class SalesforceDataCloudAgent(AgentBase):
             the user_prompt, and token utilization and execution cost details.
         """
         with get_openai_callback() as cb:
+            completion = self.agent.run(self.partial_variables)
             return CompletionResponse(
-                completion = self.agent.run(self.partial_variables),
+                completion = completion,
                 user_prompt = prompt,
                 completion_tokens = cb.completion_tokens,
                 prompt_tokens = cb.prompt_tokens,
