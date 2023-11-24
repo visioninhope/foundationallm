@@ -76,7 +76,7 @@
     <Compile Include="foundationallm\langchain\data_sources\blob\__init__.py" />
     <Compile Include="foundationallm\langchain\data_sources\sql\mariadb.py" />
     <Compile Include="foundationallm\models\language_models\language_model_type.py" />
-    <Compile Include="foundationallm\langchain\language_models\openai\azure_openai_api_types.py" />
+    <Compile Include="foundationallm\models\language_models\azure_openai_api_types.py" />
     <Compile Include="foundationallm\langchain\agents\anomaly_detection_agent.py" />
     <Compile Include="foundationallm\langchain\agents\csv_agent.py" />
     <Compile Include="foundationallm\langchain\agents\conversational_agent.py" />
