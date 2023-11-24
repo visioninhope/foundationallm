@@ -56,6 +56,48 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
         /// </summary>
         [JsonProperty("language_model")]
         public LanguageModelMetadata? LanguageModel { get; set; }
+
+        /// <summary>
+        /// The embedding model used by the agent.
+        /// </summary>
+        [JsonProperty("embedding_model")]
+        public EmbeddingModelMetadata? EmbeddingModel { get; set; }
+    }
+
+    /// <summary>
+    /// The embedding model used by the agent.
+    /// </summary>
+    public record EmbeddingModelMetadata
+    {
+        /// <summary>
+        /// The type of the embedding model.
+        /// </summary>
+        [JsonProperty("type")]
+        public string? Type { get; set; }
+
+        /// <summary>
+        /// The provider of the emberdding model.
+        /// </summary>
+        [JsonProperty("provider")]
+        public string? Provider { get; set; }
+
+        /// <summary>
+        /// Name of the embedding model deployment.
+        /// </summary>
+        [JsonProperty("deployment")]
+        public string? Deployment { get; set; }
+
+        /// <summary>
+        /// Name of the embedding model.
+        /// </summary>
+        [JsonProperty("model")]
+        public string? Model { get; set; }
+
+        /// <summary>
+        /// The chunk size to use when creating vectors from the embedding model.
+        /// </summary>
+        [JsonProperty("chunk_size")]
+        public int ChunkSize { get; set; } = 1000;
     }
 
     /// <summary>
@@ -64,13 +106,13 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
     public record LanguageModelMetadata
     {
         /// <summary>
-        /// The type of the language model
+        /// The type of the language model,
         /// </summary>
         [JsonProperty("type")]
         public string? Type { get; set; }
 
         /// <summary>
-        /// The provider of the language model
+        /// The provider of the language model.
         /// </summary>
         [JsonProperty("provider")]
         public string? Provider { get; set; }
