@@ -5,7 +5,7 @@ from foundationallm.models.orchestration import MessageHistoryItem
 from foundationallm.models.orchestration import CompletionRequest
 from foundationallm.models.metadata import Agent, DataSource, LanguageModel
 from foundationallm.langchain.data_sources.blob import BlobStorageConfiguration
-from foundationallm.langchain.models.language_models import LanguageModelType, LanguageModelProvider
+from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider
 from foundationallm.langchain.language_models import LanguageModelFactory
 from foundationallm.langchain.agents import GenericResolverAgent
 
