@@ -31,7 +31,7 @@ class BlobStorageAgent(AgentBase):
             The completion request object containing the user prompt to execute, message history,
             and agent and data source metadata.       
         """        
-        self.llm = llm.get_language_model()
+        self.llm = llm.get_completion_model()
         self.prompt_prefix = completion_request.agent.prompt_prefix
         self.connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret)        
         self.container_name = completion_request.data_source.configuration.container        

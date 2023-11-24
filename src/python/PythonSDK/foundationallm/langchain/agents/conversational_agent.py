@@ -30,7 +30,7 @@ class ConversationalAgent(AgentBase):
         """
         self.prompt_prefix = completion_request.agent.prompt_prefix
         self.message_history = completion_request.message_history
-        self.llm = llm.get_language_model()
+        self.llm = llm.get_completion_model()
 
         self.search = DuckDuckGoSearchRun()
         self.tools = [

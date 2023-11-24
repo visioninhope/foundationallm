@@ -4,7 +4,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>2469cc23-7f26-4b84-8878-98d90604eee8</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>main.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,6 +25,7 @@
   <ItemGroup>
     <Compile Include="foundationallm\config\context.py" />
     <Compile Include="foundationallm\config\user_identity.py" />
+    <Compile Include="foundationallm\langchain\language_models\openai\openai_model.py" />
     <Compile Include="foundationallm\models\language_models\embedding_model.py" />
     <Compile Include="foundationallm\models\language_models\__init__.py" />
     <Compile Include="foundationallm\models\list_option.py" />
@@ -95,13 +97,8 @@
     <Compile Include="foundationallm\langchain\data_sources\sql\sql_database_factory.py" />
     <Compile Include="foundationallm\langchain\data_sources\sql\__init__.py" />
     <Compile Include="foundationallm\langchain\data_sources\__init__.py" />
-    <Compile Include="foundationallm\langchain\language_models\openai\azure_chat_model.py" />
     <Compile Include="foundationallm\langchain\language_models\language_model_base.py" />
     <Compile Include="foundationallm\langchain\language_models\language_model_factory.py" />
-    <Compile Include="foundationallm\langchain\language_models\openai\azure_text_completion_model.py" />
-    <Compile Include="foundationallm\langchain\language_models\openai\openai_chat_model.py" />
-    <Compile Include="foundationallm\langchain\language_models\openai\openai_model_base.py" />
-    <Compile Include="foundationallm\langchain\language_models\openai\openai_text_completion_model.py" />
     <Compile Include="foundationallm\langchain\language_models\openai\__init__.py" />
     <Compile Include="foundationallm\models\language_models\language_model_provider.py" />
     <Compile Include="foundationallm\langchain\language_models\__init__.py" />
