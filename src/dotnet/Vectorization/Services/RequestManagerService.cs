@@ -40,12 +40,15 @@ namespace FoundationaLLM.Vectorization.Services
             return Task.Factory.StartNew(() => Run());
         }
 
-        private void Run()
+        private async void Run()
         {
             while (true)
             {
                 if (_cancellationToken.IsCancellationRequested)
                     return;
+
+                var request = await _incomingRequestSourceService.ReadRequest();
+
 
             }
         }

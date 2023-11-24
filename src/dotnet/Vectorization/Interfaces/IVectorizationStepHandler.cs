@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using FoundationaLLM.Vectorization.Models;
+using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Interfaces
 {
     public interface IVectorizationStepHandler
     {
-        Task Invoke(string index, string step);
+        Task<(VectorizationRequest Request, VectorizationState State)> Invoke(VectorizationRequest request, VectorizationState state);
     }
 }

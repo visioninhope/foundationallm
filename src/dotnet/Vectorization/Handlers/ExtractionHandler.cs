@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Vectorization.Interfaces;
+using FoundationaLLM.Vectorization.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace FoundationaLLM.Vectorization.Handlers
 {
     public class ExtractionHandler : IVectorizationStepHandler
     {
-        public Task Invoke(string index, string step)
+        public Task<(VectorizationRequest Request, VectorizationState State)> Invoke(VectorizationRequest request, VectorizationState state)
         {
             throw new NotImplementedException();
         }

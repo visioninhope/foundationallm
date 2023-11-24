@@ -16,6 +16,11 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             throw new NotImplementedException();
         }
 
+        public Task<bool> HasRequests()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<VectorizationRequest> ReadRequest()
         {
             throw new NotImplementedException();
