@@ -1,5 +1,5 @@
 import re
-from typing import Union
+from typing import Union, Any
 
 from langchain_core.agents import AgentAction, AgentFinish
 from langchain_core.exceptions import OutputParserException
@@ -25,7 +25,15 @@ FINAL_ANSWER_AND_PARSABLE_ACTION_ERROR_MESSAGE = (
 
 
 class FLLMOutputParser(AgentOutputParser):
-    """MRKL Output parser for the chat agent."""
+
+    agent : Any
+    text_to_replace : Any
+
+    """FLLM Output parser for the chat agent."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.agent = kwargs.get('agent')
+        self.text_to_replace = kwargs.get('text_to_replace')
 
     def get_format_instructions(self) -> str:
         return FORMAT_INSTRUCTIONS
@@ -37,6 +45,9 @@ class FLLMOutputParser(AgentOutputParser):
         )
         
         action_match = re.search(regex, text, re.DOTALL)
+
+        for item in self.text_to_replace:
+            text = text.replace(item, self.text_to_replace[item])
         
         #remove any AI generated questions and go with the last result...
         if text.find(QUESTION_ACTION) != -1 and (text.find(QUESTION_ACTION) < text.find(action_match.group(0))):

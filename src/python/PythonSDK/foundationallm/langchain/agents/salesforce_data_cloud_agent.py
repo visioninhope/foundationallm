@@ -178,7 +178,14 @@ class SalesforceDataCloudAgent(AgentBase):
         self.agent.handle_parsing_errors = True
 
         #self.agent.callback_manager =  CallbackManager(None)
-        self.agent.agent.output_parser = FLLMOutputParser()
+
+        text_to_replace = {
+            'df_' : '',
+            'dataframe' : 'data'
+        }
+
+        parser = FLLMOutputParser(agent=self.agent, text_to_replace=text_to_replace)        
+        self.agent.agent.output_parser = parser
 
         #self.agent = AgentExecutor.from_agent_and_tools(
         #    agent=agent,
