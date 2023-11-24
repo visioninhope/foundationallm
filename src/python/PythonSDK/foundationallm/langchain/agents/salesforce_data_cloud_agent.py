@@ -16,7 +16,8 @@ from foundationallm.config import Configuration
 from foundationallm.langchain.agents import AgentBase
 from foundationallm.langchain.language_models import LanguageModelBase
 from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
-from foundationallm.storage import BlobStorageManager
+from foundationallm.caching import CacheManager
+from foundationallm.storage import BlobStorageManager, LocalStorageManager
 from foundationallm.models.orchestration import MessageHistoryItem
 
 class SalesforceDataCloudAgent(AgentBase):
@@ -44,6 +45,10 @@ class SalesforceDataCloudAgent(AgentBase):
         Question: {input}
         Thought: I should evaluate the question to see if it is related to the data. If so, I should look at the data to see what I can query. Then I should query the schema of the most relevant tables. If not, I should provide my name and details about the types of questions I can answer. Finally, create a nice sentence that answers the question.
         {agent_scratchpad}"""
+
+        local_storage_manager = LocalStorageManager('C:\\Temp\\cache')
+        blob_storage_manager = None #TradingStorageManager(container_name='cache', root_path='cache-test')
+        self.cache = CacheManager(local_storage_manager, layer_two_storage_manager=blob_storage_manager)
 
         self.llm = llm.get_language_model()
         self.message_history = completion_request.message_history
@@ -124,7 +129,6 @@ class SalesforceDataCloudAgent(AgentBase):
         )
 
         #prompt.partial_variables = partial_variables
-
         #partial_prompt = prompt.partial(input=completion_request.user_prompt)
 
         zsa = ZeroShotAgent(
@@ -132,7 +136,7 @@ class SalesforceDataCloudAgent(AgentBase):
             allowed_tools=[tool.name for tool in tools]
         )
         
-        self.agent = AgentExecutor.from_agent_and_tools(
+        self.agent1 = AgentExecutor.from_agent_and_tools(
             agent=zsa,
             tools=tools,
             verbose=True,
@@ -167,27 +171,32 @@ class SalesforceDataCloudAgent(AgentBase):
 
     def query_data(self, query):
 
-        #run the query...
-        #https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_profile_meta.htm
+        jData = self.cache.get_cached_data({"name" : query})
 
-        url = f'https://{self.cdp_resp["instance_url"]}/api/v2/query'
+        if ( jData == None):
 
-        data = {
-            'sql' : query
-        }
+            #run the query...
+            #https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_profile_meta.htm
 
-        resp = requests.post(
-            url=url,
-            json=data,
-            headers={'Authorization' : f'Bearer {self.cdp_resp["access_token"]}', 'content-type' : 'application/json'}
-        )
+            url = f'https://{self.cdp_resp["instance_url"]}/api/v2/query'
 
-        jData = resp.json()
+            data = {
+                'sql' : query
+            }
 
-        #TODO - cache the response...
+            resp = requests.post(
+                url=url,
+                json=data,
+                headers={'Authorization' : f'Bearer {self.cdp_resp["access_token"]}', 'content-type' : 'application/json'}
+            )
 
-        if ( 'error' in jData):
-            raise Exception(jData['error'] + ' ' + jData['message'])
+            jData = resp.json()
+
+            if ( 'error' in jData):
+                raise Exception(jData['error'] + ' ' + jData['message'])
+
+            #TODO - cache the response...
+            self.cache.set_cached_data({"name" : query}, jData)
 
         rows = jData['data']
         metadata = self.parse_column_names(jData['metadata'])
@@ -216,53 +225,57 @@ class SalesforceDataCloudAgent(AgentBase):
     def login(self):
 
         #TODO - cache the token!
+        self.cdp_resp = self.cache.get_cached_data({'name': 'salesforce_cdp_token'})
 
-        #get a new access token..
-        url = 'https://login.salesforce.com/services/oauth2/token'
-        
-        resp = requests.post(
-            url=url,
-            data={
-                "grant_type": "refresh_token",
-                "client_id": self.client_id,
-                "client_secret": self.client_secret,
-                "refresh_token": self.refresh_token
-            }
-        )
+        if (self.cdp_resp == None):
 
-        access_token = resp.json()['access_token']
-        self.instance_url = resp.json()['instance_url']
+            #get a new access token..
+            url = 'https://login.salesforce.com/services/oauth2/token'
+            
+            resp = requests.post(
+                url=url,
+                data={
+                    "grant_type": "refresh_token",
+                    "client_id": self.client_id,
+                    "client_secret": self.client_secret,
+                    "refresh_token": self.refresh_token
+                }
+            )
 
-        #get an instance access token..
-        url = f'{self.instance_url}/services/oauth2/token'
-        
-        resp = requests.post(
-            url=url,
-            data={
-                "grant_type": "refresh_token",
-                "client_id": self.client_id,
-                "client_secret": self.client_secret,
-                "refresh_token": self.refresh_token
-            }
-        )
+            access_token = resp.json()['access_token']
+            self.instance_url = resp.json()['instance_url']
 
-        access_token = resp.json()['access_token']
-        
-        #Get the sales force data cloud token...
-        url = self.instance_url + "/services/a360/token"
+            #get an instance access token..
+            url = f'{self.instance_url}/services/oauth2/token'
+            
+            resp = requests.post(
+                url=url,
+                data={
+                    "grant_type": "refresh_token",
+                    "client_id": self.client_id,
+                    "client_secret": self.client_secret,
+                    "refresh_token": self.refresh_token
+                }
+            )
 
-        resp = requests.post(
-            url=url,
-            data={
-                "grant_type": "urn:salesforce:grant-type:external:cdp",
-                "subject_token_type": 'urn:ietf:params:oauth:token-type:access_token',
-                "subject_token": access_token,
-            }
-        )
-        
-        self.cdp_resp = resp.json()
+            access_token = resp.json()['access_token']
+            
+            #Get the sales force data cloud token...
+            url = self.instance_url + "/services/a360/token"
 
-        #TODO - cache the token!
+            resp = requests.post(
+                url=url,
+                data={
+                    "grant_type": "urn:salesforce:grant-type:external:cdp",
+                    "subject_token_type": 'urn:ietf:params:oauth:token-type:access_token',
+                    "subject_token": access_token,
+                }
+            )
+            
+            self.cdp_resp = resp.json()
+
+            self.cache.set_cached_data({'name': 'salesforce_cdp_token'}, self.cdp_resp)
+
         self.cdp_access_token = self.cdp_resp['access_token']
 
     def parse_column_names(self, metadata):
