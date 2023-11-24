@@ -119,7 +119,7 @@
     <Compile Include="foundationallm\hubs\prompt\prompt_hub_response.py" />
     <Compile Include="foundationallm\models\metadata\agent.py" />
     <Compile Include="foundationallm\models\metadata\data_source.py" />
-    <Compile Include="foundationallm\models\metadata\language_model.py" />
+    <Compile Include="foundationallm\models\language_models\language_model.py" />
     <Compile Include="foundationallm\models\metadata\metadata_base.py" />
     <Compile Include="foundationallm\models\metadata\__init__.py" />
     <Compile Include="foundationallm\langchain\data_sources\data_source_configuration.py" />

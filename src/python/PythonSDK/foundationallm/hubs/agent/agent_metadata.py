@@ -1,6 +1,6 @@
 from typing import List, Optional
 from foundationallm.hubs import Metadata
-from foundationallm.models.metadata import LanguageModel
+from foundationallm.models.language_models import LanguageModel
 from .agent_type import AgentType
 
 class AgentMetadata(Metadata):

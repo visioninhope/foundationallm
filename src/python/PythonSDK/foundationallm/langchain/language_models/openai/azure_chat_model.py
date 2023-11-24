@@ -3,7 +3,7 @@ from langchain.chat_models import AzureChatOpenAI
 
 from foundationallm.config import Configuration
 from foundationallm.langchain.language_models.openai import OpenAIModelBase, AzureOpenAIAPIType
-import foundationallm.models.metadata.language_model as LanguageModel
+from foundationallm.models.language_models import LanguageModel
 
 class AzureChatModel(OpenAIModelBase):
     """Azure OpenAI chat model."""

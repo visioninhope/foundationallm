@@ -2,8 +2,8 @@ from langchain.base_language import BaseLanguageModel
 from langchain.llms import OpenAI
 
 from foundationallm.config import Configuration
-import foundationallm.models.metadata.language_model as LanguageModel
 from foundationallm.langchain.language_models.openai import OpenAIModelBase
+from foundationallm.models.language_models import LanguageModel
 
 class OpenAITextCompletionModel(OpenAIModelBase):
     """Azure OpenAI text completion model."""

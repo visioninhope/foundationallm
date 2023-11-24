@@ -4,7 +4,7 @@ from typing import List, Optional
 from foundationallm.models.orchestration import MessageHistoryItem
 from foundationallm.models.metadata import Agent
 from foundationallm.models.metadata import DataSource
-from foundationallm.models.metadata import LanguageModel
+from foundationallm.models.language_models import LanguageModel
 
 class CompletionRequest(BaseModel):
     """

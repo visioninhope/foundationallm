@@ -4,9 +4,9 @@ from foundationallm.config import Configuration
 from foundationallm.models import ListOption
 from foundationallm.models.orchestration import MessageHistoryItem
 from foundationallm.models.orchestration import CompletionRequest
-from foundationallm.models.metadata import Agent, DataSource, LanguageModel
+from foundationallm.models.metadata import Agent, DataSource
 from foundationallm.langchain.data_sources.blob import BlobStorageConfiguration
-from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider
+from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider, LanguageModel
 from foundationallm.langchain.language_models import LanguageModelFactory
 from foundationallm.langchain.agents import BlobStorageAgent
 

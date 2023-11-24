@@ -1,12 +1,12 @@
 from langchain.base_language import BaseLanguageModel
 from foundationallm.config import Configuration
-from foundationallm.models.language_models import LanguageModelProvider, LanguageModelType
-from foundationallm.langchain.language_models.openai import AzureChatModel
-from foundationallm.langchain.language_models.openai import AzureTextCompletionModel
-from foundationallm.langchain.language_models.openai import OpenAIChatModel
-from foundationallm.langchain.language_models.openai import OpenAITextCompletionModel
-
-import foundationallm.models.metadata.language_model as LanguageModel
+from foundationallm.models.language_models import LanguageModelProvider, LanguageModelType, LanguageModel
+from foundationallm.langchain.language_models.openai import (
+    AzureChatModel,
+    AzureTextCompletionModel,
+    OpenAIChatModel,
+    OpenAITextCompletionModel
+)
 
 class LanguageModelFactory:
     """
