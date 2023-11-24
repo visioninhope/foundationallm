@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Vectorization.Interfaces;
+﻿using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Vectorization.Handlers;
+using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.Logging;
@@ -30,7 +32,7 @@ namespace FoundationaLLM.Vectorization.Services
 
             if (!_requestSourceServices.ContainsKey(_settings.RequestSourceName)
                 || _requestSourceServices[_settings.RequestSourceName] == null)
-                throw new ArgumentException($"Could not find a request source service for [{_settings.RequestSourceName}].");
+                throw new VectorizationException($"Could not find a request source service for [{_settings.RequestSourceName}].");
 
             _incomingRequestSourceService = _requestSourceServices[_settings.RequestSourceName];
         }
@@ -47,10 +49,41 @@ namespace FoundationaLLM.Vectorization.Services
                 if (_cancellationToken.IsCancellationRequested)
                     return;
 
-                var request = await _incomingRequestSourceService.ReadRequest();
+                try
+                {
+                    var request = await _incomingRequestSourceService.ReceiveRequest();
+                    
+                    await HandleRequest(request);
+                    await AdvanceRequest(request);
 
-
+                    await _incomingRequestSourceService.DeleteRequest(request.Id);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, $"Error in request processing loop (request source name: {_settings.RequestSourceName}).");
+                }
             }
+        }
+
+        private async Task HandleRequest(VectorizationRequest request)
+        {
+            var state = await _vectorizationStateService.ReadState(request.Id);
+
+            var stepHandler = VectorizationStepHandlerFactory.Create(_settings.RequestSourceName, request[_settings.RequestSourceName].Parameters);
+            var newState = await stepHandler.Invoke(request, state);
+
+            await _vectorizationStateService.UpdateState(newState);
+        }
+
+        private async Task AdvanceRequest(VectorizationRequest request)
+        {
+            var nextStep = request.MoveToNextStep();
+
+            if (!_requestSourceServices.ContainsKey(nextStep)
+                || _requestSourceServices[nextStep] == null)
+                throw new VectorizationException($"Could not find the [{nextStep}] request source service for request id {request.Id}.");
+
+            await _requestSourceServices[nextStep].SubmitRequest(request);
         }
     }
 }

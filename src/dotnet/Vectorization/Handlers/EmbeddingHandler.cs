@@ -10,9 +10,14 @@ namespace FoundationaLLM.Vectorization.Handlers
 {
     public class EmbeddingHandler : IVectorizationStepHandler
     {
-        public Task<(VectorizationRequest Request, VectorizationState State)> Invoke(VectorizationRequest request, VectorizationState state)
+        private readonly string _stepId = "embed";
+
+        public async Task<VectorizationState> Invoke(VectorizationRequest request, VectorizationState state)
         {
-            throw new NotImplementedException();
+            var step = request[_stepId];
+
+            await Task.CompletedTask;
+            return state;
         }
     }
 }

@@ -8,5 +8,6 @@ namespace FoundationaLLM.Vectorization.Models
 {
     public class VectorizationState
     {
+        public required string RequestId { get; set; }
     }
 }

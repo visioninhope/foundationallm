@@ -7,8 +7,10 @@ namespace FoundationaLLM.Vectorization.Interfaces
     {
         Task<bool> HasRequests();
 
-        Task<VectorizationRequest> ReadRequest();
+        Task<VectorizationRequest> ReceiveRequest();
 
-        Task CreateRequest(VectorizationRequest request);
+        Task DeleteRequest(string requestId);
+
+        Task SubmitRequest(VectorizationRequest request);
     }
 }

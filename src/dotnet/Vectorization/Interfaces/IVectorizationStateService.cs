@@ -5,8 +5,8 @@ namespace FoundationaLLM.Vectorization.Interfaces
 {
     public interface IVectorizationStateService
     {
-        Task<VectorizationState> ReadState(string hash);
+        Task<VectorizationState> ReadState(string id);
 
-        Task UpdateState(string hash, VectorizationState state);
+        Task UpdateState(VectorizationState state);
     }
 }

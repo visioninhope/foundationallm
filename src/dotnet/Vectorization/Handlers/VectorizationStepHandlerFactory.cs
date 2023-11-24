@@ -1,0 +1,31 @@
+﻿using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Vectorization.Interfaces;
+
+namespace FoundationaLLM.Vectorization.Handlers
+{
+    public class VectorizationStepHandlerFactory
+    {
+        /// <summary>
+        /// Creates a vectorization step handler capable of handling a specified vectorization pipeline step.
+        /// </summary>
+        /// <param name="step">The identifier of the vectorization pipeline step for which the handler is created.</param>
+        /// <param name="parameters">The parameters used to initialize the vectorization step handler.</param>
+        /// <returns>A class implementing <see cref="IVectorizationStepHandler"/>.</returns>
+        public static IVectorizationStepHandler Create(string step, Dictionary<string, string> parameters)
+        {
+            switch (step)
+            {
+                case "extract":
+                    return new ExtractionHandler();
+                case "partition":
+                    return new PartitionHandler();
+                case "embed":
+                    return new EmbeddingHandler();
+                case "index":
+                    return new IndexingHandler();
+                default:
+                    throw new VectorizationException($"There is not handler available for vectorization pipeline step [{step}].");
+            }
+        }
+    }
+}
