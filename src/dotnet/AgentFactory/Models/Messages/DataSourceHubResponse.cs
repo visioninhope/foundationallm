@@ -96,7 +96,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
         /// Query of data source
         /// </summary>
         [JsonProperty("use_cache")]
-        public string? UseCache { get; set; }
+        public bool? UseCache { get; set; }
 
         /// <summary>
         /// Query of data source

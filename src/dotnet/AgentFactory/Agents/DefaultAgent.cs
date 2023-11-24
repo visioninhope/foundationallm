@@ -86,7 +86,9 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                             Queries = dataSource.Queries,
                             ColumnsToRemove = dataSource.ColumnsToRemove
                         },
-                        DataDescription = dataSource.DataDescription
+                        DataDescription = dataSource.DataDescription,
+                        UseCache = dataSource.UseCache
+
                     };
                     break;
                 case "search-service":
