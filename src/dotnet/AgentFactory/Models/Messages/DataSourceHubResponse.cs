@@ -95,6 +95,12 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
         /// <summary>
         /// Query of data source
         /// </summary>
+        [JsonProperty("use_cache")]
+        public string? UseCache { get; set; }
+
+        /// <summary>
+        /// Query of data source
+        /// </summary>
         [JsonProperty("queries")]
         public List<SalesforceQuery>? Queries { get; set; }
 
