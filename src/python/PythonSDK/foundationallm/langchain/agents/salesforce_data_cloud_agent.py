@@ -258,7 +258,7 @@ class SalesforceDataCloudAgent(AgentBase):
         #TODO - cache the token!
         self.cdp_resp = self.cache.get_cached_data({'name': 'salesforce_cdp_token'})
 
-        if (self.cdp_resp == None and self.use_cache == False):
+        if (self.cdp_resp == None or self.use_cache == False):
 
             #get a new access token..
             url = 'https://login.salesforce.com/services/oauth2/token'
