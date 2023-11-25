@@ -255,7 +255,6 @@ class SalesforceDataCloudAgent(AgentBase):
 
     def login(self):
 
-        #TODO - cache the token!
         self.cdp_resp = self.cache.get_cached_data({'name': 'salesforce_cdp_token'})
 
         if (self.cdp_resp == None or self.use_cache == False):
