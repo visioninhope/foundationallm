@@ -26,10 +26,10 @@ async def resolve(dataSourceRequest:DataSourceHubRequest, request: Request) -> D
         Object containing the metadata for the resolved data source.
     """
     try:
-        return DataSourceHub(config=request.app.extra['config']).resolve(request)
+        return DataSourceHub(config=request.app.extra['config']).resolve(dataSourceRequest)
     except Exception as e:
         logging.error(e, stack_info=True, exc_info=True)
         raise HTTPException(
             status_code = 500,
-            detail = e.message
+            detail = e.args[0]
         )

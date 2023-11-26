@@ -84,10 +84,10 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                             InstanceUrl = dataSource.Authentication!["instance_url"],
                             Query = dataSource.Query!,
                             Queries = dataSource.Queries,
-                            ColumnsToRemove = dataSource.ColumnsToRemove
+                            ColumnsToRemove = dataSource.ColumnsToRemove,
+                            UseCache = dataSource.UseCache
                         },
-                        DataDescription = dataSource.DataDescription,
-                        UseCache = dataSource.UseCache
+                        DataDescription = dataSource.DataDescription
 
                     };
                     break;

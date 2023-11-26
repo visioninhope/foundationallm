@@ -6,6 +6,8 @@ class DataSourceHub(HubBase):
     """The DataSourceHub is responsible for resolving data sources."""
 
     def __init__(self, config=None):
+
+        self.config = config
         
         # initialize config       
         if config is None:

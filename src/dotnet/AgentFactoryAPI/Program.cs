@@ -203,7 +203,7 @@ namespace FoundationaLLM.AgentFactory.API
             var retryOptions = new HttpRetryStrategyOptions
             {
                 BackoffType = DelayBackoffType.Exponential,
-                MaxRetryAttempts = 5,
+                MaxRetryAttempts = 1,
                 UseJitter = true
             };
 

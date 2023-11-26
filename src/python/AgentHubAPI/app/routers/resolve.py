@@ -39,5 +39,5 @@ async def resolve(agentRequest: AgentHubRequest, request: Request, x_user_identi
         logging.error(e, stack_info=True, exc_info=True)
         raise HTTPException(
             status_code = 500,
-            detail = e.message
+            detail = e.args[0]
         )

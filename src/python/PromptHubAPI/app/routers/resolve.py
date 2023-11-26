@@ -26,10 +26,10 @@ async def resolve(promptRequest: PromptHubRequest, request: Request) -> PromptHu
         Object containing the metadata for the resolved prompt.
     """
     try:
-        return PromptHub(config=request.app.extra['config']).resolve(request)
+        return PromptHub(config=request.app.extra['config']).resolve(promptRequest)
     except Exception as e:
         logging.error(e, stack_info=True, exc_info=True)
         raise HTTPException(
             status_code = 500,
-            detail = e.message
+            detail = e.args[0]
         )

@@ -55,5 +55,11 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
         /// </summary>
         [JsonProperty("columns_to_remove")]
         public List<string>? ColumnsToRemove { get; set; }
+
+        /// <summary>
+        /// Description property.
+        /// </summary>
+        [JsonProperty("use_cache")]
+        public bool? UseCache { get; set; }
     }
 }

@@ -44,7 +44,7 @@
             "module": "uvicorn",
             "cwd" : "${workspaceFolder}/src/python/LangChainAPI/app",
             "env": {
-                "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python//LangChainAPI;C:/github/solliancenet/foundationallm/src/python//PythonSDK;C:\\github\\givenscj\\langchain\\libs\\langchain;C:\\github\\givenscj\\langchain\\libs\\core"
+                "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python//LangChainAPI;C:/github/solliancenet/foundationallm/src/python//PythonSDK;C:\\github\\givenscj\\langchain\\libs\\langchain;C:\\github\\givenscj\\langchain\\libs\\core;C:\\github\\givenscj\\langchain\\libs\\experimental"
             },
             "args": ["main:app","--reload", "--port", "8765"]
         },

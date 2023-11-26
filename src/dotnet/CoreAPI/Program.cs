@@ -201,7 +201,7 @@ namespace FoundationaLLM.Core.API
                             strategyBuilder.AddRetry(new HttpRetryStrategyOptions
                             {
                                 BackoffType = DelayBackoffType.Exponential,
-                                MaxRetryAttempts = 5,
+                                MaxRetryAttempts = 1,
                                 UseJitter = true
                             });
                         });

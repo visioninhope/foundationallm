@@ -6,6 +6,8 @@ class PromptHub(HubBase):
     """The PromptHub class is responsible for resolving prompts."""
     
     def __init__(self, config=None):
+
+        self.config = config
          
          # initialize config
         if config is None:

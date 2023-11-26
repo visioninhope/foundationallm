@@ -24,11 +24,5 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
         /// </summary>
         [JsonProperty("description")]
         public string? Description { get; set; }
-
-        /// <summary>
-        /// Description property.
-        /// </summary>
-        [JsonProperty("use_cache")]
-        public bool? UseCache { get; set; }
     }
 }

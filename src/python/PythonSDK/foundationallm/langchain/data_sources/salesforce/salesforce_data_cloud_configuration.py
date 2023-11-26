@@ -9,4 +9,5 @@ class SalesforceDataCloudConfiguration(DataSourceConfiguration):
     refresh_token: str
     instance_url: str
     queries : List[Any]
+    use_cache : bool
     columns_to_remove : Optional[List[str]]

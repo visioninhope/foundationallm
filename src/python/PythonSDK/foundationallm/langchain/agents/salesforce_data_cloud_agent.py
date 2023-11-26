@@ -63,7 +63,7 @@ class SalesforceDataCloudAgent(AgentBase):
         self.instance_url = config.get_value(completion_request.data_source.configuration.instance_url)
         self.queries = completion_request.data_source.configuration.queries
         self.columns_to_remove = completion_request.data_source.configuration.columns_to_remove
-        self.use_cache = completion_request.data_source.use_cache
+        self.use_cache = completion_request.data_source.configuration.use_cache
 
         self.login()
 
