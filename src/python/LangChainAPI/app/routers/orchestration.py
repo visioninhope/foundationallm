@@ -43,6 +43,5 @@ async def get_completion(completion_request: CompletionRequest,
         logging.error(e, stack_info=True, exc_info=True)
         raise HTTPException(
             status_code = 500,
-            # pylint: disable=E1101
-            detail = e.message
-        ) from e
+            detail = str(e)
+        )

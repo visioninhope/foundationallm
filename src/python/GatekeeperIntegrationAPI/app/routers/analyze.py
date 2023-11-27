@@ -27,5 +27,5 @@ async def analyze(text: str | None = None) -> List:
         logging.error(e, stack_info=True, exc_info=True)
         raise HTTPException(
             status_code = 500,
-            detail = e.message
+            detail = str(e)
         )

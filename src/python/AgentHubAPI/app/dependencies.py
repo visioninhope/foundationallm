@@ -58,7 +58,6 @@ def handle_exception(exception: Exception):
     """
     logging.error(exception, stack_info=True, exc_info=True)
     raise HTTPException(
-        status_code = 500,
-        # pylint: disable=E1101
-        detail = exception.message
+        status_code = 500,        
+        detail = str(exception)
     ) from exception
