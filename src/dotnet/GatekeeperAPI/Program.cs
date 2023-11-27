@@ -42,6 +42,9 @@ namespace FoundationaLLM.Gatekeeper.API
                 {
                     options.SetCredential(new DefaultAzureCredential());
                 });
+                options.Select("FoundationaLLM:APIs:*");
+                options.Select("FoundationaLLM:Refinement:*");
+                options.Select("FoundationaLLM:AzureContentSafety:*");
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
