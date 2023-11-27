@@ -1,8 +1,7 @@
 import re
-from typing import Union, Any, List
+from typing import Union, Any, List, Optional
 
-from langchain_core.agents import AgentAction, AgentFinish
-from langchain_core.exceptions import OutputParserException
+from langchain.schema import AgentAction, AgentFinish, OutputParserException
 
 from langchain.agents.agent import AgentOutputParser
 from langchain.agents.mrkl.prompt import FORMAT_INSTRUCTIONS
@@ -28,8 +27,8 @@ class FLLMOutputParser(AgentOutputParser):
 
     #agent : Any
     text_to_replace : Any
-    default_action : str
-    available_tools : List[str]
+    default_action : str = None
+    available_tools : Optional[List[Any]] = None
 
     """FLLM Output parser for the chat agent."""
     def __init__(self, *args, **kwargs):

@@ -12,8 +12,7 @@
     <OutputPath>.</OutputPath>
     <Name>AgentHubAPI</Name>
     <RootNamespace>AgentHubAPI</RootNamespace>
-    <InterpreterId>
-    </InterpreterId>
+    <InterpreterId>Global|VisualStudio|Python 3.11</InterpreterId>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <Environment>
     </Environment>
@@ -52,6 +51,9 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="app\routers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|VisualStudio|Python 3.11" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

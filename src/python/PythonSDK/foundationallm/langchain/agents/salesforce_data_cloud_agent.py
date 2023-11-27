@@ -10,7 +10,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain_experimental.tools import PythonAstREPLTool
 from langchain.callbacks import get_openai_callback
 
-from langchain_core.callbacks.manager import CallbackManager
+from langchain.callbacks.manager import CallbackManager
 
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 
@@ -185,7 +185,7 @@ class SalesforceDataCloudAgent(AgentBase):
             'dataframe' : 'data'
         }
 
-        parser = FLLMOutputParser(agent=self.agent, text_to_replace=text_to_replace, default_action=tools[0].name)
+        parser = FLLMOutputParser(agent=self.agent, text_to_replace=text_to_replace, default_action=tools[0].name, available_tools=tools)
         self.agent.agent.output_parser = parser
 
         #self.agent = AgentExecutor.from_agent_and_tools(
