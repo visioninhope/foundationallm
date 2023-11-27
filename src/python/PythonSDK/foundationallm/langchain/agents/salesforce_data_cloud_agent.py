@@ -171,7 +171,7 @@ class SalesforceDataCloudAgent(AgentBase):
 
         self.agent.agent.llm_chain.prompt.template = self.prompt_prefix + self.agent.agent.llm_chain.prompt.template
         self.agent.agent.llm_chain.prompt.template = self.agent.agent.llm_chain.prompt.template.replace('You are working with {num_dfs} pandas dataframes in Python named df1, df2, etc.', f'You are working with {{num_dfs}} pandas dataframes in Python named {str(dfs_names)}.')
-        self.agent.agent.llm_chain.prompt.template = self.agent.agent.llm_chain.prompt.template.replace('Action: the action to take', f'Action: the action to take with no quotes')
+        self.agent.agent.llm_chain.prompt.template = self.agent.agent.llm_chain.prompt.template.replace('Action: the action to take', f'Action: the action to take with no quotes.')
         
         #self.agent.agent.llm_chain.prompt.template = self.agent.agent.llm_chain.prompt.template.replace('This is the result of `print(df.head())` for each dataframe', '')
         #self.agent.agent.llm_chain.prompt.template = self.agent.agent.llm_chain.prompt.template.replace('This is the result of `print(df.head())` for each dataframe', 'This is the result of `print(df.head())`')
@@ -185,7 +185,7 @@ class SalesforceDataCloudAgent(AgentBase):
             'dataframe' : 'data'
         }
 
-        parser = FLLMOutputParser(agent=self.agent, text_to_replace=text_to_replace)        
+        parser = FLLMOutputParser(agent=self.agent, text_to_replace=text_to_replace, default_action=tools[0].name)
         self.agent.agent.output_parser = parser
 
         #self.agent = AgentExecutor.from_agent_and_tools(
