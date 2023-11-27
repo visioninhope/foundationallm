@@ -26,5 +26,5 @@ async def anonymize(text: str | None = None) -> str:
         logging.error(e, stack_info=True, exc_info=True)
         raise HTTPException(
             status_code = 500,
-            detail = e.message
+            detail = str(e)
         )
