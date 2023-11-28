@@ -1,8 +1,8 @@
 from langchain.base_language import BaseLanguageModel
 from foundationallm.config import Configuration, Context
-from foundationallm.models.metadata.language_model import LanguageModel
 from foundationallm.langchain.language_models import LanguageModelFactory
 from foundationallm.langchain.agents import AgentFactory, AgentBase
+from foundationallm.models.language_models import LanguageModel
 from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
 
 class OrchestrationManager:
