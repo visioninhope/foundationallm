@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace FoundationaLLM.Vectorization.Exceptions;
 
 /// <summary>
-/// Provides the base exception from which all FoundationaLLM vectorization exceptions derive.
+/// Represents errors that occur during the vectorization process.
 /// </summary>
 public class VectorizationException : Exception
 {

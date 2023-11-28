@@ -24,7 +24,7 @@ namespace FoundationaLLM.Vectorization.Handlers
                 case "index":
                     return new IndexingHandler();
                 default:
-                    throw new VectorizationException($"There is not handler available for vectorization pipeline step [{step}].");
+                    throw new VectorizationException($"There is no handler available for the vectorization pipeline step [{step}].");
             }
         }
     }

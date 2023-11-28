@@ -12,7 +12,7 @@ namespace FoundationaLLM.Vectorization.Handlers
     {
         private readonly string _stepId = "embed";
 
-        public async Task<VectorizationState> Invoke(VectorizationRequest request, VectorizationState state)
+        public async Task<VectorizationState> Invoke(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
         {
             var step = request[_stepId];
 

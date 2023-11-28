@@ -7,7 +7,7 @@ namespace FoundationaLLM.Vectorization.Interfaces
     {
         Task<bool> HasRequests();
 
-        Task<VectorizationRequest> ReceiveRequest();
+        Task<IEnumerable<VectorizationRequest>> ReceiveRequests(int count);
 
         Task DeleteRequest(string requestId);
 

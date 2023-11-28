@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Vectorization.Exceptions;
+﻿using FoundationaLLM.Common.Tasks;
+using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
@@ -15,6 +16,7 @@ namespace FoundationaLLM.Vectorization.Services
         private readonly IVectorizationStateService _vectorizationStateService;
         private readonly ILogger _logger;
         private readonly CancellationToken _cancellationToken;
+        private readonly TaskPool _taskPool;
 
         public RequestManagerService(
             RequestManagerServiceSettings settings,
@@ -35,11 +37,18 @@ namespace FoundationaLLM.Vectorization.Services
                 throw new VectorizationException($"Could not find a request source service for [{_settings.RequestSourceName}].");
 
             _incomingRequestSourceService = _requestSourceServices[_settings.RequestSourceName];
+
+            _taskPool = new TaskPool(_settings.MaxHandlerInstances);
         }
 
         public Task Start()
         {
-            return Task.Factory.StartNew(() => Run());
+            _logger.LogInformation($"Starting the request manager service for the source [{_settings.RequestSourceName}]...");
+
+            var result = Task.Factory.StartNew(() => Run());
+
+            _logger.LogInformation($"The request manager service for the source [{_settings.RequestSourceName}] started successfully.");
+            return result;
         }
 
         private async void Run()
@@ -51,12 +60,21 @@ namespace FoundationaLLM.Vectorization.Services
 
                 try
                 {
-                    var request = await _incomingRequestSourceService.ReceiveRequest();
-                    
-                    await HandleRequest(request);
-                    await AdvanceRequest(request);
+                    var taskPoolAvailableCapacity = _taskPool.AvailableCapacity;
 
-                    await _incomingRequestSourceService.DeleteRequest(request.Id);
+                    if (taskPoolAvailableCapacity > 0 && (await _incomingRequestSourceService.HasRequests()))
+                    {
+                        var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity);
+
+                        foreach (var request in requests )
+                        {
+                            await ProcessRequest(request);
+                        }
+                    }
+                    else
+                        // Either the task pool is at capacity or there are no new requests available.
+                        // Wait a predefined amount of time before attempting to receive requests again.
+                        await Task.Delay(TimeSpan.FromMinutes(1));
                 }
                 catch (Exception ex)
                 {
@@ -65,12 +83,27 @@ namespace FoundationaLLM.Vectorization.Services
             }
         }
 
+        private async Task ProcessRequest(VectorizationRequest request)
+        {
+            try
+            {
+                await HandleRequest(request);
+                await AdvanceRequest(request);
+
+                await _incomingRequestSourceService.DeleteRequest(request.Id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error processing request with id {request.Id}.");
+            }
+        }
+
         private async Task HandleRequest(VectorizationRequest request)
         {
             var state = await _vectorizationStateService.ReadState(request.Id);
 
             var stepHandler = VectorizationStepHandlerFactory.Create(_settings.RequestSourceName, request[_settings.RequestSourceName].Parameters);
-            var newState = await stepHandler.Invoke(request, state);
+            var newState = await stepHandler.Invoke(request, state, _cancellationToken);
 
             await _vectorizationStateService.UpdateState(newState);
         }
