@@ -2,7 +2,6 @@ from typing import List
 from langchain.base_language import BaseLanguageModel
 from langchain.callbacks import get_openai_callback
 from langchain.document_loaders import AzureBlobStorageFileLoader, AzureBlobStorageContainerLoader
-from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.prompts import PromptTemplate
@@ -29,16 +28,20 @@ class BlobStorageAgent(AgentBase):
         ----------
         completion_request : CompletionRequest
             The completion request object containing the user prompt to execute, message history,
-            and agent and data source metadata.       
-        """
-        self.llm = llm.get_language_model()
+            and agent and data source metadata.
+        llm: BaseLanguageModel
+            The language model class to use for embedding and completion.
+        config : Configuration
+            Application configuration class for retrieving configuration settings.
+        """        
+        self.llm = llm.get_completion_model(completion_request.language_model)
+        self.embedding = llm.get_embedding_model(completion_request.embedding_model)
         self.prompt_prefix = completion_request.agent.prompt_prefix
         self.connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret)
         self.container_name = completion_request.data_source.configuration.container
         self.file_names = completion_request.data_source.configuration.files
-        self.message_history = completion_request.message_history
-        self.__config = config
-
+        self.message_history = completion_request.message_history        
+                
     def __get_vector_index(self) -> Chroma:
         """
         Creates a vector index from files in the indicated blob storage container and files list
@@ -58,18 +61,10 @@ class BlobStorageAgent(AgentBase):
                 loader = AzureBlobStorageFileLoader(conn_str=self.connection_string, container=self.container_name, blob_name=file_name)
                 docs.extend(loader.load())
 
-        embeddings = OpenAIEmbeddings(
-            openai_api_base = self.__config.get_value("FoundationaLLM:AzureOpenAI:API:Endpoint"),
-            openai_api_version = self.__config.get_value("FoundationaLLM:AzureOpenAI:API:Version"),
-            openai_api_key = self.__config.get_value("FoundationaLLM:AzureOpenAI:API:Key"),
-            openai_api_type = "azure",
-            deployment = "embeddings",
-            chunk_size=10
-        )
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         splits = text_splitter.split_documents(docs)
-
-        index = Chroma.from_documents(documents=splits, embedding=embeddings, collection_name=self.container_name)
+        
+        index = Chroma.from_documents(documents=splits, embedding=self.embedding, collection_name=self.container_name)
         vector_store[self.container_name] = index
         return index
 
@@ -107,10 +102,9 @@ class BlobStorageAgent(AgentBase):
                 | self.llm
                 | StrOutputParser()
             )
-            completion = rag_chain.invoke(prompt)
-
+            
             return CompletionResponse(
-                completion = completion,
+                completion = rag_chain.invoke(prompt),
                 user_prompt = prompt,
                 completion_tokens = cb.completion_tokens,
                 prompt_tokens = cb.prompt_tokens,

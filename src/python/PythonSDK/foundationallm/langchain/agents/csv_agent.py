@@ -35,7 +35,7 @@ class CSVAgent(AgentBase):
         """
         self.prompt_prefix = completion_request.agent.prompt_prefix
         self.prompt_suffix = completion_request.agent.prompt_suffix
-        self.llm = llm.get_language_model()
+        self.llm = llm.get_completion_model(completion_request.language_model)
         self.message_history = completion_request.message_history
 
         storage_manager = BlobStorageManager(

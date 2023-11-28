@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from foundationallm.models.orchestration import MessageHistoryItem
 from foundationallm.models.metadata import Agent
 from foundationallm.models.metadata import DataSource
-from foundationallm.models.metadata import LanguageModel
+from foundationallm.models.language_models import LanguageModel, EmbeddingModel
 
 class CompletionRequest(BaseModel):
     """
@@ -13,4 +13,5 @@ class CompletionRequest(BaseModel):
     agent: Optional[Agent] = None
     data_source: Optional[DataSource] = None
     language_model: Optional[LanguageModel] = None
+    embedding_model: Optional[EmbeddingModel] = None
     message_history: Optional[List[MessageHistoryItem]] = list()
