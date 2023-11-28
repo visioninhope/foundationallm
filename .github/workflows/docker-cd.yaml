@@ -51,7 +51,7 @@ jobs:
     strategy:
       matrix:
         include:
-        - name: foundationallm
+        - name: foundationallm-agent-factory-api
           context: ./src
           dockerfile: ./src/dotnet/AgentFactoryAPI/Dockerfile
         - name: foundationallm-agent-hub-api
