@@ -13,6 +13,7 @@ router = APIRouter(
 )
 
 @router.post('')
+# Temporary pylint disable until implemented
 #pylint: disable=unused-argument
 async def anonymize(text: str | None = None) -> str:
     """
