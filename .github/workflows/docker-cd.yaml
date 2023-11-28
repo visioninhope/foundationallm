@@ -51,34 +51,34 @@ jobs:
     strategy:
       matrix:
         include:
-        - name: agent-factory-api
+        - name: foundationallm-agent-factory-api
           context: ./src
           dockerfile: ./src/dotnet/AgentFactoryAPI/Dockerfile
-        - name: agent-hub-api
+        - name: foundationallm-agent-hub-api
           context: ./src/python
           dockerfile: ./src/python/AgentHubAPI/Dockerfile
-        - name: chat-ui
+        - name: foundationallm-chat-ui
           context: ./src/ui/UserPortal
           dockerfile: ./src/ui/UserPortal/Dockerfile
-        - name: core-api
+        - name: foundationallm-core-api
           context: ./src
           dockerfile: ./src/dotnet/CoreAPI/Dockerfile
-        - name: core-job
+        - name: foundationallm-core-job
           context: ./src
           dockerfile: ./src/dotnet/CoreWorker/Dockerfile
-        - name: data-source-hub-api
+        - name: foundationallm-data-source-hub-api
           context: ./src/python
           dockerfile: ./src/python/DataSourceHubAPI/Dockerfile
-        - name: gatekeeper-api
+        - name: foundationallm-gatekeeper-api
           context: ./src
           dockerfile: ./src/dotnet/GatekeeperAPI/Dockerfile
-        - name: langchain-api
+        - name: foundationallm-langchain-api
           context: ./src/python
           dockerfile: ./src/python/LangChainAPI/Dockerfile
-        - name: prompt-hub-api
+        - name: foundationallm-prompt-hub-api
           context: ./src/python
           dockerfile: ./src/python/PromptHubAPI/Dockerfile
-        - name: semantic-kernel-api
+        - name: foundationallm-semantic-kernel-api
           context: ./src
           dockerfile: ./src/dotnet/SemanticKernelAPI/Dockerfile
     runs-on: ubuntu-latest
@@ -109,7 +109,7 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: |
-          ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.name }}
+          ${{ env.REGISTRY }}/${{ matrix.name }}
         tags: |
           type=ref,event=branch
           type=ref,event=pr
@@ -223,7 +223,7 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: |
-          ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.name }}
+          ${{ env.REGISTRY }}/${{ matrix.name }}
         tags: |
           type=ref,event=branch
           type=ref,event=pr
