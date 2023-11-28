@@ -58,6 +58,6 @@ def handle_exception(exception: Exception):
     """
     logging.error(exception, stack_info=True, exc_info=True)
     raise HTTPException(
-        status_code = 500,        
+        status_code = 500,
         detail = str(exception)
     ) from exception

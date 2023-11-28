@@ -36,4 +36,4 @@ async def resolve(request: PromptHubRequest) -> PromptHubResponse:
         raise HTTPException(
             status_code = 500,
             detail = str(e)
-        )
+        ) from e

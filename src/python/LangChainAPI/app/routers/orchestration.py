@@ -44,4 +44,4 @@ async def get_completion(completion_request: CompletionRequest,
         raise HTTPException(
             status_code = 500,
             detail = str(e)
-        )
+        ) from e

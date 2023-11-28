@@ -37,4 +37,4 @@ async def resolve(request:DataSourceHubRequest) -> DataSourceHubResponse:
         raise HTTPException(
             status_code = 500,
             detail = str(e)
-        )
+        ) from e
