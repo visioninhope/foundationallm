@@ -2,9 +2,10 @@ name: Docker Image Release
 
 
 on:
+  workflow_dispatch: {}
   pull_request:
-    types: [closed]
-    branches: [main, release]
+    types: [synchronize, opened, reopened, labeled, unlabeled, closed]
+    branches: [mg-15930-release-process, main, release]
 
 env:
   REGISTRY: ghcr.io
