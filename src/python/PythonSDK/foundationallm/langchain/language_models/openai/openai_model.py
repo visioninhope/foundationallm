@@ -97,6 +97,9 @@ class OpenAIModel(LanguageModelBase):
         Embeddings
             Returns an OpenAI embeddings model.
         """
+        if embedding_model is None:
+            raise ValueError('Expected populated embedding_model, got None.')
+        
         if embedding_model.provider == LanguageModelProvider.MICROSOFT:
             config_value_base_name = 'FoundationaLLM:AzureOpenAI:API'
             openai_api_type = AzureOpenAIAPIType.AZURE

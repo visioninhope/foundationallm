@@ -111,23 +111,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     PromptPrefix = promptResponse.Prompt?.PromptPrefix,
                     PromptSuffix = promptResponse.Prompt?.PromptSuffix
                 },
-                LanguageModel = new LanguageModel
-                {
-                    Type = _agentMetadata.LanguageModel!.Type,
-                    Provider = _agentMetadata.LanguageModel.Provider,
-                    Temperature = _agentMetadata.LanguageModel.Temperature ?? 0f,
-                    UseChat = _agentMetadata.LanguageModel.UseChat ?? true
-                },
-                EmbeddingModel = _agentMetadata.EmbeddingModel != null
-                    ? new EmbeddingModel
-                    {
-                        Type = _agentMetadata.EmbeddingModel?.Type,
-                        Provider = _agentMetadata.EmbeddingModel?.Provider,
-                        Deployment = _agentMetadata.EmbeddingModel?.Deployment,
-                        Model = _agentMetadata.EmbeddingModel?.Model,
-                        ChunkSize = _agentMetadata.EmbeddingModel?.ChunkSize ?? 1000
-                    }
-                    : null,
+                LanguageModel = _agentMetadata.LanguageModel,
+                EmbeddingModel = _agentMetadata.EmbeddingModel,
                 DataSourceMetadata = dataSourceMetadata,
                 MessageHistory = null // to be filled in GetCompletion
             };
