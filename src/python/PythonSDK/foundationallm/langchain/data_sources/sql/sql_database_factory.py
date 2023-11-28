@@ -27,11 +27,14 @@ class SQLDatabaseFactory():
     def get_sql_database(self) -> SQLDatabase:
         match self.dialect:
             case SQLDatabaseDialect.MARIADB:
-                return MariaDB(sql_db_config = self.sql_db_config, config = self.config).get_database()
+                return MariaDB(sql_db_config = self.sql_db_config,
+                               config = self.config).get_database()
             case SQLDatabaseDialect.MSSQL:
-                return MicrosoftSQLServer(sql_db_config = self.sql_db_config, config = self.config).get_database()
+                return MicrosoftSQLServer(sql_db_config = self.sql_db_config,
+                                          config = self.config).get_database()
             case SQLDatabaseDialect.MYSQL:
-                return MySQL(sql_db_config = self.sql_db_config, config = self.config).get_database()
+                return MySQL(sql_db_config = self.sql_db_config,
+                             config = self.config).get_database()
             case SQLDatabaseDialect.POSTGRESQL:
-                return PostgreSQL(sql_db_config = self.sql_db_config, config = self.config).get_database()
-        
+                return PostgreSQL(sql_db_config = self.sql_db_config,
+                                  config = self.config).get_database()

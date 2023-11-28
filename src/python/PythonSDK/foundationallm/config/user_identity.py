@@ -11,7 +11,7 @@ class UserIdentity(BaseModel):
 
     @staticmethod
     def from_json(json_dict):
-        if json_dict == None:
+        if json_dict is None:
             return None
         else:
             return UserIdentity(

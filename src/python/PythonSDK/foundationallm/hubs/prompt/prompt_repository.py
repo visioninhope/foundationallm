@@ -7,7 +7,7 @@ class PromptRepository(Repository):
 
     def get_metadata_values(self, pattern:str=None) -> List[PromptMetadata]:
         """Not implemented."""
-        pass
+        raise NotImplementedError
 
     def get_metadata_by_name(self, name: str) -> PromptMetadata:
         """

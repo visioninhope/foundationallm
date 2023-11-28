@@ -7,7 +7,7 @@ class CompletionResponse(BaseModel):
     """
     user_prompt: str
     completion: Union[str, set, List[str]]
-    user_prompt_embedding: Optional[List[float]] = list()
+    user_prompt_embedding: Optional[List[float]] = []
     prompt_tokens: int = 0
     completion_tokens: int = 0
     total_tokens: int = 0

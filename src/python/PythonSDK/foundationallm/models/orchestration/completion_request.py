@@ -14,4 +14,4 @@ class CompletionRequest(BaseModel):
     data_source: Optional[DataSource] = None
     language_model: Optional[LanguageModel] = None
     embedding_model: Optional[EmbeddingModel] = None
-    message_history: Optional[List[MessageHistoryItem]] = list()
+    message_history: Optional[List[MessageHistoryItem]] = []

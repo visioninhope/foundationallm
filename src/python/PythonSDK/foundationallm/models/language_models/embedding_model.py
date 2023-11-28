@@ -1,5 +1,5 @@
-from pydantic import BaseModel
 from typing import Optional
+from pydantic import BaseModel
 from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider
 
 class EmbeddingModel(BaseModel):

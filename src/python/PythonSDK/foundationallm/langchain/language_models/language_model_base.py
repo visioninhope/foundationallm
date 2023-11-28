@@ -29,7 +29,7 @@ class LanguageModelBase(ABC):
             The completion large language model to use.
         """
 
-    @abstractmethod    
+    @abstractmethod
     def get_embedding_model(self, embedding_model: EmbeddingModel) -> Embeddings:
         """
         Retrieve the embeddings model.

@@ -17,7 +17,8 @@ class SummaryAgent(AgentBase):
     Agent for summarizing input text.
     """
 
-    def __init__(self, completion_request: CompletionRequest, llm: LanguageModelBase, config: Configuration):
+    def __init__(self, completion_request: CompletionRequest,
+                 llm: LanguageModelBase, config: Configuration):
         """
         Initializes a SummaryAgent
 
@@ -32,14 +33,16 @@ class SummaryAgent(AgentBase):
             Application configuration class for retrieving configuration settings.
         """
         self.config = config
-        self.summarizer_chain_prompt = PromptTemplate.from_template(completion_request.agent.prompt_prefix)
+        self.summarizer_chain_prompt = PromptTemplate.from_template(
+                                        completion_request.agent.prompt_prefix)
         self.llm = llm.get_completion_model(completion_request.language_model)
         self.model_name = self.config.get_value("FoundationaLLM:LangChain:Summary:ModelName")
         self.max_tokens = self.config.get_value("FoundationaLLM:LangChain:Summary:MaxTokens")
 
     def __get_text_as_documents(self, prompt: str) -> List[Document]:
         """
-        Splits text into smaller parts and creates smaller documents to split the summarization task into smaller jobs.
+        Splits text into smaller parts and creates smaller documents
+            to split the summarization task into smaller jobs.
 
         Parameters
         ----------

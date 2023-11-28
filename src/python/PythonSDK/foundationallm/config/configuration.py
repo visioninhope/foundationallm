@@ -19,7 +19,9 @@ class Configuration():
         credential = DefaultAzureCredential()
 
         # Connect to Azure App Configuration.
-        self.__config = load(endpoint=app_config_uri, credential=credential, key_vault_options=AzureAppConfigurationKeyVaultOptions(credential=credential))
+        self.__config = load(endpoint=app_config_uri, credential=credential,
+                             key_vault_options=
+                                AzureAppConfigurationKeyVaultOptions(credential=credential))
 
     def get_value(self, key: str) -> str:
         """
@@ -44,13 +46,18 @@ class Configuration():
         value = None
 
         # will have future usage with Azure App Configuration
-        # if foundationallm-configuration-allow-environment-variables exists and is True, then the environment variables will be checked first, then KV
-        # if foundationallm-configuration-allow-environment-variables does not exist OR foundationallm-configuration-allow-environment-variables is False, then check App config and then KV
+        # if foundationallm-configuration-allow-environment-variables exists and is True, 
+        #   then the environment variables will be checked first, then KV
+        # if foundationallm-configuration-allow-environment-variables does not exist 
+        #   OR foundationallm-configuration-allow-environment-variables is False, 
+        #   then check App config and then KV
         allow_env_vars = False
         if "foundationallm-configuration-allow-environment-variables" in os.environ:
-            allow_env_vars = bool(os.environ["foundationallm-configuration-allow-environment-variables"])
+            allow_env_vars = bool(os.environ[
+                    "foundationallm-configuration-allow-environment-variables"
+                    ])
 
-        if allow_env_vars == True:
+        if allow_env_vars is True:
             value = os.environ.get(key)
 
         if value is None:
@@ -81,7 +88,7 @@ class Configuration():
         
         """
         if key is None:
-            raise Exception('The key parameter is required for Configuration.get_feature_flag().')
+            raise KeyError('The key parameter is required for Configuration.get_feature_flag().')
 
         value = False
 
@@ -96,7 +103,7 @@ class Configuration():
 
         return value
 
-    def __retry_before_sleep(retry_state):
+    def __retry_before_sleep(self, retry_state):
         # Log the outcome of each retry attempt.
         message = f"""Retrying {retry_state.fn}:
                         attempt {retry_state.attempt_number}

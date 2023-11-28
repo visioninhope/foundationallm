@@ -8,7 +8,8 @@ from foundationallm.models.orchestration import CompletionRequest, CompletionRes
 class OrchestrationManager:
     """Client that acts as the entry point for interacting with the FoundationaLLM Python SDK."""
 
-    def __init__(self, completion_request: CompletionRequest, configuration: Configuration, context: Context):
+    def __init__(self, completion_request: CompletionRequest,
+                 configuration: Configuration, context: Context):
         """
         Initializes an instance of the OrchestrationManager.
         
@@ -27,7 +28,8 @@ class OrchestrationManager:
 
     def __create_agent(self, completion_request: CompletionRequest, context: Context) -> AgentBase:
         """Creates an agent for executing completion requests."""
-        agent = AgentFactory(completion_request=completion_request, llm=self.llm, config=self.config, context=context)
+        agent = AgentFactory(completion_request=completion_request,
+                             llm=self.llm, config=self.config, context=context)
         return agent.get_agent()
 
     def __get_llm(self, language_model: LanguageModel) -> BaseLanguageModel:

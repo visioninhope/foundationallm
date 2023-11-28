@@ -14,11 +14,11 @@ class Repository(ABC):
         """
         Returns a list of metadata values optionally filtered by a pattern/pattern objects.
         """
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def get_metadata_by_name(self, name: str) -> Metadata:
         """
         Returns a single metadata value specifically by name.
         """
-        pass
+        raise NotImplementedError

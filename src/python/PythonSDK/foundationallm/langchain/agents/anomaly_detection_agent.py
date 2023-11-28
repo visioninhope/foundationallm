@@ -1,4 +1,3 @@
-from langchain.tools import PythonREPLTool
 import pandas as pd
 from sqlalchemy import create_engine
 
@@ -25,7 +24,8 @@ class AnomalyDetectionAgent(AgentBase):
     Agent for performing anomaly detection.
     """
 
-    def __init__(self, completion_request: CompletionRequest, llm: LanguageModelBase, config: Configuration):
+    def __init__(self, completion_request: CompletionRequest,
+                 llm: LanguageModelBase, config: Configuration):
         """
         Initializes a anomaly detection agent.
 
@@ -63,7 +63,8 @@ class AnomalyDetectionAgent(AgentBase):
         self.sql_agent = create_sql_agent(
             llm = self.llm,
             toolkit = SecureSQLDatabaseToolkit(
-                db = SQLDatabaseFactory(sql_db_config = self.sql_db_config, config = config).get_sql_database(),
+                db = SQLDatabaseFactory(sql_db_config = self.sql_db_config,
+                                        config = config).get_sql_database(),
                 llm=self.llm,
                 reduce_k_below_max_tokens=True,
                 username = self.sql_db_config.username, # TODO: This should be the logged in user.
@@ -80,7 +81,8 @@ class AnomalyDetectionAgent(AgentBase):
 
         self.df = pd.read_sql(
             'SELECT * FROM RumInventory',
-            create_engine(MicrosoftSQLServer(sql_db_config = self.sql_db_config, config = config).get_connection_string()),
+            create_engine(MicrosoftSQLServer(sql_db_config = self.sql_db_config,
+                                             config = config).get_connection_string()),
             index_col='Id'
         )
 

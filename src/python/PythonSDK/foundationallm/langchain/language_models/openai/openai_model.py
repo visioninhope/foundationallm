@@ -16,7 +16,7 @@ from foundationallm.models.language_models import (
 class OpenAIModel(LanguageModelBase):
     """OpenAI Completion model."""
     config_value_base_name: str
-    
+
     def __init__(self, config: Configuration):
         """
         Initializes an OpenAI completion language model.
@@ -29,7 +29,7 @@ class OpenAIModel(LanguageModelBase):
             Application configuration class for retrieving configuration settings.
         """
         self.config = config
-        
+
     def get_completion_model(self, language_model: LanguageModel) -> BaseLanguageModel:
         """
         Returns an OpenAI completion model.
@@ -40,7 +40,7 @@ class OpenAIModel(LanguageModelBase):
             Returns an OpenAI completion model.
         """
         use_chat = language_model.use_chat
-        
+
         if language_model.provider == LanguageModelProvider.MICROSOFT:
             config_value_base_name = 'FoundationaLLM:AzureOpenAI:API'
             openai_api_type = AzureOpenAIAPIType.AZURE
@@ -51,8 +51,8 @@ class OpenAIModel(LanguageModelBase):
         openai_api_base = self.config.get_value(f'{config_value_base_name}:Endpoint')
         openai_api_key = self.config.get_value(f'{config_value_base_name}:Key')
         temperature = language_model.temperature or 0
-        
-        if openai_api_type == AzureOpenAIAPIType.AZURE:            
+
+        if openai_api_type == AzureOpenAIAPIType.AZURE:
             if use_chat:
                 return AzureChatOpenAI(
                     temperature = temperature,
@@ -81,13 +81,13 @@ class OpenAIModel(LanguageModelBase):
                     openai_api_key = openai_api_key,
                     temperature = temperature
                 )
-            else:    
+            else:
                 return OpenAI(
                     openai_api_base = openai_api_base,
                     openai_api_key = openai_api_key,
                     temperature = temperature
                 )
-            
+
     def get_embedding_model(self, embedding_model: EmbeddingModel) -> Embeddings:
         """
         Retrieves the OpenAI embedding model.
@@ -99,7 +99,7 @@ class OpenAIModel(LanguageModelBase):
         """
         if embedding_model is None:
             raise ValueError('Expected populated embedding_model, got None.')
-        
+
         if embedding_model.provider == LanguageModelProvider.MICROSOFT:
             config_value_base_name = 'FoundationaLLM:AzureOpenAI:API'
             openai_api_type = AzureOpenAIAPIType.AZURE
@@ -116,4 +116,3 @@ class OpenAIModel(LanguageModelBase):
             deployment = embedding_model.deployment or self.config.get_value(f'{config_value_base_name}:Embeddings:DeploymentName'),
             model = embedding_model.model or self.config.get_value(f'{config_value_base_name}:Embeddings:ModelName')
         )
-    

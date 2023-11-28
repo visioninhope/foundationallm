@@ -6,4 +6,5 @@ from .data_sources.blob_storage import BlobStorageDataSourceMetadata
 from .data_sources.csv import CSVDataSourceMetadata
 
 class DataSourceHubResponse(BaseModel):
-    data_sources: List[Union[DataSourceMetadata, SQLDataSourceMetadata, BlobStorageDataSourceMetadata, CSVDataSourceMetadata]]
+    data_sources: List[Union[DataSourceMetadata, SQLDataSourceMetadata,
+                             BlobStorageDataSourceMetadata, CSVDataSourceMetadata]]

@@ -13,5 +13,3 @@ class MessageHistoryItem(BaseModel):
     """
     sender: str
     text: str
-
-    

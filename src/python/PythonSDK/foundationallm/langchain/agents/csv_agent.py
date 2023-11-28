@@ -17,7 +17,8 @@ class CSVAgent(AgentBase):
     Agent for analyzing the contents of delimited files (e.g., CSV).
     """
 
-    def __init__(self, completion_request: CompletionRequest, llm: LanguageModelBase, config: Configuration):
+    def __init__(self, completion_request: CompletionRequest,
+                 llm: LanguageModelBase, config: Configuration):
         """
         Initializes a CSV agent.
         
@@ -39,7 +40,8 @@ class CSVAgent(AgentBase):
         self.message_history = completion_request.message_history
 
         storage_manager = BlobStorageManager(
-            blob_connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret),
+            blob_connection_string = config.get_value(
+                completion_request.data_source.configuration.connection_string_secret),
             container_name = completion_request.data_source.configuration.container
         )
 
@@ -51,7 +53,8 @@ class CSVAgent(AgentBase):
             PythonAstREPLTool(
                 locals={"df": df},
                 name=completion_request.data_source.data_description or 'CSV data',
-                description=completion_request.data_source.description or 'Useful for when you need to answer questions about data in CSV files.'
+                description=completion_request.data_source.description \
+                    or 'Useful for when you need to answer questions about data in CSV files.'
             )
         ]
         memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)

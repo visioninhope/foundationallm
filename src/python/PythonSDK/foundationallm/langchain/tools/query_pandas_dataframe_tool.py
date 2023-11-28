@@ -1,8 +1,8 @@
 from typing import Optional
-from langchain.agents import AgentExecutor, create_pandas_dataframe_agent
+from langchain.agents import AgentExecutor
 from langchain.callbacks.manager import CallbackManagerForToolRun
 from pandas import DataFrame
-from langchain.pydantic_v1 import BaseModel, Extra, Field, root_validator
+from langchain.pydantic_v1 import BaseModel, Field
 
 from langchain.tools.base import BaseTool
 
@@ -45,7 +45,8 @@ class QueryPandasDataFrameTool(BasePandasDataFrameTool, BaseTool):
 #     name: str = 'build_dataframe_describe_query'
 #     description: str = """
 #     Input to this tool is a feature of the dataframe to describe.
-#     Output is a query to describe the particular feature of the dataframe and explain how results should be returned.
+#     Output is a query to describe the particular feature of the dataframe and explain 
+#       how results should be returned.
 #     """
 
 #     @root_validator(pre=True)

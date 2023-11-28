@@ -30,7 +30,8 @@ class AnomalyDetectionToolkit(BaseToolkit):
             "Output is the result of the describe query."
             "Always use this tool to generate statistics before executing a query with product_database."
         )
-        query_pandas_dataframe_tool = QueryPandasDataFrameTool(agent=self.df_agent, description=query_pandas_dataframe_tool_description)
+        query_pandas_dataframe_tool = QueryPandasDataFrameTool(agent=self.df_agent,
+                                                               description=query_pandas_dataframe_tool_description)
 
         type_conversion_tool_description = (
             "Input to this tool is a value of one type that should be converted to another specified type."

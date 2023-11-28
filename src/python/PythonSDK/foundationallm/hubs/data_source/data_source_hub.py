@@ -8,5 +8,6 @@ class DataSourceHub(HubBase):
     def __init__(self):
         # initialize config
         self.config = Configuration()
-        super().__init__(resolver= DataSourceResolver(repository=DataSourceRepository(config=self.config), config=self.config))
-        
+        super().__init__(resolver= DataSourceResolver(
+            repository=DataSourceRepository(config=self.config), config=self.config)
+             )
