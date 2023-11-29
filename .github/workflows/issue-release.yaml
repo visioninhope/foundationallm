@@ -131,9 +131,9 @@ jobs:
         tags: |
           type=raw,latest
           type=raw,release
-          type=semver,{{major}}.{{minor}}.{{patch}},value=${{ steps.releaseVersion.outputs.release_tag }}
-          type=semver,{{major}}.{{minor}},value=${{ steps.releaseVersion.outputs.release_tag }}
-          type=semver,{{major}},value=${{ steps.releaseVersion.outputs.release_tag }}
+          type=semver,{{major}}.{{minor}}.{{patch}}
+          type=semver,{{major}}.{{minor}}
+          type=semver,{{major}}
           type=sha
 
     - name: Build and push Docker images
