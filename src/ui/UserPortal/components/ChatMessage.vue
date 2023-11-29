@@ -263,6 +263,12 @@ export default {
 	white-space: pre-wrap;
 	overflow-wrap: break-word;
 }
+
+@media only screen and (max-width: 950px) {
+	.message {
+		width: 95%;
+	}
+}
 </style>
 
 <style lang="scss">

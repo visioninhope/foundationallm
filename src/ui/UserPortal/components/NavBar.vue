@@ -241,4 +241,15 @@ export default {
 .button--auth {
 	margin-left: 24px;
 }
+
+@media only screen and (max-width: 620px) {
+	.navbar__header {
+		width: 95px;
+		justify-content: center;
+
+		img {
+			display: none;
+		}
+	}
+}
 </style>

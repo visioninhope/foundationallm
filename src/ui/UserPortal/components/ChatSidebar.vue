@@ -1,6 +1,11 @@
 <template>
 	<div class="chat-sidebar">
 		<!-- Sidebar section header -->
+		<div class="chat-sidebar__section-header--mobile ">
+			<img v-if="logoURL !== ''" :src="logoURL" />
+			<span v-else>{{ logoText }}</span>
+			<Button icon="pi pi-arrow-left" size="small" severity="secondary" @click="$emit('close-sidebar', true)" />
+		</div>
 		<div class="chat-sidebar__section-header">
 			<span>Chats</span>
 			<!-- <button @click="handleAddSession">
@@ -113,6 +118,8 @@ declare const process: any;
 export default {
 	name: 'ChatSidebar',
 
+	emits: ['close-sidebar'],
+
 	data() {
 		return {
 			sessionToRename: null as Session | null,
@@ -120,6 +127,8 @@ export default {
 			sessionToDelete: null as Session | null,
 			accountName: '' as string,
             userName: '' as string,
+			logoURL: '' as string,
+			logoText: '' as string,
 		};
 	},
 
@@ -137,6 +146,7 @@ export default {
 	},
 
 	async created() {
+		this.logoURL = this.appConfigStore.logoUrl;
 		if (process.client) {
 			await this.appStore.init(this.$nuxt._route.query.chat);
 			const msalInstance = await getMsalInstance();
@@ -236,6 +246,10 @@ export default {
 	// font-size: 14px;
 	font-size: 0.875rem;
 	font-weight: 600;
+}
+
+.chat-sidebar__section-header--mobile {
+	display: none;
 }
 
 .chat-sidebar__chats {
@@ -341,6 +355,22 @@ export default {
 	font-weight: 600;
 	font-size: 0.875rem;
 	text-transform: capitalize;
+}
+
+@media only screen and (max-width: 950px) {
+	.chat-sidebar__section-header--mobile {
+	height: 70px;
+	padding: 12px 24px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	img {
+		max-height: 100%;
+		width: auto;
+		max-width: 148px;
+		margin-right: 12px;
+	}
+}
 }
 
 </style>

@@ -2,7 +2,7 @@
 	<div class="chat-app">
 		<NavBar @close-sidebar="closeSidebar" />
 		<div class="chat-content">
-			<ChatSidebar v-show="!isSidebarClosed" />
+			<ChatSidebar v-show="!isSidebarClosed" class="chat-sidebar" @close-sidebar="closeSidebar" />
 			<ChatThread :sidebar-closed="isSidebarClosed" />
 		</div>
 	</div>
@@ -38,5 +38,14 @@ export default {
 	flex-direction: row;
 	height: calc(100% - 70px);
 	background-color: var(--primary-bg);
+}
+
+@media only screen and (max-width: 950px) {
+    .chat-sidebar {
+        position: absolute;
+        z-index: 1;
+		top: 0px;
+        box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.4)
+    }
 }
 </style>
