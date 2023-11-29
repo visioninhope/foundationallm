@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
-    public class ExtractionHandler : IVectorizationStepHandler
+    public class ExtractionHandler : VectorizationStepHandlerBase
     {
-        private readonly string _stepId = "extract";
-
-        public async Task<VectorizationState> Invoke(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
+        public ExtractionHandler() : base("extract")
         {
-            var step = request[_stepId];
+        }
 
-            await Task.CompletedTask;
-            return state;
+        protected override async Task ProcessRequest(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(10));
         }
     }
 }

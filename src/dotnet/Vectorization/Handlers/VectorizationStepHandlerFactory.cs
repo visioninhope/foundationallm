@@ -3,6 +3,9 @@ using FoundationaLLM.Vectorization.Interfaces;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
+    /// <summary>
+    /// Implements a factory that creates vectorization step handlers.
+    /// </summary>
     public class VectorizationStepHandlerFactory
     {
         /// <summary>

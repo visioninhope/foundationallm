@@ -5,6 +5,8 @@ namespace FoundationaLLM.Vectorization.Interfaces
 {
     public interface IVectorizationStepHandler
     {
-        Task<VectorizationState> Invoke(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken);
+        string StepId { get; }
+
+        Task Invoke(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken);
     }
 }

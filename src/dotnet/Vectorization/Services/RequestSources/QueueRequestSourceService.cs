@@ -11,7 +11,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         {
         }
 
-        public async Task CreateRequest(VectorizationRequest request)
+        public Task DeleteRequest(string requestId)
         {
             throw new NotImplementedException();
         }
@@ -21,7 +21,12 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             throw new NotImplementedException();
         }
 
-        public async Task<VectorizationRequest> ReadRequest()
+        public Task<IEnumerable<VectorizationRequest>> ReceiveRequests(int count)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SubmitRequest(VectorizationRequest request)
         {
             throw new NotImplementedException();
         }

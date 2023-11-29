@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
-    public class EmbeddingHandler : IVectorizationStepHandler
+    public class EmbeddingHandler : VectorizationStepHandlerBase
     {
-        private readonly string _stepId = "embed";
-
-        public async Task<VectorizationState> Invoke(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
+        public EmbeddingHandler() : base("embed")
         {
-            var step = request[_stepId];
+        }
 
-            await Task.CompletedTask;
-            return state;
+        protected override async Task ProcessRequest(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(10));
         }
     }
 }

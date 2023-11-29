@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.Vectorization.Services
 {
+    /// <summary>
+    /// Manages vectorization requests originating from a specific request source.
+    /// </summary>
     public class RequestManagerService : IRequestManagerService
     {
         private readonly RequestManagerServiceSettings _settings;
@@ -18,6 +21,16 @@ namespace FoundationaLLM.Vectorization.Services
         private readonly CancellationToken _cancellationToken;
         private readonly TaskPool _taskPool;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RequestManagerService"/> class with the configuration and services
+        /// required to manage vectorization requests originating from a specific request source.
+        /// </summary>
+        /// <param name="settings">The configuration settings used to initialize the instance.</param>
+        /// <param name="requestSourceServices">The dictionary with all the request source services registered in the vectorization platform.</param>
+        /// <param name="vectorizationStateService">The service providing vectorization state management.</param>
+        /// <param name="logger">The logger service.</param>
+        /// <param name="cancellationToken">The cancellation token that can be used to cancel the work.</param>
+        /// <exception cref="VectorizationException">The exception thrown when the initialization of the instance fails.</exception>
         public RequestManagerService(
             RequestManagerServiceSettings settings,
             Dictionary<string, IRequestSourceService> requestSourceServices,
@@ -45,12 +58,15 @@ namespace FoundationaLLM.Vectorization.Services
         {
             _logger.LogInformation($"Starting the request manager service for the source [{_settings.RequestSourceName}]...");
 
-            var result = Task.Factory.StartNew(() => Run());
+            var result = Task.Run(() => Run());
 
             _logger.LogInformation($"The request manager service for the source [{_settings.RequestSourceName}] started successfully.");
             return result;
         }
 
+        /// <summary>
+        /// Starts the vectorization requests processing loop.
+        /// </summary>
         private async void Run()
         {
             while (true)
@@ -66,10 +82,13 @@ namespace FoundationaLLM.Vectorization.Services
                     {
                         var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity);
 
-                        foreach (var request in requests )
-                        {
-                            await ProcessRequest(request);
-                        }
+                        // No need to use ConfigureAwait(false) since the code is going to be executed on a
+                        // thread pool thread, with no user code higher on the stack (for details, see
+                        // https://devblogs.microsoft.com/dotnet/configureawait-faq/).
+                        _taskPool.Add(
+                            requests.Select(request => Task.Run(
+                                async () => { await ProcessRequest(request); },
+                                _cancellationToken)));
                     }
                     else
                         // Either the task pool is at capacity or there are no new requests available.
@@ -102,10 +121,10 @@ namespace FoundationaLLM.Vectorization.Services
         {
             var state = await _vectorizationStateService.ReadState(request.Id);
 
-            var stepHandler = VectorizationStepHandlerFactory.Create(_settings.RequestSourceName, request[_settings.RequestSourceName].Parameters);
-            var newState = await stepHandler.Invoke(request, state, _cancellationToken);
+            var stepHandler = VectorizationStepHandlerFactory.Create(_settings.RequestSourceName, request[_settings.RequestSourceName]!.Parameters);
+            await stepHandler.Invoke(request, state, _cancellationToken);
 
-            await _vectorizationStateService.UpdateState(newState);
+            await _vectorizationStateService.UpdateState(state);
         }
 
         private async Task AdvanceRequest(VectorizationRequest request)

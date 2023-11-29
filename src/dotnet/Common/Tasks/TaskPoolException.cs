@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoundationaLLM.Common.Tasks
+namespace FoundationaLLM.Common.Tasks;
 
 /// <summary>
 /// Represents errors that occur in task pools.
