@@ -94,13 +94,7 @@ namespace FoundationaLLM.Core.Services
             _logger.LogInformation("Cosmos DB service initialized.");
         }
 
-        /// <summary>
-        /// Gets a list of all current chat sessions.
-        /// </summary>
-        /// <param name="type">The session type to return.</param>
-        /// <param name="upn">The user principal name used for retrieving
-        /// sessions for the signed in user.</param>
-        /// <returns>List of distinct chat session items.</returns>
+        /// <inheritdoc/>
         public async Task<List<Session>> GetSessionsAsync(string type, string upn, CancellationToken cancellationToken = default)
         {
             var query = new QueryDefinition($"SELECT DISTINCT * FROM c WHERE c.type = @type AND c.upn = @upn AND {SoftDeleteQueryRestriction} ORDER BY c._ts DESC")
@@ -119,10 +113,7 @@ namespace FoundationaLLM.Core.Services
             return output;
         }
 
-        /// <summary>
-        /// Performs a point read to retrieve a single chat session item.
-        /// </summary>
-        /// <returns>The chat session item.</returns>
+        /// <inheritdoc/>
         public async Task<Session> GetSessionAsync(string id, CancellationToken cancellationToken = default)
         {
             var session = await _sessions.ReadItemAsync<Session>(
@@ -133,13 +124,7 @@ namespace FoundationaLLM.Core.Services
             return session;
         }
 
-        /// <summary>
-        /// Gets a list of all current chat messages for a specified session identifier.
-        /// </summary>
-        /// <param name="sessionId">Chat session identifier used to filter messages.</param>
-        /// <param name="upn">The user principal name used for retrieving the messages for
-        /// the signed in user.</param>
-        /// <returns>List of chat message items for the specified session.</returns>
+        /// <inheritdoc/>
         public async Task<List<Message>> GetSessionMessagesAsync(string sessionId, string upn, CancellationToken cancellationToken = default)
         {
             var query =
@@ -160,11 +145,7 @@ namespace FoundationaLLM.Core.Services
             return output;
         }
 
-        /// <summary>
-        /// Creates a new chat session.
-        /// </summary>
-        /// <param name="session">Chat session item to create.</param>
-        /// <returns>Newly created chat session item.</returns>
+        /// <inheritdoc/>
         public async Task<Session> InsertSessionAsync(Session session, CancellationToken cancellationToken = default)
         {
             PartitionKey partitionKey = new(session.SessionId);
@@ -175,11 +156,7 @@ namespace FoundationaLLM.Core.Services
             );
         }
 
-        /// <summary>
-        /// Creates a new chat message.
-        /// </summary>
-        /// <param name="message">Chat message item to create.</param>
-        /// <returns>Newly created chat message item.</returns>
+        /// <inheritdoc/>
         public async Task<Message> InsertMessageAsync(Message message, CancellationToken cancellationToken = default)
         {
             PartitionKey partitionKey = new(message.SessionId);
@@ -190,11 +167,7 @@ namespace FoundationaLLM.Core.Services
             );
         }
 
-        /// <summary>
-        /// Updates an existing chat message.
-        /// </summary>
-        /// <param name="message">Chat message item to update.</param>
-        /// <returns>Revised chat message item.</returns>
+        /// <inheritdoc/>
         public async Task<Message> UpdateMessageAsync(Message message, CancellationToken cancellationToken = default)
         {
             PartitionKey partitionKey = new(message.SessionId);
@@ -206,13 +179,7 @@ namespace FoundationaLLM.Core.Services
             );
         }
 
-        /// <summary>
-        /// Updates a message's rating through a patch operation.
-        /// </summary>
-        /// <param name="id">The message id.</param>
-        /// <param name="sessionId">The message's partition key (session id).</param>
-        /// <param name="rating">The rating to replace.</param>
-        /// <returns>Revised chat message item.</returns>
+        /// <inheritdoc/>
         public async Task<Message> UpdateMessageRatingAsync(string id, string sessionId, bool? rating, CancellationToken cancellationToken = default)
         {
             var response = await _sessions.PatchItemAsync<Message>(
@@ -227,11 +194,7 @@ namespace FoundationaLLM.Core.Services
             return response.Resource;
         }
 
-        /// <summary>
-        /// Updates an existing chat session.
-        /// </summary>
-        /// <param name="session">Chat session item to update.</param>
-        /// <returns>Revised created chat session item.</returns>
+        /// <inheritdoc/>
         public async Task<Session> UpdateSessionAsync(Session session, CancellationToken cancellationToken = default)
         {
             PartitionKey partitionKey = new(session.SessionId);
@@ -243,12 +206,7 @@ namespace FoundationaLLM.Core.Services
             );
         }
 
-        /// <summary>
-        /// Updates a session's name through a patch operation.
-        /// </summary>
-        /// <param name="id">The session id.</param>
-        /// <param name="name">The session's new name.</param>
-        /// <returns>Revised chat session item.</returns>
+        /// <inheritdoc/>
         public async Task<Session> UpdateSessionNameAsync(string id, string name, CancellationToken cancellationToken = default)
         {
             var response = await _sessions.PatchItemAsync<Session>(
@@ -263,10 +221,7 @@ namespace FoundationaLLM.Core.Services
             return response.Resource;
         }
 
-        /// <summary>
-        /// Batch create or update chat messages and session.
-        /// </summary>
-        /// <param name="messages">Chat message and session items to create or replace.</param>
+        /// <inheritdoc/>
         public async Task UpsertSessionBatchAsync(params dynamic[] messages)
         {
             if (messages.Select(m => m.SessionId).Distinct().Count() > 1)
@@ -286,11 +241,7 @@ namespace FoundationaLLM.Core.Services
             await batch.ExecuteAsync();
         }
 
-        /// <summary>
-        /// Create or update a user session from the passed in Session object.
-        /// </summary>
-        /// <param name="session">The chat session item to create or replace.</param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task UpsertUserSessionAsync(Session session, CancellationToken cancellationToken = default)
         {
             PartitionKey partitionKey = new(session.UPN);
@@ -300,10 +251,7 @@ namespace FoundationaLLM.Core.Services
                cancellationToken: cancellationToken);
         }
 
-        /// <summary>
-        /// Batch deletes an existing chat session and all related messages.
-        /// </summary>
-        /// <param name="sessionId">Chat session identifier used to flag messages and sessions for deletion.</param>
+        /// <inheritdoc/>
         public async Task DeleteSessionAndMessagesAsync(string sessionId, CancellationToken cancellationToken = default)
         {
             PartitionKey partitionKey = new(sessionId);
@@ -349,10 +297,7 @@ namespace FoundationaLLM.Core.Services
             await ExecuteBatchAsync();
         }
 
-        /// <summary>
-        /// Reads all documents retrieved by Vector Search.
-        /// </summary>
-        /// <param name="vectorDocuments">List string of JSON documents from vector search results</param>
+        /// <inheritdoc/>
         public async Task<string> GetVectorSearchDocumentsAsync(List<DocumentVector> vectorDocuments, CancellationToken cancellationToken = default)
         {
 
@@ -398,12 +343,7 @@ namespace FoundationaLLM.Core.Services
 
         }
 
-        /// <summary>
-        /// Returns the completion prompt for a given session and completion prompt id.
-        /// </summary>
-        /// <param name="sessionId">The session id from which to retrieve the completion prompt.</param>
-        /// <param name="completionPromptId">The id of the completion prompt to retrieve.</param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task<CompletionPrompt> GetCompletionPrompt(string sessionId, string completionPromptId) =>
             await _sessions.ReadItemAsync<CompletionPrompt>(
                 id: completionPromptId,
