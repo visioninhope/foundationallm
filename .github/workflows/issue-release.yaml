@@ -45,7 +45,7 @@ jobs:
         echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
 
     - name: Bumping Release Index
-      id: bump_version_pre
+      id: bump_version
       uses: cookbenjamin/update-version@v1.0.1
       with:
         current-version: ${{ steps.releaseVersion.outputs.release_tag }}
