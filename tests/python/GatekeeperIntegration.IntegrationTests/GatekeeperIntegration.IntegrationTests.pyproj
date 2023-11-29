@@ -2,18 +2,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>f74cbb5a-97b9-4f68-8077-8bab49c841dc</ProjectGuid>
+    <ProjectGuid>6330dd34-9b05-4bd9-98e7-507134751cca</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>app/main.py</StartupFile>
-    <SearchPath>..\GatekeeperIntegration</SearchPath>
+    <StartupFile>
+    </StartupFile>
+    <SearchPath>..\..\..\src\python\GatekeeperIntegration</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>GatekeeperIntegrationAPI</Name>
-    <RootNamespace>GatekeeperIntegrationAPI</RootNamespace>
+    <Name>GatekeeperIntegration.IntegrationTests</Name>
+    <RootNamespace>GatekeeperIntegration.IntegrationTests</RootNamespace>
     <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
-    <IsWindowsApplication>False</IsWindowsApplication>
-    <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <TestFramework>pytest</TestFramework>
+    <UnitTestPattern>test*.py</UnitTestPattern>
+    <UnitTestRootDirectory>.</UnitTestRootDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,24 +25,17 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app\dependencies.py" />
-    <Compile Include="app\main.py" />
-    <Compile Include="app\routers\analyze.py" />
-    <Compile Include="app\routers\anonymize.py" />
-    <Compile Include="app\routers\status.py" />
-    <Compile Include="app\routers\__init__.py" />
-    <Compile Include="app\__init__.py" />
+    <Folder Include="foundationallm\" />
+    <Folder Include="foundationallm\gatekeeper\" />
+    <Folder Include="foundationallm\gatekeeper\config\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\" />
-    <Folder Include="app\presidio\" />
-    <Folder Include="app\routers\" />
+    <Compile Include="foundationallm\gatekeeper\config\configuration_tests.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
     <Content Include=".pylintrc" />
+    <Content Include="pytest.ini" />
     <Content Include="requirements.txt" />
-    <Content Include="startup.sh" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">
@@ -55,7 +49,7 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GatekeeperIntegration\GatekeeperIntegration.pyproj">
+    <ProjectReference Include="..\..\..\src\python\GatekeeperIntegration\GatekeeperIntegration.pyproj">
       <Name>GatekeeperIntegration</Name>
       <Project>{196a5bcc-f189-443d-8d84-4b3be66bba9f}</Project>
       <Private>True</Private>
