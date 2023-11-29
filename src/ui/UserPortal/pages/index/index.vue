@@ -1,27 +1,21 @@
 <template>
 	<div class="chat-app">
-		<NavBar @close-sidebar="closeSidebar" />
+		<NavBar />
 		<div class="chat-content">
-			<ChatSidebar v-show="!isSidebarClosed" class="chat-sidebar" @close-sidebar="closeSidebar" />
-			<ChatThread :sidebar-closed="isSidebarClosed" />
+			<ChatSidebar v-show="!appStore.isSidebarClosed" class="chat-sidebar" />
+			<ChatThread />
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
+import { mapStores } from 'pinia';
+import { useAppStore } from '@/stores/appStore';
 export default {
 	name: 'Index',
 
-	data() {
-		return {
-			isSidebarClosed: false,
-		};
-	},
-
-	methods: {
-		closeSidebar(closed: boolean) {
-			this.isSidebarClosed = closed;
-		},
+	computed: {
+		...mapStores(useAppStore),
 	},
 };
 </script>

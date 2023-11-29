@@ -1,13 +1,12 @@
 <template>
-	<div class="navbar" :class="{ 'navbar-collapsed': closeSidebar }">
+	<div class="navbar">
 		<!-- Sidebar header -->
 		<div class="navbar__header">
 			<img v-if="logoURL !== ''" :src="logoURL" />
 			<span v-else>{{ logoText }}</span>
 
 			<template v-if="!appConfigStore.isKioskMode">
-				<Button v-if="isSidebarClosed" icon="pi pi-arrow-right" size="small" severity="secondary" @click="closeSidebar(false)" />
-				<Button v-else icon="pi pi-arrow-left" size="small" severity="secondary" @click="closeSidebar(true)" />
+				<Button :icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'" size="small" severity="secondary" @click="appStore.toggleSidebar" />
 			</template>
 		</div>
 
@@ -59,8 +58,6 @@ import { getMsalInstance, getLoginRequest } from '@/js/auth';
 
 export default {
 	name: 'NavBar',
-
-	emits: ['close-sidebar'],
 
 	data() {
 		return {
@@ -115,11 +112,6 @@ export default {
 	},
 
 	methods: {
-		closeSidebar(closed: boolean) {
-			this.isSidebarClosed = closed;
-			this.$emit('close-sidebar', closed);
-		},
-
 		handleCopySession() {
 			const chatLink = `${window.location.origin}?chat=${this.currentSession!.id}`;
 			navigator.clipboard.writeText(chatLink);

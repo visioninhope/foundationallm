@@ -8,6 +8,7 @@ export const useAppStore = defineStore('app', {
 		sessions: [] as Session[],
 		currentSession: null as Session | null,
 		currentMessages: [] as Message[],
+		isSidebarClosed: false as boolean,
 	}),
 
 	getters: {},
@@ -188,6 +189,10 @@ export const useAppStore = defineStore('app', {
 			}
 
 			this.currentSession = newSession;
+		},
+
+		toggleSidebar() {
+			this.isSidebarClosed = !this.isSidebarClosed;
 		},
 	},
 });

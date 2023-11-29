@@ -4,7 +4,7 @@
 		<div class="chat-sidebar__section-header--mobile ">
 			<img v-if="logoURL !== ''" :src="logoURL" />
 			<span v-else>{{ logoText }}</span>
-			<Button icon="pi pi-arrow-left" size="small" severity="secondary" @click="$emit('close-sidebar', true)" />
+			<Button :icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'" size="small" severity="secondary" @click="appStore.toggleSidebar" />
 		</div>
 		<div class="chat-sidebar__section-header">
 			<span>Chats</span>
@@ -117,8 +117,6 @@ declare const process: any;
 
 export default {
 	name: 'ChatSidebar',
-
-	emits: ['close-sidebar'],
 
 	data() {
 		return {

@@ -49,14 +49,6 @@ import { useAppStore } from '@/stores/appStore';
 export default {
 	name: 'ChatThread',
 
-	props: {
-		sidebarClosed: {
-			type: Boolean,
-			required: false,
-			default: false,
-		},
-	},
-
 	emits: ['session-updated'],
 
 	data() {
