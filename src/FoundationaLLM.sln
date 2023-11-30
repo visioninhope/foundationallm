@@ -65,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentFactory.Tests", "..\te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreWorker", "dotnet\CoreWorker\CoreWorker.csproj", "{0DEF31F7-72E4-428A-A32B-C11F9C28B192}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "IntegrationAPI", "python\IntegrationAPI\IntegrationAPI.pyproj", "{F74CBB5A-97B9-4F68-8077-8BAB49C841DC}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "GatekeeperIntegrationAPI", "python\GatekeeperIntegrationAPI\GatekeeperIntegrationAPI.pyproj", "{F74CBB5A-97B9-4F68-8077-8BAB49C841DC}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "IntegrationSDK", "python\IntegrationSDK\IntegrationSDK.pyproj", "{196A5BCC-F189-443D-8D84-4B3BE66BBA9F}"
 EndProject

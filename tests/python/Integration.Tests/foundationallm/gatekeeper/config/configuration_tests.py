@@ -1,8 +1,5 @@
-from azure.appconfiguration import AzureAppConfigurationClient, ConfigurationSetting
-from azure.identity import DefaultAzureCredential
 import pytest
-from foundationallm.gatekeeper.config import Configuration
-import os
+from foundationallm.integration.config import Configuration
 
 @pytest.fixture
 def test_config():
