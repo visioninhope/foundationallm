@@ -12,7 +12,8 @@
     <OutputPath>.</OutputPath>
     <Name>GatekeeperIntegration</Name>
     <RootNamespace>GatekeeperIntegration</RootNamespace>
-    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>
+    </InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,17 +39,6 @@
     <Compile Include="foundationallm\gatekeeper\pii\analyzer.py" />
     <Compile Include="foundationallm\gatekeeper\pii\__init__.py" />
     <Compile Include="main.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Interpreter Include="env\">
-      <Id>env</Id>
-      <Version>3.11</Version>
-      <Description>env (Python 3.11 (64-bit))</Description>
-      <InterpreterPath>Scripts\python.exe</InterpreterPath>
-      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
-      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
-      <Architecture>X64</Architecture>
-    </Interpreter>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="foundationallm\" />
