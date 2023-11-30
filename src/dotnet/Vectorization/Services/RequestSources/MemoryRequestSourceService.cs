@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.Vectorization.Services.RequestSources
 {
-    public class MemoryRequestSourceService : RequestSourceServiceBase, IRequestSourceService
+    public class MemoryRequestSourceService : IRequestSourceService
     {
         private readonly string _sourceName;
         private readonly ILogger<MemoryRequestSourceService> _logger;

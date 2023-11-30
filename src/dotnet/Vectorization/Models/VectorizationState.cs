@@ -31,28 +31,28 @@ namespace FoundationaLLM.Vectorization.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public List<VectorizationLogEntry> LogEntries { get; set; } = new List<VectorizationLogEntry>();
 
-        public void Log(IVectorizationStepHandler handler, string text)
+        public void Log(IVectorizationStepHandler handler, string requestId, string text)
         {
             LogEntries.Add(new VectorizationLogEntry(
-                handler.StepId, text));
+                requestId, handler.StepId, text));
         }
 
-        public void LogHandlerStart(IVectorizationStepHandler handler)
+        public void LogHandlerStart(IVectorizationStepHandler handler, string requestId)
         {
             LogEntries.Add(new VectorizationLogEntry(
-                handler.StepId, "Started handling step."));
+                requestId, handler.StepId, "Started handling step."));
         }
 
-        public void LogHandlerEnd(IVectorizationStepHandler handler)
+        public void LogHandlerEnd(IVectorizationStepHandler handler, string requestId)
         {
             LogEntries.Add(new VectorizationLogEntry(
-                handler.StepId, "Finished handling step."));
+                requestId, handler.StepId, "Finished handling step."));
         }
 
-        public void LogHandlerError(IVectorizationStepHandler handler, Exception ex)
+        public void LogHandlerError(IVectorizationStepHandler handler, string requestId, Exception ex)
         {
             LogEntries.Add(new VectorizationLogEntry(
-                handler.StepId, $"ERROR: {ex.Message}"));
+                requestId, handler.StepId, $"ERROR: {ex.Message}"));
         }
     }
 }

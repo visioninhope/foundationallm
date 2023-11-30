@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Services.RequestSources
 {
-    public class QueueRequestSourceService : RequestSourceServiceBase, IRequestSourceService
+    public class QueueRequestSourceService : IRequestSourceService
     {
         public QueueRequestSourceService()
         {

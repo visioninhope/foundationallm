@@ -20,16 +20,16 @@ namespace FoundationaLLM.Vectorization.Handlers
         {
             try
             {
-                state.LogHandlerStart(this);
+                state.LogHandlerStart(this, request.Id);
 
                 ValidateRequest(request);
                 await ProcessRequest(request, state, cancellationToken);
 
-                state.LogHandlerEnd(this);
+                state.LogHandlerEnd(this, request.Id);
             }
             catch (Exception ex)
             {
-                state.LogHandlerError(this, ex);
+                state.LogHandlerError(this, request.Id, ex);
             }
         }
 
