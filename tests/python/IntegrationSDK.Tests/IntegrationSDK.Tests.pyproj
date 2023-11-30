@@ -10,7 +10,7 @@
     <SearchPath>..\..\..\src\python\IntegrationSDK</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Integration.Tests</Name>
+    <Name>IntegrationSDK.Tests</Name>
     <RootNamespace>GatekeeperIntegration.Tests</RootNamespace>
     <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
     <TestFramework>pytest</TestFramework>
@@ -27,16 +27,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="foundationallm\" />
-    <Folder Include="foundationallm\gatekeeper\" />
-    <Folder Include="foundationallm\gatekeeper\config\" />
-    <Folder Include="foundationallm\gatekeeper\pii\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="foundationallm\gatekeeper\config\configuration_tests.py" />
-    <Compile Include="foundationallm\gatekeeper\pii\analyzer_tests.py" />
+    <Folder Include="foundationallm\integration\" />
+    <Folder Include="foundationallm\integration\config\" />
+    <Folder Include="foundationallm\integration\config\__pycache__\" />
+    <Folder Include="foundationallm\integration\mspresidio\" />
+    <Folder Include="foundationallm\integration\mspresidio\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".pylintrc" />
+    <Content Include="foundationallm\integration\config\__pycache__\configuration_tests.cpython-311-pytest-7.4.2.pyc" />
+    <Content Include="foundationallm\integration\mspresidio\__pycache__\analyzer_tests.cpython-311-pytest-7.4.2.pyc" />
     <Content Include="pytest.ini" />
     <Content Include="requirements.txt" />
   </ItemGroup>
@@ -50,6 +50,10 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="foundationallm\integration\config\configuration_tests.py" />
+    <Compile Include="foundationallm\integration\mspresidio\analyzer_tests.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
