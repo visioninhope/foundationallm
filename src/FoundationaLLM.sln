@@ -69,7 +69,7 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "GatekeeperIntegrationAPI", 
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "GatekeeperIntegration", "python\GatekeeperIntegration\GatekeeperIntegration.pyproj", "{196A5BCC-F189-443D-8D84-4B3BE66BBA9F}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "GatekeeperIntegration.IntegrationTests", "..\tests\python\GatekeeperIntegration.IntegrationTests\GatekeeperIntegration.IntegrationTests.pyproj", "{6330DD34-9B05-4BD9-98E7-507134751CCA}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "GatekeeperIntegration.Tests", "..\tests\python\GatekeeperIntegration.Tests\GatekeeperIntegration.Tests.pyproj", "{6330DD34-9B05-4BD9-98E7-507134751CCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -26,6 +26,3 @@ class ConfigurationTests:
         setting = test_config.get_value("FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIKey")
         print(setting)
         assert setting is not None
-    
-   
-    

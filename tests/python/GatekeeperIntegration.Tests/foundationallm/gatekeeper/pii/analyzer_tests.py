@@ -4,7 +4,8 @@ from foundationallm.gatekeeper.pii.analyzer import Analyzer
 
 class AnalyzerTests:
     """
-    AnalyzerTests is responsible for testing the analyzer functionality.
+    AnalyzerTests is responsible for testing the analyzer functionality
+    that identifies PII in textual content.
     """
     def test_analyzer_identifies_phone_entity(self):        
         request = AnalyzeRequest(content="My cell is (555)555-5555", 
