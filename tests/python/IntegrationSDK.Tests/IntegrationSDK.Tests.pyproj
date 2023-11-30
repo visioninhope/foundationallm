@@ -51,6 +51,13 @@
     <Compile Include="foundationallm\integration\config\configuration_tests.py" />
     <Compile Include="foundationallm\integration\mspresidio\analyzer_tests.py" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\python\IntegrationSDK\IntegrationSDK.pyproj">
+      <Name>IntegrationSDK</Name>
+      <Project>{196a5bcc-f189-443d-8d84-4b3be66bba9f}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
        Visual Studio and specify your pre- and post-build commands in
