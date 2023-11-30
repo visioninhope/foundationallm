@@ -29,14 +29,10 @@
     <Folder Include="foundationallm\" />
     <Folder Include="foundationallm\integration\" />
     <Folder Include="foundationallm\integration\config\" />
-    <Folder Include="foundationallm\integration\config\__pycache__\" />
     <Folder Include="foundationallm\integration\mspresidio\" />
-    <Folder Include="foundationallm\integration\mspresidio\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".pylintrc" />
-    <Content Include="foundationallm\integration\config\__pycache__\configuration_tests.cpython-311-pytest-7.4.2.pyc" />
-    <Content Include="foundationallm\integration\mspresidio\__pycache__\analyzer_tests.cpython-311-pytest-7.4.2.pyc" />
     <Content Include="pytest.ini" />
     <Content Include="requirements.txt" />
   </ItemGroup>
