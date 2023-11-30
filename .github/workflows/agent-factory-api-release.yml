@@ -6,7 +6,7 @@ on:
 
 jobs:
   release_docker_image:
-    uses: ${{ github.repository }}/.github/workflows/release-docker-image.yml@main
+    uses: ./.github/workflows/release-docker-image.yml@main
     with:
       image: agent-factory-api
       context: ./src
