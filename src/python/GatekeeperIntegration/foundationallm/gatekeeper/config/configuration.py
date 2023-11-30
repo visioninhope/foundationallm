@@ -36,8 +36,9 @@ class Configuration:
         app_config_uri = os.environ['foundationallm-app-configuration-uri']
         credential = DefaultAzureCredential()
         # Connect to Azure App Configuration with key filter
-        selectors = [SettingSelector(key_filter="FoundationaLLM:APIs:GatekeeperIntegrationAPI:*")]
-        config = load(endpoint=app_config_uri, credential=credential, selects=selectors,
-                             key_vault_options=
-                                AzureAppConfigurationKeyVaultOptions(credential=credential))
-        return config[key]
+        selectors = [SettingSelector(
+            key_filter="FoundationaLLM:APIs:GatekeeperIntegrationAPI:*")]
+        app_config = load(endpoint=app_config_uri, credential=credential, selects=selectors,
+                            key_vault_options=
+                            AzureAppConfigurationKeyVaultOptions(credential=credential))
+        return app_config[key]

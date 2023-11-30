@@ -27,14 +27,12 @@
     <Compile Include="app\dependencies.py" />
     <Compile Include="app\main.py" />
     <Compile Include="app\routers\analyze.py" />
-    <Compile Include="app\routers\anonymize.py" />
     <Compile Include="app\routers\status.py" />
     <Compile Include="app\routers\__init__.py" />
     <Compile Include="app\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
-    <Folder Include="app\presidio\" />
     <Folder Include="app\routers\" />
   </ItemGroup>
   <ItemGroup>

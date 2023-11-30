@@ -30,6 +30,13 @@
   <ItemGroup>
     <Compile Include="foundationallm\gatekeeper\config\configuration.py" />
     <Compile Include="foundationallm\gatekeeper\config\__init__.py" />
+    <Compile Include="foundationallm\gatekeeper\models\analyze_request.py" />
+    <Compile Include="foundationallm\gatekeeper\models\analyze_response.py" />
+    <Compile Include="foundationallm\gatekeeper\models\pii_result.py" />
+    <Compile Include="foundationallm\gatekeeper\models\pii_result_anonymized.py" />
+    <Compile Include="foundationallm\gatekeeper\models\__init__.py" />
+    <Compile Include="foundationallm\gatekeeper\pii\analyzer.py" />
+    <Compile Include="foundationallm\gatekeeper\pii\__init__.py" />
     <Compile Include="main.py" />
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +54,8 @@
     <Folder Include="foundationallm\" />
     <Folder Include="foundationallm\gatekeeper\" />
     <Folder Include="foundationallm\gatekeeper\config\" />
+    <Folder Include="foundationallm\gatekeeper\models\" />
+    <Folder Include="foundationallm\gatekeeper\pii\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

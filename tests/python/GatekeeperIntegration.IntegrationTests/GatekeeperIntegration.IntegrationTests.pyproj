@@ -28,9 +28,11 @@
     <Folder Include="foundationallm\" />
     <Folder Include="foundationallm\gatekeeper\" />
     <Folder Include="foundationallm\gatekeeper\config\" />
+    <Folder Include="foundationallm\gatekeeper\pii\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="foundationallm\gatekeeper\config\configuration_tests.py" />
+    <Compile Include="foundationallm\gatekeeper\pii\analyzer_tests.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".pylintrc" />
