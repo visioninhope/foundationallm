@@ -3,8 +3,8 @@ The API endpoint for analyzing textual content to identify
 PII (personally identifiable information) entities.
 """
 from fastapi import APIRouter, Depends
-from foundationallm.gatekeeper.models import AnalyzeRequest, AnalyzeResponse
-from foundationallm.gatekeeper.pii import Analyzer
+from foundationallm.integration.models import AnalyzeRequest, AnalyzeResponse
+from foundationallm.integration.mspresidio import Analyzer
 from app.dependencies import validate_api_key_header, handle_exception
 
 router = APIRouter(

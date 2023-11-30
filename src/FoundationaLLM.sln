@@ -67,7 +67,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreWorker", "dotnet\CoreWo
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "IntegrationAPI", "python\IntegrationAPI\IntegrationAPI.pyproj", "{F74CBB5A-97B9-4F68-8077-8BAB49C841DC}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "GatekeeperIntegration", "python\GatekeeperIntegration\GatekeeperIntegration.pyproj", "{196A5BCC-F189-443D-8D84-4B3BE66BBA9F}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "IntegrationSDK", "python\IntegrationSDK\IntegrationSDK.pyproj", "{196A5BCC-F189-443D-8D84-4B3BE66BBA9F}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Integration.Tests", "..\tests\python\Integration.Tests\Integration.Tests.pyproj", "{6330DD34-9B05-4BD9-98E7-507134751CCA}"
 EndProject

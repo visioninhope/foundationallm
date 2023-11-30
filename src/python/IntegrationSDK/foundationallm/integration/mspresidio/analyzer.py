@@ -6,7 +6,7 @@ from typing import List
 from presidio_analyzer import AnalyzerEngine, RecognizerResult
 from presidio_anonymizer import AnonymizerEngine
 from presidio_anonymizer.entities.engine.result import EngineResult
-from foundationallm.gatekeeper.models import (
+from foundationallm.integration.models import (
         AnalyzeRequest, AnalyzeResponse,
         PIIResult, PIIResultAnonymized
     )

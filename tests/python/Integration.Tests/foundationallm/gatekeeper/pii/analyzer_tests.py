@@ -1,6 +1,6 @@
 import pytest
-from foundationallm.gatekeeper.models import AnalyzeRequest
-from foundationallm.gatekeeper.pii.analyzer import Analyzer
+from foundationallm.integration.models import AnalyzeRequest
+from foundationallm.integration.mspresidio.analyzer import Analyzer
 
 class AnalyzerTests:
     """

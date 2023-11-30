@@ -3,17 +3,17 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>196a5bcc-f189-443d-8d84-4b3be66bba9f</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
+    <ProjectHome>
+    </ProjectHome>
     <StartupFile>
     </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>GatekeeperIntegration</Name>
+    <Name>IntegrationSDK</Name>
     <RootNamespace>GatekeeperIntegration</RootNamespace>
-    <InterpreterId>
-    </InterpreterId>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,23 +29,34 @@
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="foundationallm\gatekeeper\config\configuration.py" />
-    <Compile Include="foundationallm\gatekeeper\config\__init__.py" />
-    <Compile Include="foundationallm\gatekeeper\models\analyze_request.py" />
-    <Compile Include="foundationallm\gatekeeper\models\analyze_response.py" />
-    <Compile Include="foundationallm\gatekeeper\models\pii_result.py" />
-    <Compile Include="foundationallm\gatekeeper\models\pii_result_anonymized.py" />
-    <Compile Include="foundationallm\gatekeeper\models\__init__.py" />
-    <Compile Include="foundationallm\gatekeeper\pii\analyzer.py" />
-    <Compile Include="foundationallm\gatekeeper\pii\__init__.py" />
+    <Compile Include="foundationallm\integration\config\configuration.py" />
+    <Compile Include="foundationallm\integration\config\__init__.py" />
+    <Compile Include="foundationallm\integration\models\analyze_request.py" />
+    <Compile Include="foundationallm\integration\models\analyze_response.py" />
+    <Compile Include="foundationallm\integration\models\pii_result.py" />
+    <Compile Include="foundationallm\integration\models\pii_result_anonymized.py" />
+    <Compile Include="foundationallm\integration\models\__init__.py" />
+    <Compile Include="foundationallm\integration\mspresidio\analyzer.py" />
+    <Compile Include="foundationallm\integration\mspresidio\__init__.py" />
     <Compile Include="main.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="foundationallm\" />
-    <Folder Include="foundationallm\gatekeeper\" />
-    <Folder Include="foundationallm\gatekeeper\config\" />
-    <Folder Include="foundationallm\gatekeeper\models\" />
-    <Folder Include="foundationallm\gatekeeper\pii\" />
+    <Folder Include="foundationallm\integration\" />
+    <Folder Include="foundationallm\integration\config\" />
+    <Folder Include="foundationallm\integration\models\" />
+    <Folder Include="foundationallm\integration\mspresidio\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.11</Version>
+      <Description>env (Python 3.11 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

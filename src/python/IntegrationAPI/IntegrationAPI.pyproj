@@ -6,7 +6,7 @@
     <ProjectHome>
     </ProjectHome>
     <StartupFile>app/main.py</StartupFile>
-    <SearchPath>..\GatekeeperIntegration</SearchPath>
+    <SearchPath>..\IntegrationSDK</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>IntegrationAPI</Name>
@@ -43,13 +43,6 @@
     <Content Include="startup.sh" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GatekeeperIntegration\GatekeeperIntegration.pyproj">
-      <Name>GatekeeperIntegration</Name>
-      <Project>{196a5bcc-f189-443d-8d84-4b3be66bba9f}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Interpreter Include="env\">
       <Id>env</Id>
       <Version>3.11</Version>
@@ -59,6 +52,13 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IntegrationSDK\IntegrationSDK.pyproj">
+      <Name>IntegrationSDK</Name>
+      <Project>{196a5bcc-f189-443d-8d84-4b3be66bba9f}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -7,7 +7,7 @@
     </ProjectHome>
     <StartupFile>
     </StartupFile>
-    <SearchPath>..\..\..\src\python\GatekeeperIntegration</SearchPath>
+    <SearchPath>..\..\..\src\python\IntegrationSDK</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Integration.Tests</Name>
@@ -39,13 +39,6 @@
     <Content Include=".pylintrc" />
     <Content Include="pytest.ini" />
     <Content Include="requirements.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\src\python\GatekeeperIntegration\GatekeeperIntegration.pyproj">
-      <Name>GatekeeperIntegration</Name>
-      <Project>{196a5bcc-f189-443d-8d84-4b3be66bba9f}</Project>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">
