@@ -1,4 +1,4 @@
-name: Agent Factory API Release
+name: Data Source Hub API Release
 
 on:
   workflow_dispatch:
@@ -9,6 +9,6 @@ jobs:
     name: Release Docker Image
     uses: ./.github/workflows/release-docker-image.yml
     with:
-      image: agent-factory-api
-      context: ./src
-      dockerfile: ./src/dotnet/AgentFactoryAPI/Dockerfile
+      image: data-source-hub-api
+      context: ./src/python
+      dockerfile: ./src/python/DataSourceHubAPI/Dockerfile
