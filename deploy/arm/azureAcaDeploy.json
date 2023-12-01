@@ -12,11 +12,6 @@
     "location": {
       "type": "string",
       "defaultValue": "eastus",
-      "allowedValues": [
-        "southcentralus",
-        "eastus",
-        "westeurope"
-      ],
       "metadata": {
         "description": "Location where all resources will be deployed. This value defaults to the **East US** region."
       }
@@ -1487,9 +1482,14 @@
       "apiVersion": "2021-09-01",
       "name": "[format('{0}sa', parameters('name'))]",
       "location": "[parameters('location')]",
-      "kind": "Storage",
+      "kind": "StorageV2",
       "sku": {
-        "name": "Standard_LRS"
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "properties": {
+        "isHnsEnabled": true,
+        "accessTier": "Hot"
       }
     },
     {
@@ -2048,16 +2048,16 @@
                 }
               ],
               "resources": {
-                "cpu": 0.5,
-                "memory": "1Gi"
+                "cpu": "[variables('pythonAcaSettings').instances[copyIndex()].resources.cpu]",
+                "memory": "[variables('pythonAcaSettings').instances[copyIndex()].resources.memory]"
               },
               "probes": [],
               "volumeMounts": []
             }
           ],
           "scale": {
-            "minReplicas": 2,
-            "maxReplicas": 10
+            "minReplicas": "[variables('pythonAcaSettings').instances[copyIndex()].replicas]",
+            "maxReplicas": "[variables('pythonAcaSettings').instances[copyIndex()].replicas]"
           },
           "volumes": []
         }
