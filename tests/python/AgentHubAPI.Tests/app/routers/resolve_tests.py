@@ -31,6 +31,10 @@ class ResolveTests:
         FoundationaLLM-AllowAgentHint
         
     This test class also expects a valid Azure credential (DefaultAzureCredential) session.
+    
+    The following agents need to be configured in the testing environment:
+        default
+        solliance
     """
     def test_invalid_api_key_should_return_401(self, client):
         response = client.post("/resolve", headers={ "X-API-KEY": "invalid" })
