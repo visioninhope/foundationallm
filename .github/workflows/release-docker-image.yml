@@ -6,12 +6,6 @@ on:
       registry:
         type: string
         default: ghcr.io
-      docker_username:
-        type: string
-        default: ${{ github.actor }}
-      docker_password:
-        type: string
-        default: ${{ secrets.GITHUB_TOKEN }}
       image:
         type: string
         required: true
@@ -76,26 +70,29 @@ jobs:
     - name: Log in to the Container registry
       uses: docker/login-action@v3
       with:
-        registry: ${{ github.events.inputs.registry }}
-        username: ${{ github.events.inputs.docker_username }}
-        password: ${{ github.events.inputs.docker_password }}
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@v5
       with:
         images: |
-          ${{ env.REGISTRY }}/${{ github.repository }}/${{ github.events.inputs.image }}
+          ghcr.io/${{ github.repository }}/${{ inputs.image }}
         tags: |
           type=raw,latest
           type=raw,release
-          type=sha
+          type=pep440,pattern={{version}},value=${{ steps.releaseVersion.outputs.release_tag }}
+          type=pep440,pattern={{major}}.{{minor}},value=${{ steps.releaseVersion.outputs.release_tag }}
+          type=pep440,pattern={{major}},value=${{ steps.releaseVersion.outputs.release_tag }}
+          type=sha,format=long
 
     - name: Build and push Docker images
       uses: docker/build-push-action@v5
       with:
-        context: ${{ github.events.inputs.context }}
-        file: ${{ github.events.inputs.dockerfile }}
+        context: ${{ inputs.context }}
+        file: ${{ inputs.dockerfile }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
