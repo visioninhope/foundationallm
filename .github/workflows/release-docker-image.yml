@@ -83,6 +83,7 @@ jobs:
         tags: |
           type=raw,latest
           type=raw,release
+          type=semver,{{version}}
           type=sha
 
     - name: Build and push Docker images
