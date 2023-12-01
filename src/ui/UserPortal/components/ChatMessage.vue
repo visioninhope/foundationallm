@@ -38,6 +38,7 @@
 					<!-- Like -->
 					<span>
 						<Button
+							class="message__button"
 							:disabled="message.type === 'LoadingMessage'"
 							size="small"
 							text
@@ -50,6 +51,7 @@
 					<!-- Dislike -->
 					<span>
 						<Button
+							class="message__button"
 							:disabled="message.type === 'LoadingMessage'"
 							size="small"
 							text
@@ -63,6 +65,7 @@
 				<!-- View prompt -->
 				<span class="view-prompt">
 					<Button
+						class="message__button"
 						:disabled="message.type === 'LoadingMessage'"
 						size="small"
 						text
@@ -275,5 +278,15 @@ export default {
 .p-chip .p-chip-text {
 	line-height: 1.1;
 	font-size: 0.75rem;
+}
+
+@media only screen and (max-width: 545px) {
+	.message__button .p-button-label {
+		display: none;
+	}
+	.message__button .p-button-icon {
+		margin-right: 0px;
+
+	}
 }
 </style>

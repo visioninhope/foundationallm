@@ -99,6 +99,7 @@ export default {
 <style lang="scss" scoped>
 .chat-thread {
 	height: 100%;
+	max-width: 100%;
 	display: flex;
 	flex-direction: column;
 	position: relative;

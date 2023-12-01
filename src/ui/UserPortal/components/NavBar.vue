@@ -38,6 +38,7 @@
 				<template v-if="currentSession && allowAgentHint">
 					<Dropdown
 						v-model="agentSelection"
+						class="dropdown--agent"
 						:options="agents"
 						optionLabel="label"
 						placeholder="--Select--"
@@ -69,6 +70,7 @@ export default {
 			userName: '',
 			allowAgentHint: false,
 			agentSelection: null,
+			screenWidth: window.innerWidth,
 			agents: [],
 		};
 	},
@@ -168,6 +170,7 @@ export default {
 .navbar {
 	height: 70px;
 	width: 100%;
+	overflow: hidden;
 	display: flex;
 	flex-direction: row;
 	box-shadow: 0 5px 10px 0 rgba(27, 29, 33, 0.1);
@@ -242,6 +245,17 @@ export default {
 		img {
 			display: none;
 		}
+	}
+}
+</style>
+
+<style>
+@media only screen and (max-width: 545px) {
+	.dropdown--agent .p-dropdown-label {
+		display: none;
+	}
+	.dropdown--agent .p-dropdown-trigger {
+		height: 40px;
 	}
 }
 </style>

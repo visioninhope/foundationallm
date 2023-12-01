@@ -208,6 +208,7 @@ export default {
 <style lang="scss" scoped>
 .chat-sidebar {
 	width: 300px;
+	max-width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
