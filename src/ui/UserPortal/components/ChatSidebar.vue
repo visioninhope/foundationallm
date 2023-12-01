@@ -60,15 +60,18 @@
 		</div>
 
 		<div class="chat-sidebar__section-footer">
-            <Avatar icon="pi pi-user" class="avatar" size="large" @click="toggleAvatarOverlay" />
+            <Avatar icon="pi pi-user" class="avatar" size="large" />
             <span class="chat-sidebar__username">{{ accountName }}</span>
-            <OverlayPanel ref="avatar" class="avatar-overlay-panel">
-                <div class="overlay-panel__option" @click="signOut()">
-                    <i class="pi pi-sign-out sign-out-icon"></i>
-                    <span>Sign Out</span>
-                </div>
-            </OverlayPanel>
         </div>
+
+		<div class="chat-sidebar__section-footer">
+			<Button
+				class="sign-out-button"
+				icon="pi pi-sign-out"
+				label="Sign Out"
+				@click="signOut()"
+			/>
+		</div>
 
 		<!-- Rename session dialog -->
 		<Dialog
@@ -189,9 +192,6 @@ export default {
 			this.sessionToDelete = null;
 		},
 
-		toggleAvatarOverlay(event) {
-            this.$refs.avatar.toggle(event);
-        },
 
 		async signOut() {
             const msalInstance = await getMsalInstance();
@@ -332,7 +332,10 @@ export default {
 .avatar {
     margin-right: 12px;
     color: var(--primary-color);
-    cursor: pointer;
+}
+
+.sign-out-button {
+	flex: 1;
 }
 
 .p-overlaypanel-content {

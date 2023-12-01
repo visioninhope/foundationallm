@@ -9,7 +9,6 @@ import Tooltip from 'primevue/tooltip';
 import Divider from 'primevue/divider';
 import Dropdown from 'primevue/dropdown';
 import Avatar from 'primevue/avatar';
-import OverlayPanel from 'primevue/overlaypanel';
 import { defineNuxtPlugin } from '#app';
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -22,7 +21,6 @@ export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.component('Divider', Divider);
 	nuxtApp.vueApp.component('Dropdown', Dropdown);
 	nuxtApp.vueApp.component('Avatar', Avatar);
-    nuxtApp.vueApp.component('OverlayPanel', OverlayPanel);
 
 	nuxtApp.vueApp.use(ToastService);
 	nuxtApp.vueApp.directive('tooltip', Tooltip);

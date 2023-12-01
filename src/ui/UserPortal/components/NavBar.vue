@@ -94,7 +94,9 @@ export default {
 		this.allowAgentHint = this.appConfigStore.allowAgentHint.enabled;
 		this.logoText = this.appConfigStore.logoText;
 		this.logoURL = this.appConfigStore.logoUrl;
-		this.closeSidebar(this.appConfigStore.isKioskMode);
+		if (this.appConfigStore.isKioskMode) {
+			this.appStore.isSidebarClosed = true;
+		}
 
 		this.agents.push({ label: '--select--', value: null});
 		for (const agent of this.appConfigStore.agents) {

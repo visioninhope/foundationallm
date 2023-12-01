@@ -37,7 +37,6 @@ export default {
 @media only screen and (max-width: 950px) {
     .chat-sidebar {
         position: absolute;
-        z-index: 1;
 		top: 0px;
         box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.4)
     }
