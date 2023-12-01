@@ -70,7 +70,7 @@ jobs:
     - name: Log in to the Container registry
       uses: docker/login-action@v3
       with:
-        registry: ${{ github.events.inputs.registry }}
+        registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
