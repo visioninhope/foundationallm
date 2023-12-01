@@ -75,11 +75,11 @@
 
 		<!-- Rename session dialog -->
 		<Dialog
+			class="sidebar-dialog"
 			:visible="sessionToRename !== null"
 			modal
 			:header="`Rename Chat ${sessionToRename?.name}`"
 			:closable="false"
-			:style="{ width: '50vw' }"
 		>
 			<InputText
 				v-model="newSessionName"
@@ -95,11 +95,11 @@
 
 		<!-- Delete session dialog -->
 		<Dialog
+			class="sidebar-dialog"
 			:visible="sessionToDelete !== null"
 			modal
 			header="Delete a Chat"
 			:closable="false"
-			:style="{ width: '50vw' }"
 		>
 			<p>Do you want to delete the chat "{{ sessionToDelete.name }}" ?</p>
 			<template #footer>
@@ -216,7 +216,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	background-color: var(--primary-color);
-	z-index: 2;
+	z-index: 3;
 }
 
 .chat-sidebar__header {
@@ -365,18 +365,25 @@ export default {
 
 @media only screen and (max-width: 950px) {
 	.chat-sidebar__section-header--mobile {
-	height: 70px;
-	padding: 12px 24px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	img {
-		max-height: 100%;
-		width: auto;
-		max-width: 148px;
-		margin-right: 12px;
+		height: 70px;
+		padding: 12px 24px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		img {
+			max-height: 100%;
+			width: auto;
+			max-width: 148px;
+			margin-right: 12px;
+		}
 	}
 }
-}
+</style>
 
+<style lang="scss">
+@media only screen and (max-width: 950px) {
+	.sidebar-dialog {
+		width: 95vw;
+	}
+}
 </style>

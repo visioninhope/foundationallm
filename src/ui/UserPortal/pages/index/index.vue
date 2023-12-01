@@ -3,6 +3,7 @@
 		<NavBar />
 		<div class="chat-content">
 			<ChatSidebar v-show="!appStore.isSidebarClosed" class="chat-sidebar" />
+			<div class="sidebar-blur" v-show="!appStore.isSidebarClosed" @click="appStore.toggleSidebar"></div>
 			<ChatThread />
 		</div>
 	</div>
@@ -32,6 +33,18 @@ export default {
 	flex-direction: row;
 	height: calc(100% - 70px);
 	background-color: var(--primary-bg);
+}
+
+@media only screen and (max-width: 620px) {
+	.sidebar-blur {
+		position:absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+		top: 0px;
+		left: 0px;
+		backdrop-filter: blur(3px);
+	}
 }
 
 @media only screen and (max-width: 950px) {

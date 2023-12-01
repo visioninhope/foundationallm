@@ -76,11 +76,11 @@
 
 					<!-- Prompt dialog -->
 					<Dialog
+						class="prompt-dialog"
 						:visible="viewPrompt"
 						modal
 						header="Completion Prompt"
 						:closable="false"
-						:style="{ width: '50vw' }"
 					>
 						<p class="prompt-text">{{ prompt.prompt }}</p>
 						<template #footer>
@@ -296,6 +296,16 @@ export default {
 .p-chip .p-chip-text {
 	line-height: 1.1;
 	font-size: 0.75rem;
+}
+.prompt-dialog {
+	width: 50vw;
+}
+
+@media only screen and (max-width: 950px) {
+	.prompt-dialog {
+		width: 90vw;
+	}
+	
 }
 
 @media only screen and (max-width: 545px) {
