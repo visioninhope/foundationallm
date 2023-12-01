@@ -36,10 +36,10 @@ class ResolveTests:
         response = client.post("/resolve", headers={ "X-API-KEY": "invalid" })
         assert response.status_code == 401
         
-    def test_x_agent_hint_should_return_desired_agent(self, client, headers):
-        headers["X-AGENT-HINT"] = "weather"
+    def test_x_agent_hint_should_return_desired_global_agent(self, client, headers):
+        headers["X-AGENT-HINT"] = '{ "name": "solliance","private": false }'
         response = client.post("/resolve", headers=headers, json={"user_prompt": "Tell me about FoundationaLLM?"})                
-        assert response.json()["agent"]["name"] == "weather"
+        assert response.json()["agent"]["name"] == "solliance"
         
     def test_if_x_agent_hint_does_not_exist_should_return_default_agent(self, client, headers):
         headers["X-AGENT-HINT"] = "invalid"
