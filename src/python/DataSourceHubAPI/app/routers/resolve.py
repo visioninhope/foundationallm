@@ -1,10 +1,8 @@
 """
-The API endpoint for returning the appropriate data source for the specified user prompt.
-"""
-"""
 The API endpoint for returning the requested data source metadata.
 """
 import logging
+from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Header
 from foundationallm.config import Context
 from foundationallm.models import AgentHint

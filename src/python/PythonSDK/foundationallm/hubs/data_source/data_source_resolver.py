@@ -17,5 +17,8 @@ class DataSourceResolver(Resolver):
                 path_prefix = f"user-profiles/{user_upn}/"
                 # override the container prefix for private agent lookup
                 self.repository.container_prefix = path_prefix
-        return DataSourceHubResponse(data_sources=
+        response = DataSourceHubResponse(data_sources=
                                      self.repository.get_metadata_values(request.data_sources))
+        # reset any container prefix override
+        self.repository.container_prefix = None
+        return response
