@@ -6,11 +6,6 @@ on:
       registry:
         type: string
         default: ghcr.io
-      docker_username:
-        type: string
-        default: ${{ github.actor }}
-      docker_password:
-        type: string
       image:
         type: string
         required: true
@@ -76,15 +71,15 @@ jobs:
       uses: docker/login-action@v3
       with:
         registry: ${{ github.events.inputs.registry }}
-        username: ${{ github.events.inputs.docker_username }}
-        password: ${{ github.events.inputs.docker_password }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@v5
       with:
         images: |
-          ${{ env.REGISTRY }}/${{ github.repository }}/${{ github.events.inputs.image }}
+          ${{ github.events.inputs.registry }}/${{ github.repository }}/${{ github.events.inputs.image }}
         tags: |
           type=raw,latest
           type=raw,release

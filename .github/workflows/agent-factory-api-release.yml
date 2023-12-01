@@ -11,5 +11,3 @@ jobs:
       image: agent-factory-api
       context: ./src
       dockerfile: ./src/dotnet/AgentFactoryAPI/Dockerfile
-      docker_username: ${{ github.actor }}
-      docker_password: ${{ secrets.GITHUB_TOKEN }}
