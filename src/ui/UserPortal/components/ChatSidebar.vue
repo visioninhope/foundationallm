@@ -144,6 +144,9 @@ export default {
 	},
 
 	async created() {
+		if (window.screen.width < 950) {
+			this.appStore.isSidebarClosed = true;
+		}
 		this.logoURL = this.appConfigStore.logoUrl;
 		if (process.client) {
 			await this.appStore.init(this.$nuxt._route.query.chat);
@@ -213,6 +216,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	background-color: var(--primary-color);
+	z-index: 2;
 }
 
 .chat-sidebar__header {

@@ -70,7 +70,6 @@ export default {
 			userName: '',
 			allowAgentHint: false,
 			agentSelection: null,
-			screenWidth: window.innerWidth,
 			agents: [],
 		};
 	},
