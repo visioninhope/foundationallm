@@ -1,3 +1,6 @@
+"""
+The AgentRepository is responsible for retrieving agent metadata
+"""
 from typing import List
 from foundationallm.hubs import Repository
 from foundationallm.hubs.agent import AgentMetadata, AgentHubStorageManager

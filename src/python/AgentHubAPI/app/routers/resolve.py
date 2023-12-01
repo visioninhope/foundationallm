@@ -38,13 +38,9 @@ async def resolve(request: AgentHubRequest, x_user_identity: Optional[str] = Hea
     """
     try:
         context = Context(user_identity=x_user_identity)
-        if x_agent_hint is not None and len(x_agent_hint.strip()) > 0:            
-            try:
-                agent_hint = AgentHint.model_validate_json(x_agent_hint)
-                return AgentHub().resolve(request=request, user_context=context, hint=agent_hint)
-            except ValueError:
-                # ignore invalid json/agent hint and use default agent
-                pass
+        if x_agent_hint is not None and len(x_agent_hint.strip()) > 0:
+            agent_hint = AgentHint.model_validate_json(x_agent_hint)
+            return AgentHub().resolve(request=request, user_context=context, hint=agent_hint)
         return AgentHub().resolve(request=request, user_context=context)
     except Exception as e:
         handle_exception(e)

@@ -42,7 +42,7 @@ class ResolveTests:
         assert response.json()["agent"]["name"] == "solliance"
         
     def test_if_x_agent_hint_does_not_exist_should_return_default_agent(self, client, headers):
-        headers["X-AGENT-HINT"] = "invalid"
+        headers["X-AGENT-HINT"] = '{ "name": "invalid","private": false }'
         response = client.post("/resolve", headers=headers, json={"user_prompt": "Tell me about FoundationaLLM?"})                
         assert response.json()["agent"]["name"] == "default"
     

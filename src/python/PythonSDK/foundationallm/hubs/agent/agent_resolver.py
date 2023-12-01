@@ -1,3 +1,6 @@
+"""
+The AgentResolver class is responsible for resolving a request to a metadata value.
+"""
 from foundationallm.config import Context
 from foundationallm.hubs import Resolver
 from foundationallm.hubs.agent import AgentHubRequest, AgentHubResponse
