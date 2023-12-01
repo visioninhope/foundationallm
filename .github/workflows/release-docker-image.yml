@@ -79,7 +79,7 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: |
-          ${{ github.events.inputs.registry }}/${{ github.repository }}/${{ github.events.inputs.image }}
+          ghcr.io/${{ github.repository }}/${{ inputs.image }}
         tags: |
           type=raw,latest
           type=raw,release
@@ -88,8 +88,8 @@ jobs:
     - name: Build and push Docker images
       uses: docker/build-push-action@v5
       with:
-        context: ${{ github.events.inputs.context }}
-        file: ${{ github.events.inputs.dockerfile }}
+        context: ${{ inputs.context }}
+        file: ${{ inputs.dockerfile }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
