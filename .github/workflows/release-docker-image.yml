@@ -83,10 +83,10 @@ jobs:
         tags: |
           type=raw,latest
           type=raw,release
-          type=pep440,{{version}}
-          type=pep440,{{major}}.{{minor}}
-          type=pep440,{{major}}
-          type=sha
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{major}}
+          type=sha,format=long
 
     - name: Build and push Docker images
       uses: docker/build-push-action@v5
