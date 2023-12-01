@@ -14,8 +14,8 @@ def agent_repository(test_config):
     return AgentRepository(config=test_config)
 
 @pytest.fixture
-def agent_resolver(agent_repository):
-    return AgentResolver(repository=agent_repository)
+def agent_resolver(test_config, agent_repository):
+    return AgentResolver(repository=agent_repository, config=test_config)
     
 class AgentResolverTests:
     """
