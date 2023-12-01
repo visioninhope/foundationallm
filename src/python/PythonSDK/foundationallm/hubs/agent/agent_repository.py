@@ -14,7 +14,7 @@ class AgentRepository(Repository):
 
         Args:
         pattern (str): The Agent name to return, if None or empty, return all Agents.
-        """        
+        """
         mgr = AgentHubStorageManager(config=self.config)
         if pattern is None:
             pattern = ""
@@ -22,7 +22,7 @@ class AgentRepository(Repository):
         return [AgentMetadata.model_validate_json(
             mgr.read_file_content(agent_file)) for agent_file in agent_files]
 
-    def get_metadata_by_name(self, name: str) -> AgentMetadata:        
+    def get_metadata_by_name(self, name: str) -> AgentMetadata:
         mgr = AgentHubStorageManager(prefix=self.container_prefix, config=self.config)
         agent_file = name + ".json"
         agent = None

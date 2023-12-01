@@ -17,7 +17,7 @@ class AgentResolver(Resolver):
     def resolve(self, request:AgentHubRequest,
                 user_context:Context=None, hint:AgentHint=None) -> AgentHubResponse:
         hint_feature_flag_enabled = self.config.get_feature_flag("FoundationaLLM-AllowAgentHint")
-        agent_metadata = None        
+        agent_metadata = None
         if hint_feature_flag_enabled and hint is not None:
             path_prefix = None
             if hint.private:
@@ -25,10 +25,10 @@ class AgentResolver(Resolver):
                 user_upn = user_context.user_identity.upn.replace("@", "_")
                 path_prefix = f"user-profiles/{user_upn}/"
                 # override the container prefix for private agent lookup
-                self.repository.container_prefix = path_prefix            
+                self.repository.container_prefix = path_prefix
             agent_metadata = self.repository.get_metadata_by_name(name=hint.name)
             # Reset the container prefix for global agent (if necessary)
-            self.repository.container_prefix = None            
-        if agent_metadata is None:            
+            self.repository.container_prefix = None
+        if agent_metadata is None:
             agent_metadata = self.repository.get_metadata_by_name("default")
         return AgentHubResponse(agent=agent_metadata)

@@ -1,3 +1,6 @@
+"""
+Storage manager for the AgentHub.
+"""
 from typing import List
 from foundationallm.config import Configuration
 from foundationallm.storage import BlobStorageManager

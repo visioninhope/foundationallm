@@ -1,3 +1,6 @@
+"""
+Repository base class for the hubs to fetch metadata values.
+"""
 from abc import ABC, abstractmethod
 from typing import List
 from foundationallm.config import Configuration
@@ -10,7 +13,7 @@ class Repository(ABC):
         self.config = config
         self._prefix = container_prefix
 
-    @property    
+    @property
     def container_prefix(self):
         """
         The container_prefix allows for the override of the container path
@@ -18,12 +21,12 @@ class Repository(ABC):
         """
         return self._prefix
 
-    @container_prefix.setter    
+    @container_prefix.setter
     def container_prefix(self, value:str):
         """
         Setter for the container_prefix property
         """
-        self._prefix = value  
+        self._prefix = value
 
     @abstractmethod
     def get_metadata_values(self, pattern=None) -> List[Metadata]:
