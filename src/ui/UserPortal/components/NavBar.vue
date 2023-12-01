@@ -55,7 +55,7 @@ import { mapStores } from 'pinia';
 import type { Session } from '@/js/types';
 import { useAppConfigStore } from '@/stores/appConfigStore';
 import { useAppStore } from '@/stores/appStore';
-import { getMsalInstance, getLoginRequest } from '@/js/auth';
+import { useAuthStore } from '@/stores/authStore';
 
 export default {
 	name: 'NavBar',
@@ -65,9 +65,6 @@ export default {
 			logoText: '',
 			logoURL: '',
 			isSidebarClosed: true,
-			signedIn: false,
-			accountName: '',
-			userName: '',
 			allowAgentHint: false,
 			agentSelection: null,
 			agents: [],
@@ -77,6 +74,7 @@ export default {
 	computed: {
 		...mapStores(useAppConfigStore),
 		...mapStores(useAppStore),
+		...mapStores(useAuthStore),
 
 		currentSession() {
 			return this.appStore.currentSession;
@@ -102,16 +100,6 @@ export default {
 		for (const agent of this.appConfigStore.agents) {
 			this.agents.push({ label: agent, value: agent });
 		}
-
-		if (process.client) {
-			const msalInstance = await getMsalInstance();
-			const accounts = await msalInstance.getAllAccounts();
-			if (accounts.length > 0) {
-				this.signedIn = true;
-				this.accountName = accounts[0].name;
-				this.userName = accounts[0].username;
-			}
-		}
 	},
 
 	methods: {
@@ -136,32 +124,8 @@ export default {
 			});
 		},
 
-		async signIn() {
-			const loginRequest = await getLoginRequest();
-			const msalInstance = await getMsalInstance();
-			const response = await msalInstance.loginPopup(loginRequest);
-			if (response.account) {
-				this.signedIn = true;
-				this.accountName = response.account.name;
-				this.userName = response.account.username;
-			}
-		},
-
-		async signOut() {
-			const msalInstance = await getMsalInstance();
-			const accountFilter = {
-				username: this.userName,
-			};
-			const logoutRequest = {
-				account: msalInstance.getAccount(accountFilter),
-			};
-
-			await msalInstance.logoutRedirect(logoutRequest);
-			this.signedIn = false;
-			this.accountName = '';
-			this.userName = '';
-			this.$router.push({ path: '/login' });
-			// await msalInstance.logout();
+		async handleLogout() {
+			await this.authStore.logout();
 		},
 	},
 };

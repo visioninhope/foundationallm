@@ -7,8 +7,8 @@
   - [.NET projects](#net-projects)
     - [Core API](#core-api)
       - [Core API app settings](#core-api-app-settings)
-    - [CoreWorker](#CoreWorker)
-      - [CoreWorker app settings](#CoreWorker-app-settings)
+    - [CoreWorker](#coreworker)
+      - [CoreWorker app settings](#coreworker-app-settings)
     - [Gatekeeper API](#gatekeeper-api)
       - [Gatekeeper API app settings](#gatekeeper-api-app-settings)
     - [Agent Factory API](#agent-factory-api)
@@ -21,6 +21,8 @@
       - [Agent Hub API Environment Variables](#agent-hub-api-environment-variables)
     - [Data Source Hub API](#data-source-hub-api)
       - [Data Source Hub API Environment Variables](#data-source-hub-api-environment-variables)
+    - [Gatekeeper Integration API](#gatekeeper-integration-api)
+      - [Gatekeeper Integration API Environment Variables](#gatekeeper-integration-api-environment-variables)
     - [Prompt Hub API](#prompt-hub-api)
       - [Prompt Hub API Environment Variables](#prompt-hub-api-environment-variables)
     - [LangChain API](#langchain-api)
@@ -177,6 +179,9 @@ The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB cha
     "APIs": {
       "AgentFactoryAPI": {
         "APIUrl": "<...>"  // Default local value: https://localhost:7324/
+      },
+      "GatekeeperIntegrationAPI": {
+        "APIUrl": "<...>"  // Default local value: http://localhost:8042/
       }
     }
   }
@@ -354,6 +359,13 @@ Create a local environment variable named `foundationallm-app-configuration-uri`
 | Name | Value | Description |
 | ---- | ----- | ----------- |
 
+### Gatekeeper Integration API
+
+#### Gatekeeper Integration API Environment Variables
+
+| Name | Value | Description |
+| ---- | ----- | ----------- |
+
 ### Prompt Hub API
 
 #### Prompt Hub API Environment Variables
@@ -416,6 +428,7 @@ The backend components consist of the .NET projects and the Python projects. The
       - CoreWorker
       - DataSourceHubAPI
       - GatekeeperAPI
+      - GatekeeperIntegrationAPI
       - LangChainAPI
       - PromptHubAPI
       - SemanticKernelAPI

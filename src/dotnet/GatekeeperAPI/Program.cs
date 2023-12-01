@@ -42,6 +42,9 @@ namespace FoundationaLLM.Gatekeeper.API
                 {
                     options.SetCredential(new DefaultAzureCredential());
                 });
+                options.Select("FoundationaLLM:APIs:*");
+                options.Select("FoundationaLLM:Refinement:*");
+                options.Select("FoundationaLLM:AzureContentSafety:*");
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -52,7 +55,7 @@ namespace FoundationaLLM.Gatekeeper.API
                 ConnectionString = builder.Configuration["FoundationaLLM:APIs:GatekeeperAPI:AppInsightsConnectionString"],
                 DeveloperMode = builder.Environment.IsDevelopment()
             });
-            builder.Services.AddServiceProfiler();
+            //builder.Services.AddServiceProfiler();
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ContractResolver = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings().ContractResolver;
@@ -176,8 +179,8 @@ namespace FoundationaLLM.Gatekeeper.API
 
             var agentFactoryAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentFactoryAPI}:APIUrl"] ?? "",
-                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentFactoryAPI}:APIKey"] ?? ""
+                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentFactoryAPI}:APIUrl"]!,
+                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.AgentFactoryAPI}:APIKey"]!
             };
 
             downstreamAPISettings.DownstreamAPIs[HttpClients.AgentFactoryAPI] = agentFactoryAPISettings;
@@ -185,6 +188,30 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services
                     .AddHttpClient(HttpClients.AgentFactoryAPI,
                         client => { client.BaseAddress = new Uri(agentFactoryAPISettings.APIUrl); })
+                    .AddResilienceHandler(
+                        "DownstreamPipeline",
+                        static strategyBuilder =>
+                        {
+                            // See: https://www.pollydocs.org/strategies/retry.html
+                            strategyBuilder.AddRetry(new HttpRetryStrategyOptions
+                            {
+                                BackoffType = DelayBackoffType.Exponential,
+                                MaxRetryAttempts = 5,
+                                UseJitter = true
+                            });
+                        });
+
+            var gatekeeperIntegrationAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.GatekeeperIntegrationAPI}:APIUrl"]!,
+                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.GatekeeperIntegrationAPI}:APIKey"]!
+            };
+
+            downstreamAPISettings.DownstreamAPIs[HttpClients.GatekeeperIntegrationAPI] = gatekeeperIntegrationAPISettings;
+
+            builder.Services
+                    .AddHttpClient(HttpClients.GatekeeperIntegrationAPI,
+                        client => { client.BaseAddress = new Uri(gatekeeperIntegrationAPISettings.APIUrl); })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>
