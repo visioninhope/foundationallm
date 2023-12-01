@@ -4,7 +4,6 @@ for all hub metadata resolvers: Agent, Data Source,and Prompt.
 """
 from abc import ABC, abstractmethod
 from typing import List
-from typing import Union
 from foundationallm.config import Configuration, Context
 from foundationallm.models import AgentHint
 from .metadata import Metadata
@@ -29,8 +28,9 @@ class Resolver(ABC):
 
     @abstractmethod
     def resolve(self, request, user_context:Context=None,
-                hint:Union[AgentHint, str]=None) -> List[Metadata]:
+                hint:AgentHint=None) -> List[Metadata]:
         """
         Resolves a list of metadata items based on the incoming request
         and the optional hint.
         """
+        raise NotImplementedError
