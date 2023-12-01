@@ -83,7 +83,9 @@ jobs:
         tags: |
           type=raw,latest
           type=raw,release
-          type=semver,{{version}}
+          type=pep440,{{version}}
+          type=pep440,{{major}}.{{minor}}
+          type=pep440,{{major}}
           type=sha
 
     - name: Build and push Docker images
