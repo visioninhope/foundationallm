@@ -117,7 +117,7 @@ namespace FoundationaLLM.Core.Services
 
         private async Task<Container> InitializeUserProfilesContainer() =>
             await _resiliencePipeline.ExecuteAsync<Container>(async token => await _database?.CreateContainerIfNotExistsAsync(new ContainerProperties(CosmosDbContainers.UserProfiles,
-                "/upn"), ThroughputProperties.CreateAutoscaleThroughput(4000), cancellationToken: token)!);
+                "/upn"), ThroughputProperties.CreateAutoscaleThroughput(1000), cancellationToken: token)!);
 
         /// <inheritdoc/>
         public async Task<List<Session>> GetSessionsAsync(string type, string upn, CancellationToken cancellationToken = default)
