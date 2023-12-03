@@ -1,6 +1,11 @@
 <template>
 	<div class="chat-sidebar">
 		<!-- Sidebar section header -->
+		<div class="chat-sidebar__section-header--mobile ">
+			<img v-if="logoURL !== ''" :src="logoURL" />
+			<span v-else>{{ logoText }}</span>
+			<Button :icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'" size="small" severity="secondary" @click="appStore.toggleSidebar" />
+		</div>
 		<div class="chat-sidebar__section-header">
 			<span>Chats</span>
 			<!-- <button @click="handleAddSession">
@@ -54,13 +59,27 @@
 			</div>
 		</div>
 
+		<div class="chat-sidebar__section-footer">
+            <Avatar icon="pi pi-user" class="avatar" size="large" />
+            <span class="chat-sidebar__username">{{ accountName }}</span>
+        </div>
+
+		<div class="chat-sidebar__section-footer">
+			<Button
+				class="sign-out-button"
+				icon="pi pi-sign-out"
+				label="Sign Out"
+				@click="signOut()"
+			/>
+		</div>
+
 		<!-- Rename session dialog -->
 		<Dialog
+			class="sidebar-dialog"
 			:visible="sessionToRename !== null"
 			modal
 			:header="`Rename Chat ${sessionToRename?.name}`"
 			:closable="false"
-			:style="{ width: '50vw' }"
 		>
 			<InputText
 				v-model="newSessionName"
@@ -76,11 +95,11 @@
 
 		<!-- Delete session dialog -->
 		<Dialog
+			class="sidebar-dialog"
 			:visible="sessionToDelete !== null"
 			modal
 			header="Delete a Chat"
 			:closable="false"
-			:style="{ width: '50vw' }"
 		>
 			<p>Do you want to delete the chat "{{ sessionToDelete.name }}" ?</p>
 			<template #footer>
@@ -96,6 +115,7 @@ import { mapStores } from 'pinia';
 import type { Session } from '@/js/types';
 import { useAppConfigStore } from '@/stores/appConfigStore';
 import { useAppStore } from '@/stores/appStore';
+import { getMsalInstance } from '@/js/auth';
 declare const process: any;
 
 export default {
@@ -106,6 +126,10 @@ export default {
 			sessionToRename: null as Session | null,
 			newSessionName: '' as string,
 			sessionToDelete: null as Session | null,
+			accountName: '' as string,
+            userName: '' as string,
+			logoURL: '' as string,
+			logoText: '' as string,
 		};
 	},
 
@@ -123,8 +147,18 @@ export default {
 	},
 
 	async created() {
+		if (window.screen.width < 950) {
+			this.appStore.isSidebarClosed = true;
+		}
+		this.logoURL = this.appConfigStore.logoUrl;
 		if (process.client) {
 			await this.appStore.init(this.$nuxt._route.query.chat);
+			const msalInstance = await getMsalInstance();
+			const accounts = await msalInstance.getAllAccounts();
+			if (accounts.length > 0) {
+				this.accountName = accounts[0].name;
+				this.userName = accounts[0].username;
+			}
 		}
 	},
 
@@ -157,6 +191,19 @@ export default {
 			await this.appStore.deleteSession(this.sessionToDelete!);
 			this.sessionToDelete = null;
 		},
+
+
+		async signOut() {
+            const msalInstance = await getMsalInstance();
+            const accountFilter = {
+                username: this.userName,
+            };
+            const logoutRequest = {
+                account: msalInstance.getAccount(accountFilter),
+            };
+            await msalInstance.logoutRedirect(logoutRequest);
+            this.$router.push({ path: '/login' });
+        }
 	},
 };
 </script>
@@ -164,10 +211,12 @@ export default {
 <style lang="scss" scoped>
 .chat-sidebar {
 	width: 300px;
+	max-width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	background-color: var(--primary-color);
+	z-index: 3;
 }
 
 .chat-sidebar__header {
@@ -200,6 +249,10 @@ export default {
 	// font-size: 14px;
 	font-size: 0.875rem;
 	font-weight: 600;
+}
+
+.chat-sidebar__section-header--mobile {
+	display: none;
 }
 
 .chat-sidebar__chats {
@@ -265,5 +318,72 @@ export default {
 .chat__icons {
 	flex-shrink: 0;
 	margin-left: 12px;
+}
+
+.chat-sidebar__section-footer {
+	display: flex;
+    align-items: center;
+    height: auto;
+    padding: 12px 24px;
+    justify-content: flex-start;
+    text-transform: inherit;
+}
+
+.avatar {
+    margin-right: 12px;
+    color: var(--primary-color);
+}
+
+.sign-out-button {
+	flex: 1;
+}
+
+.p-overlaypanel-content {
+    background-color: var(--primary-color);
+}
+
+.overlay-panel__option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.overlay-panel__option:hover {
+    color: var(--primary-color);
+}
+
+.sign-out-icon {
+    margin-right: 8px;
+}
+
+.chat-sidebar__username {
+	color: var(--primary-text);
+	font-weight: 600;
+	font-size: 0.875rem;
+	text-transform: capitalize;
+}
+
+@media only screen and (max-width: 950px) {
+	.chat-sidebar__section-header--mobile {
+		height: 70px;
+		padding: 12px 24px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		img {
+			max-height: 100%;
+			width: auto;
+			max-width: 148px;
+			margin-right: 12px;
+		}
+	}
+}
+</style>
+
+<style lang="scss">
+@media only screen and (max-width: 950px) {
+	.sidebar-dialog {
+		width: 95vw;
+	}
 }
 </style>
