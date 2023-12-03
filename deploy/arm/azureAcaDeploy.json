@@ -492,7 +492,7 @@
         },
         {
           "key": "FoundationaLLM:CosmosDB:Containers",
-          "value": "Sessions, UserSessions",
+          "value": "Sessions, UserSessions, UserProfiles",
           "contentType": null
         },
         {
@@ -696,6 +696,11 @@
     "cosmosContainers": {
       "userSessionsContainer": {
         "name": "UserSessions",
+        "partitionKeyPath": "/upn",
+        "maxThroughput": 1000
+      },
+      "userProfilesContainer": {
+        "name": "UserProfiles",
         "partitionKeyPath": "/upn",
         "maxThroughput": 1000
       },

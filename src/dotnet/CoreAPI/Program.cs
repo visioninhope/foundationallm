@@ -73,6 +73,7 @@ namespace FoundationaLLM.Core.API
 
             builder.Services.AddScoped<ICosmosDbService, CosmosDbService>();
             builder.Services.AddScoped<ICoreService, CoreService>();
+            builder.Services.AddScoped<IUserProfileService, UserProfileService>();
             builder.Services.AddScoped<IGatekeeperAPIService, GatekeeperAPIService>();
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
