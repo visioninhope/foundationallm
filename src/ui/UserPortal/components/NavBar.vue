@@ -1,25 +1,12 @@
 <template>
-	<div class="navbar" :class="{ 'navbar-collapsed': closeSidebar }">
+	<div class="navbar">
 		<!-- Sidebar header -->
 		<div class="navbar__header">
 			<img v-if="logoURL !== ''" :src="logoURL" />
 			<span v-else>{{ logoText }}</span>
 
 			<template v-if="!appConfigStore.isKioskMode">
-				<Button
-					v-if="isSidebarClosed"
-					icon="pi pi-arrow-right"
-					size="small"
-					severity="secondary"
-					@click="closeSidebar(false)"
-				/>
-				<Button
-					v-else
-					icon="pi pi-arrow-left"
-					size="small"
-					severity="secondary"
-					@click="closeSidebar(true)"
-				/>
+				<Button :icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'" size="small" severity="secondary" @click="appStore.toggleSidebar" />
 			</template>
 		</div>
 
@@ -44,32 +31,20 @@
 						<span>Please select a session</span>
 					</template>
 				</div>
-
-				<div class="navbar__content__left__item">
-					<template v-if="currentSession && allowAgentHint">
-						<Dropdown
-							v-model="agentSelection"
-							:options="agents"
-							optionLabel="label"
-							placeholder="--Select--"
-							@change="handleAgentChange"
-						/>
-					</template>
-				</div>
 			</div>
 
 			<!-- Right side content -->
 			<div class="navbar__content__right">
-				<!-- Logged in user name and sign out -->
-				<div v-if="authStore.isAuthed" class="navbar__content__right__item">
-					<span>Welcome, {{ authStore.currentAccount?.name }}</span>
-					<Button
-						class="button--auth"
-						icon="pi pi-sign-out"
-						label="Sign Out"
-						@click="handleLogout()"
-					></Button>
-				</div>
+				<template v-if="currentSession && allowAgentHint">
+					<Dropdown
+						v-model="agentSelection"
+						class="dropdown--agent"
+						:options="agents"
+						optionLabel="label"
+						placeholder="--Select--"
+						@change="handleAgentChange"
+					/>
+				</template>
 			</div>
 		</div>
 	</div>
@@ -84,8 +59,6 @@ import { useAuthStore } from '@/stores/authStore';
 
 export default {
 	name: 'NavBar',
-
-	emits: ['close-sidebar'],
 
 	data() {
 		return {
@@ -119,7 +92,9 @@ export default {
 		this.allowAgentHint = this.appConfigStore.allowAgentHint.enabled;
 		this.logoText = this.appConfigStore.logoText;
 		this.logoURL = this.appConfigStore.logoUrl;
-		this.closeSidebar(this.appConfigStore.isKioskMode);
+		if (this.appConfigStore.isKioskMode) {
+			this.appStore.isSidebarClosed = true;
+		}
 
 		this.agents.push({ label: '--select--', value: null});
 		for (const agent of this.appConfigStore.agents) {
@@ -128,11 +103,6 @@ export default {
 	},
 
 	methods: {
-		closeSidebar(closed: boolean) {
-			this.isSidebarClosed = closed;
-			this.$emit('close-sidebar', closed);
-		},
-
 		handleCopySession() {
 			const chatLink = `${window.location.origin}?chat=${this.currentSession!.id}`;
 			navigator.clipboard.writeText(chatLink);
@@ -165,6 +135,7 @@ export default {
 .navbar {
 	height: 70px;
 	width: 100%;
+	overflow: hidden;
 	display: flex;
 	flex-direction: row;
 	box-shadow: 0 5px 10px 0 rgba(27, 29, 33, 0.1);
@@ -229,5 +200,27 @@ export default {
 
 .button--auth {
 	margin-left: 24px;
+}
+
+@media only screen and (max-width: 620px) {
+	.navbar__header {
+		width: 95px;
+		justify-content: center;
+
+		img {
+			display: none;
+		}
+	}
+}
+</style>
+
+<style>
+@media only screen and (max-width: 545px) {
+	.dropdown--agent .p-dropdown-label {
+		display: none;
+	}
+	.dropdown--agent .p-dropdown-trigger {
+		height: 40px;
+	}
 }
 </style>

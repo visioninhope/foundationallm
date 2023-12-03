@@ -49,14 +49,6 @@ import { useAppStore } from '@/stores/appStore';
 export default {
 	name: 'ChatThread',
 
-	props: {
-		sidebarClosed: {
-			type: Boolean,
-			required: false,
-			default: false,
-		},
-	},
-
 	emits: ['session-updated'],
 
 	data() {
@@ -107,6 +99,7 @@ export default {
 <style lang="scss" scoped>
 .chat-thread {
 	height: 100%;
+	max-width: 100%;
 	display: flex;
 	flex-direction: column;
 	position: relative;
