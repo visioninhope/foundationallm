@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import type { Message, Session, CompletionPrompt } from '@/js/types';
+import type { Message, Session, CompletionPrompt, Agent } from '@/js/types';
 import { getMsalInstance } from '@/js/auth';
 
 export default {
@@ -18,7 +18,7 @@ export default {
 		const accounts = msalInstance.getAllAccounts();
 		const account = accounts[0];
 		const bearerToken = await msalInstance.acquireTokenSilent({ account });
-		
+
 		this.bearerToken = bearerToken.accessToken;
 		return this.bearerToken;
 	},
@@ -105,6 +105,16 @@ export default {
 	},
 
 	async getAllowedAgents() {
-        return await this.fetch('/UserProfiles/agents') as Array<string>;
-    },
+		// return await this.fetch('/UserProfiles/agents') as Array<string>;
+		return [
+			{
+				"name": "Default",
+				"private": false
+			},
+			{
+				"name": "Anomaly_001",
+				"private": true
+			}
+		] as Agent[];
+	},
 };
