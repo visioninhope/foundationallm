@@ -10,6 +10,7 @@ export const useAppStore = defineStore('app', {
 		currentSession: null as Session | null,
 		currentMessages: [] as Message[],
 		isSidebarClosed: false as boolean,
+		agents: [] as string[],
 	}),
 
 	getters: {},
@@ -196,5 +197,10 @@ export const useAppStore = defineStore('app', {
 		toggleSidebar() {
 			this.isSidebarClosed = !this.isSidebarClosed;
 		},
+
+		async getAgents() {
+			this.agents = await api.getAllowedAgents();
+			return this.agents;
+		}
 	},
 });

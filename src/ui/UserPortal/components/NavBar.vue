@@ -40,6 +40,8 @@
 						v-model="agentSelection"
 						class="dropdown--agent"
 						:options="agents"
+						option-group-label="label"
+						option-group-children="items"
 						optionLabel="label"
 						placeholder="--Select--"
 						@change="handleAgentChange"
@@ -67,7 +69,7 @@ export default {
 			isSidebarClosed: true,
 			allowAgentHint: false,
 			agentSelection: null,
-			agents: [],
+			agents: [] as any[],
 		};
 	},
 
@@ -96,10 +98,26 @@ export default {
 			this.appStore.isSidebarClosed = true;
 		}
 
-		this.agents.push({ label: '--select--', value: null});
-		for (const agent of this.appConfigStore.agents) {
-			this.agents.push({ label: agent, value: agent });
-		}
+		const agents = await this.appStore.getAgents();
+
+		this.agents = [
+			{
+				label: 'Public',
+				items: [
+					{
+						label: '--select--',
+						value: null,
+					},
+					...agents.filter(agent => !agent.private).map(agent => ({ label: agent.name, value: agent })),
+				]
+			},
+			{
+				label: 'Private',
+				items: [
+					...agents.filter(agent => agent.private).map(agent => ({ label: agent.name, value: agent })),
+				]
+			},
+		];
 	},
 
 	methods: {
