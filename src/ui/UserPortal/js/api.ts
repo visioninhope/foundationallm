@@ -87,21 +87,20 @@ export default {
 		} = {};
 		if (rating !== null) params.rating = rating;
 
-		return await this.fetch(
-			`/sessions/${message.sessionId}/message/${message.id}/rate`, {
+		return await this.fetch(`/sessions/${message.sessionId}/message/${message.id}/rate`, {
 				method: 'POST',
 				params
 			},
 		) as Message;
 	},
 
-	async sendMessage(sessionId: string, text: string, agent: object) {
+	async sendMessage(sessionId: string, text: string, agent: Agent) {
 		const headers = agent ? { 'X-AGENT-HINT': JSON.stringify(agent) } : {};
-		return (await this.fetch(`/sessions/${sessionId}/completion`, {
+		return await this.fetch(`/sessions/${sessionId}/completion`, {
 			method: 'POST',
 			body: JSON.stringify(text),
 			headers,
-		})) as string;
+		}) as string;
 	},
 
 	async getAllowedAgents() {
