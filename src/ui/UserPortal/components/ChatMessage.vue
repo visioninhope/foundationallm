@@ -1,8 +1,5 @@
 <template>
-	<div
-		class="message-row"
-		:class="message.sender === 'User' ? 'message--out' : 'message--in'"
-	>
+	<div class="message-row" :class="message.sender === 'User' ? 'message--out' : 'message--in'">
 		<div class="message">
 			<div class="message__header">
 				<!-- Sender -->
@@ -13,12 +10,16 @@
 
 				<!-- Tokens & Timestamp -->
 				<span class="message__header--right">
-					<Chip 
-						:label="`Tokens: ${message.tokens}`" 
+					<Chip
+						:label="`Tokens: ${message.tokens}`"
 						class="token-chip"
-						:class="message.sender === 'User' ? 'token-chip--out' : 'token-chip--in'" 
+						:class="message.sender === 'User' ? 'token-chip--out' : 'token-chip--in'"
 						:pt="{
-							label: { style: { color: message.sender === 'User' ? 'var(--primary-color)' : 'var(--accent-color)' } }
+							label: {
+								style: {
+									color: message.sender === 'User' ? 'var(--primary-color)' : 'var(--accent-color)',
+								},
+							},
 						}"
 					/>
 					<span class="time-stamp">{{ $filters.timeAgo(new Date(message.timeStamp)) }}</span>
@@ -91,7 +92,9 @@
 			</div>
 		</div>
 	</div>
-	<Divider align="center" type="solid" v-if="message.sender == 'User'" class="date-separator">
+
+	<!-- Date Divider -->
+	<Divider v-if="message.sender == 'User'" align="center" type="solid" class="date-separator">
 		{{ $filters.timeAgo(new Date(message.timeStamp)) }}
 	</Divider>
 </template>
@@ -304,7 +307,7 @@ export default {
 	.prompt-dialog {
 		width: 90vw;
 	}
-	
+
 }
 
 @media only screen and (max-width: 545px) {

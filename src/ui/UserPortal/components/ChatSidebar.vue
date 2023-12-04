@@ -1,22 +1,22 @@
 <template>
 	<div class="chat-sidebar">
 		<!-- Sidebar section header -->
-		<div class="chat-sidebar__section-header--mobile ">
-			<img v-if="logoURL !== ''" :src="logoURL" />
-			<span v-else>{{ logoText }}</span>
-			<Button :icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'" size="small" severity="secondary" @click="appStore.toggleSidebar" />
+		<div class="chat-sidebar__section-header--mobile">
+			<img v-if="appConfigStore.logoUrl !== ''" :src="appConfigStore.logoUrl" />
+			<span v-else>{{ appConfigStore.logoText }}</span>
+			<Button
+				:icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
+				size="small"
+				severity="secondary"
+				@click="appStore.toggleSidebar"
+			/>
 		</div>
 		<div class="chat-sidebar__section-header">
 			<span>Chats</span>
 			<!-- <button @click="handleAddSession">
 				<span class="text">+</span>
 			</button> -->
-			<Button
-				icon="pi pi-plus"
-				text
-				severity="secondary"
-				@click="handleAddSession"
-			/>
+			<Button icon="pi pi-plus" text severity="secondary" @click="handleAddSession" />
 		</div>
 
 		<!-- Chats -->
@@ -28,10 +28,7 @@
 				class="chat-sidebar__chat"
 				@click="handleSessionSelected(session)"
 			>
-				<div
-					class="chat"
-					:class="{ 'chat--selected': currentSession?.id === session.id }"
-				>
+				<div class="chat" :class="{ 'chat--selected': currentSession?.id === session.id }">
 					<!-- Chat name -->
 					<span class="chat__name">{{ session.name }}</span>
 
@@ -59,18 +56,20 @@
 			</div>
 		</div>
 
-		<div class="chat-sidebar__section-footer">
-            <Avatar icon="pi pi-user" class="avatar" size="large" />
-            <span class="chat-sidebar__username">{{ accountName }}</span>
-        </div>
-
-		<div class="chat-sidebar__section-footer">
-			<Button
-				class="sign-out-button"
-				icon="pi pi-sign-out"
-				label="Sign Out"
-				@click="signOut()"
-			/>
+		<!-- Logged in user -->
+		<div v-if="accountName" class="chat-sidebar__account">
+			<Avatar icon="pi pi-user" class="chat-sidebar__avatar" size="large" />
+			<div>
+				<span class="chat-sidebar__username">{{ accountName }}</span>
+				<Button
+					class="chat-sidebar__sign-out"
+					icon="pi pi-sign-out"
+					label="Sign Out"
+					severity="secondary"
+					size="small"
+					@click="signOut()"
+				/>
+			</div>
 		</div>
 
 		<!-- Rename session dialog -->
@@ -127,9 +126,7 @@ export default {
 			newSessionName: '' as string,
 			sessionToDelete: null as Session | null,
 			accountName: '' as string,
-            userName: '' as string,
-			logoURL: '' as string,
-			logoText: '' as string,
+			userName: '' as string,
 		};
 	},
 
@@ -150,7 +147,7 @@ export default {
 		if (window.screen.width < 950) {
 			this.appStore.isSidebarClosed = true;
 		}
-		this.logoURL = this.appConfigStore.logoUrl;
+
 		if (process.client) {
 			await this.appStore.init(this.$nuxt._route.query.chat);
 			const msalInstance = await getMsalInstance();
@@ -192,18 +189,17 @@ export default {
 			this.sessionToDelete = null;
 		},
 
-
 		async signOut() {
-            const msalInstance = await getMsalInstance();
-            const accountFilter = {
-                username: this.userName,
-            };
-            const logoutRequest = {
-                account: msalInstance.getAccount(accountFilter),
-            };
-            await msalInstance.logoutRedirect(logoutRequest);
-            this.$router.push({ path: '/login' });
-        }
+			const msalInstance = await getMsalInstance();
+			const accountFilter = {
+				username: this.userName,
+			};
+			const logoutRequest = {
+				account: msalInstance.getAccount(accountFilter),
+			};
+			await msalInstance.logoutRedirect(logoutRequest);
+			this.$router.push({ path: '/login' });
+		},
 	},
 };
 </script>
@@ -320,40 +316,22 @@ export default {
 	margin-left: 12px;
 }
 
-.chat-sidebar__section-footer {
-	display: flex;
-    align-items: center;
-    height: auto;
-    padding: 12px 24px;
-    justify-content: flex-start;
-    text-transform: inherit;
+.chat-sidebar__account {
+	display: grid;
+	grid-template-columns: auto auto;
+	padding: 12px 24px;
+	justify-content: flex-start;
+	text-transform: inherit;
 }
 
-.avatar {
-    margin-right: 12px;
-    color: var(--primary-color);
+.chat-sidebar__avatar {
+	margin-right: 12px;
+	color: var(--primary-color);
+	height: 61px;
+	width: 61px;
 }
-
-.sign-out-button {
-	flex: 1;
-}
-
-.p-overlaypanel-content {
-    background-color: var(--primary-color);
-}
-
-.overlay-panel__option {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.overlay-panel__option:hover {
-    color: var(--primary-color);
-}
-
-.sign-out-icon {
-    margin-right: 8px;
+.chat-sidebar__sign-out {
+	width: 100%;
 }
 
 .chat-sidebar__username {
@@ -361,6 +339,22 @@ export default {
 	font-weight: 600;
 	font-size: 0.875rem;
 	text-transform: capitalize;
+	line-height: 0;
+	vertical-align: super;
+}
+
+.p-overlaypanel-content {
+	background-color: var(--primary-color);
+}
+
+.overlay-panel__option {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.overlay-panel__option:hover {
+	color: var(--primary-color);
 }
 
 @media only screen and (max-width: 950px) {
