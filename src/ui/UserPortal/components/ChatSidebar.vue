@@ -1,7 +1,7 @@
 <template>
 	<div class="chat-sidebar">
 		<!-- Sidebar section header -->
-		<div class="chat-sidebar__section-header--mobile ">
+		<div class="chat-sidebar__section-header--mobile">
 			<img v-if="appConfigStore.logoUrl !== ''" :src="appConfigStore.logoUrl" />
 			<span v-else>{{ appConfigStore.logoText }}</span>
 			<Button
@@ -56,13 +56,20 @@
 			</div>
 		</div>
 
-		<div class="chat-sidebar__section-footer">
-			<Avatar icon="pi pi-user" class="avatar" size="large" />
-			<span class="chat-sidebar__username">{{ accountName }}</span>
-		</div>
-
-		<div class="chat-sidebar__section-footer">
-			<Button class="sign-out-button" icon="pi pi-sign-out" label="Sign Out" @click="signOut()" />
+		<!-- Logged in user -->
+		<div v-if="accountName" class="chat-sidebar__account">
+			<Avatar icon="pi pi-user" class="chat-sidebar__avatar" size="large" />
+			<div>
+				<span class="chat-sidebar__username">{{ accountName }}</span>
+				<Button
+					class="chat-sidebar__sign-out"
+					icon="pi pi-sign-out"
+					label="Sign Out"
+					severity="secondary"
+					size="small"
+					@click="signOut()"
+				/>
+			</div>
 		</div>
 
 		<!-- Rename session dialog -->
@@ -309,40 +316,22 @@ export default {
 	margin-left: 12px;
 }
 
-.chat-sidebar__section-footer {
-	display: flex;
-		align-items: center;
-		height: auto;
-		padding: 12px 24px;
-		justify-content: flex-start;
-		text-transform: inherit;
+.chat-sidebar__account {
+	display: grid;
+	grid-template-columns: auto auto;
+	padding: 12px 24px;
+	justify-content: flex-start;
+	text-transform: inherit;
 }
 
-.avatar {
-		margin-right: 12px;
-		color: var(--primary-color);
+.chat-sidebar__avatar {
+	margin-right: 12px;
+	color: var(--primary-color);
+	height: 61px;
+	width: 61px;
 }
-
-.sign-out-button {
-	flex: 1;
-}
-
-.p-overlaypanel-content {
-		background-color: var(--primary-color);
-}
-
-.overlay-panel__option {
-		display: flex;
-		align-items: center;
-		cursor: pointer;
-}
-
-.overlay-panel__option:hover {
-		color: var(--primary-color);
-}
-
-.sign-out-icon {
-		margin-right: 8px;
+.chat-sidebar__sign-out {
+	width: 100%;
 }
 
 .chat-sidebar__username {
@@ -350,6 +339,22 @@ export default {
 	font-weight: 600;
 	font-size: 0.875rem;
 	text-transform: capitalize;
+	line-height: 0;
+	vertical-align: super;
+}
+
+.p-overlaypanel-content {
+	background-color: var(--primary-color);
+}
+
+.overlay-panel__option {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.overlay-panel__option:hover {
+	color: var(--primary-color);
 }
 
 @media only screen and (max-width: 950px) {
