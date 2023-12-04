@@ -95,8 +95,8 @@ export default {
 		) as Message;
 	},
 
-	async sendMessage(sessionId: string, text: string, agent: string) {
-		const headers = agent ? { 'X-AGENT-HINT': agent } : {};
+	async sendMessage(sessionId: string, text: string, agent: object) {
+		const headers = agent ? { 'X-AGENT-HINT': JSON.stringify.agent } : {};
 		return (await this.fetch(`/sessions/${sessionId}/completion`, {
 			method: 'POST',
 			body: JSON.stringify(text),

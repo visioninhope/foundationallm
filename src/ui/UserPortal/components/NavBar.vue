@@ -102,12 +102,17 @@ export default {
 
 		this.agents = [
 			{
-				label: 'Public',
+				label: '',
 				items: [
 					{
 						label: '--select--',
 						value: null,
 					},
+				]
+			},
+			{
+				label: 'Public',
+				items: [
 					...agents.filter(agent => !agent.private).map(agent => ({ label: agent.name, value: agent })),
 				]
 			},
