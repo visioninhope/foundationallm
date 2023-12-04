@@ -39,10 +39,10 @@
 					<Dropdown
 						v-model="agentSelection"
 						class="dropdown--agent"
-						:options="agents"
+						:options="agentOptionsGroup"
 						option-group-label="label"
 						option-group-children="items"
-						optionLabel="label"
+						option-label="label"
 						placeholder="--Select--"
 						@change="handleAgentChange"
 					/>
@@ -59,6 +59,17 @@ import { useAppConfigStore } from '@/stores/appConfigStore';
 import { useAppStore } from '@/stores/appStore';
 import { useAuthStore } from '@/stores/authStore';
 
+interface AgentDropdownOption {
+	label: string;
+	value: any;
+	private?: boolean;
+}
+
+interface AgentDropdownOptionsGroup {
+	label: string;
+	items: AgentDropdownOption[];
+}
+
 export default {
 	name: 'NavBar',
 
@@ -66,10 +77,10 @@ export default {
 		return {
 			logoText: '',
 			logoURL: '',
-			isSidebarClosed: true,
 			allowAgentHint: false,
-			agentSelection: null,
-			agents: [] as any[],
+			agentSelection: null as AgentDropdownOption | null,
+			agentOptions: [] as AgentDropdownOption[],
+			agentOptionsGroup: [] as AgentDropdownOptionsGroup[],
 		};
 	},
 
@@ -86,7 +97,11 @@ export default {
 	watch: {
 		currentSession(newSession: Session, oldSession: Session) {
 			if (newSession.id === oldSession?.id) return;
-			this.agentSelection = this.agents.find(agent => agent.value === this.appConfigStore.selectedAgents.get(newSession.id)) || null;
+
+			this.agentSelection =
+				this.agentOptions.find(
+					(agent) => agent.value === this.appConfigStore.selectedAgents.get(newSession.id),
+				) || null;
 		},
 	},
 
@@ -98,29 +113,25 @@ export default {
 			this.appStore.isSidebarClosed = true;
 		}
 
-		const agents = await this.appStore.getAgents();
+		await this.appStore.getAgents();
+		this.agentOptions = this.appStore.agents.map((agent) => ({
+			label: agent.name,
+			private: agent.private,
+			value: agent,
+		}));
 
-		this.agents = [
+		this.agentOptionsGroup = [
 			{
 				label: '',
-				items: [
-					{
-						label: '--select--',
-						value: null,
-					},
-				]
+				items: [{ label: '--select--', value: null }],
 			},
 			{
 				label: 'Public',
-				items: [
-					...agents.filter(agent => !agent.private).map(agent => ({ label: agent.name, value: agent })),
-				]
+				items: this.agentOptions.filter((agent) => !agent.private),
 			},
 			{
 				label: 'Private',
-				items: [
-					...agents.filter(agent => agent.private).map(agent => ({ label: agent.name, value: agent })),
-				]
+				items: this.agentOptions.filter((agent) => agent.private),
 			},
 		];
 	},
@@ -138,8 +149,11 @@ export default {
 		},
 
 		handleAgentChange() {
-			this.appConfigStore.selectedAgents.set(this.currentSession.id, this.agentSelection.value);
-			const message = this.agentSelection.value ? `Agent changed to ${this.agentSelection.label}` : `Cleared agent hint selection`;
+			this.appConfigStore.selectedAgents.set(this.currentSession.id, this.agentSelection!.value);
+			const message = this.agentSelection!.value
+				? `Agent changed to ${this.agentSelection!.label}`
+				: `Cleared agent hint selection`;
+
 			this.$toast.add({
 				severity: 'success',
 				detail: message,
