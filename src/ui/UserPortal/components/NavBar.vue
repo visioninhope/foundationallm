@@ -47,6 +47,7 @@
 						:options="agentOptionsGroup"
 						option-group-label="label"
 						option-group-children="items"
+						optionDisabled="disabled"
 						option-label="label"
 						placeholder="--Select--"
 						@change="handleAgentChange"
@@ -67,6 +68,7 @@ import { useAuthStore } from '@/stores/authStore';
 interface AgentDropdownOption {
 	label: string;
 	value: any;
+	disabled?: boolean;
 	private?: boolean;
 }
 
@@ -116,20 +118,23 @@ export default {
 			value: agent,
 		}));
 
-		this.agentOptionsGroup = [
-			{
-				label: '',
-				items: [{ label: '--select--', value: null }],
-			},
-			{
-				label: 'Public',
-				items: this.agentOptions.filter((agent) => !agent.private),
-			},
-			{
-				label: 'Private',
-				items: this.agentOptions.filter((agent) => agent.private),
-			},
-		];
+		const publicAgents = this.agentOptions.filter((agent) => !agent.private);
+		const privateAgents = this.agentOptions.filter((agent) => agent.private);
+
+		this.agentOptionsGroup.push({
+			label: '',
+			items: [{ label: '--select--', value: null }],
+		});
+
+		this.agentOptionsGroup.push({
+			label: 'Public',
+			items: publicAgents.length > 0 ? publicAgents : [{ label: 'None', value: null, disabled: true }],
+		});
+
+		this.agentOptionsGroup.push({
+			label: 'Private',
+			items: privateAgents.length > 0 ? privateAgents : [{ label: 'None', value: null, disabled: true }],
+		});
 	},
 
 	methods: {
