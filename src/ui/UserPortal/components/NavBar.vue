@@ -106,7 +106,7 @@ export default {
 	},
 
 	async created() {
-		this.allowAgentHint = this.appConfigStore.allowAgentHint.enabled;
+		this.allowAgentHint = this.appConfigStore.allowAgentHint;
 		this.logoText = this.appConfigStore.logoText;
 		this.logoURL = this.appConfigStore.logoUrl;
 		if (this.appConfigStore.isKioskMode) {
