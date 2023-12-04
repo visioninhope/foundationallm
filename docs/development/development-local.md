@@ -441,7 +441,7 @@ The backend components consist of the .NET projects and the Python projects. The
 
 The frontend components consist of the Vue.js (Nuxt) web app.
 
-1. Open the `/src/UserPortal` folder in Visual Studio Code.
+1. Open the `/src/ui/UserPortal` folder in Visual Studio Code.
 
 2. Open the `.env` file and update the `LOCAL_API_URL` value to the URL of the local Core API service (https://localhost:63279). **Important:** Only set this value if you wish to debug the entire solution locally and bypass the App Config service value for the CORE API URL. If you do not wish to debug the entire solution locally, leave this value empty or comment it out.
 
