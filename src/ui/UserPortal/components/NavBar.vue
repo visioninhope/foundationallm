@@ -41,17 +41,20 @@
 			<!-- Right side content -->
 			<div class="navbar__content__right">
 				<template v-if="currentSession && appConfigStore.allowAgentHint">
-					<Dropdown
-						v-model="agentSelection"
-						class="dropdown--agent"
-						:options="agentOptionsGroup"
-						option-group-label="label"
-						option-group-children="items"
-						optionDisabled="disabled"
-						option-label="label"
-						placeholder="--Select--"
-						@change="handleAgentChange"
-					/>
+					<span class="header__dropdown">
+						<img alt="Select an agent" class="avatar" v-tooltip.bottom="'Select an agent'" src="~/assets/FLLM-Agent-Light.svg">
+						<Dropdown
+							v-model="agentSelection"
+							class="dropdown--agent"
+							:options="agentOptionsGroup"
+							option-group-label="label"
+							option-group-children="items"
+							optionDisabled="disabled"
+							option-label="label"
+							placeholder="--Select--"
+							@change="handleAgentChange"
+						/>
+					</span>
 				</template>
 			</div>
 		</div>
@@ -239,6 +242,18 @@ export default {
 
 .button--auth {
 	margin-left: 24px;
+}
+
+.header__dropdown {
+	display: flex;
+	align-items: center;
+}
+
+.avatar {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	margin-right: 12px;
 }
 
 @media only screen and (max-width: 620px) {
