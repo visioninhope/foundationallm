@@ -96,7 +96,7 @@ export default {
 	},
 
 	async sendMessage(sessionId: string, text: string, agent: object) {
-		const headers = agent ? { 'X-AGENT-HINT': JSON.stringify.agent } : {};
+		const headers = agent ? { 'X-AGENT-HINT': JSON.stringify(agent) } : {};
 		return (await this.fetch(`/sessions/${sessionId}/completion`, {
 			method: 'POST',
 			body: JSON.stringify(text),
@@ -105,16 +105,6 @@ export default {
 	},
 
 	async getAllowedAgents() {
-        // return await this.fetch('/UserProfiles/agents') as Array<string>;
-		return [
-			{
-				"name": "Default",
-				"private": false
-			},
-			{
-				"name": "Anomaly_001",
-				"private": true
-			}
-		]
+        return await this.fetch('/UserProfiles/agents') as Array<string>;
     },
 };
