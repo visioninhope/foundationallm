@@ -2,8 +2,8 @@
 	<div class="navbar">
 		<!-- Sidebar header -->
 		<div class="navbar__header">
-			<img v-if="logoURL !== ''" :src="logoURL" />
-			<span v-else>{{ logoText }}</span>
+			<img v-if="appConfigStore.logoUrl !== ''" :src="appConfigStore.logoUrl" />
+			<span v-else>{{ appConfigStore.logoText }}</span>
 
 			<template v-if="!appConfigStore.isKioskMode">
 				<Button :icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'" size="small" severity="secondary" @click="appStore.toggleSidebar" />
@@ -35,7 +35,7 @@
 
 			<!-- Right side content -->
 			<div class="navbar__content__right">
-				<template v-if="currentSession && allowAgentHint">
+				<template v-if="currentSession && appConfigStore.allowAgentHint">
 					<Dropdown
 						v-model="agentSelection"
 						class="dropdown--agent"
@@ -106,14 +106,8 @@ export default {
 	},
 
 	async created() {
-		this.allowAgentHint = this.appConfigStore.allowAgentHint;
-		this.logoText = this.appConfigStore.logoText;
-		this.logoURL = this.appConfigStore.logoUrl;
-		if (this.appConfigStore.isKioskMode) {
-			this.appStore.isSidebarClosed = true;
-		}
-
 		await this.appStore.getAgents();
+
 		this.agentOptions = this.appStore.agents.map((agent) => ({
 			label: agent.name,
 			private: agent.private,
