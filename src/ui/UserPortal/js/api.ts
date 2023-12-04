@@ -105,16 +105,6 @@ export default {
 	},
 
 	async getAllowedAgents() {
-		// return await this.fetch('/UserProfiles/agents') as Array<string>;
-		return [
-			{
-				"name": "Default",
-				"private": false
-			},
-			{
-				"name": "Anomaly_001",
-				"private": true
-			}
-		] as Agent[];
+		return await this.fetch('/UserProfiles/agents') as Agent[];
 	},
 };
