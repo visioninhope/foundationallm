@@ -4,19 +4,19 @@
 		<div class="chat-sidebar__section-header--mobile ">
 			<img v-if="appConfigStore.logoUrl !== ''" :src="appConfigStore.logoUrl" />
 			<span v-else>{{ appConfigStore.logoText }}</span>
-			<Button :icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'" size="small" severity="secondary" @click="appStore.toggleSidebar" />
+			<Button
+				:icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
+				size="small"
+				severity="secondary"
+				@click="appStore.toggleSidebar"
+			/>
 		</div>
 		<div class="chat-sidebar__section-header">
 			<span>Chats</span>
 			<!-- <button @click="handleAddSession">
 				<span class="text">+</span>
 			</button> -->
-			<Button
-				icon="pi pi-plus"
-				text
-				severity="secondary"
-				@click="handleAddSession"
-			/>
+			<Button icon="pi pi-plus" text severity="secondary" @click="handleAddSession" />
 		</div>
 
 		<!-- Chats -->
@@ -28,10 +28,7 @@
 				class="chat-sidebar__chat"
 				@click="handleSessionSelected(session)"
 			>
-				<div
-					class="chat"
-					:class="{ 'chat--selected': currentSession?.id === session.id }"
-				>
+				<div class="chat" :class="{ 'chat--selected': currentSession?.id === session.id }">
 					<!-- Chat name -->
 					<span class="chat__name">{{ session.name }}</span>
 
@@ -60,17 +57,12 @@
 		</div>
 
 		<div class="chat-sidebar__section-footer">
-						<Avatar icon="pi pi-user" class="avatar" size="large" />
-						<span class="chat-sidebar__username">{{ accountName }}</span>
-				</div>
+			<Avatar icon="pi pi-user" class="avatar" size="large" />
+			<span class="chat-sidebar__username">{{ accountName }}</span>
+		</div>
 
 		<div class="chat-sidebar__section-footer">
-			<Button
-				class="sign-out-button"
-				icon="pi pi-sign-out"
-				label="Sign Out"
-				@click="signOut()"
-			/>
+			<Button class="sign-out-button" icon="pi pi-sign-out" label="Sign Out" @click="signOut()" />
 		</div>
 
 		<!-- Rename session dialog -->
@@ -190,18 +182,17 @@ export default {
 			this.sessionToDelete = null;
 		},
 
-
 		async signOut() {
-						const msalInstance = await getMsalInstance();
-						const accountFilter = {
-								username: this.userName,
-						};
-						const logoutRequest = {
-								account: msalInstance.getAccount(accountFilter),
-						};
-						await msalInstance.logoutRedirect(logoutRequest);
-						this.$router.push({ path: '/login' });
-				}
+			const msalInstance = await getMsalInstance();
+			const accountFilter = {
+				username: this.userName,
+			};
+			const logoutRequest = {
+				account: msalInstance.getAccount(accountFilter),
+			};
+			await msalInstance.logoutRedirect(logoutRequest);
+			this.$router.push({ path: '/login' });
+		},
 	},
 };
 </script>

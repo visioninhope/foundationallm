@@ -6,7 +6,12 @@
 			<span v-else>{{ appConfigStore.logoText }}</span>
 
 			<template v-if="!appConfigStore.isKioskMode">
-				<Button :icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'" size="small" severity="secondary" @click="appStore.toggleSidebar" />
+				<Button
+					:icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
+					size="small"
+					severity="secondary"
+					@click="appStore.toggleSidebar"
+				/>
 			</template>
 		</div>
 
