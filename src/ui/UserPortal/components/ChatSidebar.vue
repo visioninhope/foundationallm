@@ -2,8 +2,8 @@
 	<div class="chat-sidebar">
 		<!-- Sidebar section header -->
 		<div class="chat-sidebar__section-header--mobile ">
-			<img v-if="logoURL !== ''" :src="logoURL" />
-			<span v-else>{{ logoText }}</span>
+			<img v-if="appConfigStore.logoUrl !== ''" :src="appConfigStore.logoUrl" />
+			<span v-else>{{ appConfigStore.logoText }}</span>
 			<Button :icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'" size="small" severity="secondary" @click="appStore.toggleSidebar" />
 		</div>
 		<div class="chat-sidebar__section-header">
@@ -60,9 +60,9 @@
 		</div>
 
 		<div class="chat-sidebar__section-footer">
-            <Avatar icon="pi pi-user" class="avatar" size="large" />
-            <span class="chat-sidebar__username">{{ accountName }}</span>
-        </div>
+						<Avatar icon="pi pi-user" class="avatar" size="large" />
+						<span class="chat-sidebar__username">{{ accountName }}</span>
+				</div>
 
 		<div class="chat-sidebar__section-footer">
 			<Button
@@ -127,9 +127,7 @@ export default {
 			newSessionName: '' as string,
 			sessionToDelete: null as Session | null,
 			accountName: '' as string,
-            userName: '' as string,
-			logoURL: '' as string,
-			logoText: '' as string,
+			userName: '' as string,
 		};
 	},
 
@@ -150,7 +148,7 @@ export default {
 		if (window.screen.width < 950) {
 			this.appStore.isSidebarClosed = true;
 		}
-		this.logoURL = this.appConfigStore.logoUrl;
+
 		if (process.client) {
 			await this.appStore.init(this.$nuxt._route.query.chat);
 			const msalInstance = await getMsalInstance();
@@ -194,16 +192,16 @@ export default {
 
 
 		async signOut() {
-            const msalInstance = await getMsalInstance();
-            const accountFilter = {
-                username: this.userName,
-            };
-            const logoutRequest = {
-                account: msalInstance.getAccount(accountFilter),
-            };
-            await msalInstance.logoutRedirect(logoutRequest);
-            this.$router.push({ path: '/login' });
-        }
+						const msalInstance = await getMsalInstance();
+						const accountFilter = {
+								username: this.userName,
+						};
+						const logoutRequest = {
+								account: msalInstance.getAccount(accountFilter),
+						};
+						await msalInstance.logoutRedirect(logoutRequest);
+						this.$router.push({ path: '/login' });
+				}
 	},
 };
 </script>
@@ -322,16 +320,16 @@ export default {
 
 .chat-sidebar__section-footer {
 	display: flex;
-    align-items: center;
-    height: auto;
-    padding: 12px 24px;
-    justify-content: flex-start;
-    text-transform: inherit;
+		align-items: center;
+		height: auto;
+		padding: 12px 24px;
+		justify-content: flex-start;
+		text-transform: inherit;
 }
 
 .avatar {
-    margin-right: 12px;
-    color: var(--primary-color);
+		margin-right: 12px;
+		color: var(--primary-color);
 }
 
 .sign-out-button {
@@ -339,21 +337,21 @@ export default {
 }
 
 .p-overlaypanel-content {
-    background-color: var(--primary-color);
+		background-color: var(--primary-color);
 }
 
 .overlay-panel__option {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
 }
 
 .overlay-panel__option:hover {
-    color: var(--primary-color);
+		color: var(--primary-color);
 }
 
 .sign-out-icon {
-    margin-right: 8px;
+		margin-right: 8px;
 }
 
 .chat-sidebar__username {

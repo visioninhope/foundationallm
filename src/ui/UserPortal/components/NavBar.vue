@@ -75,9 +75,6 @@ export default {
 
 	data() {
 		return {
-			logoText: '',
-			logoURL: '',
-			allowAgentHint: false,
 			agentSelection: null as AgentDropdownOption | null,
 			agentOptions: [] as AgentDropdownOption[],
 			agentOptionsGroup: [] as AgentDropdownOptionsGroup[],
