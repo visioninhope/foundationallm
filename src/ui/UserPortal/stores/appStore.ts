@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useAppConfigStore } from './appConfigStore';
 import { useAuthStore } from './authStore';
-import type { Session, Message } from '@/js/types';
+import type { Session, Message, Agent } from '@/js/types';
 import api from '@/js/api';
 
 export const useAppStore = defineStore('app', {
@@ -10,7 +10,7 @@ export const useAppStore = defineStore('app', {
 		currentSession: null as Session | null,
 		currentMessages: [] as Message[],
 		isSidebarClosed: false as boolean,
-		agents: [] as string[],
+		agents: [] as Agent[],
 	}),
 
 	getters: {},
