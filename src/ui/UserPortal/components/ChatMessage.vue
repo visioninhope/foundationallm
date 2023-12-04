@@ -92,7 +92,9 @@
 			</div>
 		</div>
 	</div>
-	<Divider align="center" v-if="message.sender == 'User'" type="solid" class="date-separator">
+
+	<!-- Date Divider -->
+	<Divider v-if="message.sender == 'User'" align="center" type="solid" class="date-separator">
 		{{ $filters.timeAgo(new Date(message.timeStamp)) }}
 	</Divider>
 </template>
