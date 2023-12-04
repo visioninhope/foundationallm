@@ -118,8 +118,9 @@ export default {
 			value: agent,
 		}));
 
-		const publicAgents = this.agentOptions.filter((agent) => !agent.private);
-		const privateAgents = this.agentOptions.filter((agent) => agent.private);
+		const publicAgentOptions = this.agentOptions.filter((agent) => !agent.private);
+		const privateAgentOptions = this.agentOptions.filter((agent) => agent.private);
+		const noAgentOptions = [{ label: 'None', value: null, disabled: true }];
 
 		this.agentOptionsGroup.push({
 			label: '',
@@ -128,12 +129,12 @@ export default {
 
 		this.agentOptionsGroup.push({
 			label: 'Public',
-			items: publicAgents.length > 0 ? publicAgents : [{ label: 'None', value: null, disabled: true }],
+			items: publicAgentOptions.length > 0 ? publicAgentOptions : noAgentOptions,
 		});
 
 		this.agentOptionsGroup.push({
 			label: 'Private',
-			items: privateAgents.length > 0 ? privateAgents : [{ label: 'None', value: null, disabled: true }],
+			items: privateAgentOptions.length > 0 ? privateAgentOptions : noAgentOptions,
 		});
 	},
 
