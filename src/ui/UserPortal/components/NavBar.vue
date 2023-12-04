@@ -100,7 +100,7 @@ export default {
 
 			this.agentSelection =
 				this.agentOptions.find(
-					(agent) => agent.value === this.appConfigStore.selectedAgents.get(newSession.id),
+					(agent) => agent.value === this.appStore.getSessionAgent(newSession),
 				) || null;
 		},
 	},
@@ -149,7 +149,7 @@ export default {
 		},
 
 		handleAgentChange() {
-			this.appConfigStore.selectedAgents.set(this.currentSession.id, this.agentSelection!.value);
+			this.appStore.setSessionAgent(this.currentSession, this.agentSelection!.value);
 			const message = this.agentSelection!.value
 				? `Agent changed to ${this.agentSelection!.label}`
 				: `Cleared agent hint selection`;

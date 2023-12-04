@@ -11,6 +11,7 @@ export const useAppStore = defineStore('app', {
 		currentMessages: [] as Message[],
 		isSidebarClosed: false as boolean,
 		agents: [] as Agent[],
+		selectedAgents: new Map(),
 	}),
 
 	getters: {},
@@ -110,6 +111,14 @@ export const useAppStore = defineStore('app', {
 			this.currentMessages = data;
 		},
 
+		getSessionAgent(session: Session) {
+			return this.selectedAgents.get(session.id);
+		},
+
+		setSessionAgent(session: Session, agent: Agent) {
+			return this.selectedAgents.set(session.id, agent);
+		},
+
 		async sendMessage(text: string) {
 			if (!text) return;
 
@@ -144,11 +153,10 @@ export const useAppStore = defineStore('app', {
 			};
 			this.currentMessages.push(tempAssistantMessage);
 
-			const appConfigStore = useAppConfigStore();
 			await api.sendMessage(
 				this.currentSession!.id,
 				text,
-				appConfigStore.selectedAgents.get(this.currentSession.id),
+				this.getSessionAgent(this.currentSession!),
 			);
 			await this.getMessages();
 

@@ -11,7 +11,6 @@ export const useAppConfigStore = defineStore('appConfig', {
 		isKioskMode: false,
 		allowAgentHint: false,
 		agents: [],
-		selectedAgents: new Map(),
 
 		// Style: These settings impact the visual style of the chat interface.
 		pageTitle: null,
