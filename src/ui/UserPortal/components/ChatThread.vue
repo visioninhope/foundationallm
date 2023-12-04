@@ -15,7 +15,7 @@
 						v-for="(message, index) in messages.slice().reverse()"
 						:key="message.id"
 						:message="message"
-						:showWordAnimation="index === 0 && userSentMessage && message.sender === 'Assistant'"
+						:show-word-animation="index === 0 && userSentMessage && message.sender === 'Assistant'"
 						@rate="handleRateMessage($event.message, $event.isLiked)"
 					/>
 				</template>
@@ -35,7 +35,7 @@
 
 		<!-- Chat input -->
 		<div class="chat-thread__input">
-			<ChatInput :disabled="isLoading" @send="handleSend" />
+			<ChatInput :disabled="isLoading || isMessagePending" @send="handleSend" />
 		</div>
 	</div>
 </template>
@@ -55,6 +55,7 @@ export default {
 		return {
 			isLoading: true,
 			userSentMessage: false,
+			isMessagePending: false,
 		};
 	},
 
@@ -89,8 +90,10 @@ export default {
 		async handleSend(text: string) {
 			if (!text) return;
 
+			this.isMessagePending = true;
 			this.userSentMessage = true;
 			await this.appStore.sendMessage(text);
+			this.isMessagePending = false;
 		},
 	},
 };
@@ -109,7 +112,7 @@ export default {
 .chat-thread__header {
 	height: 70px;
 	padding: 24px;
-	border-bottom: 1px solid #EAEAEA;
+	border-bottom: 1px solid #eaeaea;
 	background-color: var(--accent-color);
 }
 

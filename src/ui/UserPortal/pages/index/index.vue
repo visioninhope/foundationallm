@@ -3,7 +3,7 @@
 		<NavBar />
 		<div class="chat-content">
 			<ChatSidebar v-show="!appStore.isSidebarClosed" class="chat-sidebar" />
-			<div class="sidebar-blur" v-show="!appStore.isSidebarClosed" @click="appStore.toggleSidebar"></div>
+			<div v-show="!appStore.isSidebarClosed" class="sidebar-blur" @click="appStore.toggleSidebar" />
 			<ChatThread />
 		</div>
 	</div>

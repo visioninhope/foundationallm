@@ -2,11 +2,16 @@
 	<div class="navbar">
 		<!-- Sidebar header -->
 		<div class="navbar__header">
-			<img v-if="logoURL !== ''" :src="logoURL" />
-			<span v-else>{{ logoText }}</span>
+			<img v-if="appConfigStore.logoUrl !== ''" :src="appConfigStore.logoUrl" />
+			<span v-else>{{ appConfigStore.logoText }}</span>
 
 			<template v-if="!appConfigStore.isKioskMode">
-				<Button :icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'" size="small" severity="secondary" @click="appStore.toggleSidebar" />
+				<Button
+					:icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
+					size="small"
+					severity="secondary"
+					@click="appStore.toggleSidebar"
+				/>
 			</template>
 		</div>
 
@@ -35,12 +40,15 @@
 
 			<!-- Right side content -->
 			<div class="navbar__content__right">
-				<template v-if="currentSession && allowAgentHint">
+				<template v-if="currentSession && appConfigStore.allowAgentHint">
 					<Dropdown
 						v-model="agentSelection"
 						class="dropdown--agent"
-						:options="agents"
-						optionLabel="label"
+						:options="agentOptionsGroup"
+						option-group-label="label"
+						option-group-children="items"
+						optionDisabled="disabled"
+						option-label="label"
 						placeholder="--Select--"
 						@change="handleAgentChange"
 					/>
@@ -57,17 +65,26 @@ import { useAppConfigStore } from '@/stores/appConfigStore';
 import { useAppStore } from '@/stores/appStore';
 import { useAuthStore } from '@/stores/authStore';
 
+interface AgentDropdownOption {
+	label: string;
+	value: any;
+	disabled?: boolean;
+	private?: boolean;
+}
+
+interface AgentDropdownOptionsGroup {
+	label: string;
+	items: AgentDropdownOption[];
+}
+
 export default {
 	name: 'NavBar',
 
 	data() {
 		return {
-			logoText: '',
-			logoURL: '',
-			isSidebarClosed: true,
-			allowAgentHint: false,
-			agentSelection: null,
-			agents: [],
+			agentSelection: null as AgentDropdownOption | null,
+			agentOptions: [] as AgentDropdownOption[],
+			agentOptionsGroup: [] as AgentDropdownOptionsGroup[],
 		};
 	},
 
@@ -84,22 +101,41 @@ export default {
 	watch: {
 		currentSession(newSession: Session, oldSession: Session) {
 			if (newSession.id === oldSession?.id) return;
-			this.agentSelection = this.agents.find(agent => agent.value === this.appConfigStore.selectedAgents.get(newSession.id)) || null;
+
+			this.agentSelection =
+				this.agentOptions.find(
+					(agent) => agent.value === this.appStore.getSessionAgent(newSession),
+				) || null;
 		},
 	},
 
 	async created() {
-		this.allowAgentHint = this.appConfigStore.allowAgentHint.enabled;
-		this.logoText = this.appConfigStore.logoText;
-		this.logoURL = this.appConfigStore.logoUrl;
-		if (this.appConfigStore.isKioskMode) {
-			this.appStore.isSidebarClosed = true;
-		}
+		await this.appStore.getAgents();
 
-		this.agents.push({ label: '--select--', value: null});
-		for (const agent of this.appConfigStore.agents) {
-			this.agents.push({ label: agent, value: agent });
-		}
+		this.agentOptions = this.appStore.agents.map((agent) => ({
+			label: agent.name,
+			private: agent.private,
+			value: agent,
+		}));
+
+		const publicAgentOptions = this.agentOptions.filter((agent) => !agent.private);
+		const privateAgentOptions = this.agentOptions.filter((agent) => agent.private);
+		const noAgentOptions = [{ label: 'None', value: null, disabled: true }];
+
+		this.agentOptionsGroup.push({
+			label: '',
+			items: [{ label: '--select--', value: null }],
+		});
+
+		this.agentOptionsGroup.push({
+			label: 'Public',
+			items: publicAgentOptions.length > 0 ? publicAgentOptions : noAgentOptions,
+		});
+
+		this.agentOptionsGroup.push({
+			label: 'Private',
+			items: privateAgentOptions.length > 0 ? privateAgentOptions : noAgentOptions,
+		});
 	},
 
 	methods: {
@@ -115,8 +151,11 @@ export default {
 		},
 
 		handleAgentChange() {
-			this.appConfigStore.selectedAgents.set(this.currentSession.id, this.agentSelection.value);
-			const message = this.agentSelection.value ? `Agent changed to ${this.agentSelection.label}` : `Cleared agent hint selection`;
+			this.appStore.setSessionAgent(this.currentSession, this.agentSelection!.value);
+			const message = this.agentSelection!.value
+				? `Agent changed to ${this.agentSelection!.label}`
+				: `Cleared agent hint selection`;
+
 			this.$toast.add({
 				severity: 'success',
 				detail: message,
