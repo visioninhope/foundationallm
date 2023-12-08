@@ -76,9 +76,13 @@ class FLLMOutputParser(AgentOutputParser):
 
         if action_match:
             action = action_match.group(1).strip()
-            action = self.default_action
+            #action = self.default_action
             action_input = action_match.group(2)
             tool_input = action_input.strip(" ")
+
+            if ( action == 'sql_db_schema'):
+                if ( action_input.startswith("'") and action_input.endswith("'")):
+                    action_input = action_input[1:-1]
             # ensure if its a well formed SQL query we don't remove any trailing " chars
             if tool_input.startswith("SELECT ") is False:
                 tool_input = tool_input.strip('"')
@@ -108,4 +112,4 @@ class FLLMOutputParser(AgentOutputParser):
 
     @property
     def _type(self) -> str:
-        return "mrkl"
+        return "fllm"
