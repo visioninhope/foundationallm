@@ -5,7 +5,7 @@
 replicaCount: 1
 serviceAccountName: data-source-hub-api
 image:
-  repository: bhm7vnpxv6irqcr.azurecr.io/data-source-hub-api
+  repository: ghcr.io/solliancenet/foundationallm/data-source-hub-api
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest

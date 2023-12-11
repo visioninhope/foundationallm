@@ -5,7 +5,7 @@
 replicaCount: 1
 serviceAccountName: prompt-hub-api
 image:
-  repository: bhm7vnpxv6irqcr.azurecr.io/prompt-hub-api
+  repository: ghcr.io/solliancenet/foundationallm/prompt-hub-api
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest

@@ -5,7 +5,7 @@
 replicaCount: 1
 serviceAccountName: agent-hub-api
 image:
-  repository: bhm7vnpxv6irqcr.azurecr.io/agent-hub-api
+  repository: ghcr.io/solliancenet/foundationallm/agent-hub-api
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest

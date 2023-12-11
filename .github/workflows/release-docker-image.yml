@@ -18,39 +18,6 @@ on:
 
 jobs:
   docker_image_build_and_push:
-    # strategy:
-    #   matrix:
-    #     include:
-    #     - name: agent-factory-api
-    #       context: ./src
-    #       dockerfile: ./src/dotnet/AgentFactoryAPI/Dockerfile
-    #     - name: agent-hub-api
-    #       context: ./src/python
-    #       dockerfile: ./src/python/AgentHubAPI/Dockerfile
-    #     - name: chat-ui
-    #       context: ./src/ui/UserPortal
-    #       dockerfile: ./src/ui/UserPortal/Dockerfile
-    #     - name: core-api
-    #       context: ./src
-    #       dockerfile: ./src/dotnet/CoreAPI/Dockerfile
-    #     - name: core-job
-    #       context: ./src
-    #       dockerfile: ./src/dotnet/CoreWorker/Dockerfile
-    #     - name: data-source-hub-api
-    #       context: ./src/python
-    #       dockerfile: ./src/python/DataSourceHubAPI/Dockerfile
-    #     - name: gatekeeper-api
-    #       context: ./src
-    #       dockerfile: ./src/dotnet/GatekeeperAPI/Dockerfile
-    #     - name: langchain-api
-    #       context: ./src/python
-    #       dockerfile: ./src/python/LangChainAPI/Dockerfile
-    #     - name: prompt-hub-api
-    #       context: ./src/python
-    #       dockerfile: ./src/python/PromptHubAPI/Dockerfile
-    #     - name: semantic-kernel-api
-    #       context: ./src
-    #       dockerfile: ./src/dotnet/SemanticKernelAPI/Dockerfile
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -96,3 +63,36 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
+
+  helm_chart_package_and_push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Fetching the Latest Release Tag number
+      id: releaseVersion
+      run: |
+        release_json=$(curl https://api.github.com/repos/${{ github.repository }}/releases)
+        release_tag=$(echo "$release_json" | jq -r '.[0].tag_name')
+        echo "release_tag: Latest Tag is : $release_tag"
+        echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Helm Chart Update, Package, and Push
+      run: |
+        cd ./deploy/helm/${{ inputs.image }}
+        escaped_version=$(printf '%s\n' "${{ steps.releaseVersion.outputs.release_tag }}" | sed -e 's/[\/.]/\\./g')
+        sed -i "s/version\: 0\.0\.0/version\: $escaped_version/" Chart.yaml
+        sed -i "s/tag\: latest/tag\: $escaped_version" values.yaml
+        helm package . --app-version $escaped_version
+        helm push ${{ inputs.image }}-escaped_version.tgz oci://ghcr.io/${{ github.repository }}
