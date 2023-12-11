@@ -94,4 +94,4 @@ jobs:
         sed -i "s/version\: 0\.0\.0/version\: ${{ steps.releaseVersion.outputs.release_tag }}/" Chart.yaml
         sed -i "s/tag\: latest/tag\: ${{ steps.releaseVersion.outputs.release_tag }}/" values.yaml
         helm package . --app-version ${{ steps.releaseVersion.outputs.release_tag }}
-        helm push ${{ inputs.image }}-${{ steps.releaseVersion.outputs.release_tag }}.tgz oci://ghcr.io/${{ github.repository }}
+        helm push ${{ inputs.image }}-${{ steps.releaseVersion.outputs.release_tag }}.tgz oci://ghcr.io/${{ github.repository }}/helm
