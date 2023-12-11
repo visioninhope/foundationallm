@@ -92,6 +92,6 @@ jobs:
       run: |
         cd ./deploy/helm/${{ inputs.image }}
         sed -i "s/version\: 0\.0\.0/version\: ${{ steps.releaseVersion.outputs.release_tag }}/" Chart.yaml
-        sed -i "s/tag\: latest/tag\: ${{ steps.releaseVersion.outputs.release_tag }}" values.yaml
+        sed -i "s/tag\: latest/tag\: ${{ steps.releaseVersion.outputs.release_tag }}/" values.yaml
         helm package . --app-version ${{ steps.releaseVersion.outputs.release_tag }}
         helm push ${{ inputs.image }}-escaped_version.tgz oci://ghcr.io/${{ github.repository }}
