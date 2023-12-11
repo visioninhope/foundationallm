@@ -91,8 +91,7 @@ jobs:
     - name: Helm Chart Update, Package, and Push
       run: |
         cd ./deploy/helm/${{ inputs.image }}
-        escaped_version=$(printf '%s\n' "${{ steps.releaseVersion.outputs.release_tag }}" | sed -e 's/[\/.]/\\./g')
-        sed -i "s/version\: 0\.0\.0/version\: $escaped_version/" Chart.yaml
-        sed -i "s/tag\: latest/tag\: $escaped_version" values.yaml
-        helm package . --app-version $escaped_version
+        sed -i "s/version\: 0\.0\.0/version\: ${{ steps.releaseVersion.outputs.release_tag }}/" Chart.yaml
+        sed -i "s/tag\: latest/tag\: ${{ steps.releaseVersion.outputs.release_tag }}" values.yaml
+        helm package . --app-version ${{ steps.releaseVersion.outputs.release_tag }}
         helm push ${{ inputs.image }}-escaped_version.tgz oci://ghcr.io/${{ github.repository }}
