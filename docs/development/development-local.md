@@ -43,6 +43,7 @@
   - [Python 3.11](https://www.python.org/downloads/) or greater (learn more about [Python environments in Visual Studio](https://learn.microsoft.com/visualstudio/python/managing-python-environments-in-visual-studio?view=vs-2022))
   - Docker Desktop (with WSL for Windows machines) ([Mac install](https://docs.docker.com/desktop/install/mac-install/) or [Windows install](https://docs.docker.com/desktop/install/windows-install/))
   - Azure CLI ([v2.51.0 or greater](https://learn.microsoft.com/cli/azure/install-azure-cli))
+  - [Microsoft Azure PowerShell](https://learn.microsoft.com/powershell/azure/install-azure-powershell)
   - [Helm 3.11.1 or greater](https://helm.sh/docs/intro/install/)
 - Frontend (Vue.js (Nuxt) web app)
   - [Visual Studio Code](https://code.visualstudio.com/Download) (recommended for development)
