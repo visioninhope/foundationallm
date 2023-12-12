@@ -1,27 +1,29 @@
 ﻿using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.Vectorization
 {
     public class VectorizationWorker
     {
-        private readonly CancellationTokenSource _cancellationTokenSource;
-        private readonly Dictionary<string, IRequestSourceService> _requestSourceServices;
+        private readonly IDictionary<string, IRequestSourceService> _requestSourceServices;
         private readonly IVectorizationStateService _vectorizationStateService;
-        private readonly List<RequestManagerService> _requestManagerServices;
+        private readonly IEnumerable<IRequestManagerService> _requestManagerServices;
+        private readonly ILogger<VectorizationWorker> _logger;
+        private readonly CancellationTokenSource _cancellationTokenSource;
 
         public VectorizationWorker(
-            IVectorizationStateService vectorizationStateService)
+            IVectorizationStateService vectorizationStateService,
+            IDictionary<string, IRequestSourceService> requestSourceServices,
+            IEnumerable<IRequestManagerService> requestManagerServices,
+            ILogger<VectorizationWorker> logger,
+            CancellationTokenSource cancellationTokenSource)
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-            _requestSourceServices = new Dictionary<string, IRequestSourceService>();
             _vectorizationStateService = vectorizationStateService;
-            _requestManagerServices = new List<RequestManagerService>();
+            _requestSourceServices = requestSourceServices;
+            _requestManagerServices = requestManagerServices;
+            _logger = logger;
+            _cancellationTokenSource = cancellationTokenSource;
         }
     }
 }

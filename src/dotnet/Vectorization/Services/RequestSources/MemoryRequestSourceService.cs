@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Vectorization.Models;
+﻿    using FoundationaLLM.Vectorization.Models;
 using System.Threading.Tasks;
 using System;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -12,6 +12,8 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         private readonly string _sourceName;
         private readonly ILogger<MemoryRequestSourceService> _logger;
         private readonly ConcurrentQueue<VectorizationRequest> _requests = new ConcurrentQueue<VectorizationRequest>();
+
+        public string SourceName => _sourceName;
 
         public MemoryRequestSourceService(
             string sourceName,

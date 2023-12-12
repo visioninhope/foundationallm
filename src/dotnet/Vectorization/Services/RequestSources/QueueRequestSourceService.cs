@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
@@ -7,8 +8,17 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
 {
     public class QueueRequestSourceService : IRequestSourceService
     {
-        public QueueRequestSourceService()
+        private readonly string _sourceName;
+        private readonly ILogger<QueueRequestSourceService> _logger;
+
+        public string SourceName => _sourceName;
+
+        public QueueRequestSourceService(
+            string sourceName,
+            ILogger<QueueRequestSourceService> logger)
         {
+            _sourceName = sourceName;
+            _logger = logger;
         }
 
         public Task DeleteRequest(string requestId)

@@ -5,6 +5,8 @@ namespace FoundationaLLM.Vectorization.Interfaces
 {
     public interface IRequestSourceService
     {
+        string SourceName { get; }
+
         Task<bool> HasRequests();
 
         Task<IEnumerable<VectorizationRequest>> ReceiveRequests(int count);
