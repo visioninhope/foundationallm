@@ -1593,9 +1593,14 @@
       "apiVersion": "2021-09-01",
       "name": "[format('{0}sa', parameters('name'))]",
       "location": "[parameters('location')]",
-      "kind": "Storage",
+      "kind": "StorageV2",
       "sku": {
-        "name": "Standard_LRS"
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "properties": {
+        "isHnsEnabled": true,
+        "accessTier": "Hot"
       }
     },
     {
