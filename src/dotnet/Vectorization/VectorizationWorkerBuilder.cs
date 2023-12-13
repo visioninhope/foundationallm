@@ -12,7 +12,7 @@ namespace FoundationaLLM.Vectorization
     {
         private VectorizationWorkerSettings? _settings;
         private IVectorizationStateService? _stateService;
-        private CancellationTokenSource? _cancellationTokenSource;
+        private CancellationToken _cancellationToken = default(CancellationToken);
         private ILoggerFactory? _loggerFactory;
 
         public VectorizationWorkerBuilder()
@@ -27,9 +27,6 @@ namespace FoundationaLLM.Vectorization
             if (_settings == null)
                 throw new VectorizationException("Cannot build a vectorization worker without valid settings.");
 
-            if (_cancellationTokenSource == null)
-                throw new VectorizationException("Cannot build a vectorization worker without a valid cancellation token source.");
-
             if (_loggerFactory == null)
                 throw new VectorizationException("Cannot build a vectorization worker without a valid logger factory.");
 
@@ -43,7 +40,7 @@ namespace FoundationaLLM.Vectorization
                     requestSourceServices,
                     _stateService,
                     _loggerFactory!.CreateLogger<RequestManagerService>(),
-                    _cancellationTokenSource.Token))
+                    _cancellationToken))
                 .ToList();
 
             var vectorizationWorker = new VectorizationWorker(
@@ -51,7 +48,7 @@ namespace FoundationaLLM.Vectorization
                 requestSourceServices,
                 requestManagerServices,
                 _loggerFactory!.CreateLogger<VectorizationWorker>(),
-                _cancellationTokenSource);
+                _cancellationToken);
 
             return vectorizationWorker;
         }
@@ -70,9 +67,9 @@ namespace FoundationaLLM.Vectorization
             return this;
         }
 
-        public VectorizationWorkerBuilder WithCancellationTokenSource(CancellationTokenSource cancellationTokenSource)
+        public VectorizationWorkerBuilder WithCancellationToken(CancellationToken cancellationToken)
         {
-            _cancellationTokenSource = cancellationTokenSource;
+            _cancellationToken = cancellationToken;
             return this;
         }
 

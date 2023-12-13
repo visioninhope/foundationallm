@@ -1,4 +1,7 @@
 using Azure.Identity;
+using FoundationaLLM.Vectorization.Interfaces;
+using FoundationaLLM.Vectorization.Services.VectorizationStates;
+using FoundationaLLM.Vectorization.Worker;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +32,8 @@ builder.Services.AddCors(policyBuilder =>
 });
 
 // Add services to the container.
+builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
+builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -10,20 +10,32 @@ namespace FoundationaLLM.Vectorization
         private readonly IVectorizationStateService _vectorizationStateService;
         private readonly IEnumerable<IRequestManagerService> _requestManagerServices;
         private readonly ILogger<VectorizationWorker> _logger;
-        private readonly CancellationTokenSource _cancellationTokenSource;
+        private readonly CancellationToken _cancellationToken;
 
         public VectorizationWorker(
             IVectorizationStateService vectorizationStateService,
             IDictionary<string, IRequestSourceService> requestSourceServices,
             IEnumerable<IRequestManagerService> requestManagerServices,
             ILogger<VectorizationWorker> logger,
-            CancellationTokenSource cancellationTokenSource)
+            CancellationToken cancellationToken)
         {
             _vectorizationStateService = vectorizationStateService;
             _requestSourceServices = requestSourceServices;
             _requestManagerServices = requestManagerServices;
             _logger = logger;
-            _cancellationTokenSource = cancellationTokenSource;
+            _cancellationToken = cancellationToken;
+        }
+
+        public async Task Run()
+        {
+            while (!_cancellationToken.IsCancellationRequested)
+            {
+                if (_logger.IsEnabled(LogLevel.Information))
+                {
+                    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                }
+                await Task.Delay(1000, _cancellationToken);
+            }
         }
     }
 }
