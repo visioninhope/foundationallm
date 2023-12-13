@@ -1,16 +1,22 @@
-# Deployment - Standard
+# Deployment - Starter
 
 Foundationa**LLM** deploys into your own Azure Subscription. By default it will deploy to Azure Container Apps (ACA) that make it fast to get started. When you want to deploy to production at scale, you can also deploy to Azure Kubernetes Service (AKS). Given that there are Azure Subscription quota limits to the number of Azure OpenAI Service resources you can deploy, you can choose to use an existing Azure OpenAI Service resource instead of a creating a new one with your deployment.
 
 ## Prerequisites
 
-- Azure Subscription
+- Azure Subscription (Subscription needs to be whitelisted for Azure OpenAI)
 - Subscription access to Azure OpenAI service. Start here to [Request Access to Azure OpenAI Service](https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUOFA5Qk1UWDRBMjg0WFhPMkIzTzhKQ1dWNyQlQCN0PWcu)
-- [.NET 7 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 - Docker Desktop
 - Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli))
 - [Helm 3.11.1 or greater](https://helm.sh/docs/intro/install/)
 - Visual Studio 2022 (only needed if you plan to run/debug the solution locally)
+- [Default quota of 65 or higher CPUs across all VM family types is sufficient](https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests)
+- A service principal needs to be created for Terraform Cloud access (not needed for Starter ACA deployment)
+  - Should have the Owner role on the target Subscription
+  - Will need the client ID and client secret from the service principal to add to Terraform Cloud
+- Provide Owner access to the subscription for two Solliance account holders
+- Two App Registrations created in your Entra ID tenant (AAD), and assigned resource will need to be initially added as Owners of said App Registrations so that authentication can be configured appropriately.
 
 ## Deployment steps
 
@@ -111,7 +117,3 @@ To update an individual API or portal, you can use the following commands:
     az containerapp update --name <aca_name> --resource-group <resource_group_name> --image <image_name>
     ```
     where `<aca_name>` is the name of the ACA, `<resource_group_name>` is the name of the resource group where the ACA is located, and `<image_name>` is the name of the image you want to update (the structure of the image name is `<acr_name>.azurecr.io/<image_name>:latest`, where `<acr_name>` is the name of the Azure Container Registry, and `<image_name>` is the name of the Docker image).
-
-### Update individual APIs or portals when using Microsoft Azure Kubernetes Service (AKS)
-
-Coming soon...
