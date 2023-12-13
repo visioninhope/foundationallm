@@ -5,17 +5,14 @@ Foundationa**LLM** deploys into your own Azure Subscription. By default it will 
 ## Prerequisites
 
 - Azure Subscription (Subscription needs to be whitelisted for Azure OpenAI)
-- Subscription access to Azure OpenAI service. Start here to [Request Access to Azure OpenAI Service](https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUOFA5Qk1UWDRBMjg0WFhPMkIzTzhKQ1dWNyQlQCN0PWcu)
-- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- Subscription access to Azure OpenAI service. Start here to [Request Access to Azure OpenAI Service](https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUNTZBNzRKNlVQSFhZMU9aV09EVzYxWFdORCQlQCN0PWcu)
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - Docker Desktop
-- Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli))
+- Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/cli/azure/install-azure-cli))
 - [Helm 3.11.1 or greater](https://helm.sh/docs/intro/install/)
 - Visual Studio 2022 (only needed if you plan to run/debug the solution locally)
-- [Default quota of 65 or higher CPUs across all VM family types is sufficient](https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests)
-- A service principal needs to be created for Terraform Cloud access (not needed for Starter ACA deployment)
-  - Should have the Owner role on the target Subscription
-  - Will need the client ID and client secret from the service principal to add to Terraform Cloud
-- Provide Owner access to the subscription for two Solliance account holders
+- [Default quota of 65 or higher CPUs across all VM family types is sufficient](https://learn.microsoft.com/azure/quotas/per-vm-quota-requests)
+- Should have the Owner role on the target Subscription
 - Two App Registrations created in your Entra ID tenant (AAD), and assigned resource will need to be initially added as Owners of said App Registrations so that authentication can be configured appropriately.
 
 ## Deployment steps
@@ -39,7 +36,7 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
         ./deploy/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id>
         ```
 
-        >**NOTE**: Make sure to set the `<location>` value to a region that supports Azure OpenAI services.  See [Azure OpenAI service regions](https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-region/?products=cognitive-services&regions=all) for more information.
+        >**NOTE**: Make sure to set the `<location>` value to a region that supports Azure OpenAI services.  See [Azure OpenAI service regions](https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=cognitive-services&regions=all) for more information.
 
     2. Option 2: Full deployment using Microsoft Azure Kubernetes Service (AKS)
         To deploy to an AKS environment instead, run the same script with the added argument `-deployAks 1`, as shown below.  This will provision all of the required infrastructure, deploy the API and web app services as pods in an AKS cluster, and import data into Cosmos DB.
