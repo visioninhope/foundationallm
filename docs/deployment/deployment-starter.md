@@ -11,7 +11,7 @@ Foundationa**LLM** deploys into your own Azure Subscription. By default it will 
 - Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/cli/azure/install-azure-cli))
 - [Helm 3.11.1 or greater](https://helm.sh/docs/intro/install/)
 - Visual Studio 2022 (only needed if you plan to run/debug the solution locally)
-- [Default quota of 65 or higher CPUs across all VM family types is sufficient](https://learn.microsoft.com/azure/quotas/per-vm-quota-requests)
+- Minimum quota of 65 CPUs across all VM family types. Start here to[Manage VM Quotas](https://learn.microsoft.com/azure/quotas/per-vm-quota-requests)
 - Should have the Owner role on the target Subscription
 - Two App Registrations created in your Entra ID tenant (AAD), and assigned resource will need to be initially added as Owners of said App Registrations so that authentication can be configured appropriately.
 
@@ -114,3 +114,4 @@ To update an individual API or portal, you can use the following commands:
     az containerapp update --name <aca_name> --resource-group <resource_group_name> --image <image_name>
     ```
     where `<aca_name>` is the name of the ACA, `<resource_group_name>` is the name of the resource group where the ACA is located, and `<image_name>` is the name of the image you want to update (the structure of the image name is `<acr_name>.azurecr.io/<image_name>:latest`, where `<acr_name>` is the name of the Azure Container Registry, and `<image_name>` is the name of the Docker image).
+
