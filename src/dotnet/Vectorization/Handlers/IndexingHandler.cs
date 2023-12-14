@@ -1,16 +1,11 @@
-﻿using FoundationaLLM.Vectorization.Interfaces;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Vectorization.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
     public class IndexingHandler : VectorizationStepHandlerBase
     {
-        public IndexingHandler() : base("index")
+        public IndexingHandler() : base(VectorizationSteps.Index)
         {
         }
 

@@ -13,6 +13,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         private readonly ILogger<MemoryRequestSourceService> _logger;
         private readonly ConcurrentQueue<VectorizationRequest> _requests = new ConcurrentQueue<VectorizationRequest>();
 
+        /// <inheritdoc/>
         public string SourceName => _sourceName;
 
         public MemoryRequestSourceService(
@@ -23,17 +24,14 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             _logger = logger;
         }
 
-        public Task DeleteRequest(string requestId)
-        {
-            return Task.CompletedTask;
-        }
+        /// <inheritdoc/>
+        public Task DeleteRequest(string requestId) => Task.CompletedTask;
 
-        public Task<bool> HasRequests()
-        {
-            return Task.FromResult(
-                _requests.Count > 0);
-        }
+        /// <inheritdoc/>
+        public Task<bool> HasRequests() =>
+            Task.FromResult(_requests.Count > 0);
 
+        /// <inheritdoc/>
         public Task<IEnumerable<VectorizationRequest>> ReceiveRequests(int count)
         {
             var result = new List<VectorizationRequest>();
@@ -49,6 +47,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             return Task.FromResult<IEnumerable<VectorizationRequest>>(result);
         }
 
+        /// <inheritdoc/>
         public Task SubmitRequest(VectorizationRequest request)
         {
             _requests.Enqueue(request);

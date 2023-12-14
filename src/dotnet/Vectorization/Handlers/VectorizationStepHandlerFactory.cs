@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Vectorization.Exceptions;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 
 namespace FoundationaLLM.Vectorization.Handlers
@@ -18,13 +19,13 @@ namespace FoundationaLLM.Vectorization.Handlers
         {
             switch (step)
             {
-                case "extract":
+                case VectorizationSteps.Extract:
                     return new ExtractionHandler();
-                case "partition":
+                case VectorizationSteps.Partition:
                     return new PartitionHandler();
-                case "embed":
+                case VectorizationSteps.Embed:
                     return new EmbeddingHandler();
-                case "index":
+                case VectorizationSteps.Index:
                     return new IndexingHandler();
                 default:
                     throw new VectorizationException($"There is no handler available for the vectorization pipeline step [{step}].");

@@ -8,6 +8,7 @@ namespace FoundationaLLM.Vectorization.Handlers
     {
         protected readonly string _stepId = string.Empty;
 
+        /// <inheritdoc/>
         public string StepId => _stepId;
 
         public VectorizationStepHandlerBase(
@@ -16,6 +17,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             _stepId = stepId;
         }
 
+        /// <inheritdoc/>
         public async Task Invoke(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
         {
             try

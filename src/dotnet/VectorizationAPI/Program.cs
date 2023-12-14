@@ -1,4 +1,6 @@
+using Asp.Versioning;
 using Azure.Identity;
+using FoundationaLLM.Common.OpenAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,18 +34,47 @@ builder.Services.AddCors(policyBuilder =>
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddApiVersioning(options =>
+ {
+     // Reporting api versions will return the headers
+     // "api-supported-versions" and "api-deprecated-versions"
+     options.ReportApiVersions = true;
+     options.AssumeDefaultVersionWhenUnspecified = true;
+     options.DefaultApiVersion = new ApiVersion(1, 0);
+ });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(
+    options =>
+    {
+        // Add a custom operation filter which sets default values
+        options.OperationFilter<SwaggerDefaultValues>();
+
+        var fileName = typeof(Program).Assembly.GetName().Name + ".xml";
+        var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+
+        // Integrate xml comments
+        options.IncludeXmlComments(filePath);
+    });
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI(
+    options =>
+    {
+        var descriptions = app.DescribeApiVersions();
+
+        // build a swagger endpoint for each discovered API version
+        foreach (var description in descriptions)
+        {
+            var url = $"/swagger/{description.GroupName}/swagger.json";
+            var name = description.GroupName.ToUpperInvariant();
+            options.SwaggerEndpoint(url, name);
+        }
+    });
 
 app.UseHttpsRedirection();
 

@@ -2,31 +2,21 @@ using Asp.Versioning;
 using Azure.Identity;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Core.Interfaces;
-using FoundationaLLM.Core.Services;
-using Microsoft.Extensions.Options;
-using Polly;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using FoundationaLLM.Common.Services;
-using Microsoft.Identity.Web;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Core.Models.Configuration;
-using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
-using Azure.Identity;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
+using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Http.Resilience;
-using FoundationaLLM.Common.Settings;
+using Microsoft.Extensions.Options;
+using Microsoft.Identity.Web;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FoundationaLLM.Core.API
 {

@@ -10,13 +10,8 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         {
         }
 
+        /// <inheritdoc/>
         public async Task<BinaryData> ReadFileAsync(string filePath)
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        public async Task<BinaryData> ReadFileAsync(string index, string fileName)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();

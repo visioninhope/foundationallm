@@ -54,6 +54,7 @@ namespace FoundationaLLM.Vectorization.Services
             _taskPool = new TaskPool(_settings.MaxHandlerInstances);
         }
 
+        /// <inheritdoc/>
         public Task Start()
         {
             _logger.LogInformation($"Starting the request manager service for the source [{_settings.RequestSourceName}]...");
@@ -124,7 +125,7 @@ namespace FoundationaLLM.Vectorization.Services
             var stepHandler = VectorizationStepHandlerFactory.Create(_settings.RequestSourceName, request[_settings.RequestSourceName]!.Parameters);
             await stepHandler.Invoke(request, state, _cancellationToken);
 
-            await _vectorizationStateService.UpdateState(state);
+            await _vectorizationStateService.SaveState(state);
         }
 
         private async Task AdvanceRequest(VectorizationRequest request)

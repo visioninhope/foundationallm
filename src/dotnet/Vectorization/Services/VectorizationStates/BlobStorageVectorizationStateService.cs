@@ -11,13 +11,15 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         {
         }
 
+        /// <inheritdoc/>
         public async Task<VectorizationState> ReadState(string id)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
         }
 
-        public async Task UpdateState(VectorizationState state)
+        /// <inheritdoc/>
+        public async Task SaveState(VectorizationState state)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();

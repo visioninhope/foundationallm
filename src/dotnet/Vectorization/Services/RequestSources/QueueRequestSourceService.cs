@@ -11,6 +11,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         private readonly string _sourceName;
         private readonly ILogger<QueueRequestSourceService> _logger;
 
+        /// <inheritdoc/>
         public string SourceName => _sourceName;
 
         public QueueRequestSourceService(
@@ -21,24 +22,16 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             _logger = logger;
         }
 
-        public Task DeleteRequest(string requestId)
-        {
-            throw new NotImplementedException();
-        }
+        /// <inheritdoc/>
+        public Task DeleteRequest(string requestId) => throw new NotImplementedException();
 
-        public Task<bool> HasRequests()
-        {
-            throw new NotImplementedException();
-        }
+        /// <inheritdoc/>
+        public Task<bool> HasRequests() => throw new NotImplementedException();
 
-        public Task<IEnumerable<VectorizationRequest>> ReceiveRequests(int count)
-        {
-            throw new NotImplementedException();
-        }
+        /// <inheritdoc/>
+        public Task<IEnumerable<VectorizationRequest>> ReceiveRequests(int count) => throw new NotImplementedException();
 
-        public Task SubmitRequest(VectorizationRequest request)
-        {
-            throw new NotImplementedException();
-        }
+        /// <inheritdoc/>
+        public Task SubmitRequest(VectorizationRequest request) => throw new NotImplementedException();
     }
 }
