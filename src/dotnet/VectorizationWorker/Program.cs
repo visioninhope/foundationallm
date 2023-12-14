@@ -1,5 +1,6 @@
 using Azure.Identity;
 using FoundationaLLM.Vectorization.Interfaces;
+using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using FoundationaLLM.Vectorization.Worker;
 
@@ -15,6 +16,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     {
         options.SetCredential(new DefaultAzureCredential());
     });
+    options.Select("FoundationaLLM:Vectorization:*");
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -34,6 +36,9 @@ builder.Services.AddCors(policyBuilder =>
 // Add services to the container.
 builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
 builder.Services.AddHostedService<Worker>();
+
+builder.Services.AddOptions<VectorizationWorkerSettings>()
+    .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:WorkerSettings"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -34,7 +34,7 @@ namespace FoundationaLLM.Vectorization
                 {
                     _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 }
-                await Task.Delay(1000, _cancellationToken);
+                await Task.Delay(10000, _cancellationToken);
             }
         }
     }

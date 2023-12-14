@@ -12,8 +12,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     {
         options.SetCredential(new DefaultAzureCredential());
     });
-    //options.Select("FoundationaLLM:APIs:*");
-    //options.Select("FoundationaLLM:CoreAPI:Entra:*");
+    options.Select("FoundationaLLM:Vectorization:*");
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);

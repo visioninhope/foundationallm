@@ -16,14 +16,12 @@ namespace FoundationaLLM.Vectorization.Models.Configuration
         /// The name of the request source that provides the requests processed by the request manager.
         /// </summary>
         [JsonPropertyOrder(0)]
-        [JsonPropertyName("name")]
-        public required string RequestSourceName;
+        public required string RequestSourceName { get; set; }
 
         /// <summary>
         /// The maximum number of handler instances allowed to run in parallel.
         /// </summary>
         [JsonPropertyOrder(1)]
-        [JsonPropertyName("max_handler_instances")]
-        public int MaxHandlerInstances;
+        public int MaxHandlerInstances { get; set; }
     }
 }
