@@ -1,4 +1,6 @@
-from io import BytesIO
+from io import BytesIO, StringIO
+import pandas as pd
+import pyarrow.parquet as pq
 import fnmatch
 from azure.storage.blob import BlobServiceClient
 from foundationallm.storage import StorageManagerBase
@@ -72,3 +74,56 @@ class BlobStorageManager(StorageManagerBase):
     def delete_file(self, path):
         full_path = self.__get_full_path(path)
         self.blob_container_client.delete_blob(full_path, delete_snapshots='include')
+
+    def read_dataframe(self, path, format='csv', containerName=None, root_path=None, ret=pd.DataFrame()):
+
+        if self.file_exists(path):
+
+            if format == 'csv':
+                return pd.read_csv(StringIO(
+                    self.read_file_content(path).decode('utf-8')))
+            elif format == 'parquet':
+                file_content = self.read_file_content(path)
+                table = pq.read_table(BytesIO(file_content))
+                df = table.to_pandas()
+                return df
+
+        return ret
+    
+    def read_dataframes(self, folder_path, format='csv', ret = pd.DataFrame()):
+        """
+        Returns a list of dataframes from the specified folder path.
+        The path should be to a folder, not a file.
+        """
+
+        if format == 'csv':
+            file_name_pattern='*.csv'
+        elif format == 'parquet':
+            file_name_pattern='*.parquet'
+        else:
+            raise ValueError('The parameter format must be set to either csv or parquet.')
+
+        blobs = self.list_blobs(folder_path, file_name_pattern=file_name_pattern)
+        dfs = pd.DataFrame()
+        for blob in blobs:
+            df = self.read_dataframe(blob.name, format=format)
+            dfs = pd.concat([dfs, df])
+        return dfs
+    
+    def write_dataframe(self, path, df, format='csv', overwrite=True,remove_duplicate_columns=False, lease=None):
+
+        if ( df is None):
+            df = pd.DataFrame()
+
+        if ( remove_duplicate_columns):
+            df = df.loc[:,~df.columns.duplicated()].copy()
+
+        if format == 'csv':
+            self.write_file_content(path,
+                df.to_csv(index=False),
+                overwrite=overwrite,
+                lease=lease)
+        elif format == 'parquet':
+            self.write_file_content(path,
+                df.to_parquet(engine = 'pyarrow', index=False),
+                overwrite=overwrite)
