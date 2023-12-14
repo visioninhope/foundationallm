@@ -129,6 +129,7 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.MessagesMinTokens` | 100 |   |
 | `FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.SystemMaxTokens` | 1500 |   |
 | `FoundationaLLM:SemanticKernelAPI:OpenAI.ShortSummaryPromptName` | Summarizer.TwoWords |   |
+| `FoundationaLLM:Vectorization:WorkerSettings`| `{"RequestManagers": [{ "RequestSourceName": "extract", "MaxHandlerInstances": 1 }], "QueuingEngine": 1 }`  | |
 
 ## Feature flags
 
