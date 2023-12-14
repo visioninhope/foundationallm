@@ -40,6 +40,13 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
         [HttpPost("completion")]
         public async Task<CompletionResponse> GetCompletion([FromBody] CompletionRequest completionRequest)
         {
+            using var activity = Common.Logging.ActivitySources.AgentFactoryAPIActivitySource.StartActivity("GetCompletion", System.Diagnostics.ActivityKind.Consumer);
+
+            foreach (var bag in activity?.Parent?.Baggage)
+            {
+                activity?.AddTag(bag.Key, bag.Value);
+            }
+
             return await _agentFactoryService.GetCompletion(completionRequest);
         }
 
@@ -51,6 +58,13 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
         [HttpPost("summary")]
         public async Task<SummaryResponse> GetSummary([FromBody] SummaryRequest content)
         {
+            using var activity = Common.Logging.ActivitySources.AgentFactoryAPIActivitySource.StartActivity("GetSummary", System.Diagnostics.ActivityKind.Consumer);
+
+            foreach (var bag in activity?.Parent?.Baggage)
+            {
+                activity?.AddTag(bag.Key, bag.Value);
+            }
+
             return await _agentFactoryService.GetSummary(content);
         }
     }

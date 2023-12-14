@@ -1,6 +1,8 @@
 using System.Net;
 using Asp.Versioning;
 using Azure.Identity;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
+using Azure.Monitor.OpenTelemetry.Exporter;
 using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
 using FoundationaLLM.AgentFactory.Core.Services;
@@ -19,6 +21,8 @@ using FoundationaLLM.Common.Settings;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.Extensions.Http.Resilience;
 using Microsoft.Extensions.Options;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -143,6 +147,22 @@ namespace FoundationaLLM.AgentFactory.API
                     // Adds auth via X-API-KEY header
                     options.AddAPIKeyAuth();
                 });
+
+            builder.Services.AddOpenTelemetry()
+                .UseAzureMonitor(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
+                .WithTracing(b =>
+            {
+                b
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddConsoleExporter()
+                .AddJaegerExporter()
+                .AddAzureMonitorTraceExporter(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
+                .AddSource("FoundationaLLM.AgentFactoryAPI")
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.AgentFactoryAPI"));
+            });
+
+            builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) => builder.AddSource("FoundationaLLM.AgentFactoryAPI"));
 
             var app = builder.Build();
 

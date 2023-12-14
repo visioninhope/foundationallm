@@ -21,6 +21,15 @@ using FoundationaLLM.Common.Models.Context;
 using Microsoft.Extensions.Http.Resilience;
 using FoundationaLLM.Common.Settings;
 
+using OpenTelemetry;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Trace;
+using OpenTelemetry.Resources;
+
+using Azure.Monitor.OpenTelemetry.Exporter;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
+using OpenTelemetry.Metrics;
+
 namespace FoundationaLLM.Core.API
 {
     /// <summary>
@@ -128,6 +137,22 @@ namespace FoundationaLLM.Core.API
                     // Integrate xml comments
                     options.IncludeXmlComments(filePath);
                 });
+
+            builder.Services.AddOpenTelemetry()
+                .UseAzureMonitor(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
+                .WithTracing(b =>
+            {
+                b
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddConsoleExporter()
+                .AddJaegerExporter()
+                .AddAzureMonitorTraceExporter(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
+                .AddSource("FoundationaLLM.CoreAPI")
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.CoreAPI"));
+            });
+
+            builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) => builder.AddSource("FoundationaLLM.CoreAPI"));
 
             var app = builder.Build();
 

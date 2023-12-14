@@ -28,6 +28,13 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             IPromptHubAPIService promptHubAPIService,
             IDataSourceHubAPIService dataSourceHubAPIService)
         {
+            using var activity = Common.Logging.ActivitySources.AgentFactoryAPIActivitySource.StartActivity("AgentBuilder.Build", System.Diagnostics.ActivityKind.Consumer);
+
+            foreach (var bag in activity?.Parent?.Baggage)
+            {
+                activity?.AddTag(bag.Key, bag.Value);
+            }
+
             var agentResponse = await agentHubAPIService.ResolveRequest(userPrompt, sessionId);
             var agentInfo = agentResponse.Agent;
 
@@ -41,7 +48,13 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                 throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
             var orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
-            
+            using var activity2 = Common.Logging.ActivitySources.AgentFactoryAPIActivitySource.StartActivity("AgentBuilder.Build.Configure", System.Diagnostics.ActivityKind.Consumer);
+
+            foreach (var bag in activity2?.Parent?.Baggage)
+            {
+                activity?.AddTag(bag.Key, bag.Value);
+            }
+
             AgentBase? agent = null;
             agent = new DefaultAgent(agentInfo!, orchestrationService, promptHubAPIService, dataSourceHubAPIService);           
 

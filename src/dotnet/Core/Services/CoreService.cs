@@ -123,6 +123,15 @@ public class CoreService : ICoreService
                 MessageHistory = messageHistoryList
             };
 
+            using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetCompletion", System.Diagnostics.ActivityKind.Consumer);
+            activity?.AddTag("User", _callContext.CurrentUserIdentity?.UPN);
+            activity?.AddTag("RequestId", completionRequest.SessionId);
+
+            activity?.AddBaggage("User", _callContext.CurrentUserIdentity?.UPN);
+            activity?.AddBaggage("RequestId", completionRequest.SessionId);
+
+            var completionResponse = await _gatekeeperAPIService.GetCompletion(completionRequest);
+
             // Generate the completion to return to the user.
             var result = await _gatekeeperAPIService.GetCompletion(completionRequest);
 
@@ -137,6 +146,9 @@ public class CoreService : ICoreService
             completionMessage.CompletionPromptId = completionPrompt.Id;
 
             await AddPromptCompletionMessagesAsync(sessionId, promptMessage, completionMessage, completionPrompt);
+
+            activity?.AddTag("TotalTokens", completionResponse.TotalTokens);
+            activity?.AddTag("UserPrompt", completionRequest.UserPrompt);
 
             return new Completion { Text = result.Completion };
         }

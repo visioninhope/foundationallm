@@ -72,8 +72,16 @@ public class AgentFactoryService : IAgentFactoryService
     /// </summary>
     public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
     {
+        using var activity = Common.Logging.ActivitySources.AgentFactoryAPIActivitySource.StartActivity("GetCompletion", System.Diagnostics.ActivityKind.Consumer);
+
+        foreach (var bag in activity?.Parent?.Baggage)
+        {
+            activity?.AddTag(bag.Key, bag.Value);
+        }
+
         try
         {
+
             var agent = await AgentBuilder.Build(
                 completionRequest.UserPrompt ?? string.Empty,
                 completionRequest.SessionId ?? string.Empty,

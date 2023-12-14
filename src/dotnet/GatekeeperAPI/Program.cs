@@ -19,6 +19,15 @@ using Microsoft.Extensions.Options;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
+using OpenTelemetry;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Trace;
+using OpenTelemetry.Resources;
+
+using Azure.Monitor.OpenTelemetry.Exporter;
+using OpenTelemetry.Metrics;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
+
 namespace FoundationaLLM.Gatekeeper.API
 {
     /// <summary>
@@ -128,6 +137,22 @@ namespace FoundationaLLM.Gatekeeper.API
                     // Adds auth via X-API-KEY header
                     options.AddAPIKeyAuth();
                 });
+
+            builder.Services.AddOpenTelemetry()
+                .UseAzureMonitor(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
+                .WithTracing(b =>
+            {
+                b
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddConsoleExporter()
+                .AddJaegerExporter()
+                .AddAzureMonitorTraceExporter(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
+                .AddSource("FoundationaLLM.GatekeeperAPI")
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.GatekeeperAPI"));
+            });
+
+            builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) => builder.AddSource("FoundationaLLM.GatekeeperAPI"));
 
             var app = builder.Build();
 

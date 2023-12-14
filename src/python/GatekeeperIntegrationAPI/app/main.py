@@ -3,11 +3,63 @@ Main entry-point for the FoundationaLLM DataSourceHubAPI.
 Runs web server exposing the API.
 """
 import uvicorn
+import os
 from fastapi import FastAPI
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from app.dependencies import get_config
 from app.routers import analyze, status
 
 config = get_config()
+
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.resources import SERVICE_NAME, Resource
+from opentelemetry.sdk.trace.export import (
+    BatchSpanProcessor,
+    ConsoleSpanExporter,
+)
+
+# Sets the global default tracer provider
+trace.set_tracer_provider(
+TracerProvider(
+        resource=Resource.create({SERVICE_NAME: "FoundationaLLM.GatekeeperIntegrationAPI"})
+    )
+)
+
+# Creates a tracer from the global tracer provider
+tracer = trace.get_tracer("FoundationaLLM.GatekeeperIntegrationAPI")
+
+from opentelemetry.exporter.jaeger.thrift import JaegerExporter
+
+# create a JaegerExporter
+jaeger_exporter = JaegerExporter(
+    # configure agent
+    agent_host_name='localhost',
+    agent_port=6831,
+    # optional: configure also collector
+    collector_endpoint='http://localhost:14268/api/traces?format=jaeger.thrift',
+    # username=xxxx, # optional
+    # password=xxxx, # optional
+    # max_tag_value_length=None # optional
+)
+
+# Create a BatchSpanProcessor and add the exporter to it
+span_processor = BatchSpanProcessor(jaeger_exporter)
+
+# add to the tracer
+trace.get_tracer_provider().add_span_processor(span_processor)
+
+from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
+
+azure_exporter = AzureMonitorTraceExporter(
+    connection_string=os.environ["FoundationaLLM:AppInsights:ConnectionString"]
+)
+
+# Create a BatchSpanProcessor and add the exporter to it
+azure_span_processor = BatchSpanProcessor(azure_exporter)
+
+# add to the tracer
+trace.get_tracer_provider().add_span_processor(azure_span_processor)
 
 app = FastAPI(
     title='FoundationaLLM GatekeeperIntegrationAPI',
@@ -28,6 +80,8 @@ app = FastAPI(
         'url': 'https://www.foundationallm.ai/license',
     }
 )
+
+FastAPIInstrumentor.instrument_app(app)
 
 app.include_router(analyze.router)
 app.include_router(status.router)

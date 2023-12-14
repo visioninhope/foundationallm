@@ -22,10 +22,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         /// </summary>
         /// <param name="gatekeeperService"></param>
         public OrchestrationController(
-            IGatekeeperService gatekeeperService)
-        {
-            _gatekeeperService = gatekeeperService;
-        }
+            IGatekeeperService gatekeeperService) => _gatekeeperService = gatekeeperService;
 
         /// <summary>
         /// Gets a completion from the Gatekeeper service.
@@ -35,6 +32,13 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         [HttpPost("completion")]
         public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
+            using var activity = Common.Logging.ActivitySources.GatekeeperAPIActivitySource.StartActivity("GetCompletion", System.Diagnostics.ActivityKind.Consumer);
+
+            foreach(var bag in activity?.Parent?.Baggage)
+            {
+                activity?.AddTag(bag.Key, bag.Value);
+            }
+
             return await _gatekeeperService.GetCompletion(completionRequest);
         }
 
@@ -46,6 +50,13 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         [HttpPost("summary")]
         public async Task<SummaryResponse> GetSummary(SummaryRequest summaryRequest)
         {
+            using var activity = Common.Logging.ActivitySources.GatekeeperAPIActivitySource.StartActivity("GetSummary", System.Diagnostics.ActivityKind.Consumer);
+
+            foreach (var bag in activity?.Parent?.Baggage)
+            {
+                activity?.AddTag(bag.Key, bag.Value);
+            }
+
             return await _gatekeeperService.GetSummary(summaryRequest);
         }
     }

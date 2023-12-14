@@ -47,7 +47,17 @@ namespace FoundationaLLM.Core.API.Controllers
         [HttpPost("completion", Name = "GetCompletion")]
         public async Task<IActionResult> GetCompletion(CompletionRequest completionRequest)
         {
+            using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetCompletion", System.Diagnostics.ActivityKind.Consumer);
+            activity?.AddTag("User", this.User?.Identity?.Name);
+            activity?.AddTag("SessionId", completionRequest.SessionId);
+
+            activity?.AddBaggage("User", this.User?.Identity?.Name);
+            activity?.AddBaggage("SessionId", completionRequest.SessionId);
+
             var completionResponse = await _gatekeeperAPIService.GetCompletion(completionRequest);
+
+            activity?.AddTag("TotalTokens", completionResponse.TotalTokens);
+            activity?.AddTag("UserPrompt", completionRequest.UserPrompt);
 
             return Ok(completionResponse);
         }
@@ -61,6 +71,8 @@ namespace FoundationaLLM.Core.API.Controllers
         [HttpPost("summary", Name = "GetSummary")]
         public async Task<IActionResult> GetSummary(SummaryRequest summaryRequest)
         {
+            using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetSummary", System.Diagnostics.ActivityKind.Consumer);
+
             var summaryResponse = await _gatekeeperAPIService.GetSummary(summaryRequest);
 
             return Ok(summaryResponse);
