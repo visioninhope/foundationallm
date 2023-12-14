@@ -2,9 +2,21 @@ using Asp.Versioning;
 using Azure.Identity;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Core.Interfaces;
+using FoundationaLLM.Core.Services;
+using Microsoft.Extensions.Options;
+using Polly;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using FoundationaLLM.Common.Services;
+using Microsoft.Identity.Web;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Core.Models.Configuration;
+using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
+using Azure.Identity;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
@@ -14,10 +26,7 @@ using FoundationaLLM.Core.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Http.Resilience;
-using Microsoft.Extensions.Options;
-using Microsoft.Identity.Web;
-using Polly;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using FoundationaLLM.Common.Settings;
 
 namespace FoundationaLLM.Core.API
 {
@@ -43,6 +52,10 @@ namespace FoundationaLLM.Core.API
                 {
                     options.SetCredential(new DefaultAzureCredential());
                 });
+                options.Select("FoundationaLLM:APIs:*");
+                options.Select("FoundationaLLM:CosmosDB:*");
+                options.Select("FoundationaLLM:Branding:*");
+                options.Select("FoundationaLLM:CoreAPI:Entra:*");
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -69,6 +82,7 @@ namespace FoundationaLLM.Core.API
 
             builder.Services.AddScoped<ICosmosDbService, CosmosDbService>();
             builder.Services.AddScoped<ICoreService, CoreService>();
+            builder.Services.AddScoped<IUserProfileService, UserProfileService>();
             builder.Services.AddScoped<IGatekeeperAPIService, GatekeeperAPIService>();
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -83,7 +97,7 @@ namespace FoundationaLLM.Core.API
                 ConnectionString = builder.Configuration["FoundationaLLM:APIs:CoreAPI:AppInsightsConnectionString"],
                 DeveloperMode = builder.Environment.IsDevelopment()
             });
-            builder.Services.AddServiceProfiler();
+            //builder.Services.AddServiceProfiler();
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ContractResolver = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings().ContractResolver;
@@ -175,8 +189,8 @@ namespace FoundationaLLM.Core.API
 
             var gatekeeperAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.GatekeeperAPI}:APIUrl"] ?? "",
-                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.GatekeeperAPI}:APIKey"] ?? ""
+                APIUrl = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.GatekeeperAPI}:APIUrl"]!,
+                APIKey = builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.GatekeeperAPI}:APIKey"]!
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.GatekeeperAPI] = gatekeeperAPISettings;
 
@@ -187,13 +201,7 @@ namespace FoundationaLLM.Core.API
                         "DownstreamPipeline",
                         static strategyBuilder =>
                         {
-                            // See: https://www.pollydocs.org/strategies/retry.html
-                            strategyBuilder.AddRetry(new HttpRetryStrategyOptions
-                            {
-                                BackoffType = DelayBackoffType.Exponential,
-                                MaxRetryAttempts = 5,
-                                UseJitter = true
-                            });
+                            CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                         });
 
             builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
