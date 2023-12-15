@@ -15,12 +15,12 @@
           }
         ],
         "dest": "api/dotnet",
-        "includePrivateMembers": false,
+        "includePrivateMembers": true,
         "disableGitFeatures": false,
         "disableDefaultFilter": false,
         "noRestore": false,
-        "namespaceLayout": "flattened",
         "memberLayout": "samePage",
+        "namespaceLayout": "nested",
         "EnumSortOrder": "alphabetic",
         "allowCompilationErrors": false
       }
@@ -29,9 +29,16 @@
       "globalMetadata": {
         "_appName": "FoundationaLLM",
         "_appTitle": "FoundationaLLM",
-        "_appLogoPath": "foundationallm-logo.svg",
-        "_appFaviconPath": "favicon.ico",
+        "_appFaviconPath": "media/favicon.ico",
+        "_appLogoPath": "media/fllm-icon.png",
+        "_appFooter": "Find out more about FoundationaLLM at <a href=\"https://foundationallm.ai\">foundationallm.ai</a>.",
+        "_copyrightFooter": "© FoundationaLLM. All rights reserved.",
         "_enableSearch": true,
+        "_disableSideFilter": false,
+        "_disableNewTab": false,
+        "_disableContribution": false,
+        "_disableBreadcrumb": false,
+        "_disableNextArticle": false,
         "_lang": "en"
       },
       "content": [
@@ -53,7 +60,6 @@
       "resource": [
         {
           "files": [
-            "foundationallm-logo.svg",
             "**/media/**"
           ]
         }
@@ -64,10 +70,14 @@
       "template": [
         "default",
         "modern",
-        "template"
+        "templates/foundationallm"
       ],
+      "xrefService": [ "https://xref.docs.microsoft.com/query?uid={uid}" ],
       "postProcessors": [],
+      "markdownEngineName": "markdig",
+      "noLangKeyword": false,
       "keepFileLink": false,
+      "cleanupCacheHistory": false,
       "disableGitFeatures": false
     }
   }
