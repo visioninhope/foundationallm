@@ -1,0 +1,8 @@
+# This is an automatically generated file
+items:
+- name: Development
+  href: index.md
+- name: Configure local development environment
+  href: development-local.md
+- name: FoundationaLLM DevOps Rules and Guidelines
+  href: development-approach.md
