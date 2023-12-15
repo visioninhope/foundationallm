@@ -43,6 +43,6 @@ FoundationalLLM provides a simple command line driven approach to getting your f
 
 Follow the [Starter Deployment instructions](deployment/deployment-starter.md) to get Foundationa**LLM** deployed in your Azure subscription.
 
-If you want to run the solution locally, follow the [Local Development instructions](deployment/deployment-local.md).
+If you want to run the solution locally, follow the [Local Development instructions](development/development-local.md).
 
 You can browse the documentation using the sidebar or visit the [API section](api/index.md) for the reference documentation.
