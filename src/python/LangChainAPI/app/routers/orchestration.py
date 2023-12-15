@@ -3,9 +3,10 @@ The API endpoint for returning the completion from the LLM for the specified use
 """
 import logging
 import json
+import urllib.parse
 from typing import Optional
-from fastapi import APIRouter, Depends, Header, HTTPException
-from opentelemetry import trace
+from fastapi import APIRouter, Depends, Header, HTTPException, Request
+from opentelemetry import trace , baggage
 from opentelemetry.trace import SpanKind
 from foundationallm.config import Context
 from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
@@ -23,7 +24,7 @@ router = APIRouter(
 tracer = trace.get_tracer("FoundationaLLM.DataSourceHubAPI")
 
 @router.post('/completion')
-async def get_completion(completion_request: CompletionRequest,
+async def get_completion(completion_request: CompletionRequest, request : Request,
                          x_user_identity: Optional[str] = Header(None)) -> CompletionResponse:
     """
     Retrieves a completion response from a language model.
@@ -41,13 +42,21 @@ async def get_completion(completion_request: CompletionRequest,
     """
     try:
         with tracer.start_span(name="Completion" , kind=SpanKind.CONSUMER) as root_span:
-            
-            root_span.set_attribute("x_user_identity", x_user_identity)
-            jData = json.loads(x_user_identity)
-            root_span.set_attribute("User", jData["upn"])
 
+            correlation_context = request.headers["correlation-context"].split(",")
+
+            for item in correlation_context:
+                key, value = item.split("=")
+                baggage.set_baggage(key, urllib.parse.unquote(value))
+                root_span.set_attribute(key, urllib.parse.unquote(value))
+            
+            #root_span.set_attribute("x_user_identity", x_user_identity)
+            #jData = json.loads(x_user_identity)
+            #root_span.set_attribute("User", jData["upn"])
+
+            config = config=request.app.extra['config']
             orchestration_manager = OrchestrationManager(completion_request = completion_request,
-                                                        configuration=get_config(),
+                                                        configuration=config,
                                                         context=Context(user_identity=x_user_identity))
             return orchestration_manager.run(completion_request.user_prompt)
     except Exception as e:

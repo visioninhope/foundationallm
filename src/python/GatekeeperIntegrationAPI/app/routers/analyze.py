@@ -2,7 +2,7 @@
 The API endpoint for analyzing textual content to identify
 PII (personally identifiable information) entities.
 """
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from opentelemetry import trace
 from opentelemetry.trace import SpanKind
 from foundationallm.integration.models import AnalyzeRequest, AnalyzeResponse
@@ -20,7 +20,7 @@ router = APIRouter(
 tracer = trace.get_tracer("FoundationaLLM.GatekeeperIntegrationAPI")
 
 @router.post('')
-async def analyze(request: AnalyzeRequest) -> AnalyzeResponse:
+async def analyze(analyzer_request: AnalyzeRequest, request : Request) -> AnalyzeResponse:
     """
     Analyze textual content to identify PII with the option to
     anonymize.

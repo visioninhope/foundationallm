@@ -48,6 +48,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                 throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
             var orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
+            activity?.Stop();
+
             using var activity2 = Common.Logging.ActivitySources.AgentFactoryAPIActivitySource.StartActivity("AgentBuilder.Build.Configure", System.Diagnostics.ActivityKind.Consumer);
 
             foreach (var bag in activity2?.Parent?.Baggage)

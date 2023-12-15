@@ -147,6 +147,8 @@ public class CoreService : ICoreService
 
             await AddPromptCompletionMessagesAsync(sessionId, promptMessage, completionMessage, completionPrompt);
 
+            activity?.AddTag("PromptTokens", completionResponse.PromptTokens);
+            activity?.AddTag("CompletionTokens", completionResponse.CompletionTokens);
             activity?.AddTag("TotalTokens", completionResponse.TotalTokens);
             activity?.AddTag("UserPrompt", completionRequest.UserPrompt);
 

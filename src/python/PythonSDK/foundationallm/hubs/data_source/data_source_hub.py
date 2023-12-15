@@ -5,9 +5,12 @@ from foundationallm.hubs.data_source import DataSourceRepository, DataSourceReso
 class DataSourceHub(HubBase):
     """The DataSourceHub is responsible for resolving data sources."""
 
-    def __init__(self):
+    def __init__(self, config: Configuration = None):
         # initialize config
-        self.config = Configuration()
+        if ( config is None ):
+            self.config = Configuration()
+        else:
+            self.config = config
         super().__init__(resolver= DataSourceResolver(
             repository=DataSourceRepository(config=self.config), config=self.config)
              )

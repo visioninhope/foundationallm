@@ -9,8 +9,11 @@ from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from app.dependencies import get_config
 from app.routers import resolve, status
 #from azure.monitor.opentelemetry import configure_azure_monitor
+from foundationallm.config import Configuration
 
 config = get_config()
+
+app_config = Configuration()
 
 # configure_azure_monitor(
 #     connection_string=
@@ -85,10 +88,11 @@ app = FastAPI(
     license_info={
         'name': 'FoundationaLLM Software License',
         'url': 'https://www.foundationallm.ai/license',
-    }
+    },
+    config=app_config
 )
 
-FastAPIInstrumentor.instrument_app(app)
+FastAPIInstrumentor.instrument_app(app, tracer_provider=trace.get_tracer_provider())
 
 app.include_router(resolve.router)
 app.include_router(status.router)

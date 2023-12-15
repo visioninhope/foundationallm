@@ -94,11 +94,13 @@ namespace FoundationaLLM.Core.API
             // Register the authentication services
             RegisterAuthConfiguration(builder);
 
-            builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
+            /*builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
             {
                 ConnectionString = builder.Configuration["FoundationaLLM:APIs:CoreAPI:AppInsightsConnectionString"],
                 DeveloperMode = builder.Environment.IsDevelopment()
             });
+            */
+
             //builder.Services.AddServiceProfiler();
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
             {

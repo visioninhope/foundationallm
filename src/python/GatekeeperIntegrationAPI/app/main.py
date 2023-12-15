@@ -8,8 +8,11 @@ from fastapi import FastAPI
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from app.dependencies import get_config
 from app.routers import analyze, status
+from foundationallm.config import Configuration
 
 config = get_config()
+
+app_config = Configuration()
 
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
@@ -78,7 +81,8 @@ app = FastAPI(
     license_info={
         'name': 'FoundationaLLM Software License',
         'url': 'https://www.foundationallm.ai/license',
-    }
+    },
+    config=app_config
 )
 
 FastAPIInstrumentor.instrument_app(app)

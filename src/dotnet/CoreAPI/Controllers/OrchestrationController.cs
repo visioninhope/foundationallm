@@ -72,6 +72,8 @@ namespace FoundationaLLM.Core.API.Controllers
         public async Task<IActionResult> GetSummary(SummaryRequest summaryRequest)
         {
             using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetSummary", System.Diagnostics.ActivityKind.Consumer);
+            activity?.AddTag("User", this.User?.Identity?.Name);
+            activity?.AddTag("SessionId", summaryRequest.SessionId);
 
             var summaryResponse = await _gatekeeperAPIService.GetSummary(summaryRequest);
 

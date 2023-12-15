@@ -43,7 +43,13 @@ namespace FoundationaLLM.SemanticKernel.API
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
             // Add services to the container.
-            builder.Services.AddApplicationInsightsTelemetry();
+            /*builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
+            {
+                ConnectionString = builder.Configuration["FoundationaLLM:APIs:CoreAPI:AppInsightsConnectionString"],
+                DeveloperMode = builder.Environment.IsDevelopment()
+            });
+            */
+
             builder.Services.AddAuthorization();
             builder.Services.AddControllers();
             builder.Services.AddApiVersioning();

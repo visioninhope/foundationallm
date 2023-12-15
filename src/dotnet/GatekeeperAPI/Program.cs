@@ -61,11 +61,14 @@ namespace FoundationaLLM.Gatekeeper.API
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
             // Add services to the container.
+            /*
             builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
             {
                 ConnectionString = builder.Configuration["FoundationaLLM:APIs:GatekeeperAPI:AppInsightsConnectionString"],
                 DeveloperMode = builder.Environment.IsDevelopment()
             });
+            */
+
             //builder.Services.AddServiceProfiler();
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
             {
