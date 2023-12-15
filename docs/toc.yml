@@ -1,0 +1,45 @@
+- name: Introduction
+  href: index.md
+
+- name: Contributing
+  href: contributing/index.md
+  expanded: true
+  items:
+  - name: Git workflow
+    href: contributing/git-workflow.md
+  - name: Bug report reproduction guide
+    href: contributing/repro.md
+  - name: Style guide
+    href: contributing/style-guide.md
+
+- name: Deployment
+  href: deployment/index.md
+  expanded: true
+  items:
+  - name: Azure App Configuration values
+    href: deployment/app-configuration-values.md
+  - name: Authentication setup - Microsoft Entra ID
+    href: deployment/authentication-setup-entra.md
+  - name: Configure access control for services
+    href: deployment/configure-access-control-for-services.md
+  - name: Configuration for deployment
+    href: deployment/deployment-configuration.md
+  - name: Deployment - Starter
+    href: deployment/deployment-starter.md
+
+- name: Development
+  expanded: true
+  items:
+  - name: FoundationaLLM DevOps Rules and Guidelines
+    href: development/development-approach.md
+  - name: Configure local development environment
+    href: development/development-local.md
+
+- name: Setup guides
+  expanded: true
+  items:
+  - name: SQL database agent setup procedures
+    href: setup-guides/agents/sql-database-agents.md
+
+- name: API
+  href: api/
