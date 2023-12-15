@@ -13,7 +13,7 @@ Foundationa**LLM** deploys a secure, comprehensive and highly configurable copil
 - Scalable solution load balances across multiple LLM endpoints.
 - Extensible to new data sources, new LLM orchestrators and LLMs.
 
-![FoundationaLLM Overview](./docs/media/foundationallm-highlevel-architecture.png)
+![FoundationaLLM Overview](media/foundationallm-highlevel-architecture.png)
 
 ## What do WE mean by "copilot"
 
@@ -41,8 +41,8 @@ The core problems to deliver enterprise copilots are:
 
 FoundationalLLM provides a simple command line driven approach to getting your first deployment up and running. Basically, it's two commands. After that, you can customize the solution, run it locally on your machine and update the deployment with your customizations.
 
-Follow the [Starter Deployment instructions](./docs/deployment/deployment-starter.md) to get Foundationa**LLM** deployed in your Azure subscription.
+Follow the [Starter Deployment instructions](deployment/deployment-starter.md) to get Foundationa**LLM** deployed in your Azure subscription.
 
-## Contributing to FoundationaLLM
+If you want to run the solution locally, follow the [Local Development instructions](deployment/deployment-local.md).
 
-We are happy to accept contributions to the FoundationaLLM project in the form of feedback, bug reports, and pull requests. Please see [Contributing to FoundationaLLM](./CONTRIBUTING.md) for instructions.
+You can browse the documentation using the sidebar or visit the [API section](api/index.md) for the reference documentation.
