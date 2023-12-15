@@ -1,8 +1,8 @@
 using Azure.Identity;
 using FoundationaLLM.Core.Models.Configuration;
-using CoreWorker;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Services;
+using FoundationaLLM.Core.Worker;
 
 var builder = Host.CreateApplicationBuilder(args);
 
