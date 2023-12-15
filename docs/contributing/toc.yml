@@ -1,0 +1,10 @@
+# This is an automatically generated file
+items:
+- name: Contributing
+  href: index.md
+- name: Bug report reproduction guide
+  href: repro.md
+- name: Git workflow
+  href: git-workflow.md
+- name: Style guide
+  href: style-guide.md
