@@ -1,4 +1,0 @@
-Docfx scripts (run from this directory):
-
-docfx docfx.json
-
