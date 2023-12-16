@@ -41,6 +41,7 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
         >**NOTE**: Make sure to set the `<location>` value to a region that supports Azure OpenAI services.  See [Azure OpenAI service regions](https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=cognitive-services&regions=all) for more information.
 
     2. Option 2: Full deployment using Microsoft Azure Kubernetes Service (AKS)
+
         To deploy to an AKS environment instead, run the same script with the added argument `-deployAks 1`, as shown below.  This will provision all of the required infrastructure, deploy the API and web app services as pods in an AKS cluster, and import data into Cosmos DB.
 
         ```pwsh
@@ -49,7 +50,9 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
         ```
 
     3. Option 3: Deployment using an existing Azure OpenAI resource
+
         To deploy using an already provisioned Azure OpenAI resource, add the following parameters:
+
         | Parameter | Description |
         | --- | --- |
         | `-openAiRg` | The name of the resource group containing the Azure OpenAI resource. |
