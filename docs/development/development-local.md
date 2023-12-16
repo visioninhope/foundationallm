@@ -1,36 +1,5 @@
 # Configure local development environment
 
-- [Configure local development environment](#configure-local-development-environment)
-  - [Prerequisites](#prerequisites)
-  - [UI](#ui)
-    - [User Portal](#user-portal)
-  - [.NET projects](#net-projects)
-    - [Core API](#core-api)
-      - [Core API app settings](#core-api-app-settings)
-    - [CoreWorker](#coreworker)
-      - [CoreWorker app settings](#coreworker-app-settings)
-    - [Gatekeeper API](#gatekeeper-api)
-      - [Gatekeeper API app settings](#gatekeeper-api-app-settings)
-    - [Agent Factory API](#agent-factory-api)
-      - [Agent Factory API app settings](#agent-factory-api-app-settings)
-    - [Semantic Kernel API](#semantic-kernel-api)
-      - [Semantic Kernel API app settings](#semantic-kernel-api-app-settings)
-  - [Python projects](#python-projects)
-    - [Python Environment Variables](#python-environment-variables)
-    - [Agent Hub API](#agent-hub-api)
-      - [Agent Hub API Environment Variables](#agent-hub-api-environment-variables)
-    - [Data Source Hub API](#data-source-hub-api)
-      - [Data Source Hub API Environment Variables](#data-source-hub-api-environment-variables)
-    - [Gatekeeper Integration API](#gatekeeper-integration-api)
-      - [Gatekeeper Integration API Environment Variables](#gatekeeper-integration-api-environment-variables)
-    - [Prompt Hub API](#prompt-hub-api)
-      - [Prompt Hub API Environment Variables](#prompt-hub-api-environment-variables)
-    - [LangChain API](#langchain-api)
-      - [LangChain API Environment Variables](#langchain-api-environment-variables)
-  - [Running the solution locally](#running-the-solution-locally)
-    - [Configure and run the backend components](#configure-and-run-the-backend-components)
-    - [Configure and run the frontend components](#configure-and-run-the-frontend-components)
-
 ## Prerequisites
 
 - Environment variables:
