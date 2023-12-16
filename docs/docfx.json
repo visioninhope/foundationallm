@@ -30,7 +30,7 @@
         "_appName": "FoundationaLLM",
         "_appTitle": "FoundationaLLM",
         "_appFaviconPath": "media/favicon.ico",
-        "_appLogoPath": "media/fllm-icon.png",
+        "_appLogoPath": "media/fllm-icon.svg",
         "_appFooter": "© FoundationaLLM. All rights reserved. | Find out more about FoundationaLLM at <a href=\"https://foundationallm.ai\">foundationallm.ai</a>.",
         "_enableSearch": true,
         "_disableSideFilter": false,
@@ -72,7 +72,7 @@
         "templates/foundationallm"
       ],
       "xrefService": [ "https://xref.docs.microsoft.com/query?uid={uid}" ],
-      "postProcessors": [],
+      "postProcessors": ["ExtractSearchIndex"],
       "markdownEngineName": "markdig",
       "noLangKeyword": false,
       "keepFileLink": false,
