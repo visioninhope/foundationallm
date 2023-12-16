@@ -15,7 +15,7 @@
           }
         ],
         "dest": "api/dotnet",
-        "includePrivateMembers": true,
+        "includePrivateMembers": false,
         "disableGitFeatures": false,
         "disableDefaultFilter": false,
         "noRestore": false,
@@ -31,8 +31,7 @@
         "_appTitle": "FoundationaLLM",
         "_appFaviconPath": "media/favicon.ico",
         "_appLogoPath": "media/fllm-icon.png",
-        "_appFooter": "Find out more about FoundationaLLM at <a href=\"https://foundationallm.ai\">foundationallm.ai</a>.",
-        "_copyrightFooter": "© FoundationaLLM. All rights reserved.",
+        "_appFooter": "© FoundationaLLM. All rights reserved. | Find out more about FoundationaLLM at <a href=\"https://foundationallm.ai\">foundationallm.ai</a>.",
         "_enableSearch": true,
         "_disableSideFilter": false,
         "_disableNewTab": false,
