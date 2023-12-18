@@ -72,12 +72,7 @@ public class AgentFactoryService : IAgentFactoryService
     /// </summary>
     public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
     {
-        using var activity = Common.Logging.ActivitySources.AgentFactoryAPIActivitySource.StartActivity("GetCompletion", System.Diagnostics.ActivityKind.Consumer);
-
-        foreach (var bag in activity?.Parent?.Baggage)
-        {
-            activity?.AddTag(bag.Key, bag.Value);
-        }
+        using var activity = Common.Logging.ActivitySources.StartActivity("GetCompletion", Common.Logging.ActivitySources.AgentFactoryAPIActivitySource);
 
         try
         {
@@ -113,6 +108,8 @@ public class AgentFactoryService : IAgentFactoryService
     {
         try
         {
+            using var activity = Common.Logging.ActivitySources.StartActivity("GetSummary", Common.Logging.ActivitySources.AgentFactoryAPIActivitySource);
+
             var agent = await AgentBuilder.Build(
                 summaryRequest.UserPrompt ?? string.Empty,
                 summaryRequest.SessionId ?? string.Empty,

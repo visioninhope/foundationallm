@@ -47,7 +47,8 @@ namespace FoundationaLLM.Core.API.Controllers
         [HttpPost("completion", Name = "GetCompletion")]
         public async Task<IActionResult> GetCompletion(CompletionRequest completionRequest)
         {
-            using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetCompletion", System.Diagnostics.ActivityKind.Consumer);
+            using var activity = Common.Logging.ActivitySources.StartActivity("GetCompletion", Common.Logging.ActivitySources.CoreAPIActivitySource);
+
             activity?.AddTag("User", this.User?.Identity?.Name);
             activity?.AddTag("SessionId", completionRequest.SessionId);
 
@@ -71,7 +72,7 @@ namespace FoundationaLLM.Core.API.Controllers
         [HttpPost("summary", Name = "GetSummary")]
         public async Task<IActionResult> GetSummary(SummaryRequest summaryRequest)
         {
-            using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetSummary", System.Diagnostics.ActivityKind.Consumer);
+            using var activity = Common.Logging.ActivitySources.StartActivity("GetSummary", Common.Logging.ActivitySources.CoreAPIActivitySource);
             activity?.AddTag("User", this.User?.Identity?.Name);
             activity?.AddTag("SessionId", summaryRequest.SessionId);
 

@@ -28,12 +28,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             IPromptHubAPIService promptHubAPIService,
             IDataSourceHubAPIService dataSourceHubAPIService)
         {
-            using var activity = Common.Logging.ActivitySources.AgentFactoryAPIActivitySource.StartActivity("AgentBuilder.Build", System.Diagnostics.ActivityKind.Consumer);
-
-            foreach (var bag in activity?.Parent?.Baggage)
-            {
-                activity?.AddTag(bag.Key, bag.Value);
-            }
+            using var activity = Common.Logging.ActivitySources.StartActivity("AgentBuilder.Build", Common.Logging.ActivitySources.AgentFactoryAPIActivitySource);
 
             var agentResponse = await agentHubAPIService.ResolveRequest(userPrompt, sessionId);
             var agentInfo = agentResponse.Agent;
@@ -50,12 +45,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
 
             activity?.Stop();
 
-            using var activity2 = Common.Logging.ActivitySources.AgentFactoryAPIActivitySource.StartActivity("AgentBuilder.Build.Configure", System.Diagnostics.ActivityKind.Consumer);
-
-            foreach (var bag in activity2?.Parent?.Baggage)
-            {
-                activity?.AddTag(bag.Key, bag.Value);
-            }
+            using var activity2 = Common.Logging.ActivitySources.StartActivity("AgentBuilder.Build.Configure", Common.Logging.ActivitySources.AgentFactoryAPIActivitySource);
 
             AgentBase? agent = null;
             agent = new DefaultAgent(agentInfo!, orchestrationService, promptHubAPIService, dataSourceHubAPIService);           

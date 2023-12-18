@@ -38,7 +38,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             //TODO: Call RefinementService to refine userPrompt
             //await _refinementService.RefineUserPrompt(completionRequest.Prompt);
 
-            using var activity = Common.Logging.ActivitySources.GatekeeperAPIActivitySource.StartActivity("AnalyzeText", System.Diagnostics.ActivityKind.Consumer);
+            using var activity = Common.Logging.ActivitySources.StartActivity("GetCompletion.AnalyzeText", Common.Logging.ActivitySources.GatekeeperAPIActivitySource);
 
             var result = await _contentSafetyService.AnalyzeText(completionRequest.UserPrompt ?? string.Empty);
 
@@ -59,6 +59,8 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         {
             //TODO: Call RefinementService to refine userPrompt
             //await _refinementService.RefineUserPrompt(summaryRequest.Prompt);
+
+            using var activity = Common.Logging.ActivitySources.StartActivity("GetSummary.AnalyzeText", Common.Logging.ActivitySources.GatekeeperAPIActivitySource);
 
             var result = await _contentSafetyService.AnalyzeText(summaryRequest.UserPrompt ?? string.Empty);
 

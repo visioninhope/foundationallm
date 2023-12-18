@@ -123,7 +123,8 @@ public class CoreService : ICoreService
                 MessageHistory = messageHistoryList
             };
 
-            using var activity = Common.Logging.ActivitySources.CoreAPIActivitySource.StartActivity("GetCompletion", System.Diagnostics.ActivityKind.Consumer);
+            using var activity = Common.Logging.ActivitySources.StartActivity("GetCompletion", Common.Logging.ActivitySources.CoreAPIActivitySource);
+
             activity?.AddTag("User", _callContext.CurrentUserIdentity?.UPN);
             activity?.AddTag("RequestId", completionRequest.SessionId);
 

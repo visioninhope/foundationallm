@@ -32,12 +32,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         [HttpPost("completion")]
         public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
-            using var activity = Common.Logging.ActivitySources.GatekeeperAPIActivitySource.StartActivity("GetCompletion", System.Diagnostics.ActivityKind.Consumer);
-
-            foreach(var bag in activity?.Parent?.Baggage)
-            {
-                activity?.AddTag(bag.Key, bag.Value);
-            }
+            using var activity = Common.Logging.ActivitySources.StartActivity("GetCompletion", Common.Logging.ActivitySources.GatekeeperAPIActivitySource);
 
             return await _gatekeeperService.GetCompletion(completionRequest);
         }
@@ -50,12 +45,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         [HttpPost("summary")]
         public async Task<SummaryResponse> GetSummary(SummaryRequest summaryRequest)
         {
-            using var activity = Common.Logging.ActivitySources.GatekeeperAPIActivitySource.StartActivity("GetSummary", System.Diagnostics.ActivityKind.Consumer);
-
-            foreach (var bag in activity?.Parent?.Baggage)
-            {
-                activity?.AddTag(bag.Key, bag.Value);
-            }
+            using var activity = Common.Logging.ActivitySources.StartActivity("GetSummary", Common.Logging.ActivitySources.GatekeeperAPIActivitySource);
 
             return await _gatekeeperService.GetSummary(summaryRequest);
         }
