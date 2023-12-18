@@ -83,6 +83,7 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services.AddScoped<IContentSafetyService, AzureContentSafetyService>();
 
             builder.Services.AddScoped<IAgentFactoryAPIService, AgentFactoryAPIService>();
+            builder.Services.AddScoped<IGatekeeperIntegrationAPIService, GatekeeperIntegrationAPIService>();
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
