@@ -8,6 +8,7 @@ from foundationallm.config import Context
 from foundationallm.models import AgentHint
 from foundationallm.hubs.prompt import PromptHubRequest, PromptHubResponse, PromptHub
 from app.dependencies import validate_api_key_header
+from foundationallm.logging import Logging
 
 router = APIRouter(
     prefix='/resolve',
@@ -26,24 +27,25 @@ async def resolve(request: PromptHubRequest,
     Parameters
     ----------
     request : PromptHubRequest
-        The request object containing the agent and prompt names to use 
+        The request object containing the agent and prompt names to use
         in resolving the prompt to return.
     x_user_identity : str
         The optional X-USER-IDENTITY header value.
     x_agent_hint : str
         The optional X-AGENT-HINT header value.
-        
+
     Returns
     -------
     PromptHubResponse
         Object containing the metadata for the resolved prompt.
     """
     try:
-        context = Context(user_identity=x_user_identity)
-        if x_agent_hint is not None and len(x_agent_hint.strip()) > 0:
-            agent_hint = AgentHint.model_validate_json(x_agent_hint)
-            return PromptHub().resolve(request=request, user_context=context, hint=agent_hint)
-        return PromptHub().resolve(request, user_context=context)
+        with Logging.start_span(request.app.title, "resolve", request=request) as root_span:
+            context = Context(user_identity=x_user_identity)
+            if x_agent_hint is not None and len(x_agent_hint.strip()) > 0:
+                agent_hint = AgentHint.model_validate_json(x_agent_hint)
+                return PromptHub().resolve(request=request, user_context=context, hint=agent_hint)
+            return PromptHub().resolve(request, user_context=context)
     except Exception as e:
         logging.error(e, stack_info=True, exc_info=True)
         raise HTTPException(

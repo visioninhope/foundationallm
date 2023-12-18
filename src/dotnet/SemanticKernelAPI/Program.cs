@@ -8,6 +8,7 @@ using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.SemanticKernel.MemorySource;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using System.Reflection;
 
 namespace FoundationaLLM.SemanticKernel.API
 {
@@ -113,7 +114,13 @@ namespace FoundationaLLM.SemanticKernel.API
                     => await Results.Problem().ExecuteAsync(context)));
 
             // Configure the HTTP request pipeline.
-            app.UseSwagger();
+            //app.UseSwagger();
+
+            app.UseSwagger(c =>
+            {
+                c.SerializeAsV2 = true;
+            });
+
             app.UseSwaggerUI();
 
             app.UseHttpsRedirection();

@@ -20,6 +20,7 @@ class Configuration():
 
         # Connect to Azure App Configuration.
         self.__config = load(endpoint=app_config_uri, credential=credential,
+                             refresh_interval=3600,
                              key_vault_options=
                                 AzureAppConfigurationKeyVaultOptions(credential=credential))
 
@@ -92,14 +93,14 @@ class Configuration():
 
         value = False
 
-        if "FeatureManagementFeatureFlags" in self.__config.keys():
-            if key in self.__config["FeatureManagementFeatureFlags"].keys():
-                try:
-                    feature_flag_setting = self.__config["FeatureManagementFeatureFlags"][key]
-                    obj = json.loads(feature_flag_setting)
-                    value = obj["enabled"]
-                except Exception as e:
-                    pass
+        #if "FeatureManagementFeatureFlags" in self.__config.keys():
+            #if key in self.__config["FeatureManagementFeatureFlags"].keys():
+        try:
+            feature_flag_setting = self.__config["FeatureManagementFeatureFlags"][key]
+            obj = json.loads(feature_flag_setting)
+            value = obj["enabled"]
+        except Exception as e:
+            pass
 
         return value
 

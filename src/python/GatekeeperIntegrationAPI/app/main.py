@@ -9,10 +9,11 @@ from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from app.dependencies import get_config
 from app.routers import analyze, status
 from foundationallm.config import Configuration
+#from azure.monitor.opentelemetry import configure_azure_monitor
 
-config = get_config()
+app_config = get_config()
 
-app_config = Configuration()
+#configure_azure_monitor(connection_string=app_config.get_value('FoundationaLLM:AppInsights:ConnectionString'),disable_offline_storage=True)
 
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider

@@ -4,29 +4,30 @@ Runs web server exposing the API.
 """
 import uvicorn
 from fastapi import FastAPI
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from app.dependencies import get_config
 from app.routers import resolve, status
-#from azure.monitor.opentelemetry import configure_azure_monitor
+from foundationallm.logging import Logging
 
-config = get_config()
+title = "FoundationaLLM.PromptHubAPI"
 
-# configure_azure_monitor(
-#     connection_string=
-#       config.get_value('FoundationaLLM:APIs:PromptHubAPI:AppInsightsConnectionString'),
-#     disable_offline_storage=True
-# )
+app_config = get_config()
+
+Logging.setup_logging(title)
+
+Logging.setup_tracing(title,use_azure=True, use_jaeger=False)
 
 app = FastAPI(
-    title='FoundationaLLM PromptHubAPI',
+    title=title,
     summary='API for retrieving Prompt metadata',
     description="""The FoundationaLLM PromptHubAPI is a wrapper around
-                PromptHub functionality contained in the 
+                PromptHub functionality contained in the
                 foundationallm.core Python SDK.""",
     version='1.0.0',
     contact={
         'name':'Solliance, Inc.',
         'email':'contact@solliance.net',
-        'url':'https://solliance.net/' 
+        'url':'https://solliance.net/'
     },
     openapi_url='/swagger/v1/swagger.json',
     docs_url='/swagger',
@@ -34,8 +35,11 @@ app = FastAPI(
     license_info={
         'name': 'FoundationaLLM Software License',
         'url': 'https://www.foundationallm.ai/license',
-    }
+    },
+    config=app_config
 )
+
+FastAPIInstrumentor.instrument_app(app)
 
 app.include_router(resolve.router)
 app.include_router(status.router)
@@ -44,7 +48,7 @@ app.include_router(status.router)
 async def root():
     """
     Root path of the API.
-    
+
     Returns
     -------
     str

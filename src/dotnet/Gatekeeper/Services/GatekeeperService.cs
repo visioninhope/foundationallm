@@ -38,7 +38,11 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             //TODO: Call RefinementService to refine userPrompt
             //await _refinementService.RefineUserPrompt(completionRequest.Prompt);
 
+            using var activity = Common.Logging.ActivitySources.GatekeeperAPIActivitySource.StartActivity("AnalyzeText", System.Diagnostics.ActivityKind.Consumer);
+
             var result = await _contentSafetyService.AnalyzeText(completionRequest.UserPrompt ?? string.Empty);
+
+            activity?.Stop();
             
             if (result.Safe)
                 return await _agentFactoryAPIService.GetCompletion(completionRequest);

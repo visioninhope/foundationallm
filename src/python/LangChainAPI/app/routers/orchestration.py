@@ -12,6 +12,7 @@ from foundationallm.config import Context
 from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
 from foundationallm.langchain.orchestration import OrchestrationManager
 from app.dependencies import get_config, validate_api_key_header
+from foundationallm.logging import Logging
 
 # Initialize API routing
 router = APIRouter(
@@ -28,7 +29,7 @@ async def get_completion(completion_request: CompletionRequest, request : Reques
                          x_user_identity: Optional[str] = Header(None)) -> CompletionResponse:
     """
     Retrieves a completion response from a language model.
-    
+
     Parameters
     ----------
     completion_request : CompletionRequest
@@ -41,18 +42,7 @@ async def get_completion(completion_request: CompletionRequest, request : Reques
         Object containing the completion response and token usage details.
     """
     try:
-        with tracer.start_span(name="Completion" , kind=SpanKind.CONSUMER) as root_span:
-
-            correlation_context = request.headers["correlation-context"].split(",")
-
-            for item in correlation_context:
-                key, value = item.split("=")
-                baggage.set_baggage(key, urllib.parse.unquote(value))
-                root_span.set_attribute(key, urllib.parse.unquote(value))
-            
-            #root_span.set_attribute("x_user_identity", x_user_identity)
-            #jData = json.loads(x_user_identity)
-            #root_span.set_attribute("User", jData["upn"])
+        with Logging.start_span(request.app.title, "completion", request=request) as root_span:
 
             config = config=request.app.extra['config']
             orchestration_manager = OrchestrationManager(completion_request = completion_request,

@@ -14,6 +14,7 @@ from foundationallm.models import AgentHint
 from foundationallm.hubs.data_source import (DataSourceHubRequest,
                                              DataSourceHubResponse, DataSourceHub)
 from app.dependencies import validate_api_key_header
+from foundationallm.logging import Logging
 
 router = APIRouter(
     prefix='/resolve',
@@ -39,21 +40,14 @@ async def resolve(data_source_request:DataSourceHubRequest, request : Request,
         The optional X-USER-IDENTITY header value.
     x_agent_hint : str
         The optional X-AGENT-HINT header value.
-        
+
     Returns
     -------
     DataSourceHubResponse
         Object containing the metadata for the resolved data source.
     """
     try:
-        with tracer.start_span(name="Resolve" , kind=SpanKind.CONSUMER) as root_span:
-            
-            correlation_context = request.headers["correlation-context"].split(",")
-
-            for item in correlation_context:
-                key, value = item.split("=")
-                baggage.set_baggage(key, urllib.parse.unquote(value))
-                root_span.set_attribute(key, urllib.parse.unquote(value))
+        with Logging.start_span(request.app.title, "resolve", request=request) as root_span:
 
             context = Context(user_identity=x_user_identity)
             if x_agent_hint is not None and len(x_agent_hint.strip()) > 0:
