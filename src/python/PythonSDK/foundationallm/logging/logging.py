@@ -99,8 +99,6 @@ class Logging:
     @staticmethod
     def setup_tracing(name : str, use_azure : bool = True, use_jaeger : bool = False):
 
-        name = "FoundationaLLM.AgentHubAPI"
-
         # Creates a tracer from the global tracer provider
         tracer = trace.get_tracer(name)
 

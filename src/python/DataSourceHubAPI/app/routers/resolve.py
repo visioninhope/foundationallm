@@ -3,12 +3,9 @@ The API endpoint for returning the requested data source metadata.
 """
 import json
 import logging
-import urllib.parse
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Header
 from fastapi import FastAPI, Request
-from opentelemetry import trace, baggage
-from opentelemetry.trace import SpanKind
 from foundationallm.config import Context
 from foundationallm.models import AgentHint
 from foundationallm.hubs.data_source import (DataSourceHubRequest,
@@ -23,8 +20,6 @@ router = APIRouter(
     responses={404: {'description':'Not found'}}
 )
 
-tracer = trace.get_tracer("FoundationaLLM.DataSourceHubAPI")
-
 @router.post('')
 async def resolve(data_source_request:DataSourceHubRequest, request : Request,
                   x_user_identity: Optional[str] = Header(None),
@@ -34,7 +29,7 @@ async def resolve(data_source_request:DataSourceHubRequest, request : Request,
 
     Parameters
     ----------
-    request : DataSourceHubRequest
+    data_source_request : DataSourceHubRequest
         The request object containing the data sources to resolve.
     x_user_identity : str
         The optional X-USER-IDENTITY header value.

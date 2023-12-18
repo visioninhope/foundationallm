@@ -22,8 +22,6 @@ router = APIRouter(
     responses={404: {'description':'Not found'}}
 )
 
-tracer = trace.get_tracer("FoundationaLLM.DataSourceHubAPI")
-
 @router.post('/completion')
 async def get_completion(completion_request: CompletionRequest, request : Request,
                          x_user_identity: Optional[str] = Header(None)) -> CompletionResponse:

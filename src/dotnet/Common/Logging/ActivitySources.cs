@@ -22,7 +22,7 @@ namespace FoundationaLLM.Common.Logging
                 }
             }
 
-            return activity
+            return activity;
         }
     }
 }
