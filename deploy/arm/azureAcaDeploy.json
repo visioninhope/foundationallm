@@ -824,6 +824,15 @@
           }
         },
         {
+          "key": "gatekeeperint",
+          "containerPort": 80,
+          "replicas": 1,
+          "resources": {
+            "cpu": 0.25,
+            "memory": "0.25Gi"
+          }
+        },
+        {
           "key": "langchain",
           "containerPort": 80,
           "replicas": 10,
