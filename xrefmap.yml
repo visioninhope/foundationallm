@@ -7572,63 +7572,6 @@ references:
   commentId: N:FoundationaLLM.Gatekeeper.API.Controllers
   fullName: FoundationaLLM.Gatekeeper.API.Controllers
   nameWithType: FoundationaLLM.Gatekeeper.API.Controllers
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController
-  name: IntegrationController
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.html
-  commentId: T:FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController
-  nameWithType: IntegrationController
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService)
-  name: IntegrationController(IGatekeeperIntegrationAPIService)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_IntegrationController__ctor_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_
-  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService)
-  name.vb: New(IGatekeeperIntegrationAPIService)
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.IntegrationController(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService)
-  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.New(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService)
-  nameWithType: IntegrationController.IntegrationController(IGatekeeperIntegrationAPIService)
-  nameWithType.vb: IntegrationController.New(IGatekeeperIntegrationAPIService)
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.#ctor*
-  name: IntegrationController
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_IntegrationController__ctor_
-  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.IntegrationController
-  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.New
-  nameWithType: IntegrationController.IntegrationController
-  nameWithType.vb: IntegrationController.New
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnalyzeText(System.String)
-  name: AnalyzeText(string)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_IntegrationController_AnalyzeText_System_String_
-  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnalyzeText(System.String)
-  name.vb: AnalyzeText(String)
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnalyzeText(string)
-  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnalyzeText(String)
-  nameWithType: IntegrationController.AnalyzeText(string)
-  nameWithType.vb: IntegrationController.AnalyzeText(String)
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnalyzeText*
-  name: AnalyzeText
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_IntegrationController_AnalyzeText_
-  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnalyzeText
-  isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnalyzeText
-  nameWithType: IntegrationController.AnalyzeText
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnonymizeText(System.String)
-  name: AnonymizeText(string)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_IntegrationController_AnonymizeText_System_String_
-  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnonymizeText(System.String)
-  name.vb: AnonymizeText(String)
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnonymizeText(string)
-  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnonymizeText(String)
-  nameWithType: IntegrationController.AnonymizeText(string)
-  nameWithType.vb: IntegrationController.AnonymizeText(String)
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnonymizeText*
-  name: AnonymizeText
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_IntegrationController_AnonymizeText_
-  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnonymizeText
-  isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.AnonymizeText
-  nameWithType: IntegrationController.AnonymizeText
 - uid: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController
   name: OrchestrationController
   href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.html
@@ -7982,6 +7925,38 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings.ViolenceSeverity
   nameWithType: AzureContentSafetySettings.ViolenceSeverity
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings
+  name: GatekeeperServiceSettings
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings
+  nameWithType: GatekeeperServiceSettings
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableAzureContentSafety
+  name: EnableAzureContentSafety
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings_EnableAzureContentSafety
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableAzureContentSafety
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableAzureContentSafety
+  nameWithType: GatekeeperServiceSettings.EnableAzureContentSafety
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableAzureContentSafety*
+  name: EnableAzureContentSafety
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings_EnableAzureContentSafety_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableAzureContentSafety
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableAzureContentSafety
+  nameWithType: GatekeeperServiceSettings.EnableAzureContentSafety
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableMicrosoftPresidio
+  name: EnableMicrosoftPresidio
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings_EnableMicrosoftPresidio
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableMicrosoftPresidio
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableMicrosoftPresidio
+  nameWithType: GatekeeperServiceSettings.EnableMicrosoftPresidio
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableMicrosoftPresidio*
+  name: EnableMicrosoftPresidio
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings_EnableMicrosoftPresidio_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableMicrosoftPresidio
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableMicrosoftPresidio
+  nameWithType: GatekeeperServiceSettings.EnableMicrosoftPresidio
 - uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings
   name: RefinementServiceSettings
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings.html
@@ -8026,6 +8001,198 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextFilterResult.Safe
   nameWithType: AnalyzeTextFilterResult.Safe
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration
+  name: FoundationaLLM.Gatekeeper.Core.Models.Integration
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.html
+  commentId: N:FoundationaLLM.Gatekeeper.Core.Models.Integration
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration
+  nameWithType: FoundationaLLM.Gatekeeper.Core.Models.Integration
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest
+  name: AnalyzeRequest
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest
+  nameWithType: AnalyzeRequest
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Anonymize
+  name: Anonymize
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnalyzeRequest_Anonymize
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Anonymize
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Anonymize
+  nameWithType: AnalyzeRequest.Anonymize
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Anonymize*
+  name: Anonymize
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnalyzeRequest_Anonymize_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Anonymize
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Anonymize
+  nameWithType: AnalyzeRequest.Anonymize
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Content
+  name: Content
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnalyzeRequest_Content
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Content
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Content
+  nameWithType: AnalyzeRequest.Content
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Content*
+  name: Content
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnalyzeRequest_Content_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Content
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Content
+  nameWithType: AnalyzeRequest.Content
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Language
+  name: Language
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnalyzeRequest_Language
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Language
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Language
+  nameWithType: AnalyzeRequest.Language
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Language*
+  name: Language
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnalyzeRequest_Language_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Language
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.Language
+  nameWithType: AnalyzeRequest.Language
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse
+  name: AnalyzeResponse
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse
+  nameWithType: AnalyzeResponse
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Content
+  name: Content
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnalyzeResponse_Content
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Content
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Content
+  nameWithType: AnalyzeResponse.Content
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Content*
+  name: Content
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnalyzeResponse_Content_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Content
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Content
+  nameWithType: AnalyzeResponse.Content
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Results
+  name: Results
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnalyzeResponse_Results
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Results
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Results
+  nameWithType: AnalyzeResponse.Results
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Results*
+  name: Results
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnalyzeResponse_Results_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Results
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.Results
+  nameWithType: AnalyzeResponse.Results
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse
+  name: AnonymizeResponse
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse
+  nameWithType: AnonymizeResponse
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Content
+  name: Content
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnonymizeResponse_Content
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Content
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Content
+  nameWithType: AnonymizeResponse.Content
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Content*
+  name: Content
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnonymizeResponse_Content_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Content
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Content
+  nameWithType: AnonymizeResponse.Content
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Results
+  name: Results
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnonymizeResponse_Results
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Results
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Results
+  nameWithType: AnonymizeResponse.Results
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Results*
+  name: Results
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_AnonymizeResponse_Results_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Results
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.Results
+  nameWithType: AnonymizeResponse.Results
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult
+  name: PIIResult
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult
+  nameWithType: PIIResult
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EndIndex
+  name: EndIndex
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_PIIResult_EndIndex
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EndIndex
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EndIndex
+  nameWithType: PIIResult.EndIndex
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EndIndex*
+  name: EndIndex
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_PIIResult_EndIndex_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EndIndex
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EndIndex
+  nameWithType: PIIResult.EndIndex
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EntityType
+  name: EntityType
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_PIIResult_EntityType
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EntityType
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EntityType
+  nameWithType: PIIResult.EntityType
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EntityType*
+  name: EntityType
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_PIIResult_EntityType_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EntityType
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.EntityType
+  nameWithType: PIIResult.EntityType
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.StartIndex
+  name: StartIndex
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_PIIResult_StartIndex
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.StartIndex
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.StartIndex
+  nameWithType: PIIResult.StartIndex
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.StartIndex*
+  name: StartIndex
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_PIIResult_StartIndex_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.StartIndex
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.StartIndex
+  nameWithType: PIIResult.StartIndex
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized
+  name: PIIResultAnonymized
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized
+  nameWithType: PIIResultAnonymized
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.AnonymizedText
+  name: AnonymizedText
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_PIIResultAnonymized_AnonymizedText
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.AnonymizedText
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.AnonymizedText
+  nameWithType: PIIResultAnonymized.AnonymizedText
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.AnonymizedText*
+  name: AnonymizedText
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_PIIResultAnonymized_AnonymizedText_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.AnonymizedText
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.AnonymizedText
+  nameWithType: PIIResultAnonymized.AnonymizedText
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.Operator
+  name: Operator
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_PIIResultAnonymized_Operator
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.Operator
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.Operator
+  nameWithType: PIIResultAnonymized.Operator
+- uid: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.Operator*
+  name: Operator
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.html#FoundationaLLM_Gatekeeper_Core_Models_Integration_PIIResultAnonymized_Operator_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.Operator
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.Operator
+  nameWithType: PIIResultAnonymized.Operator
 - uid: FoundationaLLM.Gatekeeper.Core.Services
   name: FoundationaLLM.Gatekeeper.Core.Services
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.html
@@ -8187,15 +8354,15 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService
   fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService
   nameWithType: GatekeeperService
-- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IAgentFactoryAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService)
-  name: GatekeeperService(IAgentFactoryAPIService, IRefinementService, IContentSafetyService)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_FoundationaLLM_Gatekeeper_Core_Interfaces_IAgentFactoryAPIService_FoundationaLLM_Gatekeeper_Core_Interfaces_IRefinementService_FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IAgentFactoryAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService)
-  name.vb: New(IAgentFactoryAPIService, IRefinementService, IContentSafetyService)
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GatekeeperService(FoundationaLLM.Gatekeeper.Core.Interfaces.IAgentFactoryAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.New(FoundationaLLM.Gatekeeper.Core.Interfaces.IAgentFactoryAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService)
-  nameWithType: GatekeeperService.GatekeeperService(IAgentFactoryAPIService, IRefinementService, IContentSafetyService)
-  nameWithType.vb: GatekeeperService.New(IAgentFactoryAPIService, IRefinementService, IContentSafetyService)
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IAgentFactoryAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})
+  name: GatekeeperService(IAgentFactoryAPIService, IRefinementService, IContentSafetyService, IGatekeeperIntegrationAPIService, IOptions<GatekeeperServiceSettings>)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_FoundationaLLM_Gatekeeper_Core_Interfaces_IAgentFactoryAPIService_FoundationaLLM_Gatekeeper_Core_Interfaces_IRefinementService_FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings__
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IAgentFactoryAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})
+  name.vb: New(IAgentFactoryAPIService, IRefinementService, IContentSafetyService, IGatekeeperIntegrationAPIService, IOptions(Of GatekeeperServiceSettings))
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GatekeeperService(FoundationaLLM.Gatekeeper.Core.Interfaces.IAgentFactoryAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService, FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings>)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.New(FoundationaLLM.Gatekeeper.Core.Interfaces.IAgentFactoryAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService, FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings))
+  nameWithType: GatekeeperService.GatekeeperService(IAgentFactoryAPIService, IRefinementService, IContentSafetyService, IGatekeeperIntegrationAPIService, IOptions<GatekeeperServiceSettings>)
+  nameWithType.vb: GatekeeperService.New(IAgentFactoryAPIService, IRefinementService, IContentSafetyService, IGatekeeperIntegrationAPIService, IOptions(Of GatekeeperServiceSettings))
 - uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor*
   name: GatekeeperService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_

@@ -91,7 +91,7 @@
 
   <h1 id="FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService" data-uid="FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService" class="text-break">
     Interface IGatekeeperIntegrationAPIService
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Interfaces/IGatekeeperIntegrationAPIService.cs/#L6"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Interfaces/IGatekeeperIntegrationAPIService.cs/#L8"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -134,7 +134,7 @@
 
   <h3 id="FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_AnalyzeText_System_String_" data-uid="FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService.AnalyzeText(System.String)">
   AnalyzeText(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Interfaces/IGatekeeperIntegrationAPIService.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Interfaces/IGatekeeperIntegrationAPIService.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Analyze text to identify PII (personally identifiable information) entities.</p>
@@ -142,7 +142,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;List&lt;string&gt;&gt; AnalyzeText(string text)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;List&lt;PIIResult&gt;&gt; AnalyzeText(string text)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -154,7 +154,7 @@
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.html">PIIResult</a>&gt;&gt;</dt>
     <dd><p>A list of PII (personally identifiable information) entities identified in the analyzed text.</p>
 </dd>
   </dl>
@@ -173,7 +173,7 @@
 
   <h3 id="FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_AnonymizeText_System_String_" data-uid="FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService.AnonymizeText(System.String)">
   AnonymizeText(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Interfaces/IGatekeeperIntegrationAPIService.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Interfaces/IGatekeeperIntegrationAPIService.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Anonymize text with identified PII (personally identifiable information) entities.</p>
@@ -212,7 +212,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Interfaces/IGatekeeperIntegrationAPIService.cs/#L6" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Interfaces/IGatekeeperIntegrationAPIService.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
 

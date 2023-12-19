@@ -1902,16 +1902,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.IntegrationController.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.yml",
       "output": {
         ".html": {
@@ -2032,6 +2022,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings.yml",
       "output": {
         ".html": {
@@ -2066,6 +2066,66 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeRequest.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnalyzeResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.AnonymizeResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.html"
         }
       },
       "version": ""
