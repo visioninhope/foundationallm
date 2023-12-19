@@ -60,10 +60,10 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
 
             if (_gatekeeperServiceSettings.EnableMicrosoftPresidio)
             {
-                var textAnalysisResults = await _gatekeeperIntegrationAPIService.AnalyzeText(completionResponse.Completion);
+                //var textAnalysisResults = await _gatekeeperIntegrationAPIService.AnalyzeText(completionResponse.Completion);
+                //if (textAnalysisResults.Count > 0)
 
-                if (textAnalysisResults.Count > 0)
-                    completionResponse.Completion = await _gatekeeperIntegrationAPIService.AnonymizeText(completionResponse.Completion);
+                completionResponse.Completion = await _gatekeeperIntegrationAPIService.AnonymizeText(completionResponse.Completion);
             }
 
             return completionResponse;
@@ -91,10 +91,10 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
 
             if (_gatekeeperServiceSettings.EnableMicrosoftPresidio)
             {
-                var textAnalysisResults = await _gatekeeperIntegrationAPIService.AnalyzeText(summaryResponse.Summary!);
+                //var textAnalysisResults = await _gatekeeperIntegrationAPIService.AnalyzeText(summaryResponse.Summary!);
+                //if (textAnalysisResults.Count > 0)
 
-                if (textAnalysisResults.Count > 0)
-                    summaryResponse.Summary = await _gatekeeperIntegrationAPIService.AnonymizeText(summaryResponse.Summary!);
+                summaryResponse.Summary = await _gatekeeperIntegrationAPIService.AnonymizeText(summaryResponse.Summary!);
             }
 
             return summaryResponse;
