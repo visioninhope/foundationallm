@@ -89,6 +89,9 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
+
+            builder.Services.AddOptions<GatekeeperServiceSettings>()
+                .Bind(builder.Configuration.GetSection("FoundationaLLM:GatekeeperAPI:Configuration"));
             builder.Services.AddScoped<IGatekeeperService, GatekeeperService>();
 
             builder.Services
