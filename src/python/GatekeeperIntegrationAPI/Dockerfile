@@ -10,7 +10,6 @@ RUN apt-get update \
 WORKDIR /code
 COPY ./GatekeeperIntegrationAPI/requirements.txt /code/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-COPY ./PythonSDK/foundationallm /code/foundationallm
 COPY ./GatekeeperIntegrationAPI /code
 
 EXPOSE 80
