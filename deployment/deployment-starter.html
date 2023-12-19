@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Deployment - Starter | FoundationaLLM </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Deployment - Starter | FoundationaLLM ">
+      
+      <link rel="icon" href="../media/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/deployment-starter.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/fllm-icon.svg" alt="FoundationaLLM">
+            FoundationaLLM
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="deployment---starter">Deployment - Starter</h1>
+
+<p>Foundationa<strong>LLM</strong> deploys into your own Azure Subscription. By default it will deploy to Azure Container Apps (ACA) that make it fast to get started. When you want to deploy to production at scale, you can also deploy to Azure Kubernetes Service (AKS). Given that there are Azure Subscription quota limits to the number of Azure OpenAI Service resources you can deploy, you can choose to use an existing Azure OpenAI Service resource instead of a creating a new one with your deployment.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Azure Subscription (Subscription needs to be whitelisted for Azure OpenAI).</li>
+<li>Subscription access to Azure OpenAI service. Start here to <a href="https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUNTZBNzRKNlVQSFhZMU9aV09EVzYxWFdORCQlQCN0PWcu">Request Access to Azure OpenAI Service</a>.</li>
+<li><a href="https://dotnet.microsoft.com/download/dotnet/8.0">.NET 8 SDK</a>.</li>
+<li>Docker Desktop.</li>
+<li>Azure CLI (<a href="https://docs.microsoft.com/cli/azure/install-azure-cli">v2.51.0 or greater</a>).</li>
+<li>Helm (<a href="https://helm.sh/docs/intro/install/">v3.11.1 or greater</a>).</li>
+<li>Visual Studio 2022 (only needed if you plan to run/debug the solution locally).</li>
+<li>Minimum quota of 65 CPUs across all VM family types. Start here to <a href="https://learn.microsoft.com/azure/quotas/per-vm-quota-requests">Manage VM Quotas</a>.</li>
+<li>Two App Registrations created in the Entra ID tenant (Azure Active Directory).</li>
+<li>User with the following role assignments:
+<ul>
+<li>Owner on the target subscription;</li>
+<li>Owner on the two app registrations.</li>
+</ul>
+</li>
+</ul>
+<h2 id="deployment-steps">Deployment steps</h2>
+<p>Follow the steps below to deploy the solution to your Azure subscription. You will be prompted to log in to your Azure account during the deployment process.</p>
+<ol>
+<li><p>Ensure all the prerequisites are met, and that Docker Desktop is running.</p>
+</li>
+<li><p>From a PowerShell prompt, execute the following to clone the repository:</p>
+<pre><code class="lang-cmd">git clone https://github.com/solliancenet/foundationallm.git
+</code></pre>
+</li>
+<li><p>Open a PowerShell instance and run the following script to provision the infrastructure and deploy the API and frontend. This will provision all of the required infrastructure, deploy the API and web app services, and import data into Cosmos DB.</p>
+<ol>
+<li><p>Option 1: Full deployment using Microsoft Azure Container Apps (ACA)</p>
+<pre><code class="lang-pwsh">cd foundationallm
+./deploy/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt;
+</code></pre>
+<blockquote>
+<p><strong>NOTE</strong>: Make sure to set the <code>&lt;location&gt;</code> value to a region that supports Azure OpenAI services.  See <a href="https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=cognitive-services&amp;regions=all">Azure OpenAI service regions</a> for more information.</p>
+</blockquote>
+</li>
+<li><p>Option 2: Full deployment using Microsoft Azure Kubernetes Service (AKS)</p>
+<p>To deploy to an AKS environment instead, run the same script with the added argument <code>-deployAks 1</code>, as shown below.  This will provision all of the required infrastructure, deploy the API and web app services as pods in an AKS cluster, and import data into Cosmos DB.</p>
+<pre><code class="lang-pwsh">cd foundationallm
+./deploy/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt; -deployAks 1
+</code></pre>
+</li>
+<li><p>Option 3: Deployment using an existing Azure OpenAI resource</p>
+<p>To deploy using an already provisioned Azure OpenAI resource, add the following parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-openAiRg</code></td>
+<td>The name of the resource group containing the Azure OpenAI resource.</td>
+</tr>
+<tr>
+<td><code>-openAiName</code></td>
+<td>The name of the Azure OpenAI resource.</td>
+</tr>
+<tr>
+<td><code>-openAiCompletionsDeployment</code></td>
+<td>The name given to the deployment of a completions model deployed within the Azure OpenAI resource, eg. <code>completions</code></td>
+</tr>
+<tr>
+<td><code>-openAiEmbeddingsDeployment</code></td>
+<td>The name given to the deployment of an embeddings model deployed within the Azure OpenAI resource, eg. <code>embeddings</code></td>
+</tr>
+</tbody>
+</table>
+<p>ACA:</p>
+<pre><code class="lang-pwsh">cd foundationallm
+./deploy/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt; -openAiRg &lt;openai_rg_name&gt; -openAiName &lt;openai_resource_name&gt; -openAiCompletionsDeployment &lt;completions_deployment_name&gt; -openAiEmbeddingsDeployment &lt;embeddings_deployment_name&gt;
+</code></pre>
+<p>AKS:</p>
+<pre><code class="lang-pwsh">cd foundationallm
+./deploy/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt; -deployAks 1 -openAiRg &lt;openai_rg_name&gt; -openAiName &lt;openai_resource_name&gt; -openAiCompletionsDeployment &lt;completions_deployment_name&gt; -openAiEmbeddingsDeployment &lt;embeddings_deployment_name&gt;
+</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="post-deployment-configuration">Post-deployment configuration</h2>
+<h3 id="microsoft-entra-id-authentication-setup">Microsoft Entra ID authentication setup</h3>
+<p>Follow the instructions in the <a href="authentication-setup-entra.html">Microsoft Entra ID setup document</a> to configure Microsoft Entra ID authentication for the solution.</p>
+<h2 id="update-individual-apis-or-portals">Update individual APIs or portals</h2>
+<h3 id="update-individual-apis-or-portals-when-using-microsoft-azure-container-apps-aca">Update individual APIs or portals when using Microsoft Azure Container Apps (ACA)</h3>
+<p>To update an individual API or portal, you can use the following commands:</p>
+<ol>
+<li><p>Login with your Entra ID account:</p>
+<pre><code class="lang-pwsh">az login
+</code></pre>
+</li>
+<li><p>Set the target subscription:</p>
+<pre><code class="lang-pwsh">az account set --subscription &lt;target_subscription_id&gt;
+</code></pre>
+</li>
+<li><p>Navigate to the root folder of the repository, and checkout the branch you want to deploy:</p>
+<pre><code class="lang-pwsh">cd &lt;path_to_repository&gt; 
+git checkout &lt;branch_name&gt;
+git pull
+</code></pre>
+</li>
+<li><p>Update the <code>docker-compose.yml</code> file located in <code>deploy\docker</code> so that it lists only the images you are planning to update.</p>
+</li>
+<li><p>Build and push the Docker images to the Azure Container Registry (ACR) using the following command (<code>BuildPush.ps1</code> is located in the  <code>scripts</code> folder):</p>
+<pre><code class="lang-pwsh">.\BuildPush.ps1 -resourceGroup &lt;resource_group_name&gt; -acrName &lt;acr_name&gt;
+</code></pre>
+<p>where <code>&lt;resource_group_name&gt;</code> is the name of the resource group where the Azure Container Registry is located, and <code>&lt;acr_name&gt;</code> is the name of the Azure Container Registry.</p>
+</li>
+<li><p>For each ACA you want to update, run the following script:</p>
+<pre><code class="lang-pwsh">az containerapp update --name &lt;aca_name&gt; --resource-group &lt;resource_group_name&gt; --image &lt;image_name&gt;
+</code></pre>
+<p>where <code>&lt;aca_name&gt;</code> is the name of the ACA, <code>&lt;resource_group_name&gt;</code> is the name of the resource group where the ACA is located, and <code>&lt;image_name&gt;</code> is the name of the image you want to update (the structure of the image name is <code>&lt;acr_name&gt;.azurecr.io/&lt;image_name&gt;:latest</code>, where <code>&lt;acr_name&gt;</code> is the name of the Azure Container Registry, and <code>&lt;image_name&gt;</code> is the name of the Docker image).</p>
+</li>
+</ol>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/deployment-starter.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © FoundationaLLM. All rights reserved. | Find out more about FoundationaLLM at <a href="https://foundationallm.ai">foundationallm.ai</a>.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,765 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Azure App Configuration values | FoundationaLLM </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Azure App Configuration values | FoundationaLLM ">
+      
+      <link rel="icon" href="../media/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/app-configuration-values.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/fllm-icon.svg" alt="FoundationaLLM">
+            FoundationaLLM
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="azure-app-configuration-values">Azure App Configuration values</h1>
+
+<p>FoundationaLLM uses Azure App Configuration to store configuration values, Key Vault secret references, and feature flags. Doing so helps reduce duplication and provides a convenient way to manage these settings in one place. It also allows you to change the settings without having to redeploy the solution. Since several settings can be shared by multiple projects, we do not specify the project name in the configuration key names.</p>
+<h2 id="configuration-values">Configuration values</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FoundationaLLM:AgentHub:AgentMetadata:StorageContainer</code></td>
+<td>agents</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AgentHub:StorageManager:BlobStorage:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-agenthub-storagemanager-blobstorage-connectionstring</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:AgentFactoryAPI:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-agentfactoryapi-apikey</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:AgentFactoryAPI:APIUrl</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:AgentFactoryAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:AgentFactoryAPI:ForceHttpsRedirection</code></td>
+<td>true</td>
+<td>By default, the Agent Factory API forces HTTPS redirection. To override this behavior and allow it to handle HTTP requests, set this value to false.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:AgentHubAPI:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-agenthubapi-apikey</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:AgentHubAPI:APIUrl</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:AgentHubAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:CoreAPI:APIUrl</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:CoreAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:DataSourceHubAPI:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-datasourcehubapi-apikey</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:DataSourceHubAPI:APIUrl</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:DataSourceHubAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:GatekeeperAPI:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-gatekeeperapi-apikey</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:GatekeeperAPI:APIUrl</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:GatekeeperAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:GatekeeperAPI:ForceHttpsRedirection</code></td>
+<td>true</td>
+<td>By default, the Gatekeeper API forces HTTPS redirection. To override this behavior and allow it to handle HTTP requests, set this value to false.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-gatekeeperintegrationapi-apikey</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIUrl</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:LangChainAPI:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-langchainapi-apikey</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:LangChainAPI:APIUrl</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:PromptHubAPI:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-prompthubapi-apikey</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:PromptHubAPI:APIUrl</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:PromptHubAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:SemanticKernelAPI:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-semantickernelapi-apikey</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:SemanticKernelAPI:APIUrl</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureContentSafety:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-azurecontentsafety-apikey</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureContentSafety:APIUrl</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureContentSafety:HateSeverity</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureContentSafety:SelfHarmSeverity</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureContentSafety:SexualSeverity</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureContentSafety:ViolenceSeverity</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName</code></td>
+<td>completions</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Completions:MaxTokens</code></td>
+<td>8096</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Completions:ModelName</code></td>
+<td>gpt-35-turbo</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion</code></td>
+<td>0301</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Completions:Temperature</code></td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Embeddings:DeploymentName</code></td>
+<td>embeddings</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Embeddings:MaxTokens</code></td>
+<td>8191</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Embeddings:ModelName</code></td>
+<td>text-embedding-ada-002</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Embeddings:Temperature</code></td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Endpoint</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Key</code></td>
+<td>Key Vault secret name: <code>foundationallm-azureopenai-api-key</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:AzureOpenAI:API:Version</code></td>
+<td>2023-05-15</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:BlobStorageMemorySource:BlobStorageConnection</code></td>
+<td>Key Vault secret name: <code>foundationallm-blobstoragememorysource-blobstorageconnection</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:BlobStorageMemorySource:BlobStorageContainer</code></td>
+<td>memory-source</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:BlobStorageMemorySource:ConfigFilePath</code></td>
+<td>BlobMemorySourceConfig.json</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:AccentColor</code></td>
+<td>#fff</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:AllowAgentSelection</code></td>
+<td>default, SDZWA</td>
+<td>These are merely sample agent names. Define one or more agents configured for your environment. <strong>Note:</strong> This value corresponds with the <code>FoundationaLLM-AllowAgentHint</code> feature flag. If the feature flag is <code>true</code>, then the User Portal UI uses these values to provide agent hints to the Agent Hub in completions-based requests. Otherwise, these values are ignored.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:BackgroundColor</code></td>
+<td>#fff</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:CompanyName</code></td>
+<td>FoundationaLLM</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:FavIconUrl</code></td>
+<td>favicon.ico</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:KioskMode</code></td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:LogoText</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:LogoUrl</code></td>
+<td>foundationallm-logo-white.svg</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:PageTitle</code></td>
+<td>FoundationaLLM Chat Copilot</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:PrimaryColor</code></td>
+<td>#131833</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:PrimaryTextColor</code></td>
+<td>#fff</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:SecondaryColor</code></td>
+<td>#334581</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Branding:SecondaryTextColor</code></td>
+<td>#fff</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Chat:Entra:CallbackPath</code></td>
+<td>/signin-oidc</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Chat:Entra:ClientId</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Chat:Entra:ClientSecret</code></td>
+<td>Key Vault secret name: <code>foundationallm-chat-entra-clientsecret</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Chat:Entra:Instance</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Chat:Entra:Scopes</code></td>
+<td>api://FoundationaLLM-Auth/Data.Read</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Chat:Entra:TenantId</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CognitiveSearch:EndPoint</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CognitiveSearch:IndexName</code></td>
+<td>vector-index</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CognitiveSearch:Key</code></td>
+<td>Key Vault secret name: <code>foundationallm-cognitivesearch-key</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CognitiveSearch:MaxVectorSearchResults</code></td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CognitiveSearchMemorySource:BlobStorageConnection</code></td>
+<td>Key Vault secret name: <code>foundationallm-cognitivesearchmemorysource-blobstorageconnection</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CognitiveSearchMemorySource:BlobStorageContainer</code></td>
+<td>memory-source</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CognitiveSearchMemorySource:ConfigFilePath</code></td>
+<td>ACSMemorySourceConfig.json</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CognitiveSearchMemorySource:EndPoint</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CognitiveSearchMemorySource:IndexName</code></td>
+<td>vector-index</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CognitiveSearchMemorySource:Key</code></td>
+<td>Key Vault secret name: <code>foundationallm-cognitivesearchmemorysource-key</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CoreAPI:Entra:CallbackPath</code></td>
+<td>/signin-oidc</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CoreAPI:Entra:ClientId</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CoreAPI:Entra:ClientSecret</code></td>
+<td>Key Vault secret name: <code>foundationallm-coreapi-entra-clientsecret</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CoreAPI:Entra:Instance</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CoreAPI:Entra:Scopes</code></td>
+<td>Data.Read</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CoreAPI:Entra:TenantId</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CoreWorker:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CosmosDB:ChangeFeedLeaseContainer</code></td>
+<td>leases</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CosmosDB:Containers</code></td>
+<td>Sessions, UserSessions</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CosmosDB:Database</code></td>
+<td>database</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CosmosDB:Endpoint</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CosmosDB:Key</code></td>
+<td>Key Vault secret name: <code>foundationallm-cosmosdb-key</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:CosmosDB:MonitoredContainers</code></td>
+<td>Sessions</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:DataSourceHub:DataSourceMetadata:StorageContainer</code></td>
+<td>data-sources</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:DataSourceHub:StorageManager:BlobStorage:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:DataSources:AboutFoundationaLLM:BlobStorage:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:DurableSystemPrompt:BlobStorageConnection</code></td>
+<td>Key Vault secret name: <code>foundationallm-durablesystemprompt-blobstorageconnection</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:DurableSystemPrompt:BlobStorageContainer</code></td>
+<td>system-prompt</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:LangChain:CSVFile:URL</code></td>
+<td>Key Vault secret name: <code>foundationallm-langchain-csvfile-url</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:LangChain:SQLDatabase:TestDB:Password</code></td>
+<td>Key Vault secret name: <code>foundationallm-langchain-sqldatabase-testdb-password</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:LangChain:Summary:MaxTokens</code></td>
+<td>4097</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:LangChain:Summary:ModelName</code></td>
+<td>gpt-35-turbo</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:LangChainAPI:Key</code></td>
+<td>Key Vault secret name: <code>foundationallm-langchainapi-key</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:OpenAI:API:Endpoint</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:OpenAI:API:Key</code></td>
+<td>Key Vault secret name: <code>foundationallm-openai-api-key</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:OpenAI:API:Temperature</code></td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:PromptHub:PromptMetadata:StorageContainer</code></td>
+<td>system-prompt</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:PromptHub:StorageManager:BlobStorage:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-prompthub-storagemanager-blobstorage-connectionstring</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Refinement</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI:Key</code></td>
+<td>Key Vault secret name: <code>foundationallm-semantickernelapi-openai-key</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.ChatCompletionPromptName</code></td>
+<td>RetailAssistant.Default</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.CompletionsDeployment</code></td>
+<td>completions</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.CompletionsDeploymentMaxTokens</code></td>
+<td>8096</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.EmbeddingsDeployment</code></td>
+<td>embeddings</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.EmbeddingsDeploymentMaxTokens</code></td>
+<td>8191</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.Endpoint</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.CompletionsMaxTokens</code></td>
+<td>300</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.CompletionsMinTokens</code></td>
+<td>50</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.MemoryMaxTokens</code></td>
+<td>3000</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.MemoryMinTokens</code></td>
+<td>1500</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.MessagesMaxTokens</code></td>
+<td>3000</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.MessagesMinTokens</code></td>
+<td>100</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.SystemMaxTokens</code></td>
+<td>1500</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:SemanticKernelAPI:OpenAI.ShortSummaryPromptName</code></td>
+<td>Summarizer.TwoWords</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:WorkerSettings</code></td>
+<td><code>{&quot;RequestManagers&quot;: [{ &quot;RequestSourceName&quot;: &quot;extract&quot;, &quot;MaxHandlerInstances&quot;: 1 }], &quot;QueuingEngine&quot;: 1 }</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="feature-flags">Feature flags</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FoundationaLLM-AllowAgentHint</code></td>
+<td><code>false</code></td>
+<td>Used for demo purposes. If the feature is enabled, the User Portal UI displays an agent hint selector for a chat session and sends an <code>X-AGENT-HINT</code> header with the selected agent name (if applicable) to all HTTP requests to the Core API. This header flows downstream to the Agent Hub, forcing the resolver to use the specified agent. The Agent Hub only uses this header value if this feature flag is enabled, as an added protective measure.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/app-configuration-values.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © FoundationaLLM. All rights reserved. | Find out more about FoundationaLLM at <a href="https://foundationallm.ai">foundationallm.ai</a>.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
