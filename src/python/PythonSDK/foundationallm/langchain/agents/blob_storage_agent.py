@@ -89,7 +89,7 @@ class BlobStorageAgent(AgentBase):
         ----------
         prompt : str
             The prompt for which a summary completion is begin generated.
-        
+
         Returns
         -------
         CompletionResponse
@@ -100,6 +100,10 @@ class BlobStorageAgent(AgentBase):
         with get_openai_callback() as cb:
             index = self.__get_vector_index()
             retriever = index.as_retriever()
+
+            if ( self.prompt_prefix == None):
+                self.prompt_prefix = ""
+
             prompt_builder = self.prompt_prefix + build_message_history(self.message_history) + \
                         "\n\nQuestion: {question}\n\nContext: {context}\n\nAnswer:"
             custom_prompt = PromptTemplate.from_template(prompt_builder)

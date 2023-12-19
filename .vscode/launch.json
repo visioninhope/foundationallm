@@ -13,7 +13,8 @@
             "env": {
                 "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python/AgentHubAPI;C:/github/solliancenet/foundationallm/src/python/PythonSDK;"
             },
-            "args": ["main:app","--reload", "--port", "8742"]
+            "args": ["main:app","--reload", "--port", "8742"],
+            "python": "${workspaceFolder}/src/python/AgentHubAPI/env/Scripts/python.exe"
         },
         {
             "name": "Python: DataSourceHubAPI",
@@ -24,7 +25,8 @@
             "env": {
                 "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python/DataSourceHubAPI;C:/github/solliancenet/foundationallm/src/python/PythonSDK;"
             },
-            "args": ["main:app","--reload", "--port", "8842"]
+            "args": ["main:app","--reload", "--port", "8842"],
+            "python": "${workspaceFolder}/src/python/DataSourceHubAPI/env/Scripts/python.exe"
         },
         {
             "name": "Python: PromptHubAPI",
@@ -35,7 +37,8 @@
             "env": {
                 "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python/PromptHubAPI;C:/github/solliancenet/foundationallm/src/python/PythonSDK"
             },
-            "args": ["main:app","--reload", "--port", "8642"]
+            "args": ["main:app","--reload", "--port", "8642"],
+            "python": "${workspaceFolder}/src/python/PromptHubAPI/env/Scripts/python.exe"
         },
         {
             "name": "Python: LangChainAPI",

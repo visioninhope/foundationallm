@@ -20,15 +20,13 @@ from opentelemetry.sdk._logs import (
 from azure.monitor.opentelemetry.exporter import AzureMonitorLogExporter
 
 #tracing
-from opentelemetry import trace
+from opentelemetry import trace, baggage
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.sdk.trace.export import (
     BatchSpanProcessor,
     ConsoleSpanExporter,
 )
-
-from opentelemetry import baggage, trace
 from opentelemetry.trace import SpanKind
 
 from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
