@@ -25,7 +25,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         }
 
         /// <inheritdoc/>
-        public Task DeleteRequest(string requestId) => Task.CompletedTask;
+        public Task DeleteRequest(string requestId, string popReceipt) => Task.CompletedTask;
 
         /// <inheritdoc/>
         public Task<bool> HasRequests() =>

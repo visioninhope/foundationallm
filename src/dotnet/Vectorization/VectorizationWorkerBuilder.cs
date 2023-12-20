@@ -5,7 +5,9 @@ using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Services.RequestSources;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM.Vectorization
 {
@@ -15,6 +17,7 @@ namespace FoundationaLLM.Vectorization
         private IVectorizationStateService? _stateService;
         private CancellationToken _cancellationToken = default(CancellationToken);
         private ILoggerFactory? _loggerFactory;
+        private IServiceProvider? _serviceProvider;
 
         public VectorizationWorkerBuilder()
         {
@@ -30,6 +33,9 @@ namespace FoundationaLLM.Vectorization
 
             if (_loggerFactory == null)
                 throw new VectorizationException("Cannot build a vectorization worker without a valid logger factory.");
+
+            if (_serviceProvider == null)
+                throw new VectorizationException("Cannot build a vectorization worker without a valid service provider.");
 
             var requestSourceServices = _settings!.RequestManagers!
                 .Select(rm => GetRequestSourceService(rm.RequestSourceName, _settings.QueuingEngine))
@@ -100,7 +106,7 @@ namespace FoundationaLLM.Vectorization
                 case VectorizationQueuing.None:
                     return new MemoryRequestSourceService(name, _loggerFactory!.CreateLogger<MemoryRequestSourceService>());
                 case VectorizationQueuing.AzureStorageQueue:
-                    return new StorageQueueRequestSourceService(name, _loggerFactory!.CreateLogger<StorageQueueRequestSourceService>());
+                    return new StorageQueueRequestSourceService(name, _serviceProvider!.GetService<IOptions<RequestSourceServiceSettings>>()!, _loggerFactory!.CreateLogger<StorageQueueRequestSourceService>());
                 default:
                     throw new VectorizationException($"The vectorization queuing mechanism [{queuing}] is not supported.");
             }
