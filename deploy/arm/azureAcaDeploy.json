@@ -835,6 +835,20 @@
         }
       ]
     },
+    "jaegerAcaSettings": {
+      "name": "[parameters('name')]",
+      "instances": [
+        {
+          "key": "jaeger",
+          "containerPort": 16686,
+          "replicas": 1,
+          "resources": {
+            "cpu": 0.25,
+            "memory": "0.25Gi"
+          }
+        }
+      ]
+    },
     "safetySettings": {
       "name": "[format('{0}-contentsafety', parameters('name'))]"
     },
@@ -2072,6 +2086,105 @@
           "scale": {
             "minReplicas": "[variables('pythonAcaSettings').instances[copyIndex()].replicas]",
             "maxReplicas": "[variables('pythonAcaSettings').instances[copyIndex()].replicas]"
+          },
+          "volumes": []
+        }
+      }
+    },
+    {
+      "copy": {
+        "name": "jaegerAcaInstances",
+        "count": "[length(variables('jaegerAcaSettings').instances)]"
+      },
+      "type": "Microsoft.App/containerapps",
+      "apiVersion": "2023-05-02-preview",
+      "name": "[format('{0}{1}ca', variables('jaegerAcaSettings').name, variables('jaegerAcaSettings').instances[copyIndex()].key)]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.App/managedEnvironments', format('{0}acaenv', parameters('name')))]",
+        "[resourceId('Microsoft.AppConfiguration/configurationStores', variables('appConfigSettings').name)]"
+      ],
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "managedEnvironmentId": "[resourceId('Microsoft.App/managedEnvironments', format('{0}acaenv', parameters('name')))]",
+        "environmentId": "[resourceId('Microsoft.App/managedEnvironments', format('{0}acaenv', parameters('name')))]",
+        "workloadProfileName": "Warm",
+        "configuration": {
+          "secrets": [],
+          "activeRevisionsMode": "Single",
+          "ingress": {
+            "additionalPortMappings": [
+              {
+                "external": false,
+                "targetPort": 13133,
+                "exposedPort": 13133
+              },
+              {
+                "external": false,
+                "targetPort": 4317,
+                "exposedPort": 4317
+              },
+              {
+                "external": false,
+                "targetPort": 4318,
+                "exposedPort": 4318
+              }
+            ],
+            "external": true,
+            "targetPort": "[variables('jaegerAcaSettings').instances[copyIndex()].containerPort]",
+            "exposedPort": 0,
+            "stickySessions": {
+              "affinity": "sticky"
+            },
+            "transport": "Auto",
+            "traffic": [
+              {
+                "latestRevision": true,
+                "weight": 100
+              }
+            ],
+            "allowInsecure": false,
+            "corsPolicy": {
+              "allowedOrigins": [
+                "*"
+              ],
+              "allowedHeaders": [
+                "*"
+              ],
+              "maxAge": 0,
+              "allowCredentials": true
+            },
+            "clientCertificateMode": "Ignore"
+          }
+        },
+        "template": {
+          "containers": [
+            {
+              "image": "mcr.microsoft.com/k8se/quickstart:latest",
+              "name": "[format('{0}{1}ca', variables('jaegerAcaSettings').name, variables('jaegerAcaSettings').instances[copyIndex()].key)]",
+              "env": [
+                {
+                  "name": "foundationallm-app-configuration-uri",
+                  "value": "[reference(resourceId('Microsoft.AppConfiguration/configurationStores',variables('appConfigSettings').name), '2023-03-01').endpoint]"
+                },
+                {
+                  "name": "COLLECTOR_OTLP_ENABLED",
+                  "value": "true"
+                }
+              ],
+              "resources": {
+                "cpu": "[variables('jaegerAcaSettings').instances[copyIndex()].resources.cpu]",
+                "memory": "[variables('jaegerAcaSettings').instances[copyIndex()].resources.memory]"
+              },
+              "probes": [],
+              "volumeMounts": []
+            }
+          ],
+          "scale": {
+            "minReplicas": "[variables('jaegerAcaSettings').instances[copyIndex()].replicas]",
+            "maxReplicas": "[variables('jaegerAcaSettings').instances[copyIndex()].replicas]"
           },
           "volumes": []
         }

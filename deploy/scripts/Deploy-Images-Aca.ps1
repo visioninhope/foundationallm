@@ -57,6 +57,7 @@ Push-Location $($MyInvocation.InvocationName | Split-Path)
 
 Write-Host "Deploying images..." -ForegroundColor Yellow
 
+<#
 Write-Host "AgentFactoryAPI deployment - agent-factory-api" -ForegroundColor Yellow
 $command = "az containerapp update --name $($deploymentOutputs.agentfactoryAcaName.value) --resource-group $resourceGroup --image $acrLogin/agent-factory-api:$tag"
 Invoke-Expression "$command"
@@ -96,9 +97,10 @@ Invoke-Expression "$command"
 Write-Host "ChatUI deployment - chat-ui" -ForegroundColor Yellow
 $command = "az containerapp update --name $($deploymentOutputs.chatuiAcaName.value) --resource-group $resourceGroup --image $acrLogin/chat-ui:$tag"
 Invoke-Expression "$command"
+#>
 
 Write-Host "jaeger deployment - jaeger" -ForegroundColor Yellow
-$command = "az containerapp update --name $($deploymentOutputs.jaegerAcaName.value) --resource-group $resourceGroup --image $acrLogin/jaegertracing:$tag --cpu 2 --memory 8 --os-type Linux --ports 13133 16686 4317 4318 --environment-variables `"COLLECTOR_OTLP_ENABLED=true`""
+$command = "az containerapp update --name $($deploymentOutputs.jaegerAcaName.value) --resource-group $resourceGroup --image $acrLogin/jaegertracing:$tag"
 Invoke-Expression "$command"
 
 # $message = @"
