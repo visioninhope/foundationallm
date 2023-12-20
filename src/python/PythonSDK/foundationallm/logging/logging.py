@@ -31,10 +31,12 @@ from opentelemetry.trace import SpanKind
 
 from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
 
+from foundationallm.configuration import Configuration
+
 class Logging:
 
     @staticmethod
-    def setup_logging(name : str):
+    def setup_logging(name : str, config : Configuration):
 
         LoggingInstrumentor().instrument(set_logging_format=True)
 
@@ -49,7 +51,7 @@ class Logging:
         set_logger_provider(logger_provider)
 
         exporter = AzureMonitorLogExporter.from_connection_string(
-            conn_str=os.environ["FoundationaLLM:AppInsights:ConnectionString"]
+            conn_str=config.get_value(["FoundationaLLM:AppInsights:ConnectionString"])
         )
 
         get_logger_provider().add_log_record_processor(BatchLogRecordProcessor(exporter))
@@ -60,7 +62,7 @@ class Logging:
         logging.getLogger().setLevel(logging.DEBUG)
 
     @staticmethod
-    def setup_jaeger_tracing(name : str):
+    def setup_jaeger_tracing(name : str, config : Configuration):
 
         from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 
@@ -70,7 +72,8 @@ class Logging:
             agent_host_name='localhost',
             agent_port=6831,
             # optional: configure also collector
-            collector_endpoint='http://localhost:14268/api/traces?format=jaeger.thrift',
+            collector_endpoint=config.get_value(["FoundationaLLM:Jaeger:APIUrl"])
+            #collector_endpoint='http://localhost:14268/api/traces?format=jaeger.thrift',
             # username=xxxx, # optional
             # password=xxxx, # optional
             # max_tag_value_length=None # optional
@@ -82,10 +85,10 @@ class Logging:
         trace.get_tracer_provider().add_span_processor(span_processor)
 
     @staticmethod
-    def setup_azure_tracing(name : str):
+    def setup_azure_tracing(name : str, config : Configuration):
 
         azure_exporter = AzureMonitorTraceExporter(
-            connection_string=os.environ["FoundationaLLM:AppInsights:ConnectionString"]
+            connection_string=config.get_value(["FoundationaLLM:AppInsights:ConnectionString"])
         )
 
         # Create a BatchSpanProcessor and add the exporter to it
@@ -95,7 +98,7 @@ class Logging:
         trace.get_tracer_provider().add_span_processor(azure_span_processor)
 
     @staticmethod
-    def setup_tracing(name : str, use_azure : bool = True, use_jaeger : bool = False):
+    def setup_tracing(name : str, config : Configuration, use_azure : bool = True, use_jaeger : bool = False):
 
         # Creates a tracer from the global tracer provider
         tracer = trace.get_tracer(name)

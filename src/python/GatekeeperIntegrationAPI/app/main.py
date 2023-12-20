@@ -8,65 +8,18 @@ from fastapi import FastAPI
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from app.dependencies import get_config
 from app.routers import analyze, status
-from foundationallm.config import Configuration
-#from azure.monitor.opentelemetry import configure_azure_monitor
+from foundationallm.logging import Logging
+
+title = "FoundationaLLM.GatekeeperIntegrationAPI"
 
 app_config = get_config()
 
-#configure_azure_monitor(connection_string=app_config.get_value('FoundationaLLM:AppInsights:ConnectionString'),disable_offline_storage=True)
+Logging.setup_logging(title, app_config)
 
-from opentelemetry import trace
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.resources import SERVICE_NAME, Resource
-from opentelemetry.sdk.trace.export import (
-    BatchSpanProcessor,
-    ConsoleSpanExporter,
-)
-
-# Sets the global default tracer provider
-trace.set_tracer_provider(
-TracerProvider(
-        resource=Resource.create({SERVICE_NAME: "FoundationaLLM.GatekeeperIntegrationAPI"})
-    )
-)
-
-# Creates a tracer from the global tracer provider
-tracer = trace.get_tracer("FoundationaLLM.GatekeeperIntegrationAPI")
-
-from opentelemetry.exporter.jaeger.thrift import JaegerExporter
-
-# create a JaegerExporter
-jaeger_exporter = JaegerExporter(
-    # configure agent
-    agent_host_name='localhost',
-    agent_port=6831,
-    # optional: configure also collector
-    collector_endpoint='http://localhost:14268/api/traces?format=jaeger.thrift',
-    # username=xxxx, # optional
-    # password=xxxx, # optional
-    # max_tag_value_length=None # optional
-)
-
-# Create a BatchSpanProcessor and add the exporter to it
-span_processor = BatchSpanProcessor(jaeger_exporter)
-
-# add to the tracer
-trace.get_tracer_provider().add_span_processor(span_processor)
-
-from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
-
-azure_exporter = AzureMonitorTraceExporter(
-    connection_string=os.environ["FoundationaLLM:AppInsights:ConnectionString"]
-)
-
-# Create a BatchSpanProcessor and add the exporter to it
-azure_span_processor = BatchSpanProcessor(azure_exporter)
-
-# add to the tracer
-trace.get_tracer_provider().add_span_processor(azure_span_processor)
+Logging.setup_tracing(title, app_config ,use_azure=True, use_jaeger=app_config.get_value(["FoundationaLLM:Tracing:UseJaeger"], default=False))
 
 app = FastAPI(
-    title='FoundationaLLM GatekeeperIntegrationAPI',
+    title=title,
     summary='API for extending the FoundationaLLM GatekeeperAPI',
     description="""The FoundationaLLM GatekeeperIntegrationAPI is a service used to extend the
             FoundationaLLM GatekeeperAPI with extra capabilities""",
@@ -74,7 +27,7 @@ app = FastAPI(
     contact={
         'name':'Solliance, Inc.',
         'email':'contact@solliance.net',
-        'url':'https://solliance.net/' 
+        'url':'https://solliance.net/'
     },
     openapi_url='/swagger/v1/swagger.json',
     docs_url='/swagger',
@@ -95,7 +48,7 @@ app.include_router(status.router)
 async def root():
     """
     Root path of the API.
-    
+
     Returns
     -------
     str

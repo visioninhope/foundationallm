@@ -14,9 +14,9 @@ title = "FoundationaLLM.LangChainAPI"
 
 app_config = get_config()
 
-Logging.setup_logging(title)
+Logging.setup_logging(title, app_config)
 
-Logging.setup_tracing(title,use_azure=True, use_jaeger=False)
+Logging.setup_tracing(title, app_config ,use_azure=True, use_jaeger=app_config.get_value(["FoundationaLLM:Tracing:UseJaeger"], default=False))
 
 app = FastAPI(
     title=title,

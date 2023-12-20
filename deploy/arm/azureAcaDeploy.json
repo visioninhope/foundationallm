@@ -92,9 +92,24 @@
           "key": "FoundationaLLM:APIs:SemanticKernelAPI:APIUrl",
           "value": "semantickernel",
           "contentType": null
+        },
+        {
+          "key": "FoundationaLLM:Jaeger:APIUrl",
+          "value": "jaeger",
+          "contentType": null
         }
       ],
       "configKeys": [
+        {
+          "key": "FoundationaLLM:Tracing:UseAzure",
+          "value": "true",
+          "contentType": null
+        },
+        {
+          "key": "FoundationaLLM:Tracing:UseJaeger",
+          "value": "true",
+          "contentType": null
+        },
         {
           "key": "FoundationaLLM:AgentHub:AgentMetadata:StorageContainer",
           "value": "agents",
@@ -817,15 +832,6 @@
         },
         {
           "key": "prompthub",
-          "containerPort": 80,
-          "replicas": 1,
-          "resources": {
-            "cpu": 0.25,
-            "memory": "0.25Gi"
-          }
-        },
-        {
-          "key": "jaeger",
           "containerPort": 80,
           "replicas": 1,
           "resources": {
