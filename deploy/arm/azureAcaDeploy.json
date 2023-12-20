@@ -664,6 +664,11 @@
           "key": "FoundationaLLM:SemanticKernelAPI:OpenAI.ShortSummaryPromptName",
           "value": "Summarizer.TwoWords",
           "contentType": null
+        },
+        {
+          "key": "FoundationaLLM:Vectorization:WorkerSettings",
+          "value": "{\n\t\"RequestManagers\": [\n\t\t{\n\t\t\t\"RequestSourceName\": \"extract\",\n\t\t\t\"MaxHandlerInstances\": 1\n\t\t},\n\t\t{\n\t\t\t\"RequestSourceName\": \"partition\",\n\t\t\t\"MaxHandlerInstances\": 1\n\t\t},\n\t\t{\n\t\t\t\"RequestSourceName\": \"embed\",\n\t\t\t\"MaxHandlerInstances\": 1\n\t\t},\n\t\t{\n\t\t\t\"RequestSourceName\": \"index\",\n\t\t\t\"MaxHandlerInstances\": 1\n\t\t}\n\t],\n\t\"QueuingEngine\": \"None\"\n}",
+          "contentType": "application/json"
         }
       ], 
       "featureFlags": [
