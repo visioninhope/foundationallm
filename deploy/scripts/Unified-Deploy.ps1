@@ -181,7 +181,8 @@ if ($stepBuildPush) {
 
 if ($stepUploadSystemPrompts) {
     # Upload System Prompts
-    & ./UploadSystemPrompts.ps1 -resourceGroup $resourceGroup -location $location
+    $storageAccount = $resourcePrefix + "sa"
+    & ./UploadSystemPrompts.ps1 -resourceGroup $resourceGroup -location $location -storageAccount $storageAccount
 }
 
 if ($stepDeployImages) {
@@ -207,9 +208,17 @@ else {
     $coreApiUri = "https://$coreApiHostname"
 }
 
+cd ..
+cd ..
+
 Write-Host "===========================================================" -ForegroundColor Yellow
 Write-Host "The frontend is hosted at https://$webappHostname" -ForegroundColor Yellow
 Write-Host "The Core API is hosted at $coreApiUri" -ForegroundColor Yellow
+Write-Host "===========================================================" -ForegroundColor Yellow
+
+Write-Host "===========================================================" -ForegroundColor Yellow
+Write-Host "Be sure to update your Azure Entra Settings, once complete run:" -ForegroundColor Yellow
+Write-Host "az container restart --name $($resourcePrefix)acaenv --resource-group $resourceGroup" -ForegroundColor Yellow
 Write-Host "===========================================================" -ForegroundColor Yellow
 
 Pop-Location

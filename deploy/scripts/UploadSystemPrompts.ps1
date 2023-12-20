@@ -2,13 +2,13 @@
 
 Param(
     [parameter(Mandatory=$true)][string]$resourceGroup,
-    [parameter(Mandatory=$true)][string]$location
+    [parameter(Mandatory=$true)][string]$location,
+    [parameter(Mandatory=$true)][string]$storageAccount
 )
 
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 Push-Location $(Join-Path .. "data")
 
-$storageAccount = $(az storage account list -g $resourceGroup -o json | ConvertFrom-Json).name
 az storage container create --account-name $storageAccount --name "agents" --only-show-errors
 az storage azcopy blob upload -c agents --account-name $storageAccount -s "./agents/*" --recursive --only-show-errors
 

@@ -31,7 +31,7 @@ from opentelemetry.trace import SpanKind
 
 from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
 
-from foundationallm.configuration import Configuration
+from foundationallm.config import Configuration
 
 class Logging:
 

@@ -1,7 +1,7 @@
 services:
   core-api:
     image: ${REGISTRY:-foundationallm}/core-api:${TAG:-latest}
-    profiles: ["all", "core"]
+    profiles: ["all", "core", "dotnet"]
     build:
       context: ../../src
       dockerfile: ./dotnet/CoreAPI/Dockerfile
@@ -16,7 +16,7 @@ services:
 
   core-job:
     image: ${REGISTRY:-foundationallm}/core-job:${TAG:-latest}
-    profiles: ["all", "core"]
+    profiles: ["all", "core", "dotnet"]
     build:
       context: ../../src
       dockerfile: ./dotnet/CoreWorker/Dockerfile
@@ -27,7 +27,7 @@ services:
 
   agent-factory-api:
     image: ${REGISTRY:-foundationallm}/agent-factory-api:${TAG:-latest}
-    profiles: ["all", "agent-factory"]
+    profiles: ["all", "agent-factory", "dotnet"]
     build:
       context: ../../src/
       dockerfile: ./dotnet/AgentFactoryAPI/Dockerfile
@@ -42,7 +42,7 @@ services:
 
   gatekeeper-api:
     image: ${REGISTRY:-foundationallm}/gatekeeper-api:${TAG:-latest}
-    profiles: ["all", "gatekeeper-factory"]
+    profiles: ["all", "gatekeeper-factory", "dotnet"]
     build:
       context: ../../src/
       dockerfile: ./dotnet/GatekeeperAPI/Dockerfile
@@ -57,7 +57,7 @@ services:
 
   semantic-kernel-api:
     image: ${REGISTRY:-foundationallm}/semantic-kernel-api:${TAG:-latest}
-    profiles: ["all", "semantic-kernel"]
+    profiles: ["all", "semantic-kernel", "dotnet"]
     build:
       context: ../../src/
       dockerfile: ./dotnet/SemanticKernelAPI/Dockerfile
@@ -72,7 +72,7 @@ services:
 
   langchain-api:
     image: ${REGISTRY:-foundationallm}/langchain-api:${TAG:-latest}
-    profiles: ["all", "langchain-api"]
+    profiles: ["all", "langchain-api", "python"]
     build:
       context: ../../src/python
       dockerfile: ./LangChainAPI/Dockerfile
@@ -81,7 +81,7 @@ services:
 
   agent-hub-api:
     image: ${REGISTRY:-foundationallm}/agent-hub-api:${TAG:-latest}
-    profiles: ["all", "agent-hub-api"]
+    profiles: ["all", "agent-hub-api", "python"]
     build:
       context: ../../src/python
       dockerfile: ./AgentHubAPI/Dockerfile
@@ -90,7 +90,7 @@ services:
 
   data-source-hub-api:
     image: ${REGISTRY:-foundationallm}/data-source-hub-api:${TAG:-latest}
-    profiles: ["all", "data-source-hub-api"]
+    profiles: ["all", "data-source-hub-api", "python"]
     build:
       context: ../../src/python
       dockerfile: ./DataSourceHubAPI/Dockerfile
@@ -99,7 +99,7 @@ services:
 
   prompt-hub-api:
     image: ${REGISTRY:-foundationallm}/prompt-hub-api:${TAG:-latest}
-    profiles: ["all", "prompt-hub-api"]
+    profiles: ["all", "prompt-hub-api", "python"]
     build:
       context: ../../src/python
       dockerfile: ./PromptHubAPI/Dockerfile
@@ -108,7 +108,7 @@ services:
 
   chat-ui:
     image: ${REGISTRY:-foundationallm}/chat-ui:${TAG:-latest}
-    profiles: ["all", "core", "chat"]
+    profiles: ["all", "core", "chat", "ui"]
     build:
       context: ../../src/ui/UserPortal
       dockerfile: ./Dockerfile
