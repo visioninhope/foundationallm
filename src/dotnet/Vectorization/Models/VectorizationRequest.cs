@@ -24,6 +24,13 @@ namespace FoundationaLLM.Vectorization.Models
         public required string ContentId { get; set; }
 
         /// <summary>
+        /// This value is required to delete the request.
+        /// </summary>
+        [JsonPropertyOrder(2)]
+        [JsonPropertyName("pop_receipt")]
+        public required string PopReceipt { get; set; }
+
+        /// <summary>
         /// The list of vectorization steps requested by the vectorization request.
         /// Vectorization steps are identified by unique names like "extract", "partition", "embed", "index", etc.
         /// </summary>

@@ -101,7 +101,7 @@ namespace FoundationaLLM.Vectorization.Services
                 await HandleRequest(request);
                 await AdvanceRequest(request);
 
-                await _incomingRequestSourceService.DeleteRequest(request.Id);
+                await _incomingRequestSourceService.DeleteRequest(request.Id, request.PopReceipt);
             }
             catch (Exception ex)
             {

@@ -33,8 +33,9 @@ namespace FoundationaLLM.Vectorization.Interfaces
         /// This should happen when the request was successfully processed.
         /// </summary>
         /// <param name="requestId">The identifier of the request being removed.</param>
+        /// <param name="popReceipt">This value is required to delete the request.</param>
         /// <returns></returns>
-        Task DeleteRequest(string requestId);
+        Task DeleteRequest(string requestId, string popReceipt);
 
         /// <summary>
         /// Submits a new vectorization request to the source.

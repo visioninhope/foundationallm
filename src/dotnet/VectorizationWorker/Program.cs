@@ -5,6 +5,7 @@ using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using FoundationaLLM.Vectorization.Worker;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,10 +38,15 @@ builder.Services.AddCors(policyBuilder =>
 
 // Add services to the container.
 builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
+
 builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:WorkerSettings"));
+builder.Services.AddOptions<RequestSourceServiceSettings>()
+    .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:RequestSourceServiceSettings"));
+builder.Services.AddOptions<VectorizationStateServiceSettings>()
+    .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:StateServiceSettings"));
 
 builder.Services.AddControllers();
 builder.Services
