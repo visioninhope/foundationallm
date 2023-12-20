@@ -6,7 +6,8 @@ Param(
     [parameter(Mandatory = $false)][bool]$dockerBuild = $true,
     [parameter(Mandatory = $false)][bool]$dockerPush = $true,
     [parameter(Mandatory = $false)][string]$dockerTag = "latest",
-    [parameter(Mandatory = $false)][bool]$isWindowsMachine = $false
+    [parameter(Mandatory = $false)][bool]$isWindowsMachine = $false,
+    [parameter(Mandatory = $false)][string]$profile = "all"
 )
 
 Set-StrictMode -Version 3.0
@@ -54,7 +55,7 @@ Images will be named as $acrLoginServer/imageName:$dockerTag
     Push-Location $sourceFolder
     $env:TAG = $dockerTag
     $env:REGISTRY = $acrLoginServer 
-    docker-compose -f $dockerComposeFile build
+    docker-compose --profile $profile -f $dockerComposeFile build
     EnsureSuccess "Docker build failed"
     Pop-Location
 }
@@ -72,7 +73,7 @@ Pushing images to $acrLoginServer
     EnsureSuccess "Docker login failed"
     $env:TAG = $dockerTag
     $env:REGISTRY = $acrLoginServer 
-    docker-compose -f $dockerComposeFile push
+    docker-compose --profile $profile -f $dockerComposeFile push
     EnsureSuccess "Docker push failed"
     Pop-Location
 }

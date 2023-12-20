@@ -19,7 +19,8 @@ Param(
     [parameter(Mandatory = $false)][bool]$stepDeployImages = $true,
     [parameter(Mandatory = $false)][bool]$stepUploadSystemPrompts = $true,
     [parameter(Mandatory = $false)][bool]$stepLoginAzure = $true,
-    [parameter(Mandatory = $false)][string]$resourcePrefix = $null
+    [parameter(Mandatory = $false)][string]$resourcePrefix = $null,
+    [parameter(Mandatory = $false)][string]$profile = "all"
 )
 
 Set-StrictMode -Version 3.0
@@ -175,7 +176,7 @@ if ($deployAks -And $stepDeployTls) {
 
 if ($stepBuildPush) {
     # Build an Push
-    & ./BuildPush.ps1 -resourceGroup $resourceGroup -acrName $acrName
+    & ./BuildPush.ps1 -resourceGroup $resourceGroup -acrName $acrName -profile $profile
 }
 
 if ($stepUploadSystemPrompts) {
