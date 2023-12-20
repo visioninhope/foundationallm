@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class VectorizationWorkerSettings
+      <title>Class DataLakeStorageService
  | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class VectorizationWorkerSettings
+      <meta name="title" content="Class DataLakeStorageService
  | FoundationaLLM ">
       
       <link rel="icon" href="../../media/favicon.ico">
@@ -17,7 +17,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Services_DataLakeStorageService.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Services.DataLakeStorageService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,25 +85,26 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings">
+        <article data-uid="FoundationaLLM.Common.Services.DataLakeStorageService">
 
 
 
-  <h1 id="FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings" data-uid="FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings" class="text-break">
-    Class VectorizationWorkerSettings
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/VectorizationWorkerSettings.cs/#L5"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Common_Services_DataLakeStorageService" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService" class="text-break">
+    Class DataLakeStorageService
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Vectorization.html">Vectorization</a>.<a class="xref" href="FoundationaLLM.Vectorization.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.html">Configuration</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Services.html">Services</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Provides access to Azure Data Lake blob storage.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class VectorizationWorkerSettings</code></pre>
+    <pre><code class="lang-csharp hljs">public class DataLakeStorageService : IStorageService</code></pre>
   </div>
 
 
@@ -113,10 +114,16 @@
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">VectorizationWorkerSettings</span></div>
+      <div><span class="xref">DataLakeStorageService</span></div>
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a></div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist derived">
@@ -157,67 +164,38 @@
 
 
 
-  <h2 class="section" id="properties">Properties
+  <h2 class="section" id="constructors">Constructors
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings_QueuingEngine_" data-uid="FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings.QueuingEngine*"></a>
+  <a id="FoundationaLLM_Common_Services_DataLakeStorageService__ctor_" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings_QueuingEngine" data-uid="FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings.QueuingEngine">
-  QueuingEngine
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/VectorizationWorkerSettings.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Settings_BlobStorageServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_DataLakeStorageService__" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Settings.BlobStorageServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.DataLakeStorageService})">
+  DataLakeStorageService(IOptions&lt;BlobStorageServiceSettings&gt;, ILogger&lt;DataLakeStorageService&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.Common.Services.DataLakeStorageService.html">DataLakeStorageService</a> with the specified options and logger.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyOrder(1)]
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public VectorizationQueuing QueuingEngine { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public DataLakeStorageService(IOptions&lt;BlobStorageServiceSettings&gt; options, ILogger&lt;DataLakeStorageService&gt; logger)</code></pre>
   </div>
 
-
-
-
-
-  <h4 class="section">Property Value</h4>
+  <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationQueuing.html">VectorizationQueuing</a></dt>
-    <dd></dd>
+    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a>&gt;</dt>
+    <dd><p>The options object containing the <a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a> object with the settings.</p>
+</dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Common.Services.DataLakeStorageService.html">DataLakeStorageService</a>&gt;</dt>
+    <dd><p>The logger used for logging.</p>
+</dd>
   </dl>
 
 
 
 
-
-
-
-
-  <a id="FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings_RequestManagers_" data-uid="FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings.RequestManagers*"></a>
-
-  <h3 id="FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings_RequestManagers" data-uid="FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings.RequestManagers">
-  RequestManagers
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/VectorizationWorkerSettings.cs/#L7"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyOrder(0)]
-public List&lt;RequestManagerServiceSettings&gt;? RequestManagers { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html">RequestManagerServiceSettings</a>&gt;</dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -230,7 +208,7 @@ public List&lt;RequestManagerServiceSettings&gt;? RequestManagers { get; set; }<
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/VectorizationWorkerSettings.cs/#L5" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L11" class="edit-link">Edit this page</a>
         </div>
 
 

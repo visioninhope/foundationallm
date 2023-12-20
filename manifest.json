@@ -932,6 +932,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.yml",
       "output": {
         ".html": {
@@ -1452,6 +1462,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Services.EntraUserClaimsProviderService.yml",
       "output": {
         ".html": {
@@ -1486,6 +1506,26 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Services.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Settings.BlobStorageAuthenticationTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Settings.BlobStorageAuthenticationTypes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Settings.BlobStorageServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html"
         }
       },
       "version": ""
@@ -2982,10 +3022,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestSources.QueueRequestSourceService.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestSources.StorageQueueRequestSourceService.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestSources.QueueRequestSourceService.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestSources.StorageQueueRequestSourceService.html"
         }
       },
       "version": ""

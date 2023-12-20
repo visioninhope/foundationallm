@@ -414,7 +414,7 @@ public required List&lt;VectorizationStep&gt; Steps { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_MoveToNextStep" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.MoveToNextStep">
   MoveToNextStep()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Advances the vectorization pipeline to the next step, returning the name of the next step to execute.
@@ -423,14 +423,16 @@ The name returned is used to choose the next request source to which the vectori
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string MoveToNextStep()</code></pre>
+    <pre><code class="lang-csharp hljs">public string? MoveToNextStep()</code></pre>
   </div>
 
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The name of the next step to execute if there are steps left to execute or null if the processing
+of the vectorization request is complete.</p>
+</dd>
   </dl>
 
 

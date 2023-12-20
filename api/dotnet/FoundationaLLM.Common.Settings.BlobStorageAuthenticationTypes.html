@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Interface IRequestManagerService
+      <title>Enum BlobStorageAuthenticationTypes
  | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Interface IRequestManagerService
+      <meta name="title" content="Enum BlobStorageAuthenticationTypes
  | FoundationaLLM ">
       
       <link rel="icon" href="../../media/favicon.ico">
@@ -17,7 +17,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Interfaces_IRequestManagerService.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Interfaces.IRequestManagerService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Settings_BlobStorageAuthenticationTypes.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Settings.BlobStorageAuthenticationTypes%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,26 +85,27 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Vectorization.Interfaces.IRequestManagerService">
+        <article data-uid="FoundationaLLM.Common.Settings.BlobStorageAuthenticationTypes">
 
 
 
-  <h1 id="FoundationaLLM_Vectorization_Interfaces_IRequestManagerService" data-uid="FoundationaLLM.Vectorization.Interfaces.IRequestManagerService" class="text-break">
-    Interface IRequestManagerService
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IRequestManagerService.cs/#L9"><i class="bi bi-code-slash"></i></a>
+
+  <h1 id="FoundationaLLM_Common_Settings_BlobStorageAuthenticationTypes" data-uid="FoundationaLLM.Common.Settings.BlobStorageAuthenticationTypes" class="text-break">
+    Enum BlobStorageAuthenticationTypes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Settings/BlobStorageAuthenticationTypes.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Vectorization.html">Vectorization</a>.<a class="xref" href="FoundationaLLM.Vectorization.Interfaces.html">Interfaces</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Settings.html">Settings</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Manages vectorization requests.</p>
+  <div class="markdown summary"><p>Types of authentication for blob storage accounts.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IRequestManagerService</code></pre>
+    <pre><code class="lang-csharp hljs">public enum BlobStorageAuthenticationTypes</code></pre>
   </div>
 
 
@@ -122,52 +123,29 @@
   </div>
   </dd></dl>
 
-
-
-
-
-  <h2 class="section" id="methods">Methods
+  <h2 id="fields">Fields
 </h2>
-
-
-  <a id="FoundationaLLM_Vectorization_Interfaces_IRequestManagerService_Run_" data-uid="FoundationaLLM.Vectorization.Interfaces.IRequestManagerService.Run*"></a>
-
-  <h3 id="FoundationaLLM_Vectorization_Interfaces_IRequestManagerService_Run" data-uid="FoundationaLLM.Vectorization.Interfaces.IRequestManagerService.Run">
-  Run()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IRequestManagerService.cs/#L15"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Runs the vectorization requests processing cycle.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task Run()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a> to await the completion of the run.</p>
+    <dt id="FoundationaLLM_Common_Settings_BlobStorageAuthenticationTypes_AccountKey"><code>AccountKey = 2</code></dt>
+    <dd><p>Account key authentication type.</p>
+</dd>
+    <dt id="FoundationaLLM_Common_Settings_BlobStorageAuthenticationTypes_AzureIdentity"><code>AzureIdentity = 0</code></dt>
+    <dd><p>Azure managed identity authentication type.</p>
+</dd>
+    <dt id="FoundationaLLM_Common_Settings_BlobStorageAuthenticationTypes_ConnectionString"><code>ConnectionString = 1</code></dt>
+    <dd><p>Connection string authentication type.</p>
+</dd>
+    <dt id="FoundationaLLM_Common_Settings_BlobStorageAuthenticationTypes_Unknown"><code>Unknown = -1</code></dt>
+    <dd><p>Unknown authentication type.</p>
 </dd>
   </dl>
-
-
-
-
-
-
-
-
-
 
 
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IRequestManagerService.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Settings/BlobStorageAuthenticationTypes.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 
