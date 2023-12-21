@@ -18,8 +18,8 @@ duckduckgo-search==3.9.3
 email-validator==2.0.0.post2
 flask-sqlalchemy==3.1.1
 chromadb==0.4.14
-unstructured==0.10.22
-unstructured[all-docs]==0.10.22
+unstructured==0.11.6
+unstructured[all-docs]==0.11.6
 azure-appconfiguration-provider==1.0.0
 pylint==3.0.2
 opentelemetry-instrumentation-fastapi==0.42b0
