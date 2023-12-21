@@ -10,4 +10,5 @@ pylint==3.0.2
 opentelemetry.instrumentation.logging==0.42b0
 azure-monitor-opentelemetry-exporter==1.0.0b19
 opentelemetry-exporter-jaeger==1.21.0
+opentelemetry.instrumentation.fastapi==0.42b0
 

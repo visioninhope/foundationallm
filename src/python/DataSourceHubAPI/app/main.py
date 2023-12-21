@@ -16,7 +16,7 @@ app_config = get_config()
 
 Logging.setup_logging(title, app_config)
 
-Logging.setup_tracing(title, app_config ,use_azure=True, use_jaeger=app_config.get_value(["FoundationaLLM:Tracing:UseJaeger"], default=False))
+Logging.setup_tracing(title, app_config ,use_azure=True, use_jaeger=app_config.get_value("FoundationaLLM:Tracing:UseJaeger"))
 
 app = FastAPI(
     title=title,

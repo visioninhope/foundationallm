@@ -51,7 +51,7 @@ class Logging:
         set_logger_provider(logger_provider)
 
         exporter = AzureMonitorLogExporter.from_connection_string(
-            conn_str=config.get_value(["FoundationaLLM:AppInsights:ConnectionString"])
+            conn_str=config.get_value("FoundationaLLM:AppInsights:ConnectionString")
         )
 
         get_logger_provider().add_log_record_processor(BatchLogRecordProcessor(exporter))
@@ -72,7 +72,7 @@ class Logging:
             agent_host_name='localhost',
             agent_port=6831,
             # optional: configure also collector
-            collector_endpoint=config.get_value(["FoundationaLLM:Jaeger:APIUrl"])
+            collector_endpoint=config.get_value("FoundationaLLM:Jaeger:APIUrl")
             #collector_endpoint='http://localhost:14268/api/traces?format=jaeger.thrift',
             # username=xxxx, # optional
             # password=xxxx, # optional
@@ -88,7 +88,7 @@ class Logging:
     def setup_azure_tracing(name : str, config : Configuration):
 
         azure_exporter = AzureMonitorTraceExporter(
-            connection_string=config.get_value(["FoundationaLLM:AppInsights:ConnectionString"])
+            connection_string=config.get_value("FoundationaLLM:AppInsights:ConnectionString")
         )
 
         # Create a BatchSpanProcessor and add the exporter to it
@@ -111,10 +111,10 @@ class Logging:
         trace.set_tracer_provider(trace_provider)
 
         if ( use_azure):
-            Logging.setup_azure_tracing(name)
+            Logging.setup_azure_tracing(name, config)
 
         if ( use_jaeger):
-            Logging.setup_jaeger_tracing(name)
+            Logging.setup_jaeger_tracing(name, config)
 
     @staticmethod
     def start_span(tracer_name : str, name : str, kind : SpanKind = SpanKind.CONSUMER, request : Request = None):

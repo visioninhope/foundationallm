@@ -13,8 +13,7 @@
             "env": {
                 "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python/AgentHubAPI;C:/github/solliancenet/foundationallm/src/python/PythonSDK;"
             },
-            "args": ["main:app","--reload", "--port", "8742"],
-            "python": "${workspaceFolder}/src/python/AgentHubAPI/env/Scripts/python.exe"
+            "args": ["main:app","--reload", "--port", "8742"]
         },
         {
             "name": "Python: DataSourceHubAPI",
