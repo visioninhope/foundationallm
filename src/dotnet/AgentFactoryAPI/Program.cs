@@ -41,12 +41,14 @@ namespace FoundationaLLM.AgentFactory.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            string appConfigConnectionString = builder.Environment.IsDevelopment() ? "FoundationaLLM:AppConfig:ConnectionString:Dev" : "FoundationaLLM:AppConfig:ConnectionString";
+
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
+                options.Connect(builder.Configuration[appConfigConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
                     options.SetCredential(new DefaultAzureCredential());
@@ -54,6 +56,7 @@ namespace FoundationaLLM.AgentFactory.API
                 options.Select("FoundationaLLM:APIs:*");
                 options.Select("FoundationaLLM:AgentFactory:*");
             });
+
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 

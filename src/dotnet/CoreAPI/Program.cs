@@ -44,12 +44,14 @@ namespace FoundationaLLM.Core.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            string appConfigConnectionString = builder.Environment.IsDevelopment() ? "FoundationaLLM:AppConfig:ConnectionString" : "FoundationaLLM:AppConfig:ConnectionString:Dev";
+
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
+                options.Connect(builder.Configuration[appConfigConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
                     options.SetCredential(new DefaultAzureCredential());
@@ -59,6 +61,7 @@ namespace FoundationaLLM.Core.API
                 options.Select("FoundationaLLM:Branding:*");
                 options.Select("FoundationaLLM:CoreAPI:Entra:*");
             });
+
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
               
