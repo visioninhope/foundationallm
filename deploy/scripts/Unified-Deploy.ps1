@@ -216,9 +216,4 @@ Write-Host "The frontend is hosted at https://$webappHostname" -ForegroundColor 
 Write-Host "The Core API is hosted at $coreApiUri" -ForegroundColor Yellow
 Write-Host "===========================================================" -ForegroundColor Yellow
 
-Write-Host "===========================================================" -ForegroundColor Yellow
-Write-Host "Be sure to update your Azure Entra Settings, once complete run:" -ForegroundColor Yellow
-Write-Host "az container restart --name $($resourcePrefix)acaenv --resource-group $resourceGroup" -ForegroundColor Yellow
-Write-Host "===========================================================" -ForegroundColor Yellow
-
 Pop-Location
