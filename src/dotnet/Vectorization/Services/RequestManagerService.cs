@@ -76,8 +76,8 @@ namespace FoundationaLLM.Vectorization.Services
                         // thread pool thread, with no user code higher on the stack (for details, see
                         // https://devblogs.microsoft.com/dotnet/configureawait-faq/).
                         _taskPool.Add(
-                            requests.Select(request => Task.Run(
-                                async () => { await ProcessRequest(request); },
+                            requests.Select(r => Task.Run(
+                                async () => { await ProcessRequest(r.Request, r.PopReceipt); },
                                 _cancellationToken)));
                     }
                     else
@@ -94,14 +94,14 @@ namespace FoundationaLLM.Vectorization.Services
             _logger.LogInformation($"The request manager service associated with source [{_settings.RequestSourceName}] finished processing requests.");
         }
 
-        private async Task ProcessRequest(VectorizationRequest request)
+        private async Task ProcessRequest(VectorizationRequest request, string popReceipt)
         {
             try
             {
                 await HandleRequest(request);
                 await AdvanceRequest(request);
 
-                await _incomingRequestSourceService.DeleteRequest(request.Id, request.PopReceipt);
+                await _incomingRequestSourceService.DeleteRequest(request.Id, popReceipt);
             }
             catch (Exception ex)
             {

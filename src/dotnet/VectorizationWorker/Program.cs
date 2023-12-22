@@ -36,17 +36,19 @@ builder.Services.AddCors(policyBuilder =>
         });
 });
 
-// Add services to the container.
-builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
-
-builder.Services.AddHostedService<Worker>();
-
+// Add configurations to the container
 builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:WorkerSettings"));
-builder.Services.AddOptions<RequestSourceServiceSettings>()
-    .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:RequestSourceServiceSettings"));
 builder.Services.AddOptions<VectorizationStateServiceSettings>()
     .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:StateServiceSettings"));
+
+builder.Services.AddSingleton(
+    typeof(IConfigurationSection),
+    builder.Configuration.GetSection("FoundationaLLM:Vectorization:Queues"));
+
+// Add services to the container.
+builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
+builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddControllers();
 builder.Services

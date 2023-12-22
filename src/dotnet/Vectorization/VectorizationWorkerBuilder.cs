@@ -5,19 +5,21 @@ using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Services.RequestSources;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
 
 namespace FoundationaLLM.Vectorization
 {
     public class VectorizationWorkerBuilder
     {
         private VectorizationWorkerSettings? _settings;
+        private IConfigurationSection? _queuesConfiguration;
         private IVectorizationStateService? _stateService;
         private CancellationToken _cancellationToken = default(CancellationToken);
         private ILoggerFactory? _loggerFactory;
-        private IServiceProvider? _serviceProvider;
 
         public VectorizationWorkerBuilder()
         {
@@ -34,11 +36,12 @@ namespace FoundationaLLM.Vectorization
             if (_loggerFactory == null)
                 throw new VectorizationException("Cannot build a vectorization worker without a valid logger factory.");
 
-            if (_serviceProvider == null)
-                throw new VectorizationException("Cannot build a vectorization worker without a valid service provider.");
+            ValidateAndSetQueuesConfiguration();
 
-            var requestSourceServices = _settings!.RequestManagers!
-                .Select(rm => GetRequestSourceService(rm.RequestSourceName, _settings.QueuingEngine))
+            var requestSourceServices = _settings!.RequestSources!
+                .Select(rs => GetRequestSourceService(
+                    rs,
+                    _settings.QueuingEngine))
                 .ToDictionary(rs => rs.SourceName);
 
             var requestManagerServices = _settings!.RequestManagers!
@@ -74,6 +77,12 @@ namespace FoundationaLLM.Vectorization
             return this;
         }
 
+        public VectorizationWorkerBuilder WithQueuesConfiguration(IConfigurationSection queuesConfiguration)
+        {
+            _queuesConfiguration = queuesConfiguration;
+            return this;
+        }
+
         public VectorizationWorkerBuilder WithCancellationToken(CancellationToken cancellationToken)
         {
             _cancellationToken = cancellationToken;
@@ -91,22 +100,58 @@ namespace FoundationaLLM.Vectorization
             if (
                 settings == null 
                 || settings.RequestManagers == null
-                || settings.RequestManagers.Count == 0)
+                || settings.RequestManagers.Count == 0
+                || settings.RequestSources == null
+                || settings.RequestSources.Count == 0)
                 throw new ArgumentNullException(nameof(settings));
 
+            foreach (var rs in settings.RequestSources)
+                if (!VectorizationSteps.ValidateStepName(rs.Name))
+                    throw new VectorizationException("Configuration error: invalid request source name in RequestSources.");
+
             foreach (var rm in settings.RequestManagers)
+            {
                 if (!VectorizationSteps.ValidateStepName(rm.RequestSourceName))
-                    throw new ArgumentException("Invalid request source name.");
+                    throw new VectorizationException("Configuration error: invalid request source name in RequestManagers.");
+
+                if (!settings.RequestSources.Exists(rs => rs.Name.CompareTo(rm.RequestSourceName) == 0))
+                    throw new VectorizationException($"Configuration error: RequestManagers references request source [{rm.RequestSourceName}] which is not configured.");
+            }
         }
 
-        private IRequestSourceService GetRequestSourceService(string name, VectorizationQueuing queuing)
+        private void ValidateAndSetQueuesConfiguration()
+        {
+            if (_settings == null)
+                throw new VectorizationException("The validation of queues configuration can only be performed after providing the settings.");
+
+            if (_settings.QueuingEngine == VectorizationQueuing.None)
+                return;
+
+            if (_queuesConfiguration == null
+                || _queuesConfiguration.GetChildren().Count() == 0)
+                throw new VectorizationException("The queues configuration is empty.");
+
+            foreach (var rs in _settings.RequestSources!)
+            {
+                var connectionString = _queuesConfiguration[rs.ConnectionConfigurationName];
+                if (string.IsNullOrWhiteSpace(connectionString))
+                    throw new VectorizationException($"The configuration setting [{rs.ConnectionConfigurationName}] was not found.");
+                rs.ConnectionString = connectionString;
+            }
+        }
+
+        private IRequestSourceService GetRequestSourceService(RequestSourceServiceSettings settings, VectorizationQueuing queuing)
         {
             switch (queuing)
             {
                 case VectorizationQueuing.None:
-                    return new MemoryRequestSourceService(name, _loggerFactory!.CreateLogger<MemoryRequestSourceService>());
+                    return new MemoryRequestSourceService(
+                        settings,
+                        _loggerFactory!.CreateLogger<MemoryRequestSourceService>());
                 case VectorizationQueuing.AzureStorageQueue:
-                    return new StorageQueueRequestSourceService(name, _serviceProvider!.GetService<IOptions<RequestSourceServiceSettings>>()!, _loggerFactory!.CreateLogger<StorageQueueRequestSourceService>());
+                    return new StorageQueueRequestSourceService(
+                        settings,
+                        _loggerFactory!.CreateLogger<StorageQueueRequestSourceService>());
                 default:
                     throw new VectorizationException($"The vectorization queuing mechanism [{queuing}] is not supported.");
             }
