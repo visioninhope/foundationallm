@@ -1769,6 +1769,10 @@
                 {
                   "name": "FoundationaLLM__AppConfig__ConnectionString",
                   "value": "[listKeys(resourceId('Microsoft.AppConfiguration/configurationStores',variables('appConfigSettings').name), '2023-03-01').value[2].connectionString]"
+                },
+                {
+                  "name": "FoundationaLLM__AppConfig__ConnectionString__Dev",
+                  "value": "[listKeys(resourceId('Microsoft.AppConfiguration/configurationStores',variables('appConfigSettings').name), '2023-03-01').value[2].connectionString]"
                 }
               ],
               "resources": {

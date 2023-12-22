@@ -8,6 +8,9 @@ RUN apt-get update \
         && ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools
 
 WORKDIR /code
+
+RUN apt update && apt install -y libsm6 libxext6 ffmpeg libfontconfig1 libxrender1 libgl1-mesa-glx
+
 COPY ./LangChainAPI/requirements.txt /code/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 COPY ./PythonSDK/foundationallm /code/foundationallm

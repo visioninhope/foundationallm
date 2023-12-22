@@ -53,6 +53,7 @@ namespace FoundationaLLM.AgentFactory.API
                 {
                     options.SetCredential(new DefaultAzureCredential());
                 });
+                options.Select("FoundationaLLM:AppInsights:*");
                 options.Select("FoundationaLLM:APIs:*");
                 options.Select("FoundationaLLM:AgentFactory:*");
             });
@@ -154,6 +155,8 @@ namespace FoundationaLLM.AgentFactory.API
                     options.AddAPIKeyAuth();
                 });
 
+            string appinsights = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"];
+
             builder.Services.AddOpenTelemetry()
                 .UseAzureMonitor(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
                 .WithTracing(b =>
@@ -162,13 +165,13 @@ namespace FoundationaLLM.AgentFactory.API
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddConsoleExporter()
-                .AddJaegerExporter()
+                //.AddJaegerExporter()
                 .AddAzureMonitorTraceExporter(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
                 .AddSource("FoundationaLLM.AgentFactoryAPI")
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.AgentFactoryAPI"));
             });
 
-            builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) => builder.AddSource("FoundationaLLM.AgentFactoryAPI"));
+            //builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) => builder.AddSource("FoundationaLLM.AgentFactoryAPI"));
 
             var app = builder.Build();
 

@@ -44,18 +44,20 @@ namespace FoundationaLLM.Core.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            string appConfigConnectionString = builder.Environment.IsDevelopment() ? "FoundationaLLM:AppConfig:ConnectionString" : "FoundationaLLM:AppConfig:ConnectionString:Dev";
+            string appConfigConnectionStringKey = builder.Environment.IsDevelopment() ? "FoundationaLLM:AppConfig:ConnectionString:Dev" : "FoundationaLLM:AppConfig:ConnectionString";
+            string appConfigConnectionString = builder.Configuration[appConfigConnectionStringKey];
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration[appConfigConnectionString]);
+                options.Connect(builder.Configuration[appConfigConnectionStringKey]);
                 options.ConfigureKeyVault(options =>
                 {
                     options.SetCredential(new DefaultAzureCredential());
                 });
+                options.Select("FoundationaLLM:AppInsights:*");
                 options.Select("FoundationaLLM:APIs:*");
                 options.Select("FoundationaLLM:CosmosDB:*");
                 options.Select("FoundationaLLM:Branding:*");
@@ -143,15 +145,17 @@ namespace FoundationaLLM.Core.API
                     options.IncludeXmlComments(filePath);
                 });
 
+            string appinsights = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"];
+
             builder.Services.AddOpenTelemetry()
-                .UseAzureMonitor(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
-                .WithTracing(b =>
+            .UseAzureMonitor(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
+            .WithTracing(b =>
             {
                 b
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddConsoleExporter()
-                .AddJaegerExporter()
+                //.AddJaegerExporter()
                 .AddAzureMonitorTraceExporter(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
                 .AddSource("FoundationaLLM.CoreAPI")
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.CoreAPI"));

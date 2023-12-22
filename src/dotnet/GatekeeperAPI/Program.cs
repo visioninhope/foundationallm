@@ -55,6 +55,7 @@ namespace FoundationaLLM.Gatekeeper.API
                 {
                     options.SetCredential(new DefaultAzureCredential());
                 });
+                options.Select("FoundationaLLM:AppInsights:*");
                 options.Select("FoundationaLLM:APIs:*");
                 options.Select("FoundationaLLM:Refinement:*");
                 options.Select("FoundationaLLM:AzureContentSafety:*");
@@ -151,7 +152,7 @@ namespace FoundationaLLM.Gatekeeper.API
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddConsoleExporter()
-                .AddJaegerExporter()
+                //.AddJaegerExporter()
                 .AddAzureMonitorTraceExporter(o => o.ConnectionString = builder.Configuration["FoundationaLLM:AppInsights:ConnectionString"])
                 .AddSource("FoundationaLLM.GatekeeperAPI")
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("FoundationaLLM.GatekeeperAPI"));
