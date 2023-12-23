@@ -44,8 +44,6 @@ async def resolve(data_source_request:DataSourceHubRequest, request : Request,
     try:
         with Logging.start_span(request.app.title, "resolve", request=request) as root_span:
 
-            #root_span.add_tag("data_source_name", data_source_request.name)
-
             context = Context(user_identity=x_user_identity)
             if x_agent_hint is not None and len(x_agent_hint.strip()) > 0:
                 agent_hint = AgentHint.model_validate_json(x_agent_hint)

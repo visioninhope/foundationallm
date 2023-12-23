@@ -1,4 +1,5 @@
 from typing import List
+import logging
 from langchain.base_language import BaseLanguageModel
 from langchain.callbacks import get_openai_callback
 from langchain.document_loaders import AzureBlobStorageFileLoader, AzureBlobStorageContainerLoader
@@ -45,6 +46,8 @@ class BlobStorageAgent(AgentBase):
         self.message_history = completion_request.message_history
 
     def __get_vector_index(self) -> Chroma:
+
+        logging.info("BlobStorageAgent:__get_vector_index")
         """
         Creates a vector index from files in the indicated blob storage container and files list
         """
@@ -97,7 +100,10 @@ class BlobStorageAgent(AgentBase):
             and token utilization and execution cost details.
         """
 
+        logging.info("BlobStorageAgent:run")
+
         with get_openai_callback() as cb:
+
             index = self.__get_vector_index()
             retriever = index.as_retriever()
 

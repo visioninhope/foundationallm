@@ -1,7 +1,11 @@
 from typing import List
+import logging
 from foundationallm.models.orchestration import MessageHistoryItem
 
 def build_message_history(messages:List[MessageHistoryItem]=None) -> str:
+
+    logging.info("build_message_history")
+
     """
     Builds a chat history string from a list of MessageHistoryItem objects to
     be added to the prompt for the completion request.
