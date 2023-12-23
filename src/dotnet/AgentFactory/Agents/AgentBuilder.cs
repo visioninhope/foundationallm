@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.AgentFactory.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration;
 
 namespace FoundationaLLM.AgentFactory.Core.Agents
 {
@@ -46,6 +47,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             activity?.Stop();
 
             using var activity2 = Common.Logging.ActivitySources.StartActivity("AgentBuilder.Build.Configure", Common.Logging.ActivitySources.AgentFactoryAPIActivitySource);
+            activity2?.AddTag("AgentName", agentInfo.Name);
+            activity2?.AddBaggage("AgentName", agentInfo.Name);
 
             AgentBase? agent = null;
             agent = new DefaultAgent(agentInfo!, orchestrationService, promptHubAPIService, dataSourceHubAPIService);           

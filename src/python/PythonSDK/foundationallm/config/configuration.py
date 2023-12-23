@@ -12,7 +12,10 @@ class Configuration():
     def __init__(self):
         """Init"""
         try:
-            app_config_uri = os.environ['foundationallm-app-configuration-uri']
+            if (os.environ['ENV'] == "development"):
+                app_config_uri = os.environ['foundationallm-app-configuration-uri-dev']
+            else:
+                app_config_uri = os.environ['foundationallm-app-configuration-uri']
         except Exception as e:
             raise e
 

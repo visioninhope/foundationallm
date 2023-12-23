@@ -110,6 +110,7 @@ public class AgentFactoryService : IAgentFactoryService
         {
             using var activity = Common.Logging.ActivitySources.StartActivity("GetSummary", Common.Logging.ActivitySources.AgentFactoryAPIActivitySource);
 
+
             var agent = await AgentBuilder.Build(
                 summaryRequest.UserPrompt ?? string.Empty,
                 summaryRequest.SessionId ?? string.Empty,

@@ -46,6 +46,12 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             
             if (result.Safe)
                 return await _agentFactoryAPIService.GetCompletion(completionRequest);
+            else
+            {
+                //log the result
+                using var activity2 = Common.Logging.ActivitySources.StartActivity("GetCompletion.ContentSafety.NotSafe", Common.Logging.ActivitySources.GatekeeperAPIActivitySource);
+                activity2.AddTag("ContentSafetyNotSafeReason", result.Reason);
+            }
 
             return new CompletionResponse() { Completion = result.Reason };
         }
