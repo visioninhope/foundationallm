@@ -1,25 +1,32 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 80
+
+ENV ASPNETCORE_URLS=http://+:80
+ENV ASPNETCORE_ENVIRONMENT=Development
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["ManagementAPI/ManagementAPI.csproj", "ManagementAPI/"]
-RUN dotnet restore "./ManagementAPI/./ManagementAPI.csproj"
 COPY . .
-WORKDIR "/src/ManagementAPI"
-RUN dotnet build "./ManagementAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+RUN dotnet restore "dotnet/Common/Common.csproj"
+RUN dotnet build "dotnet/Common/Common.csproj" -c Release -o /app/build
+
+RUN dotnet restore "dotnet/Management/Management.csproj"
+RUN dotnet build "dotnet/Management/Management.csproj" -c Release -o /app/build
+
+RUN dotnet restore "dotnet/ManagementAPI/ManagementAPI.csproj"
+RUN dotnet build "dotnet/ManagementAPI/ManagementAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./ManagementAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/Common/Common.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/Management/Management.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/ManagementAPI/ManagementAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ManagementAPI.dll"]
+ENTRYPOINT ["dotnet", "FoundationaLLM.Management.API.dll"]
+LABEL org.opencontainers.image.source=https://github.com/solliancenet/foundationallm
