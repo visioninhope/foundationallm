@@ -14,7 +14,9 @@ using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration;
+using FoundationaLLM.Management.Services;
 using Microsoft.Identity.Web;
 
 namespace FoundationaLLM.Management.API
@@ -66,6 +68,8 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddOptions<AppConfigurationSettings>()
                 .Configure(o =>
                     o.ConnectionString = builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
+
+            builder.Services.AddScoped<IConfigurationManagementService, ConfigurationManagementService>();
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
