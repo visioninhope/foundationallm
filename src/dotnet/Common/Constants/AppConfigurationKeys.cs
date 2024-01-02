@@ -622,4 +622,79 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Vectorization = "FoundationaLLM:Vectorization:*";
     }
+
+    /// <summary>
+    /// Contains constants of the keys sections for app configuration setting namespaces.
+    /// </summary>
+    public static class AppConfigurationKeySections
+    {
+        /// <summary>
+        /// The key section for the FoundationaLLM:Branding app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Branding = "FoundationaLLM:Branding";
+        /// <summary>
+        /// The key section for the FoundationaLLM:CosmosDB app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_CosmosDB = "FoundationaLLM:CosmosDB";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:AgentFactoryAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_AgentFactoryAPI = "FoundationaLLM:APIs:AgentFactoryAPI";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:SemanticKernelAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_SemanticKernelAPI = "FoundationaLLM:APIs:SemanticKernelAPI";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:LangChainAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_LangChainAPI = "FoundationaLLM:APIs:LangChainAPI";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:AgentHubAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_AgentHubAPI = "FoundationaLLM:APIs:AgentHubAPI";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:AgentFactoryAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_PromptHubAPI = "FoundationaLLM:APIs:PromptHubAPI";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:GatekeeperAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatekeeperAPI = "FoundationaLLM:APIs:GatekeeperAPI";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:GatekeeperAPI:Configuration app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration = "FoundationaLLM:APIs:GatekeeperAPI:Configuration";
+        /// <summary>
+        /// The key section for the FoundationaLLM:AgentFactory app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AgentFactory = "FoundationaLLM:AgentFactory";
+        /// <summary>
+        /// The key section for the FoundationaLLM:SemanticKernelAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_SemanticKernelAPI = "FoundationaLLM:SemanticKernelAPI";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Refinement app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Refinement = "FoundationaLLM:Refinement";
+        /// <summary>
+        /// The key section for the FoundationaLLM:AzureContentSafety app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AzureContentSafety = "FoundationaLLM:AzureContentSafety";
+        /// <summary>
+        /// The key section for the FoundationaLLM:DurableSystemPrompt app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_DurableSystemPrompt = "FoundationaLLM:DurableSystemPrompt";
+        /// <summary>
+        /// The key section for the FoundationaLLM:CognitiveSearchMemorySource app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_CognitiveSearchMemorySource = "FoundationaLLM:CognitiveSearchMemorySource";
+        /// <summary>
+        /// The key section for the FoundationaLLM:BlobStorageMemorySource app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_BlobStorageMemorySource = "FoundationaLLM:CoreAPI:BlobStorageMemorySource";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:WorkerSettings app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_WorkerSettings = "FoundationaLLM:Vectorization:WorkerSettings";
+    }
 }
