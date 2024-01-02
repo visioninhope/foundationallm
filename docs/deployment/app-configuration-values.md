@@ -110,6 +110,17 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:LangChain:Summary:MaxTokens` | 4097 |   |
 | `FoundationaLLM:LangChain:Summary:ModelName` | gpt-35-turbo |   |
 | `FoundationaLLM:LangChainAPI:Key` | Key Vault secret name: `foundationallm-langchainapi-key` | This is a Key Vault reference. |
+| `FoundationaLLM:Management:Entra:CallbackPath` | /signin-oidc |   |
+| `FoundationaLLM:Management:Entra:ClientId` |   |   |
+| `FoundationaLLM:Management:Entra:ClientSecret` | Key Vault secret name: `foundationallm-management-entra-clientsecret` | This is a Key Vault reference. |
+| `FoundationaLLM:Management:Entra:Instance` | Enter the URL to the service. |   |
+| `FoundationaLLM:Management:Entra:Scopes` | api://FoundationaLLM-Management-Auth/Data.Manage |   |
+| `FoundationaLLM:Management:Entra:TenantId` |   |   |
+| `FoundationaLLM:ManagementAPI:Entra:ClientId` |   |   |
+| `FoundationaLLM:ManagementAPI:Entra:ClientSecret` | Key Vault secret name: `foundationallm-managementapi-entra-clientsecret` | This is a Key Vault reference. |
+| `FoundationaLLM:ManagementAPI:Entra:Instance` | Enter the URL to the service. |   |
+| `FoundationaLLM:ManagementAPI:Entra:Scopes` | Data.Manage |   |
+| `FoundationaLLM:ManagementAPI:Entra:TenantId` |   |   |
 | `FoundationaLLM:OpenAI:API:Endpoint` | Enter the URL to the service. |   |
 | `FoundationaLLM:OpenAI:API:Key` | Key Vault secret name: `foundationallm-openai-api-key` | This is a Key Vault reference. |
 | `FoundationaLLM:OpenAI:API:Temperature` | 0 |   |
