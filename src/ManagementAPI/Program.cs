@@ -40,10 +40,10 @@ namespace FoundationaLLM.Management.API
             {
                 options.Connect(builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
                 options.ConfigureKeyVault(options => { options.SetCredential(new DefaultAzureCredential()); });
-                options.Select("FoundationaLLM:APIs:*");
-                options.Select("FoundationaLLM:CosmosDB:*");
-                options.Select("FoundationaLLM:Branding:*");
-                options.Select("FoundationaLLM:ManagementAPI:Entra:*");
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Branding);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -62,9 +62,9 @@ namespace FoundationaLLM.Management.API
             });
 
             builder.Services.AddOptions<CosmosDbSettings>()
-                .Bind(builder.Configuration.GetSection("FoundationaLLM:CosmosDB"));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
             builder.Services.AddOptions<ClientBrandingConfiguration>()
-                .Bind(builder.Configuration.GetSection("FoundationaLLM:Branding"));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Branding));
             builder.Services.AddOptions<AppConfigurationSettings>()
                 .Configure(o =>
                     o.ConnectionString = builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
@@ -73,7 +73,7 @@ namespace FoundationaLLM.Management.API
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
-            builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
+            //builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
             // Register the authentication services
             RegisterAuthConfiguration(builder);
@@ -177,8 +177,6 @@ namespace FoundationaLLM.Management.API
                         identityOptions.Instance = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:Instance"] ?? "";
                         identityOptions.TenantId = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:TenantId"];
                         identityOptions.ClientId = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:ClientId"];
-                        identityOptions.CallbackPath =
-                            builder.Configuration["FoundationaLLM:ManagementAPI:Entra:CallbackPath"];
                     });
             //.EnableTokenAcquisitionToCallDownstreamApi()
             //.AddInMemoryTokenCaches();
