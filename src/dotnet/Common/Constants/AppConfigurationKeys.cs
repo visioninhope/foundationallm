@@ -563,4 +563,63 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Vectorization_WorkerSettings = "FoundationaLLM:Vectorization:WorkerSettings";
     }
+
+    /// <summary>
+    /// Contains constants of the keys filters for app configuration setting namespaces.
+    /// </summary>
+    public static class AppConfigurationKeyFilters
+    {
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Branding:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Branding = "FoundationaLLM:Branding:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:APIs:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs = "FoundationaLLM:APIs:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:CosmosDB:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_CosmosDB = "FoundationaLLM:CosmosDB:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:CoreAPI:Entra:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_CoreAPI_Entra = "FoundationaLLM:CoreAPI:Entra:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:ManagementAPI:Entra:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra = "FoundationaLLM:ManagementAPI:Entra:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:AgentFactory:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AgentFactory = "FoundationaLLM:AgentFactory:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:CoreWorker:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_CoreWorker = "FoundationaLLM:CoreWorker:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Refinement:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Refinement = "FoundationaLLM:Refinement:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:AzureContentSafety:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AzureContentSafety = "FoundationaLLM:AzureContentSafety:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:DurableSystemPrompt:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_DurableSystemPrompt = "FoundationaLLM:DurableSystemPrompt:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:CognitiveSearchMemorySource:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_CognitiveSearchMemorySource = "FoundationaLLM:CognitiveSearchMemorySource:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:BlobStorageMemorySource:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_BlobStorageMemorySource = "FoundationaLLM:CoreAPI:BlobStorageMemorySource:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Vectorization:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization = "FoundationaLLM:Vectorization:*";
+    }
 }
