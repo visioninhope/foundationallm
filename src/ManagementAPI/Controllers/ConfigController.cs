@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Management.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,5 +32,21 @@ namespace FoundationaLLM.Management.API.Controllers
             _configurationManagementService = configurationManagementService;
             _logger = logger;
         }
+
+        /// <summary>
+        /// Returns the branding configuration from app configuration.
+        /// </summary>
+        [HttpGet("branding", Name = "GetBrandingConfigurations")]
+        public async Task<ClientBrandingConfiguration> GetBrandingConfigurations() =>
+            await _configurationManagementService.GetBrandingConfigurationAsync();
+
+        /// <summary>
+        /// Updates the branding configuration in app configuration.
+        /// </summary>
+        /// <param name="brandingConfiguration"></param>
+        /// <returns></returns>
+        [HttpPut("branding", Name = "UpdateBrandingConfigurations")]
+        public async Task UpdateBrandingConfigurations([FromBody] ClientBrandingConfiguration brandingConfiguration) =>
+            await _configurationManagementService.SetBrandingConfiguration(brandingConfiguration);
     }
 }
