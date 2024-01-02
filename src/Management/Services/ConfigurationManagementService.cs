@@ -218,6 +218,5 @@ namespace FoundationaLLM.Management.Services
                 _logger.LogError(e, "Error setting branding configuration in app configuration.");
             }
         }
-        }
     }
 }
