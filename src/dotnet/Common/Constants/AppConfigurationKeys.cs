@@ -255,6 +255,10 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Branding_AllowAgentSelection = "FoundationaLLM:Branding:AllowAgentSelection";
         /// <summary>
+        /// This feature flag controls whether the User Portal UI allows users to select an agent hint.
+        /// </summary>
+        public const string FoundationaLLM_AllowAgentHint_FeatureFlag = "FoundationaLLM-AllowAgentHint";
+        /// <summary>
         /// The key for the FoundationaLLM:Branding:BackgroundColor app configuration setting.
         /// </summary>
         public const string FoundationaLLM_Branding_BackgroundColor = "FoundationaLLM:Branding:BackgroundColor";
