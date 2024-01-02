@@ -30,6 +30,7 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:APIs:LangChainAPI:APIKey` | Key Vault secret name: `foundationallm-apis-langchainapi-apikey` | This is a Key Vault reference. |
 | `FoundationaLLM:APIs:LangChainAPI:APIUrl` | Enter the URL to the service. |   |
 | `FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | This is a Key Vault reference. |
+| `FoundationaLLM:APIs:ManagementAPI:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | This is a Key Vault reference. |
 | `FoundationaLLM:APIs:PromptHubAPI:APIKey` | Key Vault secret name: `foundationallm-apis-prompthubapi-apikey` | This is a Key Vault reference. |
 | `FoundationaLLM:APIs:PromptHubAPI:APIUrl` | Enter the URL to the service. |   |
 | `FoundationaLLM:APIs:PromptHubAPI:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | This is a Key Vault reference. |
