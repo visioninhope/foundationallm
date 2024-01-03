@@ -77,9 +77,9 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "IntegrationSDK", "python\In
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "IntegrationSDK.Tests", "..\tests\python\IntegrationSDK.Tests\IntegrationSDK.Tests.pyproj", "{6330DD34-9B05-4BD9-98E7-507134751CCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Management", "Management\Management.csproj", "{46FB5F1B-57C6-4CA3-B626-887DF6D806DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Management", "dotnet\Management\Management.csproj", "{46FB5F1B-57C6-4CA3-B626-887DF6D806DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementAPI", "ManagementAPI\ManagementAPI.csproj", "{2D54392A-8D86-4F54-9993-FB3B6C4C090E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementAPI", "dotnet\ManagementAPI\ManagementAPI.csproj", "{2D54392A-8D86-4F54-9993-FB3B6C4C090E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
