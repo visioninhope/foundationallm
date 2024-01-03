@@ -96,6 +96,15 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 
     ![The steps to create a client secret are highlighted.](media/entra-client-app-secret.png)
 
+#### Update the client application manifest
+
+1. Under **Manage**, select **Manifest**.
+2. Locate the `accessTokenAcceptedVersion` property and set its value to `2`.
+
+    ![The accessTokenAcceptedVersion property is highlighted.](media/entra-client-app-manifest.png)
+
+3. Select **Save** at the top of the page to save the changes.
+
 ### Create the API application
 
 #### Register the API application in the Microsoft Entra ID admin center
@@ -118,9 +127,14 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 #### Implicit grant and hybrid flows for the API application
 
 1. Select **Authentication** under **Manage** in the left-hand menu.
-2. Check **Access tokens** and **ID tokens** under **Implicit grant**.
-3. Select **Configure** to apply the changes.
-4. Select **Save** at the bottom of the page to save the changes.
+2. Select **+ Add a platform** under **Platform configurations**. In the pane that opens, select **Web**.
+3. Under "Redirect URIs", enter `http://localhost` and select **Configure**. Please note that this value is not used in the FoundationaLLM solution, but is required in order to be able to select the access and ID tokens in the next step.
+
+    ![The redirect URIs value is displayed as described.](media/entra-app-api-web-redirect-uri.png)
+
+4. Check **Access tokens** and **ID tokens** under **Implicit grant**.
+5. Select **Configure** to apply the changes.
+6. Select **Save** at the bottom of the page to save the changes.
 
     ![Both the Access tokens and ID tokens checkboxes are checked and the Save button is highlighted.](media/entra-app-client-authentication-implicit-grant.png)
 
@@ -161,6 +175,15 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 4. Select **Add application** to complete the client application addition.
 
     ![The add a client application form is displayed as described.](media/entra-api-app-add-client-app.png)
+
+#### Update the API application manifest
+
+1. Under **Manage**, select **Manifest**.
+2. Locate the `accessTokenAcceptedVersion` property and set its value to `2`.
+
+    ![The accessTokenAcceptedVersion property is highlighted.](media/entra-client-app-manifest.png)
+
+3. Select **Save** at the top of the page to save the changes.
 
 ### Add API permissions for the client application
 
