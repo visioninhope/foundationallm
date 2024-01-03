@@ -2,7 +2,7 @@
 
 FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authentication. This means that you can use your Microsoft Entra ID account to log in to the chat interface.
 
-## Creating the Microsoft Entra ID applications
+## Create the Microsoft Entra ID applications
 
 To enable Microsoft Entra ID authentication, you need to create two applications in the Microsoft Azure portal:
 
@@ -46,7 +46,7 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 
     ![The HTTP application routing domain property is highlighted.](media/aks-http-app-routing-domain.png)
 
-### Creating the client application
+### Create the client application
 
 #### Register the client application in the Microsoft Entra ID admin center
 
@@ -96,7 +96,7 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 
     ![The steps to create a client secret are highlighted.](media/entra-client-app-secret.png)
 
-### Creating the API application
+### Create the API application
 
 #### Register the API application in the Microsoft Entra ID admin center
 
@@ -161,6 +161,27 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
 4. Select **Add application** to complete the client application addition.
 
     ![The add a client application form is displayed as described.](media/entra-api-app-add-client-app.png)
+
+### Add API permissions for the client application
+
+1. Browse to **Identity** > **Applications** > **App registrations**.
+
+    ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
+
+2. Select the `FoundationaLLM-Client` application that you [created earlier](#register-the-client-application-in-the-microsoft-entra-admin-center).
+3. Select **API permissions**.
+4. Select **+ Add a permission** under the "Configured permissions" section.
+5. In the "Request API permissions" pan, select the **My APIs** tab, then select the `FoundationaLLM` API application.
+
+    ![The FoundationaLLM API is selected under My APIs.](media/entra-app-add-api-permission.png)
+
+6. Select the `Data.Read` scope that you created earlier, then select **Add permissions**.
+
+    ![The Data.Read scope is selected.](media/entra-app-add-api-permission-scope.png)
+
+The client application's configured permissions should now look like the following:
+
+![The client application's configured permissions are displayed.](media/entra-app-configured-permissions.png)
 
 ### Update App Configuration settings
 
