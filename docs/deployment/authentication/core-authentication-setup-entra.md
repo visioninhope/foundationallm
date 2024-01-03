@@ -1,18 +1,18 @@
-# Authentication setup: Microsoft Entra ID
+# Core API and User Portal authentication setup: Microsoft Entra ID
 
 FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authentication. This means that you can use your Microsoft Entra ID account to log in to the chat interface.
 
 ## Create the Microsoft Entra ID applications
 
-To enable Microsoft Entra ID authentication, you need to create two applications in the Microsoft Azure portal:
+To enable Microsoft Entra ID authentication for the Core API and user portal, you need to create two applications in the Microsoft Azure portal:
 
-- A client application that will be used by the chat interface to authenticate users.
+- A client application that will be used by the user portal chat interface to authenticate users.
 - An API application that will be used by the Core API to authenticate users.
 
 ### Pre-requisites
 
 > [!NOTE]
-> Make sure that you have [deployed the solution](../deployment/index.md) before proceeding with the steps below.
+> Make sure that you have [deployed the solution](../../deployment/index.md) before proceeding with the steps below.
 
 #### Setup App Configuration access
 
@@ -20,7 +20,7 @@ To enable Microsoft Entra ID authentication, you need to create two applications
 2. Navigate to the Resource Group that was created as part of the deployment.
     > [!NOTE]
     > If you performed an Azure Container Apps (ACA) or Azure Kubernetes Service (AKS) deployment, you will see an extra Resource Group that starts with `ME_` or `MC_` in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that **does not start with** `ME_` or `MC_` to access the App Configuration resource.
-3. Select the **App Configuration** resource and select **Configuration explorer** to view the values. If you cannot access the configurations, add your user account as an **App Configuration Data Owner** through Access Control (IAM). You need this role in order to update the configurations as a required part of the authentication setup. To add your user account to the appropriate role, follow the instructions in the [Configure access control for services](../deployment/configure-access-control-for-services.md#azure-app-configuration-service) document.
+3. Select the **App Configuration** resource and select **Configuration explorer** to view the values. If you cannot access the configurations, add your user account as an **App Configuration Data Owner** through Access Control (IAM). You need this role in order to update the configurations as a required part of the authentication setup. To add your user account to the appropriate role, follow the instructions in the [Configure access control for services](../../deployment/configure-access-control-for-services.md#azure-app-configuration-service) document.
 
 #### Obtain the URL for the chat UI application
 
@@ -56,7 +56,7 @@ If you performed an **Azure Kubernetes Service (AKS)** deployment, follow these 
     ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
 
 3. On the page that appears, select **+ New registration**.
-4. When the **Register an application** page appears, enter a name for your application, such as *FoundationaLLM-Client*. You should indicate that this is for the client application by appending *-Client* to the name.
+4. When the **Register an application** page appears, enter a name for your application, such as *FoundationaLLM-Client*. You should indicate that this is for the chat client (User Portal) application by appending *-Client* to the name.
 5. Under **Supported account types**, select *Accounts in this organizational directory only*.
 6. Select **Register**.
 
