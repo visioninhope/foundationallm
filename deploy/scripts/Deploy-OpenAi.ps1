@@ -64,28 +64,6 @@ if (-Not ($deployments -Contains $completionsDeployment)) {
     }
 }
 
-# {
-#     "type": "Microsoft.CognitiveServices/accounts/deployments",
-#     "apiVersion": "2023-10-01-preview",
-#     "name": "[concat(parameters('accounts_fllm4693d_openai_name'), '/completions4')]",
-#     "dependsOn": [
-#         "[resourceId('Microsoft.CognitiveServices/accounts', parameters('accounts_fllm4693d_openai_name'))]"
-#     ],
-#     "sku": {
-#         "name": "Standard",
-#         "capacity": 30
-#     },
-#     "properties": {
-#         "model": {
-#             "format": "OpenAI",
-#             "name": "gpt-4",
-#             "version": "1106-Preview"
-#         },
-#         "versionUpgradeOption": "OnceCurrentVersionExpired",
-#         "currentCapacity": 30,
-#         "raiPolicyName": "Microsoft.Default"
-#     }
-# },
 if (-Not ($deployments -Contains $completionsDeployment4)) {
     Write-Host "The Azure OpenAI deployment $($completionsDeployment4) under account $($name) was not found, creating it..." -ForegroundColor Yellow
 
