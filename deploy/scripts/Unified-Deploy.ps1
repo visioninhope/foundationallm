@@ -49,7 +49,7 @@ if ($stepLoginAzure) {
 az account set --subscription $subscription
 
 if (-Not (az group list --query "[?name=='$resourceGroup'].name" -o json | ConvertFrom-Json) -Contains $resourceGroup) {
-    Write-Host("The resource group $resourceGroup was not found, creating it...")
+    Write-Host "The resource group $resourceGroup was not found, creating it..." -ForegroundColor Yellow
     $rg = $(az group create -g $resourceGroup -l $location --subscription $subscription)
     if (-Not (az group list --query "[?name=='$resourceGroup'].name" -o json | ConvertFrom-Json) -Contains $resourceGroup) {
         Write-Error("The resource group $resourceGroup was not found, and could not be created.")
@@ -82,7 +82,22 @@ if ($stepDeployOpenAi) {
         $openAiEmbeddingsDeployment = "embeddings"
     }
 
-    & ./Deploy-OpenAi.ps1 -name $openAiName -resourceGroup $openAiRg -location $location -completionsDeployment $openAiCompletionsDeployment -embeddingsDeployment $openAiEmbeddingsDeployment
+    try {
+        & ./Deploy-OpenAi.ps1 `
+            -name $openAiName `
+            -resourceGroup $openAiRg `
+            -location $location `
+            -completionsDeployment $openAiCompletionsDeployment `
+            -completionsModelVersion '0613' `
+            -embeddingsDeployment $openAiEmbeddingsDeployment
+    }
+    finally {
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "Error deploying OpenAI" -ForegroundColor Red
+            Pop-Location
+            exit $LASTEXITCODE
+        }
+    }
 }
 
 ## Getting OpenAI info
@@ -173,7 +188,8 @@ if ($deployAks) {
 
     $webappHostname = $(az aks show -n $aksName -g $resourceGroup -o json --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName | ConvertFrom-Json)
     $coreApiUri = "https://$webappHostname/core"
-} else {
+}
+else {
     $webappHostname = $(az deployment group show -g $resourceGroup -n foundationallm-azuredeploy -o json --query properties.outputs.webFqdn.value | ConvertFrom-Json)
     $coreApiHostname = $(az deployment group show -g $resourceGroup -n foundationallm-azuredeploy -o json --query properties.outputs.coreApiFqdn.value | ConvertFrom-Json)
     $coreApiUri = "https://$coreApiHostname"
