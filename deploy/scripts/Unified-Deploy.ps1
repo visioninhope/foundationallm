@@ -8,6 +8,7 @@ Param(
     [parameter(Mandatory = $false)][string]$openAiName = $null,
     [parameter(Mandatory = $false)][string]$openAiRg = $null,
     [parameter(Mandatory = $false)][string]$openAiCompletionsDeployment = $null,
+    [parameter(Mandatory = $false)][string]$openAiCompletionsDeployment4 = $null,
     [parameter(Mandatory = $false)][string]$openAiEmbeddingsDeployment = $null,
     [parameter(Mandatory = $false)][bool]$stepDeployArm = $true,
     [parameter(Mandatory = $false)][bool]$stepDeployOpenAi = $true,
@@ -78,6 +79,10 @@ if ($stepDeployOpenAi) {
         $openAiCompletionsDeployment = "completions"
     }
 
+    if (-not $openAiCompletionsDeployment4) {
+        $openAiCompletionsDeployment4 = "completions4"
+    }
+
     if (-not $openAiEmbeddingsDeployment) {
         $openAiEmbeddingsDeployment = "embeddings"
     }
@@ -88,6 +93,7 @@ if ($stepDeployOpenAi) {
             -resourceGroup $openAiRg `
             -location $location `
             -completionsDeployment $openAiCompletionsDeployment `
+            -completionsDeployment4 $openAiCompletionsDeployment4 `
             -completionsModelVersion '0613' `
             -embeddingsDeployment $openAiEmbeddingsDeployment
     }

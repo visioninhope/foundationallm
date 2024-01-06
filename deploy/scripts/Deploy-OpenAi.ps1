@@ -3,6 +3,7 @@
 Param(
     # Mandatory
     [parameter(Mandatory = $true)][string]$completionsDeployment,
+    [parameter(Mandatory = $true)][string]$completionsDeployment4,
     [parameter(Mandatory = $true)][string]$embeddingsDeployment,
     [parameter(Mandatory = $true)][string]$location,
     [parameter(Mandatory = $true)][string]$name,
@@ -10,7 +11,9 @@ Param(
 
     # Optional
     [parameter(Mandatory = $false)][string]$completionsModelName = 'gpt-35-turbo',
-    [parameter(Mandatory = $false)][string]$completionsModelVersion = '0301'
+    [parameter(Mandatory = $false)][string]$completionsModelVersion = '0301',
+    [parameter(Mandatory = $false)][string]$completionsModelName4 = 'gpt-4',
+    [parameter(Mandatory = $false)][string]$completionsModelVersion4 = '1106-Preview'
 )
 
 Set-StrictMode -Version 3.0
@@ -61,8 +64,48 @@ if (-Not ($deployments -Contains $completionsDeployment)) {
     }
 }
 
-$deployments = (az cognitiveservices account deployment list -g $resourceGroup -n $name --query '[].name' -o json | ConvertFrom-Json)
-Write-Host "Existing deployments: $($deployments)"
+# {
+#     "type": "Microsoft.CognitiveServices/accounts/deployments",
+#     "apiVersion": "2023-10-01-preview",
+#     "name": "[concat(parameters('accounts_fllm4693d_openai_name'), '/completions4')]",
+#     "dependsOn": [
+#         "[resourceId('Microsoft.CognitiveServices/accounts', parameters('accounts_fllm4693d_openai_name'))]"
+#     ],
+#     "sku": {
+#         "name": "Standard",
+#         "capacity": 30
+#     },
+#     "properties": {
+#         "model": {
+#             "format": "OpenAI",
+#             "name": "gpt-4",
+#             "version": "1106-Preview"
+#         },
+#         "versionUpgradeOption": "OnceCurrentVersionExpired",
+#         "currentCapacity": 30,
+#         "raiPolicyName": "Microsoft.Default"
+#     }
+# },
+if (-Not ($deployments -Contains $completionsDeployment4)) {
+    Write-Host "The Azure OpenAI deployment $($completionsDeployment4) under account $($name) was not found, creating it..." -ForegroundColor Yellow
+
+    az cognitiveservices account deployment create `
+        --deployment-name $completionsDeployment4 `
+        --model-format OpenAI `
+        --model-name $completionsModelName4 `
+        --model-version $completionsModelVersion4 `
+        --name $name `
+        --resource-group $resourceGroup `
+        --sku Standard `
+        --sku-capacity 30 
+
+    $deployments = (az cognitiveservices account deployment list -g $resourceGroup -n $name --query '[].name' -o json | ConvertFrom-Json)
+    if (-Not ($deployments -Contains $completionsDeployment4)) {
+        Write-Error "The Azure OpenAI deployment $($completionsDeployment4) under account $($name) was not found, and could not be created." -ForegroundColor Red
+        Pop-Location
+        exit 1
+    }
+}
 
 if (-Not ($deployments -Contains $embeddingsDeployment)) {
     Write-Host "The Azure OpenAI deployment $($embeddingsDeployment) under account $($name) was not found, creating it..." -ForegroundColor Yellow
