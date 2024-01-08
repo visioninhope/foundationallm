@@ -71,6 +71,20 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     break;              
                     
                 case "search-service":
+                    dataSourceMetadata = new SearchServiceDataSource
+                    {
+                        Name = dataSource.Name,
+                        Type = _agentMetadata.Type,
+                        Description = dataSource.Description,
+                        Configuration = new SearchServiceConfiguration
+                        {
+                            Endpoint = dataSource.Authentication!["endpoint"],
+                            KeySecret = dataSource.Authentication["key_secret"],
+                            IndexName = dataSource.IndexName,
+                            TopN = dataSource.TopN
+                        },
+                        DataDescription = dataSource.DataDescription                        
+                    };
                     break;                
                 case "anomaly":
                 case "sql":
