@@ -811,6 +811,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.IncludeTables
   nameWithType: DataSourceMetadata.IncludeTables
+- uid: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.IndexName
+  name: IndexName
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.html#FoundationaLLM_AgentFactory_Core_Models_Messages_DataSourceMetadata_IndexName
+  commentId: P:FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.IndexName
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.IndexName
+  nameWithType: DataSourceMetadata.IndexName
+- uid: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.IndexName*
+  name: IndexName
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.html#FoundationaLLM_AgentFactory_Core_Models_Messages_DataSourceMetadata_IndexName_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.IndexName
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.IndexName
+  nameWithType: DataSourceMetadata.IndexName
 - uid: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.Name
   name: Name
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.html#FoundationaLLM_AgentFactory_Core_Models_Messages_DataSourceMetadata_Name
@@ -837,6 +850,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.RowLevelSecurityEnabled
   nameWithType: DataSourceMetadata.RowLevelSecurityEnabled
+- uid: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.TopN
+  name: TopN
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.html#FoundationaLLM_AgentFactory_Core_Models_Messages_DataSourceMetadata_TopN
+  commentId: P:FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.TopN
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.TopN
+  nameWithType: DataSourceMetadata.TopN
+- uid: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.TopN*
+  name: TopN
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.html#FoundationaLLM_AgentFactory_Core_Models_Messages_DataSourceMetadata_TopN_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.TopN
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.TopN
+  nameWithType: DataSourceMetadata.TopN
 - uid: FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.UnderlyingImplementation
   name: UnderlyingImplementation
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceMetadata.html#FoundationaLLM_AgentFactory_Core_Models_Messages_DataSourceMetadata_UnderlyingImplementation
@@ -1190,6 +1216,64 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SQLDatabaseConfiguration.Username
   nameWithType: SQLDatabaseConfiguration.Username
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration
+  name: SearchServiceConfiguration
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html
+  commentId: T:FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration
+  nameWithType: SearchServiceConfiguration
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.Endpoint
+  name: Endpoint
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html#FoundationaLLM_AgentFactory_Core_Models_Orchestration_DataSourceConfigurations_SearchServiceConfiguration_Endpoint
+  commentId: P:FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.Endpoint
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.Endpoint
+  nameWithType: SearchServiceConfiguration.Endpoint
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.Endpoint*
+  name: Endpoint
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html#FoundationaLLM_AgentFactory_Core_Models_Orchestration_DataSourceConfigurations_SearchServiceConfiguration_Endpoint_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.Endpoint
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.Endpoint
+  nameWithType: SearchServiceConfiguration.Endpoint
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.IndexName
+  name: IndexName
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html#FoundationaLLM_AgentFactory_Core_Models_Orchestration_DataSourceConfigurations_SearchServiceConfiguration_IndexName
+  commentId: P:FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.IndexName
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.IndexName
+  nameWithType: SearchServiceConfiguration.IndexName
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.IndexName*
+  name: IndexName
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html#FoundationaLLM_AgentFactory_Core_Models_Orchestration_DataSourceConfigurations_SearchServiceConfiguration_IndexName_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.IndexName
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.IndexName
+  nameWithType: SearchServiceConfiguration.IndexName
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.KeySecret
+  name: KeySecret
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html#FoundationaLLM_AgentFactory_Core_Models_Orchestration_DataSourceConfigurations_SearchServiceConfiguration_KeySecret
+  commentId: P:FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.KeySecret
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.KeySecret
+  nameWithType: SearchServiceConfiguration.KeySecret
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.KeySecret*
+  name: KeySecret
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html#FoundationaLLM_AgentFactory_Core_Models_Orchestration_DataSourceConfigurations_SearchServiceConfiguration_KeySecret_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.KeySecret
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.KeySecret
+  nameWithType: SearchServiceConfiguration.KeySecret
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.TopN
+  name: TopN
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html#FoundationaLLM_AgentFactory_Core_Models_Orchestration_DataSourceConfigurations_SearchServiceConfiguration_TopN
+  commentId: P:FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.TopN
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.TopN
+  nameWithType: SearchServiceConfiguration.TopN
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.TopN*
+  name: TopN
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html#FoundationaLLM_AgentFactory_Core_Models_Orchestration_DataSourceConfigurations_SearchServiceConfiguration_TopN_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.TopN
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.TopN
+  nameWithType: SearchServiceConfiguration.TopN
 - uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest
   name: LLMOrchestrationCompletionRequest
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest.html
@@ -1721,6 +1805,25 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SQLDatabaseDataSource.Configuration
   nameWithType: SQLDatabaseDataSource.Configuration
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource
+  name: SearchServiceDataSource
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.html
+  commentId: T:FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource
+  nameWithType: SearchServiceDataSource
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.Configuration
+  name: Configuration
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.html#FoundationaLLM_AgentFactory_Core_Models_Orchestration_Metadata_SearchServiceDataSource_Configuration
+  commentId: P:FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.Configuration
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.Configuration
+  nameWithType: SearchServiceDataSource.Configuration
+- uid: FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.Configuration*
+  name: Configuration
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.html#FoundationaLLM_AgentFactory_Core_Models_Orchestration_Metadata_SearchServiceDataSource_Configuration_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.Configuration
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.Configuration
+  nameWithType: SearchServiceDataSource.Configuration
 - uid: FoundationaLLM.AgentFactory.Core.Services
   name: FoundationaLLM.AgentFactory.Core.Services
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.html
