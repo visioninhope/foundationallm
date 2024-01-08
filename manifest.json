@@ -802,6 +802,36 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.CosmosDbContainers.yml",
       "output": {
         ".html": {
@@ -2262,6 +2292,156 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.API.Controllers.ConfigController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.API.Controllers.ConfigController.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.API.Controllers.StatusController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.API.Controllers.StatusController.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.API.Controllers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.API.Controllers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.API.Program.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.API.Program.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.API.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.API.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.Interfaces.IConfigurationManagementService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.Interfaces.IConfigurationManagementService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.Interfaces.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.Models.Configuration.Agents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.Models.Configuration.Agents.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.Models.Configuration.AppConfigurationSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.Models.Configuration.AppConfigurationSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.Models.Configuration.CosmosDbSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.Models.Configuration.CosmosDbSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.Models.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.Models.Configuration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.Services.ConfigurationManagementService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.Services.ConfigurationManagementService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.Services.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.yml",
       "output": {
         ".html": {
@@ -3195,10 +3375,410 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "deployment/authentication-setup-entra.md",
+      "source_relative_path": "deployment/authentication/core-authentication-setup-entra.md",
       "output": {
         ".html": {
-          "relative_path": "deployment/authentication-setup-entra.html"
+          "relative_path": "deployment/authentication/core-authentication-setup-entra.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "deployment/authentication/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/authentication/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "deployment/authentication/management-authentication-setup-entra.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/authentication/management-authentication-setup-entra.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/aca-application-url.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/aca-application-url.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/aks-http-app-routing-domain.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/aks-http-app-routing-domain.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/app-configuration-entra-settings.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/app-configuration-entra-settings.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-api-app-add-client-app.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-api-app-add-client-app.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-api-app-add-scope.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-api-app-add-scope.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-api-app-overview.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-api-app-overview.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-api-app-scope-copy-name.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-api-app-scope-copy-name.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-api-app-secret.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-api-app-secret.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-add-api-permission-scope.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-add-api-permission-scope.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-add-api-permission.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-add-api-permission.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-add-management-api-permission-scope.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-add-management-api-permission-scope.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-add-management-api-permission.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-add-management-api-permission.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-api-web-redirect-uri.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-api-web-redirect-uri.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-client-authentication-implicit-grant.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-client-authentication-implicit-grant.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-client-authentication-uris.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-client-authentication-uris.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-configured-permissions.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-configured-permissions.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-management-client-authentication-uris.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-management-client-authentication-uris.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-registrations.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-registrations.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-client-app-manifest.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-client-app-manifest.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-client-app-overview.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-client-app-overview.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-client-app-secret.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-client-app-secret.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-management-api-app-add-client-app.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-management-api-app-add-client-app.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-management-api-app-add-scope.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-management-api-app-add-scope.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-management-api-app-overview.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-management-api-app-overview.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-management-api-app-scope-copy-name.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-management-api-app-scope-copy-name.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-management-api-app-secret.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-management-api-app-secret.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-management-app-configured-permissions.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-management-app-configured-permissions.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-management-client-app-overview.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-management-client-app-overview.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-management-client-app-secret.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-management-client-app-secret.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-management-management-api-app-add-scope.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-management-management-api-app-add-scope.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-register-api-app.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-register-api-app.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-register-client-app.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-register-client-app.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-register-management-api-app.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-register-management-api-app.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-register-management-client-app.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-register-management-client-app.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/resource-group-aca.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/resource-group-aca.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/resource-group-aks.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/resource-group-aks.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/restart-containers-aks.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/restart-containers-aks.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/restart-coreapi-aca.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/restart-coreapi-aca.png"
         }
       },
       "version": ""
@@ -3245,40 +3825,10 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "deployment/media/aca-application-url.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/aca-application-url.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
       "source_relative_path": "deployment/media/add-role-assignment-link.png",
       "output": {
         "resource": {
           "relative_path": "deployment/media/add-role-assignment-link.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/aks-http-app-routing-domain.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/aks-http-app-routing-domain.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/app-configuration-entra-settings.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/app-configuration-entra-settings.png"
         }
       },
       "version": ""
@@ -3315,126 +3865,6 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "deployment/media/entra-api-app-add-client-app.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-api-app-add-client-app.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-api-app-add-scope.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-api-app-add-scope.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-api-app-overview.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-api-app-overview.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-api-app-scope-copy-name.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-api-app-scope-copy-name.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-api-app-secret.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-api-app-secret.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-app-client-authentication-implicit-grant.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-app-client-authentication-implicit-grant.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-app-client-authentication-uris.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-app-client-authentication-uris.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-app-registrations.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-app-registrations.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-client-app-overview.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-client-app-overview.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-client-app-secret.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-client-app-secret.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-register-api-app.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-register-api-app.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/entra-register-client-app.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/entra-register-client-app.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
       "source_relative_path": "deployment/media/keyvault-access-control-link.png",
       "output": {
         "resource": {
@@ -3459,46 +3889,6 @@
       "output": {
         "resource": {
           "relative_path": "deployment/media/keyvault-add-role-assignment-role.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/resource-group-aca.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/resource-group-aca.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/resource-group-aks.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/resource-group-aks.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/restart-containers-aks.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/restart-containers-aks.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "deployment/media/restart-coreapi-aca.png",
-      "output": {
-        "resource": {
-          "relative_path": "deployment/media/restart-coreapi-aca.png"
         }
       },
       "version": ""
