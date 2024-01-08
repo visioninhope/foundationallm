@@ -77,7 +77,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 
 			this.apiUrl = apiUrl;
 
-			this.isKioskMode = JSON.parse(isKioskMode);
+			this.isKioskMode = Boolean(isKioskMode);
 			this.allowAgentHint = JSON.parse(allowAgentHint)?.enabled;
 			this.agents = agents.split(', ');
 
