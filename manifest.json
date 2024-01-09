@@ -4195,6 +4195,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "setup-guides/agents/search-service-agent.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/agents/search-service-agent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "setup-guides/agents/sql-database-agents.md",
       "output": {
         ".html": {

@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Search Service Agent | FoundationaLLM </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Search Service Agent | FoundationaLLM ">
+      
+      <link rel="icon" href="../../media/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/agents/search-service-agent.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/fllm-icon.svg" alt="FoundationaLLM">
+            FoundationaLLM
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="search-service-agent">Search Service Agent</h1>
+
+<p>This agent is used to perform a hybrid search against an index in Azure AI Search.</p>
+<h2 id="backend-configuration">Backend configuration</h2>
+<p>Backend configuration includes adding Azure AI Search key value into Azure Key Vault and Azure App Configuration.
+Access the Azure AI Search service in the Azure portal to retrieve its access key and endpoint values.</p>
+<h3 id="add-key-vault-secret-for-azure-ai-search">Add Key Vault secret for Azure AI Search</h3>
+<p>The key can be named anything relevant to the Azure AI Search Service resource and the role it plays in the organization. Use the following as an example of adding a secret to the Key Vault:</p>
+<ul>
+<li><strong>Name</strong>: <code>foundationallm-cognitivesearch-key</code></li>
+<li><strong>Value</strong>: The value of the Azure AI Search Service access key.</li>
+</ul>
+<h3 id="add-setting-to-app-configuration">Add setting to App Configuration</h3>
+<p>A new key vault reference app configuration value must be added to Azure App Configuration. This key vault reference can be named anything relevant to the role of the Azure AI Search resource in your organization, the following is an example:</p>
+<ul>
+<li><strong>Key</strong>: <code>FoundationaLLM:CognitiveSearch:Key</code></li>
+<li><strong>Secret</strong>: The key vault reference should should point to the key vault secret created above.</li>
+</ul>
+<h2 id="blob-storage-files">Blob storage files</h2>
+<p>The following metadata files should be added to blob storage, and will be used to assemble the agent and underlying data store.</p>
+<h2 id="data-source-json">Data source JSON</h2>
+<p>To configure the connection to the underlying Azure AI Search Index, a JSON file should be added into the <code>data-sources</code> container in blob storage with the following structure. The file should be saved with a name of <code>{data-source-name}.json</code>, where <code>{data-source-name}</code> reflects the name of the index being queried or a shortened version of it. As an example, for an index named <code>sotu</code>, the data source name could be <code>sotu-ds</code>.</p>
+<pre><code class="lang-json">{
+    &quot;name&quot;: &quot;{data-source-name}&quot;,
+    &quot;underlying_implementation&quot;: &quot;search-service&quot;,    
+    &quot;authentication&quot;: {
+        &quot;endpoint&quot;: &quot;{search-service-endpoint}&quot;,
+        &quot;key_secret&quot;: &quot;{access-key-secret-name}&quot;
+    },   
+    &quot;index_name&quot;: &quot;{index-name}&quot;,
+    &quot;top_n&quot; : {number-of-vector-results},
+    &quot;embedding_field_name&quot;: &quot;{embedding-field-name}&quot;,
+    &quot;text_field_name&quot;: &quot;{text-field-name}&quot;,
+    &quot;description&quot;: &quot;{description-of-index}&quot;
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{data-source-name}</td>
+<td>The name of the data source.</td>
+</tr>
+<tr>
+<td>{search-service-endpoint}</td>
+<td>The endpoint of the Azure AI Search service.</td>
+</tr>
+<tr>
+<td>{access-key-secret-name}</td>
+<td>The name of the access key configuration in App Configuration.</td>
+</tr>
+<tr>
+<td>{index-name}</td>
+<td>The name of the index to query.</td>
+</tr>
+<tr>
+<td>{number-of-vector-results}</td>
+<td>Limits the number of results to return from the Azure AI Search index.</td>
+</tr>
+<tr>
+<td>{embedding-field-name}</td>
+<td>The name of the field in the Azure AI Search index that contains the vector embeddings.</td>
+</tr>
+<tr>
+<td>{text-field-name}</td>
+<td>The name of the field in the Azure AI Search index that contains the text to be searched.</td>
+</tr>
+<tr>
+<td>{description-of-index}</td>
+<td>A general description of the index.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="agent-json">Agent JSON</h2>
+<p>A JSON file should be added into the <code>agents</code> container in blob storage. The name of the file should be the <code>{agent-name}.json</code>. For Azure AI Search Service agents, the file should look like the following:</p>
+<pre><code class="lang-json">{
+    &quot;name&quot;: &quot;{agent-name}&quot;,
+    &quot;type&quot;: &quot;search-service&quot;,
+    &quot;description&quot;: &quot;{agent-description}&quot;,
+    &quot;allowed_data_source_names&quot;: [ {data-source-name} ],
+    &quot;language_model&quot;: {
+        &quot;type&quot;: &quot;openai&quot;,
+        &quot;provider&quot;: &quot;microsoft&quot;,
+        &quot;temperature&quot;: 0,
+        &quot;use_chat&quot;: true
+    },
+    &quot;embedding_model&quot;: {
+        &quot;type&quot;: &quot;openai&quot;,
+        &quot;provider&quot;: &quot;microsoft&quot;,
+        &quot;deployment&quot;: &quot;embeddings&quot;,
+        &quot;model&quot;: &quot;text-embedding-ada-002&quot;,
+        &quot;chunk_size&quot;: 10
+    },
+    &quot;orchestrator&quot;: &quot;LangChain&quot;
+}
+</code></pre>
+<p>The names added to the <code>allowed_data_source_names</code> list should be valid data source files in the <code>data_sources</code> container, minus the <code>.json</code>. For example, if there is a data source file named <code>sotu-ds.json</code>, the string entered into the <code>allowed_data_source_names</code> list would be <code>&quot;sotu-ds&quot;</code>.</p>
+<p>The <code>temperature</code> value can be a float between 0.0 and 1.0.</p>
+<p>The language model and embedding model can be replaced depending on the environment. These entries are reflective of the default installation of FoundationaLLM.</p>
+<h2 id="prompt-text-file">Prompt text file</h2>
+<p>The prompt for the agent should be added as a file named <code>default.txt</code> into a folder that matches the <code>{agent-name}</code> within the <code>prompts</code> container.</p>
+<p>In the prompt, describe the function of the agent in detail, providing any guidelines and instructions in a clear and concise way. The following is an example of a prompt for an agent that searches the State of the Union addresses:</p>
+<pre><code class="lang-text">You are a political science professional named Baldwin. You are responsible for answering questions regarding the February 2023 State of the Union Address.
+Answer only questions about the February 2023 State of the Union address. Use only the information provided in the context.
+Provide concise answers that are polite and professional.
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/agents/search-service-agent.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © FoundationaLLM. All rights reserved. | Find out more about FoundationaLLM at <a href="https://foundationallm.ai">foundationallm.ai</a>.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
