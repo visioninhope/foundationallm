@@ -10,9 +10,10 @@ Param(
     [parameter(Mandatory = $true)][string]$resourceGroup,
 
     # Optional
+    [parameter(Mandatory = $false)][bool]$deploygpt4 = $false,
     [parameter(Mandatory = $false)][string]$completionsModelName = 'gpt-35-turbo',
-    [parameter(Mandatory = $false)][string]$completionsModelVersion = '0301',
     [parameter(Mandatory = $false)][string]$completionsModelName4 = 'gpt-4',
+    [parameter(Mandatory = $false)][string]$completionsModelVersion = '0301',
     [parameter(Mandatory = $false)][string]$completionsModelVersion4 = '1106-Preview'
 )
 
@@ -64,7 +65,7 @@ if (-Not ($deployments -Contains $completionsDeployment)) {
     }
 }
 
-if (-Not ($deployments -Contains $completionsDeployment4)) {
+if ($deploygpt4 -eq $true -and -Not ($deployments -Contains $completionsDeployment4)) {
     Write-Host "The Azure OpenAI deployment $($completionsDeployment4) under account $($name) was not found, creating it..." -ForegroundColor Yellow
 
     az cognitiveservices account deployment create `
