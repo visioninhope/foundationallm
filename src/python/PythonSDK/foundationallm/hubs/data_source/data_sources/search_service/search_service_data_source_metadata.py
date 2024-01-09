@@ -13,4 +13,6 @@ class SearchServiceDataSourceMetadata(DataSourceMetadata):
     """
     index_name: str
     authentication: SearchServiceAuthenticationMetadata
+    embedding_field_name: Optional[str] = "Embedding"
+    text_field_name: Optional[str] = "Text"
     top_n: Optional[int] = 3

@@ -13,4 +13,6 @@ class SearchServiceConfiguration(DataSourceConfiguration):
     endpoint: str
     key_secret: str
     index_name: str
+    embedding_field_name: Optional[str] = "Embedding"
+    text_field_name: Optional[str] = "Text"
     top_n: Optional[int] = 3

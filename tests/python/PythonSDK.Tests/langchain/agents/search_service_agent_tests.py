@@ -32,6 +32,8 @@ def test_sotu_completion_request():
                  endpoint="https://fllmaca13-cog-search.search.windows.net",
                  key_secret="FoundationaLLM:CognitiveSearch:Key",
                  index_name="sotu-index",
+                 embedding_field_name="Embedding",
+                 text_field_name="Text",
                  top_n = 3
              )
          ),
