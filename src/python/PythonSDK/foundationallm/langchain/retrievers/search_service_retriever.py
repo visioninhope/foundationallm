@@ -11,7 +11,7 @@ from langchain.callbacks.manager import (
 from azure.search.documents import SearchClient
 from azure.search.documents.models import VectorizedQuery
 from azure.core.credentials import AzureKeyCredential
-from typing import List
+from typing import List, Optional
 from langchain.schema.document import Document
 
 class SearchServiceRetriever(BaseRetriever):
@@ -21,21 +21,29 @@ class SearchServiceRetriever(BaseRetriever):
         endpoint: str -> Azure AI Search endpoint
         index_name: str -> Azure AI Search index name
         top_n : int -> number of results to return from vector search
+        embedding_field_name: str -> name of the field containing the embedding vector
+        text_field_name: str -> name of the field containing the raw text
         credential: AzureKeyCredential -> Azure AI Search credential
         embedding_model: OpenAIEmbeddings -> OpenAIEmbeddings model
 
-    Expects document structure:
+    Searches embedding and text fields in the index for the top_n most relevant documents.
+
+    Default FFLM document structure (overridable by setting the embedding and text field names):
         {
-            "id": "<GUID>",
-            "source_uri": "name and location the text came from, url, blob storage url",
-            "content": "text of the chunk",
-            "content_vector": [0.1, 0.2, 0.3, ...]
-            "metadata": "JSON string of metadata"                
+            "Id": "<GUID>",
+            "Embedding": [0.1, 0.2, 0.3, ...], # embedding vector of the Text
+            "Text": "text of the chunk",
+            "Description": "General description about the source of the text",            
+            "AdditionalMetadata": "JSON string of metadata"
+            "ExternalSourceName": "name and location the text came from, url, blob storage url"
+            "IsReference": "true/false if the document is a reference document"
         }
     """
     endpoint: str
     index_name: str
     top_n : int
+    embedding_field_name: Optional[str] = "Embedding"
+    text_field_name: Optional[str] = "Text"
     credential: AzureKeyCredential
     embedding_model: OpenAIEmbeddings
 
@@ -54,30 +62,21 @@ class SearchServiceRetriever(BaseRetriever):
         self, query: str, *, run_manager: CallbackManagerForRetrieverRun
     ) -> List[Document]:
         """
-        Performs a synchronous hybrid search on Azure AI Search index
-        document structure:
-            {
-                "id": "<GUID>",
-                "source_uri": "name and location the text came from, url, blob storage url",
-                "content": "text of the chunk",
-                "content_vector": [0.1, 0.2, 0.3, ...]
-                "metadata": "JSON string of metadata"                
-            }
+        Performs a synchronous hybrid search on Azure AI Search index        
         """        
         search_client = SearchClient(self.endpoint, self.index_name, self.credential)
         vector_query = VectorizedQuery(vector=self.__get_embeddings(query),
                                         k_nearest_neighbors=3,
-                                        fields="content_vector")
+                                        fields=self.embedding_field_name)
         results = search_client.search(
             search_text=query,
             vector_queries=[vector_query],
             top=self.top_n,
-            select=["id", "content", "source_uri"]
+            select=[self.text_field_name]
         )
         results_list = [
             Document(                
-                page_content=result["content"],
-                metadata = {"id": result["id"], "source_uri": result["source_uri"]}
+                page_content=result[self.text_field_name]
             ) for result in results
         ]
         return results_list

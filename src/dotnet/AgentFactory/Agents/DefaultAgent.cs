@@ -81,6 +81,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                             Endpoint = dataSource.Authentication!["endpoint"],
                             KeySecret = dataSource.Authentication["key_secret"],
                             IndexName = dataSource.IndexName,
+                            EmbeddingFieldName = dataSource.EmbeddingFieldName,
+                            TextFieldName = dataSource.TextFieldName,
                             TopN = dataSource.TopN
                         },
                         DataDescription = dataSource.DataDescription                        

@@ -127,5 +127,17 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
         /// </summary>
         [JsonProperty("top_n")]
         public int? TopN { get; set; }
+
+        /// <summary>
+        /// (Optional) The name of the field to use for embedding in the Search Service.
+        /// </summary>
+        [JsonProperty("embedding_field_name")]
+        public string? EmbeddingFieldName { get; set; }
+
+        /// <summary>
+        /// (Optional) The name of the field to use for raw text in the Search Service.
+        /// </summary>
+        [JsonProperty("text_field_name")]
+        public string? TextFieldName { get; set; }
     }
 }

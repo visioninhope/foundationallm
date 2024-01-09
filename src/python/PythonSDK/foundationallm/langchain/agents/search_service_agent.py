@@ -42,6 +42,8 @@ class SearchServiceAgent(AgentBase):
             endpoint = completion_request.data_source.configuration.endpoint,
             index_name = completion_request.data_source.configuration.index_name,
             top_n = completion_request.data_source.configuration.top_n,
+            embedding_field_name = completion_request.data_source.configuration.embedding_field_name,
+            text_field_name = completion_request.data_source.configuration.text_field_name,
             credential = AzureKeyCredential(
                 config.get_value(
                     completion_request.data_source.configuration.key_secret
