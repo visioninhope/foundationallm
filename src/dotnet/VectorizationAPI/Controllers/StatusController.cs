@@ -23,7 +23,7 @@ namespace FoundationaLLM.Vectorization.API.Controllers
         [HttpOptions]
         public IActionResult Options()
         {
-            HttpContext.Response.Headers.Add("Allow", new[] { "GET", "POST", "OPTIONS", "DELETE" });
+            HttpContext.Response.Headers.Append("Allow", new[] { "GET", "POST", "OPTIONS", "DELETE" });
 
             return Ok();
         }

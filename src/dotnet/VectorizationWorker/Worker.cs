@@ -34,6 +34,7 @@ namespace FoundationaLLM.Vectorization.Worker
             _loggerFactory = loggerFactory;
         }
 
+        /// <inheritdoc/>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var vectorizationWorker = new VectorizationWorkerBuilder()

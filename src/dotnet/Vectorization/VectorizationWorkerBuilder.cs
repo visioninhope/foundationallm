@@ -100,7 +100,8 @@ namespace FoundationaLLM.Vectorization
             if (
                 settings == null 
                 || settings.RequestManagers == null
-                || settings.RequestManagers.Count == 0)
+                || settings.RequestManagers.Count == 0
+                || settings.RequestSources == null)
                 throw new ArgumentNullException(nameof(settings));
 
             foreach (var rm in settings.RequestManagers)
