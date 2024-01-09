@@ -9,6 +9,11 @@ using FoundationaLLM.Vectorization.Models.Configuration;
 
 namespace FoundationaLLM.Vectorization.Services.RequestSources
 {
+    /// <summary>
+    /// Implements an in-memory request source, suitable for testing and quick prototyping.
+    /// </summary>
+    /// <param name="settings">The settings used to initialize the request source.</param>
+    /// <param name="logger">The logger instnce used for logging.</param>
     public class MemoryRequestSourceService(
         RequestSourceServiceSettings settings,
         ILogger<MemoryRequestSourceService> logger) : IRequestSourceService

@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Services.RequestSources
 {
+    /// <summary>
+    /// Implements a builder for a dictionary of request sources (hashed by the identifier of the request source).
+    /// </summary>
     public class RequestSourcesBuilder
     {
         private List<RequestSourceServiceSettings>? _settings;
@@ -20,10 +23,18 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         private ILoggerFactory? _loggerFactory;
         private IConfigurationSection? _queuesConfiguration;
 
+        /// <summary>
+        /// Constructs a new instance of the builder.
+        /// </summary>
         public RequestSourcesBuilder()
         {
         }
 
+        /// <summary>
+        /// Builds the dictionary of request source.
+        /// </summary>
+        /// <returns>The dictionary of <see cref="IRequestSourceService"/> instances, hashed by the identifier of the request source.</returns>
+        /// <exception cref="VectorizationException">Thrown if the state of the builder was not properly initialized.</exception>
         public Dictionary<string, IRequestSourceService> Build()
         {
             if (_settings == null)
@@ -41,6 +52,11 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
                 .ToDictionary(rs => rs.SourceName);
         }
 
+        /// <summary>
+        /// Specifies the settings for each <see cref="IRequestSourceService"/> instance to be built.
+        /// </summary>
+        /// <param name="settings">The list of <see cref="RequestSourceServiceSettings"/> objects providing the settings for the request sources.</param>
+        /// <returns>The updated instance of the builder.</returns>
         public RequestSourcesBuilder WithSettings(List<RequestSourceServiceSettings>? settings)
         {
             ValidateSettings(settings);
@@ -49,18 +65,33 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             return this;
         }
 
+        /// <summary>
+        /// Specifies the type of queuing used by the request sources.
+        /// </summary>
+        /// <param name="queuing">The <see cref="VectorizationQueuing"/> value defining the type of queuing.</param>
+        /// <returns>The updated instance of the builder.</returns>
         public RequestSourcesBuilder WithQueuing(VectorizationQueuing queuing)
         {
             _queuing = queuing;
             return this;
         }
 
+        /// <summary>
+        /// Specifies the logger factory used to create loggers for the request sources.
+        /// </summary>
+        /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to create loggers.</param>
+        /// <returns>The updated instance of the builder.</returns>
         public RequestSourcesBuilder WithLoggerFactory(ILoggerFactory loggerFactory)
         {
             _loggerFactory = loggerFactory;
             return this;
         }
 
+        /// <summary>
+        /// Specifies the configuration section containing settings for the queues used by the request sources.
+        /// </summary>
+        /// <param name="queuesConfiguration">The <see cref="IConfigurationSection"/> object providing access to the settings.</param>
+        /// <returns>The updated instance of the builder.</returns>
         public RequestSourcesBuilder WithQueuesConfiguration(IConfigurationSection queuesConfiguration)
         {
             _queuesConfiguration = queuesConfiguration;

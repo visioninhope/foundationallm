@@ -13,6 +13,9 @@ using System.Diagnostics;
 
 namespace FoundationaLLM.Vectorization
 {
+    /// <summary>
+    /// Implements a builder for a vectorization worker.
+    /// </summary>
     public class VectorizationWorkerBuilder
     {
         private VectorizationWorkerSettings? _settings;
@@ -22,10 +25,18 @@ namespace FoundationaLLM.Vectorization
 
         private readonly RequestSourcesBuilder _requestSourcesBuilder = new();
 
+        /// <summary>
+        /// Constructs a new instance of the builder.
+        /// </summary>
         public VectorizationWorkerBuilder()
         {
         }
 
+        /// <summary>
+        /// Builds the vectorization worker.
+        /// </summary>
+        /// <returns>The vectorization worker instance.</returns>
+        /// <exception cref="VectorizationException">Thrown if the state of the builder was not properly initialized.</exception>
         public VectorizationWorker Build()
         {
             if (_stateService == null)
@@ -58,12 +69,22 @@ namespace FoundationaLLM.Vectorization
             return vectorizationWorker;
         }
 
+        /// <summary>
+        /// Specifies the vectorization state service that manages vectorization states.
+        /// </summary>
+        /// <param name="stateService">The <see cref="IVectorizationStateService"/> service managing state.</param>
+        /// <returns>The updated instance of the builder.</returns>
         public VectorizationWorkerBuilder WithStateService(IVectorizationStateService stateService)
         {
             _stateService = stateService;
             return this;
         }
 
+        /// <summary>
+        /// Specifies the settings used to build the vectorization worker.
+        /// </summary>
+        /// <param name="settings">The <see cref="VectorizationWorkerSettings"/>object providing the settings.</param>
+        /// <returns>The updated instance of the builder.</returns>
         public VectorizationWorkerBuilder WithSettings(VectorizationWorkerSettings settings) 
         {
             ValidateSettings(settings);
@@ -75,12 +96,22 @@ namespace FoundationaLLM.Vectorization
             return this;
         }
 
+        /// <summary>
+        /// Specifies the cancellation token used to signal stopping the vectorization worker.
+        /// </summary>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to signal stopping.</param>
+        /// <returns>The updated instance of the builder.</returns>
         public VectorizationWorkerBuilder WithCancellationToken(CancellationToken cancellationToken)
         {
             _cancellationToken = cancellationToken;
             return this;
         }
 
+        /// <summary>
+        /// Specifies the logger factory used to create loggers for child objects.
+        /// </summary>
+        /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to create loggers.</param>
+        /// <returns>The updated instance of the builder.</returns>
         public VectorizationWorkerBuilder WithLoggerFactory(ILoggerFactory loggerFactory)
         {
             _requestSourcesBuilder.WithLoggerFactory(loggerFactory);
@@ -89,6 +120,11 @@ namespace FoundationaLLM.Vectorization
             return this;
         }
 
+        /// <summary>
+        /// Specifies the configuration section containing settings for the queues used by the vectorization worker.
+        /// </summary>
+        /// <param name="queuesConfiguration">The <see cref="IConfigurationSection"/> object providing access to the settings.</param>
+        /// <returns>The updated instance of the builder.</returns>
         public VectorizationWorkerBuilder WithQueuesConfiguration(IConfigurationSection queuesConfiguration)
         {
             _requestSourcesBuilder.WithQueuesConfiguration(queuesConfiguration);

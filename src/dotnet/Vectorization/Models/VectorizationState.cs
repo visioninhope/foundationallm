@@ -76,6 +76,11 @@ namespace FoundationaLLM.Vectorization.Models
             LogEntries.Add(new VectorizationLogEntry(
                 requestId, handler.StepId, $"ERROR: {ex.Message}"));
 
+        /// <summary>
+        /// Creates a new <see cref="VectorizationState"/> instance based on a specified vectorization request.
+        /// </summary>
+        /// <param name="request">The <see cref="VectorizationRequest"/> instance for which the state is created.</param>
+        /// <returns>The <see cref="VectorizationState"/> created from the request.</returns>
         public static VectorizationState FromRequest(VectorizationRequest request) =>
             new()
             {

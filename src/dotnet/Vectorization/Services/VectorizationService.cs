@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
+using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.Vectorization.Services
 {
@@ -11,10 +12,13 @@ namespace FoundationaLLM.Vectorization.Services
     /// Creates a new instance of the <see cref="VectorizationService"/> service.
     /// </remarks>
     /// <param name="requestSourcesCache">The <see cref="IRequestSourcesCache"/> cache of request sources.</param>
+    /// <param name="logger">The logger instance used for logging.</param>
     public class VectorizationService(
-        IRequestSourcesCache requestSourcesCache) : IVectorizationService
+        IRequestSourcesCache requestSourcesCache,
+        ILogger<VectorizationService> logger) : IVectorizationService
     {
         private readonly Dictionary<string, IRequestSourceService> _requestSources = requestSourcesCache.RequestSources;
+        private readonly ILogger<VectorizationService> _logger = logger;
 
         /// <inheritdoc/>
         public async Task ProcessRequest(VectorizationRequest vectorizationRequest)
@@ -25,30 +29,36 @@ namespace FoundationaLLM.Vectorization.Services
             await firstRequestSource.SubmitRequest(vectorizationRequest);
         }
 
-        private static void ValidateRequest(VectorizationRequest vectorizationRequest)
+        private void ValidateRequest(VectorizationRequest vectorizationRequest)
         {
             if (vectorizationRequest == null)
-                throw new VectorizationException("The vectorization request should not be null.");
+                HandleValidationError("The vectorization request should not be null.");
 
-            if (String.IsNullOrWhiteSpace(vectorizationRequest.Id))
-                throw new VectorizationException("The vectorization request id should not be null.");
+            if (String.IsNullOrWhiteSpace(vectorizationRequest!.Id))
+                HandleValidationError("The vectorization request id should not be null.");
 
             if (vectorizationRequest.ContentIdentifier == null
                 || String.IsNullOrWhiteSpace(vectorizationRequest.ContentIdentifier.UniqueId)
                 || String.IsNullOrWhiteSpace(vectorizationRequest.ContentIdentifier.CanonicalId))
-                throw new VectorizationException("The vectorization request content identifier is invalid.");
+                HandleValidationError("The vectorization request content identifier is invalid.");
 
             if (vectorizationRequest.Steps == null || vectorizationRequest.Steps.Count == 0)
-                throw new VectorizationException("The list of the vectorization steps should not be empty.");
+                HandleValidationError("The list of the vectorization steps should not be empty.");
 
-            if (vectorizationRequest.Steps.Select(x=>x.Id).Distinct().Count() != vectorizationRequest.Steps.Count)
-                throw new VectorizationException("The list of vectorization steps must contain unique names.");
+            if (vectorizationRequest.Steps!.Select(x=>x.Id).Distinct().Count() != vectorizationRequest.Steps!.Count)
+                HandleValidationError("The list of vectorization steps must contain unique names.");
 
             if (vectorizationRequest.CompletedSteps != null && vectorizationRequest.CompletedSteps!.Count > 0)
-                throw new VectorizationException("The completed steps of the vectorization request must be empty.");
+                HandleValidationError("The completed steps of the vectorization request must be empty.");
 
             if (vectorizationRequest.RemainingSteps == null || vectorizationRequest.RemainingSteps.Count == 0)
-                throw new VectorizationException("The list of the remaining steps of the vectorization request should not be empty.");
+                HandleValidationError("The list of the remaining steps of the vectorization request should not be empty.");
+        }
+
+        private void HandleValidationError(string validationError)
+        {
+            _logger.LogError(validationError);
+            throw new VectorizationException(validationError);
         }
     }
 }

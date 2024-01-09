@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using Azure.Identity;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -17,20 +18,20 @@ builder.Configuration.AddJsonFile("appsettings.json", false, true);
 builder.Configuration.AddEnvironmentVariables();
 builder.Configuration.AddAzureAppConfiguration(options =>
 {
-    options.Connect(builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
+    options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
         options.SetCredential(new DefaultAzureCredential());
     });
-    options.Select("FoundationaLLM:Vectorization:*");
-    options.Select("FoundationaLLM:APIs:VectorizationAPI:*");
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI);
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
 builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
 {
-    ConnectionString = builder.Configuration["FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString"],
+    ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString],
     DeveloperMode = builder.Environment.IsDevelopment()
 });
 
@@ -49,11 +50,11 @@ builder.Services.AddCors(policyBuilder =>
 // Add configurations to the container
 
 builder.Services.AddOptions<VectorizationWorkerSettings>()
-    .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:WorkerSettings"));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_WorkerSettings));
 
 builder.Services.AddSingleton(
     typeof(IConfigurationSection),
-    builder.Configuration.GetSection("FoundationaLLM:Vectorization:Queues"));
+    builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_Queues));
 
 // Add services to the container.
 
@@ -71,7 +72,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()
-    .Bind(builder.Configuration.GetSection("FoundationaLLM:APIs:VectorizationAPI"));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_VectorizationAPI));
 
 builder.Services
     .AddApiVersioning(options =>
