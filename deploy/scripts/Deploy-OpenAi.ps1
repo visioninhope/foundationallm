@@ -31,8 +31,8 @@ if (-Not (az cognitiveservices account list -g $resourceGroup --query '[].name' 
         --name $name `
         --resource-group $resourceGroup `
         --sku S0 `
-        --yes 
-        
+        --yes
+
     if (-Not (az cognitiveservices account list -g $resourceGroup --query '[].name' -o json | ConvertFrom-Json) -Contains $name) {
         Write-Error "The Azure OpenAI account $($name) was not found, and could not be created." -ForegroundColor Red
         Pop-Location
@@ -54,7 +54,7 @@ if (-Not ($deployments -Contains $completionsDeployment)) {
         --name $name `
         --resource-group $resourceGroup `
         --sku Standard `
-        --sku-capacity 30 
+        --sku-capacity 30
 
     $deployments = (az cognitiveservices account deployment list -g $resourceGroup -n $name --query '[].name' -o json | ConvertFrom-Json)
     if (-Not ($deployments -Contains $completionsDeployment)) {
@@ -75,7 +75,7 @@ if (-Not ($deployments -Contains $completionsDeployment4)) {
         --name $name `
         --resource-group $resourceGroup `
         --sku Standard `
-        --sku-capacity 30 
+        --sku-capacity 30
 
     $deployments = (az cognitiveservices account deployment list -g $resourceGroup -n $name --query '[].name' -o json | ConvertFrom-Json)
     if (-Not ($deployments -Contains $completionsDeployment4)) {
@@ -96,7 +96,7 @@ if (-Not ($deployments -Contains $embeddingsDeployment)) {
         --name $name `
         --resource-group $resourceGroup `
         --sku Standard `
-        --sku-capacity 120 
+        --sku-capacity 30
 
     $deployments = (az cognitiveservices account deployment list -g $resourceGroup -n $name --query '[].name' -o json | ConvertFrom-Json)
     if (-Not ($deployments -Contains $embeddingsDeployment)) {
