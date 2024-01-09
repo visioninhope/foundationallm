@@ -58,7 +58,7 @@ builder.Services.AddSingleton(
 
 // Add services to the container.
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
-builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
+builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>();
 builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddControllers();

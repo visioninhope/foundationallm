@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 {
-    public class BlobStorageVectorizationStateService : IVectorizationStateService
+    public class BlobStorageVectorizationStateService : VectorizationStateServiceBase, IVectorizationStateService
     {
         private readonly BlobServiceClient _blobServiceClient;
         private readonly BlobStorageVectorizationStateServiceSettings _settings;
@@ -23,7 +23,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         /// <inheritdoc/>
         public async Task<bool> HasState(VectorizationRequest request)
         {
-            var blobClient = GetBlobClient(request.Content.UniqueId);
+            var blobClient = GetBlobClient(request.ContentIdentifier);
 
             return await blobClient.ExistsAsync();
         }
@@ -31,7 +31,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         /// <inheritdoc/>
         public async Task<VectorizationState> ReadState(VectorizationRequest request)
         {
-            var blobClient = GetBlobClient(request.Content.UniqueId);
+            var blobClient = GetBlobClient(request.ContentIdentifier);
 
             var response = await blobClient.DownloadAsync();
             using (var reader = new StreamReader(response.Value.Content))
@@ -44,7 +44,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         /// <inheritdoc/>
         public async Task SaveState(VectorizationState state)
         {
-            var blobClient = GetBlobClient(state.ContentId);
+            var blobClient = GetBlobClient(state.ContentIdentifier);
 
             var content = JsonSerializer.Serialize(state);
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
@@ -52,10 +52,14 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
             await blobClient.UploadAsync(stream, true);
         }
 
-        private BlobClient GetBlobClient(string contentId)
+        private BlobClient GetBlobClient(VectorizationContentIdentifier contentIdentifier)
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient(_settings.ContainerName);
-            return containerClient.GetBlobClient(contentId);
+            return containerClient.GetBlobClient(
+                GetPersistenceIdentifier(contentIdentifier));
         }
+
+        protected override string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier) =>
+            $"{contentIdentifier.CanonicalId}_state_{HashContentIdentifier(contentIdentifier)}.json";
     }
 }

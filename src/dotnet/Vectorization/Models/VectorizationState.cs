@@ -16,19 +16,19 @@ namespace FoundationaLLM.Vectorization.Models
     public class VectorizationState
     {
         /// <summary>
-        /// The unique identifier of the content (i.e., document) being vectorized.
-        /// </summary>
-        [JsonPropertyOrder(1)]
-        [JsonPropertyName("content_id")]
-        public required string ContentId { get; set; }
-
-        /// <summary>
         /// The unique identifier of the current vectorization request. Subsequent vectorization requests
         /// referring to the same content will have different unique identifiers.
         /// </summary>
         [JsonPropertyOrder(0)]
         [JsonPropertyName("request_id")]
         public required string CurrentRequestId { get; set; }
+
+        /// <summary>
+        /// The <see cref="VectorizationContentIdentifier"/> object identifying the content being vectorized.
+        /// </summary>
+        [JsonPropertyOrder(1)]
+        [JsonPropertyName("content_identifier")]
+        public required VectorizationContentIdentifier ContentIdentifier { get; set; }
 
         /// <summary>
         /// The list of log entries associated with actions executed by the vectorization pipeline.
@@ -80,7 +80,7 @@ namespace FoundationaLLM.Vectorization.Models
             new VectorizationState
             {
                 CurrentRequestId = request.Id,
-                ContentId = request.Content.UniqueId
+                ContentIdentifier = request.ContentIdentifier
             };
     }
 }
