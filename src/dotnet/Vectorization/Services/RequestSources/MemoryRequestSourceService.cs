@@ -31,19 +31,19 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             Task.FromResult(_requests.Count > 0);
 
         /// <inheritdoc/>
-        public Task<IEnumerable<(VectorizationRequest Request, string PopReceipt)>> ReceiveRequests(int count)
+        public Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count)
         {
-            var result = new List<(VectorizationRequest, string)>();
+            var result = new List<(VectorizationRequest, string, string)>();
 
             for (int i = 0; i < count; i++)
             {
                 if (_requests.TryDequeue(out var request))
-                    result.Add(new (request, string.Empty));
+                    result.Add(new (request, string.Empty, string.Empty));
                 else
                     break;
             }
             
-            return Task.FromResult<IEnumerable<(VectorizationRequest, string)>>(result);
+            return Task.FromResult<IEnumerable<(VectorizationRequest, string, string)>>(result);
         }
 
         /// <inheritdoc/>

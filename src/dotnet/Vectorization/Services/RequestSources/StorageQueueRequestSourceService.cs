@@ -35,21 +35,22 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         public async Task<bool> HasRequests()
         {
             var message = await _queueClient.PeekMessageAsync();
-            return message != null;
+            return message.Value != null;
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<(VectorizationRequest Request, string PopReceipt)>> ReceiveRequests(int count)
+        public async Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count)
         {
             var receivedMessages = await _queueClient.ReceiveMessagesAsync(count, TimeSpan.FromSeconds(_settings.VisibilityTimeoutSeconds));
 
             return receivedMessages.HasValue
-                ? receivedMessages.Value.Select<QueueMessage, (VectorizationRequest, string)>(m => new
+                ? receivedMessages.Value.Select<QueueMessage, (VectorizationRequest, string, string)>(m => new
                 (
                     JsonSerializer.Deserialize<VectorizationRequest>(m.Body.ToString())!,
+                    m.MessageId,
                     m.PopReceipt
                 )).ToList()
-                : new List<(VectorizationRequest, string)>();
+                : new List<(VectorizationRequest, string, string)>();
         }
 
         /// <inheritdoc/>

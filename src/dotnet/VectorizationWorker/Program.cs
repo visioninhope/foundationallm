@@ -1,11 +1,14 @@
 using Asp.Versioning;
 using Azure.Identity;
+using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.OpenAPI;
+using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using FoundationaLLM.Vectorization.Worker;
-using Microsoft.Extensions.Configuration;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +23,16 @@ builder.Configuration.AddAzureAppConfiguration(options =>
         options.SetCredential(new DefaultAzureCredential());
     });
     options.Select("FoundationaLLM:Vectorization:*");
+    options.Select("FoundationaLLM:APIs:VectorizationWorker:*");
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
+builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
+{
+    ConnectionString = builder.Configuration["FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString"],
+    DeveloperMode = builder.Environment.IsDevelopment()
+});
 
 var allowAllCorsOrigins = "AllowAllOrigins";
 builder.Services.AddCors(policyBuilder =>
@@ -47,10 +57,18 @@ builder.Services.AddSingleton(
     builder.Configuration.GetSection("FoundationaLLM:Vectorization:Queues"));
 
 // Add services to the container.
+builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
 builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddControllers();
+
+// Add API Key Authorization
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<APIKeyAuthenticationFilter>();
+builder.Services.AddOptions<APIKeyValidationSettings>()
+    .Bind(builder.Configuration.GetSection("FoundationaLLM:APIs:VectorizationWorker"));
+
 builder.Services
     .AddApiVersioning(options =>
     {

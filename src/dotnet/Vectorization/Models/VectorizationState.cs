@@ -75,5 +75,12 @@ namespace FoundationaLLM.Vectorization.Models
         public void LogHandlerError(IVectorizationStepHandler handler, string requestId, Exception ex) =>
             LogEntries.Add(new VectorizationLogEntry(
                 requestId, handler.StepId, $"ERROR: {ex.Message}"));
+
+        public static VectorizationState FromRequest(VectorizationRequest request) =>
+            new VectorizationState
+            {
+                CurrentRequestId = request.Id,
+                ContentId = request.ContentId
+            };
     }
 }

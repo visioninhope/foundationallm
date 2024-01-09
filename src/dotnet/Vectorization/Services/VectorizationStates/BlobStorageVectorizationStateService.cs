@@ -1,4 +1,5 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure.Core;
+using Azure.Storage.Blobs;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
@@ -22,10 +23,17 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         }
 
         /// <inheritdoc/>
-        public async Task<VectorizationState> ReadState(string id)
+        public async Task<bool> HasState(VectorizationRequest request)
         {
-            var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
-            var blobClient = containerClient.GetBlobClient(id);
+            var blobClient = GetBlobClient(request.ContentId);
+
+            return await blobClient.ExistsAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task<VectorizationState> ReadState(VectorizationRequest request)
+        {
+            var blobClient = GetBlobClient(request.ContentId);
 
             var response = await blobClient.DownloadAsync();
             using (var reader = new StreamReader(response.Value.Content))
@@ -38,15 +46,18 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         /// <inheritdoc/>
         public async Task SaveState(VectorizationState state)
         {
-            await Task.CompletedTask;
-
-            var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
-            var blobClient = containerClient.GetBlobClient(state.CurrentRequestId);
+            var blobClient = GetBlobClient(state.ContentId);
 
             var content = JsonSerializer.Serialize(state);
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
 
             await blobClient.UploadAsync(stream, true);
+        }
+
+        private BlobClient GetBlobClient(string contentId)
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+            return containerClient.GetBlobClient(contentId);
         }
     }
 }

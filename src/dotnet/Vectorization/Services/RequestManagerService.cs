@@ -77,7 +77,7 @@ namespace FoundationaLLM.Vectorization.Services
                         // https://devblogs.microsoft.com/dotnet/configureawait-faq/).
                         _taskPool.Add(
                             requests.Select(r => Task.Run(
-                                async () => { await ProcessRequest(r.Request, r.PopReceipt); },
+                                async () => { await ProcessRequest(r.Request, r.MessageId, r.PopReceipt); },
                                 _cancellationToken)));
                     }
                     else
@@ -94,14 +94,14 @@ namespace FoundationaLLM.Vectorization.Services
             _logger.LogInformation($"The request manager service associated with source [{_settings.RequestSourceName}] finished processing requests.");
         }
 
-        private async Task ProcessRequest(VectorizationRequest request, string popReceipt)
+        private async Task ProcessRequest(VectorizationRequest request, string messageId, string popReceipt)
         {
             try
             {
                 await HandleRequest(request);
                 await AdvanceRequest(request);
 
-                await _incomingRequestSourceService.DeleteRequest(request.Id, popReceipt);
+                await _incomingRequestSourceService.DeleteRequest(messageId, popReceipt);
             }
             catch (Exception ex)
             {
@@ -111,7 +111,9 @@ namespace FoundationaLLM.Vectorization.Services
 
         private async Task HandleRequest(VectorizationRequest request)
         {
-            var state = await _vectorizationStateService.ReadState(request.Id);
+            var state = await _vectorizationStateService.HasState(request)
+                ? await _vectorizationStateService.ReadState(request)
+                : VectorizationState.FromRequest(request);
 
             var stepHandler = VectorizationStepHandlerFactory.Create(_settings.RequestSourceName, request[_settings.RequestSourceName]!.Parameters);
             await stepHandler.Invoke(request, state, _cancellationToken);

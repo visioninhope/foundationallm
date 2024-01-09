@@ -1,6 +1,14 @@
 using Asp.Versioning;
 using Azure.Identity;
+using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.OpenAPI;
+using FoundationaLLM.Vectorization.Interfaces;
+using FoundationaLLM.Vectorization.Models.Configuration;
+using FoundationaLLM.Vectorization.Services;
+using FoundationaLLM.Vectorization.Services.RequestSources;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.Extensions.Primitives;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +23,16 @@ builder.Configuration.AddAzureAppConfiguration(options =>
         options.SetCredential(new DefaultAzureCredential());
     });
     options.Select("FoundationaLLM:Vectorization:*");
+    options.Select("FoundationaLLM:APIs:VectorizationAPI:*");
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
+builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
+{
+    ConnectionString = builder.Configuration["FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString"],
+    DeveloperMode = builder.Environment.IsDevelopment()
+});
 
 var allowAllCorsOrigins = "AllowAllOrigins";
 builder.Services.AddCors(policyBuilder =>
@@ -31,9 +46,33 @@ builder.Services.AddCors(policyBuilder =>
         });
 });
 
+// Add configurations to the container
+
+builder.Services.AddOptions<VectorizationWorkerSettings>()
+    .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:WorkerSettings"));
+
+builder.Services.AddSingleton(
+    typeof(IConfigurationSection),
+    builder.Configuration.GetSection("FoundationaLLM:Vectorization:Queues"));
+
 // Add services to the container.
 
+builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
+builder.Services.AddScoped<IVectorizationService, VectorizationService>();
+builder.Services.AddSingleton<IRequestSourcesCache, RequestSourcesCache>();
+
+// Activate singleton services
+
+builder.Services.ActivateSingleton<IRequestSourcesCache>();
+
 builder.Services.AddControllers();
+
+// Add API Key Authorization
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<APIKeyAuthenticationFilter>();
+builder.Services.AddOptions<APIKeyValidationSettings>()
+    .Bind(builder.Configuration.GetSection("FoundationaLLM:APIs:VectorizationAPI"));
+
 builder.Services
     .AddApiVersioning(options =>
      {

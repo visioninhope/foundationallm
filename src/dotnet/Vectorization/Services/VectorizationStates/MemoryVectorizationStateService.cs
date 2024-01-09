@@ -8,14 +8,22 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         private readonly Dictionary<string, VectorizationState> _vectorizationStateDictionary = new Dictionary<string, VectorizationState>();
 
         /// <inheritdoc/>
-        public async Task<VectorizationState> ReadState(string id)
+        public async Task<bool> HasState(VectorizationRequest request)
         {
             await Task.CompletedTask;
 
-            if (!_vectorizationStateDictionary.ContainsKey(id))
-                throw new ArgumentException($"Vectorization state with id [{id}] could not be found.");
+            return _vectorizationStateDictionary.ContainsKey(request.ContentId);
+        }
 
-            return _vectorizationStateDictionary[id];
+        /// <inheritdoc/>
+        public async Task<VectorizationState> ReadState(VectorizationRequest request)
+        {
+            await Task.CompletedTask;
+
+            if (!_vectorizationStateDictionary.ContainsKey(request.ContentId))
+                throw new ArgumentException($"Vectorization state for content id [{request.ContentId}] could not be found.");
+
+            return _vectorizationStateDictionary[request.ContentId];
         }
 
         /// <inheritdoc/>
@@ -26,10 +34,10 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
             if (state == null)
                 throw new ArgumentNullException(nameof(state));
 
-            if(!_vectorizationStateDictionary.ContainsKey(state.CurrentRequestId))
-                throw new ArgumentException($"Vectorization state with id [{state.CurrentRequestId}] could not be found.");
-
-            _vectorizationStateDictionary[state.CurrentRequestId] = state;
+            if(_vectorizationStateDictionary.ContainsKey(state.ContentId))
+                _vectorizationStateDictionary[state.ContentId] = state;
+            else
+                _vectorizationStateDictionary.Add(state.ContentId, state);
         }
     }
 }

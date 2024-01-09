@@ -14,7 +14,7 @@ namespace FoundationaLLM.Vectorization.Models
         /// </summary>
         [JsonPropertyOrder(0)]
         [JsonPropertyName("id")]
-        public required string Id { get;set; }
+        public required string Id { get; set; }
 
         /// <summary>
         /// The unique identifier of the content (i.e., document) being vectorized.
