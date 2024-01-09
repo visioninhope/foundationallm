@@ -36,7 +36,7 @@ namespace FoundationaLLM.Vectorization.Models
         [JsonPropertyOrder(18)]
         [JsonPropertyName("log")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public List<VectorizationLogEntry> LogEntries { get; set; } = new List<VectorizationLogEntry>();
+        public List<VectorizationLogEntry> LogEntries { get; set; } = [];
 
         /// <summary>
         /// Adds a new generic log entry.
@@ -77,7 +77,7 @@ namespace FoundationaLLM.Vectorization.Models
                 requestId, handler.StepId, $"ERROR: {ex.Message}"));
 
         public static VectorizationState FromRequest(VectorizationRequest request) =>
-            new VectorizationState
+            new()
             {
                 CurrentRequestId = request.Id,
                 ContentIdentifier = request.ContentIdentifier

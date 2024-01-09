@@ -9,20 +9,18 @@ namespace FoundationaLLM.Vectorization.API.Controllers
     /// <summary>
     /// Methods for managing vectorization requests.
     /// </summary>
+    /// <remarks>
+    /// Constructor for the vectorization request controller.
+    /// </remarks>
+    /// <param name="vectorizationService"></param>
     [ApiVersion(1.0)]
     [ApiController]
     [APIKeyAuthentication]
     [Route("[controller]")]
-    public class VectorizationRequestController : ControllerBase
+    public class VectorizationRequestController(
+        IVectorizationService vectorizationService) : ControllerBase
     {
-        readonly IVectorizationService _vectorizationService;
-
-        /// <summary>
-        /// Constructor for the vectorization request controller.
-        /// </summary>
-        /// <param name="vectorizationService"></param>
-        public VectorizationRequestController(
-            IVectorizationService vectorizationService) => _vectorizationService = vectorizationService;
+        readonly IVectorizationService _vectorizationService = vectorizationService;
 
         /// <summary>
         /// Handles an incoming vectorization request by starting a new vectorization pipeline.

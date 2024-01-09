@@ -59,7 +59,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogWarning(ex, $"Cannot deserialize message with id {m.MessageId}.");
+                        _logger.LogWarning(ex, "Cannot deserialize message with id {MessageId}.", m.MessageId);
                     }
                 }
             }

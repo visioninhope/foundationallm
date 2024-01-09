@@ -174,7 +174,7 @@ namespace FoundationaLLM.Core.API
         {
             var downstreamAPISettings = new DownstreamAPISettings
             {
-                DownstreamAPIs = new Dictionary<string, DownstreamAPIKeySettings>()
+                DownstreamAPIs = []
             };
 
             var gatekeeperAPISettings = new DownstreamAPIKeySettings
@@ -224,14 +224,12 @@ namespace FoundationaLLM.Core.API
 
             // Configure the scope used by the API controllers:
             var requiredScope = builder.Configuration["FoundationaLLM:CoreAPI:Entra:Scopes"] ?? "";
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("RequiredScope", policyBuilder =>
+            builder.Services.AddAuthorizationBuilder()
+                .AddPolicy("RequiredScope", policyBuilder =>
                 {
                     policyBuilder.RequireAuthenticatedUser();
                     policyBuilder.RequireClaim("http://schemas.microsoft.com/identity/claims/scope", requiredScope.Split(' '));
                 });
-            });
         }
     }
 }

@@ -9,26 +9,22 @@ using FoundationaLLM.Vectorization.Models.Configuration;
 
 namespace FoundationaLLM.Vectorization.Services.RequestSources
 {
-    public class MemoryRequestSourceService : IRequestSourceService
+    public class MemoryRequestSourceService(
+        RequestSourceServiceSettings settings,
+        ILogger<MemoryRequestSourceService> logger) : IRequestSourceService
     {
-        private readonly RequestSourceServiceSettings _settings;
-        private readonly ILogger<MemoryRequestSourceService> _logger;
-        private readonly ConcurrentQueue<VectorizationRequest> _requests = new ConcurrentQueue<VectorizationRequest>();
+        private readonly RequestSourceServiceSettings _settings = settings;
+#pragma warning disable IDE0052 // Remove unread private members
+        private readonly ILogger<MemoryRequestSourceService> _logger = logger;
+#pragma warning restore IDE0052 // Remove unread private members
+        private readonly ConcurrentQueue<VectorizationRequest> _requests = new();
 
         /// <inheritdoc/>
         public string SourceName => _settings.Name;
 
-        public MemoryRequestSourceService(
-            RequestSourceServiceSettings settings,
-            ILogger<MemoryRequestSourceService> logger)
-        {
-            _settings = settings;
-            _logger = logger;
-        }
-
         /// <inheritdoc/>
         public Task<bool> HasRequests() =>
-            Task.FromResult(_requests.Count > 0);
+            Task.FromResult(!_requests.IsEmpty);
 
         /// <inheritdoc/>
         public Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count)

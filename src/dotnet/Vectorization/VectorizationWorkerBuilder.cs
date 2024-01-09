@@ -17,10 +17,10 @@ namespace FoundationaLLM.Vectorization
     {
         private VectorizationWorkerSettings? _settings;
         private IVectorizationStateService? _stateService;
-        private CancellationToken _cancellationToken = default(CancellationToken);
+        private CancellationToken _cancellationToken = default;
         private ILoggerFactory? _loggerFactory;
 
-        private RequestSourcesBuilder _requestSourcesBuilder = new RequestSourcesBuilder();
+        private readonly RequestSourcesBuilder _requestSourcesBuilder = new();
 
         public VectorizationWorkerBuilder()
         {
@@ -95,7 +95,7 @@ namespace FoundationaLLM.Vectorization
             return this;
         }
 
-        private void ValidateSettings(VectorizationWorkerSettings settings)
+        private static void ValidateSettings(VectorizationWorkerSettings settings)
         {
             if (
                 settings == null 

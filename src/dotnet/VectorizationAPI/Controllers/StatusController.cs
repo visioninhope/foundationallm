@@ -17,13 +17,15 @@ namespace FoundationaLLM.Vectorization.API.Controllers
         [HttpGet(Name = "GetServiceStatus")]
         public IActionResult Get() => Ok();
 
+        private static readonly string[] MethodNames = ["GET", "POST", "OPTIONS", "DELETE"];
+
         /// <summary>
         /// Returns the allowed HTTP methods for the Vectorization API service.
         /// </summary>
         [HttpOptions]
         public IActionResult Options()
         {
-            HttpContext.Response.Headers.Append("Allow", new[] { "GET", "POST", "OPTIONS", "DELETE" });
+            HttpContext.Response.Headers.Append("Allow", MethodNames);
 
             return Ok();
         }

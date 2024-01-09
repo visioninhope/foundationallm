@@ -67,7 +67,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             return this;
         }
 
-        private void ValidateSettings(List<RequestSourceServiceSettings>? settings)
+        private static void ValidateSettings(List<RequestSourceServiceSettings>? settings)
         {
             if (
                 settings == null
@@ -88,7 +88,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
                 return;
 
             if (_queuesConfiguration == null
-                || _queuesConfiguration.GetChildren().Count() == 0)
+                || !_queuesConfiguration.GetChildren().Any())
                 throw new VectorizationException("The queues configuration is empty.");
 
             foreach (var rs in _settings!)
@@ -100,21 +100,16 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             }
         }
 
-        private IRequestSourceService GetRequestSourceService(RequestSourceServiceSettings settings, VectorizationQueuing queuing)
-        {
-            switch (queuing)
+        private IRequestSourceService GetRequestSourceService(RequestSourceServiceSettings settings, VectorizationQueuing queuing) =>
+            queuing switch
             {
-                case VectorizationQueuing.None:
-                    return new MemoryRequestSourceService(
-                        settings,
-                        _loggerFactory!.CreateLogger<MemoryRequestSourceService>());
-                case VectorizationQueuing.AzureStorageQueue:
-                    return new StorageQueueRequestSourceService(
-                        settings,
-                        _loggerFactory!.CreateLogger<StorageQueueRequestSourceService>());
-                default:
-                    throw new VectorizationException($"The vectorization queuing mechanism [{queuing}] is not supported.");
-            }
-        }
+                VectorizationQueuing.None => new MemoryRequestSourceService(
+                                        settings,
+                                        _loggerFactory!.CreateLogger<MemoryRequestSourceService>()),
+                VectorizationQueuing.AzureStorageQueue => new StorageQueueRequestSourceService(
+                                        settings,
+                                        _loggerFactory!.CreateLogger<StorageQueueRequestSourceService>()),
+                _ => throw new VectorizationException($"The vectorization queuing mechanism [{queuing}] is not supported."),
+            };
     }
 }

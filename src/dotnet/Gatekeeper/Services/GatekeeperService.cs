@@ -6,27 +6,17 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
     /// <summary>
     /// Implements the <see cref="IGatekeeperService"/> interface.
     /// </summary>
-    public class GatekeeperService : IGatekeeperService
+    /// <remarks>
+    /// Constructor for the Gatekeeper service.
+    /// </remarks>
+    /// <param name="agentFactoryAPIService">The Agent Factory API client.</param>
+    /// <param name="contentSafetyService">The user prompt Content Safety service.</param>
+    public class GatekeeperService(
+        IAgentFactoryAPIService agentFactoryAPIService,
+        IContentSafetyService contentSafetyService) : IGatekeeperService
     {
-        private readonly IAgentFactoryAPIService _agentFactoryAPIService;
-        private readonly IRefinementService _refinementService;
-        private readonly IContentSafetyService _contentSafetyService;
-
-        /// <summary>
-        /// Constructor for the Gatekeeper service.
-        /// </summary>
-        /// <param name="agentFactoryAPIService">The Agent Factory API client.</param>
-        /// <param name="refinementService">The user prompt Refinement service.</param>
-        /// <param name="contentSafetyService">The user prompt Content Safety service.</param>
-        public GatekeeperService(
-            IAgentFactoryAPIService agentFactoryAPIService,
-            IRefinementService refinementService,
-            IContentSafetyService contentSafetyService)
-        {
-            _agentFactoryAPIService = agentFactoryAPIService;
-            _refinementService = refinementService;
-            _contentSafetyService = contentSafetyService;
-        }
+        private readonly IAgentFactoryAPIService _agentFactoryAPIService = agentFactoryAPIService;
+        private readonly IContentSafetyService _contentSafetyService = contentSafetyService;
 
         /// <summary>
         /// Gets a completion from the Gatekeeper service.

@@ -8,23 +8,18 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
     /// <summary>
     /// Wrapper for Gatekeeper Integration API service.
     /// </summary>
+    /// <remarks>
+    /// Constructor for the Gatekeeper API integration controller.
+    /// </remarks>
+    /// <param name="gatekeeperIntegrationAPIService"></param>
     [ApiVersion(1.0)]
     [ApiController]
     [APIKeyAuthentication]
     [Route("[controller]")]
-    public class IntegrationController : ControllerBase
+    public class IntegrationController(
+        IGatekeeperIntegrationAPIService gatekeeperIntegrationAPIService) : ControllerBase
     {
-        private readonly IGatekeeperIntegrationAPIService _gatekeeperIntegrationAPIService;
-
-        /// <summary>
-        /// Constructor for the Gatekeeper API integration controller.
-        /// </summary>
-        /// <param name="gatekeeperIntegrationAPIService"></param>
-        public IntegrationController(
-            IGatekeeperIntegrationAPIService gatekeeperIntegrationAPIService)
-        {
-            _gatekeeperIntegrationAPIService = gatekeeperIntegrationAPIService;
-        }
+        private readonly IGatekeeperIntegrationAPIService _gatekeeperIntegrationAPIService = gatekeeperIntegrationAPIService;
 
         /// <summary>
         /// Analyze text to identify PII (personally identifiable information) entities.
@@ -32,10 +27,8 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         /// <param name="text">The input text.</param>
         /// <returns>A list of PII entities identified in the analyzed text.</returns>
         [HttpPost("analyze")]
-        public async Task<List<string>> AnalyzeText(string text)
-        {
-            return await _gatekeeperIntegrationAPIService.AnalyzeText(text);
-        }
+        public async Task<List<string>> AnalyzeText(string text) =>
+            await _gatekeeperIntegrationAPIService.AnalyzeText(text);
 
         /// <summary>
         /// Anonymize text with identified PII (personally identifiable information) entities.
@@ -43,9 +36,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         /// <param name="text">The input text.</param>
         /// <returns>The anonymized text.</returns>
         [HttpPost("anonymize")]
-        public async Task<string> AnonymizeText(string text)
-        {
-            return await _gatekeeperIntegrationAPIService.AnonymizeText(text);
-        }
+        public async Task<string> AnonymizeText(string text) =>
+            await _gatekeeperIntegrationAPIService.AnonymizeText(text);
     }
 }

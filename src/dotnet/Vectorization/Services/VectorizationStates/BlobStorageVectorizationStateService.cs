@@ -34,11 +34,9 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
             var blobClient = GetBlobClient(request.ContentIdentifier);
 
             var response = await blobClient.DownloadAsync();
-            using (var reader = new StreamReader(response.Value.Content))
-            {
-                var content = await reader.ReadToEndAsync();
-                return JsonSerializer.Deserialize<VectorizationState>(content)!;
-            }
+            using var reader = new StreamReader(response.Value.Content);
+            var content = await reader.ReadToEndAsync();
+            return JsonSerializer.Deserialize<VectorizationState>(content)!;
         }
 
         /// <inheritdoc/>

@@ -12,7 +12,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
     {
         protected abstract string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier);
 
-        protected string HashContentIdentifier(VectorizationContentIdentifier contentIdentifier)
+        protected static string HashContentIdentifier(VectorizationContentIdentifier contentIdentifier)
         {
             var byteHash = MD5.HashData(
                 Encoding.UTF8.GetBytes(
