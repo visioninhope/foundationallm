@@ -43,14 +43,28 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         {
             var receivedMessages = await _queueClient.ReceiveMessagesAsync(count, TimeSpan.FromSeconds(_settings.VisibilityTimeoutSeconds));
 
-            return receivedMessages.HasValue
-                ? receivedMessages.Value.Select<QueueMessage, (VectorizationRequest, string, string)>(m => new
-                (
-                    JsonSerializer.Deserialize<VectorizationRequest>(m.Body.ToString())!,
-                    m.MessageId,
-                    m.PopReceipt
-                )).ToList()
-                : new List<(VectorizationRequest, string, string)>();
+            var result = new List<(VectorizationRequest, string, string)>();
+
+            if (receivedMessages.HasValue)
+            {
+                foreach (var m in receivedMessages.Value)
+                {
+                    try
+                    {
+                        var vectorizationRequest = JsonSerializer.Deserialize<VectorizationRequest>(m.Body.ToString());
+                        result.Add(new(
+                            vectorizationRequest!,
+                            m.MessageId,
+                            m.PopReceipt));
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogWarning(ex, $"Cannot deserialize message with id {m.MessageId}.");
+                    }
+                }
+            }
+
+            return result;
         }
 
         /// <inheritdoc/>

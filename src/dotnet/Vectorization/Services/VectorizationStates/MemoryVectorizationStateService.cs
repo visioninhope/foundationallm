@@ -12,7 +12,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         {
             await Task.CompletedTask;
 
-            return _vectorizationStateDictionary.ContainsKey(request.ContentId);
+            return _vectorizationStateDictionary.ContainsKey(request.Content.UniqueId);
         }
 
         /// <inheritdoc/>
@@ -20,10 +20,10 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         {
             await Task.CompletedTask;
 
-            if (!_vectorizationStateDictionary.ContainsKey(request.ContentId))
-                throw new ArgumentException($"Vectorization state for content id [{request.ContentId}] could not be found.");
+            if (!_vectorizationStateDictionary.ContainsKey(request.Content.UniqueId))
+                throw new ArgumentException($"Vectorization state for content id [{request.Content.UniqueId}] could not be found.");
 
-            return _vectorizationStateDictionary[request.ContentId];
+            return _vectorizationStateDictionary[request.Content.UniqueId];
         }
 
         /// <inheritdoc/>

@@ -49,7 +49,7 @@ builder.Services.AddCors(policyBuilder =>
 // Add configurations to the container
 builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:WorkerSettings"));
-builder.Services.AddOptions<VectorizationStateServiceSettings>()
+builder.Services.AddOptions<BlobStorageVectorizationStateServiceSettings>()
     .Bind(builder.Configuration.GetSection("FoundationaLLM:Vectorization:StateServiceSettings"));
 
 builder.Services.AddSingleton(

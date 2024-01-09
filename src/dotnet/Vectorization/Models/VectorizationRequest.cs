@@ -17,11 +17,11 @@ namespace FoundationaLLM.Vectorization.Models
         public required string Id { get; set; }
 
         /// <summary>
-        /// The unique identifier of the content (i.e., document) being vectorized.
+        /// The <see cref="VectorizationRequestContent"/> object identifying the content being vectorized.
         /// </summary>
         [JsonPropertyOrder(1)]
-        [JsonPropertyName("content_id")]
-        public required string ContentId { get; set; }
+        [JsonPropertyName("content")]
+        public required VectorizationRequestContent Content { get; set; }
 
         /// <summary>
         /// The list of vectorization steps requested by the vectorization request.
@@ -93,5 +93,26 @@ namespace FoundationaLLM.Vectorization.Models
         /// <returns>An instances of the <see cref="VectorizationStep"/> class with the details required by the step handler.</returns>
         public VectorizationStep? this[string step] =>
             Steps.SingleOrDefault(s => s.Id == step);
+    }
+
+    /// <summary>
+    /// Represents the content associated with a vectorization request.
+    /// </summary>
+    public class VectorizationRequestContent
+    {
+        /// <summary>
+        /// The unique identifier of the content (i.e., document) being vectorized.
+        /// </summary>
+        [JsonPropertyOrder(1)]
+        [JsonPropertyName("unique_id")]
+        public required string UniqueId { get; set; }
+
+        /// <summary>
+        /// The canonical identifier of the content being vectorized.
+        /// Vectorization state services use it to derive the location of the state in the underlying storage.
+        /// </summary>
+        [JsonPropertyOrder(2)]
+        [JsonPropertyName("canonical_id")]
+        public required string CanonicalId { get; set; }
     }
 }

@@ -12,20 +12,18 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
     public class BlobStorageVectorizationStateService : IVectorizationStateService
     {
         private readonly BlobServiceClient _blobServiceClient;
-        private readonly string _containerName;
-        readonly VectorizationStateServiceSettings _settings;
+        private readonly BlobStorageVectorizationStateServiceSettings _settings;
 
-        public BlobStorageVectorizationStateService(string containerName, IOptions<VectorizationStateServiceSettings> options)
+        public BlobStorageVectorizationStateService(IOptions<BlobStorageVectorizationStateServiceSettings> options)
         {
             _settings = options.Value;
-            _blobServiceClient = new BlobServiceClient(_settings.BlobStorageConnection);
-            _containerName = containerName;
+            _blobServiceClient = new BlobServiceClient(_settings.ConnectionString);
         }
 
         /// <inheritdoc/>
         public async Task<bool> HasState(VectorizationRequest request)
         {
-            var blobClient = GetBlobClient(request.ContentId);
+            var blobClient = GetBlobClient(request.Content.UniqueId);
 
             return await blobClient.ExistsAsync();
         }
@@ -33,7 +31,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         /// <inheritdoc/>
         public async Task<VectorizationState> ReadState(VectorizationRequest request)
         {
-            var blobClient = GetBlobClient(request.ContentId);
+            var blobClient = GetBlobClient(request.Content.UniqueId);
 
             var response = await blobClient.DownloadAsync();
             using (var reader = new StreamReader(response.Value.Content))
@@ -56,7 +54,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
         private BlobClient GetBlobClient(string contentId)
         {
-            var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+            var containerClient = _blobServiceClient.GetBlobContainerClient(_settings.ContainerName);
             return containerClient.GetBlobClient(contentId);
         }
     }

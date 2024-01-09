@@ -80,7 +80,7 @@ namespace FoundationaLLM.Vectorization.Models
             new VectorizationState
             {
                 CurrentRequestId = request.Id,
-                ContentId = request.ContentId
+                ContentId = request.Content.UniqueId
             };
     }
 }
