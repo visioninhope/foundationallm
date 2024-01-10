@@ -725,6 +725,10 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_BlobStorageMemorySource = "FoundationaLLM:CoreAPI:BlobStorageMemorySource";
         /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:Steps app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_Steps = "FoundationaLLM:Vectorization:Steps";
+        /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:Queues app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_Queues = "FoundationaLLM:Vectorization:Queues";

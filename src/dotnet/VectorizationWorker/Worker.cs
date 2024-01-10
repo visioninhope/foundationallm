@@ -1,4 +1,5 @@
 ﻿
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.Options;
@@ -13,17 +14,17 @@ namespace FoundationaLLM.Vectorization.Worker
     /// </remarks>
     /// <param name="stateService">The <see cref="IVectorizationStateService"/> used to manage the vectorization state.</param>
     /// <param name="settings">The <see cref="VectorizationWorkerSettings"/> options holding the vectorization worker settings.</param>
-    /// <param name="queuesConfiguration">The <see cref="IConfigurationSection"/> containing the settings for the queues.</param>
+    /// <param name="configurationSections">The list of configuration sections required by the vectorization worker builder.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to create loggers in child objects.</param>
     public class Worker(
         IVectorizationStateService stateService,
         IOptions<VectorizationWorkerSettings> settings,
-        IConfigurationSection queuesConfiguration,
+        IEnumerable<IConfigurationSection> configurationSections,
         ILoggerFactory loggerFactory) : BackgroundService
     {
         private readonly IVectorizationStateService _stateService = stateService;
         private readonly VectorizationWorkerSettings _settings = settings.Value;
-        private readonly IConfigurationSection _queuesConfiguration = queuesConfiguration;
+        private readonly IEnumerable<IConfigurationSection> _configurationSections = configurationSections;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
@@ -32,7 +33,8 @@ namespace FoundationaLLM.Vectorization.Worker
             var vectorizationWorker = new VectorizationWorkerBuilder()
                 .WithStateService(_stateService)
                 .WithSettings(_settings)
-                .WithQueuesConfiguration(_queuesConfiguration)
+                .WithQueuesConfiguration(_configurationSections.Single(cs => cs.Path == AppConfigurationKeySections.FoundationaLLM_Vectorization_Queues))
+                .WithStepsConfiguration(_configurationSections.Single(cs => cs.Path == AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps))
                 .WithLoggerFactory(_loggerFactory)
                 .WithCancellationToken(stoppingToken)
                 .Build();

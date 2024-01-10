@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.Vectorization.Handlers
@@ -15,15 +16,20 @@ namespace FoundationaLLM.Vectorization.Handlers
         /// </summary>
         /// <param name="step">The identifier of the vectorization pipeline step for which the handler is created.</param>
         /// <param name="parameters">The parameters used to initialize the vectorization step handler.</param>
+        /// <param name="stepsConfiguration">The app configuration section containing the configuration for vectorization pipeline steps.</param>
         /// <param name="loggerFactory">The logger factory used to create loggers.</param>
         /// <returns>A class implementing <see cref="IVectorizationStepHandler"/>.</returns>
-        public static IVectorizationStepHandler Create(string step, Dictionary<string, string> parameters, ILoggerFactory loggerFactory) =>
+        public static IVectorizationStepHandler Create(
+            string step,
+            Dictionary<string, string> parameters,
+            IConfigurationSection? stepsConfiguration,
+            ILoggerFactory loggerFactory) =>
             step switch
             {
-                VectorizationSteps.Extract => new ExtractionHandler(parameters, loggerFactory.CreateLogger<ExtractionHandler>()),
-                VectorizationSteps.Partition => new PartitionHandler(parameters, loggerFactory.CreateLogger<PartitionHandler>()),
-                VectorizationSteps.Embed => new EmbeddingHandler(parameters, loggerFactory.CreateLogger<EmbeddingHandler>()),
-                VectorizationSteps.Index => new IndexingHandler(parameters, loggerFactory.CreateLogger<IndexingHandler>()),
+                VectorizationSteps.Extract => new ExtractionHandler(parameters, stepsConfiguration, loggerFactory.CreateLogger<ExtractionHandler>()),
+                VectorizationSteps.Partition => new PartitionHandler(parameters, stepsConfiguration, loggerFactory.CreateLogger<PartitionHandler>()),
+                VectorizationSteps.Embed => new EmbeddingHandler(parameters, stepsConfiguration, loggerFactory.CreateLogger<EmbeddingHandler>()),
+                VectorizationSteps.Index => new IndexingHandler(parameters, stepsConfiguration, loggerFactory.CreateLogger<IndexingHandler>()),
                 _ => throw new VectorizationException($"There is no handler available for the vectorization pipeline step [{step}]."),
             };
     }

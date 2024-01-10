@@ -4,17 +4,10 @@ using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.Vectorization
 {
-    public class VectorizationWorker
+    public class VectorizationWorker(
+        IEnumerable<IRequestManagerService> requestManagerServices)
     {
-        private readonly IEnumerable<IRequestManagerService> _requestManagerServices;
-
-        public VectorizationWorker(
-            IVectorizationStateService vectorizationStateService,
-            IDictionary<string, IRequestSourceService> requestSourceServices,
-            IEnumerable<IRequestManagerService> requestManagerServices,
-            ILogger<VectorizationWorker> logger,
-            CancellationToken cancellationToken) =>
-            _requestManagerServices = requestManagerServices;
+        private readonly IEnumerable<IRequestManagerService> _requestManagerServices = requestManagerServices;
 
         public async Task Run()
         {

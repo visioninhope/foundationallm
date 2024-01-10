@@ -54,8 +54,11 @@ builder.Services.AddOptions<BlobStorageVectorizationStateServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_StateServiceSettings));
 
 builder.Services.AddSingleton(
-    typeof(IConfigurationSection),
-    builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_Queues));
+    typeof(IEnumerable<IConfigurationSection>),
+    new IConfigurationSection[] {
+        builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_Queues),
+        builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps)
+    });
 
 // Add services to the container.
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();

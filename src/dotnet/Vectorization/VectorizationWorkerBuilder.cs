@@ -22,6 +22,7 @@ namespace FoundationaLLM.Vectorization
         private IVectorizationStateService? _stateService;
         private CancellationToken _cancellationToken = default;
         private ILoggerFactory? _loggerFactory;
+        private IConfigurationSection? _stepsConfiguration;
 
         private readonly RequestSourcesBuilder _requestSourcesBuilder = new();
 
@@ -55,16 +56,13 @@ namespace FoundationaLLM.Vectorization
                     rm,
                     requestSourceServices,
                     _stateService,
+                    _stepsConfiguration,
                     _loggerFactory,
                     _cancellationToken))
                 .ToList();
 
             var vectorizationWorker = new VectorizationWorker(
-                _stateService,
-                requestSourceServices,
-                requestManagerServices,
-                _loggerFactory!.CreateLogger<VectorizationWorker>(),
-                _cancellationToken);
+                requestManagerServices);
 
             return vectorizationWorker;
         }
@@ -128,6 +126,17 @@ namespace FoundationaLLM.Vectorization
         public VectorizationWorkerBuilder WithQueuesConfiguration(IConfigurationSection queuesConfiguration)
         {
             _requestSourcesBuilder.WithQueuesConfiguration(queuesConfiguration);
+            return this;
+        }
+
+        /// <summary>
+        /// Specifies the configuration section containing settings for the content sources used by the request managers.
+        /// </summary>
+        /// <param name="stepsConfiguration">The <see cref="IConfigurationSection"/> object providing access to the settings.</param>
+        /// <returns>The updated instance of the builder.</returns>
+        public VectorizationWorkerBuilder WithStepsConfiguration(IConfigurationSection stepsConfiguration)
+        {
+            _stepsConfiguration = stepsConfiguration;
             return this;
         }
 
