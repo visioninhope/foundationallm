@@ -158,7 +158,7 @@ namespace FoundationaLLM.Gatekeeper.API
                     }
                 });
 
-            bool.TryParse(builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.GatekeeperAPI}:ForceHttpsRedirection"], out var forceHttpsRedirection);
+            _ = bool.TryParse(builder.Configuration[$"FoundationaLLM:APIs:{HttpClients.GatekeeperAPI}:ForceHttpsRedirection"], out var forceHttpsRedirection);
             if (forceHttpsRedirection)
             {
                 app.UseHttpsRedirection();
@@ -180,7 +180,7 @@ namespace FoundationaLLM.Gatekeeper.API
         {
             var downstreamAPISettings = new DownstreamAPISettings
             {
-                DownstreamAPIs = new Dictionary<string, DownstreamAPIKeySettings>()
+                DownstreamAPIs = []
             };
 
             var agentFactoryAPISettings = new DownstreamAPIKeySettings
