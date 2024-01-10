@@ -91,7 +91,7 @@
 
   <h1 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService" class="text-break">
     Class BlobStorageVectorizationStateService
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L8"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -103,7 +103,7 @@
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class BlobStorageVectorizationStateService : IVectorizationStateService</code></pre>
+    <pre><code class="lang-csharp hljs">public class BlobStorageVectorizationStateService : VectorizationStateServiceBase, IVectorizationStateService</code></pre>
   </div>
 
 
@@ -113,6 +113,7 @@
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html">VectorizationStateServiceBase</a></div>
       <div><span class="xref">BlobStorageVectorizationStateService</span></div>
     </dd>
   </dl>
@@ -128,6 +129,9 @@
   <dl class="typelist derived">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashContentIdentifier_FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_">VectorizationStateServiceBase.HashContentIdentifier(VectorizationContentIdentifier)</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -169,18 +173,23 @@
 
   <a id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService__ctor_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService__ctor" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor">
-  BlobStorageVectorizationStateService()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_BlobStorageVectorizationStateServiceSettings__" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings})">
+  BlobStorageVectorizationStateService(IOptions&lt;BlobStorageVectorizationStateServiceSettings&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BlobStorageVectorizationStateService()</code></pre>
+    <pre><code class="lang-csharp hljs">public BlobStorageVectorizationStateService(IOptions&lt;BlobStorageVectorizationStateServiceSettings&gt; options)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings.html">BlobStorageVectorizationStateServiceSettings</a>&gt;</dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -197,25 +206,100 @@
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_ReadState_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.ReadState*"></a>
+  <a id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_GetPersistenceIdentifier_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.GetPersistenceIdentifier*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_ReadState_System_String_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.ReadState(System.String)">
-  ReadState(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_GetPersistenceIdentifier_FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)">
+  GetPersistenceIdentifier(VectorizationContentIdentifier)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Reads a the content of a specified vectorization requests.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;VectorizationState&gt; ReadState(string id)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The identifier of the vectorization request.</p>
+    <dt><code>contentIdentifier</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html">VectorizationContentIdentifier</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_HasState_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.HasState*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_HasState_FoundationaLLM_Vectorization_Models_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.HasState(FoundationaLLM.Vectorization.Models.VectorizationRequest)">
+  HasState(VectorizationRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Checks if a vectorization request has a persisted vectorization state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; HasState(VectorizationRequest request)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> object.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p>True if a persisted state was found.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_ReadState_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.ReadState*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_ReadState_FoundationaLLM_Vectorization_Models_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.ReadState(FoundationaLLM.Vectorization.Models.VectorizationRequest)">
+  ReadState(VectorizationRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reads the state associated with a vectorization request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;VectorizationState&gt; ReadState(VectorizationRequest request)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> object..</p>
 </dd>
   </dl>
 
@@ -240,7 +324,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_SaveState_FoundationaLLM_Vectorization_Models_VectorizationState_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.SaveState(FoundationaLLM.Vectorization.Models.VectorizationState)">
   SaveState(VectorizationState)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L43"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Saves a specified vectorization state.</p>
@@ -278,7 +362,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class StatusController
+      <title>Class VectorizationRequestController
  | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class StatusController
+      <meta name="title" content="Class VectorizationRequestController
  | FoundationaLLM ">
       
       <link rel="icon" href="../../media/favicon.ico">
@@ -17,7 +17,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_API_Controllers_StatusController.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.API.Controllers.StatusController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,13 +85,13 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Vectorization.API.Controllers.StatusController">
+        <article data-uid="FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController">
 
 
 
-  <h1 id="FoundationaLLM_Vectorization_API_Controllers_StatusController" data-uid="FoundationaLLM.Vectorization.API.Controllers.StatusController" class="text-break">
-    Class StatusController
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationAPI/Controllers/StatusController.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController" data-uid="FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController" class="text-break">
+    Class VectorizationRequestController
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationAPI/Controllers/VectorizationRequestController.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -99,15 +99,16 @@
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.API.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides methods for checking the status of the service.</p>
+  <div class="markdown summary"><p>Methods for managing vectorization requests.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[ApiVersion(1, null)]
 [ApiController]
+[APIKeyAuthentication]
 [Route(&quot;[controller]&quot;)]
-public class StatusController : ControllerBase</code></pre>
+public class VectorizationRequestController : ControllerBase</code></pre>
   </div>
 
 
@@ -118,7 +119,7 @@ public class StatusController : ControllerBase</code></pre>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controllerbase">ControllerBase</a></div>
-      <div><span class="xref">StatusController</span></div>
+      <div><span class="xref">VectorizationRequestController</span></div>
     </dd>
   </dl>
 
@@ -679,32 +680,33 @@ public class StatusController : ControllerBase</code></pre>
 
 
 
+  <h2 id="FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Constructor for the vectorization request controller.</p>
+</div>
 
 
-  <h2 class="section" id="methods">Methods
+  <h2 class="section" id="constructors">Constructors
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_API_Controllers_StatusController_Get_" data-uid="FoundationaLLM.Vectorization.API.Controllers.StatusController.Get*"></a>
+  <a id="FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController__ctor_" data-uid="FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_API_Controllers_StatusController_Get" data-uid="FoundationaLLM.Vectorization.API.Controllers.StatusController.Get">
-  Get()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationAPI/Controllers/StatusController.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationService_" data-uid="FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationService)">
+  VectorizationRequestController(IVectorizationService)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationAPI/Controllers/VectorizationRequestController.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Returns the status of the Vectorization API service.</p>
+  <div class="markdown level1 summary"><p>Methods for managing vectorization requests.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpGet(Name = &quot;GetServiceStatus&quot;)]
-public IActionResult Get()</code></pre>
+    <pre><code class="lang-csharp hljs">public VectorizationRequestController(IVectorizationService vectorizationService)</code></pre>
   </div>
 
-
-  <h4 class="section">Returns</h4>
+  <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a></dt>
+    <dt><code>vectorizationService</code> <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IVectorizationService.html">IVectorizationService</a></dt>
     <dd></dd>
   </dl>
 
@@ -715,29 +717,42 @@ public IActionResult Get()</code></pre>
 
 
 
+  <h4 class="section" id="FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationService__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Constructor for the vectorization request controller.</p>
+</div>
 
 
 
-  <a id="FoundationaLLM_Vectorization_API_Controllers_StatusController_Options_" data-uid="FoundationaLLM.Vectorization.API.Controllers.StatusController.Options*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_API_Controllers_StatusController_Options" data-uid="FoundationaLLM.Vectorization.API.Controllers.StatusController.Options">
-  Options()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationAPI/Controllers/StatusController.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController_ProcessRequest_" data-uid="FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.ProcessRequest*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest)">
+  ProcessRequest(VectorizationRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationAPI/Controllers/VectorizationRequestController.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Returns the allowed HTTP methods for the Vectorization API service.</p>
+  <div class="markdown level1 summary"><p>Handles an incoming vectorization request by starting a new vectorization pipeline.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpOptions]
-public IActionResult Options()</code></pre>
+    <pre><code class="lang-csharp hljs">[HttpPost]
+public Task ProcessRequest(VectorizationRequest vectorizationRequest)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>vectorizationRequest</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a></dt>
+    <dd></dd>
+  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
     <dd></dd>
   </dl>
 
@@ -755,7 +770,7 @@ public IActionResult Options()</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationAPI/Controllers/StatusController.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationAPI/Controllers/VectorizationRequestController.cs/#L16" class="edit-link">Edit this page</a>
         </div>
 
 

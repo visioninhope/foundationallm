@@ -91,7 +91,7 @@
 
   <h1 id="FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService" data-uid="FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService" class="text-break">
     Class MemoryRequestSourceService
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -99,7 +99,8 @@
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Implements an in-memory request source, suitable for testing and quick prototyping.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -169,24 +170,27 @@
 
   <a id="FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService__ctor_" data-uid="FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService__ctor_System_String_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService__" data-uid="FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService.#ctor(System.String,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService})">
-  MemoryRequestSourceService(string, ILogger&lt;MemoryRequestSourceService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService__ctor_FoundationaLLM_Vectorization_Models_Configuration_RequestSourceServiceSettings_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService__" data-uid="FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService.#ctor(FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService})">
+  MemoryRequestSourceService(RequestSourceServiceSettings, ILogger&lt;MemoryRequestSourceService&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Implements an in-memory request source, suitable for testing and quick prototyping.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MemoryRequestSourceService(string sourceName, ILogger&lt;MemoryRequestSourceService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public MemoryRequestSourceService(RequestSourceServiceSettings settings, ILogger&lt;MemoryRequestSourceService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>sourceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dt><code>settings</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.html">RequestSourceServiceSettings</a></dt>
+    <dd><p>The settings used to initialize the request source.</p>
+</dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService.html">MemoryRequestSourceService</a>&gt;</dt>
-    <dd></dd>
+    <dd><p>The logger instnce used for logging.</p>
+</dd>
   </dl>
 
 
@@ -208,7 +212,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService_SourceName" data-uid="FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService.SourceName">
   SourceName
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the vectorization request source.</p>
@@ -242,9 +246,9 @@
 
   <a id="FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService_DeleteRequest_" data-uid="FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService.DeleteRequest*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService_DeleteRequest_System_String_" data-uid="FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService.DeleteRequest(System.String)">
-  DeleteRequest(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService_DeleteRequest_System_String_System_String_" data-uid="FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService.DeleteRequest(System.String,System.String)">
+  DeleteRequest(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes a specified vectorization request from the source.
@@ -253,13 +257,16 @@ This should happen when the request was successfully processed.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task DeleteRequest(string requestId)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task DeleteRequest(string requestId, string popReceipt)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>requestId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The identifier of the request being removed.</p>
+</dd>
+    <dt><code>popReceipt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>This value is required to delete the request.</p>
 </dd>
   </dl>
 
@@ -321,12 +328,12 @@ This should happen when the request was successfully processed.</p>
 
   <div class="markdown level1 summary"><p>Receives the specified number of requests.
 The received requests will be invisible for other clients for a default timeout of 30 seconds.
-They should be removed from the source by calling <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IRequestSourceService.html#FoundationaLLM_Vectorization_Interfaces_IRequestSourceService_DeleteRequest_System_String_">DeleteRequest(string)</a> before the timeout expires.</p>
+They should be removed from the source by calling DeleteRequest(string) before the timeout expires.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;IEnumerable&lt;VectorizationRequest&gt;&gt; ReceiveRequests(int count)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;IEnumerable&lt;(VectorizationRequest Request, string MessageId, string PopReceipt)&gt;&gt; ReceiveRequests(int count)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -338,8 +345,9 @@ They should be removed from the source by calling <a class="xref" href="Foundati
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a>&gt;&gt;</dt>
-    <dd><p>A collection of <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> items.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;(<a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.models.vectorizationrequest,system.string,system.string-.request">Request</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.models.vectorizationrequest,system.string,system.string-.messageid">MessageId</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.models.vectorizationrequest,system.string,system.string-.popreceipt">PopReceipt</a>)&gt;&gt;</dt>
+    <dd><p>A collection of tuples containg a <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> object, a message id and a pop receipt.
+The message id and pop receipt will be used to delete the message from the request source after it has been processed.</p>
 </dd>
   </dl>
 
@@ -357,7 +365,7 @@ They should be removed from the source by calling <a class="xref" href="Foundati
 
   <h3 id="FoundationaLLM_Vectorization_Services_RequestSources_MemoryRequestSourceService_SubmitRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService.SubmitRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest)">
   SubmitRequest(VectorizationRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L54"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Submits a new vectorization request to the source.</p>
@@ -395,7 +403,7 @@ They should be removed from the source by calling <a class="xref" href="Foundati
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestSources/MemoryRequestSourceService.cs/#L17" class="edit-link">Edit this page</a>
         </div>
 
 

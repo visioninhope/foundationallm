@@ -130,25 +130,64 @@
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_ReadState_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.ReadState*"></a>
+  <a id="FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_HasState_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.HasState*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_ReadState_System_String_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.ReadState(System.String)">
-  ReadState(string)
+  <h3 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_HasState_FoundationaLLM_Vectorization_Models_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.HasState(FoundationaLLM.Vectorization.Models.VectorizationRequest)">
+  HasState(VectorizationRequest)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationStateService.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Reads a the content of a specified vectorization requests.</p>
+  <div class="markdown level1 summary"><p>Checks if a vectorization request has a persisted vectorization state.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;VectorizationState&gt; ReadState(string id)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; HasState(VectorizationRequest request)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The identifier of the vectorization request.</p>
+    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> object.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p>True if a persisted state was found.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_ReadState_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.ReadState*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_ReadState_FoundationaLLM_Vectorization_Models_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.ReadState(FoundationaLLM.Vectorization.Models.VectorizationRequest)">
+  ReadState(VectorizationRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationStateService.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reads the state associated with a vectorization request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;VectorizationState&gt; ReadState(VectorizationRequest request)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> object..</p>
 </dd>
   </dl>
 
@@ -173,7 +212,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_SaveState_FoundationaLLM_Vectorization_Models_VectorizationState_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.SaveState(FoundationaLLM.Vectorization.Models.VectorizationState)">
   SaveState(VectorizationState)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationStateService.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationStateService.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Saves a specified vectorization state.</p>

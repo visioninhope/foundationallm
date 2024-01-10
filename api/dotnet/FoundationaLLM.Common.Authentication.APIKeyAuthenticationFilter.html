@@ -91,7 +91,7 @@
 
   <h1 id="FoundationaLLM_Common_Authentication_APIKeyAuthenticationFilter" data-uid="FoundationaLLM.Common.Authentication.APIKeyAuthenticationFilter" class="text-break">
     Class APIKeyAuthenticationFilter
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/APIKeyAuthenticationFilter.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/APIKeyAuthenticationFilter.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -163,6 +163,9 @@
 
 
 
+  <h2 id="FoundationaLLM_Common_Authentication_APIKeyAuthenticationFilter_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Initializes a new instance of the APIKeyAuthenticationFilter class.</p>
+</div>
 
 
   <h2 class="section" id="constructors">Constructors
@@ -173,10 +176,10 @@
 
   <h3 id="FoundationaLLM_Common_Authentication_APIKeyAuthenticationFilter__ctor_FoundationaLLM_Common_Interfaces_IAPIKeyValidationService_" data-uid="FoundationaLLM.Common.Authentication.APIKeyAuthenticationFilter.#ctor(FoundationaLLM.Common.Interfaces.IAPIKeyValidationService)">
   APIKeyAuthenticationFilter(IAPIKeyValidationService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/APIKeyAuthenticationFilter.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/APIKeyAuthenticationFilter.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of the APIKeyAuthenticationFilter class.</p>
+  <div class="markdown level1 summary"><p>Auth filter for X-API-Key header validation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -197,6 +200,9 @@
 
 
 
+  <h4 class="section" id="FoundationaLLM_Common_Authentication_APIKeyAuthenticationFilter__ctor_FoundationaLLM_Common_Interfaces_IAPIKeyValidationService__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Initializes a new instance of the APIKeyAuthenticationFilter class.</p>
+</div>
 
 
 
@@ -209,7 +215,7 @@
 
   <h3 id="FoundationaLLM_Common_Authentication_APIKeyAuthenticationFilter_OnAuthorization_Microsoft_AspNetCore_Mvc_Filters_AuthorizationFilterContext_" data-uid="FoundationaLLM.Common.Authentication.APIKeyAuthenticationFilter.OnAuthorization(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
   OnAuthorization(AuthorizationFilterContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/APIKeyAuthenticationFilter.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/APIKeyAuthenticationFilter.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Override for default OnAuthorization step to set UnauthorizedObjectResult on the context if the required header is missing or invalid.</p>
@@ -242,7 +248,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/APIKeyAuthenticationFilter.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/APIKeyAuthenticationFilter.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
 

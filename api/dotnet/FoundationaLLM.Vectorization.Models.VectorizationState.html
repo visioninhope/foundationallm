@@ -163,21 +163,21 @@ for a specified content item (i.e., document).</p>
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Models_VectorizationState_ContentId_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.ContentId*"></a>
+  <a id="FoundationaLLM_Vectorization_Models_VectorizationState_ContentIdentifier_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.ContentIdentifier*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_ContentId" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.ContentId">
-  ContentId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_ContentIdentifier" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.ContentIdentifier">
+  ContentIdentifier
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The unique identifier of the content (i.e., document) being vectorized.</p>
+  <div class="markdown level1 summary"><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html">VectorizationContentIdentifier</a> object identifying the content being vectorized.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPropertyOrder(1)]
-[JsonPropertyName(&quot;content_id&quot;)]
-public required string ContentId { get; set; }</code></pre>
+[JsonPropertyName(&quot;content_identifier&quot;)]
+public required VectorizationContentIdentifier ContentIdentifier { get; set; }</code></pre>
   </div>
 
 
@@ -186,7 +186,7 @@ public required string ContentId { get; set; }</code></pre>
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html">VectorizationContentIdentifier</a></dt>
     <dd></dd>
   </dl>
 
@@ -201,7 +201,7 @@ public required string ContentId { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_CurrentRequestId" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.CurrentRequestId">
   CurrentRequestId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The unique identifier of the current vectorization request. Subsequent vectorization requests
@@ -269,6 +269,45 @@ public List&lt;VectorizationLogEntry&gt; LogEntries { get; set; }</code></pre>
 
   <h2 class="section" id="methods">Methods
 </h2>
+
+
+  <a id="FoundationaLLM_Vectorization_Models_VectorizationState_FromRequest_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.FromRequest*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_FromRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.FromRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest)">
+  FromRequest(VectorizationRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L84"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationState.html">VectorizationState</a> instance based on a specified vectorization request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VectorizationState FromRequest(VectorizationRequest request)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> instance for which the state is created.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationState.html">VectorizationState</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationState.html">VectorizationState</a> created from the request.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="FoundationaLLM_Vectorization_Models_VectorizationState_Log_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.Log*"></a>
