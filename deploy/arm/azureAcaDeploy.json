@@ -427,7 +427,7 @@
         },
         {
           "key": "FoundationaLLM:Management:Entra:Scopes",
-          "value": "api://FoundationaLLM-Auth/Data.Read",
+          "value": "api://FoundationaLLM-Management-Auth/Data.Manage",
           "contentType": null
         },
         {
@@ -537,7 +537,7 @@
         },
         {
           "key": "FoundationaLLM:ManagementAPI:Entra:Scopes",
-          "value": "Data.Read",
+          "value": "Data.Manage",
           "contentType": null
         },
         {
