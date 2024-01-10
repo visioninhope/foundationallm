@@ -4,6 +4,9 @@ using FoundationaLLM.Vectorization.Models;
 
 namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 {
+    /// <summary>
+    /// Provides in-memory vectorization state persistence.
+    /// </summary>
     public class MemoryVectorizationStateService : VectorizationStateServiceBase, IVectorizationStateService
     {
         private readonly Dictionary<string, VectorizationState> _vectorizationStateDictionary = [];
@@ -41,6 +44,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                 _vectorizationStateDictionary[id] = state;
         }
 
+        /// <inheritdoc/>
         protected override string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier) =>
             $"{contentIdentifier.CanonicalId}_state_{HashContentIdentifier(contentIdentifier)}";
     }

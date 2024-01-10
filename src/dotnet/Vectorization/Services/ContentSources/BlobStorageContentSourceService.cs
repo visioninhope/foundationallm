@@ -4,8 +4,14 @@ using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
+    /// <summary>
+    /// Implements a vectorization content source for content residing in blob storage.
+    /// </summary>
     public class BlobStorageContentSourceService : ContentSourceServiceBase, IContentSourceService
     {
+        /// <summary>
+        /// Creates a new instance of the vectorization content source.
+        /// </summary>
         public BlobStorageContentSourceService()
         {
         }
