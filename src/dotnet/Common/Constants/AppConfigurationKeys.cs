@@ -130,6 +130,15 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_APIs_LangChainAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:APIs:ManagementAPI:APIUrl app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_ManagementAPI_APIUrl = "FoundationaLLM:APIs:ManagementAPI:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:ManagementAPI:AppInsightsConnectionString app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:ManagementAPI:AppInsightsConnectionString";
+        /// <summary>
         /// The key for the FoundationaLLM:APIs:PromptHubAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>
@@ -488,6 +497,52 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_LangChainAPI_Key = "FoundationaLLM:LangChainAPI:Key";
         /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:CallbackPath app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_CallbackPath = "FoundationaLLM:Management:Entra:CallbackPath";
+        /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:ClientId app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_ClientId = "FoundationaLLM:Management:Entra:ClientId";
+        /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:ClientSecret app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_ClientSecret = "FoundationaLLM:Management:Entra:ClientSecret";
+        /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:Instance app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_Instance = "FoundationaLLM:Management:Entra:Instance";
+        /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:Scopes app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_Scopes = "FoundationaLLM:Management:Entra:Scopes";
+        /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:TenantId app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_TenantId = "FoundationaLLM:Management:Entra:TenantId";
+        /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:ClientId app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_ClientId = "FoundationaLLM:ManagementAPI:Entra:ClientId";
+        /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:ClientSecret app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_ClientSecret = "FoundationaLLM:ManagementAPI:Entra:ClientSecret";
+        /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:Instance app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_Instance = "FoundationaLLM:ManagementAPI:Entra:Instance";
+        /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:Scopes app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_Scopes = "FoundationaLLM:ManagementAPI:Entra:Scopes";
+        /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:TenantId app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_TenantId = "FoundationaLLM:ManagementAPI:Entra:TenantId";
+        /// <summary>
         /// The key for the FoundationaLLM:OpenAI:API:Endpoint app configuration setting.
         /// </summary>
         public const string FoundationaLLM_OpenAI_API_Endpoint = "FoundationaLLM:OpenAI:API:Endpoint";
@@ -723,7 +778,7 @@ namespace FoundationaLLM.Common.Constants
         /// <summary>
         /// The key section for the FoundationaLLM:BlobStorageMemorySource app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_BlobStorageMemorySource = "FoundationaLLM:CoreAPI:BlobStorageMemorySource";
+        public const string FoundationaLLM_BlobStorageMemorySource = "FoundationaLLM:BlobStorageMemorySource";
         /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:Queues app configuration settings.
         /// </summary>
