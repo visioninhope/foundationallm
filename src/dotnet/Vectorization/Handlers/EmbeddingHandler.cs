@@ -1,15 +1,19 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Vectorization.Models;
+using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
-    public class EmbeddingHandler : VectorizationStepHandlerBase
+    /// <summary>
+    /// Handles the embedding stage of the vectorization pipeline.
+    /// </summary>
+    /// <param name="parameters">The dictionary of named parameters used to configure the handler.</param>
+    /// <param name="logger">The logger used for logging.</param>
+    public class EmbeddingHandler(
+        Dictionary<string, string> parameters,
+        ILogger<EmbeddingHandler> logger) : VectorizationStepHandlerBase(VectorizationSteps.Embed, parameters, logger)
     {
-        public EmbeddingHandler(
-            Dictionary<string, string> parameters) : base(VectorizationSteps.Embed, parameters)
-        {
-        }
-
+        /// <inheritdoc/>
         protected override async Task ProcessRequest(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
         {
             await Task.Delay(TimeSpan.FromSeconds(10));

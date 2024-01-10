@@ -17,7 +17,8 @@ namespace FoundationaLLM.Vectorization.Services
         private readonly Dictionary<string, IRequestSourceService> _requestSourceServices;
         private readonly IRequestSourceService _incomingRequestSourceService;
         private readonly IVectorizationStateService _vectorizationStateService;
-        private readonly ILogger _logger;
+        private readonly ILogger<RequestManagerService> _logger;
+        private readonly ILoggerFactory _loggerFactory;
         private readonly CancellationToken _cancellationToken;
         private readonly TaskPool _taskPool;
 
@@ -28,21 +29,22 @@ namespace FoundationaLLM.Vectorization.Services
         /// <param name="settings">The configuration settings used to initialize the instance.</param>
         /// <param name="requestSourceServices">The dictionary with all the request source services registered in the vectorization platform.</param>
         /// <param name="vectorizationStateService">The service providing vectorization state management.</param>
-        /// <param name="logger">The logger service.</param>
+        /// <param name="loggerFactory">The logger factory used to create loggers.</param>
         /// <param name="cancellationToken">The cancellation token that can be used to cancel the work.</param>
         /// <exception cref="VectorizationException">The exception thrown when the initialization of the instance fails.</exception>
         public RequestManagerService(
             RequestManagerServiceSettings settings,
             Dictionary<string, IRequestSourceService> requestSourceServices,
             IVectorizationStateService vectorizationStateService,
-            ILogger<RequestManagerService> logger,
+            ILoggerFactory loggerFactory,
             CancellationToken cancellationToken)
         {
             _settings = settings;
             _requestSourceServices = requestSourceServices;
             _vectorizationStateService = vectorizationStateService;
 
-            _logger = logger;
+            _loggerFactory = loggerFactory;
+            _logger = _loggerFactory.CreateLogger<RequestManagerService>();
             _cancellationToken = cancellationToken;
 
             if (!_requestSourceServices.TryGetValue(_settings.RequestSourceName, out IRequestSourceService? value) || value == null)
@@ -114,7 +116,10 @@ namespace FoundationaLLM.Vectorization.Services
                 ? await _vectorizationStateService.ReadState(request)
                 : VectorizationState.FromRequest(request);
 
-            var stepHandler = VectorizationStepHandlerFactory.Create(_settings.RequestSourceName, request[_settings.RequestSourceName]!.Parameters);
+            var stepHandler = VectorizationStepHandlerFactory.Create(
+                _settings.RequestSourceName,
+                request[_settings.RequestSourceName]!.Parameters,
+                _loggerFactory);
             await stepHandler.Invoke(request, state, _cancellationToken);
 
             await _vectorizationStateService.SaveState(state);

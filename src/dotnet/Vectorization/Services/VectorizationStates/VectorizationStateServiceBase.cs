@@ -8,10 +8,23 @@ using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 {
+    /// <summary>
+    /// Provides base services for the vectorization state services.
+    /// </summary>
     public abstract class VectorizationStateServiceBase
     {
+        /// <summary>
+        /// Gets the location of the vectorization state based on the content identifier.
+        /// </summary>
+        /// <param name="contentIdentifier">The <see cref="VectorizationContentIdentifier"/> holding the content identification information.</param>
+        /// <returns></returns>
         protected abstract string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier);
 
+        /// <summary>
+        /// Computes the MD5 hash of the content identifier.
+        /// </summary>
+        /// <param name="contentIdentifier">The <see cref="VectorizationContentIdentifier"/> holding the content identification information.</param>
+        /// <returns></returns>
         protected static string HashContentIdentifier(VectorizationContentIdentifier contentIdentifier)
         {
             var byteHash = MD5.HashData(

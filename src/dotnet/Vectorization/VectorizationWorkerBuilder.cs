@@ -55,7 +55,7 @@ namespace FoundationaLLM.Vectorization
                     rm,
                     requestSourceServices,
                     _stateService,
-                    _loggerFactory!.CreateLogger<RequestManagerService>(),
+                    _loggerFactory,
                     _cancellationToken))
                 .ToList();
 

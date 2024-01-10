@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <AssemblyName>FoundationaLLM.Vectorization</AssemblyName>
     <RootNamespace>FoundationaLLM.Vectorization</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <ItemGroup>
