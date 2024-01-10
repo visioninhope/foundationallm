@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -129,6 +130,15 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_APIs_LangChainAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:APIs:ManagementAPI:APIUrl app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_ManagementAPI_APIUrl = "FoundationaLLM:APIs:ManagementAPI:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:ManagementAPI:AppInsightsConnectionString app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:ManagementAPI:AppInsightsConnectionString";
+        /// <summary>
         /// The key for the FoundationaLLM:APIs:PromptHubAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>
@@ -156,6 +166,21 @@ namespace FoundationaLLM.Common.Constants
         /// This is a Key Vault reference.
         /// </summary>
         public const string FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString";
+        /// <summary>
+        /// The  key for the FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:AppConfig:ConnectionString app configuration setting.
+        /// This is Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_AppConfig_ConnectionString = "FoundationaLLM:AppConfig:ConnectionString";
         /// <summary>
         /// The key for the FoundationaLLM:AzureContentSafety:APIKey app configuration setting.
         /// This is a Key Vault reference.
@@ -472,6 +497,52 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_LangChainAPI_Key = "FoundationaLLM:LangChainAPI:Key";
         /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:CallbackPath app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_CallbackPath = "FoundationaLLM:Management:Entra:CallbackPath";
+        /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:ClientId app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_ClientId = "FoundationaLLM:Management:Entra:ClientId";
+        /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:ClientSecret app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_ClientSecret = "FoundationaLLM:Management:Entra:ClientSecret";
+        /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:Instance app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_Instance = "FoundationaLLM:Management:Entra:Instance";
+        /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:Scopes app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_Scopes = "FoundationaLLM:Management:Entra:Scopes";
+        /// <summary>
+        /// The key for the FoundationaLLM:Management:Entra:TenantId app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra_TenantId = "FoundationaLLM:Management:Entra:TenantId";
+        /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:ClientId app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_ClientId = "FoundationaLLM:ManagementAPI:Entra:ClientId";
+        /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:ClientSecret app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_ClientSecret = "FoundationaLLM:ManagementAPI:Entra:ClientSecret";
+        /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:Instance app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_Instance = "FoundationaLLM:ManagementAPI:Entra:Instance";
+        /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:Scopes app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_Scopes = "FoundationaLLM:ManagementAPI:Entra:Scopes";
+        /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:TenantId app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_TenantId = "FoundationaLLM:ManagementAPI:Entra:TenantId";
+        /// <summary>
         /// The key for the FoundationaLLM:OpenAI:API:Endpoint app configuration setting.
         /// </summary>
         public const string FoundationaLLM_OpenAI_API_Endpoint = "FoundationaLLM:OpenAI:API:Endpoint";
@@ -578,6 +649,14 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_APIs = "FoundationaLLM:APIs:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:APIs:VectorizationAPI:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationAPI = "FoundationaLLM:APIs:VectorizationAPI:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:APIs:VectorizationWorker:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationWorker = "FoundationaLLM:APIs:VectorizationWorker:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:CosmosDB:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_CosmosDB = "FoundationaLLM:CosmosDB:*";
@@ -665,6 +744,14 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration = "FoundationaLLM:APIs:GatekeeperAPI:Configuration";
         /// <summary>
+        /// The key section for the FoundationaLLM:APIs:VectorizationAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationAPI = "FoundationaLLM:APIs:VectorizationAPI";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:VectorizationWorker app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationWorker = "FoundationaLLM:APIs:VectorizationWorker";
+        /// <summary>
         /// The key section for the FoundationaLLM:AgentFactory app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AgentFactory = "FoundationaLLM:AgentFactory";
@@ -691,7 +778,15 @@ namespace FoundationaLLM.Common.Constants
         /// <summary>
         /// The key section for the FoundationaLLM:BlobStorageMemorySource app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_BlobStorageMemorySource = "FoundationaLLM:CoreAPI:BlobStorageMemorySource";
+        public const string FoundationaLLM_BlobStorageMemorySource = "FoundationaLLM:BlobStorageMemorySource";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:Queues app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_Queues = "FoundationaLLM:Vectorization:Queues";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:StateServiceSettings app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_StateServiceSettings = "FoundationaLLM:Vectorization:StateServiceSettings";
         /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:WorkerSettings app configuration settings.
         /// </summary>
