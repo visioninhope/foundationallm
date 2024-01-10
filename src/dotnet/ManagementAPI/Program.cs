@@ -38,7 +38,7 @@ namespace FoundationaLLM.Management.API
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
+                options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options => { options.SetCredential(new DefaultAzureCredential()); });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
@@ -67,7 +67,7 @@ namespace FoundationaLLM.Management.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Branding));
             builder.Services.AddOptions<AppConfigurationSettings>()
                 .Configure(o =>
-                    o.ConnectionString = builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
+                    o.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]!);
 
             builder.Services.AddScoped<IConfigurationManagementService, ConfigurationManagementService>();
 
@@ -80,7 +80,7 @@ namespace FoundationaLLM.Management.API
 
             builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
             {
-                ConnectionString = builder.Configuration["FoundationaLLM:APIs:ManagementAPI:AppInsightsConnectionString"],
+                ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString],
                 DeveloperMode = builder.Environment.IsDevelopment()
             });
             //builder.Services.AddServiceProfiler();
@@ -173,10 +173,10 @@ namespace FoundationaLLM.Management.API
                     identityOptions =>
                     {
                         identityOptions.ClientSecret =
-                            builder.Configuration["FoundationaLLM:ManagementAPI:Entra:ClientSecret"];
-                        identityOptions.Instance = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:Instance"] ?? "";
-                        identityOptions.TenantId = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:TenantId"];
-                        identityOptions.ClientId = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:ClientId"];
+                            builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientSecret];
+                        identityOptions.Instance = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Instance] ?? "";
+                        identityOptions.TenantId = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_TenantId];
+                        identityOptions.ClientId = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId];
                     });
             //.EnableTokenAcquisitionToCallDownstreamApi()
             //.AddInMemoryTokenCaches();
@@ -185,7 +185,7 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddScoped<IUserClaimsProviderService, EntraUserClaimsProviderService>();
 
             // Configure the scope used by the API controllers:
-            var requiredScope = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:Scopes"] ?? "";
+            var requiredScope = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes] ?? "";
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequiredScope", policyBuilder =>
