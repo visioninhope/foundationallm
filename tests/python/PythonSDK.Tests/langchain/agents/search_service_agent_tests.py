@@ -45,8 +45,8 @@ def test_sotu_completion_request():
          embedding_model = EmbeddingModel(
             type = LanguageModelType.OPENAI,
             provider = LanguageModelProvider.MICROSOFT,
-            deployment = 'embeddings',
-            model = 'text-embedding-ada-002',
+            deployment = 'FoundationaLLM:AzureOpenAI:API:Embeddings:DeploymentName',
+            model = 'FoundationaLLM:AzureOpenAI:API:Embeddings:ModelName',
             chunk_size = 10
         ), 
         message_history=[]
