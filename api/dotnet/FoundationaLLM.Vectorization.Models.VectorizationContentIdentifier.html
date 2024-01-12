@@ -166,7 +166,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_CanonicalId" data-uid="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.CanonicalId">
   CanonicalId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationContentIdentifier.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationContentIdentifier.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The canonical identifier of the content being vectorized.
@@ -197,21 +197,55 @@ public required string CanonicalId { get; set; }</code></pre>
 
 
 
-  <a id="FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_UniqueId_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId*"></a>
+  <a id="FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_MultipartId_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_UniqueId" data-uid="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId">
-  UniqueId
+  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_MultipartId" data-uid="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId">
+  MultipartId
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationContentIdentifier.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The unique identifier of the content (i.e., document) being vectorized.</p>
+  <div class="markdown level1 summary"><p>The multipart unique identifier of the the content (i.e. document) being vectorized.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPropertyOrder(1)]
-[JsonPropertyName(&quot;unique_id&quot;)]
-public required string UniqueId { get; set; }</code></pre>
+[JsonPropertyName(&quot;multipart_id&quot;)]
+public required List&lt;string&gt; MultipartId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_UniqueId_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_UniqueId" data-uid="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId">
+  UniqueId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationContentIdentifier.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The unique identifier of the content (i.e., document) being vectorized.
+The identifier is determined by concatenating the parts from <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html#FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_MultipartId">MultipartId</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string UniqueId { get; }</code></pre>
   </div>
 
 

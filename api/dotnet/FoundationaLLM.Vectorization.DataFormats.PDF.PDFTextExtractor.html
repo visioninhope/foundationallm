@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class BlobStorageContentSourceService
+      <title>Class PDFTextExtractor
  | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class BlobStorageContentSourceService
+      <meta name="title" content="Class PDFTextExtractor
  | FoundationaLLM ">
       
       <link rel="icon" href="../../media/favicon.ico">
@@ -17,7 +17,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Services_ContentSources_BlobStorageContentSourceService.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_DataFormats_PDF_PDFTextExtractor.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,25 +85,26 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService">
+        <article data-uid="FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor">
 
 
 
-  <h1 id="FoundationaLLM_Vectorization_Services_ContentSources_BlobStorageContentSourceService" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService" class="text-break">
-    Class BlobStorageContentSourceService
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/BlobStorageContentSourceService.cs/#L7"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Vectorization_DataFormats_PDF_PDFTextExtractor" data-uid="FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor" class="text-break">
+    Class PDFTextExtractor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/DataFormats/PDF/PDFTextExtractor.cs/#L10"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Vectorization.html">Vectorization</a>.<a class="xref" href="FoundationaLLM.Vectorization.Services.html">Services</a>.<a class="xref" href="FoundationaLLM.Vectorization.Services.ContentSources.html">ContentSources</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Vectorization.html">Vectorization</a>.<a class="xref" href="FoundationaLLM.Vectorization.DataFormats.html">DataFormats</a>.<a class="xref" href="FoundationaLLM.Vectorization.DataFormats.PDF.html">PDF</a></dd></dl>
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Extracts text from PDF files.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class BlobStorageContentSourceService : ContentSourceServiceBase, IContentSourceService</code></pre>
+    <pre><code class="lang-csharp hljs">public class PDFTextExtractor</code></pre>
   </div>
 
 
@@ -113,17 +114,10 @@
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html">ContentSourceServiceBase</a></div>
-      <div><span class="xref">BlobStorageContentSourceService</span></div>
+      <div><span class="xref">PDFTextExtractor</span></div>
     </dd>
   </dl>
 
-  <dl class="typelist implements">
-    <dt>Implements</dt>
-    <dd>
-      <div><a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html">IContentSourceService</a></div>
-    </dd>
-  </dl>
 
 
   <dl class="typelist derived">
@@ -164,66 +158,36 @@
 
 
 
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-
-  <a id="FoundationaLLM_Vectorization_Services_ContentSources_BlobStorageContentSourceService__ctor_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.#ctor*"></a>
-
-  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_BlobStorageContentSourceService__ctor" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.#ctor">
-  BlobStorageContentSourceService()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/BlobStorageContentSourceService.cs/#L9"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BlobStorageContentSourceService()</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
   <h2 class="section" id="methods">Methods
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Services_ContentSources_BlobStorageContentSourceService_ReadFileAsync_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.ReadFileAsync*"></a>
+  <a id="FoundationaLLM_Vectorization_DataFormats_PDF_PDFTextExtractor_GetText_" data-uid="FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.GetText*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_BlobStorageContentSourceService_ReadFileAsync_System_String_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.ReadFileAsync(System.String)">
-  ReadFileAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/BlobStorageContentSourceService.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_DataFormats_PDF_PDFTextExtractor_GetText_System_BinaryData_" data-uid="FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.GetText(System.BinaryData)">
+  GetText(BinaryData)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/DataFormats/PDF/PDFTextExtractor.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Reads the binary content of a specified document from the content source.</p>
+  <div class="markdown level1 summary"><p>Extracts the text content from a PDF document.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;BinaryData&gt; ReadFileAsync(string filePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string GetText(BinaryData binaryContent)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path of the document to read.</p>
+    <dt><code>binaryContent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.binarydata">BinaryData</a></dt>
+    <dd><p>The binary content of the PDF document.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.binarydata">BinaryData</a>&gt;</dt>
-    <dd><p>The binary content of the document.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The text content of the PDF document.</p>
 </dd>
   </dl>
 
@@ -241,7 +205,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/BlobStorageContentSourceService.cs/#L7" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/DataFormats/PDF/PDFTextExtractor.cs/#L10" class="edit-link">Edit this page</a>
         </div>
 
 

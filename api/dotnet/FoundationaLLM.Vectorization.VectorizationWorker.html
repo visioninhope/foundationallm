@@ -91,7 +91,7 @@
 
   <h1 id="FoundationaLLM_Vectorization_VectorizationWorker" data-uid="FoundationaLLM.Vectorization.VectorizationWorker" class="text-break">
     Class VectorizationWorker
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorker.cs/#L7"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorker.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -99,7 +99,8 @@
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Provides the core execution context for the vectorization worker.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -163,30 +164,24 @@
 
   <a id="FoundationaLLM_Vectorization_VectorizationWorker__ctor_" data-uid="FoundationaLLM.Vectorization.VectorizationWorker.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_VectorizationWorker__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_System_Collections_Generic_IDictionary_System_String_FoundationaLLM_Vectorization_Interfaces_IRequestSourceService__System_Collections_Generic_IEnumerable_FoundationaLLM_Vectorization_Interfaces_IRequestManagerService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_VectorizationWorker__System_Threading_CancellationToken_" data-uid="FoundationaLLM.Vectorization.VectorizationWorker.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,System.Collections.Generic.IDictionary{System.String,FoundationaLLM.Vectorization.Interfaces.IRequestSourceService},System.Collections.Generic.IEnumerable{FoundationaLLM.Vectorization.Interfaces.IRequestManagerService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.VectorizationWorker},System.Threading.CancellationToken)">
-  VectorizationWorker(IVectorizationStateService, IDictionary&lt;string, IRequestSourceService&gt;, IEnumerable&lt;IRequestManagerService&gt;, ILogger&lt;VectorizationWorker&gt;, CancellationToken)
+  <h3 id="FoundationaLLM_Vectorization_VectorizationWorker__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Vectorization_Interfaces_IRequestManagerService__" data-uid="FoundationaLLM.Vectorization.VectorizationWorker.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Vectorization.Interfaces.IRequestManagerService})">
+  VectorizationWorker(IEnumerable&lt;IRequestManagerService&gt;)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorker.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Provides the core execution context for the vectorization worker.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public VectorizationWorker(IVectorizationStateService vectorizationStateService, IDictionary&lt;string, IRequestSourceService&gt; requestSourceServices, IEnumerable&lt;IRequestManagerService&gt; requestManagerServices, ILogger&lt;VectorizationWorker&gt; logger, CancellationToken cancellationToken)</code></pre>
+    <pre><code class="lang-csharp hljs">public VectorizationWorker(IEnumerable&lt;IRequestManagerService&gt; requestManagerServices)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>vectorizationStateService</code> <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.html">IVectorizationStateService</a></dt>
-    <dd></dd>
-    <dt><code>requestSourceServices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IRequestSourceService.html">IRequestSourceService</a>&gt;</dt>
-    <dd></dd>
     <dt><code>requestManagerServices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IRequestManagerService.html">IRequestManagerService</a>&gt;</dt>
-    <dd></dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.VectorizationWorker.html">VectorizationWorker</a>&gt;</dt>
-    <dd></dd>
-    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
-    <dd></dd>
+    <dd><p>The collection of request managers to run.</p>
+</dd>
   </dl>
 
 
@@ -208,10 +203,11 @@
 
   <h3 id="FoundationaLLM_Vectorization_VectorizationWorker_Run" data-uid="FoundationaLLM.Vectorization.VectorizationWorker.Run">
   Run()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorker.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorker.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Starts all the request managers and enters a holding pattern waiting on them to stop.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -239,7 +235,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorker.cs/#L7" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorker.cs/#L11" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -91,7 +91,7 @@
 
   <h1 id="FoundationaLLM_Vectorization_Worker_Worker" data-uid="FoundationaLLM.Vectorization.Worker.Worker" class="text-break">
     Class Worker
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationWorker/Worker.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationWorker/Worker.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -187,9 +187,9 @@
 
   <a id="FoundationaLLM_Vectorization_Worker_Worker__ctor_" data-uid="FoundationaLLM.Vectorization.Worker.Worker.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Worker_Worker__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings__Microsoft_Extensions_Configuration_IConfigurationSection_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Worker.Worker.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings},Microsoft.Extensions.Configuration.IConfigurationSection,Microsoft.Extensions.Logging.ILoggerFactory)">
-  Worker(IVectorizationStateService, IOptions&lt;VectorizationWorkerSettings&gt;, IConfigurationSection, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationWorker/Worker.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Worker_Worker__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings__System_Collections_Generic_IEnumerable_Microsoft_Extensions_Configuration_IConfigurationSection__Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Worker.Worker.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings},System.Collections.Generic.IEnumerable{Microsoft.Extensions.Configuration.IConfigurationSection},Microsoft.Extensions.Logging.ILoggerFactory)">
+  Worker(IVectorizationStateService, IContentSourceManagerService, IOptions&lt;VectorizationWorkerSettings&gt;, IEnumerable&lt;IConfigurationSection&gt;, ILoggerFactory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationWorker/Worker.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The background service used to run the worker.</p>
@@ -197,7 +197,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Worker(IVectorizationStateService stateService, IOptions&lt;VectorizationWorkerSettings&gt; settings, IConfigurationSection queuesConfiguration, ILoggerFactory loggerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public Worker(IVectorizationStateService stateService, IContentSourceManagerService contentSourceManagerService, IOptions&lt;VectorizationWorkerSettings&gt; settings, IEnumerable&lt;IConfigurationSection&gt; configurationSections, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -205,11 +205,14 @@
     <dt><code>stateService</code> <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.html">IVectorizationStateService</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.html">IVectorizationStateService</a> used to manage the vectorization state.</p>
 </dd>
+    <dt><code>contentSourceManagerService</code> <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.html">IContentSourceManagerService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.html">IContentSourceManagerService</a> used to manage content sources.</p>
+</dd>
     <dt><code>settings</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings.html">VectorizationWorkerSettings</a>&gt;</dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings.html">VectorizationWorkerSettings</a> options holding the vectorization worker settings.</p>
 </dd>
-    <dt><code>queuesConfiguration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationsection">IConfigurationSection</a></dt>
-    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationsection">IConfigurationSection</a> containing the settings for the queues.</p>
+    <dt><code>configurationSections</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationsection">IConfigurationSection</a>&gt;</dt>
+    <dd><p>The list of configuration sections required by the vectorization worker builder.</p>
 </dd>
     <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
     <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a> used to create loggers in child objects.</p>
@@ -223,7 +226,7 @@
 
 
 
-  <h4 class="section" id="FoundationaLLM_Vectorization_Worker_Worker__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings__Microsoft_Extensions_Configuration_IConfigurationSection_Microsoft_Extensions_Logging_ILoggerFactory__remarks">Remarks</h4>
+  <h4 class="section" id="FoundationaLLM_Vectorization_Worker_Worker__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings__System_Collections_Generic_IEnumerable_Microsoft_Extensions_Configuration_IConfigurationSection__Microsoft_Extensions_Logging_ILoggerFactory__remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>Creates a new instance of the worker.</p>
 </div>
 
@@ -238,7 +241,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_Worker_Worker_ExecuteAsync_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Vectorization.Worker.Worker.ExecuteAsync(System.Threading.CancellationToken)">
   ExecuteAsync(CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationWorker/Worker.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationWorker/Worker.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>This method is called when the <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihostedservice">IHostedService</a> starts. The implementation should return a task that represents
@@ -281,7 +284,7 @@ the lifetime of the long running operation(s) being performed.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationWorker/Worker.cs/#L18" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/VectorizationWorker/Worker.cs/#L20" class="edit-link">Edit this page</a>
         </div>
 
 

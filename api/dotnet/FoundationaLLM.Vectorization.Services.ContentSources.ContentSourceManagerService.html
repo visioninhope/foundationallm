@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class ContentSourceServiceBase
+      <title>Class ContentSourceManagerService
  | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ContentSourceServiceBase
+      <meta name="title" content="Class ContentSourceManagerService
  | FoundationaLLM ">
       
       <link rel="icon" href="../../media/favicon.ico">
@@ -17,7 +17,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceBase.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,13 +85,13 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase">
+        <article data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService">
 
 
 
-  <h1 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceBase" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase" class="text-break">
-    Class ContentSourceServiceBase
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceBase.cs/#L8"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService" class="text-break">
+    Class ContentSourceManagerService
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceManagerService.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -99,12 +99,12 @@
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides common functionalities for all content sources.</p>
+  <div class="markdown summary"><p>Manages content sources registered for use in the vectorization pipelines.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ContentSourceServiceBase</code></pre>
+    <pre><code class="lang-csharp hljs">public class ContentSourceManagerService : IContentSourceManagerService</code></pre>
   </div>
 
 
@@ -114,17 +114,17 @@
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">ContentSourceServiceBase</span></div>
+      <div><span class="xref">ContentSourceManagerService</span></div>
     </dd>
   </dl>
 
-
-  <dl class="typelist derived">
-    <dt>Derived</dt>
+  <dl class="typelist implements">
+    <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html">DataLakeContentSourceService</a></div>
+      <div><a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.html">IContentSourceManagerService</a></div>
     </dd>
   </dl>
+
 
   <dl class="typelist derived">
     <dt>Inherited Members</dt>
@@ -162,50 +162,97 @@
 
 
 
+  <h2 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Creates a new instance of the content source manager service.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService__ctor_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.#ctor*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings__Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)">
+  ContentSourceManagerService(IOptions&lt;ContentSourceManagerServiceSettings&gt;, IConfiguration, ILoggerFactory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceManagerService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Manages content sources registered for use in the vectorization pipelines.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ContentSourceManagerService(IOptions&lt;ContentSourceManagerServiceSettings&gt; options, IConfiguration configuration, ILoggerFactory loggerFactory)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.html">ContentSourceManagerServiceSettings</a>&gt;</dt>
+    <dd><p>The configuration settings used to initialize the service.</p>
+</dd>
+    <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
+    <dd><p>The global configuration provider.</p>
+</dd>
+    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
+    <dd><p>The logger factory used to create loggers.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings__Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Creates a new instance of the content source manager service.</p>
+</div>
+
+
 
 
   <h2 class="section" id="methods">Methods
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceBase_ValidateMultipartId_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ValidateMultipartId*"></a>
+  <a id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService_GetContentSource_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceBase_ValidateMultipartId_System_Collections_Generic_List_System_String__System_Int32_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ValidateMultipartId(System.Collections.Generic.List{System.String},System.Int32)">
-  ValidateMultipartId(List&lt;string&gt;, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceBase.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService_GetContentSource_System_String_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource(System.String)">
+  GetContentSource(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceManagerService.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Validates a multipart unique content identifier.</p>
+  <div class="markdown level1 summary"><p>Gets a content source specified by name.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ValidateMultipartId(List&lt;string&gt; multipartId, int partsCount)</code></pre>
+    <pre><code class="lang-csharp hljs">public IContentSourceService GetContentSource(string contentSourceName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>multipartId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd><p>The multipart identifier to validate.</p>
-</dd>
-    <dt><code>partsCount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>The required number of parts in the multipart identifier.</p>
+    <dt><code>contentSourceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the content source to retrieve.</p>
 </dd>
   </dl>
 
-
-
-
-
-
-
-
-
-  <h4 class="section">Exceptions</h4>
+  <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Vectorization.Exceptions.VectorizationException.html">VectorizationException</a></dt>
-    <dd></dd>
+    <dt><a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html">IContentSourceService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html">IContentSourceService</a> instance of the requested content source.</p>
+</dd>
   </dl>
+
+
+
+
+
+
+
+
 
 
 
@@ -213,7 +260,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceBase.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceManagerService.cs/#L22" class="edit-link">Edit this page</a>
         </div>
 
 

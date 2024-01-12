@@ -2831,24 +2831,30 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI
   nameWithType: AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources
+  name: FoundationaLLM_Vectorization_ContentSources
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Vectorization_ContentSources
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_Queues
   name: FoundationaLLM_Vectorization_Queues
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Vectorization_Queues
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_Queues
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_Queues
   nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_Queues
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_StateServiceSettings
-  name: FoundationaLLM_Vectorization_StateServiceSettings
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Vectorization_StateServiceSettings
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_StateServiceSettings
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_StateServiceSettings
-  nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_StateServiceSettings
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_WorkerSettings
-  name: FoundationaLLM_Vectorization_WorkerSettings
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Vectorization_WorkerSettings
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_WorkerSettings
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_WorkerSettings
-  nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_WorkerSettings
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService
+  name: FoundationaLLM_Vectorization_StateService
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Vectorization_StateService
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps
+  name: FoundationaLLM_Vectorization_Steps
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Vectorization_Steps
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeys
   name: AppConfigurationKeys
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html
@@ -3707,12 +3713,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_ShortSummaryPromptName
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_ShortSummaryPromptName
   nameWithType: AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_ShortSummaryPromptName
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_WorkerSettings
-  name: FoundationaLLM_Vectorization_WorkerSettings
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_Vectorization_WorkerSettings
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_WorkerSettings
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_WorkerSettings
-  nameWithType: AppConfigurationKeys.FoundationaLLM_Vectorization_WorkerSettings
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_ContentSourceManagerService
+  name: FoundationaLLM_Vectorization_ContentSourceManagerService
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_Vectorization_ContentSourceManagerService
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_ContentSourceManagerService
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_ContentSourceManagerService
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Vectorization_ContentSourceManagerService
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker
+  name: FoundationaLLM_Vectorization_VectorizationWorker
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_Vectorization_VectorizationWorker
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker
 - uid: FoundationaLLM.Common.Constants.CosmosDbContainers
   name: CosmosDbContainers
   href: api/dotnet/FoundationaLLM.Common.Constants.CosmosDbContainers.html
@@ -3743,6 +3755,54 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.CosmosDbContainers.UserSessions
   fullName: FoundationaLLM.Common.Constants.CosmosDbContainers.UserSessions
   nameWithType: CosmosDbContainers.UserSessions
+- uid: FoundationaLLM.Common.Constants.FileExtensions
+  name: FileExtensions
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html
+  commentId: T:FoundationaLLM.Common.Constants.FileExtensions
+  fullName: FoundationaLLM.Common.Constants.FileExtensions
+  nameWithType: FileExtensions
+- uid: FoundationaLLM.Common.Constants.FileExtensions.Excel
+  name: Excel
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_Excel
+  commentId: F:FoundationaLLM.Common.Constants.FileExtensions.Excel
+  fullName: FoundationaLLM.Common.Constants.FileExtensions.Excel
+  nameWithType: FileExtensions.Excel
+- uid: FoundationaLLM.Common.Constants.FileExtensions.JSON
+  name: JSON
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_JSON
+  commentId: F:FoundationaLLM.Common.Constants.FileExtensions.JSON
+  fullName: FoundationaLLM.Common.Constants.FileExtensions.JSON
+  nameWithType: FileExtensions.JSON
+- uid: FoundationaLLM.Common.Constants.FileExtensions.Markdown
+  name: Markdown
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_Markdown
+  commentId: F:FoundationaLLM.Common.Constants.FileExtensions.Markdown
+  fullName: FoundationaLLM.Common.Constants.FileExtensions.Markdown
+  nameWithType: FileExtensions.Markdown
+- uid: FoundationaLLM.Common.Constants.FileExtensions.PDF
+  name: PDF
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_PDF
+  commentId: F:FoundationaLLM.Common.Constants.FileExtensions.PDF
+  fullName: FoundationaLLM.Common.Constants.FileExtensions.PDF
+  nameWithType: FileExtensions.PDF
+- uid: FoundationaLLM.Common.Constants.FileExtensions.PowerPoint
+  name: PowerPoint
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_PowerPoint
+  commentId: F:FoundationaLLM.Common.Constants.FileExtensions.PowerPoint
+  fullName: FoundationaLLM.Common.Constants.FileExtensions.PowerPoint
+  nameWithType: FileExtensions.PowerPoint
+- uid: FoundationaLLM.Common.Constants.FileExtensions.Text
+  name: Text
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_Text
+  commentId: F:FoundationaLLM.Common.Constants.FileExtensions.Text
+  fullName: FoundationaLLM.Common.Constants.FileExtensions.Text
+  nameWithType: FileExtensions.Text
+- uid: FoundationaLLM.Common.Constants.FileExtensions.Word
+  name: Word
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_Word
+  commentId: F:FoundationaLLM.Common.Constants.FileExtensions.Word
+  fullName: FoundationaLLM.Common.Constants.FileExtensions.Word
+  nameWithType: FileExtensions.Word
 - uid: FoundationaLLM.Common.Constants.HttpClients
   name: HttpClients
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html
@@ -3921,6 +3981,98 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Constants.VectorizationSteps.ValidateStepName
   nameWithType: VectorizationSteps.ValidateStepName
+- uid: FoundationaLLM.Common.Exceptions
+  name: FoundationaLLM.Common.Exceptions
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.html
+  commentId: N:FoundationaLLM.Common.Exceptions
+  fullName: FoundationaLLM.Common.Exceptions
+  nameWithType: FoundationaLLM.Common.Exceptions
+- uid: FoundationaLLM.Common.Exceptions.ConfigurationValueException
+  name: ConfigurationValueException
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ConfigurationValueException.html
+  commentId: T:FoundationaLLM.Common.Exceptions.ConfigurationValueException
+  fullName: FoundationaLLM.Common.Exceptions.ConfigurationValueException
+  nameWithType: ConfigurationValueException
+- uid: FoundationaLLM.Common.Exceptions.ConfigurationValueException.#ctor
+  name: ConfigurationValueException()
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ConfigurationValueException.html#FoundationaLLM_Common_Exceptions_ConfigurationValueException__ctor
+  commentId: M:FoundationaLLM.Common.Exceptions.ConfigurationValueException.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Exceptions.ConfigurationValueException.ConfigurationValueException()
+  fullName.vb: FoundationaLLM.Common.Exceptions.ConfigurationValueException.New()
+  nameWithType: ConfigurationValueException.ConfigurationValueException()
+  nameWithType.vb: ConfigurationValueException.New()
+- uid: FoundationaLLM.Common.Exceptions.ConfigurationValueException.#ctor(System.String)
+  name: ConfigurationValueException(string?)
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ConfigurationValueException.html#FoundationaLLM_Common_Exceptions_ConfigurationValueException__ctor_System_String_
+  commentId: M:FoundationaLLM.Common.Exceptions.ConfigurationValueException.#ctor(System.String)
+  name.vb: New(String)
+  fullName: FoundationaLLM.Common.Exceptions.ConfigurationValueException.ConfigurationValueException(string?)
+  fullName.vb: FoundationaLLM.Common.Exceptions.ConfigurationValueException.New(String)
+  nameWithType: ConfigurationValueException.ConfigurationValueException(string?)
+  nameWithType.vb: ConfigurationValueException.New(String)
+- uid: FoundationaLLM.Common.Exceptions.ConfigurationValueException.#ctor(System.String,System.Exception)
+  name: ConfigurationValueException(string?, Exception?)
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ConfigurationValueException.html#FoundationaLLM_Common_Exceptions_ConfigurationValueException__ctor_System_String_System_Exception_
+  commentId: M:FoundationaLLM.Common.Exceptions.ConfigurationValueException.#ctor(System.String,System.Exception)
+  name.vb: New(String, Exception)
+  fullName: FoundationaLLM.Common.Exceptions.ConfigurationValueException.ConfigurationValueException(string?, System.Exception?)
+  fullName.vb: FoundationaLLM.Common.Exceptions.ConfigurationValueException.New(String, System.Exception)
+  nameWithType: ConfigurationValueException.ConfigurationValueException(string?, Exception?)
+  nameWithType.vb: ConfigurationValueException.New(String, Exception)
+- uid: FoundationaLLM.Common.Exceptions.ConfigurationValueException.#ctor*
+  name: ConfigurationValueException
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ConfigurationValueException.html#FoundationaLLM_Common_Exceptions_ConfigurationValueException__ctor_
+  commentId: Overload:FoundationaLLM.Common.Exceptions.ConfigurationValueException.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Exceptions.ConfigurationValueException.ConfigurationValueException
+  fullName.vb: FoundationaLLM.Common.Exceptions.ConfigurationValueException.New
+  nameWithType: ConfigurationValueException.ConfigurationValueException
+  nameWithType.vb: ConfigurationValueException.New
+- uid: FoundationaLLM.Common.Exceptions.ContentException
+  name: ContentException
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ContentException.html
+  commentId: T:FoundationaLLM.Common.Exceptions.ContentException
+  fullName: FoundationaLLM.Common.Exceptions.ContentException
+  nameWithType: ContentException
+- uid: FoundationaLLM.Common.Exceptions.ContentException.#ctor
+  name: ContentException()
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ContentException.html#FoundationaLLM_Common_Exceptions_ContentException__ctor
+  commentId: M:FoundationaLLM.Common.Exceptions.ContentException.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Exceptions.ContentException.ContentException()
+  fullName.vb: FoundationaLLM.Common.Exceptions.ContentException.New()
+  nameWithType: ContentException.ContentException()
+  nameWithType.vb: ContentException.New()
+- uid: FoundationaLLM.Common.Exceptions.ContentException.#ctor(System.String)
+  name: ContentException(string?)
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ContentException.html#FoundationaLLM_Common_Exceptions_ContentException__ctor_System_String_
+  commentId: M:FoundationaLLM.Common.Exceptions.ContentException.#ctor(System.String)
+  name.vb: New(String)
+  fullName: FoundationaLLM.Common.Exceptions.ContentException.ContentException(string?)
+  fullName.vb: FoundationaLLM.Common.Exceptions.ContentException.New(String)
+  nameWithType: ContentException.ContentException(string?)
+  nameWithType.vb: ContentException.New(String)
+- uid: FoundationaLLM.Common.Exceptions.ContentException.#ctor(System.String,System.Exception)
+  name: ContentException(string?, Exception?)
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ContentException.html#FoundationaLLM_Common_Exceptions_ContentException__ctor_System_String_System_Exception_
+  commentId: M:FoundationaLLM.Common.Exceptions.ContentException.#ctor(System.String,System.Exception)
+  name.vb: New(String, Exception)
+  fullName: FoundationaLLM.Common.Exceptions.ContentException.ContentException(string?, System.Exception?)
+  fullName.vb: FoundationaLLM.Common.Exceptions.ContentException.New(String, System.Exception)
+  nameWithType: ContentException.ContentException(string?, Exception?)
+  nameWithType.vb: ContentException.New(String, Exception)
+- uid: FoundationaLLM.Common.Exceptions.ContentException.#ctor*
+  name: ContentException
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ContentException.html#FoundationaLLM_Common_Exceptions_ContentException__ctor_
+  commentId: Overload:FoundationaLLM.Common.Exceptions.ContentException.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Exceptions.ContentException.ContentException
+  fullName.vb: FoundationaLLM.Common.Exceptions.ContentException.New
+  nameWithType: ContentException.ContentException
+  nameWithType.vb: ContentException.New
 - uid: FoundationaLLM.Common.Extensions
   name: FoundationaLLM.Common.Extensions
   href: api/dotnet/FoundationaLLM.Common.Extensions.html
@@ -4053,6 +4205,63 @@ references:
   commentId: T:FoundationaLLM.Common.Interfaces.IStorageService
   fullName: FoundationaLLM.Common.Interfaces.IStorageService
   nameWithType: IStorageService
+- uid: FoundationaLLM.Common.Interfaces.IStorageService.FileExistsAsync(System.String,System.String,System.Threading.CancellationToken)
+  name: FileExistsAsync(string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html#FoundationaLLM_Common_Interfaces_IStorageService_FileExistsAsync_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Interfaces.IStorageService.FileExistsAsync(System.String,System.String,System.Threading.CancellationToken)
+  name.vb: FileExistsAsync(String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Interfaces.IStorageService.FileExistsAsync(string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IStorageService.FileExistsAsync(String, String, System.Threading.CancellationToken)
+  nameWithType: IStorageService.FileExistsAsync(string, string, CancellationToken)
+  nameWithType.vb: IStorageService.FileExistsAsync(String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Interfaces.IStorageService.FileExistsAsync*
+  name: FileExistsAsync
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html#FoundationaLLM_Common_Interfaces_IStorageService_FileExistsAsync_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IStorageService.FileExistsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IStorageService.FileExistsAsync
+  nameWithType: IStorageService.FileExistsAsync
+- uid: FoundationaLLM.Common.Interfaces.IStorageService.ReadFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name: ReadFileAsync(string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html#FoundationaLLM_Common_Interfaces_IStorageService_ReadFileAsync_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Interfaces.IStorageService.ReadFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name.vb: ReadFileAsync(String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Interfaces.IStorageService.ReadFileAsync(string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IStorageService.ReadFileAsync(String, String, System.Threading.CancellationToken)
+  nameWithType: IStorageService.ReadFileAsync(string, string, CancellationToken)
+  nameWithType.vb: IStorageService.ReadFileAsync(String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Interfaces.IStorageService.ReadFileAsync*
+  name: ReadFileAsync
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html#FoundationaLLM_Common_Interfaces_IStorageService_ReadFileAsync_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IStorageService.ReadFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IStorageService.ReadFileAsync
+  nameWithType: IStorageService.ReadFileAsync
+- uid: FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync(System.String,System.String,System.IO.Stream,System.Threading.CancellationToken)
+  name: WriteFileAsync(string, string, Stream, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html#FoundationaLLM_Common_Interfaces_IStorageService_WriteFileAsync_System_String_System_String_System_IO_Stream_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync(System.String,System.String,System.IO.Stream,System.Threading.CancellationToken)
+  name.vb: WriteFileAsync(String, String, Stream, CancellationToken)
+  fullName: FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync(string, string, System.IO.Stream, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync(String, String, System.IO.Stream, System.Threading.CancellationToken)
+  nameWithType: IStorageService.WriteFileAsync(string, string, Stream, CancellationToken)
+  nameWithType.vb: IStorageService.WriteFileAsync(String, String, Stream, CancellationToken)
+- uid: FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name: WriteFileAsync(string, string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html#FoundationaLLM_Common_Interfaces_IStorageService_WriteFileAsync_System_String_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name.vb: WriteFileAsync(String, String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync(string, string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync(String, String, String, System.Threading.CancellationToken)
+  nameWithType: IStorageService.WriteFileAsync(string, string, string, CancellationToken)
+  nameWithType.vb: IStorageService.WriteFileAsync(String, String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync*
+  name: WriteFileAsync
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html#FoundationaLLM_Common_Interfaces_IStorageService_WriteFileAsync_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync
+  nameWithType: IStorageService.WriteFileAsync
 - uid: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService
   name: IUserClaimsProviderService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.html
@@ -6477,6 +6686,136 @@ references:
   commentId: N:FoundationaLLM.Common.Services
   fullName: FoundationaLLM.Common.Services
   nameWithType: FoundationaLLM.Common.Services
+- uid: FoundationaLLM.Common.Services.BlobStorageService
+  name: BlobStorageService
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html
+  commentId: T:FoundationaLLM.Common.Services.BlobStorageService
+  fullName: FoundationaLLM.Common.Services.BlobStorageService
+  nameWithType: BlobStorageService
+- uid: FoundationaLLM.Common.Services.BlobStorageService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Settings.BlobStorageServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.BlobStorageService})
+  name: BlobStorageService(IOptions<BlobStorageServiceSettings>, ILogger<BlobStorageService>)
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Settings_BlobStorageServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_BlobStorageService__
+  commentId: M:FoundationaLLM.Common.Services.BlobStorageService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Settings.BlobStorageServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.BlobStorageService})
+  name.vb: New(IOptions(Of BlobStorageServiceSettings), ILogger(Of BlobStorageService))
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.BlobStorageService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Settings.BlobStorageServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.BlobStorageService>)
+  fullName.vb: FoundationaLLM.Common.Services.BlobStorageService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Settings.BlobStorageServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.BlobStorageService))
+  nameWithType: BlobStorageService.BlobStorageService(IOptions<BlobStorageServiceSettings>, ILogger<BlobStorageService>)
+  nameWithType.vb: BlobStorageService.New(IOptions(Of BlobStorageServiceSettings), ILogger(Of BlobStorageService))
+- uid: FoundationaLLM.Common.Services.BlobStorageService.#ctor*
+  name: BlobStorageService
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService__ctor_
+  commentId: Overload:FoundationaLLM.Common.Services.BlobStorageService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.BlobStorageService
+  fullName.vb: FoundationaLLM.Common.Services.BlobStorageService.New
+  nameWithType: BlobStorageService.BlobStorageService
+  nameWithType.vb: BlobStorageService.New
+- uid: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromAccountKey(System.String,System.String)
+  name: CreateClientFromAccountKey(string, string)
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_CreateClientFromAccountKey_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromAccountKey(System.String,System.String)
+  name.vb: CreateClientFromAccountKey(String, String)
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromAccountKey(string, string)
+  fullName.vb: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromAccountKey(String, String)
+  nameWithType: BlobStorageService.CreateClientFromAccountKey(string, string)
+  nameWithType.vb: BlobStorageService.CreateClientFromAccountKey(String, String)
+- uid: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromAccountKey*
+  name: CreateClientFromAccountKey
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_CreateClientFromAccountKey_
+  commentId: Overload:FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromAccountKey
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromAccountKey
+  nameWithType: BlobStorageService.CreateClientFromAccountKey
+- uid: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromConnectionString(System.String)
+  name: CreateClientFromConnectionString(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_CreateClientFromConnectionString_System_String_
+  commentId: M:FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromConnectionString(System.String)
+  name.vb: CreateClientFromConnectionString(String)
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromConnectionString(string)
+  fullName.vb: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromConnectionString(String)
+  nameWithType: BlobStorageService.CreateClientFromConnectionString(string)
+  nameWithType.vb: BlobStorageService.CreateClientFromConnectionString(String)
+- uid: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromConnectionString*
+  name: CreateClientFromConnectionString
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_CreateClientFromConnectionString_
+  commentId: Overload:FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromConnectionString
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromConnectionString
+  nameWithType: BlobStorageService.CreateClientFromConnectionString
+- uid: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromIdentity(System.String)
+  name: CreateClientFromIdentity(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_CreateClientFromIdentity_System_String_
+  commentId: M:FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromIdentity(System.String)
+  name.vb: CreateClientFromIdentity(String)
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromIdentity(string)
+  fullName.vb: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromIdentity(String)
+  nameWithType: BlobStorageService.CreateClientFromIdentity(string)
+  nameWithType.vb: BlobStorageService.CreateClientFromIdentity(String)
+- uid: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromIdentity*
+  name: CreateClientFromIdentity
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_CreateClientFromIdentity_
+  commentId: Overload:FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromIdentity
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.CreateClientFromIdentity
+  nameWithType: BlobStorageService.CreateClientFromIdentity
+- uid: FoundationaLLM.Common.Services.BlobStorageService.FileExistsAsync(System.String,System.String,System.Threading.CancellationToken)
+  name: FileExistsAsync(string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_FileExistsAsync_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Services.BlobStorageService.FileExistsAsync(System.String,System.String,System.Threading.CancellationToken)
+  name.vb: FileExistsAsync(String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.FileExistsAsync(string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Services.BlobStorageService.FileExistsAsync(String, String, System.Threading.CancellationToken)
+  nameWithType: BlobStorageService.FileExistsAsync(string, string, CancellationToken)
+  nameWithType.vb: BlobStorageService.FileExistsAsync(String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Services.BlobStorageService.FileExistsAsync*
+  name: FileExistsAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_FileExistsAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.BlobStorageService.FileExistsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.FileExistsAsync
+  nameWithType: BlobStorageService.FileExistsAsync
+- uid: FoundationaLLM.Common.Services.BlobStorageService.ReadFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name: ReadFileAsync(string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_ReadFileAsync_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Services.BlobStorageService.ReadFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name.vb: ReadFileAsync(String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.ReadFileAsync(string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Services.BlobStorageService.ReadFileAsync(String, String, System.Threading.CancellationToken)
+  nameWithType: BlobStorageService.ReadFileAsync(string, string, CancellationToken)
+  nameWithType.vb: BlobStorageService.ReadFileAsync(String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Services.BlobStorageService.ReadFileAsync*
+  name: ReadFileAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_ReadFileAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.BlobStorageService.ReadFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.ReadFileAsync
+  nameWithType: BlobStorageService.ReadFileAsync
+- uid: FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync(System.String,System.String,System.IO.Stream,System.Threading.CancellationToken)
+  name: WriteFileAsync(string, string, Stream, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_WriteFileAsync_System_String_System_String_System_IO_Stream_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync(System.String,System.String,System.IO.Stream,System.Threading.CancellationToken)
+  name.vb: WriteFileAsync(String, String, Stream, CancellationToken)
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync(string, string, System.IO.Stream, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync(String, String, System.IO.Stream, System.Threading.CancellationToken)
+  nameWithType: BlobStorageService.WriteFileAsync(string, string, Stream, CancellationToken)
+  nameWithType.vb: BlobStorageService.WriteFileAsync(String, String, Stream, CancellationToken)
+- uid: FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name: WriteFileAsync(string, string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_WriteFileAsync_System_String_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name.vb: WriteFileAsync(String, String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync(string, string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync(String, String, String, System.Threading.CancellationToken)
+  nameWithType: BlobStorageService.WriteFileAsync(string, string, string, CancellationToken)
+  nameWithType.vb: BlobStorageService.WriteFileAsync(String, String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync*
+  name: WriteFileAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.BlobStorageService.html#FoundationaLLM_Common_Services_BlobStorageService_WriteFileAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.BlobStorageService.WriteFileAsync
+  nameWithType: BlobStorageService.WriteFileAsync
 - uid: FoundationaLLM.Common.Services.DataLakeStorageService
   name: DataLakeStorageService
   href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html
@@ -6502,6 +6841,111 @@ references:
   fullName.vb: FoundationaLLM.Common.Services.DataLakeStorageService.New
   nameWithType: DataLakeStorageService.DataLakeStorageService
   nameWithType.vb: DataLakeStorageService.New
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromAccountKey(System.String,System.String)
+  name: CreateClientFromAccountKey(string, string)
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_CreateClientFromAccountKey_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromAccountKey(System.String,System.String)
+  name.vb: CreateClientFromAccountKey(String, String)
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromAccountKey(string, string)
+  fullName.vb: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromAccountKey(String, String)
+  nameWithType: DataLakeStorageService.CreateClientFromAccountKey(string, string)
+  nameWithType.vb: DataLakeStorageService.CreateClientFromAccountKey(String, String)
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromAccountKey*
+  name: CreateClientFromAccountKey
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_CreateClientFromAccountKey_
+  commentId: Overload:FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromAccountKey
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromAccountKey
+  nameWithType: DataLakeStorageService.CreateClientFromAccountKey
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromConnectionString(System.String)
+  name: CreateClientFromConnectionString(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_CreateClientFromConnectionString_System_String_
+  commentId: M:FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromConnectionString(System.String)
+  name.vb: CreateClientFromConnectionString(String)
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromConnectionString(string)
+  fullName.vb: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromConnectionString(String)
+  nameWithType: DataLakeStorageService.CreateClientFromConnectionString(string)
+  nameWithType.vb: DataLakeStorageService.CreateClientFromConnectionString(String)
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromConnectionString*
+  name: CreateClientFromConnectionString
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_CreateClientFromConnectionString_
+  commentId: Overload:FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromConnectionString
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromConnectionString
+  nameWithType: DataLakeStorageService.CreateClientFromConnectionString
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromIdentity(System.String)
+  name: CreateClientFromIdentity(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_CreateClientFromIdentity_System_String_
+  commentId: M:FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromIdentity(System.String)
+  name.vb: CreateClientFromIdentity(String)
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromIdentity(string)
+  fullName.vb: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromIdentity(String)
+  nameWithType: DataLakeStorageService.CreateClientFromIdentity(string)
+  nameWithType.vb: DataLakeStorageService.CreateClientFromIdentity(String)
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromIdentity*
+  name: CreateClientFromIdentity
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_CreateClientFromIdentity_
+  commentId: Overload:FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromIdentity
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromIdentity
+  nameWithType: DataLakeStorageService.CreateClientFromIdentity
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.FileExistsAsync(System.String,System.String,System.Threading.CancellationToken)
+  name: FileExistsAsync(string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_FileExistsAsync_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Services.DataLakeStorageService.FileExistsAsync(System.String,System.String,System.Threading.CancellationToken)
+  name.vb: FileExistsAsync(String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.FileExistsAsync(string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Services.DataLakeStorageService.FileExistsAsync(String, String, System.Threading.CancellationToken)
+  nameWithType: DataLakeStorageService.FileExistsAsync(string, string, CancellationToken)
+  nameWithType.vb: DataLakeStorageService.FileExistsAsync(String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.FileExistsAsync*
+  name: FileExistsAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_FileExistsAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.DataLakeStorageService.FileExistsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.FileExistsAsync
+  nameWithType: DataLakeStorageService.FileExistsAsync
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.ReadFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name: ReadFileAsync(string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_ReadFileAsync_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Services.DataLakeStorageService.ReadFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name.vb: ReadFileAsync(String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.ReadFileAsync(string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Services.DataLakeStorageService.ReadFileAsync(String, String, System.Threading.CancellationToken)
+  nameWithType: DataLakeStorageService.ReadFileAsync(string, string, CancellationToken)
+  nameWithType.vb: DataLakeStorageService.ReadFileAsync(String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.ReadFileAsync*
+  name: ReadFileAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_ReadFileAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.DataLakeStorageService.ReadFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.ReadFileAsync
+  nameWithType: DataLakeStorageService.ReadFileAsync
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync(System.String,System.String,System.IO.Stream,System.Threading.CancellationToken)
+  name: WriteFileAsync(string, string, Stream, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_WriteFileAsync_System_String_System_String_System_IO_Stream_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync(System.String,System.String,System.IO.Stream,System.Threading.CancellationToken)
+  name.vb: WriteFileAsync(String, String, Stream, CancellationToken)
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync(string, string, System.IO.Stream, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync(String, String, System.IO.Stream, System.Threading.CancellationToken)
+  nameWithType: DataLakeStorageService.WriteFileAsync(string, string, Stream, CancellationToken)
+  nameWithType.vb: DataLakeStorageService.WriteFileAsync(String, String, Stream, CancellationToken)
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name: WriteFileAsync(string, string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_WriteFileAsync_System_String_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name.vb: WriteFileAsync(String, String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync(string, string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync(String, String, String, System.Threading.CancellationToken)
+  nameWithType: DataLakeStorageService.WriteFileAsync(string, string, string, CancellationToken)
+  nameWithType.vb: DataLakeStorageService.WriteFileAsync(String, String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync*
+  name: WriteFileAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.DataLakeStorageService.html#FoundationaLLM_Common_Services_DataLakeStorageService_WriteFileAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync
+  nameWithType: DataLakeStorageService.WriteFileAsync
 - uid: FoundationaLLM.Common.Services.EntraUserClaimsProviderService
   name: EntraUserClaimsProviderService
   href: api/dotnet/FoundationaLLM.Common.Services.EntraUserClaimsProviderService.html
@@ -6587,6 +7031,85 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.NoOpUserClaimsProviderService.GetUserIdentity
   nameWithType: NoOpUserClaimsProviderService.GetUserIdentity
+- uid: FoundationaLLM.Common.Services.StorageServiceBase
+  name: StorageServiceBase
+  href: api/dotnet/FoundationaLLM.Common.Services.StorageServiceBase.html
+  commentId: T:FoundationaLLM.Common.Services.StorageServiceBase
+  fullName: FoundationaLLM.Common.Services.StorageServiceBase
+  nameWithType: StorageServiceBase
+- uid: FoundationaLLM.Common.Services.StorageServiceBase.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Settings.BlobStorageServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.StorageServiceBase})
+  name: StorageServiceBase(IOptions<BlobStorageServiceSettings>, ILogger<StorageServiceBase>)
+  href: api/dotnet/FoundationaLLM.Common.Services.StorageServiceBase.html#FoundationaLLM_Common_Services_StorageServiceBase__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Settings_BlobStorageServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_StorageServiceBase__
+  commentId: M:FoundationaLLM.Common.Services.StorageServiceBase.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Settings.BlobStorageServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.StorageServiceBase})
+  name.vb: New(IOptions(Of BlobStorageServiceSettings), ILogger(Of StorageServiceBase))
+  fullName: FoundationaLLM.Common.Services.StorageServiceBase.StorageServiceBase(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Settings.BlobStorageServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.StorageServiceBase>)
+  fullName.vb: FoundationaLLM.Common.Services.StorageServiceBase.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Settings.BlobStorageServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.StorageServiceBase))
+  nameWithType: StorageServiceBase.StorageServiceBase(IOptions<BlobStorageServiceSettings>, ILogger<StorageServiceBase>)
+  nameWithType.vb: StorageServiceBase.New(IOptions(Of BlobStorageServiceSettings), ILogger(Of StorageServiceBase))
+- uid: FoundationaLLM.Common.Services.StorageServiceBase.#ctor*
+  name: StorageServiceBase
+  href: api/dotnet/FoundationaLLM.Common.Services.StorageServiceBase.html#FoundationaLLM_Common_Services_StorageServiceBase__ctor_
+  commentId: Overload:FoundationaLLM.Common.Services.StorageServiceBase.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Services.StorageServiceBase.StorageServiceBase
+  fullName.vb: FoundationaLLM.Common.Services.StorageServiceBase.New
+  nameWithType: StorageServiceBase.StorageServiceBase
+  nameWithType.vb: StorageServiceBase.New
+- uid: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromAccountKey(System.String,System.String)
+  name: CreateClientFromAccountKey(string, string)
+  href: api/dotnet/FoundationaLLM.Common.Services.StorageServiceBase.html#FoundationaLLM_Common_Services_StorageServiceBase_CreateClientFromAccountKey_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromAccountKey(System.String,System.String)
+  name.vb: CreateClientFromAccountKey(String, String)
+  fullName: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromAccountKey(string, string)
+  fullName.vb: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromAccountKey(String, String)
+  nameWithType: StorageServiceBase.CreateClientFromAccountKey(string, string)
+  nameWithType.vb: StorageServiceBase.CreateClientFromAccountKey(String, String)
+- uid: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromAccountKey*
+  name: CreateClientFromAccountKey
+  href: api/dotnet/FoundationaLLM.Common.Services.StorageServiceBase.html#FoundationaLLM_Common_Services_StorageServiceBase_CreateClientFromAccountKey_
+  commentId: Overload:FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromAccountKey
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromAccountKey
+  nameWithType: StorageServiceBase.CreateClientFromAccountKey
+- uid: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromConnectionString(System.String)
+  name: CreateClientFromConnectionString(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.StorageServiceBase.html#FoundationaLLM_Common_Services_StorageServiceBase_CreateClientFromConnectionString_System_String_
+  commentId: M:FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromConnectionString(System.String)
+  name.vb: CreateClientFromConnectionString(String)
+  fullName: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromConnectionString(string)
+  fullName.vb: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromConnectionString(String)
+  nameWithType: StorageServiceBase.CreateClientFromConnectionString(string)
+  nameWithType.vb: StorageServiceBase.CreateClientFromConnectionString(String)
+- uid: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromConnectionString*
+  name: CreateClientFromConnectionString
+  href: api/dotnet/FoundationaLLM.Common.Services.StorageServiceBase.html#FoundationaLLM_Common_Services_StorageServiceBase_CreateClientFromConnectionString_
+  commentId: Overload:FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromConnectionString
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromConnectionString
+  nameWithType: StorageServiceBase.CreateClientFromConnectionString
+- uid: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromIdentity(System.String)
+  name: CreateClientFromIdentity(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.StorageServiceBase.html#FoundationaLLM_Common_Services_StorageServiceBase_CreateClientFromIdentity_System_String_
+  commentId: M:FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromIdentity(System.String)
+  name.vb: CreateClientFromIdentity(String)
+  fullName: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromIdentity(string)
+  fullName.vb: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromIdentity(String)
+  nameWithType: StorageServiceBase.CreateClientFromIdentity(string)
+  nameWithType.vb: StorageServiceBase.CreateClientFromIdentity(String)
+- uid: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromIdentity*
+  name: CreateClientFromIdentity
+  href: api/dotnet/FoundationaLLM.Common.Services.StorageServiceBase.html#FoundationaLLM_Common_Services_StorageServiceBase_CreateClientFromIdentity_
+  commentId: Overload:FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromIdentity
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromIdentity
+  nameWithType: StorageServiceBase.CreateClientFromIdentity
+- uid: FoundationaLLM.Common.Services.StorageServiceBase._logger
+  name: _logger
+  href: api/dotnet/FoundationaLLM.Common.Services.StorageServiceBase.html#FoundationaLLM_Common_Services_StorageServiceBase__logger
+  commentId: F:FoundationaLLM.Common.Services.StorageServiceBase._logger
+  fullName: FoundationaLLM.Common.Services.StorageServiceBase._logger
+  nameWithType: StorageServiceBase._logger
 - uid: FoundationaLLM.Common.Settings
   name: FoundationaLLM.Common.Settings
   href: api/dotnet/FoundationaLLM.Common.Settings.html
@@ -11924,6 +12447,31 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.ProcessRequest
   nameWithType: VectorizationRequestController.ProcessRequest
+- uid: FoundationaLLM.Vectorization.DataFormats.PDF
+  name: FoundationaLLM.Vectorization.DataFormats.PDF
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.PDF.html
+  commentId: N:FoundationaLLM.Vectorization.DataFormats.PDF
+  fullName: FoundationaLLM.Vectorization.DataFormats.PDF
+  nameWithType: FoundationaLLM.Vectorization.DataFormats.PDF
+- uid: FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor
+  name: PDFTextExtractor
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.html
+  commentId: T:FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor
+  fullName: FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor
+  nameWithType: PDFTextExtractor
+- uid: FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.GetText(System.BinaryData)
+  name: GetText(BinaryData)
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.html#FoundationaLLM_Vectorization_DataFormats_PDF_PDFTextExtractor_GetText_System_BinaryData_
+  commentId: M:FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.GetText(System.BinaryData)
+  fullName: FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.GetText(System.BinaryData)
+  nameWithType: PDFTextExtractor.GetText(BinaryData)
+- uid: FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.GetText*
+  name: GetText
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.html#FoundationaLLM_Vectorization_DataFormats_PDF_PDFTextExtractor_GetText_
+  commentId: Overload:FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.GetText
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.GetText
+  nameWithType: PDFTextExtractor.GetText
 - uid: FoundationaLLM.Vectorization.Exceptions
   name: FoundationaLLM.Vectorization.Exceptions
   href: api/dotnet/FoundationaLLM.Vectorization.Exceptions.html
@@ -11985,15 +12533,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Handlers.EmbeddingHandler
   fullName: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler
   nameWithType: EmbeddingHandler
-- uid: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})
-  name: EmbeddingHandler(Dictionary<string, string>)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.html#FoundationaLLM_Vectorization_Handlers_EmbeddingHandler__ctor_System_Collections_Generic_Dictionary_System_String_System_String__
-  commentId: M:FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})
-  name.vb: New(Dictionary(Of String, String))
-  fullName: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.EmbeddingHandler(System.Collections.Generic.Dictionary<string, string>)
-  fullName.vb: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.New(System.Collections.Generic.Dictionary(Of String, String))
-  nameWithType: EmbeddingHandler.EmbeddingHandler(Dictionary<string, string>)
-  nameWithType.vb: EmbeddingHandler.New(Dictionary(Of String, String))
+- uid: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: EmbeddingHandler(Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.html#FoundationaLLM_Vectorization_Handlers_EmbeddingHandler__ctor_System_Collections_Generic_Dictionary_System_String_System_String__Microsoft_Extensions_Configuration_IConfigurationSection_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.EmbeddingHandler(System.Collections.Generic.Dictionary<string, string>, Microsoft.Extensions.Configuration.IConfigurationSection?, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.New(System.Collections.Generic.Dictionary(Of String, String), Microsoft.Extensions.Configuration.IConfigurationSection, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: EmbeddingHandler.EmbeddingHandler(Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  nameWithType.vb: EmbeddingHandler.New(Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.#ctor*
   name: EmbeddingHandler
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.html#FoundationaLLM_Vectorization_Handlers_EmbeddingHandler__ctor_
@@ -12004,12 +12552,15 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.New
   nameWithType: EmbeddingHandler.EmbeddingHandler
   nameWithType.vb: EmbeddingHandler.New
-- uid: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,System.Threading.CancellationToken)
-  name: ProcessRequest(VectorizationRequest, VectorizationState, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.html#FoundationaLLM_Vectorization_Handlers_EmbeddingHandler_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, System.Threading.CancellationToken)
-  nameWithType: EmbeddingHandler.ProcessRequest(VectorizationRequest, VectorizationState, CancellationToken)
+- uid: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)
+  name: ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.html#FoundationaLLM_Vectorization_Handlers_EmbeddingHandler_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_Microsoft_Extensions_Configuration_IConfigurationSection_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)
+  name.vb: ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection, CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, Microsoft.Extensions.Configuration.IConfigurationSection?, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, Microsoft.Extensions.Configuration.IConfigurationSection, System.Threading.CancellationToken)
+  nameWithType: EmbeddingHandler.ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
+  nameWithType.vb: EmbeddingHandler.ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.EmbeddingHandler.html#FoundationaLLM_Vectorization_Handlers_EmbeddingHandler_ProcessRequest_
@@ -12023,15 +12574,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Handlers.ExtractionHandler
   fullName: FoundationaLLM.Vectorization.Handlers.ExtractionHandler
   nameWithType: ExtractionHandler
-- uid: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})
-  name: ExtractionHandler(Dictionary<string, string>)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.ExtractionHandler.html#FoundationaLLM_Vectorization_Handlers_ExtractionHandler__ctor_System_Collections_Generic_Dictionary_System_String_System_String__
-  commentId: M:FoundationaLLM.Vectorization.Handlers.ExtractionHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})
-  name.vb: New(Dictionary(Of String, String))
-  fullName: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.ExtractionHandler(System.Collections.Generic.Dictionary<string, string>)
-  fullName.vb: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.New(System.Collections.Generic.Dictionary(Of String, String))
-  nameWithType: ExtractionHandler.ExtractionHandler(Dictionary<string, string>)
-  nameWithType.vb: ExtractionHandler.New(Dictionary(Of String, String))
+- uid: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: ExtractionHandler(Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.ExtractionHandler.html#FoundationaLLM_Vectorization_Handlers_ExtractionHandler__ctor_System_Collections_Generic_Dictionary_System_String_System_String__Microsoft_Extensions_Configuration_IConfigurationSection_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.ExtractionHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.ExtractionHandler(System.Collections.Generic.Dictionary<string, string>, Microsoft.Extensions.Configuration.IConfigurationSection?, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.New(System.Collections.Generic.Dictionary(Of String, String), Microsoft.Extensions.Configuration.IConfigurationSection, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: ExtractionHandler.ExtractionHandler(Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  nameWithType.vb: ExtractionHandler.New(Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.#ctor*
   name: ExtractionHandler
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.ExtractionHandler.html#FoundationaLLM_Vectorization_Handlers_ExtractionHandler__ctor_
@@ -12042,12 +12593,15 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.New
   nameWithType: ExtractionHandler.ExtractionHandler
   nameWithType.vb: ExtractionHandler.New
-- uid: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,System.Threading.CancellationToken)
-  name: ProcessRequest(VectorizationRequest, VectorizationState, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.ExtractionHandler.html#FoundationaLLM_Vectorization_Handlers_ExtractionHandler_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Handlers.ExtractionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, System.Threading.CancellationToken)
-  nameWithType: ExtractionHandler.ProcessRequest(VectorizationRequest, VectorizationState, CancellationToken)
+- uid: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)
+  name: ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.ExtractionHandler.html#FoundationaLLM_Vectorization_Handlers_ExtractionHandler_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_Microsoft_Extensions_Configuration_IConfigurationSection_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.ExtractionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)
+  name.vb: ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection, CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, Microsoft.Extensions.Configuration.IConfigurationSection?, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, Microsoft.Extensions.Configuration.IConfigurationSection, System.Threading.CancellationToken)
+  nameWithType: ExtractionHandler.ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
+  nameWithType.vb: ExtractionHandler.ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Handlers.ExtractionHandler.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.ExtractionHandler.html#FoundationaLLM_Vectorization_Handlers_ExtractionHandler_ProcessRequest_
@@ -12061,15 +12615,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Handlers.IndexingHandler
   fullName: FoundationaLLM.Vectorization.Handlers.IndexingHandler
   nameWithType: IndexingHandler
-- uid: FoundationaLLM.Vectorization.Handlers.IndexingHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})
-  name: IndexingHandler(Dictionary<string, string>)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.IndexingHandler.html#FoundationaLLM_Vectorization_Handlers_IndexingHandler__ctor_System_Collections_Generic_Dictionary_System_String_System_String__
-  commentId: M:FoundationaLLM.Vectorization.Handlers.IndexingHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})
-  name.vb: New(Dictionary(Of String, String))
-  fullName: FoundationaLLM.Vectorization.Handlers.IndexingHandler.IndexingHandler(System.Collections.Generic.Dictionary<string, string>)
-  fullName.vb: FoundationaLLM.Vectorization.Handlers.IndexingHandler.New(System.Collections.Generic.Dictionary(Of String, String))
-  nameWithType: IndexingHandler.IndexingHandler(Dictionary<string, string>)
-  nameWithType.vb: IndexingHandler.New(Dictionary(Of String, String))
+- uid: FoundationaLLM.Vectorization.Handlers.IndexingHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: IndexingHandler(Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.IndexingHandler.html#FoundationaLLM_Vectorization_Handlers_IndexingHandler__ctor_System_Collections_Generic_Dictionary_System_String_System_String__Microsoft_Extensions_Configuration_IConfigurationSection_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.IndexingHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Handlers.IndexingHandler.IndexingHandler(System.Collections.Generic.Dictionary<string, string>, Microsoft.Extensions.Configuration.IConfigurationSection?, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.IndexingHandler.New(System.Collections.Generic.Dictionary(Of String, String), Microsoft.Extensions.Configuration.IConfigurationSection, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: IndexingHandler.IndexingHandler(Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  nameWithType.vb: IndexingHandler.New(Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Handlers.IndexingHandler.#ctor*
   name: IndexingHandler
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.IndexingHandler.html#FoundationaLLM_Vectorization_Handlers_IndexingHandler__ctor_
@@ -12080,12 +12634,15 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Handlers.IndexingHandler.New
   nameWithType: IndexingHandler.IndexingHandler
   nameWithType.vb: IndexingHandler.New
-- uid: FoundationaLLM.Vectorization.Handlers.IndexingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,System.Threading.CancellationToken)
-  name: ProcessRequest(VectorizationRequest, VectorizationState, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.IndexingHandler.html#FoundationaLLM_Vectorization_Handlers_IndexingHandler_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Handlers.IndexingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Handlers.IndexingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, System.Threading.CancellationToken)
-  nameWithType: IndexingHandler.ProcessRequest(VectorizationRequest, VectorizationState, CancellationToken)
+- uid: FoundationaLLM.Vectorization.Handlers.IndexingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)
+  name: ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.IndexingHandler.html#FoundationaLLM_Vectorization_Handlers_IndexingHandler_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_Microsoft_Extensions_Configuration_IConfigurationSection_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.IndexingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)
+  name.vb: ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection, CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Handlers.IndexingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, Microsoft.Extensions.Configuration.IConfigurationSection?, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.IndexingHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, Microsoft.Extensions.Configuration.IConfigurationSection, System.Threading.CancellationToken)
+  nameWithType: IndexingHandler.ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
+  nameWithType.vb: IndexingHandler.ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Handlers.IndexingHandler.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.IndexingHandler.html#FoundationaLLM_Vectorization_Handlers_IndexingHandler_ProcessRequest_
@@ -12099,15 +12656,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Handlers.PartitionHandler
   fullName: FoundationaLLM.Vectorization.Handlers.PartitionHandler
   nameWithType: PartitionHandler
-- uid: FoundationaLLM.Vectorization.Handlers.PartitionHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})
-  name: PartitionHandler(Dictionary<string, string>)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.PartitionHandler.html#FoundationaLLM_Vectorization_Handlers_PartitionHandler__ctor_System_Collections_Generic_Dictionary_System_String_System_String__
-  commentId: M:FoundationaLLM.Vectorization.Handlers.PartitionHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})
-  name.vb: New(Dictionary(Of String, String))
-  fullName: FoundationaLLM.Vectorization.Handlers.PartitionHandler.PartitionHandler(System.Collections.Generic.Dictionary<string, string>)
-  fullName.vb: FoundationaLLM.Vectorization.Handlers.PartitionHandler.New(System.Collections.Generic.Dictionary(Of String, String))
-  nameWithType: PartitionHandler.PartitionHandler(Dictionary<string, string>)
-  nameWithType.vb: PartitionHandler.New(Dictionary(Of String, String))
+- uid: FoundationaLLM.Vectorization.Handlers.PartitionHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: PartitionHandler(Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.PartitionHandler.html#FoundationaLLM_Vectorization_Handlers_PartitionHandler__ctor_System_Collections_Generic_Dictionary_System_String_System_String__Microsoft_Extensions_Configuration_IConfigurationSection_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.PartitionHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Handlers.PartitionHandler.PartitionHandler(System.Collections.Generic.Dictionary<string, string>, Microsoft.Extensions.Configuration.IConfigurationSection?, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.PartitionHandler.New(System.Collections.Generic.Dictionary(Of String, String), Microsoft.Extensions.Configuration.IConfigurationSection, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: PartitionHandler.PartitionHandler(Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  nameWithType.vb: PartitionHandler.New(Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Handlers.PartitionHandler.#ctor*
   name: PartitionHandler
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.PartitionHandler.html#FoundationaLLM_Vectorization_Handlers_PartitionHandler__ctor_
@@ -12118,12 +12675,15 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Handlers.PartitionHandler.New
   nameWithType: PartitionHandler.PartitionHandler
   nameWithType.vb: PartitionHandler.New
-- uid: FoundationaLLM.Vectorization.Handlers.PartitionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,System.Threading.CancellationToken)
-  name: ProcessRequest(VectorizationRequest, VectorizationState, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.PartitionHandler.html#FoundationaLLM_Vectorization_Handlers_PartitionHandler_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Handlers.PartitionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Handlers.PartitionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, System.Threading.CancellationToken)
-  nameWithType: PartitionHandler.ProcessRequest(VectorizationRequest, VectorizationState, CancellationToken)
+- uid: FoundationaLLM.Vectorization.Handlers.PartitionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)
+  name: ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.PartitionHandler.html#FoundationaLLM_Vectorization_Handlers_PartitionHandler_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_Microsoft_Extensions_Configuration_IConfigurationSection_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.PartitionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)
+  name.vb: ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection, CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Handlers.PartitionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, Microsoft.Extensions.Configuration.IConfigurationSection?, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.PartitionHandler.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, Microsoft.Extensions.Configuration.IConfigurationSection, System.Threading.CancellationToken)
+  nameWithType: PartitionHandler.ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
+  nameWithType.vb: PartitionHandler.ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Handlers.PartitionHandler.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.PartitionHandler.html#FoundationaLLM_Vectorization_Handlers_PartitionHandler_ProcessRequest_
@@ -12137,15 +12697,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase
   fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase
   nameWithType: VectorizationStepHandlerBase
-- uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.String})
-  name: VectorizationStepHandlerBase(string, Dictionary<string, string>)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase__ctor_System_String_System_Collections_Generic_Dictionary_System_String_System_String__
-  commentId: M:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.String})
-  name.vb: New(String, Dictionary(Of String, String))
-  fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.VectorizationStepHandlerBase(string, System.Collections.Generic.Dictionary<string, string>)
-  fullName.vb: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.New(String, System.Collections.Generic.Dictionary(Of String, String))
-  nameWithType: VectorizationStepHandlerBase.VectorizationStepHandlerBase(string, Dictionary<string, string>)
-  nameWithType.vb: VectorizationStepHandlerBase.New(String, Dictionary(Of String, String))
+- uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: VectorizationStepHandlerBase(string, Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase__ctor_System_String_System_Collections_Generic_Dictionary_System_String_System_String__Microsoft_Extensions_Configuration_IConfigurationSection_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(String, Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.VectorizationStepHandlerBase(string, System.Collections.Generic.Dictionary<string, string>, Microsoft.Extensions.Configuration.IConfigurationSection?, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.New(String, System.Collections.Generic.Dictionary(Of String, String), Microsoft.Extensions.Configuration.IConfigurationSection, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: VectorizationStepHandlerBase.VectorizationStepHandlerBase(string, Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  nameWithType.vb: VectorizationStepHandlerBase.New(String, Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.#ctor*
   name: VectorizationStepHandlerBase
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase__ctor_
@@ -12169,12 +12729,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.Invoke
   nameWithType: VectorizationStepHandlerBase.Invoke
-- uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,System.Threading.CancellationToken)
-  name: ProcessRequest(VectorizationRequest, VectorizationState, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, System.Threading.CancellationToken)
-  nameWithType: VectorizationStepHandlerBase.ProcessRequest(VectorizationRequest, VectorizationState, CancellationToken)
+- uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)
+  name: ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_Microsoft_Extensions_Configuration_IConfigurationSection_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)
+  name.vb: ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection, CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, Microsoft.Extensions.Configuration.IConfigurationSection?, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest, FoundationaLLM.Vectorization.Models.VectorizationState, Microsoft.Extensions.Configuration.IConfigurationSection, System.Threading.CancellationToken)
+  nameWithType: VectorizationStepHandlerBase.ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
+  nameWithType.vb: VectorizationStepHandlerBase.ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase_ProcessRequest_
@@ -12195,33 +12758,57 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.StepId
   nameWithType: VectorizationStepHandlerBase.StepId
+- uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._contentSourceManagerService
+  name: _contentSourceManagerService
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase__contentSourceManagerService
+  commentId: F:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._contentSourceManagerService
+  fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._contentSourceManagerService
+  nameWithType: VectorizationStepHandlerBase._contentSourceManagerService
+- uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._logger
+  name: _logger
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase__logger
+  commentId: F:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._logger
+  fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._logger
+  nameWithType: VectorizationStepHandlerBase._logger
 - uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._parameters
   name: _parameters
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase__parameters
   commentId: F:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._parameters
   fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._parameters
   nameWithType: VectorizationStepHandlerBase._parameters
+- uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._stateService
+  name: _stateService
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase__stateService
+  commentId: F:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._stateService
+  fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._stateService
+  nameWithType: VectorizationStepHandlerBase._stateService
 - uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._stepId
   name: _stepId
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase__stepId
   commentId: F:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._stepId
   fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._stepId
   nameWithType: VectorizationStepHandlerBase._stepId
+- uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._stepsConfiguration
+  name: _stepsConfiguration
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase__stepsConfiguration
+  commentId: F:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._stepsConfiguration
+  fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase._stepsConfiguration
+  nameWithType: VectorizationStepHandlerBase._stepsConfiguration
 - uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory
   name: VectorizationStepHandlerFactory
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.html
   commentId: T:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory
   fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory
   nameWithType: VectorizationStepHandlerFactory
-- uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.Create(System.String,System.Collections.Generic.Dictionary{System.String,System.String})
-  name: Create(string, Dictionary<string, string>)
-  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerFactory_Create_System_String_System_Collections_Generic_Dictionary_System_String_System_String__
-  commentId: M:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.Create(System.String,System.Collections.Generic.Dictionary{System.String,System.String})
-  name.vb: Create(String, Dictionary(Of String, String))
-  fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.Create(string, System.Collections.Generic.Dictionary<string, string>)
-  fullName.vb: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.Create(String, System.Collections.Generic.Dictionary(Of String, String))
-  nameWithType: VectorizationStepHandlerFactory.Create(string, Dictionary<string, string>)
-  nameWithType.vb: VectorizationStepHandlerFactory.Create(String, Dictionary(Of String, String))
+- uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.Create(System.String,System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: Create(string, Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerFactory_Create_System_String_System_Collections_Generic_Dictionary_System_String_System_String__Microsoft_Extensions_Configuration_IConfigurationSection_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.Create(System.String,System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: Create(String, Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.Create(string, System.Collections.Generic.Dictionary<string, string>, Microsoft.Extensions.Configuration.IConfigurationSection?, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.Create(String, System.Collections.Generic.Dictionary(Of String, String), Microsoft.Extensions.Configuration.IConfigurationSection, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: VectorizationStepHandlerFactory.Create(string, Dictionary<string, string>, IConfigurationSection?, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
+  nameWithType.vb: VectorizationStepHandlerFactory.Create(String, Dictionary(Of String, String), IConfigurationSection, IContentSourceManagerService, IVectorizationStateService, ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.Create*
   name: Create
   href: api/dotnet/FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerFactory.html#FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerFactory_Create_
@@ -12235,28 +12822,50 @@ references:
   commentId: N:FoundationaLLM.Vectorization.Interfaces
   fullName: FoundationaLLM.Vectorization.Interfaces
   nameWithType: FoundationaLLM.Vectorization.Interfaces
+- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService
+  name: IContentSourceManagerService
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.html
+  commentId: T:FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService
+  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService
+  nameWithType: IContentSourceManagerService
+- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.GetContentSource(System.String)
+  name: GetContentSource(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_GetContentSource_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.GetContentSource(System.String)
+  name.vb: GetContentSource(String)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.GetContentSource(string)
+  fullName.vb: FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.GetContentSource(String)
+  nameWithType: IContentSourceManagerService.GetContentSource(string)
+  nameWithType.vb: IContentSourceManagerService.GetContentSource(String)
+- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.GetContentSource*
+  name: GetContentSource
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_GetContentSource_
+  commentId: Overload:FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.GetContentSource
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.GetContentSource
+  nameWithType: IContentSourceManagerService.GetContentSource
 - uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService
   name: IContentSourceService
   href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html
   commentId: T:FoundationaLLM.Vectorization.Interfaces.IContentSourceService
   fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService
   nameWithType: IContentSourceService
-- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ReadFileAsync(System.String)
-  name: ReadFileAsync(string)
-  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceService_ReadFileAsync_System_String_
-  commentId: M:FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ReadFileAsync(System.String)
-  name.vb: ReadFileAsync(String)
-  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ReadFileAsync(string)
-  fullName.vb: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ReadFileAsync(String)
-  nameWithType: IContentSourceService.ReadFileAsync(string)
-  nameWithType.vb: IContentSourceService.ReadFileAsync(String)
-- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ReadFileAsync*
-  name: ReadFileAsync
-  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceService_ReadFileAsync_
-  commentId: Overload:FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ReadFileAsync
+- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)
+  name: ExtractTextFromFileAsync(List<string>, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceService_ExtractTextFromFileAsync_System_Collections_Generic_List_System_String__System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)
+  name.vb: ExtractTextFromFileAsync(List(Of String), CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List<string>, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List(Of String), System.Threading.CancellationToken)
+  nameWithType: IContentSourceService.ExtractTextFromFileAsync(List<string>, CancellationToken)
+  nameWithType.vb: IContentSourceService.ExtractTextFromFileAsync(List(Of String), CancellationToken)
+- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync*
+  name: ExtractTextFromFileAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceService_ExtractTextFromFileAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ReadFileAsync
-  nameWithType: IContentSourceService.ReadFileAsync
+  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync
+  nameWithType: IContentSourceService.ExtractTextFromFileAsync
 - uid: FoundationaLLM.Vectorization.Interfaces.IRequestManagerService
   name: IRequestManagerService
   href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IRequestManagerService.html
@@ -12410,6 +13019,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.HasState
   nameWithType: IVectorizationStateService.HasState
+- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.LoadArtifacts(FoundationaLLM.Vectorization.Models.VectorizationState,FoundationaLLM.Vectorization.Models.VectorizationArtifactType)
+  name: LoadArtifacts(VectorizationState, VectorizationArtifactType)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_LoadArtifacts_FoundationaLLM_Vectorization_Models_VectorizationState_FoundationaLLM_Vectorization_Models_VectorizationArtifactType_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.LoadArtifacts(FoundationaLLM.Vectorization.Models.VectorizationState,FoundationaLLM.Vectorization.Models.VectorizationArtifactType)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.LoadArtifacts(FoundationaLLM.Vectorization.Models.VectorizationState, FoundationaLLM.Vectorization.Models.VectorizationArtifactType)
+  nameWithType: IVectorizationStateService.LoadArtifacts(VectorizationState, VectorizationArtifactType)
+- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.LoadArtifacts*
+  name: LoadArtifacts
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_LoadArtifacts_
+  commentId: Overload:FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.LoadArtifacts
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.LoadArtifacts
+  nameWithType: IVectorizationStateService.LoadArtifacts
 - uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.ReadState(FoundationaLLM.Vectorization.Models.VectorizationRequest)
   name: ReadState(VectorizationRequest)
   href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_ReadState_FoundationaLLM_Vectorization_Models_VectorizationRequest_
@@ -12486,6 +13108,25 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings
   fullName: FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings
   nameWithType: BlobStorageVectorizationStateServiceSettings
+- uid: FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings
+  name: ContentSourceManagerServiceSettings
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings
+  nameWithType: ContentSourceManagerServiceSettings
+- uid: FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.ContentSources
+  name: ContentSources
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings_ContentSources
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.ContentSources
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.ContentSources
+  nameWithType: ContentSourceManagerServiceSettings.ContentSources
+- uid: FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.ContentSources*
+  name: ContentSources
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings_ContentSources_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.ContentSources
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.ContentSources
+  nameWithType: ContentSourceManagerServiceSettings.ContentSources
 - uid: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings
   name: RequestManagerServiceSettings
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html
@@ -12582,32 +13223,32 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings
   fullName: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings
   nameWithType: VectorizationStateServiceSettings
-- uid: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ConnectionString
-  name: ConnectionString
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_VectorizationStateServiceSettings_ConnectionString
-  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ConnectionString
-  fullName: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ConnectionString
-  nameWithType: VectorizationStateServiceSettings.ConnectionString
-- uid: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ConnectionString*
-  name: ConnectionString
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_VectorizationStateServiceSettings_ConnectionString_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ConnectionString
+- uid: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.Storage
+  name: Storage
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_VectorizationStateServiceSettings_Storage
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.Storage
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.Storage
+  nameWithType: VectorizationStateServiceSettings.Storage
+- uid: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.Storage*
+  name: Storage
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_VectorizationStateServiceSettings_Storage_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.Storage
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ConnectionString
-  nameWithType: VectorizationStateServiceSettings.ConnectionString
-- uid: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ContainerName
-  name: ContainerName
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_VectorizationStateServiceSettings_ContainerName
-  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ContainerName
-  fullName: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ContainerName
-  nameWithType: VectorizationStateServiceSettings.ContainerName
-- uid: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ContainerName*
-  name: ContainerName
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_VectorizationStateServiceSettings_ContainerName_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ContainerName
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.Storage
+  nameWithType: VectorizationStateServiceSettings.Storage
+- uid: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.StorageContainerName
+  name: StorageContainerName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_VectorizationStateServiceSettings_StorageContainerName
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.StorageContainerName
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.StorageContainerName
+  nameWithType: VectorizationStateServiceSettings.StorageContainerName
+- uid: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.StorageContainerName*
+  name: StorageContainerName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_VectorizationStateServiceSettings_StorageContainerName_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.StorageContainerName
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.ContainerName
-  nameWithType: VectorizationStateServiceSettings.ContainerName
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.StorageContainerName
+  nameWithType: VectorizationStateServiceSettings.StorageContainerName
 - uid: FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings
   name: VectorizationWorkerSettings
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings.html
@@ -12653,6 +13294,145 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings.RequestSources
   nameWithType: VectorizationWorkerSettings.RequestSources
+- uid: FoundationaLLM.Vectorization.Models.ContentSource
+  name: ContentSource
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.ContentSource.html
+  commentId: T:FoundationaLLM.Vectorization.Models.ContentSource
+  fullName: FoundationaLLM.Vectorization.Models.ContentSource
+  nameWithType: ContentSource
+- uid: FoundationaLLM.Vectorization.Models.ContentSource.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.ContentSource.html#FoundationaLLM_Vectorization_Models_ContentSource_Name
+  commentId: P:FoundationaLLM.Vectorization.Models.ContentSource.Name
+  fullName: FoundationaLLM.Vectorization.Models.ContentSource.Name
+  nameWithType: ContentSource.Name
+- uid: FoundationaLLM.Vectorization.Models.ContentSource.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.ContentSource.html#FoundationaLLM_Vectorization_Models_ContentSource_Name_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.ContentSource.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.ContentSource.Name
+  nameWithType: ContentSource.Name
+- uid: FoundationaLLM.Vectorization.Models.ContentSource.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.ContentSource.html#FoundationaLLM_Vectorization_Models_ContentSource_Type
+  commentId: P:FoundationaLLM.Vectorization.Models.ContentSource.Type
+  fullName: FoundationaLLM.Vectorization.Models.ContentSource.Type
+  nameWithType: ContentSource.Type
+- uid: FoundationaLLM.Vectorization.Models.ContentSource.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.ContentSource.html#FoundationaLLM_Vectorization_Models_ContentSource_Type_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.ContentSource.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.ContentSource.Type
+  nameWithType: ContentSource.Type
+- uid: FoundationaLLM.Vectorization.Models.ContentSourceType
+  name: ContentSourceType
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.ContentSourceType.html
+  commentId: T:FoundationaLLM.Vectorization.Models.ContentSourceType
+  fullName: FoundationaLLM.Vectorization.Models.ContentSourceType
+  nameWithType: ContentSourceType
+- uid: FoundationaLLM.Vectorization.Models.ContentSourceType.AzureDataLake
+  name: AzureDataLake
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.ContentSourceType.html#FoundationaLLM_Vectorization_Models_ContentSourceType_AzureDataLake
+  commentId: F:FoundationaLLM.Vectorization.Models.ContentSourceType.AzureDataLake
+  fullName: FoundationaLLM.Vectorization.Models.ContentSourceType.AzureDataLake
+  nameWithType: ContentSourceType.AzureDataLake
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact
+  name: VectorizationArtifact
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html
+  commentId: T:FoundationaLLM.Vectorization.Models.VectorizationArtifact
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact
+  nameWithType: VectorizationArtifact
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.CanonicalId
+  name: CanonicalId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_CanonicalId
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationArtifact.CanonicalId
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.CanonicalId
+  nameWithType: VectorizationArtifact.CanonicalId
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.CanonicalId*
+  name: CanonicalId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_CanonicalId_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationArtifact.CanonicalId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.CanonicalId
+  nameWithType: VectorizationArtifact.CanonicalId
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Content
+  name: Content
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_Content
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationArtifact.Content
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Content
+  nameWithType: VectorizationArtifact.Content
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Content*
+  name: Content
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_Content_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationArtifact.Content
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Content
+  nameWithType: VectorizationArtifact.Content
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.IsDirty
+  name: IsDirty
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_IsDirty
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationArtifact.IsDirty
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.IsDirty
+  nameWithType: VectorizationArtifact.IsDirty
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.IsDirty*
+  name: IsDirty
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_IsDirty_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationArtifact.IsDirty
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.IsDirty
+  nameWithType: VectorizationArtifact.IsDirty
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Position
+  name: Position
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_Position
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationArtifact.Position
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Position
+  nameWithType: VectorizationArtifact.Position
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Position*
+  name: Position
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_Position_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationArtifact.Position
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Position
+  nameWithType: VectorizationArtifact.Position
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_Type
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationArtifact.Type
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Type
+  nameWithType: VectorizationArtifact.Type
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_Type_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationArtifact.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Type
+  nameWithType: VectorizationArtifact.Type
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifactType
+  name: VectorizationArtifactType
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifactType.html
+  commentId: T:FoundationaLLM.Vectorization.Models.VectorizationArtifactType
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifactType
+  nameWithType: VectorizationArtifactType
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifactType.ExtractedText
+  name: ExtractedText
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifactType.html#FoundationaLLM_Vectorization_Models_VectorizationArtifactType_ExtractedText
+  commentId: F:FoundationaLLM.Vectorization.Models.VectorizationArtifactType.ExtractedText
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifactType.ExtractedText
+  nameWithType: VectorizationArtifactType.ExtractedText
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifactType.TextEmbeddingVector
+  name: TextEmbeddingVector
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifactType.html#FoundationaLLM_Vectorization_Models_VectorizationArtifactType_TextEmbeddingVector
+  commentId: F:FoundationaLLM.Vectorization.Models.VectorizationArtifactType.TextEmbeddingVector
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifactType.TextEmbeddingVector
+  nameWithType: VectorizationArtifactType.TextEmbeddingVector
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifactType.TextPartition
+  name: TextPartition
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifactType.html#FoundationaLLM_Vectorization_Models_VectorizationArtifactType_TextPartition
+  commentId: F:FoundationaLLM.Vectorization.Models.VectorizationArtifactType.TextPartition
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifactType.TextPartition
+  nameWithType: VectorizationArtifactType.TextPartition
 - uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier
   name: VectorizationContentIdentifier
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html
@@ -12672,6 +13452,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.CanonicalId
   nameWithType: VectorizationContentIdentifier.CanonicalId
+- uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId
+  name: MultipartId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html#FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_MultipartId
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId
+  nameWithType: VectorizationContentIdentifier.MultipartId
+- uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId*
+  name: MultipartId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html#FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_MultipartId_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId
+  nameWithType: VectorizationContentIdentifier.MultipartId
 - uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId
   name: UniqueId
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html#FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_UniqueId
@@ -12915,6 +13708,32 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Models.VectorizationState
   fullName: FoundationaLLM.Vectorization.Models.VectorizationState
   nameWithType: VectorizationState
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.AddOrReplaceArtifact(FoundationaLLM.Vectorization.Models.VectorizationArtifact)
+  name: AddOrReplaceArtifact(VectorizationArtifact)
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_AddOrReplaceArtifact_FoundationaLLM_Vectorization_Models_VectorizationArtifact_
+  commentId: M:FoundationaLLM.Vectorization.Models.VectorizationState.AddOrReplaceArtifact(FoundationaLLM.Vectorization.Models.VectorizationArtifact)
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.AddOrReplaceArtifact(FoundationaLLM.Vectorization.Models.VectorizationArtifact)
+  nameWithType: VectorizationState.AddOrReplaceArtifact(VectorizationArtifact)
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.AddOrReplaceArtifact*
+  name: AddOrReplaceArtifact
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_AddOrReplaceArtifact_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationState.AddOrReplaceArtifact
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.AddOrReplaceArtifact
+  nameWithType: VectorizationState.AddOrReplaceArtifact
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.Artifacts
+  name: Artifacts
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_Artifacts
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationState.Artifacts
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.Artifacts
+  nameWithType: VectorizationState.Artifacts
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.Artifacts*
+  name: Artifacts
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_Artifacts_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationState.Artifacts
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.Artifacts
+  nameWithType: VectorizationState.Artifacts
 - uid: FoundationaLLM.Vectorization.Models.VectorizationState.ContentIdentifier
   name: ContentIdentifier
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_ContentIdentifier
@@ -13075,68 +13894,125 @@ references:
   commentId: N:FoundationaLLM.Vectorization.Services.ContentSources
   fullName: FoundationaLLM.Vectorization.Services.ContentSources
   nameWithType: FoundationaLLM.Vectorization.Services.ContentSources
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService
-  name: BlobStorageContentSourceService
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.html
-  commentId: T:FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService
-  nameWithType: BlobStorageContentSourceService
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.#ctor
-  name: BlobStorageContentSourceService()
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_BlobStorageContentSourceService__ctor
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.#ctor
-  name.vb: New()
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.BlobStorageContentSourceService()
-  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.New()
-  nameWithType: BlobStorageContentSourceService.BlobStorageContentSourceService()
-  nameWithType.vb: BlobStorageContentSourceService.New()
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.#ctor*
-  name: BlobStorageContentSourceService
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_BlobStorageContentSourceService__ctor_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.#ctor
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService
+  name: ContentSourceManagerService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.html
+  commentId: T:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService
+  nameWithType: ContentSourceManagerService
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: ContentSourceManagerService(IOptions<ContentSourceManagerServiceSettings>, IConfiguration, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings__Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IOptions(Of ContentSourceManagerServiceSettings), IConfiguration, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.ContentSourceManagerService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings>, Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings), Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: ContentSourceManagerService.ContentSourceManagerService(IOptions<ContentSourceManagerServiceSettings>, IConfiguration, ILoggerFactory)
+  nameWithType.vb: ContentSourceManagerService.New(IOptions(Of ContentSourceManagerServiceSettings), IConfiguration, ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.#ctor*
+  name: ContentSourceManagerService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.BlobStorageContentSourceService
-  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.New
-  nameWithType: BlobStorageContentSourceService.BlobStorageContentSourceService
-  nameWithType.vb: BlobStorageContentSourceService.New
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.ReadFileAsync(System.String)
-  name: ReadFileAsync(string)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_BlobStorageContentSourceService_ReadFileAsync_System_String_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.ReadFileAsync(System.String)
-  name.vb: ReadFileAsync(String)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.ReadFileAsync(string)
-  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.ReadFileAsync(String)
-  nameWithType: BlobStorageContentSourceService.ReadFileAsync(string)
-  nameWithType.vb: BlobStorageContentSourceService.ReadFileAsync(String)
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.ReadFileAsync*
-  name: ReadFileAsync
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_BlobStorageContentSourceService_ReadFileAsync_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.ReadFileAsync
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.ContentSourceManagerService
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.New
+  nameWithType: ContentSourceManagerService.ContentSourceManagerService
+  nameWithType.vb: ContentSourceManagerService.New
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource(System.String)
+  name: GetContentSource(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService_GetContentSource_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource(System.String)
+  name.vb: GetContentSource(String)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource(String)
+  nameWithType: ContentSourceManagerService.GetContentSource(string)
+  nameWithType.vb: ContentSourceManagerService.GetContentSource(String)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource*
+  name: GetContentSource
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService_GetContentSource_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.BlobStorageContentSourceService.ReadFileAsync
-  nameWithType: BlobStorageContentSourceService.ReadFileAsync
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource
+  nameWithType: ContentSourceManagerService.GetContentSource
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase
   name: ContentSourceServiceBase
   href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html
   commentId: T:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase
   fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase
   nameWithType: ContentSourceServiceBase
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ValidateMultipartId(System.Collections.Generic.List{System.String},System.Int32)
+  name: ValidateMultipartId(List<string>, int)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceBase_ValidateMultipartId_System_Collections_Generic_List_System_String__System_Int32_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ValidateMultipartId(System.Collections.Generic.List{System.String},System.Int32)
+  name.vb: ValidateMultipartId(List(Of String), Integer)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ValidateMultipartId(System.Collections.Generic.List<string>, int)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ValidateMultipartId(System.Collections.Generic.List(Of String), Integer)
+  nameWithType: ContentSourceServiceBase.ValidateMultipartId(List<string>, int)
+  nameWithType.vb: ContentSourceServiceBase.ValidateMultipartId(List(Of String), Integer)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ValidateMultipartId*
+  name: ValidateMultipartId
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceBase_ValidateMultipartId_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ValidateMultipartId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ValidateMultipartId
+  nameWithType: ContentSourceServiceBase.ValidateMultipartId
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService
+  name: DataLakeContentSourceService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html
+  commentId: T:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService
+  nameWithType: DataLakeContentSourceService
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.#ctor(FoundationaLLM.Common.Settings.BlobStorageServiceSettings,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: DataLakeContentSourceService(BlobStorageServiceSettings, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_DataLakeContentSourceService__ctor_FoundationaLLM_Common_Settings_BlobStorageServiceSettings_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.#ctor(FoundationaLLM.Common.Settings.BlobStorageServiceSettings,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(BlobStorageServiceSettings, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.DataLakeContentSourceService(FoundationaLLM.Common.Settings.BlobStorageServiceSettings, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.New(FoundationaLLM.Common.Settings.BlobStorageServiceSettings, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: DataLakeContentSourceService.DataLakeContentSourceService(BlobStorageServiceSettings, ILoggerFactory)
+  nameWithType.vb: DataLakeContentSourceService.New(BlobStorageServiceSettings, ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.#ctor*
+  name: DataLakeContentSourceService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_DataLakeContentSourceService__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.DataLakeContentSourceService
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.New
+  nameWithType: DataLakeContentSourceService.DataLakeContentSourceService
+  nameWithType.vb: DataLakeContentSourceService.New
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)
+  name: ExtractTextFromFileAsync(List<string>, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_DataLakeContentSourceService_ExtractTextFromFileAsync_System_Collections_Generic_List_System_String__System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)
+  name.vb: ExtractTextFromFileAsync(List(Of String), CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List<string>, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List(Of String), System.Threading.CancellationToken)
+  nameWithType: DataLakeContentSourceService.ExtractTextFromFileAsync(List<string>, CancellationToken)
+  nameWithType.vb: DataLakeContentSourceService.ExtractTextFromFileAsync(List(Of String), CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync*
+  name: ExtractTextFromFileAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_DataLakeContentSourceService_ExtractTextFromFileAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync
+  nameWithType: DataLakeContentSourceService.ExtractTextFromFileAsync
 - uid: FoundationaLLM.Vectorization.Services.RequestManagerService
   name: RequestManagerService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestManagerService.html
   commentId: T:FoundationaLLM.Vectorization.Services.RequestManagerService
   fullName: FoundationaLLM.Vectorization.Services.RequestManagerService
   nameWithType: RequestManagerService
-- uid: FoundationaLLM.Vectorization.Services.RequestManagerService.#ctor(FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Vectorization.Interfaces.IRequestSourceService},FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Services.RequestManagerService},System.Threading.CancellationToken)
-  name: RequestManagerService(RequestManagerServiceSettings, Dictionary<string, IRequestSourceService>, IVectorizationStateService, ILogger<RequestManagerService>, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestManagerService.html#FoundationaLLM_Vectorization_Services_RequestManagerService__ctor_FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_System_Collections_Generic_Dictionary_System_String_FoundationaLLM_Vectorization_Interfaces_IRequestSourceService__FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Services_RequestManagerService__System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Services.RequestManagerService.#ctor(FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Vectorization.Interfaces.IRequestSourceService},FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Services.RequestManagerService},System.Threading.CancellationToken)
-  name.vb: New(RequestManagerServiceSettings, Dictionary(Of String, IRequestSourceService), IVectorizationStateService, ILogger(Of RequestManagerService), CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Services.RequestManagerService.RequestManagerService(FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings, System.Collections.Generic.Dictionary<string, FoundationaLLM.Vectorization.Interfaces.IRequestSourceService>, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Vectorization.Services.RequestManagerService>, System.Threading.CancellationToken)
-  fullName.vb: FoundationaLLM.Vectorization.Services.RequestManagerService.New(FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings, System.Collections.Generic.Dictionary(Of String, FoundationaLLM.Vectorization.Interfaces.IRequestSourceService), FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Vectorization.Services.RequestManagerService), System.Threading.CancellationToken)
-  nameWithType: RequestManagerService.RequestManagerService(RequestManagerServiceSettings, Dictionary<string, IRequestSourceService>, IVectorizationStateService, ILogger<RequestManagerService>, CancellationToken)
-  nameWithType.vb: RequestManagerService.New(RequestManagerServiceSettings, Dictionary(Of String, IRequestSourceService), IVectorizationStateService, ILogger(Of RequestManagerService), CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.RequestManagerService.#ctor(FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Vectorization.Interfaces.IRequestSourceService},FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,Microsoft.Extensions.Logging.ILoggerFactory,System.Threading.CancellationToken)
+  name: RequestManagerService(RequestManagerServiceSettings, Dictionary<string, IRequestSourceService>, IVectorizationStateService, IConfigurationSection?, IContentSourceManagerService, ILoggerFactory, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestManagerService.html#FoundationaLLM_Vectorization_Services_RequestManagerService__ctor_FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_System_Collections_Generic_Dictionary_System_String_FoundationaLLM_Vectorization_Interfaces_IRequestSourceService__FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Configuration_IConfigurationSection_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_Microsoft_Extensions_Logging_ILoggerFactory_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.RequestManagerService.#ctor(FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Vectorization.Interfaces.IRequestSourceService},FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Configuration.IConfigurationSection,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,Microsoft.Extensions.Logging.ILoggerFactory,System.Threading.CancellationToken)
+  name.vb: New(RequestManagerServiceSettings, Dictionary(Of String, IRequestSourceService), IVectorizationStateService, IConfigurationSection, IContentSourceManagerService, ILoggerFactory, CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.RequestManagerService.RequestManagerService(FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings, System.Collections.Generic.Dictionary<string, FoundationaLLM.Vectorization.Interfaces.IRequestSourceService>, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Configuration.IConfigurationSection?, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, Microsoft.Extensions.Logging.ILoggerFactory, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Vectorization.Services.RequestManagerService.New(FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings, System.Collections.Generic.Dictionary(Of String, FoundationaLLM.Vectorization.Interfaces.IRequestSourceService), FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Configuration.IConfigurationSection, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, Microsoft.Extensions.Logging.ILoggerFactory, System.Threading.CancellationToken)
+  nameWithType: RequestManagerService.RequestManagerService(RequestManagerServiceSettings, Dictionary<string, IRequestSourceService>, IVectorizationStateService, IConfigurationSection?, IContentSourceManagerService, ILoggerFactory, CancellationToken)
+  nameWithType.vb: RequestManagerService.New(RequestManagerServiceSettings, Dictionary(Of String, IRequestSourceService), IVectorizationStateService, IConfigurationSection, IContentSourceManagerService, ILoggerFactory, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Services.RequestManagerService.#ctor*
   name: RequestManagerService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestManagerService.html#FoundationaLLM_Vectorization_Services_RequestManagerService__ctor_
@@ -13539,15 +14415,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService
   nameWithType: BlobStorageVectorizationStateService
-- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings})
-  name: BlobStorageVectorizationStateService(IOptions<BlobStorageVectorizationStateServiceSettings>)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_BlobStorageVectorizationStateServiceSettings__
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings})
-  name.vb: New(IOptions(Of BlobStorageVectorizationStateServiceSettings))
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.BlobStorageVectorizationStateService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings>)
-  fullName.vb: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings))
-  nameWithType: BlobStorageVectorizationStateService.BlobStorageVectorizationStateService(IOptions<BlobStorageVectorizationStateServiceSettings>)
-  nameWithType.vb: BlobStorageVectorizationStateService.New(IOptions(Of BlobStorageVectorizationStateServiceSettings))
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings},Microsoft.Extensions.Logging.ILoggerFactory)
+  name: BlobStorageVectorizationStateService(IOptions<BlobStorageVectorizationStateServiceSettings>, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_BlobStorageVectorizationStateServiceSettings__Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings},Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IOptions(Of BlobStorageVectorizationStateServiceSettings), ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.BlobStorageVectorizationStateService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings>, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings), Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: BlobStorageVectorizationStateService.BlobStorageVectorizationStateService(IOptions<BlobStorageVectorizationStateServiceSettings>, ILoggerFactory)
+  nameWithType.vb: BlobStorageVectorizationStateService.New(IOptions(Of BlobStorageVectorizationStateServiceSettings), ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor*
   name: BlobStorageVectorizationStateService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService__ctor_
@@ -13558,19 +14434,6 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.New
   nameWithType: BlobStorageVectorizationStateService.BlobStorageVectorizationStateService
   nameWithType.vb: BlobStorageVectorizationStateService.New
-- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  name: GetPersistenceIdentifier(VectorizationContentIdentifier)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_GetPersistenceIdentifier_FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  nameWithType: BlobStorageVectorizationStateService.GetPersistenceIdentifier(VectorizationContentIdentifier)
-- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.GetPersistenceIdentifier*
-  name: GetPersistenceIdentifier
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_GetPersistenceIdentifier_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.GetPersistenceIdentifier
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.GetPersistenceIdentifier
-  nameWithType: BlobStorageVectorizationStateService.GetPersistenceIdentifier
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.HasState(FoundationaLLM.Vectorization.Models.VectorizationRequest)
   name: HasState(VectorizationRequest)
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_HasState_FoundationaLLM_Vectorization_Models_VectorizationRequest_
@@ -13584,6 +14447,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.HasState
   nameWithType: BlobStorageVectorizationStateService.HasState
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.LoadArtifacts(FoundationaLLM.Vectorization.Models.VectorizationState,FoundationaLLM.Vectorization.Models.VectorizationArtifactType)
+  name: LoadArtifacts(VectorizationState, VectorizationArtifactType)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_LoadArtifacts_FoundationaLLM_Vectorization_Models_VectorizationState_FoundationaLLM_Vectorization_Models_VectorizationArtifactType_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.LoadArtifacts(FoundationaLLM.Vectorization.Models.VectorizationState,FoundationaLLM.Vectorization.Models.VectorizationArtifactType)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.LoadArtifacts(FoundationaLLM.Vectorization.Models.VectorizationState, FoundationaLLM.Vectorization.Models.VectorizationArtifactType)
+  nameWithType: BlobStorageVectorizationStateService.LoadArtifacts(VectorizationState, VectorizationArtifactType)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.LoadArtifacts*
+  name: LoadArtifacts
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_LoadArtifacts_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.LoadArtifacts
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.LoadArtifacts
+  nameWithType: BlobStorageVectorizationStateService.LoadArtifacts
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.ReadState(FoundationaLLM.Vectorization.Models.VectorizationRequest)
   name: ReadState(VectorizationRequest)
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_ReadState_FoundationaLLM_Vectorization_Models_VectorizationRequest_
@@ -13616,19 +14492,6 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService
   nameWithType: MemoryVectorizationStateService
-- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  name: GetPersistenceIdentifier(VectorizationContentIdentifier)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_MemoryVectorizationStateService_GetPersistenceIdentifier_FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  nameWithType: MemoryVectorizationStateService.GetPersistenceIdentifier(VectorizationContentIdentifier)
-- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.GetPersistenceIdentifier*
-  name: GetPersistenceIdentifier
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_MemoryVectorizationStateService_GetPersistenceIdentifier_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.GetPersistenceIdentifier
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.GetPersistenceIdentifier
-  nameWithType: MemoryVectorizationStateService.GetPersistenceIdentifier
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.HasState(FoundationaLLM.Vectorization.Models.VectorizationRequest)
   name: HasState(VectorizationRequest)
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_MemoryVectorizationStateService_HasState_FoundationaLLM_Vectorization_Models_VectorizationRequest_
@@ -13642,6 +14505,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.HasState
   nameWithType: MemoryVectorizationStateService.HasState
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.LoadArtifacts(FoundationaLLM.Vectorization.Models.VectorizationState,FoundationaLLM.Vectorization.Models.VectorizationArtifactType)
+  name: LoadArtifacts(VectorizationState, VectorizationArtifactType)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_MemoryVectorizationStateService_LoadArtifacts_FoundationaLLM_Vectorization_Models_VectorizationState_FoundationaLLM_Vectorization_Models_VectorizationArtifactType_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.LoadArtifacts(FoundationaLLM.Vectorization.Models.VectorizationState,FoundationaLLM.Vectorization.Models.VectorizationArtifactType)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.LoadArtifacts(FoundationaLLM.Vectorization.Models.VectorizationState, FoundationaLLM.Vectorization.Models.VectorizationArtifactType)
+  nameWithType: MemoryVectorizationStateService.LoadArtifacts(VectorizationState, VectorizationArtifactType)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.LoadArtifacts*
+  name: LoadArtifacts
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_MemoryVectorizationStateService_LoadArtifacts_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.LoadArtifacts
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.LoadArtifacts
+  nameWithType: MemoryVectorizationStateService.LoadArtifacts
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.ReadState(FoundationaLLM.Vectorization.Models.VectorizationRequest)
   name: ReadState(VectorizationRequest)
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.html#FoundationaLLM_Vectorization_Services_VectorizationStates_MemoryVectorizationStateService_ReadState_FoundationaLLM_Vectorization_Models_VectorizationRequest_
@@ -13706,15 +14582,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.VectorizationWorker
   fullName: FoundationaLLM.Vectorization.VectorizationWorker
   nameWithType: VectorizationWorker
-- uid: FoundationaLLM.Vectorization.VectorizationWorker.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,System.Collections.Generic.IDictionary{System.String,FoundationaLLM.Vectorization.Interfaces.IRequestSourceService},System.Collections.Generic.IEnumerable{FoundationaLLM.Vectorization.Interfaces.IRequestManagerService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.VectorizationWorker},System.Threading.CancellationToken)
-  name: VectorizationWorker(IVectorizationStateService, IDictionary<string, IRequestSourceService>, IEnumerable<IRequestManagerService>, ILogger<VectorizationWorker>, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.VectorizationWorker.html#FoundationaLLM_Vectorization_VectorizationWorker__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_System_Collections_Generic_IDictionary_System_String_FoundationaLLM_Vectorization_Interfaces_IRequestSourceService__System_Collections_Generic_IEnumerable_FoundationaLLM_Vectorization_Interfaces_IRequestManagerService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_VectorizationWorker__System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.VectorizationWorker.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,System.Collections.Generic.IDictionary{System.String,FoundationaLLM.Vectorization.Interfaces.IRequestSourceService},System.Collections.Generic.IEnumerable{FoundationaLLM.Vectorization.Interfaces.IRequestManagerService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.VectorizationWorker},System.Threading.CancellationToken)
-  name.vb: New(IVectorizationStateService, IDictionary(Of String, IRequestSourceService), IEnumerable(Of IRequestManagerService), ILogger(Of VectorizationWorker), CancellationToken)
-  fullName: FoundationaLLM.Vectorization.VectorizationWorker.VectorizationWorker(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, System.Collections.Generic.IDictionary<string, FoundationaLLM.Vectorization.Interfaces.IRequestSourceService>, System.Collections.Generic.IEnumerable<FoundationaLLM.Vectorization.Interfaces.IRequestManagerService>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Vectorization.VectorizationWorker>, System.Threading.CancellationToken)
-  fullName.vb: FoundationaLLM.Vectorization.VectorizationWorker.New(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, System.Collections.Generic.IDictionary(Of String, FoundationaLLM.Vectorization.Interfaces.IRequestSourceService), System.Collections.Generic.IEnumerable(Of FoundationaLLM.Vectorization.Interfaces.IRequestManagerService), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Vectorization.VectorizationWorker), System.Threading.CancellationToken)
-  nameWithType: VectorizationWorker.VectorizationWorker(IVectorizationStateService, IDictionary<string, IRequestSourceService>, IEnumerable<IRequestManagerService>, ILogger<VectorizationWorker>, CancellationToken)
-  nameWithType.vb: VectorizationWorker.New(IVectorizationStateService, IDictionary(Of String, IRequestSourceService), IEnumerable(Of IRequestManagerService), ILogger(Of VectorizationWorker), CancellationToken)
+- uid: FoundationaLLM.Vectorization.VectorizationWorker.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Vectorization.Interfaces.IRequestManagerService})
+  name: VectorizationWorker(IEnumerable<IRequestManagerService>)
+  href: api/dotnet/FoundationaLLM.Vectorization.VectorizationWorker.html#FoundationaLLM_Vectorization_VectorizationWorker__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Vectorization_Interfaces_IRequestManagerService__
+  commentId: M:FoundationaLLM.Vectorization.VectorizationWorker.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Vectorization.Interfaces.IRequestManagerService})
+  name.vb: New(IEnumerable(Of IRequestManagerService))
+  fullName: FoundationaLLM.Vectorization.VectorizationWorker.VectorizationWorker(System.Collections.Generic.IEnumerable<FoundationaLLM.Vectorization.Interfaces.IRequestManagerService>)
+  fullName.vb: FoundationaLLM.Vectorization.VectorizationWorker.New(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Vectorization.Interfaces.IRequestManagerService))
+  nameWithType: VectorizationWorker.VectorizationWorker(IEnumerable<IRequestManagerService>)
+  nameWithType.vb: VectorizationWorker.New(IEnumerable(Of IRequestManagerService))
 - uid: FoundationaLLM.Vectorization.VectorizationWorker.#ctor*
   name: VectorizationWorker
   href: api/dotnet/FoundationaLLM.Vectorization.VectorizationWorker.html#FoundationaLLM_Vectorization_VectorizationWorker__ctor_
@@ -13789,6 +14665,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithCancellationToken
   nameWithType: VectorizationWorkerBuilder.WithCancellationToken
+- uid: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithContentSourceManager(FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService)
+  name: WithContentSourceManager(IContentSourceManagerService)
+  href: api/dotnet/FoundationaLLM.Vectorization.VectorizationWorkerBuilder.html#FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithContentSourceManager_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_
+  commentId: M:FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithContentSourceManager(FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService)
+  fullName: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithContentSourceManager(FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService)
+  nameWithType: VectorizationWorkerBuilder.WithContentSourceManager(IContentSourceManagerService)
+- uid: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithContentSourceManager*
+  name: WithContentSourceManager
+  href: api/dotnet/FoundationaLLM.Vectorization.VectorizationWorkerBuilder.html#FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithContentSourceManager_
+  commentId: Overload:FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithContentSourceManager
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithContentSourceManager
+  nameWithType: VectorizationWorkerBuilder.WithContentSourceManager
 - uid: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithLoggerFactory(Microsoft.Extensions.Logging.ILoggerFactory)
   name: WithLoggerFactory(ILoggerFactory)
   href: api/dotnet/FoundationaLLM.Vectorization.VectorizationWorkerBuilder.html#FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithLoggerFactory_Microsoft_Extensions_Logging_ILoggerFactory_
@@ -13841,6 +14730,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithStateService
   nameWithType: VectorizationWorkerBuilder.WithStateService
+- uid: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithStepsConfiguration(Microsoft.Extensions.Configuration.IConfigurationSection)
+  name: WithStepsConfiguration(IConfigurationSection)
+  href: api/dotnet/FoundationaLLM.Vectorization.VectorizationWorkerBuilder.html#FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithStepsConfiguration_Microsoft_Extensions_Configuration_IConfigurationSection_
+  commentId: M:FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithStepsConfiguration(Microsoft.Extensions.Configuration.IConfigurationSection)
+  fullName: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithStepsConfiguration(Microsoft.Extensions.Configuration.IConfigurationSection)
+  nameWithType: VectorizationWorkerBuilder.WithStepsConfiguration(IConfigurationSection)
+- uid: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithStepsConfiguration*
+  name: WithStepsConfiguration
+  href: api/dotnet/FoundationaLLM.Vectorization.VectorizationWorkerBuilder.html#FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithStepsConfiguration_
+  commentId: Overload:FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithStepsConfiguration
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithStepsConfiguration
+  nameWithType: VectorizationWorkerBuilder.WithStepsConfiguration
 - uid: FoundationaLLM.Vectorization.Worker
   name: FoundationaLLM.Vectorization.Worker
   href: api/dotnet/FoundationaLLM.Vectorization.Worker.html
@@ -13878,15 +14780,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Worker.Worker
   fullName: FoundationaLLM.Vectorization.Worker.Worker
   nameWithType: Worker
-- uid: FoundationaLLM.Vectorization.Worker.Worker.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings},Microsoft.Extensions.Configuration.IConfigurationSection,Microsoft.Extensions.Logging.ILoggerFactory)
-  name: Worker(IVectorizationStateService, IOptions<VectorizationWorkerSettings>, IConfigurationSection, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.Vectorization.Worker.Worker.html#FoundationaLLM_Vectorization_Worker_Worker__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings__Microsoft_Extensions_Configuration_IConfigurationSection_Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.Vectorization.Worker.Worker.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings},Microsoft.Extensions.Configuration.IConfigurationSection,Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: New(IVectorizationStateService, IOptions(Of VectorizationWorkerSettings), IConfigurationSection, ILoggerFactory)
-  fullName: FoundationaLLM.Vectorization.Worker.Worker.Worker(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings>, Microsoft.Extensions.Configuration.IConfigurationSection, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.Vectorization.Worker.Worker.New(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings), Microsoft.Extensions.Configuration.IConfigurationSection, Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: Worker.Worker(IVectorizationStateService, IOptions<VectorizationWorkerSettings>, IConfigurationSection, ILoggerFactory)
-  nameWithType.vb: Worker.New(IVectorizationStateService, IOptions(Of VectorizationWorkerSettings), IConfigurationSection, ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Worker.Worker.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings},System.Collections.Generic.IEnumerable{Microsoft.Extensions.Configuration.IConfigurationSection},Microsoft.Extensions.Logging.ILoggerFactory)
+  name: Worker(IVectorizationStateService, IContentSourceManagerService, IOptions<VectorizationWorkerSettings>, IEnumerable<IConfigurationSection>, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Worker.Worker.html#FoundationaLLM_Vectorization_Worker_Worker__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings__System_Collections_Generic_IEnumerable_Microsoft_Extensions_Configuration_IConfigurationSection__Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Worker.Worker.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings},System.Collections.Generic.IEnumerable{Microsoft.Extensions.Configuration.IConfigurationSection},Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IVectorizationStateService, IContentSourceManagerService, IOptions(Of VectorizationWorkerSettings), IEnumerable(Of IConfigurationSection), ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Worker.Worker.Worker(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings>, System.Collections.Generic.IEnumerable<Microsoft.Extensions.Configuration.IConfigurationSection>, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Worker.Worker.New(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings), System.Collections.Generic.IEnumerable(Of Microsoft.Extensions.Configuration.IConfigurationSection), Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: Worker.Worker(IVectorizationStateService, IContentSourceManagerService, IOptions<VectorizationWorkerSettings>, IEnumerable<IConfigurationSection>, ILoggerFactory)
+  nameWithType.vb: Worker.New(IVectorizationStateService, IContentSourceManagerService, IOptions(Of VectorizationWorkerSettings), IEnumerable(Of IConfigurationSection), ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Worker.Worker.#ctor*
   name: Worker
   href: api/dotnet/FoundationaLLM.Vectorization.Worker.Worker.html#FoundationaLLM_Vectorization_Worker_Worker__ctor_

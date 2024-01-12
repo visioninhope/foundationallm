@@ -166,7 +166,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder__ctor" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.#ctor">
   VectorizationWorkerBuilder()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Constructs a new instance of the builder.</p>
@@ -197,7 +197,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_Build" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.Build">
   Build()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Builds the vectorization worker.</p>
@@ -236,7 +236,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithCancellationToken_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithCancellationToken(System.Threading.CancellationToken)">
   WithCancellationToken(CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L107"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Specifies the cancellation token used to signal stopping the vectorization worker.</p>
@@ -271,11 +271,50 @@
 
 
 
+  <a id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithContentSourceManager_" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithContentSourceManager*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithContentSourceManager_FoundationaLLM_Vectorization_Interfaces_IContentSourceManagerService_" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithContentSourceManager(FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService)">
+  WithContentSourceManager(IContentSourceManagerService)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L153"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Specifies the content source manager service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VectorizationWorkerBuilder WithContentSourceManager(IContentSourceManagerService contentSourceManagerService)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>contentSourceManagerService</code> <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.html">IContentSourceManagerService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.html">IContentSourceManagerService</a> that manages content sources.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.html">VectorizationWorkerBuilder</a></dt>
+    <dd><p>The updated instance of the builder.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithLoggerFactory_" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithLoggerFactory*"></a>
 
   <h3 id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithLoggerFactory_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithLoggerFactory(Microsoft.Extensions.Logging.ILoggerFactory)">
   WithLoggerFactory(ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L118"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Specifies the logger factory used to create loggers for child objects.</p>
@@ -314,7 +353,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithQueuesConfiguration_Microsoft_Extensions_Configuration_IConfigurationSection_" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithQueuesConfiguration(Microsoft.Extensions.Configuration.IConfigurationSection)">
   WithQueuesConfiguration(IConfigurationSection)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L131"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Specifies the configuration section containing settings for the queues used by the vectorization worker.</p>
@@ -353,7 +392,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithSettings_FoundationaLLM_Vectorization_Models_Configuration_VectorizationWorkerSettings_" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithSettings(FoundationaLLM.Vectorization.Models.Configuration.VectorizationWorkerSettings)">
   WithSettings(VectorizationWorkerSettings)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L91"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Specifies the settings used to build the vectorization worker.</p>
@@ -392,7 +431,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithStateService_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithStateService(FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService)">
   WithStateService(IVectorizationStateService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L80"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Specifies the vectorization state service that manages vectorization states.</p>
@@ -407,6 +446,45 @@
   <dl class="parameters">
     <dt><code>stateService</code> <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.html">IVectorizationStateService</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.html">IVectorizationStateService</a> service managing state.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.html">VectorizationWorkerBuilder</a></dt>
+    <dd><p>The updated instance of the builder.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithStepsConfiguration_" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithStepsConfiguration*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_VectorizationWorkerBuilder_WithStepsConfiguration_Microsoft_Extensions_Configuration_IConfigurationSection_" data-uid="FoundationaLLM.Vectorization.VectorizationWorkerBuilder.WithStepsConfiguration(Microsoft.Extensions.Configuration.IConfigurationSection)">
+  WithStepsConfiguration(IConfigurationSection)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/VectorizationWorkerBuilder.cs/#L142"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Specifies the configuration section containing settings for vectorization pipeline steps.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VectorizationWorkerBuilder WithStepsConfiguration(IConfigurationSection stepsConfiguration)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>stepsConfiguration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationsection">IConfigurationSection</a></dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationsection">IConfigurationSection</a> object providing access to the settings.</p>
 </dd>
   </dl>
 
