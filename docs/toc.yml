@@ -64,3 +64,20 @@ items:
     items:
     - name: Python
       href: api/python/index.md
+- name: Operations
+  href: operations/index.md
+  items:
+  - name: Backups & Data Resiliency
+    href: operations/Backups.md
+  - name: Logging and Auditing
+    href: operations/Logs.md
+  - name: Guidance for creating release notes
+    href: operations/Release-Notes.md
+  - name: Platform Security Features & Best Practices
+    href: operations/Security.md
+  - name: Troubleshooting & Issue Reporting Guide
+    href: operations/Troubleshooting.md
+  - name: Updating container deployments
+    href: operations/Update.md
+  - name: Vulerabilities - Identification, Communication, and Remediation
+    href: operations/Vulnerabilities.md
