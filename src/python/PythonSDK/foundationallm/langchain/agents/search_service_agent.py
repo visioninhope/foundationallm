@@ -44,7 +44,7 @@ class SearchServiceAgent(AgentBase):
         self.llm = llm.get_completion_model(completion_request.language_model)        
         self.prompt_prefix = completion_request.agent.prompt_prefix        
         self.retriever = SearchServiceRetriever( 
-            endpoint = ds_config.endpoint,
+            endpoint = config.get_value(ds_config.endpoint),
             index_name = ds_config.index_name,
             top_n = ds_config.top_n,
             embedding_field_name = ds_config.embedding_field_name,
