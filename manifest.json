@@ -4465,6 +4465,56 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "role-based-access-control/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "role-based-access-control/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "role-based-access-control/role-assignments.md",
+      "output": {
+        ".html": {
+          "relative_path": "role-based-access-control/role-assignments.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "role-based-access-control/role-definitions.md",
+      "output": {
+        ".html": {
+          "relative_path": "role-based-access-control/role-definitions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "role-based-access-control/role-management.md",
+      "output": {
+        ".html": {
+          "relative_path": "role-based-access-control/role-management.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "role-based-access-control/scope.md",
+      "output": {
+        ".html": {
+          "relative_path": "role-based-access-control/scope.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "setup-guides/agents/index.md",
       "output": {
         ".html": {
