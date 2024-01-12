@@ -8,6 +8,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Text;
 
 namespace FoundationaLLM.Common.Services
 {
@@ -69,6 +70,18 @@ namespace FoundationaLLM.Common.Services
             BlobUploadOptions options = new();
             await blobClient.UploadAsync(fileContent, options, cancellationToken).ConfigureAwait(false);
         }
+
+        /// <inheritdoc/>
+        public async Task WriteFileAsync(
+            string containerName,
+            string filePath,
+            string fileContent,
+            CancellationToken cancellationToken = default) =>
+            await WriteFileAsync(
+                containerName,
+                filePath,
+                new MemoryStream(Encoding.UTF8.GetBytes(fileContent)),
+                cancellationToken).ConfigureAwait(false);
 
         /// <inheritdoc/>
         public async Task<bool> FileExistsAsync(

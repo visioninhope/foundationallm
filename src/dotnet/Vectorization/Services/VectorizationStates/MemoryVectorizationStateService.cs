@@ -33,6 +33,9 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         }
 
         /// <inheritdoc/>
+        public async Task LoadArtifacts(VectorizationState state, VectorizationArtifactType artifactType) => throw new NotImplementedException();
+
+        /// <inheritdoc/>
         public async Task SaveState(VectorizationState state)
         {
             await Task.CompletedTask;
@@ -43,9 +46,5 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
             if (!_vectorizationStateDictionary.TryAdd(id, state))
                 _vectorizationStateDictionary[id] = state;
         }
-
-        /// <inheritdoc/>
-        protected override string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier) =>
-            $"{contentIdentifier.CanonicalId}_state_{HashContentIdentifier(contentIdentifier)}";
     }
 }

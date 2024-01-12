@@ -43,6 +43,7 @@ namespace FoundationaLLM.Common.Services
                 if (result.IsError)
                     throw new ContentException($"Cannot read file {filePath} from file system {containerName}.");
 
+                memoryStream.Seek(0, SeekOrigin.Begin);
                 return BinaryData.FromStream(memoryStream);
             }
             catch (RequestFailedException e) when (e.Status == 404)
@@ -57,6 +58,14 @@ namespace FoundationaLLM.Common.Services
             string containerName,
             string filePath,
             Stream fileContent,
+            CancellationToken cancellationToken) =>
+            throw new NotImplementedException();
+
+        /// <inheritdoc/>
+        public Task WriteFileAsync(
+            string containerName,
+            string filePath,
+            string fileContent,
             CancellationToken cancellationToken) =>
             throw new NotImplementedException();
 

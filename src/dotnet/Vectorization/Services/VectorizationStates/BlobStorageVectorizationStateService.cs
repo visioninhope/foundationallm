@@ -1,4 +1,5 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure.Core;
+using Azure.Storage.Blobs;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -40,32 +41,53 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         public async Task<bool> HasState(VectorizationRequest request) =>
             await _storageService.FileExistsAsync(
                 _settings.StorageContainerName,
-                GetPersistenceIdentifier(request.ContentIdentifier));
+                $"{GetPersistenceIdentifier(request.ContentIdentifier)}.json");
+
 
         /// <inheritdoc/>
         public async Task<VectorizationState> ReadState(VectorizationRequest request)
         {
             var content = await _storageService.ReadFileAsync(
                 _settings.StorageContainerName,
-                GetPersistenceIdentifier(request.ContentIdentifier));
+                $"{GetPersistenceIdentifier(request.ContentIdentifier)}.json");
 
             return JsonSerializer.Deserialize<VectorizationState>(content)!;
         }
 
         /// <inheritdoc/>
-        public async Task SaveState(VectorizationState state)
+        public async Task LoadArtifacts(VectorizationState state, VectorizationArtifactType artifactType)
         {
-            var content = JsonSerializer.Serialize(state);
-            var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-
-            await _storageService.WriteFileAsync(
-                _settings.StorageContainerName,
-                GetPersistenceIdentifier(state.ContentIdentifier),
-                stream);
+            foreach (var artifact in state.Artifacts.Where(a => a.Type == artifactType))
+                if (!string.IsNullOrWhiteSpace(artifact.CanonicalId))
+                    artifact.Content = Encoding.UTF8.GetString(
+                        await _storageService.ReadFileAsync(
+                            _settings.StorageContainerName,
+                            artifact.CanonicalId));
         }
 
         /// <inheritdoc/>
-        protected override string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier) =>
-            $"{contentIdentifier.CanonicalId}_state_{HashContentIdentifier(contentIdentifier)}.json";
+        public async Task SaveState(VectorizationState state)
+        {
+            var persistenceIdentifier = GetPersistenceIdentifier(state.ContentIdentifier);
+
+            foreach (var artifact in state.Artifacts)
+                if (artifact.IsDirty)
+                {
+                    var artifactPath =
+                        $"{persistenceIdentifier}_{artifact.Type.ToString().ToLower()}_{artifact.Position:D6}.txt";
+
+                    await _storageService.WriteFileAsync(
+                        _settings.StorageContainerName,
+                        artifactPath,
+                        artifact.Content);
+                    artifact.CanonicalId = artifactPath;
+                }
+
+            var content = JsonSerializer.Serialize(state);
+            await _storageService.WriteFileAsync(
+                _settings.StorageContainerName,
+                $"{persistenceIdentifier}.json",
+                content);
+        }
     }
 }

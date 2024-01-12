@@ -12,12 +12,16 @@ namespace FoundationaLLM.Vectorization.Handlers
     /// <param name="stepId">The identifier of the vectorization step.</param>
     /// <param name="parameters">The dictionary of named parameters used to configure the handler.</param>
     /// <param name="stepsConfiguration">The app configuration section containing the configuration for vectorization pipeline steps.</param>
-    /// <param name="logger">The logger used for logging.</param>
+    /// <param name="contentSourceManagerService">The <see cref="IContentSourceManagerService"/> that manages content sources.</param>
+    /// <param name="stateService">The <see cref="IVectorizationStateService"/> that manages vectorization state.</param>
+    /// <param name="loggerFactory">The logger factory used to create loggers for logging.</param>
     public class VectorizationStepHandlerBase(
         string stepId,
         Dictionary<string, string> parameters,
         IConfigurationSection? stepsConfiguration,
-        ILogger logger) : IVectorizationStepHandler
+        IContentSourceManagerService contentSourceManagerService,
+        IVectorizationStateService stateService,
+        ILoggerFactory loggerFactory) : IVectorizationStepHandler
     {
         /// <summary>
         /// The identifier of the vectorization step.
@@ -32,9 +36,18 @@ namespace FoundationaLLM.Vectorization.Handlers
         /// </summary>
         protected readonly IConfigurationSection? _stepsConfiguration = stepsConfiguration;
         /// <summary>
+        /// The content source manager service.
+        /// </summary>
+        protected readonly IContentSourceManagerService _contentSourceManagerService = contentSourceManagerService;
+        /// <summary>
+        /// The vectorization state service.
+        /// </summary>
+        protected readonly IVectorizationStateService _stateService = stateService;
+        /// <summary>
         /// The logger used for logging.
         /// </summary>
-        protected readonly ILogger _logger = logger;
+        protected readonly ILogger<VectorizationStepHandlerBase> _logger =
+            loggerFactory.CreateLogger<VectorizationStepHandlerBase>();
 
         /// <inheritdoc/>
         public string StepId => _stepId;
@@ -47,27 +60,27 @@ namespace FoundationaLLM.Vectorization.Handlers
                 state.LogHandlerStart(this, request.Id);
                 _logger.LogInformation("Starting handler {HandlerId} for request {RequestId}", _stepId, request.Id);
 
-                var configurationSection = default(IConfigurationSection);
+                var stepConfiguration = default(IConfigurationSection);
 
-                if (_parameters.ContainsKey("configuration_section"))
+                if (_parameters.TryGetValue("configuration_section", out string? configurationSection))
                 {
-                    configurationSection = _stepsConfiguration!.GetSection(_parameters["configuration_section"]);
+                    stepConfiguration = _stepsConfiguration!.GetSection(configurationSection);
 
-                    if (configurationSection == null
+                    if (stepConfiguration == null
                         || (
-                            configurationSection.Value == null
-                            && !configurationSection.GetChildren().Any()
+                            stepConfiguration.Value == null
+                            && !stepConfiguration.GetChildren().Any()
                             ))
                     {
                         _logger.LogError("The configuration section {ConfigurationSection} expected by the {StepId} handler is not available.",
-                            _parameters["configuration_section"], _stepId);
+                            configurationSection, _stepId);
                         throw new VectorizationException(
-                            $"The configuration section {_parameters["configuration_section"]} expected by the {_stepId} handler is not available.");
+                            $"The configuration section {configurationSection} expected by the {_stepId} handler is not available.");
                     }
                 }
 
                 ValidateRequest(request);
-                await ProcessRequest(request, state, configurationSection, cancellationToken);
+                await ProcessRequest(request, state, stepConfiguration, cancellationToken);
 
                 state.LogHandlerEnd(this, request.Id);
                 _logger.LogInformation("Finished handler {HandlerId} for request {RequestId}", _stepId, request.Id);
@@ -75,6 +88,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             catch (Exception ex)
             {
                 state.LogHandlerError(this, request.Id, ex);
+                _logger.LogError(ex, "Error in executing [extract] step handler for request {VectorizationRequestId}.", request.Id);
             }
         }
 
@@ -90,13 +104,13 @@ namespace FoundationaLLM.Vectorization.Handlers
         /// </summary>
         /// <param name="request">The <see cref="VectorizationRequest"/> to be processed.</param>
         /// <param name="state">The <see cref="VectorizationState"/> associated with the vectorization request.</param>
-        /// <param name="configuration">The <see cref="IConfigurationSection"/> that contains the configuration required for processing.</param>
+        /// <param name="stepConfiguration">The <see cref="IConfigurationSection"/> providing the configuration required by the step.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> that signals stopping the processing.</param>
         /// <returns></returns>
         protected virtual async Task ProcessRequest(
             VectorizationRequest request,
             VectorizationState state,
-            IConfigurationSection? configuration,
+            IConfigurationSection? stepConfiguration,
             CancellationToken cancellationToken) =>
             await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
     }

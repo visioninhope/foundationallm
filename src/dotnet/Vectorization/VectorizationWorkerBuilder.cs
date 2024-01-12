@@ -23,6 +23,7 @@ namespace FoundationaLLM.Vectorization
         private CancellationToken _cancellationToken = default;
         private ILoggerFactory? _loggerFactory;
         private IConfigurationSection? _stepsConfiguration;
+        private IContentSourceManagerService? _contentSourceManagerService;
 
         private readonly RequestSourcesBuilder _requestSourcesBuilder = new();
 
@@ -49,6 +50,9 @@ namespace FoundationaLLM.Vectorization
             if (_loggerFactory == null)
                 throw new VectorizationException("Cannot build a vectorization worker without a valid logger factory.");
 
+            if (_contentSourceManagerService == null)
+                throw new VectorizationException("Cannot build a vectorization worker without a valid content sources manager.");
+
             var requestSourceServices = _requestSourcesBuilder.Build();
 
             var requestManagerServices = _settings!.RequestManagers!
@@ -57,6 +61,7 @@ namespace FoundationaLLM.Vectorization
                     requestSourceServices,
                     _stateService,
                     _stepsConfiguration,
+                    _contentSourceManagerService,
                     _loggerFactory,
                     _cancellationToken))
                 .ToList();
@@ -130,13 +135,24 @@ namespace FoundationaLLM.Vectorization
         }
 
         /// <summary>
-        /// Specifies the configuration section containing settings for the content sources used by the request managers.
+        /// Specifies the configuration section containing settings for vectorization pipeline steps.
         /// </summary>
         /// <param name="stepsConfiguration">The <see cref="IConfigurationSection"/> object providing access to the settings.</param>
         /// <returns>The updated instance of the builder.</returns>
         public VectorizationWorkerBuilder WithStepsConfiguration(IConfigurationSection stepsConfiguration)
         {
             _stepsConfiguration = stepsConfiguration;
+            return this;
+        }
+
+        /// <summary>
+        /// Specifies the content source manager service.
+        /// </summary>
+        /// <param name="contentSourceManagerService">The <see cref="IContentSourceManagerService"/> that manages content sources.</param>
+        /// <returns>The updated instance of the builder.</returns>
+        public VectorizationWorkerBuilder WithContentSourceManager(IContentSourceManagerService contentSourceManagerService)
+        {
+            _contentSourceManagerService = contentSourceManagerService;
             return this;
         }
 

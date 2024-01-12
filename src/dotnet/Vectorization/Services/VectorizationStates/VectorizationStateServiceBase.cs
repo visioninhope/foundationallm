@@ -18,7 +18,8 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         /// </summary>
         /// <param name="contentIdentifier">The <see cref="VectorizationContentIdentifier"/> holding the content identification information.</param>
         /// <returns></returns>
-        protected abstract string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier);
+        protected string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier) =>
+            $"{contentIdentifier.CanonicalId}_state_{HashContentIdentifier(contentIdentifier)}";
 
         /// <summary>
         /// Computes the MD5 hash of the content identifier.
