@@ -1,30 +1,32 @@
 ﻿using Azure;
 using Azure.Identity;
 using Azure.Storage;
-using Azure.Storage.Files.DataLake;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Text;
 
 namespace FoundationaLLM.Common.Services
 {
     /// <summary>
-    /// Provides access to Azure Data Lake blob storage.
+    /// Provides access to Azure blob storage.
     /// </summary>
     /// <remarks>
-    ///  Initializes a new instance of the <see cref="DataLakeStorageService"/> with the specified options and logger.
+    ///  Initializes a new instance of the <see cref="BlobStorageService"/> with the specified options and logger.
     /// </remarks>
     /// <param name="options">The options object containing the <see cref="BlobStorageServiceSettings"/> object with the settings.</param>
     /// <param name="logger">The logger used for logging.</param>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public class DataLakeStorageService(
+    public class BlobStorageService(
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         IOptions<BlobStorageServiceSettings> options,
-        ILogger<DataLakeStorageService> logger) : StorageServiceBase(options, logger), IStorageService
+        ILogger<BlobStorageService> logger) : StorageServiceBase(options, logger), IStorageService
     {
-        private DataLakeServiceClient _dataLakeClient;
+        private BlobServiceClient _blobServiceClient;
 
         /// <inheritdoc/>
         public async Task<BinaryData> ReadFileAsync(
@@ -32,19 +34,19 @@ namespace FoundationaLLM.Common.Services
             string filePath,
             CancellationToken cancellationToken = default)
         {
-            var fileSystemClient = _dataLakeClient.GetFileSystemClient(containerName);
-            var fileClient = fileSystemClient.GetFileClient(filePath);
+            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+            var blobClient = containerClient.GetBlobClient(filePath);
 
             try
             {
-                var memoryStream = new MemoryStream();
-                var result = await fileClient.ReadToAsync(memoryStream, null, cancellationToken).ConfigureAwait(false);
+                Response<BlobDownloadResult>? content = await blobClient.DownloadContentAsync(cancellationToken).ConfigureAwait(false);
 
-                if (result.IsError)
-                    throw new ContentException($"Cannot read file {filePath} from file system {containerName}.");
+                if (content != null && content.HasValue)
+                {
+                    return content.Value.Content;
+                }
 
-                memoryStream.Seek(0, SeekOrigin.Begin);
-                return BinaryData.FromStream(memoryStream);
+                throw new ContentException($"Cannot read file {filePath} from container {containerName}.");
             }
             catch (RequestFailedException e) when (e.Status == 404)
             {
@@ -54,20 +56,32 @@ namespace FoundationaLLM.Common.Services
         }
 
         /// <inheritdoc/>
-        public Task WriteFileAsync(
+        public async Task WriteFileAsync(
             string containerName,
             string filePath,
             Stream fileContent,
-            CancellationToken cancellationToken) =>
-            throw new NotImplementedException();
+            CancellationToken cancellationToken = default)
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+            var blobClient = containerClient.GetBlobClient(filePath);
+
+            fileContent.Seek(0, SeekOrigin.Begin);
+
+            BlobUploadOptions options = new();
+            await blobClient.UploadAsync(fileContent, options, cancellationToken).ConfigureAwait(false);
+        }
 
         /// <inheritdoc/>
-        public Task WriteFileAsync(
+        public async Task WriteFileAsync(
             string containerName,
             string filePath,
             string fileContent,
-            CancellationToken cancellationToken) =>
-            throw new NotImplementedException();
+            CancellationToken cancellationToken = default) =>
+            await WriteFileAsync(
+                containerName,
+                filePath,
+                new MemoryStream(Encoding.UTF8.GetBytes(fileContent)),
+                cancellationToken).ConfigureAwait(false);
 
         /// <inheritdoc/>
         public async Task<bool> FileExistsAsync(
@@ -75,25 +89,25 @@ namespace FoundationaLLM.Common.Services
             string filePath,
             CancellationToken cancellationToken = default)
         {
-            var fileSystemClient = _dataLakeClient.GetFileSystemClient(containerName);
-            var fileClient = fileSystemClient.GetFileClient(filePath);
+            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+            var blobClient = containerClient.GetBlobClient(filePath);
 
-            return await fileClient.ExistsAsync(cancellationToken).ConfigureAwait(false);
+            return await blobClient.ExistsAsync(cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc/>
         protected override void CreateClientFromAccountKey(string accountName, string accountKey) =>
-            _dataLakeClient = new DataLakeServiceClient(
+            _blobServiceClient = new BlobServiceClient(
                 new Uri($"https://{accountName}.dfs.core.windows.net"),
                 new StorageSharedKeyCredential(accountName, accountKey));
 
         /// <inheritdoc/>
         protected override void CreateClientFromConnectionString(string connectionString) =>
-            _dataLakeClient = new DataLakeServiceClient(connectionString);
+            _blobServiceClient = new BlobServiceClient(connectionString);
 
         /// <inheritdoc/>
         protected override void CreateClientFromIdentity(string accountName) =>
-            _dataLakeClient = new DataLakeServiceClient(
+            _blobServiceClient = new BlobServiceClient(
                 new Uri($"https://{accountName}.dfs.core.windows.net"),
                 new DefaultAzureCredential());
     }

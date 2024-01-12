@@ -630,9 +630,13 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_SemanticKernelAPI_OpenAI_ShortSummaryPromptName = "FoundationaLLM:SemanticKernelAPI:OpenAI.ShortSummaryPromptName";
         /// <summary>
-        /// The key for the FoundationaLLM:Vectorization:WorkerSettings app configuration setting.
+        /// The key section for the FoundationaLLM:Vectorization:ContentSourceManagerService app configuration setting.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_WorkerSettings = "FoundationaLLM:Vectorization:WorkerSettings";
+        public const string FoundationaLLM_Vectorization_ContentSourceManagerService = "FoundationaLLM:Vectorization:ContentSourceManagerService";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:VectorizationWorker app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_VectorizationWorker = "FoundationaLLM:Vectorization:VectorizationWorker";
     }
 
     /// <summary>
@@ -780,16 +784,20 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_BlobStorageMemorySource = "FoundationaLLM:BlobStorageMemorySource";
         /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:ContentSources app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_ContentSources = "FoundationaLLM:Vectorization:ContentSources";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:Steps app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_Steps = "FoundationaLLM:Vectorization:Steps";
+        /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:Queues app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_Queues = "FoundationaLLM:Vectorization:Queues";
         /// <summary>
-        /// The key section for the FoundationaLLM:Vectorization:StateServiceSettings app configuration settings.
+        /// The key section for the FoundationaLLM:Vectorization:StateService app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_StateServiceSettings = "FoundationaLLM:Vectorization:StateServiceSettings";
-        /// <summary>
-        /// The key section for the FoundationaLLM:Vectorization:WorkerSettings app configuration settings.
-        /// </summary>
-        public const string FoundationaLLM_Vectorization_WorkerSettings = "FoundationaLLM:Vectorization:WorkerSettings";
+        public const string FoundationaLLM_Vectorization_StateService = "FoundationaLLM:Vectorization:StateService";
     }
 }
