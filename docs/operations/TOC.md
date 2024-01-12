@@ -3,16 +3,16 @@
 1. **Environment Setup:**
    - [Initial Environment Setup](https://github.com/solliancenet/foundationallm/blob/mg-terraform-iac/deploy/standard/bicep/README.md)
    - Configuration settings for different components:
-     - [App Configuration Settings](https://docs.foundationallm.ai/deployment/app-configuration-values.html)
-     - [Configuration for deployment](https://docs.foundationallm.ai/deployment/deployment-configuration.html)
-     - [Configure Core API Settings](https://docs.foundationallm.ai/deployment/authentication/core-authentication-setup-entra.html#update-app-configuration-settings)
-     - [Configure Management API Settings](https://docs.foundationallm.ai/deployment/authentication/management-authentication-setup-entra.html#update-app-configuration-settings)
+     - [App Configuration Settings](../deployment/app-configuration-values.html)
+     - [Configuration for deployment](../deployment/deployment-configuration.html)
+     - [Configure Core API Settings](../deployment/authentication/core-authentication-setup-entra.html#update-app-configuration-settings)
+     - [Configure Management API Settings](../deployment/authentication/management-authentication-setup-entra.html#update-app-configuration-settings)
 
 2. **User Management:**
    - Creating, modifying, and deleting user accounts:
-     - [Authentication setup](https://docs.foundationallm.ai/deployment/authentication/index.html)
+     - [Authentication setup](../deployment/authentication/index.html)
    - Assigning roles and permissions:
-     - [Access control for azure services](https://docs.foundationallm.ai/deployment/configure-access-control-for-services.html)
+     - [Access control for azure services](../deployment/configure-access-control-for-services.html)
      - FoundationaLLM roles and permissions
 
 3. **System Maintenance:**
