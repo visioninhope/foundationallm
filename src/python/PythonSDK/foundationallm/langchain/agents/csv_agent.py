@@ -9,6 +9,7 @@ from langchain.callbacks import get_openai_callback
 from foundationallm.config import Configuration
 from foundationallm.langchain.agents import AgentBase
 from foundationallm.langchain.language_models import LanguageModelBase
+from foundationallm.langchain.data_sources.blob import BlobStorageConfiguration
 from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
 from foundationallm.storage import BlobStorageManager
 
@@ -31,13 +32,20 @@ class CSVAgent(AgentBase):
             The language model to use for executing the completion request.
         config : Configuration
             Application configuration class for retrieving configuration settings.
-        """
+        """        
+        ds = {}        
+        for data_source in completion_request.data_sources:
+            ds = data_source
+        ds_config: BlobStorageConfiguration = ds.configuration        
+        self.prompt_prefix = completion_request.agent.prompt_prefix
+        self.prompt_suffix = completion_request.agent.prompt_suffix
         self.llm = llm.get_completion_model(completion_request.language_model)
         self.message_history = completion_request.message_history
 
         storage_manager = BlobStorageManager(
-            blob_connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret),
-            container_name = completion_request.data_source.configuration.container
+            blob_connection_string = config.get_value(
+                ds_config.connection_string_secret),
+            container_name = ds_config.container
         )
 
         df_locals = {}
