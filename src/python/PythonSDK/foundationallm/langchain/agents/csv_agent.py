@@ -51,12 +51,12 @@ class CSVAgent(AgentBase):
         df_locals = {}
         df_names = []
         prompt_suffix_parts = []
-        all_files = completion_request.data_source.configuration.files
+        
+        all_files = ds_config.files
         # Reduce file list to only .csv files to prevent errors.
         csv_files = [file for file in all_files if file.lower().endswith('.csv')]
 
         for idx, file in enumerate(csv_files, start=1):
-            file_name = file.rsplit('/', 1)[-1] or file
             file_content = storage_manager.read_file_content(file).decode('utf-8')
             buffer = StringIO(file_content)
 
