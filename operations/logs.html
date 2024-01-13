@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title> | FoundationaLLM </title>
+      <title>Accessing system logs &amp; audit trails | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content=" | FoundationaLLM ">
+      <meta name="title" content="Accessing system logs &amp; audit trails | FoundationaLLM ">
       
       
       <link rel="icon" href="../media/favicon.ico">
@@ -85,15 +85,15 @@
         </div>
 
         <article data-uid="">
+<h1 id="accessing-system-logs--audit-trails">Accessing system logs &amp; audit trails</h1>
 
-<h2 id="accessing-system-logs--audit-trails">Accessing System Logs &amp; Audit Trails</h2>
 <p>Maintaining visibility into system activities is paramount for ensuring security, troubleshooting issues, and monitoring overall system health. Our system generates various logs that provide valuable insights into events, errors, and user activities, and these logs are centrally stored in an Azure Log Analytics Workspace. Accessing these logs is crucial for effective system management. Below, we outline the procedures for accessing logs within our system.</p>
-<h3 id="1-log-location">1. <strong>Log Location:</strong></h3>
+<h2 id="1-log-location">1. Log location</h2>
 <ul>
 <li>Our system logs are stored in the Azure Log Analytics Workspace. This centralized location within Azure ensures ease of access and management.</li>
 <li>After deployment, customers can redirect these logs to an existing Log Analytics Workspace within their Azure environment, if desired.</li>
 </ul>
-<h3 id="2-log-types">2. <strong>Log Types:</strong></h3>
+<h2 id="2-log-types">2. Log types</h2>
 <ul>
 <li>Different types of logs are generated, including:
 <ul>
@@ -103,12 +103,12 @@
 </ul>
 </li>
 </ul>
-<h3 id="3-access-permissions">3. <strong>Access Permissions:</strong></h3>
+<h2 id="3-access-permissions">3. Access permissions</h2>
 <ul>
 <li>Access to logs is restricted to authorized personnel with the appropriate permissions using Azure RBAC.</li>
 <li>Ensure that only individuals with a legitimate need for log access have the required Azure Roles.</li>
 </ul>
-<h3 id="4-access-methods">4. <strong>Access Methods:</strong></h3>
+<h3 id="4-access-methods">4. Access methods</h3>
 <ul>
 <li><strong>Azure Portal:</strong>
 <ul>
@@ -121,18 +121,18 @@
 </ul>
 </li>
 </ul>
-<h3 id="5-log-retention">5. <strong>Log Retention:</strong></h3>
+<h3 id="5-log-retention">5. Log retention</h3>
 <ul>
 <li>For long term retention, export logs to a storage account or archive them to a data lake.  This is not configured by default but can be added by customers after the initial deployment.</li>
 <li>The default retention period for logs is 30 days.  This can be changed by customers after the initial deployment.</li>
 </ul>
-<h3 id="6-monitoring-tools">6. <strong>Monitoring Tools:</strong></h3>
+<h2 id="6-monitoring-tools">6. Monitoring Tools</h2>
 <ul>
 <li>Utilize Azure Monitor and Log Analytics tools to receive real-time alerts for critical events.</li>
 <li>Integration with Azure monitoring solutions enhances proactive incident response and system stability.</li>
 <li>Additional tools like Azure Sentinel can be used for advanced security monitoring and threat detection but are not configured by default.</li>
 </ul>
-<h3 id="8-audit-trails">8. <strong>Audit Trails:</strong></h3>
+<h3 id="8-audit-trails">8. Audit Trails</h3>
 <ul>
 <li>All diagnostics are enabled by default in the standard deployment, including audit trails for Key Vault and similar resources.</li>
 <li>Audit trails are stored in the Azure Log Analytics Workspace.</li>

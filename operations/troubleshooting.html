@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Troubleshooting &amp; Issue Reporting Guide | FoundationaLLM </title>
+      <title>Troubleshooting &amp; issue reporting guide | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Troubleshooting &amp; Issue Reporting Guide | FoundationaLLM ">
+      <meta name="title" content="Troubleshooting &amp; issue reporting guide | FoundationaLLM ">
       
       
       <link rel="icon" href="../media/favicon.ico">
@@ -85,37 +85,37 @@
         </div>
 
         <article data-uid="">
-<h1 id="troubleshooting--issue-reporting-guide">Troubleshooting &amp; Issue Reporting Guide</h1>
+<h1 id="troubleshooting--issue-reporting-guide">Troubleshooting &amp; issue reporting guide</h1>
 
 <p>There are three common issues that may arise when using the FoundationaLLM platform. This guide provides a structured approach to troubleshooting these issues.</p>
-<h3 id="troubleshooting-azure-app-registration-misconfiguration">Troubleshooting Azure App Registration Misconfiguration</h3>
-<h4 id="1-symptoms">1. <strong>Symptoms:</strong></h4>
+<h2 id="troubleshooting-azure-app-registration-misconfiguration">Troubleshooting Azure App Registration misconfiguration</h2>
+<h3 id="1-symptoms">1. <strong>Symptoms:</strong></h3>
 <ul>
 <li>Users unable to authenticate or access Azure services using the app.</li>
 <li>Error messages related to authentication failures.</li>
 </ul>
-<h4 id="2-troubleshooting-steps">2. <strong>Troubleshooting Steps:</strong></h4>
+<h3 id="2-troubleshooting-steps">2. <strong>Troubleshooting Steps:</strong></h3>
 <p>a. <strong>Verify App Registration Configuration:</strong></p>
 <ul>
 <li>Check the Azure Portal for the App Registration settings.</li>
-<li>Ensure the correct redirect URIs, client secrets, and authentication settings are configured by revewing <a href="https://docs.foundationallm.ai/deployment/authentication/index.html">the setup guide</a>.</li>
+<li>Ensure the correct redirect URIs, client secrets, and authentication settings are configured by reviewing [the setup guide][1].</li>
 </ul>
 <p>b. <strong>Error Logs Examination:</strong></p>
 <ul>
 <li>Review logs for any authentication-related errors.</li>
 <li>Check for error details and correlate them with misconfigured settings.</li>
 </ul>
-<h3 id="troubleshooting-missing-azure-app-registration-details-in-azure-app-configuration">Troubleshooting Missing Azure App Registration Details in Azure App Configuration</h3>
-<h4 id="1-symptoms-1">1. <strong>Symptoms:</strong></h4>
+<h2 id="troubleshooting-missing-azure-app-registration-details-in-azure-app-configuration">Troubleshooting missing Azure App Registration details in Azure App Configuration</h2>
+<h3 id="1-symptoms-1">1. <strong>Symptoms:</strong></h3>
 <ul>
 <li>Application unable to retrieve configuration settings.</li>
 <li>Errors related to missing or invalid configuration values.</li>
 <li>Login problems similar to those described in the previous section.</li>
 </ul>
-<h4 id="2-troubleshooting-steps-1">2. <strong>Troubleshooting Steps:</strong></h4>
+<h3 id="2-troubleshooting-steps-1">2. <strong>Troubleshooting Steps:</strong></h3>
 <p>a. <strong>Check Azure App Configuration:</strong></p>
 <ul>
-<li>Verify that the App Registration details are correctly stored in Azure App Configuration using <a href="https://docs.foundationallm.ai/deployment/authentication/index.html">the setup guide</a>.</li>
+<li>Verify that the App Registration details are correctly stored in Azure App Configuration using [the setup guide][../deployment/authentication/index.md].</li>
 <li>Ensure that keys, secrets, and connection strings are accurate.</li>
 </ul>
 <p>c. <strong>Azure App Configuration Logs:</strong></p>
@@ -125,16 +125,16 @@
 </ul>
 <p>d. <strong>Azure Key Vault Integration:</strong></p>
 <ul>
-<li>FoundationaLLM Azure Key Vault for sensitive configuration, verify the correct values are in Key Vault using <a href="https://docs.foundationallm.ai/deployment/authentication/index.html">the setup guide</a>.</li>
+<li>FoundationaLLM Azure Key Vault for sensitive configuration, verify the correct values are in Key Vault using [the setup guide][1].</li>
 <li>Ensure the Azure App Configuration managed identity has the necessary permissions to access Key Vault secrets.</li>
 </ul>
-<h3 id="troubleshooting-container-crashing">Troubleshooting Container Crashing</h3>
-<h4 id="1-symptoms-2">1. <strong>Symptoms:</strong></h4>
+<h2 id="troubleshooting-container-crashing">Troubleshooting container crashing</h2>
+<h3 id="1-symptoms-2">1. <strong>Symptoms:</strong></h3>
 <ul>
 <li>Containers restarting frequently or failing to start.</li>
 <li>Application unavailability due to container issues.</li>
 </ul>
-<h4 id="2-troubleshooting-steps-2">2. <strong>Troubleshooting Steps:</strong></h4>
+<h3 id="2-troubleshooting-steps-2">2. <strong>Troubleshooting Steps:</strong></h3>
 <p>a. <strong>Container Logs Examination:</strong></p>
 <ul>
 <li>Access container logs in Log Analytics to identify error messages or issues during startup.</li>
@@ -158,9 +158,9 @@
 <ul>
 <li>Review the container image version, update to the latest version to recieve bug fixes and new features.</li>
 </ul>
-<h3 id="additional-support-and-issue-reporting">Additional Support and Issue Reporting</h3>
+<h2 id="additional-support-and-issue-reporting">Additional support and issue reporting</h2>
 <p>If you encounter an issue that is not addressed by the troubleshooting steps outlined in this document, we encourage you to open a GitHub issue. This ensures that our team can provide tailored assistance and continuously improve our troubleshooting resources.</p>
-<h4 id="steps-to-open-a-github-issue">Steps to Open a GitHub Issue:</h4>
+<h3 id="steps-to-open-a-github-issue">Steps to open a GitHub issue</h3>
 <ol>
 <li><p><strong>Navigate to our GitHub Repository:</strong></p>
 <ul>
