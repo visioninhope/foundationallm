@@ -13,7 +13,7 @@
      - [Authentication setup](../deployment/authentication/index.md)
    - Assigning roles and permissions:
      - [Access control for azure services](../deployment/configure-access-control-for-services.md)
-     - FoundationaLLM roles and permissions
+     - [FoundationaLLM Role-Based Access Control](../role-based-access-control/index.md)
 
 3. **System Maintenance:**
    - [FoundationaLLM Backups & Data Resiliency](./backups.md)
