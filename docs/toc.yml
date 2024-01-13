@@ -54,6 +54,8 @@ items:
 - name: Operations
   href: operations/index.md
   items:
+  - name: Standard platform administration documentation
+    href: operations/index.md
   - name: Backups & Data Resiliency
     href: operations/backups.md
   - name: Logging and Auditing
@@ -64,9 +66,9 @@ items:
     href: operations/security.md
   - name: Troubleshooting & Issue Reporting Guide
     href: operations/troubleshooting.md
-  - name: Updating container deployments
+  - name: Updating container versions in Standard Deployment
     href: operations/update.md
-  - name: Vulerabilities - Identification, Communication, and Remediation
+  - name: Vulnerabilities - Identification, Communication, and Remediation
     href: operations/vulnerabilities.md
   - name: Role-based access control (RBAC)
     href: role-based-access-control/index.md
