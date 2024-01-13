@@ -1,4 +1,4 @@
-# Vulerabilities: Identification, Communication, and Remediation
+# Vulnerabilities: Identification, communication, and remediation
 
 FoundationaLLM is committed to maintaining the security of our platform and protecting the integrity of your data. We conduct regular security testing to identify and address potential vulnerabilities in our platform.
 
