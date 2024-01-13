@@ -21,8 +21,6 @@ class CSVAgent(AgentBase):
                  llm: LanguageModelBase, config: Configuration):
         """
         Initializes a CSV agent.
-        
-        Note: The CSV agent supports a single file.
 
         Parameters
         ----------
@@ -34,29 +32,37 @@ class CSVAgent(AgentBase):
         config : Configuration
             Application configuration class for retrieving configuration settings.
         """
-        self.prompt_prefix = completion_request.agent.prompt_prefix
-        self.prompt_suffix = completion_request.agent.prompt_suffix
         self.llm = llm.get_completion_model(completion_request.language_model)
         self.message_history = completion_request.message_history
 
         storage_manager = BlobStorageManager(
-            blob_connection_string = config.get_value(
-                completion_request.data_source.configuration.connection_string_secret),
+            blob_connection_string = config.get_value(completion_request.data_source.configuration.connection_string_secret),
             container_name = completion_request.data_source.configuration.container
         )
 
-        file_name = completion_request.data_source.configuration.files[0]
-        file_content = storage_manager.read_file_content(file_name).decode('utf-8')
-        sio = StringIO(file_content)
-        df = pd.read_csv(sio)
+        df_locals = {}
+        df_names = []
+        prompt_suffix_parts = []
+        all_files = completion_request.data_source.configuration.files
+        # Reduce file list to only .csv files to prevent errors.
+        csv_files = [file for file in all_files if file.lower().endswith('.csv')]
+
+        for idx, file in enumerate(csv_files, start=1):
+            file_name = file.rsplit('/', 1)[-1] or file
+            file_content = storage_manager.read_file_content(file).decode('utf-8')
+            buffer = StringIO(file_content)
+
+            df = pd.read_csv(buffer)
+            df_name = f'df{idx}'
+            df_names.append(df_name)
+            df_locals[df_name] = df
+            
+            prompt_suffix_parts.append(f'Result of `print({df_name}.head())` from {df_name}:\n{df.head(1).to_markdown()}')
+
         tools = [
-            PythonAstREPLTool(
-                locals={"df": df},
-                name=completion_request.data_source.data_description or 'CSV data',
-                description=completion_request.data_source.description \
-                    or 'Useful for when you need to answer questions about data in CSV files.'
-            )
+            PythonAstREPLTool(locals = df_locals)
         ]
+
         memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
         # Add previous messages to the memory
         for i in range(0, len(self.message_history), 2):
@@ -68,19 +74,29 @@ class CSVAgent(AgentBase):
                     ai_output = message.text
             memory.save_context({"input": user_input}, {"output": ai_output})
 
+        self.prompt_prefix = completion_request.agent.prompt_prefix
+        self.prompt_prefix += f'\nYou are working with {len(df_names)} pandas dataframe{"s"[:len(df_names)^1]} in Python named {", ".join(df_names)}.'
+        self.prompt_prefix += '\nDo not include the names of pandas dataframes in your responses!'
+        self.prompt_prefix += '\nYou should use the tool below to answer the question posed of you:'
+
+        self.prompt_suffix = completion_request.agent.prompt_suffix + '\n\n' if completion_request.agent.prompt_suffix is not None and len(completion_request.agent.prompt_suffix) > 0 else ''
+        self.prompt_suffix += '\n\n'.join(prompt_suffix_parts)
+        self.prompt_suffix += '\n\nBegin!\n\n{chat_history}\n\nQuestion: {input}\n{agent_scratchpad}'
+
+        input_variables = ['input', 'chat_history', 'agent_scratchpad']
+
         prompt = ZeroShotAgent.create_prompt(
             tools,
             prefix = self.prompt_prefix,
             suffix = self.prompt_suffix,
-            input_variables = ['input', 'chat_history', 'df_head', 'agent_scratchpad']
+            input_variables = input_variables
         )
-        partial_prompt = prompt.partial(
-            df_head=str(df.head(3).to_markdown())
-        )
+
         zsa = ZeroShotAgent(
-            llm_chain=LLMChain(llm=self.llm, prompt=partial_prompt),
+            llm_chain=LLMChain(llm=self.llm, prompt=prompt),
             allowed_tools=[tool.name for tool in tools]
         )
+        
         self.agent = AgentExecutor.from_agent_and_tools(
             agent=zsa,
             tools=tools,
@@ -119,6 +135,7 @@ class CSVAgent(AgentBase):
             return CompletionResponse(
                 completion = self.agent.run(prompt),
                 user_prompt = prompt,
+                system_prompt = self.prompt_template,
                 completion_tokens = cb.completion_tokens,
                 prompt_tokens = cb.prompt_tokens,
                 total_tokens = cb.total_tokens,
