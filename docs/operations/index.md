@@ -28,8 +28,7 @@
    - [Troubleshooting & Issue Reporting Guide](./troubleshooting.md)
 
 7. **Platform Features:**
-   - [Detailed documentation on each feature of the platform](https://docs.foundationallm.ai/)
-   - TODO - Use cases and best practices for utilizing specific features.
+   - [Use cases and best practices for utilizing specific features](https://foundationallm.ai/use-cases)
 
 ### Update Process:
 
