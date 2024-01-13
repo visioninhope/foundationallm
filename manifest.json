@@ -4465,6 +4465,86 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "operations/backups.md",
+      "output": {
+        ".html": {
+          "relative_path": "operations/backups.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "operations/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "operations/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "operations/logs.md",
+      "output": {
+        ".html": {
+          "relative_path": "operations/logs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "operations/release-notes.md",
+      "output": {
+        ".html": {
+          "relative_path": "operations/release-notes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "operations/security.md",
+      "output": {
+        ".html": {
+          "relative_path": "operations/security.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "operations/troubleshooting.md",
+      "output": {
+        ".html": {
+          "relative_path": "operations/troubleshooting.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "operations/update.md",
+      "output": {
+        ".html": {
+          "relative_path": "operations/update.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "operations/vulnerabilities.md",
+      "output": {
+        ".html": {
+          "relative_path": "operations/vulnerabilities.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "role-based-access-control/index.md",
       "output": {
         ".html": {
