@@ -8,43 +8,38 @@ using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using Microsoft.Extensions.Options;
 using FoundationaLLM.Core.Models;
+using FoundationaLLM.Core.Models.Configuration;
 
 namespace FoundationaLLM.Core.Services;
 
 /// <ineritdoc/>
-public class CoreService : ICoreService
+/// <summary>
+/// Initializes a new instance of the <see cref="CoreService"/> class.
+/// </summary>
+/// <param name="cosmosDbService">The Azure Cosmos DB service that contains
+/// chat sessions and messages.</param>
+/// <param name="gatekeeperAPIService">The service used to make calls to
+/// the Gatekeeper API.</param>
+/// <param name="logger">The logging interface used to log under the
+/// <see cref="CoreService"/> type name.</param>
+/// <param name="brandingSettings">The <see cref="ClientBrandingConfiguration"/>
+/// settings retrieved by the injected <see cref="IOptions{TOptions}"/>.</param>
+/// <param name="settings">The <see cref="CoreServiceSettings"/> settings for the service.</param>
+/// <param name="callContext">Contains contextual data for the calling service.</param>
+public partial class CoreService(
+    ICosmosDbService cosmosDbService,
+    IGatekeeperAPIService gatekeeperAPIService,
+    ILogger<CoreService> logger,
+    IOptions<ClientBrandingConfiguration> brandingSettings,
+    IOptions<CoreServiceSettings> settings,
+    ICallContext callContext) : ICoreService
 {
-    private readonly ICosmosDbService _cosmosDbService;
-    private readonly IGatekeeperAPIService _gatekeeperAPIService;
-    private readonly ILogger<CoreService> _logger;
-    private readonly ICallContext _callContext;
-    private readonly string _sessionType;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CoreService"/> class.
-    /// </summary>
-    /// <param name="cosmosDbService">The Azure Cosmos DB service that contains
-    /// chat sessions and messages.</param>
-    /// <param name="gatekeeperAPIService">The service used to make calls to
-    /// the Gatekeeper API.</param>
-    /// <param name="logger">The logging interface used to log under the
-    /// <see cref="CoreService"/> type name.</param>
-    /// <param name="settings">The <see cref="ClientBrandingConfiguration"/>
-    /// settings retrieved by the injected <see cref="IOptions{TOptions}"/>.</param>
-    /// <param name="callContext">Contains contextual data for the calling service.</param>
-    public CoreService(
-        ICosmosDbService cosmosDbService,
-        IGatekeeperAPIService gatekeeperAPIService,
-        ILogger<CoreService> logger,
-        IOptions<ClientBrandingConfiguration> settings,
-        ICallContext callContext)
-    {
-        _cosmosDbService = cosmosDbService;
-        _gatekeeperAPIService = gatekeeperAPIService;
-        _logger = logger;
-        _sessionType = settings.Value.KioskMode ? SessionTypes.KioskSession : SessionTypes.Session;
-        _callContext = callContext;
-    }
+    private readonly ICosmosDbService _cosmosDbService = cosmosDbService;
+    private readonly IGatekeeperAPIService _gatekeeperAPIService = gatekeeperAPIService;
+    private readonly ILogger<CoreService> _logger = logger;
+    private readonly ICallContext _callContext = callContext;
+    private readonly string _sessionType = brandingSettings.Value.KioskMode ? SessionTypes.KioskSession : SessionTypes.Session;
+    private readonly CoreServiceSettings _settings = settings.Value;
 
     /// <summary>
     /// Returns list of chat session ids and names.
@@ -156,22 +151,32 @@ public class CoreService : ICoreService
         {
             ArgumentNullException.ThrowIfNull(sessionId);
 
-            await Task.CompletedTask;
+            var sessionNameSummary = string.Empty;
 
-            var summaryRequest = new SummaryRequest()
+            switch (_settings.SessionSummarization)
             {
-                SessionId = sessionId,
-                UserPrompt = prompt
-            };
+                case ChatSessionNameSummarizationType.Timestamp:
+                    sessionNameSummary = $"{DateTime.UtcNow:yyyy-MM-dd HH:mm}";
+                    break;
+                case ChatSessionNameSummarizationType.LLM:
+                    var summaryRequest = new SummaryRequest()
+                    {
+                        SessionId = sessionId,
+                        UserPrompt = prompt
+                    };
 
-            var summary = await _gatekeeperAPIService.GetSummary(summaryRequest);
+                    sessionNameSummary = await _gatekeeperAPIService.GetSummary(summaryRequest);
 
-            // Remove any punctuation from the summary.
-            summary = Regex.Replace(summary, @"[^\w\s]", string.Empty);
+                    // Remove any punctuation from the summary.
+                    sessionNameSummary = ChatSessionNameReplacementRegex().Replace(sessionNameSummary, string.Empty);
+                    break;
+                default:
+                    throw new Exception($"The chat session summarization type {_settings.SessionSummarization} is not supported.");
+            }
 
-            await RenameChatSessionAsync(sessionId, summary);
+            await RenameChatSessionAsync(sessionId, sessionNameSummary);
 
-            return new Completion { Text = summary };
+            return new Completion { Text = sessionNameSummary };
         }
         catch (Exception ex)
         {
@@ -179,18 +184,6 @@ public class CoreService : ICoreService
             return new Completion { Text = "[No Summary]" };
         }
     }
-
-    /// <summary>
-    /// Add a new user prompt to the chat session and insert into the data service.
-    /// </summary>
-    private async Task<Message> AddPromptMessageAsync(string sessionId, string promptText)
-    {
-        var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding a prompt message.");
-        var promptMessage = new Message(sessionId, nameof(Participants.User), default, promptText, null, null, upn);
-
-        return await _cosmosDbService.InsertMessageAsync(promptMessage);
-    }
-
 
     /// <summary>
     /// Add user prompt and AI assistance response to the chat session message list object and insert into the data service as a transaction.
@@ -234,4 +227,7 @@ public class CoreService : ICoreService
 
         return await _cosmosDbService.GetCompletionPrompt(sessionId, completionPromptId);
     }
+
+    [GeneratedRegex(@"[^\w\s]")]
+    private static partial Regex ChatSessionNameReplacementRegex();
 }
