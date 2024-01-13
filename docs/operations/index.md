@@ -1,7 +1,8 @@
-### Standard AKS: Platform Administration Documentation
+# Standard platform administration documentation
 
 1. **Environment Setup:**
-   - [Initial Environment Setup](https://github.com/solliancenet/foundationallm/blob/mg-terraform-iac/deploy/standard/bicep/README.md)
+   - [Initial environment setup (Starter Deployment)](../deployment/deployment-starter.md)
+   - [Initial environment setup (Standard Deployment)](https://github.com/solliancenet/foundationallm/blob/mg-terraform-iac/deploy/standard/bicep/README.md)
    - Configuration settings for different components:
      - [App Configuration Settings](../deployment/app-configuration-values.md)
      - [Configuration for deployment](../deployment/deployment-configuration.md)
@@ -30,13 +31,13 @@
 7. **Platform Features:**
    - [Use cases and best practices for utilizing specific features](https://foundationallm.ai/use-cases)
 
-### Update Process:
+## Update Process:
 
 1. **Release Notes:**
    - [Guidance for creating release notes](./release-notes.md)
 
 2. **Update Procedure:**
-   - [Updating container deployments](./update.md)
+   - [Updating container versions in the Standard Deployment](./update.md)
 
 3. **Vulnerabilities:**
-   - [Vulerabilities: Identification, Communication, and Remediation](./vulnerabilities.md)
+   - [Vulnerabilities: Identification, Communication, and Remediation](./vulnerabilities.md)

@@ -1,4 +1,4 @@
-# Platform Security Features & Best Practices
+# Platform security features & best practices
 
 Maintaining the security of the Azure platform is crucial for protecting sensitive data and ensuring the integrity of your infrastructure.
 
@@ -13,7 +13,7 @@ Maintaining the security of the Azure platform is crucial for protecting sensiti
      - Implements Network Security Groups (NSGs) to control inbound and outbound traffic.
 
 3. **Data Encryption**
-   - Wherver possible the Standard Deployment uses encryption at rest with system-managed keys.
+   - Wherever possible the Standard Deployment uses encryption at rest with system-managed keys.
    - Customer managed keys can be enabled at your discretion.
 
 4. **Threat Detection and Monitoring**
@@ -23,4 +23,3 @@ Maintaining the security of the Azure platform is crucial for protecting sensiti
 
 5. **Patch Management**
    - Regularly check the FoundationaLLM github repository for new image releases and update your deployment accordingly.
-

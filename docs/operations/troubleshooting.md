@@ -1,32 +1,36 @@
-# Troubleshooting & Issue Reporting Guide
+# Troubleshooting & issue reporting guide
 
 There are three common issues that may arise when using the FoundationaLLM platform. This guide provides a structured approach to troubleshooting these issues.
 
-### Troubleshooting Azure App Registration Misconfiguration
+## Troubleshooting Azure App Registration misconfiguration
 
-#### 1. **Symptoms:**
+### 1. **Symptoms:**
+
 - Users unable to authenticate or access Azure services using the app.
 - Error messages related to authentication failures.
 
-#### 2. **Troubleshooting Steps:**
+### 2. **Troubleshooting Steps:**
+
 a. **Verify App Registration Configuration:**
 - Check the Azure Portal for the App Registration settings.
-- Ensure the correct redirect URIs, client secrets, and authentication settings are configured by revewing [the setup guide][1].
+- Ensure the correct redirect URIs, client secrets, and authentication settings are configured by reviewing [the setup guide][1].
 
 b. **Error Logs Examination:**
 - Review logs for any authentication-related errors.
 - Check for error details and correlate them with misconfigured settings.
 
-### Troubleshooting Missing Azure App Registration Details in Azure App Configuration
+## Troubleshooting missing Azure App Registration details in Azure App Configuration
 
-#### 1. **Symptoms:**
+### 1. **Symptoms:**
+
 - Application unable to retrieve configuration settings.
 - Errors related to missing or invalid configuration values.
 - Login problems similar to those described in the previous section.
 
-#### 2. **Troubleshooting Steps:**
+### 2. **Troubleshooting Steps:**
+
 a. **Check Azure App Configuration:**
-- Verify that the App Registration details are correctly stored in Azure App Configuration using [the setup guide][1].
+- Verify that the App Registration details are correctly stored in Azure App Configuration using [the setup guide][../deployment/authentication/index.md].
 - Ensure that keys, secrets, and connection strings are accurate.
 
 c. **Azure App Configuration Logs:**
@@ -37,13 +41,15 @@ d. **Azure Key Vault Integration:**
 - FoundationaLLM Azure Key Vault for sensitive configuration, verify the correct values are in Key Vault using [the setup guide][1].
 - Ensure the Azure App Configuration managed identity has the necessary permissions to access Key Vault secrets.
 
-### Troubleshooting Container Crashing
+## Troubleshooting container crashing
 
-#### 1. **Symptoms:**
+### 1. **Symptoms:**
+
 - Containers restarting frequently or failing to start.
 - Application unavailability due to container issues.
 
-#### 2. **Troubleshooting Steps:**
+### 2. **Troubleshooting Steps:**
+
 a. **Container Logs Examination:**
 - Access container logs in Log Analytics to identify error messages or issues during startup.
 - Look for any crashes, exceptions, or resource constraints.
@@ -62,11 +68,11 @@ d. **Container Health Checks:**
 e. **Container Image Update:**
 - Review the container image version, update to the latest version to recieve bug fixes and new features.
 
-### Additional Support and Issue Reporting
+## Additional support and issue reporting
 
 If you encounter an issue that is not addressed by the troubleshooting steps outlined in this document, we encourage you to open a GitHub issue. This ensures that our team can provide tailored assistance and continuously improve our troubleshooting resources.
 
-#### Steps to Open a GitHub Issue:
+### Steps to open a GitHub issue
 
 1. **Navigate to our GitHub Repository:**
    - Visit our GitHub repository at [https://github.com/solliancenet/foundationallm](https://github.com/solliancenet/foundationallm).
@@ -91,5 +97,3 @@ If you encounter an issue that is not addressed by the troubleshooting steps out
 By opening a GitHub issue at [https://github.com/solliancenet/foundationallm](https://github.com/solliancenet/foundationallm), you contribute to our collaborative effort in maintaining a robust and well-supported system. Our team values your feedback, and addressing issues through GitHub allows for a transparent and efficient resolution process.
 
 Thank you for your collaboration, and we look forward to assisting you with any challenges you may encounter. Your input is instrumental in enhancing the overall reliability and functionality of our system.
-
-[1]: https://docs.foundationallm.ai/deployment/authentication/index.html

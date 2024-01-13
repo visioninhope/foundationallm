@@ -1,4 +1,4 @@
-# FoundationaLLM Backups & Data Resiliency
+# FoundationaLLM Backups & data resiliency
 
 Before implementing any backup strategy, it's important to carefully plan and consider factors such as recovery time objectives (RTO), recovery point objectives (RPO), and compliance requirements. Choose the method or combination of methods that best align with your specific backup and recovery needs.
 
@@ -34,6 +34,7 @@ Ensuring regular backups for Azure Cosmos DB is crucial to protect data such as 
      You can manually export your Cosmos DB data to Azure Storage or another Cosmos DB account, providing an additional layer of backup and migration capability.  The Standard Deployment does not configure this capability by default.
 
 ## Storage Accounts
+
 Backing up the storage account where your prompts, agents, and data sources are defined is crucial to ensure the integrity and availability of your conversational data. Here are steps you can take to back up an Azure Storage account:
 
 1. **Azure Storage Account Replication:**
@@ -49,6 +50,7 @@ Backing up the storage account where your prompts, agents, and data sources are 
    Soft delete is a feature in Azure Blob Storage that provides an extra layer of protection against accidental data deletion. When soft delete is enabled, deleted blobs are retained for a specified retention period before being permanently deleted.  In the Standard Deployment, soft delete is enabled for 30 days for blobs and containers.
 
 ## Key Vault
+
 Azure Key Vault provides several features to help you protect and manage your keys and secrets effectively.
 
 1. **Purge Protection:**
@@ -64,6 +66,7 @@ Azure Key Vault provides several features to help you protect and manage your ke
    Azure Key Vault provides a backup and restore capability, allowing you to create backups of your key vault's keys, secrets, and certificates. These backups can be used for data recovery and protection against accidental data loss. There is no way to backup the entire Key Vault or to schedule regular backups.
 
 # App Config
+
 Azure App Configuration provides features related to backup, versioning, and data resiliency to help you effectively manage and deploy application configuration settings.
 
 1. **Backup in Azure App Configuration:**
