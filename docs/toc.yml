@@ -68,16 +68,16 @@ items:
   href: operations/index.md
   items:
   - name: Backups & Data Resiliency
-    href: operations/Backups.md
+    href: operations/backups.md
   - name: Logging and Auditing
-    href: operations/Logs.md
+    href: operations/logs.md
   - name: Guidance for creating release notes
-    href: operations/Release-Notes.md
+    href: operations/release-notes.md
   - name: Platform Security Features & Best Practices
-    href: operations/Security.md
+    href: operations/security.md
   - name: Troubleshooting & Issue Reporting Guide
-    href: operations/Troubleshooting.md
+    href: operations/troubleshooting.md
   - name: Updating container deployments
-    href: operations/Update.md
+    href: operations/update.md
   - name: Vulerabilities - Identification, Communication, and Remediation
-    href: operations/Vulnerabilities.md
+    href: operations/vulnerabilities.md
