@@ -9,6 +9,8 @@ using FoundationaLLM.Common.Models.Configuration.Branding;
 using Microsoft.Extensions.Options;
 using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Runtime;
 
 namespace FoundationaLLM.Core.Services;
 
@@ -18,8 +20,8 @@ namespace FoundationaLLM.Core.Services;
 /// </summary>
 /// <param name="cosmosDbService">The Azure Cosmos DB service that contains
 /// chat sessions and messages.</param>
-/// <param name="gatekeeperAPIService">The service used to make calls to
-/// the Gatekeeper API.</param>
+/// <param name="downstreamAPIServices">The services used to make calls to
+/// the downstream APIs.</param>
 /// <param name="logger">The logging interface used to log under the
 /// <see cref="CoreService"/> type name.</param>
 /// <param name="brandingSettings">The <see cref="ClientBrandingConfiguration"/>
@@ -28,14 +30,15 @@ namespace FoundationaLLM.Core.Services;
 /// <param name="callContext">Contains contextual data for the calling service.</param>
 public partial class CoreService(
     ICosmosDbService cosmosDbService,
-    IGatekeeperAPIService gatekeeperAPIService,
+    IEnumerable<IDownstreamAPIService> downstreamAPIServices,
     ILogger<CoreService> logger,
     IOptions<ClientBrandingConfiguration> brandingSettings,
     IOptions<CoreServiceSettings> settings,
     ICallContext callContext) : ICoreService
 {
     private readonly ICosmosDbService _cosmosDbService = cosmosDbService;
-    private readonly IGatekeeperAPIService _gatekeeperAPIService = gatekeeperAPIService;
+    private readonly IDownstreamAPIService _gatekeeperAPIService = downstreamAPIServices.Single(das => das.APIName == HttpClients.GatekeeperAPI);
+    private readonly IDownstreamAPIService _agentFactoryAPIService = downstreamAPIServices.Single(das => das.APIName == HttpClients.AgentFactoryAPI);
     private readonly ILogger<CoreService> _logger = logger;
     private readonly ICallContext _callContext = callContext;
     private readonly string _sessionType = brandingSettings.Value.KioskMode ? SessionTypes.KioskSession : SessionTypes.Session;
@@ -119,7 +122,7 @@ public partial class CoreService(
             };
 
             // Generate the completion to return to the user.
-            var result = await _gatekeeperAPIService.GetCompletion(completionRequest);
+            var result = await GetDownstreamAPIService().GetCompletion(completionRequest);
 
             // Add to prompt and completion to cache, then persist in Cosmos as transaction.
             // Add the user's UPN to the messages.
@@ -165,10 +168,10 @@ public partial class CoreService(
                         UserPrompt = prompt
                     };
 
-                    sessionNameSummary = await _gatekeeperAPIService.GetSummary(summaryRequest);
+                    var summaryResponse = await GetDownstreamAPIService().GetSummary(summaryRequest);
 
                     // Remove any punctuation from the summary.
-                    sessionNameSummary = ChatSessionNameReplacementRegex().Replace(sessionNameSummary, string.Empty);
+                    sessionNameSummary = ChatSessionNameReplacementRegex().Replace(summaryResponse.Summary!, string.Empty);
                     break;
                 default:
                     throw new Exception($"The chat session summarization type {_settings.SessionSummarization} is not supported.");
@@ -184,6 +187,11 @@ public partial class CoreService(
             return new Completion { Text = "[No Summary]" };
         }
     }
+
+    private IDownstreamAPIService GetDownstreamAPIService() =>
+        _settings.BypassGatekeeper
+            ? _agentFactoryAPIService
+            : _gatekeeperAPIService;
 
     /// <summary>
     /// Add user prompt and AI assistance response to the chat session message list object and insert into the data service as a transaction.
