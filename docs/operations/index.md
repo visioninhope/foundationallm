@@ -16,16 +16,16 @@
      - FoundationaLLM roles and permissions
 
 3. **System Maintenance:**
-   - [FoundationaLLM Backups & Data Resiliency](./Backups.md)
+   - [FoundationaLLM Backups & Data Resiliency](./backups.md)
 
 4. **Security Measures:**
-   - [Platform Security Features & Best Practices](./Security.md)
+   - [Platform Security Features & Best Practices](./security.md)
 
 5. **Logging and Auditing:**
-   - [Accessing System Logs & Audit Trails](./Logs.md)
+   - [Accessing System Logs & Audit Trails](./logs.md)
 
 6. **Troubleshooting:**
-   - [Troubleshooting & Issue Reporting Guide](./Troubleshooting.md)
+   - [Troubleshooting & Issue Reporting Guide](./troubleshooting.md)
 
 7. **Platform Features:**
    - [Detailed documentation on each feature of the platform](https://docs.foundationallm.ai/)
@@ -34,10 +34,10 @@
 ### Update Process:
 
 1. **Release Notes:**
-   - [Guidance for creating release notes](./Release-Notes.md)
+   - [Guidance for creating release notes](./release-notes.md)
 
 2. **Update Procedure:**
-   - [Updating container deployments](./Update.md)
+   - [Updating container deployments](./update.md)
 
 3. **Vulnerabilities:**
-   - [Vulerabilities: Identification, Communication, and Remediation](./Vulnerabilities.md)
+   - [Vulerabilities: Identification, Communication, and Remediation](./vulnerabilities.md)
