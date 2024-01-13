@@ -18,8 +18,12 @@ class CSVAgent(AgentBase):
     Agent for analyzing the contents of delimited files (e.g., CSV).
     """
 
-    def __init__(self, completion_request: CompletionRequest,
-                 llm: LanguageModelBase, config: Configuration):
+    def __init__(
+        self,
+        completion_request: CompletionRequest,
+        llm: LanguageModelBase,
+        config: Configuration
+    ):
         """
         Initializes a CSV agent.
 
@@ -32,11 +36,12 @@ class CSVAgent(AgentBase):
             The language model to use for executing the completion request.
         config : Configuration
             Application configuration class for retrieving configuration settings.
-        """        
-        ds = {}        
+        """
+        ds = {}
         for data_source in completion_request.data_sources:
             ds = data_source
-        ds_config: BlobStorageConfiguration = ds.configuration        
+
+        ds_config: BlobStorageConfiguration = ds.configuration
         self.prompt_prefix = completion_request.agent.prompt_prefix
         self.prompt_suffix = completion_request.agent.prompt_suffix
         self.llm = llm.get_completion_model(completion_request.language_model)
@@ -44,7 +49,8 @@ class CSVAgent(AgentBase):
 
         storage_manager = BlobStorageManager(
             blob_connection_string = config.get_value(
-                ds_config.connection_string_secret),
+                ds_config.connection_string_secret
+            ),
             container_name = ds_config.container
         )
 
@@ -72,7 +78,7 @@ class CSVAgent(AgentBase):
         ]
 
         memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-        # Add previous messages to the memory
+        # Add previous messages to memory
         for i in range(0, len(self.message_history), 2):
             history_pair = itemgetter(i,i+1)(self.message_history)
             for message in history_pair:
