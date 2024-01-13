@@ -13,7 +13,7 @@
      - [Authentication setup](../deployment/authentication/index.md)
    - Assigning roles and permissions:
      - [Access control for azure services](../deployment/configure-access-control-for-services.md)
-     - FoundationaLLM roles and permissions
+     - [FoundationaLLM Role-Based Access Control](../role-based-access-control/index.md)
 
 3. **System Maintenance:**
    - [FoundationaLLM Backups & Data Resiliency](./backups.md)
@@ -28,8 +28,7 @@
    - [Troubleshooting & Issue Reporting Guide](./troubleshooting.md)
 
 7. **Platform Features:**
-   - [Detailed documentation on each feature of the platform](https://docs.foundationallm.ai/)
-   - TODO - Use cases and best practices for utilizing specific features.
+   - [Use cases and best practices for utilizing specific features](https://foundationallm.ai/use-cases)
 
 ### Update Process:
 

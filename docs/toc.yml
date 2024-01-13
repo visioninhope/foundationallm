@@ -51,19 +51,6 @@ items:
       href: setup-guides/agents/index.md
     - name: SQL database agent setup procedures
       href: setup-guides/agents/sql-database-agents.md
-- name: API
-  href: api/index.md
-  items:
-  - name: Dotnet
-    href: api/dotnet/index.md
-    items:
-    - name: FoundationaLLM
-      href: api/dotnet/FoundationaLLM.html
-  - name: Python
-    href: api/python/index.md
-    items:
-    - name: Python
-      href: api/python/index.md
 - name: Operations
   href: operations/index.md
   items:
@@ -81,3 +68,27 @@ items:
     href: operations/update.md
   - name: Vulerabilities - Identification, Communication, and Remediation
     href: operations/vulnerabilities.md
+  - name: Role-based access control (RBAC)
+    href: role-based-access-control/index.md
+    items:
+      - name: Understand FoundationaLLM role definitions
+        href: role-based-access-control/role-definitions.md
+      - name: Understand FoundationaLLM role assignments
+        href: role-based-access-control/role-assignments.md
+      - name: Understand scope for FoundationaLLM RBAC
+        href: role-based-access-control/scope.md
+      - name: Manage role assignments
+        href: role-based-access-control/role-management.md
+- name: API
+  href: api/index.md
+  items:
+  - name: Dotnet
+    href: api/dotnet/index.md
+    items:
+    - name: FoundationaLLM
+      href: api/dotnet/FoundationaLLM.html
+  - name: Python
+    href: api/python/index.md
+    items:
+    - name: Python
+      href: api/python/index.md
