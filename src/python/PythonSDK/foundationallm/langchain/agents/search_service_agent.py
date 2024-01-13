@@ -81,7 +81,7 @@ class SearchServiceAgent(AgentBase):
             and token utilization and execution cost details.
         """
         with get_openai_callback() as cb:            
-            prompt_builder = self.prompt_prefix + build_message_history(self.message_history) + \
+            prompt_builder = self.prompt_prefix + \
                         "\n\nQuestion: {question}\n\nContext: {context}\n\nAnswer:"
             custom_prompt = PromptTemplate.from_template(prompt_builder)
 
