@@ -53,16 +53,16 @@ class CSVAgent(AgentBase):
             PythonAstREPLTool(locals = df_locals)
         ]
 
-        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-        #Add previous messages to memory
-        for i in range(0, len(self.message_history), 2):
-            history_pair = itemgetter(i,i+1)(self.message_history)
-            for message in history_pair:
-                if message.sender.lower() == 'user':
-                    user_input = message.text
-                else:
-                    ai_output = message.text
-            memory.save_context({"input": user_input}, {"output": ai_output})
+        memory = ConversationBufferMemory(memory_key="chat_history") #, return_messages=True)
+        # #Add previous messages to memory
+        # for i in range(0, len(self.message_history), 2):
+        #     history_pair = itemgetter(i,i+1)(self.message_history)
+        #     for message in history_pair:
+        #         if message.sender.lower() == 'user':
+        #             user_input = message.text
+        #         else:
+        #             ai_output = message.text
+        #     memory.save_context({"input": user_input}, {"output": ai_output})
 
         self.prompt_prefix = completion_request.agent.prompt_prefix
         self.prompt_prefix += f'\nYou are working with {len(df_names)} pandas dataframe{"s"[:len(df_names)^1]} in Python named {", ".join(df_names)}.'
