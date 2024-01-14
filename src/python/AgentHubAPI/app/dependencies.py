@@ -2,6 +2,7 @@
 Provides dependencies for API calls.
 """
 import logging
+import time
 from typing import Annotated
 from fastapi import Depends, HTTPException
 from fastapi.security import APIKeyHeader
@@ -18,10 +19,15 @@ def get_config() -> Configuration:
     Configuration
         Returns the application configuration settings.
     """
-    return __config or Configuration()
+    global __config
 
-def validate_api_key_header(config: Annotated[Configuration, Depends()],
-                            x_api_key: str = Depends(APIKeyHeader(name='X-API-Key'))):
+    start = time.time()
+    __config = __config or Configuration()
+    end = time.time()
+    print(f'Time to load config: {end-start}')
+    return __config
+
+def validate_api_key_header(x_api_key: str = Depends(APIKeyHeader(name='X-API-Key'))):
     """
     Validates that the X-API-Key value in the request header matches the key expected for this API.
     
@@ -37,8 +43,7 @@ def validate_api_key_header(config: Annotated[Configuration, Depends()],
         Returns True of the X-API-Key value from the request header matches the expected value.
         Otherwise, returns False.
     """
-
-    result = x_api_key == config.get_value('FoundationaLLM:APIs:AgentHubAPI:APIKey')
+    result = x_api_key == get_config().get_value('FoundationaLLM:APIs:AgentHubAPI:APIKey')
 
     if not result:
         logging.error('Invalid API key. You must provide a valid API key in the X-API-KEY header.')
