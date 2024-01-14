@@ -128,6 +128,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                                 KeySecret = dataSource.Authentication["key_secret"],
                                 IndexName = dataSource.IndexName,
                                 EmbeddingFieldName = dataSource.EmbeddingFieldName,
+                                EmbeddingModel = dataSource.EmbeddingModel,
                                 TextFieldName = dataSource.TextFieldName,
                                 TopN = dataSource.TopN,
                                 RetrieverMode = dataSource.RetrieverMode,

@@ -11,7 +11,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
     /// <summary>
     /// CXO data source metadata model.
     /// </summary>
-    public class CXODataSource : DataSourceBase
+    public class CXODataSource : SearchServiceDataSource
     {
         /// <summary>
         /// Search Service configuration settings.

@@ -68,14 +68,11 @@ class CXOAgent(AgentBase):
 
         self.data_source = completion_request.data_sources[0]
 
-        self.search_endpoint = config.get_value(self.data_source.search_endpoint)
-        self.search_key = config.get_value(self.data_source.search_key)
+        self.vector_store_address = config.get_value(self.data_source.endpoint)
+        self.vector_store_password = config.get_value(self.data_source.key_secret)
 
-        self.vector_store_address = config.get_value(self.data_source.search_endpoint)
-        self.vector_store_password = config.get_value(self.data_source.search_key)
-
-        azure_endpoint = config.get_value(self.data_source.open_ai_endpoint)
-        azure_key = config.get_value(self.data_source.open_ai_key)
+        azure_endpoint = config.get_value(completion_request.language_model.api_endpoint)
+        azure_key = config.get_value(completion_request.language_model.api_key)
         model = config.get_value(self.data_source.embedding_model) #"embeddings"
 
         #self.embeddings: AzureOpenAIEmbeddings = AzureOpenAIEmbeddings(azure_endpoint=azure_endpoint, openai_api_key=azure_key, deployment=model, chunk_size=1)
@@ -110,16 +107,23 @@ class CXOAgent(AgentBase):
 
         tools = []
 
-        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+        #max_message_histroy = 1
+        #count = 0
+        #memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
         # Add previous messages to the memory
-        for i in range(0, len(self.message_history), 2):
-            history_pair = itemgetter(i,i+1)(self.message_history)
-            for message in history_pair:
-                if message.sender.lower() == 'user':
-                    user_input = message.text
-                else:
-                    ai_output = message.text
-            memory.save_context({"input": user_input}, {"output": ai_output})
+        #for i in range(0, len(self.message_history), 2):
+        #    history_pair = itemgetter(i,i+1)(self.message_history)
+        #    for message in history_pair:
+        #        if message.sender.lower() == 'user':
+        #            user_input = message.text
+        #        else:
+        #            ai_output = message.text
+        #    memory.save_context({"input": user_input}, {"output": ai_output})
+
+        #    count += 1
+
+        #    if count >= max_message_histroy:
+        #        break
 
         prompt = PromptTemplate(
             template=self.prompt_prefix,
@@ -130,7 +134,7 @@ class CXOAgent(AgentBase):
             llm=self.llm,
             retriever=self.retriever,
             return_source_documents=False,
-            memory=memory,
+            #memory=memory,
             chain_type="stuff",
             combine_docs_chain_kwargs={"prompt": prompt},
             verbose=True
