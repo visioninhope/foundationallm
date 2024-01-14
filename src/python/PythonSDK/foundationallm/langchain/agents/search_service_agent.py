@@ -114,7 +114,7 @@ class SearchServiceAgent(AgentBase):
             return CompletionResponse(
                 completion = completion,
                 user_prompt = prompt,
-                final_prompt = self.full_prompt.text,
+                full_prompt = self.full_prompt.text,
                 completion_tokens = cb.completion_tokens,
                 prompt_tokens = cb.prompt_tokens,
                 total_tokens = cb.total_tokens,
