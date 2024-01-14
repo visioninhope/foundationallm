@@ -29,11 +29,5 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
         /// </summary>
         [JsonProperty("company")]
         public required string Company { get; set; }
-
-        /// <summary>
-        /// Name of the embedding model.
-        /// </summary>
-        [JsonProperty("embedding_model")]
-        public required string EmbeddingModel { get; set; }
     }
 }

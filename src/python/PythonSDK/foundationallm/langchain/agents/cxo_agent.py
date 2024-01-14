@@ -73,7 +73,7 @@ class CXOAgent(AgentBase):
 
         azure_endpoint = config.get_value(completion_request.language_model.api_endpoint)
         azure_key = config.get_value(completion_request.language_model.api_key)
-        embedding_model = config.get_value(self.data_source.embedding_model) #"embeddings"
+        embedding_model = config.get_value(completion_request.embedding_model.deployment)
 
         self.embeddings = OpenAIEmbeddings(
                 deployment=embedding_model,

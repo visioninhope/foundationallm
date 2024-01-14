@@ -45,13 +45,13 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                 _agentMetadata.PromptContainer ?? _agentMetadata.Name!,
                 sessionId);
 
-            //get data sources listed for the agent           
+            //get data sources listed for the agent
             var dataSourceResponse = await _dataSourceHubService.ResolveRequest(_agentMetadata.AllowedDataSourceNames!, sessionId);
 
             List<MetadataBase> dataSourceMetadata = new List<MetadataBase>();
 
             var dataSources = dataSourceResponse.DataSources!;
-                        
+
             foreach (var dataSource in dataSources)
             {
                 switch (dataSource.UnderlyingImplementation)
@@ -128,7 +128,6 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                                 KeySecret = dataSource.Authentication["key_secret"],
                                 IndexName = dataSource.IndexName,
                                 EmbeddingFieldName = dataSource.EmbeddingFieldName,
-                                EmbeddingModel = dataSource.EmbeddingModel,
                                 TextFieldName = dataSource.TextFieldName,
                                 TopN = dataSource.TopN,
                                 RetrieverMode = dataSource.RetrieverMode,
@@ -142,7 +141,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                         throw new ArgumentException($"The {dataSource.UnderlyingImplementation} data source type is not supported.");
                 }
             }
-            
+
             //create LLMOrchestrationCompletionRequest template
             _completionRequestTemplate = new LLMOrchestrationCompletionRequest()
             {
