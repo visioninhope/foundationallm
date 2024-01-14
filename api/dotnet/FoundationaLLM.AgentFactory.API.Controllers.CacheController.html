@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class SessionsController
+      <title>Class CacheController
  | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class SessionsController
+      <meta name="title" content="Class CacheController
  | FoundationaLLM ">
       
-      <meta name="description" content="Provides methods for interacting with the Core service.">
+      <meta name="description" content="Provides methods for managing the agents artifacts cache.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -18,7 +18,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Core_API_Controllers_SessionsController.md&amp;value=---%0Auid%3A%20FoundationaLLM.Core.API.Controllers.SessionsController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_AgentFactory_API_Controllers_CacheController.md&amp;value=---%0Auid%3A%20FoundationaLLM.AgentFactory.API.Controllers.CacheController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -86,31 +86,29 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Core.API.Controllers.SessionsController">
+        <article data-uid="FoundationaLLM.AgentFactory.API.Controllers.CacheController">
 
 
 
-  <h1 id="FoundationaLLM_Core_API_Controllers_SessionsController" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController" class="text-break">
-    Class SessionsController
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_AgentFactory_API_Controllers_CacheController" data-uid="FoundationaLLM.AgentFactory.API.Controllers.CacheController" class="text-break">
+    Class CacheController
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/CacheController.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Core.html">Core</a>.<a class="xref" href="FoundationaLLM.Core.API.html">API</a>.<a class="xref" href="FoundationaLLM.Core.API.Controllers.html">Controllers</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>FoundationaLLM.Core.API.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.AgentFactory.html">AgentFactory</a>.<a class="xref" href="FoundationaLLM.AgentFactory.API.html">API</a>.<a class="xref" href="FoundationaLLM.AgentFactory.API.Controllers.html">Controllers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>FoundationaLLM.AgentFactory.API.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides methods for interacting with the Core service.</p>
+  <div class="markdown summary"><p>Provides methods for managing the agents artifacts cache.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Authorize]
-[Authorize(Policy = &quot;RequiredScope&quot;)]
-[ApiVersion(1, null)]
+    <pre><code class="lang-csharp hljs">[ApiVersion(1, null)]
 [ApiController]
 [Route(&quot;[controller]&quot;)]
-public class SessionsController : ControllerBase</code></pre>
+public class CacheController : ControllerBase</code></pre>
   </div>
 
 
@@ -121,7 +119,7 @@ public class SessionsController : ControllerBase</code></pre>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controllerbase">ControllerBase</a></div>
-      <div><span class="xref">SessionsController</span></div>
+      <div><span class="xref">CacheController</span></div>
     </dd>
   </dl>
 
@@ -682,39 +680,31 @@ public class SessionsController : ControllerBase</code></pre>
 
 
 
-  <h2 id="FoundationaLLM_Core_API_Controllers_SessionsController_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>Constructor for the Core Controller.</p>
-</div>
 
 
   <h2 class="section" id="constructors">Constructors
 </h2>
 
 
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController__ctor_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.#ctor*"></a>
+  <a id="FoundationaLLM_AgentFactory_API_Controllers_CacheController__ctor_" data-uid="FoundationaLLM.AgentFactory.API.Controllers.CacheController.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController__ctor_FoundationaLLM_Core_Interfaces_ICoreService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_API_Controllers_SessionsController__" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.#ctor(FoundationaLLM.Core.Interfaces.ICoreService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.SessionsController})">
-  SessionsController(ICoreService, ILogger&lt;SessionsController&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_AgentFactory_API_Controllers_CacheController__ctor_FoundationaLLM_Common_Interfaces_ICacheService_" data-uid="FoundationaLLM.AgentFactory.API.Controllers.CacheController.#ctor(FoundationaLLM.Common.Interfaces.ICacheService)">
+  CacheController(ICacheService)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/CacheController.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Provides methods for interacting with the Core service.</p>
+  <div class="markdown level1 summary"><p>Provides methods for managing the agents artifacts cache.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SessionsController(ICoreService coreService, ILogger&lt;SessionsController&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public CacheController(ICacheService cacheService)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>coreService</code> <a class="xref" href="FoundationaLLM.Core.Interfaces.ICoreService.html">ICoreService</a></dt>
-    <dd><p>The Core service provides methods for managing chat
-sessions and messages, and for getting completions from the orchestrator.</p>
-</dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Core.API.Controllers.SessionsController.html">SessionsController</a>&gt;</dt>
-    <dd><p>The logging interface used to log under the
-<a class="xref" href="FoundationaLLM.Core.API.Controllers.SessionsController.html">SessionsController</a> type name.</p>
+    <dt><code>cacheService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.ICacheService.html">ICacheService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.ICacheService.html">ICacheService</a> cache holding the agents artifacts.</p>
 </dd>
   </dl>
 
@@ -725,9 +715,6 @@ sessions and messages, and for getting completions from the orchestrator.</p>
 
 
 
-  <h4 class="section" id="FoundationaLLM_Core_API_Controllers_SessionsController__ctor_FoundationaLLM_Core_Interfaces_ICoreService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_API_Controllers_SessionsController___remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Constructor for the Core Controller.</p>
-</div>
 
 
 
@@ -736,65 +723,33 @@ sessions and messages, and for getting completions from the orchestrator.</p>
 </h2>
 
 
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession*"></a>
+  <a id="FoundationaLLM_AgentFactory_API_Controllers_CacheController_Remove_" data-uid="FoundationaLLM.AgentFactory.API.Controllers.CacheController.Remove*"></a>
 
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession">
-  CreateNewChatSession()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_AgentFactory_API_Controllers_CacheController_Remove_System_String_" data-uid="FoundationaLLM.AgentFactory.API.Controllers.CacheController.Remove(System.String)">
+  Remove(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/CacheController.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Creates a new chat session.</p>
+  <div class="markdown level1 summary"><p>Removes an object from the cache by its name.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost(Name = &quot;CreateNewChatSession&quot;)]
-public Task&lt;Session&gt; CreateNewChatSession()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Session.html">Session</a>&gt;</dt>
-    <dd>Provides methods for interacting with the Core service.</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController_DeleteChatSession_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession*"></a>
-
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_DeleteChatSession_System_String_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession(System.String)">
-  DeleteChatSession(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L87"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Delete a chat session and related messages.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpDelete(&quot;{sessionId}&quot;, Name = &quot;DeleteChatSession&quot;)]
-public Task DeleteChatSession(string sessionId)</code></pre>
+    <pre><code class="lang-csharp hljs">[HttpPost(&quot;item/{name}/remove&quot;)]
+public IActionResult Remove(string name)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>Provides methods for interacting with the Core service.</dd>
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the object to be removed from the cache.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd>Provides methods for interacting with the Core service.</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a></dt>
+    <dd>Provides methods for managing the agents artifacts cache.</dd>
   </dl>
 
 
@@ -807,280 +762,33 @@ public Task DeleteChatSession(string sessionId)</code></pre>
 
 
 
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController_GetAllChatSessions_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions*"></a>
+  <a id="FoundationaLLM_AgentFactory_API_Controllers_CacheController_RemoveCategory_" data-uid="FoundationaLLM.AgentFactory.API.Controllers.CacheController.RemoveCategory*"></a>
 
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_GetAllChatSessions" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions">
-  GetAllChatSessions()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_AgentFactory_API_Controllers_CacheController_RemoveCategory_System_String_" data-uid="FoundationaLLM.AgentFactory.API.Controllers.CacheController.RemoveCategory(System.String)">
+  RemoveCategory(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/CacheController.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Returns list of chat session ids and names.</p>
+  <div class="markdown level1 summary"><p>Removes all objects belonging to a category from the cache.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpGet(Name = &quot;GetAllChatSessions&quot;)]
-public Task&lt;IEnumerable&lt;Session&gt;&gt; GetAllChatSessions()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Session.html">Session</a>&gt;&gt;</dt>
-    <dd>Provides methods for interacting with the Core service.</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController_GetChatCompletion_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.GetChatCompletion*"></a>
-
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_GetChatCompletion_System_String_System_String_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.GetChatCompletion(System.String,System.String)">
-  GetChatCompletion(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L96"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Receive a prompt from a user, vectorize it, and get a completion from the orchestration service.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost(&quot;{sessionId}/completion&quot;, Name = &quot;GetChatCompletion&quot;)]
-public Task&lt;Completion&gt; GetChatCompletion(string sessionId, string userPrompt)</code></pre>
+    <pre><code class="lang-csharp hljs">[HttpPost(&quot;category/{name}/remove&quot;)]
+public IActionResult RemoveCategory(string name)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The id of the session for which to get a completion.</p>
-</dd>
-    <dt><code>userPrompt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The prompt to send to the orchestration service.</p>
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the object to be removed from the cache.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Completion.html">Completion</a>&gt;</dt>
-    <dd>Provides methods for interacting with the Core service.</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController_GetChatSessionMessages_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages*"></a>
-
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_GetChatSessionMessages_System_String_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages(System.String)">
-  GetChatSessionMessages(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L43"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Returns the chat messages related to an existing session.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpGet(&quot;{sessionId}/messages&quot;, Name = &quot;GetChatSessionMessages&quot;)]
-public Task&lt;IEnumerable&lt;Message&gt;&gt; GetChatSessionMessages(string sessionId)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The id of the session for which to retrieve chat messages.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Message.html">Message</a>&gt;&gt;</dt>
-    <dd>Provides methods for interacting with the Core service.</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController_GetCompletionPrompt_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt*"></a>
-
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_GetCompletionPrompt_System_String_System_String_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt(System.String,System.String)">
-  GetCompletionPrompt(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L64"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Returns the completion prompt for a given session and completion prompt id.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpGet(&quot;{sessionId}/completionprompts/{completionPromptId}&quot;, Name = &quot;GetCompletionPrompt&quot;)]
-public Task&lt;CompletionPrompt&gt; GetCompletionPrompt(string sessionId, string completionPromptId)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The session id from which to retrieve the completion prompt.</p>
-</dd>
-    <dt><code>completionPromptId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The id of the completion prompt to retrieve.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.CompletionPrompt.html">CompletionPrompt</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController_RateMessage_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage*"></a>
-
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_RateMessage_System_String_System_String_System_Nullable_System_Boolean__" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage(System.String,System.String,System.Nullable{System.Boolean})">
-  RateMessage(string, string, bool?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L54"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Rate an assistant message. This can be used to discover useful AI responses for training,
-discoverability, and other benefits down the road.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost(&quot;{sessionId}/message/{messageId}/rate&quot;, Name = &quot;RateMessage&quot;)]
-public Task&lt;Message&gt; RateMessage(string messageId, string sessionId, bool? rating)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>messageId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The id of the message to rate.</p>
-</dd>
-    <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The id of the session to which the message belongs.</p>
-</dd>
-    <dt><code>rating</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</dt>
-    <dd><p>The rating to assign to the message.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Message.html">Message</a>&gt;</dt>
-    <dd>Provides methods for interacting with the Core service.</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession*"></a>
-
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_System_String_System_String_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String)">
-  RenameChatSession(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L80"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Rename the chat session.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost(&quot;{sessionId}/rename&quot;, Name = &quot;RenameChatSession&quot;)]
-public Task&lt;Session&gt; RenameChatSession(string sessionId, string newChatSessionName)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The id of the session to rename.</p>
-</dd>
-    <dt><code>newChatSessionName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The new name for the session.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Session.html">Session</a>&gt;</dt>
-    <dd>Provides methods for interacting with the Core service.</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController_SummarizeChatSessionName_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.SummarizeChatSessionName*"></a>
-
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_SummarizeChatSessionName_System_String_System_String_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.SummarizeChatSessionName(System.String,System.String)">
-  SummarizeChatSessionName(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L105"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Generate a name for a chat message, based on the passed in prompt.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost(&quot;{sessionId}/summarize-name&quot;, Name = &quot;SummarizeChatSessionName&quot;)]
-public Task&lt;Completion&gt; SummarizeChatSessionName(string sessionId, string prompt)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The id of the session for which to generate a name.</p>
-</dd>
-    <dt><code>prompt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The prompt to use to generate the name.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Completion.html">Completion</a>&gt;</dt>
-    <dd>Provides methods for interacting with the Core service.</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a></dt>
+    <dd>Provides methods for managing the agents artifacts cache.</dd>
   </dl>
 
 
@@ -1097,7 +805,7 @@ public Task&lt;Completion&gt; SummarizeChatSessionName(string sessionId, string 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L21" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/CacheController.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 
