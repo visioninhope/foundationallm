@@ -137,11 +137,33 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                             DataDescription = dataSource.DataDescription
                         });
                         break;
+                    case "cxo":
+                        dataSourceMetadata.Add(new CXODataSource
+                        {
+                            Name = dataSource.Name,
+                            Type = _agentMetadata.Type,
+                            Description = dataSource.Description,
+                            DataDescription = dataSource.DataDescription,
+                            Configuration = new CXOConfiguration
+                            {
+                                Endpoint = dataSource.Authentication!["endpoint"],
+                                KeySecret = dataSource.Authentication["key_secret"],
+                                IndexName = dataSource.IndexName,
+                                EmbeddingFieldName = dataSource.EmbeddingFieldName,
+                                TextFieldName = dataSource.TextFieldName,
+                                TopN = dataSource.TopN,
+                                RetrieverMode = dataSource.RetrieverMode,
+                                Company = dataSource.Company,
+                                Sources = dataSource.Sources
+                            }
+
+                        });
+                        break;
                     default:
                         throw new ArgumentException($"The {dataSource.UnderlyingImplementation} data source type is not supported.");
                 }
             }
-            
+
             //create LLMOrchestrationCompletionRequest template
             _completionRequestTemplate = new LLMOrchestrationCompletionRequest()
             {

@@ -7,8 +7,6 @@ from fastapi import FastAPI
 from app.dependencies import get_config
 from app.routers import analyze, status
 
-config = get_config()
-
 app = FastAPI(
     title='FoundationaLLM GatekeeperIntegrationAPI',
     summary='API for extending the FoundationaLLM GatekeeperAPI',
@@ -26,7 +24,8 @@ app = FastAPI(
     license_info={
         'name': 'FoundationaLLM Software License',
         'url': 'https://www.foundationallm.ai/license',
-    }
+    },
+    config=get_config()
 )
 
 app.include_router(analyze.router)
