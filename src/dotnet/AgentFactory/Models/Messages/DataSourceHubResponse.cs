@@ -16,7 +16,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
     }
 
     /// <summary>
-    /// SQL DataSource 
+    /// SQL DataSource
     /// </summary>
     public record SQLDataSourceMetadata : DataSourceMetadata
     {
@@ -24,7 +24,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
     }
 
     /// <summary>
-    /// Blob Storage DataSource 
+    /// Blob Storage DataSource
     /// </summary>
     public record BlobStorageDataSourceMetadata : DataSourceMetadata
     {
@@ -157,11 +157,5 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
         /// </summary>
         [JsonProperty("company")]
         public required string Company { get; set; }
-
-        /// <summary>
-        /// Name of the embedding model.
-        /// </summary>
-        [JsonProperty("embedding_model")]
-        public required string EmbeddingModel { get; set; }
     }
 }
