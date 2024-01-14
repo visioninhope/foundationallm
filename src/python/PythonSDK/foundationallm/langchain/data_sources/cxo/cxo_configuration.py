@@ -1,7 +1,7 @@
 from typing import List
 from foundationallm.langchain.data_sources import DataSourceConfiguration
 
-class StockConfiguration(DataSourceConfiguration):
+class CXOConfiguration(DataSourceConfiguration):
 
     """Configuration settings for a stock agent"""
 
