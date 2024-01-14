@@ -8,7 +8,7 @@ from langchain.base_language import BaseLanguageModel
 from langchain.callbacks import get_openai_callback
 from langchain.prompts import PromptTemplate
 from langchain.schema.document import Document
-from langchain.schema.runnable import RunnablePassthrough #, RunnableLambda
+from langchain.schema.runnable import RunnablePassthrough, RunnableLambda
 from langchain.schema import StrOutputParser
 from foundationallm.config import Configuration
 from foundationallm.langchain.agents.agent_base import AgentBase
@@ -66,22 +66,22 @@ class SearchServiceAgent(AgentBase):
         """
         return "\n\n".join(doc.page_content for doc in docs)
 
-#    def __record_full_prompt(self, prompt: str) -> str:
-#        """
-#        Records the full prompt for the completion request.
-#
-#        Parameters
-#        ----------
-#        prompt : str
-#            The prompt that is populated with context.
-#        
-#        Returns
-#        -------
-#        str
-#            Returns the full prompt.
-#        """
-#        self.full_prompt = prompt
-#        return prompt
+    def __record_full_prompt(self, prompt: str) -> str:
+        """
+        Records the full prompt for the completion request.
+
+        Parameters
+        ----------
+        prompt : str
+            The prompt that is populated with context.
+        
+        Returns
+        -------
+        str
+            Returns the full prompt.
+        """
+        self.full_prompt = prompt
+        return prompt
 
     def run(self, prompt: str) -> CompletionResponse:
         """
@@ -106,15 +106,15 @@ class SearchServiceAgent(AgentBase):
             rag_chain = (
                 { "context": self.retriever | self.__format_docs, "question": RunnablePassthrough()}
                 | custom_prompt
-                #| RunnableLambda(self.__record_full_prompt)
+                | RunnableLambda(self.__record_full_prompt)
                 | self.llm
                 | StrOutputParser()
             )
-            completion = rag_chain.invoke(prompt)
-            #print(self.full_prompt.text)            
+            completion = rag_chain.invoke(prompt)                  
             return CompletionResponse(
                 completion = completion,
                 user_prompt = prompt,
+                final_prompt = self.full_prompt.text,
                 completion_tokens = cb.completion_tokens,
                 prompt_tokens = cb.prompt_tokens,
                 total_tokens = cb.total_tokens,

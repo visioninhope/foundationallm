@@ -149,7 +149,7 @@ class CSVAgent(AgentBase):
             return CompletionResponse(
                 completion = self.agent.run(prompt),
                 user_prompt = prompt,
-                system_prompt = self.prompt_template,
+                final_prompt = self.prompt_template,
                 completion_tokens = cb.completion_tokens,
                 prompt_tokens = cb.prompt_tokens,
                 total_tokens = cb.total_tokens,
