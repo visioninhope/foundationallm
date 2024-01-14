@@ -109,7 +109,7 @@ class CXOAgent(AgentBase):
 
         #max_message_histroy = 1
         #count = 0
-        #memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
         # Add previous messages to the memory
         #for i in range(0, len(self.message_history), 2):
         #    history_pair = itemgetter(i,i+1)(self.message_history)
@@ -134,7 +134,7 @@ class CXOAgent(AgentBase):
             llm=self.llm,
             retriever=self.retriever,
             return_source_documents=False,
-            #memory=memory,
+            memory=memory,
             chain_type="stuff",
             combine_docs_chain_kwargs={"prompt": prompt},
             verbose=True
