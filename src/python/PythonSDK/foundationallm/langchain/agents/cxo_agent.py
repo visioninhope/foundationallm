@@ -111,14 +111,14 @@ class CXOAgent(AgentBase):
         #count = 0
         memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
         # Add previous messages to the memory
-        #for i in range(0, len(self.message_history), 2):
-        #    history_pair = itemgetter(i,i+1)(self.message_history)
-        #    for message in history_pair:
-        #        if message.sender.lower() == 'user':
-        #            user_input = message.text
-        #        else:
-        #            ai_output = message.text
-        #    memory.save_context({"input": user_input}, {"output": ai_output})
+        for i in range(0, len(self.message_history), 2):
+            history_pair = itemgetter(i,i+1)(self.message_history)
+            for message in history_pair:
+                if message.sender.lower() == 'user':
+                    user_input = message.text
+                else:
+                    ai_output = message.text
+            memory.save_context({"input": user_input}, {"output": ai_output})
 
         #    count += 1
 
