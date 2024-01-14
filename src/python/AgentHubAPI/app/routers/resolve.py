@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Header, Request
 from foundationallm.config import Context
 from foundationallm.hubs.agent import AgentHub, AgentHubRequest, AgentHubResponse
 from foundationallm.models import AgentHint
-from app.dependencies import validate_api_key_header, handle_exception
+from app.dependencies import handle_exception, validate_api_key_header
 
 router = APIRouter(
     prefix='/resolve',

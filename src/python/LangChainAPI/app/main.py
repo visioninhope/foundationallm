@@ -2,7 +2,6 @@
 Main entry-point for the FoundationaLLM LangChainAPI.
 Runs web server exposing the API.
 """
-import uvicorn
 from fastapi import FastAPI
 from app.dependencies import get_config
 from app.routers import orchestration, status
@@ -49,7 +48,3 @@ async def root():
         Returns a JSON object containing a message and value.
     """
     return { 'message': 'FoundationaLLM LangChainAPI' }
-
-if __name__ == '__main__':
-    uvicorn.run('app.main:app', host='0.0.0.0', port=8765, reload=True,
-                forwarded_allow_ips='*', proxy_headers=True)
