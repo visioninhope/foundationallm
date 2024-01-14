@@ -13,6 +13,7 @@ from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
 from langchain.callbacks import get_openai_callback
 from langchain.prompts import PromptTemplate
+from langchain.chat_models import AzureChatOpenAI, ChatOpenAI
 
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.document_loaders import PyPDFLoader
@@ -63,7 +64,6 @@ class CXOAgent(AgentBase):
         self.prompt_prefix = completion_request.agent.prompt_prefix
         self.prompt_suffix = completion_request.agent.prompt_suffix
         self.question = completion_request.user_prompt
-        self.llm = llm.get_completion_model(completion_request.language_model)
         self.message_history = completion_request.message_history
 
         self.data_source = completion_request.data_sources[0]
@@ -73,13 +73,10 @@ class CXOAgent(AgentBase):
 
         azure_endpoint = config.get_value(completion_request.language_model.api_endpoint)
         azure_key = config.get_value(completion_request.language_model.api_key)
-        model = config.get_value(self.data_source.embedding_model) #"embeddings"
-
-        #self.embeddings: AzureOpenAIEmbeddings = AzureOpenAIEmbeddings(azure_endpoint=azure_endpoint, openai_api_key=azure_key, deployment=model, chunk_size=1)
-        #self.embeddings = OpenAIEmbeddings(deployment=model,chunk_size=1,openai_api_key=azure_key, openai_endpoint=azure_endpoint,openai_api_type="azure")
+        embedding_model = config.get_value(self.data_source.embedding_model) #"embeddings"
 
         self.embeddings = OpenAIEmbeddings(
-                deployment=model,
+                deployment=embedding_model,
                 #model="text-embedding-ada-002",
                 openai_api_base=azure_endpoint,
                 openai_api_key=azure_key,
@@ -107,8 +104,8 @@ class CXOAgent(AgentBase):
 
         tools = []
 
-        #max_message_histroy = 1
-        #count = 0
+        max_message_histroy = 1 * -2
+        self.message_history = self.message_history[max_message_histroy:]
         memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
         # Add previous messages to the memory
         for i in range(0, len(self.message_history), 2):
@@ -120,15 +117,18 @@ class CXOAgent(AgentBase):
                     ai_output = message.text
             memory.save_context({"input": user_input}, {"output": ai_output})
 
-        #    count += 1
-
-        #    if count >= max_message_histroy:
-        #        break
-
         prompt = PromptTemplate(
             template=self.prompt_prefix,
             input_variables=["context", "question"], #"summaries", "question"
         )
+
+        self.llm = AzureChatOpenAI(deployment_name=config.get_value(completion_request.language_model.deployment),
+                              temperature=0,
+                              openai_api_base=azure_endpoint,
+                              openai_api_key=azure_key,
+                              openai_api_type="azure",
+                              openai_api_version=config.get_value(completion_request.language_model.api_version),
+                              model_version=config.get_value(completion_request.language_model.version))
 
         self.llm_chain = ConversationalRetrievalChain.from_llm(
             llm=self.llm,
@@ -167,8 +167,6 @@ class CXOAgent(AgentBase):
                 total_tokens = cb.total_tokens,
                 total_cost = cb.total_cost
             )
-
-
 
     def get_azure_retiever(self, path, top_n=5, embedding_field_name="Embedding", text_field_name="Text"):
 
