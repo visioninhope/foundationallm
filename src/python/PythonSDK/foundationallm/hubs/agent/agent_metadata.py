@@ -12,3 +12,4 @@ class AgentMetadata(Metadata):
     embedding_model: Optional[EmbeddingModel] = None
     language_model: Optional[LanguageModel] = None
     orchestrator: Optional[str] = None
+    max_message_history_size: Optional[int] = None

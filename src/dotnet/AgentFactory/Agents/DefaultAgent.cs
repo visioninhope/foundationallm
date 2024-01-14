@@ -41,7 +41,9 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         public override async Task Configure(string userPrompt, string sessionId)
         {
             //get prompts for the agent from the prompt hub
-            var promptResponse = await _promptHubService.ResolveRequest(_agentMetadata.Name!, sessionId);
+            var promptResponse = await _promptHubService.ResolveRequest(
+                _agentMetadata.PromptContainer ?? _agentMetadata.Name!,
+                sessionId);
 
             //get data sources listed for the agent           
             var dataSourceResponse = await _dataSourceHubService.ResolveRequest(_agentMetadata.AllowedDataSourceNames!, sessionId);
@@ -111,6 +113,28 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                                 FewShotExampleCount = dataSource.FewShotExampleCount ?? 0
                             },
                             DataDescription = dataSource.DataDescription
+                        });
+                        break;
+                    case "cxo":
+                        dataSourceMetadata.Add(new CXODataSource
+                        {
+                            Name = dataSource.Name,
+                            Type = _agentMetadata.Type,
+                            Description = dataSource.Description,
+                            DataDescription = dataSource.DataDescription,
+                            Configuration = new CXOConfiguration
+                            {
+                                Endpoint = dataSource.Authentication!["endpoint"],
+                                KeySecret = dataSource.Authentication["key_secret"],
+                                IndexName = dataSource.IndexName,
+                                EmbeddingFieldName = dataSource.EmbeddingFieldName,
+                                TextFieldName = dataSource.TextFieldName,
+                                TopN = dataSource.TopN,
+                                RetrieverMode = dataSource.RetrieverMode,
+                                Company = dataSource.Company,
+                                Sources = dataSource.Sources
+                            }
+
                         });
                         break;
                     default:

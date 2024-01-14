@@ -8,8 +8,6 @@ from app.dependencies import get_config
 from app.routers import orchestration, status
 #from azure.monitor.opentelemetry import configure_azure_monitor
 
-config = get_config()
-
 # configure_azure_monitor(
 #     connection_string=
 #       config.get_value('FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString'),
@@ -33,7 +31,8 @@ app = FastAPI(
     license_info={
         'name': 'FoundationaLLM Software License',
         'url': 'https://www.foundationallm.ai/license',
-    }
+    },
+    config=get_config()
 )
 
 app.include_router(orchestration.router)

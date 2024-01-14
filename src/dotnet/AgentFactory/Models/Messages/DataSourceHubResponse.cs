@@ -139,5 +139,23 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Messages
         /// </summary>
         [JsonProperty("text_field_name")]
         public string? TextFieldName { get; set; }
+
+        /// <summary>
+        /// Search filter elements.
+        /// </summary>
+        [JsonProperty("sources")]
+        public string[]? Sources { get; set; }
+
+        /// <summary>
+        /// The vector database.
+        /// </summary>
+        [JsonProperty("retriever_mode")]
+        public required string RetrieverMode { get; set; }
+
+        /// <summary>
+        /// The name of the CXO's company.
+        /// </summary>
+        [JsonProperty("company")]
+        public required string Company { get; set; }
     }
 }
