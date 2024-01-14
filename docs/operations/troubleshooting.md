@@ -13,7 +13,7 @@ There are three common issues that may arise when using the FoundationaLLM platf
 
 a. **Verify App Registration Configuration:**
 - Check the Azure Portal for the App Registration settings.
-- Ensure the correct redirect URIs, client secrets, and authentication settings are configured by reviewing [the setup guide][1].
+- Ensure the correct redirect URIs, client secrets, and authentication settings are configured by reviewing (the setup guide)[../deployment/authentication/core-authentication-setup-entra.md#update-app-configuration-settings].
 
 b. **Error Logs Examination:**
 - Review logs for any authentication-related errors.
@@ -30,7 +30,7 @@ b. **Error Logs Examination:**
 ### 2. **Troubleshooting Steps:**
 
 a. **Check Azure App Configuration:**
-- Verify that the App Registration details are correctly stored in Azure App Configuration using [the setup guide][../deployment/authentication/index.md].
+- Verify that the App Registration details are correctly stored in Azure App Configuration using [the setup guide](../deployment/authentication/index.md).
 - Ensure that keys, secrets, and connection strings are accurate.
 
 c. **Azure App Configuration Logs:**
