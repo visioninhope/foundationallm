@@ -165,7 +165,7 @@ Please respect the order of the steps Thought/Action/Action Input/Observation
             return CompletionResponse(
                 completion = self.agent.run(prompt),
                 user_prompt = prompt,
-                final_prompt = self.prompt_template,
+                full_prompt = self.prompt_template,
                 completion_tokens = cb.completion_tokens,
                 prompt_tokens = cb.prompt_tokens,
                 total_tokens = cb.total_tokens,
