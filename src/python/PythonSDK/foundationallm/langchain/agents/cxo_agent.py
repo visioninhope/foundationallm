@@ -92,7 +92,6 @@ class CXOAgent(AgentBase):
         # Load the CSV file
         company = self.data_source.company
         retriever_mode = self.data_source.retriever_mode
-        self.load_mode = self.data_source.load_mode
 
         self.index_name = self.data_source.index_name
         temp_sources = self.data_source.sources
