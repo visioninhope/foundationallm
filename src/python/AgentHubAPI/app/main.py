@@ -16,10 +16,8 @@ from app.routers import resolve, status, list_agents
 app = FastAPI(
     title='FoundationaLLM AgentHubAPI',
     summary='API for retrieving Agent metadata',
-    description=
-        """The FoundationaLLM AgentHubAPI is a wrapper around 
-        AgentHub functionality contained in the 
-        foundationallm.core Python SDK.""",
+    description="""The FoundationaLLM AgentHubAPI is a wrapper around AgentHub
+        functionality contained in the foundationallm Python SDK.""",
     version='1.0.0',
     contact={
         'name':'Solliance, Inc.',

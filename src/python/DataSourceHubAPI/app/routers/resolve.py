@@ -1,14 +1,16 @@
 """
 The API endpoint for returning the requested data source metadata.
 """
-import logging
 from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException, Header, Request
+from fastapi import APIRouter, Depends, Header, Request
 from foundationallm.config import Context
 from foundationallm.models import AgentHint
-from foundationallm.hubs.data_source import (DataSourceHubRequest,
-                                             DataSourceHubResponse, DataSourceHub)
-from app.dependencies import validate_api_key_header
+from foundationallm.hubs.data_source import (
+    DataSourceHubRequest,
+    DataSourceHubResponse,
+    DataSourceHub
+)
+from app.dependencies import handle_exception, validate_api_key_header
 
 router = APIRouter(
     prefix='/resolve',
@@ -49,8 +51,4 @@ async def resolve(
             return DataSourceHub(config=request.app.extra['config']).resolve(request=datasource_request, user_context=context, hint=agent_hint)
         return DataSourceHub(config=request.app.extra['config']).resolve(request=datasource_request, user_context=context)
     except Exception as e:
-        logging.error(e, stack_info=True, exc_info=True)
-        raise HTTPException(
-            status_code = 500,
-            detail = str(e)
-        ) from e
+        handle_exception(e)

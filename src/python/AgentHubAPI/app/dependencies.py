@@ -33,8 +33,6 @@ def validate_api_key_header(x_api_key: str = Depends(APIKeyHeader(name='X-API-Ke
     
     Parameters
     ----------
-    app_config : Configuration
-        Used for retrieving application configuration settings.
     x_api_key : str
         The X-API-Key value in the request header.
         
@@ -52,7 +50,7 @@ def validate_api_key_header(x_api_key: str = Depends(APIKeyHeader(name='X-API-Ke
             detail = 'Invalid API key. You must provide a valid API key in the X-API-KEY header.'
         )
 
-def handle_exception(exception: Exception):
+def handle_exception(exception: Exception, status_code: int = 500):
     """
     Handles an exception that occurred while processing a request.
     
@@ -63,6 +61,6 @@ def handle_exception(exception: Exception):
     """
     logging.error(exception, stack_info=True, exc_info=True)
     raise HTTPException(
-        status_code = 500,
+        status_code = status_code,
         detail = str(exception)
     ) from exception
