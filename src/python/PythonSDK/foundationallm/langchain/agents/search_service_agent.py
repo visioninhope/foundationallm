@@ -4,6 +4,7 @@ Description: A RAG agent for performing hybrid searches on Azure AI Search.
 """
 from typing import List
 from azure.core.credentials import AzureKeyCredential
+import langchain
 from langchain.base_language import BaseLanguageModel
 from langchain.callbacks import get_openai_callback
 from langchain.prompts import PromptTemplate
