@@ -13,6 +13,11 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
     public class CXOConfiguration : SearchServiceConfiguration
     {
         /// <summary>
+        /// The type of configuration. This value should not be changed.
+        /// </summary>
+        [JsonProperty("configuration_type")]
+        public new string ConfigurationType = "cxo";
+        /// <summary>
         /// Search filter elements.
         /// </summary>
         [JsonProperty("sources")]
