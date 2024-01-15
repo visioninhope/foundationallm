@@ -13,3 +13,4 @@ class AgentMetadata(Metadata):
     language_model: Optional[LanguageModel] = None
     orchestrator: Optional[str] = None
     max_message_history_size: Optional[int] = None
+    prompt_container: Optional[str] = None
