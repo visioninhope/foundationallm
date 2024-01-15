@@ -66,10 +66,10 @@ class CXOAgent(AgentBase):
         self.question = completion_request.user_prompt
         self.message_history = completion_request.message_history
 
-        self.data_source = completion_request.data_sources[0]
+        self.ds_config = completion_request.data_sources[0].configuration
 
-        self.vector_store_address = config.get_value(self.data_source.endpoint)
-        self.vector_store_password = config.get_value(self.data_source.key_secret)
+        self.vector_store_address = config.get_value(self.ds_config.endpoint)
+        self.vector_store_password = config.get_value(self.ds_config.key_secret)
 
         azure_endpoint = config.get_value(completion_request.language_model.api_endpoint)
         azure_key = config.get_value(completion_request.language_model.api_key)
@@ -84,11 +84,11 @@ class CXOAgent(AgentBase):
             )
 
         # Load the CSV file
-        company = self.data_source.company
-        retriever_mode = self.data_source.retriever_mode
+        company = self.ds_config.company
+        retriever_mode = self.ds_config.retriever_mode
 
-        self.index_name = self.data_source.index_name
-        temp_sources = self.data_source.sources
+        self.index_name = self.ds_config.index_name
+        temp_sources = self.ds_config.sources
         self.filters = []
 
         for source in temp_sources:
@@ -96,7 +96,7 @@ class CXOAgent(AgentBase):
 
         if ( retriever_mode == "azure" ):
             local_path = f"{company}-financials"
-            self.retriever = self.get_azure_retiever(local_path, embedding_field_name="content_vector", text_field_name="content", top_n=self.data_source.top_n)
+            self.retriever = self.get_azure_retiever(local_path, embedding_field_name="content_vector", text_field_name="content", top_n=self.ds_config.top_n)
 
         if ( retriever_mode == "chroma" ):
             local_path = f"/temp/{company}"
