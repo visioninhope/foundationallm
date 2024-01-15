@@ -5,6 +5,10 @@ using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
 using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.AgentFactory.Core.Services;
+using FoundationaLLM.Common.Models.Cache;
+using FoundationaLLM.Common.Models.Context;
 
 namespace FoundationaLLM.AgentFactory.Core.Agents
 {
@@ -14,21 +18,29 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
     public class DefaultAgent : AgentBase
     {
         private LLMOrchestrationCompletionRequest _completionRequestTemplate = null!;
+        private readonly ICacheService _cacheService;
+        private readonly ICallContext _callContext;
 
         /// <summary>
         /// Constructor for default agent.
         /// </summary>
         /// <param name="agentMetadata"></param>
+        /// <param name="cacheService">The <see cref="ICacheService"/> used to cache agent-related artifacts.</param>
+        /// <param name="callContext">The call context of the request being handled.</param>
         /// <param name="orchestrationService"></param>
         /// <param name="promptHubService"></param>
         /// <param name="dataSourceHubService"></param>
         public DefaultAgent(
             AgentMetadata agentMetadata,
+            ICacheService cacheService,
+            ICallContext callContext,
             ILLMOrchestrationService orchestrationService,
             IPromptHubAPIService promptHubService,
             IDataSourceHubAPIService dataSourceHubService)
             : base(agentMetadata, orchestrationService, promptHubService, dataSourceHubService)
         {
+            _cacheService = cacheService;
+            _callContext = callContext;
         }
 
         /// <summary>
@@ -40,15 +52,35 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         /// <exception cref="ArgumentException"></exception>
         public override async Task Configure(string userPrompt, string sessionId)
         {
-            //get prompts for the agent from the prompt hub
-            var promptResponse = await _promptHubService.ResolveRequest(_agentMetadata.Name!, sessionId);
+            // Get prompts for the agent from the prompt hub.
+            var promptResponse = _callContext.AgentHint != null
+                ? await _cacheService.Get<PromptHubResponse>(
+                    new CacheKey(_callContext.AgentHint.Name!, "prompt"),
+                    async () => {
+                        return await _promptHubService.ResolveRequest(
+                            _agentMetadata.PromptContainer ?? _agentMetadata.Name!,
+                            sessionId
+                        );
+                    },
+                    false,
+                    TimeSpan.FromHours(1))
+                : await _promptHubService.ResolveRequest(
+                    _agentMetadata.PromptContainer ?? _agentMetadata.Name!,
+                    sessionId
+                  );
 
-            //get data sources listed for the agent           
-            var dataSourceResponse = await _dataSourceHubService.ResolveRequest(_agentMetadata.AllowedDataSourceNames!, sessionId);
+            // Get data sources listed for the agent.
+            var dataSourceResponse = _callContext.AgentHint != null
+                ? await _cacheService.Get<DataSourceHubResponse>(
+                    new CacheKey(_callContext.AgentHint.Name!, "datasource"),
+                    async () => { return await _dataSourceHubService.ResolveRequest(_agentMetadata.AllowedDataSourceNames!, sessionId); },
+                    false,
+                    TimeSpan.FromHours(1))
+                : await _dataSourceHubService.ResolveRequest(_agentMetadata.AllowedDataSourceNames!, sessionId);
 
             List<MetadataBase> dataSourceMetadata = new List<MetadataBase>();
 
-            var dataSources = dataSourceResponse.DataSources!;
+            var dataSources = dataSourceResponse!.DataSources!;
                         
             foreach (var dataSource in dataSources)
             {
@@ -113,11 +145,33 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                             DataDescription = dataSource.DataDescription
                         });
                         break;
+                    case "cxo":
+                        dataSourceMetadata.Add(new CXODataSource
+                        {
+                            Name = dataSource.Name,
+                            Type = _agentMetadata.Type,
+                            Description = dataSource.Description,
+                            DataDescription = dataSource.DataDescription,
+                            Configuration = new CXOConfiguration
+                            {
+                                Endpoint = dataSource.Authentication!["endpoint"],
+                                KeySecret = dataSource.Authentication["key_secret"],
+                                IndexName = dataSource.IndexName,
+                                EmbeddingFieldName = dataSource.EmbeddingFieldName,
+                                TextFieldName = dataSource.TextFieldName,
+                                TopN = dataSource.TopN,
+                                RetrieverMode = dataSource.RetrieverMode,
+                                Company = dataSource.Company,
+                                Sources = dataSource.Sources
+                            }
+
+                        });
+                        break;
                     default:
                         throw new ArgumentException($"The {dataSource.UnderlyingImplementation} data source type is not supported.");
                 }
             }
-            
+
             //create LLMOrchestrationCompletionRequest template
             _completionRequestTemplate = new LLMOrchestrationCompletionRequest()
             {
@@ -127,8 +181,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     Name = _agentMetadata.Name,
                     Type = _agentMetadata.Type,
                     Description = _agentMetadata.Description,
-                    PromptPrefix = promptResponse.Prompt?.PromptPrefix,
-                    PromptSuffix = promptResponse.Prompt?.PromptSuffix
+                    PromptPrefix = promptResponse!.Prompt?.PromptPrefix,
+                    PromptSuffix = promptResponse!.Prompt?.PromptSuffix
                 },
                 LanguageModel = _agentMetadata.LanguageModel,
                 EmbeddingModel = _agentMetadata.EmbeddingModel,
@@ -154,6 +208,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             {
                 Completion = result.Completion!,
                 UserPrompt = completionRequest.UserPrompt!,
+                FullPrompt = result.FullPrompt,
                 PromptTemplate = result.PromptTemplate,
                 AgentName = result.AgentName,
                 PromptTokens = result.PromptTokens,

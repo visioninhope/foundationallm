@@ -2,13 +2,10 @@
 Main entry-point for the FoundationaLLM AgentHubAPI.
 Runs web server exposing the API.
 """
-import uvicorn
 from fastapi import FastAPI
 from app.dependencies import get_config
 from app.routers import resolve, status, list_agents
 #from azure.monitor.opentelemetry import configure_azure_monitor
-
-config = get_config()
 
 # configure_azure_monitor(
 #     connection_string=
@@ -19,10 +16,8 @@ config = get_config()
 app = FastAPI(
     title='FoundationaLLM AgentHubAPI',
     summary='API for retrieving Agent metadata',
-    description=
-        """The FoundationaLLM AgentHubAPI is a wrapper around 
-        AgentHub functionality contained in the 
-        foundationallm.core Python SDK.""",
+    description="""The FoundationaLLM AgentHubAPI is a wrapper around AgentHub
+        functionality contained in the foundationallm Python SDK.""",
     version='1.0.0',
     contact={
         'name':'Solliance, Inc.',
@@ -35,7 +30,8 @@ app = FastAPI(
     license_info={
         'name': 'FoundationaLLM Software License',
         'url': 'https://www.foundationallm.ai/license',
-    }
+    },
+    config=get_config()
 )
 
 app.include_router(resolve.router)
@@ -53,7 +49,3 @@ async def root():
         Returns a JSON object containing a message and value.
     """
     return { 'message': 'FoundationaLLM AgentHubAPI' }
-
-if __name__ == '__main__':
-    uvicorn.run('app.main:app', host='0.0.0.0', port=8742,
-                reload=True, forwarded_allow_ips='*', proxy_headers=True)
