@@ -66,8 +66,7 @@ class CXOAgent(AgentBase):
         self.question = completion_request.user_prompt
         self.message_history = completion_request.message_history
 
-        self.data_source = completion_request.data_sources[0]
-        self.ds_config = self.data_source.configuration
+        self.ds_config = completion_request.data_sources[0].configuration
 
         self.vector_store_address = config.get_value(self.ds_config.endpoint)
         self.vector_store_password = config.get_value(self.ds_config.key_secret)
@@ -97,7 +96,7 @@ class CXOAgent(AgentBase):
 
         if ( retriever_mode == "azure" ):
             local_path = f"{company}-financials"
-            self.retriever = self.get_azure_retiever(local_path, embedding_field_name="content_vector", text_field_name="content", top_n=self.data_source.top_n)
+            self.retriever = self.get_azure_retiever(local_path, embedding_field_name="content_vector", text_field_name="content", top_n=self.ds_config.top_n)
 
         if ( retriever_mode == "chroma" ):
             local_path = f"/temp/{company}"
@@ -137,7 +136,7 @@ class CXOAgent(AgentBase):
             return_source_documents=False,
             memory=memory,
             chain_type="stuff",
-            combine_docs_chain_kwargs={"prompt": prompt}
+            combine_docs_chain_kwargs={"prompt": prompt},
             verbose=True
         )
 
