@@ -2,6 +2,7 @@
 using FoundationaLLM.AgentFactory.Core.Models.Messages;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.AgentFactory.Models.Orchestration;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Cache;
 using Microsoft.Extensions.Logging;
@@ -47,7 +48,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
 
             var agentResponse = callContext.AgentHint != null
                 ? await cacheService.Get<AgentHubResponse>(
-                    new CacheKey(callContext.AgentHint.Name!, "agent"),
+                    new CacheKey(callContext.AgentHint.Name!, CacheCategories.Agent),
                     async () => { return await agentHubAPIService.ResolveRequest(userPrompt, sessionId); },
                     false,
                     TimeSpan.FromHours(1))
