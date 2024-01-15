@@ -4,7 +4,11 @@ Runs web server exposing the API.
 """
 from fastapi import FastAPI
 from app.dependencies import get_config
-from app.routers import resolve, status
+from app.routers import (
+    manage,
+    resolve,
+    status
+)
 #from azure.monitor.opentelemetry import configure_azure_monitor
 
 # configure_azure_monitor(
@@ -34,6 +38,7 @@ app = FastAPI(
     config=get_config()
 )
 
+app.include_router(manage.router)
 app.include_router(resolve.router)
 app.include_router(status.router)
 
