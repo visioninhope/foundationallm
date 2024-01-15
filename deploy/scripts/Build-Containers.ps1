@@ -25,7 +25,7 @@ $workflows =
 'vectorization-api-release.yml',
 'vectorization-job-release.yml'
 
-Write-Host "Running FLLM Workflows using these from the ${branch} branch."
+Write-Host "Running FLLM Workflows from the ${branch} branch."
 
 foreach ($workflow in $workflows) {
 	
