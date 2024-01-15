@@ -10,7 +10,7 @@ from foundationallm.integration.config import Configuration
 
 __config: Configuration = None
 
-def get_config() -> Configuration:
+def get_config(action: str = None) -> Configuration:
     """
     Obtains the application configuration settings.
     
@@ -22,7 +22,10 @@ def get_config() -> Configuration:
     global __config
 
     start = time.time()
-    __config = __config or Configuration()
+    if action is not None and action=='refresh':
+        __config = Configuration()
+    else:
+        __config = __config or Configuration()
     end = time.time()
     print(f'Time to load config: {end-start}')
     return __config

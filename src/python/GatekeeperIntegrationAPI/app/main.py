@@ -4,7 +4,11 @@ Runs web server exposing the API.
 """
 from fastapi import FastAPI
 from app.dependencies import get_config
-from app.routers import analyze, status
+from app.routers import (
+    analyze,
+    manage,
+    status
+)
 
 app = FastAPI(
     title='FoundationaLLM GatekeeperIntegrationAPI',
@@ -28,6 +32,7 @@ app = FastAPI(
 )
 
 app.include_router(analyze.router)
+app.include_router(manage.router)
 app.include_router(status.router)
 
 @app.get('/')
