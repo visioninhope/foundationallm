@@ -74,8 +74,11 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     sessionId
                   );
 
-            _logger.LogInformation("The DefaultAgent received the following prompt from the Prompt Hub: {PromptName}.",
-                promptResponse!.Prompt!.Name);
+            if (promptResponse is {Prompt: not null})
+            {
+                _logger.LogInformation("The DefaultAgent received the following prompt from the Prompt Hub: {PromptName}.",
+                    promptResponse!.Prompt!.Name);
+            }
 
             // Get data sources listed for the agent.
             var dataSourceResponse = _callContext.AgentHint != null
@@ -86,10 +89,14 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     TimeSpan.FromHours(1))
                 : await _dataSourceHubService.ResolveRequest(_agentMetadata.AllowedDataSourceNames!, sessionId);
 
-            _logger.LogInformation("The DefaultAgent received the following data sources from the Data Source Hub: {DataSourceList}.",
-                string.Join(",", dataSourceResponse!.DataSources!.Select(ds => ds.Name)));
+            if (dataSourceResponse is {DataSources: not null})
+            {
+                _logger.LogInformation(
+                    "The DefaultAgent received the following data sources from the Data Source Hub: {DataSourceList}.",
+                    string.Join(",", dataSourceResponse!.DataSources!.Select(ds => ds.Name)));
+            }
 
-            List<MetadataBase> dataSourceMetadata = new List<MetadataBase>();
+            var dataSourceMetadata = new List<MetadataBase>();
 
             var dataSources = dataSourceResponse!.DataSources!;
                         

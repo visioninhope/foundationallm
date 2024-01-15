@@ -55,8 +55,11 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
 
             var agentInfo = agentResponse!.Agent;
 
-            logger.LogInformation("The AgentBuilder received the following agent from the AgentHub: {AgentName}.",
-                agentResponse.Agent!.Name);
+            if (agentResponse is {Agent: not null})
+            {
+                logger.LogInformation("The AgentBuilder received the following agent from the AgentHub: {AgentName}.",
+                    agentResponse.Agent!.Name);
+            }
 
             // TODO: Extend the Agent Hub API service response to include the orchestrator
             var orchestrationType = string.IsNullOrWhiteSpace(agentResponse.Agent!.Orchestrator) 
