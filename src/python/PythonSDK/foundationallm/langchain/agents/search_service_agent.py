@@ -98,7 +98,8 @@ class SearchServiceAgent(AgentBase):
             Returns a CompletionResponse with the generated summary, the user_prompt,
             and token utilization and execution cost details.
         """
-        with get_openai_callback() as cb:            
+        with get_openai_callback() as cb:
+            langchain.verbose = True
             prompt_builder = self.prompt_prefix + \
                         "\n\nQuestion: {question}\n\nContext: {context}\n\nAnswer:"
             custom_prompt = PromptTemplate.from_template(prompt_builder)

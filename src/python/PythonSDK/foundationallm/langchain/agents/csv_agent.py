@@ -103,7 +103,7 @@ Please respect the order of the steps Thought/Action/Action Input/Observation
         self.agent = AgentExecutor.from_agent_and_tools(
             agent=zsa,
             tools=tools,
-            # verbose=True,
+            verbose=True,
             memory=memory,
             handle_parsing_errors='Check your output and make sure it conforms!'
         )

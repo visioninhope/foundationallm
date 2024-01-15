@@ -67,9 +67,10 @@ class CXOAgent(AgentBase):
         self.message_history = completion_request.message_history
 
         self.data_source = completion_request.data_sources[0]
+        self.ds_config = self.data_source.configuration
 
-        self.vector_store_address = config.get_value(self.data_source.endpoint)
-        self.vector_store_password = config.get_value(self.data_source.key_secret)
+        self.vector_store_address = config.get_value(self.ds_config.endpoint)
+        self.vector_store_password = config.get_value(self.ds_config.key_secret)
 
         azure_endpoint = config.get_value(completion_request.language_model.api_endpoint)
         azure_key = config.get_value(completion_request.language_model.api_key)
@@ -84,11 +85,11 @@ class CXOAgent(AgentBase):
             )
 
         # Load the CSV file
-        company = self.data_source.company
-        retriever_mode = self.data_source.retriever_mode
+        company = self.ds_config.company
+        retriever_mode = self.ds_config.retriever_mode
 
-        self.index_name = self.data_source.index_name
-        temp_sources = self.data_source.sources
+        self.index_name = self.ds_config.index_name
+        temp_sources = self.ds_config.sources
         self.filters = []
 
         for source in temp_sources:
@@ -137,7 +138,7 @@ class CXOAgent(AgentBase):
             memory=memory,
             chain_type="stuff",
             combine_docs_chain_kwargs={"prompt": prompt}
-            # verbose=True
+            verbose=True
         )
 
         print('done with init')
