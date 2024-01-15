@@ -136,8 +136,8 @@ class CXOAgent(AgentBase):
             return_source_documents=False,
             memory=memory,
             chain_type="stuff",
-            combine_docs_chain_kwargs={"prompt": prompt},
-            verbose=True
+            combine_docs_chain_kwargs={"prompt": prompt}
+            # verbose=True
         )
 
         print('done with init')
