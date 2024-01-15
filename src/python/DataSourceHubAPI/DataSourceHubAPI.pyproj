@@ -42,7 +42,6 @@
     <Content Include=".gitignore" />
     <Content Include=".pylintrc" />
     <Content Include="requirements.txt" />
-    <Content Include="startup.sh" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PythonSDK\PythonSDK.pyproj">
