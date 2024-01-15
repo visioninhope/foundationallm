@@ -56,10 +56,18 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             var promptResponse = _callContext.AgentHint != null
                 ? await _cacheService.Get<PromptHubResponse>(
                     new CacheKey(_callContext.AgentHint.Name!, "prompt"),
-                    async () => { return await _promptHubService.ResolveRequest(_agentMetadata.Name!, sessionId); },
+                    async () => {
+                        return await _promptHubService.ResolveRequest(
+                            _agentMetadata.PromptContainer ?? _agentMetadata.Name!,
+                            sessionId
+                        );
+                    },
                     false,
                     TimeSpan.FromHours(1))
-                : await _promptHubService.ResolveRequest(_agentMetadata.Name!, sessionId);
+                : await _promptHubService.ResolveRequest(
+                    _agentMetadata.PromptContainer ?? _agentMetadata.Name!,
+                    sessionId
+                  );
 
             // Get data sources listed for the agent.
             var dataSourceResponse = _callContext.AgentHint != null
