@@ -38,9 +38,9 @@ app = FastAPI(
     config=get_config()
 )
 
+app.include_router(manage.router)
 app.include_router(orchestration.router)
 app.include_router(status.router)
-app.include_router(manage.router)
 
 @app.get('/')
 async def root():
