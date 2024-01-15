@@ -1,4 +1,3 @@
-using System.Net;
 using Asp.Versioning;
 using Azure.Identity;
 using FoundationaLLM.AgentFactory.Core.Interfaces;
@@ -17,7 +16,6 @@ using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Settings;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.Extensions.Http.Resilience;
 using Microsoft.Extensions.Options;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -92,6 +90,7 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Services.AddScoped<ILLMOrchestrationService, LangChainService>();
 
             builder.Services.AddSingleton<ICacheService, MemoryCacheService>();
+            builder.Services.ActivateSingleton<ICacheService>();
             builder.Services.AddScoped<IAgentFactoryService, AgentFactoryService>();
             builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
             builder.Services.AddScoped<IDataSourceHubAPIService, DataSourceHubAPIService>();
@@ -104,7 +103,6 @@ namespace FoundationaLLM.AgentFactory.API
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
-
 
             builder.Services
                 .AddApiVersioning(options =>
