@@ -1,13 +1,12 @@
 """
 The API endpoint for returning the completion from the LLM for the specified user prompt.
 """
-import logging
 from typing import Optional
-from fastapi import APIRouter, Depends, Header, HTTPException, Request
+from fastapi import APIRouter, Depends, Header, Request
 from foundationallm.config import Context
 from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
 from foundationallm.langchain.orchestration import OrchestrationManager
-from app.dependencies import get_config, validate_api_key_header
+from app.dependencies import handle_exception, validate_api_key_header
 
 # Initialize API routing
 router = APIRouter(
@@ -32,6 +31,8 @@ async def get_completion(
         and generate a completion.
     request : Request
         The underlying HTTP request.
+    x_user_identity : str
+        The optional X-USER-IDENTITY header value.
 
     Returns
     -------
@@ -44,8 +45,4 @@ async def get_completion(
                                                      context=Context(user_identity=x_user_identity))
         return orchestration_manager.run(completion_request.user_prompt)
     except Exception as e:
-        logging.error(e, stack_info=True, exc_info=True)
-        raise HTTPException(
-            status_code = 500,
-            detail = str(e)
-        ) from e
+        handle_exception(e)
