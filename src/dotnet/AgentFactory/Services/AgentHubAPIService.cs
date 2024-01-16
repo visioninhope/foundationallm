@@ -15,6 +15,8 @@ using System.Runtime;
 using System.Text;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
+using FoundationaLLM.Common.Models.Chat;
 
 namespace FoundationaLLM.AgentFactory.Core.Services;
 
@@ -61,7 +63,7 @@ public class AgentHubAPIService : IAgentHubAPIService
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                return responseContent;
+                return JsonConvert.DeserializeObject<string>(responseContent)!;
             }
         }
         catch (Exception ex)
@@ -105,5 +107,30 @@ public class AgentHubAPIService : IAgentHubAPIService
         }
 
         return new AgentHubResponse();
-    }  
+    }
+
+    /// <inheritdoc/>
+    public async Task<List<MetadataBase>> ListAgents()
+    {
+        try
+        {
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentHubAPI);
+
+            var responseMessage = await client.GetAsync("list");
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseContent = await responseMessage.Content.ReadAsStringAsync();
+                var response = JsonConvert.DeserializeObject<List<MetadataBase>>(responseContent, _jsonSerializerSettings);
+                return response!;
+            }
+
+            throw new Exception($"The Agent Hub API call returned with status {responseMessage.StatusCode}.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error retrieving list of agents from Agent Hub.");
+            throw;
+        }
+    }
 }
