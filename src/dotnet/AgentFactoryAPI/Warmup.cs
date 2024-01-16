@@ -31,42 +31,41 @@ namespace FoundationaLLM.AgentFactory.API
         {
             _logger.LogInformation("The warmup hosted service is starting to initialize the cache.");
 
-            using (var scope = _serviceScopeFactory.CreateScope())
+            using var scope = _serviceScopeFactory.CreateScope();
+            // As a general rule, it's not recommended to inject scoped services into singletons.
+            // In this particular case, we're only using the scoped services for a short while, just to warm up the cache.
+            _agentHubAPIService = scope.ServiceProvider.GetService<IAgentHubAPIService>()!;
+            _dataSourceHubAPIService = scope.ServiceProvider.GetService<IDataSourceHubAPIService>()!;
+            _promptHubAPIService = scope.ServiceProvider.GetService<IPromptHubAPIService>()!;
+
+            try
             {
-                // As a general rule, it's not recommended to inject scoped services into singletons.
-                // In this particular case, we're only using the scoped services for a short while, just to warm up the cache.
-                _agentHubAPIService = scope.ServiceProvider.GetService<IAgentHubAPIService>()!;
-                _dataSourceHubAPIService = scope.ServiceProvider.GetService<IDataSourceHubAPIService>()!;
-                _promptHubAPIService = scope.ServiceProvider.GetService<IPromptHubAPIService>()!;
+                var agents = await LoadAgentArtifacts(stoppingToken);
+                await LoadDataSourceArtifacts(agents, stoppingToken);
+                await LoadPromptArtifacts(agents, stoppingToken);
 
-                try
-                {
-                    var agents = await LoadAgentArtifacts(stoppingToken);
-                    await LoadDataSourceArtifacts(agents, stoppingToken);
-                    await LoadPromptArtifacts(agents, stoppingToken);
-
-                    _logger.LogInformation("The warmup hosted service has initialized the cache successfully.");
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "The warmup hosted service could not complete the initializaton of the cache.");
-                }
+                _logger.LogInformation("The warmup hosted service has initialized the cache successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "The warmup hosted service could not complete the initialization of the cache.");
             }
         }
 
-        private async Task<List<MetadataBase>> LoadAgentArtifacts(
+        private async Task<List<AgentMetadata>> LoadAgentArtifacts(
             CancellationToken cancellationToken)
         {
             if (!await WaitForHubAPIService(_agentHubAPIService!, cancellationToken))
                 throw new Exception("Cannot reach the Agent Hub API.");
             _logger.LogInformation("The Agent Hub API is in the ready state.");
+            var resolvedAgents = new List<AgentMetadata>();
 
             var agents = await _agentHubAPIService!.ListAgents();
             if (agents == null
                 || agents.Count == 0)
             {
-                _logger.LogInformation("The Agent Hub API has no agents registred. Cache initialization is not possible.");
-                return new List<MetadataBase>();
+                _logger.LogInformation("The Agent Hub API has no agents registered. Cache initialization is not possible.");
+                return new List<AgentMetadata>();
             }
 
             _logger.LogInformation(
@@ -79,7 +78,14 @@ namespace FoundationaLLM.AgentFactory.API
 
                 var agentInfo = await _cacheService.Get<AgentHubResponse>(
                     new CacheKey(agent.Name!, "agent"),
-                    async () => { return await _agentHubAPIService!.ResolveRequest(string.Empty, string.Empty); },
+                    async () =>
+                    {
+                        var resolvedAgent = await _agentHubAPIService!.ResolveRequest(string.Empty, string.Empty, agent.Name);
+                        
+                        if (resolvedAgent is {Agent: not null})
+                            resolvedAgents.Add(resolvedAgent.Agent);
+                        return resolvedAgent;
+                    },
                     false,
                     TimeSpan.FromHours(1));
                 if (agentInfo == null)
@@ -88,11 +94,11 @@ namespace FoundationaLLM.AgentFactory.API
                     _logger.LogInformation($"The cache was populated with data related to agent [{agent.Name!}].");
             }
 
-            return agents;
+            return resolvedAgents;
         }
 
         private async Task LoadDataSourceArtifacts(
-            List<MetadataBase> agents,
+            List<AgentMetadata> agents,
             CancellationToken cancellationToken)
         {
             if (!await WaitForHubAPIService(_dataSourceHubAPIService!, cancellationToken))
@@ -106,7 +112,7 @@ namespace FoundationaLLM.AgentFactory.API
 
                 var dataSource = await _cacheService.Get<DataSourceHubResponse>(
                     new CacheKey(agent.Name!, "datasource"),
-                    async () => { return await _dataSourceHubAPIService!.ResolveRequest(new List<string>(), string.Empty); },
+                    async () => { return await _dataSourceHubAPIService!.ResolveRequest(agent.AllowedDataSourceNames!, string.Empty); },
                     false,
                     TimeSpan.FromHours(1));
                 if (dataSource == null
@@ -119,7 +125,7 @@ namespace FoundationaLLM.AgentFactory.API
         }
 
         private async Task LoadPromptArtifacts(
-            List<MetadataBase> agents,
+            List<AgentMetadata> agents,
             CancellationToken cancellationToken)
         {
             if (!await WaitForHubAPIService(_promptHubAPIService!, cancellationToken))
@@ -133,7 +139,7 @@ namespace FoundationaLLM.AgentFactory.API
 
                 var prompt = await _cacheService.Get<PromptHubResponse>(
                     new CacheKey(agent.Name!, "prompt"),
-                    async () => { return await _promptHubAPIService!.ResolveRequest(string.Empty, string.Empty); },
+                    async () => { return await _promptHubAPIService!.ResolveRequest(!string.IsNullOrWhiteSpace(agent.PromptContainer) ? agent.PromptContainer : agent.Name!, string.Empty); },
                     false,
                     TimeSpan.FromHours(1));
                 if (prompt == null

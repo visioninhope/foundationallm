@@ -75,19 +75,23 @@ public class AgentHubAPIService : IAgentHubAPIService
         return "Error";
     }
 
-    /// <summary>
-    /// Gets a set of agents from the Agent Hub based on the prompt and user context.
-    /// </summary>
-    /// <param name="userPrompt">The user prompt to resolve.</param>
-    /// <param name="sessionId">The session ID.</param>
-    /// <returns></returns>
-    public async Task<AgentHubResponse> ResolveRequest(string userPrompt, string sessionId)
+    /// <inheritdoc/>
+    public async Task<AgentHubResponse> ResolveRequest(string userPrompt, string sessionId,
+        string? agentHintOverride = null)
     {
         try
         {
             var request = new AgentHubRequest { UserPrompt = userPrompt, SessionId = sessionId };
 
             var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentHubAPI);
+
+            if (!string.IsNullOrWhiteSpace(agentHintOverride))
+            {
+                var agentHint = JsonConvert.SerializeObject(
+                    new FoundationaLLM.Common.Models.Metadata.Agent { Name = agentHintOverride },
+                    _jsonSerializerSettings);
+                client.DefaultRequestHeaders.Add(HttpHeaders.AgentHint, agentHint);
+            }
                         
             var responseMessage = await client.PostAsync("resolve", new StringContent(
                     JsonConvert.SerializeObject(request, _jsonSerializerSettings),
@@ -110,7 +114,7 @@ public class AgentHubAPIService : IAgentHubAPIService
     }
 
     /// <inheritdoc/>
-    public async Task<List<MetadataBase>> ListAgents()
+    public async Task<List<AgentMetadata>> ListAgents()
     {
         try
         {
@@ -121,7 +125,7 @@ public class AgentHubAPIService : IAgentHubAPIService
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var response = JsonConvert.DeserializeObject<List<MetadataBase>>(responseContent, _jsonSerializerSettings);
+                var response = JsonConvert.DeserializeObject<List<AgentMetadata>>(responseContent, _jsonSerializerSettings);
                 return response!;
             }
 
