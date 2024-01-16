@@ -279,7 +279,7 @@ namespace FoundationaLLM.Common.Constants
         /// <summary>
         /// The key for the FoundationaLLM:Branding:PrimaryButtonBackgroundColor app configuration setting.
         /// </summary>
-        public const string FoundationLLM_Branding_PrimaryButtonBackgroundColor = "FoundationaLLM:Branding:PrimaryButtonBackgroundColor";
+        public const string FoundationaLLM_Branding_PrimaryButtonBackgroundColor = "FoundationaLLM:Branding:PrimaryButtonBackgroundColor";
         /// <summary>
         /// The key for the FoundationaLLM:Branding:PrimaryButtonTextColor app configuration setting.
         /// </summary>
@@ -287,7 +287,7 @@ namespace FoundationaLLM.Common.Constants
         /// <summary>
         /// The key for the FoundationaLLM:Branding:SecondaryButtonBackgroundColor app configuration setting.
         /// </summary>
-        public const string FoundationLLM_Branding_SecondaryButtonBackgroundColor = "FoundationaLLM:Branding:SecondaryButtonBackgroundColor";
+        public const string FoundationaLLM_Branding_SecondaryButtonBackgroundColor = "FoundationaLLM:Branding:SecondaryButtonBackgroundColor";
         /// <summary>
         /// The key for the FoundationaLLM:Branding:SecondaryButtonTextColor app configuration setting.
         /// </summary>
