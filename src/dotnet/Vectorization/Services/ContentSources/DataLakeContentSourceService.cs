@@ -33,7 +33,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         }
 
         /// <inheritdoc/>
-        public async Task<String> ExtractTextFromFileAsync(List<string> multipartId, CancellationToken cancellationToken)
+        public async Task<string> ExtractTextFromFileAsync(List<string> multipartId, CancellationToken cancellationToken)
         {
             ValidateMultipartId(multipartId, 3);
 
@@ -42,13 +42,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
                 multipartId[2],
                 cancellationToken);
 
-            var fileExtension = Path.GetExtension(multipartId[2]);
-
-            return fileExtension.ToLower() switch
-            {
-                FileExtensions.PDF => PDFTextExtractor.GetText(binaryContent),
-                _ => throw new VectorizationException($"The file type for {multipartId[2]} is not supported."),
-            };
+            return await ExtractTextFromFileAsync(multipartId[2], binaryContent);
         }
     }
 }
