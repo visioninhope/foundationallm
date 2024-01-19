@@ -4,7 +4,7 @@ Description: A RAG agent for performing hybrid searches on Azure AI Search.
 """
 from typing import List
 from azure.core.credentials import AzureKeyCredential
-import langchain
+from langchain.callbacks.tracers import ConsoleCallbackHandler
 from langchain.base_language import BaseLanguageModel
 from langchain.callbacks import get_openai_callback
 from langchain.prompts import PromptTemplate
@@ -100,7 +100,6 @@ class SearchServiceAgent(AgentBase):
             and token utilization and execution cost details.
         """
         with get_openai_callback() as cb:
-            langchain.verbose = True
             prompt_builder = self.prompt_prefix + \
                         "\n\nQuestion: {question}\n\nContext: {context}\n\nAnswer:"
             custom_prompt = PromptTemplate.from_template(prompt_builder)
@@ -112,7 +111,7 @@ class SearchServiceAgent(AgentBase):
                 | self.llm
                 | StrOutputParser()
             )
-            completion = rag_chain.invoke(prompt)                  
+            completion = rag_chain.invoke(prompt, config={'callbacks': [ConsoleCallbackHandler()]})                  
             return CompletionResponse(
                 completion = completion,
                 user_prompt = prompt,
