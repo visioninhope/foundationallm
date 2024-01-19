@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Vectorization.DataFormats.Office;
 using FoundationaLLM.Vectorization.DataFormats.PDF;
 using FoundationaLLM.Vectorization.Exceptions;
 
@@ -38,6 +39,12 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
 
             return fileExtension.ToLower() switch
             {
+                FileExtensions.Text => binaryContent.ToString(),
+                FileExtensions.Markdown => binaryContent.ToString(),
+                FileExtensions.JSON => binaryContent.ToString(),
+                FileExtensions.Word => DOCXTextExtractor.GetText(binaryContent),
+                FileExtensions.Excel => new XLSXTextExtractor().GetText(binaryContent),
+                FileExtensions.PowerPoint => PPTXTextExtractor.GetText(binaryContent),
                 FileExtensions.PDF => PDFTextExtractor.GetText(binaryContent),
                 _ => throw new VectorizationException($"The file type for {fileName} is not supported."),
             };
