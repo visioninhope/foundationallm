@@ -64,7 +64,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             try
             {
                 state.LogHandlerStart(this, request.Id, _messageId);
-                _logger.LogInformation("Starting handler {HandlerId} for request {RequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);
+                _logger.LogInformation("Starting handler [{HandlerId}] for request {RequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);
 
                 var stepConfiguration = default(IConfigurationSection);
 
@@ -89,12 +89,12 @@ namespace FoundationaLLM.Vectorization.Handlers
                 await ProcessRequest(request, state, stepConfiguration, cancellationToken);
 
                 state.LogHandlerEnd(this, request.Id, _messageId);
-                _logger.LogInformation("Finished handler {HandlerId} for request {RequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);
+                _logger.LogInformation("Finished handler [{HandlerId}] for request {RequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);
             }
             catch (Exception ex)
             {
                 state.LogHandlerError(this, request.Id, _messageId, ex);
-                _logger.LogError(ex, "Error in executing [extract] step handler for request {VectorizationRequestId} (message id {MessageId}).", request.Id, _messageId);
+                _logger.LogError(ex, "Error in executing [{HandlerId}] step handler for request {VectorizationRequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);
             }
         }
 

@@ -109,9 +109,9 @@ namespace FoundationaLLM.Vectorization.Services
             try
             {
                 await HandleRequest(request, messageId).ConfigureAwait(false);
-                await AdvanceRequest(request).ConfigureAwait(false);
-
+                
                 await _incomingRequestSourceService.DeleteRequest(messageId, popReceipt).ConfigureAwait(false);
+                await AdvanceRequest(request).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -121,8 +121,8 @@ namespace FoundationaLLM.Vectorization.Services
 
         private async Task HandleRequest(VectorizationRequest request, string messageId)
         {
-            var state = await _vectorizationStateService.HasState(request)
-                ? await _vectorizationStateService.ReadState(request)
+            var state = await _vectorizationStateService.HasState(request).ConfigureAwait(false)
+                ? await _vectorizationStateService.ReadState(request).ConfigureAwait(false)
                 : VectorizationState.FromRequest(request);
 
             var stepHandler = VectorizationStepHandlerFactory.Create(
@@ -133,24 +133,29 @@ namespace FoundationaLLM.Vectorization.Services
                 _vectorizationStateService,
                 _serviceProvider,
                 _loggerFactory);
-            await stepHandler.Invoke(request, state, _cancellationToken);
+            await stepHandler.Invoke(request, state, _cancellationToken).ConfigureAwait(false);
 
             await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
         }
 
         private async Task AdvanceRequest(VectorizationRequest request)
         {
-            var nextStep = request.MoveToNextStep();
+            var steps = request.MoveToNextStep();
 
-            if (!string.IsNullOrEmpty(nextStep))
+            if (!string.IsNullOrEmpty(steps.CurrentStep))
             {
                 // The vectorization request still has steps to be processed
-
-                if (!_requestSourceServices.TryGetValue(nextStep, out IRequestSourceService? value) || value == null)
-                    throw new VectorizationException($"Could not find the [{nextStep}] request source service for request id {request.Id}.");
+                if (!_requestSourceServices.TryGetValue(steps.CurrentStep, out IRequestSourceService? value) || value == null)
+                    throw new VectorizationException($"Could not find the [{steps.CurrentStep}] request source service for request id {request.Id}.");
 
                 await value.SubmitRequest(request).ConfigureAwait(false);
+
+                _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to step [{CurrentStepName}].",
+                    request.Id, steps.PreviousStep, steps.CurrentStep);
             }
+            else
+                _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to finalized state.",
+                    request.Id, steps.PreviousStep);
         }
     }
 }
