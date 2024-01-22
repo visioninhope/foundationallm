@@ -105,7 +105,7 @@
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class PromptHubAPIService : IPromptHubAPIService</code></pre>
+    <pre><code class="lang-csharp hljs">public class PromptHubAPIService : IPromptHubAPIService, IHubAPIService</code></pre>
   </div>
 
 
@@ -123,6 +123,7 @@
     <dt>Implements</dt>
     <dd>
       <div><a class="xref" href="FoundationaLLM.AgentFactory.Core.Interfaces.IPromptHubAPIService.html">IPromptHubAPIService</a></div>
+      <div><a class="xref" href="FoundationaLLM.AgentFactory.Core.Interfaces.IHubAPIService.html">IHubAPIService</a></div>
     </dd>
   </dl>
 
@@ -213,7 +214,7 @@
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Services_PromptHubAPIService_ResolveRequest_System_String_System_String_System_String_" data-uid="FoundationaLLM.AgentFactory.Core.Services.PromptHubAPIService.ResolveRequest(System.String,System.String,System.String)">
   ResolveRequest(string, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/PromptHubAPIService.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/PromptHubAPIService.cs/#L69"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Used to get prompts for a target agent and user context.</p>
@@ -221,13 +222,13 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;PromptHubResponse&gt; ResolveRequest(string agentName, string sessionId, string promptName = &quot;default&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;PromptHubResponse&gt; ResolveRequest(string promptContainer, string sessionId, string promptName = &quot;default&quot;)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>agentName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>Name of the agent for which to retrieve prompt values.</p>
+    <dt><code>promptContainer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The prompt container from which prompt values will be retrieved.</p>
 </dd>
     <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The session ID.</p>

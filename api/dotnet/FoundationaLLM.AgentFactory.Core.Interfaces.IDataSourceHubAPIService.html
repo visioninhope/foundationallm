@@ -105,7 +105,7 @@
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IDataSourceHubAPIService</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IDataSourceHubAPIService : IHubAPIService</code></pre>
   </div>
 
 
@@ -114,6 +114,13 @@
 
 
 
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="FoundationaLLM.AgentFactory.Core.Interfaces.IHubAPIService.html#FoundationaLLM_AgentFactory_Core_Interfaces_IHubAPIService_Status">IHubAPIService.Status()</a>
+    </div>
+  </dd></dl>
 
   <dl class="typelist extensionMethods">
     <dt>Extension Methods</dt>
@@ -135,7 +142,7 @@
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Interfaces_IDataSourceHubAPIService_ResolveRequest_System_Collections_Generic_List_System_String__System_String_" data-uid="FoundationaLLM.AgentFactory.Core.Interfaces.IDataSourceHubAPIService.ResolveRequest(System.Collections.Generic.List{System.String},System.String)">
   ResolveRequest(List&lt;string&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/IDataSourceHubAPIService.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/IDataSourceHubAPIService.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of DataSources from the DataSource Hub.</p>
@@ -159,38 +166,6 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.AgentFactory.Core.Models.Messages.DataSourceHubResponse.html">DataSourceHubResponse</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_AgentFactory_Core_Interfaces_IDataSourceHubAPIService_Status_" data-uid="FoundationaLLM.AgentFactory.Core.Interfaces.IDataSourceHubAPIService.Status*"></a>
-
-  <h3 id="FoundationaLLM_AgentFactory_Core_Interfaces_IDataSourceHubAPIService_Status" data-uid="FoundationaLLM.AgentFactory.Core.Interfaces.IDataSourceHubAPIService.Status">
-  Status()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/IDataSourceHubAPIService.cs/#L13"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets the status of the DataSource Hub Service.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;string&gt; Status()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
     <dd></dd>
   </dl>
 

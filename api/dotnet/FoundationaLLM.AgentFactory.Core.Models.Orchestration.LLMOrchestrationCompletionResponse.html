@@ -167,7 +167,7 @@
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionResponse_AgentName" data-uid="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.AgentName">
   AgentName
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the FoundationaLLM agent.</p>
@@ -233,7 +233,7 @@ public string? Completion { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionResponse_CompletionTokens" data-uid="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.CompletionTokens">
   CompletionTokens
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of tokens in the completion.</p>
@@ -262,11 +262,44 @@ public int CompletionTokens { get; set; }</code></pre>
 
 
 
+  <a id="FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionResponse_FullPrompt_" data-uid="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.FullPrompt*"></a>
+
+  <h3 id="FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionResponse_FullPrompt" data-uid="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.FullPrompt">
+  FullPrompt
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The full prompt composed by the LLM.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;full_prompt&quot;)]
+public string? FullPrompt { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>LLMOrchestrationCompletionResponse class</dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionResponse_PromptTemplate_" data-uid="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.PromptTemplate*"></a>
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionResponse_PromptTemplate" data-uid="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.PromptTemplate">
   PromptTemplate
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The prompt template used by the LLM.</p>
@@ -299,7 +332,7 @@ public string? PromptTemplate { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionResponse_PromptTokens" data-uid="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.PromptTokens">
   PromptTokens
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L43"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of tokens in the prompt.</p>
@@ -332,7 +365,7 @@ public int PromptTokens { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionResponse_TotalCost" data-uid="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.TotalCost">
   TotalCost
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L61"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Total cost of the completion execution.</p>
@@ -365,7 +398,7 @@ public float TotalCost { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionResponse_TotalTokens" data-uid="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.TotalTokens">
   TotalTokens
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Models/Orchestration/LLMOrchestrationCompletionResponse.cs/#L55"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Total tokens used.</p>
