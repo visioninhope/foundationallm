@@ -23,8 +23,6 @@ namespace FoundationaLLM.Management.Services.APIServices
     /// <see cref="AgentFactoryAPIService"/> type name.</param>
     public class AgentFactoryAPIService(IHttpClientFactoryService httpClientFactoryService, ILogger<AgentFactoryAPIService> logger) : IAgentFactoryAPIService
     {
-        private readonly JsonSerializerSettings _jsonSerializerSettings = CommonJsonSerializerSettings.GetJsonSerializerSettings();
-
         /// <inheritdoc/>
         public async Task<bool> RemoveCacheItem(string name)
         {
