@@ -4,6 +4,7 @@ using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.OpenAPI;
+using FoundationaLLM.Common.Services.Tokenizers;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
@@ -65,8 +66,12 @@ builder.Services.AddSingleton(
 
 // Add services to the container.
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
+
 builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>();
 builder.Services.AddSingleton<IContentSourceManagerService, ContentSourceManagerService>();
+builder.Services.AddKeyedSingleton<ITokenizerService, MicrosoftBPETokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
+builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
+
 builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddControllers();

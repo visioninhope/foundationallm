@@ -79,7 +79,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                     await _storageService.WriteFileAsync(
                         _settings.StorageContainerName,
                         artifactPath,
-                        artifact.Content);
+                        artifact.Content!);
                     artifact.CanonicalId = artifactPath;
                 }
 
