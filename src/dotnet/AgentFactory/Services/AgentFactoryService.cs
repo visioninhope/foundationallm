@@ -28,6 +28,7 @@ public class AgentFactoryService : IAgentFactoryService
     private readonly IDataSourceHubAPIService _dataSourceHubAPIService;
 
     private readonly ILogger<AgentFactoryService> _logger;
+    private readonly ILoggerFactory _loggerFactory;
 
     /// <summary>
     /// Constructor for the Agent Factory Service.
@@ -38,7 +39,7 @@ public class AgentFactoryService : IAgentFactoryService
     /// <param name="agentHubService"></param>    
     /// <param name="promptHubService"></param>    
     /// <param name="dataSourceHubService"></param>    
-    /// <param name="logger"></param>
+    /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public AgentFactoryService(
         IEnumerable<ILLMOrchestrationService> orchestrationServices,
         ICacheService cacheService,
@@ -46,7 +47,7 @@ public class AgentFactoryService : IAgentFactoryService
         IAgentHubAPIService agentHubService,
         IPromptHubAPIService promptHubService,
         IDataSourceHubAPIService dataSourceHubService,
-        ILogger<AgentFactoryService> logger)
+        ILoggerFactory loggerFactory)
     {
         _orchestrationServices = orchestrationServices;
         _cacheService = cacheService;
@@ -55,7 +56,8 @@ public class AgentFactoryService : IAgentFactoryService
         _promptHubAPIService = promptHubService;
         _dataSourceHubAPIService = dataSourceHubService;
 
-        _logger = logger;
+        _loggerFactory = loggerFactory;
+        _logger = _loggerFactory.CreateLogger<AgentFactoryService>();
     }
 
     /// <summary>
@@ -90,7 +92,8 @@ public class AgentFactoryService : IAgentFactoryService
                 _agentHubAPIService,
                 _orchestrationServices,
                 _promptHubAPIService,
-                _dataSourceHubAPIService);
+                _dataSourceHubAPIService,
+                _loggerFactory);
 
             return await agent.GetCompletion(completionRequest);
         }
@@ -123,7 +126,8 @@ public class AgentFactoryService : IAgentFactoryService
                 _agentHubAPIService,
                 _orchestrationServices,
                 _promptHubAPIService,
-                _dataSourceHubAPIService);
+                _dataSourceHubAPIService,
+                _loggerFactory);
 
             return await agent.GetSummary(summaryRequest);
         }

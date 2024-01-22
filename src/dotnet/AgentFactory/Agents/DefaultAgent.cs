@@ -9,6 +9,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.AgentFactory.Core.Services;
 using FoundationaLLM.Common.Models.Cache;
 using FoundationaLLM.Common.Models.Context;
+using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.AgentFactory.Core.Agents
 {
@@ -20,6 +21,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         private LLMOrchestrationCompletionRequest _completionRequestTemplate = null!;
         private readonly ICacheService _cacheService;
         private readonly ICallContext _callContext;
+        private readonly ILogger<DefaultAgent> _logger;
 
         /// <summary>
         /// Constructor for default agent.
@@ -30,17 +32,20 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         /// <param name="orchestrationService"></param>
         /// <param name="promptHubService"></param>
         /// <param name="dataSourceHubService"></param>
+        /// <param name="logger">The logger used for logging.</param>
         public DefaultAgent(
             AgentMetadata agentMetadata,
             ICacheService cacheService,
             ICallContext callContext,
             ILLMOrchestrationService orchestrationService,
             IPromptHubAPIService promptHubService,
-            IDataSourceHubAPIService dataSourceHubService)
+            IDataSourceHubAPIService dataSourceHubService,
+            ILogger<DefaultAgent> logger)
             : base(agentMetadata, orchestrationService, promptHubService, dataSourceHubService)
         {
             _cacheService = cacheService;
             _callContext = callContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -56,10 +61,24 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             var promptResponse = _callContext.AgentHint != null
                 ? await _cacheService.Get<PromptHubResponse>(
                     new CacheKey(_callContext.AgentHint.Name!, "prompt"),
-                    async () => { return await _promptHubService.ResolveRequest(_agentMetadata.Name!, sessionId); },
+                    async () => {
+                        return await _promptHubService.ResolveRequest(
+                            _agentMetadata.PromptContainer ?? _agentMetadata.Name!,
+                            sessionId
+                        );
+                    },
                     false,
                     TimeSpan.FromHours(1))
-                : await _promptHubService.ResolveRequest(_agentMetadata.Name!, sessionId);
+                : await _promptHubService.ResolveRequest(
+                    _agentMetadata.PromptContainer ?? _agentMetadata.Name!,
+                    sessionId
+                  );
+
+            if (promptResponse is {Prompt: not null})
+            {
+                _logger.LogInformation("The DefaultAgent received the following prompt from the Prompt Hub: {PromptName}.",
+                    promptResponse!.Prompt!.Name);
+            }
 
             // Get data sources listed for the agent.
             var dataSourceResponse = _callContext.AgentHint != null
@@ -70,7 +89,14 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     TimeSpan.FromHours(1))
                 : await _dataSourceHubService.ResolveRequest(_agentMetadata.AllowedDataSourceNames!, sessionId);
 
-            List<MetadataBase> dataSourceMetadata = new List<MetadataBase>();
+            if (dataSourceResponse is {DataSources: not null})
+            {
+                _logger.LogInformation(
+                    "The DefaultAgent received the following data sources from the Data Source Hub: {DataSourceList}.",
+                    string.Join(",", dataSourceResponse!.DataSources!.Select(ds => ds.Name)));
+            }
+
+            var dataSourceMetadata = new List<MetadataBase>();
 
             var dataSources = dataSourceResponse!.DataSources!;
                         
@@ -137,11 +163,33 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                             DataDescription = dataSource.DataDescription
                         });
                         break;
+                    case "cxo":
+                        dataSourceMetadata.Add(new CXODataSource
+                        {
+                            Name = dataSource.Name,
+                            Type = _agentMetadata.Type,
+                            Description = dataSource.Description,
+                            DataDescription = dataSource.DataDescription,
+                            Configuration = new CXOConfiguration
+                            {
+                                Endpoint = dataSource.Authentication!["endpoint"],
+                                KeySecret = dataSource.Authentication["key_secret"],
+                                IndexName = dataSource.IndexName,
+                                EmbeddingFieldName = dataSource.EmbeddingFieldName,
+                                TextFieldName = dataSource.TextFieldName,
+                                TopN = dataSource.TopN,
+                                RetrieverMode = dataSource.RetrieverMode,
+                                Company = dataSource.Company,
+                                Sources = dataSource.Sources
+                            }
+
+                        });
+                        break;
                     default:
                         throw new ArgumentException($"The {dataSource.UnderlyingImplementation} data source type is not supported.");
                 }
             }
-            
+
             //create LLMOrchestrationCompletionRequest template
             _completionRequestTemplate = new LLMOrchestrationCompletionRequest()
             {
@@ -178,6 +226,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             {
                 Completion = result.Completion!,
                 UserPrompt = completionRequest.UserPrompt!,
+                FullPrompt = result.FullPrompt,
                 PromptTemplate = result.PromptTemplate,
                 AgentName = result.AgentName,
                 PromptTokens = result.PromptTokens,
