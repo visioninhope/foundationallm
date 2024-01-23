@@ -17,6 +17,7 @@ using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Management.Services;
+using FoundationaLLM.Management.Services.APIServices;
 using Microsoft.Identity.Web;
 using Polly;
 
@@ -70,7 +71,12 @@ namespace FoundationaLLM.Management.API
                 .Configure(o =>
                     o.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]!);
 
+            builder.Services.AddScoped<IAgentFactoryAPIService, AgentFactoryAPIService>();
+            builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
+            builder.Services.AddScoped<IDataSourceHubAPIService, DataSourceHubAPIService>();
+            builder.Services.AddScoped<IPromptHubAPIService, PromptHubAPIService>();
             builder.Services.AddScoped<IConfigurationManagementService, ConfigurationManagementService>();
+            builder.Services.AddScoped<ICacheManagementService, CacheManagementService>();
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
@@ -190,7 +196,7 @@ namespace FoundationaLLM.Management.API
             downstreamAPISettings.DownstreamAPIs[HttpClients.AgentFactoryAPI] = agentFactoryAPISettings;
 
             builder.Services
-                .AddHttpClient(HttpClients.AgentHubAPI,
+                .AddHttpClient(HttpClients.AgentFactoryAPI,
                     client => { client.BaseAddress = new Uri(agentFactoryAPISettings.APIUrl); })
                 .AddResilienceHandler(
                     "DownstreamPipeline",
