@@ -11,27 +11,120 @@ using FoundationaLLM.Management.Interfaces;
 
 namespace FoundationaLLM.Management.Services
 {
+    /// <summary>
+    /// Provides cache management functionality.
+    /// </summary>
+    /// <param name="logger">The logging interface used to log under the
+    /// <see cref="CacheManagementService"/> type name.</param>
+    /// <param name="agentFactoryApiService">Provides functionality for calling the
+    /// AgentFactoryAPI.</param>
+    /// <param name="agentHubApiService">Provides functionality for calling the
+    /// AgentHubAPI.</param>
+    /// <param name="dataSourceHubApiService">Provides functionality for calling the
+    /// DataSourceHubAPI.</param>
+    /// <param name="promptHubApiService">Provides functionality for calling the
+    /// PromptHubAPI.</param>
     public class CacheManagementService(
-        ILogger<ConfigurationManagementService> logger,
-        IAgentFactoryAPIService agentFactoryApiService)
+        ILogger<CacheManagementService> logger,
+        IAgentFactoryAPIService agentFactoryApiService,
+        IAgentHubAPIService agentHubApiService,
+        IDataSourceHubAPIService dataSourceHubApiService,
+        IPromptHubAPIService promptHubApiService) : ICacheManagementService
     {
-        private readonly IAgentFactoryAPIService _agentFactoryApiService = agentFactoryApiService;
-        readonly JsonSerializerSettings _jsonSerializerSettings = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings();
-
+        /// <summary>
+        /// Clears the agent cache from the AgentFactoryService and AgentHubService.
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> ClearAgentCache()
         {
             try
             {
-                // TODO: Create a Task collection and await all tasks to run them concurrently.
-                await _agentFactoryApiService.RemoveCacheCategory(CacheCategories.Agent);
+                var removeAgentCacheTask = agentFactoryApiService.RemoveCacheCategory(CacheCategories.Agent);
+                var refreshConfigurationCacheTask = agentHubApiService.RefreshConfigurationCache();
+
+                // Run all tasks concurrently and wait for them to complete.
+                await Task.WhenAll(removeAgentCacheTask, refreshConfigurationCacheTask);
+
+                var isAgentCacheRemoved = await removeAgentCacheTask;
+                var isConfigurationCacheRefreshed = await refreshConfigurationCacheTask;
+
+                if (isAgentCacheRemoved && isConfigurationCacheRefreshed.Success)
+                {
+                    return true;
+                }
+
+                logger.LogError("One or more tasks failed in ClearAgentCache.");
+                return false;
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Failed to clear agent cache.");
+                logger.LogError(ex, "Failed to clear the agent cache.");
                 return false;
             }
         }
+
+        /// <summary>
+        /// Clears the agent cache from the AgentFactoryService and DataSourceHubService.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> ClearDataSourceCache()
+        {
+            try
+            {
+                var removeDataSourceCacheTask = agentFactoryApiService.RemoveCacheCategory(CacheCategories.DataSource);
+                var refreshConfigurationCacheTask = dataSourceHubApiService.RefreshConfigurationCache();
+
+                // Run all tasks concurrently and wait for them to complete.
+                await Task.WhenAll(removeDataSourceCacheTask, refreshConfigurationCacheTask);
+
+                var isDataSourceCacheRemoved = await removeDataSourceCacheTask;
+                var isConfigurationCacheRefreshed = await refreshConfigurationCacheTask;
+
+                if (isDataSourceCacheRemoved && isConfigurationCacheRefreshed.Success)
+                {
+                    return true;
+                }
+
+                logger.LogError("One or more tasks failed in ClearDataSourceCache.");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to clear the data source cache.");
+                return false;
+            }
         }
 
+        /// <summary>
+        /// Clears the agent cache from the AgentFactoryService and DataSourceHubService.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> ClearPromptCache()
+        {
+            try
+            {
+                var removePromptCacheTask = agentFactoryApiService.RemoveCacheCategory(CacheCategories.Prompt);
+                var refreshConfigurationCacheTask = promptHubApiService.RefreshConfigurationCache();
+
+                // Run all tasks concurrently and wait for them to complete.
+                await Task.WhenAll(removePromptCacheTask, refreshConfigurationCacheTask);
+
+                var isPromptCacheRemoved = await removePromptCacheTask;
+                var isConfigurationCacheRefreshed = await refreshConfigurationCacheTask;
+
+                if (isPromptCacheRemoved && isConfigurationCacheRefreshed.Success)
+                {
+                    return true;
+                }
+
+                logger.LogError("One or more tasks failed in ClearPromptCache.");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to clear the prompt cache.");
+                return false;
+            }
+        }
     }
 }
