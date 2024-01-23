@@ -44,7 +44,7 @@ foreach ($app in $containerApp.GetEnumerator()) {
 		--subscription $subscription
 
 	if ($LASTEXITCODE -ne 0) {
-		Write-Error("Failed to update the container app ${name}")
+		Write-Error("Failed to restart the container app ${name}")
 		exit 1
 	}
 }

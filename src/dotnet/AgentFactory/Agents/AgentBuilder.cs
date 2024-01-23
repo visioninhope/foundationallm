@@ -4,6 +4,7 @@ using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.AgentFactory.Models.Orchestration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Cache;
+using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.AgentFactory.Core.Agents
 {
@@ -23,6 +24,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         /// <param name="orchestrationServices"></param>
         /// <param name="promptHubAPIService"></param>
         /// <param name="dataSourceHubAPIService"></param>
+        /// <param name="loggerFactory">The logger factory used to create new loggers.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public static async Task<AgentBase> Build(
@@ -33,8 +35,16 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             IAgentHubAPIService agentHubAPIService,
             IEnumerable<ILLMOrchestrationService> orchestrationServices,
             IPromptHubAPIService promptHubAPIService,
-            IDataSourceHubAPIService dataSourceHubAPIService)
+            IDataSourceHubAPIService dataSourceHubAPIService,
+            ILoggerFactory loggerFactory)
         {
+            var logger = loggerFactory.CreateLogger<AgentBuilder>();
+            if (callContext.AgentHint == null)
+                logger.LogInformation("The AgentBuilder is starting to build an agent without an agent hint.");
+            else
+                logger.LogInformation("The AgentBuilder is starting to build an agent with the following agent hint: {AgentName},{IsPrivateAgent}.",
+                    callContext.AgentHint.Name, callContext.AgentHint.Private);
+
             var agentResponse = callContext.AgentHint != null
                 ? await cacheService.Get<AgentHubResponse>(
                     new CacheKey(callContext.AgentHint.Name!, "agent"),
@@ -45,6 +55,12 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
 
             var agentInfo = agentResponse!.Agent;
 
+            if (agentResponse is {Agent: not null})
+            {
+                logger.LogInformation("The AgentBuilder received the following agent from the AgentHub: {AgentName}.",
+                    agentResponse.Agent!.Name);
+            }
+
             // TODO: Extend the Agent Hub API service response to include the orchestrator
             var orchestrationType = string.IsNullOrWhiteSpace(agentResponse.Agent!.Orchestrator) 
                 ? "LangChain"
@@ -54,13 +70,13 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             if (!validType)
                 throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
             var orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
-
             
             AgentBase? agent = null;
             agent = new DefaultAgent(
                 agentInfo!,
                 cacheService, callContext,
-                orchestrationService, promptHubAPIService, dataSourceHubAPIService);           
+                orchestrationService, promptHubAPIService, dataSourceHubAPIService,
+                loggerFactory.CreateLogger<DefaultAgent>());           
 
             await agent.Configure(userPrompt, sessionId);
 

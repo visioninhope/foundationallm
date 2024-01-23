@@ -5,14 +5,8 @@ namespace FoundationaLLM.AgentFactory.Core.Interfaces;
 /// <summary>
 /// Interface for a prompt hub service
 /// </summary>
-public interface IPromptHubAPIService
+public interface IPromptHubAPIService : IHubAPIService
 {
-    /// <summary>
-    /// Gets the status of the Prompt Hub Service
-    /// </summary>
-    /// <returns></returns>
-    Task<string> Status();
-
     /// <summary>
     /// Used to get prompts for a target agent and user context.
     /// </summary>
