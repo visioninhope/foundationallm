@@ -28,7 +28,7 @@ namespace FoundationaLLM.Management.Services.APIServices
         {
             var client = httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentFactoryAPI);
 
-            var responseMessage = await client.PostAsync($"item/{name}/remove",
+            var responseMessage = await client.PostAsync($"cache/item/{name}/remove",
                 null);
 
             if (responseMessage.IsSuccessStatusCode)
@@ -46,7 +46,7 @@ namespace FoundationaLLM.Management.Services.APIServices
         {
             var client = httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AgentFactoryAPI);
 
-            var responseMessage = await client.PostAsync($"category/{name}/remove",
+            var responseMessage = await client.PostAsync($"cache/category/{name}/remove",
                 null);
 
             if (responseMessage.IsSuccessStatusCode)
