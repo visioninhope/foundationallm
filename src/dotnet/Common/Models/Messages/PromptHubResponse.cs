@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Messages
+namespace FoundationaLLM.Common.Models.Messages
 {
     /// <summary>
     /// Response from a Prompt Hub request.

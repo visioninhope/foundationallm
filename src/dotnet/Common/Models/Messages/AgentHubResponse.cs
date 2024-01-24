@@ -1,7 +1,7 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
+﻿using FoundationaLLM.Common.Models.Metadata;
 using Newtonsoft.Json;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Messages
+namespace FoundationaLLM.Common.Models.Messages
 {
     /// <summary>
     /// The response returned from the Agent Hub.

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Messages
+namespace FoundationaLLM.Common.Models.Messages
 {
     /// <summary>
     /// Represents a response from the Data Source Hub.  Includes a list of datasources and their configuration information.
