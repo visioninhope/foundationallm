@@ -23,6 +23,11 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         protected readonly ILogger _logger;
 
         /// <summary>
+        /// The name of the storage container name used by the resource provider to store its internal data.
+        /// </summary>
+        protected virtual string _storageContainerName => "resource-provider";
+
+        /// <summary>
         /// The resource descriptors of the resource types managed by the resource provider. Must be overriden in derived classed.
         /// </summary>
         protected virtual Dictionary<string, ResourceTypeDescriptor> _resourceTypes => [];
@@ -134,7 +139,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             if (string.IsNullOrWhiteSpace(resourcePath))
                 throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.");
 
-            var tokens = resourcePath.Split('/');
+            var tokens = resourcePath.Split('/', StringSplitOptions.RemoveEmptyEntries);
 
             if (tokens.Length < 2)
                 throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.");

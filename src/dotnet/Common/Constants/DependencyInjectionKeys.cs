@@ -25,5 +25,10 @@ namespace FoundationaLLM.Common.Constants
         /// The dependency injection key for the vectorization data lake content source service.
         /// </summary>
         public const string FoundationaLLM_Vectorization_DataLakeContentSourceService = "FoundationaLLM:Vectorization:DataLakeContentSourceService";
+
+        /// <summary>
+        /// The dependency injection key for the content source service factory.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_ContentSourceServiceFactory = "FoundationaLLM:Vectorization:ContentSourceServiceFactory";
     }
 }

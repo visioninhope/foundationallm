@@ -3,6 +3,8 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
+using FoundationaLLM.Vectorization.Models.Resources;
+using FoundationaLLM.Vectorization.ResourceProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -51,13 +53,20 @@ namespace FoundationaLLM.Vectorization.Handlers
                 return;
             }
 
-            var tokenizerService = _serviceProvider.GetKeyedService<ITokenizerService>(_parameters["tokenizer"])
-                ?? throw new VectorizationException($"Could not retrieve the {_parameters["tokenizer"]} tokenizer service instance.");
+            var serviceFactory = _serviceProvider.GetService<IServiceFactory<ITextSplitterService>>()
+                ?? throw new VectorizationException($"Could not retrieve the text splitter service factory instance.");
+            var textSplitter = serviceFactory.CreateService(_parameters["text_partition_profile_name"]);
 
-            var tokens = tokenizerService.Encode(extractedTextArtifact.Content!, _parameters["tokenizer_encoder"]);
+            var textChunks = textSplitter.SplitPlainText(extractedTextArtifact.Content!);
 
-            if (tokens != null)
-                state.Log(this, request.Id, _messageId, $"The tokenizer identified {tokens.Count} tokens.");
+            var position = 0;
+            foreach (var textChunk in textChunks)
+                state.AddOrReplaceArtifact(new VectorizationArtifact
+                {
+                    Type = VectorizationArtifactType.TextPartition,
+                    Position = ++position,
+                    Content = textChunk
+                });
         }
     }
 }

@@ -22,8 +22,9 @@ namespace FoundationaLLM.Common.Services
         /// </summary>
         /// <param name="options">The options object containing the <see cref="BlobStorageServiceSettings"/> object with the blob storage settings.</param>
         /// <param name="logger">The logger used for logging.</param>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public DataLakeStorageService(
-            IOptionsMonitor<BlobStorageServiceSettings> options,
+            IOptions<BlobStorageServiceSettings> options,
             ILogger<DataLakeStorageService> logger) : base(options, logger)
         {
         }
@@ -34,6 +35,7 @@ namespace FoundationaLLM.Common.Services
         /// <param name="storageSettings">The <see cref="BlobStorageServiceSettings"/> object with the blob storage settings.</param>
         /// <param name="logger">The logger used for logging.</param>
         public DataLakeStorageService(
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
             BlobStorageServiceSettings storageSettings,
             ILogger<DataLakeStorageService> logger) : base(storageSettings, logger)
         {

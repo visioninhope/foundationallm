@@ -1,5 +1,7 @@
+using Azure.Core;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Text;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 
@@ -10,14 +12,21 @@ using Microsoft.Extensions.Options;
 /// <param name="options">The <see cref="IOptions{TOptions}"/> providing the settings for the service.</param>
 public class TokenTextSplitterService(
     ITokenizerService tokenizerService,
-    IOptions<TokenTextSplitterServiceSettings> options) : ITextSplitterService
+    IOptions<TokenTextSplitterServiceSettings> options,
+    ILogger<TokenTextSplitterService> logger) : ITextSplitterService
 {
     private readonly ITokenizerService _tokenizerService = tokenizerService;
     private readonly TokenTextSplitterServiceSettings _settings = options.Value;
+    private readonly ILogger<TokenTextSplitterService> _logger = logger;
 
     /// <inheritdoc/>
     public List<string> SplitPlainText(string text)
     {
+        var tokens = tokenizerService.Encode(text, _settings.TokenizerEncoder);
+
+        if (tokens != null)
+            _logger.LogInformation("The tokenizer identified {TokensCount} tokens.", tokens.Count);
+
         return new List<string> { text };
     }
 }

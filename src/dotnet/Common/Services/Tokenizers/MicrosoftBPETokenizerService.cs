@@ -56,7 +56,7 @@ namespace FoundationaLLM.Common.Services.Tokenizers
         {
             ValidateEncoder(encoderName);
             var tokenizer = GetTokenizer(encoderName)
-                ?? throw new TokenizationException($"Could not retrieve a valid tokenizer for the {encoderName} encoder.");
+                ?? throw new TextProcessingException($"Could not retrieve a valid tokenizer for the {encoderName} encoder.");
             try
             {
                 return tokenizer.Encode(text);
@@ -72,7 +72,7 @@ namespace FoundationaLLM.Common.Services.Tokenizers
         {
             ValidateEncoder(encoderName);
             var tokenizer = GetTokenizer(encoderName)
-                ?? throw new TokenizationException($"Could not retrieve a valid tokenizer for the {encoderName} encoder.");
+                ?? throw new TextProcessingException($"Could not retrieve a valid tokenizer for the {encoderName} encoder.");
             try
             {
                 return tokenizer.Decode(tokens);
@@ -156,7 +156,7 @@ namespace FoundationaLLM.Common.Services.Tokenizers
             if (string.IsNullOrWhiteSpace(encoderName)
                 || (!_encoderConfigurations.TryGetValue(encoderName, out TikTokenizerConfig? value))
                 || (value.MergeableRanksFileContent is null))
-                throw new TokenizationException($"The encoder {encoderName} is either not supported or has an invalid configuration.");
+                throw new TextProcessingException($"The encoder {encoderName} is either not supported or has an invalid configuration.");
         }
 
         private LeasedTikTokenizer? GetTokenizer(string encoderName)
@@ -198,7 +198,7 @@ namespace FoundationaLLM.Common.Services.Tokenizers
             lock ( _syncRoot)
             {
                 if (tokenizer == null)
-                    throw new TokenizationException("Attempted to release a null tokenizer instance.");
+                    throw new TextProcessingException("Attempted to release a null tokenizer instance.");
                 tokenizer.IsLeased = false;
             }
         }

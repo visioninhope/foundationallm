@@ -41,18 +41,18 @@ namespace FoundationaLLM.Vectorization.Handlers
             IConfigurationSection? stepConfiguration,
             CancellationToken cancellationToken)
         {
-            //var contentSourceManagerService = _serviceProvider.GetService<IContentSourceManagerService>()
-            //    ?? throw new VectorizationException($"Could not retrieve the content source manager service instance.");
-            //var contentSource = contentSourceManagerService.GetContentSource(_parameters["content_source_name"]);
+            var serviceFactory = _serviceProvider.GetService<IServiceFactory<IContentSourceService>>()
+                ?? throw new VectorizationException($"Could not retrieve the content source service factory instance.");
+            var contentSource = serviceFactory.CreateService(_parameters["content_source_name"]);
 
-            //var textContent = await contentSource.ExtractTextFromFileAsync(request.ContentIdentifier.MultipartId, cancellationToken);
+            var textContent = await contentSource.ExtractTextFromFileAsync(request.ContentIdentifier.MultipartId, cancellationToken);
 
-            //state.AddOrReplaceArtifact(new VectorizationArtifact
-            //{
-            //    Type = VectorizationArtifactType.ExtractedText,
-            //    Position = 1,
-            //    Content = textContent
-            //});
+            state.AddOrReplaceArtifact(new VectorizationArtifact
+            {
+                Type = VectorizationArtifactType.ExtractedText,
+                Position = 1,
+                Content = textContent
+            });
         }
     }
 }

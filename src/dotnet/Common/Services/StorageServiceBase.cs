@@ -29,13 +29,13 @@ namespace FoundationaLLM.Common.Services
         /// <summary>
         ///  Initializes a new instance of the <see cref="StorageServiceBase"/> with the specified options and logger.
         /// </summary>
-        /// <param name="options">The options object containing the <see cref="BlobStorageServiceSettings"/> object with the settings.</param>
+        /// <param name="storageOptions">The options object containing the <see cref="BlobStorageServiceSettings"/> object with the settings.</param>
         /// <param name="logger">The logger used for logging.</param>
         public StorageServiceBase(
-            IOptionsMonitor<BlobStorageServiceSettings> options,
+            IOptions<BlobStorageServiceSettings> storageOptions,
             ILogger<StorageServiceBase> logger)
         {
-            _settings = options.Get(string.Empty);
+            _settings = storageOptions.Value;
             _logger = logger;
 
             Initialize();
