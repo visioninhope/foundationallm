@@ -19,9 +19,9 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
     [APIKeyAuthentication]
     [Route("[controller]")]
     public class OrchestrationController(
-        IDownstreamAPIService gatekeeperService) : ControllerBase
+        IGatekeeperService gatekeeperService) : ControllerBase
     {
-        private readonly IDownstreamAPIService _gatekeeperService = gatekeeperService;
+        private readonly IGatekeeperService _gatekeeperService = gatekeeperService;
 
         /// <summary>
         /// Gets a completion from the Gatekeeper service.
