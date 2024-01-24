@@ -20,7 +20,7 @@ namespace FoundationaLLM.Management.Services.APIServices
     /// <see cref="PromptHubAPIService"/> type name.</param>
     public class PromptHubAPIService(
         IHttpClientFactoryService httpClientFactoryService,
-        ILogger<PromptHubAPIService> logger) : HubAPIServiceBase(
+        ILogger<PromptHubAPIService> logger) : APIServiceBase(
             Common.Constants.HttpClients.PromptHubAPI,
             httpClientFactoryService,
             logger), IPromptHubAPIService

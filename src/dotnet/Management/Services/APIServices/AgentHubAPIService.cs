@@ -20,7 +20,7 @@ namespace FoundationaLLM.Management.Services.APIServices
     /// <see cref="AgentHubAPIService"/> type name.</param>
     public class AgentHubAPIService(
         IHttpClientFactoryService httpClientFactoryService,
-        ILogger<AgentHubAPIService> logger) : HubAPIServiceBase(
+        ILogger<AgentHubAPIService> logger) : APIServiceBase(
             Common.Constants.HttpClients.AgentHubAPI,
             httpClientFactoryService,
             logger), IAgentHubAPIService

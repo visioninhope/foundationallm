@@ -20,7 +20,7 @@ namespace FoundationaLLM.Management.Services.APIServices
     /// <see cref="DataSourceHubAPIService"/> type name.</param>
     public class DataSourceHubAPIService(
         IHttpClientFactoryService httpClientFactoryService,
-        ILogger<DataSourceHubAPIService> logger) : HubAPIServiceBase(
+        ILogger<DataSourceHubAPIService> logger) : APIServiceBase(
             Common.Constants.HttpClients.DataSourceHubAPI,
             httpClientFactoryService,
             logger), IDataSourceHubAPIService

@@ -12,7 +12,7 @@ namespace FoundationaLLM.Management.Services.APIServices
     /// with the Hub API service that implements this base class.</param>
     /// <param name="httpClientFactoryService">The HTTP client factory service.</param>
     /// <param name="logger">The logging interface.</param>
-    public class HubAPIServiceBase(
+    public class APIServiceBase(
         string httpClientName,
         IHttpClientFactoryService httpClientFactoryService,
         ILogger logger)
