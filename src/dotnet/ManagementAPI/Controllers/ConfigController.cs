@@ -1,8 +1,8 @@
 ﻿using Asp.Versioning;
+using FoundationaLLM.Common.Models.Cache;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration.Agents;
-using FoundationaLLM.Management.Models.Configuration.Cache;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,8 +16,8 @@ namespace FoundationaLLM.Management.API.Controllers
     /// </remarks>
     /// <param name="configurationManagementService">The Configuration Management service
     /// provides methods for managing configurations for FoundationaLLM.</param>
-    /// <param name="logger">The logging interface used to log under the
-    /// <see cref="ConfigController"/> type name.</param>
+    /// <param name="cacheManagementService">Provides cache management methods for managing
+    /// configuration and state of downstream services.</param>
     [Authorize]
     [Authorize(Policy = "RequiredScope")]
     [ApiVersion(1.0)]
@@ -25,8 +25,7 @@ namespace FoundationaLLM.Management.API.Controllers
     [Route("[controller]")]
     public class ConfigController(
         IConfigurationManagementService configurationManagementService,
-        ICacheManagementService cacheManagementService,
-        ILogger<ConfigController> logger) : ControllerBase
+        ICacheManagementService cacheManagementService) : ControllerBase
     {
         /// <summary>
         /// Returns the branding configuration from app configuration.
