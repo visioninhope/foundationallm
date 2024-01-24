@@ -1,10 +1,11 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Messages;
-namespace FoundationaLLM.AgentFactory.Core.Interfaces;
+﻿using FoundationaLLM.Common.Models.Messages;
+
+namespace FoundationaLLM.Common.Interfaces;
 
 /// <summary>
 /// Interface for the Agent Factory Service.
 /// </summary>
-public interface IDataSourceHubAPIService : IHubAPIService
+public interface IDataSourceHubAPIService : IHubAPIService, ICacheControlAPIService
 {
     /// <summary>
     /// Gets a list of DataSources from the DataSource Hub.

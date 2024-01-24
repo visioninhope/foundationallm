@@ -1,11 +1,11 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Messages;
+﻿using FoundationaLLM.Common.Models.Messages;
 
-namespace FoundationaLLM.AgentFactory.Core.Interfaces;
+namespace FoundationaLLM.Common.Interfaces;
 
 /// <summary>
 /// Interface for a prompt hub service
 /// </summary>
-public interface IPromptHubAPIService : IHubAPIService
+public interface IPromptHubAPIService : IHubAPIService, ICacheControlAPIService
 {
     /// <summary>
     /// Used to get prompts for a target agent and user context.

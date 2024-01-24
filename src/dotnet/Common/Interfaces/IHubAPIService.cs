@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.AgentFactory.Core.Interfaces
+﻿namespace FoundationaLLM.Common.Interfaces
 {
     /// <summary>
     /// Calls endpoints available on all hub API services.

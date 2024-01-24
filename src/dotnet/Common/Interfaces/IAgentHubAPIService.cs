@@ -1,13 +1,11 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Messages;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
-using FoundationaLLM.Common.Models.Orchestration;
+﻿using FoundationaLLM.Common.Models.Messages;
 
-namespace FoundationaLLM.AgentFactory.Core.Interfaces;
+namespace FoundationaLLM.Common.Interfaces;
 
 /// <summary>
 /// Interface for the AgentHub Service.
 /// </summary>
-public interface IAgentHubAPIService : IHubAPIService
+public interface IAgentHubAPIService : IHubAPIService, ICacheControlAPIService
 {
     /// <summary>
     /// Gets a set of agents from the Agent Hub based on the prompt and user context.
