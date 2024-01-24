@@ -1,10 +1,10 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using System.Text;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using Newtonsoft.Json;
-using System.Text;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.API
 {
     /// <summary>
     /// Contains methods for interacting with the downstream API.
