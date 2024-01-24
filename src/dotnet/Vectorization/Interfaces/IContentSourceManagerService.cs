@@ -12,10 +12,10 @@ namespace FoundationaLLM.Vectorization.Interfaces
     public interface IContentSourceManagerService
     {
         /// <summary>
-        /// Gets a content source specified by name.
+        /// Gets a content source service specified by name.
         /// </summary>
         /// <param name="contentSourceName">The name of the content source to retrieve.</param>
         /// <returns>The <see cref="IContentSourceService"/> instance of the requested content source.</returns>
-        IContentSourceService GetContentSource(string contentSourceName);
+        IContentSourceService GetContentSourceService(string contentSourceName);
     }
 }

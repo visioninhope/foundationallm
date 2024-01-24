@@ -4,11 +4,12 @@ using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.OpenAPI;
+using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Tokenizers;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
-using FoundationaLLM.Vectorization.Services.ContentSources;
+using FoundationaLLM.Vectorization.ResourceProviders;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using FoundationaLLM.Vectorization.Worker;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
@@ -52,10 +53,13 @@ builder.Services.AddCors(policyBuilder =>
 // Add configurations to the container
 builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker));
-builder.Services.AddOptions<BlobStorageVectorizationStateServiceSettings>()
+
+builder.Services.AddOptions<BlobStorageServiceSettings>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService)
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService));
-builder.Services.AddOptions<ContentSourceManagerServiceSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_ContentSourceManagerService));
+builder.Services.AddOptions<BlobStorageServiceSettings>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
 
 builder.Services.AddSingleton(
     typeof(IEnumerable<IConfigurationSection>),
@@ -65,12 +69,20 @@ builder.Services.AddSingleton(
     });
 
 // Add services to the container.
-builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
+
+builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService);
+builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
 
 builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>();
-builder.Services.AddSingleton<IContentSourceManagerService, ContentSourceManagerService>();
+builder.Services.AddSingleton<IResourceProviderService, VectorizationResourceProviderService>();
+builder.Services.ActivateSingleton<IResourceProviderService>();
+
 builder.Services.AddKeyedSingleton<ITokenizerService, MicrosoftBPETokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
+
+builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 
 builder.Services.AddHostedService<Worker>();
 
