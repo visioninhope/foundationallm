@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Gatekeeper.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -18,9 +19,9 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
     [APIKeyAuthentication]
     [Route("[controller]")]
     public class OrchestrationController(
-        IGatekeeperService gatekeeperService) : ControllerBase
+        IDownstreamAPIService gatekeeperService) : ControllerBase
     {
-        private readonly IGatekeeperService _gatekeeperService = gatekeeperService;
+        private readonly IDownstreamAPIService _gatekeeperService = gatekeeperService;
 
         /// <summary>
         /// Gets a completion from the Gatekeeper service.
