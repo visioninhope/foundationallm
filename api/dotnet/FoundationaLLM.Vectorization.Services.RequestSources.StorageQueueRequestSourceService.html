@@ -258,13 +258,13 @@ This should happen when the request was successfully processed.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task DeleteRequest(string requestId, string popReceipt)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task DeleteRequest(string messageId, string popReceipt)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>requestId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The identifier of the request being removed.</p>
+    <dt><code>messageId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The underlying message identifier of the request being removed.</p>
 </dd>
     <dt><code>popReceipt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>This value is required to delete the request.</p>

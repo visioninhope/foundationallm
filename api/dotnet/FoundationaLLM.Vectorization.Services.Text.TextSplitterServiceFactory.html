@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class ContentSourceManagerService
+      <title>Class TextSplitterServiceFactory
  | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ContentSourceManagerService
+      <meta name="title" content="Class TextSplitterServiceFactory
  | FoundationaLLM ">
       
-      <meta name="description" content="Manages content sources registered for use in the vectorization pipelines.">
+      <meta name="description" content="Creates text splitter service instances.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -18,7 +18,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -86,26 +86,26 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService">
+        <article data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory">
 
 
 
-  <h1 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService" class="text-break">
-    Class ContentSourceManagerService
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceManagerService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory" class="text-break">
+    Class TextSplitterServiceFactory
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Vectorization.html">Vectorization</a>.<a class="xref" href="FoundationaLLM.Vectorization.Services.html">Services</a>.<a class="xref" href="FoundationaLLM.Vectorization.Services.ContentSources.html">ContentSources</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Vectorization.html">Vectorization</a>.<a class="xref" href="FoundationaLLM.Vectorization.Services.html">Services</a>.<a class="xref" href="FoundationaLLM.Vectorization.Services.Text.html">Text</a></dd></dl>
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Manages content sources registered for use in the vectorization pipelines.</p>
+  <div class="markdown summary"><p>Creates text splitter service instances.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ContentSourceManagerService : IContentSourceManagerService</code></pre>
+    <pre><code class="lang-csharp hljs">public class TextSplitterServiceFactory : IServiceFactory&lt;ITextSplitterService&gt;</code></pre>
   </div>
 
 
@@ -115,14 +115,14 @@
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">ContentSourceManagerService</span></div>
+      <div><span class="xref">TextSplitterServiceFactory</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceManagerService.html">IContentSourceManagerService</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Interfaces.IServiceFactory-1.html">IServiceFactory</a>&lt;<a class="xref" href="FoundationaLLM.Common.Interfaces.ITextSplitterService.html">ITextSplitterService</a>&gt;</div>
     </dd>
   </dl>
 
@@ -163,37 +163,37 @@
 
 
 
-  <h2 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>Creates a new instance of the content source manager service.</p>
-</div>
 
 
   <h2 class="section" id="constructors">Constructors
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService__ctor_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.#ctor*"></a>
+  <a id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory__ctor_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings__Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)">
-  ContentSourceManagerService(IOptions&lt;ContentSourceManagerServiceSettings&gt;, IConfiguration, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceManagerService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory__ctor_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
+  TextSplitterServiceFactory(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Manages content sources registered for use in the vectorization pipelines.</p>
+  <div class="markdown level1 summary"><p>Creates text splitter service instances.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ContentSourceManagerService(IOptions&lt;ContentSourceManagerServiceSettings&gt; options, IConfiguration configuration, ILoggerFactory loggerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public TextSplitterServiceFactory(IResourceProviderService vectorizationResourceProviderService, IConfiguration configuration, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.html">ContentSourceManagerServiceSettings</a>&gt;</dt>
-    <dd><p>The configuration settings used to initialize the service.</p>
+    <dt><code>vectorizationResourceProviderService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a></dt>
+    <dd><p>The vectorization resource provider service.</p>
 </dd>
     <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
     <dd><p>The global configuration provider.</p>
+</dd>
+    <dt><code>serviceProvider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a> providing dependency injection services.</p>
 </dd>
     <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
     <dd><p>The logger factory used to create loggers.</p>
@@ -207,9 +207,6 @@
 
 
 
-  <h4 class="section" id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings__Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Creates a new instance of the content source manager service.</p>
-</div>
 
 
 
@@ -218,32 +215,32 @@
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService_GetContentSource_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource*"></a>
+  <a id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_CreateService_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.CreateService*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceManagerService_GetContentSource_System_String_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.GetContentSource(System.String)">
-  GetContentSource(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceManagerService.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_CreateService_System_String_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.CreateService(System.String)">
+  CreateService(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets a content source specified by name.</p>
+  <div class="markdown level1 summary"><p>Creates a service instance of type T specified by name.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IContentSourceService GetContentSource(string contentSourceName)</code></pre>
+    <pre><code class="lang-csharp hljs">public ITextSplitterService CreateService(string serviceName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>contentSourceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The name of the content source to retrieve.</p>
+    <dt><code>serviceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the service instance to create.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html">IContentSourceService</a></dt>
-    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html">IContentSourceService</a> instance of the requested content source.</p>
+    <dt><a class="xref" href="FoundationaLLM.Common.Interfaces.ITextSplitterService.html">ITextSplitterService</a></dt>
+    <dd><p>The service instance created by name.</p>
 </dd>
   </dl>
 
@@ -261,7 +258,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceManagerService.cs/#L22" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L27" class="edit-link">Edit this page</a>
         </div>
 
 

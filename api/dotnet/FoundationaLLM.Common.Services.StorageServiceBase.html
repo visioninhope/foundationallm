@@ -172,6 +172,42 @@
 
   <a id="FoundationaLLM_Common_Services_StorageServiceBase__ctor_" data-uid="FoundationaLLM.Common.Services.StorageServiceBase.#ctor*"></a>
 
+  <h3 id="FoundationaLLM_Common_Services_StorageServiceBase__ctor_FoundationaLLM_Common_Settings_BlobStorageServiceSettings_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_StorageServiceBase__" data-uid="FoundationaLLM.Common.Services.StorageServiceBase.#ctor(FoundationaLLM.Common.Settings.BlobStorageServiceSettings,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.StorageServiceBase})">
+  StorageServiceBase(BlobStorageServiceSettings, ILogger&lt;StorageServiceBase&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/StorageServiceBase.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.Common.Services.StorageServiceBase.html">StorageServiceBase</a> with the specified settings and logger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StorageServiceBase(BlobStorageServiceSettings settings, ILogger&lt;StorageServiceBase&gt; logger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>settings</code> <a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a> object with the settings.</p>
+</dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Common.Services.StorageServiceBase.html">StorageServiceBase</a>&gt;</dt>
+    <dd><p>The logger used for logging.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Services_StorageServiceBase__ctor_" data-uid="FoundationaLLM.Common.Services.StorageServiceBase.#ctor*"></a>
+
   <h3 id="FoundationaLLM_Common_Services_StorageServiceBase__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Settings_BlobStorageServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_StorageServiceBase__" data-uid="FoundationaLLM.Common.Services.StorageServiceBase.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Settings.BlobStorageServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.StorageServiceBase})">
   StorageServiceBase(IOptions&lt;BlobStorageServiceSettings&gt;, ILogger&lt;StorageServiceBase&gt;)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/StorageServiceBase.cs/#L34"><i class="bi bi-code-slash"></i></a>
@@ -182,12 +218,12 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StorageServiceBase(IOptions&lt;BlobStorageServiceSettings&gt; options, ILogger&lt;StorageServiceBase&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public StorageServiceBase(IOptions&lt;BlobStorageServiceSettings&gt; storageOptions, ILogger&lt;StorageServiceBase&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a>&gt;</dt>
+    <dt><code>storageOptions</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a>&gt;</dt>
     <dd><p>The options object containing the <a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a> object with the settings.</p>
 </dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Common.Services.StorageServiceBase.html">StorageServiceBase</a>&gt;</dt>
@@ -249,7 +285,7 @@
 
   <h3 id="FoundationaLLM_Common_Services_StorageServiceBase_CreateClientFromAccountKey_System_String_System_String_" data-uid="FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromAccountKey(System.String,System.String)">
   CreateClientFromAccountKey(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/StorageServiceBase.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/StorageServiceBase.cs/#L70"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a storage client from an account name and an account key.</p>
@@ -285,7 +321,7 @@
 
   <h3 id="FoundationaLLM_Common_Services_StorageServiceBase_CreateClientFromConnectionString_System_String_" data-uid="FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromConnectionString(System.String)">
   CreateClientFromConnectionString(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/StorageServiceBase.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/StorageServiceBase.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a storage client from a connection string.</p>
@@ -318,7 +354,7 @@
 
   <h3 id="FoundationaLLM_Common_Services_StorageServiceBase_CreateClientFromIdentity_System_String_" data-uid="FoundationaLLM.Common.Services.StorageServiceBase.CreateClientFromIdentity(System.String)">
   CreateClientFromIdentity(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/StorageServiceBase.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/StorageServiceBase.cs/#L76"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Create a storage client from an account name using the default identity for authentication.</p>

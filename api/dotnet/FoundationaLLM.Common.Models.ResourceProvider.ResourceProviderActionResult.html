@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class ContentSourceManagerServiceSettings
+      <title>Class ResourceProviderActionResult
  | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ContentSourceManagerServiceSettings
+      <meta name="title" content="Class ResourceProviderActionResult
  | FoundationaLLM ">
       
-      <meta name="description" content="Provides configuration settings for the  service.">
+      <meta name="description" content="The result of an action executed by a resource provider.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -18,7 +18,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_ResourceProvider_ResourceProviderActionResult.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderActionResult%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -86,26 +86,26 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings">
+        <article data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderActionResult">
 
 
 
-  <h1 id="FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings" data-uid="FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings" class="text-break">
-    Class ContentSourceManagerServiceSettings
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/ContentSourceManagerServiceSettings.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceProviderActionResult" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderActionResult" class="text-break">
+    Class ResourceProviderActionResult
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceProviderActionResult.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Vectorization.html">Vectorization</a>.<a class="xref" href="FoundationaLLM.Vectorization.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.html">Configuration</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.html">ResourceProvider</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides configuration settings for the <a class="xref" href="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceManagerService.html">ContentSourceManagerService</a> service.</p>
+  <div class="markdown summary"><p>The result of an action executed by a resource provider.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ContentSourceManagerServiceSettings</code></pre>
+    <pre><code class="lang-csharp hljs">public record ResourceProviderActionResult : IEquatable&lt;ResourceProviderActionResult&gt;</code></pre>
   </div>
 
 
@@ -115,10 +115,16 @@
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">ContentSourceManagerServiceSettings</span></div>
+      <div><span class="xref">ResourceProviderActionResult</span></div>
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderActionResult.html">ResourceProviderActionResult</a>&gt;</div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist derived">
@@ -159,23 +165,60 @@
 
 
 
-  <h2 class="section" id="properties">Properties
+  <h2 class="section" id="constructors">Constructors
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings_ContentSources_" data-uid="FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.ContentSources*"></a>
+  <a id="FoundationaLLM_Common_Models_ResourceProvider_ResourceProviderActionResult__ctor_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderActionResult.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Models_Configuration_ContentSourceManagerServiceSettings_ContentSources" data-uid="FoundationaLLM.Vectorization.Models.Configuration.ContentSourceManagerServiceSettings.ContentSources">
-  ContentSources
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/ContentSourceManagerServiceSettings.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceProviderActionResult__ctor_System_Boolean_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderActionResult.#ctor(System.Boolean)">
+  ResourceProviderActionResult(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceProviderActionResult.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The list of all content sources that are registered for use by the vectorization pipelines.</p>
+  <div class="markdown level1 summary"><p>The result of an action executed by a resource provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required List&lt;ContentSource&gt; ContentSources { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public ResourceProviderActionResult(bool IsSuccessResult)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>IsSuccessResult</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Indicates whether the action executed successfully or not.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="FoundationaLLM_Common_Models_ResourceProvider_ResourceProviderActionResult_IsSuccessResult_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderActionResult.IsSuccessResult*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceProviderActionResult_IsSuccessResult" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderActionResult.IsSuccessResult">
+  IsSuccessResult
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceProviderActionResult.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether the action executed successfully or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsSuccessResult { get; init; }</code></pre>
   </div>
 
 
@@ -184,8 +227,8 @@
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.ContentSource.html">ContentSource</a>&gt;</dt>
-    <dd>Provides configuration settings for the  service.</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>The result of an action executed by a resource provider.</dd>
   </dl>
 
 
@@ -199,7 +242,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/ContentSourceManagerServiceSettings.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceProviderActionResult.cs/#L14" class="edit-link">Edit this page</a>
         </div>
 
 

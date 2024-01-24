@@ -264,6 +264,39 @@ public required VectorizationContentIdentifier ContentIdentifier { get; set; }</
 
 
 
+  <a id="FoundationaLLM_Vectorization_Models_VectorizationRequest_CurrentStep_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.CurrentStep*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_CurrentStep" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.CurrentStep">
+  CurrentStep
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current step of the vectorization request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string? CurrentStep { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>Represents a vectorization request.</dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Vectorization_Models_VectorizationRequest_Id_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.Id*"></a>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_Id" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.Id">
@@ -303,7 +336,7 @@ public required string Id { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_Item_System_String_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.Item(System.String)">
   this[string]
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L106"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the vectorization pipeline step that has a specific identifier.</p>
@@ -415,23 +448,23 @@ public required List&lt;VectorizationStep&gt; Steps { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_MoveToNextStep" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.MoveToNextStep">
   MoveToNextStep()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L68"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Advances the vectorization pipeline to the next step, returning the name of the next step to execute.
-The name returned is used to choose the next request source to which the vectorization request will be added.</p>
+  <div class="markdown level1 summary"><p>Advances the vectorization pipeline to the next step.
+The newly set current step is used to choose the next request source to which the vectorization request will be added.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? MoveToNextStep()</code></pre>
+    <pre><code class="lang-csharp hljs">public (string PreviousStep, string? CurrentStep) MoveToNextStep()</code></pre>
   </div>
 
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The name of the next step to execute if there are steps left to execute or null if the processing
+    <dt>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.string-.previousstep">PreviousStep</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.string-.currentstep">CurrentStep</a>)</dt>
+    <dd><p>A tuple containing the name of the previous step and the name of the next step to execute if there are steps left to execute or null if the processing
 of the vectorization request is complete.</p>
 </dd>
   </dl>
@@ -450,7 +483,7 @@ of the vectorization request is complete.</p>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_RollbackToPreviousStep" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.RollbackToPreviousStep">
   RollbackToPreviousStep()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L87"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Reverts the vectorization pipeline to the previous step, returning the name of the step to execute</p>

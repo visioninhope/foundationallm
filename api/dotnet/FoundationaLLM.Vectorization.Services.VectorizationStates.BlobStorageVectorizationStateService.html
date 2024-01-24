@@ -92,7 +92,7 @@
 
   <h1 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService" class="text-break">
     Class BlobStorageVectorizationStateService
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -178,9 +178,9 @@
 
   <a id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService__ctor_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_BlobStorageVectorizationStateServiceSettings__Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings},Microsoft.Extensions.Logging.ILoggerFactory)">
-  BlobStorageVectorizationStateService(IOptions&lt;BlobStorageVectorizationStateServiceSettings&gt;, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService__ctor_FoundationaLLM_Common_Interfaces_IStorageService_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.#ctor(FoundationaLLM.Common.Interfaces.IStorageService,Microsoft.Extensions.Logging.ILoggerFactory)">
+  BlobStorageVectorizationStateService(IStorageService, ILoggerFactory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new vectorization state service instance.</p>
@@ -188,13 +188,13 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BlobStorageVectorizationStateService(IOptions&lt;BlobStorageVectorizationStateServiceSettings&gt; options, ILoggerFactory loggerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public BlobStorageVectorizationStateService(IStorageService storageService, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.BlobStorageVectorizationStateServiceSettings.html">BlobStorageVectorizationStateServiceSettings</a>&gt;</dt>
-    <dd><p>The options used to configure the new instance.</p>
+    <dt><code>storageService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a> that provides storage services.</p>
 </dd>
     <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
     <dd><p>The logger factory used to create loggers.</p>
@@ -259,7 +259,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_LoadArtifacts_FoundationaLLM_Vectorization_Models_VectorizationState_FoundationaLLM_Vectorization_Models_VectorizationArtifactType_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.LoadArtifacts(FoundationaLLM.Vectorization.Models.VectorizationState,FoundationaLLM.Vectorization.Models.VectorizationArtifactType)">
   LoadArtifacts(VectorizationState, VectorizationArtifactType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Loads into the state the specified type of artifact(s).</p>
@@ -300,7 +300,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_ReadState_FoundationaLLM_Vectorization_Models_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.ReadState(FoundationaLLM.Vectorization.Models.VectorizationRequest)">
   ReadState(VectorizationRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Reads the state associated with a vectorization request.</p>
@@ -339,7 +339,7 @@
 
   <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_BlobStorageVectorizationStateService_SaveState_FoundationaLLM_Vectorization_Models_VectorizationState_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.BlobStorageVectorizationStateService.SaveState(FoundationaLLM.Vectorization.Models.VectorizationState)">
   SaveState(VectorizationState)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Saves a specified vectorization state.</p>
@@ -377,7 +377,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L18" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/BlobStorageVectorizationStateService.cs/#L20" class="edit-link">Edit this page</a>
         </div>
 
 

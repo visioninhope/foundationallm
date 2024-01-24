@@ -92,7 +92,7 @@
 
   <h1 id="FoundationaLLM_Common_Services_DataLakeStorageService" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService" class="text-break">
     Class DataLakeStorageService
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -167,9 +167,6 @@
 
 
 
-  <h2 id="FoundationaLLM_Common_Services_DataLakeStorageService_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.Common.Services.DataLakeStorageService.html">DataLakeStorageService</a> with the specified options and logger.</p>
-</div>
 
 
   <h2 class="section" id="constructors">Constructors
@@ -178,23 +175,23 @@
 
   <a id="FoundationaLLM_Common_Services_DataLakeStorageService__ctor_" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Settings_BlobStorageServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_DataLakeStorageService__" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Settings.BlobStorageServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.DataLakeStorageService})">
-  DataLakeStorageService(IOptions&lt;BlobStorageServiceSettings&gt;, ILogger&lt;DataLakeStorageService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService__ctor_FoundationaLLM_Common_Settings_BlobStorageServiceSettings_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_DataLakeStorageService__" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.#ctor(FoundationaLLM.Common.Settings.BlobStorageServiceSettings,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.DataLakeStorageService})">
+  DataLakeStorageService(BlobStorageServiceSettings, ILogger&lt;DataLakeStorageService&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Provides access to Azure Data Lake blob storage.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.Common.Services.DataLakeStorageService.html">DataLakeStorageService</a> with the specified options and logger.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DataLakeStorageService(IOptions&lt;BlobStorageServiceSettings&gt; options, ILogger&lt;DataLakeStorageService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public DataLakeStorageService(BlobStorageServiceSettings storageSettings, ILogger&lt;DataLakeStorageService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a>&gt;</dt>
-    <dd><p>The options object containing the <a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a> object with the settings.</p>
+    <dt><code>storageSettings</code> <a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a> object with the blob storage settings.</p>
 </dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Common.Services.DataLakeStorageService.html">DataLakeStorageService</a>&gt;</dt>
     <dd><p>The logger used for logging.</p>
@@ -208,9 +205,42 @@
 
 
 
-  <h4 class="section" id="FoundationaLLM_Common_Services_DataLakeStorageService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Settings_BlobStorageServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_DataLakeStorageService___remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.Common.Services.DataLakeStorageService.html">DataLakeStorageService</a> with the specified options and logger.</p>
+
+
+
+
+  <a id="FoundationaLLM_Common_Services_DataLakeStorageService__ctor_" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.#ctor*"></a>
+
+  <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Settings_BlobStorageServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_DataLakeStorageService__" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Settings.BlobStorageServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.DataLakeStorageService})">
+  DataLakeStorageService(IOptions&lt;BlobStorageServiceSettings&gt;, ILogger&lt;DataLakeStorageService&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.Common.Services.DataLakeStorageService.html">DataLakeStorageService</a> with the specified options and logger.</p>
 </div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataLakeStorageService(IOptions&lt;BlobStorageServiceSettings&gt; options, ILogger&lt;DataLakeStorageService&gt; logger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a>&gt;</dt>
+    <dd><p>The options object containing the <a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a> object with the blob storage settings.</p>
+</dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Common.Services.DataLakeStorageService.html">DataLakeStorageService</a>&gt;</dt>
+    <dd><p>The logger used for logging.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
 
 
 
@@ -223,7 +253,7 @@
 
   <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService_CreateClientFromAccountKey_System_String_System_String_" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromAccountKey(System.String,System.String)">
   CreateClientFromAccountKey(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L100"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a storage client from an account name and an account key.</p>
@@ -259,7 +289,7 @@
 
   <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService_CreateClientFromConnectionString_System_String_" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromConnectionString(System.String)">
   CreateClientFromConnectionString(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L106"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a storage client from a connection string.</p>
@@ -292,7 +322,7 @@
 
   <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService_CreateClientFromIdentity_System_String_" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.CreateClientFromIdentity(System.String)">
   CreateClientFromIdentity(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L95"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L110"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Create a storage client from an account name using the default identity for authentication.</p>
@@ -325,7 +355,7 @@
 
   <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService_FileExistsAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.FileExistsAsync(System.String,System.String,System.Threading.CancellationToken)">
   FileExistsAsync(string, string, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L88"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if a file exists on the storage.</p>
@@ -369,7 +399,7 @@
 
   <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService_ReadFileAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.ReadFileAsync(System.String,System.String,System.Threading.CancellationToken)">
   ReadFileAsync(string, string, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Reads the binary content of a specified file from the storage.</p>
@@ -414,7 +444,7 @@
 
   <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService_WriteFileAsync_System_String_System_String_System_IO_Stream_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync(System.String,System.String,System.IO.Stream,System.Threading.CancellationToken)">
   WriteFileAsync(string, string, Stream, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Writes the binary content to a specified file from the storage.</p>
@@ -461,7 +491,7 @@
 
   <h3 id="FoundationaLLM_Common_Services_DataLakeStorageService_WriteFileAsync_System_String_System_String_System_String_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Common.Services.DataLakeStorageService.WriteFileAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
   WriteFileAsync(string, string, string, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L80"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Writes the string content to a specified file from the storage.</p>
@@ -508,7 +538,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L22" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DataLakeStorageService.cs/#L16" class="edit-link">Edit this page</a>
         </div>
 
 

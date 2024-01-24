@@ -188,12 +188,12 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BlobStorageService(IOptions&lt;BlobStorageServiceSettings&gt; options, ILogger&lt;BlobStorageService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public BlobStorageService(IOptions&lt;BlobStorageServiceSettings&gt; storageOptions, ILogger&lt;BlobStorageService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a>&gt;</dt>
+    <dt><code>storageOptions</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a>&gt;</dt>
     <dd><p>The options object containing the <a class="xref" href="FoundationaLLM.Common.Settings.BlobStorageServiceSettings.html">BlobStorageServiceSettings</a> object with the settings.</p>
 </dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Common.Services.BlobStorageService.html">BlobStorageService</a>&gt;</dt>
