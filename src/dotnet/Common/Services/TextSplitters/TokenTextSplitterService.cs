@@ -1,4 +1,5 @@
 using Azure.Core;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Text;
 using Microsoft.Extensions.Logging;
@@ -25,8 +26,14 @@ public class TokenTextSplitterService(
         var tokens = tokenizerService.Encode(text, _settings.TokenizerEncoder);
 
         if (tokens != null)
+        {
             _logger.LogInformation("The tokenizer identified {TokensCount} tokens.", tokens.Count);
 
-        return new List<string> { text };
+            var chunksCount = (tokens!.Count - _settings.OverlapSizeTokens) / (_settings.ChunkSizeTokens - _settings.OverlapSizeTokens);
+
+            return new List<string> { text };
+        }
+        else
+            throw new TextProcessingException("The tokenizer service failed to split the text into tokens.");
     }
 }
