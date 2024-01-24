@@ -13,7 +13,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private bool _isInitialized = false;
 
         /// <summary>
-        /// The <see cref="IStorageService"/> provding storage services to the resource provider.
+        /// The <see cref="IStorageService"/> providing storage services to the resource provider.
         /// </summary>
         protected readonly IStorageService _storageService;
 
@@ -28,12 +28,12 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         protected virtual string _storageContainerName => "resource-provider";
 
         /// <summary>
-        /// The resource descriptors of the resource types managed by the resource provider. Must be overriden in derived classed.
+        /// The resource descriptors of the resource types managed by the resource provider. Must be overridden in derived classes.
         /// </summary>
         protected virtual Dictionary<string, ResourceTypeDescriptor> _resourceTypes => [];
 
         /// <summary>
-        /// The name of the resource provider. Must be overriden in derived classes.
+        /// The name of the resource provider. Must be overridden in derived classes.
         /// </summary>
         protected virtual string _name => throw new NotImplementedException();
 
@@ -95,7 +95,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         /// <summary>
-        /// The internal implementation of Initialize. Must be override in derived classes.
+        /// The internal implementation of Initialize. Must be overridden in derived classes.
         /// </summary>
         /// <returns></returns>
         protected virtual async Task InitializeInternal()
@@ -105,7 +105,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         /// <summary>
-        /// The internal implementation of ExecuteAction. Must be overriden in derived classes.
+        /// The internal implementation of ExecuteAction. Must be overridden in derived classes.
         /// </summary>
         /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
         /// <returns></returns>
@@ -116,7 +116,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         /// <summary>
-        /// The internal implementation of GetResource. Must be overriden in derived classes.
+        /// The internal implementation of GetResource. Must be overridden in derived classes.
         /// </summary>
         /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
         /// <returns></returns>
@@ -124,7 +124,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             throw new NotImplementedException();
 
         /// <summary>
-        /// The internal implementation of GetResourceAsync. Must be overriden in derived classes.
+        /// The internal implementation of GetResourceAsync. Must be overridden in derived classes.
         /// </summary>
         /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
         /// <returns></returns>
