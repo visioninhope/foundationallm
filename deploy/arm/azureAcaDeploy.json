@@ -427,7 +427,7 @@
         },
         {
           "key": "FoundationaLLM:Management:Entra:Scopes",
-          "value": "api://FoundationaLLM-Auth/Data.Read",
+          "value": "api://FoundationaLLM-Management-Auth/Data.Manage",
           "contentType": null
         },
         {
@@ -537,7 +537,7 @@
         },
         {
           "key": "FoundationaLLM:ManagementAPI:Entra:Scopes",
-          "value": "Data.Read",
+          "value": "Data.Manage",
           "contentType": null
         },
         {
@@ -740,7 +740,7 @@
           "value": "{\n\t\"RequestManagers\": [\n\t\t{\n\t\t\t\"RequestSourceName\": \"extract\",\n\t\t\t\"MaxHandlerInstances\": 1\n\t\t},\n\t\t{\n\t\t\t\"RequestSourceName\": \"partition\",\n\t\t\t\"MaxHandlerInstances\": 1\n\t\t},\n\t\t{\n\t\t\t\"RequestSourceName\": \"embed\",\n\t\t\t\"MaxHandlerInstances\": 1\n\t\t},\n\t\t{\n\t\t\t\"RequestSourceName\": \"index\",\n\t\t\t\"MaxHandlerInstances\": 1\n\t\t}\n\t],\n\t\"QueuingEngine\": \"None\"\n}",
           "contentType": "application/json"
         }
-      ], 
+      ],
       "featureFlags": [
         {
           "key": "FoundationaLLM-AllowAgentHint",
@@ -1521,7 +1521,7 @@
       "type": "Microsoft.OperationalInsights/workspaces",
       "apiVersion": "2021-12-01-preview",
       "name": "[variables('laSettings').name]",
-      "location": "eastus",
+      "location": "[parameters('location')]",
       "properties": {
         "sku": {
           "name": "Standalone"
