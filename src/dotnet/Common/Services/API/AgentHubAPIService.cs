@@ -1,29 +1,18 @@
-﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Models.Messages;
-using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
-using FoundationaLLM.AgentFactory.Models.Orchestration;
-using FoundationaLLM.AgentFactory.Services;
-using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Settings;
-using Microsoft.AspNetCore.Server.IIS.Core;
+﻿using System.Text;
+using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.API;
+using FoundationaLLM.Common.Models.Messages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System.Net.Http;
-using System.Runtime;
-using System.Text;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Constants;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
-using FoundationaLLM.Common.Models.Chat;
 
-namespace FoundationaLLM.AgentFactory.Core.Services;
+namespace FoundationaLLM.Common.Services.API;
 
 /// <summary>
 /// Class for the Agent Hub API Service.
 /// </summary>
-public class AgentHubAPIService : IAgentHubAPIService
+public class AgentHubAPIService : APIServiceBase, IAgentHubAPIService
 {
     readonly AgentHubSettings _settings;
     readonly ILogger<AgentHubAPIService> _logger;
@@ -40,7 +29,8 @@ public class AgentHubAPIService : IAgentHubAPIService
     public AgentHubAPIService(
             IOptions<AgentHubSettings> options,
             ILogger<AgentHubAPIService> logger,
-            IHttpClientFactoryService httpClientFactoryService)
+            IHttpClientFactoryService httpClientFactoryService) :
+        base(HttpClients.AgentHubAPI, httpClientFactoryService, logger)
     {
         _settings = options.Value;
         _logger = logger;
