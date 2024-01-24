@@ -57,16 +57,18 @@ namespace FoundationaLLM.Vectorization.Handlers
                 ?? throw new VectorizationException($"Could not retrieve the text splitter service factory instance.");
             var textSplitter = serviceFactory.CreateService(_parameters["text_partition_profile_name"]);
 
-            var textChunks = textSplitter.SplitPlainText(extractedTextArtifact.Content!);
+            var splitResult = textSplitter.SplitPlainText(extractedTextArtifact.Content!);
 
             var position = 0;
-            foreach (var textChunk in textChunks)
+            foreach (var textChunk in splitResult.TextChunks)
                 state.AddOrReplaceArtifact(new VectorizationArtifact
                 {
                     Type = VectorizationArtifactType.TextPartition,
                     Position = ++position,
                     Content = textChunk
                 });
+            if (!string.IsNullOrWhiteSpace(splitResult.Message))
+                state.Log(this, request.Id, _messageId, splitResult.Message);
         }
     }
 }
