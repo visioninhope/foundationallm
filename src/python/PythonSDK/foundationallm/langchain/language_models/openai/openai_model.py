@@ -1,8 +1,8 @@
-from langchain.base_language import BaseLanguageModel
-from langchain.chat_models import AzureChatOpenAI, ChatOpenAI
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.embeddings.base import Embeddings
-from langchain.llms import AzureOpenAI, OpenAI
+from langchain_core.embeddings import Embeddings
+from langchain_core.language_models import BaseLanguageModel
+from langchain_community.chat_models import AzureChatOpenAI, ChatOpenAI
+from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_community.llms import AzureOpenAI, OpenAI
 
 from foundationallm.config import Configuration
 from foundationallm.langchain.language_models import LanguageModelBase

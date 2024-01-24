@@ -1,6 +1,6 @@
-from langchain.agents import create_sql_agent
-from langchain.agents.agent_types import AgentType
-from langchain.callbacks import get_openai_callback
+from langchain.agents import AgentType
+from langchain_community.agent_toolkits import create_sql_agent
+from langchain_community.callbacks import get_openai_callback
 
 from foundationallm.config import Configuration, Context
 from foundationallm.langchain.agents import AgentBase
@@ -15,8 +15,12 @@ class SqlDbAgent(AgentBase):
     Agent for interacting with SQL databases.
     """
 
-    def __init__(self, completion_request: CompletionRequest, llm: LanguageModelBase,
-                 config: Configuration, context: Context):
+    def __init__(
+            self,
+            completion_request: CompletionRequest,
+            llm: LanguageModelBase,
+            config: Configuration,
+            context: Context):
         """
         Initializes a SQL database agent.
 
