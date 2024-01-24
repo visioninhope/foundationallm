@@ -38,7 +38,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         /// <inheritdoc/>
         public ITextSplitterService CreateService(string serviceName)
         {
-            var textPartitionProfile = vectorizationResourceProviderService.GetResource<TextPartitionProfile>(
+            var textPartitionProfile = _vectorizationResourceProviderService.GetResource<TextPartitionProfile>(
                 $"/{VectorizationResourceTypeNames.TextPartitionProfiles}/{serviceName}");
 
             return textPartitionProfile.TextSplitter switch

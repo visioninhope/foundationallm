@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 /// </summary>
 /// <param name="tokenizerService">The <see cref="ITokenizerService"/> used to tokenize the input text.</param>
 /// <param name="options">The <see cref="IOptions{TOptions}"/> providing the settings for the service.</param>
+/// <param name="logger">The logger used for logging.</param>
 public class TokenTextSplitterService(
     ITokenizerService tokenizerService,
     IOptions<TokenTextSplitterServiceSettings> options,
@@ -23,7 +24,7 @@ public class TokenTextSplitterService(
     /// <inheritdoc/>
     public List<string> SplitPlainText(string text)
     {
-        var tokens = tokenizerService.Encode(text, _settings.TokenizerEncoder);
+        var tokens = _tokenizerService.Encode(text, _settings.TokenizerEncoder);
 
         if (tokens != null)
         {
