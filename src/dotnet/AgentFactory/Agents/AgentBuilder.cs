@@ -1,10 +1,10 @@
 ﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Models.Messages;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.AgentFactory.Models.Orchestration;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Cache;
+using FoundationaLLM.Common.Models.Messages;
 using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.AgentFactory.Core.Agents

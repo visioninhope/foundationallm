@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Models.Messages;
 using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
 using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
 using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
@@ -10,7 +9,10 @@ using FoundationaLLM.AgentFactory.Core.Services;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Cache;
 using FoundationaLLM.Common.Models.Context;
+using FoundationaLLM.Common.Models.Messages;
+using FoundationaLLM.Common.Models.Metadata;
 using Microsoft.Extensions.Logging;
+using Agent = FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.Agent;
 
 namespace FoundationaLLM.AgentFactory.Core.Agents
 {
