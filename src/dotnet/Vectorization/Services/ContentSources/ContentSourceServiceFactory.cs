@@ -1,10 +1,15 @@
 ﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
+using FoundationaLLM.Vectorization.Models.Resources;
+using FoundationaLLM.Vectorization.ResourceProviders;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -16,36 +21,36 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
     /// <remarks>
     /// Creates a new instance of the content source manager service.
     /// </remarks>
-    /// <param name="options">The configuration settings used to initialize the service.</param>
+    /// <param name="vectorizationResourceProviderService">The vectorization resource provider service.</param>
     /// <param name="configuration">The global configuration provider.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
-    public class ContentSourceManagerService(
-        IOptions<ContentSourceManagerServiceSettings> options,
+    public class ContentSourceServiceFactory(
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IResourceProviderService vectorizationResourceProviderService,
         IConfiguration configuration,
-        ILoggerFactory loggerFactory) : IContentSourceManagerService
+        ILoggerFactory loggerFactory) : IServiceFactory<IContentSourceService>
     {
-        private readonly ContentSourceManagerServiceSettings _settings = options.Value;
+        private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
         private readonly IConfiguration _configuration = configuration;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
-        public IContentSourceService GetContentSource(string contentSourceName)
+        public IContentSourceService CreateService(string serviceName)
         {
-            var contentSource = _settings.ContentSources.SingleOrDefault(cs => cs.Name == contentSourceName)
-                ?? throw new VectorizationException($"The content source {contentSourceName} is not registered.");
+            var contentSource = _vectorizationResourceProviderService.GetResource<ContentSource>(
+                $"/{VectorizationResourceTypeNames.ContentSources}/{serviceName}");
 
             return contentSource.Type switch
             {
-                ContentSourceType.AzureDataLake => CreateAzureDataLakeContentSourceService(contentSourceName),
+                ContentSourceType.AzureDataLake => CreateAzureDataLakeContentSourceService(serviceName),
                 _ => throw new VectorizationException($"The content source type {contentSource.Type} is not supported."),
             };
         }
 
-        private DataLakeContentSourceService CreateAzureDataLakeContentSourceService(string contentSourceName)
+        private DataLakeContentSourceService CreateAzureDataLakeContentSourceService(string serviceName)
         {
             var blobStorageServiceSettings = new BlobStorageServiceSettings { AuthenticationType = BlobStorageAuthenticationTypes.Unknown };
             _configuration.Bind(
-                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{contentSourceName}",
+                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
                 blobStorageServiceSettings);
 
             return new DataLakeContentSourceService(

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Vectorization.Models
+namespace FoundationaLLM.Vectorization.Models.Resources
 {
     /// <summary>
     /// Provides detials about a content source.
