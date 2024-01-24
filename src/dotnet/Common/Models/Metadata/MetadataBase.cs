@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
+namespace FoundationaLLM.Common.Models.Metadata
 {
     /// <summary>
     /// Metadata model base class.

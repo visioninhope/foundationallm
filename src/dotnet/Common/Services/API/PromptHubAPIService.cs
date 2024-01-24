@@ -1,18 +1,17 @@
-﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Models.Messages;
-using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
+﻿using System.Text;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.API;
+using FoundationaLLM.Common.Models.Messages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System.Text;
-using FoundationaLLM.Common.Interfaces;
 
-namespace FoundationaLLM.AgentFactory.Core.Services;
+namespace FoundationaLLM.Common.Services.API;
 
 /// <summary>
 /// Class for the PromptHub API Service
 /// </summary>
-public class PromptHubAPIService : IPromptHubAPIService
+public class PromptHubAPIService : APIServiceBase, IPromptHubAPIService
 {
     readonly PromptHubSettings _settings;
     readonly ILogger<PromptHubAPIService> _logger;
@@ -28,7 +27,8 @@ public class PromptHubAPIService : IPromptHubAPIService
     public PromptHubAPIService(
             IOptions<PromptHubSettings> options,
             ILogger<PromptHubAPIService> logger,
-            IHttpClientFactoryService httpClientFactoryService)
+            IHttpClientFactoryService httpClientFactoryService) :
+        base(Common.Constants.HttpClients.PromptHubAPI, httpClientFactoryService, logger)
     {
         _settings = options.Value;
         _logger = logger;

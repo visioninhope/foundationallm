@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using FoundationaLLM.Common.Constants;
+using Newtonsoft.Json;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
+namespace FoundationaLLM.Common.Models.Metadata
 {
     /// <summary>
     /// Language model metadata model.
@@ -19,7 +19,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
         /// Provider of the language model.
         /// </summary>
         [JsonProperty("provider")]
-        public string? Provider { get; set; } = LanguageModelProvider.MICROSOFT;
+        public string? Provider { get; set; } = LanguageModelProviders.MICROSOFT;
 
         /// <summary>
         /// Temperature value to assign on the language model.

@@ -1,6 +1,4 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
-
-namespace FoundationaLLM.AgentFactory.Models.ConfigurationOptions
+﻿namespace FoundationaLLM.Common.Models.Configuration.API
 {
     /// <summary>
     /// The settings configuration options for a AgentHub service

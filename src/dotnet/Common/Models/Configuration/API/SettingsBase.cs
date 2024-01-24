@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions
+﻿namespace FoundationaLLM.Common.Models.Configuration.API
 {
     /// <summary>
     /// SettingsBase class
