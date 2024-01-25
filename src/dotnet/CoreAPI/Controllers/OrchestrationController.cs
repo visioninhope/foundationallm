@@ -20,7 +20,8 @@ namespace FoundationaLLM.Core.API.Controllers
     /// <remarks>
     /// Constructor for the Orchestration Controller.
     /// </remarks>
-    /// <param name="gatekeeperAPIService">Provides methods for calling the Gatekeeper API.</param>
+    /// <param name="coreService">The Core service provides methods for getting
+    /// completions from the orchestrator.</param>
     /// <param name="logger">The logging interface used to log under the
     /// <see cref="OrchestrationController"/> type name.</param>
     [Authorize]
