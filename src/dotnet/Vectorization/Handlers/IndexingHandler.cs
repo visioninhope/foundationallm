@@ -35,6 +35,9 @@ namespace FoundationaLLM.Vectorization.Handlers
             VectorizationRequest request,
             VectorizationState state,
             IConfigurationSection? stepConfiguration,
-            CancellationToken cancellationToken) => await Task.Delay(TimeSpan.FromSeconds(10));
+            CancellationToken cancellationToken)
+        {
+            
+        }
     }
 }

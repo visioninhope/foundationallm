@@ -35,6 +35,18 @@ namespace FoundationaLLM.Vectorization.Handlers
             VectorizationRequest request,
             VectorizationState state,
             IConfigurationSection? stepConfiguration,
-            CancellationToken cancellationToken) => await Task.Delay(TimeSpan.FromSeconds(10));
+            CancellationToken cancellationToken)
+        {
+            await _stateService.LoadArtifacts(state, VectorizationArtifactType.TextPartition);
+
+            var textPartitionArtifacts = state.Artifacts.Where(a => a.Type == VectorizationArtifactType.TextPartition).ToList();
+
+            if (textPartitionArtifacts == null
+                || textPartitionArtifacts.Count == 0)
+            {
+                state.Log(this, request.Id, _messageId, "The text partition artifacts were not found.");
+                return;
+            }
+        }
     }
 }
