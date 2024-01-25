@@ -21,7 +21,7 @@ The following table describes the environment variables required for the vectori
 | --- | --- |
 | `FoundationaLLM:AppConfig:ConnectionString` | Connection string to the Azure App Configuration instance. |
 
-The following table describes the required configuration parameters for the vectorization pipelines.
+The following table describes the required App Configuration parameters for the vectorization pipelines.
 
 | App Configuration Key | Default Value | Description |
 | --- | --- | --- |
@@ -38,7 +38,10 @@ The following table describes the required configuration parameters for the vect
 | `FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
 | `FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-resourceprovider-storage-connectionstring` | The connection string to the Azure Storage account used for the vectorization state service. |
 
-The following table describes the extenal content used by the vectorization worker to initialize:
+> [!NOTE]
+> Refer to the [App Configuration values](../../app-configuration-values.md) page for more information on how to set these and other configuration values.
+
+The following table describes the external content used by the vectorization worker to initialize:
 
 | Uri | Description |
 | --- | --- |
