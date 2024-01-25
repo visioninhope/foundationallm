@@ -128,6 +128,11 @@ namespace FoundationaLLM.Core.API
                     options.IncludeXmlComments(filePath);
                 });
 
+            builder.Services.Configure<RouteOptions>(options =>
+            {
+                options.LowercaseUrls = true;
+            });
+
             var app = builder.Build();
 
             // Set the CORS policy before other middleware.
