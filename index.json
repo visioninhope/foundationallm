@@ -482,7 +482,7 @@
   "api/dotnet/FoundationaLLM.Common.Interfaces.ITextSplitterService.html": {
     "href": "api/dotnet/FoundationaLLM.Common.Interfaces.ITextSplitterService.html",
     "title": "Interface ITextSplitterService | FoundationaLLM",
-    "keywords": "Interface ITextSplitterService Namespace FoundationaLLM.Common.Interfaces Assembly FoundationaLLM.Common.dll Represents a text splitter. public interface ITextSplitterService Extension Methods ObjectExtensions.GetPropertyValues(object, List<string>) Methods SplitPlainText(string) Splits plain text into multiple chunks. List<string> SplitPlainText(string text) Parameters text string The plain text to split. Returns List<string> A list of strings containing the result of the split."
+    "keywords": "Interface ITextSplitterService Namespace FoundationaLLM.Common.Interfaces Assembly FoundationaLLM.Common.dll Represents a text splitter. public interface ITextSplitterService Extension Methods ObjectExtensions.GetPropertyValues(object, List<string>) Methods SplitPlainText(string) Splits plain text into multiple chunks. (List<string> TextChunks, string Message) SplitPlainText(string text) Parameters text string The plain text to split. Returns (List<string> TextChunks, string Message) A list of strings containing the result of the split and a message with optional details about the split result."
   },
   "api/dotnet/FoundationaLLM.Common.Interfaces.ITokenizerService.html": {
     "href": "api/dotnet/FoundationaLLM.Common.Interfaces.ITokenizerService.html",
