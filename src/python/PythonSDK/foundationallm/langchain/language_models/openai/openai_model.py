@@ -1,7 +1,6 @@
 from langchain_core.embeddings import Embeddings
 from langchain_core.language_models import BaseLanguageModel
-from langchain_openai import AzureChatOpenAI, ChatOpenAI, AzureOpenAIEmbeddings, OpenAIEmbeddings
-from langchain_community.llms import AzureOpenAI, OpenAI
+from langchain_openai import AzureOpenAI, OpenAI, AzureChatOpenAI, ChatOpenAI, AzureOpenAIEmbeddings, OpenAIEmbeddings
 
 from foundationallm.config import Configuration
 from foundationallm.langchain.language_models import LanguageModelBase
@@ -98,11 +97,11 @@ class OpenAIModel(LanguageModelBase):
         if embedding_model is None:
             raise ValueError('Expected populated embedding_model, got None.')
 
-        if embedding_model.provider == LanguageModelProvider.MICROSOFT:            
+        if embedding_model.provider == LanguageModelProvider.MICROSOFT:
             return AzureOpenAIEmbeddings(
-                api_key = self.config.get_value(embedding_model.api_key),
-                api_version = self.config.get_value(embedding_model.api_version),
-                azure_deployment = self.config.get_value(embedding_model.deployment),
+                openai_api_key = self.config.get_value(embedding_model.api_key),
+                openai_api_version = self.config.get_value(embedding_model.api_version),
+                deployment = self.config.get_value(embedding_model.deployment),
                 azure_endpoint = self.config.get_value(embedding_model.api_endpoint),
                 chunk_size = embedding_model.chunk_size,
                 model = self.config.get_value(embedding_model.model)
@@ -112,7 +111,7 @@ class OpenAIModel(LanguageModelBase):
                 api_key = self.config.get_value(embedding_model.api_key),
                 api_version = self.config.get_value(embedding_model.api_version),
                 base_url = self.config.get_value(embedding_model.api_endpoint),
-                chunk_size = embedding_model.chunk_size,
-                deployment = self.config.get_value(embedding_model.deployment) or 1000,
+                chunk_size = embedding_model.chunk_size or 1000,
+                deployment = self.config.get_value(embedding_model.deployment),
                 model = self.config.get_value(embedding_model.model)
             )
