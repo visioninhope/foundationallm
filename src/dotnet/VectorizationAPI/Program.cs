@@ -105,6 +105,11 @@ builder.Services.AddSwaggerGen(
         options.IncludeXmlComments(filePath);
     });
 
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
