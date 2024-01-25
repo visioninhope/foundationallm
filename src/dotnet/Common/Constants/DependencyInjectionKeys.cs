@@ -30,5 +30,10 @@ namespace FoundationaLLM.Common.Constants
         /// The dependency injection key for the content source service factory.
         /// </summary>
         public const string FoundationaLLM_Vectorization_ContentSourceServiceFactory = "FoundationaLLM:Vectorization:ContentSourceServiceFactory";
+
+        /// <summary>
+        /// The dependency injection key for the Semantic Kernel text embedding service.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService";
     }
 }
