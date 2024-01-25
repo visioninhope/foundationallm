@@ -13,11 +13,14 @@ using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
+using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Management.Services;
+using FoundationaLLM.Management.Services.APIServices;
 using Microsoft.Identity.Web;
+using Polly;
 
 namespace FoundationaLLM.Management.API
 {
@@ -38,7 +41,7 @@ namespace FoundationaLLM.Management.API
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
+                options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options => { options.SetCredential(new DefaultAzureCredential()); });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
@@ -67,23 +70,32 @@ namespace FoundationaLLM.Management.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Branding));
             builder.Services.AddOptions<AppConfigurationSettings>()
                 .Configure(o =>
-                    o.ConnectionString = builder.Configuration["FoundationaLLM:AppConfig:ConnectionString"]);
+                    o.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]!);
 
+            builder.Services.AddScoped<IAgentFactoryAPIService, AgentFactoryAPIService>();
+            builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
+            builder.Services.AddScoped<IDataSourceHubAPIService, DataSourceHubAPIService>();
+            builder.Services.AddScoped<IPromptHubAPIService, PromptHubAPIService>();
             builder.Services.AddScoped<IConfigurationManagementService, ConfigurationManagementService>();
+            builder.Services.AddScoped<ICacheManagementService, CacheManagementService>();
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
-            //builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
+            builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
             // Register the authentication services
             RegisterAuthConfiguration(builder);
 
             builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
             {
-                ConnectionString = builder.Configuration["FoundationaLLM:APIs:ManagementAPI:AppInsightsConnectionString"],
+                ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString],
                 DeveloperMode = builder.Environment.IsDevelopment()
             });
             //builder.Services.AddServiceProfiler();
+
+            // Register the downstream services and HTTP clients.
+            RegisterDownstreamServices(builder);
+
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ContractResolver = FoundationaLLM.Common.Settings
@@ -163,6 +175,131 @@ namespace FoundationaLLM.Management.API
         }
 
         /// <summary>
+        /// Bind the downstream API settings to the configuration and register the HTTP clients.
+        /// The AddResilienceHandler extension method is used to add the standard Polly resilience
+        /// strategies to the HTTP clients.
+        /// </summary>
+        /// <param name="builder"></param>
+        private static void RegisterDownstreamServices(WebApplicationBuilder builder)
+        {
+            var downstreamAPISettings = new DownstreamAPISettings
+            {
+                DownstreamAPIs = new Dictionary<string, DownstreamAPIKeySettings>()
+            };
+            var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+
+            // AgentFactoryAPI:
+            var agentFactoryAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIKey]!
+            };
+            downstreamAPISettings.DownstreamAPIs[HttpClients.AgentFactoryAPI] = agentFactoryAPISettings;
+
+            builder.Services
+                .AddHttpClient(HttpClients.AgentFactoryAPI,
+                    client => { client.BaseAddress = new Uri(agentFactoryAPISettings.APIUrl); })
+                .AddResilienceHandler(
+                    "DownstreamPipeline",
+                    strategyBuilder =>
+                    {
+                        strategyBuilder.AddRetry(retryOptions);
+                    });
+
+            // AgentHubAPI:
+            var agentHubAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIKey]!
+            };
+            downstreamAPISettings.DownstreamAPIs[HttpClients.AgentHubAPI] = agentHubAPISettings;
+
+            builder.Services
+                    .AddHttpClient(HttpClients.AgentHubAPI,
+                        client => { client.BaseAddress = new Uri(agentHubAPISettings.APIUrl); })
+                    .AddResilienceHandler(
+                        "DownstreamPipeline",
+                        strategyBuilder =>
+                        {
+                            strategyBuilder.AddRetry(retryOptions);
+                        });
+
+            // DataSourceHubAPI:
+            var dataSourceHubAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIKey]!
+            };
+            downstreamAPISettings.DownstreamAPIs[HttpClients.DataSourceHubAPI] = dataSourceHubAPISettings;
+
+            builder.Services
+                .AddHttpClient(HttpClients.DataSourceHubAPI,
+                    client => { client.BaseAddress = new Uri(dataSourceHubAPISettings.APIUrl); })
+                .AddResilienceHandler(
+                    "DownstreamPipeline",
+                    strategyBuilder =>
+                    {
+                        strategyBuilder.AddRetry(retryOptions);
+                    });
+
+            // PromptHubAPI:
+            var promptHubAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIKey]!
+            };
+            downstreamAPISettings.DownstreamAPIs[HttpClients.PromptHubAPI] = promptHubAPISettings;
+
+            builder.Services
+                    .AddHttpClient(HttpClients.PromptHubAPI,
+                        client => { client.BaseAddress = new Uri(promptHubAPISettings.APIUrl); })
+                    .AddResilienceHandler(
+                        "DownstreamPipeline",
+                        strategyBuilder =>
+                        {
+                            strategyBuilder.AddRetry(retryOptions);
+                        });
+
+            // LangChainAPI:
+            var langChainAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey]!
+            };
+            downstreamAPISettings.DownstreamAPIs[HttpClients.LangChainAPI] = langChainAPISettings;
+
+            builder.Services
+                    .AddHttpClient(HttpClients.LangChainAPI,
+                        client => { client.BaseAddress = new Uri(langChainAPISettings.APIUrl); })
+                    .AddResilienceHandler(
+                        "DownstreamPipeline",
+                        strategyBuilder =>
+                        {
+                            strategyBuilder.AddRetry(retryOptions);
+                        });
+
+            // SemanticKernelAPI:
+            var semanticKernelAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIKey]!
+            };
+            downstreamAPISettings.DownstreamAPIs[HttpClients.SemanticKernelAPI] = semanticKernelAPISettings;
+
+            builder.Services
+                    .AddHttpClient(HttpClients.SemanticKernelAPI,
+                        client => { client.BaseAddress = new Uri(semanticKernelAPISettings.APIUrl); })
+                    .AddResilienceHandler(
+                        "DownstreamPipeline",
+                        strategyBuilder =>
+                        {
+                            strategyBuilder.AddRetry(retryOptions);
+                        });
+
+            builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
+        }
+
+        /// <summary>
         /// Register the authentication services.
         /// </summary>
         /// <param name="builder"></param>
@@ -173,10 +310,10 @@ namespace FoundationaLLM.Management.API
                     identityOptions =>
                     {
                         identityOptions.ClientSecret =
-                            builder.Configuration["FoundationaLLM:ManagementAPI:Entra:ClientSecret"];
-                        identityOptions.Instance = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:Instance"] ?? "";
-                        identityOptions.TenantId = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:TenantId"];
-                        identityOptions.ClientId = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:ClientId"];
+                            builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientSecret];
+                        identityOptions.Instance = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Instance] ?? "";
+                        identityOptions.TenantId = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_TenantId];
+                        identityOptions.ClientId = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId];
                     });
             //.EnableTokenAcquisitionToCallDownstreamApi()
             //.AddInMemoryTokenCaches();
@@ -185,7 +322,7 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddScoped<IUserClaimsProviderService, EntraUserClaimsProviderService>();
 
             // Configure the scope used by the API controllers:
-            var requiredScope = builder.Configuration["FoundationaLLM:ManagementAPI:Entra:Scopes"] ?? "";
+            var requiredScope = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes] ?? "";
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequiredScope", policyBuilder =>

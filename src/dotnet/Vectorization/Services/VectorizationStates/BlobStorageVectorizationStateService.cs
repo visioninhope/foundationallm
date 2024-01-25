@@ -1,63 +1,98 @@
 ﻿using Azure.Core;
 using Azure.Storage.Blobs;
+using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Services;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
 
 namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 {
+    /// <summary>
+    /// Provides vectorization state persistence services using  Azure blob storage.
+    /// </summary>
     public class BlobStorageVectorizationStateService : VectorizationStateServiceBase, IVectorizationStateService
     {
-        private readonly BlobServiceClient _blobServiceClient;
-        private readonly BlobStorageVectorizationStateServiceSettings _settings;
+        private readonly IStorageService _storageService;
+        private readonly ILoggerFactory _loggerFactory;
 
-        public BlobStorageVectorizationStateService(IOptions<BlobStorageVectorizationStateServiceSettings> options)
+        private const string BLOB_STORAGE_CONTAINER_NAME = "vectorization-state";
+
+        /// <summary>
+        /// Creates a new vectorization state service instance.
+        /// </summary>
+        /// <param name="storageService">The <see cref="IStorageService"/> that provides storage services.</param>
+        /// <param name="loggerFactory">The logger factory used to create loggers.</param>
+        public BlobStorageVectorizationStateService(
+            [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService)] IStorageService storageService,
+            ILoggerFactory loggerFactory)
         {
-            _settings = options.Value;
-            _blobServiceClient = new BlobServiceClient(_settings.ConnectionString);
+            _loggerFactory = loggerFactory;
+            _storageService = storageService;
         }
 
         /// <inheritdoc/>
-        public async Task<bool> HasState(VectorizationRequest request)
-        {
-            var blobClient = GetBlobClient(request.ContentIdentifier);
+        public async Task<bool> HasState(VectorizationRequest request) =>
+            await _storageService.FileExistsAsync(
+                BLOB_STORAGE_CONTAINER_NAME,
+                $"{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
+                default);
 
-            return await blobClient.ExistsAsync();
-        }
 
         /// <inheritdoc/>
         public async Task<VectorizationState> ReadState(VectorizationRequest request)
         {
-            var blobClient = GetBlobClient(request.ContentIdentifier);
+            var content = await _storageService.ReadFileAsync(
+                BLOB_STORAGE_CONTAINER_NAME,
+                $"{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
+                default);
 
-            var response = await blobClient.DownloadAsync();
-            using var reader = new StreamReader(response.Value.Content);
-            var content = await reader.ReadToEndAsync();
             return JsonSerializer.Deserialize<VectorizationState>(content)!;
+        }
+
+        /// <inheritdoc/>
+        public async Task LoadArtifacts(VectorizationState state, VectorizationArtifactType artifactType)
+        {
+            foreach (var artifact in state.Artifacts.Where(a => a.Type == artifactType))
+                if (!string.IsNullOrWhiteSpace(artifact.CanonicalId))
+                    artifact.Content = Encoding.UTF8.GetString(
+                        await _storageService.ReadFileAsync(
+                            BLOB_STORAGE_CONTAINER_NAME,
+                            artifact.CanonicalId,
+                            default));
         }
 
         /// <inheritdoc/>
         public async Task SaveState(VectorizationState state)
         {
-            var blobClient = GetBlobClient(state.ContentIdentifier);
+            var persistenceIdentifier = GetPersistenceIdentifier(state.ContentIdentifier);
+
+            foreach (var artifact in state.Artifacts)
+                if (artifact.IsDirty)
+                {
+                    var artifactPath =
+                        $"{persistenceIdentifier}_{artifact.Type.ToString().ToLower()}_{artifact.Position:D6}.txt";
+
+                    await _storageService.WriteFileAsync(
+                        BLOB_STORAGE_CONTAINER_NAME,
+                        artifactPath,
+                        artifact.Content!,
+                        default);
+                    artifact.CanonicalId = artifactPath;
+                }
 
             var content = JsonSerializer.Serialize(state);
-            var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-
-            await blobClient.UploadAsync(stream, true);
+            await _storageService.WriteFileAsync(
+                BLOB_STORAGE_CONTAINER_NAME,
+                $"{persistenceIdentifier}.json",
+                content,
+                default);
         }
-
-        private BlobClient GetBlobClient(VectorizationContentIdentifier contentIdentifier)
-        {
-            var containerClient = _blobServiceClient.GetBlobContainerClient(_settings.ContainerName);
-            return containerClient.GetBlobClient(
-                GetPersistenceIdentifier(contentIdentifier));
-        }
-
-        protected override string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier) =>
-            $"{contentIdentifier.CanonicalId}_state_{HashContentIdentifier(contentIdentifier)}.json";
     }
 }

@@ -4,6 +4,9 @@ using FoundationaLLM.Vectorization.Models;
 
 namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 {
+    /// <summary>
+    /// Provides in-memory vectorization state persistence.
+    /// </summary>
     public class MemoryVectorizationStateService : VectorizationStateServiceBase, IVectorizationStateService
     {
         private readonly Dictionary<string, VectorizationState> _vectorizationStateDictionary = [];
@@ -30,6 +33,13 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         }
 
         /// <inheritdoc/>
+        public async Task LoadArtifacts(VectorizationState state, VectorizationArtifactType artifactType)
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
         public async Task SaveState(VectorizationState state)
         {
             await Task.CompletedTask;
@@ -40,8 +50,5 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
             if (!_vectorizationStateDictionary.TryAdd(id, state))
                 _vectorizationStateDictionary[id] = state;
         }
-
-        protected override string GetPersistenceIdentifier(VectorizationContentIdentifier contentIdentifier) =>
-            $"{contentIdentifier.CanonicalId}_state_{HashContentIdentifier(contentIdentifier)}";
     }
 }
