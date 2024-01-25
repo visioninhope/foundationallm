@@ -155,63 +155,15 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:APIs:VectorizationWorker:APIUrl` | | The URL of the vectorization worker API. |
 | `FoundationaLLM:APIs:VectorizationWorker:APIKey` | Key Vault secret name: `foundationallm-apis-vectorizationworker-apikey` | The API key of the vectorization worker API. |
 | `FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | The connection string to the Application Insights instance used by the vectorization worker API. |
-| `FoundationaLLM:Vectorization:VectorizationWorker` | | The settings used by each instance of the vectorization worker service. For more details, see [default vectorization worker settings](#default-vectorization-worker-settings) |
+| `FoundationaLLM:Vectorization:VectorizationWorker` | | The settings used by each instance of the vectorization worker service. For more details, see [default vectorization worker settings](../setup-guides/vectorization/vectorization-worker.md#default-vectorization-worker-settings) |
 | `FoundationaLLM:Vectorization:Queues:Embed:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the embed vectorization queue. |
 | `FoundationaLLM:Vectorization:Queues:Extract:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the extract vectorization queue. |
 | `FoundationaLLM:Vectorization:Queues:Index:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the index vectorization queue. |
 | `FoundationaLLM:Vectorization:Queues:Partition:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the partition vectorization queue. |
-| `FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType` | N/A | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
+| `FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
 | `FoundationaLLM:Vectorization:StateService:Storage:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-state-connectionstring` | The connection string to the Azure Storage account used for the vectorization state service. |
-| `FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType` | N/A | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
+| `FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
 | `FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-resourceprovider-storage-connectionstring` | The connection string to the Azure Storage account used for the vectorization state service. |
-
-### Default vectorization worker settings
-
-```json
-{
- "RequestManagers": [
-  {
-   "RequestSourceName": "extract",
-   "MaxHandlerInstances": 1
-  },
-  {
-   "RequestSourceName": "partition",
-   "MaxHandlerInstances": 1
-  },
-  {
-   "RequestSourceName": "embed",
-   "MaxHandlerInstances": 1
-  },
-  {
-   "RequestSourceName": "index",
-   "MaxHandlerInstances": 1
-  }
- ],
- "RequestSources": [
-  {
-   "Name": "extract",
-   "ConnectionConfigurationName": "Extract:ConnectionString",
-   "VisibilityTimeoutSeconds": 120
-  },
-  {
-   "Name": "partition",
-   "ConnectionConfigurationName": "Partition:ConnectionString",
-   "VisibilityTimeoutSeconds": 120
-  },
-  {
-   "Name": "embed",
-   "ConnectionConfigurationName": "Embed:ConnectionString",
-   "VisibilityTimeoutSeconds": 120
-  },
-  {
-   "Name": "index",
-   "ConnectionConfigurationName": "Index:ConnectionString",
-   "VisibilityTimeoutSeconds": 120
-  }
- ],
- "QueuingEngine": "AzureStorageQueue"
-}
-```
 
 ## Feature flags
 
