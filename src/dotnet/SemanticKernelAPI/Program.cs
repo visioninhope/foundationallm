@@ -101,6 +101,11 @@ namespace FoundationaLLM.SemanticKernel.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_BlobStorageMemorySource));
             builder.Services.AddTransient<IMemorySource, BlobStorageMemorySource>();
 
+            builder.Services.Configure<RouteOptions>(options =>
+            {
+                options.LowercaseUrls = true;
+            });
+
             var app = builder.Build();
 
             app.UseExceptionHandler(exceptionHandlerApp

@@ -146,6 +146,11 @@ namespace FoundationaLLM.AgentFactory.API
                     options.AddAPIKeyAuth();
                 });
 
+            builder.Services.Configure<RouteOptions>(options =>
+            {
+                options.LowercaseUrls = true;
+            });
+
             var app = builder.Build();
 
             // Register the middleware to extract the user identity context and other HTTP request context data required by the downstream services.
