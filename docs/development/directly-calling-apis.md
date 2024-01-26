@@ -142,4 +142,12 @@ Now you can use the same token to test any other request in the collection with 
 
 #### Obtain the authentication token from the User Portal
 
-1. Navigate to the User Portal and log in. Then, open the browser's developer tools, select the `Network` tab, refresh the page, and copy the value of the `token` under the `XHR` tab from any of the API calls that are made to the Core API.
+1. Navigate to the User Portal and log in.
+2. Open the browser's developer tools (F12), select the `Network` tab, refresh the page, and copy the value of the `token` under the `XHR` tab from any of the API calls that are made to the Core API.
+
+    ![The token value is highlighted.](media/browser-xhr-token-value.png)
+
+3. Within the **FoundationaLLM.Core.API** collection, select the **Sessions** GET request under the `sessions` folder.
+4. Select the **Authorization** tab, select `Bearer Token` as the type, and paste the token value into the `Token` field. Select **Send** to send the request. Even if you do not have any chat sessions in your system, you should receive a successful response (200) from the Core API.
+
+    ![The Sessions endpoint request and response are shown, this time with the bearer token.](media/postman-sessions-request-bearer-token.png)
