@@ -40,11 +40,11 @@ namespace FoundationaLLM.Core.API.Controllers
         /// <summary>
         /// Requests a completion from the downstream APIs.
         /// </summary>
-        /// <param name="userPrompt">The user prompt for which to generate a completion.</param>
+        /// <param name="directCompletionRequest">The user prompt for which to generate a completion.</param>
         [HttpPost("completion", Name = "GetCompletion")]
-        public async Task<IActionResult> GetCompletion([FromBody] string userPrompt)
+        public async Task<IActionResult> GetCompletion([FromBody] DirectCompletionRequest directCompletionRequest)
         {
-            var completionResponse = await _coreService.GetSessionlessCompletionAsync(userPrompt);
+            var completionResponse = await _coreService.GetCompletionAsync(directCompletionRequest);
 
             return Ok(completionResponse);
         }

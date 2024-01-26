@@ -44,7 +44,7 @@ public interface ICoreService
     /// <summary>
     /// Provides a completion for a user prompt, without a session.
     /// </summary>
-    Task<Completion> GetSessionlessCompletionAsync(string userPrompt);
+    Task<Completion> GetCompletionAsync(DirectCompletionRequest directCompletionRequest);
 
     /// <summary>
     /// Generate a name for a chat message, based on the passed in prompt.

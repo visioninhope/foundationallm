@@ -149,14 +149,14 @@ public partial class CoreService(
     /// <summary>
     /// Provides a completion for a user prompt, without a session.
     /// </summary>
-    public async Task<Completion> GetSessionlessCompletionAsync(string userPrompt)
+    public async Task<Completion> GetCompletionAsync(DirectCompletionRequest directCompletionRequest)
     {
         try
         {
             var completionRequest = new CompletionRequest
             {
                 SessionId = null,
-                UserPrompt = userPrompt,
+                UserPrompt = directCompletionRequest.UserPrompt,
                 MessageHistory = null
             };
 
@@ -167,7 +167,7 @@ public partial class CoreService(
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error getting completion for user prompt [{userPrompt}].");
+            _logger.LogError(ex, $"Error getting completion for user prompt [{directCompletionRequest.UserPrompt}].");
             return new Completion { Text = "Could not generate a completion due to an internal error." };
         }
     }
