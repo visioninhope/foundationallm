@@ -6758,6 +6758,25 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.UserPromptEmbedding
   nameWithType: CompletionResponse.UserPromptEmbedding
+- uid: FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest
+  name: DirectCompletionRequest
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest
+  fullName: FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest
+  nameWithType: DirectCompletionRequest
+- uid: FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.UserPrompt
+  name: UserPrompt
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_DirectCompletionRequest_UserPrompt
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.UserPrompt
+  fullName: FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.UserPrompt
+  nameWithType: DirectCompletionRequest.UserPrompt
+- uid: FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.UserPrompt*
+  name: UserPrompt
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_DirectCompletionRequest_UserPrompt_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.UserPrompt
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.UserPrompt
+  nameWithType: DirectCompletionRequest.UserPrompt
 - uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest
   name: OrchestrationRequest
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html
@@ -9558,15 +9577,15 @@ references:
   commentId: T:FoundationaLLM.Core.API.Controllers.OrchestrationController
   fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController
   nameWithType: OrchestrationController
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Core.Interfaces.IGatekeeperAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.OrchestrationController})
-  name: OrchestrationController(IGatekeeperAPIService, ILogger<OrchestrationController>)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController__ctor_FoundationaLLM_Core_Interfaces_IGatekeeperAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_API_Controllers_OrchestrationController__
-  commentId: M:FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Core.Interfaces.IGatekeeperAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.OrchestrationController})
-  name.vb: New(IGatekeeperAPIService, ILogger(Of OrchestrationController))
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.OrchestrationController(FoundationaLLM.Core.Interfaces.IGatekeeperAPIService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.API.Controllers.OrchestrationController>)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.OrchestrationController.New(FoundationaLLM.Core.Interfaces.IGatekeeperAPIService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.API.Controllers.OrchestrationController))
-  nameWithType: OrchestrationController.OrchestrationController(IGatekeeperAPIService, ILogger<OrchestrationController>)
-  nameWithType.vb: OrchestrationController.New(IGatekeeperAPIService, ILogger(Of OrchestrationController))
+- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Core.Interfaces.ICoreService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.OrchestrationController})
+  name: OrchestrationController(ICoreService, ILogger<OrchestrationController>)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController__ctor_FoundationaLLM_Core_Interfaces_ICoreService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_API_Controllers_OrchestrationController__
+  commentId: M:FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Core.Interfaces.ICoreService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.OrchestrationController})
+  name.vb: New(ICoreService, ILogger(Of OrchestrationController))
+  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.OrchestrationController(FoundationaLLM.Core.Interfaces.ICoreService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.API.Controllers.OrchestrationController>)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.OrchestrationController.New(FoundationaLLM.Core.Interfaces.ICoreService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.API.Controllers.OrchestrationController))
+  nameWithType: OrchestrationController.OrchestrationController(ICoreService, ILogger<OrchestrationController>)
+  nameWithType.vb: OrchestrationController.New(ICoreService, ILogger(Of OrchestrationController))
 - uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor*
   name: OrchestrationController
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController__ctor_
@@ -9577,12 +9596,12 @@ references:
   fullName.vb: FoundationaLLM.Core.API.Controllers.OrchestrationController.New
   nameWithType: OrchestrationController.OrchestrationController
   nameWithType.vb: OrchestrationController.New
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: OrchestrationController.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
+  name: GetCompletion(DirectCompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_DirectCompletionRequest_
+  commentId: M:FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
+  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
+  nameWithType: OrchestrationController.GetCompletion(DirectCompletionRequest)
 - uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetCompletion_
@@ -9590,19 +9609,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion
   nameWithType: OrchestrationController.GetCompletion
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  name: GetSummary(SummaryRequest)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetSummary_FoundationaLLM_Common_Models_Orchestration_SummaryRequest_
-  commentId: M:FoundationaLLM.Core.API.Controllers.OrchestrationController.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  nameWithType: OrchestrationController.GetSummary(SummaryRequest)
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetSummary*
-  name: GetSummary
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetSummary_
-  commentId: Overload:FoundationaLLM.Core.API.Controllers.OrchestrationController.GetSummary
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetSummary
-  nameWithType: OrchestrationController.GetSummary
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController
   name: SessionsController
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html
@@ -9772,19 +9778,32 @@ references:
   commentId: T:FoundationaLLM.Core.API.Controllers.StatusController
   fullName: FoundationaLLM.Core.API.Controllers.StatusController
   nameWithType: StatusController
-- uid: FoundationaLLM.Core.API.Controllers.StatusController.Get
-  name: Get()
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_Get
-  commentId: M:FoundationaLLM.Core.API.Controllers.StatusController.Get
-  fullName: FoundationaLLM.Core.API.Controllers.StatusController.Get()
-  nameWithType: StatusController.Get()
-- uid: FoundationaLLM.Core.API.Controllers.StatusController.Get*
-  name: Get
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_Get_
-  commentId: Overload:FoundationaLLM.Core.API.Controllers.StatusController.Get
+- uid: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus
+  name: GetAuthStatus()
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_GetAuthStatus
+  commentId: M:FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus
+  fullName: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus()
+  nameWithType: StatusController.GetAuthStatus()
+- uid: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus*
+  name: GetAuthStatus
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_GetAuthStatus_
+  commentId: Overload:FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus
   isSpec: "True"
-  fullName: FoundationaLLM.Core.API.Controllers.StatusController.Get
-  nameWithType: StatusController.Get
+  fullName: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus
+  nameWithType: StatusController.GetAuthStatus
+- uid: FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus
+  name: GetServiceStatus()
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_GetServiceStatus
+  commentId: M:FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus
+  fullName: FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus()
+  nameWithType: StatusController.GetServiceStatus()
+- uid: FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus*
+  name: GetServiceStatus
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_GetServiceStatus_
+  commentId: Overload:FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus
+  nameWithType: StatusController.GetServiceStatus
 - uid: FoundationaLLM.Core.API.Controllers.StatusController.Options
   name: Options()
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_Options
@@ -9970,6 +9989,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync
   nameWithType: ICoreService.GetChatSessionMessagesAsync
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
+  name: GetCompletionAsync(DirectCompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_DirectCompletionRequest_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
+  nameWithType: ICoreService.GetCompletionAsync(DirectCompletionRequest)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync*
+  name: GetCompletionAsync
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_
+  commentId: Overload:FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync
+  nameWithType: ICoreService.GetCompletionAsync
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(System.String,System.String)
   name: GetCompletionPrompt(string, string)
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionPrompt_System_String_System_String_
@@ -10958,6 +10990,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync
   nameWithType: CoreService.GetChatSessionMessagesAsync
+- uid: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
+  name: GetCompletionAsync(DirectCompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_DirectCompletionRequest_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
+  fullName: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
+  nameWithType: CoreService.GetCompletionAsync(DirectCompletionRequest)
+- uid: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync*
+  name: GetCompletionAsync
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionAsync_
+  commentId: Overload:FoundationaLLM.Core.Services.CoreService.GetCompletionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync
+  nameWithType: CoreService.GetCompletionAsync
 - uid: FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt(System.String,System.String)
   name: GetCompletionPrompt(string, string)
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionPrompt_System_String_System_String_
@@ -12628,19 +12673,32 @@ references:
   commentId: T:FoundationaLLM.Management.API.Controllers.StatusController
   fullName: FoundationaLLM.Management.API.Controllers.StatusController
   nameWithType: StatusController
-- uid: FoundationaLLM.Management.API.Controllers.StatusController.Get
-  name: Get()
-  href: api/dotnet/FoundationaLLM.Management.API.Controllers.StatusController.html#FoundationaLLM_Management_API_Controllers_StatusController_Get
-  commentId: M:FoundationaLLM.Management.API.Controllers.StatusController.Get
-  fullName: FoundationaLLM.Management.API.Controllers.StatusController.Get()
-  nameWithType: StatusController.Get()
-- uid: FoundationaLLM.Management.API.Controllers.StatusController.Get*
-  name: Get
-  href: api/dotnet/FoundationaLLM.Management.API.Controllers.StatusController.html#FoundationaLLM_Management_API_Controllers_StatusController_Get_
-  commentId: Overload:FoundationaLLM.Management.API.Controllers.StatusController.Get
+- uid: FoundationaLLM.Management.API.Controllers.StatusController.GetAuthStatus
+  name: GetAuthStatus()
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.StatusController.html#FoundationaLLM_Management_API_Controllers_StatusController_GetAuthStatus
+  commentId: M:FoundationaLLM.Management.API.Controllers.StatusController.GetAuthStatus
+  fullName: FoundationaLLM.Management.API.Controllers.StatusController.GetAuthStatus()
+  nameWithType: StatusController.GetAuthStatus()
+- uid: FoundationaLLM.Management.API.Controllers.StatusController.GetAuthStatus*
+  name: GetAuthStatus
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.StatusController.html#FoundationaLLM_Management_API_Controllers_StatusController_GetAuthStatus_
+  commentId: Overload:FoundationaLLM.Management.API.Controllers.StatusController.GetAuthStatus
   isSpec: "True"
-  fullName: FoundationaLLM.Management.API.Controllers.StatusController.Get
-  nameWithType: StatusController.Get
+  fullName: FoundationaLLM.Management.API.Controllers.StatusController.GetAuthStatus
+  nameWithType: StatusController.GetAuthStatus
+- uid: FoundationaLLM.Management.API.Controllers.StatusController.GetServiceStatus
+  name: GetServiceStatus()
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.StatusController.html#FoundationaLLM_Management_API_Controllers_StatusController_GetServiceStatus
+  commentId: M:FoundationaLLM.Management.API.Controllers.StatusController.GetServiceStatus
+  fullName: FoundationaLLM.Management.API.Controllers.StatusController.GetServiceStatus()
+  nameWithType: StatusController.GetServiceStatus()
+- uid: FoundationaLLM.Management.API.Controllers.StatusController.GetServiceStatus*
+  name: GetServiceStatus
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.StatusController.html#FoundationaLLM_Management_API_Controllers_StatusController_GetServiceStatus_
+  commentId: Overload:FoundationaLLM.Management.API.Controllers.StatusController.GetServiceStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Management.API.Controllers.StatusController.GetServiceStatus
+  nameWithType: StatusController.GetServiceStatus
 - uid: FoundationaLLM.Management.API.Controllers.StatusController.Options
   name: Options()
   href: api/dotnet/FoundationaLLM.Management.API.Controllers.StatusController.html#FoundationaLLM_Management_API_Controllers_StatusController_Options
