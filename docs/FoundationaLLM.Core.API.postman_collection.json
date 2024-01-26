@@ -80,6 +80,11 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json"
+									},
+									{
+										"key": "X-AGENT-HINT",
+										"value": "{{agentHint}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -600,6 +605,11 @@
 											{
 												"key": "Accept",
 												"value": "text/plain"
+											},
+											{
+												"key": "X-AGENT-HINT",
+												"value": "{{agentHint}}",
+												"type": "text"
 											}
 										],
 										"body": {
