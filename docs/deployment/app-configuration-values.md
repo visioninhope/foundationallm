@@ -17,6 +17,7 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:APIs:AgentHubAPI:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | This is a Key Vault reference. |
 | `FoundationaLLM:APIs:CoreAPI:APIUrl` | Enter the URL to the service. |   |
 | `FoundationaLLM:APIs:CoreAPI:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | This is a Key Vault reference. |
+| `FoundationaLLM:APIs:CoreAPI:BypassGatekeeper` | Boolean (`true`/`false`) expressing whether or not to bypass the Gatekeeper API, which offers content safety and data anonymization functionality, for optimal performance. |
 | `FoundationaLLM:APIs:DataSourceHubAPI:APIKey` | Key Vault secret name: `foundationallm-apis-datasourcehubapi-apikey` | This is a Key Vault reference. |
 | `FoundationaLLM:APIs:DataSourceHubAPI:APIUrl` | Enter the URL to the service. |   |
 | `FoundationaLLM:APIs:DataSourceHubAPI:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | This is a Key Vault reference. |
