@@ -26,6 +26,8 @@ items:
     href: development/index.md
   - name: Configure local development environment
     href: development/development-local.md
+  - name: Directly calling the APIs
+    href: development/directly-calling-apis.md
   - name: FoundationaLLM DevOps rules and guidelines
     href: development/development-approach.md
   - name: Contributing
