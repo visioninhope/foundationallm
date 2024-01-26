@@ -4,7 +4,30 @@ Typically, the only interaction with the Foundationa**LLM** (FLLM) APIs is indir
 
 ## API architecture
 
-The FLLM architecture contains layers of APIs that are used to perform different tasks along a call chain, starting with the **Core API**. The following diagram shows the API architecture:
+The FLLM architecture contains layers of APIs that are used to perform different tasks along a call chain, starting with the **Core API**. The following diagram shows a very high-level flow of the API architecture:
+
+```mermaid
+sequenceDiagram
+    actor U as Caller
+    participant C as CoreAPI
+    participant A as AgentFactoryAPI
+    participant O as OrchestrationWrapperAPI
+
+    U->>C: Calls Orchestration endpoint
+    C->>A: Calls Orchestration endpoint
+    Note over A,O: Agent resolution from cache or hubs
+    A->>+O: Invokes orchestrator
+    Note over O: Calls LangChain or Semantic Kernel
+    O->>-A: Returns result
+    A->>C: Returns result
+    C->>U: Returns result
+
+```
+
+> [!NOTE]
+> The AgentFactoryAPI contains a caching layer for the full agent metadata, including the agent, its datasource(s), and prompts. This caching layer is used to improve performance by reducing the number of calls to the underlying hubs. The AgentFactoryAPI also includes endpoints to clear the cache across different categories. In the more detailed diagram below, you can see that the AgentFactoryAPI calls the AgentHubAPI, PromptHubAPI, and DataSourceHubAPI to retrieve the agent metadata.
+
+When we look a level deeper, we see that there are several interactions between the APIs that occur during the call chain. The following diagram shows a more detailed flow of the API architecture:
 
 ```mermaid
 graph TD;
