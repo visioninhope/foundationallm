@@ -48,7 +48,9 @@ If you don't have Postman installed on your machine, visit the [Postman website]
 
 ### Import the Postman collection
 
-1. First, [download the Core API Postman collection](../FoundationaLLM.Core.API.postman_collection.json) and save it to your machine.
+1. First, [download the Core API Postman collection](https://github.com/solliancenet/foundationallm/blob/main/docs/FoundationaLLM.Core.API.postman_collection.json) and save it to your machine. To download it from GitHub, select **Download raw file**.
+
+    ![The Download raw button is highlighted.](media/github-postman-collection-download-raw.png)
 
 2. To import the Postman collection, click **Import** in the top left corner of the Postman app.
 
