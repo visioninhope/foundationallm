@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Text;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.TextSplitters;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Exceptions;
@@ -24,7 +25,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IResourceProviderService vectorizationResourceProviderService,
         IConfiguration configuration,
         IServiceProvider serviceProvider,
-        ILoggerFactory loggerFactory) : IServiceFactory<ITextEmbeddingService>
+        ILoggerFactory loggerFactory) : IVectorizationServiceFactory<ITextEmbeddingService>
     {
         private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
         private readonly IConfiguration _configuration = configuration;
@@ -32,7 +33,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
-        public ITextEmbeddingService CreateService(string serviceName)
+        public ITextEmbeddingService GetService(string serviceName)
         {
             var textEmbeddingProfile = _vectorizationResourceProviderService.GetResource<TextEmbeddingProfile>(
                 $"/{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{serviceName}");
@@ -40,6 +41,19 @@ namespace FoundationaLLM.Vectorization.Services.Text
             return textEmbeddingProfile.TextEmbedding switch
             {
                 TextEmbeddingType.SemanticKernelTextEmbedding => CreateSemanticKernelTextEmbeddingService(),
+                _ => throw new VectorizationException($"The text embedding type {textEmbeddingProfile.TextEmbedding} is not supported."),
+            };
+        }
+
+        /// <inheritdoc/>
+        public (ITextEmbeddingService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        {
+            var textEmbeddingProfile = _vectorizationResourceProviderService.GetResource<TextEmbeddingProfile>(
+                $"/{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{serviceName}");
+
+            return textEmbeddingProfile.TextEmbedding switch
+            {
+                TextEmbeddingType.SemanticKernelTextEmbedding => (CreateSemanticKernelTextEmbeddingService(), textEmbeddingProfile),
                 _ => throw new VectorizationException($"The text embedding type {textEmbeddingProfile.TextEmbedding} is not supported."),
             };
         }

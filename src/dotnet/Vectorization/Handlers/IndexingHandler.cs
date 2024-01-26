@@ -1,8 +1,13 @@
 ﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
@@ -37,7 +42,53 @@ namespace FoundationaLLM.Vectorization.Handlers
             IConfigurationSection? stepConfiguration,
             CancellationToken cancellationToken)
         {
-            
+            await _stateService.LoadArtifacts(state, VectorizationArtifactType.TextEmbeddingVector);
+
+            var textEmbeddingArtifacts = state.Artifacts.Where(a => a.Type == VectorizationArtifactType.TextEmbeddingVector).ToList();
+
+            if (textEmbeddingArtifacts == null
+                || textEmbeddingArtifacts.Count == 0)
+            {
+                state.Log(this, request.Id, _messageId, "The text partition artifacts were not found.");
+                return;
+            }
+
+            var textPartitioningArtifacts = state.Artifacts.Where(a => a.Type == VectorizationArtifactType.TextPartition).ToList();
+
+            if (textPartitioningArtifacts == null
+                || textPartitioningArtifacts.Count == 0)
+            {
+                state.Log(this, request.Id, _messageId, "The text partition artifacts were not found.");
+                return;
+            }
+
+            var serializerOptions = new JsonSerializerOptions
+            {
+                Converters =
+                {
+                    new Embedding.JsonConverter()
+                }
+            };
+
+            var embeddedContent = new EmbeddedContent
+            {
+                ContentId = request.ContentIdentifier,
+                ContentSourceProfileName = state.ContentSourceProfileName!,
+                ContentParts = Enumerable.Range(0, textEmbeddingArtifacts.Count)
+                    .Select(i => new EmbeddedContentPart
+                    {
+                        Content = textPartitioningArtifacts[i].Content!,
+                        Embedding = JsonSerializer.Deserialize<Embedding>(textEmbeddingArtifacts[i].Content!, serializerOptions)
+                    }).ToList()
+        };
+
+            var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IIndexingService>>()
+                ?? throw new VectorizationException($"Could not retrieve the indexing service factory instance.");
+            var indexing = serviceFactory.GetServiceWithProfile(_parameters["indexing_profile_name"]);
+
+            await indexing.Service.IndexEmbeddingsAsync(
+                embeddedContent,
+                indexing.VectorizationProfile.Settings!["IndexName"]);
         }
     }
 }

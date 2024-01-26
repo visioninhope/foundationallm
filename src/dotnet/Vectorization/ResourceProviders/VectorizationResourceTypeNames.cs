@@ -14,7 +14,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         /// <summary>
         /// Vectorization content sources.
         /// </summary>
-        public const string ContentSources = "contentSources";
+        public const string ContentSourceProfiles = "contentSourceProfiles";
 
         /// <summary>
         /// Text partitioning profiles.

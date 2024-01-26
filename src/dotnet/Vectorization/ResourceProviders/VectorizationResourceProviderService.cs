@@ -21,12 +21,12 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             storageService,
             logger)
     {
-        private Dictionary<string, ContentSource> _contentSources = [];
+        private Dictionary<string, ContentSourceProfile> _contentSourceProfiles = [];
         private Dictionary<string, TextPartitioningProfile> _textPartitioningProfiles = [];
         private Dictionary<string, TextEmbeddingProfile> _textEmbeddingProfiles = [];
         private Dictionary<string, IndexingProfile> _indexingProfiles = [];
 
-        private const string CONTENT_SOURCES_FILE_NAME = "vectorization-content-sources.json";
+        private const string CONTENT_SOURCE_PROFILES_FILE_NAME = "vectorization-content-source-profiles.json";
         private const string TEXT_PARTITION_PROFILES_FILE_NAME = "vectorization-text-partitioning-profiles.json";
         private const string TEXT_EMBEDDING_PROFILES_FILE_NAME = "vectorization-text-embedding-profiles.json";
         private const string INDEXING_PROFILES_FILE_NAME = "vectorization-indexing-profiles.json";
@@ -38,8 +38,8 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         protected override Dictionary<string, ResourceTypeDescriptor> _resourceTypes => new Dictionary<string, ResourceTypeDescriptor>
         {
             {
-                VectorizationResourceTypeNames.ContentSources,
-                new ResourceTypeDescriptor(VectorizationResourceTypeNames.ContentSources)
+                VectorizationResourceTypeNames.ContentSourceProfiles,
+                new ResourceTypeDescriptor(VectorizationResourceTypeNames.ContentSourceProfiles)
             },
             {
                 VectorizationResourceTypeNames.TextPartitioningProfiles,
@@ -60,18 +60,18 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         {
             _logger.LogInformation("Starting to initialize the {ResourceProvider} resource provider...", _name);
 
-            var contentSourcesFilePath = $"/{_name}/{CONTENT_SOURCES_FILE_NAME}";
+            var contentSourceProfilesFilePath = $"/{_name}/{CONTENT_SOURCE_PROFILES_FILE_NAME}";
             var partitionProfilesFilePath = $"/{_name}/{TEXT_PARTITION_PROFILES_FILE_NAME}";
             var embeddingProfilesPath = $"/{_name}/{TEXT_EMBEDDING_PROFILES_FILE_NAME}";
             var indexingProfilesPath = $"/{_name}/{INDEXING_PROFILES_FILE_NAME}";
 
-            if (await _storageService.FileExistsAsync(_storageContainerName, contentSourcesFilePath, default))
+            if (await _storageService.FileExistsAsync(_storageContainerName, contentSourceProfilesFilePath, default))
             {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, contentSourcesFilePath, default);
-                var contentSourcesStore = JsonConvert.DeserializeObject<ContentSourceStore>(
+                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, contentSourceProfilesFilePath, default);
+                var contentSourceProfilesStore = JsonConvert.DeserializeObject<ContentSourceStore>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
 
-                _contentSources = contentSourcesStore!.ContentSources.ToDictionary(cs => cs.Name);
+                _contentSourceProfiles = contentSourceProfilesStore!.ContentSourceProfiles.ToDictionary(cs => cs.Name);
             }
 
             if (await _storageService.FileExistsAsync(_storageContainerName, partitionProfilesFilePath, default))
@@ -108,22 +108,22 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         protected override T GetResourceInternal<T>(List<ResourceTypeInstance> instances) where T: class =>
             instances[0].ResourceType switch
             {
-                VectorizationResourceTypeNames.ContentSources => GetContentSource<T>(instances),
+                VectorizationResourceTypeNames.ContentSourceProfiles => GetContentSourceProfiles<T>(instances),
                 VectorizationResourceTypeNames.TextPartitioningProfiles => GetTextPartitioningProfile<T>(instances),
                 VectorizationResourceTypeNames.TextEmbeddingProfiles => GetTextEmbeddingProfile<T>(instances),
                 VectorizationResourceTypeNames.IndexingProfiles => GetIndexingProfile<T>(instances),
                 _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
             };
 
-        private T GetContentSource<T>(List<ResourceTypeInstance> instances) where T: class
+        private T GetContentSourceProfiles<T>(List<ResourceTypeInstance> instances) where T: class
         {
             if (instances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
 
-            if (typeof(T) != typeof(ContentSource))
+            if (typeof(T) != typeof(ContentSourceProfile))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
 
-            _contentSources.TryGetValue(instances[0].ResourceId!, out var contentSource);
+            _contentSourceProfiles.TryGetValue(instances[0].ResourceId!, out var contentSource);
             return contentSource as T
                 ?? throw new ResourceProviderException($"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
         }

@@ -53,9 +53,9 @@ namespace FoundationaLLM.Vectorization.Handlers
                 return;
             }
 
-            var serviceFactory = _serviceProvider.GetService<IServiceFactory<ITextEmbeddingService>>()
+            var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<ITextEmbeddingService>>()
                 ?? throw new VectorizationException($"Could not retrieve the text embedding service factory instance.");
-            var textEmbedding = serviceFactory.CreateService(_parameters["text_embedding_profile_name"]);
+            var textEmbedding = serviceFactory.GetService(_parameters["text_embedding_profile_name"]);
 
             var embeddingResult = await textEmbedding.GetEmbeddingsAsync(
                 textPartitioningArtifacts.Select(tpa => tpa.Content!).ToList());

@@ -69,6 +69,9 @@ builder.Services.AddOptions<BlobStorageServiceSettings>(
 builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService));
 
+builder.Services.AddOptions<AzureAISearchIndexingServiceSettings>()
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
+
 builder.Services.AddSingleton(
     typeof(IEnumerable<IConfigurationSection>),
     new IConfigurationSection[] {
@@ -111,9 +114,10 @@ builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
 
 // Service factories
-builder.Services.AddSingleton<IServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
-builder.Services.AddSingleton<IServiceFactory<ITextSplitterService>, TextSplitterServiceFactory>();
-builder.Services.AddSingleton<IServiceFactory<ITextEmbeddingService>, TextEmbeddingServiceFactory>();
+builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
+builder.Services.AddSingleton<IVectorizationServiceFactory<ITextSplitterService>, TextSplitterServiceFactory>();
+builder.Services.AddSingleton<IVectorizationServiceFactory<ITextEmbeddingService>, TextEmbeddingServiceFactory>();
+builder.Services.AddSingleton<IVectorizationServiceFactory<IIndexingService>, IndexingServiceFactory>();
 
 // Tokenizer
 builder.Services.AddKeyedSingleton<ITokenizerService, MicrosoftBPETokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
@@ -122,6 +126,10 @@ builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames
 // Text embedding
 builder.Services.AddKeyedSingleton<ITextEmbeddingService, SemanticKernelTextEmbeddingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService);
+
+// Indexing
+builder.Services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
 
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 

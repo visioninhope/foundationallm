@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -27,24 +28,38 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
     public class ContentSourceServiceFactory(
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IResourceProviderService vectorizationResourceProviderService,
         IConfiguration configuration,
-        ILoggerFactory loggerFactory) : IServiceFactory<IContentSourceService>
+        ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IContentSourceService>
     {
         private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
         private readonly IConfiguration _configuration = configuration;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
-        public IContentSourceService CreateService(string serviceName)
+        public IContentSourceService GetService(string serviceName)
         {
-            var contentSource = _vectorizationResourceProviderService.GetResource<ContentSource>(
-                $"/{VectorizationResourceTypeNames.ContentSources}/{serviceName}");
+            var contentSourceProfile = _vectorizationResourceProviderService.GetResource<ContentSourceProfile>(
+                $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{serviceName}");
 
-            return contentSource.Type switch
+            return contentSourceProfile.Type switch
             {
                 ContentSourceType.AzureDataLake => CreateAzureDataLakeContentSourceService(serviceName),
-                _ => throw new VectorizationException($"The content source type {contentSource.Type} is not supported."),
+                _ => throw new VectorizationException($"The content source type {contentSourceProfile.Type} is not supported."),
             };
         }
+
+        /// <inheritdoc/>
+        public (IContentSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        {
+            var contentSourceProfile = _vectorizationResourceProviderService.GetResource<ContentSourceProfile>(
+                $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{serviceName}");
+
+            return contentSourceProfile.Type switch
+            {
+                ContentSourceType.AzureDataLake => (CreateAzureDataLakeContentSourceService(serviceName), contentSourceProfile),
+                _ => throw new VectorizationException($"The content source type {contentSourceProfile.Type} is not supported."),
+            };
+        }
+
 
         private DataLakeContentSourceService CreateAzureDataLakeContentSourceService(string serviceName)
         {
