@@ -123,7 +123,10 @@ There are two ways to obtain the authentication token that you will use to authe
 
 Though this method takes a few more steps, it is the recommended method because it allows you to use the same token for all of the API calls in the collection.
 
-First, let's set up the request to get the token at the **collection** level. Make sure you choose `OAuth 2.0` as the type of authorization and **not** Bearer Token.  
+> [!IMPORTANT]
+> If you previously configured the Microsoft Entra ID app registration for the Chat UI application, you will need to update the **Redirect URI** to `https://oauth.pstmn.io/v1/callback` in order to use the Postman mobile app to get the token. You can do this by following the steps in the [Add a redirect URI to the client application](../deployment/authentication/core-authentication-setup-entra.md#add-a-redirect-uri-to-the-client-application) section of the authentication setup guide.
+
+First, let's set up the request to get the token at the **collection** level. Make sure you choose `OAuth 2.0` as the type of authorization and **not** Bearer Token.
 
 ![The OAuth 2.0 type is selected.](media/postman-auth-type.png)
 
