@@ -126,7 +126,8 @@ namespace FoundationaLLM.Core.API
 
                     // Integrate xml comments
                     options.IncludeXmlComments(filePath);
-                });
+                })
+                .AddSwaggerGenNewtonsoftSupport();
 
             builder.Services.Configure<RouteOptions>(options =>
             {
