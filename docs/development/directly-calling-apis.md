@@ -40,7 +40,7 @@ The ability to test the API endpoints of FoundationaLLM is a critical part of th
 To see the API endpoints available in FoundationaLLM, you can get your Core API endpoint from your App Configuration resource in the portal and add `/swagger/` to the end of it. For example, if your Core API endpoint is `https://foundationallm-core-api.azurewebsites.net`, then you would navigate to `https://foundationallm-core-api.azurewebsites.net/swagger/` to see the API endpoints.
 
 > [!NOTE]
-> The example link above is for a [starter deployment](../deployment/starter-deployment.md) of FoundationaLLM, which deploys the APIs to Azure Container Apps (ACA). If you are using the standard deployment that deploys the APIs to Azure Kubernetes Service (AKS), then you cannot currently access the Swagger UI for the APIs. However, you will be able to obtain the OpenAPI swagger.json file from the Core API endpoint by navigating to `https://{{AKS URL}}/core/swagger/v1/swagger.json`.
+> The example link above is for a [starter deployment](../deployment/deployment-starter.md) of FoundationaLLM, which deploys the APIs to Azure Container Apps (ACA). If you are using the standard deployment that deploys the APIs to Azure Kubernetes Service (AKS), then you cannot currently access the Swagger UI for the APIs. However, you will be able to obtain the OpenAPI swagger.json file from the Core API endpoint by navigating to `https://{{AKS URL}}/core/swagger/v1/swagger.json`.
 
 ### Install Postman
 
@@ -142,7 +142,9 @@ Within the **FoundationaLLM.Core.API** collection, select the **Sessions** GET r
 
 Now you can use the same token to test any other request in the collection with ease.
 
-#### Obtain the authentication token from the User Portal
+#### Obtain the authentication token from the User Portal (not recommended)
+
+As an alternative to saving the authentication token at the collection level, you can obtain the token from the User Portal and save it at the request level. This method is not recommended because it requires you to obtain a new token for each request that you want to make, and the token expires after a certain amount of time.
 
 1. Navigate to the User Portal and log in.
 2. Open the browser's developer tools (F12), select the `Network` tab, refresh the page, and copy the value of the `token` under the `XHR` tab from any of the API calls that are made to the Core API.
