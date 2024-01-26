@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Directly calling the APIs | FoundationaLLM </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Directly calling the APIs | FoundationaLLM ">
+      
+      
+      <link rel="icon" href="../media/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/development/directly-calling-apis.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../media/fllm-icon.svg" alt="FoundationaLLM">
+            FoundationaLLM
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="directly-calling-the-apis">Directly calling the APIs</h1>
+
+<p>Typically, the only interaction with the Foundationa<strong>LLM</strong> (FLLM) APIs is indirectly through the User Portal and Management Portal. However, you can also call the APIs directly to perform certain tasks, such as using your <a href="../setup-guides/agents/index.html">configured FLLM agents</a> to perform completions (via the Core API), or updating your branding configurations (via the Management API).</p>
+<h2 id="api-architecture">API architecture</h2>
+<p>The FLLM architecture contains layers of APIs that are used to perform different tasks along a call chain, starting with the <strong>Core API</strong>. The following diagram shows the API architecture:</p>
+<pre><code class="lang-mermaid">graph TD;
+    A[CoreAPI] --&gt;|1. User Request| B[GatekeeperAPI] --&gt;|Gatekeeper Extensions| BB[GatekeeperIntegrationAPI]
+    A -...-&gt;|&quot;1a. User Request (Bypass Gatekeeper)&quot;| C[AgentFactoryAPI]
+    B ----&gt;|2. Processed Request| C[AgentFactoryAPI]
+    C --&gt;|3. Request| E[(AgentHubAPI)]
+    C ---&gt;|4. Instantiate Agent| D[[Agent]]
+    D --&gt;|Request| F[(PromptHubAPI)]
+    D --&gt;|Request| G[(DataSourceHubAPI)]
+    E --&gt;|Metadata| C
+    F --&gt;|Metadata| D
+    G --&gt;|Metadata| D
+    D --&gt;|Hydrated Agent| C
+    D --&gt;|5. Composed Information| H[OrchestrationWrapperAPI]
+    H --&gt;|6. Response| D
+    C --&gt;|7. Response| B
+    C -...-&gt;|&quot;7a. Response (Bypass Gatekeeper)&quot;| A
+    B --&gt;|8. Final Response| A
+
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Notice that there is an alternate path that bypasses the Gatekeeper API. This path is used when the <code>FoundationaLLM:APIs:CoreAPI:BypassGatekeeper</code> configuration value is set to <code>true</code>. By default, the Core API does not bypass the Gatekeeper API. Beware that bypassing the Gatekeeper means that you bypass content protection and filtering in favor of improved performance. Make sure you understand the risks before setting this value to <code>true</code>.</p>
+</div>
+<h2 id="postman-collection">Postman collection</h2>
+<p>The ability to test the API endpoints of FoundationaLLM is a critical part of the development process. Postman is a tool that allows you to do just that. This document will walk you through the process of setting up Postman to work with FoundationaLLM.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>To find the Core API URL for your deployment, you can retrieve it from your App Configuration resource in the portal by viewing the <code>FoundationaLLM:APIs:CoreAPI:APIUrl</code> configuration value. Alternatively, follow the instructions in the <a href="../setup-guides/quickstart.html#find-your-core-api-url">Quickstart guide</a> to find the Core API URL.</p>
+</div>
+<p>To see the API endpoints available in FoundationaLLM, you can get your Core API endpoint from your App Configuration resource in the portal and add <code>/swagger/</code> to the end of it. For example, if your Core API endpoint is <code>https://foundationallm-core-api.azurewebsites.net</code>, then you would navigate to <code>https://foundationallm-core-api.azurewebsites.net/swagger/</code> to see the API endpoints.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The example link above is for a <a href="../deployment/starter-deployment.md">starter deployment</a> of FoundationaLLM, which deploys the APIs to Azure Container Apps (ACA). If you are using the standard deployment that deploys the APIs to Azure Kubernetes Service (AKS), then you cannot currently access the Swagger UI for the APIs. However, you will be able to obtain the OpenAPI swagger.json file from the Core API endpoint by navigating to <code>https://{{AKS URL}}/core/swagger/v1/swagger.json</code>.</p>
+</div>
+<h3 id="install-postman">Install Postman</h3>
+<p>If you don't have Postman installed on your machine, visit the <a href="https://www.getpostman.com/">Postman website</a> and download the app. Once you have it installed, Create a Blank Workspace.</p>
+<h3 id="import-the-postman-collection">Import the Postman collection</h3>
+<ol>
+<li><p>First, <a href="../FoundationaLLM.Core.API.postman_collection.json">download the Core API Postman collection</a> and save it to your machine.</p>
+</li>
+<li><p>To import the Postman collection, click <strong>Import</strong> in the top left corner of the Postman app.</p>
+<p><img src="media/postman-import-button.png" alt="The Import button is highlighted."></p>
+</li>
+<li><p>Within the dialog that displays, drag and drop or navigate to the Postman collection file you downloaded in the first step.</p>
+<p><img src="media/postman-import-collection.png" alt="The Postman import dialog is highlighted."></p>
+</li>
+</ol>
+<p>You will now see the <strong>FoundationaLLM.Core.API</strong> collection in your Postman workspace.</p>
+<p><img src="media/postman-imported-collection.png" alt="The imported collection is displayed."></p>
+<h3 id="set-up-the-postman-environment-variables">Set up the Postman environment variables</h3>
+<p>The Postman collection you imported contains a number of API endpoints that you can use to test the Core API. However, before you can use these endpoints, you need to set up a Postman environment variables within your collection that contains the Core API URL, agent hint value, and other variables. We will set up your authentication token in the next section.</p>
+<ol>
+<li><p>Select the <strong>FoundationaLLM.Core.API</strong> collection in the left-hand menu.</p>
+</li>
+<li><p>Select the <strong>Variables</strong> tab.</p>
+<p><img src="media/postman-variables-tab.png" alt="The Variables tab is highlighted."></p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The <a href="https://localhost:63279">https://localhost:63279</a> value is the default value for the Core API URL (<code>baseUrl</code> variable) when debugging it locally. You can leave this value as-is if you are testing locally, or you can replace it with the Core API URL for your deployment.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The <code>Initial value</code> column is the value that will be used when you first import the collection. The <code>Current value</code> column is the value that will be used when you run the collection. If you change the <code>Current value</code> column, the <code>Initial value</code> column will not be updated. For the steps that follow, you will be updating the <code>Current value</code> column.</p>
+</div>
+</li>
+<li><p>Update the <code>baseUrl</code> variable <code>Current value</code> with the Core API URL for your deployment.</p>
+<p><img src="media/postman-core-api-url-variable.png" alt="The Core API URL variable is highlighted."></p>
+</li>
+<li><p>Select the <strong>Save</strong> button in the top right corner of the Variables pane to save your changes.</p>
+<p><img src="media/postman-save-button.png" alt="The Save button is highlighted."></p>
+</li>
+</ol>
+<h4 id="the-agenthint-variable">The <code>agentHint</code> variable</h4>
+<p>The <code>agentHint</code> variable is used to specify the agent hint header value (<code>X-AGENT-HINT</code>) that will be used when calling the Core API completion endpoint. The agent hint value is used to determine which agent will be used to perform the completion. For example, if you have an agent named <code>policy</code> that you want to use to perform the completion, then you would set the <code>agentHint</code> variable to <code>{&quot;name&quot;: &quot;policy&quot;, &quot;private&quot;: false}</code>.</p>
+<h3 id="set-up-the-postman-authentication-token">Set up the Postman authentication token</h3>
+<p>There are two ways to obtain the authentication token that you will use to authenticate your API calls:</p>
+<h4 id="configure-the-postman-collection-authorization-token-recommended">Configure the Postman collection authorization token (recommended)</h4>
+<p>Though this method takes a few more steps, it is the recommended method because it allows you to use the same token for all of the API calls in the collection.</p>
+<p>First, let's set up the request to get the token at the <strong>collection</strong> level. Make sure you choose <code>OAuth 2.0</code> as the type of authorization and <strong>not</strong> Bearer Token.</p>
+<p><img src="media/postman-auth-type.png" alt="The OAuth 2.0 type is selected."></p>
+<p>This is how the <strong>Authorization</strong> tab should look like <strong>before</strong> the entries that you will need to change.</p>
+<p><img src="media/postman-auth-pre.png" alt="The pre-configuration of the authentication settings is displayed."></p>
+<p>Below is a list of each change that you need to make to the <strong>Authorization</strong> tab:</p>
+<ol>
+<li><p><strong>Token Name:</strong> This is the name of the token that you will use in the <strong>Headers</strong> tab. You can name it whatever you want, for example: <strong>FLLM CoreAPI Token</strong>.</p>
+</li>
+<li><p><strong>Grant Type:</strong> This is the type of grant that you will use to get the token. In our case, we will use <strong>Authorization Code (with PKCE)</strong>. PKCE stands for <strong>Proof Key for Code Exchange</strong>. It's an extension to the OAuth 2.0 protocol that helps prevent authorization code interception attacks. PKCE is a lightweight mechanism that can be used in any application that requests an authorization code.</p>
+</li>
+<li><p><strong>Callback Url:</strong> Click on the &quot;Authhorize using browser&quot; checkbox and it will automatically fill in the url for Postman mobile call back <code>https://oauth.pstmn.io/v1/callback</code>.</p>
+<p><img src="media/postman-callback-url-authorize-using-browser.png" alt="The Authorize using browser checkbox is checked."></p>
+</li>
+<li><p><strong>Auth Url:</strong> This is the url that you will use to get the token.  In our case, it's the url of Microsoft microsoftonline login authority <code>https://login.microsoftonline.com/&lt;tenantID&gt;/oauth2/v2.0/authorize</code>. Replace the <strong>tenantID</strong> with your own Entra ID Tenant ID from your portal or from the App Configuration resource.</p>
+</li>
+<li><p><strong>Access Token Url:</strong> This is the url that you will use to get the access token.  In our case, it's the url of Microsoft microsoftonline login authority <code>https://login.microsoftonline.com/&lt;tenantID&gt;/oauth2/token</code>. Replace the <strong>tenantID</strong> with your own Entra ID Tenant ID from your portal or from the App Configuration resource.</p>
+</li>
+<li><p><strong>Client ID:</strong> This is the client ID of the application that you will use to get the token. In our case, it's the client ID of the Chat UI application. You can get the client ID from the <strong>Overview</strong> tab of the Chat UI application in the portal.</p>
+</li>
+<li><p><strong>Code Challengle Method:</strong> This is the method that you will use to get the token. In our case, we will use <strong>SHA-256</strong>.</p>
+</li>
+<li><p><strong>Scope:</strong> This is the scope of the token that you will use to get the token. In our case, we will use <strong>api://FoundationaLLM-Auth/Data.Read openid profile offline_access</strong>.</p>
+</li>
+<li><p><strong>Client Authentication:</strong> This is the type of authentication that you will use to get the token.  In our case, we will use <strong>Send client credentials in body</strong>.</p>
+</li>
+</ol>
+<p>These are the only changes that you need to make to the <strong>Authorization</strong> tab.</p>
+<p><img src="media/postman-auth-post.png" alt="The post-configuration of the authentication settings is displayed."></p>
+<p>Scroll down to the bottom of the page and click on <strong>Get New Access Token</strong>. This will open a new window in your browser and will ask you to login with your credentials.  Once you login, you will be asked to consent to the permissions that you specified in the <strong>Scope</strong> field.  Click on <strong>Accept</strong> to consent to the permissions.  You will then be redirected to the callback url that you specified in the <strong>Callback Url</strong> field.  This will close the browser window and will take you back to Postman. You should now see the token in the <strong>Authorization</strong> tab. Click on <strong>Use Token</strong> to use the token in the collection.</p>
+<p><img src="media/postman-use-token.png" alt="The Use Token button is highlighted."></p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Be sure to click the <strong>Save</strong> button in the top right corner of the Postman app to save your changes.</p>
+</div>
+<p>Now you are ready to make your first CoreAPI request.</p>
+<p>Within the <strong>FoundationaLLM.Core.API</strong> collection, select the <strong>Sessions</strong> GET request under the <code>sessions</code> folder. When you select the <code>Authorization</code> tab, notice that the selected type is <code>Inherit auth from parent</code>. This means that the request will use the token that you configured at the collection level. Also notice that the <code>{{baseUrl}}</code> variable is used in the <code>Request Url</code> field. This means that the request will use the Core API URL that you configured at the collection level. Select the <strong>Send</strong> button to send the request. Even if you do not have any chat sessions in your system, you should receive a successful response (200) from the Core API.</p>
+<p><img src="media/postman-sessions-request.png" alt="The Sessions endpoint request and response are shown."></p>
+<p>Now you can use the same token to test any other request in the collection with ease.</p>
+<h4 id="obtain-the-authentication-token-from-the-user-portal">Obtain the authentication token from the User Portal</h4>
+<ol>
+<li><p>Navigate to the User Portal and log in.</p>
+</li>
+<li><p>Open the browser's developer tools (F12), select the <code>Network</code> tab, refresh the page, and copy the value of the <code>token</code> under the <code>XHR</code> tab from any of the API calls that are made to the Core API.</p>
+<p><img src="media/browser-xhr-token-value.png" alt="The token value is highlighted."></p>
+</li>
+<li><p>Within the <strong>FoundationaLLM.Core.API</strong> collection, select the <strong>Sessions</strong> GET request under the <code>sessions</code> folder.</p>
+</li>
+<li><p>Select the <strong>Authorization</strong> tab, select <code>Bearer Token</code> as the type, and paste the token value into the <code>Token</code> field. Select <strong>Send</strong> to send the request. Even if you do not have any chat sessions in your system, you should receive a successful response (200) from the Core API.</p>
+<p><img src="media/postman-sessions-request-bearer-token.png" alt="The Sessions endpoint request and response are shown, this time with the bearer token."></p>
+</li>
+</ol>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/development/directly-calling-apis.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © FoundationaLLM. All rights reserved. | Find out more about FoundationaLLM at <a href="https://foundationallm.ai">foundationallm.ai</a>.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

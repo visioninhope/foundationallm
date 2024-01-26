@@ -4174,11 +4174,11 @@
       "type": "Toc",
       "source_relative_path": "api/dotnet/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "api/dotnet/toc.json"
-        },
         ".html": {
           "relative_path": "api/dotnet/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/dotnet/toc.json"
         }
       },
       "version": ""
@@ -4379,6 +4379,16 @@
       "output": {
         "resource": {
           "relative_path": "deployment/authentication/media/entra-app-client-authentication-implicit-grant.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-client-authentication-uris-postman.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-client-authentication-uris-postman.png"
         }
       },
       "version": ""
@@ -4795,6 +4805,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "development/directly-calling-apis.md",
+      "output": {
+        ".html": {
+          "relative_path": "development/directly-calling-apis.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "development/index.md",
       "output": {
         ".html": {
@@ -4835,6 +4855,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "development/media/browser-xhr-token-value.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/browser-xhr-token-value.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "development/media/configure-startup-projects.png",
       "output": {
         "resource": {
@@ -4849,6 +4879,136 @@
       "output": {
         "resource": {
           "relative_path": "development/media/multiple-startup-projects.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-auth-post.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-auth-post.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-auth-pre.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-auth-pre.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-auth-type.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-auth-type.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-callback-url-authorize-using-browser.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-callback-url-authorize-using-browser.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-core-api-url-variable.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-core-api-url-variable.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-import-button.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-import-button.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-import-collection.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-import-collection.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-imported-collection.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-imported-collection.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-save-button.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-save-button.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-sessions-request-bearer-token.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-sessions-request-bearer-token.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-sessions-request.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-sessions-request.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-use-token.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-use-token.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/media/postman-variables-tab.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/media/postman-variables-tab.png"
         }
       },
       "version": ""
@@ -5174,14 +5334,94 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/aca-application-url.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/aca-application-url.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/aca-core-application-url.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/aca-core-application-url.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/aks-http-app-routing-domain.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/aks-http-app-routing-domain.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/resource-group-aca.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/resource-group-aca.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/resource-group-aks.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/resource-group-aks.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/resource-group-core-aca.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/resource-group-core-aca.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/user-portal-login.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/user-portal-login.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/quickstart.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/quickstart.html"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "toc.json"
-        },
         ".html": {
           "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""

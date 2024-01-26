@@ -164,6 +164,16 @@
 </li>
 </ol>
 <!-- 8. Under **Front-channel logout URL**, enter `<YOUR_CHAT_APP_URL>/signout-oidc`. -->
+<p>If you wish to <a href="../../development/directly-calling-apis.html#postman-collection">configure authentication in Postman</a> for executing calls against the Core API, you will need to add a <strong>Redirect URI</strong> under <strong>Mobile and desktop applications</strong> for Postman. Enter <code>https://oauth.pstmn.io/v1/callback</code> for the URI. To do this, complete the following steps:</p>
+<ol>
+<li><p>Under <strong>Platform configurations</strong>, select <strong>Add a platform</strong>. In the pane that opens, select <strong>Mobile and desktop applications</strong>.</p>
+</li>
+<li><p>Enter <code>https://oauth.pstmn.io/v1/callback</code> for the <strong>Custom redirect URIs</strong> value.</p>
+<p><img src="media/entra-app-client-authentication-uris-postman.png" alt="The Authentication left-hand menu item and redirect URIs are highlighted."></p>
+</li>
+<li><p>Select <strong>Configure</strong> to apply the changes.</p>
+</li>
+</ol>
 <h4 id="implicit-grant-and-hybrid-flows-for-the-client-application">Implicit grant and hybrid flows for the client application</h4>
 <ol>
 <li><p>Check <strong>Access tokens</strong> and <strong>ID tokens</strong> under <strong>Implicit grant</strong>.</p>
