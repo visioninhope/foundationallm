@@ -122,7 +122,7 @@
 <p>To see the API endpoints available in FoundationaLLM, you can get your Core API endpoint from your App Configuration resource in the portal and add <code>/swagger/</code> to the end of it. For example, if your Core API endpoint is <code>https://foundationallm-core-api.azurewebsites.net</code>, then you would navigate to <code>https://foundationallm-core-api.azurewebsites.net/swagger/</code> to see the API endpoints.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>The example link above is for a <a href="../deployment/starter-deployment.md">starter deployment</a> of FoundationaLLM, which deploys the APIs to Azure Container Apps (ACA). If you are using the standard deployment that deploys the APIs to Azure Kubernetes Service (AKS), then you cannot currently access the Swagger UI for the APIs. However, you will be able to obtain the OpenAPI swagger.json file from the Core API endpoint by navigating to <code>https://{{AKS URL}}/core/swagger/v1/swagger.json</code>.</p>
+<p>The example link above is for a <a href="../deployment/deployment-starter.html">starter deployment</a> of FoundationaLLM, which deploys the APIs to Azure Container Apps (ACA). If you are using the standard deployment that deploys the APIs to Azure Kubernetes Service (AKS), then you cannot currently access the Swagger UI for the APIs. However, you will be able to obtain the OpenAPI swagger.json file from the Core API endpoint by navigating to <code>https://{{AKS URL}}/core/swagger/v1/swagger.json</code>.</p>
 </div>
 <h3 id="install-postman">Install Postman</h3>
 <p>If you don't have Postman installed on your machine, visit the <a href="https://www.getpostman.com/">Postman website</a> and download the app. Once you have it installed, Create a Blank Workspace.</p>
@@ -207,7 +207,8 @@
 <p>Within the <strong>FoundationaLLM.Core.API</strong> collection, select the <strong>Sessions</strong> GET request under the <code>sessions</code> folder. When you select the <code>Authorization</code> tab, notice that the selected type is <code>Inherit auth from parent</code>. This means that the request will use the token that you configured at the collection level. Also notice that the <code>{{baseUrl}}</code> variable is used in the <code>Request Url</code> field. This means that the request will use the Core API URL that you configured at the collection level. Select the <strong>Send</strong> button to send the request. Even if you do not have any chat sessions in your system, you should receive a successful response (200) from the Core API.</p>
 <p><img src="media/postman-sessions-request.png" alt="The Sessions endpoint request and response are shown."></p>
 <p>Now you can use the same token to test any other request in the collection with ease.</p>
-<h4 id="obtain-the-authentication-token-from-the-user-portal">Obtain the authentication token from the User Portal</h4>
+<h4 id="obtain-the-authentication-token-from-the-user-portal-not-recommended">Obtain the authentication token from the User Portal (not recommended)</h4>
+<p>As an alternative to saving the authentication token at the collection level, you can obtain the token from the User Portal and save it at the request level. This method is not recommended because it requires you to obtain a new token for each request that you want to make, and the token expires after a certain amount of time.</p>
 <ol>
 <li><p>Navigate to the User Portal and log in.</p>
 </li>
