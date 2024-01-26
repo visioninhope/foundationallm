@@ -1,12 +1,15 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Text;
+using FoundationaLLM.Common.Services.TextSplitters;
+using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.ResourceProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM.Vectorization.Services.Text
 {
@@ -31,26 +34,23 @@ namespace FoundationaLLM.Vectorization.Services.Text
         /// <inheritdoc/>
         public ITextEmbeddingService CreateService(string serviceName)
         {
-            var textPartitionProfile = _vectorizationResourceProviderService.GetResource<TextPartitionProfile>(
-                $"/{VectorizationResourceTypeNames.TextPartitionProfiles}/{serviceName}");
+            var textEmbeddingProfile = _vectorizationResourceProviderService.GetResource<TextEmbeddingProfile>(
+                $"/{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{serviceName}");
 
-            return textPartitionProfile.TextSplitter switch
+            return textEmbeddingProfile.TextEmbedding switch
             {
-                TextSplitterType.TokenTextSplitter => CreateTokenTextSplitterService(
-                    TokenTextSplitterServiceSettings.FromDictionary(textPartitionProfile.TextSplitterSettings!)),
-                _ => throw new VectorizationException($"The text splitter type {textPartitionProfile.TextSplitter} is not supported."),
+                TextEmbeddingType.SemanticKernelTextEmbedding => CreateSemanticKernelTextEmbeddingService(),
+                _ => throw new VectorizationException($"The text embedding type {textEmbeddingProfile.TextEmbedding} is not supported."),
             };
         }
 
-        private TokenTextSplitterService CreateTokenTextSplitterService(TokenTextSplitterServiceSettings settings)
+        private ITextEmbeddingService CreateSemanticKernelTextEmbeddingService()
         {
-            var tokenizerService = _serviceProvider.GetKeyedService<ITokenizerService>(settings.Tokenizer)
-                ?? throw new VectorizationException($"Could not retrieve the {settings.Tokenizer} tokenizer service instance.");
+            var textEmbeddingService = _serviceProvider.GetKeyedService<ITextEmbeddingService>(
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService)
+                ?? throw new VectorizationException($"Could not retrieve the Semantic Kernel text embedding service instance.");
 
-            return new TokenTextSplitterService(
-                tokenizerService,
-                Options.Create<TokenTextSplitterServiceSettings>(settings),
-                _loggerFactory.CreateLogger<TokenTextSplitterService>());
+            return textEmbeddingService!;
         }
     }
 }

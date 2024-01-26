@@ -101,17 +101,25 @@ builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
             logger);
     });
 
+// Vectorization state
 builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>();
+
+// Vectorization resource provider
 builder.Services.AddKeyedSingleton<IResourceProviderService, VectorizationResourceProviderService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
 builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
+
+// Service factories
 builder.Services.AddSingleton<IServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
 builder.Services.AddSingleton<IServiceFactory<ITextSplitterService>, TextSplitterServiceFactory>();
+builder.Services.AddSingleton<IServiceFactory<ITextEmbeddingService>, TextEmbeddingServiceFactory>();
 
+// Tokenizer
 builder.Services.AddKeyedSingleton<ITokenizerService, MicrosoftBPETokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 
+// Text embedding
 builder.Services.AddKeyedSingleton<ITextEmbeddingService, SemanticKernelTextEmbeddingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService);
 

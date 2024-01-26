@@ -22,10 +22,14 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             logger)
     {
         private Dictionary<string, ContentSource> _contentSources = [];
-        private Dictionary<string, TextPartitionProfile> _textPartitionProfiles = [];
+        private Dictionary<string, TextPartitioningProfile> _textPartitioningProfiles = [];
+        private Dictionary<string, TextEmbeddingProfile> _textEmbeddingProfiles = [];
+        private Dictionary<string, IndexingProfile> _indexingProfiles = [];
 
         private const string CONTENT_SOURCES_FILE_NAME = "vectorization-content-sources.json";
-        private const string TEXT_PARTITION_PROFILES_FILE_NAME = "vectorization-text-partition-profiles.json";
+        private const string TEXT_PARTITION_PROFILES_FILE_NAME = "vectorization-text-partitioning-profiles.json";
+        private const string TEXT_EMBEDDING_PROFILES_FILE_NAME = "vectorization-text-embedding-profiles.json";
+        private const string INDEXING_PROFILES_FILE_NAME = "vectorization-indexing-profiles.json";
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Vectorization;
@@ -38,8 +42,16 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 new ResourceTypeDescriptor(VectorizationResourceTypeNames.ContentSources)
             },
             {
-                VectorizationResourceTypeNames.TextPartitionProfiles,
-                new ResourceTypeDescriptor(VectorizationResourceTypeNames.TextPartitionProfiles)
+                VectorizationResourceTypeNames.TextPartitioningProfiles,
+                new ResourceTypeDescriptor(VectorizationResourceTypeNames.TextPartitioningProfiles)
+            },
+            {
+                VectorizationResourceTypeNames.TextEmbeddingProfiles,
+                new ResourceTypeDescriptor(VectorizationResourceTypeNames.TextEmbeddingProfiles)
+            },
+            {
+                VectorizationResourceTypeNames.IndexingProfiles,
+                new ResourceTypeDescriptor(VectorizationResourceTypeNames.IndexingProfiles)
             }
         };
 
@@ -50,6 +62,8 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
             var contentSourcesFilePath = $"/{_name}/{CONTENT_SOURCES_FILE_NAME}";
             var partitionProfilesFilePath = $"/{_name}/{TEXT_PARTITION_PROFILES_FILE_NAME}";
+            var embeddingProfilesPath = $"/{_name}/{TEXT_EMBEDDING_PROFILES_FILE_NAME}";
+            var indexingProfilesPath = $"/{_name}/{INDEXING_PROFILES_FILE_NAME}";
 
             if (await _storageService.FileExistsAsync(_storageContainerName, contentSourcesFilePath, default))
             {
@@ -63,10 +77,28 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (await _storageService.FileExistsAsync(_storageContainerName, partitionProfilesFilePath, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(_storageContainerName, partitionProfilesFilePath, default);
-                var textPartitionProfileStore = JsonConvert.DeserializeObject<TextPartitionProfileStore>(
+                var textPartitionProfileStore = JsonConvert.DeserializeObject<TextPartitioningProfileStore>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
 
-                _textPartitionProfiles = textPartitionProfileStore!.TextPartitioningProfiles.ToDictionary(cs => cs.Name);
+                _textPartitioningProfiles = textPartitionProfileStore!.TextPartitioningProfiles.ToDictionary(tpp => tpp.Name);
+            }
+
+            if (await _storageService.FileExistsAsync(_storageContainerName, embeddingProfilesPath, default))
+            {
+                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, embeddingProfilesPath, default);
+                var textEmbeddingProfileStore = JsonConvert.DeserializeObject<TextEmbeddingProfileStore>(
+                    Encoding.UTF8.GetString(fileContent.ToArray()));
+
+                _textEmbeddingProfiles = textEmbeddingProfileStore!.TextEmbeddingProfiles.ToDictionary(tep => tep.Name);
+            }
+
+            if (await _storageService.FileExistsAsync(_storageContainerName, indexingProfilesPath, default))
+            {
+                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, indexingProfilesPath, default);
+                var indexingProfileStore = JsonConvert.DeserializeObject<IndexingProfileStore>(
+                    Encoding.UTF8.GetString(fileContent.ToArray()));
+
+                _indexingProfiles = indexingProfileStore!.IndexingProfiles.ToDictionary(ip => ip.Name);
             }
 
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
@@ -77,7 +109,9 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             instances[0].ResourceType switch
             {
                 VectorizationResourceTypeNames.ContentSources => GetContentSource<T>(instances),
-                VectorizationResourceTypeNames.TextPartitionProfiles => GetPartitionProfile<T>(instances),
+                VectorizationResourceTypeNames.TextPartitioningProfiles => GetTextPartitioningProfile<T>(instances),
+                VectorizationResourceTypeNames.TextEmbeddingProfiles => GetTextEmbeddingProfile<T>(instances),
+                VectorizationResourceTypeNames.IndexingProfiles => GetIndexingProfile<T>(instances),
                 _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
             };
 
@@ -94,16 +128,42 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 ?? throw new ResourceProviderException($"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
         }
 
-        private T GetPartitionProfile<T>(List<ResourceTypeInstance> instances) where T: class
+        private T GetTextPartitioningProfile<T>(List<ResourceTypeInstance> instances) where T: class
         {
             if (instances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
 
-            if (typeof(T) != typeof(TextPartitionProfile))
+            if (typeof(T) != typeof(TextPartitioningProfile))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
 
-            _textPartitionProfiles.TryGetValue(instances[0].ResourceId!, out var partitionProfile);
-            return partitionProfile as T
+            _textPartitioningProfiles.TryGetValue(instances[0].ResourceId!, out var textPartitioningProfile);
+            return textPartitioningProfile as T
+                ?? throw new ResourceProviderException($"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
+        }
+
+        private T GetTextEmbeddingProfile<T>(List<ResourceTypeInstance> instances) where T : class
+        {
+            if (instances.Count != 1)
+                throw new ResourceProviderException($"Invalid resource path");
+
+            if (typeof(T) != typeof(TextEmbeddingProfile))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+
+            _textEmbeddingProfiles.TryGetValue(instances[0].ResourceId!, out var textEmbeddingProfile);
+            return textEmbeddingProfile as T
+                ?? throw new ResourceProviderException($"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
+        }
+
+        private T GetIndexingProfile<T>(List<ResourceTypeInstance> instances) where T : class
+        {
+            if (instances.Count != 1)
+                throw new ResourceProviderException($"Invalid resource path");
+
+            if (typeof(T) != typeof(IndexingProfile))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+
+            _indexingProfiles.TryGetValue(instances[0].ResourceId!, out var indexingProfile);
+            return indexingProfile as T
                 ?? throw new ResourceProviderException($"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
         }
     }

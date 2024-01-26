@@ -59,8 +59,10 @@ namespace FoundationaLLM.Vectorization.Handlers
         public string StepId => _stepId;
 
         /// <inheritdoc/>
-        public async Task Invoke(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
+        public async Task<bool> Invoke(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
         {
+            var success = true;
+
             try
             {
                 state.LogHandlerStart(this, request.Id, _messageId);
@@ -93,9 +95,12 @@ namespace FoundationaLLM.Vectorization.Handlers
             }
             catch (Exception ex)
             {
+                success = false;
                 state.LogHandlerError(this, request.Id, _messageId, ex);
                 _logger.LogError(ex, "Error in executing [{HandlerId}] step handler for request {VectorizationRequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);
             }
+
+            return success;
         }
 
         private void ValidateRequest(VectorizationRequest request)

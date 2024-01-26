@@ -108,10 +108,12 @@ namespace FoundationaLLM.Vectorization.Services
         {
             try
             {
-                await HandleRequest(request, messageId).ConfigureAwait(false);
-                
-                await _incomingRequestSourceService.DeleteRequest(messageId, popReceipt).ConfigureAwait(false);
-                await AdvanceRequest(request).ConfigureAwait(false);
+                if (await HandleRequest(request, messageId).ConfigureAwait(false))
+                {
+                    // If the request was handled successfully, remove it from the current source and advance it to the next step.
+                    await _incomingRequestSourceService.DeleteRequest(messageId, popReceipt).ConfigureAwait(false);
+                    await AdvanceRequest(request).ConfigureAwait(false);
+                }
             }
             catch (Exception ex)
             {
@@ -119,7 +121,7 @@ namespace FoundationaLLM.Vectorization.Services
             }
         }
 
-        private async Task HandleRequest(VectorizationRequest request, string messageId)
+        private async Task<bool> HandleRequest(VectorizationRequest request, string messageId)
         {
             var state = await _vectorizationStateService.HasState(request).ConfigureAwait(false)
                 ? await _vectorizationStateService.ReadState(request).ConfigureAwait(false)
@@ -133,9 +135,11 @@ namespace FoundationaLLM.Vectorization.Services
                 _vectorizationStateService,
                 _serviceProvider,
                 _loggerFactory);
-            await stepHandler.Invoke(request, state, _cancellationToken).ConfigureAwait(false);
+            var handlerSuccess = await stepHandler.Invoke(request, state, _cancellationToken).ConfigureAwait(false);
 
             await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
+
+            return handlerSuccess;
         }
 
         private async Task AdvanceRequest(VectorizationRequest request)

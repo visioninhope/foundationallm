@@ -1,13 +1,12 @@
 ﻿using Azure.Identity;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Embeddings;
 using System.ComponentModel;
 
@@ -41,17 +40,17 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<(ReadOnlyMemory<float> embedding, int tokenCount)> GetEmbeddingAsync(string text)
+        public async Task<(Embedding Embedding, int TokenCount)> GetEmbeddingAsync(string text)
         {
             var embedding = await _textEmbeddingService.GenerateEmbeddingAsync(text);
-            return new(embedding, 0);
+            return new(new(embedding), 0);
         }
 
         /// <inheritdoc/>
-        public async Task<(IList<ReadOnlyMemory<float>> embeddings, int tokenCount)> GetEmbeddingsAsync(IList<string> texts)
+        public async Task<(IList<Embedding> Embeddings, int TokenCount)> GetEmbeddingsAsync(IList<string> texts)
         {
             var embeddings = await _textEmbeddingService.GenerateEmbeddingsAsync(texts);
-            return new(embeddings, 0);
+            return new(embeddings.Select(e => new Embedding(e)).ToList(), 0);
         }
 
         /// <summary>

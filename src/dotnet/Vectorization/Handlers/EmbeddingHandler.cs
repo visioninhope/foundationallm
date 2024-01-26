@@ -1,8 +1,13 @@
 ﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
@@ -39,14 +44,38 @@ namespace FoundationaLLM.Vectorization.Handlers
         {
             await _stateService.LoadArtifacts(state, VectorizationArtifactType.TextPartition);
 
-            var textPartitionArtifacts = state.Artifacts.Where(a => a.Type == VectorizationArtifactType.TextPartition).ToList();
+            var textPartitioningArtifacts = state.Artifacts.Where(a => a.Type == VectorizationArtifactType.TextPartition).ToList();
 
-            if (textPartitionArtifacts == null
-                || textPartitionArtifacts.Count == 0)
+            if (textPartitioningArtifacts == null
+                || textPartitioningArtifacts.Count == 0)
             {
                 state.Log(this, request.Id, _messageId, "The text partition artifacts were not found.");
                 return;
             }
+
+            var serviceFactory = _serviceProvider.GetService<IServiceFactory<ITextEmbeddingService>>()
+                ?? throw new VectorizationException($"Could not retrieve the text embedding service factory instance.");
+            var textEmbedding = serviceFactory.CreateService(_parameters["text_embedding_profile_name"]);
+
+            var embeddingResult = await textEmbedding.GetEmbeddingsAsync(
+                textPartitioningArtifacts.Select(tpa => tpa.Content!).ToList());
+
+            var position = 0;
+            var serializerOptions = new JsonSerializerOptions
+            {
+                Converters =
+                {
+                    new Embedding.JsonConverter()
+                }
+            };
+
+            foreach (var embedding in embeddingResult.Embeddings)
+                state.AddOrReplaceArtifact(new VectorizationArtifact
+                {
+                    Type = VectorizationArtifactType.TextEmbeddingVector,
+                    Position = ++position,
+                    Content = JsonSerializer.Serialize(embedding, serializerOptions)
+                });
         }
     }
 }

@@ -6,14 +6,23 @@ namespace FoundationaLLM.SemanticKernel.Core.Models.Configuration
     /// <summary>
     /// Provides configuration settings for the <see cref="SemanticKernelTextEmbeddingService"/> service.
     /// </summary>
-    /// <param name="DeploymentName">The name of the Azure Open AI deployment.</param>
-    /// <param name="Endpoint">The endpoint of the Azure Open AI deployment.</param>
-    /// <param name="APIKey">The API key used to connect to the Azure Open AI endpoint. Valid only if AuthenticationType is APIKey.</param>
-    public record SemanticKernelTextEmbeddingServiceSettings(
-        string DeploymentName,
-        string Endpoint,
-        string? APIKey)
+    public record SemanticKernelTextEmbeddingServiceSettings
     {
+        /// <summary>
+        /// The name of the Azure Open AI deployment.
+        /// </summary>
+        public required string DeploymentName { get; set; }
+
+        /// <summary>
+        /// The endpoint of the Azure Open AI deployment.
+        /// </summary>
+        public required string Endpoint { get; set; }
+
+        /// <summary>
+        /// The API key used to connect to the Azure Open AI endpoint. Valid only if AuthenticationType is APIKey.
+        /// </summary>
+        public string APIKey { get; set; }
+
         /// <summary>
         /// The <see cref="AuthenticationType"/> indicating which authentication mechanism to use.
         /// </summary>

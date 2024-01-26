@@ -5,7 +5,7 @@ namespace FoundationaLLM.Vectorization.Models.Resources
     /// <summary>
     /// Provides details about a text partitioning profile.
     /// </summary>
-    public class TextPartitionProfile
+    public class TextPartitioningProfile
     {
         /// <summary>
         /// The name of the text partitioning profile.
