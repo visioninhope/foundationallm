@@ -106,35 +106,39 @@ This is how the **Authorization** tab should look like **before** the entries th
 
 ![The pre-configuration of the authentication settings is displayed.](media/postman-auth-pre.png)
 
-So let's discuss each change that you need to make to the **Authorization** tab:
+Below is a list of each change that you need to make to the **Authorization** tab:
 
-1. **Token Name:** This is the name of the token that you will use in the **Headers** tab. You can name it whatever you want, for example: **FLLM Token**.
-2. **Grant Type:** This is the type of grant that you will use to get the token.  In our case, we will use **Authorization Code (with PKCE)**. PKCE stands for **Proof Key for Code Exchange**. It's an extension to the OAuth 2.0 protocol that helps prevent authorization code interception attacks. PKCE is a lightweight mechanism that can be used in any application that requests an authorization code.
+1. **Token Name:** This is the name of the token that you will use in the **Headers** tab. You can name it whatever you want, for example: **FLLM CoreAPI Token**.
+2. **Grant Type:** This is the type of grant that you will use to get the token. In our case, we will use **Authorization Code (with PKCE)**. PKCE stands for **Proof Key for Code Exchange**. It's an extension to the OAuth 2.0 protocol that helps prevent authorization code interception attacks. PKCE is a lightweight mechanism that can be used in any application that requests an authorization code.
 3. **Callback Url:** Click on the "Authhorize using browser" checkbox and it will automatically fill in the url for Postman mobile call back `https://oauth.pstmn.io/v1/callback`.
-![](../Media/Postman-12.png)
-4. **Auth Url:** This is the url that you will use to get the token.  In our case, it's the url of Microsoft microsoftonline login authority `https://login.microsoftonline.com/<tenantID>/oauth2/v2.0/authorize`.  Replace the **tenantID** with your own Entra ID Tenant ID from your portal or from the appconfig resource.
-5. **Access Token Url:** This is the url that you will use to get the access token.  In our case, it's the url of Microsoft microsoftonline login authority `https://login.microsoftonline.com/<tenantID>/oauth2/token`.  Replace the **tenantID** with your own Entra ID Tenant ID from your portal or from the appconfig resource.
-6. **Client ID:** This is the client ID of the application that you will use to get the token.  In our case, it's the client ID of the Chat UI application.  You can get the client ID from the **Overview** tab of the Chat UI application in the portal.
-7. **Code Challengle Method:** This is the method that you will use to get the token.  In our case, we will use **SHA-256**.
-8. **Scope:** This is the scope of the token that you will use to get the token.  In our case, we will use **api://FoundationaLLM-Auth/Data.Read openid profile offline_access**.
+
+    ![The Authorize using browser checkbox is checked.](media/postman-callback-url-authorize-using-browser.png)
+
+4. **Auth Url:** This is the url that you will use to get the token.  In our case, it's the url of Microsoft microsoftonline login authority `https://login.microsoftonline.com/<tenantID>/oauth2/v2.0/authorize`. Replace the **tenantID** with your own Entra ID Tenant ID from your portal or from the App Configuration resource.
+5. **Access Token Url:** This is the url that you will use to get the access token.  In our case, it's the url of Microsoft microsoftonline login authority `https://login.microsoftonline.com/<tenantID>/oauth2/token`. Replace the **tenantID** with your own Entra ID Tenant ID from your portal or from the App Configuration resource.
+6. **Client ID:** This is the client ID of the application that you will use to get the token. In our case, it's the client ID of the Chat UI application. You can get the client ID from the **Overview** tab of the Chat UI application in the portal.
+7. **Code Challengle Method:** This is the method that you will use to get the token. In our case, we will use **SHA-256**.
+8. **Scope:** This is the scope of the token that you will use to get the token. In our case, we will use **api://FoundationaLLM-Auth/Data.Read openid profile offline_access**.
 9. **Client Authentication:** This is the type of authentication that you will use to get the token.  In our case, we will use **Send client credentials in body**.
 
 These are the only changes that you need to make to the **Authorization** tab.  
 
-![](../Media/Postman-13.png)
+![The post-configuration of the authentication settings is displayed.](media/postman-auth-post.png)
 
-Now, head down to the bottom of the page and click on **Get New Access Token**.  This will open a new window in your browser and will ask you to login with your credentials.  Once you login, you will be asked to consent to the permissions that you specified in the **Scope** field.  Click on **Accept** to consent to the permissions.  You will then be redirected to the callback url that you specified in the **Callback Url** field.  This will close the browser window and will take you back to Postman.  You should now see the token in the **Authorization** tab.  Click on **Use Token** to use the token in the collection.
+Scroll down to the bottom of the page and click on **Get New Access Token**. This will open a new window in your browser and will ask you to login with your credentials.  Once you login, you will be asked to consent to the permissions that you specified in the **Scope** field.  Click on **Accept** to consent to the permissions.  You will then be redirected to the callback url that you specified in the **Callback Url** field.  This will close the browser window and will take you back to Postman. You should now see the token in the **Authorization** tab. Click on **Use Token** to use the token in the collection.
 
-![](../Media/Postman-14.png)
+![The Use Token button is highlighted.](media/postman-use-token.png)
 
-Great! now let's head back to the Sessions request that we did earlier and remove the Bearer token from the **Authorization** tab.  We will use the token that we got from the collection instead.  Make sure to add the token name that you specified in the collection in the **Headers** tab.  In my case, it's **FLLM Token**.
+> [!IMPORTANT]
+> Be sure to click the **Save** button in the top right corner of the Postman app to save your changes.
 
-![](../Media/Postman-15.png)
+Now you are ready to make your first CoreAPI request.
 
-Click on **Send** and you should see the same 2 sessions that we created earlier.
+Within the **FoundationaLLM.Core.API** collection, select the **Sessions** GET request under the `sessions` folder. When you select the `Authorization` tab, notice that the selected type is `Inherit auth from parent`. This means that the request will use the token that you configured at the collection level. Also notice that the `{{baseUrl}}` variable is used in the `Request Url` field. This means that the request will use the Core API URL that you configured at the collection level. Select the **Send** button to send the request. Even if you do not have any chat sessions in your system, you should receive a successful response (200) from the Core API.
+
+![The Sessions endpoint request and response are shown.](media/postman-sessions-request.png)
 
 Now you can use the same token to test any other request in the collection with ease.
-
 
 #### Obtain the authentication token from the User Portal
 
