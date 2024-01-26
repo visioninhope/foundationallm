@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Vectorization Worker | FoundationaLLM </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Vectorization Worker | FoundationaLLM ">
+      
+      
+      <link rel="icon" href="../../media/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/vectorization/vectorization-worker.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/fllm-icon.svg" alt="FoundationaLLM">
+            FoundationaLLM
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vectorization-worker">Vectorization Worker</h1>
+
+<h2 id="configuration">Configuration</h2>
+<p>The following table describes the Azure artifacts required for the vectorization pipelines.</p>
+<table>
+<thead>
+<tr>
+<th>Artifact Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>embed</code></td>
+<td>Azure storage queue used for the embed vectorization pipeline. Can be created on the storage account used for the other queues.</td>
+</tr>
+<tr>
+<td><code>extract</code></td>
+<td>Azure storage queue used for the extract vectorization pipeline. Can be created on the storage account used for the other queues.</td>
+</tr>
+<tr>
+<td><code>index</code></td>
+<td>Azure storage queue used for the index vectorization pipeline. Can be created on the storage account used for the other queues.</td>
+</tr>
+<tr>
+<td><code>partition</code></td>
+<td>Azure storage queue used for the partition vectorization pipeline. Can be created on the storage account used for the other queues.</td>
+</tr>
+<tr>
+<td><code>vectorization-state</code></td>
+<td>Azure storage container used for the vectorization state service. Can be created on the storage account used for the other queues.</td>
+</tr>
+<tr>
+<td><code>resource-provider</code></td>
+<td>Azure storage container used for the internal states of the FoundationaLLM resource providers.</td>
+</tr>
+<tr>
+<td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-content-sources.json</code></td>
+<td>Azure storage blob used for the content sources managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-content-sources">default vectorization content sources</a>.</td>
+</tr>
+<tr>
+<td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-text-partition-profiles.json</code></td>
+<td>Azure storage blob used for the text partitioning profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-text-partitioning-profiles">default vectorization text partitioning profiles</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>The following table describes the environment variables required for the vectorization pipelines.</p>
+<table>
+<thead>
+<tr>
+<th>Environment variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FoundationaLLM:AppConfig:ConnectionString</code></td>
+<td>Connection string to the Azure App Configuration instance.</td>
+</tr>
+</tbody>
+</table>
+<p>The following table describes the required App Configuration parameters for the vectorization pipelines.</p>
+<table>
+<thead>
+<tr>
+<th>App Configuration Key</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationWorker:APIUrl</code></td>
+<td></td>
+<td>The URL of the vectorization worker API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationWorker:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-vectorizationworker-apikey</code></td>
+<td>The API key of the vectorization worker API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>The connection string to the Application Insights instance used by the vectorization worker API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:VectorizationWorker</code></td>
+<td></td>
+<td>The settings used by each instance of the vectorization worker service. For more details, see <a href="#default-vectorization-worker-settings">default vectorization worker settings</a>.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:Queues:Embed:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-queues-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the embed vectorization queue.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:Queues:Extract:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-queues-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the extract vectorization queue.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:Queues:Index:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-queues-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the index vectorization queue.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:Queues:Partition:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-queues-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the partition vectorization queue.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType</code></td>
+<td></td>
+<td>The authentication type used to connect to the underlying storage. Can be one of <code>AzureIdentity</code>, <code>AccountKey</code>, or <code>ConnectionString</code>.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:StateService:Storage:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-state-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the vectorization state service.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType</code></td>
+<td></td>
+<td>The authentication type used to connect to the underlying storage. Can be one of <code>AzureIdentity</code>, <code>AccountKey</code>, or <code>ConnectionString</code>.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-resourceprovider-storage-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the vectorization state service.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Refer to the <a href="../../app-configuration-values.md">App Configuration values</a> page for more information on how to set these and other configuration values.</p>
+</div>
+<p>The following table describes the external content used by the vectorization worker to initialize:</p>
+<table>
+<thead>
+<tr>
+<th>Uri</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>https://openaipublic.blob.core.windows.net</code></td>
+<td>The public Azure Blob Storage account used to download the OpenAI BPE ranking files.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The vectorization worker must be able to open HTTPS connections to the external content listed above.</p>
+</div>
+<h3 id="default-vectorization-worker-settings">Default vectorization worker settings</h3>
+<p>Default settings for the vectorization worker:</p>
+<pre><code class="lang-json">{
+ &quot;RequestManagers&quot;: [
+  {
+   &quot;RequestSourceName&quot;: &quot;extract&quot;,
+   &quot;MaxHandlerInstances&quot;: 1
+  },
+  {
+   &quot;RequestSourceName&quot;: &quot;partition&quot;,
+   &quot;MaxHandlerInstances&quot;: 1
+  },
+  {
+   &quot;RequestSourceName&quot;: &quot;embed&quot;,
+   &quot;MaxHandlerInstances&quot;: 1
+  },
+  {
+   &quot;RequestSourceName&quot;: &quot;index&quot;,
+   &quot;MaxHandlerInstances&quot;: 1
+  }
+ ],
+ &quot;RequestSources&quot;: [
+  {
+   &quot;Name&quot;: &quot;extract&quot;,
+   &quot;ConnectionConfigurationName&quot;: &quot;Extract:ConnectionString&quot;,
+   &quot;VisibilityTimeoutSeconds&quot;: 120
+  },
+  {
+   &quot;Name&quot;: &quot;partition&quot;,
+   &quot;ConnectionConfigurationName&quot;: &quot;Partition:ConnectionString&quot;,
+   &quot;VisibilityTimeoutSeconds&quot;: 120
+  },
+  {
+   &quot;Name&quot;: &quot;embed&quot;,
+   &quot;ConnectionConfigurationName&quot;: &quot;Embed:ConnectionString&quot;,
+   &quot;VisibilityTimeoutSeconds&quot;: 120
+  },
+  {
+   &quot;Name&quot;: &quot;index&quot;,
+   &quot;ConnectionConfigurationName&quot;: &quot;Index:ConnectionString&quot;,
+   &quot;VisibilityTimeoutSeconds&quot;: 120
+  }
+ ],
+ &quot;QueuingEngine&quot;: &quot;AzureStorageQueue&quot;
+}
+</code></pre>
+<h3 id="default-vectorization-content-sources">Default vectorization content sources</h3>
+<p>Default structure for the <code>vectorization-content-sources.json</code> file:</p>
+<pre><code class="lang-json">{
+ &quot;ContentSources&quot;: [
+ ]
+}
+</code></pre>
+<h3 id="default-vectorization-text-partitioning-profiles">Default vectorization text partitioning profiles</h3>
+<p>Default structure for the <code>vectorization-text-partition-profiles.json</code> file:</p>
+<pre><code class="lang-json">{
+ &quot;TextPartitioningProfiles&quot;: [
+  {
+   &quot;Name&quot;: &quot;DefaultTokenTextPartition&quot;,
+   &quot;TextSplitter&quot;: &quot;TokenTextSplitter&quot;,
+   &quot;TextSplitterSettings&quot;: {
+    &quot;Tokenizer&quot;: &quot;MicrosoftBPETokenizer&quot;,
+    &quot;TokenizerEncoder&quot;: &quot;cl100k_base&quot;,
+    &quot;ChunkSizeTokens&quot;: &quot;2000&quot;,
+    &quot;OverlapSizeTokens&quot;: &quot;200&quot;
+   }
+  }
+ ]
+}
+</code></pre>
+<h2 id="vectorization-request">Vectorization request</h2>
+<p>Sample structure of a vectorization request:</p>
+<pre><code class="lang-json">{
+    &quot;id&quot;: &quot;d4669c9c-e330-450a-a41c-a4d6649abdef&quot;,
+    &quot;content_identifier&quot;: {
+        &quot;multipart_id&quot;: [
+            &quot;https://fllmaks14sa.blob.core.windows.net&quot;,
+            &quot;vectorization-input&quot;,
+            &quot;SDZWA-Journal-January-2024.pdf&quot;
+        ],
+        &quot;canonical_id&quot;: &quot;sdzwa/journals/SDZWA-Journal-January-2024&quot;
+    },
+    &quot;steps&quot;:[
+        {
+            &quot;id&quot;: &quot;extract&quot;,
+            &quot;parameters&quot;: {
+                &quot;content_source_name&quot;: &quot;SDZWAJournals&quot;
+            }
+        },
+        {
+            &quot;id&quot;: &quot;partition&quot;,
+            &quot;parameters&quot;: {
+                &quot;text_partition_profile_name&quot;: &quot;DefaultTokenTextPartition&quot;
+            }
+        },
+        {
+            &quot;id&quot;: &quot;embed&quot;,
+            &quot;parameters&quot;: {
+                &quot;embedding_profile_name&quot;: &quot;AzureOpenAI_Embedding&quot;
+            }
+        },
+        {
+            &quot;id&quot;: &quot;index&quot;,
+            &quot;parameters&quot;: {
+                &quot;index_name&quot;: &quot;AzureAISearch_Test&quot;
+            }
+        }
+    ],
+    &quot;completed_steps&quot;: [
+    ],
+    &quot;remaining_steps&quot;: [
+        &quot;extract&quot;,
+        &quot;partition&quot;,
+        &quot;embed&quot;,
+        &quot;index&quot;
+    ]
+}
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/vectorization/vectorization-worker.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © FoundationaLLM. All rights reserved. | Find out more about FoundationaLLM at <a href="https://foundationallm.ai">foundationallm.ai</a>.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -819,9 +819,79 @@
 <td></td>
 </tr>
 <tr>
-<td><code>FoundationaLLM:Vectorization:WorkerSettings</code></td>
-<td><code>{&quot;RequestManagers&quot;: [{ &quot;RequestSourceName&quot;: &quot;extract&quot;, &quot;MaxHandlerInstances&quot;: 1 }], &quot;QueuingEngine&quot;: 1 }</code></td>
+<td><code>FoundationaLLM:APIs:VectorizationAPI:APIUrl</code></td>
 <td></td>
+<td>The URL of the vectorization API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationAPI:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-vectorizationapi-apikey</code></td>
+<td>The API key of the vectorization API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>The connection string to the Application Insights instance used by the vectorization API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationWorker:APIUrl</code></td>
+<td></td>
+<td>The URL of the vectorization worker API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationWorker:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-vectorizationworker-apikey</code></td>
+<td>The API key of the vectorization worker API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>The connection string to the Application Insights instance used by the vectorization worker API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:VectorizationWorker</code></td>
+<td></td>
+<td>The settings used by each instance of the vectorization worker service. For more details, see <a href="../setup-guides/vectorization/vectorization-worker.html#default-vectorization-worker-settings">default vectorization worker settings</a></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:Queues:Embed:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-queues-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the embed vectorization queue.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:Queues:Extract:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-queues-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the extract vectorization queue.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:Queues:Index:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-queues-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the index vectorization queue.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:Queues:Partition:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-queues-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the partition vectorization queue.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType</code></td>
+<td></td>
+<td>The authentication type used to connect to the underlying storage. Can be one of <code>AzureIdentity</code>, <code>AccountKey</code>, or <code>ConnectionString</code>.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:StateService:Storage:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-state-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the vectorization state service.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType</code></td>
+<td></td>
+<td>The authentication type used to connect to the underlying storage. Can be one of <code>AzureIdentity</code>, <code>AccountKey</code>, or <code>ConnectionString</code>.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-resourceprovider-storage-connectionstring</code></td>
+<td>The connection string to the Azure Storage account used for the vectorization state service.</td>
 </tr>
 </tbody>
 </table>

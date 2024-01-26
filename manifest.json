@@ -5414,6 +5414,36 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/vectorization/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/vectorization/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/vectorization/vectorization-api.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/vectorization/vectorization-api.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/vectorization/vectorization-worker.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/vectorization/vectorization-worker.html"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {

@@ -2,21 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Setup guides | FoundationaLLM </title>
+      <title>Vectorization API | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Setup guides | FoundationaLLM ">
+      <meta name="title" content="Vectorization API | FoundationaLLM ">
       
       
-      <link rel="icon" href="../media/favicon.ico">
-      <link rel="stylesheet" href="../public/docfx.min.css">
-      <link rel="stylesheet" href="../public/main.css">
-      <meta name="docfx:navrel" content="../toc.html">
-      <meta name="docfx:tocrel" content="../toc.html">
+      <link rel="icon" href="../../media/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
       
-      <meta name="docfx:rel" content="../">
+      <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/index.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/vectorization/vectorization-api.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -31,7 +31,7 @@
       <meta name="loc:downloadPdf" content="Download PDF">
   </head>
 
-  <script type="module" src="./../public/docfx.min.js"></script>
+  <script type="module" src="./../../public/docfx.min.js"></script>
 
   <script>
     const theme = localStorage.getItem('theme') || 'auto'
@@ -43,8 +43,8 @@
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
-          <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../media/fllm-icon.svg" alt="FoundationaLLM">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/fllm-icon.svg" alt="FoundationaLLM">
             FoundationaLLM
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,19 +85,75 @@
         </div>
 
         <article data-uid="">
-<h1 id="setup-guides">Setup guides</h1>
+<h1 id="vectorization-api">Vectorization API</h1>
 
-<p>After <a href="../deployment/index.html">deploying</a> Foundationa<strong>LLM</strong>, you can customize the solution components to adapt it for your needs.</p>
-<ul>
-<li>Follow the <a href="quickstart.html">Quickstart guide</a> to get started with Foundationa<strong>LLM</strong>.</li>
-<li>Set up <a href="agents/index.html">FLLM agents</a> to define a persona and connect to your data sources to generate responses.</li>
-<li>Configure <a href="vectorization/index.html">vectorization</a> to enable vector search.</li>
-</ul>
+<h2 id="configuration">Configuration</h2>
+<p>The following table describes the Azure artifacts required for the vectorization pipelines.</p>
+<table>
+<thead>
+<tr>
+<th>Artifact name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vectorization-input</code></td>
+<td>Azure storage container used by default to store documents to be picked up by the vectorization pipeline. Must be created on a Data Lake storage account (with the hierarchical namespace enabled).</td>
+</tr>
+</tbody>
+</table>
+<p>The following table describes the environment variables required for the vectorization pipelines.</p>
+<table>
+<thead>
+<tr>
+<th>Environment variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FoundationaLLM:AppConfig:ConnectionString</code></td>
+<td>Connection string to the Azure App Configuration instance.</td>
+</tr>
+</tbody>
+</table>
+<p>The following table describes the required configuration parameters for the vectorization pipelines.</p>
+<table>
+<thead>
+<tr>
+<th>App Configuration Key</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationAPI:APIUrl</code></td>
+<td></td>
+<td>The URL of the vectorization API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationAPI:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-vectorizationapi-apikey</code></td>
+<td>The API key of the vectorization API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>The connection string to the Application Insights instance used by the vectorization API.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Refer to the <a href="../../app-configuration-values.md">App Configuration values</a> page for more information on how to set these and other configuration values.</p>
+</div>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/index.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/vectorization/vectorization-api.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
