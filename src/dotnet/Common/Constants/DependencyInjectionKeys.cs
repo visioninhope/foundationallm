@@ -40,5 +40,9 @@ namespace FoundationaLLM.Common.Constants
         /// The dependency injection key for the Azure AI Search indexing service.
         /// </summary>
         public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
+        /// <summary>
+        /// The dependency injection key for the FoundationaLLM.Agent resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Agent_ResourceProviderService = "FoundationaLLM:Agent:ResourceProviderService";
     }
 }
