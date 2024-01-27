@@ -43,6 +43,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
             return contentSourceProfile.Type switch
             {
                 ContentSourceType.AzureDataLake => CreateAzureDataLakeContentSourceService(serviceName),
+                ContentSourceType.SharePointOnline => CreateSharePointOnlineContentSourceService(serviceName),
                 _ => throw new VectorizationException($"The content source type {contentSourceProfile.Type} is not supported."),
             };
         }
@@ -56,6 +57,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
             return contentSourceProfile.Type switch
             {
                 ContentSourceType.AzureDataLake => (CreateAzureDataLakeContentSourceService(serviceName), contentSourceProfile),
+                ContentSourceType.SharePointOnline => (CreateSharePointOnlineContentSourceService(serviceName), contentSourceProfile),
                 _ => throw new VectorizationException($"The content source type {contentSourceProfile.Type} is not supported."),
             };
         }
@@ -70,6 +72,18 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
 
             return new DataLakeContentSourceService(
                 blobStorageServiceSettings,
+                _loggerFactory);
+        }
+
+        private SharePointOnlineContentSourceService CreateSharePointOnlineContentSourceService(string serviceName)
+        {
+            var sharePointOnlineContentSourceServiceSettings = new SharePointOnlineContentSourceServiceSettings();
+            _configuration.Bind(
+                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
+                sharePointOnlineContentSourceServiceSettings);
+
+            return new SharePointOnlineContentSourceService(
+                sharePointOnlineContentSourceServiceSettings,
                 _loggerFactory);
         }
     }

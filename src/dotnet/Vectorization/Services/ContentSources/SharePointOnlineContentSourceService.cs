@@ -1,8 +1,6 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Azure.Security.KeyVault.Secrets;
-using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Vectorization.DataFormats.PDF;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
@@ -73,15 +71,35 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         /// <returns>The X.509 certificate.</returns>
         private async Task<X509Certificate2> GetCertificate()
         {
-            var certificateClient = new CertificateClient(new Uri(_settings.KeyVaultURL), new DefaultAzureCredential());
+            ValidateSettings();
+
+            var certificateClient = new CertificateClient(new Uri(_settings.KeyVaultURL!), new DefaultAzureCredential());
             var certificateWithPolicy = await certificateClient.GetCertificateAsync(_settings.CertificateName);
             var certificateIdentifier = new KeyVaultSecretIdentifier(certificateWithPolicy.Value.SecretId);
 
-            var secretClient = new SecretClient(new Uri(_settings.KeyVaultURL), new DefaultAzureCredential());
+            var secretClient = new SecretClient(new Uri(_settings.KeyVaultURL!), new DefaultAzureCredential());
             var secret = await secretClient.GetSecretAsync(certificateIdentifier.Name, certificateIdentifier.Version);
             var secretBytes = Convert.FromBase64String(secret.Value.Value);
 
             return new X509Certificate2(secretBytes);
+        }
+
+        private void ValidateSettings()
+        {
+            if (_settings == null)
+                throw new VectorizationException("Missing configuration settings for the SharePointOnlineContentSourceService.");
+
+            if (string.IsNullOrWhiteSpace(_settings.ClientId))
+                throw new VectorizationException("Missing ClientId in the SharePointOnlineContentSourceService configuration settings.");
+
+            if (string.IsNullOrWhiteSpace(_settings.TenantId))
+                throw new VectorizationException("Missing TenantId in the SharePointOnlineContentSourceService configuration settings.");
+
+            if (string.IsNullOrWhiteSpace(_settings.KeyVaultURL))
+                throw new VectorizationException("Missing KeyVaultURL in the SharePointOnlineContentSourceService configuration settings.");
+
+            if (string.IsNullOrWhiteSpace(_settings.CertificateName))
+                throw new VectorizationException("Missing CertificateName in the SharePointOnlineContentSourceService configuration settings.");
         }
     }
 }
