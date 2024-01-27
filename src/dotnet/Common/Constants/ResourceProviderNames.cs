@@ -15,5 +15,9 @@ namespace FoundationaLLM.Common.Constants
         /// The name of the FoundationaLLM.Vectorization resource provider.
         /// </summary>
         public const string FoundationaLLM_Vectorization = "FoundationaLLM.Vectorization";
+        /// <summary>
+        /// The name of the FoundationaLLM.Agent resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Agent = "FoundationaLLM.Agent";
     }
 }
