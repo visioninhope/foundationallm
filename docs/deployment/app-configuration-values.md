@@ -17,7 +17,7 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:APIs:AgentHubAPI:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | This is a Key Vault reference. |
 | `FoundationaLLM:APIs:CoreAPI:APIUrl` | Enter the URL to the service. |   |
 | `FoundationaLLM:APIs:CoreAPI:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | This is a Key Vault reference. |
-| `FoundationaLLM:APIs:CoreAPI:BypassGatekeeper` | Boolean (`true`/`false`) expressing whether or not to bypass the Gatekeeper API, which offers content safety and data anonymization functionality, for optimal performance. |
+| `FoundationaLLM:APIs:CoreAPI:BypassGatekeeper` | `false` | Boolean (`true`/`false`) expressing whether or not to bypass the Gatekeeper API, which offers content safety and data anonymization functionality, for optimal performance. |
 | `FoundationaLLM:APIs:DataSourceHubAPI:APIKey` | Key Vault secret name: `foundationallm-apis-datasourcehubapi-apikey` | This is a Key Vault reference. |
 | `FoundationaLLM:APIs:DataSourceHubAPI:APIUrl` | Enter the URL to the service. |   |
 | `FoundationaLLM:APIs:DataSourceHubAPI:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | This is a Key Vault reference. |
@@ -150,7 +150,21 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.MessagesMinTokens` | 100 |   |
 | `FoundationaLLM:SemanticKernelAPI:OpenAI.PromptOptimization.SystemMaxTokens` | 1500 |   |
 | `FoundationaLLM:SemanticKernelAPI:OpenAI.ShortSummaryPromptName` | Summarizer.TwoWords |   |
-| `FoundationaLLM:Vectorization:WorkerSettings`| `{"RequestManagers": [{ "RequestSourceName": "extract", "MaxHandlerInstances": 1 }], "QueuingEngine": 1 }`  | |
+| `FoundationaLLM:APIs:VectorizationAPI:APIUrl` | | The URL of the vectorization API. |
+| `FoundationaLLM:APIs:VectorizationAPI:APIKey` | Key Vault secret name: `foundationallm-apis-vectorizationapi-apikey` | The API key of the vectorization API. |
+| `FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | The connection string to the Application Insights instance used by the vectorization API. |
+| `FoundationaLLM:APIs:VectorizationWorker:APIUrl` | | The URL of the vectorization worker API. |
+| `FoundationaLLM:APIs:VectorizationWorker:APIKey` | Key Vault secret name: `foundationallm-apis-vectorizationworker-apikey` | The API key of the vectorization worker API. |
+| `FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | The connection string to the Application Insights instance used by the vectorization worker API. |
+| `FoundationaLLM:Vectorization:VectorizationWorker` | | The settings used by each instance of the vectorization worker service. For more details, see [default vectorization worker settings](../setup-guides/vectorization/vectorization-worker.md#default-vectorization-worker-settings) |
+| `FoundationaLLM:Vectorization:Queues:Embed:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the embed vectorization queue. |
+| `FoundationaLLM:Vectorization:Queues:Extract:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the extract vectorization queue. |
+| `FoundationaLLM:Vectorization:Queues:Index:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the index vectorization queue. |
+| `FoundationaLLM:Vectorization:Queues:Partition:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the partition vectorization queue. |
+| `FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
+| `FoundationaLLM:Vectorization:StateService:Storage:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-state-connectionstring` | The connection string to the Azure Storage account used for the vectorization state service. |
+| `FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
+| `FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-resourceprovider-storage-connectionstring` | The connection string to the Azure Storage account used for the vectorization state service. |
 
 ## Feature flags
 
