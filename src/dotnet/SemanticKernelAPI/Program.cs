@@ -73,7 +73,8 @@ namespace FoundationaLLM.SemanticKernel.API
 
                     // Adds auth via X-API-KEY header
                     options.AddAPIKeyAuth();
-                });
+                })
+                .AddSwaggerGenNewtonsoftSupport();
 
             builder.Services.AddOptions<SemanticKernelServiceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI));

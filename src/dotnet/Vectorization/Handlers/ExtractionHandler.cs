@@ -41,9 +41,9 @@ namespace FoundationaLLM.Vectorization.Handlers
             IConfigurationSection? stepConfiguration,
             CancellationToken cancellationToken)
         {
-            var serviceFactory = _serviceProvider.GetService<IServiceFactory<IContentSourceService>>()
+            var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IContentSourceService>>()
                 ?? throw new VectorizationException($"Could not retrieve the content source service factory instance.");
-            var contentSource = serviceFactory.CreateService(_parameters["content_source_name"]);
+            var contentSource = serviceFactory.GetService(_parameters["content_source_profile_name"]);
 
             var textContent = await contentSource.ExtractTextFromFileAsync(request.ContentIdentifier.MultipartId, cancellationToken);
 
@@ -53,6 +53,7 @@ namespace FoundationaLLM.Vectorization.Handlers
                 Position = 1,
                 Content = textContent
             });
+            state.ContentSourceProfileName = _parameters["content_source_profile_name"];
         }
     }
 }
