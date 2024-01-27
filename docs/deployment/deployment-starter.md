@@ -139,7 +139,7 @@ To update an individual API or portal, you can use the following commands:
    | Registry | `-registry` | True | `ghcr.io` |
 
    ```powershell
-   ./update-tags.ps1 `
+   ./Update-Images-ACA-Starter.ps1 `
       -resourceGroup "[DEPLOYMENT RESOURCE GROUP]" `
       -resourcePrefix "[DEPLOYMENT PREFIX]" `
       -subscription "[DEPLOYMENT SUBSCRIPTION]" `
