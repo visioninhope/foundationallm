@@ -11,6 +11,6 @@ namespace FoundationaLLM.Vectorization.Models.Resources
         /// <summary>
         /// The list of all content sources that are registered for use by the vectorization pipelines.
         /// </summary>
-        public required List<ContentSource> ContentSources { get; set; }
+        public required List<ContentSourceProfile> ContentSourceProfiles { get; set; }
     }
 }

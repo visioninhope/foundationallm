@@ -14,11 +14,21 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         /// <summary>
         /// Vectorization content sources.
         /// </summary>
-        public const string ContentSources = "contentSources";
+        public const string ContentSourceProfiles = "contentsourceprofiles";
 
         /// <summary>
         /// Text partitioning profiles.
         /// </summary>
-        public const string TextPartitionProfiles = "textPartitionProfiles";
+        public const string TextPartitioningProfiles = "textpartitionprofiles";
+
+        /// <summary>
+        /// Text embedding profiles.
+        /// </summary>
+        public const string TextEmbeddingProfiles = "textembeddingprofiles";
+
+        /// <summary>
+        /// Indexing profiles.
+        /// </summary>
+        public const string IndexingProfiles = "indexingprofiles";
     }
 }

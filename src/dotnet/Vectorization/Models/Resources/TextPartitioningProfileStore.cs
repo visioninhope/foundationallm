@@ -3,11 +3,11 @@
     /// <summary>
     /// Models the content of the text partition profiles store managed by the FoundationaLLM.Vectorization resource provider.
     /// </summary>
-    public class TextPartitionProfileStore
+    public class TextPartitioningProfileStore
     {
         /// <summary>
         /// The list of all partition profiles that are registered for use by the vectorization pipelines.
         /// </summary>
-        public required List<TextPartitionProfile> TextPartitioningProfiles { get; set; }
+        public required List<TextPartitioningProfile> TextPartitioningProfiles { get; set; }
     }
 }

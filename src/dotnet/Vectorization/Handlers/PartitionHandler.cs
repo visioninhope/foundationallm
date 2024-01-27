@@ -53,9 +53,9 @@ namespace FoundationaLLM.Vectorization.Handlers
                 return;
             }
 
-            var serviceFactory = _serviceProvider.GetService<IServiceFactory<ITextSplitterService>>()
+            var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<ITextSplitterService>>()
                 ?? throw new VectorizationException($"Could not retrieve the text splitter service factory instance.");
-            var textSplitter = serviceFactory.CreateService(_parameters["text_partition_profile_name"]);
+            var textSplitter = serviceFactory.GetService(_parameters["text_partition_profile_name"]);
 
             var splitResult = textSplitter.SplitPlainText(extractedTextArtifact.Content!);
 

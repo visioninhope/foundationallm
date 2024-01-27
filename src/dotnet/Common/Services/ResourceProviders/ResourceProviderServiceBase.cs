@@ -94,6 +94,42 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             return await GetResourceAsyncInternal<T>(instances);
         }
 
+        /// <inheritdoc/>
+        public async Task UpsertResourceAsync<T>(string resourcePath, T resource) where T : class
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            await UpsertResourceAsync<T>(resourcePath, resource);
+        }
+
+        /// <inheritdoc/>
+        public void UpsertResource<T>(string resourcePath, T resource) where T : class
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            UpsertResource<T>(instances, resource);
+        }    
+
+        /// <inheritdoc/>
+        public async Task DeleteResourceAsync<T>(string resourcePath) where T : class
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            await DeleteResourceAsync<T>(instances);
+        }
+
+        /// <inheritdoc/>
+        public void DeleteResource<T>(string resourcePath) where T : class
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            DeleteResource<T>(instances);
+        }
+
         /// <summary>
         /// The internal implementation of Initialize. Must be overridden in derived classes.
         /// </summary>
@@ -129,6 +165,46 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
         /// <returns></returns>
         protected virtual async Task<T> GetResourceAsyncInternal<T>(List<ResourceTypeInstance> instances) where T : class
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// The internal implementation of UpsertResource. Must be overridden in derived classes.
+        /// </summary>
+        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
+        /// <param name="resource">The instance of the resource being created or updated.</param>
+        /// <returns></returns>
+        protected virtual void UpsertResource<T>(List<ResourceTypeInstance> instances, T resource) =>
+            throw new NotImplementedException();
+
+        /// <summary>
+        /// The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.
+        /// </summary>
+        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
+        /// <param name="resource">The instance of the resource being created or updated.</param>
+        /// <returns></returns>
+        protected virtual async Task UpsertResourceAsync<T>(List<ResourceTypeInstance> instances, T resource)
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// The internal implementation of DeleteResource. Must be overridden in derived classes.
+        /// </summary>
+        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
+        /// <returns></returns>
+        protected virtual void DeleteResource<T>(List<ResourceTypeInstance> instances) =>
+            throw new NotImplementedException();
+
+        /// <summary>
+        /// The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.
+        /// </summary>
+        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
+        /// <returns></returns>
+        protected virtual async Task DeleteResourceAsync<T>(List<ResourceTypeInstance> instances)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();

@@ -824,5 +824,14 @@ namespace FoundationaLLM.Common.Constants
         /// The key section for the FoundationaLLM:Vectorization:ContentSources app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_ContentSources = "FoundationaLLM:Vectorization:ContentSources";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:AzureAISearchIndexingService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
     }
 }

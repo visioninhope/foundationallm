@@ -26,16 +26,16 @@ namespace FoundationaLLM.Common.Interfaces
         /// <summary>
         /// Gets a resource based on its logical path.
         /// </summary>
-        /// <typeparam name="T">The type of the requested resource.</typeparam>
-        /// <param name="resourcePath">The logical path of the requested resource.</param>
+        /// <typeparam name="T">The type of the resource.</typeparam>
+        /// <param name="resourcePath">The logical path of the resource.</param>
         /// <returns>The instance of the resource corresponding to the specified logical path.</returns>
         Task<T> GetResourceAsync<T>(string resourcePath) where T: class;
 
         /// <summary>
         /// Gets a resource based on its logical path.
         /// </summary>
-        /// <typeparam name="T">The type of the requested resource.</typeparam>
-        /// <param name="resourcePath">The logical path of the requested resource.</param>
+        /// <typeparam name="T">The type of the resource.</typeparam>
+        /// <param name="resourcePath">The logical path of the resource.</param>
         /// <returns>The instance of the resource corresponding to the specified logical path.</returns>
         T GetResource<T>(string resourcePath) where T : class;
 
@@ -45,5 +45,37 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="actionPath">The logical path of the action to be executed.</param>
         /// <returns>The <see cref="ResourceProviderActionResult"/> that contains details about the result of the execution.</returns>
         Task<ResourceProviderActionResult> ExecuteAction(string actionPath);
+
+        /// <summary>
+        /// Creates or updates a resource based on its logical path.
+        /// </summary>
+        /// <typeparam name="T">The type of the resource.</typeparam>
+        /// <param name="resourcePath">The logical path of the resource.</param>
+        /// <param name="resource">The instance of the resource being created or updated.</param>
+        /// <returns></returns>
+        Task UpsertResourceAsync<T>(string resourcePath, T resource) where T : class;
+
+        /// <summary>
+        /// Creates or updates a resource based on its logical path.
+        /// </summary>
+        /// <typeparam name="T">The type of the resource.</typeparam>
+        /// <param name="resourcePath">The logical path of the resource.</param>
+        /// <param name="resource">The instance of the resource being created or updated.</param>
+        void UpsertResource<T>(string resourcePath, T resource) where T : class;
+
+        /// <summary>
+        /// Deletes a resource based on its logical path.
+        /// </summary>
+        /// <typeparam name="T">The type of the resource.</typeparam>
+        /// <param name="resourcePath">The logical path of the resource.</param>
+        /// <returns></returns>
+        Task DeleteResourceAsync<T>(string resourcePath) where T : class;
+
+        /// <summary>
+        /// Deletes a resource based on its logical path.
+        /// </summary>
+        /// <typeparam name="T">The type of the resource.</typeparam>
+        /// <param name="resourcePath">The logical path of the resource.</param>
+        void DeleteResource<T>(string resourcePath) where T : class;
     }
 }

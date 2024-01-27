@@ -1,17 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using FoundationaLLM.Common.Models.Vectorization;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Vectorization.Models.Resources
 {
     /// <summary>
     /// Provides detials about a content source.
     /// </summary>
-    public class ContentSource
+    public class ContentSourceProfile : VectorizationProfileBase
     {
-        /// <summary>
-        /// The name of the content source.
-        /// </summary>
-        public required string Name { get; set; }
-
         /// <summary>
         /// The type of the content source.
         /// </summary>
