@@ -2024,6 +2024,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI
   nameWithType: AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService
+  name: FoundationaLLM_Vectorization_AzureAISearchIndexingService
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Vectorization_AzureAISearchIndexingService
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources
   name: FoundationaLLM_Vectorization_ContentSources
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Vectorization_ContentSources
@@ -2042,6 +2048,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage
   nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
+  name: FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService
   name: FoundationaLLM_Vectorization_StateService
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Vectorization_StateService
@@ -3008,6 +3020,12 @@ references:
   commentId: T:FoundationaLLM.Common.Constants.DependencyInjectionKeys
   fullName: FoundationaLLM.Common.Constants.DependencyInjectionKeys
   nameWithType: DependencyInjectionKeys
+- uid: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService
+  name: FoundationaLLM_Vectorization_AzureAISearchIndexingService
+  href: api/dotnet/FoundationaLLM.Common.Constants.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_DependencyInjectionKeys_FoundationaLLM_Vectorization_AzureAISearchIndexingService
+  commentId: F:FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService
+  fullName: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService
+  nameWithType: DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService
 - uid: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService
   name: FoundationaLLM_Vectorization_BlobStorageVectorizationStateService
   href: api/dotnet/FoundationaLLM.Common.Constants.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_DependencyInjectionKeys_FoundationaLLM_Vectorization_BlobStorageVectorizationStateService
@@ -3032,6 +3050,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService
   fullName: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService
   nameWithType: DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService
+- uid: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
+  name: FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
+  href: api/dotnet/FoundationaLLM.Common.Constants.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_DependencyInjectionKeys_FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
+  commentId: F:FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
+  fullName: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
+  nameWithType: DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService
 - uid: FoundationaLLM.Common.Constants.FileExtensions
   name: FileExtensions
   href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html
@@ -3887,6 +3911,28 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IHubAPIService.Status
   nameWithType: IHubAPIService.Status
+- uid: FoundationaLLM.Common.Interfaces.IIndexingService
+  name: IIndexingService
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIndexingService.html
+  commentId: T:FoundationaLLM.Common.Interfaces.IIndexingService
+  fullName: FoundationaLLM.Common.Interfaces.IIndexingService
+  nameWithType: IIndexingService
+- uid: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent,System.String)
+  name: IndexEmbeddingsAsync(EmbeddedContent, string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIndexingService.html#FoundationaLLM_Common_Interfaces_IIndexingService_IndexEmbeddingsAsync_FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent,System.String)
+  name.vb: IndexEmbeddingsAsync(EmbeddedContent, String)
+  fullName: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent, string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent, String)
+  nameWithType: IIndexingService.IndexEmbeddingsAsync(EmbeddedContent, string)
+  nameWithType.vb: IIndexingService.IndexEmbeddingsAsync(EmbeddedContent, String)
+- uid: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync*
+  name: IndexEmbeddingsAsync
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIndexingService.html#FoundationaLLM_Common_Interfaces_IIndexingService_IndexEmbeddingsAsync_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync
+  nameWithType: IIndexingService.IndexEmbeddingsAsync
 - uid: FoundationaLLM.Common.Interfaces.IPromptHubAPIService
   name: IPromptHubAPIService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IPromptHubAPIService.html
@@ -3915,6 +3961,38 @@ references:
   commentId: T:FoundationaLLM.Common.Interfaces.IResourceProviderService
   fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService
   nameWithType: IResourceProviderService
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResource*
+  name: DeleteResource
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_DeleteResource_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResource
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResource
+  nameWithType: IResourceProviderService.DeleteResource
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResourceAsync*
+  name: DeleteResourceAsync
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_DeleteResourceAsync_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResourceAsync
+  nameWithType: IResourceProviderService.DeleteResourceAsync
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResourceAsync``1(System.String)
+  name: DeleteResourceAsync<T>(string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_DeleteResourceAsync__1_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResourceAsync``1(System.String)
+  name.vb: DeleteResourceAsync(Of T)(String)
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResourceAsync<T>(string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResourceAsync(Of T)(String)
+  nameWithType: IResourceProviderService.DeleteResourceAsync<T>(string)
+  nameWithType.vb: IResourceProviderService.DeleteResourceAsync(Of T)(String)
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResource``1(System.String)
+  name: DeleteResource<T>(string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_DeleteResource__1_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResource``1(System.String)
+  name.vb: DeleteResource(Of T)(String)
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResource<T>(string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResource(Of T)(String)
+  nameWithType: IResourceProviderService.DeleteResource<T>(string)
+  nameWithType.vb: IResourceProviderService.DeleteResource(Of T)(String)
 - uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.ExecuteAction(System.String)
   name: ExecuteAction(string)
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_ExecuteAction_System_String_
@@ -4002,33 +4080,38 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.Name
   nameWithType: IResourceProviderService.Name
-- uid: FoundationaLLM.Common.Interfaces.IServiceFactory`1
-  name: IServiceFactory<T>
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IServiceFactory-1.html
-  commentId: T:FoundationaLLM.Common.Interfaces.IServiceFactory`1
-  name.vb: IServiceFactory(Of T)
-  fullName: FoundationaLLM.Common.Interfaces.IServiceFactory<T>
-  fullName.vb: FoundationaLLM.Common.Interfaces.IServiceFactory(Of T)
-  nameWithType: IServiceFactory<T>
-  nameWithType.vb: IServiceFactory(Of T)
-- uid: FoundationaLLM.Common.Interfaces.IServiceFactory`1.CreateService(System.String)
-  name: CreateService(string)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IServiceFactory-1.html#FoundationaLLM_Common_Interfaces_IServiceFactory_1_CreateService_System_String_
-  commentId: M:FoundationaLLM.Common.Interfaces.IServiceFactory`1.CreateService(System.String)
-  name.vb: CreateService(String)
-  fullName: FoundationaLLM.Common.Interfaces.IServiceFactory<T>.CreateService(string)
-  fullName.vb: FoundationaLLM.Common.Interfaces.IServiceFactory(Of T).CreateService(String)
-  nameWithType: IServiceFactory<T>.CreateService(string)
-  nameWithType.vb: IServiceFactory(Of T).CreateService(String)
-- uid: FoundationaLLM.Common.Interfaces.IServiceFactory`1.CreateService*
-  name: CreateService
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IServiceFactory-1.html#FoundationaLLM_Common_Interfaces_IServiceFactory_1_CreateService_
-  commentId: Overload:FoundationaLLM.Common.Interfaces.IServiceFactory`1.CreateService
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource*
+  name: UpsertResource
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResource_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Interfaces.IServiceFactory<T>.CreateService
-  fullName.vb: FoundationaLLM.Common.Interfaces.IServiceFactory(Of T).CreateService
-  nameWithType: IServiceFactory<T>.CreateService
-  nameWithType.vb: IServiceFactory(Of T).CreateService
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource
+  nameWithType: IResourceProviderService.UpsertResource
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync*
+  name: UpsertResourceAsync
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResourceAsync_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync
+  nameWithType: IResourceProviderService.UpsertResourceAsync
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync``1(System.String,``0)
+  name: UpsertResourceAsync<T>(string, T)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResourceAsync__1_System_String___0_
+  commentId: M:FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync``1(System.String,``0)
+  name.vb: UpsertResourceAsync(Of T)(String, T)
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync<T>(string, T)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync(Of T)(String, T)
+  nameWithType: IResourceProviderService.UpsertResourceAsync<T>(string, T)
+  nameWithType.vb: IResourceProviderService.UpsertResourceAsync(Of T)(String, T)
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource``1(System.String,``0)
+  name: UpsertResource<T>(string, T)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResource__1_System_String___0_
+  commentId: M:FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource``1(System.String,``0)
+  name.vb: UpsertResource(Of T)(String, T)
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource<T>(string, T)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource(Of T)(String, T)
+  nameWithType: IResourceProviderService.UpsertResource<T>(string, T)
+  nameWithType.vb: IResourceProviderService.UpsertResource(Of T)(String, T)
 - uid: FoundationaLLM.Common.Interfaces.IStorageService
   name: IStorageService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html
@@ -4092,6 +4175,44 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IStorageService.WriteFileAsync
   nameWithType: IStorageService.WriteFileAsync
+- uid: FoundationaLLM.Common.Interfaces.ITextEmbeddingService
+  name: ITextEmbeddingService
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html
+  commentId: T:FoundationaLLM.Common.Interfaces.ITextEmbeddingService
+  fullName: FoundationaLLM.Common.Interfaces.ITextEmbeddingService
+  nameWithType: ITextEmbeddingService
+- uid: FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingAsync(System.String)
+  name: GetEmbeddingAsync(string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html#FoundationaLLM_Common_Interfaces_ITextEmbeddingService_GetEmbeddingAsync_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingAsync(System.String)
+  name.vb: GetEmbeddingAsync(String)
+  fullName: FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingAsync(string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingAsync(String)
+  nameWithType: ITextEmbeddingService.GetEmbeddingAsync(string)
+  nameWithType.vb: ITextEmbeddingService.GetEmbeddingAsync(String)
+- uid: FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingAsync*
+  name: GetEmbeddingAsync
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html#FoundationaLLM_Common_Interfaces_ITextEmbeddingService_GetEmbeddingAsync_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingAsync
+  nameWithType: ITextEmbeddingService.GetEmbeddingAsync
+- uid: FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList{System.String})
+  name: GetEmbeddingsAsync(IList<string>)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html#FoundationaLLM_Common_Interfaces_ITextEmbeddingService_GetEmbeddingsAsync_System_Collections_Generic_IList_System_String__
+  commentId: M:FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList{System.String})
+  name.vb: GetEmbeddingsAsync(IList(Of String))
+  fullName: FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList<string>)
+  fullName.vb: FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList(Of String))
+  nameWithType: ITextEmbeddingService.GetEmbeddingsAsync(IList<string>)
+  nameWithType.vb: ITextEmbeddingService.GetEmbeddingsAsync(IList(Of String))
+- uid: FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingsAsync*
+  name: GetEmbeddingsAsync
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html#FoundationaLLM_Common_Interfaces_ITextEmbeddingService_GetEmbeddingsAsync_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.ITextEmbeddingService.GetEmbeddingsAsync
+  nameWithType: ITextEmbeddingService.GetEmbeddingsAsync
 - uid: FoundationaLLM.Common.Interfaces.ITextSplitterService
   name: ITextSplitterService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.ITextSplitterService.html
@@ -4174,6 +4295,51 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetUserIdentity
   nameWithType: IUserClaimsProviderService.GetUserIdentity
+- uid: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory`1
+  name: IVectorizationServiceFactory<T>
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory-1.html
+  commentId: T:FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory`1
+  name.vb: IVectorizationServiceFactory(Of T)
+  fullName: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory<T>
+  fullName.vb: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory(Of T)
+  nameWithType: IVectorizationServiceFactory<T>
+  nameWithType.vb: IVectorizationServiceFactory(Of T)
+- uid: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory`1.GetService(System.String)
+  name: GetService(string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory-1.html#FoundationaLLM_Common_Interfaces_IVectorizationServiceFactory_1_GetService_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory`1.GetService(System.String)
+  name.vb: GetService(String)
+  fullName: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory<T>.GetService(string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory(Of T).GetService(String)
+  nameWithType: IVectorizationServiceFactory<T>.GetService(string)
+  nameWithType.vb: IVectorizationServiceFactory(Of T).GetService(String)
+- uid: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory`1.GetService*
+  name: GetService
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory-1.html#FoundationaLLM_Common_Interfaces_IVectorizationServiceFactory_1_GetService_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory`1.GetService
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory<T>.GetService
+  fullName.vb: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory(Of T).GetService
+  nameWithType: IVectorizationServiceFactory<T>.GetService
+  nameWithType.vb: IVectorizationServiceFactory(Of T).GetService
+- uid: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory`1.GetServiceWithProfile(System.String)
+  name: GetServiceWithProfile(string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory-1.html#FoundationaLLM_Common_Interfaces_IVectorizationServiceFactory_1_GetServiceWithProfile_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory`1.GetServiceWithProfile(System.String)
+  name.vb: GetServiceWithProfile(String)
+  fullName: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory<T>.GetServiceWithProfile(string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory(Of T).GetServiceWithProfile(String)
+  nameWithType: IVectorizationServiceFactory<T>.GetServiceWithProfile(string)
+  nameWithType.vb: IVectorizationServiceFactory(Of T).GetServiceWithProfile(String)
+- uid: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory`1.GetServiceWithProfile*
+  name: GetServiceWithProfile
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory-1.html#FoundationaLLM_Common_Interfaces_IVectorizationServiceFactory_1_GetServiceWithProfile_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory`1.GetServiceWithProfile
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory<T>.GetServiceWithProfile
+  fullName.vb: FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory(Of T).GetServiceWithProfile
+  nameWithType: IVectorizationServiceFactory<T>.GetServiceWithProfile
+  nameWithType.vb: IVectorizationServiceFactory(Of T).GetServiceWithProfile
 - uid: FoundationaLLM.Common.Middleware
   name: FoundationaLLM.Common.Middleware
   href: api/dotnet/FoundationaLLM.Common.Middleware.html
@@ -7764,6 +7930,305 @@ references:
   commentId: N:FoundationaLLM.Common.Models.TextEmbedding
   fullName: FoundationaLLM.Common.Models.TextEmbedding
   nameWithType: FoundationaLLM.Common.Models.TextEmbedding
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier
+  name: ContentIdentifier
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html
+  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier
+  nameWithType: ContentIdentifier
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
+  name: CanonicalId
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_CanonicalId
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
+  nameWithType: ContentIdentifier.CanonicalId
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId*
+  name: CanonicalId
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_CanonicalId_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
+  nameWithType: ContentIdentifier.CanonicalId
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
+  name: MultipartId
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_MultipartId
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
+  nameWithType: ContentIdentifier.MultipartId
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId*
+  name: MultipartId
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_MultipartId_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
+  nameWithType: ContentIdentifier.MultipartId
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId
+  name: UniqueId
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_UniqueId
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId
+  nameWithType: ContentIdentifier.UniqueId
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId*
+  name: UniqueId
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_UniqueId_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId
+  nameWithType: ContentIdentifier.UniqueId
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent
+  name: EmbeddedContent
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html
+  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent
+  nameWithType: EmbeddedContent
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId
+  name: ContentId
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentId
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId
+  nameWithType: EmbeddedContent.ContentId
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId*
+  name: ContentId
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentId_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId
+  nameWithType: EmbeddedContent.ContentId
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
+  name: ContentParts
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentParts
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
+  nameWithType: EmbeddedContent.ContentParts
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts*
+  name: ContentParts
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentParts_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
+  nameWithType: EmbeddedContent.ContentParts
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName
+  name: ContentSourceProfileName
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentSourceProfileName
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName
+  nameWithType: EmbeddedContent.ContentSourceProfileName
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName*
+  name: ContentSourceProfileName
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentSourceProfileName_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName
+  nameWithType: EmbeddedContent.ContentSourceProfileName
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart
+  name: EmbeddedContentPart
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html
+  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart
+  nameWithType: EmbeddedContentPart
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Content
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content
+  nameWithType: EmbeddedContentPart.Content
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content*
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Content_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content
+  nameWithType: EmbeddedContentPart.Content
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
+  name: Embedding
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Embedding
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
+  nameWithType: EmbeddedContentPart.Embedding
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding*
+  name: Embedding
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Embedding_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
+  nameWithType: EmbeddedContentPart.Embedding
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding
+  name: Embedding
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html
+  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.Embedding
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding
+  nameWithType: Embedding
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.Int32)
+  name: Embedding(int)
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding__ctor_System_Int32_
+  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.Int32)
+  name.vb: New(Integer)
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Embedding(int)
+  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.New(Integer)
+  nameWithType: Embedding.Embedding(int)
+  nameWithType.vb: Embedding.New(Integer)
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.ReadOnlyMemory{System.Single})
+  name: Embedding(ReadOnlyMemory<float>)
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding__ctor_System_ReadOnlyMemory_System_Single__
+  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.ReadOnlyMemory{System.Single})
+  name.vb: New(ReadOnlyMemory(Of Single))
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Embedding(System.ReadOnlyMemory<float>)
+  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.New(System.ReadOnlyMemory(Of Single))
+  nameWithType: Embedding.Embedding(ReadOnlyMemory<float>)
+  nameWithType.vb: Embedding.New(ReadOnlyMemory(Of Single))
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.Single[])
+  name: Embedding(float[])
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding__ctor_System_Single___
+  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.Single[])
+  name.vb: New(Single())
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Embedding(float[])
+  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.New(Single())
+  nameWithType: Embedding.Embedding(float[])
+  nameWithType.vb: Embedding.New(Single())
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor*
+  name: Embedding
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Embedding
+  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.New
+  nameWithType: Embedding.Embedding
+  nameWithType.vb: Embedding.New
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  name: Equals(Embedding)
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Equals_FoundationaLLM_Common_Models_TextEmbedding_Embedding_
+  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  nameWithType: Embedding.Equals(Embedding)
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(System.Object)
+  name: Equals(object?)
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Equals_System_Object_
+  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(object?)
+  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(Object)
+  nameWithType: Embedding.Equals(object?)
+  nameWithType.vb: Embedding.Equals(Object)
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals*
+  name: Equals
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Equals_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals
+  nameWithType: Embedding.Equals
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode
+  name: GetHashCode()
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_GetHashCode
+  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode()
+  nameWithType: Embedding.GetHashCode()
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode*
+  name: GetHashCode
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_GetHashCode_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode
+  nameWithType: Embedding.GetHashCode
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter
+  name: Embedding.JsonConverter
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html
+  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter
+  nameWithType: Embedding.JsonConverter
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)
+  name: Read(ref Utf8JsonReader, Type, JsonSerializerOptions)
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_JsonConverter_Read_System_Text_Json_Utf8JsonReader__System_Type_System_Text_Json_JsonSerializerOptions_
+  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)
+  name.vb: Read(Utf8JsonReader, Type, JsonSerializerOptions)
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read(ref System.Text.Json.Utf8JsonReader, System.Type, System.Text.Json.JsonSerializerOptions)
+  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read(System.Text.Json.Utf8JsonReader, System.Type, System.Text.Json.JsonSerializerOptions)
+  nameWithType: Embedding.JsonConverter.Read(ref Utf8JsonReader, Type, JsonSerializerOptions)
+  nameWithType.vb: Embedding.JsonConverter.Read(Utf8JsonReader, Type, JsonSerializerOptions)
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read*
+  name: Read
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_JsonConverter_Read_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read
+  nameWithType: Embedding.JsonConverter.Read
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write(System.Text.Json.Utf8JsonWriter,FoundationaLLM.Common.Models.TextEmbedding.Embedding,System.Text.Json.JsonSerializerOptions)
+  name: Write(Utf8JsonWriter, Embedding, JsonSerializerOptions)
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_JsonConverter_Write_System_Text_Json_Utf8JsonWriter_FoundationaLLM_Common_Models_TextEmbedding_Embedding_System_Text_Json_JsonSerializerOptions_
+  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write(System.Text.Json.Utf8JsonWriter,FoundationaLLM.Common.Models.TextEmbedding.Embedding,System.Text.Json.JsonSerializerOptions)
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write(System.Text.Json.Utf8JsonWriter, FoundationaLLM.Common.Models.TextEmbedding.Embedding, System.Text.Json.JsonSerializerOptions)
+  nameWithType: Embedding.JsonConverter.Write(Utf8JsonWriter, Embedding, JsonSerializerOptions)
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write*
+  name: Write
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_JsonConverter_Write_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write
+  nameWithType: Embedding.JsonConverter.Write
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length
+  name: Length
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Length
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length
+  nameWithType: Embedding.Length
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length*
+  name: Length
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Length_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length
+  nameWithType: Embedding.Length
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector
+  name: Vector
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Vector
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector
+  nameWithType: Embedding.Vector
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector*
+  name: Vector
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Vector_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector
+  nameWithType: Embedding.Vector
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Equality(FoundationaLLM.Common.Models.TextEmbedding.Embedding,FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  name: operator ==(Embedding, Embedding)
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_op_Equality_FoundationaLLM_Common_Models_TextEmbedding_Embedding_FoundationaLLM_Common_Models_TextEmbedding_Embedding_
+  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Equality(FoundationaLLM.Common.Models.TextEmbedding.Embedding,FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  name.vb: =(Embedding, Embedding)
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.operator ==(FoundationaLLM.Common.Models.TextEmbedding.Embedding, FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.=(FoundationaLLM.Common.Models.TextEmbedding.Embedding, FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  nameWithType: Embedding.operator ==(Embedding, Embedding)
+  nameWithType.vb: Embedding.=(Embedding, Embedding)
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Equality*
+  name: operator ==
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_op_Equality_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Equality
+  isSpec: "True"
+  name.vb: =
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.operator ==
+  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.=
+  nameWithType: Embedding.operator ==
+  nameWithType.vb: Embedding.=
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Inequality(FoundationaLLM.Common.Models.TextEmbedding.Embedding,FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  name: operator !=(Embedding, Embedding)
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_op_Inequality_FoundationaLLM_Common_Models_TextEmbedding_Embedding_FoundationaLLM_Common_Models_TextEmbedding_Embedding_
+  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Inequality(FoundationaLLM.Common.Models.TextEmbedding.Embedding,FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  name.vb: <>(Embedding, Embedding)
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.operator !=(FoundationaLLM.Common.Models.TextEmbedding.Embedding, FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.<>(FoundationaLLM.Common.Models.TextEmbedding.Embedding, FoundationaLLM.Common.Models.TextEmbedding.Embedding)
+  nameWithType: Embedding.operator !=(Embedding, Embedding)
+  nameWithType.vb: Embedding.<>(Embedding, Embedding)
+- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Inequality*
+  name: operator !=
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_op_Inequality_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Inequality
+  isSpec: "True"
+  name.vb: <>
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.operator !=
+  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.<>
+  nameWithType: Embedding.operator !=
+  nameWithType.vb: Embedding.<>
 - uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute
   name: EmbeddingFieldAttribute
   href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.html
@@ -7783,6 +8248,44 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.Label
   nameWithType: EmbeddingFieldAttribute.Label
+- uid: FoundationaLLM.Common.Models.Vectorization
+  name: FoundationaLLM.Common.Models.Vectorization
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.html
+  commentId: N:FoundationaLLM.Common.Models.Vectorization
+  fullName: FoundationaLLM.Common.Models.Vectorization
+  nameWithType: FoundationaLLM.Common.Models.Vectorization
+- uid: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase
+  name: VectorizationProfileBase
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html
+  commentId: T:FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase
+  fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase
+  nameWithType: VectorizationProfileBase
+- uid: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html#FoundationaLLM_Common_Models_Vectorization_VectorizationProfileBase_Name
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Name
+  fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Name
+  nameWithType: VectorizationProfileBase.Name
+- uid: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html#FoundationaLLM_Common_Models_Vectorization_VectorizationProfileBase_Name_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Name
+  nameWithType: VectorizationProfileBase.Name
+- uid: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Settings
+  name: Settings
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html#FoundationaLLM_Common_Models_Vectorization_VectorizationProfileBase_Settings
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Settings
+  fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Settings
+  nameWithType: VectorizationProfileBase.Settings
+- uid: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Settings*
+  name: Settings
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html#FoundationaLLM_Common_Models_Vectorization_VectorizationProfileBase_Settings_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Settings
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Settings
+  nameWithType: VectorizationProfileBase.Settings
 - uid: FoundationaLLM.Common.OpenAPI
   name: FoundationaLLM.Common.OpenAPI
   href: api/dotnet/FoundationaLLM.Common.OpenAPI.html
@@ -8644,6 +9147,56 @@ references:
   fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.New
   nameWithType: ResourceProviderServiceBase.ResourceProviderServiceBase
   nameWithType.vb: ResourceProviderServiceBase.New
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource*
+  name: DeleteResource
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResource_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource
+  nameWithType: ResourceProviderServiceBase.DeleteResource
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync*
+  name: DeleteResourceAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResourceAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync
+  nameWithType: ResourceProviderServiceBase.DeleteResourceAsync
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name: DeleteResourceAsync<T>(List<ResourceTypeInstance>)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResourceAsync__1_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name.vb: DeleteResourceAsync(Of T)(List(Of ResourceTypeInstance))
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync<T>(System.Collections.Generic.List<FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance>)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync(Of T)(System.Collections.Generic.List(Of FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance))
+  nameWithType: ResourceProviderServiceBase.DeleteResourceAsync<T>(List<ResourceTypeInstance>)
+  nameWithType.vb: ResourceProviderServiceBase.DeleteResourceAsync(Of T)(List(Of ResourceTypeInstance))
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync``1(System.String)
+  name: DeleteResourceAsync<T>(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResourceAsync__1_System_String_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync``1(System.String)
+  name.vb: DeleteResourceAsync(Of T)(String)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync<T>(string)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync(Of T)(String)
+  nameWithType: ResourceProviderServiceBase.DeleteResourceAsync<T>(string)
+  nameWithType.vb: ResourceProviderServiceBase.DeleteResourceAsync(Of T)(String)
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name: DeleteResource<T>(List<ResourceTypeInstance>)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResource__1_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name.vb: DeleteResource(Of T)(List(Of ResourceTypeInstance))
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource<T>(System.Collections.Generic.List<FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance>)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource(Of T)(System.Collections.Generic.List(Of FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance))
+  nameWithType: ResourceProviderServiceBase.DeleteResource<T>(List<ResourceTypeInstance>)
+  nameWithType.vb: ResourceProviderServiceBase.DeleteResource(Of T)(List(Of ResourceTypeInstance))
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource``1(System.String)
+  name: DeleteResource<T>(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResource__1_System_String_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource``1(System.String)
+  name.vb: DeleteResource(Of T)(String)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource<T>(string)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResource(Of T)(String)
+  nameWithType: ResourceProviderServiceBase.DeleteResource<T>(string)
+  nameWithType.vb: ResourceProviderServiceBase.DeleteResource(Of T)(String)
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.ExecuteAction(System.String)
   name: ExecuteAction(string)
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_ExecuteAction_System_String_
@@ -8792,6 +9345,56 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Name
   nameWithType: ResourceProviderServiceBase.Name
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource*
+  name: UpsertResource
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResource_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource
+  nameWithType: ResourceProviderServiceBase.UpsertResource
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync*
+  name: UpsertResourceAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync
+  nameWithType: ResourceProviderServiceBase.UpsertResourceAsync
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance},``0)
+  name: UpsertResourceAsync<T>(List<ResourceTypeInstance>, T)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__1_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance____0_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance},``0)
+  name.vb: UpsertResourceAsync(Of T)(List(Of ResourceTypeInstance), T)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync<T>(System.Collections.Generic.List<FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance>, T)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync(Of T)(System.Collections.Generic.List(Of FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance), T)
+  nameWithType: ResourceProviderServiceBase.UpsertResourceAsync<T>(List<ResourceTypeInstance>, T)
+  nameWithType.vb: ResourceProviderServiceBase.UpsertResourceAsync(Of T)(List(Of ResourceTypeInstance), T)
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync``1(System.String,``0)
+  name: UpsertResourceAsync<T>(string, T)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__1_System_String___0_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync``1(System.String,``0)
+  name.vb: UpsertResourceAsync(Of T)(String, T)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync<T>(string, T)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync(Of T)(String, T)
+  nameWithType: ResourceProviderServiceBase.UpsertResourceAsync<T>(string, T)
+  nameWithType.vb: ResourceProviderServiceBase.UpsertResourceAsync(Of T)(String, T)
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance},``0)
+  name: UpsertResource<T>(List<ResourceTypeInstance>, T)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResource__1_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance____0_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance},``0)
+  name.vb: UpsertResource(Of T)(List(Of ResourceTypeInstance), T)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource<T>(System.Collections.Generic.List<FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance>, T)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource(Of T)(System.Collections.Generic.List(Of FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance), T)
+  nameWithType: ResourceProviderServiceBase.UpsertResource<T>(List<ResourceTypeInstance>, T)
+  nameWithType.vb: ResourceProviderServiceBase.UpsertResource(Of T)(List(Of ResourceTypeInstance), T)
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource``1(System.String,``0)
+  name: UpsertResource<T>(string, T)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResource__1_System_String___0_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource``1(System.String,``0)
+  name.vb: UpsertResource(Of T)(String, T)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource<T>(string, T)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResource(Of T)(String, T)
+  nameWithType: ResourceProviderServiceBase.UpsertResource<T>(string, T)
+  nameWithType.vb: ResourceProviderServiceBase.UpsertResource(Of T)(String, T)
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase._logger
   name: _logger
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__logger
@@ -9045,6 +9648,53 @@ references:
   commentId: F:FoundationaLLM.Common.Services.StorageServiceBase._logger
   fullName: FoundationaLLM.Common.Services.StorageServiceBase._logger
   nameWithType: StorageServiceBase._logger
+- uid: FoundationaLLM.Common.Services.TextSplitters
+  name: FoundationaLLM.Common.Services.TextSplitters
+  href: api/dotnet/FoundationaLLM.Common.Services.TextSplitters.html
+  commentId: N:FoundationaLLM.Common.Services.TextSplitters
+  fullName: FoundationaLLM.Common.Services.TextSplitters
+  nameWithType: FoundationaLLM.Common.Services.TextSplitters
+- uid: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService
+  name: TokenTextSplitterService
+  href: api/dotnet/FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.html
+  commentId: T:FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService
+  fullName: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService
+  nameWithType: TokenTextSplitterService
+- uid: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.#ctor(FoundationaLLM.Common.Interfaces.ITokenizerService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Text.TokenTextSplitterServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService})
+  name: TokenTextSplitterService(ITokenizerService, IOptions<TokenTextSplitterServiceSettings>, ILogger<TokenTextSplitterService>)
+  href: api/dotnet/FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.html#FoundationaLLM_Common_Services_TextSplitters_TokenTextSplitterService__ctor_FoundationaLLM_Common_Interfaces_ITokenizerService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Text_TokenTextSplitterServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_TextSplitters_TokenTextSplitterService__
+  commentId: M:FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.#ctor(FoundationaLLM.Common.Interfaces.ITokenizerService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Text.TokenTextSplitterServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService})
+  name.vb: New(ITokenizerService, IOptions(Of TokenTextSplitterServiceSettings), ILogger(Of TokenTextSplitterService))
+  fullName: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.TokenTextSplitterService(FoundationaLLM.Common.Interfaces.ITokenizerService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Text.TokenTextSplitterServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService>)
+  fullName.vb: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.New(FoundationaLLM.Common.Interfaces.ITokenizerService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Text.TokenTextSplitterServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService))
+  nameWithType: TokenTextSplitterService.TokenTextSplitterService(ITokenizerService, IOptions<TokenTextSplitterServiceSettings>, ILogger<TokenTextSplitterService>)
+  nameWithType.vb: TokenTextSplitterService.New(ITokenizerService, IOptions(Of TokenTextSplitterServiceSettings), ILogger(Of TokenTextSplitterService))
+- uid: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.#ctor*
+  name: TokenTextSplitterService
+  href: api/dotnet/FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.html#FoundationaLLM_Common_Services_TextSplitters_TokenTextSplitterService__ctor_
+  commentId: Overload:FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.TokenTextSplitterService
+  fullName.vb: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.New
+  nameWithType: TokenTextSplitterService.TokenTextSplitterService
+  nameWithType.vb: TokenTextSplitterService.New
+- uid: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.SplitPlainText(System.String)
+  name: SplitPlainText(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.html#FoundationaLLM_Common_Services_TextSplitters_TokenTextSplitterService_SplitPlainText_System_String_
+  commentId: M:FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.SplitPlainText(System.String)
+  name.vb: SplitPlainText(String)
+  fullName: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.SplitPlainText(string)
+  fullName.vb: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.SplitPlainText(String)
+  nameWithType: TokenTextSplitterService.SplitPlainText(string)
+  nameWithType.vb: TokenTextSplitterService.SplitPlainText(String)
+- uid: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.SplitPlainText*
+  name: SplitPlainText
+  href: api/dotnet/FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.html#FoundationaLLM_Common_Services_TextSplitters_TokenTextSplitterService_SplitPlainText_
+  commentId: Overload:FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.SplitPlainText
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.SplitPlainText
+  nameWithType: TokenTextSplitterService.SplitPlainText
 - uid: FoundationaLLM.Common.Services.Tokenizers
   name: FoundationaLLM.Common.Services.Tokenizers
   href: api/dotnet/FoundationaLLM.Common.Services.Tokenizers.html
@@ -9289,6 +9939,54 @@ references:
   commentId: N:FoundationaLLM.Common.Settings
   fullName: FoundationaLLM.Common.Settings
   nameWithType: FoundationaLLM.Common.Settings
+- uid: FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes
+  name: AzureAISearchAuthenticationTypes
+  href: api/dotnet/FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.html
+  commentId: T:FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes
+  fullName: FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes
+  nameWithType: AzureAISearchAuthenticationTypes
+- uid: FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.APIKey
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.html#FoundationaLLM_Common_Settings_AzureAISearchAuthenticationTypes_APIKey
+  commentId: F:FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.APIKey
+  fullName: FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.APIKey
+  nameWithType: AzureAISearchAuthenticationTypes.APIKey
+- uid: FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.AzureIdentity
+  name: AzureIdentity
+  href: api/dotnet/FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.html#FoundationaLLM_Common_Settings_AzureAISearchAuthenticationTypes_AzureIdentity
+  commentId: F:FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.AzureIdentity
+  fullName: FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.AzureIdentity
+  nameWithType: AzureAISearchAuthenticationTypes.AzureIdentity
+- uid: FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.Unknown
+  name: Unknown
+  href: api/dotnet/FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.html#FoundationaLLM_Common_Settings_AzureAISearchAuthenticationTypes_Unknown
+  commentId: F:FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.Unknown
+  fullName: FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.Unknown
+  nameWithType: AzureAISearchAuthenticationTypes.Unknown
+- uid: FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes
+  name: AzureOpenAIAuthenticationTypes
+  href: api/dotnet/FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.html
+  commentId: T:FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes
+  fullName: FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes
+  nameWithType: AzureOpenAIAuthenticationTypes
+- uid: FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.APIKey
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.html#FoundationaLLM_Common_Settings_AzureOpenAIAuthenticationTypes_APIKey
+  commentId: F:FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.APIKey
+  fullName: FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.APIKey
+  nameWithType: AzureOpenAIAuthenticationTypes.APIKey
+- uid: FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.AzureIdentity
+  name: AzureIdentity
+  href: api/dotnet/FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.html#FoundationaLLM_Common_Settings_AzureOpenAIAuthenticationTypes_AzureIdentity
+  commentId: F:FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.AzureIdentity
+  fullName: FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.AzureIdentity
+  nameWithType: AzureOpenAIAuthenticationTypes.AzureIdentity
+- uid: FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.Unknown
+  name: Unknown
+  href: api/dotnet/FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.html#FoundationaLLM_Common_Settings_AzureOpenAIAuthenticationTypes_Unknown
+  commentId: F:FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.Unknown
+  fullName: FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.Unknown
+  nameWithType: AzureOpenAIAuthenticationTypes.Unknown
 - uid: FoundationaLLM.Common.Settings.BlobStorageAuthenticationTypes
   name: BlobStorageAuthenticationTypes
   href: api/dotnet/FoundationaLLM.Common.Settings.BlobStorageAuthenticationTypes.html
@@ -13728,6 +14426,118 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.SemanticKernel.Core.Interfaces.ITokenizer.GetTokensCount
   nameWithType: ITokenizer.GetTokensCount
+- uid: FoundationaLLM.SemanticKernel.Core.Models
+  name: FoundationaLLM.SemanticKernel.Core.Models
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.html
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration
+  name: FoundationaLLM.SemanticKernel.Core.Models.Configuration
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.html
+  commentId: N:FoundationaLLM.SemanticKernel.Core.Models.Configuration
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration
+  nameWithType: FoundationaLLM.SemanticKernel.Core.Models.Configuration
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings
+  name: AzureAISearchIndexingServiceSettings
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.html
+  commentId: T:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings
+  nameWithType: AzureAISearchIndexingServiceSettings
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.APIKey
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureAISearchIndexingServiceSettings_APIKey
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.APIKey
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.APIKey
+  nameWithType: AzureAISearchIndexingServiceSettings.APIKey
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.APIKey*
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureAISearchIndexingServiceSettings_APIKey_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.APIKey
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.APIKey
+  nameWithType: AzureAISearchIndexingServiceSettings.APIKey
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.AuthenticationType
+  name: AuthenticationType
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureAISearchIndexingServiceSettings_AuthenticationType
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.AuthenticationType
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.AuthenticationType
+  nameWithType: AzureAISearchIndexingServiceSettings.AuthenticationType
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.AuthenticationType*
+  name: AuthenticationType
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureAISearchIndexingServiceSettings_AuthenticationType_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.AuthenticationType
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.AuthenticationType
+  nameWithType: AzureAISearchIndexingServiceSettings.AuthenticationType
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.Endpoint
+  name: Endpoint
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureAISearchIndexingServiceSettings_Endpoint
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.Endpoint
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.Endpoint
+  nameWithType: AzureAISearchIndexingServiceSettings.Endpoint
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.Endpoint*
+  name: Endpoint
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureAISearchIndexingServiceSettings_Endpoint_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.Endpoint
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.Endpoint
+  nameWithType: AzureAISearchIndexingServiceSettings.Endpoint
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings
+  name: SemanticKernelTextEmbeddingServiceSettings
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html
+  commentId: T:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings
+  nameWithType: SemanticKernelTextEmbeddingServiceSettings
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.APIKey
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_APIKey
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.APIKey
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.APIKey
+  nameWithType: SemanticKernelTextEmbeddingServiceSettings.APIKey
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.APIKey*
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_APIKey_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.APIKey
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.APIKey
+  nameWithType: SemanticKernelTextEmbeddingServiceSettings.APIKey
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.AuthenticationType
+  name: AuthenticationType
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_AuthenticationType
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.AuthenticationType
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.AuthenticationType
+  nameWithType: SemanticKernelTextEmbeddingServiceSettings.AuthenticationType
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.AuthenticationType*
+  name: AuthenticationType
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_AuthenticationType_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.AuthenticationType
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.AuthenticationType
+  nameWithType: SemanticKernelTextEmbeddingServiceSettings.AuthenticationType
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.DeploymentName
+  name: DeploymentName
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_DeploymentName
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.DeploymentName
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.DeploymentName
+  nameWithType: SemanticKernelTextEmbeddingServiceSettings.DeploymentName
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.DeploymentName*
+  name: DeploymentName
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_DeploymentName_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.DeploymentName
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.DeploymentName
+  nameWithType: SemanticKernelTextEmbeddingServiceSettings.DeploymentName
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.Endpoint
+  name: Endpoint
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_Endpoint
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.Endpoint
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.Endpoint
+  nameWithType: SemanticKernelTextEmbeddingServiceSettings.Endpoint
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.Endpoint*
+  name: Endpoint
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_Endpoint_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.Endpoint
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.Endpoint
+  nameWithType: SemanticKernelTextEmbeddingServiceSettings.Endpoint
 - uid: FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions
   name: FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.html
@@ -14137,6 +14947,47 @@ references:
   commentId: N:FoundationaLLM.SemanticKernel.Core.Services
   fullName: FoundationaLLM.SemanticKernel.Core.Services
   nameWithType: FoundationaLLM.SemanticKernel.Core.Services
+- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService
+  name: AzureAISearchIndexingService
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html
+  commentId: T:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService
+  nameWithType: AzureAISearchIndexingService
+- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService})
+  name: AzureAISearchIndexingService(IOptions<AzureAISearchIndexingServiceSettings>, ILogger<AzureAISearchIndexingService>)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureAISearchIndexingServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService__
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService})
+  name.vb: New(IOptions(Of AzureAISearchIndexingServiceSettings), ILogger(Of AzureAISearchIndexingService))
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.AzureAISearchIndexingService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService>)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService))
+  nameWithType: AzureAISearchIndexingService.AzureAISearchIndexingService(IOptions<AzureAISearchIndexingServiceSettings>, ILogger<AzureAISearchIndexingService>)
+  nameWithType.vb: AzureAISearchIndexingService.New(IOptions(Of AzureAISearchIndexingServiceSettings), ILogger(Of AzureAISearchIndexingService))
+- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.#ctor*
+  name: AzureAISearchIndexingService
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService__ctor_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.AzureAISearchIndexingService
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.New
+  nameWithType: AzureAISearchIndexingService.AzureAISearchIndexingService
+  nameWithType.vb: AzureAISearchIndexingService.New
+- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent,System.String)
+  name: IndexEmbeddingsAsync(EmbeddedContent, string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService_IndexEmbeddingsAsync_FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent,System.String)
+  name.vb: IndexEmbeddingsAsync(EmbeddedContent, String)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent, String)
+  nameWithType: AzureAISearchIndexingService.IndexEmbeddingsAsync(EmbeddedContent, string)
+  nameWithType.vb: AzureAISearchIndexingService.IndexEmbeddingsAsync(EmbeddedContent, String)
+- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync*
+  name: IndexEmbeddingsAsync
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService_IndexEmbeddingsAsync_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync
+  nameWithType: AzureAISearchIndexingService.IndexEmbeddingsAsync
 - uid: FoundationaLLM.SemanticKernel.Core.Services.DurableSystemPromptService
   name: DurableSystemPromptService
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.DurableSystemPromptService.html
@@ -14302,6 +15153,63 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.RemoveMemory
   nameWithType: SemanticKernelService.RemoveMemory
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService
+  name: SemanticKernelTextEmbeddingService
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html
+  commentId: T:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService
+  nameWithType: SemanticKernelTextEmbeddingService
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService})
+  name: SemanticKernelTextEmbeddingService(IOptions<SemanticKernelTextEmbeddingServiceSettings>, ILogger<SemanticKernelTextEmbeddingService>)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService})
+  name.vb: New(IOptions(Of SemanticKernelTextEmbeddingServiceSettings), ILogger(Of SemanticKernelTextEmbeddingService))
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.SemanticKernelTextEmbeddingService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService>)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService))
+  nameWithType: SemanticKernelTextEmbeddingService.SemanticKernelTextEmbeddingService(IOptions<SemanticKernelTextEmbeddingServiceSettings>, ILogger<SemanticKernelTextEmbeddingService>)
+  nameWithType.vb: SemanticKernelTextEmbeddingService.New(IOptions(Of SemanticKernelTextEmbeddingServiceSettings), ILogger(Of SemanticKernelTextEmbeddingService))
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor*
+  name: SemanticKernelTextEmbeddingService
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__ctor_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.SemanticKernelTextEmbeddingService
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.New
+  nameWithType: SemanticKernelTextEmbeddingService.SemanticKernelTextEmbeddingService
+  nameWithType.vb: SemanticKernelTextEmbeddingService.New
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingAsync(System.String)
+  name: GetEmbeddingAsync(string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService_GetEmbeddingAsync_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingAsync(System.String)
+  name.vb: GetEmbeddingAsync(String)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingAsync(string)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingAsync(String)
+  nameWithType: SemanticKernelTextEmbeddingService.GetEmbeddingAsync(string)
+  nameWithType.vb: SemanticKernelTextEmbeddingService.GetEmbeddingAsync(String)
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingAsync*
+  name: GetEmbeddingAsync
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService_GetEmbeddingAsync_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingAsync
+  nameWithType: SemanticKernelTextEmbeddingService.GetEmbeddingAsync
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList{System.String})
+  name: GetEmbeddingsAsync(IList<string>)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService_GetEmbeddingsAsync_System_Collections_Generic_IList_System_String__
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList{System.String})
+  name.vb: GetEmbeddingsAsync(IList(Of String))
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList<string>)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList(Of String))
+  nameWithType: SemanticKernelTextEmbeddingService.GetEmbeddingsAsync(IList<string>)
+  nameWithType.vb: SemanticKernelTextEmbeddingService.GetEmbeddingsAsync(IList(Of String))
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync*
+  name: GetEmbeddingsAsync
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService_GetEmbeddingsAsync_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync
+  nameWithType: SemanticKernelTextEmbeddingService.GetEmbeddingsAsync
 - uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTokenizer
   name: SemanticKernelTokenizer
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTokenizer.html
@@ -15674,57 +16582,44 @@ references:
   commentId: N:FoundationaLLM.Vectorization.Models.Resources
   fullName: FoundationaLLM.Vectorization.Models.Resources
   nameWithType: FoundationaLLM.Vectorization.Models.Resources
-- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSource
-  name: ContentSource
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSource.html
-  commentId: T:FoundationaLLM.Vectorization.Models.Resources.ContentSource
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSource
-  nameWithType: ContentSource
-- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSource.Name
-  name: Name
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSource.html#FoundationaLLM_Vectorization_Models_Resources_ContentSource_Name
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ContentSource.Name
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSource.Name
-  nameWithType: ContentSource.Name
-- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSource.Name*
-  name: Name
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSource.html#FoundationaLLM_Vectorization_Models_Resources_ContentSource_Name_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ContentSource.Name
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSource.Name
-  nameWithType: ContentSource.Name
-- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSource.Type
+- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile
+  name: ContentSourceProfile
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile
+  nameWithType: ContentSourceProfile
+- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type
   name: Type
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSource.html#FoundationaLLM_Vectorization_Models_Resources_ContentSource_Type
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ContentSource.Type
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSource.Type
-  nameWithType: ContentSource.Type
-- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSource.Type*
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceProfile_Type
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type
+  nameWithType: ContentSourceProfile.Type
+- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type*
   name: Type
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSource.html#FoundationaLLM_Vectorization_Models_Resources_ContentSource_Type_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ContentSource.Type
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceProfile_Type_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSource.Type
-  nameWithType: ContentSource.Type
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type
+  nameWithType: ContentSourceProfile.Type
 - uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore
   name: ContentSourceStore
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.html
   commentId: T:FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore
   fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore
   nameWithType: ContentSourceStore
-- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSources
-  name: ContentSources
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceStore_ContentSources
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSources
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSources
-  nameWithType: ContentSourceStore.ContentSources
-- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSources*
-  name: ContentSources
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceStore_ContentSources_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSources
+- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSourceProfiles
+  name: ContentSourceProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceStore_ContentSourceProfiles
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSourceProfiles
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSourceProfiles
+  nameWithType: ContentSourceStore.ContentSourceProfiles
+- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSourceProfiles*
+  name: ContentSourceProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceStore_ContentSourceProfiles_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSourceProfiles
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSources
-  nameWithType: ContentSourceStore.ContentSources
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.ContentSourceProfiles
+  nameWithType: ContentSourceStore.ContentSourceProfiles
 - uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType
   name: ContentSourceType
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.html
@@ -15737,70 +16632,144 @@ references:
   commentId: F:FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.AzureDataLake
   fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.AzureDataLake
   nameWithType: ContentSourceType.AzureDataLake
-- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile
-  name: TextPartitionProfile
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.html
-  commentId: T:FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile
-  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile
-  nameWithType: TextPartitionProfile
-- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.Name
-  name: Name
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitionProfile_Name
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.Name
-  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.Name
-  nameWithType: TextPartitionProfile.Name
-- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.Name*
-  name: Name
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitionProfile_Name_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.Name
+- uid: FoundationaLLM.Vectorization.Models.Resources.IndexerType
+  name: IndexerType
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexerType.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.IndexerType
+  fullName: FoundationaLLM.Vectorization.Models.Resources.IndexerType
+  nameWithType: IndexerType
+- uid: FoundationaLLM.Vectorization.Models.Resources.IndexerType.AzureAISearchIndexer
+  name: AzureAISearchIndexer
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexerType.html#FoundationaLLM_Vectorization_Models_Resources_IndexerType_AzureAISearchIndexer
+  commentId: F:FoundationaLLM.Vectorization.Models.Resources.IndexerType.AzureAISearchIndexer
+  fullName: FoundationaLLM.Vectorization.Models.Resources.IndexerType.AzureAISearchIndexer
+  nameWithType: IndexerType.AzureAISearchIndexer
+- uid: FoundationaLLM.Vectorization.Models.Resources.IndexingProfile
+  name: IndexingProfile
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.IndexingProfile
+  fullName: FoundationaLLM.Vectorization.Models.Resources.IndexingProfile
+  nameWithType: IndexingProfile
+- uid: FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.Indexer
+  name: Indexer
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.html#FoundationaLLM_Vectorization_Models_Resources_IndexingProfile_Indexer
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.Indexer
+  fullName: FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.Indexer
+  nameWithType: IndexingProfile.Indexer
+- uid: FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.Indexer*
+  name: Indexer
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.html#FoundationaLLM_Vectorization_Models_Resources_IndexingProfile_Indexer_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.Indexer
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.Name
-  nameWithType: TextPartitionProfile.Name
-- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitter
+  fullName: FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.Indexer
+  nameWithType: IndexingProfile.Indexer
+- uid: FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore
+  name: IndexingProfileStore
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore
+  fullName: FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore
+  nameWithType: IndexingProfileStore
+- uid: FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.IndexingProfiles
+  name: IndexingProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.html#FoundationaLLM_Vectorization_Models_Resources_IndexingProfileStore_IndexingProfiles
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.IndexingProfiles
+  fullName: FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.IndexingProfiles
+  nameWithType: IndexingProfileStore.IndexingProfiles
+- uid: FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.IndexingProfiles*
+  name: IndexingProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.html#FoundationaLLM_Vectorization_Models_Resources_IndexingProfileStore_IndexingProfiles_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.IndexingProfiles
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.IndexingProfiles
+  nameWithType: IndexingProfileStore.IndexingProfiles
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile
+  name: TextEmbeddingProfile
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile
+  nameWithType: TextEmbeddingProfile
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.TextEmbedding
+  name: TextEmbedding
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.html#FoundationaLLM_Vectorization_Models_Resources_TextEmbeddingProfile_TextEmbedding
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.TextEmbedding
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.TextEmbedding
+  nameWithType: TextEmbeddingProfile.TextEmbedding
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.TextEmbedding*
+  name: TextEmbedding
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.html#FoundationaLLM_Vectorization_Models_Resources_TextEmbeddingProfile_TextEmbedding_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.TextEmbedding
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.TextEmbedding
+  nameWithType: TextEmbeddingProfile.TextEmbedding
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore
+  name: TextEmbeddingProfileStore
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore
+  nameWithType: TextEmbeddingProfileStore
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.TextEmbeddingProfiles
+  name: TextEmbeddingProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.html#FoundationaLLM_Vectorization_Models_Resources_TextEmbeddingProfileStore_TextEmbeddingProfiles
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.TextEmbeddingProfiles
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.TextEmbeddingProfiles
+  nameWithType: TextEmbeddingProfileStore.TextEmbeddingProfiles
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.TextEmbeddingProfiles*
+  name: TextEmbeddingProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.html#FoundationaLLM_Vectorization_Models_Resources_TextEmbeddingProfileStore_TextEmbeddingProfiles_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.TextEmbeddingProfiles
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.TextEmbeddingProfiles
+  nameWithType: TextEmbeddingProfileStore.TextEmbeddingProfiles
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType
+  name: TextEmbeddingType
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType
+  nameWithType: TextEmbeddingType
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType.SemanticKernelTextEmbedding
+  name: SemanticKernelTextEmbedding
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType.html#FoundationaLLM_Vectorization_Models_Resources_TextEmbeddingType_SemanticKernelTextEmbedding
+  commentId: F:FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType.SemanticKernelTextEmbedding
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType.SemanticKernelTextEmbedding
+  nameWithType: TextEmbeddingType.SemanticKernelTextEmbedding
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile
+  name: TextPartitioningProfile
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile
+  nameWithType: TextPartitioningProfile
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.TextSplitter
   name: TextSplitter
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitionProfile_TextSplitter
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitter
-  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitter
-  nameWithType: TextPartitionProfile.TextSplitter
-- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitter*
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitioningProfile_TextSplitter
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.TextSplitter
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.TextSplitter
+  nameWithType: TextPartitioningProfile.TextSplitter
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.TextSplitter*
   name: TextSplitter
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitionProfile_TextSplitter_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitter
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitioningProfile_TextSplitter_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.TextSplitter
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitter
-  nameWithType: TextPartitionProfile.TextSplitter
-- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitterSettings
-  name: TextSplitterSettings
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitionProfile_TextSplitterSettings
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitterSettings
-  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitterSettings
-  nameWithType: TextPartitionProfile.TextSplitterSettings
-- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitterSettings*
-  name: TextSplitterSettings
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitionProfile_TextSplitterSettings_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitterSettings
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.TextSplitterSettings
-  nameWithType: TextPartitionProfile.TextSplitterSettings
-- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore
-  name: TextPartitionProfileStore
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.html
-  commentId: T:FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore
-  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore
-  nameWithType: TextPartitionProfileStore
-- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.TextPartitioningProfiles
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.TextSplitter
+  nameWithType: TextPartitioningProfile.TextSplitter
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore
+  name: TextPartitioningProfileStore
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore
+  nameWithType: TextPartitioningProfileStore
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.TextPartitioningProfiles
   name: TextPartitioningProfiles
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitionProfileStore_TextPartitioningProfiles
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.TextPartitioningProfiles
-  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.TextPartitioningProfiles
-  nameWithType: TextPartitionProfileStore.TextPartitioningProfiles
-- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.TextPartitioningProfiles*
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitioningProfileStore_TextPartitioningProfiles
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.TextPartitioningProfiles
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.TextPartitioningProfiles
+  nameWithType: TextPartitioningProfileStore.TextPartitioningProfiles
+- uid: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.TextPartitioningProfiles*
   name: TextPartitioningProfiles
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitionProfileStore_TextPartitioningProfiles_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.TextPartitioningProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.html#FoundationaLLM_Vectorization_Models_Resources_TextPartitioningProfileStore_TextPartitioningProfiles_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.TextPartitioningProfiles
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.TextPartitioningProfiles
-  nameWithType: TextPartitionProfileStore.TextPartitioningProfiles
+  fullName: FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.TextPartitioningProfiles
+  nameWithType: TextPartitioningProfileStore.TextPartitioningProfiles
 - uid: FoundationaLLM.Vectorization.Models.Resources.TextSplitterType
   name: TextSplitterType
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextSplitterType.html
@@ -15908,51 +16877,6 @@ references:
   commentId: F:FoundationaLLM.Vectorization.Models.VectorizationArtifactType.TextPartition
   fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifactType.TextPartition
   nameWithType: VectorizationArtifactType.TextPartition
-- uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier
-  name: VectorizationContentIdentifier
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html
-  commentId: T:FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier
-  nameWithType: VectorizationContentIdentifier
-- uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.CanonicalId
-  name: CanonicalId
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html#FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_CanonicalId
-  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.CanonicalId
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.CanonicalId
-  nameWithType: VectorizationContentIdentifier.CanonicalId
-- uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.CanonicalId*
-  name: CanonicalId
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html#FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_CanonicalId_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.CanonicalId
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.CanonicalId
-  nameWithType: VectorizationContentIdentifier.CanonicalId
-- uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId
-  name: MultipartId
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html#FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_MultipartId
-  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId
-  nameWithType: VectorizationContentIdentifier.MultipartId
-- uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId*
-  name: MultipartId
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html#FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_MultipartId_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.MultipartId
-  nameWithType: VectorizationContentIdentifier.MultipartId
-- uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId
-  name: UniqueId
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html#FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_UniqueId
-  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId
-  nameWithType: VectorizationContentIdentifier.UniqueId
-- uid: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId*
-  name: UniqueId
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html#FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_UniqueId_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.UniqueId
-  nameWithType: VectorizationContentIdentifier.UniqueId
 - uid: FoundationaLLM.Vectorization.Models.VectorizationLogEntry
   name: VectorizationLogEntry
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationLogEntry.html
@@ -16248,6 +17172,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.VectorizationState.ContentIdentifier
   nameWithType: VectorizationState.ContentIdentifier
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName
+  name: ContentSourceProfileName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_ContentSourceProfileName
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName
+  nameWithType: VectorizationState.ContentSourceProfileName
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName*
+  name: ContentSourceProfileName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_ContentSourceProfileName_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName
+  nameWithType: VectorizationState.ContentSourceProfileName
 - uid: FoundationaLLM.Vectorization.Models.VectorizationState.CurrentRequestId
   name: CurrentRequestId
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_CurrentRequestId
@@ -16475,18 +17412,30 @@ references:
   commentId: T:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames
   fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames
   nameWithType: VectorizationResourceTypeNames
-- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.ContentSources
-  name: ContentSources
-  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceTypeNames_ContentSources
-  commentId: F:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.ContentSources
-  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.ContentSources
-  nameWithType: VectorizationResourceTypeNames.ContentSources
-- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.TextPartitionProfiles
-  name: TextPartitionProfiles
-  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceTypeNames_TextPartitionProfiles
-  commentId: F:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.TextPartitionProfiles
-  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.TextPartitionProfiles
-  nameWithType: VectorizationResourceTypeNames.TextPartitionProfiles
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.ContentSourceProfiles
+  name: ContentSourceProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceTypeNames_ContentSourceProfiles
+  commentId: F:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.ContentSourceProfiles
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.ContentSourceProfiles
+  nameWithType: VectorizationResourceTypeNames.ContentSourceProfiles
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.IndexingProfiles
+  name: IndexingProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceTypeNames_IndexingProfiles
+  commentId: F:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.IndexingProfiles
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.IndexingProfiles
+  nameWithType: VectorizationResourceTypeNames.IndexingProfiles
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.TextEmbeddingProfiles
+  name: TextEmbeddingProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceTypeNames_TextEmbeddingProfiles
+  commentId: F:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.TextEmbeddingProfiles
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.TextEmbeddingProfiles
+  nameWithType: VectorizationResourceTypeNames.TextEmbeddingProfiles
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.TextPartitioningProfiles
+  name: TextPartitioningProfiles
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceTypeNames_TextPartitioningProfiles
+  commentId: F:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.TextPartitioningProfiles
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceTypeNames.TextPartitioningProfiles
+  nameWithType: VectorizationResourceTypeNames.TextPartitioningProfiles
 - uid: FoundationaLLM.Vectorization.Services
   name: FoundationaLLM.Vectorization.Services
   href: api/dotnet/FoundationaLLM.Vectorization.Services.html
@@ -16546,22 +17495,38 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.New
   nameWithType: ContentSourceServiceFactory.ContentSourceServiceFactory
   nameWithType.vb: ContentSourceServiceFactory.New
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.CreateService(System.String)
-  name: CreateService(string)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_CreateService_System_String_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.CreateService(System.String)
-  name.vb: CreateService(String)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.CreateService(string)
-  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.CreateService(String)
-  nameWithType: ContentSourceServiceFactory.CreateService(string)
-  nameWithType.vb: ContentSourceServiceFactory.CreateService(String)
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.CreateService*
-  name: CreateService
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_CreateService_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.CreateService
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetService(System.String)
+  name: GetService(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetService_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetService(System.String)
+  name.vb: GetService(String)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetService(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetService(String)
+  nameWithType: ContentSourceServiceFactory.GetService(string)
+  nameWithType.vb: ContentSourceServiceFactory.GetService(String)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetService*
+  name: GetService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetService_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetService
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.CreateService
-  nameWithType: ContentSourceServiceFactory.CreateService
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetService
+  nameWithType: ContentSourceServiceFactory.GetService
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile(System.String)
+  name: GetServiceWithProfile(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetServiceWithProfile_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile(System.String)
+  name.vb: GetServiceWithProfile(String)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile(String)
+  nameWithType: ContentSourceServiceFactory.GetServiceWithProfile(string)
+  nameWithType.vb: ContentSourceServiceFactory.GetServiceWithProfile(String)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile*
+  name: GetServiceWithProfile
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetServiceWithProfile_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile
+  nameWithType: ContentSourceServiceFactory.GetServiceWithProfile
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService
   name: DataLakeContentSourceService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html
@@ -16976,6 +17941,120 @@ references:
   commentId: N:FoundationaLLM.Vectorization.Services.Text
   fullName: FoundationaLLM.Vectorization.Services.Text
   nameWithType: FoundationaLLM.Vectorization.Services.Text
+- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory
+  name: IndexingServiceFactory
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html
+  commentId: T:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory
+  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory
+  nameWithType: IndexingServiceFactory
+- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: IndexingServiceFactory(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory__ctor_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.IndexingServiceFactory(FoundationaLLM.Common.Interfaces.IResourceProviderService, Microsoft.Extensions.Configuration.IConfiguration, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.New(FoundationaLLM.Common.Interfaces.IResourceProviderService, Microsoft.Extensions.Configuration.IConfiguration, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: IndexingServiceFactory.IndexingServiceFactory(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
+  nameWithType.vb: IndexingServiceFactory.New(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.#ctor*
+  name: IndexingServiceFactory
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.IndexingServiceFactory
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.New
+  nameWithType: IndexingServiceFactory.IndexingServiceFactory
+  nameWithType.vb: IndexingServiceFactory.New
+- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService(System.String)
+  name: GetService(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetService_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService(System.String)
+  name.vb: GetService(String)
+  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService(String)
+  nameWithType: IndexingServiceFactory.GetService(string)
+  nameWithType.vb: IndexingServiceFactory.GetService(String)
+- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService*
+  name: GetService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetService_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService
+  nameWithType: IndexingServiceFactory.GetService
+- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile(System.String)
+  name: GetServiceWithProfile(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetServiceWithProfile_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile(System.String)
+  name.vb: GetServiceWithProfile(String)
+  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile(String)
+  nameWithType: IndexingServiceFactory.GetServiceWithProfile(string)
+  nameWithType.vb: IndexingServiceFactory.GetServiceWithProfile(String)
+- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile*
+  name: GetServiceWithProfile
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetServiceWithProfile_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile
+  nameWithType: IndexingServiceFactory.GetServiceWithProfile
+- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory
+  name: TextEmbeddingServiceFactory
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html
+  commentId: T:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory
+  nameWithType: TextEmbeddingServiceFactory
+- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: TextEmbeddingServiceFactory(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory__ctor_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.TextEmbeddingServiceFactory(FoundationaLLM.Common.Interfaces.IResourceProviderService, Microsoft.Extensions.Configuration.IConfiguration, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.New(FoundationaLLM.Common.Interfaces.IResourceProviderService, Microsoft.Extensions.Configuration.IConfiguration, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: TextEmbeddingServiceFactory.TextEmbeddingServiceFactory(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
+  nameWithType.vb: TextEmbeddingServiceFactory.New(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.#ctor*
+  name: TextEmbeddingServiceFactory
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.TextEmbeddingServiceFactory
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.New
+  nameWithType: TextEmbeddingServiceFactory.TextEmbeddingServiceFactory
+  nameWithType.vb: TextEmbeddingServiceFactory.New
+- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService(System.String)
+  name: GetService(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetService_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService(System.String)
+  name.vb: GetService(String)
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService(String)
+  nameWithType: TextEmbeddingServiceFactory.GetService(string)
+  nameWithType.vb: TextEmbeddingServiceFactory.GetService(String)
+- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService*
+  name: GetService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetService_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService
+  nameWithType: TextEmbeddingServiceFactory.GetService
+- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile(System.String)
+  name: GetServiceWithProfile(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetServiceWithProfile_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile(System.String)
+  name.vb: GetServiceWithProfile(String)
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile(String)
+  nameWithType: TextEmbeddingServiceFactory.GetServiceWithProfile(string)
+  nameWithType.vb: TextEmbeddingServiceFactory.GetServiceWithProfile(String)
+- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile*
+  name: GetServiceWithProfile
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetServiceWithProfile_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile
+  nameWithType: TextEmbeddingServiceFactory.GetServiceWithProfile
 - uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory
   name: TextSplitterServiceFactory
   href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html
@@ -17001,22 +18080,38 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.New
   nameWithType: TextSplitterServiceFactory.TextSplitterServiceFactory
   nameWithType.vb: TextSplitterServiceFactory.New
-- uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.CreateService(System.String)
-  name: CreateService(string)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_CreateService_System_String_
-  commentId: M:FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.CreateService(System.String)
-  name.vb: CreateService(String)
-  fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.CreateService(string)
-  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.CreateService(String)
-  nameWithType: TextSplitterServiceFactory.CreateService(string)
-  nameWithType.vb: TextSplitterServiceFactory.CreateService(String)
-- uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.CreateService*
-  name: CreateService
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_CreateService_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.CreateService
+- uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetService(System.String)
+  name: GetService(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetService_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetService(System.String)
+  name.vb: GetService(String)
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetService(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetService(String)
+  nameWithType: TextSplitterServiceFactory.GetService(string)
+  nameWithType.vb: TextSplitterServiceFactory.GetService(String)
+- uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetService*
+  name: GetService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetService_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetService
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.CreateService
-  nameWithType: TextSplitterServiceFactory.CreateService
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetService
+  nameWithType: TextSplitterServiceFactory.GetService
+- uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile(System.String)
+  name: GetServiceWithProfile(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetServiceWithProfile_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile(System.String)
+  name.vb: GetServiceWithProfile(String)
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile(String)
+  nameWithType: TextSplitterServiceFactory.GetServiceWithProfile(string)
+  nameWithType.vb: TextSplitterServiceFactory.GetServiceWithProfile(String)
+- uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile*
+  name: GetServiceWithProfile
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetServiceWithProfile_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile
+  nameWithType: TextSplitterServiceFactory.GetServiceWithProfile
 - uid: FoundationaLLM.Vectorization.Services.VectorizationService
   name: VectorizationService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationService.html
@@ -17202,12 +18297,12 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase
   nameWithType: VectorizationStateServiceBase
-- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  name: GetPersistenceIdentifier(VectorizationContentIdentifier)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  nameWithType: VectorizationStateServiceBase.GetPersistenceIdentifier(VectorizationContentIdentifier)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
+  name: GetPersistenceIdentifier(ContentIdentifier)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
+  nameWithType: VectorizationStateServiceBase.GetPersistenceIdentifier(ContentIdentifier)
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier*
   name: GetPersistenceIdentifier
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_
@@ -17215,12 +18310,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier
   nameWithType: VectorizationStateServiceBase.GetPersistenceIdentifier
-- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  name: HashContentIdentifier(VectorizationContentIdentifier)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashContentIdentifier_FoundationaLLM_Vectorization_Models_VectorizationContentIdentifier_
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier)
-  nameWithType: VectorizationStateServiceBase.HashContentIdentifier(VectorizationContentIdentifier)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
+  name: HashContentIdentifier(ContentIdentifier)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashContentIdentifier_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
+  nameWithType: VectorizationStateServiceBase.HashContentIdentifier(ContentIdentifier)
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier*
   name: HashContentIdentifier
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashContentIdentifier_

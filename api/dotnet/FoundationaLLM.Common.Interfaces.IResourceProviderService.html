@@ -196,6 +196,89 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_DeleteResourceAsync_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResourceAsync*"></a>
+
+  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_DeleteResourceAsync__1_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResourceAsync``1(System.String)">
+  DeleteResourceAsync&lt;T&gt;(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Deletes a resource based on its logical path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task DeleteResourceAsync&lt;T&gt;(string resourcePath) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The logical path of the resource.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of the resource.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_DeleteResource_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResource*"></a>
+
+  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_DeleteResource__1_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResource``1(System.String)">
+  DeleteResource&lt;T&gt;(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Deletes a resource based on its logical path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void DeleteResource&lt;T&gt;(string resourcePath) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The logical path of the resource.</p>
+</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of the resource.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_ExecuteAction_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.ExecuteAction*"></a>
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_ExecuteAction_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.ExecuteAction(System.String)">
@@ -253,7 +336,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The logical path of the requested resource.</p>
+    <dd><p>The logical path of the resource.</p>
 </dd>
   </dl>
 
@@ -267,7 +350,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
   <h4 class="section">Type Parameters</h4>
   <dl class="parameters">
     <dt><code>T</code></dt>
-    <dd><p>The type of the requested resource.</p>
+    <dd><p>The type of the resource.</p>
 </dd>
   </dl>
 
@@ -298,7 +381,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The logical path of the requested resource.</p>
+    <dd><p>The logical path of the resource.</p>
 </dd>
   </dl>
 
@@ -312,7 +395,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
   <h4 class="section">Type Parameters</h4>
   <dl class="parameters">
     <dt><code>T</code></dt>
-    <dd><p>The type of the requested resource.</p>
+    <dd><p>The type of the resource.</p>
 </dd>
   </dl>
 
@@ -347,6 +430,95 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResourceAsync_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync*"></a>
+
+  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResourceAsync__1_System_String___0_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync``1(System.String,``0)">
+  UpsertResourceAsync&lt;T&gt;(string, T)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates or updates a resource based on its logical path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task UpsertResourceAsync&lt;T&gt;(string resourcePath, T resource) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The logical path of the resource.</p>
+</dd>
+    <dt><code>resource</code> <span class="xref">T</span></dt>
+    <dd><p>The instance of the resource being created or updated.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of the resource.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResource_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource*"></a>
+
+  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResource__1_System_String___0_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource``1(System.String,``0)">
+  UpsertResource&lt;T&gt;(string, T)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates or updates a resource based on its logical path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void UpsertResource&lt;T&gt;(string resourcePath, T resource) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The logical path of the resource.</p>
+</dd>
+    <dt><code>resource</code> <span class="xref">T</span></dt>
+    <dd><p>The instance of the resource being created or updated.</p>
+</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of the resource.</p>
+</dd>
+  </dl>
 
 
 

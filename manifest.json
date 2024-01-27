@@ -932,6 +932,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IIndexingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IIndexingService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IPromptHubAPIService.yml",
       "output": {
         ".html": {
@@ -952,20 +962,20 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IServiceFactory-1.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IServiceFactory-1.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.ITextEmbeddingService.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html"
         }
       },
       "version": ""
@@ -996,6 +1006,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory-1.html"
         }
       },
       "version": ""
@@ -1742,6 +1762,56 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.yml",
       "output": {
         ".html": {
@@ -1756,6 +1826,26 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Vectorization.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Vectorization.html"
         }
       },
       "version": ""
@@ -1972,6 +2062,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Services.TextSplitters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Services.TextSplitters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Services.Tokenizers.LeasedTikTokenizer.yml",
       "output": {
         ".html": {
@@ -2046,6 +2156,26 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Services.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.html"
         }
       },
       "version": ""
@@ -3132,6 +3262,36 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.AzureCognitiveSearchMemorySourceSettings.yml",
       "output": {
         ".html": {
@@ -3202,6 +3362,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.Core.TextEmbeddingObjectMemoryPlugin.yml",
       "output": {
         ".html": {
@@ -3232,6 +3402,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.DurableSystemPromptService.yml",
       "output": {
         ".html": {
@@ -3256,6 +3436,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html"
         }
       },
       "version": ""
@@ -3722,10 +3912,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSource.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSource.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.html"
         }
       },
       "version": ""
@@ -3752,20 +3942,80 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexerType.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexerType.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.html"
         }
       },
       "version": ""
@@ -3806,16 +4056,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifactType.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html"
         }
       },
       "version": ""
@@ -4006,6 +4246,26 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestSources.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html"
         }
       },
       "version": ""

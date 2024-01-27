@@ -388,16 +388,19 @@
                                                   <a href="FoundationaLLM.Common.Interfaces.IHubAPIService.html" name="" title="IHubAPIService">IHubAPIService</a>
                                               </li>
                                               <li>
+                                                  <a href="FoundationaLLM.Common.Interfaces.IIndexingService.html" name="" title="IIndexingService">IIndexingService</a>
+                                              </li>
+                                              <li>
                                                   <a href="FoundationaLLM.Common.Interfaces.IPromptHubAPIService.html" name="" title="IPromptHubAPIService">IPromptHubAPIService</a>
                                               </li>
                                               <li>
                                                   <a href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html" name="" title="IResourceProviderService">IResourceProviderService</a>
                                               </li>
                                               <li>
-                                                  <a href="FoundationaLLM.Common.Interfaces.IServiceFactory-1.html" name="" title="IServiceFactory&lt;T&gt;">IServiceFactory&lt;T&gt;</a>
+                                                  <a href="FoundationaLLM.Common.Interfaces.IStorageService.html" name="" title="IStorageService">IStorageService</a>
                                               </li>
                                               <li>
-                                                  <a href="FoundationaLLM.Common.Interfaces.IStorageService.html" name="" title="IStorageService">IStorageService</a>
+                                                  <a href="FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html" name="" title="ITextEmbeddingService">ITextEmbeddingService</a>
                                               </li>
                                               <li>
                                                   <a href="FoundationaLLM.Common.Interfaces.ITextSplitterService.html" name="" title="ITextSplitterService">ITextSplitterService</a>
@@ -407,6 +410,9 @@
                                               </li>
                                               <li>
                                                   <a href="FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.html" name="" title="IUserClaimsProviderService">IUserClaimsProviderService</a>
+                                              </li>
+                                              <li>
+                                                  <a href="FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory-1.html" name="" title="IVectorizationServiceFactory&lt;T&gt;">IVectorizationServiceFactory&lt;T&gt;</a>
                                               </li>
                                         </ul>
                                     </li>
@@ -702,7 +708,32 @@
 
                                                   <ul class="nav level5">
                                                         <li>
+                                                            <a href="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html" name="" title="ContentIdentifier">ContentIdentifier</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html" name="" title="EmbeddedContent">EmbeddedContent</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html" name="" title="EmbeddedContentPart">EmbeddedContentPart</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Common.Models.TextEmbedding.Embedding.html" name="" title="Embedding">Embedding</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html" name="" title="Embedding.JsonConverter">Embedding.JsonConverter</a>
+                                                        </li>
+                                                        <li>
                                                             <a href="FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.html" name="" title="EmbeddingFieldAttribute">EmbeddingFieldAttribute</a>
+                                                        </li>
+                                                  </ul>
+                                              </li>
+                                              <li>
+                                                  <span class="expand-stub"></span>
+                                                  <a href="FoundationaLLM.Common.Models.Vectorization.html" name="" title="Vectorization">Vectorization</a>
+
+                                                  <ul class="nav level5">
+                                                        <li>
+                                                            <a href="FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html" name="" title="VectorizationProfileBase">VectorizationProfileBase</a>
                                                         </li>
                                                   </ul>
                                               </li>
@@ -772,6 +803,16 @@
                                               </li>
                                               <li>
                                                   <span class="expand-stub"></span>
+                                                  <a href="FoundationaLLM.Common.Services.TextSplitters.html" name="" title="TextSplitters">TextSplitters</a>
+
+                                                  <ul class="nav level5">
+                                                        <li>
+                                                            <a href="FoundationaLLM.Common.Services.TextSplitters.TokenTextSplitterService.html" name="" title="TokenTextSplitterService">TokenTextSplitterService</a>
+                                                        </li>
+                                                  </ul>
+                                              </li>
+                                              <li>
+                                                  <span class="expand-stub"></span>
                                                   <a href="FoundationaLLM.Common.Services.Tokenizers.html" name="" title="Tokenizers">Tokenizers</a>
 
                                                   <ul class="nav level5">
@@ -823,6 +864,12 @@
                                         <a href="FoundationaLLM.Common.Settings.html" name="" title="Settings">Settings</a>
 
                                         <ul class="nav level4">
+                                              <li>
+                                                  <a href="FoundationaLLM.Common.Settings.AzureAISearchAuthenticationTypes.html" name="" title="AzureAISearchAuthenticationTypes">AzureAISearchAuthenticationTypes</a>
+                                              </li>
+                                              <li>
+                                                  <a href="FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.html" name="" title="AzureOpenAIAuthenticationTypes">AzureOpenAIAuthenticationTypes</a>
+                                              </li>
                                               <li>
                                                   <a href="FoundationaLLM.Common.Settings.BlobStorageAuthenticationTypes.html" name="" title="BlobStorageAuthenticationTypes">BlobStorageAuthenticationTypes</a>
                                               </li>
@@ -1285,26 +1332,46 @@
                                               </li>
                                               <li>
                                                   <span class="expand-stub"></span>
-                                                  <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.html" name="" title="Models.ConfigurationOptions">Models.ConfigurationOptions</a>
+                                                  <a href="FoundationaLLM.SemanticKernel.Core.Models.html" name="" title="Models">Models</a>
 
                                                   <ul class="nav level5">
                                                         <li>
-                                                            <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.AzureCognitiveSearchMemorySourceSettings.html" name="" title="AzureCognitiveSearchMemorySourceSettings">AzureCognitiveSearchMemorySourceSettings</a>
+                                                            <span class="expand-stub"></span>
+                                                            <a href="FoundationaLLM.SemanticKernel.Core.Models.Configuration.html" name="" title="Configuration">Configuration</a>
+
+                                                            <ul class="nav level6">
+                                                                  <li>
+                                                                      <a href="FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.html" name="" title="AzureAISearchIndexingServiceSettings">AzureAISearchIndexingServiceSettings</a>
+                                                                  </li>
+                                                                  <li>
+                                                                      <a href="FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html" name="" title="SemanticKernelTextEmbeddingServiceSettings">SemanticKernelTextEmbeddingServiceSettings</a>
+                                                                  </li>
+                                                            </ul>
                                                         </li>
                                                         <li>
-                                                            <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.BlobStorageMemorySourceSettings.html" name="" title="BlobStorageMemorySourceSettings">BlobStorageMemorySourceSettings</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.DurableSystemPromptServiceSettings.html" name="" title="DurableSystemPromptServiceSettings">DurableSystemPromptServiceSettings</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.html" name="" title="SemanticKernelServiceSettings">SemanticKernelServiceSettings</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.CognitiveSearchSettings.html" name="" title="SemanticKernelServiceSettings.CognitiveSearchSettings">SemanticKernelServiceSettings.CognitiveSearchSettings</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.OpenAISettings.html" name="" title="SemanticKernelServiceSettings.OpenAISettings">SemanticKernelServiceSettings.OpenAISettings</a>
+                                                            <span class="expand-stub"></span>
+                                                            <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.html" name="" title="ConfigurationOptions">ConfigurationOptions</a>
+
+                                                            <ul class="nav level6">
+                                                                  <li>
+                                                                      <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.AzureCognitiveSearchMemorySourceSettings.html" name="" title="AzureCognitiveSearchMemorySourceSettings">AzureCognitiveSearchMemorySourceSettings</a>
+                                                                  </li>
+                                                                  <li>
+                                                                      <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.BlobStorageMemorySourceSettings.html" name="" title="BlobStorageMemorySourceSettings">BlobStorageMemorySourceSettings</a>
+                                                                  </li>
+                                                                  <li>
+                                                                      <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.DurableSystemPromptServiceSettings.html" name="" title="DurableSystemPromptServiceSettings">DurableSystemPromptServiceSettings</a>
+                                                                  </li>
+                                                                  <li>
+                                                                      <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.html" name="" title="SemanticKernelServiceSettings">SemanticKernelServiceSettings</a>
+                                                                  </li>
+                                                                  <li>
+                                                                      <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.CognitiveSearchSettings.html" name="" title="SemanticKernelServiceSettings.CognitiveSearchSettings">SemanticKernelServiceSettings.CognitiveSearchSettings</a>
+                                                                  </li>
+                                                                  <li>
+                                                                      <a href="FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.OpenAISettings.html" name="" title="SemanticKernelServiceSettings.OpenAISettings">SemanticKernelServiceSettings.OpenAISettings</a>
+                                                                  </li>
+                                                            </ul>
                                                         </li>
                                                   </ul>
                                               </li>
@@ -1327,6 +1394,9 @@
 
                                                   <ul class="nav level5">
                                                         <li>
+                                                            <a href="FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html" name="" title="AzureAISearchIndexingService">AzureAISearchIndexingService</a>
+                                                        </li>
+                                                        <li>
                                                             <a href="FoundationaLLM.SemanticKernel.Core.Services.DurableSystemPromptService.html" name="" title="DurableSystemPromptService">DurableSystemPromptService</a>
                                                         </li>
                                                         <li>
@@ -1334,6 +1404,9 @@
                                                         </li>
                                                         <li>
                                                             <a href="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html" name="" title="SemanticKernelService">SemanticKernelService</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html" name="" title="SemanticKernelTextEmbeddingService">SemanticKernelTextEmbeddingService</a>
                                                         </li>
                                                         <li>
                                                             <a href="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTokenizer.html" name="" title="SemanticKernelTokenizer">SemanticKernelTokenizer</a>
@@ -1526,7 +1599,7 @@
 
                                                   <ul class="nav level5">
                                                         <li>
-                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.ContentSource.html" name="" title="ContentSource">ContentSource</a>
+                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.html" name="" title="ContentSourceProfile">ContentSourceProfile</a>
                                                         </li>
                                                         <li>
                                                             <a href="FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.html" name="" title="ContentSourceStore">ContentSourceStore</a>
@@ -1535,10 +1608,28 @@
                                                             <a href="FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.html" name="" title="ContentSourceType">ContentSourceType</a>
                                                         </li>
                                                         <li>
-                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfile.html" name="" title="TextPartitionProfile">TextPartitionProfile</a>
+                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.IndexerType.html" name="" title="IndexerType">IndexerType</a>
                                                         </li>
                                                         <li>
-                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.TextPartitionProfileStore.html" name="" title="TextPartitionProfileStore">TextPartitionProfileStore</a>
+                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.html" name="" title="IndexingProfile">IndexingProfile</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.html" name="" title="IndexingProfileStore">IndexingProfileStore</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.html" name="" title="TextEmbeddingProfile">TextEmbeddingProfile</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.html" name="" title="TextEmbeddingProfileStore">TextEmbeddingProfileStore</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType.html" name="" title="TextEmbeddingType">TextEmbeddingType</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.html" name="" title="TextPartitioningProfile">TextPartitioningProfile</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.html" name="" title="TextPartitioningProfileStore">TextPartitioningProfileStore</a>
                                                         </li>
                                                         <li>
                                                             <a href="FoundationaLLM.Vectorization.Models.Resources.TextSplitterType.html" name="" title="TextSplitterType">TextSplitterType</a>
@@ -1550,9 +1641,6 @@
                                               </li>
                                               <li>
                                                   <a href="FoundationaLLM.Vectorization.Models.VectorizationArtifactType.html" name="" title="VectorizationArtifactType">VectorizationArtifactType</a>
-                                              </li>
-                                              <li>
-                                                  <a href="FoundationaLLM.Vectorization.Models.VectorizationContentIdentifier.html" name="" title="VectorizationContentIdentifier">VectorizationContentIdentifier</a>
                                               </li>
                                               <li>
                                                   <a href="FoundationaLLM.Vectorization.Models.VectorizationLogEntry.html" name="" title="VectorizationLogEntry">VectorizationLogEntry</a>
@@ -1629,6 +1717,12 @@
                                                   <a href="FoundationaLLM.Vectorization.Services.Text.html" name="" title="Text">Text</a>
 
                                                   <ul class="nav level5">
+                                                        <li>
+                                                            <a href="FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html" name="" title="IndexingServiceFactory">IndexingServiceFactory</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html" name="" title="TextEmbeddingServiceFactory">TextEmbeddingServiceFactory</a>
+                                                        </li>
                                                         <li>
                                                             <a href="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html" name="" title="TextSplitterServiceFactory">TextSplitterServiceFactory</a>
                                                         </li>
