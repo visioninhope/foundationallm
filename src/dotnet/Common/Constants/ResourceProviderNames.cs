@@ -19,5 +19,9 @@ namespace FoundationaLLM.Common.Constants
         /// The name of the FoundationaLLM.Agent resource provider.
         /// </summary>
         public const string FoundationaLLM_Agent = "FoundationaLLM.Agent";
+        /// <summary>
+        /// The name of the FoundationaLLM.Configuration resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Configuration = "FoundationaLLM.Configuration";
     }
 }
