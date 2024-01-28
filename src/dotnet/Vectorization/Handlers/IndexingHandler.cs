@@ -49,7 +49,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             if (textEmbeddingArtifacts == null
                 || textEmbeddingArtifacts.Count == 0)
             {
-                state.Log(this, request.Id, _messageId, "The text partition artifacts were not found.");
+                state.Log(this, request.Id, _messageId, "The text embedding artifacts were not found.");
                 return false;
             }
 
