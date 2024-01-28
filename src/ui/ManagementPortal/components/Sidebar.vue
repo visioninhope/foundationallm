@@ -71,6 +71,7 @@ a {
 	flex-direction: column;
 	background-color: var(--primary-color);
 	z-index: 3;
+	flex-shrink: 0;
 }
 
 .sidebar__header {
