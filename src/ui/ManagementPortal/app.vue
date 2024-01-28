@@ -5,16 +5,39 @@
 			<Meta name="description" :content="pageTitle" />
 		</Head>
 
-		<NuxtPage />
+		<div class="wrapper" :style="style">
+			<Sidebar />
+			<NuxtPage />
+		</div>
 	</main>
 </template>
 
 <script lang="ts">
+import { mapStores } from 'pinia';
+
 export default {
 	data() {
 		return {
-			pageTitle: 'FoundationaLLM',
+			pageTitle: 'FoundationaLLM Management',
 		};
+	},
+
+	computed: {
+		style() {
+			return {
+				'--primary-bg': this.$appConfigStore.primaryBg,
+				'--primary-color': this.$appConfigStore.primaryColor,
+				'--secondary-color': this.$appConfigStore.secondaryColor,
+				'--accent-color': this.$appConfigStore.accentColor,
+				'--primary-text': this.$appConfigStore.primaryText,
+				'--secondary-text': this.$appConfigStore.secondaryText,
+				'--accent-text': this.$appConfigStore.accentText,
+				'--primary-button-bg': this.$appConfigStore.primaryButtonBg,
+				'--primary-button-text': this.$appConfigStore.primaryButtonText,
+				'--secondary-button-bg': this.$appConfigStore.secondaryButtonBg,
+				'--secondary-button-text': this.$appConfigStore.secondaryButtonText,
+			};
+		},
 	},
 };
 </script>
@@ -33,4 +56,11 @@ main {
 .p-component {
 	border-radius: 0px;
 }
+
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+}
 </style>
+

@@ -1,13 +1,12 @@
 <template>
-	Index
+	Public Agents
 </template>
 
 <script lang="ts">
 export default {
-	name: 'ManagementPortal',
+	name: 'PublicAgents',
 };
 </script>
 
 <style lang="scss">
-
 </style>
