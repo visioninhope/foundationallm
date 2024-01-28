@@ -5,3 +5,5 @@ class Agent(MetadataBase):
     """Agent metadata model."""
     prompt_prefix: Optional[str] = None
     prompt_suffix: Optional[str] = None
+    variables: Optional[dict] = None
+    

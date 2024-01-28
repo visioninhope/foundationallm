@@ -27,6 +27,7 @@
     <Compile Include="foundationallm\hubs\data_source\data_sources\cxo\cxo_data_source_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\cxo\__init__.py" />
     <Compile Include="foundationallm\langchain\agents\cxo_agent.py" />
+    <Compile Include="foundationallm\langchain\agents\knowledge_management_agent.py" />
     <Compile Include="foundationallm\langchain\agents\search_service_agent.py" />
     <Compile Include="foundationallm\langchain\data_sources\cxo\cxo_configuration.py" />
     <Compile Include="foundationallm\langchain\data_sources\cxo\__init__.py" />
