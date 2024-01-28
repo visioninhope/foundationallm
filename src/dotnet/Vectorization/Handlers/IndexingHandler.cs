@@ -36,7 +36,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             loggerFactory)
     {
         /// <inheritdoc/>
-        protected override async Task ProcessRequest(
+        protected override async Task<bool> ProcessRequest(
             VectorizationRequest request,
             VectorizationState state,
             IConfigurationSection? stepConfiguration,
@@ -50,7 +50,7 @@ namespace FoundationaLLM.Vectorization.Handlers
                 || textEmbeddingArtifacts.Count == 0)
             {
                 state.Log(this, request.Id, _messageId, "The text partition artifacts were not found.");
-                return;
+                return false;
             }
 
             var textPartitioningArtifacts = state.Artifacts.Where(a => a.Type == VectorizationArtifactType.TextPartition).ToList();
@@ -59,7 +59,7 @@ namespace FoundationaLLM.Vectorization.Handlers
                 || textPartitioningArtifacts.Count == 0)
             {
                 state.Log(this, request.Id, _messageId, "The text partition artifacts were not found.");
-                return;
+                return false;
             }
 
             var serializerOptions = new JsonSerializerOptions
@@ -89,6 +89,8 @@ namespace FoundationaLLM.Vectorization.Handlers
             await indexing.Service.IndexEmbeddingsAsync(
                 embeddedContent,
                 indexing.VectorizationProfile.Settings!["IndexName"]);
+
+            return true;
         }
     }
 }

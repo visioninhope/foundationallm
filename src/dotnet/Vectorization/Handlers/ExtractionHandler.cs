@@ -35,7 +35,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             loggerFactory)
     {
         /// <inheritdoc/>
-        protected override async Task ProcessRequest(
+        protected override async Task<bool> ProcessRequest(
             VectorizationRequest request,
             VectorizationState state,
             IConfigurationSection? stepConfiguration,
@@ -54,6 +54,8 @@ namespace FoundationaLLM.Vectorization.Handlers
                 Content = textContent
             });
             state.ContentSourceProfileName = _parameters["content_source_profile_name"];
+
+            return true;
         }
     }
 }

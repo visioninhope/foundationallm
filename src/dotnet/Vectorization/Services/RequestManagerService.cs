@@ -87,7 +87,7 @@ namespace FoundationaLLM.Vectorization.Services
                         // https://devblogs.microsoft.com/dotnet/configureawait-faq/).
                         _taskPool.Add(
                             requests.Select(r => Task.Run(
-                                async () => { await ProcessRequest(r.Request, r.MessageId, r.PopReceipt); },
+                                async () => { await ProcessRequest(r.Request, r.MessageId, r.PopReceipt, _cancellationToken).ConfigureAwait(false); },
                                 _cancellationToken)));
                     }
                     else
@@ -104,11 +104,11 @@ namespace FoundationaLLM.Vectorization.Services
             _logger.LogInformation("The request manager service associated with source [{RequestSourceName}] finished processing requests.", _settings.RequestSourceName);
         }
 
-        private async Task ProcessRequest(VectorizationRequest request, string messageId, string popReceipt)
+        private async Task ProcessRequest(VectorizationRequest request, string messageId, string popReceipt, CancellationToken cancellationToken)
         {
             try
             {
-                if (await HandleRequest(request, messageId).ConfigureAwait(false))
+                if (await HandleRequest(request, messageId, cancellationToken).ConfigureAwait(false))
                 {
                     // If the request was handled successfully, remove it from the current source and advance it to the next step.
                     await _incomingRequestSourceService.DeleteRequest(messageId, popReceipt).ConfigureAwait(false);
@@ -121,7 +121,7 @@ namespace FoundationaLLM.Vectorization.Services
             }
         }
 
-        private async Task<bool> HandleRequest(VectorizationRequest request, string messageId)
+        private async Task<bool> HandleRequest(VectorizationRequest request, string messageId, CancellationToken cancellationToken)
         {
             var state = await _vectorizationStateService.HasState(request).ConfigureAwait(false)
                 ? await _vectorizationStateService.ReadState(request).ConfigureAwait(false)
@@ -135,7 +135,7 @@ namespace FoundationaLLM.Vectorization.Services
                 _vectorizationStateService,
                 _serviceProvider,
                 _loggerFactory);
-            var handlerSuccess = await stepHandler.Invoke(request, state, _cancellationToken).ConfigureAwait(false);
+            var handlerSuccess = await stepHandler.Invoke(request, state, cancellationToken).ConfigureAwait(false);
 
             await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
 
