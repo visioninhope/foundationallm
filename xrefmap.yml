@@ -8292,6 +8292,19 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase
   fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase
   nameWithType: VectorizationProfileBase
+- uid: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Description
+  name: Description
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html#FoundationaLLM_Common_Models_Vectorization_VectorizationProfileBase_Description
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Description
+  fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Description
+  nameWithType: VectorizationProfileBase.Description
+- uid: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Description*
+  name: Description
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html#FoundationaLLM_Common_Models_Vectorization_VectorizationProfileBase_Description_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Description
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Description
+  nameWithType: VectorizationProfileBase.Description
 - uid: FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.Name
   name: Name
   href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html#FoundationaLLM_Common_Models_Vectorization_VectorizationProfileBase_Name
