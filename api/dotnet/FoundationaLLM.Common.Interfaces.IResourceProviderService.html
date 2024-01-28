@@ -200,7 +200,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_DeleteResourceAsync__1_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResourceAsync``1(System.String)">
   DeleteResourceAsync&lt;T&gt;(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L88"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Deletes a resource based on its logical path.</p>
@@ -244,7 +244,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_DeleteResource__1_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.DeleteResource``1(System.String)">
   DeleteResource&lt;T&gt;(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L95"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Deletes a resource based on its logical path.</p>
@@ -283,7 +283,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_ExecuteAction_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.ExecuteAction(System.String)">
   ExecuteAction(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes an action based on its logical path.</p>
@@ -322,7 +322,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResourceAsync__1_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResourceAsync``1(System.String)">
   GetResourceAsync&lt;T&gt;(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L48"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a resource based on its logical path.</p>
@@ -367,7 +367,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResource__1_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource``1(System.String)">
   GetResource&lt;T&gt;(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L56"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a resource based on its logical path.</p>
@@ -389,6 +389,96 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
   <dl class="parameters">
     <dt><span class="xref">T</span></dt>
     <dd><p>The instance of the resource corresponding to the specified logical path.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of the resource.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResourcesAsync_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResourcesAsync*"></a>
+
+  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResourcesAsync__1_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResourcesAsync``1(System.String)">
+  GetResourcesAsync&lt;T&gt;(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the resources based on the logical path of the resource type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;IList&lt;T&gt;&gt; GetResourcesAsync&lt;T&gt;(string resourcePath) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The logical path of the resource type.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;T&gt;&gt;</dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList&lt;T&gt;</a> of resources corresponding to the specified logical path.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The type of the resource.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResources_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResources*"></a>
+
+  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResources__1_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResources``1(System.String)">
+  GetResources&lt;T&gt;(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the resources based on the logical path of the resource type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IList&lt;T&gt; GetResources&lt;T&gt;(string resourcePath) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The logical path of the resource type.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;T&gt;</dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList&lt;T&gt;</a> of resources corresponding to the specified logical path.</p>
 </dd>
   </dl>
 
@@ -444,7 +534,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResourceAsync__1_System_String___0_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync``1(System.String,``0)">
   UpsertResourceAsync&lt;T&gt;(string, T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates or updates a resource based on its logical path.</p>
@@ -491,7 +581,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResource__1_System_String___0_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource``1(System.String,``0)">
   UpsertResource&lt;T&gt;(string, T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L80"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates or updates a resource based on its logical path.</p>

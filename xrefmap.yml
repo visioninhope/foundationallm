@@ -4041,6 +4041,38 @@ references:
   fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource(Of T)(String)
   nameWithType: IResourceProviderService.GetResource<T>(string)
   nameWithType.vb: IResourceProviderService.GetResource(Of T)(String)
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResources*
+  name: GetResources
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResources_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResources
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResources
+  nameWithType: IResourceProviderService.GetResources
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResourcesAsync*
+  name: GetResourcesAsync
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResourcesAsync_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResourcesAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResourcesAsync
+  nameWithType: IResourceProviderService.GetResourcesAsync
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResourcesAsync``1(System.String)
+  name: GetResourcesAsync<T>(string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResourcesAsync__1_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResourcesAsync``1(System.String)
+  name.vb: GetResourcesAsync(Of T)(String)
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResourcesAsync<T>(string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResourcesAsync(Of T)(String)
+  nameWithType: IResourceProviderService.GetResourcesAsync<T>(string)
+  nameWithType.vb: IResourceProviderService.GetResourcesAsync(Of T)(String)
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResources``1(System.String)
+  name: GetResources<T>(string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResources__1_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResources``1(System.String)
+  name.vb: GetResources(Of T)(String)
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResources<T>(string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResources(Of T)(String)
+  nameWithType: IResourceProviderService.GetResources<T>(string)
+  nameWithType.vb: IResourceProviderService.GetResources(Of T)(String)
 - uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize
   name: Initialize()
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_Initialize
@@ -9293,6 +9325,70 @@ references:
   fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource(Of T)(String)
   nameWithType: ResourceProviderServiceBase.GetResource<T>(string)
   nameWithType.vb: ResourceProviderServiceBase.GetResource(Of T)(String)
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResources*
+  name: GetResources
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResources_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResources
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResources
+  nameWithType: ResourceProviderServiceBase.GetResources
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync*
+  name: GetResourcesAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync
+  nameWithType: ResourceProviderServiceBase.GetResourcesAsync
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal*
+  name: GetResourcesAsyncInternal
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsyncInternal_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal
+  nameWithType: ResourceProviderServiceBase.GetResourcesAsyncInternal
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name: GetResourcesAsyncInternal<T>(List<ResourceTypeInstance>)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsyncInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name.vb: GetResourcesAsyncInternal(Of T)(List(Of ResourceTypeInstance))
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal<T>(System.Collections.Generic.List<FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance>)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal(Of T)(System.Collections.Generic.List(Of FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance))
+  nameWithType: ResourceProviderServiceBase.GetResourcesAsyncInternal<T>(List<ResourceTypeInstance>)
+  nameWithType.vb: ResourceProviderServiceBase.GetResourcesAsyncInternal(Of T)(List(Of ResourceTypeInstance))
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync``1(System.String)
+  name: GetResourcesAsync<T>(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsync__1_System_String_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync``1(System.String)
+  name.vb: GetResourcesAsync(Of T)(String)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync<T>(string)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync(Of T)(String)
+  nameWithType: ResourceProviderServiceBase.GetResourcesAsync<T>(string)
+  nameWithType.vb: ResourceProviderServiceBase.GetResourcesAsync(Of T)(String)
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesInternal*
+  name: GetResourcesInternal
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesInternal_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesInternal
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesInternal
+  nameWithType: ResourceProviderServiceBase.GetResourcesInternal
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name: GetResourcesInternal<T>(List<ResourceTypeInstance>)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name.vb: GetResourcesInternal(Of T)(List(Of ResourceTypeInstance))
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesInternal<T>(System.Collections.Generic.List<FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance>)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesInternal(Of T)(System.Collections.Generic.List(Of FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance))
+  nameWithType: ResourceProviderServiceBase.GetResourcesInternal<T>(List<ResourceTypeInstance>)
+  nameWithType.vb: ResourceProviderServiceBase.GetResourcesInternal(Of T)(List(Of ResourceTypeInstance))
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResources``1(System.String)
+  name: GetResources<T>(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResources__1_System_String_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResources``1(System.String)
+  name.vb: GetResources(Of T)(String)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResources<T>(string)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResources(Of T)(String)
+  nameWithType: ResourceProviderServiceBase.GetResources<T>(string)
+  nameWithType.vb: ResourceProviderServiceBase.GetResources(Of T)(String)
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize
   name: Initialize()
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_Initialize
