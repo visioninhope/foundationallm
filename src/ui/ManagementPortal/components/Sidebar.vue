@@ -105,8 +105,7 @@ a {
 	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 	color: var(--primary-text);
 	text-transform: uppercase;
-	// font-size: 14px;
-	font-size: 0.875rem;
+	font-size: 0.95rem;
 	font-weight: 600;
 }
 
@@ -120,8 +119,7 @@ a {
 	align-items: center;
 	color: var(--primary-text);
 	transition: all 0.1s ease-in-out;
-	// font-size: 13px;
-	font-size: 0.8125rem;
+	font-size: 0.8725rem;
 }
 
 .sidebar__item:hover {
