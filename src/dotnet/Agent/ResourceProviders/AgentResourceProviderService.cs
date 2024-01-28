@@ -60,11 +60,27 @@ namespace FoundationaLLM.Agent.ResourceProviders
         protected override T GetResourceInternal<T>(List<ResourceTypeInstance> instances) where T: class =>
             instances[0].ResourceType switch
             {
+                AgentResourceTypeNames.AgentReferences => GetAgentReference<T>(instances),
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
+            };
+
+        /// <inheritdoc/>
+        protected override List<T> GetResourcesInternal<T>(List<ResourceTypeInstance> instances) where T : class =>
+            instances[0].ResourceType switch
+            {
                 AgentResourceTypeNames.AgentReferences => GetAgentReferences<T>(instances),
                 _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
             };
 
-        private T GetAgentReferences<T>(List<ResourceTypeInstance> instances) where T : class
+        private List<T> GetAgentReferences<T>(List<ResourceTypeInstance> instances) where T : class
+        {
+            if (typeof(T) != typeof(AgentReference))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+
+            return _agentReferences.Values.Cast<T>().ToList();
+        }
+
+        private T GetAgentReference<T>(List<ResourceTypeInstance> instances) where T : class
         {
             if (instances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
