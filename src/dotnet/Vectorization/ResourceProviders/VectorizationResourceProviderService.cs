@@ -108,14 +108,57 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         protected override T GetResourceInternal<T>(List<ResourceTypeInstance> instances) where T: class =>
             instances[0].ResourceType switch
             {
-                VectorizationResourceTypeNames.ContentSourceProfiles => GetContentSourceProfiles<T>(instances),
+                VectorizationResourceTypeNames.ContentSourceProfiles => GetContentSourceProfile<T>(instances),
                 VectorizationResourceTypeNames.TextPartitioningProfiles => GetTextPartitioningProfile<T>(instances),
                 VectorizationResourceTypeNames.TextEmbeddingProfiles => GetTextEmbeddingProfile<T>(instances),
                 VectorizationResourceTypeNames.IndexingProfiles => GetIndexingProfile<T>(instances),
                 _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
             };
 
-        private T GetContentSourceProfiles<T>(List<ResourceTypeInstance> instances) where T: class
+        /// <inheritdoc/>
+        protected override List<T> GetResourcesInternal<T>(List<ResourceTypeInstance> instances) where T : class =>
+            instances[0].ResourceType switch
+            {
+                VectorizationResourceTypeNames.ContentSourceProfiles => GetContentSourceProfiles<T>(instances),
+                VectorizationResourceTypeNames.TextPartitioningProfiles => GetTextPartitioningProfiles<T>(instances),
+                VectorizationResourceTypeNames.TextEmbeddingProfiles => GetTextEmbeddingProfiles<T>(instances),
+                VectorizationResourceTypeNames.IndexingProfiles => GetIndexingProfiles<T>(instances),
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
+            };
+
+        private List<T> GetContentSourceProfiles<T>(List<ResourceTypeInstance> instances) where T : class
+        {
+            if (typeof(T) != typeof(ContentSourceProfile))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+
+            return _contentSourceProfiles.Values.Cast<T>().ToList();
+        }
+
+        private List<T> GetTextPartitioningProfiles<T>(List<ResourceTypeInstance> instances) where T : class
+        {
+            if (typeof(T) != typeof(TextPartitioningProfile))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+
+            return _textPartitioningProfiles.Values.Cast<T>().ToList();
+        }
+
+        private List<T> GetTextEmbeddingProfiles<T>(List<ResourceTypeInstance> instances) where T : class
+        {
+            if (typeof(T) != typeof(TextEmbeddingProfile))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+
+            return _textEmbeddingProfiles.Values.Cast<T>().ToList();
+        }
+
+        private List<T> GetIndexingProfiles<T>(List<ResourceTypeInstance> instances) where T : class
+        {
+            if (typeof(T) != typeof(IndexingProfile))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+
+            return _indexingProfiles.Values.Cast<T>().ToList();
+        }
+
+        private T GetContentSourceProfile<T>(List<ResourceTypeInstance> instances) where T: class
         {
             if (instances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
