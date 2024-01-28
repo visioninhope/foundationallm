@@ -1,7 +1,7 @@
 <template>
 	<div class="sidebar">
 		<!-- Sidebar section header -->
-		<div class="sidebar__section-header">
+		<div class="sidebar__header">
 			<img v-if="$appConfigStore.logoUrl" :src="$filters.enforceLeadingSlash($appConfigStore.logoUrl)" />
 			<span v-else>{{ $appConfigStore.logoText }}</span>
 		</div>
@@ -85,36 +85,39 @@ a {
 	img {
 		max-height: 100%;
 		width: auto;
-		max-width: 148px;
+		max-width: 180px;
 		margin-right: 12px;
 	}
 }
 
 .sidebar__section-header {
-	height: 64px;
-	padding: 24px;
-	padding-bottom: 12px;
 	display: flex;
-	// justify-content: space-between;
 	align-items: center;
+	gap: 10px;
+	padding-bottom: 12px;
+	padding-top: 12px;
+	margin-left: 24px;
+	margin-right: 24px;
+	margin-bottom: 8px;
+	margin-top: 24px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 	color: var(--primary-text);
 	text-transform: uppercase;
-	// font-size: 14px;
-	font-size: 0.875rem;
+	font-size: 0.8125rem;
 	font-weight: 600;
-	gap: 10px;
 }
 
 .sidebar__item {
-	padding: 24px;
+	padding-bottom: 16px;
+	padding-top: 16px;
+	padding-left: 52px;
+	padding-right: 16px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	color: var(--primary-text);
 	transition: all 0.1s ease-in-out;
-	font-size: 13px;
 	font-size: 0.8125rem;
-	height: 72px;
 }
 
 .sidebar__item:hover {
