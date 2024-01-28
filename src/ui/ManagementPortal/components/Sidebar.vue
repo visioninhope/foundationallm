@@ -8,6 +8,7 @@
 
 		<!-- Agents -->
 		<div class="sidebar__section-header">
+			<span class="pi pi-users"></span>
 			<span>Agents</span>
 		</div>
 
@@ -17,6 +18,7 @@
 
 		<!-- Data Catalog -->
 		<div class="sidebar__section-header">
+			<span class="pi pi-database"></span>
 			<span>Data Catalog</span>
 		</div>
 
@@ -25,6 +27,7 @@
 
 		<!-- Quotas -->
 		<div class="sidebar__section-header">
+			<span class="pi pi-calculator"></span>
 			<span>Quotas</span>
 		</div>
 
@@ -32,6 +35,7 @@
 
 		<!-- LLM's -->
 		<div class="sidebar__section-header">
+			<span class="pi pi-sitemap"></span>
 			<span>LLM's</span>
 		</div>
 
@@ -39,6 +43,7 @@
 
 		<!-- Security -->
 		<div class="sidebar__section-header">
+			<span class="pi pi-shield"></span>
 			<span>Security</span>
 		</div>
 
@@ -90,13 +95,14 @@ a {
 	padding: 24px;
 	padding-bottom: 12px;
 	display: flex;
-	justify-content: space-between;
+	// justify-content: space-between;
 	align-items: center;
 	color: var(--primary-text);
 	text-transform: uppercase;
 	// font-size: 14px;
 	font-size: 0.875rem;
 	font-weight: 600;
+	gap: 10px;
 }
 
 .sidebar__item {
@@ -109,5 +115,9 @@ a {
 	font-size: 13px;
 	font-size: 0.8125rem;
 	height: 72px;
+}
+
+.sidebar__item:hover {
+	background-color: rgba(217, 217, 217, 0.05);
 }
 </style>
