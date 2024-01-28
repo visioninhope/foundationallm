@@ -9,7 +9,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
     /// <summary>
     /// Contains constants of the names of the resource types managed by the FoundationaLLM.Agent resource manager.
     /// </summary>
-    internal class AgentResourceTypeNames
+    public class AgentResourceTypeNames
     {
         /// <summary>
         /// Agent references.

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoundationaLLM.Agent.Models.Resources;
+using FoundationaLLM.Agent.ResourceProviders;
 using FoundationaLLM.Vectorization.ResourceProviders;
 
 namespace FoundationaLLM.Management.Services
@@ -22,12 +24,44 @@ namespace FoundationaLLM.Management.Services
         private readonly IResourceProviderService _agentResourceProviderService =
             agentResourceProviderService;
 
-        public async List<ContentSourceProfile> GetVectorContentSourceProfiles()
+        private List<ContentSourceProfile>? GetVectorContentSourceProfiles()
         {
-            var contentSourceProfiles = await _vectorizationResourceProviderService.GetResourceAsync<ContentSourceProfile>(
+            var contentSourceProfiles = _vectorizationResourceProviderService.GetResources<ContentSourceProfile>(
                                            $"/{VectorizationResourceTypeNames.ContentSourceProfiles}");
 
-            return contentSourceProfiles;
+            return contentSourceProfiles as List<ContentSourceProfile>;
+        }
+
+        private List<IndexingProfile>? GetVectorIndexingProfiles()
+        {
+            var indexingProfiles = _vectorizationResourceProviderService.GetResources<IndexingProfile>(
+                                                      $"/{VectorizationResourceTypeNames.IndexingProfiles}");
+
+            return indexingProfiles as List<IndexingProfile>;
+        }
+
+        private List<ContentSourceProfile>? GetContentSourceProfiles()
+        {
+            var contentSourceProfiles = _vectorizationResourceProviderService.GetResources<ContentSourceProfile>(
+                                                          $"/{VectorizationResourceTypeNames.ContentSourceProfiles}");
+
+            return contentSourceProfiles as List<ContentSourceProfile>;
+        }
+
+        private List<IndexingProfile>? GetIndexingProfiles()
+        {
+            var indexingProfiles = _vectorizationResourceProviderService.GetResources<IndexingProfile>(
+                                                                    $"/{VectorizationResourceTypeNames.IndexingProfiles}");
+
+            return indexingProfiles as List<IndexingProfile>;
+        }
+
+        private List<AgentReference>? GetAgentReferences()
+        {
+            var agentReferences = _agentResourceProviderService.GetResources<AgentReference>(
+                                                                                   $"/{AgentResourceTypeNames.AgentReferences}");
+
+            return agentReferences as List<AgentReference>;
         }
     }
 }
