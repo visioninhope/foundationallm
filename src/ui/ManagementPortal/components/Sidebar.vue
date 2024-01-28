@@ -111,8 +111,8 @@ a {
 .sidebar__item {
 	padding-bottom: 16px;
 	padding-top: 16px;
-	padding-left: 52px;
-	padding-right: 16px;
+	padding-left: 32px;
+	padding-right: 32px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
