@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Net.Http;
+using FoundationaLLM.Agent.ResourceProviders;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
@@ -19,6 +20,7 @@ using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Management.Services;
 using FoundationaLLM.Management.Services.APIServices;
+using FoundationaLLM.Vectorization.ResourceProviders;
 using Microsoft.Identity.Web;
 using Polly;
 
@@ -83,7 +85,18 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
-            // Register the authentication services
+            // Register the resource provider services:
+            builder.Services.AddKeyedSingleton<IResourceProviderService, VectorizationResourceProviderService>(
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
+            builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
+
+            builder.Services.AddKeyedSingleton<IResourceProviderService, AgentResourceProviderService>(
+                DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService);
+            builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
+                DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService);
+
+            // Register the authentication services:
             RegisterAuthConfiguration(builder);
 
             builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
