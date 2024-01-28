@@ -7,7 +7,9 @@
 
 		<div class="wrapper" :style="style">
 			<Sidebar />
-			<NuxtPage />
+			<div class="page">
+				<NuxtPage />
+			</div>
 		</div>
 	</main>
 </template>
@@ -61,6 +63,43 @@ main {
 	display: flex;
 	flex-direction: row;
 	height: 100%;
+}
+
+.page {
+	padding: 32px;
+	padding-top: 24px;
+	padding-bottom: 24px;
+	overflow: scroll;
+	flex-grow: 1;
+}
+
+.page-header {
+	margin-top: 0px;
+	margin-bottom: 8px;
+}
+
+.page-subheader {
+	margin-bottom: 24px;
+}
+
+.column-2 {
+	grid-column: 2;
+}
+
+.span-2 {
+	grid-column: span 2;
+}
+
+.ml-1 {
+	margin-left: 4px;
+}
+
+.w-100 {
+	width: 100%;
+}
+
+.justify-self-end {
+	justify-self: end;
 }
 </style>
 
