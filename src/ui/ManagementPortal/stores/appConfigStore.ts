@@ -23,26 +23,19 @@ export const useAppConfigStore = defineStore('appConfig', {
 		secondaryButtonText: null,
 
 		// Auth: These settings configure the MSAL authentication.
-		// auth: {
-		// 	clientId: null,
-		// 	instance: null,
-		// 	tenantId: null,
-		// 	scopes: [],
-		// 	callbackPath: null,
-		// } as AuthConfigOptions,
+		auth: {
+			clientId: null,
+			instance: null,
+			tenantId: null,
+			scopes: [],
+			callbackPath: null,
+		},// as AuthConfigOptions,
 	}),
 	getters: {},
 	actions: {
 		async getConfigVariables() {
 			const [
 				// apiUrl,
-
-				// authClientId,
-				// authInstance,
-				// authTenantId,
-				// authScopes,
-				// authCallbackPath,
-
 				logoUrl,
 				logoText,
 				primaryBg,
@@ -56,8 +49,14 @@ export const useAppConfigStore = defineStore('appConfig', {
 				primaryButtonText,
 				secondaryButtonBg,
 				secondaryButtonText,
+				authClientId,
+				authInstance,
+				authTenantId,
+				authScopes,
+				authCallbackPath,
 			] = await Promise.all([
 				// api.getConfigValue('FoundationaLLM:APIs:ManagementAPI:APIUrl'),
+				
 				api.getConfigValue('FoundationaLLM:Branding:LogoUrl'),
 				api.getConfigValue('FoundationaLLM:Branding:LogoText'),
 				api.getConfigValue('FoundationaLLM:Branding:BackgroundColor'),
@@ -71,15 +70,15 @@ export const useAppConfigStore = defineStore('appConfig', {
 				api.getConfigValue('FoundationaLLM:Branding:PrimaryButtonTextColor'),
 				api.getConfigValue('FoundationaLLM:Branding:SecondaryButtonBackgroundColor'),
 				api.getConfigValue('FoundationaLLM:Branding:SecondaryButtonTextColor'),
+
+				api.getConfigValue('FoundationaLLM:Management:Entra:ClientId'),
+				api.getConfigValue('FoundationaLLM:Management:Entra:Instance'),
+				api.getConfigValue('FoundationaLLM:Management:Entra:TenantId'),
+				api.getConfigValue('FoundationaLLM:Management:Entra:Scopes'),
+				api.getConfigValue('FoundationaLLM:Management:Entra:CallbackPath'),
 			]);
 
 			// this.apiUrl = apiUrl;
-
-			// this.auth.clientId = authClientId;
-			// this.auth.instance = authInstance;
-			// this.auth.tenantId = authTenantId;
-			// this.auth.scopes = authScopes;
-			// this.auth.callbackPath = authCallbackPath;
 
 			this.logoUrl = logoUrl;
 			this.logoText = logoText;
@@ -94,6 +93,12 @@ export const useAppConfigStore = defineStore('appConfig', {
 			this.primaryButtonText = primaryButtonText;
 			this.secondaryButtonBg = secondaryButtonBg;
 			this.secondaryButtonText = secondaryButtonText;
+
+			this.auth.clientId = authClientId;
+			this.auth.instance = authInstance;
+			this.auth.tenantId = authTenantId;
+			this.auth.scopes = authScopes;
+			this.auth.callbackPath = authCallbackPath;
 		},
 	},
 });
