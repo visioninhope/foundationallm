@@ -30,7 +30,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         /// <inheritdoc/>
         public async Task<string> ExtractTextFromFileAsync(List<string> multipartId, CancellationToken cancellationToken)
         {
-            ValidateMultipartId(multipartId, 7);
+            ValidateMultipartId(multipartId, 5);
 
             var binaryContent = await GetBinaryContent(
                 multipartId[0],
@@ -40,17 +40,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
                 multipartId[4],
                 cancellationToken);
 
-            var fileExtension = multipartId[5];
-
-            return fileExtension.ToLower() switch
-            {
-                FileExtensions.Text => String.Empty,
-                FileExtensions.PDF => PDFTextExtractor.GetText(binaryContent),
-                FileExtensions.Word => String.Empty,
-                FileExtensions.Excel => String.Empty,
-                FileExtensions.PowerPoint => String.Empty,
-                _ => throw new VectorizationException($"The file type for {fileExtension} is not supported."),
-            };
+            return await ExtractTextFromFileAsync(multipartId[4], binaryContent);
         }
 
         /// <summary>
@@ -58,12 +48,12 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         /// </summary>
         /// <param name="schema">The database schema containing the target table.</param>
         /// <param name="tableName">The name of the table from which to retrieve binary content.</param>
-        /// <param name="dataColumnName">The name of the column containing binary data.</param>
+        /// <param name="contentColumnName">The name of the column containing binary data.</param>
         /// <param name="identifierColumnName">The name of the column used for identifying the specific record.</param>
         /// <param name="identifierValue">The value identifying the specific record in the identifier column.</param>
         /// <param name="cancellationToken">The cancellation token that signals that operations should be cancelled</param>
         /// <returns>An object representing the binary contents.</returns>
-        private async Task<BinaryData> GetBinaryContent(string schema, string tableName, string dataColumnName, string identifierColumnName, string identifierValue, CancellationToken cancellationToken)
+        private async Task<BinaryData> GetBinaryContent(string schema, string tableName, string contentColumnName, string identifierColumnName, string identifierValue, CancellationToken cancellationToken)
         {
             try
             {
@@ -71,19 +61,19 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
                 {
                     await connection.OpenAsync(cancellationToken);
 
-                    using (SqlCommand command = new SqlCommand($"SELECT {dataColumnName} FROM [{schema}].[{tableName}] WHERE {identifierColumnName} = `{identifierValue}`", connection))
+                    using (SqlCommand command = new SqlCommand($"SELECT TOP 1 {contentColumnName} FROM [{schema}].[{tableName}] WHERE {identifierColumnName} = `{identifierValue}`", connection))
                     {
                         using (SqlDataReader reader = await command.ExecuteReaderAsync(cancellationToken))
                         {
                             await reader.ReadAsync();
-                            return new BinaryData(reader[dataColumnName]);
+                            return new BinaryData(reader[contentColumnName]);
                         }
                     }
                 }
             }
             catch
             {
-                throw new VectorizationException($"Error when extracting content from file with ID {identifierValue} in Azure SQL Database.");
+                throw new VectorizationException($"Error when extracting content from file identified by {identifierValue} in Azure SQL Database.");
             }
         }
     }
