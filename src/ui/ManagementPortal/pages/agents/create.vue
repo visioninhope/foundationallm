@@ -1,3 +1,4 @@
+		
 <template>
 	<div>
 		<h2 class="page-header">Create New Agent</h2>
@@ -43,20 +44,58 @@
 
 			<div class="step">
 				<div class="step__header">Where is the data?</div>
-				<div class="step-container">
-					<div class="step-container__header">Blob Storage</div>
-					<div>
-						<span class="step-option__header">Storage account name:</span>
-						<span>filmaksl4sa</span>
+				<div class="step-container" @click="editDataSource = true">
+					<!-- Options -->
+					<div
+						v-if="editDataSource"
+						class="step-container--edit-dropdown"
+						tabindex="0"
+						@focusout="editDataSource = false"
+					>
+						<div class="step-container--edit__header">Please select a data source.</div>
+						<div
+							v-for="dataSource in dataSources"
+							:key="dataSource.Name"
+							class="step-container--edit__option"
+							:class="{
+								'step-container--edit__option--selected':
+									dataSource.Name === selectedDataSource?.Name,
+							}"
+							@click.stop="handleDataSourceSelected(dataSource)"
+						>
+							<div>
+								<span class="step-option__header">Storage account name:</span>
+								<span>{{ dataSource.Name }}</span>
+							</div>
+							<div>
+								<span class="step-option__header">Container name:</span>
+								<span>{{ dataSource.Container.Name }}</span>
+							</div>
+							<div>
+								<span class="step-option__header">Data Format(s):</span>
+								<span v-for="(format, index) in dataSource.Container.Formats" class="mr-1">{{ format }}</span>
+							</div>
+						</div>
 					</div>
-					<div>
-						<span class="step-option__header">Container name:</span>
-						<span>documents</span>
-					</div>
-					<div>
-						<span class="step-option__header">Data Format(s):</span>
-						<span>pdf</span>
-					</div>
+
+					<!-- Selected option -->
+					<template v-if="selectedDataSource">
+						<div class="step-container__header">Blob Storage</div>
+						<div>
+							<span class="step-option__header">Storage account name:</span>
+							<span>{{ selectedDataSource.Name }}</span>
+						</div>
+						<div>
+							<span class="step-option__header">Container name:</span>
+							<span>{{ selectedDataSource.Container.Name }}</span>
+						</div>
+						<div>
+							<span class="step-option__header">Data Format(s):</span>
+							<span v-for="(format, index) in selectedDataSource.Container.Formats" class="mr-1">{{ format }}</span>
+						</div>
+					</template>
+					<template v-else>Please select a data source.</template>
+
 				</div>
 			</div>
 
@@ -112,14 +151,42 @@
 			<div class="step">
 				<div class="step__header">How should the data be processed for indexing?</div>
 				<div class="step-container">
-					<div class="step-container__header">Splitting & Chunking</div>
-					<div>
-						<span class="step-option__header">Chunk size:</span>
-						<span>2000 tokens</span>
+					<!-- Options -->
+					<div
+						v-if="editProcessing"
+						class="step-container--edit"
+						tabindex="0"
+					>
+						<div class="step-container__header">Splitting & Chunking</div>
+						<div>
+							<span class="step-option__header">Chunk size:</span>
+							<InputText type="number" v-model="chunkSize" class="mt-2" />
+						</div>
+						<div>
+							<span class="step-option__header">Overlap size:</span>
+							<InputText type="number" v-model="overlapSize" class="mt-2" />
+						</div>
+
+						<div class="d-flex justify-content-end">
+							<Button
+								class="primary-button mt-2"
+								label="Done"
+								@click="editProcessing = false"
+							/>
+						</div>
 					</div>
-					<div>
-						<span class="step-option__header">Overlap size:</span>
-						<span>No Overlap</span>
+
+					<!-- Select option -->
+					<div @click="editProcessing = true">
+						<div class="step-container__header">Splitting & Chunking</div>
+						<div>
+							<span class="step-option__header">Chunk size:</span>
+							<span>{{ chunkSize }}</span>
+						</div>
+						<div>
+							<span class="step-option__header">Overlap size:</span>
+							<span>{{ overlapSize == 0 ? 'No Overlap' : overlapSize }}</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -127,11 +194,55 @@
 			<div class="step">
 				<div class="step__header">When should the data be indexed?</div>
 				<div class="step-container">
-					<div class="step-container__header">Trigger</div>
-					<div>Runs every time a new tile is added to the data source.</div>
-					<div>
-						<span class="step-option__header">Frequency:</span>
-						<span>Manual</span>
+					<!-- Options -->
+					<div
+						v-if="editTrigger"
+						class="step-container--edit"
+						tabindex="0"
+					>
+						<div class="step-container__header">Trigger</div>
+						<div>Runs every time a new tile is added to the data source.</div>
+						<div>
+							<div class="mt-2">
+								<span class="step-option__header">Frequency:</span>
+								<Dropdown
+									v-model="triggerFrequency"
+									class="dropdown--agent"
+									:options="triggerFrequencyOptions"
+									option-label="label"
+									placeholder="--Select--"
+								/>
+							</div>
+
+							<div v-if="triggerFrequency.value === 2" class="mt-2">
+								<span class="step-option__header">Select schedule:</span>
+								<Dropdown
+									v-model="triggerFrequencyScheduled"
+									class="dropdown--agent"
+									:options="triggerFrequencyScheduledOptions"
+									option-label="label"
+									placeholder="--Select--"
+								/>
+							</div>
+						</div>
+
+						<div class="d-flex justify-content-end">
+							<Button
+								class="primary-button mt-2"
+								label="Done"
+								@click="editTrigger = false"
+							/>
+						</div>
+					</div>
+
+					<!-- Select option -->
+					<div @click="editTrigger = true">
+						<div class="step-container__header">Trigger</div>
+						<div>Runs every time a new tile is added to the data source.</div>
+						<div>
+							<span class="step-option__header">Frequency:</span>
+							<span>{{ triggerFrequency.label }}</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -142,27 +253,31 @@
 			<!-- Conversation history -->
 			<div class="step">
 				<div class="step__header">Should conversations be saved?</div>
-				
-				<div class="step-container" @click="handleConversionHistoryClicked">
+				<div class="step-container">
 					<!-- Options -->
 					<div
 						v-if="editConversationHistory"
 						class="step-container--edit"
-						tabindex="0"
-						@focusout="editConversationHistory = false"
 					>
 						<div class="step-container__header">Conversation History</div>
 						<div class="d-flex align-center">
 							<span class="step-option__header">Enabled:</span>
 							<span>
 								<ToggleButton v-model="conversationHistory" style="padding: 4px; padding-top: 0px; padding-bottom: 0px;" onLabel="Yes" onIcon="pi pi-check-circle" offLabel="No" offIcon="pi pi-times-circle" />
-								<!-- <InputSwitch v-model="conversationHistory" /> -->
 							</span>
+						</div>
+
+						<div class="d-flex justify-content-end">
+							<Button
+								class="primary-button mt-2"
+								label="Done"
+								@click="editConversationHistory = false"
+							/>
 						</div>
 					</div>
 
 					<!-- Select option -->
-					<template v-else>
+					<div @click="editConversationHistory = true">
 						<div class="step-container__header">Conversation History</div>
 						<div>
 							<span class="step-option__header">Enabled:</span>
@@ -172,28 +287,77 @@
 								<span v-else class="pi pi-times-circle ml-1" style="color: var(--red-400); font-size: 0.8rem;"></span>
 							</span>
 						</div>
-					</template>
+					</div>
 				</div>
 			</div>
 
 			<div class="step">
 				<div class="step__header">How should user-agent interactions be gated?</div>
 				<div class="step-container">
-					<div class="step-container__header">Gatekeeper</div>
-					<div>
-						<span class="step-option__header">Enabled:</span>
-						<span>
-							<span>Yes</span>
-							<span class="pi pi-check-circle ml-1" style="color: var(--green-400); font-size: 0.8rem;"></span>
-						</span>
+					<!-- Options -->
+					<div
+						v-if="editGatekeeper"
+						class="step-container--edit"
+						tabindex="0"
+					>
+						<div class="step-container__header">Gatekeeper</div>
+						<div>
+							<span class="step-option__header">Enabled:</span>
+							<span>
+								<ToggleButton v-model="gatekeeperEnabled" style="padding: 4px; padding-top: 0px; padding-bottom: 0px;" onLabel="Yes" onIcon="pi pi-check-circle" offLabel="No" offIcon="pi pi-times-circle" />
+							</span>
+						</div>
+						<div class="mt-2">
+							<span class="step-option__header">Content Safety:</span>
+							<Dropdown
+								v-model="gatekeeperContentSafety"
+								class="dropdown--agent"
+								:options="gatekeeperContentSafetyOptions"
+								option-label="label"
+								placeholder="--Select--"
+							/>
+							<!-- <span>Azure Content Safety</span> -->
+						</div>
+						<div class="mt-2">
+							<span class="step-option__header">Data Protection:</span>
+							<!-- <span>Microsoft Presidio</span> -->
+							<Dropdown
+								v-model="gatekeeperDataProtection"
+								class="dropdown--agent"
+								:options="gatekeeperDataProtectionOptions"
+								option-label="label"
+								placeholder="--Select--"
+							/>
+						</div>
+
+						<div class="d-flex justify-content-end">
+							<Button
+								class="primary-button mt-2"
+								label="Done"
+								@click="editGatekeeper = false"
+							/>
+						</div>
 					</div>
-					<div>
-						<span class="step-option__header">Content Safety:</span>
-						<span>Azure Content Safety</span>
-					</div>
-					<div>
-						<span class="step-option__header">Data Protection:</span>
-						<span>Microsoft Presidio</span>
+
+					<!-- Select option -->
+					<div @click="editGatekeeper = true">
+						<div class="step-container__header">Gatekeeper</div>
+						<div>
+							<span class="step-option__header">Enabled:</span>
+							<span>
+								<span>{{ gatekeeperEnabled ? 'Yes' : 'No' }}</span>
+								<span v-if="gatekeeperEnabled" class="pi pi-check-circle ml-1" style="color: var(--green-400); font-size: 0.8rem;"></span>
+								<span v-else class="pi pi-times-circle ml-1" style="color: var(--red-400); font-size: 0.8rem;"></span>
+							</span>
+						</div>
+						<div>
+							<span class="step-option__header">Content Safety:</span>
+							<span>{{ gatekeeperContentSafety.label }}</span>
+						</div>
+						<div>
+							<span class="step-option__header">Data Protection:</span>
+							<span>{{ gatekeeperDataProtection.label }}</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -232,14 +396,84 @@ export default {
 			loadingStatusText: 'Retrieving data...' as string,
 
 			dataSources: [],
-			gatekeepers: [],
+			editDataSource: false as boolean,
+			selectedDataSource: null as null | Object,
 
 			indexSources: [] as AgentIndex[],
 			editIndexSources: false as boolean,
 			selectedIndexSource: null as null | AgentIndex,
 
+			editProcessing: false as boolean,
+			chunkSize: 2000,
+			overlapSize: 0,
+
+			editTrigger: false as boolean,
+			triggerFrequency: { label: 'Auto', value: null },
+			triggerFrequencyOptions: [
+				{
+					label: 'Auto',
+					value: null,
+				},
+				{
+					label: 'Manual',
+					value: 1,
+				},
+				{
+					label: 'Scheduled',
+					value: 2,
+				},
+			],
+			triggerFrequencyScheduled: null,
+			triggerFrequencyScheduledOptions: [
+				{
+					label: 'Never',
+					value: null,
+				},
+				{
+					label: 'Every 30 minutes',
+					value: 1,
+				},
+				{
+					label: 'Hourly',
+					value: 2,
+				},
+				{
+					label: 'Every 12 hours',
+					value: 2,
+				},
+				{
+					label: 'Daily',
+					value: 2,
+				},
+			],
+
 			editConversationHistory: false as boolean,
 			conversationHistory: false as boolean,
+
+			editGatekeeper: false as boolean,
+			gatekeeperEnabled: false as boolean,
+			gatekeeperContentSafety: { label: 'None', value: null },
+			gatekeeperContentSafetyOptions: [
+				{
+					label: 'None',
+					value: null,
+				},
+				{
+					label: 'Azure Content Safety',
+					value: 1,
+				},
+			],
+			gatekeeperDataProtection: { label: 'None', value: null },
+			gatekeeperDataProtectionOptions: [
+				{
+					label: 'None',
+					value: null,
+				},
+				{
+					label: 'Microsoft Presidio',
+					value: 1,
+				},
+			],
 
 			agentType: 'knowledge' as MockCreateAgentRequest['type'],
 			systemPrompt: defaultSystemPrompt as string,
@@ -250,7 +484,7 @@ export default {
 		this.loading = true;
 
 		// Uncomment to remove mock loading screen
-		api.mockLoadTime = 0;
+		// api.mockLoadTime = 0;
 
 		this.loadingStatusText = 'Retrieving indexes...';
 		this.indexSources = await api.getAgentIndexes();
@@ -269,6 +503,11 @@ export default {
 			this.agentType = type;
 		},
 
+		handleDataSourceSelected(dataSource) {
+			this.selectedDataSource = dataSource;
+			this.editDataSource = false;
+		},
+
 		handleIndexSourceClicked() {
 			this.editIndexSources = true;
 		},
@@ -278,16 +517,15 @@ export default {
 			this.editIndexSources = false;
 		},
 
-		handleConversionHistoryClicked() {
-			this.editConversationHistory = true;
-		},
-
 		async handleCreateAgent() {
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
+			const previousMockLoadTime = api.mockLoadTime;
+			api.mockLoadTime = 5000;
 			await api.createAgent({
 				prompt: this.systemPrompt,
 			});
+			api.mockLoadTime = previousMockLoadTime;
 			this.loading = false;
 			// Route to created agent's page
 		},
