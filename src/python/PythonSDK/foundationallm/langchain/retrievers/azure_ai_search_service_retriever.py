@@ -25,6 +25,7 @@ class AzureAISearchServiceRetriever(BaseRetriever):
         top_n : int -> number of results to return from vector search
         embedding_field_name: str -> name of the field containing the embedding vector
         text_field_name: str -> name of the field containing the raw text
+        filters: str -> Azure AI Search filter expression
         credential: AzureKeyCredential -> Azure AI Search credential
         embedding_model: OpenAIEmbeddings -> OpenAIEmbeddings model
 

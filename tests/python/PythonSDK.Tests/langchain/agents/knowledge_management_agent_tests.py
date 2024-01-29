@@ -1,17 +1,64 @@
 import pytest
 from foundationallm.config import Configuration
 from foundationallm.models.metadata import KnowledgeManagementAgent as KnowledgeManagementAgentMetadata
+from foundationallm.models.metadata import ConversationHistory, Gatekeeper
 from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest
-from foundationallm.langchain.language_models import LanguageModelFactory
 from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider, LanguageModel
 from foundationallm.langchain.agents import KnowledgeManagementAgent
+
+# temporary class to serve as a placeholder for the ResourceProvider class
+class ResourceProviderMock:
+    def get_resource(self, resource_id:str):
+        if("indexingprofiles" in resource_id):
+                return {
+                    "name": "sotu-index",
+                    "indexer": "AzureAISearchIndexer",
+                    "settings": {
+                            "index_name": "sotu-index",
+                            "top_n": "3",
+                            "filters": "",
+                            "embedding_field_name": "Embedding",
+                            "text_field_name": "Text"
+                        },
+                    "configuration_references": {
+                            "api_key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
+                            "query_api_key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
+                            "authentication_type": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
+                            "endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
+                        }  
+                    }
+        elif("textembeddingprofiles" in resource_id):
+             return {
+                "name": "AzureOpenAI_Embedding",
+                "text_embedding": "SemanticKernelTextEmbedding",
+                "settings": {},
+                "configuration_references": {
+                        "endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint",
+                        "api_key": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
+                        "api_version": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion",
+                        "authentication_type": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
+                        "deployment_name": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName"
+                    }
+                }
+        elif("prompt" in resource_id):
+            return """ 
+                You are a political science professional named Baldwin. You are responsible for answering questions regarding the February 2023 State of the Union Address.
+                Answer only questions about the February 2023 State of the Union address. Use only the information provided.
+                Provide concise answers that are polite and professional.
+            """
+            
+        return { "message": "not implemented" }
 
 @pytest.fixture
 def test_config():
     return Configuration()
 
 @pytest.fixture
-def test_no_context_completion_request():
+def test_resource_provider():
+    return ResourceProviderMock()
+
+@pytest.fixture
+def test_internal_context_completion_request():
      req = KnowledgeManagementCompletionRequest(
          user_prompt=""" 
          You are an expert an very specific Trivia. Your knowledgebase consists of the following facts:
@@ -26,7 +73,7 @@ def test_no_context_completion_request():
          Question: What is the nickname for two Canadian dollars?
          """,
          agent=KnowledgeManagementAgentMetadata(
-            name="test-noks",
+            name="internal-context",
             type="knowledge-management",
             description="Session-less agent that issues the user prompt directly to the language model.",
             language_model=LanguageModel(
@@ -34,29 +81,66 @@ def test_no_context_completion_request():
                 provider=LanguageModelProvider.MICROSOFT,
                 temperature=0,
                 use_chat=True
-            )
+            )            
          )
      )
      return req
 
 @pytest.fixture
-def test_llm(test_no_context_completion_request, test_config):
-    model_factory = LanguageModelFactory(language_model=test_no_context_completion_request.agent.language_model, config = test_config)
-    return model_factory.get_llm()
+def test_azure_ai_search_service_completion_request():
+     req = KnowledgeManagementCompletionRequest(
+         user_prompt=""" 
+            When did the State of the Union Address take place?
+         """,
+         agent=KnowledgeManagementAgentMetadata(
+            name="sotu",
+            type="knowledge-management",
+            description="Session-less agent that issues the user prompt directly to the language model.",
+            language_model=LanguageModel(
+                type=LanguageModelType.OPENAI,
+                provider=LanguageModelProvider.MICROSOFT,
+                temperature=0,
+                use_chat=True
+            ),
+            indexing_profile="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/indexingprofiles/sotu-index",
+            embedding_profile="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/textembeddingprofiles/AzureOpenAI_Embedding",
+            prompt="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Prompt/prompts/sotu-default",
+            sessions_enabled=True,
+            conversation_history =ConversationHistory(enabled=True, max_history=5),
+            gatekeeper=Gatekeeper(use_system_setting=True, options=["ContentSafety", "Presidio"])
+         )
+     )
+     return req
 
 class KnowledgeManagementAgentTests:    
-   def test_agent_initializes(self, test_config, test_no_context_completion_request, test_llm):        
-        agent = KnowledgeManagementAgent(completion_request=test_no_context_completion_request,llm=test_llm, config=test_config)
+    def test_internal_context_agent_initializes(self, test_config, test_internal_context_completion_request, test_resource_provider):        
+        agent = KnowledgeManagementAgent(completion_request=test_internal_context_completion_request, config=test_config, resource_provider=test_resource_provider)
         assert agent is not None
         
-   def test_agent_gets_completion(self, test_config, test_no_context_completion_request, test_llm):        
-        agent = KnowledgeManagementAgent(completion_request=test_no_context_completion_request,llm=test_llm, config=test_config)
-        completion_response = agent.run(prompt=test_no_context_completion_request.user_prompt)
+    def test_internal_context_agent_gets_completion(self, test_config, test_internal_context_completion_request,test_resource_provider):        
+        agent = KnowledgeManagementAgent(completion_request=test_internal_context_completion_request, config=test_config, resource_provider=test_resource_provider)
+        completion_response = agent.run(prompt=test_internal_context_completion_request.user_prompt)
         print(completion_response.completion)
         assert completion_response.completion is not None
         
-   def test_agent_gets_correct_completion(self, test_config, test_no_context_completion_request, test_llm):        
-        agent = KnowledgeManagementAgent(completion_request=test_no_context_completion_request,llm=test_llm, config=test_config)
-        completion_response = agent.run(prompt=test_no_context_completion_request.user_prompt)
+    def test_internal_context_agent_gets_correct_completion(self, test_config, test_internal_context_completion_request, test_resource_provider):        
+        agent = KnowledgeManagementAgent(completion_request=test_internal_context_completion_request, config=test_config, resource_provider=test_resource_provider)
+        completion_response = agent.run(prompt=test_internal_context_completion_request.user_prompt)
         print(completion_response.completion)
         assert "toonie" in completion_response.completion.lower()
+        
+    def test_azure_ai_search_service_agent_initializes(self, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
+        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, config=test_config, resource_provider=test_resource_provider)              
+        assert agent is not None
+
+    def test_azure_ai_search_gets_completion(self, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
+        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, config=test_config, resource_provider=test_resource_provider)
+        completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
+        print(completion_response.completion)
+        assert completion_response.completion is not None
+
+    def test_azure_ai_search_gets_correct_completion(self, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
+        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, config=test_config, resource_provider=test_resource_provider)
+        completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
+        print(completion_response.completion)
+        assert "february" in completion_response.completion.lower()
