@@ -1,0 +1,14 @@
+{
+	"ContentSourceProfiles": [
+		{
+			"Name": "SDZWAJournals",
+			"Type": "AzureDataLake",
+			"Settings": {
+			},
+			"ConfigurationReferences": {
+				"AuthenticationType": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:AuthenticationType",
+				"ConnectionString": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:ConnectionString"
+			}
+		}
+	]
+}
