@@ -15,5 +15,9 @@ namespace FoundationaLLM.Agent.ResourceProviders
         /// Agent references.
         /// </summary>
         public const string AgentReferences = "agentreferences";
+        /// <summary>
+        /// Agents.
+        /// </summary>
+        public const string Agents = "agents";
     }
 }

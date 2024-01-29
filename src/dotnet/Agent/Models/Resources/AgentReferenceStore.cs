@@ -15,5 +15,6 @@ namespace FoundationaLLM.Agent.Models.Resources
         /// The list of all agents registered in the system.
         /// </summary>
         public required List<AgentReference> AgentReferences { get; set; }
+
     }
 }

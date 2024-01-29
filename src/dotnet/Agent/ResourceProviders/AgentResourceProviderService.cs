@@ -67,7 +67,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         protected override async Task<T> GetResourceAsyncInternal<T>(List<ResourceTypeInstance> instances) where T: class =>
             instances[0].ResourceType switch
             {
-                AgentResourceTypeNames.AgentReferences => await GetAgentReference<T>(instances),
+                AgentResourceTypeNames.AgentReferences => await GetAgentAsync<T>(instances),
                 _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
             };
 
@@ -75,19 +75,26 @@ namespace FoundationaLLM.Agent.ResourceProviders
         protected override async Task<IList<T>> GetResourcesAsyncInternal<T>(List<ResourceTypeInstance> instances) where T : class =>
             instances[0].ResourceType switch
             {
-                AgentResourceTypeNames.AgentReferences => GetAgentReferences<T>(instances),
+                AgentResourceTypeNames.AgentReferences => await GetAgentsAsync<T>(instances),
                 _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
             };
 
-        private List<T> GetAgentReferences<T>(List<ResourceTypeInstance> instances) where T : class
+        private async Task<List<T>> GetAgentsAsync<T>(List<ResourceTypeInstance> instances) where T : class
         {
             if (typeof(T) != typeof(AgentReference))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
 
-            return _agentReferences.Values.Cast<T>().ToList();
+            var agentReferences = _agentReferences.Values.Cast<AgentReference>().ToList();
+            foreach (var agentReference in agentReferences)
+            {
+                var agent = await DeserializeAgent(agentReference);
+                agentReference.Agent = agent;
+            }
+
+            return agentReferences.Cast<T>().ToList();
         }
 
-        private async Task<T> GetAgentReference<T>(List<ResourceTypeInstance> instances) where T : class
+        private async Task<T> GetAgentAsync<T>(List<ResourceTypeInstance> instances) where T : class
         {
             if (instances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
@@ -96,9 +103,14 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
 
             _agentReferences.TryGetValue(instances[0].ResourceId!, out var agentReference);
-            var agent = await DeserializeAgent(agentReference!);
-            return agent as T
-                   ?? throw new ResourceProviderException($"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
+            if (agentReference != null)
+            {
+                agentReference.Agent = await DeserializeAgent(agentReference!);
+                return agentReference as T ?? throw new ResourceProviderException(
+                    $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
+            }
+            throw new ResourceProviderException(
+                $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
         }
 
         /// <inheritdoc/>
@@ -111,7 +123,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
             var serializedAgent = SerializeAgent(agent);
 
-            await SaveToBlobStorageAsync(agent, serializedAgent);
+            await SaveToStorageAsync(agent, serializedAgent);
 
             await UpdateAgentIndexAsync(agent);
         }
@@ -137,7 +149,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         private string SerializeAgent(AgentBase agent) =>
             JsonConvert.SerializeObject(agent, settings);
 
-        private async Task SaveToBlobStorageAsync(AgentBase agent, string serializedAgent)
+        private async Task SaveToStorageAsync(AgentBase agent, string serializedAgent)
         {
             
         }
