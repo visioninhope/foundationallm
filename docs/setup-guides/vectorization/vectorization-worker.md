@@ -213,6 +213,7 @@ Sample structure of a vectorization request:
         ],
         "canonical_id": "sdzwa/journals/SDZWA-Journal-January-2024"
     },
+	"processing_type": "Asynchronous",
     "steps":[
         {
             "id": "extract",
@@ -248,3 +249,5 @@ Sample structure of a vectorization request:
     ]
 }
 ```
+
+The `processing_type` property can be one of `Asynchronous` or `Synchronous`. The `Asynchronous` value indicates that the vectorization request is processed asynchronously via the Vectorization workers. The `Synchronous` value indicates that the vectorization request is processed synchronously via the Vectorization API.
