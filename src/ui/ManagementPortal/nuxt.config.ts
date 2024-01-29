@@ -45,11 +45,14 @@ export default defineNuxtConfig({
 		...(buildLoadingTemplate
 			? {
 					loadingTemplate: () => buildLoadingTemplate,
-			  }
+				}
 			: {}),
 		port: 3001,
 	},
 	runtimeConfig: {
 		APP_CONFIG_ENDPOINT: process.env.APP_CONFIG_ENDPOINT,
+		public: {
+			apiUrl: process.env.API_URL,
+		}
 	},
 });

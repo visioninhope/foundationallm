@@ -37,7 +37,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 	actions: {
 		async getConfigVariables() {
 			const [
-				// apiUrl,
+				apiUrl,
 				instanceId,
 				logoUrl,
 				logoText,
@@ -59,6 +59,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 				authCallbackPath,
 			] = await Promise.all([
 				// api.getConfigValue('FoundationaLLM:APIs:ManagementAPI:APIUrl'),
+				new Promise((resolve) => resolve(useRuntimeConfig('apiUrl').public.apiUrl)),
 
 				api.getConfigValue('FoundationaLLM:Instance:Id'),
 				
@@ -83,7 +84,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 				api.getConfigValue('FoundationaLLM:Management:Entra:CallbackPath'),
 			]);
 
-			// this.apiUrl = apiUrl;
+			this.apiUrl = apiUrl;
 			this.instanceId = instanceId;
 
 			this.logoUrl = logoUrl;

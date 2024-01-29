@@ -1,4 +1,4 @@
-		
+
 <template>
 	<div>
 		<h2 class="page-header">Create New Agent</h2>
@@ -19,10 +19,10 @@
 
 			<div class="step">
 				<div class="step__header">What type of agent?</div>
-				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('knowledge')">
+				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('knowledge-management')">
 					<div class="step-container__view">
 						<div class="step__radio">
-							<RadioButton v-model="agentType" name="agentType" value="knowledge" />
+							<RadioButton v-model="agentType" name="agentType" value="knowledge-management" />
 							<div class="step-container__header">Knowledge Management</div>
 						</div>
 						<div>Best for Q&A, summarization and reasoning over textual data.</div>
@@ -395,7 +395,7 @@
 
 <script lang="ts">
 import api from '@/js/api';
-import type { MockCreateAgentRequest, AgentIndex } from '@/js/types';
+import type { CreateAgentRequest, AgentIndex } from '@/js/types';
 
 const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
@@ -406,6 +406,8 @@ export default {
 		return {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
+
+			agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 			dataSources: [],
 			editDataSource: false as boolean,
@@ -487,7 +489,6 @@ export default {
 				},
 			],
 
-			agentType: 'knowledge' as MockCreateAgentRequest['type'],
 			systemPrompt: defaultSystemPrompt as string,
 		};
 	},
@@ -532,12 +533,34 @@ export default {
 		async handleCreateAgent() {
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
-			const previousMockLoadTime = api.mockLoadTime;
-			api.mockLoadTime = 5000;
+
 			await api.createAgent({
+				name: 'Test agent ' + Math.round(Math.random() * 1000),
+				type: this.agentType,
+
+				embedding_profile: this.selectedDataSource?.ConfigurationReferences?.Endpoint,
+				indexing_profile: this.selectedIndexSource?.ConfigurationReferences?.Endpoint,
+
+				// embedding_profile: string;
+				// sessions_enabled: boolean;
+				// orchestrator: string;
+
+				conversation_history: {
+					enabled: this.conversationHistory,
+					// max_history: number,
+				},
+
+				gatekeeper: {
+					use_system_setting: this.gatekeeperEnabled,
+					options: {
+						content_safety: this.gatekeeperContentSafety,
+						data_protection: this.gatekeeperDataProtection,
+					},
+				},
+
 				prompt: this.systemPrompt,
 			});
-			api.mockLoadTime = previousMockLoadTime;
+
 			this.loading = false;
 			// Route to created agent's page
 		},
