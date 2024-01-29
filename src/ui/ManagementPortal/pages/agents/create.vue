@@ -8,7 +8,7 @@
 
 		<div class="step">
 			<div class="step__header">What type of agent?</div>
-			<div class="step-container">
+			<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('knowledge')">
 				<div class="step__radio">
 					<RadioButton v-model="agentType" name="agentType" value="knowledge" />
 					<div class="step-container__header">Knowledge Management</div>
@@ -19,7 +19,7 @@
 
 		<div class="step">
 			<div class="step__header" style="visibility: hidden;">What type of agent?</div>
-			<div class="step-container">
+			<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('analytics')">
 				<div class="step__radio">
 					<RadioButton v-model="agentType" name="agentType" value="analytics" />
 					<div class="step-container__header">Analytics</div>
@@ -158,6 +158,12 @@ export default {
 			agentType: 'knowledge',
 			systemPrompt: 'You are a T-800 terminator, the most advanced infiltration unit designed by Cyberdyne Systems. Your mission is to terminate your target with ruthless efficiency. Remember, failure is not an option.',
 		};
+	},
+
+	methods: {
+		handleAgentTypeSelect(type) {
+			this.agentType = type;
+		},
 	},
 };
 </script>
