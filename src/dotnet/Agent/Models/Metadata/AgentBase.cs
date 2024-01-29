@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using FoundationaLLM.Common.Models.Metadata;
 using Newtonsoft.Json;
@@ -11,6 +12,9 @@ namespace FoundationaLLM.Agent.Models.Metadata
     /// <summary>
     /// Base agent metadata model.
     /// </summary>
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+    [JsonDerivedType(typeof(AgentBase), typeDiscriminator: "Base")]
+    [JsonDerivedType(typeof(KnowledgeManagementAgent), typeDiscriminator: "KnowledgeManagement")]
     public class AgentBase
     {
         /// <summary>
