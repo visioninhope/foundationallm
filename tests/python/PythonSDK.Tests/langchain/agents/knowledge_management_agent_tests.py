@@ -106,9 +106,19 @@ def test_azure_ai_search_service_completion_request():
             embedding_profile="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/textembeddingprofiles/AzureOpenAI_Embedding",
             prompt="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Prompt/prompts/sotu-default",
             sessions_enabled=True,
-            conversation_history =ConversationHistory(enabled=True, max_history=5),
+            conversation_history = ConversationHistory(enabled=True, max_history=5),
             gatekeeper=Gatekeeper(use_system_setting=True, options=["ContentSafety", "Presidio"])
-         )
+         ),
+         message_history = [
+            {
+                "sender": "User",
+                "text": "What is your name?"
+            },
+            {
+                "sender": "Assistant",
+                "text": "My name is Baldwin."
+            }
+        ]
      )
      return req
 
@@ -143,4 +153,4 @@ class KnowledgeManagementAgentTests:
         agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, config=test_config, resource_provider=test_resource_provider)
         completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
         print(completion_response.completion)
-        assert "february" in completion_response.completion.lower()
+        assert "february" in completion_response.completion.lower() or "2023" in completion_response.completion

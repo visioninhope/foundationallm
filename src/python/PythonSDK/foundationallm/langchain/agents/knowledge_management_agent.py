@@ -2,6 +2,7 @@
 The KnowledgeManagementAgent class is responsible for executing a completion request
 over text, whether that be from a user prompt or a RAG pattern, over a vector store.
 """
+from distutils.command import build
 from typing import List
 from langchain_community.callbacks import get_openai_callback
 from langchain_core.documents import Document
@@ -10,9 +11,11 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from foundationallm.config import Configuration
+from foundationallm.langchain.message_history import build_message_history
 from foundationallm.langchain.language_models import LanguageModelFactory
 from foundationallm.langchain.agents.agent_base import AgentBase
 from foundationallm.langchain.retrievers import RetrieverFactory
+from foundationallm.models.metadata import ConversationHistory
 from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest, CompletionResponse
 
 class KnowledgeManagementAgent(AgentBase):
@@ -53,7 +56,17 @@ class KnowledgeManagementAgent(AgentBase):
                             resource_provider = resource_provider)
             self.retriever = retriever_factory.get_retriever()
             self.agent_prompt = resource_provider.get_resource(completion_request.agent.prompt)
-            
+
+        #default conversation history
+        self.message_history_enabled = False
+        self.message_history_count = 5
+        
+        conversation_history: ConversationHistory = completion_request.agent.conversation_history
+        if conversation_history is not None:
+            self.message_history_enabled = conversation_history.enabled
+            self.message_history_count = conversation_history.max_history
+        
+        self.message_history = completion_request.message_history
         self.full_prompt = ""
 
     def __format_docs(self, docs:List[Document]) -> str:
@@ -96,15 +109,16 @@ class KnowledgeManagementAgent(AgentBase):
             generated full prompt with context
             and token utilization and execution cost details.
         """
-        with get_openai_callback() as cb:
-            prompt_builder = self.agent_prompt
+        with get_openai_callback() as cb:            
             # default to internal context
             prompt_builder = "{context}"
             first_chain_link = { "context": RunnablePassthrough() }
             # if querying vector store, override
             if self.internal_context == False:
-                prompt_builder = self.agent_prompt + \
-                        "\n\nQuestion: {question}\n\nContext: {context}\n\nAnswer:"
+                prompt_builder = self.agent_prompt
+                if self.message_history_enabled == True:
+                    prompt_builder = prompt_builder + build_message_history(self.message_history, self.message_history_count)
+                prompt_builder = prompt_builder + "\n\nQuestion: {question}\n\nContext: {context}\n\nAnswer:"
                 first_chain_link = { "context": self.retriever | self.__format_docs, "question": RunnablePassthrough()}        
             prompt_template = PromptTemplate.from_template(prompt_builder)
 

@@ -25,3 +25,8 @@ class MessageHistoryTests:
         history = build_message_history(messages=message_history, message_count=2)
         expected = "\n\nChat History:\nUser: user chat 2\nAgent: agent chat 2\n\n\n"
         assert history == expected
+
+    def test_build_message_history_last_n_messages_out_of_range(self, message_history):
+        history = build_message_history(messages=message_history, message_count=10)
+        expected = "\n\nChat History:\nUser: user chat 1\nAgent: agent chat 1\nUser: user chat 2\nAgent: agent chat 2\n\n\n"
+        assert history == expected
