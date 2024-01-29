@@ -14,8 +14,8 @@ COPY . .
 RUN dotnet restore "dotnet/Common/Common.csproj"
 RUN dotnet build "dotnet/Common/Common.csproj" -c Release -o /app/build
 
-RUN dotnet restore "dotnet/SemanticKernel/SemanticKernel.csproj"
-RUN dotnet build "dotnet/SemanticKernel/SemanticKernel.csproj" -c Release -o /app/build
+RUN dotnet restore "dotnet/SemanticKernel-obsolete/SemanticKernel.csproj"
+RUN dotnet build "dotnet/SemanticKernel-obsolete/SemanticKernel.csproj" -c Release -o /app/build
 
 RUN dotnet restore "dotnet/SemanticKernelAPI/SemanticKernelAPI.csproj"
 RUN dotnet build "dotnet/SemanticKernelAPI/SemanticKernelAPI.csproj" -c Release -o /app/build
