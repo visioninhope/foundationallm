@@ -13,6 +13,10 @@ namespace FoundationaLLM.Common.Constants
     public static class AppConfigurationKeys
     {
         /// <summary>
+        /// The key for the FoundationaLLM:Instance:Id app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Instance_Id = "FoundationaLLM:Instance:Id";
+        /// <summary>
         /// The key for the FoundationaLLM:AgentHub:AgentMetadata:StorageContainer app configuration setting.
         /// </summary>
         public const string FoundationaLLM_AgentHub_AgentMetadata_StorageContainer = "FoundationaLLM:AgentHub:AgentMetadata:StorageContainer";
@@ -661,6 +665,10 @@ namespace FoundationaLLM.Common.Constants
     public static class AppConfigurationKeyFilters
     {
         /// <summary>
+        /// The key filter for the FoundationaLLM:Instance:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Instance = "FoundationaLLM:Instance:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:Branding:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Branding = "FoundationaLLM:Branding:*";
@@ -727,6 +735,10 @@ namespace FoundationaLLM.Common.Constants
     /// </summary>
     public static class AppConfigurationKeySections
     {
+        /// <summary>
+        /// The key section for the FoundationaLLM:Instance app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Instance = "FoundationaLLM:Instance";
         /// <summary>
         /// The key section for the FoundationaLLM:Branding app configuration settings.
         /// </summary>
