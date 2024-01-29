@@ -5475,6 +5475,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "operations/network-security-groups.md",
+      "output": {
+        ".html": {
+          "relative_path": "operations/network-security-groups.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "operations/release-notes.md",
       "output": {
         ".html": {

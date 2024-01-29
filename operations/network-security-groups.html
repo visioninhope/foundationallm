@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Platform security features &amp; best practices | FoundationaLLM </title>
+      <title>Network Security Group Configurations | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Platform security features &amp; best practices | FoundationaLLM ">
+      <meta name="title" content="Network Security Group Configurations | FoundationaLLM ">
       
       
       <link rel="icon" href="../media/favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/operations/security.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/operations/network-security-groups.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,52 +85,101 @@
         </div>
 
         <article data-uid="">
-<h1 id="platform-security-features--best-practices">Platform security features &amp; best practices</h1>
+<h1 id="network-security-group-configurations">Network Security Group Configurations</h1>
 
-<p>Maintaining the security of the Azure platform is crucial for protecting sensitive data and ensuring the integrity of your infrastructure.</p>
-<ol>
-<li><p><strong>Identity and Access Management (IAM)</strong></p>
-<ul>
-<li>Ensure that only authorized users have access to your Azure resources.</li>
-<li>FoundationaLLM uses Azure Entra ID for centralized identity management.</li>
-<li>Enable multi-factor authentication (MFA) for all user accounts.</li>
-</ul>
-</li>
-<li><p><strong>Network Security</strong></p>
-<ul>
-<li>The standard deployment:
-<ul>
-<li>Uses Azure Virtual Networks for network segmentation.</li>
-<li>Implements Network Security Groups (NSGs) to control inbound and outbound traffic.</li>
-<li><a href="network-security-groups.html">Network Security Rule Details</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Data Encryption</strong></p>
-<ul>
-<li>Wherever possible the Standard Deployment uses encryption at rest with system-managed keys.</li>
-<li>Customer managed keys can be enabled at your discretion.</li>
-</ul>
-</li>
-<li><p><strong>Threat Detection and Monitoring</strong></p>
-<ul>
-<li>Wherever supported the Standard Deployment enables Azure Diagnostics on the resources it deploys.  These logs are sent to a Log Analytics workspace. as part of the standard resources.</li>
-<li>Customers are encouraged to enable Azure Defender for additional threat detection and monitoring.</li>
-<li>Customers may use Azure Sentinel for advanced security information and event management (SIEM). Customers already using Azure Sentinel may redirect the logs from the Standard Deployment to their existing Azure Sentinel instance.</li>
-</ul>
-</li>
-<li><p><strong>Patch Management</strong></p>
-<ul>
-<li>Regularly check the FoundationaLLM github repository for new image releases and update your deployment accordingly.</li>
-</ul>
-</li>
-</ol>
+<p>FoundationaLLM uses Azure Virtual Networks for network segmentation.  The Standard Deployment uses Network Security Groups (NSGs) to control inbound and outbound traffic.  The following table lists the NSGs used in the Standard Deployment and the ports that are open by default.</p>
+<h2 id="nsg-rules">NSG Rules</h2>
+<h3 id="application-gateway">Application Gateway</h3>
+<table>
+<thead>
+<tr>
+<th>Rule Name</th>
+<th>Access</th>
+<th>DestinationAddressPrefix</th>
+<th>DestinationPortRange</th>
+<th>Direction</th>
+<th>Priority</th>
+<th>Protocol</th>
+<th>ProvisioningState</th>
+<th>SourceAddressPrefix</th>
+<th>SourcePortRange</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>allow-internet-http-inbound</td>
+<td>Allow</td>
+<td>VirtualNetwork</td>
+<td>80</td>
+<td>Inbound</td>
+<td>128</td>
+<td>Tcp</td>
+<td>Succeeded</td>
+<td>Internet</td>
+<td>*</td>
+<td>Customers may restrict inbound connectivity as desired.</td>
+</tr>
+<tr>
+<td>allow-internet-https-inbound</td>
+<td>Allow</td>
+<td>VirtualNetwork</td>
+<td>443</td>
+<td>Inbound</td>
+<td>132</td>
+<td>Tcp</td>
+<td>Succeeded</td>
+<td>Internet</td>
+<td>*</td>
+<td>Customers may restrict inbound connectivity as desired.</td>
+</tr>
+<tr>
+<td>allow-gatewaymanager-inbound</td>
+<td>Allow</td>
+<td>*</td>
+<td>65200-65535</td>
+<td>Inbound</td>
+<td>148</td>
+<td>Tcp</td>
+<td>Succeeded</td>
+<td>GatewayManager</td>
+<td>*</td>
+<td>This rule is required by Azure and cannot be changed.<a href="https://learn.microsoft.com/en-us/azure/application-gateway/configuration-infrastructure#network-security-groups">1</a></td>
+</tr>
+<tr>
+<td>allow-loadbalancer-inbound</td>
+<td>Allow</td>
+<td>*</td>
+<td>*</td>
+<td>Inbound</td>
+<td>164</td>
+<td>*</td>
+<td>Succeeded</td>
+<td>AzureLoadBalancer</td>
+<td>*</td>
+<td>This rule is required by Azure and cannot be changed.<a href="https://learn.microsoft.com/en-us/azure/application-gateway/configuration-infrastructure#network-security-groups">1</a></td>
+</tr>
+<tr>
+<td>deny-all-inbound</td>
+<td>Deny</td>
+<td>*</td>
+<td>*</td>
+<td>Inbound</td>
+<td>4096</td>
+<td>*</td>
+<td>Succeeded</td>
+<td>*</td>
+<td>*</td>
+<td>Customers may modify this rule if needed (not reccomended)</td>
+</tr>
+</tbody>
+</table>
+<p>1: For further information regarding required NSG rules for Application Gateway, please see <a href="https://learn.microsoft.com/en-us/azure/application-gateway/configuration-infrastructure#network-security-groups">this article</a>.</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/operations/security.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/operations/network-security-groups.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
