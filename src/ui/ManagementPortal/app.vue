@@ -98,6 +98,14 @@ main {
 	width: 100%;
 }
 
+.d-flex {
+	display: flex;
+}
+
+.align-center {
+	align-items: center;
+}
+
 .justify-self-end {
 	justify-self: end;
 }
