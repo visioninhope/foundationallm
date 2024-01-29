@@ -7981,6 +7981,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
   nameWithType: ContentIdentifier.CanonicalId
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName
+  name: ContentSourceProfileName
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_ContentSourceProfileName
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName
+  nameWithType: ContentIdentifier.ContentSourceProfileName
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName*
+  name: ContentSourceProfileName
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_ContentSourceProfileName_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName
+  nameWithType: ContentIdentifier.ContentSourceProfileName
 - uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
   name: MultipartId
   href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_MultipartId
@@ -8039,19 +8052,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
   nameWithType: EmbeddedContent.ContentParts
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName
-  name: ContentSourceProfileName
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentSourceProfileName
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName
-  nameWithType: EmbeddedContent.ContentSourceProfileName
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName*
-  name: ContentSourceProfileName
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentSourceProfileName_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentSourceProfileName
-  nameWithType: EmbeddedContent.ContentSourceProfileName
 - uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart
   name: EmbeddedContentPart
   href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html
@@ -8084,6 +8084,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
   nameWithType: EmbeddedContentPart.Embedding
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Id
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id
+  nameWithType: EmbeddedContentPart.Id
+- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id*
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Id_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id
+  nameWithType: EmbeddedContentPart.Id
 - uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding
   name: Embedding
   href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html
@@ -17281,19 +17294,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.VectorizationState.ContentIdentifier
   nameWithType: VectorizationState.ContentIdentifier
-- uid: FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName
-  name: ContentSourceProfileName
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_ContentSourceProfileName
-  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName
-  nameWithType: VectorizationState.ContentSourceProfileName
-- uid: FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName*
-  name: ContentSourceProfileName
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_ContentSourceProfileName_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.ContentSourceProfileName
-  nameWithType: VectorizationState.ContentSourceProfileName
 - uid: FoundationaLLM.Vectorization.Models.VectorizationState.CurrentRequestId
   name: CurrentRequestId
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_CurrentRequestId

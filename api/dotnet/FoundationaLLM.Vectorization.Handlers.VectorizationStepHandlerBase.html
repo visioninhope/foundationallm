@@ -536,7 +536,7 @@ Class VectorizationStepHandlerBase  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Vectorization_Handlers_VectorizationStepHandlerBase_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_FoundationaLLM_Vectorization_Models_VectorizationState_Microsoft_Extensions_Configuration_IConfigurationSection_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Vectorization.Handlers.VectorizationStepHandlerBase.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest,FoundationaLLM.Vectorization.Models.VectorizationState,Microsoft.Extensions.Configuration.IConfigurationSection,System.Threading.CancellationToken)">
   ProcessRequest(VectorizationRequest, VectorizationState, IConfigurationSection?, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Handlers/VectorizationStepHandlerBase.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Handlers/VectorizationStepHandlerBase.cs/#L123"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Processes a vectorization request.
@@ -545,7 +545,7 @@ The vectorization state will be updated with the result(s) of the processing.</p
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual Task ProcessRequest(VectorizationRequest request, VectorizationState state, IConfigurationSection? stepConfiguration, CancellationToken cancellationToken)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual Task&lt;bool&gt; ProcessRequest(VectorizationRequest request, VectorizationState state, IConfigurationSection? stepConfiguration, CancellationToken cancellationToken)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -566,7 +566,7 @@ The vectorization state will be updated with the result(s) of the processing.</p
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
     <dd></dd>
   </dl>
 

@@ -259,7 +259,7 @@ The vectorization state will be updated with the result(s) of the processing.</p
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override Task ProcessRequest(VectorizationRequest request, VectorizationState state, IConfigurationSection? stepConfiguration, CancellationToken cancellationToken)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override Task&lt;bool&gt; ProcessRequest(VectorizationRequest request, VectorizationState state, IConfigurationSection? stepConfiguration, CancellationToken cancellationToken)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -280,7 +280,7 @@ The vectorization state will be updated with the result(s) of the processing.</p
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
     <dd></dd>
   </dl>
 
