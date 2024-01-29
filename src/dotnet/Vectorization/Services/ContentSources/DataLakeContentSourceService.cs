@@ -1,11 +1,7 @@
-﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Services;
+﻿using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Settings;
-using FoundationaLLM.Vectorization.DataFormats.PDF;
-using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {

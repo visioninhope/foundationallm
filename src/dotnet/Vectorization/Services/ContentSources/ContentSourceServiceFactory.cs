@@ -4,15 +4,12 @@ using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.ResourceProviders;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {

@@ -4,10 +4,14 @@ using Azure.Security.KeyVault.Secrets;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using PnP.Framework;
-using PnP.Framework.Modernization.Cache;
+using PnP.Core.Auth;
+using PnP.Core.Services.Builder.Configuration;
+using PnP.Core.Services;
 using System.Security.Cryptography.X509Certificates;
+using System;
+using PnP.Core.Model.SharePoint;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
@@ -18,6 +22,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
     {
         private readonly SharePointOnlineContentSourceServiceSettings _settings;
         private readonly ILogger<SharePointOnlineContentSourceService> _logger;
+        private ServiceProvider? _serviceProvider;
 
         /// <summary>
         /// Creates a new instance of the vectorization content source.
@@ -34,35 +39,40 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         public async Task<string> ExtractTextFromFileAsync(List<string> multipartId, CancellationToken cancellationToken)
         {
             ValidateMultipartId(multipartId, 4);
+            await EnsureServiceProvider(multipartId);
 
             var binaryContent = await GetDocumentBinaryContent(
-                $"{multipartId[0]}/{multipartId[1]}",
-                $"{multipartId[1]}/{multipartId[2]}/{multipartId[3]}",
+                $"{multipartId[2]}/{multipartId[3]}",
                 cancellationToken);
 
-            return await ExtractTextFromFileAsync(multipartId[2], binaryContent);
+            return await ExtractTextFromFileAsync(multipartId[3], binaryContent);
         }
 
         /// <summary>
         /// Retrieves the binary content of the specified SharePoint Online document.
         /// </summary>
-        /// <param name="documentLibrarySiteUrl">The url of the document library.</param>
+
         /// <param name="documentRelativeUrl">The server relative url of the document.</param>
         /// <param name="cancellationToken">The cancellation token that signals that operations should be cancelled.</param>
         /// <returns>An object representing the binary contents of the retrieved document.</returns>
-        private async Task<BinaryData> GetDocumentBinaryContent(string documentLibrarySiteUrl, string documentRelativeUrl, CancellationToken cancellationToken)
+        private async Task<BinaryData> GetDocumentBinaryContent(string documentRelativeUrl, CancellationToken cancellationToken)
         {
-            X509Certificate2 certificate = await GetCertificate();
-
-            var authManager = new AuthenticationManager(_settings.ClientId, certificate, _settings.TenantId);
-            using (var cc = authManager!.GetContext(documentLibrarySiteUrl, cancellationToken))
+            using (var scope = _serviceProvider!.CreateScope())
             {
-                var file = cc.Web.GetFileByServerRelativeUrl(documentRelativeUrl);
-                var stream = file.OpenBinaryStream();
-                var bytes = stream.ToByteArray();
+                var pnpContextFactory = scope.ServiceProvider.GetRequiredService<IPnPContextFactory>();
 
-                return new BinaryData(bytes);
-            };
+                using (var context = await pnpContextFactory.CreateAsync("Default"))
+                {
+                    string documentUrl = $"{context.Uri.PathAndQuery}/{documentRelativeUrl}";
+                    // Get a reference to the file
+                    IFile testDocument = await context.Web.GetFileByServerRelativeUrlAsync(documentUrl);
+
+                    Stream downloadedContentStream = await testDocument.GetContentAsync(true);
+                    var binaryData = await BinaryData.FromStreamAsync(downloadedContentStream, cancellationToken);
+
+                    return binaryData;
+                }
+            }
         }
 
         /// <summary>
@@ -100,6 +110,32 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
 
             if (string.IsNullOrWhiteSpace(_settings.CertificateName))
                 throw new VectorizationException("Missing CertificateName in the SharePointOnlineContentSourceService configuration settings.");
+        }
+
+        private async Task EnsureServiceProvider(List<string> multipartId)
+        {
+            if (_serviceProvider == null)
+            {
+                var certificate = await GetCertificate();
+                var services = new ServiceCollection();
+                services.AddLogging();
+                services.AddPnPCore(async options =>
+                {
+                    var authProvider = new X509CertificateAuthenticationProvider(
+                        _settings.ClientId,
+                        _settings.TenantId,
+                        certificate);
+                    options.DefaultAuthenticationProvider = authProvider;
+                    options.Sites.Add("Default",
+                        new PnPCoreSiteOptions
+                        {
+                            SiteUrl = $"{multipartId[0]}/{multipartId[1]}",
+                            AuthenticationProvider = authProvider
+                        });
+                });
+                services.AddPnPContextFactory();
+                _serviceProvider = services.BuildServiceProvider();
+            }
         }
     }
 }
