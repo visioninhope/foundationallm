@@ -63,8 +63,15 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <inheritdoc/>
         public async Task Initialize()
         {
-            await InitializeInternal();
-            _isInitialized = true;
+            try
+            {
+                await InitializeInternal();
+                _isInitialized = true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "The resource provider {ResourceProviderName} failed to initialize.", _name);
+            }
         }
 
         /// <inheritdoc/>
