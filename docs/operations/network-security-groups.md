@@ -14,6 +14,6 @@ FoundationaLLM uses Azure Virtual Networks for network segmentation.  The Standa
 | allow-loadbalancer-inbound   | Allow  | *                        | *                    | Inbound   | 164      | *        | Succeeded         | AzureLoadBalancer   | *               | This rule is required by Azure and cannot be changed.[1][1] |
 | deny-all-inbound             | Deny   | *                        | *                    | Inbound   | 4096     | *        | Succeeded         | *                   | *               | Customers may modify this rule if needed (not reccomended)            |
 
-For further information regarding required NSG rules for Application Gateway, please see [this article][1].
+1: For further information regarding required NSG rules for Application Gateway, please see [this article][1].
 
 [1]: https://learn.microsoft.com/en-us/azure/application-gateway/configuration-infrastructure#network-security-groups
