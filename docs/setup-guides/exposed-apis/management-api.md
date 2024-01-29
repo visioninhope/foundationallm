@@ -17,5 +17,5 @@ In addition to modifying/creating content and platform components, the Managemen
 
 ![](../../media/Mgm-api-1.png)
 
-Using the Management API frpm Postman, you can replace the {{baseUrl}} with the actual URL of the Management API resource, and the {{InstanceId}} with the actual instance ID from your app configuration resource that was generated for you.
-You can get "GET" the configuration of an agent, and "POST" to create a new agent or "PUT" to update an existing agent.
+Using the Management API from Postman, you can replace the {{baseUrl}} with the actual URL of the Management API resource, and the {{InstanceId}} with the actual instance ID from your app configuration resource that was generated for you.
+You can "GET" the configuration of an agent, and "POST" to create a new agent or "PUT" to update an existing agent.
