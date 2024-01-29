@@ -2,7 +2,7 @@
 	<h2 class="page-header">Create New Agent</h2>
 	<div class="page-subheader">Complete the settings below to create and deploy your new agent.</div>
 
-	<div class="steps">
+	<div class="steps" :class="{ 'steps--loading': loading }">
 		<!-- Type -->
 		<div class="step-section-header span-2">Type</div>
 
@@ -136,7 +136,6 @@
 				autoResize
 				rows="5"
 				type="text"
-				@keydown.enter="handleSend"
 			/>
 		</div>
 
@@ -145,16 +144,20 @@
 			class="primary-button column-2 justify-self-end"
 			style="width: 200px;"
 			label="Create Agent"
+			@click="handleCreateAgent"
 		/>
 	</div>
 </template>
 
 <script lang="ts">
+import api from '@/js/api';
+
 export default {
 	name: 'CreateAgent',
 
 	data() {
 		return {
+			loading: false,
 			agentType: 'knowledge',
 			systemPrompt: 'You are a T-800 terminator, the most advanced infiltration unit designed by Cyberdyne Systems. Your mission is to terminate your target with ruthless efficiency. Remember, failure is not an option.',
 		};
@@ -164,6 +167,12 @@ export default {
 		handleAgentTypeSelect(type) {
 			this.agentType = type;
 		},
+
+		async handleCreateAgent() {
+			this.loading = true;
+			await api.createAgent();
+			this.loading = false;
+		}
 	},
 };
 </script>
@@ -173,6 +182,10 @@ export default {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 24px;
+}
+
+.steps--loading {
+	opacity: 0.5;
 }
 
 .step-section-header {
