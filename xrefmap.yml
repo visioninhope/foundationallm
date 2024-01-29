@@ -15904,6 +15904,91 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.ProcessRequest
   nameWithType: VectorizationRequestController.ProcessRequest
+- uid: FoundationaLLM.Vectorization.DataFormats
+  name: FoundationaLLM.Vectorization.DataFormats
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.html
+- uid: FoundationaLLM.Vectorization.DataFormats.Office
+  name: FoundationaLLM.Vectorization.DataFormats.Office
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.html
+  commentId: N:FoundationaLLM.Vectorization.DataFormats.Office
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office
+  nameWithType: FoundationaLLM.Vectorization.DataFormats.Office
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor
+  name: DOCXTextExtractor
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.html
+  commentId: T:FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor
+  nameWithType: DOCXTextExtractor
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.GetText(System.BinaryData)
+  name: GetText(BinaryData)
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.html#FoundationaLLM_Vectorization_DataFormats_Office_DOCXTextExtractor_GetText_System_BinaryData_
+  commentId: M:FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.GetText(System.BinaryData)
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.GetText(System.BinaryData)
+  nameWithType: DOCXTextExtractor.GetText(BinaryData)
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.GetText*
+  name: GetText
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.html#FoundationaLLM_Vectorization_DataFormats_Office_DOCXTextExtractor_GetText_
+  commentId: Overload:FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.GetText
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.GetText
+  nameWithType: DOCXTextExtractor.GetText
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor
+  name: PPTXTextExtractor
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.html
+  commentId: T:FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor
+  nameWithType: PPTXTextExtractor
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.GetText(System.BinaryData)
+  name: GetText(BinaryData)
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.html#FoundationaLLM_Vectorization_DataFormats_Office_PPTXTextExtractor_GetText_System_BinaryData_
+  commentId: M:FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.GetText(System.BinaryData)
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.GetText(System.BinaryData)
+  nameWithType: PPTXTextExtractor.GetText(BinaryData)
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.GetText*
+  name: GetText
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.html#FoundationaLLM_Vectorization_DataFormats_Office_PPTXTextExtractor_GetText_
+  commentId: Overload:FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.GetText
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.GetText
+  nameWithType: PPTXTextExtractor.GetText
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor
+  name: XLSXTextExtractor
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.html
+  commentId: T:FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor
+  nameWithType: XLSXTextExtractor
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.#ctor(System.Boolean,System.Boolean,System.Boolean,System.String,System.String,System.String,System.String,System.String)
+  name: XLSXTextExtractor(bool, bool, bool, string?, string?, string?, string?, string?)
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.html#FoundationaLLM_Vectorization_DataFormats_Office_XLSXTextExtractor__ctor_System_Boolean_System_Boolean_System_Boolean_System_String_System_String_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.#ctor(System.Boolean,System.Boolean,System.Boolean,System.String,System.String,System.String,System.String,System.String)
+  name.vb: New(Boolean, Boolean, Boolean, String, String, String, String, String)
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.XLSXTextExtractor(bool, bool, bool, string?, string?, string?, string?, string?)
+  fullName.vb: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.New(Boolean, Boolean, Boolean, String, String, String, String, String)
+  nameWithType: XLSXTextExtractor.XLSXTextExtractor(bool, bool, bool, string?, string?, string?, string?, string?)
+  nameWithType.vb: XLSXTextExtractor.New(Boolean, Boolean, Boolean, String, String, String, String, String)
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.#ctor*
+  name: XLSXTextExtractor
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.html#FoundationaLLM_Vectorization_DataFormats_Office_XLSXTextExtractor__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.XLSXTextExtractor
+  fullName.vb: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.New
+  nameWithType: XLSXTextExtractor.XLSXTextExtractor
+  nameWithType.vb: XLSXTextExtractor.New
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.GetText(System.BinaryData)
+  name: GetText(BinaryData)
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.html#FoundationaLLM_Vectorization_DataFormats_Office_XLSXTextExtractor_GetText_System_BinaryData_
+  commentId: M:FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.GetText(System.BinaryData)
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.GetText(System.BinaryData)
+  nameWithType: XLSXTextExtractor.GetText(BinaryData)
+- uid: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.GetText*
+  name: GetText
+  href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.html#FoundationaLLM_Vectorization_DataFormats_Office_XLSXTextExtractor_GetText_
+  commentId: Overload:FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.GetText
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.GetText
+  nameWithType: XLSXTextExtractor.GetText
 - uid: FoundationaLLM.Vectorization.DataFormats.PDF
   name: FoundationaLLM.Vectorization.DataFormats.PDF
   href: api/dotnet/FoundationaLLM.Vectorization.DataFormats.PDF.html
@@ -16633,6 +16718,64 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.VisibilityTimeoutSeconds
   nameWithType: RequestSourceServiceSettings.VisibilityTimeoutSeconds
+- uid: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings
+  name: SharePointOnlineContentSourceServiceSettings
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings
+  nameWithType: SharePointOnlineContentSourceServiceSettings
+- uid: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.CertificateName
+  name: CertificateName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_SharePointOnlineContentSourceServiceSettings_CertificateName
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.CertificateName
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.CertificateName
+  nameWithType: SharePointOnlineContentSourceServiceSettings.CertificateName
+- uid: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.CertificateName*
+  name: CertificateName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_SharePointOnlineContentSourceServiceSettings_CertificateName_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.CertificateName
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.CertificateName
+  nameWithType: SharePointOnlineContentSourceServiceSettings.CertificateName
+- uid: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.ClientId
+  name: ClientId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_SharePointOnlineContentSourceServiceSettings_ClientId
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.ClientId
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.ClientId
+  nameWithType: SharePointOnlineContentSourceServiceSettings.ClientId
+- uid: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.ClientId*
+  name: ClientId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_SharePointOnlineContentSourceServiceSettings_ClientId_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.ClientId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.ClientId
+  nameWithType: SharePointOnlineContentSourceServiceSettings.ClientId
+- uid: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.KeyVaultURL
+  name: KeyVaultURL
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_SharePointOnlineContentSourceServiceSettings_KeyVaultURL
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.KeyVaultURL
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.KeyVaultURL
+  nameWithType: SharePointOnlineContentSourceServiceSettings.KeyVaultURL
+- uid: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.KeyVaultURL*
+  name: KeyVaultURL
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_SharePointOnlineContentSourceServiceSettings_KeyVaultURL_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.KeyVaultURL
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.KeyVaultURL
+  nameWithType: SharePointOnlineContentSourceServiceSettings.KeyVaultURL
+- uid: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.TenantId
+  name: TenantId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_SharePointOnlineContentSourceServiceSettings_TenantId
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.TenantId
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.TenantId
+  nameWithType: SharePointOnlineContentSourceServiceSettings.TenantId
+- uid: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.TenantId*
+  name: TenantId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_SharePointOnlineContentSourceServiceSettings_TenantId_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.TenantId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.TenantId
+  nameWithType: SharePointOnlineContentSourceServiceSettings.TenantId
 - uid: FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings
   name: VectorizationStateServiceSettings
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.html
@@ -16766,6 +16909,12 @@ references:
   commentId: F:FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.AzureDataLake
   fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.AzureDataLake
   nameWithType: ContentSourceType.AzureDataLake
+- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.SharePointOnline
+  name: SharePointOnline
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceType_SharePointOnline
+  commentId: F:FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.SharePointOnline
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.SharePointOnline
+  nameWithType: ContentSourceType.SharePointOnline
 - uid: FoundationaLLM.Vectorization.Models.Resources.IndexerType
   name: IndexerType
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexerType.html
@@ -17670,6 +17819,22 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase
   fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase
   nameWithType: ContentSourceServiceBase
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ExtractTextFromFileAsync(System.String,System.BinaryData)
+  name: ExtractTextFromFileAsync(string, BinaryData)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceBase_ExtractTextFromFileAsync_System_String_System_BinaryData_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ExtractTextFromFileAsync(System.String,System.BinaryData)
+  name.vb: ExtractTextFromFileAsync(String, BinaryData)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ExtractTextFromFileAsync(string, System.BinaryData)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ExtractTextFromFileAsync(String, System.BinaryData)
+  nameWithType: ContentSourceServiceBase.ExtractTextFromFileAsync(string, BinaryData)
+  nameWithType.vb: ContentSourceServiceBase.ExtractTextFromFileAsync(String, BinaryData)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ExtractTextFromFileAsync*
+  name: ExtractTextFromFileAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceBase_ExtractTextFromFileAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ExtractTextFromFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ExtractTextFromFileAsync
+  nameWithType: ContentSourceServiceBase.ExtractTextFromFileAsync
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.ValidateMultipartId(System.Collections.Generic.List{System.String},System.Int32)
   name: ValidateMultipartId(List<string>, int)
   href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceBase_ValidateMultipartId_System_Collections_Generic_List_System_String__System_Int32_
@@ -17784,6 +17949,47 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync
   nameWithType: DataLakeContentSourceService.ExtractTextFromFileAsync
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService
+  name: SharePointOnlineContentSourceService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html
+  commentId: T:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService
+  nameWithType: SharePointOnlineContentSourceService
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.#ctor(FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: SharePointOnlineContentSourceService(SharePointOnlineContentSourceServiceSettings, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_SharePointOnlineContentSourceService__ctor_FoundationaLLM_Vectorization_Models_Configuration_SharePointOnlineContentSourceServiceSettings_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.#ctor(FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(SharePointOnlineContentSourceServiceSettings, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.SharePointOnlineContentSourceService(FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.New(FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: SharePointOnlineContentSourceService.SharePointOnlineContentSourceService(SharePointOnlineContentSourceServiceSettings, ILoggerFactory)
+  nameWithType.vb: SharePointOnlineContentSourceService.New(SharePointOnlineContentSourceServiceSettings, ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.#ctor*
+  name: SharePointOnlineContentSourceService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_SharePointOnlineContentSourceService__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.SharePointOnlineContentSourceService
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.New
+  nameWithType: SharePointOnlineContentSourceService.SharePointOnlineContentSourceService
+  nameWithType.vb: SharePointOnlineContentSourceService.New
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)
+  name: ExtractTextFromFileAsync(List<string>, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_SharePointOnlineContentSourceService_ExtractTextFromFileAsync_System_Collections_Generic_List_System_String__System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)
+  name.vb: ExtractTextFromFileAsync(List(Of String), CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List<string>, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List(Of String), System.Threading.CancellationToken)
+  nameWithType: SharePointOnlineContentSourceService.ExtractTextFromFileAsync(List<string>, CancellationToken)
+  nameWithType.vb: SharePointOnlineContentSourceService.ExtractTextFromFileAsync(List(Of String), CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync*
+  name: ExtractTextFromFileAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_SharePointOnlineContentSourceService_ExtractTextFromFileAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync
+  nameWithType: SharePointOnlineContentSourceService.ExtractTextFromFileAsync
 - uid: FoundationaLLM.Vectorization.Services.RequestManagerService
   name: RequestManagerService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestManagerService.html

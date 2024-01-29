@@ -3672,6 +3672,46 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.PPTXTextExtractor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.XLSXTextExtractor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.PDF.PDFTextExtractor.yml",
       "output": {
         ".html": {
@@ -3686,6 +3726,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.PDF.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.html"
         }
       },
       "version": ""
@@ -3876,6 +3926,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html"
         }
       },
       "version": ""
@@ -4196,6 +4256,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html"
         }
       },
       "version": ""
