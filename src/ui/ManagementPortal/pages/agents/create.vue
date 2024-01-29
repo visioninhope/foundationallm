@@ -223,6 +223,9 @@ export default {
 	async created() {
 		this.loading = true;
 
+		// Uncomment to remove mock loading screen
+		// api.mockLoadTime = 0;
+
 		this.loadingStatusText = 'Retrieving indexes...';
 		this.indexSources = await api.getAgentIndexes();
 
