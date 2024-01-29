@@ -14,7 +14,6 @@ namespace FoundationaLLM.Agent.Models.Resources
         /// <summary>
         /// The type of the agent.
         /// </summary>
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public required AgentReferenceType Type { get; set; }
+        public required string Type { get; set; }
     }
 }
