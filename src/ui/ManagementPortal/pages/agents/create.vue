@@ -119,7 +119,7 @@
 					<span>Azure Content Safety</span>
 				</div>
 				<div>
-					<span class="step-option__header">Data Drotection:</span>
+					<span class="step-option__header">Data Protection:</span>
 					<span>Microsoft Presidio</span>
 				</div>
 			</div>
