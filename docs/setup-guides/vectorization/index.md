@@ -4,3 +4,5 @@ Foundationa**LLM** (FLLM) provides utilities and services to support vectorizing
 
 - [Vectorization API](vectorization-api.md)
 - [Vectorization Worker](vectorization-worker.md)
+
+To get started with the Vectorization API, import the [provided Postman collection.](./FoundationaLLM.Vectorization.API.postman_collection.json) Ensure to set the Vectorization API key (`X-API-KEY` header) on the **Authorization** tab of the collection and Base URL (`baseUrl` collection variable) on the **Variables** tab.
