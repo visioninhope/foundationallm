@@ -94,6 +94,14 @@ main {
 	margin-left: 4px;
 }
 
+.mr-1 {
+	margin-right: 4px;
+}
+
+.mt-2 {
+	margin-top: 8px;
+}
+
 .w-100 {
 	width: 100%;
 }
@@ -104,6 +112,10 @@ main {
 
 .align-center {
 	align-items: center;
+}
+
+.justify-content-end {
+	justify-content: end;
 }
 
 .justify-self-end {
