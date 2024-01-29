@@ -53,6 +53,7 @@ namespace FoundationaLLM.Vectorization.Handlers
                 return false;
             }
 
+            await _stateService.LoadArtifacts(state, VectorizationArtifactType.TextPartition);
             var textPartitioningArtifacts = state.Artifacts.Where(a => a.Type == VectorizationArtifactType.TextPartition).ToList();
 
             if (textPartitioningArtifacts == null
@@ -73,10 +74,10 @@ namespace FoundationaLLM.Vectorization.Handlers
             var embeddedContent = new EmbeddedContent
             {
                 ContentId = request.ContentIdentifier,
-                ContentSourceProfileName = state.ContentSourceProfileName!,
                 ContentParts = Enumerable.Range(0, textEmbeddingArtifacts.Count)
                     .Select(i => new EmbeddedContentPart
                     {
+                        Id = $"{request.ContentIdentifier.UniqueId}#{textPartitioningArtifacts[i].Position:D6}",
                         Content = textPartitioningArtifacts[i].Content!,
                         Embedding = JsonSerializer.Deserialize<Embedding>(textEmbeddingArtifacts[i].Content!, serializerOptions)
                     }).ToList()
@@ -84,11 +85,11 @@ namespace FoundationaLLM.Vectorization.Handlers
 
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IIndexingService>>()
                 ?? throw new VectorizationException($"Could not retrieve the indexing service factory instance.");
-            var indexing = serviceFactory.GetServiceWithProfile(_parameters["indexing_profile_name"]);
+            var (Service, VectorizationProfile) = serviceFactory.GetServiceWithProfile(_parameters["indexing_profile_name"]);
 
-            await indexing.Service.IndexEmbeddingsAsync(
+            await Service.IndexEmbeddingsAsync(
                 embeddedContent,
-                indexing.VectorizationProfile.Settings!["IndexName"]);
+                VectorizationProfile.Settings!["IndexName"]);
 
             return true;
         }

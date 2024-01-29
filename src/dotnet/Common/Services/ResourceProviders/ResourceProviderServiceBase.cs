@@ -63,8 +63,15 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <inheritdoc/>
         public async Task Initialize()
         {
-            await InitializeInternal();
-            _isInitialized = true;
+            try
+            {
+                await InitializeInternal();
+                _isInitialized = true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "The resource provider {ResourceProviderName} failed to initialize.", _name);
+            }
         }
 
         /// <inheritdoc/>
@@ -100,7 +107,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
             var instances = GetResourceInstancesFromPath(resourcePath);
-            await UpsertResourceAsync<T>(resourcePath, resource);
+            await UpsertResourceAsync<T>(instances, resource);
         }
 
         /// <inheritdoc/>
