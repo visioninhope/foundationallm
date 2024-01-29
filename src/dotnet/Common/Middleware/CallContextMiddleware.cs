@@ -52,6 +52,8 @@ namespace FoundationaLLM.Common.Middleware
                 callContext.AgentHint = JsonConvert.DeserializeObject<Agent>(agentHint);
             }
 
+            callContext.InstanceId = context.Request.RouteValues["instanceId"] as string;
+
             // Call the next delegate/middleware in the pipeline:
             await _next(context);
         }
