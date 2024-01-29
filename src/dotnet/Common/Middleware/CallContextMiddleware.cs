@@ -60,7 +60,7 @@ namespace FoundationaLLM.Common.Middleware
             }
 
             callContext.InstanceId = context.Request.RouteValues["instanceId"] as string;
-            if (string.IsNullOrWhiteSpace(callContext.InstanceId) || callContext.InstanceId != instanceSettings.Value.Id)
+            if (!string.IsNullOrWhiteSpace(callContext.InstanceId) && callContext.InstanceId != instanceSettings.Value.Id)
             {
                 // Throw 403 Forbidden since the instance ID within the route does not match the instance ID in the
                 // configuration settings:
