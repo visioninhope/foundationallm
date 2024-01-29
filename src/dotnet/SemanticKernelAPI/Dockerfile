@@ -22,7 +22,7 @@ RUN dotnet build "dotnet/SemanticKernelAPI/SemanticKernelAPI.csproj" -c Release 
 
 FROM build AS publish
 RUN dotnet publish "dotnet/Common/Common.csproj" -c Release -o /app/publish /p:UseAppHost=false
-RUN dotnet publish "dotnet/SemanticKernel/SemanticKernel.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/SemanticKernel-obsolete/SemanticKernel-obsolete.csproj" -c Release -o /app/publish /p:UseAppHost=false
 RUN dotnet publish "dotnet/SemanticKernelAPI/SemanticKernelAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
