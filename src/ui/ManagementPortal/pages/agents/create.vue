@@ -239,9 +239,14 @@
 					<div @click="editTrigger = true">
 						<div class="step-container__header">Trigger</div>
 						<div>Runs every time a new tile is added to the data source.</div>
-						<div>
+						<div class="mt-2">
 							<span class="step-option__header">Frequency:</span>
 							<span>{{ triggerFrequency.label }}</span>
+						</div>
+
+						<div v-if="triggerFrequency.value == 2 && triggerFrequencyScheduled">
+							<span class="step-option__header">Schedule:</span>
+							<span>{{ triggerFrequencyScheduled.label }}</span>
 						</div>
 					</div>
 				</div>
