@@ -104,7 +104,7 @@ class BlobStorageAgent(AgentBase):
         str
             Returns the full prompt.
         """
-        self.full_prompt = prompt      
+        self.full_prompt = prompt
         return prompt
 
     def run(self, prompt: str) -> CompletionResponse:
