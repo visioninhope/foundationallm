@@ -7,6 +7,8 @@ export const useAppConfigStore = defineStore('appConfig', {
 		// API: Defines API-specific settings such as the base URL for application requests.
 		apiUrl: null,
 
+		instanceId: null,
+
 		// Style: These settings impact the visual style of the chat interface.
 		logoUrl: null,
 		logoText: null,
@@ -36,6 +38,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 		async getConfigVariables() {
 			const [
 				// apiUrl,
+				instanceId,
 				logoUrl,
 				logoText,
 				primaryBg,
@@ -56,6 +59,8 @@ export const useAppConfigStore = defineStore('appConfig', {
 				authCallbackPath,
 			] = await Promise.all([
 				// api.getConfigValue('FoundationaLLM:APIs:ManagementAPI:APIUrl'),
+
+				api.getConfigValue('FoundationaLLM:Instance:Id'),
 				
 				api.getConfigValue('FoundationaLLM:Branding:LogoUrl'),
 				api.getConfigValue('FoundationaLLM:Branding:LogoText'),
@@ -79,6 +84,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 			]);
 
 			// this.apiUrl = apiUrl;
+			this.instanceId = instanceId;
 
 			this.logoUrl = logoUrl;
 			this.logoText = logoText;
