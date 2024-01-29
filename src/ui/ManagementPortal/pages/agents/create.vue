@@ -66,7 +66,7 @@
 					<!-- Options -->
 					<div
 						v-if="editIndexSources"
-						class="step-container--edit"
+						class="step-container--edit-dropdown"
 						tabindex="0"
 						@focusout="editIndexSources = false"
 					>
@@ -93,7 +93,7 @@
 						</div>
 					</div>
 
-					<!-- Select option -->
+					<!-- Selected option -->
 					<template v-if="selectedIndexSource">
 						<div class="step-container__header">{{ selectedIndexSource.Name }}</div>
 						<div>
@@ -139,17 +139,40 @@
 			<!-- Agent configuration -->
 			<div class="step-section-header span-2">Agent Configuration</div>
 
+			<!-- Conversation history -->
 			<div class="step">
 				<div class="step__header">Should conversations be saved?</div>
-				<div class="step-container">
-					<div class="step-container__header">Conversation History</div>
-					<div>
-						<span class="step-option__header">Enabled:</span>
-						<span>
-							<span>No</span>
-							<span class="pi pi-times-circle ml-1" style="color: var(--red-400); font-size: 0.8rem;"></span>
-						</span>
+				
+				<div class="step-container" @click="handleConversionHistoryClicked">
+					<!-- Options -->
+					<div
+						v-if="editConversationHistory"
+						class="step-container--edit"
+						tabindex="0"
+						@focusout="editConversationHistory = false"
+					>
+						<div class="step-container__header">Conversation History</div>
+						<div class="d-flex align-center">
+							<span class="step-option__header">Enabled:</span>
+							<span>
+								<ToggleButton v-model="conversationHistory" style="padding: 4px; padding-top: 0px; padding-bottom: 0px;" onLabel="Yes" onIcon="pi pi-check-circle" offLabel="No" offIcon="pi pi-times-circle" />
+								<!-- <InputSwitch v-model="conversationHistory" /> -->
+							</span>
+						</div>
 					</div>
+
+					<!-- Select option -->
+					<template v-else>
+						<div class="step-container__header">Conversation History</div>
+						<div>
+							<span class="step-option__header">Enabled:</span>
+							<span>
+								<span>{{ conversationHistory ? 'Yes' : 'No' }}</span>
+								<span v-if="conversationHistory" class="pi pi-check-circle ml-1" style="color: var(--green-400); font-size: 0.8rem;"></span>
+								<span v-else class="pi pi-times-circle ml-1" style="color: var(--red-400); font-size: 0.8rem;"></span>
+							</span>
+						</div>
+					</template>
 				</div>
 			</div>
 
@@ -212,8 +235,11 @@ export default {
 			gatekeepers: [],
 
 			indexSources: [] as AgentIndex[],
-			editIndexSources: false,
+			editIndexSources: false as boolean,
 			selectedIndexSource: null as null | AgentIndex,
+
+			editConversationHistory: false as boolean,
+			conversationHistory: false as boolean,
 
 			agentType: 'knowledge' as MockCreateAgentRequest['type'],
 			systemPrompt: defaultSystemPrompt as string,
@@ -224,7 +250,7 @@ export default {
 		this.loading = true;
 
 		// Uncomment to remove mock loading screen
-		// api.mockLoadTime = 0;
+		api.mockLoadTime = 0;
 
 		this.loadingStatusText = 'Retrieving indexes...';
 		this.indexSources = await api.getAgentIndexes();
@@ -252,6 +278,10 @@ export default {
 			this.editIndexSources = false;
 		},
 
+		handleConversionHistoryClicked() {
+			this.editConversationHistory = true;
+		},
+
 		async handleCreateAgent() {
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
@@ -268,7 +298,7 @@ export default {
 <style lang="scss" scoped>
 .steps {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: minmax(auto, 50%) minmax(auto, 50%);
 	gap: 24px;
 	position: relative;
 }
@@ -337,8 +367,22 @@ $editStepPadding: 16px;
 	left: -2px;
 	z-index: 5;
 	box-shadow: 0 5px 20px 0 rgba(27, 29, 33, 0.2);
+	min-height: calc(100% + 4px);
+	padding: $editStepPadding;
+}
+
+.step-container--edit-dropdown {
+	border: 2px solid #e1e1e1;
+	position: absolute;
+	width: calc(100% + 4px);
+	background-color: white;
+	top: -2px;
+	left: -2px;
+	z-index: 5;
+	box-shadow: 0 5px 20px 0 rgba(27, 29, 33, 0.2);
 	display: flex;
 	flex-direction: column;
+	min-height: calc(100% + 4px);
 }
 
 .step-container--edit__header {
