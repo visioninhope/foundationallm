@@ -20,22 +20,26 @@
 			<div class="step">
 				<div class="step__header">What type of agent?</div>
 				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('knowledge')">
-					<div class="step__radio">
-						<RadioButton v-model="agentType" name="agentType" value="knowledge" />
-						<div class="step-container__header">Knowledge Management</div>
+					<div class="step-container__view">
+						<div class="step__radio">
+							<RadioButton v-model="agentType" name="agentType" value="knowledge" />
+							<div class="step-container__header">Knowledge Management</div>
+						</div>
+						<div>Best for Q&A, summarization and reasoning over textual data.</div>
 					</div>
-					<div>Best for Q&A, summarization and reasoning over textual data.</div>
 				</div>
 			</div>
 
 			<div class="step">
 				<div class="step__header" style="visibility: hidden;">What type of agent?</div>
 				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('analytics')">
-					<div class="step__radio">
-						<RadioButton v-model="agentType" name="agentType" value="analytics" />
-						<div class="step-container__header">Analytics</div>
+					<div class="step-container__view">
+						<div class="step__radio">
+							<RadioButton v-model="agentType" name="agentType" value="analytics" />
+							<div class="step-container__header">Analytics</div>
+						</div>
+						<div>Best to query, analyze, calculate and report on tabular data.</div>
 					</div>
-					<div>Best to query, analyze, calculate and report on tabular data.</div>
 				</div>
 			</div>
 
@@ -48,17 +52,17 @@
 					<!-- Options -->
 					<div
 						v-if="editDataSource"
-						class="step-container--edit-dropdown"
+						class="step-container__edit-dropdown"
 						tabindex="0"
 						@focusout="editDataSource = false"
 					>
-						<div class="step-container--edit__header">Please select a data source.</div>
+						<div class="step-container__edit__header">Please select a data source.</div>
 						<div
 							v-for="dataSource in dataSources"
 							:key="dataSource.Name"
-							class="step-container--edit__option"
+							class="step-container__edit__option"
 							:class="{
-								'step-container--edit__option--selected':
+								'step-container__edit__option--selected':
 									dataSource.Name === selectedDataSource?.Name,
 							}"
 							@click.stop="handleDataSourceSelected(dataSource)"
@@ -79,23 +83,24 @@
 					</div>
 
 					<!-- Selected option -->
-					<template v-if="selectedDataSource">
-						<div class="step-container__header">Blob Storage</div>
-						<div>
-							<span class="step-option__header">Storage account name:</span>
-							<span>{{ selectedDataSource.Name }}</span>
-						</div>
-						<div>
-							<span class="step-option__header">Container name:</span>
-							<span>{{ selectedDataSource.Container.Name }}</span>
-						</div>
-						<div>
-							<span class="step-option__header">Data Format(s):</span>
-							<span v-for="(format, index) in selectedDataSource.Container.Formats" class="mr-1">{{ format }}</span>
-						</div>
-					</template>
-					<template v-else>Please select a data source.</template>
-
+					<div class="step-container__view">
+						<template v-if="selectedDataSource">
+							<div class="step-container__header">Blob Storage</div>
+							<div>
+								<span class="step-option__header">Storage account name:</span>
+								<span>{{ selectedDataSource.Name }}</span>
+							</div>
+							<div>
+								<span class="step-option__header">Container name:</span>
+								<span>{{ selectedDataSource.Container.Name }}</span>
+							</div>
+							<div>
+								<span class="step-option__header">Data Format(s):</span>
+								<span v-for="(format, index) in selectedDataSource.Container.Formats" class="mr-1">{{ format }}</span>
+							</div>
+						</template>
+						<template v-else>Please select a data source.</template>
+					</div>
 				</div>
 			</div>
 
@@ -105,17 +110,17 @@
 					<!-- Options -->
 					<div
 						v-if="editIndexSources"
-						class="step-container--edit-dropdown"
+						class="step-container__edit-dropdown"
 						tabindex="0"
 						@focusout="editIndexSources = false"
 					>
-						<div class="step-container--edit__header">Please select an index source.</div>
+						<div class="step-container__edit__header">Please select an index source.</div>
 						<div
 							v-for="indexSource in indexSources"
 							:key="indexSource.Name"
-							class="step-container--edit__option"
+							class="step-container__edit__option"
 							:class="{
-								'step-container--edit__option--selected':
+								'step-container__edit__option--selected':
 									indexSource.Name === selectedIndexSource?.Name,
 							}"
 							@click.stop="handleIndexSourceSelected(indexSource)"
@@ -133,18 +138,20 @@
 					</div>
 
 					<!-- Selected option -->
-					<template v-if="selectedIndexSource">
-						<div class="step-container__header">{{ selectedIndexSource.Name }}</div>
-						<div>
-							<span class="step-option__header">URL:</span>
-							<span>{{ selectedIndexSource.ConfigurationReferences.Endpoint }}</span>
-						</div>
-						<div>
-							<span class="step-option__header">Index Name:</span>
-							<span>{{ selectedIndexSource.Settings.IndexName }}</span>
-						</div>
-					</template>
-					<template v-else>Please select an index source.</template>
+					<div class="step-container__view">
+						<template v-if="selectedIndexSource">
+							<div class="step-container__header">{{ selectedIndexSource.Name }}</div>
+							<div>
+								<span class="step-option__header">URL:</span>
+								<span>{{ selectedIndexSource.ConfigurationReferences.Endpoint }}</span>
+							</div>
+							<div>
+								<span class="step-option__header">Index Name:</span>
+								<span>{{ selectedIndexSource.Settings.IndexName }}</span>
+							</div>
+						</template>
+						<template v-else>Please select an index source.</template>
+					</div>
 				</div>
 			</div>
 
@@ -154,7 +161,7 @@
 					<!-- Options -->
 					<div
 						v-if="editProcessing"
-						class="step-container--edit"
+						class="step-container__edit"
 						tabindex="0"
 					>
 						<div class="step-container__header">Splitting & Chunking</div>
@@ -177,7 +184,7 @@
 					</div>
 
 					<!-- Select option -->
-					<div @click="editProcessing = true">
+					<div class="step-container__view" @click="editProcessing = true">
 						<div class="step-container__header">Splitting & Chunking</div>
 						<div>
 							<span class="step-option__header">Chunk size:</span>
@@ -197,7 +204,7 @@
 					<!-- Options -->
 					<div
 						v-if="editTrigger"
-						class="step-container--edit"
+						class="step-container__edit"
 						tabindex="0"
 					>
 						<div class="step-container__header">Trigger</div>
@@ -236,7 +243,7 @@
 					</div>
 
 					<!-- Select option -->
-					<div @click="editTrigger = true">
+					<div class="step-container__view" @click="editTrigger = true">
 						<div class="step-container__header">Trigger</div>
 						<div>Runs every time a new tile is added to the data source.</div>
 						<div class="mt-2">
@@ -262,7 +269,7 @@
 					<!-- Options -->
 					<div
 						v-if="editConversationHistory"
-						class="step-container--edit"
+						class="step-container__edit"
 					>
 						<div class="step-container__header">Conversation History</div>
 						<div class="d-flex align-center">
@@ -282,7 +289,7 @@
 					</div>
 
 					<!-- Select option -->
-					<div @click="editConversationHistory = true">
+					<div class="step-container__view" @click="editConversationHistory = true">
 						<div class="step-container__header">Conversation History</div>
 						<div>
 							<span class="step-option__header">Enabled:</span>
@@ -302,7 +309,7 @@
 					<!-- Options -->
 					<div
 						v-if="editGatekeeper"
-						class="step-container--edit"
+						class="step-container__edit"
 						tabindex="0"
 					>
 						<div class="step-container__header">Gatekeeper</div>
@@ -345,7 +352,7 @@
 					</div>
 
 					<!-- Select option -->
-					<div @click="editGatekeeper = true">
+					<div class="step-container__view" @click="editGatekeeper = true">
 						<div class="step-container__header">Gatekeeper</div>
 						<div>
 							<span class="step-option__header">Enabled:</span>
@@ -585,7 +592,7 @@ export default {
 }
 
 .step-container {
-	padding: 16px;
+	// padding: 16px;
 	border: 2px solid #e1e1e1;
 	flex-grow: 1;
 	position: relative;
@@ -600,8 +607,13 @@ export default {
 	}
 }
 
+.step-container__view {
+	padding: 16px;
+	height: 100%;
+}
+
 $editStepPadding: 16px;
-.step-container--edit {
+.step-container__edit {
 	border: 2px solid #e1e1e1;
 	position: absolute;
 	width: calc(100% + 4px);
@@ -614,7 +626,7 @@ $editStepPadding: 16px;
 	padding: $editStepPadding;
 }
 
-.step-container--edit-dropdown {
+.step-container__edit-dropdown {
 	border: 2px solid #e1e1e1;
 	position: absolute;
 	width: calc(100% + 4px);
@@ -628,22 +640,22 @@ $editStepPadding: 16px;
 	min-height: calc(100% + 4px);
 }
 
-.step-container--edit__header {
+.step-container__edit__header {
 	padding: $editStepPadding;
 }
 
-.step-container--edit__option {
+.step-container__edit__option {
 	padding: $editStepPadding;
 	&:hover {
 		background-color: rgba(217, 217, 217, 0.4);
 	}
 }
 
-// .step-container--edit__option + .step-container--edit__option{
+// .step-container__edit__option + .step-container__edit__option{
 // 	border-top: 2px solid #e1e1e1;
 // }
 
-.step-container--edit__option--selected {
+.step-container__edit__option--selected {
 	// outline: 2px solid #e1e1e1;
 	// background-color: rgba(217, 217, 217, 0.4);
 }

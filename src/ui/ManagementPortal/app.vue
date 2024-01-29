@@ -106,6 +106,10 @@ main {
 	width: 100%;
 }
 
+.h-100 {
+	height: 100%;
+}
+
 .d-flex {
 	display: flex;
 }
