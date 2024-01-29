@@ -6,7 +6,7 @@ import type {
 	AgentGatekeeper,
 	MockCreateAgentRequest
 } from './types';
-import { mockGetAgentIndexesResponse } from './mock';
+import { mockGetAgentIndexesResponse, mockGetAgentDataSourcesResponse } from './mock';
 
 async function wait(milliseconds: number = 1000): Promise<void> {
 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
@@ -25,7 +25,7 @@ export default {
 
 	async getAgentDataSources(): Promise<AgentDataSource[]> {
 		await wait(this.mockLoadTime);
-		return [];
+		return mockGetAgentDataSourcesResponse;
 	},
 
 	async getAgentIndexes(): Promise<AgentIndex[]> {
