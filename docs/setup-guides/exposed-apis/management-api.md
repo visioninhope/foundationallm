@@ -7,6 +7,7 @@ Think of the FoundationaLLM Core API as a read only API. It provides a way to qu
 The Management API provides configuration and resource management endpoints that can be consumed in the following three ways:
 - Direct REST-based calls programmatically or through some tool like Postman.
 - Through the Management Portal user interface.
+  ![](../../media/Mgm-api-2.png)
 - Through the FoundationaLLM CLI.
   
 These options eliminate the need to directly manipulate files to define agents and their related resources, enable certain users to update categories of app configurations without needing to have access to the Azure App Configuration service, and perform additional platform-related steps as needed when changing configurations without the user needing to know about them (restart services, refresh caches, etc.).
