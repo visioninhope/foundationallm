@@ -1,39 +1,20 @@
 /* eslint-disable prettier/prettier */
 
+import type {
+	AgentDataSource,
+	AgentIndex,
+	AgentGatekeeper,
+	MockCreateAgentRequest
+} from './types';
+import { mockGetAgentIndexesResponse } from './mock';
 
-type MockGetAgentDataSourcesResponse = {
-
-}
-
-type MockGetAgentIndexesResponse = {
-
-}
-
-type MockGetAgentGatekeepersResponse = {
-
-}
-
-type MockCreateAgentRequest = {
-	type: 'knowledge'|'analytics',
-	storageSource: number,
-	indexSource: number,
-	processing: {
-		chunkSize: number,
-		overlapSize: number
-	},
-	trigger: {
-		frequency: 'auto'|'manual'|'scheduled',
-	},
-	save_history: boolean,
-	gatekeeper: {
-		enabled: boolean,
-		content_safety: number,
-		data_protection: number,
-	},
-	systemPrompt: string,
+async function wait(milliseconds: number = 1000): Promise<void> {
+  return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
 }
 
 export default {
+	mockLoadTime: 2000,
+
 	async getConfigValue(key: string) {
 		return await $fetch(`/api/config/`, {
 			params: {
@@ -42,13 +23,25 @@ export default {
 		});
 	},
 
-	async getAgentDataSources(): MockGetAgentDataSourcesResponse {},
+	async getAgentDataSources(): Promise<AgentDataSource[]> {
+		await wait(this.mockLoadTime);
+		return [];
+	},
 
-	async getAgentIndexes(): MockGetAgentIndexesResponse {},
+	async getAgentIndexes(): Promise<AgentIndex[]> {
+    await wait(this.mockLoadTime);
+		return mockGetAgentIndexesResponse;
+	},
 
-	async getAgentGatekeepers(): MockGetAgentGatekeepersResponse {},
+	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
+		await wait(this.mockLoadTime);
+		return [];
+	},
 
-	async createAgent(request: MockCreateAgentRequest): Promise {
-		return new Promise((resolve) => setTimeout(() => resolve(), 5000));
+	async createAgent(request: MockCreateAgentRequest): Promise<void> {
+		console.log('Mock create agent started:', request);
+		const waitPromise = await wait(this.mockLoadTime);
+		console.log('Mock create agent completed.');
+		return waitPromise;
 	},
 }
