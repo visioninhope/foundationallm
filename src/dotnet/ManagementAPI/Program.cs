@@ -150,11 +150,6 @@ namespace FoundationaLLM.Management.API
                 })
                 .AddSwaggerGenNewtonsoftSupport();
 
-            builder.Services.Configure<RouteOptions>(options =>
-            {
-                options.LowercaseUrls = true;
-            });
-
             var app = builder.Build();
 
             // Set the CORS policy before other middleware.
