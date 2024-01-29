@@ -739,7 +739,7 @@ public class VectorizationRequestController : ControllerBase</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[HttpPost]
-public Task ProcessRequest(VectorizationRequest vectorizationRequest)</code></pre>
+public Task&lt;IActionResult&gt; ProcessRequest(VectorizationRequest vectorizationRequest)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -750,7 +750,7 @@ public Task ProcessRequest(VectorizationRequest vectorizationRequest)</code></pr
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a>&gt;</dt>
     <dd></dd>
   </dl>
 
