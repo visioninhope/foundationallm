@@ -11,6 +11,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
@@ -45,6 +46,7 @@ namespace FoundationaLLM.Management.API
             {
                 options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options => { options.SetCredential(new DefaultAzureCredential()); });
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Branding);
@@ -73,6 +75,8 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddOptions<AppConfigurationSettings>()
                 .Configure(o =>
                     o.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]!);
+            builder.Services.AddOptions<InstanceSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
 
             builder.Services.AddScoped<IAgentFactoryAPIService, AgentFactoryAPIService>();
             builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
