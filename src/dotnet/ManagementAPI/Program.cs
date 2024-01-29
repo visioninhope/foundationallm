@@ -89,16 +89,12 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
-            // Register the resource provider services:
-            builder.Services.AddKeyedSingleton<IResourceProviderService, VectorizationResourceProviderService>(
-                DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
-            builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
-                DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
+            // Register the resource provider services (cannot use Keyed singletons due to the Microsoft Identity package being incompatible):
+            //builder.Services.AddSingleton<IResourceProviderService, VectorizationResourceProviderService>();
+            //builder.Services.ActivateSingleton<IResourceProviderService>();
 
-            builder.Services.AddKeyedSingleton<IResourceProviderService, AgentResourceProviderService>(
-                DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService);
-            builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
-                DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService);
+            //builder.Services.AddSingleton<IResourceProviderService, AgentResourceProviderService>();
+            //builder.Services.ActivateSingleton<IResourceProviderService>();
 
             // Register the authentication services:
             RegisterAuthConfiguration(builder);
