@@ -1,7 +1,7 @@
 import pytest
 from foundationallm.config import Configuration
-from foundationallm.models.metadata import Agent
-from foundationallm.models.orchestration import CompletionRequest
+from foundationallm.models.metadata import KnowledgeManagementAgent as KnowledgeManagementAgentMetadata
+from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest
 from foundationallm.langchain.language_models import LanguageModelFactory
 from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider, LanguageModel
 from foundationallm.langchain.agents import KnowledgeManagementAgent
@@ -11,8 +11,8 @@ def test_config():
     return Configuration()
 
 @pytest.fixture
-def test_no_knowledge_source_completion_request():
-     req = CompletionRequest(
+def test_no_context_completion_request():
+     req = KnowledgeManagementCompletionRequest(
          user_prompt=""" 
          You are an expert an very specific Trivia. Your knowledgebase consists of the following facts:
          1. Colorful Currency: The residents of Canada have a penchant for humor when it comes to their currency. Canadian dollars are sometimes affectionately referred to as loonies and toonies, named after the common loon bird depicted on the one-dollar coin. The toonie, on the other hand, features a polar bear on the reverse side and gets its name from combining two with loonie, even though it does not depict a loon. The term toonie has become widely accepted slang for the two-dollar coin. This playful nomenclature showcases the Canadian ability to infuse a bit of fun into everyday financial transactions.
@@ -25,38 +25,38 @@ def test_no_knowledge_source_completion_request():
            
          Question: What is the nickname for two Canadian dollars?
          """,
-         agent=Agent(
-             name="test-noks",
-             type="knowledge-management",
-             description="Provides completions based solely on incoming user prompt",
-             prompt_prefix=""
-         ),         
-         language_model=LanguageModel(
-            type=LanguageModelType.OPENAI,
-            provider=LanguageModelProvider.MICROSOFT,
-            temperature=0,
-            use_chat=True)
+         agent=KnowledgeManagementAgentMetadata(
+            name="test-noks",
+            type="knowledge-management",
+            description="Session-less agent that issues the user prompt directly to the language model.",
+            language_model=LanguageModel(
+                type=LanguageModelType.OPENAI,
+                provider=LanguageModelProvider.MICROSOFT,
+                temperature=0,
+                use_chat=True
+            )
+         )
      )
      return req
 
 @pytest.fixture
-def test_llm(test_no_knowledge_source_completion_request, test_config):
-    model_factory = LanguageModelFactory(language_model=test_no_knowledge_source_completion_request.language_model, config = test_config)
+def test_llm(test_no_context_completion_request, test_config):
+    model_factory = LanguageModelFactory(language_model=test_no_context_completion_request.agent.language_model, config = test_config)
     return model_factory.get_llm()
 
 class KnowledgeManagementAgentTests:    
-   def test_agent_initializes(self, test_config, test_no_knowledge_source_completion_request, test_llm):        
-        agent = KnowledgeManagementAgent(completion_request=test_no_knowledge_source_completion_request,llm=test_llm, config=test_config)
+   def test_agent_initializes(self, test_config, test_no_context_completion_request, test_llm):        
+        agent = KnowledgeManagementAgent(completion_request=test_no_context_completion_request,llm=test_llm, config=test_config)
         assert agent is not None
         
-   def test_agent_gets_completion(self, test_config, test_no_knowledge_source_completion_request, test_llm):        
-        agent = KnowledgeManagementAgent(completion_request=test_no_knowledge_source_completion_request,llm=test_llm, config=test_config)
-        completion_response = agent.run(prompt=test_no_knowledge_source_completion_request.user_prompt)
+   def test_agent_gets_completion(self, test_config, test_no_context_completion_request, test_llm):        
+        agent = KnowledgeManagementAgent(completion_request=test_no_context_completion_request,llm=test_llm, config=test_config)
+        completion_response = agent.run(prompt=test_no_context_completion_request.user_prompt)
         print(completion_response.completion)
         assert completion_response.completion is not None
         
-   def test_agent_gets_correct_completion(self, test_config, test_no_knowledge_source_completion_request, test_llm):        
-        agent = KnowledgeManagementAgent(completion_request=test_no_knowledge_source_completion_request,llm=test_llm, config=test_config)
-        completion_response = agent.run(prompt=test_no_knowledge_source_completion_request.user_prompt)
+   def test_agent_gets_correct_completion(self, test_config, test_no_context_completion_request, test_llm):        
+        agent = KnowledgeManagementAgent(completion_request=test_no_context_completion_request,llm=test_llm, config=test_config)
+        completion_response = agent.run(prompt=test_no_context_completion_request.user_prompt)
         print(completion_response.completion)
         assert "toonie" in completion_response.completion.lower()

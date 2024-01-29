@@ -9,8 +9,7 @@ from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from foundationallm.config import Configuration
 from foundationallm.langchain.agents.agent_base import AgentBase
-from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
-
+from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest, CompletionResponse
 
 class KnowledgeManagementAgent(AgentBase):
     """
@@ -19,7 +18,7 @@ class KnowledgeManagementAgent(AgentBase):
 
     def __init__(
             self,
-            completion_request: CompletionRequest,
+            completion_request: KnowledgeManagementCompletionRequest,
             llm: BaseLanguageModel,
             config: Configuration):
         """
@@ -35,7 +34,7 @@ class KnowledgeManagementAgent(AgentBase):
         config : Configuration
             Application configuration class for retrieving configuration settings.
         """
-        self.llm = llm.get_completion_model(completion_request.language_model)
+        self.llm = llm.get_completion_model(completion_request.agent.language_model)
         self.full_prompt = ""
 
     def __record_full_prompt(self, prompt: str) -> str:
