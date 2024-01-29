@@ -16628,6 +16628,25 @@ references:
   commentId: N:FoundationaLLM.Vectorization.Models.Configuration
   fullName: FoundationaLLM.Vectorization.Models.Configuration
   nameWithType: FoundationaLLM.Vectorization.Models.Configuration
+- uid: FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings
+  name: AzureSQLDatabaseContentSourceServiceSettings
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings
+  nameWithType: AzureSQLDatabaseContentSourceServiceSettings
+- uid: FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings.ConnectionString
+  name: ConnectionString
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_AzureSQLDatabaseContentSourceServiceSettings_ConnectionString
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings.ConnectionString
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings.ConnectionString
+  nameWithType: AzureSQLDatabaseContentSourceServiceSettings.ConnectionString
+- uid: FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings.ConnectionString*
+  name: ConnectionString
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_AzureSQLDatabaseContentSourceServiceSettings_ConnectionString_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings.ConnectionString
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings.ConnectionString
+  nameWithType: AzureSQLDatabaseContentSourceServiceSettings.ConnectionString
 - uid: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings
   name: RequestManagerServiceSettings
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html
@@ -16909,6 +16928,12 @@ references:
   commentId: F:FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.AzureDataLake
   fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.AzureDataLake
   nameWithType: ContentSourceType.AzureDataLake
+- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.AzureSQLDatabase
+  name: AzureSQLDatabase
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceType_AzureSQLDatabase
+  commentId: F:FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.AzureSQLDatabase
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.AzureSQLDatabase
+  nameWithType: ContentSourceType.AzureSQLDatabase
 - uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.SharePointOnline
   name: SharePointOnline
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceType_SharePointOnline
@@ -17813,6 +17838,47 @@ references:
   commentId: N:FoundationaLLM.Vectorization.Services.ContentSources
   fullName: FoundationaLLM.Vectorization.Services.ContentSources
   nameWithType: FoundationaLLM.Vectorization.Services.ContentSources
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService
+  name: AzureSQLDatabaseContentSourceService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html
+  commentId: T:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService
+  nameWithType: AzureSQLDatabaseContentSourceService
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.#ctor(FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: AzureSQLDatabaseContentSourceService(AzureSQLDatabaseContentSourceServiceSettings, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService__ctor_FoundationaLLM_Vectorization_Models_Configuration_AzureSQLDatabaseContentSourceServiceSettings_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.#ctor(FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(AzureSQLDatabaseContentSourceServiceSettings, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.AzureSQLDatabaseContentSourceService(FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.New(FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: AzureSQLDatabaseContentSourceService.AzureSQLDatabaseContentSourceService(AzureSQLDatabaseContentSourceServiceSettings, ILoggerFactory)
+  nameWithType.vb: AzureSQLDatabaseContentSourceService.New(AzureSQLDatabaseContentSourceServiceSettings, ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.#ctor*
+  name: AzureSQLDatabaseContentSourceService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.AzureSQLDatabaseContentSourceService
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.New
+  nameWithType: AzureSQLDatabaseContentSourceService.AzureSQLDatabaseContentSourceService
+  nameWithType.vb: AzureSQLDatabaseContentSourceService.New
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)
+  name: ExtractTextFromFileAsync(List<string>, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextFromFileAsync_System_Collections_Generic_List_System_String__System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)
+  name.vb: ExtractTextFromFileAsync(List(Of String), CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List<string>, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync(System.Collections.Generic.List(Of String), System.Threading.CancellationToken)
+  nameWithType: AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync(List<string>, CancellationToken)
+  nameWithType.vb: AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync(List(Of String), CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync*
+  name: ExtractTextFromFileAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextFromFileAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync
+  nameWithType: AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase
   name: ContentSourceServiceBase
   href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html
