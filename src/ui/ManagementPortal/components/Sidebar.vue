@@ -120,9 +120,9 @@ a {
 	color: var(--primary-text);
 	transition: all 0.1s ease-in-out;
 	font-size: 0.8725rem;
-}
 
-.sidebar__item:hover {
-	background-color: rgba(217, 217, 217, 0.05);
+	&.router-link-active, &:hover {
+		background-color: rgba(217, 217, 217, 0.05);
+	}
 }
 </style>
