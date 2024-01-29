@@ -101,5 +101,9 @@ main {
 .justify-self-end {
 	justify-self: end;
 }
+
+.cursor-pointer {
+	cursor: pointer;
+}
 </style>
 
