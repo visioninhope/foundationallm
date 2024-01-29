@@ -2,15 +2,12 @@
 Class Name: KnowledgeManagementCompletionRequest
 Description: Encapsulates the metadata required to complete a knowledge management orchestration request.
 """
-from typing import List, Optional
-from pydantic import BaseModel
-from foundationallm.models.orchestration import MessageHistoryItem
+from typing import Optional
 from foundationallm.models.metadata import KnowledgeManagementAgent
+from .completion_request_base import CompletionRequestBase
 
-class KnowledgeManagementCompletionRequest(BaseModel):
+class KnowledgeManagementCompletionRequest(CompletionRequestBase):
     """
     Orchestration completion request.
-    """
-    user_prompt: str
-    agent: Optional[KnowledgeManagementAgent] = None   
-    message_history: Optional[List[MessageHistoryItem]] = []
+    """    
+    agent: Optional[KnowledgeManagementAgent] = None

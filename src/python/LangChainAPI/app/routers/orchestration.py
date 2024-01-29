@@ -1,10 +1,10 @@
 """
 The API endpoint for returning the completion from the LLM for the specified user prompt.
 """
-from typing import Optional
+from typing import Optional, Union
 from fastapi import APIRouter, Depends, Header, Request
 from foundationallm.config import Context
-from foundationallm.models.orchestration import CompletionRequest, CompletionResponse
+from foundationallm.models.orchestration import CompletionRequest, KnowledgeManagementCompletionRequest, CompletionResponse
 from foundationallm.langchain.orchestration import OrchestrationManager
 from app.dependencies import handle_exception, validate_api_key_header
 
@@ -18,7 +18,7 @@ router = APIRouter(
 
 @router.post('/completion')
 async def get_completion(
-    completion_request: CompletionRequest,
+    completion_request: Union[CompletionRequest, KnowledgeManagementCompletionRequest],
     request : Request,
     x_user_identity: Optional[str] = Header(None)) -> CompletionResponse:
     """
