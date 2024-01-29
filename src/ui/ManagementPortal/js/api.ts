@@ -9,7 +9,7 @@ import type {
 import { mockGetAgentIndexesResponse } from './mock';
 
 async function wait(milliseconds: number = 1000): Promise<void> {
-  return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
+	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
 }
 
 export default {
@@ -29,7 +29,7 @@ export default {
 	},
 
 	async getAgentIndexes(): Promise<AgentIndex[]> {
-    await wait(this.mockLoadTime);
+		await wait(this.mockLoadTime);
 		return mockGetAgentIndexesResponse;
 	},
 
