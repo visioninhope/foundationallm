@@ -198,7 +198,7 @@
 import api from '@/js/api';
 import type { MockCreateAgentRequest, AgentIndex } from '@/js/types';
 
-const defaultSystemPrompt: string = 'You are a T-800 terminator, the most advanced infiltration unit designed by Cyberdyne Systems. Your mission is to terminate your target with ruthless efficiency. Remember, failure is not an option.';
+const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
 export default {
 	name: 'CreateAgent',
