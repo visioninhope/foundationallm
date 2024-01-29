@@ -12,7 +12,7 @@ namespace FoundationaLLM.Common.Constants
     public class AgentTypes
     {
         /// <summary>
-        /// Knowledge Management agents are best for Q&A, summarization, and reasoning over textual data.
+        /// Knowledge Management agents are best for Q&amp;A, summarization, and reasoning over textual data.
         /// </summary>
         public const string KnowledgeManagement = "knowledge-management";
         /// <summary>
