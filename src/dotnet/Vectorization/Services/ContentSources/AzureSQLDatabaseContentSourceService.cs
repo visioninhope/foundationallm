@@ -57,23 +57,30 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(_settings.ConnectionString))
+                using (var connection = new SqlConnection(_settings.ConnectionString))
                 {
                     await connection.OpenAsync(cancellationToken);
 
-                    using (SqlCommand command = new SqlCommand($"SELECT TOP 1 {contentColumnName} FROM [{schema}].[{tableName}] WHERE {identifierColumnName} = `{identifierValue}`", connection))
+                    // WARNING! This is for experimentation purposes only as it is not injection-safe!
+                    // TODO: More work to sanitize and add safety layers against injection.
+
+                    using (var command = new SqlCommand($"SELECT TOP 1 {contentColumnName} FROM [{schema}].[{tableName}] WHERE {identifierColumnName} = @identifierValue", connection))
                     {
-                        using (SqlDataReader reader = await command.ExecuteReaderAsync(cancellationToken))
+                        command.Parameters.Add(new SqlParameter("@identifierValue", identifierValue));
+
+                        using (var reader = await command.ExecuteReaderAsync(cancellationToken))
                         {
+                            if (!reader.HasRows)
+                                throw new VectorizationException($"The file {identifierValue} was not found in the database.");
                             await reader.ReadAsync();
                             return new BinaryData(reader[contentColumnName]);
                         }
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                throw new VectorizationException($"Error when extracting content from file identified by {identifierValue} in Azure SQL Database.");
+                throw new VectorizationException($"Error when extracting content from file identified by {identifierValue} in Azure SQL Database.", ex);
             }
         }
     }
