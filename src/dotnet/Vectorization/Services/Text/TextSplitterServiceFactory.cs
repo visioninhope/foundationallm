@@ -1,7 +1,8 @@
-﻿using Azure.Core;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Text;
+using FoundationaLLM.Common.Models.Vectorization;
+using FoundationaLLM.Common.Services.TextSplitters;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.ResourceProviders;
@@ -9,11 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Services.Text
 {
@@ -28,7 +24,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IResourceProviderService vectorizationResourceProviderService,
         IConfiguration configuration,
         IServiceProvider serviceProvider,
-        ILoggerFactory loggerFactory) : IServiceFactory<ITextSplitterService>
+        ILoggerFactory loggerFactory) : IVectorizationServiceFactory<ITextSplitterService>
     {
         private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
         private readonly IConfiguration _configuration = configuration;
@@ -36,15 +32,29 @@ namespace FoundationaLLM.Vectorization.Services.Text
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
-        public ITextSplitterService CreateService(string serviceName)
+        public ITextSplitterService GetService(string serviceName)
         {
-            var textPartitionProfile = _vectorizationResourceProviderService.GetResource<TextPartitionProfile>(
-                $"/{VectorizationResourceTypeNames.TextPartitionProfiles}/{serviceName}");
+            var textPartitionProfile = _vectorizationResourceProviderService.GetResource<TextPartitioningProfile>(
+                $"/{VectorizationResourceTypeNames.TextPartitioningProfiles}/{serviceName}");
 
             return textPartitionProfile.TextSplitter switch
             {
                 TextSplitterType.TokenTextSplitter => CreateTokenTextSplitterService(
-                    TokenTextSplitterServiceSettings.FromDictionary(textPartitionProfile.TextSplitterSettings!)),
+                    TokenTextSplitterServiceSettings.FromDictionary(textPartitionProfile.Settings!)),
+                _ => throw new VectorizationException($"The text splitter type {textPartitionProfile.TextSplitter} is not supported."),
+            };
+        }
+
+        /// <inheritdoc/>
+        public (ITextSplitterService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        {
+            var textPartitionProfile = _vectorizationResourceProviderService.GetResource<TextPartitioningProfile>(
+                $"/{VectorizationResourceTypeNames.TextPartitioningProfiles}/{serviceName}");
+
+            return textPartitionProfile.TextSplitter switch
+            {
+                TextSplitterType.TokenTextSplitter => (CreateTokenTextSplitterService(
+                    TokenTextSplitterServiceSettings.FromDictionary(textPartitionProfile.Settings!)), textPartitionProfile),
                 _ => throw new VectorizationException($"The text splitter type {textPartitionProfile.TextSplitter} is not supported."),
             };
         }

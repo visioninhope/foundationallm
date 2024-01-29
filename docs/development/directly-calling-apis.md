@@ -4,7 +4,30 @@ Typically, the only interaction with the Foundationa**LLM** (FLLM) APIs is indir
 
 ## API architecture
 
-The FLLM architecture contains layers of APIs that are used to perform different tasks along a call chain, starting with the **Core API**. The following diagram shows the API architecture:
+The FLLM architecture contains layers of APIs that are used to perform different tasks along a call chain, starting with the **Core API**. The following diagram shows a very high-level flow of the API architecture:
+
+```mermaid
+sequenceDiagram
+    actor U as Caller
+    participant C as CoreAPI
+    participant A as AgentFactoryAPI
+    participant O as OrchestrationWrapperAPI
+
+    U->>C: Calls Orchestration endpoint
+    C->>A: Calls Orchestration endpoint
+    Note over A,O: Agent resolution from cache or hubs
+    A->>+O: Invokes orchestrator
+    Note over O: Calls LangChain or Semantic Kernel
+    O->>-A: Returns result
+    A->>C: Returns result
+    C->>U: Returns result
+
+```
+
+> [!NOTE]
+> The AgentFactoryAPI contains a caching layer for the full agent metadata, including the agent, its datasource(s), and prompts. This caching layer is used to improve performance by reducing the number of calls to the underlying hubs. The AgentFactoryAPI also includes endpoints to clear the cache across different categories. In the more detailed diagram below, you can see that the AgentFactoryAPI calls the AgentHubAPI, PromptHubAPI, and DataSourceHubAPI to retrieve the agent metadata.
+
+When we look a level deeper, we see that there are several interactions between the APIs that occur during the call chain. The following diagram shows a more detailed flow of the API architecture:
 
 ```mermaid
 graph TD;
@@ -100,7 +123,10 @@ There are two ways to obtain the authentication token that you will use to authe
 
 Though this method takes a few more steps, it is the recommended method because it allows you to use the same token for all of the API calls in the collection.
 
-First, let's set up the request to get the token at the **collection** level. Make sure you choose `OAuth 2.0` as the type of authorization and **not** Bearer Token.  
+> [!IMPORTANT]
+> If you previously configured the Microsoft Entra ID app registration for the Chat UI application, you will need to update the **Redirect URI** to `https://oauth.pstmn.io/v1/callback` in order to use the Postman mobile app to get the token. You can do this by following the steps in the [Add a redirect URI to the client application](../deployment/authentication/core-authentication-setup-entra.md#add-a-redirect-uri-to-the-client-application) section of the authentication setup guide.
+
+First, let's set up the request to get the token at the **collection** level. Make sure you choose `OAuth 2.0` as the type of authorization and **not** Bearer Token.
 
 ![The OAuth 2.0 type is selected.](media/postman-auth-type.png)
 
