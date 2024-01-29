@@ -6,12 +6,12 @@
 		<div class="steps" :class="{ 'steps--loading': loading }">
 
 			<!-- Loading overlay -->
-      <template v-if="loading">
-        <div class="steps__loading-overlay">
-          <LoadingGrid />
-          <div>{{ loadingStatusText }}</div>
-        </div>
-      </template>
+			<template v-if="loading">
+				<div class="steps__loading-overlay">
+					<LoadingGrid />
+					<div>{{ loadingStatusText }}</div>
+				</div>
+			</template>
 
 			<!-- Type -->
 			<div class="step-section-header span-2">Type</div>
