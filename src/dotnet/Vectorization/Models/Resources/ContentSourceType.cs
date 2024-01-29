@@ -19,6 +19,11 @@ namespace FoundationaLLM.Vectorization.Models.Resources
         /// <summary>
         /// SharePoint Online document library.
         /// </summary>
-        SharePointOnline
+        SharePointOnline,
+
+        /// <summary>
+        /// Azure SQL Database.
+        /// </summary>
+        AzureSQLDatabase
     }
 }
