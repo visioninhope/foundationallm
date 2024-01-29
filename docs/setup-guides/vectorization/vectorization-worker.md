@@ -111,12 +111,22 @@ Default settings for the vectorization worker:
 
 ### Default vectorization content source profiles
 
-Default structure for the `vectorization-content-sources.json` file:
+Default structure for the `vectorization-content-source-profiles.json` file:
 
 ```json
 {
- "ContentSources": [
- ]
+	"ContentSourceProfiles": [
+		{
+			"Name": "SDZWAJournals",
+			"Type": "AzureDataLake",
+			"Settings": {
+			},
+			"ConfigurationReferences": {
+				"AuthenticationType": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:AuthenticationType",
+				"ConnectionString": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:ConnectionString"
+			}
+		}
+	]
 }
 ```
 
@@ -150,7 +160,15 @@ Default structure for the `vectorization-text-embedding-profiles.json` file:
 	"TextEmbeddingProfiles": [
 		{
 			"Name": "AzureOpenAI_Embedding",
-			"TextEmbedding": "SemanticKernelTextEmbedding"
+			"TextEmbedding": "SemanticKernelTextEmbedding",
+			"Settings": {
+			},
+			"ConfigurationReferences": {
+				"APIKey": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
+				"AuthenticationType": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
+				"DeploymentName": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName",
+				"Endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"
+			}
 		}
 	]
 }
@@ -166,8 +184,13 @@ Default structure for the `vectorization-indexing-profiles.json` file:
 		{
 			"Name": "AzureAISearch_Test_001",
 			"Indexer": "AzureAISearchIndexer",
-			"IndexerSettings": {
+			"Settings": {
 				"IndexName": "fllm-test-001"
+			},
+			"ConfigurationReferences": {
+				"APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
+				"AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
+				"Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
 			}
 		}
 	]
@@ -182,6 +205,7 @@ Sample structure of a vectorization request:
 {
     "id": "d4669c9c-e330-450a-a41c-a4d6649abdef",
     "content_identifier": {
+		"content_source_profile_name": "SDZWAJournals",
         "multipart_id": [
             "https://fllmaks14sa.blob.core.windows.net",
             "vectorization-input",
@@ -193,7 +217,6 @@ Sample structure of a vectorization request:
         {
             "id": "extract",
             "parameters": {
-                "content_source_name": "SDZWAJournals"
             }
         },
         {
@@ -205,13 +228,13 @@ Sample structure of a vectorization request:
         {
             "id": "embed",
             "parameters": {
-                "embedding_profile_name": "AzureOpenAI_Embedding"
+                "text_embedding_profile_name": "AzureOpenAI_Embedding"
             }
         },
         {
             "id": "index",
             "parameters": {
-                "index_name": "AzureAISearch_Test"
+                "indexing_profile_name": "AzureAISearch_Test_001"
             }
         }
     ],
