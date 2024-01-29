@@ -8,6 +8,6 @@
         /// <summary>
         /// The connection string used for authentication.
         /// </summary>
-        public required string ConnectionString { get; set; }
+        public string? ConnectionString { get; set; }
     }
 }

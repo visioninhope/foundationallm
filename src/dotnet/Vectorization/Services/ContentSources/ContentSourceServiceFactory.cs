@@ -41,6 +41,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
             {
                 ContentSourceType.AzureDataLake => CreateAzureDataLakeContentSourceService(serviceName),
                 ContentSourceType.SharePointOnline => CreateSharePointOnlineContentSourceService(serviceName),
+                ContentSourceType.AzureSQLDatabase => CreateAzureSQLDatabaseContentSourceService(serviceName),
                 _ => throw new VectorizationException($"The content source type {contentSourceProfile.Type} is not supported."),
             };
         }
@@ -55,6 +56,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
             {
                 ContentSourceType.AzureDataLake => (CreateAzureDataLakeContentSourceService(serviceName), contentSourceProfile),
                 ContentSourceType.SharePointOnline => (CreateSharePointOnlineContentSourceService(serviceName), contentSourceProfile),
+                ContentSourceType.AzureSQLDatabase => (CreateAzureSQLDatabaseContentSourceService(serviceName), contentSourceProfile),
                 _ => throw new VectorizationException($"The content source type {contentSourceProfile.Type} is not supported."),
             };
         }
@@ -81,6 +83,18 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
 
             return new SharePointOnlineContentSourceService(
                 sharePointOnlineContentSourceServiceSettings,
+                _loggerFactory);
+        }
+
+        private AzureSQLDatabaseContentSourceService CreateAzureSQLDatabaseContentSourceService(string serviceName)
+        {
+            var azureSQLDatabaseContentSourceServiceSettings = new AzureSQLDatabaseContentSourceServiceSettings();
+            _configuration.Bind(
+                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
+                azureSQLDatabaseContentSourceServiceSettings);
+
+            return new AzureSQLDatabaseContentSourceService(
+                azureSQLDatabaseContentSourceServiceSettings,
                 _loggerFactory);
         }
     }
