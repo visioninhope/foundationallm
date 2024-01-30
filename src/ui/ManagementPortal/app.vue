@@ -9,6 +9,7 @@
 			<Sidebar />
 			<div class="page">
 				<NuxtPage />
+				<Toast position="top-center" />
 			</div>
 		</div>
 	</main>

@@ -514,32 +514,40 @@ export default {
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
 
-			await api.createAgent({
-				name: this.agentName,
-				type: this.agentType,
+			try {
+				await api.createAgent({
+					name: this.agentName,
+					type: this.agentType,
 
-				embedding_profile: this.selectedDataSource?.ConfigurationReferences?.Endpoint,
-				indexing_profile: this.selectedIndexSource?.ConfigurationReferences?.Endpoint,
+					embedding_profile: this.selectedDataSource?.ConfigurationReferences?.Endpoint,
+					indexing_profile: this.selectedIndexSource?.ConfigurationReferences?.Endpoint,
 
-				// embedding_profile: string;
-				// sessions_enabled: boolean;
-				// orchestrator: string;
+					// embedding_profile: string;
+					// sessions_enabled: boolean;
+					// orchestrator: string;
 
-				conversation_history: {
-					enabled: this.conversationHistory,
-					// max_history: number,
-				},
-
-				gatekeeper: {
-					use_system_setting: this.gatekeeperEnabled,
-					options: {
-						content_safety: this.gatekeeperContentSafety,
-						data_protection: this.gatekeeperDataProtection,
+					conversation_history: {
+						enabled: this.conversationHistory,
+						// max_history: number,
 					},
-				},
 
-				prompt: this.systemPrompt,
-			});
+					gatekeeper: {
+						use_system_setting: this.gatekeeperEnabled,
+						options: {
+							content_safety: this.gatekeeperContentSafety,
+							data_protection: this.gatekeeperDataProtection,
+						},
+					},
+
+					prompt: this.systemPrompt,
+				});
+			} catch(error) {
+				this.$toast.add({
+					severity: 'error',
+					detail: 'There was an error creating the agent. Please check the settings and try again.',
+					life: 5000,
+				});
+			}
 
 			this.loading = false;
 			// Route to created agent's page
