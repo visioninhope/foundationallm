@@ -2390,6 +2390,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_Prompt
+  name: FoundationaLLM_Prompt
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_AppConfigurationKeyFilters_FoundationaLLM_Prompt
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_Prompt
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_Prompt
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Prompt
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_Refinement
   name: FoundationaLLM_Refinement
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_AppConfigurationKeyFilters_FoundationaLLM_Refinement
@@ -2522,6 +2528,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Instance
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Instance
   nameWithType: AppConfigurationKeySections.FoundationaLLM_Instance
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Prompt_ResourceProviderService_Storage
+  name: FoundationaLLM_Prompt_ResourceProviderService_Storage
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Prompt_ResourceProviderService_Storage
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Prompt_ResourceProviderService_Storage
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Prompt_ResourceProviderService_Storage
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Prompt_ResourceProviderService_Storage
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Refinement
   name: FoundationaLLM_Refinement
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Refinement
@@ -3542,6 +3554,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService
   fullName: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService
   nameWithType: DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService
+- uid: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Prompt_ResourceProviderService
+  name: FoundationaLLM_Prompt_ResourceProviderService
+  href: api/dotnet/FoundationaLLM.Common.Constants.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_DependencyInjectionKeys_FoundationaLLM_Prompt_ResourceProviderService
+  commentId: F:FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Prompt_ResourceProviderService
+  fullName: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Prompt_ResourceProviderService
+  nameWithType: DependencyInjectionKeys.FoundationaLLM_Prompt_ResourceProviderService
 - uid: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService
   name: FoundationaLLM_Vectorization_AzureAISearchIndexingService
   href: api/dotnet/FoundationaLLM.Common.Constants.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_DependencyInjectionKeys_FoundationaLLM_Vectorization_AzureAISearchIndexingService
@@ -3788,6 +3806,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviderNames.FoundationaLLM_Configuration
   fullName: FoundationaLLM.Common.Constants.ResourceProviderNames.FoundationaLLM_Configuration
   nameWithType: ResourceProviderNames.FoundationaLLM_Configuration
+- uid: FoundationaLLM.Common.Constants.ResourceProviderNames.FoundationaLLM_Prompt
+  name: FoundationaLLM_Prompt
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviderNames.html#FoundationaLLM_Common_Constants_ResourceProviderNames_FoundationaLLM_Prompt
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviderNames.FoundationaLLM_Prompt
+  fullName: FoundationaLLM.Common.Constants.ResourceProviderNames.FoundationaLLM_Prompt
+  nameWithType: ResourceProviderNames.FoundationaLLM_Prompt
 - uid: FoundationaLLM.Common.Constants.ResourceProviderNames.FoundationaLLM_Vectorization
   name: FoundationaLLM_Vectorization
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviderNames.html#FoundationaLLM_Common_Constants_ResourceProviderNames_FoundationaLLM_Vectorization
@@ -7774,6 +7798,25 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderActionResult.IsSuccessResult
   nameWithType: ResourceProviderActionResult.IsSuccessResult
+- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult
+  name: ResourceProviderUpsertResult
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult
+  nameWithType: ResourceProviderUpsertResult
+- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult.ObjectId
+  name: ObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceProviderUpsertResult_ObjectId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult.ObjectId
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult.ObjectId
+  nameWithType: ResourceProviderUpsertResult.ObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult.ObjectId*
+  name: ObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceProviderUpsertResult_ObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult.ObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceProviderUpsertResult.ObjectId
+  nameWithType: ResourceProviderUpsertResult.ObjectId
 - uid: FoundationaLLM.Common.Models.Search
   name: FoundationaLLM.Common.Models.Search
   href: api/dotnet/FoundationaLLM.Common.Models.Search.html
@@ -14796,31 +14839,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Management.Services.APIServices.AgentFactoryAPIService.RemoveCacheItem
   nameWithType: AgentFactoryAPIService.RemoveCacheItem
-- uid: FoundationaLLM.Management.Services.AgentManagementService
-  name: AgentManagementService
-  href: api/dotnet/FoundationaLLM.Management.Services.AgentManagementService.html
-  commentId: T:FoundationaLLM.Management.Services.AgentManagementService
-  fullName: FoundationaLLM.Management.Services.AgentManagementService
-  nameWithType: AgentManagementService
-- uid: FoundationaLLM.Management.Services.AgentManagementService.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,FoundationaLLM.Common.Interfaces.IResourceProviderService)
-  name: AgentManagementService(IResourceProviderService, IResourceProviderService)
-  href: api/dotnet/FoundationaLLM.Management.Services.AgentManagementService.html#FoundationaLLM_Management_Services_AgentManagementService__ctor_FoundationaLLM_Common_Interfaces_IResourceProviderService_FoundationaLLM_Common_Interfaces_IResourceProviderService_
-  commentId: M:FoundationaLLM.Management.Services.AgentManagementService.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,FoundationaLLM.Common.Interfaces.IResourceProviderService)
-  name.vb: New(IResourceProviderService, IResourceProviderService)
-  fullName: FoundationaLLM.Management.Services.AgentManagementService.AgentManagementService(FoundationaLLM.Common.Interfaces.IResourceProviderService, FoundationaLLM.Common.Interfaces.IResourceProviderService)
-  fullName.vb: FoundationaLLM.Management.Services.AgentManagementService.New(FoundationaLLM.Common.Interfaces.IResourceProviderService, FoundationaLLM.Common.Interfaces.IResourceProviderService)
-  nameWithType: AgentManagementService.AgentManagementService(IResourceProviderService, IResourceProviderService)
-  nameWithType.vb: AgentManagementService.New(IResourceProviderService, IResourceProviderService)
-- uid: FoundationaLLM.Management.Services.AgentManagementService.#ctor*
-  name: AgentManagementService
-  href: api/dotnet/FoundationaLLM.Management.Services.AgentManagementService.html#FoundationaLLM_Management_Services_AgentManagementService__ctor_
-  commentId: Overload:FoundationaLLM.Management.Services.AgentManagementService.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Management.Services.AgentManagementService.AgentManagementService
-  fullName.vb: FoundationaLLM.Management.Services.AgentManagementService.New
-  nameWithType: AgentManagementService.AgentManagementService
-  nameWithType.vb: AgentManagementService.New
 - uid: FoundationaLLM.Management.Services.CacheManagementService
   name: CacheManagementService
   href: api/dotnet/FoundationaLLM.Management.Services.CacheManagementService.html
@@ -14994,6 +15012,281 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Management.Services.ConfigurationManagementService.UpdateAgentHintsAsync
   nameWithType: ConfigurationManagementService.UpdateAgentHintsAsync
+- uid: FoundationaLLM.Prompt
+  name: FoundationaLLM.Prompt
+  href: api/dotnet/FoundationaLLM.Prompt.html
+- uid: FoundationaLLM.Prompt.Models
+  name: FoundationaLLM.Prompt.Models
+  href: api/dotnet/FoundationaLLM.Prompt.Models.html
+- uid: FoundationaLLM.Prompt.Models.Metadata
+  name: FoundationaLLM.Prompt.Models.Metadata
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.html
+  commentId: N:FoundationaLLM.Prompt.Models.Metadata
+  fullName: FoundationaLLM.Prompt.Models.Metadata
+  nameWithType: FoundationaLLM.Prompt.Models.Metadata
+- uid: FoundationaLLM.Prompt.Models.Metadata.Prompt
+  name: Prompt
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.Prompt.html
+  commentId: T:FoundationaLLM.Prompt.Models.Metadata.Prompt
+  fullName: FoundationaLLM.Prompt.Models.Metadata.Prompt
+  nameWithType: Prompt
+- uid: FoundationaLLM.Prompt.Models.Metadata.Prompt.Prefix
+  name: Prefix
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.Prompt.html#FoundationaLLM_Prompt_Models_Metadata_Prompt_Prefix
+  commentId: P:FoundationaLLM.Prompt.Models.Metadata.Prompt.Prefix
+  fullName: FoundationaLLM.Prompt.Models.Metadata.Prompt.Prefix
+  nameWithType: Prompt.Prefix
+- uid: FoundationaLLM.Prompt.Models.Metadata.Prompt.Prefix*
+  name: Prefix
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.Prompt.html#FoundationaLLM_Prompt_Models_Metadata_Prompt_Prefix_
+  commentId: Overload:FoundationaLLM.Prompt.Models.Metadata.Prompt.Prefix
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.Models.Metadata.Prompt.Prefix
+  nameWithType: Prompt.Prefix
+- uid: FoundationaLLM.Prompt.Models.Metadata.Prompt.Suffix
+  name: Suffix
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.Prompt.html#FoundationaLLM_Prompt_Models_Metadata_Prompt_Suffix
+  commentId: P:FoundationaLLM.Prompt.Models.Metadata.Prompt.Suffix
+  fullName: FoundationaLLM.Prompt.Models.Metadata.Prompt.Suffix
+  nameWithType: Prompt.Suffix
+- uid: FoundationaLLM.Prompt.Models.Metadata.Prompt.Suffix*
+  name: Suffix
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.Prompt.html#FoundationaLLM_Prompt_Models_Metadata_Prompt_Suffix_
+  commentId: Overload:FoundationaLLM.Prompt.Models.Metadata.Prompt.Suffix
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.Models.Metadata.Prompt.Suffix
+  nameWithType: Prompt.Suffix
+- uid: FoundationaLLM.Prompt.Models.Resources
+  name: FoundationaLLM.Prompt.Models.Resources
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.html
+  commentId: N:FoundationaLLM.Prompt.Models.Resources
+  fullName: FoundationaLLM.Prompt.Models.Resources
+  nameWithType: FoundationaLLM.Prompt.Models.Resources
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReference
+  name: PromptReference
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReference.html
+  commentId: T:FoundationaLLM.Prompt.Models.Resources.PromptReference
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReference
+  nameWithType: PromptReference
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReference.Filename
+  name: Filename
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReference.html#FoundationaLLM_Prompt_Models_Resources_PromptReference_Filename
+  commentId: P:FoundationaLLM.Prompt.Models.Resources.PromptReference.Filename
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReference.Filename
+  nameWithType: PromptReference.Filename
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReference.Filename*
+  name: Filename
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReference.html#FoundationaLLM_Prompt_Models_Resources_PromptReference_Filename_
+  commentId: Overload:FoundationaLLM.Prompt.Models.Resources.PromptReference.Filename
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReference.Filename
+  nameWithType: PromptReference.Filename
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReference.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReference.html#FoundationaLLM_Prompt_Models_Resources_PromptReference_Name
+  commentId: P:FoundationaLLM.Prompt.Models.Resources.PromptReference.Name
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReference.Name
+  nameWithType: PromptReference.Name
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReference.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReference.html#FoundationaLLM_Prompt_Models_Resources_PromptReference_Name_
+  commentId: Overload:FoundationaLLM.Prompt.Models.Resources.PromptReference.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReference.Name
+  nameWithType: PromptReference.Name
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore
+  name: PromptReferenceStore
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.html
+  commentId: T:FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore
+  nameWithType: PromptReferenceStore
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.FromDictionary(System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Prompt.Models.Resources.PromptReference})
+  name: FromDictionary(Dictionary<string, PromptReference>)
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.html#FoundationaLLM_Prompt_Models_Resources_PromptReferenceStore_FromDictionary_System_Collections_Generic_Dictionary_System_String_FoundationaLLM_Prompt_Models_Resources_PromptReference__
+  commentId: M:FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.FromDictionary(System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Prompt.Models.Resources.PromptReference})
+  name.vb: FromDictionary(Dictionary(Of String, PromptReference))
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.FromDictionary(System.Collections.Generic.Dictionary<string, FoundationaLLM.Prompt.Models.Resources.PromptReference>)
+  fullName.vb: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.FromDictionary(System.Collections.Generic.Dictionary(Of String, FoundationaLLM.Prompt.Models.Resources.PromptReference))
+  nameWithType: PromptReferenceStore.FromDictionary(Dictionary<string, PromptReference>)
+  nameWithType.vb: PromptReferenceStore.FromDictionary(Dictionary(Of String, PromptReference))
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.FromDictionary*
+  name: FromDictionary
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.html#FoundationaLLM_Prompt_Models_Resources_PromptReferenceStore_FromDictionary_
+  commentId: Overload:FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.FromDictionary
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.FromDictionary
+  nameWithType: PromptReferenceStore.FromDictionary
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.PromptReferences
+  name: PromptReferences
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.html#FoundationaLLM_Prompt_Models_Resources_PromptReferenceStore_PromptReferences
+  commentId: P:FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.PromptReferences
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.PromptReferences
+  nameWithType: PromptReferenceStore.PromptReferences
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.PromptReferences*
+  name: PromptReferences
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.html#FoundationaLLM_Prompt_Models_Resources_PromptReferenceStore_PromptReferences_
+  commentId: Overload:FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.PromptReferences
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.PromptReferences
+  nameWithType: PromptReferenceStore.PromptReferences
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.ToDictionary
+  name: ToDictionary()
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.html#FoundationaLLM_Prompt_Models_Resources_PromptReferenceStore_ToDictionary
+  commentId: M:FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.ToDictionary
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.ToDictionary()
+  nameWithType: PromptReferenceStore.ToDictionary()
+- uid: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.ToDictionary*
+  name: ToDictionary
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.html#FoundationaLLM_Prompt_Models_Resources_PromptReferenceStore_ToDictionary_
+  commentId: Overload:FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.ToDictionary
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.Models.Resources.PromptReferenceStore.ToDictionary
+  nameWithType: PromptReferenceStore.ToDictionary
+- uid: FoundationaLLM.Prompt.ResourceProviders
+  name: FoundationaLLM.Prompt.ResourceProviders
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.html
+  commentId: N:FoundationaLLM.Prompt.ResourceProviders
+  fullName: FoundationaLLM.Prompt.ResourceProviders
+  nameWithType: FoundationaLLM.Prompt.ResourceProviders
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService
+  name: PromptResourceProviderService
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html
+  commentId: T:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService
+  nameWithType: PromptResourceProviderService
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService})
+  name: PromptResourceProviderService(IOptions<InstanceSettings>, IStorageService, ILogger<PromptResourceProviderService>)
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__
+  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService})
+  name.vb: New(IOptions(Of InstanceSettings), IStorageService, ILogger(Of PromptResourceProviderService))
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.PromptResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IStorageService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService>)
+  fullName.vb: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IStorageService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService))
+  nameWithType: PromptResourceProviderService.PromptResourceProviderService(IOptions<InstanceSettings>, IStorageService, ILogger<PromptResourceProviderService>)
+  nameWithType.vb: PromptResourceProviderService.New(IOptions(Of InstanceSettings), IStorageService, ILogger(Of PromptResourceProviderService))
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.#ctor*
+  name: PromptResourceProviderService
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__ctor_
+  commentId: Overload:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.PromptResourceProviderService
+  fullName.vb: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.New
+  nameWithType: PromptResourceProviderService.PromptResourceProviderService
+  nameWithType.vb: PromptResourceProviderService.New
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourceAsyncInternal*
+  name: GetResourceAsyncInternal
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourceAsyncInternal_
+  commentId: Overload:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourceAsyncInternal
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourceAsyncInternal
+  nameWithType: PromptResourceProviderService.GetResourceAsyncInternal
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourceAsyncInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name: GetResourceAsyncInternal<T>(List<ResourceTypeInstance>)
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourceAsyncInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__
+  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourceAsyncInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name.vb: GetResourceAsyncInternal(Of T)(List(Of ResourceTypeInstance))
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourceAsyncInternal<T>(System.Collections.Generic.List<FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance>)
+  fullName.vb: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourceAsyncInternal(Of T)(System.Collections.Generic.List(Of FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance))
+  nameWithType: PromptResourceProviderService.GetResourceAsyncInternal<T>(List<ResourceTypeInstance>)
+  nameWithType.vb: PromptResourceProviderService.GetResourceAsyncInternal(Of T)(List(Of ResourceTypeInstance))
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name: GetResourcesAsyncInternal(List<ResourceTypeInstance>)
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourcesAsyncInternal_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__
+  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name.vb: GetResourcesAsyncInternal(List(Of ResourceTypeInstance))
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal(System.Collections.Generic.List<FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance>)
+  fullName.vb: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal(System.Collections.Generic.List(Of FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance))
+  nameWithType: PromptResourceProviderService.GetResourcesAsyncInternal(List<ResourceTypeInstance>)
+  nameWithType.vb: PromptResourceProviderService.GetResourcesAsyncInternal(List(Of ResourceTypeInstance))
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal*
+  name: GetResourcesAsyncInternal
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourcesAsyncInternal_
+  commentId: Overload:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal
+  nameWithType: PromptResourceProviderService.GetResourcesAsyncInternal
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name: GetResourcesAsyncInternal<T>(List<ResourceTypeInstance>)
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourcesAsyncInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__
+  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})
+  name.vb: GetResourcesAsyncInternal(Of T)(List(Of ResourceTypeInstance))
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal<T>(System.Collections.Generic.List<FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance>)
+  fullName.vb: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal(Of T)(System.Collections.Generic.List(Of FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance))
+  nameWithType: PromptResourceProviderService.GetResourcesAsyncInternal<T>(List<ResourceTypeInstance>)
+  nameWithType.vb: PromptResourceProviderService.GetResourcesAsyncInternal(Of T)(List(Of ResourceTypeInstance))
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.InitializeInternal
+  name: InitializeInternal()
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_InitializeInternal
+  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.InitializeInternal
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.InitializeInternal()
+  nameWithType: PromptResourceProviderService.InitializeInternal()
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.InitializeInternal*
+  name: InitializeInternal
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_InitializeInternal_
+  commentId: Overload:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.InitializeInternal
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.InitializeInternal
+  nameWithType: PromptResourceProviderService.InitializeInternal
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.UpsertResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance},System.String)
+  name: UpsertResourceAsync(List<ResourceTypeInstance>, string)
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_UpsertResourceAsync_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__System_String_
+  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.UpsertResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance},System.String)
+  name.vb: UpsertResourceAsync(List(Of ResourceTypeInstance), String)
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.UpsertResourceAsync(System.Collections.Generic.List<FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance>, string)
+  fullName.vb: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.UpsertResourceAsync(System.Collections.Generic.List(Of FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance), String)
+  nameWithType: PromptResourceProviderService.UpsertResourceAsync(List<ResourceTypeInstance>, string)
+  nameWithType.vb: PromptResourceProviderService.UpsertResourceAsync(List(Of ResourceTypeInstance), String)
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.UpsertResourceAsync*
+  name: UpsertResourceAsync
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_UpsertResourceAsync_
+  commentId: Overload:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.UpsertResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.UpsertResourceAsync
+  nameWithType: PromptResourceProviderService.UpsertResourceAsync
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._name
+  name: _name
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__name
+  commentId: P:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._name
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._name
+  nameWithType: PromptResourceProviderService._name
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._name*
+  name: _name
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__name_
+  commentId: Overload:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._name
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._name
+  nameWithType: PromptResourceProviderService._name
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._resourceTypes
+  name: _resourceTypes
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__resourceTypes
+  commentId: P:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._resourceTypes
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._resourceTypes
+  nameWithType: PromptResourceProviderService._resourceTypes
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._resourceTypes*
+  name: _resourceTypes
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__resourceTypes_
+  commentId: Overload:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._resourceTypes
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService._resourceTypes
+  nameWithType: PromptResourceProviderService._resourceTypes
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames
+  name: PromptResourceTypeNames
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames.html
+  commentId: T:FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames
+  nameWithType: PromptResourceTypeNames
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames.PromptReferences
+  name: PromptReferences
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceTypeNames_PromptReferences
+  commentId: F:FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames.PromptReferences
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames.PromptReferences
+  nameWithType: PromptResourceTypeNames.PromptReferences
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames.Prompts
+  name: Prompts
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceTypeNames_Prompts
+  commentId: F:FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames.Prompts
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceTypeNames.Prompts
+  nameWithType: PromptResourceTypeNames.Prompts
 - uid: FoundationaLLM.SemanticKernel
   name: FoundationaLLM.SemanticKernel
   href: api/dotnet/FoundationaLLM.SemanticKernel.html

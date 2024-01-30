@@ -121,6 +121,7 @@ Class ResourceBase  <a class="header-action link-secondary" title="View source" 
     <dt>Derived</dt>
     <dd>
       <div><a class="xref" href="FoundationaLLM.Agent.Models.Metadata.AgentBase.html">AgentBase</a></div>
+      <div><a class="xref" href="FoundationaLLM.Prompt.Models.Metadata.Prompt.html">Prompt</a></div>
     </dd>
   </dl>
 
@@ -178,7 +179,7 @@ Class ResourceBase  <a class="header-action link-secondary" title="View source" 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;description&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;description&quot;, Order = -2)]
 public string? Description { get; set; }</code></pre>
   </div>
 
@@ -211,7 +212,7 @@ public string? Description { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;name&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;name&quot;, Order = -5)]
 public required string Name { get; set; }</code></pre>
   </div>
 
@@ -244,7 +245,7 @@ public required string Name { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;object_id&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;object_id&quot;, Order = -3)]
 public required string ObjectId { get; set; }</code></pre>
   </div>
 
@@ -277,7 +278,7 @@ public required string ObjectId { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;type&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;type&quot;, Order = -4)]
 public required string Type { get; set; }</code></pre>
   </div>
 
