@@ -28,6 +28,8 @@ namespace FoundationaLLM.Common.Services
     {
         private BlobServiceClient _blobServiceClient;
 
+        public BlobContainerClient GetContainerClient(string containerName) => _blobServiceClient.GetBlobContainerClient(containerName);
+
         /// <inheritdoc/>
         public async Task<BinaryData> ReadFileAsync(
             string containerName,

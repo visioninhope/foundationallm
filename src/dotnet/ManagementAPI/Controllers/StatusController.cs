@@ -12,6 +12,8 @@ namespace FoundationaLLM.Management.API.Controllers
     [ApiVersion(1.0)]
     [ApiController]
     [Route("status")]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public class StatusController : ControllerBase
     {
         /// <summary>
