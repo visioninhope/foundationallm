@@ -1,4 +1,3 @@
-using Azure.Core;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Text;
@@ -33,6 +32,9 @@ namespace FoundationaLLM.Common.Services.TextSplitters
                 _logger.LogInformation("The tokenizer identified {TokensCount} tokens.", tokens.Count);
 
                 var chunksCount = (int)Math.Ceiling((1f * tokens!.Count - _settings.OverlapSizeTokens) / (_settings.ChunkSizeTokens - _settings.OverlapSizeTokens));
+
+                if (chunksCount <= 1)
+                    return (new List<string> { text }, $"The number of text chunks is {chunksCount}. The size of the last chunk is {tokens.Count} tokens.");
 
                 var chunks = Enumerable.Range(0, chunksCount - 1)
                     .Select(i => tokens.Skip(i * (_settings.ChunkSizeTokens - _settings.OverlapSizeTokens)).Take(_settings.ChunkSizeTokens).ToArray())
