@@ -39,7 +39,7 @@ export default {
 	},
 
 	async getAgentIndexes(): Promise<AgentIndex[]> {
-		return await $fetch(`${this.apiUrl}/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles`);
+		return JSON.parse(await $fetch(`${this.apiUrl}/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles`));
 	},
 
 	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
