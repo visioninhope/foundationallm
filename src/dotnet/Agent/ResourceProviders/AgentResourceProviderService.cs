@@ -1,12 +1,15 @@
-﻿using System.Text;
+﻿using System.Collections.Concurrent;
+using System.Text;
 using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace FoundationaLLM.Agent.ResourceProviders
@@ -15,21 +18,23 @@ namespace FoundationaLLM.Agent.ResourceProviders
     /// Implements the FoundationaLLM.Agent resource provider.
     /// </summary>
     public class AgentResourceProviderService(
+        IOptions<InstanceSettings> instanceOptions,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService)] IStorageService storageService,
         ILogger<AgentResourceProviderService> logger)
         : ResourceProviderServiceBase(
+            instanceOptions.Value,
             storageService,
             logger)
     {
-        JsonSerializerSettings settings = new()
+        private readonly JsonSerializerSettings _serializerSettings = new()
         {
             TypeNameHandling = TypeNameHandling.Auto,
             Formatting = Formatting.Indented
         };
-        private Dictionary<string, AgentReference> _agentReferences = [];
+        private ConcurrentDictionary<string, AgentReference> _agentReferences = [];
 
-        private const string AGENT_REFERENCES_FILE_NAME = "agent-references.json";
-        private const string AGENT_FOLDER_NAME = "agents";
+        private const string AGENT_REFERENCES_FILE_NAME = "_agent-references.json";
+        private const string AGENT_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Agent}/_agent-references.json";
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Agent;
@@ -38,6 +43,10 @@ namespace FoundationaLLM.Agent.ResourceProviders
         protected override Dictionary<string, ResourceTypeDescriptor> _resourceTypes =>
             new()
             {
+                {
+                    AgentResourceTypeNames.Agents,
+                    new ResourceTypeDescriptor(AgentResourceTypeNames.Agents)
+                },
                 {
                     AgentResourceTypeNames.AgentReferences,
                     new ResourceTypeDescriptor(AgentResourceTypeNames.AgentReferences)
@@ -49,19 +58,130 @@ namespace FoundationaLLM.Agent.ResourceProviders
         {
             _logger.LogInformation("Starting to initialize the {ResourceProvider} resource provider...", _name);
 
-            var agentReferencesFilePath = $"/{_name}/{AGENT_REFERENCES_FILE_NAME}";
-
-            if (await _storageService.FileExistsAsync(_storageContainerName, agentReferencesFilePath, default))
+            if (await _storageService.FileExistsAsync(_storageContainerName, AGENT_REFERENCES_FILE_PATH, default))
             {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentReferencesFilePath, default);
+                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, AGENT_REFERENCES_FILE_PATH, default);
                 var agentReferenceStore = JsonConvert.DeserializeObject<AgentReferenceStore>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
 
-                _agentReferences = agentReferenceStore!.AgentReferences.ToDictionary(ar => ar.Name);
+                _agentReferences = new ConcurrentDictionary<string, AgentReference>(
+                    agentReferenceStore!.ToDictionary());
+            }
+            else
+            {
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    AGENT_REFERENCES_FILE_PATH,
+                    JsonConvert.SerializeObject(new AgentReferenceStore { AgentReferences = [] }),
+                    default,
+                    default);
             }
 
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
+
+        /// <inheritdoc/>
+        protected override async Task<string> GetResourcesAsyncInternal(List<ResourceTypeInstance> instances) =>
+            instances[0].ResourceType switch
+            {
+                AgentResourceTypeNames.Agents => await LoadAndSerializeAgents(instances[0]),
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
+            };
+
+        /// <inheritdoc/>
+        protected override async Task UpsertResourceAsync(List<ResourceTypeInstance> instances, string serializedResource)
+        {
+            switch (instances[0].ResourceType)
+            {
+                case AgentResourceTypeNames.Agents:
+                    await UpdateAgent(instances, serializedResource);
+                    break;
+                default:
+                    throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.");
+            }
+        }
+
+        private async Task<string> LoadAndSerializeAgents(ResourceTypeInstance instance)
+        {
+            if (instance.ResourceId == null)
+            {
+                var serializedAgents = new List<string>();
+
+                foreach (var agentReference in _agentReferences.Values)
+                {
+                    var agent = await LoadAgent(agentReference);
+                    serializedAgents.Add(
+                        JsonConvert.SerializeObject(agent, agentReference.AgentType, _serializerSettings));
+                }
+
+                return $"[{string.Join(",", [.. serializedAgents])}]";
+            }
+            else
+            {
+                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference))
+                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.");
+
+                var agent = await LoadAgent(agentReference);
+                return JsonConvert.SerializeObject(agent, agentReference.AgentType, _serializerSettings);
+            }
+        }
+
+        private async Task<AgentBase> LoadAgent(AgentReference agentReference)
+        {
+            if (await _storageService.FileExistsAsync(_storageContainerName, agentReference.Filename, default))
+            {
+                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentReference.Filename, default);
+                return JsonConvert.DeserializeObject(
+                    Encoding.UTF8.GetString(fileContent.ToArray()),
+                    agentReference.AgentType,
+                    _serializerSettings) as AgentBase
+                    ?? throw new ResourceProviderException($"Failed to load the agent {agentReference.Name}.");
+            }
+
+            throw new ResourceProviderException($"Could not locate the {agentReference.Name} agent resource.");
+        }
+
+        private async Task UpdateAgent(List<ResourceTypeInstance> instances, string serializedAgent)
+        {
+            var agentBase = JsonConvert.DeserializeObject<AgentBase>(serializedAgent)
+                ?? throw new ResourceProviderException("The object definition is invalid.");
+
+            if (instances[0].ResourceId != agentBase.Name)
+                throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).");
+
+            var agentReference = new AgentReference
+            {
+                Name = agentBase.Name!,
+                Type = agentBase.Type!,
+                Filename = $"/{_name}/{agentBase.Name}.json"
+            };
+
+            var agent = JsonConvert.DeserializeObject(serializedAgent, agentReference.AgentType, _serializerSettings);
+            (agent as AgentBase)!.ObjectId = GetObjectId(instances);
+
+            await _storageService.WriteFileAsync(
+                _storageContainerName,
+                agentReference.Filename,
+                JsonConvert.SerializeObject(agent, agentReference.AgentType, _serializerSettings),
+                default,
+                default);
+
+            _agentReferences[agentReference.Name] = agentReference;
+
+            await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    AGENT_REFERENCES_FILE_PATH,
+                    JsonConvert.SerializeObject(AgentReferenceStore.FromDictionary(_agentReferences.ToDictionary())),
+                    default,
+                    default);
+        }
+
+
+
+
+
+
+
 
         /// <inheritdoc/>
         protected override async Task<T> GetResourceAsyncInternal<T>(List<ResourceTypeInstance> instances) where T: class =>
@@ -79,6 +199,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
             };
 
+
         private async Task<List<T>> GetAgentsAsync<T>(List<ResourceTypeInstance> instances) where T : class
         {
             if (typeof(T) != typeof(AgentReference))
@@ -87,8 +208,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             var agentReferences = _agentReferences.Values.Cast<AgentReference>().ToList();
             foreach (var agentReference in agentReferences)
             {
-                var agent = await DeserializeAgent(agentReference);
-                agentReference.Agent = agent;
+                var agent = await LoadAgent(agentReference);
             }
 
             return agentReferences.Cast<T>().ToList();
@@ -105,68 +225,11 @@ namespace FoundationaLLM.Agent.ResourceProviders
             _agentReferences.TryGetValue(instances[0].ResourceId!, out var agentReference);
             if (agentReference != null)
             {
-                agentReference.Agent = await DeserializeAgent(agentReference!);
                 return agentReference as T ?? throw new ResourceProviderException(
                     $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
             }
             throw new ResourceProviderException(
                 $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
-        }
-
-        /// <inheritdoc/>
-        protected override async Task UpsertResourceAsync<T>(List<ResourceTypeInstance> instances, T resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException(nameof(resource));
-
-            var agent = resource as AgentBase;
-
-            var serializedAgent = SerializeAgent(agent);
-
-            await SaveToStorageAsync(agent, serializedAgent);
-
-            await UpdateAgentIndexAsync(agent);
-        }
-
-        private async Task<AgentBase> DeserializeAgent(AgentReference agentReference)
-        {
-            var agentFilePath = $"/{_name}/{AGENT_FOLDER_NAME}/{agentReference.Filename}";
-            var agentType = GetAgentType(agentReference);
-            if (agentType == null)
-                throw new ResourceProviderException($"The agent type {agentReference.Type} is not supported.");
-
-            if (await _storageService.FileExistsAsync(_storageContainerName, agentFilePath, default))
-            {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentFilePath, default);
-                return JsonConvert.DeserializeObject(Encoding.UTF8.GetString(fileContent.ToArray()),
-                           agentType, settings) as AgentBase
-                       ?? throw new ResourceProviderException($"Failed to deserialize the agent {agentReference.Name}.");
-            }
-
-            throw new ResourceProviderException($"Could not locate the {agentReference.Name} agent resource.");
-        }
-
-        private string SerializeAgent(AgentBase agent) =>
-            JsonConvert.SerializeObject(agent, settings);
-
-        private async Task SaveToStorageAsync(AgentBase agent, string serializedAgent)
-        {
-            
-        }
-
-        private async Task UpdateAgentIndexAsync(AgentBase agent)
-        {
-            
-        }
-
-        private Type GetAgentType(AgentReference agentReference)
-        {
-            switch (agentReference.Type)
-            {
-                case AgentTypes.KnowledgeManagement:
-                    return typeof(KnowledgeManagementAgent);
-            }
-            throw new ResourceProviderException($"The agent type {agentReference.Type} is not supported.");
         }
     }
 }

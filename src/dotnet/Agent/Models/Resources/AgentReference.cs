@@ -1,5 +1,7 @@
-﻿using System.Text.Json.Serialization;
-using FoundationaLLM.Agent.Models.Metadata;
+﻿using FoundationaLLM.Agent.Models.Metadata;
+using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Exceptions;
+using Newtonsoft.Json;
 
 namespace FoundationaLLM.Agent.Models.Resources
 {
@@ -20,10 +22,16 @@ namespace FoundationaLLM.Agent.Models.Resources
         /// The type of the agent.
         /// </summary>
         public required string Type { get; set; }
+
         /// <summary>
-        /// The agent retrieved for this type.
+        /// The object type of the agent.
         /// </summary>
         [JsonIgnore]
-        public AgentBase? Agent { get; set; }
+        public Type AgentType =>
+            Type switch
+            {
+                AgentTypes.KnowledgeManagement => typeof(KnowledgeManagementAgent),
+                _ => throw new ResourceProviderException($"The agent type {Type} is not supported.")
+            };
     }
 }

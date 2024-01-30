@@ -728,6 +728,10 @@ namespace FoundationaLLM.Common.Constants
         /// The key filter for the FoundationaLLM:Vectorization:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization = "FoundationaLLM:Vectorization:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Agent:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Agent = "FoundationaLLM:Agent:*";
     }
 
     /// <summary>
@@ -829,10 +833,6 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Vectorization_StateService = "FoundationaLLM:Vectorization:StateService:Storage";
         /// <summary>
-        /// The key section for the FoundationaLLM:Vectorization:ResourceProviderService:Storage app configuration settings.
-        /// </summary>
-        public const string FoundationaLLM_Vectorization_ResourceProviderService_Storage = "FoundationaLLM:Vectorization:ResourceProviderService:Storage";
-        /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:ContentSources app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_ContentSources = "FoundationaLLM:Vectorization:ContentSources";
@@ -845,5 +845,19 @@ namespace FoundationaLLM.Common.Constants
         /// The key section for the FoundationaLLM:Vectorization:AzureAISearchIndexingService app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
+
+        #region Resource providers
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:ResourceProviderService:Storage app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_ResourceProviderService_Storage = "FoundationaLLM:Vectorization:ResourceProviderService:Storage";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Agent:ResourceProviderService:Storage app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Agent_ResourceProviderService_Storage = "FoundationaLLM:Agent:ResourceProviderService:Storage";
+
+        #endregion
     }
 }

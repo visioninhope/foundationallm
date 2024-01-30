@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using FoundationaLLM.Common.Models.Metadata;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using Newtonsoft.Json;
 
 namespace FoundationaLLM.Agent.Models.Metadata
@@ -12,26 +13,8 @@ namespace FoundationaLLM.Agent.Models.Metadata
     /// <summary>
     /// Base agent metadata model.
     /// </summary>
-    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
-    [JsonDerivedType(typeof(AgentBase), typeDiscriminator: "Base")]
-    [JsonDerivedType(typeof(KnowledgeManagementAgent), typeDiscriminator: "KnowledgeManagement")]
-    public class AgentBase
+    public class AgentBase : ResourceBase
     {
-        /// <summary>
-        /// The name of the agent.
-        /// </summary>
-        [JsonProperty("name")]
-        public string? Name { get; set; }
-        /// <summary>
-        /// The agent type.
-        /// </summary>
-        [JsonProperty("type")]
-        public string? Type { get; set; }
-        /// <summary>
-        /// The description of the agent.
-        /// </summary>
-        [JsonProperty("description")]
-        public string? Description { get; set; }
         /// <summary>
         /// The agent's language model configuration.
         /// </summary>

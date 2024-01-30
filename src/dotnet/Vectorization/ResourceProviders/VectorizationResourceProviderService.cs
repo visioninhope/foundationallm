@@ -1,10 +1,12 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Text;
@@ -15,9 +17,11 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
     /// Implements the FoundationaLLM.Vectorization resource provider.
     /// </summary>
     public class VectorizationResourceProviderService(
+        IOptions<InstanceSettings> instanceOptions,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IStorageService storageService,
         ILogger<VectorizationResourceProviderService> logger)
         : ResourceProviderServiceBase(
+            instanceOptions.Value,
             storageService,
             logger)
     {

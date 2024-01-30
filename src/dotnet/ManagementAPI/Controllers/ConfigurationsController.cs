@@ -21,7 +21,7 @@ namespace FoundationaLLM.Management.API.Controllers
     [Authorize(Policy = "RequiredScope")]
     [ApiVersion(1.0)]
     [ApiController]
-    [Route($"instances/{{instanceId}}/providers/{ResourceProviderNames.FoundationaLLM_Configuration}/configurations")]
+    [Route($"instances/{{instanceId}}/providersX/{ResourceProviderNames.FoundationaLLM_Configuration}/configurations")]
     public class ConfigurationsController(
         IConfigurationManagementService configurationManagementService) : ControllerBase
     {
