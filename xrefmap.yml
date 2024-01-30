@@ -4,6 +4,9 @@ references:
 - uid: FoundationaLLM
   name: FoundationaLLM
   href: api/dotnet/FoundationaLLM.html
+  commentId: N:FoundationaLLM
+  fullName: FoundationaLLM
+  nameWithType: FoundationaLLM
 - uid: FoundationaLLM.Agent
   name: FoundationaLLM.Agent
   href: api/dotnet/FoundationaLLM.Agent.html
@@ -22,6 +25,19 @@ references:
   commentId: T:FoundationaLLM.Agent.Models.Metadata.AgentBase
   fullName: FoundationaLLM.Agent.Models.Metadata.AgentBase
   nameWithType: AgentBase
+- uid: FoundationaLLM.Agent.Models.Metadata.AgentBase.AgentType
+  name: AgentType
+  href: api/dotnet/FoundationaLLM.Agent.Models.Metadata.AgentBase.html#FoundationaLLM_Agent_Models_Metadata_AgentBase_AgentType
+  commentId: P:FoundationaLLM.Agent.Models.Metadata.AgentBase.AgentType
+  fullName: FoundationaLLM.Agent.Models.Metadata.AgentBase.AgentType
+  nameWithType: AgentBase.AgentType
+- uid: FoundationaLLM.Agent.Models.Metadata.AgentBase.AgentType*
+  name: AgentType
+  href: api/dotnet/FoundationaLLM.Agent.Models.Metadata.AgentBase.html#FoundationaLLM_Agent_Models_Metadata_AgentBase_AgentType_
+  commentId: Overload:FoundationaLLM.Agent.Models.Metadata.AgentBase.AgentType
+  isSpec: "True"
+  fullName: FoundationaLLM.Agent.Models.Metadata.AgentBase.AgentType
+  nameWithType: AgentBase.AgentType
 - uid: FoundationaLLM.Agent.Models.Metadata.AgentBase.ConversationHistory
   name: ConversationHistory
   href: api/dotnet/FoundationaLLM.Agent.Models.Metadata.AgentBase.html#FoundationaLLM_Agent_Models_Metadata_AgentBase_ConversationHistory
@@ -339,15 +355,15 @@ references:
   commentId: T:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService
   fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService
   nameWithType: AgentResourceProviderService
-- uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService})
-  name: AgentResourceProviderService(IOptions<InstanceSettings>, IStorageService, ILogger<AgentResourceProviderService>)
-  href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService__
-  commentId: M:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService})
-  name.vb: New(IOptions(Of InstanceSettings), IStorageService, ILogger(Of AgentResourceProviderService))
-  fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.AgentResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IStorageService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService>)
-  fullName.vb: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IStorageService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService))
-  nameWithType: AgentResourceProviderService.AgentResourceProviderService(IOptions<InstanceSettings>, IStorageService, ILogger<AgentResourceProviderService>)
-  nameWithType.vb: AgentResourceProviderService.New(IOptions(Of InstanceSettings), IStorageService, ILogger(Of AgentResourceProviderService))
+- uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: AgentResourceProviderService(IOptions<InstanceSettings>, IStorageService, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IOptions(Of InstanceSettings), IStorageService, ILoggerFactory)
+  fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.AgentResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IStorageService, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IStorageService, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: AgentResourceProviderService.AgentResourceProviderService(IOptions<InstanceSettings>, IStorageService, ILoggerFactory)
+  nameWithType.vb: AgentResourceProviderService.New(IOptions(Of InstanceSettings), IStorageService, ILoggerFactory)
 - uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.#ctor*
   name: AgentResourceProviderService
   href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService__ctor_
@@ -793,15 +809,15 @@ references:
   commentId: T:FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder
   fullName: FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder
   nameWithType: AgentBuilder
-- uid: FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.Build(System.String,System.String,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IAgentHubAPIService,System.Collections.Generic.IEnumerable{FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService},FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILoggerFactory)
-  name: Build(string, string, ICacheService, ICallContext, IAgentHubAPIService, IEnumerable<ILLMOrchestrationService>, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.html#FoundationaLLM_AgentFactory_Core_Agents_AgentBuilder_Build_System_String_System_String_FoundationaLLM_Common_Interfaces_ICacheService_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IAgentHubAPIService_System_Collections_Generic_IEnumerable_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService__FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.Build(System.String,System.String,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IAgentHubAPIService,System.Collections.Generic.IEnumerable{FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService},FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: Build(String, String, ICacheService, ICallContext, IAgentHubAPIService, IEnumerable(Of ILLMOrchestrationService), IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
-  fullName: FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.Build(string, string, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IAgentHubAPIService, System.Collections.Generic.IEnumerable<FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService>, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.Build(String, String, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IAgentHubAPIService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService), FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: AgentBuilder.Build(string, string, ICacheService, ICallContext, IAgentHubAPIService, IEnumerable<ILLMOrchestrationService>, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
-  nameWithType.vb: AgentBuilder.Build(String, String, ICacheService, ICallContext, IAgentHubAPIService, IEnumerable(Of ILLMOrchestrationService), IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
+- uid: FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.Build(System.String,System.String,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Common.Interfaces.IAgentHubAPIService,System.Collections.Generic.IEnumerable{FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService},FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: Build(string, string, ICacheService, ICallContext, Dictionary<string, IResourceProviderService>, IAgentHubAPIService, IEnumerable<ILLMOrchestrationService>, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.html#FoundationaLLM_AgentFactory_Core_Agents_AgentBuilder_Build_System_String_System_String_FoundationaLLM_Common_Interfaces_ICacheService_FoundationaLLM_Common_Interfaces_ICallContext_System_Collections_Generic_Dictionary_System_String_FoundationaLLM_Common_Interfaces_IResourceProviderService__FoundationaLLM_Common_Interfaces_IAgentHubAPIService_System_Collections_Generic_IEnumerable_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService__FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.Build(System.String,System.String,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Common.Interfaces.IAgentHubAPIService,System.Collections.Generic.IEnumerable{FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService},FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: Build(String, String, ICacheService, ICallContext, Dictionary(Of String, IResourceProviderService), IAgentHubAPIService, IEnumerable(Of ILLMOrchestrationService), IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
+  fullName: FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.Build(string, string, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.Dictionary<string, FoundationaLLM.Common.Interfaces.IResourceProviderService>, FoundationaLLM.Common.Interfaces.IAgentHubAPIService, System.Collections.Generic.IEnumerable<FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService>, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.Build(String, String, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.Dictionary(Of String, FoundationaLLM.Common.Interfaces.IResourceProviderService), FoundationaLLM.Common.Interfaces.IAgentHubAPIService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService), FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: AgentBuilder.Build(string, string, ICacheService, ICallContext, Dictionary<string, IResourceProviderService>, IAgentHubAPIService, IEnumerable<ILLMOrchestrationService>, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
+  nameWithType.vb: AgentBuilder.Build(String, String, ICacheService, ICallContext, Dictionary(Of String, IResourceProviderService), IAgentHubAPIService, IEnumerable(Of ILLMOrchestrationService), IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
 - uid: FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.Build*
   name: Build
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.html#FoundationaLLM_AgentFactory_Core_Agents_AgentBuilder_Build_
@@ -876,6 +892,60 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.AgentFactory.Core.Agents.DefaultAgent.GetSummary
   nameWithType: DefaultAgent.GetSummary
+- uid: FoundationaLLM.AgentFactory.Core.Agents.KMAgent
+  name: KMAgent
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.KMAgent.html
+  commentId: T:FoundationaLLM.AgentFactory.Core.Agents.KMAgent
+  fullName: FoundationaLLM.AgentFactory.Core.Agents.KMAgent
+  nameWithType: KMAgent
+- uid: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.#ctor(FoundationaLLM.Agent.Models.Metadata.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Agents.DefaultAgent})
+  name: KMAgent(KnowledgeManagementAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<DefaultAgent>)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.KMAgent.html#FoundationaLLM_AgentFactory_Core_Agents_KMAgent__ctor_FoundationaLLM_Agent_Models_Metadata_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICacheService_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Agents_DefaultAgent__
+  commentId: M:FoundationaLLM.AgentFactory.Core.Agents.KMAgent.#ctor(FoundationaLLM.Agent.Models.Metadata.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Agents.DefaultAgent})
+  name.vb: New(KnowledgeManagementAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of DefaultAgent))
+  fullName: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.KMAgent(FoundationaLLM.Agent.Models.Metadata.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.AgentFactory.Core.Agents.DefaultAgent>)
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.New(FoundationaLLM.Agent.Models.Metadata.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.AgentFactory.Core.Agents.DefaultAgent))
+  nameWithType: KMAgent.KMAgent(KnowledgeManagementAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<DefaultAgent>)
+  nameWithType.vb: KMAgent.New(KnowledgeManagementAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of DefaultAgent))
+- uid: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.#ctor*
+  name: KMAgent
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.KMAgent.html#FoundationaLLM_AgentFactory_Core_Agents_KMAgent__ctor_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Agents.KMAgent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.KMAgent
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.New
+  nameWithType: KMAgent.KMAgent
+  nameWithType.vb: KMAgent.New
+- uid: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.Configure(System.String,System.String)
+  name: Configure(string, string)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.KMAgent.html#FoundationaLLM_AgentFactory_Core_Agents_KMAgent_Configure_System_String_System_String_
+  commentId: M:FoundationaLLM.AgentFactory.Core.Agents.KMAgent.Configure(System.String,System.String)
+  name.vb: Configure(String, String)
+  fullName: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.Configure(string, string)
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.Configure(String, String)
+  nameWithType: KMAgent.Configure(string, string)
+  nameWithType.vb: KMAgent.Configure(String, String)
+- uid: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.Configure*
+  name: Configure
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.KMAgent.html#FoundationaLLM_AgentFactory_Core_Agents_KMAgent_Configure_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Agents.KMAgent.Configure
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.Configure
+  nameWithType: KMAgent.Configure
+- uid: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.KMAgent.html#FoundationaLLM_AgentFactory_Core_Agents_KMAgent_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.AgentFactory.Core.Agents.KMAgent.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: KMAgent.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.GetCompletion*
+  name: GetCompletion
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.KMAgent.html#FoundationaLLM_AgentFactory_Core_Agents_KMAgent_GetCompletion_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Agents.KMAgent.GetCompletion
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Agents.KMAgent.GetCompletion
+  nameWithType: KMAgent.GetCompletion
 - uid: FoundationaLLM.AgentFactory.Core.Interfaces
   name: FoundationaLLM.AgentFactory.Core.Interfaces
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Interfaces.html
@@ -1723,15 +1793,15 @@ references:
   commentId: T:FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService
   fullName: FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService
   nameWithType: AgentFactoryService
-- uid: FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService},FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IAgentHubAPIService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILoggerFactory)
-  name: AgentFactoryService(IEnumerable<ILLMOrchestrationService>, ICacheService, ICallContext, IAgentHubAPIService, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.html#FoundationaLLM_AgentFactory_Core_Services_AgentFactoryService__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService__FoundationaLLM_Common_Interfaces_ICacheService_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IAgentHubAPIService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService},FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IAgentHubAPIService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: New(IEnumerable(Of ILLMOrchestrationService), ICacheService, ICallContext, IAgentHubAPIService, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
-  fullName: FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.AgentFactoryService(System.Collections.Generic.IEnumerable<FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService>, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IAgentHubAPIService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.New(System.Collections.Generic.IEnumerable(Of FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService), FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IAgentHubAPIService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: AgentFactoryService.AgentFactoryService(IEnumerable<ILLMOrchestrationService>, ICacheService, ICallContext, IAgentHubAPIService, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
-  nameWithType.vb: AgentFactoryService.New(IEnumerable(Of ILLMOrchestrationService), ICacheService, ICallContext, IAgentHubAPIService, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
+- uid: FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},System.Collections.Generic.IEnumerable{FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService},FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IAgentHubAPIService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: AgentFactoryService(IEnumerable<IResourceProviderService>, IEnumerable<ILLMOrchestrationService>, ICacheService, ICallContext, IAgentHubAPIService, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.html#FoundationaLLM_AgentFactory_Core_Services_AgentFactoryService__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__System_Collections_Generic_IEnumerable_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService__FoundationaLLM_Common_Interfaces_ICacheService_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IAgentHubAPIService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},System.Collections.Generic.IEnumerable{FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService},FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IAgentHubAPIService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IEnumerable(Of IResourceProviderService), IEnumerable(Of ILLMOrchestrationService), ICacheService, ICallContext, IAgentHubAPIService, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
+  fullName: FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.AgentFactoryService(System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, System.Collections.Generic.IEnumerable<FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService>, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IAgentHubAPIService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.New(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), System.Collections.Generic.IEnumerable(Of FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService), FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IAgentHubAPIService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: AgentFactoryService.AgentFactoryService(IEnumerable<IResourceProviderService>, IEnumerable<ILLMOrchestrationService>, ICacheService, ICallContext, IAgentHubAPIService, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
+  nameWithType.vb: AgentFactoryService.New(IEnumerable(Of IResourceProviderService), IEnumerable(Of ILLMOrchestrationService), ICacheService, ICallContext, IAgentHubAPIService, IPromptHubAPIService, IDataSourceHubAPIService, ILoggerFactory)
 - uid: FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.#ctor*
   name: AgentFactoryService
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.AgentFactoryService.html#FoundationaLLM_AgentFactory_Core_Services_AgentFactoryService__ctor_
@@ -1799,6 +1869,15 @@ references:
   commentId: M:FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion(FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest)
   fullName: FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion(FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest)
   nameWithType: ILLMOrchestrationService.GetCompletion(LLMOrchestrationCompletionRequest)
+- uid: FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion(System.String,System.String)
+  name: GetCompletion(string, string)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetCompletion_System_String_System_String_
+  commentId: M:FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion(System.String,System.String)
+  name.vb: GetCompletion(String, String)
+  fullName: FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion(string, string)
+  fullName.vb: FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion(String, String)
+  nameWithType: ILLMOrchestrationService.GetCompletion(string, string)
+  nameWithType.vb: ILLMOrchestrationService.GetCompletion(String, String)
 - uid: FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetCompletion_
@@ -1958,6 +2037,15 @@ references:
   commentId: M:FoundationaLLM.AgentFactory.Services.LangChainService.GetCompletion(FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest)
   fullName: FoundationaLLM.AgentFactory.Services.LangChainService.GetCompletion(FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest)
   nameWithType: LangChainService.GetCompletion(LLMOrchestrationCompletionRequest)
+- uid: FoundationaLLM.AgentFactory.Services.LangChainService.GetCompletion(System.String,System.String)
+  name: GetCompletion(string, string)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Services.LangChainService.html#FoundationaLLM_AgentFactory_Services_LangChainService_GetCompletion_System_String_System_String_
+  commentId: M:FoundationaLLM.AgentFactory.Services.LangChainService.GetCompletion(System.String,System.String)
+  name.vb: GetCompletion(String, String)
+  fullName: FoundationaLLM.AgentFactory.Services.LangChainService.GetCompletion(string, string)
+  fullName.vb: FoundationaLLM.AgentFactory.Services.LangChainService.GetCompletion(String, String)
+  nameWithType: LangChainService.GetCompletion(string, string)
+  nameWithType.vb: LangChainService.GetCompletion(String, String)
 - uid: FoundationaLLM.AgentFactory.Services.LangChainService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.AgentFactory.Services.LangChainService.html#FoundationaLLM_AgentFactory_Services_LangChainService_GetCompletion_
@@ -2038,6 +2126,15 @@ references:
   commentId: M:FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion(FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest)
   fullName: FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion(FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest)
   nameWithType: SemanticKernelService.GetCompletion(LLMOrchestrationCompletionRequest)
+- uid: FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion(System.String,System.String)
+  name: GetCompletion(string, string)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Services.SemanticKernelService.html#FoundationaLLM_AgentFactory_Services_SemanticKernelService_GetCompletion_System_String_System_String_
+  commentId: M:FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion(System.String,System.String)
+  name.vb: GetCompletion(String, String)
+  fullName: FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion(string, string)
+  fullName.vb: FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion(String, String)
+  nameWithType: SemanticKernelService.GetCompletion(string, string)
+  nameWithType.vb: SemanticKernelService.GetCompletion(String, String)
 - uid: FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.AgentFactory.Services.SemanticKernelService.html#FoundationaLLM_AgentFactory_Services_SemanticKernelService_GetCompletion_
@@ -13296,6 +13393,51 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Worker.ChangeFeedWorker.ExecuteAsync
   nameWithType: ChangeFeedWorker.ExecuteAsync
+- uid: FoundationaLLM.DependencyInjection
+  name: DependencyInjection
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html
+  commentId: T:FoundationaLLM.DependencyInjection
+  fullName: FoundationaLLM.DependencyInjection
+  nameWithType: DependencyInjection
+- uid: FoundationaLLM.DependencyInjection.AddAgentResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddAgentResourceProvider(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAgentResourceProvider_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAgentResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddAgentResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddAgentResourceProvider(IServiceCollection, IConfigurationManager)
+- uid: FoundationaLLM.DependencyInjection.AddAgentResourceProvider*
+  name: AddAgentResourceProvider
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAgentResourceProvider_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddAgentResourceProvider
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddAgentResourceProvider
+  nameWithType: DependencyInjection.AddAgentResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddPromptResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddPromptResourceProvider(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddPromptResourceProvider_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddPromptResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddPromptResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddPromptResourceProvider(IServiceCollection, IConfigurationManager)
+- uid: FoundationaLLM.DependencyInjection.AddPromptResourceProvider*
+  name: AddPromptResourceProvider
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddPromptResourceProvider_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddPromptResourceProvider
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddPromptResourceProvider
+  nameWithType: DependencyInjection.AddPromptResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddVectorizationResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddVectorizationResourceProvider(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddVectorizationResourceProvider_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddVectorizationResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddVectorizationResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddVectorizationResourceProvider(IServiceCollection, IConfigurationManager)
+- uid: FoundationaLLM.DependencyInjection.AddVectorizationResourceProvider*
+  name: AddVectorizationResourceProvider
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddVectorizationResourceProvider_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddVectorizationResourceProvider
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddVectorizationResourceProvider
+  nameWithType: DependencyInjection.AddVectorizationResourceProvider
 - uid: FoundationaLLM.Gatekeeper
   name: FoundationaLLM.Gatekeeper
   href: api/dotnet/FoundationaLLM.Gatekeeper.html
