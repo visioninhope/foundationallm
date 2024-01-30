@@ -1,11 +1,11 @@
-
 <template>
 	<div>
 		<h2 class="page-header">Create New Agent</h2>
-		<div class="page-subheader">Complete the settings below to create and deploy your new agent.</div>
+		<div class="page-subheader">
+			Complete the settings below to create and deploy your new agent.
+		</div>
 
 		<div class="steps" :class="{ 'steps--loading': loading }">
-
 			<!-- Loading overlay -->
 			<template v-if="loading">
 				<div class="steps__loading-overlay">
@@ -21,7 +21,10 @@
 
 			<!-- Knowledge management agent -->
 			<div class="step">
-				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('knowledge-management')">
+				<div
+					class="step-container cursor-pointer"
+					@click="handleAgentTypeSelect('knowledge-management')"
+				>
 					<div class="step-container__edit__inner">
 						<div class="step__radio">
 							<RadioButton v-model="agentType" name="agentType" value="knowledge-management" />
@@ -45,7 +48,6 @@
 				</div>
 			</div>
 
-
 			<!-- Knowledge source -->
 			<div class="step-section-header span-2">Knowledge Source</div>
 
@@ -66,36 +68,40 @@
 					</div>
 					<div>
 						<span class="step-option__header">Data Format(s):</span>
-						<span v-for="(format, index) in selectedDataSource.Container.Formats" class="mr-1">{{ format }}</span>
+						<span v-for="format in dataSource.Container.Formats" :key="format" class="mr-1">
+							{{ format }}
+						</span>
 					</div>
 				</template>
 				<template v-else>Please select a data source.</template>
 
 				<template #edit>
 					<div class="step-container__edit__header">Please select a data source.</div>
-						<div
-							v-for="dataSource in dataSources"
-							:key="dataSource.Name"
-							class="step-container__edit__option"
-							:class="{
-								'step-container__edit__option--selected':
-									dataSource.Name === selectedDataSource?.Name,
-							}"
-							@click.stop="handleDataSourceSelected(dataSource)"
-						>
-							<div>
-								<span class="step-option__header">Storage account name:</span>
-								<span>{{ dataSource.Name }}</span>
-							</div>
-							<div>
-								<span class="step-option__header">Container name:</span>
-								<span>{{ dataSource.Container.Name }}</span>
-							</div>
-							<div>
-								<span class="step-option__header">Data Format(s):</span>
-								<span v-for="(format, index) in dataSource.Container.Formats" class="mr-1">{{ format }}</span>
-							</div>
+					<div
+						v-for="dataSource in dataSources"
+						:key="dataSource.Name"
+						class="step-container__edit__option"
+						:class="{
+							'step-container__edit__option--selected':
+								dataSource.Name === selectedDataSource?.Name,
+						}"
+						@click.stop="handleDataSourceSelected(dataSource)"
+					>
+						<div>
+							<span class="step-option__header">Storage account name:</span>
+							<span>{{ dataSource.Name }}</span>
 						</div>
+						<div>
+							<span class="step-option__header">Container name:</span>
+							<span>{{ dataSource.Container.Name }}</span>
+						</div>
+						<div>
+							<span class="step-option__header">Data Format(s):</span>
+							<span v-for="format in dataSource.Container.Formats" :key="format" class="mr-1">
+								{{ format }}
+							</span>
+						</div>
+					</div>
 				</template>
 			</CreateAgentStepItem>
 
@@ -145,12 +151,12 @@
 			<!-- Process indexing -->
 			<CreateAgentStepItem>
 				<div class="step-container__header">Splitting & Chunking</div>
-				
+
 				<div>
 					<span class="step-option__header">Chunk size:</span>
 					<span>{{ chunkSize }}</span>
 				</div>
-				
+
 				<div>
 					<span class="step-option__header">Overlap size:</span>
 					<span>{{ overlapSize == 0 ? 'No Overlap' : overlapSize }}</span>
@@ -158,15 +164,15 @@
 
 				<template #edit>
 					<div class="step-container__header">Splitting & Chunking</div>
-					
+
 					<div>
 						<span class="step-option__header">Chunk size:</span>
-						<InputText type="number" v-model="chunkSize" class="mt-2" />
+						<InputText v-model="chunkSize" type="number" class="mt-2" />
 					</div>
-					
+
 					<div>
 						<span class="step-option__header">Overlap size:</span>
-						<InputText type="number" v-model="overlapSize" class="mt-2" />
+						<InputText v-model="overlapSize" type="number" class="mt-2" />
 					</div>
 				</template>
 			</CreateAgentStepItem>
@@ -175,7 +181,7 @@
 			<CreateAgentStepItem>
 				<div class="step-container__header">Trigger</div>
 				<div>Runs every time a new tile is added to the data source.</div>
-				
+
 				<div class="mt-2">
 					<span class="step-option__header">Frequency:</span>
 					<span>{{ triggerFrequency.label }}</span>
@@ -189,7 +195,7 @@
 				<template #edit>
 					<div class="step-container__header">Trigger</div>
 					<div>Runs every time a new tile is added to the data source.</div>
-					
+
 					<div class="mt-2">
 						<span class="step-option__header">Frequency:</span>
 						<Dropdown
@@ -214,7 +220,6 @@
 				</template>
 			</CreateAgentStepItem>
 
-
 			<!-- Agent configuration -->
 			<div class="step-section-header span-2">Agent Configuration</div>
 
@@ -224,23 +229,37 @@
 			<!-- Conversation history -->
 			<CreateAgentStepItem>
 				<div class="step-container__header">Conversation History</div>
-				
+
 				<div>
 					<span class="step-option__header">Enabled:</span>
 					<span>
 						<span>{{ conversationHistory ? 'Yes' : 'No' }}</span>
-						<span v-if="conversationHistory" class="pi pi-check-circle ml-1" style="color: var(--green-400); font-size: 0.8rem;"></span>
-						<span v-else class="pi pi-times-circle ml-1" style="color: var(--red-400); font-size: 0.8rem;"></span>
+						<span
+							v-if="conversationHistory"
+							class="pi pi-check-circle ml-1"
+							style="color: var(--green-400); font-size: 0.8rem"
+						></span>
+						<span
+							v-else
+							class="pi pi-times-circle ml-1"
+							style="color: var(--red-400); font-size: 0.8rem"
+						></span>
 					</span>
 				</div>
 
 				<template #edit>
 					<div class="step-container__header">Conversation History</div>
-					
+
 					<div class="d-flex align-center mt-2">
 						<span class="step-option__header">Enabled:</span>
 						<span>
-							<ToggleButton v-model="conversationHistory" onLabel="Yes" onIcon="pi pi-check-circle" offLabel="No" offIcon="pi pi-times-circle" />
+							<ToggleButton
+								v-model="conversationHistory"
+								onLabel="Yes"
+								onIcon="pi pi-check-circle"
+								offLabel="No"
+								offIcon="pi pi-times-circle"
+							/>
 						</span>
 					</div>
 				</template>
@@ -249,21 +268,29 @@
 			<!-- Gatekeeper -->
 			<CreateAgentStepItem>
 				<div class="step-container__header">Gatekeeper</div>
-					
+
 				<div>
 					<span class="step-option__header">Enabled:</span>
 					<span>
 						<span>{{ gatekeeperEnabled ? 'Yes' : 'No' }}</span>
-						<span v-if="gatekeeperEnabled" class="pi pi-check-circle ml-1" style="color: var(--green-400); font-size: 0.8rem;"></span>
-						<span v-else class="pi pi-times-circle ml-1" style="color: var(--red-400); font-size: 0.8rem;"></span>
+						<span
+							v-if="gatekeeperEnabled"
+							class="pi pi-check-circle ml-1"
+							style="color: var(--green-400); font-size: 0.8rem"
+						></span>
+						<span
+							v-else
+							class="pi pi-times-circle ml-1"
+							style="color: var(--red-400); font-size: 0.8rem"
+						></span>
 					</span>
 				</div>
-				
+
 				<div>
 					<span class="step-option__header">Content Safety:</span>
 					<span>{{ gatekeeperContentSafety.label }}</span>
 				</div>
-				
+
 				<div>
 					<span class="step-option__header">Data Protection:</span>
 					<span>{{ gatekeeperDataProtection.label }}</span>
@@ -271,14 +298,20 @@
 
 				<template #edit>
 					<div class="step-container__header">Gatekeeper</div>
-				
+
 					<div class="d-flex align-center mt-2">
 						<span class="step-option__header">Enabled:</span>
 						<span>
-							<ToggleButton v-model="gatekeeperEnabled" onLabel="Yes" onIcon="pi pi-check-circle" offLabel="No" offIcon="pi pi-times-circle" />
+							<ToggleButton
+								v-model="gatekeeperEnabled"
+								onLabel="Yes"
+								onIcon="pi pi-check-circle"
+								offLabel="No"
+								offIcon="pi pi-times-circle"
+							/>
 						</span>
 					</div>
-					
+
 					<div class="mt-2">
 						<span class="step-option__header">Content Safety:</span>
 						<Dropdown
@@ -316,7 +349,7 @@
 			<!-- Create agent -->
 			<Button
 				class="primary-button column-2 justify-self-end"
-				style="width: 200px;"
+				style="width: 200px"
 				label="Create Agent"
 				@click="handleCreateAgent"
 			/>
