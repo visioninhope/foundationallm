@@ -653,6 +653,19 @@ namespace FoundationaLLM.Common.Constants
         /// The key section for the FoundationaLLM:Vectorization:VectorizationWorker app configuration setting.
         /// </summary>
         public const string FoundationaLLM_Vectorization_VectorizationWorker = "FoundationaLLM:Vectorization:VectorizationWorker";
+
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationAPI:APIUrl app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationAPI_APIUrl = "FoundationaLLM:APIs:VectorizationAPI:APIUrl";
+
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationAPI:APIKey app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationAPI_APIKey = "FoundationaLLM:APIs:VectorizationAPI:APIKey";
+
     }
 
     /// <summary>
