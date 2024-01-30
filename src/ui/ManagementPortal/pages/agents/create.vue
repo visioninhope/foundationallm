@@ -511,6 +511,29 @@ export default {
 		},
 
 		async handleCreateAgent() {
+			const errors = [];
+			if (!this.agentName) {
+				errors.push('Please give the agent a name.');
+			}
+
+			if (!this.selectedDataSource) {
+				errors.push('Please select a data source.');
+			}
+
+			if (!this.selectedIndexSource) {
+				errors.push('Please select an index source.');
+			}
+
+			if (errors.length > 0) {
+				this.$toast.add({
+					severity: 'error',
+					detail: errors.join('\n'),
+					life: 5000,
+				});
+
+				return;
+			}
+
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
 
@@ -519,8 +542,8 @@ export default {
 					name: this.agentName,
 					type: this.agentType,
 
-					embedding_profile: this.selectedDataSource?.ConfigurationReferences?.Endpoint,
-					indexing_profile: this.selectedIndexSource?.ConfigurationReferences?.Endpoint,
+					embedding_profile: this.selectedDataSource?.ObjectId,
+					indexing_profile: this.selectedIndexSource?.ObjectId,
 
 					// embedding_profile: string;
 					// sessions_enabled: boolean;
