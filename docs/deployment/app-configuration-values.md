@@ -284,18 +284,12 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey` | Key Vault secret name: `foundationallm-vectorization-azureaisearch-apikey` | The API key used to connect to the Azure OpenAI service.
 | `FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType` | | The authentication type used to connect to the Azure OpenAI service. Can be one of `AzureIdentity` or `APIKey`.
 | `FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint` | | The endpoint of the Azure OpenAI service.
-|
-`FoundationaLLM:Vectorization:ContentSources:<NAME>:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
-|
-`FoundationaLLM:Vectorization:ContentSources:<NAME>:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-contentsources-<NAME>-connectionstring` | The connection string to the Azure Storage account used for the the Azure Data Lake vectorization content source.
-|
-`FoundationaLLM:Vectorization:ContentSources:<NAME>:ClientId` | | The Application (client) Id of the Microsoft Entra ID App Registration. For more details, see the [Entra ID App Registration](#entra-id-app-registration) section.
-|
-`FoundationaLLM:Vectorization:ContentSources:<NAME>:TenantId` | | The unique identifier of the SharePoint Online tenant.
-|
-`FoundationaLLM:Vectorization:ContentSources:<NAME>:KeyVaultURL` | | The URL of the KeyVault instance (NOT secret) where the X.509 Certificate is stored. The URL should take the form `[VAULT NAME].vault.azure.net`.
-|
-`FoundationaLLM:Vectorization:ContentSources:<NAME>:CertificateName` | | The name of the X.509 Certificate.
+| `FoundationaLLM:Vectorization:ContentSources:<NAME>:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
+| `FoundationaLLM:Vectorization:ContentSources:<NAME>:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-contentsources-<NAME>-connectionstring` | The connection string to the Azure Storage account used for the the Azure Data Lake vectorization content source.
+| `FoundationaLLM:Vectorization:ContentSources:<NAME>:ClientId` | | The Application (client) Id of the Microsoft Entra ID App Registration. For more details, see the [Entra ID App Registration](#entra-id-app-registration) section.
+| `FoundationaLLM:Vectorization:ContentSources:<NAME>:TenantId` | | The unique identifier of the SharePoint Online tenant.
+| `FoundationaLLM:Vectorization:ContentSources:<NAME>:KeyVaultURL` | | The URL of the KeyVault instance (NOT secret) where the X.509 Certificate is stored. The URL should take the form `[VAULT NAME].vault.azure.net`.
+| `FoundationaLLM:Vectorization:ContentSources:<NAME>:CertificateName` | | The name of the X.509 Certificate.
 
 ## Feature flags
 

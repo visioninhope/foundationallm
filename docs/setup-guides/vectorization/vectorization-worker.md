@@ -65,47 +65,47 @@ Default settings for the vectorization worker:
 
 ```json
 {
- "RequestManagers": [
-  {
-   "RequestSourceName": "extract",
-   "MaxHandlerInstances": 1
-  },
-  {
-   "RequestSourceName": "partition",
-   "MaxHandlerInstances": 1
-  },
-  {
-   "RequestSourceName": "embed",
-   "MaxHandlerInstances": 1
-  },
-  {
-   "RequestSourceName": "index",
-   "MaxHandlerInstances": 1
-  }
- ],
- "RequestSources": [
-  {
-   "Name": "extract",
-   "ConnectionConfigurationName": "Extract:ConnectionString",
-   "VisibilityTimeoutSeconds": 120
-  },
-  {
-   "Name": "partition",
-   "ConnectionConfigurationName": "Partition:ConnectionString",
-   "VisibilityTimeoutSeconds": 120
-  },
-  {
-   "Name": "embed",
-   "ConnectionConfigurationName": "Embed:ConnectionString",
-   "VisibilityTimeoutSeconds": 120
-  },
-  {
-   "Name": "index",
-   "ConnectionConfigurationName": "Index:ConnectionString",
-   "VisibilityTimeoutSeconds": 120
-  }
- ],
- "QueuingEngine": "AzureStorageQueue"
+    "RequestManagers": [
+        {
+            "RequestSourceName": "extract",
+            "MaxHandlerInstances": 1
+        },
+        {
+            "RequestSourceName": "partition",
+            "MaxHandlerInstances": 1
+        },
+        {
+            "RequestSourceName": "embed",
+            "MaxHandlerInstances": 1
+        },
+        {
+            "RequestSourceName": "index",
+            "MaxHandlerInstances": 1
+        }
+    ],
+    "RequestSources": [
+        {
+            "Name": "extract",
+            "ConnectionConfigurationName": "Extract:ConnectionString",
+            "VisibilityTimeoutSeconds": 120
+        },
+        {
+            "Name": "partition",
+            "ConnectionConfigurationName": "Partition:ConnectionString",
+            "VisibilityTimeoutSeconds": 120
+        },
+        {
+            "Name": "embed",
+            "ConnectionConfigurationName": "Embed:ConnectionString",
+            "VisibilityTimeoutSeconds": 120
+        },
+        {
+            "Name": "index",
+            "ConnectionConfigurationName": "Index:ConnectionString",
+            "VisibilityTimeoutSeconds": 120
+        }
+    ],
+    "QueuingEngine": "AzureStorageQueue"
 }
 ```
 
@@ -115,18 +115,17 @@ Default structure for the `vectorization-content-source-profiles.json` file:
 
 ```json
 {
-	"ContentSourceProfiles": [
-		{
-			"Name": "SDZWAJournals",
-			"Type": "AzureDataLake",
-			"Settings": {
-			},
-			"ConfigurationReferences": {
-				"AuthenticationType": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:AuthenticationType",
-				"ConnectionString": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:ConnectionString"
-			}
-		}
-	]
+    "ContentSourceProfiles": [
+        {
+            "Name": "SDZWAJournals",
+            "Type": "AzureDataLake",
+            "Settings": {},
+            "ConfigurationReferences": {
+                "AuthenticationType": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:AuthenticationType",
+                "ConnectionString": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:ConnectionString"
+            }
+        }
+    ]
 }
 ```
 
@@ -136,18 +135,18 @@ Default structure for the `vectorization-text-partition-profiles.json` file:
 
 ```json
 {
- "TextPartitioningProfiles": [
-  {
-   "Name": "DefaultTokenTextPartition",
-   "TextSplitter": "TokenTextSplitter",
-   "TextSplitterSettings": {
-    "Tokenizer": "MicrosoftBPETokenizer",
-    "TokenizerEncoder": "cl100k_base",
-    "ChunkSizeTokens": "2000",
-    "OverlapSizeTokens": "200"
-   }
-  }
- ]
+    "TextPartitioningProfiles": [
+        {
+            "Name": "DefaultTokenTextPartition",
+            "TextSplitter": "TokenTextSplitter",
+            "TextSplitterSettings": {
+                "Tokenizer": "MicrosoftBPETokenizer",
+                "TokenizerEncoder": "cl100k_base",
+                "ChunkSizeTokens": "2000",
+                "OverlapSizeTokens": "200"
+            }
+        }
+    ]
 }
 ```
 
@@ -157,20 +156,19 @@ Default structure for the `vectorization-text-embedding-profiles.json` file:
 
 ```json
 {
-	"TextEmbeddingProfiles": [
-		{
-			"Name": "AzureOpenAI_Embedding",
-			"TextEmbedding": "SemanticKernelTextEmbedding",
-			"Settings": {
-			},
-			"ConfigurationReferences": {
-				"APIKey": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
-				"AuthenticationType": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
-				"DeploymentName": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName",
-				"Endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"
-			}
-		}
-	]
+    "TextEmbeddingProfiles": [
+        {
+            "Name": "AzureOpenAI_Embedding",
+            "TextEmbedding": "SemanticKernelTextEmbedding",
+            "Settings": {},
+            "ConfigurationReferences": {
+                "APIKey": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
+                "AuthenticationType": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
+                "DeploymentName": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName",
+                "Endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"
+            }
+        }
+    ]
 }
 ```
 
@@ -180,20 +178,20 @@ Default structure for the `vectorization-indexing-profiles.json` file:
 
 ```json
 {
-	"IndexingProfiles": [
-		{
-			"Name": "AzureAISearch_Test_001",
-			"Indexer": "AzureAISearchIndexer",
-			"Settings": {
-				"IndexName": "fllm-test-001"
-			},
-			"ConfigurationReferences": {
-				"APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
-				"AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
-				"Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
-			}
-		}
-	]
+    "IndexingProfiles": [
+        {
+            "Name": "AzureAISearch_Test_001",
+            "Indexer": "AzureAISearchIndexer",
+            "Settings": {
+                "IndexName": "fllm-test-001"
+            },
+            "ConfigurationReferences": {
+                "APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
+                "AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
+                "Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
+            }
+        }
+    ]
 }
 ```
 
@@ -205,7 +203,7 @@ Sample structure of a vectorization request:
 {
     "id": "d4669c9c-e330-450a-a41c-a4d6649abdef",
     "content_identifier": {
-		"content_source_profile_name": "SDZWAJournals",
+        "content_source_profile_name": "SDZWAJournals",
         "multipart_id": [
             "https://fllmaks14sa.blob.core.windows.net",
             "vectorization-input",
@@ -213,12 +211,11 @@ Sample structure of a vectorization request:
         ],
         "canonical_id": "sdzwa/journals/SDZWA-Journal-January-2024"
     },
-	"processing_type": "Asynchronous",
-    "steps":[
+    "processing_type": "Asynchronous",
+    "steps": [
         {
             "id": "extract",
-            "parameters": {
-            }
+            "parameters": {}
         },
         {
             "id": "partition",
@@ -239,8 +236,7 @@ Sample structure of a vectorization request:
             }
         }
     ],
-    "completed_steps": [
-    ],
+    "completed_steps": [],
     "remaining_steps": [
         "extract",
         "partition",

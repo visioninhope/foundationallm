@@ -47,12 +47,8 @@ Apps typically access SharePoint Online through certificates: Anyone having the 
     - `Group.ReadWrite.All`
     - `User.ReadWrite.All`
     - `Sites.Read.All` OR `Sites.Selected`
-
-    >**NOTE**
-    > 
-    > `Sites.Read.All` will allow the application to read documents and list items in all site collections.
-    >
-    > `Sites.Selected` will allow the application to access only a subset of site collections. The specific site collections and the permissions granted will be configured separately, in SharePoint Online.
+      - `Sites.Read.All` will allow the application to read documents and list items in all site collections.
+      - `Sites.Selected` will allow the application to access only a subset of site collections. The specific site collections and the permissions granted will be configured separately, in SharePoint Online.
 
 3. The application permission requires admin consent in a tenant before it can be used. In order to do this, click on **API permissions** in the left menu again. At the bottom you will see a section **Grant consent**. Click on the **Grant admin consent for {{organization}}** button and confirm the action by clicking on the **Yes** button that appears at the top.
 
@@ -64,16 +60,16 @@ Apps typically access SharePoint Online through certificates: Anyone having the 
     ```json
     "keyCredentials": [
         {
-        "customKeyIdentifier": "<$base64CertHash>",
-        "endDate": "yyyy-MM-ddThh:mm:ssZ",
-        "keyId": "<$guid>",
-        "startDate": "yyyy-MM-ddThh:mm:ssZ",
-        "type": "AsymmetricX509Cert",
-        "usage": "Verify",
-        "value": "<$base64Cert>",
-        "displayName": "CN=<$name of your cert>"
+            "customKeyIdentifier": "<$base64CertHash>",
+            "endDate": "yyyy-MM-ddThh:mm:ssZ",
+            "keyId": "<$guid>",
+            "startDate": "yyyy-MM-ddThh:mm:ssZ",
+            "type": "AsymmetricX509Cert",
+            "usage": "Verify",
+            "value": "<$base64Cert>",
+            "displayName": "CN=<$name of your cert>"
         }
-    ],
+    ]
     ```
 
 6. Upload and store the certificate in the **KeyVault** where the FoundationaLLM Vectorization API has permissions to read **Secrets**. You will need the **Certificate Name** for the App Configuration settings listed in the table above.
