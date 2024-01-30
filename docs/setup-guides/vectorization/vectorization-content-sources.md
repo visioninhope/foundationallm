@@ -54,9 +54,9 @@ Apps typically access SharePoint Online through certificates: Anyone having the 
 
 4. To invoke SharePoint Online with an app-only access token, you have to create and configure a **self-signed X.509 certificate**, which will be used to authenticate your application against Microsoft Entra ID. You can find additional details on how to do this in [this document](https://learn.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azuread#setting-up-an-azure-ad-app-for-app-only-access).
 
-5. Next step is to register the certificate we created to this application. Click on **Certificates & secrets** blade. Next, click on the **Upload certificate** button, select the .CER file you generated earlier and click on **Add** to upload it. 
+5. Next step is to register the certificate you created to this application. Click on **Certificates & secrets** blade. Next, click on the **Upload certificate** button, select the .CER file you generated earlier and click on **Add** to upload it. 
 
-    To confirm that the certificate was successfully registered, click on **Manifest** blade and earch for the `keyCredentials` property, which contains your certificate details. It should look like this:
+    To confirm that the certificate was successfully registered, click on **Manifest** blade and search for the `keyCredentials` property, which contains your certificate details. It should look like this:
     ```json
     "keyCredentials": [
         {
