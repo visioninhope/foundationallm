@@ -14,6 +14,12 @@
 				</div>
 			</template>
 
+			<div class="span-2">
+				<div class="step-header mb-2">Agent name:</div>
+				<div class="mb-2">No special characters or spaces, lowercase letters with dashes and underscores only.</div>
+				<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" />
+			</div>
+
 			<!-- Type -->
 			<div class="step-section-header span-2">Type</div>
 
@@ -371,6 +377,7 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
+			agentName: '',
 			agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 			editDataSource: false as boolean,
@@ -476,6 +483,19 @@ export default {
 	},
 
 	methods: {
+		handleNameInput(event) {
+			let element = event.target;
+
+			// Remove spaces
+			let sanitizedValue = element.value.replace(/\s/g, '');
+
+			// Remove any characters that are not lowercase letters, digits, dashes, or underscores
+			sanitizedValue = sanitizedValue.replace(/[^a-z0-9-_]/g, '');
+
+			element.value = sanitizedValue;
+			this.agentName = sanitizedValue;
+		},
+
 		handleAgentTypeSelect(type: AgentType) {
 			this.agentType = type;
 		},
@@ -494,32 +514,40 @@ export default {
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
 
-			await api.createAgent({
-				name: 'Test agent ' + Math.round(Math.random() * 1000),
-				type: this.agentType,
+			try {
+				await api.createAgent({
+					name: this.agentName,
+					type: this.agentType,
 
-				embedding_profile: this.selectedDataSource?.ConfigurationReferences?.Endpoint,
-				indexing_profile: this.selectedIndexSource?.ConfigurationReferences?.Endpoint,
+					embedding_profile: this.selectedDataSource?.ConfigurationReferences?.Endpoint,
+					indexing_profile: this.selectedIndexSource?.ConfigurationReferences?.Endpoint,
 
-				// embedding_profile: string;
-				// sessions_enabled: boolean;
-				// orchestrator: string;
+					// embedding_profile: string;
+					// sessions_enabled: boolean;
+					// orchestrator: string;
 
-				conversation_history: {
-					enabled: this.conversationHistory,
-					// max_history: number,
-				},
-
-				gatekeeper: {
-					use_system_setting: this.gatekeeperEnabled,
-					options: {
-						content_safety: this.gatekeeperContentSafety,
-						data_protection: this.gatekeeperDataProtection,
+					conversation_history: {
+						enabled: this.conversationHistory,
+						// max_history: number,
 					},
-				},
 
-				prompt: this.systemPrompt,
-			});
+					gatekeeper: {
+						use_system_setting: this.gatekeeperEnabled,
+						options: {
+							content_safety: this.gatekeeperContentSafety,
+							data_protection: this.gatekeeperDataProtection,
+						},
+					},
+
+					prompt: this.systemPrompt,
+				});
+			} catch(error) {
+				this.$toast.add({
+					severity: 'error',
+					detail: 'There was an error creating the agent. Please check the settings and try again.',
+					life: 5000,
+				});
+			}
 
 			this.loading = false;
 			// Route to created agent's page
