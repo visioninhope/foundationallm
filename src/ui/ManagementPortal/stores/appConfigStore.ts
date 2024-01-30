@@ -58,8 +58,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 				authScopes,
 				authCallbackPath,
 			] = await Promise.all([
-				// api.getConfigValue('FoundationaLLM:APIs:ManagementAPI:APIUrl'),
-				new Promise((resolve) => resolve(useRuntimeConfig('apiUrl').public.apiUrl)),
+				api.getConfigValue('FoundationaLLM:APIs:ManagementAPI:APIUrl'),
 
 				api.getConfigValue('FoundationaLLM:Instance:Id'),
 				
