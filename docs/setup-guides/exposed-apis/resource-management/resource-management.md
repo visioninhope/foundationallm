@@ -1,4 +1,4 @@
-## Resource Management in FoundationaLLM
+# Resource Management in FoundationaLLM
 
 With the introduction of the Management API, you can now manage resources in FoundationaLLM programmatically or through the Management API User Interface Portal. This includes creating, updating, and deleting resources in the system.
 
