@@ -732,6 +732,10 @@ namespace FoundationaLLM.Common.Constants
         /// The key filter for the FoundationaLLM:Agent:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Agent = "FoundationaLLM:Agent:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Prompt:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Prompt = "FoundationaLLM:Prompt:*";
     }
 
     /// <summary>
@@ -857,6 +861,11 @@ namespace FoundationaLLM.Common.Constants
         /// The key section for the FoundationaLLM:Agent:ResourceProviderService:Storage app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Agent_ResourceProviderService_Storage = "FoundationaLLM:Agent:ResourceProviderService:Storage";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Prompt:ResourceProviderService:Storage app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Prompt_ResourceProviderService_Storage = "FoundationaLLM:Prompt:ResourceProviderService:Storage";
 
         #endregion
     }
