@@ -2780,6 +2780,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString
   nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey
+  name: FoundationaLLM_APIs_VectorizationAPI_APIKey
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_APIs_VectorizationAPI_APIKey
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl
+  name: FoundationaLLM_APIs_VectorizationAPI_APIUrl
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_APIs_VectorizationAPI_APIUrl
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString
   name: FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString
@@ -3716,6 +3728,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpClients.SemanticKernelAPI
   fullName: FoundationaLLM.Common.Constants.HttpClients.SemanticKernelAPI
   nameWithType: HttpClients.SemanticKernelAPI
+- uid: FoundationaLLM.Common.Constants.HttpClients.VectorizationAPI
+  name: VectorizationAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_VectorizationAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClients.VectorizationAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClients.VectorizationAPI
+  nameWithType: HttpClients.VectorizationAPI
 - uid: FoundationaLLM.Common.Constants.HttpHeaders
   name: HttpHeaders
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpHeaders.html
