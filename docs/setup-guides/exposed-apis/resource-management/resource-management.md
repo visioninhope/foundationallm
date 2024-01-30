@@ -14,6 +14,7 @@ The **resource-provider** container in the main storage account that was deploye
 ## Agent References
 
 This first folder **FoundationaLLM.Agent** contains the Agent References.
+
 ![](../../../media/RS-Provider-2.png)
 
 The content of the **_agent-references** references all the locations of the JSON files that contain the agent information. The **_agent-references** folder contains the following structure:
