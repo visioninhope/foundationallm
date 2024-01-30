@@ -50,7 +50,7 @@ class ResourceProvider:
                 if resource_type == "indexingprofiles":
                     full_path = f"{provider_type}/vectorization-indexing-profiles.json"
                     file_content = self.blob_storage_manager.read_file_content(full_path).decode("utf-8")
-                    profiles = json.loads(file_content)["IndexingProfiles"]
+                    profiles = json.loads(file_content)["Profiles"]
                     filtered = next(filter(lambda profile: profile["Name"] == resource, profiles), None)
                     if filtered is not None:
                         filtered = self.__translate_keys(filtered)
@@ -58,7 +58,7 @@ class ResourceProvider:
                 elif resource_type == "textembeddingprofiles":
                     full_path = f"{provider_type}/vectorization-text-embedding-profiles.json"
                     file_content = self.blob_storage_manager.read_file_content(full_path).decode("utf-8")
-                    profiles = json.loads(file_content)["TextEmbeddingProfiles"]
+                    profiles = json.loads(file_content)["Profiles"]
                     filtered = next(filter(lambda profile: profile["Name"] == resource, profiles), None)
                     if filtered is not None:
                         filtered = self.__translate_keys(filtered)
