@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Vectorization | FoundationaLLM </title>
+      <title> | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Vectorization | FoundationaLLM ">
+      <meta name="title" content=" | FoundationaLLM ">
       
       
       <link rel="icon" href="../../media/favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/vectorization/index.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/exposed-apis/management-api.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,19 +85,28 @@
         </div>
 
         <article data-uid="">
-<h1 id="vectorization">Vectorization</h1>
 
-<p>Foundationa<strong>LLM</strong> (FLLM) provides utilities and services to support vectorizing your data in batch and on-demand modalities. Vectorization is a multi-step process, starting with loading your data, splitting (or chunking) the data as required, performing vector embeddings, and storing the vectors into a vector index so <a href="../agents/index.html">an agent</a> can later retrieve relevant information through a vector search. Use the links below to learn more about configuring vectorization in FLLM:</p>
+<h2 id="management-api">Management API</h2>
+<p>Think of the FoundationaLLM Core API as a read only API. It provides a way to query the system for information about agents, users, and other resources. The Management API, on the other hand, is a read-write API. It allows you to create, update, and delete resources in the system.</p>
+<h2 id="management-api-endpoints">Management API Endpoints</h2>
+<p>The Management API provides configuration and resource management endpoints that can be consumed in the following three ways:</p>
 <ul>
-<li><a href="vectorization-api.html">Vectorization API</a></li>
-<li><a href="vectorization-worker.html">Vectorization Worker</a></li>
+<li>Direct REST-based calls programmatically or through some tool like Postman.</li>
+<li>Through the Management Portal user interface.
+<img src="../../media/Mgm-api-2.png" alt=""></li>
+<li>Through the FoundationaLLM CLI.</li>
 </ul>
-<p>To get started with the Vectorization API, import the <a href="./FoundationaLLM.Vectorization.API.postman_collection.json">provided Postman collection.</a> Ensure to set the Vectorization API key (<code>X-API-KEY</code> header) on the <strong>Authorization</strong> tab of the collection and the Base URL (<code>baseUrl</code> collection variable) on the <strong>Variables</strong> tab.</p>
+<p>These options eliminate the need to directly manipulate files to define agents and their related resources, enable certain users to update categories of app configurations without needing to have access to the Azure App Configuration service, and perform additional platform-related steps as needed when changing configurations without the user needing to know about them (restart services, refresh caches, etc.).</p>
+<h2 id="management-api-features">Management API Features</h2>
+<p>In addition to modifying/creating content and platform components, the Management API centralizes health and service monitoring.</p>
+<p><img src="../../media/Mgm-api-1.png" alt=""></p>
+<p>Using the Management API from Postman, you can replace the <code>{{baseUrl}}</code> variable with the actual URL of the Management API resource, and the <code>{{InstanceId}}</code> variable with the actual instance ID from your app configuration resource that was generated for you.
+You can &quot;GET&quot; the configuration of an agent, and &quot;POST&quot; to create a new agent or &quot;PUT&quot; to update an existing agent.</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/vectorization/index.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/exposed-apis/management-api.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

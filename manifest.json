@@ -5414,6 +5414,16 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "deployment/media/latest-image-release.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/media/latest-image-release.png"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "development/contributing/git-workflow.md",
       "output": {
@@ -5745,6 +5755,56 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "media/Mgm-api-1.png",
+      "output": {
+        "resource": {
+          "relative_path": "media/Mgm-api-1.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "media/Mgm-api-2.png",
+      "output": {
+        "resource": {
+          "relative_path": "media/Mgm-api-2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "media/RS-Provider-1.png",
+      "output": {
+        "resource": {
+          "relative_path": "media/RS-Provider-1.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "media/RS-Provider-2.png",
+      "output": {
+        "resource": {
+          "relative_path": "media/RS-Provider-2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "media/RS-Provider-3.png",
+      "output": {
+        "resource": {
+          "relative_path": "media/RS-Provider-3.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "media/favicon.ico",
       "output": {
         "resource": {
@@ -5985,10 +6045,50 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "schema.md",
+      "output": {
+        ".html": {
+          "relative_path": "schema.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "setup-guides/agents/index.md",
       "output": {
         ".html": {
           "relative_path": "setup-guides/agents/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/agents/media/add-kv-reference.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/agents/media/add-kv-reference.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/agents/media/create-new-kv-reference.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/agents/media/create-new-kv-reference.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/agents/media/populate-kv-reference.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/agents/media/populate-kv-reference.png"
         }
       },
       "version": ""
@@ -6015,10 +6115,50 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "setup-guides/exposed-apis/core-api.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/exposed-apis/core-api.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/exposed-apis/management-api.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/exposed-apis/management-api.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/exposed-apis/resource-management/resource-management.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/exposed-apis/resource-management/resource-management.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "setup-guides/index.md",
       "output": {
         ".html": {
           "relative_path": "setup-guides/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/management-ui/management-ui.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/management-ui/management-ui.html"
         }
       },
       "version": ""
@@ -6045,10 +6185,80 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "setup-guides/media/agent-data-source-dropdown.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/agent-data-source-dropdown.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/agent-knowledge-source.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/agent-knowledge-source.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/agent-type-selection.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/agent-type-selection.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/aisearch-index-dropdown.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/aisearch-index-dropdown.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "setup-guides/media/aks-http-app-routing-domain.png",
       "output": {
         "resource": {
           "relative_path": "setup-guides/media/aks-http-app-routing-domain.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/enable-disable-conversation-history.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/enable-disable-conversation-history.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/fllm-management-interface.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/fllm-management-interface.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/gatekeeper-config.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/gatekeeper-config.png"
         }
       },
       "version": ""
@@ -6085,10 +6295,50 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "setup-guides/media/set-splitting-and-chunking.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/set-splitting-and-chunking.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/set-system-prompt.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/set-system-prompt.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/user-agent-interactions-config.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/user-agent-interactions-config.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "setup-guides/media/user-portal-login.png",
       "output": {
         "resource": {
           "relative_path": "setup-guides/media/user-portal-login.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/media/vectorization-trigger.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/vectorization-trigger.png"
         }
       },
       "version": ""
@@ -6119,6 +6369,16 @@
       "output": {
         ".html": {
           "relative_path": "setup-guides/vectorization/vectorization-api.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/vectorization/vectorization-content-sources.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/vectorization/vectorization-content-sources.html"
         }
       },
       "version": ""

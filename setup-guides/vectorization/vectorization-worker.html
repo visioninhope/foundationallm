@@ -122,12 +122,20 @@
 <td>Azure storage container used for the internal states of the FoundationaLLM resource providers.</td>
 </tr>
 <tr>
-<td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-content-sources.json</code></td>
-<td>Azure storage blob used for the content sources managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-content-sources">default vectorization content sources</a>.</td>
+<td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-content-source-profiles.json</code></td>
+<td>Azure storage blob used for the content sources managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-content-source-profiles">default vectorization content source profiles</a>.</td>
 </tr>
 <tr>
 <td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-text-partition-profiles.json</code></td>
 <td>Azure storage blob used for the text partitioning profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-text-partitioning-profiles">default vectorization text partitioning profiles</a>.</td>
+</tr>
+<tr>
+<td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-text-embedding-profiles.json</code></td>
+<td>Azure storage blob used for the text embedding profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-text-embedding-profiles">default vectorization text embedding profiles</a>.</td>
+</tr>
+<tr>
+<td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-indexing-profiles.json</code></td>
+<td>Azure storage blob used for the indexing profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-indexing-profiles">default vectorization indexing profiles</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -216,6 +224,41 @@
 <td>Key Vault secret name: <code>foundationallm-vectorization-resourceprovider-storage-connectionstring</code></td>
 <td>The connection string to the Azure Storage account used for the vectorization state service.</td>
 </tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-semantickerneltextembedding-openai-apikey</code></td>
+<td>The API key used to connect to the Azure OpenAI service.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType</code></td>
+<td></td>
+<td>The authentication type used to connect to the Azure OpenAI service. Can be one of <code>AzureIdentity</code> or <code>APIKey</code>.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName</code></td>
+<td></td>
+<td>The name of the Azure OpenAI model deployment. The default value is <code>embeddings</code>.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint</code></td>
+<td></td>
+<td>The endpoint of the Azure OpenAI service.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-vectorization-azureaisearch-apikey</code></td>
+<td>The API key used to connect to the Azure OpenAI service.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType</code></td>
+<td></td>
+<td>The authentication type used to connect to the Azure OpenAI service. Can be one of <code>AzureIdentity</code> or <code>APIKey</code>.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint</code></td>
+<td></td>
+<td>The endpoint of the Azure OpenAI service.</td>
+</tr>
 </tbody>
 </table>
 <div class="NOTE">
@@ -244,71 +287,117 @@
 <h3 id="default-vectorization-worker-settings">Default vectorization worker settings</h3>
 <p>Default settings for the vectorization worker:</p>
 <pre><code class="lang-json">{
- &quot;RequestManagers&quot;: [
-  {
-   &quot;RequestSourceName&quot;: &quot;extract&quot;,
-   &quot;MaxHandlerInstances&quot;: 1
-  },
-  {
-   &quot;RequestSourceName&quot;: &quot;partition&quot;,
-   &quot;MaxHandlerInstances&quot;: 1
-  },
-  {
-   &quot;RequestSourceName&quot;: &quot;embed&quot;,
-   &quot;MaxHandlerInstances&quot;: 1
-  },
-  {
-   &quot;RequestSourceName&quot;: &quot;index&quot;,
-   &quot;MaxHandlerInstances&quot;: 1
-  }
- ],
- &quot;RequestSources&quot;: [
-  {
-   &quot;Name&quot;: &quot;extract&quot;,
-   &quot;ConnectionConfigurationName&quot;: &quot;Extract:ConnectionString&quot;,
-   &quot;VisibilityTimeoutSeconds&quot;: 120
-  },
-  {
-   &quot;Name&quot;: &quot;partition&quot;,
-   &quot;ConnectionConfigurationName&quot;: &quot;Partition:ConnectionString&quot;,
-   &quot;VisibilityTimeoutSeconds&quot;: 120
-  },
-  {
-   &quot;Name&quot;: &quot;embed&quot;,
-   &quot;ConnectionConfigurationName&quot;: &quot;Embed:ConnectionString&quot;,
-   &quot;VisibilityTimeoutSeconds&quot;: 120
-  },
-  {
-   &quot;Name&quot;: &quot;index&quot;,
-   &quot;ConnectionConfigurationName&quot;: &quot;Index:ConnectionString&quot;,
-   &quot;VisibilityTimeoutSeconds&quot;: 120
-  }
- ],
- &quot;QueuingEngine&quot;: &quot;AzureStorageQueue&quot;
+    &quot;RequestManagers&quot;: [
+        {
+            &quot;RequestSourceName&quot;: &quot;extract&quot;,
+            &quot;MaxHandlerInstances&quot;: 1
+        },
+        {
+            &quot;RequestSourceName&quot;: &quot;partition&quot;,
+            &quot;MaxHandlerInstances&quot;: 1
+        },
+        {
+            &quot;RequestSourceName&quot;: &quot;embed&quot;,
+            &quot;MaxHandlerInstances&quot;: 1
+        },
+        {
+            &quot;RequestSourceName&quot;: &quot;index&quot;,
+            &quot;MaxHandlerInstances&quot;: 1
+        }
+    ],
+    &quot;RequestSources&quot;: [
+        {
+            &quot;Name&quot;: &quot;extract&quot;,
+            &quot;ConnectionConfigurationName&quot;: &quot;Extract:ConnectionString&quot;,
+            &quot;VisibilityTimeoutSeconds&quot;: 120
+        },
+        {
+            &quot;Name&quot;: &quot;partition&quot;,
+            &quot;ConnectionConfigurationName&quot;: &quot;Partition:ConnectionString&quot;,
+            &quot;VisibilityTimeoutSeconds&quot;: 120
+        },
+        {
+            &quot;Name&quot;: &quot;embed&quot;,
+            &quot;ConnectionConfigurationName&quot;: &quot;Embed:ConnectionString&quot;,
+            &quot;VisibilityTimeoutSeconds&quot;: 120
+        },
+        {
+            &quot;Name&quot;: &quot;index&quot;,
+            &quot;ConnectionConfigurationName&quot;: &quot;Index:ConnectionString&quot;,
+            &quot;VisibilityTimeoutSeconds&quot;: 120
+        }
+    ],
+    &quot;QueuingEngine&quot;: &quot;AzureStorageQueue&quot;
 }
 </code></pre>
-<h3 id="default-vectorization-content-sources">Default vectorization content sources</h3>
-<p>Default structure for the <code>vectorization-content-sources.json</code> file:</p>
+<h3 id="default-vectorization-content-source-profiles">Default vectorization content source profiles</h3>
+<p>Default structure for the <code>vectorization-content-source-profiles.json</code> file:</p>
 <pre><code class="lang-json">{
- &quot;ContentSources&quot;: [
- ]
+    &quot;ContentSourceProfiles&quot;: [
+        {
+            &quot;Name&quot;: &quot;SDZWAJournals&quot;,
+            &quot;Type&quot;: &quot;AzureDataLake&quot;,
+            &quot;Settings&quot;: {},
+            &quot;ConfigurationReferences&quot;: {
+                &quot;AuthenticationType&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:AuthenticationType&quot;,
+                &quot;ConnectionString&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:ConnectionString&quot;
+            }
+        }
+    ]
 }
 </code></pre>
 <h3 id="default-vectorization-text-partitioning-profiles">Default vectorization text partitioning profiles</h3>
 <p>Default structure for the <code>vectorization-text-partition-profiles.json</code> file:</p>
 <pre><code class="lang-json">{
- &quot;TextPartitioningProfiles&quot;: [
-  {
-   &quot;Name&quot;: &quot;DefaultTokenTextPartition&quot;,
-   &quot;TextSplitter&quot;: &quot;TokenTextSplitter&quot;,
-   &quot;TextSplitterSettings&quot;: {
-    &quot;Tokenizer&quot;: &quot;MicrosoftBPETokenizer&quot;,
-    &quot;TokenizerEncoder&quot;: &quot;cl100k_base&quot;,
-    &quot;ChunkSizeTokens&quot;: &quot;2000&quot;,
-    &quot;OverlapSizeTokens&quot;: &quot;200&quot;
-   }
-  }
- ]
+    &quot;TextPartitioningProfiles&quot;: [
+        {
+            &quot;Name&quot;: &quot;DefaultTokenTextPartition&quot;,
+            &quot;TextSplitter&quot;: &quot;TokenTextSplitter&quot;,
+            &quot;TextSplitterSettings&quot;: {
+                &quot;Tokenizer&quot;: &quot;MicrosoftBPETokenizer&quot;,
+                &quot;TokenizerEncoder&quot;: &quot;cl100k_base&quot;,
+                &quot;ChunkSizeTokens&quot;: &quot;2000&quot;,
+                &quot;OverlapSizeTokens&quot;: &quot;200&quot;
+            }
+        }
+    ]
+}
+</code></pre>
+<h3 id="default-vectorization-text-embedding-profiles">Default vectorization text embedding profiles</h3>
+<p>Default structure for the <code>vectorization-text-embedding-profiles.json</code> file:</p>
+<pre><code class="lang-json">{
+    &quot;TextEmbeddingProfiles&quot;: [
+        {
+            &quot;Name&quot;: &quot;AzureOpenAI_Embedding&quot;,
+            &quot;TextEmbedding&quot;: &quot;SemanticKernelTextEmbedding&quot;,
+            &quot;Settings&quot;: {},
+            &quot;ConfigurationReferences&quot;: {
+                &quot;APIKey&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey&quot;,
+                &quot;AuthenticationType&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType&quot;,
+                &quot;DeploymentName&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName&quot;,
+                &quot;Endpoint&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint&quot;
+            }
+        }
+    ]
+}
+</code></pre>
+<h3 id="default-vectorization-indexing-profiles">Default vectorization indexing profiles</h3>
+<p>Default structure for the <code>vectorization-indexing-profiles.json</code> file:</p>
+<pre><code class="lang-json">{
+    &quot;IndexingProfiles&quot;: [
+        {
+            &quot;Name&quot;: &quot;AzureAISearch_Test_001&quot;,
+            &quot;Indexer&quot;: &quot;AzureAISearchIndexer&quot;,
+            &quot;Settings&quot;: {
+                &quot;IndexName&quot;: &quot;fllm-test-001&quot;
+            },
+            &quot;ConfigurationReferences&quot;: {
+                &quot;APIKey&quot;: &quot;FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey&quot;,
+                &quot;AuthenticationType&quot;: &quot;FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType&quot;,
+                &quot;Endpoint&quot;: &quot;FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint&quot;
+            }
+        }
+    ]
 }
 </code></pre>
 <h2 id="vectorization-request">Vectorization request</h2>
@@ -316,6 +405,7 @@
 <pre><code class="lang-json">{
     &quot;id&quot;: &quot;d4669c9c-e330-450a-a41c-a4d6649abdef&quot;,
     &quot;content_identifier&quot;: {
+        &quot;content_source_profile_name&quot;: &quot;SDZWAJournals&quot;,
         &quot;multipart_id&quot;: [
             &quot;https://fllmaks14sa.blob.core.windows.net&quot;,
             &quot;vectorization-input&quot;,
@@ -323,12 +413,11 @@
         ],
         &quot;canonical_id&quot;: &quot;sdzwa/journals/SDZWA-Journal-January-2024&quot;
     },
-    &quot;steps&quot;:[
+    &quot;processing_type&quot;: &quot;Asynchronous&quot;,
+    &quot;steps&quot;: [
         {
             &quot;id&quot;: &quot;extract&quot;,
-            &quot;parameters&quot;: {
-                &quot;content_source_name&quot;: &quot;SDZWAJournals&quot;
-            }
+            &quot;parameters&quot;: {}
         },
         {
             &quot;id&quot;: &quot;partition&quot;,
@@ -339,18 +428,17 @@
         {
             &quot;id&quot;: &quot;embed&quot;,
             &quot;parameters&quot;: {
-                &quot;embedding_profile_name&quot;: &quot;AzureOpenAI_Embedding&quot;
+                &quot;text_embedding_profile_name&quot;: &quot;AzureOpenAI_Embedding&quot;
             }
         },
         {
             &quot;id&quot;: &quot;index&quot;,
             &quot;parameters&quot;: {
-                &quot;index_name&quot;: &quot;AzureAISearch_Test&quot;
+                &quot;indexing_profile_name&quot;: &quot;AzureAISearch_Test_001&quot;
             }
         }
     ],
-    &quot;completed_steps&quot;: [
-    ],
+    &quot;completed_steps&quot;: [],
     &quot;remaining_steps&quot;: [
         &quot;extract&quot;,
         &quot;partition&quot;,
@@ -359,6 +447,7 @@
     ]
 }
 </code></pre>
+<p>The <code>processing_type</code> property can be one of <code>Asynchronous</code> or <code>Synchronous</code>. The <code>Asynchronous</code> value indicates that the vectorization request is processed asynchronously via the Vectorization workers. The <code>Synchronous</code> value indicates that the vectorization request is processed synchronously via the Vectorization API.</p>
 
 </article>
 

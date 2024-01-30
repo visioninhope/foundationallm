@@ -88,6 +88,18 @@
 <h1 id="updating-container-versions-in-the-standard-deployment">Updating container versions in the Standard Deployment</h1>
 
 <p>The Standard Deployment uses the <code>foundationallm/deploy/scripts/Deploy-Images-Aks.ps1</code> script to deploy latest version of the FoundationaLLM images during initial setup.  However, you may want to update the images to a specific version.  This can be done by updating the values file and redeploying the images.</p>
+<h2 id="prerequisites">PREREQUISITES</h2>
+<ul>
+<li><p>Azure CLI set to the correct tenant/subscription context</p>
+</li>
+<li><p>AKS credentials located in the <code>.kube/config</code> directory</p>
+<p>To obtain AKS credentials, use the following Azure CLI command:</p>
+<pre><code class="lang-pwsh">az aks get-credentials --name &quot;[PREFIX]-aks&quot; --resource-group &quot;[DEPLOYMENT RESOURCE GROUP]&quot;
+</code></pre>
+</li>
+<li><p>Helm CLI</p>
+</li>
+</ul>
 <h2 id="description">DESCRIPTION</h2>
 <p>This script deploys multiple images on an AKS (Azure Kubernetes Service) cluster using Helm charts.
 It takes various parameters such as the release name, AKS name, resource group, tag, charts to deploy,
@@ -127,8 +139,14 @@ values file, namespace, TLS/SSL environment, TLS host, TLS secret name, and auto
     -tlsSecretName &quot;myTLSSecret&quot; `
     -autoscale $true
 </code></pre>
-<h2 id="notes">NOTES</h2>
-<p>This script requires the Azure CLI to be installed and logged in to the Azure account.</p>
+<blockquote>
+<p><strong>Note:</strong> The script will NOT generate a <code>gvalues.yaml</code> file for you. If you do not have a <code>gvalues.yaml</code> file locally, use the Helm CLI to obtain it.</p>
+</blockquote>
+<pre><code class="lang-pwsh"># Get all releases (e.g., foundationallm-web)
+helm list
+# Write gvalues.yaml for release
+helm get values &quot;foundationallm-web&quot; --all &gt; gvalues.yaml
+</code></pre>
 
 </article>
 

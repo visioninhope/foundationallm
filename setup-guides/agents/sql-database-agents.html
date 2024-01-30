@@ -100,8 +100,11 @@
 <h3 id="add-key-vault-secret-for-database">Add Key Vault secret for database</h3>
 <p>A new secret must be added to Key Vault:</p>
 <ul>
-<li><strong>Name</strong>: <code>foundationallm-langchain-sqldatabase-{database-name}-password</code>, where <code>{database-name}</code> is the name of your database</li>
-<li><strong>Value</strong>: The password for the target PostgreSQL database.</li>
+<li><p><strong>Name</strong>: <code>foundationallm-langchain-sqldatabase-{database-name}-password</code>, where <code>{database-name}</code> is the name of your database</p>
+</li>
+<li><p><strong>Value</strong>: The password for the target SQL database.</p>
+<p><img src="media/add-kv-reference.png" alt="Adding an Azure Key Vault reference with the SQL DB password." title="Azure Key Vault Reference"></p>
+</li>
 </ul>
 <h3 id="add-setting-to-app-configuration">Add setting to App Configuration</h3>
 <p>A new key vault reference app configuration value must be added to Azure App Configuration:</p>
@@ -109,6 +112,10 @@
 <li><strong>Key</strong>: <code>FoundationaLLM:LangChain:SQLDatabase:{DatabaseName}:Password</code>, where <code>{DatabaseName}</code> is the name of the target database.</li>
 <li><strong>Secret</strong>: The key vault reference should should point to the key vault secret created above.</li>
 </ul>
+<p>To add a Key Vault Reference, navigate to your deployment's App Configuration resource (<code>-appconfig</code>). Below <strong>Operations</strong>, select <strong>Configuration explorer</strong>, and create a new <strong>Key Vault reference</strong>.</p>
+<p><img src="media/create-new-kv-reference.png" alt="Creating a new Key Vault Reference in Azure App Configuration." title="New Key-Vault Reference"></p>
+<p>Select your deployment's Key Vault, the secret you created previously, and the <strong>Latest version</strong> of that secret.</p>
+<p><img src="media/populate-kv-reference.png" alt="Populating the new App Configuration key with a Key Vault reference." title="Populated Key-Vault Reference"></p>
 <h2 id="blob-storage-files">Blob storage files</h2>
 <p>The following metadata files should be added to blob storage, and will be used to assemble the agent and underlying data store.</p>
 <h2 id="data-source-json">Data source JSON</h2>
