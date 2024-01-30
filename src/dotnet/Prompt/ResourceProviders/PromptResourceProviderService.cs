@@ -131,7 +131,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             if (await _storageService.FileExistsAsync(_storageContainerName, promptReference.Filename, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(_storageContainerName, promptReference.Filename, default);
-                return JsonConvert.DeserializeObject(
+                return JsonConvert.DeserializeObject<Models.Metadata.Prompt>(
                     Encoding.UTF8.GetString(fileContent.ToArray()),
                     _serializerSettings) as Models.Metadata.Prompt
                     ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.");
@@ -154,8 +154,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 Filename = $"/{_name}/{prompt.Name}.json"
             };
 
-            var deserializeObject = JsonConvert.DeserializeObject(serializedPrompt, _serializerSettings);
-            (deserializeObject as Models.Metadata.Prompt)!.ObjectId = GetObjectId(instances);
+            var deserializeObject = JsonConvert.DeserializeObject<Models.Metadata.Prompt>(serializedPrompt, _serializerSettings);
+            deserializeObject!.ObjectId = GetObjectId(instances);
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,

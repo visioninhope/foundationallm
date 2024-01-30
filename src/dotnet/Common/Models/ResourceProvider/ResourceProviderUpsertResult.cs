@@ -12,8 +12,8 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
     public class ResourceProviderUpsertResult
     {
         /// <summary>
-        /// The id of the object that was upserted.
+        /// The id of the object that was created or updated.
         /// </summary>
-        public string ObjectId { get; set; }
+        public string? ObjectId { get; set; }
     }
 }
