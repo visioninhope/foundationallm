@@ -123,6 +123,7 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:ManagementAPI:Entra:Instance` | Enter the URL to the service. |   |
 | `FoundationaLLM:ManagementAPI:Entra:Scopes` | Data.Manage |   |
 | `FoundationaLLM:ManagementAPI:Entra:TenantId` |   |   |
+| `FoundationaLLM:Instance:Id` | | Deployment GUID populated by the deployment scripts. |
 
 ### Azure Content Safety
 

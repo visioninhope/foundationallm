@@ -42,7 +42,11 @@ Apps typically access SharePoint Online through certificates: Anyone having the 
 
 1. Create a new **App registration** in your **Microsoft Entra ID** tenant. Next, provide a **Name** for your application and click on **Register** at the bottom of the blade.
 
-2. Navigate to the **API Permissions** blade and click on **Add a permission** button Here you choose the permissions that you will grant to this application. Select **SharePoint** from the **Microsoft APIs** tab, then select **Application permissions** as the type of permissions required, choose the desired permissions (i.e. **Sites.Read.All**) and click on **Add permissions**.
+2. Navigate to the **API Permissions** blade and click on **Add a permission** button Here you choose the permissions that you will grant to this application. Select **SharePoint** from the **Microsoft APIs** tab, then select **Application permissions** as the type of permissions required, choose the desired permissions (i.e. **Sites.Read.All**) and click on **Add permissions**. Here are the required scopes:
+
+    - `Group.ReadWrite.All`
+    - `User.ReadWrite.All`
+    - `Sites.Read.All` OR `Sites.Selected`
 
     >**NOTE**
     > 
@@ -72,10 +76,19 @@ Apps typically access SharePoint Online through certificates: Anyone having the 
     ],
     ```
 
-6. Finally, you should upload and store the certificate in the **KeyVault** where the FoundationaLLM Vectorization API has permissions to read **Secrets**. You will need the **Certificate Name** for the App Configuration settings listed in the table above.
+6. Upload and store the certificate in the **KeyVault** where the FoundationaLLM Vectorization API has permissions to read **Secrets**. You will need the **Certificate Name** for the App Configuration settings listed in the table above.
 
     > **NOTE**
     >
     > Can I use other means besides certificates for realizing app-only access for my Azure AD app?
     >
     > **NO**, all other options are blocked by SharePoint Online and will result in an `Access Denied` message.
+
+7. Navigate to the deployment storage account and edit the `resource-provider/FoundationaLLM.Vectorization/vectorization-content-source-profiles.json` file. Append the following snippet to the `ContentSourceProfiles` array.
+
+    ```json
+    {
+        "Name": "[CONTENT SOURCE NAME]",
+        "Type": "SharePointOnline"
+    }
+    ```
