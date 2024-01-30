@@ -63,18 +63,19 @@
 			<!-- Data source -->
 			<CreateAgentStepItem v-model="editDataSource">
 				<template v-if="selectedDataSource">
-					<div class="step-container__header">Blob Storage</div>
+					<div class="step-container__header">{{ selectedDataSource.Type }}</div>
 					<div>
 						<span class="step-option__header">Storage account name:</span>
 						<span>{{ selectedDataSource.Name }}</span>
 					</div>
-					<div>
+					<!-- <div>
 						<span class="step-option__header">Container name:</span>
 						<span>{{ selectedDataSource.Container.Name }}</span>
-					</div>
+					</div> -->
+					
 					<div>
 						<span class="step-option__header">Data Format(s):</span>
-						<span v-for="format in selectedDataSource.Container.Formats" :key="format" class="mr-1">
+						<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
 							{{ format }}
 						</span>
 					</div>
@@ -93,17 +94,20 @@
 						}"
 						@click.stop="handleDataSourceSelected(dataSource)"
 					>
+						<div class="step-container__header">{{ dataSource.Type }}</div>
+
 						<div>
 							<span class="step-option__header">Storage account name:</span>
 							<span>{{ dataSource.Name }}</span>
 						</div>
-						<div>
+						<!-- <div>
 							<span class="step-option__header">Container name:</span>
 							<span>{{ dataSource.Container.Name }}</span>
-						</div>
+						</div> -->
+						
 						<div>
 							<span class="step-option__header">Data Format(s):</span>
-							<span v-for="format in dataSource.Container.Formats" :key="format" class="mr-1">
+							<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
 								{{ format }}
 							</span>
 						</div>
@@ -475,9 +479,6 @@ export default {
 
 		this.loadingStatusText = 'Retrieving data sources...';
 		this.dataSources = await api.getAgentDataSources();
-
-		this.loadingStatusText = 'Retrieving gatekeepers...';
-		this.gatekeepers = await api.getAgentGatekeepers();
 
 		this.loading = false;
 	},

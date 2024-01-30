@@ -62,8 +62,8 @@ export default {
 	},
 
 	async getAgentDataSources(): Promise<AgentDataSource[]> {
-		await wait(this.mockLoadTime);
-		return mockGetAgentDataSourcesResponse;
+		const data = JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`));
+		return data.map(source => ({ ...source, Formats: ['pdf', 'txt'] }));
 	},
 
 	async getAgentIndexes(): Promise<AgentIndex[]> {
