@@ -15,6 +15,7 @@ from foundationallm.langchain.agents.agent_base import AgentBase
 from foundationallm.langchain.retrievers import RetrieverFactory
 from foundationallm.models.metadata import ConversationHistory
 from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest, CompletionResponse
+from foundationallm.resources import ResourceProvider
 
 class KnowledgeManagementAgent(AgentBase):
     """
@@ -26,7 +27,7 @@ class KnowledgeManagementAgent(AgentBase):
             completion_request: KnowledgeManagementCompletionRequest,
             llm: BaseLanguageModel,
             config: Configuration,
-            resource_provider):
+            resource_provider: ResourceProvider):
         """
         Initializes a generic knowledge management agent.
 

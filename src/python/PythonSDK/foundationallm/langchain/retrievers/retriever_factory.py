@@ -3,6 +3,7 @@ from langchain_core.retrievers import BaseRetriever
 from foundationallm.config import Configuration
 from foundationallm.langchain.language_models.openai import OpenAIModel
 from foundationallm.models.language_models import EmbeddingModel, LanguageModelType, LanguageModelProvider
+from foundationallm.resources import ResourceProvider
 from .azure_ai_search_service_retriever import AzureAISearchServiceRetriever
 
 class RetrieverFactory:
@@ -14,7 +15,7 @@ class RetrieverFactory:
                 indexing_profile_resource_id: str,
                 embedding_profile_resource_id:str,
                 config: Configuration,
-                resource_provider
+                resource_provider: ResourceProvider
                 ):
         self.config = config
         self.resource_provider = resource_provider

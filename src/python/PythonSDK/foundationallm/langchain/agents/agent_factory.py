@@ -1,8 +1,8 @@
 from calendar import c
 from langchain_core.language_models import BaseLanguageModel
-
 from foundationallm.config import Configuration, Context
 from foundationallm.models.orchestration import CompletionRequestBase
+from foundationallm.resources import ResourceProvider
 from foundationallm.langchain.agents import AgentBase
 from foundationallm.langchain.agents import (
     AnomalyDetectionAgent,
@@ -27,7 +27,7 @@ class AgentFactory:
             llm: BaseLanguageModel,
             config: Configuration,
             context: Context,
-            resource_provider=None
+            resource_provider: ResourceProvider=None
         ):
         """
         Initializes an AgentFactory for selecting which agent to use for completion.
@@ -45,6 +45,8 @@ class AgentFactory:
         self.llm = llm
         self.config = config
         self.context = context
+        if resource_provider is None:
+            resource_provider = ResourceProvider(config=config)
         self.resource_provider = resource_provider
 
     def get_agent(self) -> AgentBase:

@@ -147,6 +147,8 @@
     <Compile Include="foundationallm\models\__init__.py" />
     <Compile Include="foundationallm\config\configuration.py" />
     <Compile Include="foundationallm\config\__init__.py" />
+    <Compile Include="foundationallm\resources\resource_provider.py" />
+    <Compile Include="foundationallm\resources\__init__.py" />
     <Compile Include="foundationallm\storage\blob_storage_manager.py" />
     <Compile Include="foundationallm\storage\storage_manager_base.py" />
     <Compile Include="foundationallm\storage\__init__.py" />
@@ -190,6 +192,7 @@
     <Folder Include="foundationallm\models\language_models\" />
     <Folder Include="foundationallm\models\orchestration\" />
     <Folder Include="foundationallm\hubs\" />
+    <Folder Include="foundationallm\resources\" />
     <Folder Include="foundationallm\storage\" />
   </ItemGroup>
   <ItemGroup>

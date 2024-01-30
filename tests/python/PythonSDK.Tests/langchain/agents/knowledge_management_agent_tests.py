@@ -6,57 +6,15 @@ from foundationallm.models.orchestration import KnowledgeManagementCompletionReq
 from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider, LanguageModel
 from foundationallm.langchain.language_models import LanguageModelFactory
 from foundationallm.langchain.agents import KnowledgeManagementAgent
-
-# temporary class to serve as a placeholder for the ResourceProvider class
-class ResourceProviderMock:
-    def get_resource(self, resource_id:str):
-        if("indexingprofiles" in resource_id):
-                return {
-                    "name": "sotu-index",
-                    "indexer": "AzureAISearchIndexer",
-                    "settings": {
-                            "index_name": "sotu-index",
-                            "top_n": "3",
-                            "filters": "",
-                            "embedding_field_name": "Embedding",
-                            "text_field_name": "Text"
-                        },
-                    "configuration_references": {
-                            "api_key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
-                            "query_api_key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
-                            "authentication_type": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
-                            "endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
-                        }  
-                    }
-        elif("textembeddingprofiles" in resource_id):
-             return {
-                "name": "AzureOpenAI_Embedding",
-                "text_embedding": "SemanticKernelTextEmbedding",
-                "settings": {},
-                "configuration_references": {
-                        "endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint",
-                        "api_key": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
-                        "api_version": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion",
-                        "authentication_type": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
-                        "deployment_name": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName"
-                    }
-                }
-        elif("prompt" in resource_id):
-            return """ 
-                You are a political science professional named Baldwin. You are responsible for answering questions regarding the February 2023 State of the Union Address.
-                Answer only questions about the February 2023 State of the Union address. Use only the information provided.
-                Provide concise answers that are polite and professional.
-            """
-            
-        return { "message": "not implemented" }
+from foundationallm.resources import ResourceProvider
 
 @pytest.fixture
 def test_config():
     return Configuration()
 
 @pytest.fixture
-def test_resource_provider():
-    return ResourceProviderMock()
+def test_resource_provider(test_config):
+    return ResourceProvider(config=test_config)
 
 @pytest.fixture
 def test_internal_context_completion_request():
