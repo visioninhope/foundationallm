@@ -17,7 +17,7 @@
 			<!-- Type -->
 			<div class="step-section-header span-2">Type</div>
 
-			<div class="step__header span-2">What type of agent?</div>
+			<div class="step-header span-2">What type of agent?</div>
 
 			<!-- Knowledge management agent -->
 			<div class="step">
@@ -51,8 +51,8 @@
 			<!-- Knowledge source -->
 			<div class="step-section-header span-2">Knowledge Source</div>
 
-			<div class="step__header">Where is the data?</div>
-			<div class="step__header">Where should the data be indexed?</div>
+			<div class="step-header">Where is the data?</div>
+			<div class="step-header">Where should the data be indexed?</div>
 
 			<!-- Data source -->
 			<CreateAgentStepItem v-model="editDataSource">
@@ -68,7 +68,7 @@
 					</div>
 					<div>
 						<span class="step-option__header">Data Format(s):</span>
-						<span v-for="format in dataSource.Container.Formats" :key="format" class="mr-1">
+						<span v-for="format in selectedDataSource.Container.Formats" :key="format" class="mr-1">
 							{{ format }}
 						</span>
 					</div>
@@ -145,8 +145,8 @@
 				</template>
 			</CreateAgentStepItem>
 
-			<div class="step__header">How should the data be processed for indexing?</div>
-			<div class="step__header">When should the data be indexed?</div>
+			<div class="step-header">How should the data be processed for indexing?</div>
+			<div class="step-header">When should the data be indexed?</div>
 
 			<!-- Process indexing -->
 			<CreateAgentStepItem>
@@ -223,8 +223,8 @@
 			<!-- Agent configuration -->
 			<div class="step-section-header span-2">Agent Configuration</div>
 
-			<div class="step__header">Should conversations be saved?</div>
-			<div class="step__header">How should user-agent interactions be gated?</div>
+			<div class="step-header">Should conversations be saved?</div>
+			<div class="step-header">How should user-agent interactions be gated?</div>
 
 			<!-- Conversation history -->
 			<CreateAgentStepItem>
@@ -340,7 +340,7 @@
 			<!-- System prompt -->
 			<div class="step-section-header span-2">System Prompt</div>
 
-			<div class="step__header">What is the persona of the agent?</div>
+			<div class="step-header">What is the persona of the agent?</div>
 
 			<div class="span-2">
 				<Textarea v-model="systemPrompt" class="w-100" auto-resize rows="5" type="text" />
@@ -564,14 +564,14 @@ export default {
 	padding: 16px;
 }
 
+.step-header {
+	font-weight: bold;
+	margin-bottom: -10px;
+}
+
 .step {
 	display: flex;
 	flex-direction: column;
-
-	&__header {
-		font-weight: bold;
-		margin-bottom: 16px;
-	}
 }
 
 .step-container {
