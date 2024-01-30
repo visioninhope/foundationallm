@@ -14,8 +14,11 @@
 				</div>
 			</template>
 
-			<div class="step-header span-2">Agent name:</div>
-			<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="span-2" />
+			<div class="span-2">
+				<div class="step-header mb-2">Agent name:</div>
+				<div class="mb-2">No special characters or spaces, dashes and underscores only.</div>
+				<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" />
+			</div>
 
 			<!-- Type -->
 			<div class="step-section-header span-2">Type</div>
@@ -480,6 +483,19 @@ export default {
 	},
 
 	methods: {
+		handleNameInput(event) {
+			let element = event.target;
+
+			// Remove spaces
+			let sanitizedValue = element.value.replace(/\s/g, '');
+
+			// Remove any characters that are not letters, digits, dashes, or underscores
+			sanitizedValue = sanitizedValue.replace(/[^a-zA-Z0-9-_]/g, '');
+
+			element.value = sanitizedValue;
+			this.agentName = sanitizedValue;
+		},
+
 		handleAgentTypeSelect(type: AgentType) {
 			this.agentType = type;
 		},
