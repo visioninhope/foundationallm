@@ -98,3 +98,178 @@ The **orchestrator** is the name of the orchestrator to use for the agent. The o
 The **prompt** is the reference to the prompt that the agent will use to start the conversation. The prompt is a resource that is used to start the conversation with the agent. It is a JSON file that contains the prompt text and the prompt settings.
 
 ## Prompt References
+
+The second folder **FoundationaLLM.Prompt** contains the Prompt References.
+Within that folder, we have the **_prompt-references** JSON file that contains the following structure:
+
+```json
+{
+	"PromptReferences": [
+		{
+			"Name": "sotu5",
+			"Filename": "/FoundationaLLM.Prompt/sotu5.json"
+		},
+		{
+			"Name": "sotu-test",
+			"Filename": "/FoundationaLLM.Prompt/sotu-test.json"
+		},
+		{
+			"Name": "sotu",
+			"Filename": "/FoundationaLLM.Prompt/sotu.json"
+		}
+	]
+}
+```
+These references point to the JSON files that contain the prompt information. Let's take a look at one of the prompts from above called **sotu5.json** for an example:
+
+```json
+{
+  "name": "sotu5",
+  "type": "prompt",
+  "object_id": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Prompt/prompts/sotu5",
+  "description": "Prompt for the Knowledge Management Agent that queries the State of the Union speech transcript",
+  "prefix": "You are a political science professional named Baldwin. You are responsible for answering questions regarding the February 2023 State of the Union Address.\nAnswer only questions about the February 2023 State of the Union address. Do not make anything up. Check your answers before replying.\nProvide concise answers that are polite and professional.",
+  "suffix": ""
+}
+```
+It contains the name, type of **prompt**, the object_id reference, description and of course most importantly the **prefix** and **suffix** of the prompt. The prefix and suffix are the text that will be used to start and end the conversation with the agent.
+
+## Vectorization References
+
+Finally the third folder **FoundationaLLM.Vectorization** contains the Vectorization References.
+
+![](../../../media/RS-Provider-3.png)
+
+Where you will find four important JSON files:
+- **vectorization-content-source-profiles.json**
+  - This is where all the different types of vecrorization profiles are stored.  For example:
+```json
+  {
+    "Profiles": [
+        {
+            "Type": "AzureDataLake",
+            "Name": "SDZWAJournals",
+            "ObjectId": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Vectorization/contentsourceprofiles/SDZWAJournals",
+            "Settings": {},
+            "ConfigurationReferences": {
+                "AuthenticationType": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:AuthenticationType",
+                "ConnectionString": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:ConnectionString"
+            }
+        },
+        {
+            "Type": "SharePointOnline",
+            "Name": "GSGSharePointOnline",
+            "ObjectId": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Vectorization/contentsourceprofiles/GSGSharePointOnline",
+            "Settings": {},
+            "ConfigurationReferences": {
+                "CertificateName": "FoundationaLLM:Vectorization:ContentSources:GSGSharePointOnline:CertificateName",
+                "ClientId": "FoundationaLLM:Vectorization:ContentSources:GSGSharePointOnline:ClientId",
+                "KeyVaultURL": "FoundationaLLM:Vectorization:ContentSources:GSGSharePointOnline:KeyVaultURL",
+                "TenantId": "FoundationaLLM:Vectorization:ContentSources:GSGSharePointOnline:TenantId"
+            }
+        },
+        {
+            "Type": "AzureSQLDatabase",
+            "Name": "MSDFAzureSQLDB",
+            "ObjectId": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Vectorization/contentsourceprofiles/MSDFAzureSQLDB",
+            "Settings": {},
+            "ConfigurationReferences": {
+                "ConnectionString": "FoundationaLLM:Vectorization:ContentSources:MSDFAzureSQLDB:ConnectionString"
+            }
+        }
+    ]
+}
+```
+- **vectorization-indexing-profiles.json**
+```json
+{
+    "Profiles": [
+        {
+            "Indexer": "AzureAISearchIndexer",
+            "Name": "AzureAISearch_Test_001",
+            "ObjectId": null,
+            "Settings": {
+                "IndexName": "fllm-test-001"
+            },
+            "ConfigurationReferences": {
+                "APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
+                "QueryAPIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
+                "AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
+                "Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
+            }
+        },
+        {
+            "Indexer": "AzureAISearchIndexer",
+            "Name": "sotu-index",
+            "ObjectId": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Vectorization/indexingprofiles/sotu-index",
+            "Settings": {
+                "IndexName": "sotu-index",
+                "TopN": "3",
+                "Filters": "",
+                "EmbeddingFieldName": "Embedding",
+                "TextFieldName": "Text"
+            },
+            "ConfigurationReferences": {
+                "APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
+                "QueryAPIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
+                "AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
+                "Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
+            }
+        },
+        {
+            "Indexer": "AzureAISearchIndexer",
+            "Name": "AzureAISearch_MSDF_001",
+            "ObjectId": null,
+            "Settings": {
+                "IndexName": "fllm-msdf-001",
+                "TopN": "3",
+                "Filters": "",
+                "EmbeddingFieldName": "Embedding",
+                "TextFieldName": "Text"
+            },
+            "ConfigurationReferences": {
+                "APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
+                "AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
+                "Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
+            }
+        }
+    ]
+}
+```
+- **vectorization-text-embedding-profiles.json**
+```json
+{
+	"Profiles": [
+		{
+			"TextEmbedding": "SemanticKernelTextEmbedding",
+			"Name": "AzureOpenAI_Embedding",
+			"ObjectId": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Vectorization/textembeddingprofiles/AzureOpenAI_Embedding",
+			"Settings": {},
+			"ConfigurationReferences": {
+				"APIKey": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
+				"APIVersion": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion",
+				"AuthenticationType": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
+				"DeploymentName": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName",
+				"Endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"
+			}
+		}
+	]
+}
+```
+- **vectorization-text-partitioning-profiles.json**
+```json
+{
+	"Profiles": [
+		{
+			"Name": "DefaultTokenTextPartition",
+			"TextSplitter": "TokenTextSplitter",
+			"Settings": {
+				"Tokenizer": "MicrosoftBPETokenizer",
+				"TokenizerEncoder": "cl100k_base",
+				"ChunkSizeTokens": "2000",
+				"OverlapSizeTokens": "200"
+			}
+		}
+	]
+}
+```
