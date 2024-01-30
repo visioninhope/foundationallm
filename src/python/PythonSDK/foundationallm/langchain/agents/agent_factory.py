@@ -84,8 +84,11 @@ class AgentFactory:
                 return CXOAgent(self.completion_request,
                                              llm=self.llm, config=self.config)
             case 'knowledge-management':
-                return KnowledgeManagementAgent(self.completion_request,
-                                            config=self.config,
-                                            resource_provider=self.resource_provider)
+                return KnowledgeManagementAgent(
+                    self.completion_request,
+                    llm=self.llm,
+                    config=self.config,                                            
+                    resource_provider=self.resource_provider
+                )
             case _:
                 raise ValueError(f'No agent found for the specified agent type: {self.agent.type}.')

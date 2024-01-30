@@ -1,8 +1,6 @@
 from typing import Any
 import pytest
 from foundationallm.config import Configuration
-from foundationallm.models import ListOption
-from foundationallm.models.orchestration import MessageHistoryItem
 from foundationallm.models.orchestration import CompletionRequest
 from foundationallm.models.metadata import Agent, DataSource
 from foundationallm.langchain.data_sources.search_service import SearchServiceConfiguration

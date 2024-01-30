@@ -35,11 +35,13 @@ class OrchestrationManager:
 
     def __create_agent(self, completion_request: CompletionRequestBase, context: Context) -> AgentBase:
         """Creates an agent for executing completion requests."""
-        agent = AgentFactory(completion_request=completion_request,
-                             llm=self.llm,
-                             config=self.config,
-                             context=context,
-                             resource_provider=self.resource_provider)
+        agent = AgentFactory(
+            completion_request=completion_request,
+            llm=self.llm,
+            config=self.config,
+            context=context,
+            resource_provider=self.resource_provider
+        )
         return agent.get_agent()
 
     def __get_llm(self, language_model: LanguageModel) -> BaseLanguageModel:

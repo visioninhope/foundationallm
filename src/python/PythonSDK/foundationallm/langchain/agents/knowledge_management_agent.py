@@ -2,7 +2,6 @@
 The KnowledgeManagementAgent class is responsible for executing a completion request
 over text, whether that be from a user prompt or a RAG pattern, over a vector store.
 """
-from distutils.command import build
 from typing import List
 from langchain_community.callbacks import get_openai_callback
 from langchain_core.documents import Document
@@ -12,7 +11,6 @@ from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from foundationallm.config import Configuration
 from foundationallm.langchain.message_history import build_message_history
-from foundationallm.langchain.language_models import LanguageModelFactory
 from foundationallm.langchain.agents.agent_base import AgentBase
 from foundationallm.langchain.retrievers import RetrieverFactory
 from foundationallm.models.metadata import ConversationHistory
@@ -25,7 +23,8 @@ class KnowledgeManagementAgent(AgentBase):
 
     def __init__(
             self,
-            completion_request: KnowledgeManagementCompletionRequest,            
+            completion_request: KnowledgeManagementCompletionRequest,
+            llm: BaseLanguageModel,
             config: Configuration,
             resource_provider):
         """
@@ -42,9 +41,8 @@ class KnowledgeManagementAgent(AgentBase):
             Application configuration class for retrieving configuration settings.
         resource_provider : ResourceProvider
             Resource provider for retrieving embedding and indexing profiles.        
-        """
-        req_llm = LanguageModelFactory(language_model=completion_request.agent.language_model, config = config).get_llm()
-        self.llm = req_llm.get_completion_model(completion_request.agent.language_model)
+        """       
+        self.llm = llm.get_completion_model(completion_request.agent.language_model)
         self.internal_context = True
         self.agent_prompt = ""
         if completion_request.agent.indexing_profile is not None:

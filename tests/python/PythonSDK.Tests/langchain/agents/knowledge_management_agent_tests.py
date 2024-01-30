@@ -4,6 +4,7 @@ from foundationallm.models.metadata import KnowledgeManagementAgent as Knowledge
 from foundationallm.models.metadata import ConversationHistory, Gatekeeper
 from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest
 from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider, LanguageModel
+from foundationallm.langchain.language_models import LanguageModelFactory
 from foundationallm.langchain.agents import KnowledgeManagementAgent
 
 # temporary class to serve as a placeholder for the ResourceProvider class
@@ -122,35 +123,40 @@ def test_azure_ai_search_service_completion_request():
      )
      return req
 
+@pytest.fixture
+def test_llm(test_internal_context_completion_request, test_config):
+    model_factory = LanguageModelFactory(language_model=test_internal_context_completion_request.agent.language_model, config = test_config)
+    return model_factory.get_llm()
+
 class KnowledgeManagementAgentTests:    
-    def test_internal_context_agent_initializes(self, test_config, test_internal_context_completion_request, test_resource_provider):        
-        agent = KnowledgeManagementAgent(completion_request=test_internal_context_completion_request, config=test_config, resource_provider=test_resource_provider)
+    def test_internal_context_agent_initializes(self, test_llm,  test_config, test_internal_context_completion_request, test_resource_provider):        
+        agent = KnowledgeManagementAgent(completion_request=test_internal_context_completion_request, llm=test_llm, config=test_config, resource_provider=test_resource_provider)
         assert agent is not None
         
-    def test_internal_context_agent_gets_completion(self, test_config, test_internal_context_completion_request,test_resource_provider):        
-        agent = KnowledgeManagementAgent(completion_request=test_internal_context_completion_request, config=test_config, resource_provider=test_resource_provider)
+    def test_internal_context_agent_gets_completion(self, test_llm, test_config, test_internal_context_completion_request,test_resource_provider):        
+        agent = KnowledgeManagementAgent(completion_request=test_internal_context_completion_request, llm=test_llm, config=test_config, resource_provider=test_resource_provider)
         completion_response = agent.run(prompt=test_internal_context_completion_request.user_prompt)
         print(completion_response.completion)
         assert completion_response.completion is not None
         
-    def test_internal_context_agent_gets_correct_completion(self, test_config, test_internal_context_completion_request, test_resource_provider):        
-        agent = KnowledgeManagementAgent(completion_request=test_internal_context_completion_request, config=test_config, resource_provider=test_resource_provider)
+    def test_internal_context_agent_gets_correct_completion(self, test_llm, test_config, test_internal_context_completion_request, test_resource_provider):        
+        agent = KnowledgeManagementAgent(completion_request=test_internal_context_completion_request, llm=test_llm, config=test_config, resource_provider=test_resource_provider)
         completion_response = agent.run(prompt=test_internal_context_completion_request.user_prompt)
         print(completion_response.completion)
         assert "toonie" in completion_response.completion.lower()
         
-    def test_azure_ai_search_service_agent_initializes(self, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
-        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, config=test_config, resource_provider=test_resource_provider)              
+    def test_azure_ai_search_service_agent_initializes(self, test_llm, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
+        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=test_llm, config=test_config, resource_provider=test_resource_provider)              
         assert agent is not None
 
-    def test_azure_ai_search_gets_completion(self, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
-        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, config=test_config, resource_provider=test_resource_provider)
+    def test_azure_ai_search_gets_completion(self, test_llm, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
+        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=test_llm, config=test_config, resource_provider=test_resource_provider)
         completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
         print(completion_response.completion)
         assert completion_response.completion is not None
 
-    def test_azure_ai_search_gets_correct_completion(self, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
-        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, config=test_config, resource_provider=test_resource_provider)
+    def test_azure_ai_search_gets_correct_completion(self, test_llm, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
+        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=test_llm, config=test_config, resource_provider=test_resource_provider)
         completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
         print(completion_response.completion)
         assert "february" in completion_response.completion.lower() or "2023" in completion_response.completion
