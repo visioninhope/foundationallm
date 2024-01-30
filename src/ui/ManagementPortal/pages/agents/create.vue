@@ -14,6 +14,9 @@
 				</div>
 			</template>
 
+			<div class="step-header span-2">Agent name:</div>
+			<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="span-2" />
+
 			<!-- Type -->
 			<div class="step-section-header span-2">Type</div>
 
@@ -371,6 +374,7 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
+			agentName: '',
 			agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 			editDataSource: false as boolean,
@@ -495,7 +499,7 @@ export default {
 			this.loadingStatusText = 'Creating agent...';
 
 			await api.createAgent({
-				name: 'Test agent ' + Math.round(Math.random() * 1000),
+				name: this.agentName,
 				type: this.agentType,
 
 				embedding_profile: this.selectedDataSource?.ConfigurationReferences?.Endpoint,
