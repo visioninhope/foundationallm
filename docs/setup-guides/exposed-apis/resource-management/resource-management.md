@@ -287,7 +287,7 @@ This is where we identify the name and the Text Embedding to use for the vectori
 This is where we identify the name and the Text Splitter to use for the chunking and overlapping of the text.
 In the settings section, we identify the tokenizer and the encoder to use for the text partitioning and the chunk size and overlap size in tokens.
 
-## Syncronized Versus Asynchronized Vectorization
+## synchornized Versus Asynchronized Vectorization
 
 The vectorization process can be done in a synchronized or asynchronized manner.  The synchronized manner is when the vectorization process is done in real time **in memory** and the results are returned immediately.  The asynchronized manner is when the vectorization process is done in the background and the results are returned at a later time.  The asynchronized manner is useful when the vectorization process is expected to take a long time to complete and the user does not want to wait for the results.  The asynchronized manner is also useful when the vectorization process is expected to be done in batches and the user does not want to wait for the results of each batch.
 
