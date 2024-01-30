@@ -26,7 +26,7 @@ class ResourceProvider:
 
         Returns
         -------
-        dict
+        Any
             The resource with the given id.
         """
         tokens = resource_id.split("/")
