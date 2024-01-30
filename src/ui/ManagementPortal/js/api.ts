@@ -48,7 +48,7 @@ export default {
 	},
 
 	async createAgent(request: CreateAgentRequest): Promise<void> {
-		return await $fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=1.0`, {
+		return await $fetch(`${this.apiUrl}/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=1.0`, {
 			method: 'POST',
 			body: request,
 		});
