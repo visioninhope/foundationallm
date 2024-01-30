@@ -273,3 +273,5 @@ Where you will find four important JSON files:
 	]
 }
 ```
+This is where we identify the name and the Text Splitter to use for the chunking and overlapping of the text.
+In the settings section, we identify the tokenizer and the encoder to use for the text partitioning and the chunk size and overlap size in tokens.
