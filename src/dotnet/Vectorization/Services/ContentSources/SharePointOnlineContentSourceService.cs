@@ -63,7 +63,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
 
                 using (var context = await pnpContextFactory.CreateAsync("Default"))
                 {
-                    string documentUrl = $"{context.Uri.PathAndQuery}/{documentRelativeUrl}";
+                    string documentUrl = $"{context.Uri.PathAndQuery}/{documentRelativeUrl}".Replace("//", "/");
                     // Get a reference to the file
                     IFile testDocument = await context.Web.GetFileByServerRelativeUrlAsync(documentUrl);
 
@@ -119,7 +119,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
                 var certificate = await GetCertificate();
                 var services = new ServiceCollection();
                 services.AddLogging();
-                services.AddPnPCore(async options =>
+                services.AddPnPCore(options =>
                 {
                     var authProvider = new X509CertificateAuthenticationProvider(
                         _settings.ClientId,

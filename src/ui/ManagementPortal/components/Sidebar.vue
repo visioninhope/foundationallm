@@ -72,6 +72,7 @@ a {
 	background-color: var(--primary-color);
 	z-index: 3;
 	flex-shrink: 0;
+	overflow-y: scroll;
 }
 
 .sidebar__header {
