@@ -142,7 +142,7 @@ Finally the third folder **FoundationaLLM.Vectorization** contains the Vectoriza
 
 Where you will find four important JSON files:
 - **vectorization-content-source-profiles.json**
-  - This is where all the different types of vecrorization profiles are stored.  For example:
+  - This is where all the different types of vectorization profiles are stored.  For example:
 ```json
   {
     "Profiles": [
@@ -180,6 +180,11 @@ Where you will find four important JSON files:
     ]
 }
 ```
+
+This is where we identify the name and the type of the content source profiles to use for the vectorization of the content. And within the **configurationReferences** section, we identify the specific settings to use for the content source where it could be indexing PDF files, Sharepoint online content or straight from an Azure SQL Database, etc...
+
+
+
 - **vectorization-indexing-profiles.json**
 ```json
 {
@@ -236,6 +241,9 @@ Where you will find four important JSON files:
     ]
 }
 ```
+
+This is where we identify the name and the Indexer to use for the indexing of the content. And within the **configurationReferences** section, we identify the APIKey, QueryAPIKey, AuthenticationType and Endpoint to use for the indexing. It could be indexing against the Azure AI Search or any other indexer that is available in the system and more will be supported in the future.
+
 - **vectorization-text-embedding-profiles.json**
 ```json
 {
@@ -256,6 +264,8 @@ Where you will find four important JSON files:
 	]
 }
 ```
+This is where we identify the name and the Text Embedding to use for the vectorization of the text. And within the **configurationReferences** section, we identify the APIKey, APIVersion, AuthenticationType, DeploymentName and Endpoint to use for the text embedding.
+
 - **vectorization-text-partitioning-profiles.json**
 ```json
 {
