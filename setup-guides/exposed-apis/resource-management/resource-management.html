@@ -344,7 +344,7 @@ Within that folder, we have the <strong>_prompt-references</strong> JSON file th
 </code></pre>
 <p>This is where we identify the name and the Text Splitter to use for the chunking and overlapping of the text.
 In the settings section, we identify the tokenizer and the encoder to use for the text partitioning and the chunk size and overlap size in tokens.</p>
-<h2 id="synchornized-versus-asynchronized-vectorization">synchornized Versus Asynchronized Vectorization</h2>
+<h2 id="synchronous-versus-asynchronous-vectorization">Synchronous Versus Asynchronous Vectorization</h2>
 <p>The vectorization process can be done in a synchronized or asynchronized manner.  The synchronized manner is when the vectorization process is done in real time <strong>in memory</strong> and the results are returned immediately.  The asynchronized manner is when the vectorization process is done in the background and the results are returned at a later time.  The asynchronized manner is useful when the vectorization process is expected to take a long time to complete and the user does not want to wait for the results.  The asynchronized manner is also useful when the vectorization process is expected to be done in batches and the user does not want to wait for the results of each batch.</p>
 <p>For example, you would use syncronized vactorization when you have one or few files that you want to vectorize and you want the results immediately.  You would use asynchronized vectorization when you have hundred or thousands of files that you want to vectorize and you want the results at a later time.</p>
 
