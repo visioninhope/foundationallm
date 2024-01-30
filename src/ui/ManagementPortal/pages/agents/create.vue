@@ -490,7 +490,7 @@ export default {
 			let sanitizedValue = element.value.replace(/\s/g, '');
 
 			// Remove any characters that are not lowercase letters, digits, dashes, or underscores
-      sanitizedValue = sanitizedValue.replace(/[^a-z0-9-_]/g, '');
+			sanitizedValue = sanitizedValue.replace(/[^a-z0-9-_]/g, '');
 
 			element.value = sanitizedValue;
 			this.agentName = sanitizedValue;
