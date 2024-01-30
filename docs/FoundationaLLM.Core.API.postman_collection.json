@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7ed0fc3f-500e-4ba2-989b-32a5eec33c6e",
+		"_postman_id": "9ad62116-3057-4166-abfc-ece23923bff5",
 		"name": "FoundationaLLM.Core.API",
 		"description": "FoundationaLLM.Core.API\n\nContact Support:\n Name: Solliance, Inc.\n Email: contact@solliance.net",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -94,7 +94,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\"user_prompt\": \"What are your capabilities?\"}",
+									"raw": "{\n  \"user_prompt\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -133,7 +133,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "<string>",
+											"raw": "{\n  \"user_prompt\": \"<string>\"\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -589,7 +589,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n  \"id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"tokensUsed\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"upn\": \"<string>\",\n  \"deleted\": \"<boolean>\",\n  \"messages\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"sessionId\": \"<string>\",\n      \"timeStamp\": \"<dateTime>\",\n      \"sender\": \"<string>\",\n      \"senderDisplayName\": \"<string>\",\n      \"tokens\": \"<integer>\",\n      \"text\": \"<string>\",\n      \"rating\": \"<boolean>\",\n      \"upn\": \"<string>\",\n      \"deleted\": \"<boolean>\",\n      \"vector\": [\n        \"<float>\",\n        \"<float>\"\n      ],\n      \"completionPromptId\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"sessionId\": \"<string>\",\n      \"timeStamp\": \"<dateTime>\",\n      \"sender\": \"<string>\",\n      \"senderDisplayName\": \"<string>\",\n      \"tokens\": \"<integer>\",\n      \"text\": \"<string>\",\n      \"rating\": \"<boolean>\",\n      \"upn\": \"<string>\",\n      \"deleted\": \"<boolean>\",\n      \"vector\": [\n        \"<float>\",\n        \"<float>\"\n      ],\n      \"completionPromptId\": \"<string>\"\n    }\n  ]\n}"
+											"body": "{\n  \"id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"tokensUsed\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"upn\": \"<string>\",\n  \"deleted\": \"<boolean>\"\n}"
 										}
 									]
 								}
@@ -971,7 +971,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n  {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"sessionId\": \"<string>\",\n    \"tokensUsed\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"upn\": \"<string>\",\n    \"deleted\": \"<boolean>\",\n    \"messages\": [\n      {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\",\n        \"sessionId\": \"<string>\",\n        \"timeStamp\": \"<dateTime>\",\n        \"sender\": \"<string>\",\n        \"senderDisplayName\": \"<string>\",\n        \"tokens\": \"<integer>\",\n        \"text\": \"<string>\",\n        \"rating\": \"<boolean>\",\n        \"upn\": \"<string>\",\n        \"deleted\": \"<boolean>\",\n        \"vector\": [\n          \"<float>\",\n          \"<float>\"\n        ],\n        \"completionPromptId\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\",\n        \"sessionId\": \"<string>\",\n        \"timeStamp\": \"<dateTime>\",\n        \"sender\": \"<string>\",\n        \"senderDisplayName\": \"<string>\",\n        \"tokens\": \"<integer>\",\n        \"text\": \"<string>\",\n        \"rating\": \"<boolean>\",\n        \"upn\": \"<string>\",\n        \"deleted\": \"<boolean>\",\n        \"vector\": [\n          \"<float>\",\n          \"<float>\"\n        ],\n        \"completionPromptId\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"sessionId\": \"<string>\",\n    \"tokensUsed\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"upn\": \"<string>\",\n    \"deleted\": \"<boolean>\",\n    \"messages\": [\n      {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\",\n        \"sessionId\": \"<string>\",\n        \"timeStamp\": \"<dateTime>\",\n        \"sender\": \"<string>\",\n        \"senderDisplayName\": \"<string>\",\n        \"tokens\": \"<integer>\",\n        \"text\": \"<string>\",\n        \"rating\": \"<boolean>\",\n        \"upn\": \"<string>\",\n        \"deleted\": \"<boolean>\",\n        \"vector\": [\n          \"<float>\",\n          \"<float>\"\n        ],\n        \"completionPromptId\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\",\n        \"sessionId\": \"<string>\",\n        \"timeStamp\": \"<dateTime>\",\n        \"sender\": \"<string>\",\n        \"senderDisplayName\": \"<string>\",\n        \"tokens\": \"<integer>\",\n        \"text\": \"<string>\",\n        \"rating\": \"<boolean>\",\n        \"upn\": \"<string>\",\n        \"deleted\": \"<boolean>\",\n        \"vector\": [\n          \"<float>\",\n          \"<float>\"\n        ],\n        \"completionPromptId\": \"<string>\"\n      }\n    ]\n  }\n]"
+							"body": "[\n  {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"sessionId\": \"<string>\",\n    \"tokensUsed\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"upn\": \"<string>\",\n    \"deleted\": \"<boolean>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"sessionId\": \"<string>\",\n    \"tokensUsed\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"upn\": \"<string>\",\n    \"deleted\": \"<boolean>\"\n  }\n]"
 						}
 					]
 				},
@@ -1040,7 +1040,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"tokensUsed\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"upn\": \"<string>\",\n  \"deleted\": \"<boolean>\",\n  \"messages\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"sessionId\": \"<string>\",\n      \"timeStamp\": \"<dateTime>\",\n      \"sender\": \"<string>\",\n      \"senderDisplayName\": \"<string>\",\n      \"tokens\": \"<integer>\",\n      \"text\": \"<string>\",\n      \"rating\": \"<boolean>\",\n      \"upn\": \"<string>\",\n      \"deleted\": \"<boolean>\",\n      \"vector\": [\n        \"<float>\",\n        \"<float>\"\n      ],\n      \"completionPromptId\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"sessionId\": \"<string>\",\n      \"timeStamp\": \"<dateTime>\",\n      \"sender\": \"<string>\",\n      \"senderDisplayName\": \"<string>\",\n      \"tokens\": \"<integer>\",\n      \"text\": \"<string>\",\n      \"rating\": \"<boolean>\",\n      \"upn\": \"<string>\",\n      \"deleted\": \"<boolean>\",\n      \"vector\": [\n        \"<float>\",\n        \"<float>\"\n      ],\n      \"completionPromptId\": \"<string>\"\n    }\n  ]\n}"
+							"body": "{\n  \"id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"tokensUsed\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"upn\": \"<string>\",\n  \"deleted\": \"<boolean>\"\n}"
 						}
 					]
 				}

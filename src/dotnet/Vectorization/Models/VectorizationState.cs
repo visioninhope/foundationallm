@@ -1,11 +1,6 @@
-﻿using FoundationaLLM.Vectorization.Interfaces;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Vectorization.Interfaces;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Models
 {
@@ -24,11 +19,11 @@ namespace FoundationaLLM.Vectorization.Models
         public required string CurrentRequestId { get; set; }
 
         /// <summary>
-        /// The <see cref="VectorizationContentIdentifier"/> object identifying the content being vectorized.
+        /// The <see cref="ContentIdentifier"/> object identifying the content being vectorized.
         /// </summary>
         [JsonPropertyOrder(1)]
         [JsonPropertyName("content_identifier")]
-        public required VectorizationContentIdentifier ContentIdentifier { get; set; }
+        public required ContentIdentifier ContentIdentifier { get; set; }
 
         /// <summary>
         /// The vectorization artifacts associated with the vectorization state.

@@ -30,5 +30,29 @@ namespace FoundationaLLM.Common.Constants
         /// The dependency injection key for the content source service factory.
         /// </summary>
         public const string FoundationaLLM_Vectorization_ContentSourceServiceFactory = "FoundationaLLM:Vectorization:ContentSourceServiceFactory";
+
+        /// <summary>
+        /// The dependency injection key for the Semantic Kernel text embedding service.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService";
+
+        /// <summary>
+        /// The dependency injection key for the Azure AI Search indexing service.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
+
+        /// <summary>
+        /// The dependency injection key for the vectorization queues configuration section.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_Queues = "FoundationaLLM:Vectorization:Queues";
+
+        /// <summary>
+        /// The dependency injection key for the vectorization steps configuration section.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_Steps = "FoundationaLLM:Vectorization:Steps";
+        /// <summary>
+        /// The dependency injection key for the FoundationaLLM.Agent resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Agent_ResourceProviderService = "FoundationaLLM:Agent:ResourceProviderService";
     }
 }

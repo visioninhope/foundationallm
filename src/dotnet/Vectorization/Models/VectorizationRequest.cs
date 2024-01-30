@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Vectorization.Exceptions;
+﻿using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Vectorization.Exceptions;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Vectorization.Models
@@ -17,11 +18,19 @@ namespace FoundationaLLM.Vectorization.Models
         public required string Id { get; set; }
 
         /// <summary>
-        /// The <see cref="VectorizationContentIdentifier"/> object identifying the content being vectorized.
+        /// The <see cref="ContentIdentifier"/> object identifying the content being vectorized.
         /// </summary>
         [JsonPropertyOrder(1)]
         [JsonPropertyName("content_identifier")]
-        public required VectorizationContentIdentifier ContentIdentifier { get; set; }
+        public required ContentIdentifier ContentIdentifier { get; set; }
+
+        /// <summary>
+        /// The <see cref="VectorizationProcessingType"/> indicating how should the request be processed.
+        /// </summary>
+        [JsonPropertyOrder(2)]
+        [JsonPropertyName("processing_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public required VectorizationProcessingType ProcessingType { get; set; }
 
         /// <summary>
         /// The list of vectorization steps requested by the vectorization request.

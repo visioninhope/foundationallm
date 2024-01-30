@@ -1,17 +1,15 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.ResourceProviders;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
@@ -27,24 +25,42 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
     public class ContentSourceServiceFactory(
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IResourceProviderService vectorizationResourceProviderService,
         IConfiguration configuration,
-        ILoggerFactory loggerFactory) : IServiceFactory<IContentSourceService>
+        ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IContentSourceService>
     {
         private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
         private readonly IConfiguration _configuration = configuration;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
-        public IContentSourceService CreateService(string serviceName)
+        public IContentSourceService GetService(string serviceName)
         {
-            var contentSource = _vectorizationResourceProviderService.GetResource<ContentSource>(
-                $"/{VectorizationResourceTypeNames.ContentSources}/{serviceName}");
+            var contentSourceProfile = _vectorizationResourceProviderService.GetResource<ContentSourceProfile>(
+                $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{serviceName}");
 
-            return contentSource.Type switch
+            return contentSourceProfile.Type switch
             {
                 ContentSourceType.AzureDataLake => CreateAzureDataLakeContentSourceService(serviceName),
-                _ => throw new VectorizationException($"The content source type {contentSource.Type} is not supported."),
+                ContentSourceType.SharePointOnline => CreateSharePointOnlineContentSourceService(serviceName),
+                ContentSourceType.AzureSQLDatabase => CreateAzureSQLDatabaseContentSourceService(serviceName),
+                _ => throw new VectorizationException($"The content source type {contentSourceProfile.Type} is not supported."),
             };
         }
+
+        /// <inheritdoc/>
+        public (IContentSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        {
+            var contentSourceProfile = _vectorizationResourceProviderService.GetResource<ContentSourceProfile>(
+                $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{serviceName}");
+
+            return contentSourceProfile.Type switch
+            {
+                ContentSourceType.AzureDataLake => (CreateAzureDataLakeContentSourceService(serviceName), contentSourceProfile),
+                ContentSourceType.SharePointOnline => (CreateSharePointOnlineContentSourceService(serviceName), contentSourceProfile),
+                ContentSourceType.AzureSQLDatabase => (CreateAzureSQLDatabaseContentSourceService(serviceName), contentSourceProfile),
+                _ => throw new VectorizationException($"The content source type {contentSourceProfile.Type} is not supported."),
+            };
+        }
+
 
         private DataLakeContentSourceService CreateAzureDataLakeContentSourceService(string serviceName)
         {
@@ -55,6 +71,30 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
 
             return new DataLakeContentSourceService(
                 blobStorageServiceSettings,
+                _loggerFactory);
+        }
+
+        private SharePointOnlineContentSourceService CreateSharePointOnlineContentSourceService(string serviceName)
+        {
+            var sharePointOnlineContentSourceServiceSettings = new SharePointOnlineContentSourceServiceSettings();
+            _configuration.Bind(
+                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
+                sharePointOnlineContentSourceServiceSettings);
+
+            return new SharePointOnlineContentSourceService(
+                sharePointOnlineContentSourceServiceSettings,
+                _loggerFactory);
+        }
+
+        private AzureSQLDatabaseContentSourceService CreateAzureSQLDatabaseContentSourceService(string serviceName)
+        {
+            var azureSQLDatabaseContentSourceServiceSettings = new AzureSQLDatabaseContentSourceServiceSettings();
+            _configuration.Bind(
+                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
+                azureSQLDatabaseContentSourceServiceSettings);
+
+            return new AzureSQLDatabaseContentSourceService(
+                azureSQLDatabaseContentSourceServiceSettings,
                 _loggerFactory);
         }
     }
