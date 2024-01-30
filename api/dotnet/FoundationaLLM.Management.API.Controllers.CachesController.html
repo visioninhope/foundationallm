@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Management_API_Controllers_CachesController" data-uid="FoundationaLLM.Management.API.Controllers.CachesController" class="text-break">
-Class CachesController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L19"><i class="bi bi-code-slash"></i></a>
+Class CachesController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -106,7 +106,7 @@ Class CachesController  <a class="header-action link-secondary" title="View sour
 [Authorize(Policy = &quot;RequiredScope&quot;)]
 [ApiVersion(1, null)]
 [ApiController]
-[Route(&quot;[controller]&quot;)]
+[Route(&quot;instances/{instanceId}/providersX/FoundationaLLM.Configuration/caches&quot;)]
 public class CachesController : ControllerBase</code></pre>
   </div>
 
@@ -692,7 +692,7 @@ public class CachesController : ControllerBase</code></pre>
 
   <h3 id="FoundationaLLM_Management_API_Controllers_CachesController__ctor_FoundationaLLM_Management_Interfaces_ICacheManagementService_" data-uid="FoundationaLLM.Management.API.Controllers.CachesController.#ctor(FoundationaLLM.Management.Interfaces.ICacheManagementService)">
   CachesController(ICacheManagementService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Provides methods for implementing the cache provider.</p>
@@ -733,7 +733,7 @@ configuration and state of downstream services.</p>
 
   <h3 id="FoundationaLLM_Management_API_Controllers_CachesController_ClearAgentCache" data-uid="FoundationaLLM.Management.API.Controllers.CachesController.ClearAgentCache">
   ClearAgentCache()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Clears the agent cache from the relevant downstream services.</p>
@@ -766,7 +766,7 @@ public Task&lt;APICacheRefreshResult&gt; ClearAgentCache()</code></pre>
 
   <h3 id="FoundationaLLM_Management_API_Controllers_CachesController_ClearDataSourceCache" data-uid="FoundationaLLM.Management.API.Controllers.CachesController.ClearDataSourceCache">
   ClearDataSourceCache()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Clears the datasource cache from the relevant downstream services.</p>
@@ -799,7 +799,7 @@ public Task&lt;APICacheRefreshResult&gt; ClearDataSourceCache()</code></pre>
 
   <h3 id="FoundationaLLM_Management_API_Controllers_CachesController_ClearPromptCache" data-uid="FoundationaLLM.Management.API.Controllers.CachesController.ClearPromptCache">
   ClearPromptCache()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L62"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Clears the prompt cache from the relevant downstream services.</p>
@@ -832,7 +832,7 @@ public Task&lt;APICacheRefreshResult&gt; ClearPromptCache()</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L19" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/CachesController.cs/#L20" class="edit-link">Edit this page</a>
         </div>
 
 

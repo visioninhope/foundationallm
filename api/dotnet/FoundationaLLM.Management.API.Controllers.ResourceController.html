@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class ConfigurationsController | FoundationaLLM </title>
+      <title>Class ResourceController | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ConfigurationsController | FoundationaLLM ">
+      <meta name="title" content="Class ResourceController | FoundationaLLM ">
       
-      <meta name="description" content="Provides methods for interacting with the Configuration Management service.">
+      <meta name="description" content="Provides methods to manage resources.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Management_API_Controllers_ConfigurationsController.md&amp;value=---%0Auid%3A%20FoundationaLLM.Management.API.Controllers.ConfigurationsController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Management_API_Controllers_ResourceController.md&amp;value=---%0Auid%3A%20FoundationaLLM.Management.API.Controllers.ResourceController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,12 +84,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController">
+        <article data-uid="FoundationaLLM.Management.API.Controllers.ResourceController">
 
 
 
-  <h1 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController" class="text-break">
-Class ConfigurationsController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Management_API_Controllers_ResourceController" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController" class="text-break">
+Class ResourceController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,7 +97,7 @@ Class ConfigurationsController  <a class="header-action link-secondary" title="V
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Management.API.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides methods for interacting with the Configuration Management service.</p>
+  <div class="markdown summary"><p>Provides methods to manage resources.</p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -106,8 +106,8 @@ Class ConfigurationsController  <a class="header-action link-secondary" title="V
 [Authorize(Policy = &quot;RequiredScope&quot;)]
 [ApiVersion(1, null)]
 [ApiController]
-[Route(&quot;instances/{instanceId}/providersX/FoundationaLLM.Configuration/configurations&quot;)]
-public class ConfigurationsController : ControllerBase</code></pre>
+[Route(&quot;instances/{instanceId}/providers/{resourceProvider}&quot;)]
+public class ResourceController : Controller, IActionFilter, IAsyncActionFilter, IFilterMetadata, IDisposable</code></pre>
   </div>
 
 
@@ -118,15 +118,91 @@ public class ConfigurationsController : ControllerBase</code></pre>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controllerbase">ControllerBase</a></div>
-      <div><span class="xref">ConfigurationsController</span></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller">Controller</a></div>
+      <div><span class="xref">ResourceController</span></div>
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.filters.iactionfilter">IActionFilter</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncactionfilter">IAsyncActionFilter</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.filters.ifiltermetadata">IFilterMetadata</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.view#microsoft-aspnetcore-mvc-controller-view">Controller.View()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.view#microsoft-aspnetcore-mvc-controller-view(system-string)">Controller.View(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.view#microsoft-aspnetcore-mvc-controller-view(system-object)">Controller.View(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.view#microsoft-aspnetcore-mvc-controller-view(system-string-system-object)">Controller.View(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.partialview#microsoft-aspnetcore-mvc-controller-partialview">Controller.PartialView()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.partialview#microsoft-aspnetcore-mvc-controller-partialview(system-string)">Controller.PartialView(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.partialview#microsoft-aspnetcore-mvc-controller-partialview(system-object)">Controller.PartialView(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.partialview#microsoft-aspnetcore-mvc-controller-partialview(system-string-system-object)">Controller.PartialView(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewcomponent#microsoft-aspnetcore-mvc-controller-viewcomponent(system-string)">Controller.ViewComponent(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewcomponent#microsoft-aspnetcore-mvc-controller-viewcomponent(system-type)">Controller.ViewComponent(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewcomponent#microsoft-aspnetcore-mvc-controller-viewcomponent(system-string-system-object)">Controller.ViewComponent(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewcomponent#microsoft-aspnetcore-mvc-controller-viewcomponent(system-type-system-object)">Controller.ViewComponent(Type, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.json#microsoft-aspnetcore-mvc-controller-json(system-object)">Controller.Json(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.json#microsoft-aspnetcore-mvc-controller-json(system-object-system-object)">Controller.Json(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.onactionexecuting">Controller.OnActionExecuting(ActionExecutingContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.onactionexecuted">Controller.OnActionExecuted(ActionExecutedContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.onactionexecutionasync">Controller.OnActionExecutionAsync(ActionExecutingContext, ActionExecutionDelegate)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.dispose#microsoft-aspnetcore-mvc-controller-dispose">Controller.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.dispose#microsoft-aspnetcore-mvc-controller-dispose(system-boolean)">Controller.Dispose(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewdata">Controller.ViewData</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.tempdata">Controller.TempData</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewbag">Controller.ViewBag</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.statuscode#microsoft-aspnetcore-mvc-controllerbase-statuscode(system-int32)">ControllerBase.StatusCode(int)</a>
     </div>
@@ -679,35 +755,34 @@ public class ConfigurationsController : ControllerBase</code></pre>
 
 
 
-  <h2 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>Constructor for the Configurations Controller.</p>
-</div>
 
 
   <h2 class="section" id="constructors">Constructors
 </h2>
 
 
-  <a id="FoundationaLLM_Management_API_Controllers_ConfigurationsController__ctor_" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.#ctor*"></a>
+  <a id="FoundationaLLM_Management_API_Controllers_ResourceController__ctor_" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController__ctor_FoundationaLLM_Management_Interfaces_IConfigurationManagementService_" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.#ctor(FoundationaLLM.Management.Interfaces.IConfigurationManagementService)">
-  ConfigurationsController(IConfigurationManagementService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Management_API_Controllers_ResourceController__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Management_API_Controllers_ResourceController__" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Management.API.Controllers.ResourceController})">
+  ResourceController(IEnumerable&lt;IResourceProviderService&gt;, ILogger&lt;ResourceController&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Provides methods for interacting with the Configuration Management service.</p>
+  <div class="markdown level1 summary"><p>Provides methods to manage resources.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ConfigurationsController(IConfigurationManagementService configurationManagementService)</code></pre>
+    <pre><code class="lang-csharp hljs">public ResourceController(IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices, ILogger&lt;ResourceController&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>configurationManagementService</code> <a class="xref" href="FoundationaLLM.Management.Interfaces.IConfigurationManagementService.html">IConfigurationManagementService</a></dt>
-    <dd><p>The Configuration Management service
-provides methods for managing configurations for FoundationaLLM.</p>
+    <dt><code>resourceProviderServices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a>&gt;</dt>
+    <dd><p>The list of <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a> resource providers.</p>
+</dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Management.API.Controllers.ResourceController.html">ResourceController</a>&gt;</dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a> used for logging.</p>
 </dd>
   </dl>
 
@@ -718,9 +793,6 @@ provides methods for managing configurations for FoundationaLLM.</p>
 
 
 
-  <h4 class="section" id="FoundationaLLM_Management_API_Controllers_ConfigurationsController__ctor_FoundationaLLM_Management_Interfaces_IConfigurationManagementService__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Constructor for the Configurations Controller.</p>
-</div>
 
 
 
@@ -729,97 +801,38 @@ provides methods for managing configurations for FoundationaLLM.</p>
 </h2>
 
 
-  <a id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_GetAgentHints_" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.GetAgentHints*"></a>
+  <a id="FoundationaLLM_Management_API_Controllers_ResourceController_DeleteResource_" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.DeleteResource*"></a>
 
-  <h3 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_GetAgentHints" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.GetAgentHints">
-  GetAgentHints()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Management_API_Controllers_ResourceController_DeleteResource_System_String_System_String_System_String_" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.DeleteResource(System.String,System.String,System.String)">
+  DeleteResource(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Returns the configuration for global agent hints and feature setting.</p>
+  <div class="markdown level1 summary"><p>Deletes a resource.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpGet(&quot;agentHints&quot;, Name = &quot;GetAgentHints&quot;)]
-public Task&lt;AgentHints&gt; GetAgentHints()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.html">AgentHints</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_GetBrandingConfigurations_" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.GetBrandingConfigurations*"></a>
-
-  <h3 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_GetBrandingConfigurations" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.GetBrandingConfigurations">
-  GetBrandingConfigurations()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L31"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Returns the branding configuration from app configuration.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpGet(&quot;branding&quot;, Name = &quot;GetBrandingConfigurations&quot;)]
-public Task&lt;ClientBrandingConfiguration&gt; GetBrandingConfigurations()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html">ClientBrandingConfiguration</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_UpdateAgentHints_" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.UpdateAgentHints*"></a>
-
-  <h3 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_UpdateAgentHints_FoundationaLLM_Management_Models_Configuration_Agents_AgentHints_" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.UpdateAgentHints(FoundationaLLM.Management.Models.Configuration.Agents.AgentHints)">
-  UpdateAgentHints(AgentHints)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L65"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Updates the configuration for global agent hints and feature setting.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPut(&quot;agentHints&quot;, Name = &quot;UpdateAgentHints&quot;)]
-public Task UpdateAgentHints(AgentHints agentHints)</code></pre>
+    <pre><code class="lang-csharp hljs">[HttpDelete(&quot;{*resourcePath}&quot;, Name = &quot;DeleteResource&quot;)]
+public Task&lt;IActionResult&gt; DeleteResource(string instanceId, string resourceProvider, string resourcePath)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>agentHints</code> <a class="xref" href="FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.html">AgentHints</a></dt>
-    <dd></dd>
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance identifier.</p>
+</dd>
+    <dt><code>resourceProvider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the resource provider that should handle the request.</p>
+</dd>
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The logical path of the resource type.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -833,31 +846,86 @@ public Task UpdateAgentHints(AgentHints agentHints)</code></pre>
 
 
 
-  <a id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_UpdateBrandingConfigurations_" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.UpdateBrandingConfigurations*"></a>
+  <a id="FoundationaLLM_Management_API_Controllers_ResourceController_GetResources_" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.GetResources*"></a>
 
-  <h3 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_UpdateBrandingConfigurations_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.UpdateBrandingConfigurations(FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration)">
-  UpdateBrandingConfigurations(ClientBrandingConfiguration)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Management_API_Controllers_ResourceController_GetResources_System_String_System_String_System_String_" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.GetResources(System.String,System.String,System.String)">
+  GetResources(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Updates the branding configuration in app configuration.</p>
+  <div class="markdown level1 summary"><p>Gets one or more resources.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPut(&quot;branding&quot;, Name = &quot;UpdateBrandingConfigurations&quot;)]
-public Task UpdateBrandingConfigurations(ClientBrandingConfiguration brandingConfiguration)</code></pre>
+    <pre><code class="lang-csharp hljs">[HttpGet(&quot;{*resourcePath}&quot;, Name = &quot;GetResources&quot;)]
+public Task&lt;IActionResult&gt; GetResources(string instanceId, string resourceProvider, string resourcePath)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>brandingConfiguration</code> <a class="xref" href="FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html">ClientBrandingConfiguration</a></dt>
-    <dd></dd>
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance identifier.</p>
+</dd>
+    <dt><code>resourceProvider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the resource provider that should handle the request.</p>
+</dd>
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The logical path of the resource type.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Management_API_Controllers_ResourceController_UpsertResource_" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.UpsertResource*"></a>
+
+  <h3 id="FoundationaLLM_Management_API_Controllers_ResourceController_UpsertResource_System_String_System_String_System_String_System_Object_" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.UpsertResource(System.String,System.String,System.String,System.Object)">
+  UpsertResource(string, string, string, object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates or updates resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[HttpPost(&quot;{*resourcePath}&quot;, Name = &quot;UpsertResource&quot;)]
+public Task&lt;IActionResult&gt; UpsertResource(string instanceId, string resourceProvider, string resourcePath, object serializedResource)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance identifier.</p>
+</dd>
+    <dt><code>resourceProvider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the resource provider that should handle the request.</p>
+</dd>
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The logical path of the resource type.</p>
+</dd>
+    <dt><code>serializedResource</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The serialized resource to be created or updated.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -875,7 +943,7 @@ public Task UpdateBrandingConfigurations(ClientBrandingConfiguration brandingCon
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L20" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L14" class="edit-link">Edit this page</a>
         </div>
 
 
