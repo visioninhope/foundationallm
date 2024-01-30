@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 
+import { getMsalInstance } from '@/js/auth';
 import type {
 	AgentDataSource,
 	AgentIndex,
@@ -26,6 +27,32 @@ export default {
 		this.instanceId = instanceId;
 	},
 
+	async getBearerToken() {
+		if (this.bearerToken) return this.bearerToken;
+
+		const msalInstance = await getMsalInstance();
+		const accounts = msalInstance.getAllAccounts();
+		const account = accounts[0];
+		const bearerToken = await msalInstance.acquireTokenSilent({ account });
+
+		this.bearerToken = bearerToken.accessToken;
+		return this.bearerToken;
+	},
+
+	async fetch(url: string, opts: any = {}) {
+		const options = opts;
+		options.headers = opts.headers || {};
+
+		// if (options?.query) {
+		// 	url += '?' + (new URLSearchParams(options.query)).toString();
+		// }
+
+		const bearerToken = await this.getBearerToken();
+		options.headers['Authorization'] = `Bearer ${bearerToken}`;
+
+		return await $fetch(`${this.apiUrl}${url}`, options);
+	},
+
 	async getConfigValue(key: string) {
 		return await $fetch(`/api/config/`, {
 			params: {
@@ -35,12 +62,12 @@ export default {
 	},
 
 	async getAgentDataSources(): Promise<AgentDataSource[]> {
-		await wait(this.mockLoadTime);
-		return mockGetAgentDataSourcesResponse;
+		const data = JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`));
+		return data.map(source => ({ ...source, Formats: ['pdf', 'txt'] }));
 	},
 
 	async getAgentIndexes(): Promise<AgentIndex[]> {
-		return JSON.parse(await $fetch(`${this.apiUrl}/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`));
+		return JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`));
 	},
 
 	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
@@ -49,7 +76,7 @@ export default {
 	},
 
 	async createAgent(request: CreateAgentRequest): Promise<void> {
-		return await $fetch(`${this.apiUrl}/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${request.name}?api-version=${this.apiVersion}`, {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${request.name}?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: request,
 		});

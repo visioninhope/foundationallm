@@ -1,23 +1,19 @@
 <template>
-	<main>
+	<main :style="style">
 		<Head>
 			<Title>{{ pageTitle }}</Title>
 			<Meta name="description" :content="pageTitle" />
 		</Head>
 
-		<div class="wrapper" :style="style">
-			<Sidebar />
-			<div class="page">
-				<NuxtPage />
-				<Toast position="top-center" />
-			</div>
-		</div>
+		<NuxtLayout>
+			<NuxtPage  />
+		</NuxtLayout>
+
+		<Toast position="top-center" />
 	</main>
 </template>
 
 <script lang="ts">
-import { mapStores } from 'pinia';
-
 export default {
 	data() {
 		return {
