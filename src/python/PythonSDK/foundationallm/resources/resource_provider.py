@@ -50,6 +50,7 @@ class ResourceProvider:
                 full_path = None
                 if resource_type == "indexingprofiles":
                     full_path = f"{provider_type}/vectorization-indexing-profiles.json"
+
                 elif resource_type == "textembeddingprofiles":
                     full_path = f"{provider_type}/vectorization-text-embedding-profiles.json"
 
