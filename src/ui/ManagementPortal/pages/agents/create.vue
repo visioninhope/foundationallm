@@ -17,10 +17,12 @@
 			<!-- Type -->
 			<div class="step-section-header span-2">Type</div>
 
+			<div class="step__header span-2">What type of agent?</div>
+
+			<!-- Knowledge management agent -->
 			<div class="step">
-				<div class="step__header">What type of agent?</div>
 				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('knowledge-management')">
-					<div class="step-container__view">
+					<div class="step-container__edit__inner">
 						<div class="step__radio">
 							<RadioButton v-model="agentType" name="agentType" value="knowledge-management" />
 							<div class="step-container__header">Knowledge Management</div>
@@ -30,10 +32,10 @@
 				</div>
 			</div>
 
+			<!-- Analytics agent-->
 			<div class="step">
-				<div class="step__header" style="visibility: hidden;">What type of agent?</div>
 				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('analytics')">
-					<div class="step-container__view">
+					<div class="step-container__edit__inner">
 						<div class="step__radio">
 							<RadioButton v-model="agentType" name="agentType" value="analytics" />
 							<div class="step-container__header">Analytics</div>
@@ -43,20 +45,34 @@
 				</div>
 			</div>
 
+
 			<!-- Knowledge source -->
 			<div class="step-section-header span-2">Knowledge Source</div>
 
-			<div class="step">
-				<div class="step__header">Where is the data?</div>
-				<div class="step-container" @click="editDataSource = true">
-					<!-- Options -->
-					<div
-						v-if="editDataSource"
-						class="step-container__edit-dropdown"
-						tabindex="0"
-						@focusout="editDataSource = false"
-					>
-						<div class="step-container__edit__header">Please select a data source.</div>
+			<div class="step__header">Where is the data?</div>
+			<div class="step__header">Where should the data be indexed?</div>
+
+			<!-- Data source -->
+			<CreateAgentStepItem v-model="editDataSource">
+				<template v-if="selectedDataSource">
+					<div class="step-container__header">Blob Storage</div>
+					<div>
+						<span class="step-option__header">Storage account name:</span>
+						<span>{{ selectedDataSource.Name }}</span>
+					</div>
+					<div>
+						<span class="step-option__header">Container name:</span>
+						<span>{{ selectedDataSource.Container.Name }}</span>
+					</div>
+					<div>
+						<span class="step-option__header">Data Format(s):</span>
+						<span v-for="(format, index) in selectedDataSource.Container.Formats" class="mr-1">{{ format }}</span>
+					</div>
+				</template>
+				<template v-else>Please select a data source.</template>
+
+				<template #edit>
+					<div class="step-container__edit__header">Please select a data source.</div>
 						<div
 							v-for="dataSource in dataSources"
 							:key="dataSource.Name"
@@ -80,305 +96,220 @@
 								<span v-for="(format, index) in dataSource.Container.Formats" class="mr-1">{{ format }}</span>
 							</div>
 						</div>
-					</div>
+				</template>
+			</CreateAgentStepItem>
 
-					<!-- Selected option -->
-					<div class="step-container__view">
-						<template v-if="selectedDataSource">
-							<div class="step-container__header">Blob Storage</div>
-							<div>
-								<span class="step-option__header">Storage account name:</span>
-								<span>{{ selectedDataSource.Name }}</span>
-							</div>
-							<div>
-								<span class="step-option__header">Container name:</span>
-								<span>{{ selectedDataSource.Container.Name }}</span>
-							</div>
-							<div>
-								<span class="step-option__header">Data Format(s):</span>
-								<span v-for="(format, index) in selectedDataSource.Container.Formats" class="mr-1">{{ format }}</span>
-							</div>
-						</template>
-						<template v-else>Please select a data source.</template>
+			<!-- Index source -->
+			<CreateAgentStepItem v-model="editIndexSource">
+				<template v-if="selectedIndexSource">
+					<div class="step-container__header">{{ selectedIndexSource.Name }}</div>
+					<div>
+						<span class="step-option__header">URL:</span>
+						<span>{{ selectedIndexSource.ConfigurationReferences.Endpoint }}</span>
 					</div>
-				</div>
-			</div>
+					<div>
+						<span class="step-option__header">Index Name:</span>
+						<span>{{ selectedIndexSource.Settings.IndexName }}</span>
+					</div>
+				</template>
+				<template v-else>Please select an index source.</template>
 
-			<div class="step">
-				<div class="step__header">Where should the data be indexed?</div>
-				<div class="step-container" @click="handleIndexSourceClicked">
-					<!-- Options -->
+				<template #edit>
+					<div class="step-container__edit__header">Please select an index source.</div>
 					<div
-						v-if="editIndexSources"
-						class="step-container__edit-dropdown"
-						tabindex="0"
-						@focusout="editIndexSources = false"
+						v-for="indexSource in indexSources"
+						:key="indexSource.Name"
+						class="step-container__edit__option"
+						:class="{
+							'step-container__edit__option--selected':
+								indexSource.Name === selectedIndexSource?.Name,
+						}"
+						@click.stop="handleIndexSourceSelected(indexSource)"
 					>
-						<div class="step-container__edit__header">Please select an index source.</div>
-						<div
-							v-for="indexSource in indexSources"
-							:key="indexSource.Name"
-							class="step-container__edit__option"
-							:class="{
-								'step-container__edit__option--selected':
-									indexSource.Name === selectedIndexSource?.Name,
-							}"
-							@click.stop="handleIndexSourceSelected(indexSource)"
-						>
-							<div class="step-container__header">{{ indexSource.Name }}</div>
-							<div>
-								<span class="step-option__header">URL:</span>
-								<span>{{ indexSource.ConfigurationReferences.Endpoint }}</span>
-							</div>
-							<div>
-								<span class="step-option__header">Index Name:</span>
-								<span>{{ indexSource.Settings.IndexName }}</span>
-							</div>
+						<div class="step-container__header">{{ indexSource.Name }}</div>
+						<div>
+							<span class="step-option__header">URL:</span>
+							<span>{{ indexSource.ConfigurationReferences.Endpoint }}</span>
+						</div>
+						<div>
+							<span class="step-option__header">Index Name:</span>
+							<span>{{ indexSource.Settings.IndexName }}</span>
 						</div>
 					</div>
+				</template>
+			</CreateAgentStepItem>
 
-					<!-- Selected option -->
-					<div class="step-container__view">
-						<template v-if="selectedIndexSource">
-							<div class="step-container__header">{{ selectedIndexSource.Name }}</div>
-							<div>
-								<span class="step-option__header">URL:</span>
-								<span>{{ selectedIndexSource.ConfigurationReferences.Endpoint }}</span>
-							</div>
-							<div>
-								<span class="step-option__header">Index Name:</span>
-								<span>{{ selectedIndexSource.Settings.IndexName }}</span>
-							</div>
-						</template>
-						<template v-else>Please select an index source.</template>
-					</div>
+			<div class="step__header">How should the data be processed for indexing?</div>
+			<div class="step__header">When should the data be indexed?</div>
+
+			<!-- Process indexing -->
+			<CreateAgentStepItem>
+				<div class="step-container__header">Splitting & Chunking</div>
+				
+				<div>
+					<span class="step-option__header">Chunk size:</span>
+					<span>{{ chunkSize }}</span>
 				</div>
-			</div>
-
-			<div class="step">
-				<div class="step__header">How should the data be processed for indexing?</div>
-				<div class="step-container">
-					<!-- Options -->
-					<div
-						v-if="editProcessing"
-						class="step-container__edit"
-						tabindex="0"
-					>
-						<div class="step-container__header">Splitting & Chunking</div>
-						<div>
-							<span class="step-option__header">Chunk size:</span>
-							<InputText type="number" v-model="chunkSize" class="mt-2" />
-						</div>
-						<div>
-							<span class="step-option__header">Overlap size:</span>
-							<InputText type="number" v-model="overlapSize" class="mt-2" />
-						</div>
-
-						<div class="d-flex justify-content-end">
-							<Button
-								class="primary-button mt-2"
-								label="Done"
-								@click="editProcessing = false"
-							/>
-						</div>
-					</div>
-
-					<!-- Select option -->
-					<div class="step-container__view" @click="editProcessing = true">
-						<div class="step-container__header">Splitting & Chunking</div>
-						<div>
-							<span class="step-option__header">Chunk size:</span>
-							<span>{{ chunkSize }}</span>
-						</div>
-						<div>
-							<span class="step-option__header">Overlap size:</span>
-							<span>{{ overlapSize == 0 ? 'No Overlap' : overlapSize }}</span>
-						</div>
-					</div>
+				
+				<div>
+					<span class="step-option__header">Overlap size:</span>
+					<span>{{ overlapSize == 0 ? 'No Overlap' : overlapSize }}</span>
 				</div>
-			</div>
 
-			<div class="step">
-				<div class="step__header">When should the data be indexed?</div>
-				<div class="step-container">
-					<!-- Options -->
-					<div
-						v-if="editTrigger"
-						class="step-container__edit"
-						tabindex="0"
-					>
-						<div class="step-container__header">Trigger</div>
-						<div>Runs every time a new tile is added to the data source.</div>
-						<div>
-							<div class="mt-2">
-								<span class="step-option__header">Frequency:</span>
-								<Dropdown
-									v-model="triggerFrequency"
-									class="dropdown--agent"
-									:options="triggerFrequencyOptions"
-									option-label="label"
-									placeholder="--Select--"
-								/>
-							</div>
-
-							<div v-if="triggerFrequency.value === 2" class="mt-2">
-								<span class="step-option__header">Select schedule:</span>
-								<Dropdown
-									v-model="triggerFrequencyScheduled"
-									class="dropdown--agent"
-									:options="triggerFrequencyScheduledOptions"
-									option-label="label"
-									placeholder="--Select--"
-								/>
-							</div>
-						</div>
-
-						<div class="d-flex justify-content-end">
-							<Button
-								class="primary-button mt-2"
-								label="Done"
-								@click="editTrigger = false"
-							/>
-						</div>
+				<template #edit>
+					<div class="step-container__header">Splitting & Chunking</div>
+					
+					<div>
+						<span class="step-option__header">Chunk size:</span>
+						<InputText type="number" v-model="chunkSize" class="mt-2" />
 					</div>
-
-					<!-- Select option -->
-					<div class="step-container__view" @click="editTrigger = true">
-						<div class="step-container__header">Trigger</div>
-						<div>Runs every time a new tile is added to the data source.</div>
-						<div class="mt-2">
-							<span class="step-option__header">Frequency:</span>
-							<span>{{ triggerFrequency.label }}</span>
-						</div>
-
-						<div v-if="triggerFrequency.value == 2 && triggerFrequencyScheduled">
-							<span class="step-option__header">Schedule:</span>
-							<span>{{ triggerFrequencyScheduled.label }}</span>
-						</div>
+					
+					<div>
+						<span class="step-option__header">Overlap size:</span>
+						<InputText type="number" v-model="overlapSize" class="mt-2" />
 					</div>
+				</template>
+			</CreateAgentStepItem>
+
+			<!-- Trigger -->
+			<CreateAgentStepItem>
+				<div class="step-container__header">Trigger</div>
+				<div>Runs every time a new tile is added to the data source.</div>
+				
+				<div class="mt-2">
+					<span class="step-option__header">Frequency:</span>
+					<span>{{ triggerFrequency.label }}</span>
 				</div>
-			</div>
+
+				<div v-if="triggerFrequency.value == 2 && triggerFrequencyScheduled">
+					<span class="step-option__header">Schedule:</span>
+					<span>{{ triggerFrequencyScheduled.label }}</span>
+				</div>
+
+				<template #edit>
+					<div class="step-container__header">Trigger</div>
+					<div>Runs every time a new tile is added to the data source.</div>
+					
+					<div class="mt-2">
+						<span class="step-option__header">Frequency:</span>
+						<Dropdown
+							v-model="triggerFrequency"
+							class="dropdown--agent"
+							:options="triggerFrequencyOptions"
+							option-label="label"
+							placeholder="--Select--"
+						/>
+					</div>
+
+					<div v-if="triggerFrequency.value === 2" class="mt-2">
+						<span class="step-option__header">Select schedule:</span>
+						<Dropdown
+							v-model="triggerFrequencyScheduled"
+							class="dropdown--agent"
+							:options="triggerFrequencyScheduledOptions"
+							option-label="label"
+							placeholder="--Select--"
+						/>
+					</div>
+				</template>
+			</CreateAgentStepItem>
+
 
 			<!-- Agent configuration -->
 			<div class="step-section-header span-2">Agent Configuration</div>
 
+			<div class="step__header">Should conversations be saved?</div>
+			<div class="step__header">How should user-agent interactions be gated?</div>
+
 			<!-- Conversation history -->
-			<div class="step">
-				<div class="step__header">Should conversations be saved?</div>
-				<div class="step-container">
-					<!-- Options -->
-					<div
-						v-if="editConversationHistory"
-						class="step-container__edit"
-					>
-						<div class="step-container__header">Conversation History</div>
-						<div class="d-flex align-center">
-							<span class="step-option__header">Enabled:</span>
-							<span>
-								<ToggleButton v-model="conversationHistory" style="padding: 4px; padding-top: 0px; padding-bottom: 0px;" onLabel="Yes" onIcon="pi pi-check-circle" offLabel="No" offIcon="pi pi-times-circle" />
-							</span>
-						</div>
-
-						<div class="d-flex justify-content-end">
-							<Button
-								class="primary-button mt-2"
-								label="Done"
-								@click="editConversationHistory = false"
-							/>
-						</div>
-					</div>
-
-					<!-- Select option -->
-					<div class="step-container__view" @click="editConversationHistory = true">
-						<div class="step-container__header">Conversation History</div>
-						<div>
-							<span class="step-option__header">Enabled:</span>
-							<span>
-								<span>{{ conversationHistory ? 'Yes' : 'No' }}</span>
-								<span v-if="conversationHistory" class="pi pi-check-circle ml-1" style="color: var(--green-400); font-size: 0.8rem;"></span>
-								<span v-else class="pi pi-times-circle ml-1" style="color: var(--red-400); font-size: 0.8rem;"></span>
-							</span>
-						</div>
-					</div>
+			<CreateAgentStepItem>
+				<div class="step-container__header">Conversation History</div>
+				
+				<div>
+					<span class="step-option__header">Enabled:</span>
+					<span>
+						<span>{{ conversationHistory ? 'Yes' : 'No' }}</span>
+						<span v-if="conversationHistory" class="pi pi-check-circle ml-1" style="color: var(--green-400); font-size: 0.8rem;"></span>
+						<span v-else class="pi pi-times-circle ml-1" style="color: var(--red-400); font-size: 0.8rem;"></span>
+					</span>
 				</div>
-			</div>
 
-			<div class="step">
-				<div class="step__header">How should user-agent interactions be gated?</div>
-				<div class="step-container">
-					<!-- Options -->
-					<div
-						v-if="editGatekeeper"
-						class="step-container__edit"
-						tabindex="0"
-					>
-						<div class="step-container__header">Gatekeeper</div>
-						<div>
-							<span class="step-option__header">Enabled:</span>
-							<span>
-								<ToggleButton v-model="gatekeeperEnabled" style="padding: 4px; padding-top: 0px; padding-bottom: 0px;" onLabel="Yes" onIcon="pi pi-check-circle" offLabel="No" offIcon="pi pi-times-circle" />
-							</span>
-						</div>
-						<div class="mt-2">
-							<span class="step-option__header">Content Safety:</span>
-							<Dropdown
-								v-model="gatekeeperContentSafety"
-								class="dropdown--agent"
-								:options="gatekeeperContentSafetyOptions"
-								option-label="label"
-								placeholder="--Select--"
-							/>
-							<!-- <span>Azure Content Safety</span> -->
-						</div>
-						<div class="mt-2">
-							<span class="step-option__header">Data Protection:</span>
-							<!-- <span>Microsoft Presidio</span> -->
-							<Dropdown
-								v-model="gatekeeperDataProtection"
-								class="dropdown--agent"
-								:options="gatekeeperDataProtectionOptions"
-								option-label="label"
-								placeholder="--Select--"
-							/>
-						</div>
-
-						<div class="d-flex justify-content-end">
-							<Button
-								class="primary-button mt-2"
-								label="Done"
-								@click="editGatekeeper = false"
-							/>
-						</div>
+				<template #edit>
+					<div class="step-container__header">Conversation History</div>
+					
+					<div class="d-flex align-center mt-2">
+						<span class="step-option__header">Enabled:</span>
+						<span>
+							<ToggleButton v-model="conversationHistory" onLabel="Yes" onIcon="pi pi-check-circle" offLabel="No" offIcon="pi pi-times-circle" />
+						</span>
 					</div>
+				</template>
+			</CreateAgentStepItem>
 
-					<!-- Select option -->
-					<div class="step-container__view" @click="editGatekeeper = true">
-						<div class="step-container__header">Gatekeeper</div>
-						<div>
-							<span class="step-option__header">Enabled:</span>
-							<span>
-								<span>{{ gatekeeperEnabled ? 'Yes' : 'No' }}</span>
-								<span v-if="gatekeeperEnabled" class="pi pi-check-circle ml-1" style="color: var(--green-400); font-size: 0.8rem;"></span>
-								<span v-else class="pi pi-times-circle ml-1" style="color: var(--red-400); font-size: 0.8rem;"></span>
-							</span>
-						</div>
-						<div>
-							<span class="step-option__header">Content Safety:</span>
-							<span>{{ gatekeeperContentSafety.label }}</span>
-						</div>
-						<div>
-							<span class="step-option__header">Data Protection:</span>
-							<span>{{ gatekeeperDataProtection.label }}</span>
-						</div>
-					</div>
+			<!-- Gatekeeper -->
+			<CreateAgentStepItem>
+				<div class="step-container__header">Gatekeeper</div>
+					
+				<div>
+					<span class="step-option__header">Enabled:</span>
+					<span>
+						<span>{{ gatekeeperEnabled ? 'Yes' : 'No' }}</span>
+						<span v-if="gatekeeperEnabled" class="pi pi-check-circle ml-1" style="color: var(--green-400); font-size: 0.8rem;"></span>
+						<span v-else class="pi pi-times-circle ml-1" style="color: var(--red-400); font-size: 0.8rem;"></span>
+					</span>
 				</div>
-			</div>
+				
+				<div>
+					<span class="step-option__header">Content Safety:</span>
+					<span>{{ gatekeeperContentSafety.label }}</span>
+				</div>
+				
+				<div>
+					<span class="step-option__header">Data Protection:</span>
+					<span>{{ gatekeeperDataProtection.label }}</span>
+				</div>
+
+				<template #edit>
+					<div class="step-container__header">Gatekeeper</div>
+				
+					<div class="d-flex align-center mt-2">
+						<span class="step-option__header">Enabled:</span>
+						<span>
+							<ToggleButton v-model="gatekeeperEnabled" onLabel="Yes" onIcon="pi pi-check-circle" offLabel="No" offIcon="pi pi-times-circle" />
+						</span>
+					</div>
+					
+					<div class="mt-2">
+						<span class="step-option__header">Content Safety:</span>
+						<Dropdown
+							v-model="gatekeeperContentSafety"
+							class="dropdown--agent"
+							:options="gatekeeperContentSafetyOptions"
+							option-label="label"
+							placeholder="--Select--"
+						/>
+					</div>
+
+					<div class="mt-2">
+						<span class="step-option__header">Data Protection:</span>
+						<!-- <span>Microsoft Presidio</span> -->
+						<Dropdown
+							v-model="gatekeeperDataProtection"
+							class="dropdown--agent"
+							:options="gatekeeperDataProtectionOptions"
+							option-label="label"
+							placeholder="--Select--"
+						/>
+					</div>
+				</template>
+			</CreateAgentStepItem>
 
 			<!-- System prompt -->
 			<div class="step-section-header span-2">System Prompt</div>
 
+			<div class="step__header">What is the persona of the agent?</div>
+
 			<div class="span-2">
-				<div class="step__header">What is the persona of the agent?</div>
 				<Textarea v-model="systemPrompt" class="w-100" auto-resize rows="5" type="text" />
 			</div>
 
@@ -409,19 +340,19 @@ export default {
 
 			agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
-			dataSources: [],
 			editDataSource: false as boolean,
+			dataSources: [],
 			selectedDataSource: null as null | Object,
 
+			editIndexSource: false as boolean,
 			indexSources: [] as AgentIndex[],
-			editIndexSources: false as boolean,
 			selectedIndexSource: null as null | AgentIndex,
 
-			editProcessing: false as boolean,
+			// editProcessing: false as boolean,
 			chunkSize: 2000,
 			overlapSize: 0,
 
-			editTrigger: false as boolean,
+			// editTrigger: false as boolean,
 			triggerFrequency: { label: 'Auto', value: null },
 			triggerFrequencyOptions: [
 				{
@@ -461,10 +392,10 @@ export default {
 				},
 			],
 
-			editConversationHistory: false as boolean,
+			// editConversationHistory: false as boolean,
 			conversationHistory: false as boolean,
 
-			editGatekeeper: false as boolean,
+			// editGatekeeper: false as boolean,
 			gatekeeperEnabled: false as boolean,
 			gatekeeperContentSafety: { label: 'None', value: null },
 			gatekeeperContentSafetyOptions: [
@@ -521,13 +452,9 @@ export default {
 			this.editDataSource = false;
 		},
 
-		handleIndexSourceClicked() {
-			this.editIndexSources = true;
-		},
-
 		handleIndexSourceSelected(indexSource) {
 			this.selectedIndexSource = indexSource;
-			this.editIndexSources = false;
+			this.editIndexSource = false;
 		},
 
 		async handleCreateAgent() {
@@ -568,7 +495,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .steps {
 	display: grid;
 	grid-template-columns: minmax(auto, 50%) minmax(auto, 50%);
@@ -631,8 +558,30 @@ export default {
 }
 
 .step-container__view {
-	padding: 16px;
+	// padding: 16px;
 	height: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.step-container__view__inner {
+	padding: 16px;
+	flex-grow: 1;
+	word-break: break-word;
+}
+
+.step-container__view__arrow {
+	background-color: #e1e1e1;
+	color: rgb(150, 150, 150);
+	width: 40px;
+	min-width: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&:hover {
+		background-color: #cacaca;
+	}
 }
 
 $editStepPadding: 16px;
@@ -646,7 +595,29 @@ $editStepPadding: 16px;
 	z-index: 5;
 	box-shadow: 0 5px 20px 0 rgba(27, 29, 33, 0.2);
 	min-height: calc(100% + 4px);
+	// padding: $editStepPadding;
+	display: flex;
+	flex-direction: row;
+}
+
+.step-container__edit__inner {
 	padding: $editStepPadding;
+	flex-grow: 1;
+}
+
+.step-container__edit__arrow {
+	background-color: #e1e1e1;
+	color: rgb(150, 150, 150);
+	min-width: 40px;
+	width: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transform: rotate(180deg);
+
+	&:hover {
+		background-color: #cacaca;
+	}
 }
 
 .step-container__edit-dropdown {
@@ -669,6 +640,7 @@ $editStepPadding: 16px;
 
 .step-container__edit__option {
 	padding: $editStepPadding;
+	word-break: break-word;
 	&:hover {
 		background-color: rgba(217, 217, 217, 0.4);
 	}
