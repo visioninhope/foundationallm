@@ -16,7 +16,7 @@
 
 			<div class="span-2">
 				<div class="step-header mb-2">Agent name:</div>
-				<div class="mb-2">No special characters or spaces, dashes and underscores only.</div>
+				<div class="mb-2">No special characters or spaces, lowercase letters with dashes and underscores only.</div>
 				<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" />
 			</div>
 
@@ -489,8 +489,8 @@ export default {
 			// Remove spaces
 			let sanitizedValue = element.value.replace(/\s/g, '');
 
-			// Remove any characters that are not letters, digits, dashes, or underscores
-			sanitizedValue = sanitizedValue.replace(/[^a-zA-Z0-9-_]/g, '');
+			// Remove any characters that are not lowercase letters, digits, dashes, or underscores
+      sanitizedValue = sanitizedValue.replace(/[^a-z0-9-_]/g, '');
 
 			element.value = sanitizedValue;
 			this.agentName = sanitizedValue;
