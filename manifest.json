@@ -1152,16 +1152,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IVectorizationServiceFactory-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.yml",
       "output": {
         ".html": {
@@ -2006,26 +1996,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationProfileBase.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Vectorization.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Vectorization.html"
         }
       },
       "version": ""
@@ -4192,6 +4162,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.yml",
       "output": {
         ".html": {
@@ -4302,16 +4282,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceStore.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.yml",
       "output": {
         ".html": {
@@ -4342,10 +4312,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexingProfileStore.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html"
         }
       },
       "version": ""
@@ -4356,16 +4326,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfileStore.html"
         }
       },
       "version": ""
@@ -4392,20 +4352,20 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextSplitterType.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfileStore.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextSplitterType.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextSplitterType.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextSplitterType.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html"
         }
       },
       "version": ""
