@@ -223,10 +223,12 @@ namespace FoundationaLLM.Management.API
                     foreach (var description in descriptions)
                     {
                         var url = $"/swagger/{description.GroupName}/swagger.json";
-                        var name = description.GroupName.ToUpperInvariant();
-                        if (Environment.GetEnvironmentVariable("KUBERNETES_SERVICE_HOST") != null)
-                            url = "/management" + url;
+                        var name = description.GroupName.ToUpperInvariant();                       
                         options.SwaggerEndpoint(url, name);
+                        if (Environment.GetEnvironmentVariable("BASE_URL") != null)
+                        {
+                            options.RoutePrefix = Environment.GetEnvironmentVariable("BASE_URL")!.Replace("/","");
+                        }
                     }
 
                     options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId] } });
