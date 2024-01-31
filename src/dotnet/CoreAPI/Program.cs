@@ -73,6 +73,8 @@ namespace FoundationaLLM.Core.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_CoreAPI));
 
             builder.Services.AddAgentResourceProvider(builder.Configuration);
+            // Activate all resource providers (give them a chance to initialize).
+            builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
@@ -139,9 +141,6 @@ namespace FoundationaLLM.Core.API
             });
 
             var app = builder.Build();
-
-            // Initialize all resource provider services.
-            Common.Services.ResourceProviders.DependencyInjection.InitializeAgentResourceProvidersAsync(app.Services).GetAwaiter().GetResult();
 
             // Set the CORS policy before other middleware.
             app.UseCors(allowAllCorsOrigins);
