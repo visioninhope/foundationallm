@@ -90,7 +90,8 @@
 <p>The typical steps you have to perform when monitoring and troubleshooting vectorization in FoundationaLLM (FLLM) are:</p>
 <ol>
 <li>Check the configuration of the Vectorization API and Vectorization Worker. For more details, see <a href="vectorization-configuration.html">Configuring vectorization</a>.</li>
-<li>Check the status of the Vectorization API and Vectorization Worker(s). Ensure the services have started and initialized successfully.</li>
+<li>Check the working condition of the Vectorization API and Vectorization Worker(s). Ensure the services have started and initialized successfully.</li>
+<li>Check the status endpoints for the Core API, Vectoriation API and the Management API. You can do this by submitting a HTTP GET request to the <code>/status</code> endpoint of these APIs and validate that you get a HTTP 200 OK response with body like <code>&lt;api_name&gt; - ready</code>.</li>
 <li>Check the logs of the Vectorization API and Vectorization Worker(s) for errors. By default, the logs are written to the Azure App Insights Log Analytics Workspace deployed by FLLM.</li>
 <li>Check the definitions of the vectorization profiles used in the vectorization requests. For more details, see <a href="vectorization-profiles.html">Managing vectorization profiles</a>. Ensure all the required app configuration elements are present and have the correct values.</li>
 <li>Check the state of the vectorization requests. By default, the vectorization requests are stored in the <code>vectorization-state</code> container of the Azure Storage account deployed by FLLM.</li>
