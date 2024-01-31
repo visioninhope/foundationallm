@@ -6125,6 +6125,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "setup-guides/exposed-apis/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/exposed-apis/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "setup-guides/exposed-apis/management-api.md",
       "output": {
         ".html": {
