@@ -19,6 +19,8 @@ items:
       href: deployment/authentication/core-authentication-setup-entra.md
     - name: Management authentication setup - Microsoft Entra ID
       href: deployment/authentication/management-authentication-setup-entra.md
+    - name: Vectorization authentication setup - Microsoft Entra ID
+      href: deployment/authentication/vectorization-authentication-setup-entra.md
 - name: Development
   href: development/index.md
   items:
