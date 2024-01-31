@@ -84,6 +84,9 @@ The configuration parameters for `AzureSQLDatabase` are the following:
 
 ### Managing content source profiles
 
+This section describes how to manage content source profiles using the Management API.
+`{{baseUrl}}` is the base URL of the Management API. `{{instanceId}}` is the unique identifier of the FLLM instance.
+
 **Retrieve**
 
 ```
@@ -152,6 +155,9 @@ The configuration parameters for `TokenTextSplitter` are the following:
 
 ### Managing text partitioning profiles
 
+This section describes how to manage text partitioning profiles using the Management API.
+`{{baseUrl}}` is the base URL of the Management API. `{{instanceId}}` is the unique identifier of the FLLM instance.
+
 **Retrieve**
 
 ```
@@ -175,7 +181,6 @@ where `<text partitioning profile>` is a JSON object with the structure describe
 ```
 HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/<name>
 ```
-
 
 ## Text embedding profiles
 
@@ -221,6 +226,9 @@ The configuration parameters for `SemanticKernelTextEmbedding` are the following
 | `ConfigurationReferences.Endpoint` | The endpoint of the Azure OpenAI service. By default, this maps to the Azure OpenAI service deployed by FLLM. |
 
 ### Managing text embedding profiles
+
+This section describes how to manage text embedding profiles using the Management API.
+`{{baseUrl}}` is the base URL of the Management API. `{{instanceId}}` is the unique identifier of the FLLM instance.
 
 **Retrieve**
 
@@ -291,6 +299,9 @@ The configuration parameters for `AzureAISearchIndexer` are the following:
 | `ConfigurationReferences.Endpoint` | The endpoint of the Azure AI Search service. By default, this maps to the Azure AI Search service deployed by FLLM. |
 
 ### Managing indexing profiles
+
+This section describes how to manage indexing profiles using the Management API.
+`{{baseUrl}}` is the base URL of the Management API. `{{instanceId}}` is the unique identifier of the FLLM instance.
 
 **Retrieve**
 
