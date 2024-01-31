@@ -128,43 +128,11 @@ Interface IConfigurationManagementService  <a class="header-action link-secondar
 </h2>
 
 
-  <a id="FoundationaLLM_Management_Interfaces_IConfigurationManagementService_GetAgentHintsAsync_" data-uid="FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAgentHintsAsync*"></a>
-
-  <h3 id="FoundationaLLM_Management_Interfaces_IConfigurationManagementService_GetAgentHintsAsync" data-uid="FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAgentHintsAsync">
-  GetAgentHintsAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Management/Interfaces/IConfigurationManagementService.cs/#L14"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Retrieves a list of public agent hints from app configuration.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;List&lt;string&gt;?&gt; GetAgentHintsAsync()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
   <a id="FoundationaLLM_Management_Interfaces_IConfigurationManagementService_GetAllowAgentSelectionAsync_" data-uid="FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAllowAgentSelectionAsync*"></a>
 
   <h3 id="FoundationaLLM_Management_Interfaces_IConfigurationManagementService_GetAllowAgentSelectionAsync" data-uid="FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAllowAgentSelectionAsync">
   GetAllowAgentSelectionAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Management/Interfaces/IConfigurationManagementService.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Management/Interfaces/IConfigurationManagementService.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the allow agent selection feature flag value from app configuration.</p>
@@ -196,7 +164,7 @@ Interface IConfigurationManagementService  <a class="header-action link-secondar
 
   <h3 id="FoundationaLLM_Management_Interfaces_IConfigurationManagementService_GetBrandingConfigurationAsync" data-uid="FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetBrandingConfigurationAsync">
   GetBrandingConfigurationAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Management/Interfaces/IConfigurationManagementService.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Management/Interfaces/IConfigurationManagementService.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the branding configuration from app configuration.</p>
@@ -228,7 +196,7 @@ Interface IConfigurationManagementService  <a class="header-action link-secondar
 
   <h3 id="FoundationaLLM_Management_Interfaces_IConfigurationManagementService_SetAllowAgentSelectionAsync_System_Boolean_" data-uid="FoundationaLLM.Management.Interfaces.IConfigurationManagementService.SetAllowAgentSelectionAsync(System.Boolean)">
   SetAllowAgentSelectionAsync(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Management/Interfaces/IConfigurationManagementService.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Management/Interfaces/IConfigurationManagementService.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sets the allow agent selection feature flag value in app configuration.</p>
@@ -266,7 +234,7 @@ Interface IConfigurationManagementService  <a class="header-action link-secondar
 
   <h3 id="FoundationaLLM_Management_Interfaces_IConfigurationManagementService_SetBrandingConfiguration_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_" data-uid="FoundationaLLM.Management.Interfaces.IConfigurationManagementService.SetBrandingConfiguration(FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration)">
   SetBrandingConfiguration(ClientBrandingConfiguration)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Management/Interfaces/IConfigurationManagementService.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Management/Interfaces/IConfigurationManagementService.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sets the branding configuration in app configuration.</p>
@@ -281,45 +249,6 @@ Interface IConfigurationManagementService  <a class="header-action link-secondar
   <dl class="parameters">
     <dt><code>brandingConfiguration</code> <a class="xref" href="FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html">ClientBrandingConfiguration</a></dt>
     <dd><p>The branding configuration settings to apply.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Management_Interfaces_IConfigurationManagementService_UpdateAgentHintsAsync_" data-uid="FoundationaLLM.Management.Interfaces.IConfigurationManagementService.UpdateAgentHintsAsync*"></a>
-
-  <h3 id="FoundationaLLM_Management_Interfaces_IConfigurationManagementService_UpdateAgentHintsAsync_System_Collections_Generic_IEnumerable_System_String__" data-uid="FoundationaLLM.Management.Interfaces.IConfigurationManagementService.UpdateAgentHintsAsync(System.Collections.Generic.IEnumerable{System.String})">
-  UpdateAgentHintsAsync(IEnumerable&lt;string&gt;?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Management/Interfaces/IConfigurationManagementService.cs/#L22"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Creates or updates app configuration setting that lists the public agent hints.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task UpdateAgentHintsAsync(IEnumerable&lt;string&gt;? agentHints)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>agentHints</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd><p>Set the value to null if you wish to clear the list of
-agent hints.</p>
 </dd>
   </dl>
 

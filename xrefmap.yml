@@ -3063,12 +3063,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_AccentTextColor
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_AccentTextColor
   nameWithType: AppConfigurationKeys.FoundationaLLM_Branding_AccentTextColor
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_AllowAgentSelection
-  name: FoundationaLLM_Branding_AllowAgentSelection
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_Branding_AllowAgentSelection
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_AllowAgentSelection
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_AllowAgentSelection
-  nameWithType: AppConfigurationKeys.FoundationaLLM_Branding_AllowAgentSelection
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_BackgroundColor
   name: FoundationaLLM_Branding_BackgroundColor
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_Branding_BackgroundColor
@@ -4789,19 +4783,6 @@ references:
   fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResources(Of T)(String)
   nameWithType: IResourceProviderService.GetResources<T>(string)
   nameWithType.vb: IResourceProviderService.GetResources(Of T)(String)
-- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize
-  name: Initialize()
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_Initialize
-  commentId: M:FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize
-  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize()
-  nameWithType: IResourceProviderService.Initialize()
-- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize*
-  name: Initialize
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_Initialize_
-  commentId: Overload:FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize
-  nameWithType: IResourceProviderService.Initialize
 - uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.IsInitialized
   name: IsInitialized
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_IsInitialized
@@ -6058,19 +6039,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AccentTextColor
   nameWithType: ClientBrandingConfiguration.AccentTextColor
-- uid: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AllowAgentSelection
-  name: AllowAgentSelection
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html#FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_AllowAgentSelection
-  commentId: P:FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AllowAgentSelection
-  fullName: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AllowAgentSelection
-  nameWithType: ClientBrandingConfiguration.AllowAgentSelection
-- uid: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AllowAgentSelection*
-  name: AllowAgentSelection
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html#FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_AllowAgentSelection_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AllowAgentSelection
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AllowAgentSelection
-  nameWithType: ClientBrandingConfiguration.AllowAgentSelection
 - uid: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.BackgroundColor
   name: BackgroundColor
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html#FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_BackgroundColor
@@ -10227,19 +10195,6 @@ references:
   fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResources(Of T)(String)
   nameWithType: ResourceProviderServiceBase.GetResources<T>(string)
   nameWithType.vb: ResourceProviderServiceBase.GetResources(Of T)(String)
-- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize
-  name: Initialize()
-  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_Initialize
-  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize
-  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize()
-  nameWithType: ResourceProviderServiceBase.Initialize()
-- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize*
-  name: Initialize
-  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_Initialize_
-  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize
-  nameWithType: ResourceProviderServiceBase.Initialize
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.InitializeInternal
   name: InitializeInternal()
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_InitializeInternal
@@ -11505,15 +11460,15 @@ references:
   commentId: T:FoundationaLLM.Core.API.Controllers.UserProfilesController
   fullName: FoundationaLLM.Core.API.Controllers.UserProfilesController
   nameWithType: UserProfilesController
-- uid: FoundationaLLM.Core.API.Controllers.UserProfilesController.#ctor(FoundationaLLM.Core.Interfaces.IUserProfileService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration})
-  name: UserProfilesController(IUserProfileService, IOptions<ClientBrandingConfiguration>)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.UserProfilesController.html#FoundationaLLM_Core_API_Controllers_UserProfilesController__ctor_FoundationaLLM_Core_Interfaces_IUserProfileService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration__
-  commentId: M:FoundationaLLM.Core.API.Controllers.UserProfilesController.#ctor(FoundationaLLM.Core.Interfaces.IUserProfileService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration})
-  name.vb: New(IUserProfileService, IOptions(Of ClientBrandingConfiguration))
-  fullName: FoundationaLLM.Core.API.Controllers.UserProfilesController.UserProfilesController(FoundationaLLM.Core.Interfaces.IUserProfileService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration>)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.UserProfilesController.New(FoundationaLLM.Core.Interfaces.IUserProfileService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration))
-  nameWithType: UserProfilesController.UserProfilesController(IUserProfileService, IOptions<ClientBrandingConfiguration>)
-  nameWithType.vb: UserProfilesController.New(IUserProfileService, IOptions(Of ClientBrandingConfiguration))
+- uid: FoundationaLLM.Core.API.Controllers.UserProfilesController.#ctor(FoundationaLLM.Core.Interfaces.IUserProfileService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
+  name: UserProfilesController(IUserProfileService, IOptions<ClientBrandingConfiguration>, IEnumerable<IResourceProviderService>)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.UserProfilesController.html#FoundationaLLM_Core_API_Controllers_UserProfilesController__ctor_FoundationaLLM_Core_Interfaces_IUserProfileService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration__System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__
+  commentId: M:FoundationaLLM.Core.API.Controllers.UserProfilesController.#ctor(FoundationaLLM.Core.Interfaces.IUserProfileService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
+  name.vb: New(IUserProfileService, IOptions(Of ClientBrandingConfiguration), IEnumerable(Of IResourceProviderService))
+  fullName: FoundationaLLM.Core.API.Controllers.UserProfilesController.UserProfilesController(FoundationaLLM.Core.Interfaces.IUserProfileService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration>, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.UserProfilesController.New(FoundationaLLM.Core.Interfaces.IUserProfileService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration), System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService))
+  nameWithType: UserProfilesController.UserProfilesController(IUserProfileService, IOptions<ClientBrandingConfiguration>, IEnumerable<IResourceProviderService>)
+  nameWithType.vb: UserProfilesController.New(IUserProfileService, IOptions(Of ClientBrandingConfiguration), IEnumerable(Of IResourceProviderService))
 - uid: FoundationaLLM.Core.API.Controllers.UserProfilesController.#ctor*
   name: UserProfilesController
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.UserProfilesController.html#FoundationaLLM_Core_API_Controllers_UserProfilesController__ctor_
@@ -14604,19 +14559,6 @@ references:
   commentId: T:FoundationaLLM.Management.Interfaces.IConfigurationManagementService
   fullName: FoundationaLLM.Management.Interfaces.IConfigurationManagementService
   nameWithType: IConfigurationManagementService
-- uid: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAgentHintsAsync
-  name: GetAgentHintsAsync()
-  href: api/dotnet/FoundationaLLM.Management.Interfaces.IConfigurationManagementService.html#FoundationaLLM_Management_Interfaces_IConfigurationManagementService_GetAgentHintsAsync
-  commentId: M:FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAgentHintsAsync
-  fullName: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAgentHintsAsync()
-  nameWithType: IConfigurationManagementService.GetAgentHintsAsync()
-- uid: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAgentHintsAsync*
-  name: GetAgentHintsAsync
-  href: api/dotnet/FoundationaLLM.Management.Interfaces.IConfigurationManagementService.html#FoundationaLLM_Management_Interfaces_IConfigurationManagementService_GetAgentHintsAsync_
-  commentId: Overload:FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAgentHintsAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAgentHintsAsync
-  nameWithType: IConfigurationManagementService.GetAgentHintsAsync
 - uid: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.GetAllowAgentSelectionAsync
   name: GetAllowAgentSelectionAsync()
   href: api/dotnet/FoundationaLLM.Management.Interfaces.IConfigurationManagementService.html#FoundationaLLM_Management_Interfaces_IConfigurationManagementService_GetAllowAgentSelectionAsync
@@ -14672,22 +14614,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.SetBrandingConfiguration
   nameWithType: IConfigurationManagementService.SetBrandingConfiguration
-- uid: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.UpdateAgentHintsAsync(System.Collections.Generic.IEnumerable{System.String})
-  name: UpdateAgentHintsAsync(IEnumerable<string>?)
-  href: api/dotnet/FoundationaLLM.Management.Interfaces.IConfigurationManagementService.html#FoundationaLLM_Management_Interfaces_IConfigurationManagementService_UpdateAgentHintsAsync_System_Collections_Generic_IEnumerable_System_String__
-  commentId: M:FoundationaLLM.Management.Interfaces.IConfigurationManagementService.UpdateAgentHintsAsync(System.Collections.Generic.IEnumerable{System.String})
-  name.vb: UpdateAgentHintsAsync(IEnumerable(Of String))
-  fullName: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.UpdateAgentHintsAsync(System.Collections.Generic.IEnumerable<string>?)
-  fullName.vb: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.UpdateAgentHintsAsync(System.Collections.Generic.IEnumerable(Of String))
-  nameWithType: IConfigurationManagementService.UpdateAgentHintsAsync(IEnumerable<string>?)
-  nameWithType.vb: IConfigurationManagementService.UpdateAgentHintsAsync(IEnumerable(Of String))
-- uid: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.UpdateAgentHintsAsync*
-  name: UpdateAgentHintsAsync
-  href: api/dotnet/FoundationaLLM.Management.Interfaces.IConfigurationManagementService.html#FoundationaLLM_Management_Interfaces_IConfigurationManagementService_UpdateAgentHintsAsync_
-  commentId: Overload:FoundationaLLM.Management.Interfaces.IConfigurationManagementService.UpdateAgentHintsAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Management.Interfaces.IConfigurationManagementService.UpdateAgentHintsAsync
-  nameWithType: IConfigurationManagementService.UpdateAgentHintsAsync
 - uid: FoundationaLLM.Management.Models
   name: FoundationaLLM.Management.Models
   href: api/dotnet/FoundationaLLM.Management.Models.html
@@ -14712,19 +14638,6 @@ references:
   commentId: T:FoundationaLLM.Management.Models.Configuration.Agents.AgentHints
   fullName: FoundationaLLM.Management.Models.Configuration.Agents.AgentHints
   nameWithType: AgentHints
-- uid: FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.AllowedAgentSelection
-  name: AllowedAgentSelection
-  href: api/dotnet/FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.html#FoundationaLLM_Management_Models_Configuration_Agents_AgentHints_AllowedAgentSelection
-  commentId: P:FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.AllowedAgentSelection
-  fullName: FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.AllowedAgentSelection
-  nameWithType: AgentHints.AllowedAgentSelection
-- uid: FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.AllowedAgentSelection*
-  name: AllowedAgentSelection
-  href: api/dotnet/FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.html#FoundationaLLM_Management_Models_Configuration_Agents_AgentHints_AllowedAgentSelection_
-  commentId: Overload:FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.AllowedAgentSelection
-  isSpec: "True"
-  fullName: FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.AllowedAgentSelection
-  nameWithType: AgentHints.AllowedAgentSelection
 - uid: FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.Enabled
   name: Enabled
   href: api/dotnet/FoundationaLLM.Management.Models.Configuration.Agents.AgentHints.html#FoundationaLLM_Management_Models_Configuration_Agents_AgentHints_Enabled
@@ -15005,19 +14918,6 @@ references:
   fullName.vb: FoundationaLLM.Management.Services.ConfigurationManagementService.New
   nameWithType: ConfigurationManagementService.ConfigurationManagementService
   nameWithType.vb: ConfigurationManagementService.New
-- uid: FoundationaLLM.Management.Services.ConfigurationManagementService.GetAgentHintsAsync
-  name: GetAgentHintsAsync()
-  href: api/dotnet/FoundationaLLM.Management.Services.ConfigurationManagementService.html#FoundationaLLM_Management_Services_ConfigurationManagementService_GetAgentHintsAsync
-  commentId: M:FoundationaLLM.Management.Services.ConfigurationManagementService.GetAgentHintsAsync
-  fullName: FoundationaLLM.Management.Services.ConfigurationManagementService.GetAgentHintsAsync()
-  nameWithType: ConfigurationManagementService.GetAgentHintsAsync()
-- uid: FoundationaLLM.Management.Services.ConfigurationManagementService.GetAgentHintsAsync*
-  name: GetAgentHintsAsync
-  href: api/dotnet/FoundationaLLM.Management.Services.ConfigurationManagementService.html#FoundationaLLM_Management_Services_ConfigurationManagementService_GetAgentHintsAsync_
-  commentId: Overload:FoundationaLLM.Management.Services.ConfigurationManagementService.GetAgentHintsAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Management.Services.ConfigurationManagementService.GetAgentHintsAsync
-  nameWithType: ConfigurationManagementService.GetAgentHintsAsync
 - uid: FoundationaLLM.Management.Services.ConfigurationManagementService.GetAllowAgentSelectionAsync
   name: GetAllowAgentSelectionAsync()
   href: api/dotnet/FoundationaLLM.Management.Services.ConfigurationManagementService.html#FoundationaLLM_Management_Services_ConfigurationManagementService_GetAllowAgentSelectionAsync
@@ -15073,22 +14973,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Management.Services.ConfigurationManagementService.SetBrandingConfiguration
   nameWithType: ConfigurationManagementService.SetBrandingConfiguration
-- uid: FoundationaLLM.Management.Services.ConfigurationManagementService.UpdateAgentHintsAsync(System.Collections.Generic.IEnumerable{System.String})
-  name: UpdateAgentHintsAsync(IEnumerable<string>?)
-  href: api/dotnet/FoundationaLLM.Management.Services.ConfigurationManagementService.html#FoundationaLLM_Management_Services_ConfigurationManagementService_UpdateAgentHintsAsync_System_Collections_Generic_IEnumerable_System_String__
-  commentId: M:FoundationaLLM.Management.Services.ConfigurationManagementService.UpdateAgentHintsAsync(System.Collections.Generic.IEnumerable{System.String})
-  name.vb: UpdateAgentHintsAsync(IEnumerable(Of String))
-  fullName: FoundationaLLM.Management.Services.ConfigurationManagementService.UpdateAgentHintsAsync(System.Collections.Generic.IEnumerable<string>?)
-  fullName.vb: FoundationaLLM.Management.Services.ConfigurationManagementService.UpdateAgentHintsAsync(System.Collections.Generic.IEnumerable(Of String))
-  nameWithType: ConfigurationManagementService.UpdateAgentHintsAsync(IEnumerable<string>?)
-  nameWithType.vb: ConfigurationManagementService.UpdateAgentHintsAsync(IEnumerable(Of String))
-- uid: FoundationaLLM.Management.Services.ConfigurationManagementService.UpdateAgentHintsAsync*
-  name: UpdateAgentHintsAsync
-  href: api/dotnet/FoundationaLLM.Management.Services.ConfigurationManagementService.html#FoundationaLLM_Management_Services_ConfigurationManagementService_UpdateAgentHintsAsync_
-  commentId: Overload:FoundationaLLM.Management.Services.ConfigurationManagementService.UpdateAgentHintsAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Management.Services.ConfigurationManagementService.UpdateAgentHintsAsync
-  nameWithType: ConfigurationManagementService.UpdateAgentHintsAsync
 - uid: FoundationaLLM.Prompt
   name: FoundationaLLM.Prompt
   href: api/dotnet/FoundationaLLM.Prompt.html
