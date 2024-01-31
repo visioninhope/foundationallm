@@ -22,7 +22,7 @@ namespace FoundationaLLM.Management.API.Controllers
         [AllowAnonymous]
         [HttpGet(Name = "GetServiceStatus")]
         public IActionResult GetServiceStatus() =>
-            Ok();
+            Ok("ManagementAPI - ready");
 
         /// <summary>
         /// Returns OK if the requester is authenticated and allowed to execute

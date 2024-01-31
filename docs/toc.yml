@@ -55,15 +55,32 @@ items:
       href: setup-guides/agents/index.md
     - name: SQL database agent setup procedures
       href: setup-guides/agents/sql-database-agents.md
+  - name: Exposed APIs
+    href: setup-guides/exposed-apis/index.md
+    items:
+    - name: Exposed APIs
+      href: setup-guides/exposed-apis/index.md
+    - name: Core API
+      href: setup-guides/exposed-apis/core-api.md
+    - name: Management API
+      href: setup-guides/exposed-apis/management-api.md  
+    - name: Resource management
+      href: setup-guides/exposed-apis/resource-management/resource-management.md
+    - name: Management UI
+      href: setup-guides/exposed-apis/management-api/management-api.md
   - name: Vectorization
     href: setup-guides/vectorization/index.md
     items:
-    - name: Vectorization
-      href: setup-guides/vectorization/index.md
-    - name: Vectorization API
-      href: setup-guides/vectorization/vectorization-api.md
-    - name: Vectorization Worker
-      href: setup-guides/vectorization/vectorization-worker.md
+    - name: Vectorization concepts
+      href: setup-guides/vectorization/vectorization-concepts.md
+    - name: Configuring vectorization
+      href: setup-guides/vectorization/vectorization-configuration.md
+    - name: Managing vectorization profiles
+      href: setup-guides/vectorization/vectorization-profiles.md
+    - name: Triggering vectorization
+      href: setup-guides/vectorization/vectorization-triggering.md
+    - name: Monitoring and troubleshooting
+      href: setup-guides/vectorization/vectorization-monitoring-troubleshooting.md
 - name: Operations
   href: operations/index.md
   items:
