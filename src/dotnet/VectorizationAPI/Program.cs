@@ -221,6 +221,14 @@ builder.Services.Configure<RouteOptions>(options =>
 
 var app = builder.Build();
 
+// alternate path base for the management API - serves at root and at /BASE_URL            
+if (Environment.GetEnvironmentVariable("BASE_URL") != null)
+{
+    var relative_path = Environment.GetEnvironmentVariable("BASE_URL");
+    relative_path = relative_path!.TrimEnd('/');
+    app.UsePathBase(new PathString(relative_path));
+}
+
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI(

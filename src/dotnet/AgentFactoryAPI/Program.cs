@@ -161,6 +161,14 @@ namespace FoundationaLLM.AgentFactory.API
 
             var app = builder.Build();
 
+            // alternate path base for the management API - serves at root and at /BASE_URL            
+            if (Environment.GetEnvironmentVariable("BASE_URL") != null)
+            {
+                var relative_path = Environment.GetEnvironmentVariable("BASE_URL");
+                relative_path = relative_path!.TrimEnd('/');
+                app.UsePathBase(new PathString(relative_path));
+            }
+
             // Register the middleware to extract the user identity context and other HTTP request context data required by the downstream services.
             app.UseMiddleware<CallContextMiddleware>();
 
