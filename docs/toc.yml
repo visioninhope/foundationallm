@@ -15,11 +15,11 @@ items:
   - name: Authentication setup
     href: deployment/authentication/index.md
     items:
-    - name: Core authentication setup - Microsoft Entra ID
+    - name: Core API Authentication
       href: deployment/authentication/core-authentication-setup-entra.md
-    - name: Management authentication setup - Microsoft Entra ID
+    - name: Management API Authentication
       href: deployment/authentication/management-authentication-setup-entra.md
-    - name: Vectorization authentication setup - Microsoft Entra ID
+    - name: Vectorization API Authentication
       href: deployment/authentication/vectorization-authentication-setup-entra.md
 - name: Development
   href: development/index.md

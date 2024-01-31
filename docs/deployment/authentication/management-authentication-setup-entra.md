@@ -1,4 +1,4 @@
-# Management API and portal authentication setup: Microsoft Entra ID
+# Management API Authentication
 
 FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authentication. This means that you can use your Microsoft Entra ID account to log in to the management portal.
 
