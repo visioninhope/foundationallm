@@ -9,7 +9,7 @@ class AgentBase(ABC):
     def run(self, prompt: str) -> CompletionResponse:
         """
         Execute the agent's run method
-        
+
         Parameters
         ----------
         prompt : str
@@ -20,3 +20,11 @@ class AgentBase(ABC):
         CompletionResponse
             Returns a response containing the completion plus token usage and cost details.
         """
+
+    @abstractmethod
+    def initialize(self):
+        pass
+
+    @abstractmethod
+    def requirements(self):
+        pass
