@@ -82,6 +82,31 @@ The configuration parameters for `AzureSQLDatabase` are the following:
 | --- | --- |
 | `ConfigurationReferences.ConnectionString` | The connection string to the Azure SQL database used for the Azure SQL Database vectorization content source. |
 
+### Managing content source profiles
+
+**Retrieve**
+
+```
+HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/contentsourceprofiles
+```
+
+**Create or update**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/<name>
+Content-Type: application/json
+
+BODY
+<content source profile>
+```
+where `<content source profile>` is a JSON object with the structure described above.
+
+**Delete**
+
+```
+HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/<name>
+```
+
 ## Text partitioning profiles
 
 The structure of a text partitioning profile is the following:
@@ -125,6 +150,33 @@ The configuration parameters for `TokenTextSplitter` are the following:
 | `ChunkSizeTokens` | The maximum number of tokens in each text chunk. |
 | `OverlapSizeTokens` | The maximum number of tokens that overlap between two consecutive chunks. |
 
+### Managing text partitioning profiles
+
+**Retrieve**
+
+```
+HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles
+```
+
+**Create or update**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/<name>
+Content-Type: application/json
+
+BODY
+<text partitioning profile>
+```
+
+where `<text partitioning profile>` is a JSON object with the structure described above.
+
+**Delete**
+
+```
+HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/<name>
+```
+
+
 ## Text embedding profiles
 
 The structure of a text embedding profile is the following:
@@ -167,6 +219,32 @@ The configuration parameters for `SemanticKernelTextEmbedding` are the following
 | `ConfigurationReferences.AuthenticationType` | The authentication type used to connect to the Azure OpenAI service. Can be one of `AzureIdentity` or `APIKey`. By default, it is set to `APIKey`.|
 | `ConfigurationReferences.DeploymentName` | The name of the Azure OpenAI model deployment. The default value is `embeddings`.|
 | `ConfigurationReferences.Endpoint` | The endpoint of the Azure OpenAI service. By default, this maps to the Azure OpenAI service deployed by FLLM. |
+
+### Managing text embedding profiles
+
+**Retrieve**
+
+```
+HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles
+```
+
+**Create or update**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles/<name>
+Content-Type: application/json
+
+BODY
+<text embedding profile>
+```
+
+where `<text embedding profile>` is a JSON object with the structure described above.
+
+**Delete**
+
+```
+HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles/<name>
+```
 
 ## Indexing profiles
 
@@ -212,6 +290,31 @@ The configuration parameters for `AzureAISearchIndexer` are the following:
 | `ConfigurationReference.AuthenticationType` | The authentication type used to connect to the Azure AI Search service. Can be one of `AzureIdentity` or `APIKey`. By default, it is set to `APIKey`.|
 | `ConfigurationReferences.Endpoint` | The endpoint of the Azure AI Search service. By default, this maps to the Azure AI Search service deployed by FLLM. |
 
+### Managing indexing profiles
+
+**Retrieve**
+
+```
+HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles
+```
+
+**Create or update**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles/<name>
+Content-Type: application/json
+
+BODY
+<indexing profile>
+```
+
+where `<indexing profile>` is a JSON object with the structure described above.
+
+**Delete**
+
+```
+HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles/<name>
+```
 
 ## Additional configuration steps
 
