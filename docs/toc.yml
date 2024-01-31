@@ -66,7 +66,7 @@ items:
       href: setup-guides/vectorization/vectorization-profiles.md
     - name: Triggering vectorization
       href: setup-guides/vectorization/vectorization-triggering.md
-    - name: Vectorization monitoring and troubleshooting
+    - name: Monitoring and troubleshooting
       href: setup-guides/vectorization/vectorization-monitoring-troubleshooting.md
 - name: Operations
   href: operations/index.md
