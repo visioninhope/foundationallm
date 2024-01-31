@@ -224,6 +224,8 @@ namespace FoundationaLLM.Management.API
                     {
                         var url = $"/swagger/{description.GroupName}/swagger.json";
                         var name = description.GroupName.ToUpperInvariant();
+                        if (Environment.GetEnvironmentVariable("KUBERNETES_SERVICE_HOST") != null)
+                            url = "/management" + url;
                         options.SwaggerEndpoint(url, name);
                     }
 
