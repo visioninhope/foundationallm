@@ -6365,30 +6365,50 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "setup-guides/vectorization/vectorization-api.md",
+      "source_relative_path": "setup-guides/vectorization/vectorization-concepts.md",
       "output": {
         ".html": {
-          "relative_path": "setup-guides/vectorization/vectorization-api.html"
+          "relative_path": "setup-guides/vectorization/vectorization-concepts.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "setup-guides/vectorization/vectorization-content-sources.md",
+      "source_relative_path": "setup-guides/vectorization/vectorization-configuration.md",
       "output": {
         ".html": {
-          "relative_path": "setup-guides/vectorization/vectorization-content-sources.html"
+          "relative_path": "setup-guides/vectorization/vectorization-configuration.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "setup-guides/vectorization/vectorization-worker.md",
+      "source_relative_path": "setup-guides/vectorization/vectorization-monitoring-troubleshooting.md",
       "output": {
         ".html": {
-          "relative_path": "setup-guides/vectorization/vectorization-worker.html"
+          "relative_path": "setup-guides/vectorization/vectorization-monitoring-troubleshooting.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/vectorization/vectorization-profiles.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/vectorization/vectorization-profiles.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/vectorization/vectorization-triggering.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/vectorization/vectorization-triggering.html"
         }
       },
       "version": ""

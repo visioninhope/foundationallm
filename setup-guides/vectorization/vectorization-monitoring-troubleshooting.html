@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Vectorization API | FoundationaLLM </title>
+      <title>Monitoring and troubleshooting vectorization | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Vectorization API | FoundationaLLM ">
+      <meta name="title" content="Monitoring and troubleshooting vectorization | FoundationaLLM ">
       
       
       <link rel="icon" href="../../media/favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/vectorization/vectorization-api.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/vectorization/vectorization-monitoring-troubleshooting.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,75 +85,21 @@
         </div>
 
         <article data-uid="">
-<h1 id="vectorization-api">Vectorization API</h1>
+<h1 id="monitoring-and-troubleshooting-vectorization">Monitoring and troubleshooting vectorization</h1>
 
-<h2 id="configuration">Configuration</h2>
-<p>The following table describes the Azure artifacts required for the vectorization pipelines.</p>
-<table>
-<thead>
-<tr>
-<th>Artifact name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>vectorization-input</code></td>
-<td>Azure storage container used by default to store documents to be picked up by the vectorization pipeline. Must be created on a Data Lake storage account (with the hierarchical namespace enabled).</td>
-</tr>
-</tbody>
-</table>
-<p>The following table describes the environment variables required for the vectorization pipelines.</p>
-<table>
-<thead>
-<tr>
-<th>Environment variable</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>FoundationaLLM:AppConfig:ConnectionString</code></td>
-<td>Connection string to the Azure App Configuration instance.</td>
-</tr>
-</tbody>
-</table>
-<p>The following table describes the required configuration parameters for the vectorization pipelines.</p>
-<table>
-<thead>
-<tr>
-<th>App Configuration Key</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>FoundationaLLM:APIs:VectorizationAPI:APIUrl</code></td>
-<td></td>
-<td>The URL of the vectorization API.</td>
-</tr>
-<tr>
-<td><code>FoundationaLLM:APIs:VectorizationAPI:APIKey</code></td>
-<td>Key Vault secret name: <code>foundationallm-apis-vectorizationapi-apikey</code></td>
-<td>The API key of the vectorization API.</td>
-</tr>
-<tr>
-<td><code>FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString</code></td>
-<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
-<td>The connection string to the Application Insights instance used by the vectorization API.</td>
-</tr>
-</tbody>
-</table>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Refer to the <a href="../../app-configuration-values.md">App Configuration values</a> page for more information on how to set these and other configuration values.</p>
-</div>
+<p>The typical steps you have to perform when monitoring and troubleshooting vectorization in FoundationaLLM (FLLM) are:</p>
+<ol>
+<li>Check the configuration of the Vectorization API and Vectorization Worker. For more details, see <a href="vectorization-configuration.html">Configuring vectorization</a>.</li>
+<li>Check the status of the Vectorization API and Vectorization Worker(s). Ensure the services have started and initialized successfully.</li>
+<li>Check the logs of the Vectorization API and Vectorization Worker(s) for errors. By default, the logs are written to the Azure App Insights Log Analytics Workspace deployed by FLLM.</li>
+<li>Check the definitions of the vectorization profiles used in the vectorization requests. For more details, see <a href="vectorization-profiles.html">Managing vectorization profiles</a>. Ensure all the required app configuration elements are present and have the correct values.</li>
+<li>Check the state of the vectorization requests. By default, the vectorization requests are stored in the <code>vectorization-state</code> container of the Azure Storage account deployed by FLLM.</li>
+</ol>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/vectorization/vectorization-api.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/vectorization/vectorization-monitoring-troubleshooting.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
