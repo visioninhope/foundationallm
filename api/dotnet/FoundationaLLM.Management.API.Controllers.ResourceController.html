@@ -106,6 +106,8 @@ Class ResourceController  <a class="header-action link-secondary" title="View so
 [Authorize(Policy = &quot;RequiredScope&quot;)]
 [ApiVersion(1, null)]
 [ApiController]
+[Consumes(&quot;application/json&quot;, new string[] { })]
+[Produces(&quot;application/json&quot;, new string[] { })]
 [Route(&quot;instances/{instanceId}/providers/{resourceProvider}&quot;)]
 public class ResourceController : Controller, IActionFilter, IAsyncActionFilter, IFilterMetadata, IDisposable</code></pre>
   </div>
@@ -805,7 +807,7 @@ public class ResourceController : Controller, IActionFilter, IAsyncActionFilter,
 
   <h3 id="FoundationaLLM_Management_API_Controllers_ResourceController_DeleteResource_System_String_System_String_System_String_" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.DeleteResource(System.String,System.String,System.String)">
   DeleteResource(string, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L75"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Deletes a resource.</p>
@@ -850,7 +852,7 @@ public Task&lt;IActionResult&gt; DeleteResource(string instanceId, string resour
 
   <h3 id="FoundationaLLM_Management_API_Controllers_ResourceController_GetResources_System_String_System_String_System_String_" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.GetResources(System.String,System.String,System.String)">
   GetResources(string, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets one or more resources.</p>
@@ -895,7 +897,7 @@ public Task&lt;IActionResult&gt; GetResources(string instanceId, string resource
 
   <h3 id="FoundationaLLM_Management_API_Controllers_ResourceController_UpsertResource_System_String_System_String_System_String_System_Object_" data-uid="FoundationaLLM.Management.API.Controllers.ResourceController.UpsertResource(System.String,System.String,System.String,System.Object)">
   UpsertResource(string, string, string, object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ResourceController.cs/#L57"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates or updates resources.</p>

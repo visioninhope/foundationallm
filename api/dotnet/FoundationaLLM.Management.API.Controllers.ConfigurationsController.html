@@ -106,6 +106,8 @@ Class ConfigurationsController  <a class="header-action link-secondary" title="V
 [Authorize(Policy = &quot;RequiredScope&quot;)]
 [ApiVersion(1, null)]
 [ApiController]
+[Consumes(&quot;application/json&quot;, new string[] { })]
+[Produces(&quot;application/json&quot;, new string[] { })]
 [Route(&quot;instances/{instanceId}/providersX/FoundationaLLM.Configuration/configurations&quot;)]
 public class ConfigurationsController : ControllerBase</code></pre>
   </div>
@@ -733,7 +735,7 @@ provides methods for managing configurations for FoundationaLLM.</p>
 
   <h3 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_GetAgentHints" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.GetAgentHints">
   GetAgentHints()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the configuration for global agent hints and feature setting.</p>
@@ -766,7 +768,7 @@ public Task&lt;AgentHints&gt; GetAgentHints()</code></pre>
 
   <h3 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_GetBrandingConfigurations" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.GetBrandingConfigurations">
   GetBrandingConfigurations()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the branding configuration from app configuration.</p>
@@ -799,7 +801,7 @@ public Task&lt;ClientBrandingConfiguration&gt; GetBrandingConfigurations()</code
 
   <h3 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_UpdateAgentHints_FoundationaLLM_Management_Models_Configuration_Agents_AgentHints_" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.UpdateAgentHints(FoundationaLLM.Management.Models.Configuration.Agents.AgentHints)">
   UpdateAgentHints(AgentHints)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L67"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Updates the configuration for global agent hints and feature setting.</p>
@@ -837,7 +839,7 @@ public Task UpdateAgentHints(AgentHints agentHints)</code></pre>
 
   <h3 id="FoundationaLLM_Management_API_Controllers_ConfigurationsController_UpdateBrandingConfigurations_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_" data-uid="FoundationaLLM.Management.API.Controllers.ConfigurationsController.UpdateBrandingConfigurations(FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration)">
   UpdateBrandingConfigurations(ClientBrandingConfiguration)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementAPI/Controllers/ConfigurationsController.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Updates the branding configuration in app configuration.</p>
