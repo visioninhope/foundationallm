@@ -213,6 +213,7 @@ namespace FoundationaLLM.Management.API
                     => await Results.Problem().ExecuteAsync(context)));
 
             // Configure the HTTP request pipeline.
+            app.UseStaticFiles();
             app.UseSwagger(p => p.SerializeAsV2 = true);
             app.UseSwaggerUI(
                 options =>
@@ -227,7 +228,8 @@ namespace FoundationaLLM.Management.API
                         options.SwaggerEndpoint(url, name);
                         if (Environment.GetEnvironmentVariable("BASE_URL") != null)
                         {
-                            options.RoutePrefix = Environment.GetEnvironmentVariable("BASE_URL")!.Replace("/","");
+                            var relativeUrl = Environment.GetEnvironmentVariable("BASE_URL")!.Replace("/","");                            
+                            options.RoutePrefix = $"{relativeUrl}/swagger";
                         }
                     }
 
