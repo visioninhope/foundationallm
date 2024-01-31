@@ -2,67 +2,9 @@
 
 FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authentication, meaning that you can use Entra to protect access to the Vectorization API.
 
-## Create the Microsoft Entra ID applications
+## Create the API application
 
-To enable Microsoft Entra ID authentication for the Vectorization API, you need to create two applications in the Microsoft Azure portal:
-
-- A client application that will be used by Vectorization API clients
-- An API application that will be used by the Vectorization API to authenticate clients
-
-### Create the client application
-
-#### Register the client application in the Microsoft Entra ID admin center
-
-1. Sign in to the [Microsoft Entra ID admin center](https://entra.microsoft.com/) as at least a Cloud Application Administrator.
-2. Browse to **Identity** > **Applications** > **App registrations**.
-
-    ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
-
-3. On the page that appears, select **+ New registration**.
-4. When the **Register an application** page appears, enter a name for your application, such as *FoundationaLLM-VectorizationClient*. You should indicate that this is for the vectorization client application by appending *-VectorizationClient* to the name.
-5. Under **Supported account types**, select *Accounts in this organizational directory only*.
-6. Select **Register**.
-
-    ![The new client app registration form is displayed.](media/entra-register-vectorization-client-app.png)
-
-7. The application's **Overview** pane displays upon successful registration. Record the **Application (client) ID** and **Directory (tenant) ID** to add to your App Configuration settings later.
-
-    ![The Entra app client ID and Directory ID values are highlighted in the Overview blade.](media/entra-vectorization-client-app-overview.png)
-
-#### Add a redirect URI to the client application
-
-If you wish to [configure authentication in Postman](../../development/directly-calling-apis.md#postman-collection) for executing calls against the Vectorization API, you will need to add a **Redirect URI** under **Mobile and desktop applications** for Postman. Enter `https://oauth.pstmn.io/v1/callback` for the URI. To do this, complete the following steps:
-
-1. Under **Platform configurations**, select **Add a platform**. In the pane that opens, select **Mobile and desktop applications**.
-2. Enter `https://oauth.pstmn.io/v1/callback` for the **Custom redirect URIs** value.
-
-    ![The Authentication left-hand menu item and redirect URIs are highlighted.](media/entra-app-client-authentication-uris-postman.png)
-
-3. Select **Configure** to apply the changes.
-
-#### Client secret for the client application
-
-1. Under **Manage**, select **Certificates & secrets**.
-2. Under **Client secrets**, select **+ New client secret**.
-3. For **Description**, enter a description for the secret. For example, enter *FoundationaLLM-VectorizationClient*.
-4. Select a desired expiration date.
-5. Select **Add**.
-6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
-
-    ![The steps to create a client secret are highlighted.](media/entra-vectorization-client-app-secret.png)
-
-#### Update the client application manifest
-
-1. Under **Manage**, select **Manifest**.
-2. Locate the `accessTokenAcceptedVersion` property and set its value to `2`.
-
-    ![The accessTokenAcceptedVersion property is highlighted.](media/entra-client-app-manifest.png)
-
-3. Select **Save** at the top of the page to save the changes.
-
-### Create the API application
-
-#### Register the API application in the Microsoft Entra ID admin center
+### Register the API application in the Microsoft Entra ID admin center
 
 1. Return to the [Microsoft Entra ID admin center](https://entra.microsoft.com).
 2. Browse to **Identity** > **Applications** > **App registrations** and select **+ New registration**.
@@ -79,7 +21,7 @@ If you wish to [configure authentication in Postman](../../development/directly-
 
     ![The Entra app client ID and Directory ID values are highlighted in the Overview blade.](media/entra-vectorization-api-app-overview.png)
 
-#### Implicit grant and hybrid flows for the API application
+### Implicit grant and hybrid flows for the API application
 
 1. Select **Authentication** under **Manage** in the left-hand menu.
 2. Select **+ Add a platform** under **Platform configurations**. In the pane that opens, select **Web**.
@@ -93,7 +35,7 @@ If you wish to [configure authentication in Postman](../../development/directly-
 
     ![Both the Access tokens and ID tokens checkboxes are checked and the Save button is highlighted.](media/entra-app-client-authentication-implicit-grant.png)
 
-#### Client secret for the API application
+### Client secret for the API application
 
 1. Under **Manage**, select **Certificates & secrets**.
 2. Under **Client secrets**, select **+ New client secret**.
@@ -105,7 +47,7 @@ If you wish to [configure authentication in Postman](../../development/directly-
 5. Select **Add**.
 6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
 
-#### Expose an API for the API application
+### Expose an API for the API application
 
 1. Under **Manage**, select **Expose an API** > **Add a scope**. For **Application ID URI**, accept the default or specify a custom one, then select **Save and continue**, and then enter the following details:
    - **Scope name**: `Data.Manage`
@@ -123,16 +65,7 @@ If you wish to [configure authentication in Postman](../../development/directly-
 
    ![The new scope name is displayed with the Copy button highlighted.](media/entra-vectorization-api-app-scope-copy-name.png)
 
-#### Add authorized client application
-
-1. While still in the **Expose an API** section, select **+ Add a client application**.
-2. Paste the **Application (client) ID** of the client application that you [created earlier](#register-the-client-application-in-the-microsoft-entra-admin-center).
-3. Check the `Data.Manage` authorized scope that you created.
-4. Select **Add application** to complete the client application addition.
-
-    ![The add a client application form is displayed as described.](media/entra-vectorization-api-add-client-app.png)
-
-#### Update the API application manifest
+### Update the API application manifest
 
 1. Under **Manage**, select **Manifest**.
 2. Locate the `accessTokenAcceptedVersion` property and set its value to `2`.
@@ -140,27 +73,6 @@ If you wish to [configure authentication in Postman](../../development/directly-
     ![The accessTokenAcceptedVersion property is highlighted.](media/entra-client-app-manifest.png)
 
 3. Select **Save** at the top of the page to save the changes.
-
-### Add API permissions for the client application
-
-1. Browse to **Identity** > **Applications** > **App registrations**.
-
-    ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
-
-2. Select the `FoundationaLLM-VectorizationClient` application that you created earlier.
-3. Select **API permissions**.
-4. Select **+ Add a permission** under the "Configured permissions" section.
-5. In the "Request API permissions" pan, select the **My APIs** tab, then select the `FoundationaLLM-Vectorization` API application.
-
-    ![The FoundationaLLM API is selected under My APIs.](media/entra-app-add-vectorization-api-permission.png)
-
-6. Select the `Data.Manage` scope that you created earlier, then select **Add permissions**.
-
-    ![The Data.Manage scope is selected.](media/entra-app-add-vectorization-api-permission-scope.png)
-
-The client application's configured permissions should now look like the following:
-
-![The client application's configured permissions are displayed.](media/entra-vectorization-app-configured-permissions.png)
 
 ### Update App Configuration settings
 
