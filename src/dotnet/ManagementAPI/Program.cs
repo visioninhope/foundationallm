@@ -315,7 +315,7 @@ namespace FoundationaLLM.Management.API
                         options.SwaggerEndpoint(url, name);
                     }
 
-                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", "aa5cba99-e753-4d91-b2f8-85a6b650d022" } });
+                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId] } });
                 });
 
             app.UseHttpsRedirection();
