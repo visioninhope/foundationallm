@@ -201,8 +201,7 @@ namespace FoundationaLLM.Management.API
             // Set the CORS policy before other middleware.
             app.UseCors(allowAllCorsOrigins);
                                    
-            // alternate path base for the management API - serves at /BASE_URL
-            Environment.SetEnvironmentVariable("BASE_URL", "/management/");
+            // alternate path base for the management API - serves at /BASE_URL            
             var baseUrl = (Environment.GetEnvironmentVariable("BASE_URL") ?? "").TrimEnd('/');
             if (!string.IsNullOrWhiteSpace(baseUrl))
             {
