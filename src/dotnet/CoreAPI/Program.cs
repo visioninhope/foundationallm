@@ -185,13 +185,16 @@ namespace FoundationaLLM.Core.API
             // Set the CORS policy before other middleware.
             app.UseCors(allowAllCorsOrigins);
 
-            // alternate path base for the management API - serves at root and at /BASE_URL            
-            if (Environment.GetEnvironmentVariable("BASE_URL") != null)
+            // alternate path base for the management API - serves at /BASE_URL            
+            var baseUrl = (Environment.GetEnvironmentVariable("BASE_URL") ?? "").TrimEnd('/');
+            if (!string.IsNullOrWhiteSpace(baseUrl))
             {
-                var relative_path = Environment.GetEnvironmentVariable("BASE_URL");
-                relative_path = relative_path!.TrimEnd('/');
-                app.UsePathBase(new PathString(relative_path));
+                //set configured base url as the relative path base
+                app.UsePathBase(baseUrl);
+                //enforces the path base that the application does not also serve at the root / path
+                app.UseMiddleware<EnforcePathBaseMiddleware>(baseUrl);
             }
+            app.UseRouting();
 
             // For the CoreAPI, we need to make sure that UseAuthentication is called before the UserIdentityMiddleware.
             app.UseAuthentication();
@@ -214,7 +217,7 @@ namespace FoundationaLLM.Core.API
                     // build a swagger endpoint for each discovered API version
                     foreach (var description in descriptions)
                     {
-                        var url = $"/swagger/{description.GroupName}/swagger.json";
+                        var url = $"{baseUrl}/swagger/{description.GroupName}/swagger.json";
                         var name = description.GroupName.ToUpperInvariant();
                         options.SwaggerEndpoint(url, name);
                     }

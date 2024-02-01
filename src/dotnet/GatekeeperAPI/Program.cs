@@ -143,6 +143,17 @@ namespace FoundationaLLM.Gatekeeper.API
 
             var app = builder.Build();
 
+            // alternate path base for the management API - serves at /BASE_URL            
+            var baseUrl = (Environment.GetEnvironmentVariable("BASE_URL") ?? "").TrimEnd('/');
+            if (!string.IsNullOrWhiteSpace(baseUrl))
+            {
+                //set configured base url as the relative path base
+                app.UsePathBase(baseUrl);
+                //enforces the path base that the application does not also serve at the root / path
+                app.UseMiddleware<EnforcePathBaseMiddleware>(baseUrl);
+            }
+            app.UseRouting();
+
             // Register the middleware to extract the user identity context and other HTTP request context data required by the downstream services.
             app.UseMiddleware<CallContextMiddleware>();
 
@@ -160,7 +171,7 @@ namespace FoundationaLLM.Gatekeeper.API
                     // build a swagger endpoint for each discovered API version
                     foreach (var description in descriptions)
                     {
-                        var url = $"/swagger/{description.GroupName}/swagger.json";
+                        var url = $"{baseUrl}/swagger/{description.GroupName}/swagger.json";
                         var name = description.GroupName.ToUpperInvariant();
                         options.SwaggerEndpoint(url, name);
                     }
