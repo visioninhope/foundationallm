@@ -131,6 +131,6 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/
 
 ## Validating a knowledge management agent
 
-Once configured the knowledge management agent can be validated using an API call to the [Core API](../exposed-apis/core-api.md) or via the [User Portal](../quickstart.md).
+Once configured, the knowledge management agent can be validated using an API call to the [Core API](../exposed-apis/core-api.md) or via the [User Portal](../quickstart.md).
 
 >**Note**: When validating through the user portal, ensure the `FoundationaLLM-AllowAgentHint` feature is enabled in the app configuration service. Also, the name of the agent needs to be added to the comma-delimited list of agents located in the app configuration setting named `FoundationaLLM:Branding:AllowAgentSelection` for it to display in the agent selection dropdown in the user portal. Once configuration has been modified, restart the Core API and User Portal services [(ACA)](../../deployment/authentication/core-authentication-setup-entra.md#restart-core-api-and-chat-ui-applications-in-an-aca-deployment)[(AKS)](../../deployment/authentication/core-authentication-setup-entra.md#restart-core-api-and-chat-ui-applications-in-an-aks-deployment).
