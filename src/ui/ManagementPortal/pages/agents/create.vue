@@ -394,23 +394,23 @@ export default {
 
 			// editProcessing: false as boolean,
 			chunkSize: 2000,
-			overlapSize: 0,
+			overlapSize: 100,
 
 			// editTrigger: false as boolean,
-			triggerFrequency: { label: 'Auto', value: null },
+			triggerFrequency: { label: 'Manual', value: 1 },
 			triggerFrequencyOptions: [
-				{
-					label: 'Auto',
-					value: null,
-				},
 				{
 					label: 'Manual',
 					value: 1,
 				},
-				{
-					label: 'Scheduled',
-					value: 2,
-				},
+				// {
+				// 	label: 'Auto',
+				// 	value: null,
+				// },
+				// {
+				// 	label: 'Scheduled',
+				// 	value: 2,
+				// },
 			],
 			triggerFrequencyScheduled: null,
 			triggerFrequencyScheduledOptions: [
