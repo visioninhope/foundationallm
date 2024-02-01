@@ -92,11 +92,17 @@
 <p>The internal context flow provides a pass-through mechanism that sends the user prompt directly to the large language model (LLM) without any additional processing or context. This is useful when the user prompt is already prepared and does not require any additional context.</p>
 <h2 id="retrieval-augmented-generation-rag">Retrieval Augmented Generation (RAG)</h2>
 <p>The RAG flow augments the user prompt with additional context to generate a more accurate response. The RAG flow uses a retrieval model to retrieve relevant documents from a knowledge base, such as a vector store, and then uses the retrieved documents to augment the user prompt before sending it to the LLM.</p>
+<p>The creation of a RAG knowledge management agent requires an existing knowledge base, such as a vector store. If it does not exist, use the <a href="../vectorization/index.html">vectorization</a> API can be used to create a vector store prior to the creation of the agent.</p>
 <h2 id="knowledge-management-agent-configuration">Knowledge management agent configuration</h2>
-<p>The knowledge management agent configuration may reference the following resources:
-- <a href="../vectorization/vectorization-profiles.html#text-embedding-profiles">Vectorization text embedding profile</a>: The text embedding profile contains the configuration of the text embedding model used to embed the user prompt and perform a vector search in the knowledge base. This must match the text embedding profile used to index the knowledge base.
-- <a href="../vectorization/vectorization-profiles.html#indexing-profiles">Vectorization indexing profile</a>: The indexing profile contains the configuration of the service hosting the index that is to be searched.
-- <a href="prompt-resource.html">Prompt</a>: The system prompt of the agent, describes the persona of the agent.</p>
+<p>The knowledge management agent configuration may reference the following resources:</p>
+<ul>
+<li><p><a href="../vectorization/vectorization-profiles.html#text-embedding-profiles">Vectorization text embedding profile</a>: The text embedding profile contains the configuration of the text embedding model used to embed the user prompt and perform a vector search in the knowledge base. This must match the text embedding profile used to index the knowledge base.</p>
+</li>
+<li><p><a href="../vectorization/vectorization-profiles.html#indexing-profiles">Vectorization indexing profile</a>: The indexing profile contains the configuration of the service hosting the index that is to be searched.</p>
+</li>
+<li><p><a href="prompt-resource.html">Prompt</a>: The system prompt of the agent, describes the persona of the agent.</p>
+</li>
+</ul>
 <blockquote>
 <p><strong>Note</strong>: The knowledge management agent implementation currently supports the <a href="../vectorization/vectorization-profiles.html#azureaisearchindexer"><code>AzureAISearchIndexer</code></a> indexing profile.</p>
 </blockquote>
@@ -188,20 +194,72 @@
 <td>The language model configuration. This sample demonstrates the usage of the Azure OpenAI language model.</td>
 </tr>
 <tr>
+<td><code>language_model.type</code></td>
+<td>The type of the language model. Currently supporting OpenAI based langauge models.</td>
+</tr>
+<tr>
+<td><code>language_model.provider</code></td>
+<td>The provider of the language model. Currently supporting <code>microsoft</code> or <code>openai</code>.</td>
+</tr>
+<tr>
+<td><code>language_model.temperature</code></td>
+<td>The temperature value for the language model. A value between 0 and 1. Values closer to 0 return more factual information whereas values closer to 1 yield more creative responses.</td>
+</tr>
+<tr>
+<td><code>language_model.use_chat</code></td>
+<td>Determines the type of language model to use, as an example, when using Microsoft's Azure OpenAI, specifying <code>use_chat</code> equal to true will use the AzureChatOpenAI model vs. the AzureOpenAI model in LangChain.</td>
+</tr>
+<tr>
+<td><code>language_model.api_endpoint</code></td>
+<td>The configuration setting key that houses the API endpoint of the language model. The example above uses default FLLM values. Ensure this value is populated in application configuration.</td>
+</tr>
+<tr>
+<td><code>language_model.api_key</code></td>
+<td>The configuration setting key that houses a reference to a key vault value containing the API key for the language model service. Ensure these values are populated in key vault and app configuration.</td>
+</tr>
+<tr>
+<td><code>language_model.api_version</code></td>
+<td>The configuration setting key that houses the API version of the language model. The example above uses default FLLM values. Ensure this value is populated in application configuration.</td>
+</tr>
+<tr>
+<td><code>language_model.version</code></td>
+<td>The configuration setting key that houses the version of the language model deployment. The example above uses default FLLM values. Ensure this value is populated in application configuration.</td>
+</tr>
+<tr>
+<td><code>language_model.deployment</code></td>
+<td>The configuration setting key that houses the name given to the deployed language model. The example above uses default FLLM values. Ensure this value is populated in application configuration.</td>
+</tr>
+<tr>
 <td><code>sessions_enabled</code></td>
 <td>A boolean value that indicates whether the agent is session-less (false) or supports sessions(true).</td>
 </tr>
 <tr>
 <td><code>conversation_history</code></td>
-<td>The conversation history configuration. the <code>enabled</code> property indicates if conversation history is retained for subsequent agent interactions(true). The <code>max_history</code> indicates the number of messages to be retained.</td>
+<td>The conversation history configuration.</td>
+</tr>
+<tr>
+<td><code>conversation_hisotry.enabled</code></td>
+<td>Indicates if conversation history is retained for subsequent agent interactions(true).</td>
+</tr>
+<tr>
+<td><code>conversation_history.max_history</code></td>
+<td>indicates the number of messages to be retained.</td>
 </tr>
 <tr>
 <td><code>gatekeeper</code></td>
-<td>The gatekeeper configuration. The <code>use_system_setting</code> property indicates if the system settings are used for the gatekeeper. The <code>options</code> property contains the list of gatekeeper options. The sample provided overrides the system setting for gatekeeper and enables Azure Content Safety and MS Presidio in the messaging pipeline.</td>
+<td>The gatekeeper configuration.</td>
+</tr>
+<tr>
+<td><code>gatekeeper.use_system_setting</code></td>
+<td>Indicates if the system settings are used for the gatekeeper.</td>
+</tr>
+<tr>
+<td><code>gatekeeper.options</code></td>
+<td>Contains the list of gatekeeper options. The sample provided overrides the system setting for gatekeeper and enables Azure Content Safety and MS Presidio in the messaging pipeline.</td>
 </tr>
 <tr>
 <td><code>orchestrator</code></td>
-<td>The orchestrator to be used for the agent. This can be set to Semantic Kernel or LangChain</td>
+<td>The orchestrator to be used for the agent. This can be set to <code>SemanticKernel</code> or <code>LangChain</code></td>
 </tr>
 </tbody>
 </table>
@@ -221,6 +279,11 @@ BODY
 <h3 id="delete">Delete</h3>
 <pre><code class="lang-http">HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/agents/&lt;name&gt;
 </code></pre>
+<h2 id="validating-a-knowledge-management-agent">Validating a knowledge management agent</h2>
+<p>Once configured, the knowledge management agent can be validated using an API call to the <a href="../exposed-apis/core-api.html">Core API</a> or via the <a href="../quickstart.html">User Portal</a>.</p>
+<blockquote>
+<p><strong>Note</strong>: When validating through the user portal, ensure the <code>FoundationaLLM-AllowAgentHint</code> feature is enabled in the app configuration service. Also, the name of the agent needs to be added to the comma-delimited list of agents located in the app configuration setting named <code>FoundationaLLM:Branding:AllowAgentSelection</code> for it to display in the agent selection dropdown in the user portal. Once configuration has been modified, restart the Core API and User Portal services <a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aca-deployment">(ACA)</a><a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aks-deployment">(AKS)</a>.</p>
+</blockquote>
 
 </article>
 
