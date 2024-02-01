@@ -53,8 +53,10 @@ items:
     items:
     - name: Agents
       href: setup-guides/agents/index.md
-    - name: SQL database agent setup procedures
-      href: setup-guides/agents/sql-database-agents.md
+    - name: Knowledge management agents
+      href: setup-guides/agents/knowledge-management-agent.md
+    - name: Prompt resources
+      href: setup-guides/agents/prompt-resource.md
   - name: Exposed APIs
     href: setup-guides/exposed-apis/index.md
     items:
