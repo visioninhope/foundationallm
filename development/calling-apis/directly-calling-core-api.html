@@ -2,21 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Directly calling the APIs | FoundationaLLM </title>
+      <title>Directly calling the Core API | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Directly calling the APIs | FoundationaLLM ">
+      <meta name="title" content="Directly calling the Core API | FoundationaLLM ">
       
       
-      <link rel="icon" href="../media/favicon.ico">
-      <link rel="stylesheet" href="../public/docfx.min.css">
-      <link rel="stylesheet" href="../public/main.css">
-      <meta name="docfx:navrel" content="../toc.html">
-      <meta name="docfx:tocrel" content="../toc.html">
+      <link rel="icon" href="../../media/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
       
-      <meta name="docfx:rel" content="../">
+      <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/development/directly-calling-apis.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/development/calling-apis/directly-calling-core-api.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -31,7 +31,7 @@
       <meta name="loc:downloadPdf" content="Download PDF">
   </head>
 
-  <script type="module" src="./../public/docfx.min.js"></script>
+  <script type="module" src="./../../public/docfx.min.js"></script>
 
   <script>
     const theme = localStorage.getItem('theme') || 'auto'
@@ -43,8 +43,8 @@
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
-          <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../media/fllm-icon.svg" alt="FoundationaLLM">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../media/fllm-icon.svg" alt="FoundationaLLM">
             FoundationaLLM
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,9 +85,9 @@
         </div>
 
         <article data-uid="">
-<h1 id="directly-calling-the-apis">Directly calling the APIs</h1>
+<h1 id="directly-calling-the-core-api">Directly calling the Core API</h1>
 
-<p>Typically, the only interaction with the Foundationa<strong>LLM</strong> (FLLM) APIs is indirectly through the User Portal and Management Portal. However, you can also call the APIs directly to perform certain tasks, such as using your <a href="../setup-guides/agents/index.html">configured FLLM agents</a> to perform completions (via the Core API), or updating your branding configurations (via the Management API).</p>
+<p>Typically, the only interaction with the Foundationa<strong>LLM</strong> (FLLM) APIs is indirectly through the User Portal and Management Portal. However, you can also call the APIs directly to perform certain tasks, such as using your <a href="../../setup-guides/agents/index.html">configured FLLM agents</a> to perform completions (via the Core API), or updating your branding configurations (via the Management API).</p>
 <h2 id="api-architecture">API architecture</h2>
 <p>The FLLM architecture contains layers of APIs that are used to perform different tasks along a call chain, starting with the <strong>Core API</strong>. The following diagram shows a very high-level flow of the API architecture:</p>
 <pre><code class="lang-mermaid">sequenceDiagram
@@ -138,12 +138,12 @@
 <p>The ability to test the API endpoints of FoundationaLLM is a critical part of the development process. Postman is a tool that allows you to do just that. This document will walk you through the process of setting up Postman to work with FoundationaLLM.</p>
 <div class="TIP">
 <h5>Tip</h5>
-<p>To find the Core API URL for your deployment, you can retrieve it from your App Configuration resource in the portal by viewing the <code>FoundationaLLM:APIs:CoreAPI:APIUrl</code> configuration value. Alternatively, follow the instructions in the <a href="../setup-guides/quickstart.html#find-your-core-api-url">Quickstart guide</a> to find the Core API URL.</p>
+<p>To find the Core API URL for your deployment, you can retrieve it from your App Configuration resource in the portal by viewing the <code>FoundationaLLM:APIs:CoreAPI:APIUrl</code> configuration value. Alternatively, follow the instructions in the <a href="../../setup-guides/quickstart.html#find-your-core-api-url">Quickstart guide</a> to find the Core API URL.</p>
 </div>
-<p>To see the API endpoints available in FoundationaLLM, you can get your Core API endpoint from your App Configuration resource in the portal and add <code>/swagger/</code> to the end of it. For example, if your Core API endpoint is <code>https://foundationallm-core-api.azurewebsites.net</code>, then you would navigate to <code>https://foundationallm-core-api.azurewebsites.net/swagger/</code> to see the API endpoints.</p>
+<p>To see the API endpoints available in FoundationaLLM, you can get your Core API endpoint from your App Configuration resource in the portal and add <code>/swagger/</code> to the end of it. For example, if your Core API endpoint is <code>https://fllmaca002coreca.graybush-c554b849.eastus.azurecontainerapps.io</code>, then you would navigate to <code>https://fllmaca002coreca.graybush-c554b849.eastus.azurecontainerapps.io/swagger/</code> to see the API endpoints.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>The example link above is for a <a href="../deployment/deployment-starter.html">starter deployment</a> of FoundationaLLM, which deploys the APIs to Azure Container Apps (ACA). If you are using the standard deployment that deploys the APIs to Azure Kubernetes Service (AKS), then you cannot currently access the Swagger UI for the APIs. However, you will be able to obtain the OpenAPI swagger.json file from the Core API endpoint by navigating to <code>https://{{AKS URL}}/core/swagger/v1/swagger.json</code>.</p>
+<p>The example link above is for a <a href="../../deployment/deployment-starter.html">starter deployment</a> of FoundationaLLM, which deploys the APIs to Azure Container Apps (ACA). If you are using the standard deployment that deploys the APIs to Azure Kubernetes Service (AKS), then you cannot currently access the Swagger UI for the APIs. However, you will be able to obtain the OpenAPI swagger.json file from the Core API endpoint by navigating to <code>https://{{AKS URL}}/core/swagger/v1/swagger.json</code>.</p>
 </div>
 <h3 id="install-postman">Install Postman</h3>
 <p>If you don't have Postman installed on your machine, visit the <a href="https://www.getpostman.com/">Postman website</a> and download the app. Once you have it installed, Create a Blank Workspace.</p>
@@ -192,7 +192,7 @@
 <p>Though this method takes a few more steps, it is the recommended method because it allows you to use the same token for all of the API calls in the collection.</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>If you previously configured the Microsoft Entra ID app registration for the Chat UI application, you will need to update the <strong>Redirect URI</strong> to <code>https://oauth.pstmn.io/v1/callback</code> in order to use the Postman mobile app to get the token. You can do this by following the steps in the <a href="../deployment/authentication/core-authentication-setup-entra.html#add-a-redirect-uri-to-the-client-application">Add a redirect URI to the client application</a> section of the authentication setup guide.</p>
+<p>If you previously configured the Microsoft Entra ID app registration for the Chat UI application, you will need to update the <strong>Redirect URI</strong> to <code>https://oauth.pstmn.io/v1/callback</code> in order to use the Postman mobile app to get the token. You can do this by following the steps in the <a href="../../deployment/authentication/core-authentication-setup-entra.html#add-a-redirect-uri-to-the-client-application">Add a redirect URI to the client application</a> section of the authentication setup guide.</p>
 </div>
 <p>First, let's set up the request to get the token at the <strong>collection</strong> level. Make sure you choose <code>OAuth 2.0</code> as the type of authorization and <strong>not</strong> Bearer Token.</p>
 <p><img src="media/postman-auth-type.png" alt="The OAuth 2.0 type is selected."></p>
@@ -213,9 +213,9 @@
 </li>
 <li><p><strong>Client ID:</strong> This is the client ID of the application that you will use to get the token. In our case, it's the client ID of the Chat UI application. You can get the client ID from the <strong>Overview</strong> tab of the Chat UI application in the portal.</p>
 </li>
-<li><p><strong>Code Challengle Method:</strong> This is the method that you will use to get the token. In our case, we will use <strong>SHA-256</strong>.</p>
+<li><p><strong>Code Challenge Method:</strong> This is the method that you will use to get the token. In our case, we will use <strong>SHA-256</strong>.</p>
 </li>
-<li><p><strong>Scope:</strong> This is the scope of the token that you will use to get the token. In our case, we will use <strong>api://FoundationaLLM-Auth/Data.Read openid profile offline_access</strong>.</p>
+<li><p><strong>Scope:</strong> This is the scope of the token that you will use to get the token. You can find this value within the Api Permissions section of your Chat UI Entra ID app. In our case, we will use <strong>api://FoundationaLLM-Auth/Data.Read</strong>.</p>
 </li>
 <li><p><strong>Client Authentication:</strong> This is the type of authentication that you will use to get the token.  In our case, we will use <strong>Send client credentials in body</strong>.</p>
 </li>
@@ -250,7 +250,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/development/directly-calling-apis.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/development/calling-apis/directly-calling-core-api.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

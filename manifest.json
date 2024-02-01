@@ -5425,6 +5425,276 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "development/calling-apis/directly-calling-core-api.md",
+      "output": {
+        ".html": {
+          "relative_path": "development/calling-apis/directly-calling-core-api.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "development/calling-apis/directly-calling-management-api.md",
+      "output": {
+        ".html": {
+          "relative_path": "development/calling-apis/directly-calling-management-api.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "development/calling-apis/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "development/calling-apis/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/browser-xhr-token-value.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/browser-xhr-token-value.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/github-postman-collection-download-raw.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/github-postman-collection-download-raw.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-agents-request.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-agents-request.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-auth-post.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-auth-post.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-auth-pre.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-auth-pre.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-auth-type.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-auth-type.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-callback-url-authorize-using-browser.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-callback-url-authorize-using-browser.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-core-api-url-variable.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-core-api-url-variable.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-import-button.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-import-button.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-import-collection.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-import-collection.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-imported-collection.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-imported-collection.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-imported-management-collection.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-imported-management-collection.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-instance-id-variable.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-instance-id-variable.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-management-api-url-variable.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-management-api-url-variable.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-management-auth-post.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-management-auth-post.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-management-auth-type.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-management-auth-type.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-management-save-button.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-management-save-button.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-management-variables-tab.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-management-variables-tab.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-save-button.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-save-button.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-sessions-request-bearer-token.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-sessions-request-bearer-token.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-sessions-request.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-sessions-request.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-use-management-token.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-use-management-token.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-use-token.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-use-token.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "development/calling-apis/media/postman-variables-tab.png",
+      "output": {
+        "resource": {
+          "relative_path": "development/calling-apis/media/postman-variables-tab.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "development/contributing/git-workflow.md",
       "output": {
         ".html": {
@@ -5485,16 +5755,6 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "development/directly-calling-apis.md",
-      "output": {
-        ".html": {
-          "relative_path": "development/directly-calling-apis.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
       "source_relative_path": "development/index.md",
       "output": {
         ".html": {
@@ -5535,16 +5795,6 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "development/media/browser-xhr-token-value.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/browser-xhr-token-value.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
       "source_relative_path": "development/media/configure-startup-projects.png",
       "output": {
         "resource": {
@@ -5555,150 +5805,10 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "development/media/github-postman-collection-download-raw.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/github-postman-collection-download-raw.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
       "source_relative_path": "development/media/multiple-startup-projects.png",
       "output": {
         "resource": {
           "relative_path": "development/media/multiple-startup-projects.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-auth-post.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-auth-post.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-auth-pre.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-auth-pre.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-auth-type.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-auth-type.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-callback-url-authorize-using-browser.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-callback-url-authorize-using-browser.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-core-api-url-variable.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-core-api-url-variable.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-import-button.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-import-button.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-import-collection.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-import-collection.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-imported-collection.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-imported-collection.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-save-button.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-save-button.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-sessions-request-bearer-token.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-sessions-request-bearer-token.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-sessions-request.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-sessions-request.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-use-token.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-use-token.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/media/postman-variables-tab.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/media/postman-variables-tab.png"
         }
       },
       "version": ""

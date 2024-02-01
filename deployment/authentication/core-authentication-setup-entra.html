@@ -164,7 +164,7 @@
 </li>
 </ol>
 <!-- 8. Under **Front-channel logout URL**, enter `<YOUR_CHAT_APP_URL>/signout-oidc`. -->
-<p>If you wish to <a href="../../development/directly-calling-apis.html#postman-collection">configure authentication in Postman</a> for executing calls against the Core API, you will need to add a <strong>Redirect URI</strong> under <strong>Mobile and desktop applications</strong> for Postman. Enter <code>https://oauth.pstmn.io/v1/callback</code> for the URI. To do this, complete the following steps:</p>
+<p>If you wish to <a href="../../development/directly-calling-apis.md#postman-collection">configure authentication in Postman</a> for executing calls against the Core API, you will need to add a <strong>Redirect URI</strong> under <strong>Mobile and desktop applications</strong> for Postman. Enter <code>https://oauth.pstmn.io/v1/callback</code> for the URI. To do this, complete the following steps:</p>
 <ol>
 <li><p>Under <strong>Platform configurations</strong>, select <strong>Add a platform</strong>. In the pane that opens, select <strong>Mobile and desktop applications</strong>.</p>
 </li>
@@ -184,22 +184,16 @@
 <p><img src="media/entra-app-client-authentication-implicit-grant.png" alt="Both the Access tokens and ID tokens checkboxes are checked and the Save button is highlighted."></p>
 </li>
 </ol>
-<h4 id="client-secret-for-the-client-application">Client secret for the client application</h4>
-<ol>
-<li><p>Under <strong>Manage</strong>, select <strong>Certificates &amp; secrets</strong>.</p>
-</li>
-<li><p>Under <strong>Client secrets</strong>, select <strong>+ New client secret</strong>.</p>
-</li>
-<li><p>For <strong>Description</strong>, enter a description for the secret. For example, enter <em>FoundationaLLM-Client</em>.</p>
-</li>
-<li><p>Select a desired expiration date.</p>
-</li>
-<li><p>Select <strong>Add</strong>.</p>
-</li>
-<li><p><strong>Record the secret value</strong> to add to your App Configuration settings later. Do this by selecting the <strong>Copy to clipboard</strong> icon next to the secret value.</p>
-<p><img src="media/entra-client-app-secret.png" alt="The steps to create a client secret are highlighted."></p>
-</li>
-</ol>
+<!-- #### Client secret for the client application
+
+1. Under **Manage**, select **Certificates & secrets**.
+2. Under **Client secrets**, select **+ New client secret**.
+3. For **Description**, enter a description for the secret. For example, enter *FoundationaLLM-Client*.
+4. Select a desired expiration date.
+5. Select **Add**.
+6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
+
+    ![The steps to create a client secret are highlighted.](media/entra-client-app-secret.png) -->
 <h4 id="update-the-client-application-manifest">Update the client application manifest</h4>
 <ol>
 <li><p>Under <strong>Manage</strong>, select <strong>Manifest</strong>.</p>
@@ -246,22 +240,16 @@
 <p><img src="media/entra-app-client-authentication-implicit-grant.png" alt="Both the Access tokens and ID tokens checkboxes are checked and the Save button is highlighted."></p>
 </li>
 </ol>
-<h4 id="client-secret-for-the-api-application">Client secret for the API application</h4>
-<ol>
-<li><p>Under <strong>Manage</strong>, select <strong>Certificates &amp; secrets</strong>.</p>
-</li>
-<li><p>Under <strong>Client secrets</strong>, select <strong>+ New client secret</strong>.</p>
-</li>
-<li><p>For <strong>Description</strong>, enter a description for the secret. For example, enter <em>FoundationaLLM</em>.</p>
-</li>
-<li><p>Select a desired expiration date.</p>
-</li>
-<li><p>Select <strong>Add</strong>.</p>
-</li>
-<li><p><strong>Record the secret value</strong> to add to your App Configuration settings later. Do this by selecting the <strong>Copy to clipboard</strong> icon next to the secret value.</p>
-<p><img src="media/entra-api-app-secret.png" alt="The steps to create a client secret are highlighted."></p>
-</li>
-</ol>
+<!-- #### Client secret for the API application
+
+1. Under **Manage**, select **Certificates & secrets**.
+2. Under **Client secrets**, select **+ New client secret**.
+3. For **Description**, enter a description for the secret. For example, enter *FoundationaLLM*.
+4. Select a desired expiration date.
+5. Select **Add**.
+6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
+
+    ![The steps to create a client secret are highlighted.](media/entra-api-app-secret.png) -->
 <h4 id="expose-an-api-for-the-api-application">Expose an API for the API application</h4>
 <ol>
 <li><p>Under <strong>Manage</strong>, select <strong>Expose an API</strong> &gt; <strong>Add a scope</strong>. For <strong>Application ID URI</strong>, accept the default or specify a custom one, then select <strong>Save and continue</strong>, and then enter the following details:</p>
@@ -360,17 +348,17 @@
 <li><p>Select <strong>Apply</strong> to save the changes.</p>
 </li>
 </ol>
-<h3 id="update-key-vault-secrets">Update Key Vault secrets</h3>
-<p>Key Vault stores the secrets for the client and API applications. You need to update the secrets with the values that you recorded earlier.</p>
-<ol>
-<li>Return to the <a href="https://portal.azure.com/">Azure portal</a>.</li>
-<li>Navigate to the resource group that was created as part of the deployment.</li>
-<li>Select the <strong>Key Vault</strong> resource and select <strong>Secrets</strong>. If you cannot see the secrets, add your user account as a <strong>Key Vault Secrets Officer</strong> through Access Control (IAM). You need this role in order to access the secrets and update them as a required part of the authentication setup.</li>
-<li>Open the <code>foundationallm-chat-entra-clientsecret</code> secret, then select <strong>+ New Version</strong>.</li>
-<li>Within the <strong>Secret value</strong> field, enter the <strong>Client secret</strong> of the client application that you <a href="#client-secret-for-the-client-application">created earlier</a>, then select <strong>Create</strong>.</li>
-<li>Open the <code>foundationallm-coreapi-entra-clientsecret</code> secret, then select <strong>+ New Version</strong>.</li>
-<li>Within the <strong>Secret value</strong> field, enter the <strong>Client secret</strong> of the API application that you <a href="#client-secret-for-the-api-application">created earlier</a>, then select <strong>Create</strong>.</li>
-</ol>
+<!-- ### Update Key Vault secrets
+
+Key Vault stores the secrets for the client and API applications. You need to update the secrets with the values that you recorded earlier.
+
+1. Return to the [Azure portal](https://portal.azure.com/).
+2. Navigate to the resource group that was created as part of the deployment.
+3. Select the **Key Vault** resource and select **Secrets**. If you cannot see the secrets, add your user account as a **Key Vault Secrets Officer** through Access Control (IAM). You need this role in order to access the secrets and update them as a required part of the authentication setup.
+4. Open the `foundationallm-chat-entra-clientsecret` secret, then select **+ New Version**.
+5. Within the **Secret value** field, enter the **Client secret** of the client application that you [created earlier](#client-secret-for-the-client-application), then select **Create**.
+6. Open the `foundationallm-coreapi-entra-clientsecret` secret, then select **+ New Version**.
+7. Within the **Secret value** field, enter the **Client secret** of the API application that you [created earlier](#client-secret-for-the-api-application), then select **Create**. -->
 <h2 id="next-steps">Next steps</h2>
 <p>Now that Entra authentication is fully configured, restart the Core API and chat applications to apply the changes. Navigate to your chat application or refresh the page if it is already open. It should automatically prompt you to sign in with your Microsoft Entra ID account.</p>
 <h3 id="restart-core-api-and-chat-ui-applications-in-an-aca-deployment">Restart Core API and Chat UI applications in an ACA Deployment</h3>
