@@ -6174,6 +6174,16 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/agents/knowledge-management-agent.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/agents/knowledge-management-agent.html"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Resource",
       "source_relative_path": "setup-guides/agents/media/add-kv-reference.png",
       "output": {
@@ -6205,20 +6215,10 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "setup-guides/agents/search-service-agent.md",
+      "source_relative_path": "setup-guides/agents/prompt-resource.md",
       "output": {
         ".html": {
-          "relative_path": "setup-guides/agents/search-service-agent.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "setup-guides/agents/sql-database-agents.md",
-      "output": {
-        ".html": {
-          "relative_path": "setup-guides/agents/sql-database-agents.html"
+          "relative_path": "setup-guides/agents/prompt-resource.html"
         }
       },
       "version": ""
