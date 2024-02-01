@@ -65,7 +65,7 @@
 				<template v-if="selectedDataSource">
 					<div class="step-container__header">{{ selectedDataSource.Type }}</div>
 					<div>
-						<span class="step-option__header">Storage account name:</span>
+						<span class="step-option__header">Name:</span>
 						<span>{{ selectedDataSource.Name }}</span>
 					</div>
 					<!-- <div>
@@ -73,12 +73,12 @@
 						<span>{{ selectedDataSource.Container.Name }}</span>
 					</div> -->
 					
-					<div>
+					<!-- <div>
 						<span class="step-option__header">Data Format(s):</span>
 						<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
 							{{ format }}
 						</span>
-					</div>
+					</div> -->
 				</template>
 				<template v-else>Please select a data source.</template>
 
