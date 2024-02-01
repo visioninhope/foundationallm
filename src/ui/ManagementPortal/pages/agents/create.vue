@@ -474,11 +474,18 @@ export default {
 		// Uncomment to remove mock loading screen
 		// api.mockLoadTime = 0;
 
-		this.loadingStatusText = 'Retrieving indexes...';
-		this.indexSources = await api.getAgentIndexes();
+		try {
+			this.loadingStatusText = 'Retrieving indexes...';
+			this.indexSources = await api.getAgentIndexes();
 
-		this.loadingStatusText = 'Retrieving data sources...';
-		this.dataSources = await api.getAgentDataSources();
+			this.loadingStatusText = 'Retrieving data sources...';
+			this.dataSources = await api.getAgentDataSources();
+		} catch(error) {
+			this.$toast.add({
+				severity: 'error',
+				detail: error?.response?._data || error,
+			});
+		}
 
 		this.loading = false;
 	},
