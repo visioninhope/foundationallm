@@ -42,7 +42,7 @@
 			</div>
 
 			<!-- Analytics agent-->
-			<div class="step">
+			<div class="step step--disabled">
 				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('analytics')">
 					<div class="step-container__edit__inner">
 						<div class="step__radio">
@@ -257,6 +257,11 @@
 					</span>
 				</div>
 
+				<div>
+					<span class="step-option__header">Max Messages:</span>
+					<span>{{ conversationMaxMessages }}</span>
+				</div>
+
 				<template #edit>
 					<div class="step-container__header">Conversation History</div>
 
@@ -271,6 +276,11 @@
 								offIcon="pi pi-times-circle"
 							/>
 						</span>
+					</div>
+
+					<div>
+						<span class="step-option__header">Max Messages:</span>
+						<InputText v-model="conversationMaxMessages" type="number" class="mt-2" />
 					</div>
 				</template>
 			</CreateAgentStepItem>
@@ -438,6 +448,7 @@ export default {
 
 			// editConversationHistory: false as boolean,
 			conversationHistory: false as boolean,
+			conversationMaxMessages: 5 as number,
 
 			// editGatekeeper: false as boolean,
 			gatekeeperEnabled: false as boolean,
@@ -631,6 +642,11 @@ export default {
 .step {
 	display: flex;
 	flex-direction: column;
+}
+
+.step--disabled {
+	pointer-events: none;
+	opacity: 0.5;
 }
 
 .step-container {
