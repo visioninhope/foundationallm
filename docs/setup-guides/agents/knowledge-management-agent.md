@@ -15,7 +15,7 @@ The RAG flow augments the user prompt with additional context to generate a more
 The knowledge management agent configuration may reference the following resources:
     - [Vectorization text embedding profile](../vectorization/vectorization-profiles.md#text-embedding-profiles): The text embedding profile contains the configuration of the text embedding model used to embed the user prompt and perform a vector search in the knowledge base. This must match the text embedding profile used to index the knowledge base.
     - [Vectorization indexing profile](../vectorization/vectorization-profiles.md#indexing-profiles): The indexing profile contains the configuration of the service hosting the index that is to be searched.
-    - Prompt: The system prompt of the agent, describes the persona of the agent.
+    - [Prompt](prompt-resource.md): The system prompt of the agent, describes the persona of the agent.
 
 >**Note**: The knowledge management agent implementation currently supports the [`AzureAISearchIndexer`](../vectorization/vectorization-profiles.html#azureaisearchindexer) indexing profile.
 
