@@ -84,32 +84,36 @@
 
 				<template #edit>
 					<div class="step-container__edit__header">Please select a data source.</div>
-					<div
-						v-for="dataSource in dataSources"
-						:key="dataSource.Name"
-						class="step-container__edit__option"
-						:class="{
-							'step-container__edit__option--selected':
-								dataSource.Name === selectedDataSource?.Name,
-						}"
-						@click.stop="handleDataSourceSelected(dataSource)"
-					>
-						<div class="step-container__header">{{ dataSource.Type }}</div>
+					
+					<div v-for="(group, type) in groupedDataSources" :key="type">
 
-						<div>
-							<span class="step-option__header">Storage account name:</span>
-							<span>{{ dataSource.Name }}</span>
-						</div>
-						<!-- <div>
-							<span class="step-option__header">Container name:</span>
-							<span>{{ dataSource.Container.Name }}</span>
-						</div> -->
-						
-						<div>
-							<span class="step-option__header">Data Format(s):</span>
-							<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
-								{{ format }}
-							</span>
+						<div class="step-container__edit__group-header">{{ type }}</div>
+
+						<div
+							v-for="dataSource in group"
+							:key="dataSource.Name"
+							class="step-container__edit__option"
+							:class="{
+								'step-container__edit__option--selected':
+									dataSource.Name === selectedDataSource?.Name,
+							}"
+							@click.stop="handleDataSourceSelected(dataSource)"
+						>
+							<div>
+								<span class="step-option__header">Name:</span>
+								<span>{{ dataSource.Name }}</span>
+							</div>
+							<!-- <div>
+								<span class="step-option__header">Container name:</span>
+								<span>{{ dataSource.Container.Name }}</span>
+							</div> -->
+							
+							<!-- <div>
+								<span class="step-option__header">Data Format(s):</span>
+								<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
+									{{ format }}
+								</span>
+							</div> -->
 						</div>
 					</div>
 				</template>
@@ -479,6 +483,21 @@ export default {
 		};
 	},
 
+	computed: {
+		groupedDataSources() {
+			const grouped = {};
+			this.dataSources.forEach(dataSource => {
+				if (!grouped[dataSource.Type]) {
+					grouped[dataSource.Type] = [];
+				}
+
+				grouped[dataSource.Type].push(dataSource);
+			});
+			
+			return grouped;
+		}
+	},
+
 	async created() {
 		this.loading = true;
 
@@ -744,6 +763,12 @@ $editStepPadding: 16px;
 
 .step-container__edit__header {
 	padding: $editStepPadding;
+}
+
+.step-container__edit__group-header {
+	font-weight: bold;
+	padding: $editStepPadding;
+	padding-bottom: 0px;
 }
 
 .step-container__edit__option {
