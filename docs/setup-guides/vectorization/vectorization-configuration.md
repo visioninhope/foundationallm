@@ -249,7 +249,11 @@ Default structure for the `vectorization-indexing-profiles.json` file:
             "ObjectId": "/instances/<instance_id>/providers/FoundationaLLM.Vectorization/indexingprofiles/AzureAISearch_Default_001",
             "Indexer": "AzureAISearchIndexer",
             "Settings": {
-                "IndexName": "fllm-default-001"
+                "IndexName": "fllm-default-001",
+                "TopN": "3",
+                "Filters": "",
+                "EmbeddingFieldName": "Embedding",
+                "TextFieldName": "Text"
             },
             "ConfigurationReferences": {
                 "APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
