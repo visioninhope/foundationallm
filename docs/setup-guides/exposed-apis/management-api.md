@@ -8,8 +8,8 @@ The Management API provides configuration and resource management endpoints that
 - Direct REST-based calls programmatically or through some tool like Postman.
 - Through the Management Portal user interface.
   ![](../../media/Mgm-api-2.png)
-- (Coming Soon) Through the FoundationaLLM CLI.
-  
+- Through the FoundationaLLM CLI (Coming Soon).
+
 These options eliminate the need to directly manipulate files to define agents and their related resources, enable certain users to update categories of app configurations without needing to have access to the Azure App Configuration service, and perform additional platform-related steps as needed when changing configurations without the user needing to know about them (restart services, refresh caches, etc.).
 
 ## Management API Features
