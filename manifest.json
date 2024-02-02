@@ -922,6 +922,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Exceptions.ContentIdentifierException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Exceptions.ContentIdentifierException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Exceptions.ResourceProviderException.yml",
       "output": {
         ".html": {
@@ -946,6 +956,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Exceptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Extensions.StringExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Extensions.StringExtensions.html"
         }
       },
       "version": ""
@@ -4416,6 +4436,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifactType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationIndexReference.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationIndexReference.html"
         }
       },
       "version": ""

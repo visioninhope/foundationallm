@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier" class="text-break">
-Class ContentIdentifier  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L8"><i class="bi bi-code-slash"></i></a>
+Class ContentIdentifier  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L10"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -164,7 +164,7 @@ Class ContentIdentifier  <a class="header-action link-secondary" title="View sou
 
   <h3 id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_CanonicalId" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId">
   CanonicalId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The canonical identifier of the content being vectorized.
@@ -199,7 +199,7 @@ public required string CanonicalId { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_ContentSourceProfileName" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName">
   ContentSourceProfileName
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the vectorization content source profile that provides settings to connect to the content source.</p>
@@ -229,11 +229,83 @@ public required string ContentSourceProfileName { get; set; }</code></pre>
 
 
 
+  <a id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_FileName_" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.FileName*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_FileName" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.FileName">
+  FileName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The file name part of the content identifier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string FileName { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_Item_" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Item*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_Item_System_Int32_" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Item(System.Int32)">
+  this[int]
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The indexer allowing to access the components of the multipart identifier using [] notation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string this[int i] { get; }</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>i</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The index of component being retrieved.</p>
+</dd>
+  </dl>
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_MultipartId_" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId*"></a>
 
   <h3 id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_MultipartId" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId">
   MultipartId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The multipart unique identifier of the the content (i.e. document) being vectorized.</p>
@@ -241,9 +313,10 @@ public required string ContentSourceProfileName { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyOrder(1)]
+    <pre><code class="lang-csharp hljs">[JsonInclude]
+[JsonPropertyOrder(1)]
 [JsonPropertyName(&quot;multipart_id&quot;)]
-public required List&lt;string&gt; MultipartId { get; set; }</code></pre>
+public required List&lt;string&gt; MultipartId { set; }</code></pre>
   </div>
 
 
@@ -267,7 +340,7 @@ public required List&lt;string&gt; MultipartId { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_UniqueId" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId">
   UniqueId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The unique identifier of the content (i.e., document) being vectorized.
@@ -297,11 +370,53 @@ public string UniqueId { get; }</code></pre>
 
 
 
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_ValidateMultipartId_" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ValidateMultipartId*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_ValidateMultipartId_System_Int32_" data-uid="FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ValidateMultipartId(System.Int32)">
+  ValidateMultipartId(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Validates a multipart unique content identifier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ValidateMultipartId(int expectedPartsCount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>expectedPartsCount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The expected number of parts in the multipart identifier.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="FoundationaLLM.Common.Exceptions.ContentIdentifierException.html">ContentIdentifierException</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/TextEmbedding/ContentIdentifier.cs/#L10" class="edit-link">Edit this page</a>
         </div>
 
 

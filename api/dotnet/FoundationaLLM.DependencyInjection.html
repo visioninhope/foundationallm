@@ -188,6 +188,42 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 
 
 
+  <a id="FoundationaLLM_DependencyInjection_AddInstanceProperties_" data-uid="FoundationaLLM.DependencyInjection.AddInstanceProperties*"></a>
+
+  <h3 id="FoundationaLLM_DependencyInjection_AddInstanceProperties_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_" data-uid="FoundationaLLM.DependencyInjection.AddInstanceProperties(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)">
+  AddInstanceProperties(IServiceCollection, IConfigurationManager)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/DependencyInjection.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Register instance settings mapped to configuration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddInstanceProperties(this IServiceCollection services, IConfigurationManager configuration)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd><p>Application builder service collection.</p>
+</dd>
+    <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationmanager">IConfigurationManager</a></dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationmanager">IConfigurationManager</a> providing access to configuration.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_DependencyInjection_AddPromptResourceProvider_" data-uid="FoundationaLLM.DependencyInjection.AddPromptResourceProvider*"></a>
 
   <h3 id="FoundationaLLM_DependencyInjection_AddPromptResourceProvider_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_" data-uid="FoundationaLLM.DependencyInjection.AddPromptResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)">
@@ -227,7 +263,7 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 
   <h3 id="FoundationaLLM_DependencyInjection_AddVectorizationResourceProvider_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_" data-uid="FoundationaLLM.DependencyInjection.AddVectorizationResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)">
   AddVectorizationResourceProvider(IServiceCollection, IConfigurationManager)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/DependencyInjection.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/DependencyInjection.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Register the handler as a hosted service, passing the step name to the handler ctor</p>
@@ -241,10 +277,11 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
-    <dd><p>Application builder service collection</p>
+    <dd><p>Application builder service collection.</p>
 </dd>
     <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationmanager">IConfigurationManager</a></dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationmanager">IConfigurationManager</a> providing access to configuration.</p>
+</dd>
   </dl>
 
 

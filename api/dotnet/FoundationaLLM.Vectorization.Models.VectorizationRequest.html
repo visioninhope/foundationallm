@@ -164,7 +164,7 @@ Class VectorizationRequest  <a class="header-action link-secondary" title="View 
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_Complete" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.Complete">
   Complete
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L69"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Indicates whether the vectorization process is complete or not.</p>
@@ -197,7 +197,7 @@ public bool Complete { get; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_CompletedSteps" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.CompletedSteps">
   CompletedSteps
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L55"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The ordered list of the names of the vectorization steps that were already completed.</p>
@@ -207,7 +207,7 @@ public bool Complete { get; }</code></pre>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPropertyOrder(11)]
 [JsonPropertyName(&quot;completed_steps&quot;)]
-public required List&lt;string&gt; CompletedSteps { get; set; }</code></pre>
+public List&lt;string&gt; CompletedSteps { get; set; }</code></pre>
   </div>
 
 
@@ -231,7 +231,7 @@ public required List&lt;string&gt; CompletedSteps { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_ContentIdentifier" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.ContentIdentifier">
   ContentIdentifier
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html#FoundationaLLM_Vectorization_Models_VectorizationRequest_ContentIdentifier">ContentIdentifier</a> object identifying the content being vectorized.</p>
@@ -265,7 +265,7 @@ public required ContentIdentifier ContentIdentifier { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_CurrentStep" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.CurrentStep">
   CurrentStep
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L75"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The current step of the vectorization request.</p>
@@ -301,15 +301,15 @@ public string? CurrentStep { get; }</code></pre>
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The unique identifier of the vectorization request. Subsequent vectorization requests
-referring to the same content will have different unique identifiers.</p>
+  <div class="markdown level1 summary"><p>The unique identifier of the vectorization request.
+The responsibility to create this identifier belongs to the initiator of the vectorization request.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyOrder(0)]
+    <pre><code class="lang-csharp hljs">[JsonPropertyOrder(-1)]
 [JsonPropertyName(&quot;id&quot;)]
-public required string Id { get; set; }</code></pre>
+public string? Id { get; set; }</code></pre>
   </div>
 
 
@@ -333,7 +333,7 @@ public required string Id { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_Item_System_String_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.Item(System.String)">
   this[string]
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L124"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the vectorization pipeline step that has a specific identifier.</p>
@@ -368,11 +368,47 @@ public required string Id { get; set; }</code></pre>
 
 
 
+  <a id="FoundationaLLM_Vectorization_Models_VectorizationRequest_ObjectId_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.ObjectId*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_ObjectId" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.ObjectId">
+  ObjectId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The unique identifier of the vectorization request.
+The responsibility to create this identifier belongs to the FoundationaLLM.Vectorization resource manager.
+Subsequent vectorization requests referring to the same content will have different unique identifiers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyOrder(0)]
+[JsonPropertyName(&quot;object_id&quot;)]
+public string? ObjectId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Vectorization_Models_VectorizationRequest_ProcessingType_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.ProcessingType*"></a>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_ProcessingType" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.ProcessingType">
   ProcessingType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationProcessingType.html">VectorizationProcessingType</a> indicating how should the request be processed.</p>
@@ -407,7 +443,7 @@ public required VectorizationProcessingType ProcessingType { get; set; }</code><
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_RemainingSteps" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.RemainingSteps">
   RemainingSteps
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L62"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The ordered list of the names of the vectorization steps that still need to be executed.</p>
@@ -417,7 +453,7 @@ public required VectorizationProcessingType ProcessingType { get; set; }</code><
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPropertyOrder(12)]
 [JsonPropertyName(&quot;remaining_steps&quot;)]
-public required List&lt;string&gt; RemainingSteps { get; set; }</code></pre>
+public List&lt;string&gt; RemainingSteps { get; set; }</code></pre>
   </div>
 
 
@@ -441,7 +477,7 @@ public required List&lt;string&gt; RemainingSteps { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_Steps" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.Steps">
   Steps
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L48"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The list of vectorization steps requested by the vectorization request.
@@ -480,7 +516,7 @@ public required List&lt;VectorizationStep&gt; Steps { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_MoveToNextStep" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.MoveToNextStep">
   MoveToNextStep()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L86"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Advances the vectorization pipeline to the next step.
@@ -515,7 +551,7 @@ of the vectorization request is complete.</p>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationRequest_RollbackToPreviousStep" data-uid="FoundationaLLM.Vectorization.Models.VectorizationRequest.RollbackToPreviousStep">
   RollbackToPreviousStep()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationRequest.cs/#L105"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Reverts the vectorization pipeline to the previous step, returning the name of the step to execute</p>

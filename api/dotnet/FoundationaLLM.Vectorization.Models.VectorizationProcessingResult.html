@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Models_VectorizationProcessingResult" data-uid="FoundationaLLM.Vectorization.Models.VectorizationProcessingResult" class="text-break">
-Class VectorizationProcessingResult  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L15"><i class="bi bi-code-slash"></i></a>
+Class VectorizationProcessingResult  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -168,9 +168,9 @@ Class VectorizationProcessingResult  <a class="header-action link-secondary" tit
 
   <a id="FoundationaLLM_Vectorization_Models_VectorizationProcessingResult__ctor_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationProcessingResult__ctor_System_Boolean_System_Nullable_System_Guid__System_String_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.#ctor(System.Boolean,System.Nullable{System.Guid},System.String)">
-  VectorizationProcessingResult(bool, Guid?, string?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationProcessingResult__ctor_System_String_System_Boolean_System_String_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.#ctor(System.String,System.Boolean,System.String)">
+  VectorizationProcessingResult(string, bool, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Represents the result of processing a vectorization request.</p>
@@ -178,16 +178,16 @@ Class VectorizationProcessingResult  <a class="header-action link-secondary" tit
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public VectorizationProcessingResult(bool IsSuccess, Guid? OperationId, string? ErrorMessage)</code></pre>
+    <pre><code class="lang-csharp hljs">public VectorizationProcessingResult(string ObjectId, bool IsSuccess, string? ErrorMessage)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>ObjectId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The object id to which the result refers to.</p>
+</dd>
     <dt><code>IsSuccess</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd><p>Indicates whether the processing was completed successfully.</p>
-</dd>
-    <dt><code>OperationId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a>?</dt>
-    <dd><p>The identifier of the vectorization operation. Can be used to request the status of the operation.</p>
 </dd>
     <dt><code>ErrorMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>When IsSuccess is false, contains an error message with details.</p>
@@ -213,7 +213,7 @@ Class VectorizationProcessingResult  <a class="header-action link-secondary" tit
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_ErrorMessage" data-uid="FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ErrorMessage">
   ErrorMessage
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>When IsSuccess is false, contains an error message with details.</p>
@@ -221,7 +221,8 @@ Class VectorizationProcessingResult  <a class="header-action link-secondary" tit
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? ErrorMessage { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;error_message&quot;)]
+public string? ErrorMessage { get; init; }</code></pre>
   </div>
 
 
@@ -245,7 +246,7 @@ Class VectorizationProcessingResult  <a class="header-action link-secondary" tit
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_IsSuccess" data-uid="FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.IsSuccess">
   IsSuccess
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Indicates whether the processing was completed successfully.</p>
@@ -253,7 +254,8 @@ Class VectorizationProcessingResult  <a class="header-action link-secondary" tit
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsSuccess { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;is_success&quot;)]
+public bool IsSuccess { get; init; }</code></pre>
   </div>
 
 
@@ -273,19 +275,20 @@ Class VectorizationProcessingResult  <a class="header-action link-secondary" tit
 
 
 
-  <a id="FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_OperationId_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.OperationId*"></a>
+  <a id="FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_ObjectId_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ObjectId*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_OperationId" data-uid="FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.OperationId">
-  OperationId
+  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_ObjectId" data-uid="FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ObjectId">
+  ObjectId
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The identifier of the vectorization operation. Can be used to request the status of the operation.</p>
+  <div class="markdown level1 summary"><p>The object id to which the result refers to.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Guid? OperationId { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;object_id&quot;)]
+public string ObjectId { get; init; }</code></pre>
   </div>
 
 
@@ -294,7 +297,7 @@ Class VectorizationProcessingResult  <a class="header-action link-secondary" tit
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a>?</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -309,7 +312,7 @@ Class VectorizationProcessingResult  <a class="header-action link-secondary" tit
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L15" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationProcessingResult.cs/#L16" class="edit-link">Edit this page</a>
         </div>
 
 
