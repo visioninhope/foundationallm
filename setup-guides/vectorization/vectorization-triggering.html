@@ -101,11 +101,10 @@
 <h2 id="vectorization-requests">Vectorization requests</h2>
 <p>The typical structure of a vectorization request is the following</p>
 <pre><code class="lang-json">{
-    &quot;id&quot;: &quot;&lt;unique_identifier&gt;&quot;,
     &quot;content_identifier&quot;: {
         &quot;content_source_profile_name&quot;: &quot;&lt;name&gt;&quot;,
         &quot;multipart_id&quot;: [
-            &quot;https://xyz.blob.core.windows.net&quot;,
+            &quot;xyz.blob.core.windows.net&quot;,
             &quot;vectorization-input&quot;,
             &quot;The-fabulous-life-of-Jack-the-Cat.pdf&quot;
         ],
@@ -135,13 +134,6 @@
                 &quot;indexing_profile_name&quot;: &quot;AzureAISearch_Default_001&quot;
             }
         }
-    ],
-    &quot;completed_steps&quot;: [],
-    &quot;remaining_steps&quot;: [
-        &quot;extract&quot;,
-        &quot;partition&quot;,
-        &quot;embed&quot;,
-        &quot;index&quot;
     ]
 }
 </code></pre>
@@ -154,10 +146,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>id</code></td>
-<td>A unique identifier for the vectorization request. The caller is responsible for the generation of this identifier. The recommended format is GUID.</td>
-</tr>
 <tr>
 <td><code>content_identifier</code></td>
 <td>The content identifier of the content to be vectorized.</td>
@@ -182,16 +170,108 @@
 <td><code>steps</code></td>
 <td>The vectorization steps to be executed. Most vectorization requests will contain the full set of standard steps: <code>extract</code>, <code>partition</code>, <code>embed</code>, and <code>index</code>. Each step (except for the <code>extract</code> one) will contain one parameter specifying the name of the associated vectorization profile name.</td>
 </tr>
+</tbody>
+</table>
+<p>The meaning of the multipart strings depends on the specific type of the content source in the content source profile.</p>
+<p>The following table describes the meaning of the multipart strings for the <code>AzureDataLake</code> content source.</p>
+<table>
+<thead>
 <tr>
-<td><code>completed_steps</code></td>
-<td>Must always be an empty array.</td>
+<th>Position</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>The URL of the Azure Data Lake storage account. When providing this value, you can use the <a href="#known-neutral-urls">known neutral URLs</a> naming conventions.</td>
 </tr>
 <tr>
-<td><code>remaining_steps</code></td>
-<td>Must always be an array with the step names to be executed (order sensitive).</td>
+<td>2</td>
+<td>The name of the container.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The path of the file relative to the container.</td>
 </tr>
 </tbody>
 </table>
+<p>The following table describes the meaning of the multipart strings for the <code>SharePointOnline</code> content source.</p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>The URL of the SharePoint Online tenant. When providing this value, you can use the <a href="#known-neutral-urls">known neutral URLs</a> naming conventions.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>The path of the site/subsite relative to the tenant URL.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The folder path, starting with the document library name.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>The name of the file.</td>
+</tr>
+</tbody>
+</table>
+<p>The following table describes the meaning of the multipart strings for the <code>AzureSQLDatabase</code> content source.</p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>The name of the database schema.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>The name of the table.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The name of the column that stores file content.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>The name of the column that stores file identifiers (file names).</td>
+</tr>
+<tr>
+<td>5</td>
+<td>The file identifier (file name).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="known-neutral-urls">Known neutral URLs</h3>
+<p>Depending on the specific configuration of various layers of security, vectorization request might end up being filtered out by infrastructure components like firewalls or proxies. To avoid this, the Vectorization API supports the use of known neutral URLs.</p>
+<p>Known neutral URLs are URLs that have a neutral form that is not subject to filtering. The platform currently supports two conventions for specifing known neutral URLs:</p>
+<ul>
+<li>Simple: <code>xyz.blob.core.windows.net</code> - this will be translated into <code>https://xyz.blob.core.windows.net</code> by the platform.</li>
+<li>Complex: <code>FLLM:xyz#blob#core#windows#net</code> - this will be translated into <code>https://xyz.blob.core.windows.net</code> by the platform.</li>
+</ul>
+<p>Depending on the specific configuration of the infrastructure, one of the two conventions might be more suitable than the other.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>To avoid bypassing security measures, the use of known neutral URLs is currently restricted to the following domains: <code>onelake.dfs.fabric.microsoft.com</code>, <code>blob.core.windows.net</code>, <code>dfs.core.windows.net</code>, and <code>sharepoint.com</code>.</p>
+</div>
+<p>When parsing multipart components that are subject to known neutral URL naming conventions, the platform will apply the following logic:</p>
+<ol>
+<li>If the component starts with <code>https://</code> or <code>http://</code> (case-insensitive), the platform will not apply any transformation since the explicit intent is to use a fully qualified URL.</li>
+<li>If the component starts with <code>FLLM:</code>, the platform will replace the <code>FLLM:</code> prefix with <code>https://</code> and replace all <code>#</code> characters with <code>.</code>. Then, it will check if the tail of the resulting URL is in the list of allowed domains. If it is, the platform will use the resulting URL. If it is not, the platform will use the original form of the component.</li>
+<li>At this point, the platform will assume that the component is a simple known neutral URL and will prepend <code>https://</code> to it. Then, if the tail of the resulting URL is in the list of allowed domains, the platform will use the resulting URL. If it is not, the platform will use the original form of the component.</li>
+</ol>
 <h3 id="submitting-vectorization-requests">Submitting vectorization requests</h3>
 <p>This section describes how to submit vectorization requests using the Vectorization API.
 <code>{{baseUrl}}</code> is the base URL of the Vectorization API.</p>
@@ -203,6 +283,13 @@ BODY
 &lt;vectorization_request&gt;
 </code></pre>
 <p>where &lt;vectorization_api_key&gt; is the API key of the Vectorization API and <code>&lt;vectorization_request&gt;</code> is the vectorization request to be submitted.</p>
+<p>Upon completion, the API will return a response with the following structure:</p>
+<pre><code class="lang-json">{
+    &quot;object_id&quot;:&quot;/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/vectorizationrequests/6041849a-d4d8-428d-97ff-c6a3443ecdae&quot;,
+    &quot;is_success&quot;:true,
+    &quot;error_message&quot;:null
+}
+</code></pre>
 
 </article>
 
