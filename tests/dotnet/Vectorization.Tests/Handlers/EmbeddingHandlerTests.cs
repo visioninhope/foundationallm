@@ -1,10 +1,10 @@
 ﻿using FakeItEasy;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.TextEmbedding;
-using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
+using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

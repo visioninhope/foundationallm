@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Azure.Identity;
+using FoundationaLLM;
 using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
 using FoundationaLLM.AgentFactory.Core.Services;
@@ -12,6 +13,7 @@ using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.API;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
@@ -49,6 +51,7 @@ namespace FoundationaLLM.AgentFactory.API
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AgentFactory);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -72,6 +75,8 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Services.AddOptions<APIKeyValidationSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_AgentFactoryAPI));
             builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
+            builder.Services.AddOptions<InstanceSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
 
             builder.Services.AddOptions<SemanticKernelServiceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_SemanticKernelAPI));
@@ -103,6 +108,8 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Services.AddHostedService<Warmup>();
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
+            builder.Services.AddAgentResourceProvider(builder.Configuration);
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);

@@ -1,5 +1,5 @@
 {
-	"IndexingProfiles": [
+	"Profiles": [
 		{
 			"Name": "AzureAISearch_Default_001",
 			"Description": "Azure AI Search index for vectorization.",
@@ -9,6 +9,7 @@
 			},
 			"ConfigurationReferences": {
 				"APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
+				"QueryAPIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
 				"AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
 				"Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
 			}

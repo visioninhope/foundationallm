@@ -1,15 +1,11 @@
 using Asp.Versioning;
 using Azure.Identity;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Net.Http;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
@@ -19,8 +15,14 @@ using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Management.Services;
 using FoundationaLLM.Management.Services.APIServices;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using Polly;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FoundationaLLM.Management.API
 {
@@ -43,11 +45,16 @@ namespace FoundationaLLM.Management.API
             {
                 options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options => { options.SetCredential(new DefaultAzureCredential()); });
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Branding);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
             });
+
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
@@ -72,6 +79,8 @@ namespace FoundationaLLM.Management.API
                 .Configure(o =>
                     o.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]!);
 
+            builder.Services.AddInstanceProperties(builder.Configuration);
+
             builder.Services.AddScoped<IAgentFactoryAPIService, AgentFactoryAPIService>();
             builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
             builder.Services.AddScoped<IDataSourceHubAPIService, DataSourceHubAPIService>();
@@ -83,7 +92,18 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
-            // Register the authentication services
+            //----------------------------
+            // Resource providers
+            //----------------------------
+
+            builder.Services.AddVectorizationResourceProvider(builder.Configuration);
+            builder.Services.AddAgentResourceProvider(builder.Configuration);
+            builder.Services.AddPromptResourceProvider(builder.Configuration);
+
+            // Activate all resource providers (give them a chance to initialize).
+            builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();
+
+            // Register the authentication services:
             RegisterAuthConfiguration(builder);
 
             builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
@@ -134,13 +154,47 @@ namespace FoundationaLLM.Management.API
 
                     // Integrate xml comments
                     options.IncludeXmlComments(filePath);
+
+                    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Id = "azure_auth",
+                                    Type = ReferenceType.SecurityScheme
+                                }
+                            },
+                            new[] {"user_impersonation"}
+                        }
+                    });                    
+
+                    options.AddSecurityDefinition("azure_auth", new OpenApiSecurityScheme
+                    {
+                        In = ParameterLocation.Header,
+                        Description = "Azure Active Directory Oauth2 Flow",
+                        Name = "azure_auth",
+                        Type = SecuritySchemeType.OAuth2,
+                        Flows = new OpenApiOAuthFlows
+                        {
+                            Implicit = new OpenApiOAuthFlow
+                            {
+                                AuthorizationUrl = new Uri("https://login.microsoftonline.com/common/oauth2/authorize"),
+                                Scopes = new Dictionary<string, string>
+                                {
+                                    {
+                                        "user_impersonation",
+                                        "impersonate your user account"
+                                    }
+                                }
+                            }
+                        },
+                        BearerFormat = "JWT",
+                        Scheme = "bearer"
+                    });
                 })
                 .AddSwaggerGenNewtonsoftSupport();
-
-            builder.Services.Configure<RouteOptions>(options =>
-            {
-                options.LowercaseUrls = true;
-            });
 
             var app = builder.Build();
 
@@ -159,7 +213,7 @@ namespace FoundationaLLM.Management.API
                     => await Results.Problem().ExecuteAsync(context)));
 
             // Configure the HTTP request pipeline.
-            app.UseSwagger();
+            app.UseSwagger(p => p.SerializeAsV2 = true);
             app.UseSwaggerUI(
                 options =>
                 {
@@ -172,6 +226,8 @@ namespace FoundationaLLM.Management.API
                         var name = description.GroupName.ToUpperInvariant();
                         options.SwaggerEndpoint(url, name);
                     }
+
+                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId] } });
                 });
 
             app.UseHttpsRedirection();

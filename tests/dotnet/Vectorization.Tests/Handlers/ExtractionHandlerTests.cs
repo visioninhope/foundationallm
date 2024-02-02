@@ -1,10 +1,9 @@
 using FakeItEasy;
-using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.TextEmbedding;
-using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
+using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +13,7 @@ namespace Vectorization.Tests
 {
     internal class MockContentSourceService : ContentSourceServiceBase, IContentSourceService
     {
-        public Task<string> ExtractTextFromFileAsync(List<string> multipartId, CancellationToken cancellationToken)
+        public Task<string> ExtractTextFromFileAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
         {
             return Task.FromResult("This is the PDF document data.");
         }

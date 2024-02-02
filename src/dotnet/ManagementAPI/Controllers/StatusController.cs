@@ -11,7 +11,9 @@ namespace FoundationaLLM.Management.API.Controllers
     [Authorize(Policy = "RequiredScope")]
     [ApiVersion(1.0)]
     [ApiController]
-    [Route("[controller]")]
+    [Route("status")]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public class StatusController : ControllerBase
     {
         /// <summary>
@@ -20,7 +22,7 @@ namespace FoundationaLLM.Management.API.Controllers
         [AllowAnonymous]
         [HttpGet(Name = "GetServiceStatus")]
         public IActionResult GetServiceStatus() =>
-            Ok();
+            Ok("ManagementAPI - ready");
 
         /// <summary>
         /// Returns OK if the requester is authenticated and allowed to execute

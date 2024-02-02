@@ -50,5 +50,13 @@ namespace FoundationaLLM.Common.Constants
         /// The dependency injection key for the vectorization steps configuration section.
         /// </summary>
         public const string FoundationaLLM_Vectorization_Steps = "FoundationaLLM:Vectorization:Steps";
+        /// <summary>
+        /// The dependency injection key for the FoundationaLLM.Agent resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Agent_ResourceProviderService = "FoundationaLLM:Agent:ResourceProviderService";
+        /// <summary>
+        /// The dependency injection key for the FoundationaLLM.Prompt resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Prompt_ResourceProviderService = "FoundationaLLM:Prompt:ResourceProviderService";
     }
 }
