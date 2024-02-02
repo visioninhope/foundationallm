@@ -220,6 +220,7 @@ Default structure for the `vectorization-text-embedding-profiles.json` file:
             "Settings": {},
             "ConfigurationReferences": {
                 "APIKey": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
+                "APIVersion": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APVersion",
                 "AuthenticationType": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
                 "DeploymentName": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName",
                 "Endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"
