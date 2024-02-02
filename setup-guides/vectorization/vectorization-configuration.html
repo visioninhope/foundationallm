@@ -483,6 +483,7 @@ The detailes presented here are provided for cases in which you need to troubles
             &quot;Settings&quot;: {},
             &quot;ConfigurationReferences&quot;: {
                 &quot;APIKey&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey&quot;,
+                &quot;APIVersion&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APVersion&quot;,
                 &quot;AuthenticationType&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType&quot;,
                 &quot;DeploymentName&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName&quot;,
                 &quot;Endpoint&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint&quot;
@@ -505,7 +506,11 @@ The detailes presented here are provided for cases in which you need to troubles
             &quot;ObjectId&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.Vectorization/indexingprofiles/AzureAISearch_Default_001&quot;,
             &quot;Indexer&quot;: &quot;AzureAISearchIndexer&quot;,
             &quot;Settings&quot;: {
-                &quot;IndexName&quot;: &quot;fllm-default-001&quot;
+                &quot;IndexName&quot;: &quot;fllm-default-001&quot;,
+                &quot;TopN&quot;: &quot;3&quot;,
+                &quot;Filters&quot;: &quot;&quot;,
+                &quot;EmbeddingFieldName&quot;: &quot;Embedding&quot;,
+                &quot;TextFieldName&quot;: &quot;Text&quot;
             },
             &quot;ConfigurationReferences&quot;: {
                 &quot;APIKey&quot;: &quot;FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey&quot;,
