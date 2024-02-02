@@ -13,6 +13,7 @@ namespace FoundationaLLM.Common.Extensions
     public static class StringExtensions
     {
         private static List<string> KnownFQDNs => [
+            "onelake.dfs.fabric.microsoft.com",
             "blob.core.windows.net",
             "dfs.core.windows.net",
             "sharepoint.com"
@@ -66,7 +67,7 @@ namespace FoundationaLLM.Common.Extensions
         {
             var urlToCheck = url.ToLower();
 
-            if (urlToCheck.EndsWith("/"))
+            if (urlToCheck.EndsWith('/'))
                 urlToCheck = urlToCheck.Remove(urlToCheck.Length - 1);
 
             return
