@@ -93,16 +93,39 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             }
         }
 
-        #region IResourceProviderService
+        #region IManagementProviderService
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderActionResult> ExecuteAction(string actionPath)
+        public async Task<string> HandleGetAsync(string resourcePath)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(actionPath);
-            return await ExecuteActionInternal(instances);
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            return await GetResourcesAsyncInternal(instances);
         }
+
+        /// <inheritdoc/>
+        public async Task<string> HandlePostAsync(string resourcePath, string serializedResource)
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            await UpsertResourceAsync(instances, serializedResource);
+            return GetObjectId(instances);
+        }
+
+        /// <inheritdoc/>
+        public async Task HandleDeleteAsync(string resourcePath)
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            await DeleteResourceAsync(instances);
+        }
+
+        #endregion
+
+        #region IResourceProviderService
 
         /// <inheritdoc/>
         public IList<T> GetResources<T>(string resourcePath) where T : class
@@ -120,15 +143,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
             var instances = GetResourceInstancesFromPath(resourcePath);
             return await GetResourcesAsyncInternal<T>(instances);
-        }
-
-        /// <inheritdoc/>
-        public async Task<string> GetResourcesAsync(string resourcePath)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(resourcePath);
-            return await GetResourcesAsyncInternal(instances);
         }
 
         /// <inheritdoc/>
@@ -160,16 +174,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         /// <inheritdoc/>
-        public async Task<string> UpsertResourceAsync(string resourcePath, string serializedResource)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(resourcePath);
-            await UpsertResourceAsync(instances, serializedResource);
-            return GetObjectId(instances);
-        }
-
-        /// <inheritdoc/>
         public string UpsertResource<T>(string resourcePath, T resource) where T : class
         {
             if (!_isInitialized)
@@ -186,15 +190,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
             var instances = GetResourceInstancesFromPath(resourcePath);
             await DeleteResourceAsync<T>(instances);
-        }
-
-        /// <inheritdoc/>
-        public async Task DeleteResourceAsync(string resourcePath)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(resourcePath);
-            await DeleteResourceAsync(instances);
         }
 
         /// <inheritdoc/>

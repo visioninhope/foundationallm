@@ -61,7 +61,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             var serializedAgent = string.Empty;
             try
             {
-                serializedAgent = await agentResourceProvider.GetResourcesAsync($"/{AgentResourceTypeNames.Agents}/{callContext.AgentHint!.Name}");
+                serializedAgent = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{callContext.AgentHint!.Name}");
             }
             catch { }
 

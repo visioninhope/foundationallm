@@ -44,7 +44,11 @@ namespace FoundationaLLM.Agent.ResourceProviders
             {
                 {
                     AgentResourceTypeNames.Agents,
-                    new ResourceTypeDescriptor(AgentResourceTypeNames.Agents)
+                    new ResourceTypeDescriptor(
+                        AgentResourceTypeNames.Agents)
+                    {
+                        Actions = ["checkname"]
+                    }
                 },
                 {
                     AgentResourceTypeNames.AgentReferences,
