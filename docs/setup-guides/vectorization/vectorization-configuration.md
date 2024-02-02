@@ -252,6 +252,7 @@ Default structure for the `vectorization-indexing-profiles.json` file:
             },
             "ConfigurationReferences": {
                 "APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
+                "QueryAPIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
                 "AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
                 "Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
             }
