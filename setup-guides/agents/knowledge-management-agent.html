@@ -87,7 +87,7 @@
         <article data-uid="">
 <h1 id="knowledge-management-agent">Knowledge management agent</h1>
 
-<p>The FoundationaLLM(FLLM) knowledge management agent supports two use cases: internal context and retrieval augmented generation (RAG).</p>
+<p>The FoundationaLLM (FLLM) knowledge management agent supports two use cases: internal context and retrieval augmented generation (RAG).</p>
 <h2 id="internal-context">Internal Context</h2>
 <p>The internal context flow provides a pass-through mechanism that sends the user prompt directly to the large language model (LLM) without any additional processing or context. This is useful when the user prompt is already prepared and does not require any additional context.</p>
 <h2 id="retrieval-augmented-generation-rag">Retrieval Augmented Generation (RAG)</h2>
@@ -100,7 +100,7 @@
 </li>
 <li><p><a href="../vectorization/vectorization-profiles.html#indexing-profiles">Vectorization indexing profile</a>: The indexing profile contains the configuration of the service hosting the index that is to be searched.</p>
 </li>
-<li><p><a href="prompt-resource.html">Prompt</a>: The system prompt of the agent, describes the persona of the agent.</p>
+<li><p><a href="prompt-resource.html">Prompt</a>: The system prompt of the agent, describing the persona of the agent.</p>
 </li>
 </ul>
 <blockquote>
@@ -145,7 +145,7 @@
 <ul>
 <li><code>&lt;name&gt;</code> is the name of the agent.</li>
 <li><code>&lt;instance_id&gt;</code> is the instance ID of the deployment.</li>
-<li><code>&lt;description&gt;</code> is the description of the agent, ensure this description details the purpose of the agent.</li>
+<li><code>&lt;description&gt;</code> is the description of the agent. Ensure that this description details the purpose of the agent.</li>
 <li><code>&lt;indexing_profile_resource_objectid&gt;</code> is the object ID of the indexing profile resource.</li>
 <li><code>&lt;text_embedding_profile_resource_objectid&gt;</code> is the object ID of the text embedding profile resource.</li>
 <li><code>&lt;prompt_resource_objectid&gt;</code> is the object ID of the prompt resource.</li>
@@ -275,14 +275,14 @@ Content-Type: application/json
 BODY
 &lt;agent_configuration&gt;
 </code></pre>
-<p>where <code>&lt;agent_configuration&gt;</code> is the agent configuration structure described above.</p>
+<p>where <code>&lt;agent_configuration&gt;</code> is the JSON agent configuration structure described above.</p>
 <h3 id="delete">Delete</h3>
 <pre><code class="lang-http">HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/agents/&lt;name&gt;
 </code></pre>
 <h2 id="validating-a-knowledge-management-agent">Validating a knowledge management agent</h2>
 <p>Once configured, the knowledge management agent can be validated using an API call to the <a href="../exposed-apis/core-api.html">Core API</a> or via the <a href="../quickstart.html">User Portal</a>.</p>
 <blockquote>
-<p><strong>Note</strong>: When validating through the user portal, ensure the <code>FoundationaLLM-AllowAgentHint</code> feature is enabled in the app configuration service. Also, the name of the agent needs to be added to the comma-delimited list of agents located in the app configuration setting named <code>FoundationaLLM:Branding:AllowAgentSelection</code> for it to display in the agent selection dropdown in the user portal. Once configuration has been modified, restart the Core API and User Portal services <a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aca-deployment">(ACA)</a><a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aks-deployment">(AKS)</a>.</p>
+<p><strong>Note</strong>: When validating through the user portal, ensure the <code>FoundationaLLM-AllowAgentHint</code> feature is enabled in the app configuration service. Also, the name of the agent needs to be added to the comma-delimited list of agents located in the app configuration setting named <code>FoundationaLLM:Branding:AllowAgentSelection</code> for it to display in the agent selection dropdown in the user portal. Once configuration has been modified, restart the Core API and User Portal services <a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aca-deployment">(ACA)</a> <a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aks-deployment">(AKS)</a>.</p>
 </blockquote>
 
 </article>
