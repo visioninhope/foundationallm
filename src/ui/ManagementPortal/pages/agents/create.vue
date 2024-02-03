@@ -571,13 +571,13 @@ export default {
 				errors.push('Please give the agent a name.');
 			}
 
-			if (!this.selectedDataSource) {
-				errors.push('Please select a data source.');
-			}
+			// if (!this.selectedDataSource) {
+			// 	errors.push('Please select a data source.');
+			// }
 
-			if (!this.selectedIndexSource) {
-				errors.push('Please select an index source.');
-			}
+			// if (!this.selectedIndexSource) {
+			// 	errors.push('Please select an index source.');
+			// }
 
 			if (errors.length > 0) {
 				this.$toast.add({
