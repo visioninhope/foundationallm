@@ -606,6 +606,11 @@ export default {
 
 					prompt: this.systemPrompt,
 				});
+
+				this.$toast.add({
+					severity: 'success',
+					detail: `Agent "${this.agentName}" was succesfully created!`,
+				});
 			} catch(error) {
 				this.$toast.add({
 					severity: 'error',
