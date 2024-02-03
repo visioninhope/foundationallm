@@ -527,6 +527,23 @@ export default {
 	},
 
 	methods: {
+		resetForm() {
+			this.agentName = '';
+			this.agentDescription = '';
+			this.chunkSize = 2000;
+			this.overlapSize = 100;
+			this.selectedDataSource = null as null | Object;
+			this.selectedIndexSource = null as null | AgentIndex;
+			this.triggerFrequency = { label: 'Manual', value: 1 };
+			this.triggerFrequencyScheduled = null;
+			this.conversationHistory = false as boolean;
+			this.conversationMaxMessages = 5 as number;
+			this.gatekeeperEnabled = false as boolean;
+			this.gatekeeperContentSafety = { label: 'None', value: null };
+			this.gatekeeperDataProtection = { label: 'None', value: null };
+			this.systemPrompt = defaultSystemPrompt as string;
+		},
+
 		handleNameInput(event) {
 			let element = event.target;
 
@@ -601,7 +618,10 @@ export default {
 
 					gatekeeper: {
 						use_system_setting: this.gatekeeperEnabled,
-						options: [this.gatekeeperContentSafety.value !== null ? this.gatekeeperContentSafety.value : null, this.gatekeeperDataProtection.value !== null ? this.gatekeeperDataProtection.value : null].filter(Boolean),
+						options: [
+							this.gatekeeperContentSafety.value,
+							this.gatekeeperDataProtection.value,
+						].filter(option => option !== null),
 					},
 
 					prompt: this.systemPrompt,
@@ -611,6 +631,8 @@ export default {
 					severity: 'success',
 					detail: `Agent "${this.agentName}" was succesfully created!`,
 				});
+
+				this.resetForm();
 			} catch(error) {
 				this.$toast.add({
 					severity: 'error',
