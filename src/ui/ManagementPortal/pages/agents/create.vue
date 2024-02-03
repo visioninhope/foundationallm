@@ -19,6 +19,11 @@
 				<div class="mb-2">No special characters or spaces, lowercase letters with dashes and underscores only.</div>
 				<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" />
 			</div>
+			<div class="span-2">
+				<div class="step-header mb-2">Description:</div>
+				<div class="mb-2">Provide a description to help others understand the agent's purpose.</div>
+				<InputText v-model="agentDescription" placeholder="Enter agent description" type="text" class="w-100" />
+			</div>
 
 			<!-- Type -->
 			<div class="step-section-header span-2">Type</div>
@@ -396,6 +401,7 @@ export default {
 			loadingStatusText: 'Retrieving data...' as string,
 
 			agentName: '',
+			agentDescription: '',
 			agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 			editDataSource: false as boolean,
@@ -464,7 +470,7 @@ export default {
 				},
 				{
 					label: 'Azure Content Safety',
-					value: 1,
+					value: "ContentSafety"
 				},
 			],
 			gatekeeperDataProtection: { label: 'None', value: null },
@@ -475,7 +481,7 @@ export default {
 				},
 				{
 					label: 'Microsoft Presidio',
-					value: 1,
+					value: "Presidio"
 				},
 			],
 
@@ -578,6 +584,7 @@ export default {
 			try {
 				await api.createAgent({
 					name: this.agentName,
+					description: this.agentDescription,
 					type: this.agentType,
 
 					embedding_profile: this.selectedDataSource?.ObjectId,
@@ -594,10 +601,12 @@ export default {
 
 					gatekeeper: {
 						use_system_setting: this.gatekeeperEnabled,
-						options: {
-							content_safety: this.gatekeeperContentSafety,
-							data_protection: this.gatekeeperDataProtection,
-						},
+						// Set options to a string array of the selected options
+						options: [this.gatekeeperContentSafety.value !== null ? this.gatekeeperContentSafety.value : null, this.gatekeeperDataProtection.value !== null ? this.gatekeeperDataProtection.value : null].filter(Boolean),
+						// options: {
+						// 	content_safety: this.gatekeeperContentSafety,
+						// 	data_protection: this.gatekeeperDataProtection,
+						// },
 					},
 
 					prompt: this.systemPrompt,
