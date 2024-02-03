@@ -596,17 +596,12 @@ export default {
 
 					conversation_history: {
 						enabled: this.conversationHistory,
-						// max_history: number,
+						max_history: this.conversationMaxMessages,
 					},
 
 					gatekeeper: {
 						use_system_setting: this.gatekeeperEnabled,
-						// Set options to a string array of the selected options
 						options: [this.gatekeeperContentSafety.value !== null ? this.gatekeeperContentSafety.value : null, this.gatekeeperDataProtection.value !== null ? this.gatekeeperDataProtection.value : null].filter(Boolean),
-						// options: {
-						// 	content_safety: this.gatekeeperContentSafety,
-						// 	data_protection: this.gatekeeperDataProtection,
-						// },
 					},
 
 					prompt: this.systemPrompt,
