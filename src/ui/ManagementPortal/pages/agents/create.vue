@@ -392,32 +392,46 @@ import type { CreateAgentRequest, AgentIndex } from '@/js/types';
 
 const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
+const defaultFormValues = {
+	agentName: '',
+	agentDescription: '',
+	agentType: 'knowledge-management' as CreateAgentRequest['type'],
+
+	editDataSource: false as boolean,
+	selectedDataSource: null as null | Object,
+
+	editIndexSource: false as boolean,
+	selectedIndexSource: null as null | AgentIndex,
+
+	chunkSize: 2000,
+	overlapSize: 100,
+
+	triggerFrequency: { label: 'Manual', value: 1 },
+	triggerFrequencyScheduled: null,
+
+	conversationHistory: false as boolean,
+	conversationMaxMessages: 5 as number,
+
+	gatekeeperEnabled: false as boolean,
+	gatekeeperContentSafety: { label: 'None', value: null },
+	gatekeeperDataProtection: { label: 'None', value: null },
+
+	systemPrompt: defaultSystemPrompt as string,
+};
+
 export default {
 	name: 'CreateAgent',
 
 	data() {
 		return {
+			...defaultFormValues,
+
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
-			agentName: '',
-			agentDescription: '',
-			agentType: 'knowledge-management' as CreateAgentRequest['type'],
-
-			editDataSource: false as boolean,
 			dataSources: [],
-			selectedDataSource: null as null | Object,
-
-			editIndexSource: false as boolean,
 			indexSources: [] as AgentIndex[],
-			selectedIndexSource: null as null | AgentIndex,
 
-			// editProcessing: false as boolean,
-			chunkSize: 2000,
-			overlapSize: 100,
-
-			// editTrigger: false as boolean,
-			triggerFrequency: { label: 'Manual', value: 1 },
 			triggerFrequencyOptions: [
 				{
 					label: 'Manual',
@@ -432,7 +446,7 @@ export default {
 				// 	value: 2,
 				// },
 			],
-			triggerFrequencyScheduled: null,
+			
 			triggerFrequencyScheduledOptions: [
 				{
 					label: 'Never',
@@ -456,13 +470,6 @@ export default {
 				},
 			],
 
-			// editConversationHistory: false as boolean,
-			conversationHistory: false as boolean,
-			conversationMaxMessages: 5 as number,
-
-			// editGatekeeper: false as boolean,
-			gatekeeperEnabled: false as boolean,
-			gatekeeperContentSafety: { label: 'None', value: null },
 			gatekeeperContentSafetyOptions: [
 				{
 					label: 'None',
@@ -473,7 +480,7 @@ export default {
 					value: "ContentSafety"
 				},
 			],
-			gatekeeperDataProtection: { label: 'None', value: null },
+
 			gatekeeperDataProtectionOptions: [
 				{
 					label: 'None',
@@ -484,8 +491,6 @@ export default {
 					value: "Presidio"
 				},
 			],
-
-			systemPrompt: defaultSystemPrompt as string,
 		};
 	},
 
@@ -528,20 +533,9 @@ export default {
 
 	methods: {
 		resetForm() {
-			this.agentName = '';
-			this.agentDescription = '';
-			this.chunkSize = 2000;
-			this.overlapSize = 100;
-			this.selectedDataSource = null as null | Object;
-			this.selectedIndexSource = null as null | AgentIndex;
-			this.triggerFrequency = { label: 'Manual', value: 1 };
-			this.triggerFrequencyScheduled = null;
-			this.conversationHistory = false as boolean;
-			this.conversationMaxMessages = 5 as number;
-			this.gatekeeperEnabled = false as boolean;
-			this.gatekeeperContentSafety = { label: 'None', value: null };
-			this.gatekeeperDataProtection = { label: 'None', value: null };
-			this.systemPrompt = defaultSystemPrompt as string;
+			for (const key in defaultFormValues) {
+				this[key] = defaultFormValues[key];
+			}
 		},
 
 		handleNameInput(event) {
@@ -626,23 +620,23 @@ export default {
 
 					prompt: this.systemPrompt,
 				});
-
-				this.$toast.add({
-					severity: 'success',
-					detail: `Agent "${this.agentName}" was succesfully created!`,
-				});
-
-				this.resetForm();
 			} catch(error) {
-				this.$toast.add({
+				this.loading = false;
+				return this.$toast.add({
 					severity: 'error',
 					detail: 'There was an error creating the agent. Please check the settings and try again.',
 					life: 5000,
 				});
 			}
 
+			this.$toast.add({
+				severity: 'success',
+				detail: `Agent "${this.agentName}" was succesfully created!`,
+			});
+
 			this.loading = false;
-			// Route to created agent's page
+
+			this.resetForm();
 		},
 	},
 };
