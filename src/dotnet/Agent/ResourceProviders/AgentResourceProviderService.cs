@@ -169,7 +169,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 default,
                 default);
 
-            _agentReferences[agentReference.Name] = agentReference;
+            _agentReferences.AddOrUpdate(agentReference.Name, agentReference, (k,v) => agentReference);
 
             await _storageService.WriteFileAsync(
                     _storageContainerName,

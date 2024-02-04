@@ -159,6 +159,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 default,
                 default);
 
+            _promptReferences.AddOrUpdate(promptReference.Name, promptReference, (k,v) => promptReference);
             _promptReferences[promptReference.Name] = promptReference;
 
             await _storageService.WriteFileAsync(
