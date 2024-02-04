@@ -23,6 +23,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
 		if (!isAuthenticated && to.name !== 'auth/login') {
 	    return navigateTo({ name: 'auth/login' });
-	  }	
+	  }
 	}
 });
