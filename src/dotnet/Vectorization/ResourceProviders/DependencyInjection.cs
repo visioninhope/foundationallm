@@ -1,8 +1,8 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
-using FoundationaLLM.Common.Services;
-using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Vectorization.ResourceProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,20 +24,20 @@ namespace FoundationaLLM
         public static void AddVectorizationResourceProvider(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddOptions<BlobStorageServiceSettings>(
-                DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)
+                DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
                 .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
 
             services.AddSingleton<IStorageService, BlobStorageService>(sp =>
             {
                 var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-                    .Get(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
+                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
                 var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
 
                 return new BlobStorageService(
                     Options.Create<BlobStorageServiceSettings>(settings),
                     logger)
                 {
-                    InstanceName = DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService
+                    InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization
                 };
             });
 
@@ -46,7 +46,7 @@ namespace FoundationaLLM
                 new VectorizationResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
-                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService),
+                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization),
                     sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>()));
         }
     }

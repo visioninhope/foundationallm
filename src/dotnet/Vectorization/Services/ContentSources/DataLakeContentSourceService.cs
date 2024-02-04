@@ -1,6 +1,6 @@
-﻿using FoundationaLLM.Common.Models.TextEmbedding;
-using FoundationaLLM.Common.Services;
-using FoundationaLLM.Common.Settings;
+﻿using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Vectorization.Interfaces;
 using Microsoft.Extensions.Logging;
 

@@ -23,6 +23,7 @@ using Polly;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using FoundationaLLM.Common.Services.Security;
 
 namespace FoundationaLLM.Management.API
 {
@@ -246,7 +247,7 @@ namespace FoundationaLLM.Management.API
         {
             var downstreamAPISettings = new DownstreamAPISettings
             {
-                DownstreamAPIs = new Dictionary<string, DownstreamAPIKeySettings>()
+                DownstreamAPIs = []
             };
             var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
 

@@ -9,7 +9,9 @@ using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
+using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Core.API.Workers;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
@@ -50,6 +52,7 @@ namespace FoundationaLLM.Core.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Branding);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CoreAPI_Entra);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -73,6 +76,9 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddOptions<CoreServiceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_CoreAPI));
 
+            // Add event services
+            builder.Services.AddAzureEventGridEvents(builder.Configuration);
+
             builder.Services.AddAgentResourceProvider(builder.Configuration);
             // Activate all resource providers (give them a chance to initialize).
             builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();
@@ -87,6 +93,8 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
+
+            builder.Services.AddHostedService<EventsWorker>();
 
             // Register the authentication services
             RegisterAuthConfiguration(builder);
@@ -145,7 +153,7 @@ namespace FoundationaLLM.Core.API
                                     Type = ReferenceType.SecurityScheme
                                 }
                             },
-                            new[] {"user_impersonation"}
+                            [ "user_impersonation" ]
                         }
                     });
 

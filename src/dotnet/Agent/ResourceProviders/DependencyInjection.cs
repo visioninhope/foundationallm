@@ -2,8 +2,8 @@
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
-using FoundationaLLM.Common.Services;
-using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Services.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -20,23 +20,24 @@ namespace FoundationaLLM
         /// Register the handler as a hosted service, passing the step name to the handler ctor
         /// </summary>
         /// <param name="services">Application builder service collection</param>
+        /// <param name="configuration">The <see cref="IConfigurationManager"/> providing configuration services.</param>
         public static void AddAgentResourceProvider(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddOptions<BlobStorageServiceSettings>(
-                DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService)
+                DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)
                 .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Agent_ResourceProviderService_Storage));
 
             services.AddSingleton<IStorageService, BlobStorageService>(sp =>
             {
                 var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-                    .Get(DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService);
+                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent);
                 var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
 
                 return new BlobStorageService(
                     Options.Create<BlobStorageServiceSettings>(settings),
                     logger)
                 {
-                    InstanceName = DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService
+                    InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent
                 };
             });
 
@@ -44,7 +45,7 @@ namespace FoundationaLLM
                 new AgentResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
-                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService),
+                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent),
                     sp.GetRequiredService<ILoggerFactory>()));
         }
     }

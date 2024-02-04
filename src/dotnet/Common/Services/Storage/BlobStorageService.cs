@@ -4,17 +4,16 @@ using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Blobs.Specialized;
-using FoundationaLLM;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Text;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.Storage
 {
     /// <summary>
     /// Provides access to Azure blob storage.
@@ -120,7 +119,7 @@ namespace FoundationaLLM.Common.Services
             finally
             {
                 if (blobLease != null)
-                    await blobLeaseClient.ReleaseAsync();
+                    await blobLeaseClient.ReleaseAsync(cancellationToken: cancellationToken);
             }
         }
 

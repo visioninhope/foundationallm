@@ -3,7 +3,6 @@ using Azure.Storage.Files.DataLake;
 using Azure.Storage;
 using Azure;
 using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -12,8 +11,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.Storage
 {
     /// <summary>
     /// Provides access to storage.

@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
@@ -22,7 +22,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
     /// <param name="configuration">The global configuration provider.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public class ContentSourceServiceFactory(
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IResourceProviderService vectorizationResourceProviderService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IResourceProviderService vectorizationResourceProviderService,
         IConfiguration configuration,
         ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IContentSourceService>
     {

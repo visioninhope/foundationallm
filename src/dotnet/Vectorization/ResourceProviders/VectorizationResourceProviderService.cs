@@ -19,7 +19,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
     /// </summary>
     public class VectorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IStorageService storageService,
         ILogger<VectorizationResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,

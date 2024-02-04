@@ -37,7 +37,7 @@ namespace FoundationaLLM.Common.Extensions
             {
                 try
                 {
-                    return await blobLeaseClient.AcquireAsync(TimeSpan.FromSeconds(30), cancellationToken: cancellationToken);
+                    return await blobLeaseClient.AcquireAsync(duration, cancellationToken: cancellationToken);
                 }
                 catch (RequestFailedException ex)
                 {

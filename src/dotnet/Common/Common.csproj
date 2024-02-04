@@ -11,6 +11,7 @@
   
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.10.4" />
+    <PackageReference Include="Azure.Messaging.EventGrid" Version="4.22.0-beta.1" />
     <PackageReference Include="Azure.Search.Documents" Version="11.5.0-alpha.20230531.1" />
     <PackageReference Include="Azure.Storage.Files.DataLake" Version="12.17.1" />
     <PackageReference Include="Microsoft.DeepDev.TokenizerLib" Version="1.3.3" />

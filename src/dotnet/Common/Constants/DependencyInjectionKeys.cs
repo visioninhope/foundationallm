@@ -12,11 +12,6 @@ namespace FoundationaLLM.Common.Constants
     public static class DependencyInjectionKeys
     {
         /// <summary>
-        /// The dependency injection key for the FoundationaLLM.Vectorization resource provider.
-        /// </summary>
-        public const string FoundationaLLM_Vectorization_ResourceProviderService = "FoundationaLLM:Vectorization:ResourceProviderService";
-
-        /// <summary>
         /// The dependency injection key for the blob storage vectorization state service.
         /// </summary>
         public const string FoundationaLLM_Vectorization_BlobStorageVectorizationStateService = "FoundationaLLM:Vectorization:BlobStorageVectorizationStateService";
@@ -50,13 +45,24 @@ namespace FoundationaLLM.Common.Constants
         /// The dependency injection key for the vectorization steps configuration section.
         /// </summary>
         public const string FoundationaLLM_Vectorization_Steps = "FoundationaLLM:Vectorization:Steps";
+
+        #region Resource providers
+
         /// <summary>
         /// The dependency injection key for the FoundationaLLM.Agent resource provider.
         /// </summary>
-        public const string FoundationaLLM_Agent_ResourceProviderService = "FoundationaLLM:Agent:ResourceProviderService";
+        public const string FoundationaLLM_ResourceProvider_Agent = "FoundationaLLM:ResourceProvider:Agent";
+
         /// <summary>
         /// The dependency injection key for the FoundationaLLM.Prompt resource provider.
         /// </summary>
-        public const string FoundationaLLM_Prompt_ResourceProviderService = "FoundationaLLM:Prompt:ResourceProviderService";
+        public const string FoundationaLLM_ResourceProvider_Prompt = "FoundationaLLM:ResourceProvider:Prompt";
+
+        /// <summary>
+        /// The dependency injection key for the FoundationaLLM.Vectorization resource provider.
+        /// </summary>
+        public const string FoundationaLLM_ResourceProvider_Vectorization = "FoundationaLLM:ResourceProvider:Vectorization";
+
+        #endregion
     }
 }

@@ -742,6 +742,10 @@ namespace FoundationaLLM.Common.Constants
         /// The key filter for the FoundationaLLM:Prompt:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Prompt = "FoundationaLLM:Prompt:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Events:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Events = "FoundationaLLM:Events:*";
     }
 
     /// <summary>
@@ -872,6 +876,15 @@ namespace FoundationaLLM.Common.Constants
         /// The key section for the FoundationaLLM:Prompt:ResourceProviderService:Storage app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Prompt_ResourceProviderService_Storage = "FoundationaLLM:Prompt:ResourceProviderService:Storage";
+
+        #endregion
+
+        #region Event Grid events
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Events:AzureEventGridEventService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService = "FoundationaLLM:Events:AzureEventGridEventService";
 
         #endregion
     }

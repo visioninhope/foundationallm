@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.Security
 {
     /// <summary>
     /// Provides a common interface for retrieving and resolving user claims
