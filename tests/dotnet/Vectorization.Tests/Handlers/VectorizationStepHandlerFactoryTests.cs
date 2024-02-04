@@ -4,7 +4,7 @@ using FoundationaLLM.Vectorization.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Vectorization.Tests
+namespace Vectorization.Tests.Handlers
 {
     public class VectorizationStepHandlerFactoryTests
     {

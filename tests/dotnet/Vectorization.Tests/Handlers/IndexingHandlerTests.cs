@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace Vectorization.Tests
+namespace Vectorization.Tests.Handlers
 {
     internal class IndexingMockService : IIndexingService
     {

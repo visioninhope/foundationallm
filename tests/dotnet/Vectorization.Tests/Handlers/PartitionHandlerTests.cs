@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Vectorization.Tests
+namespace Vectorization.Tests.Handlers
 {
     internal class Partition : ITextSplitterService
     {
