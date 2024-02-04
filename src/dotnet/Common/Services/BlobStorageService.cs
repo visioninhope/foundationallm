@@ -3,11 +3,15 @@ using Azure.Identity;
 using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs.Specialized;
+using FoundationaLLM;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Net;
 using System.Text;
 
 namespace FoundationaLLM.Common.Services
@@ -65,20 +69,59 @@ namespace FoundationaLLM.Common.Services
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
             var blobClient = containerClient.GetBlobClient(filePath);
+            var blobLeaseClient = blobClient.GetBlobLeaseClient();
 
-            fileContent.Seek(0, SeekOrigin.Begin);
+            // We are using pessimistic conccurency by default.
+            // For more details, see https://learn.microsoft.com/en-us/azure/storage/blobs/concurrency-manage.
 
-            BlobUploadOptions options = new()
+            BlobLease? blobLease = default;
+
+            try
             {
-                HttpHeaders = new BlobHttpHeaders()
+                blobLease = await blobLeaseClient.AcquireAsyncWithWait(TimeSpan.FromSeconds(60), cancellationToken: cancellationToken);
+                if (blobLease == null)
                 {
-                    ContentType = string.IsNullOrWhiteSpace(contentType)
-                        ? "application/json"
-                        : contentType
+                    _logger.LogError("Could not get a lease for the blob {FilePath} from container {ContainerName}. Reason: unkown.", filePath, containerName);
+                    throw new StorageException($"Could not get a lease for the blob {filePath} from container {containerName}. Reason: unknown.");
                 }
-            };
 
-            await blobClient.UploadAsync(fileContent, options, cancellationToken).ConfigureAwait(false);
+                fileContent.Seek(0, SeekOrigin.Begin);
+
+                BlobUploadOptions options = new()
+                {
+                    HttpHeaders = new BlobHttpHeaders()
+                    {
+                        ContentType = string.IsNullOrWhiteSpace(contentType)
+                            ? "application/json"
+                            : contentType
+                    },
+                    Conditions = new BlobRequestConditions()
+                    {
+                        LeaseId = blobLease!.LeaseId
+                    }
+                };
+
+                await blobClient.UploadAsync(fileContent, options, cancellationToken).ConfigureAwait(false);
+            }
+            catch (RequestFailedException ex)
+            {
+                if (ex.Status == (int)HttpStatusCode.Conflict
+                        && ex.ErrorCode == "LeaseAlreadyPresent")
+                {
+                    _logger.LogError("Could not get a lease for the blob {FilePath} from container {ContainerName}. " +
+                        "Reason: an existing lease is preventing acquiring a new lease.",
+                        filePath, containerName);
+                    throw new StorageException($"Could not get a lease for the blob {filePath} from container {containerName}. " +
+                        "Reason: an existing lease is preventing acquiring a new lease.");
+                }
+
+                throw new StorageException($"Could not get a lease for the blob {filePath} from container {containerName}. Reason: unknown.");
+            }
+            finally
+            {
+                if (blobLease != null)
+                    await blobLeaseClient.ReleaseAsync();
+            }
         }
 
         /// <inheritdoc/>
