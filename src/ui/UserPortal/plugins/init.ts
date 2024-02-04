@@ -25,6 +25,7 @@ export default defineNuxtPlugin(async (nuxtApp: any) => {
 	// Set the auth configuration for MSAL from the dynamic azure config.
 	setAuthConfig(appConfigStore.auth);
 
+	// Map stores globally to remove need for imports
 	nuxtApp.provide('appConfigStore', appConfigStore);
 
 	const authStore = useAuthStore(nuxtApp.$pinia);
