@@ -150,7 +150,7 @@ export default {
 		}
 
 		if (process.client) {
-			await this.appStore.init(this.$nuxt._route.query.chat);
+			this.appStore.init(this.$nuxt._route.query.chat);
 			const msalInstance = await getMsalInstance();
 			const accounts = await msalInstance.getAllAccounts();
 			if (accounts.length > 0) {
