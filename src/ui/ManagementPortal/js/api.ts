@@ -60,14 +60,14 @@ export default {
 
 	async getAgentDataSources(): Promise<AgentDataSource[]> {
 		const response = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`) as string;
-    const data = JSON.parse(response) as AgentDataSource[];
+		const data = JSON.parse(response) as AgentDataSource[];
 		return data.map(source => ({ ...source, Formats: ['pdf', 'txt'] }));
 	},
 
 	async getAgentIndexes(): Promise<AgentIndex[]> {
 		const response =  await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`) as string;
-    const data = JSON.parse(response) as AgentIndex[];
-    return data;
+		const data = JSON.parse(response) as AgentIndex[];
+		return data;
 	},
 
 	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
