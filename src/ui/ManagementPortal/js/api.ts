@@ -17,13 +17,13 @@ export default {
 	mockLoadTime: 1000,
 
 	apiVersion: '1.0',
-	apiUrl: null,
-	setApiUrl(apiUrl) {
+	apiUrl: null as string | null,
+	setApiUrl(apiUrl: string) {
 		this.apiUrl = apiUrl;
 	},
 
-	instanceId: null,
-	setInstanceId(instanceId) {
+	instanceId: null as string | null,
+	setInstanceId(instanceId: string) {
 		this.instanceId = instanceId;
 	},
 
@@ -59,12 +59,15 @@ export default {
 	},
 
 	async getAgentDataSources(): Promise<AgentDataSource[]> {
-		const data = JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`));
+		const response = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`) as string;
+    const data = JSON.parse(response) as AgentDataSource[];
 		return data.map(source => ({ ...source, Formats: ['pdf', 'txt'] }));
 	},
 
 	async getAgentIndexes(): Promise<AgentIndex[]> {
-		return JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`));
+		const response =  await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`) as string;
+    const data = JSON.parse(response) as AgentIndex[];
+    return data;
 	},
 
 	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
@@ -72,7 +75,7 @@ export default {
 		return [];
 	},
 
-	async createAgent(request: CreateAgentRequest): Promise<void> {
+	async createAgent(request: CreateAgentRequest): Promise<any> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${request.name}?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: request,

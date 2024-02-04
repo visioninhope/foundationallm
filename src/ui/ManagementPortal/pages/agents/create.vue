@@ -72,7 +72,7 @@
 						<span class="step-option__header">Container name:</span>
 						<span>{{ selectedDataSource.Container.Name }}</span>
 					</div> -->
-					
+
 					<!-- <div>
 						<span class="step-option__header">Data Format(s):</span>
 						<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
@@ -84,7 +84,7 @@
 
 				<template #edit>
 					<div class="step-container__edit__header">Please select a data source.</div>
-					
+
 					<div v-for="(group, type) in groupedDataSources" :key="type">
 
 						<div class="step-container__edit__group-header">{{ type }}</div>
@@ -107,7 +107,7 @@
 								<span class="step-option__header">Container name:</span>
 								<span>{{ dataSource.Container.Name }}</span>
 							</div> -->
-							
+
 							<!-- <div>
 								<span class="step-option__header">Data Format(s):</span>
 								<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
@@ -383,7 +383,7 @@
 
 <script lang="ts">
 import api from '@/js/api';
-import type { CreateAgentRequest, AgentIndex } from '@/js/types';
+import type { CreateAgentRequest, AgentIndex, AgentType } from '@/js/types';
 
 const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
@@ -486,14 +486,14 @@ export default {
 	computed: {
 		groupedDataSources() {
 			const grouped = {};
-			this.dataSources.forEach(dataSource => {
+			this.dataSources.forEach((dataSource) => {
 				if (!grouped[dataSource.Type]) {
 					grouped[dataSource.Type] = [];
 				}
 
 				grouped[dataSource.Type].push(dataSource);
 			});
-			
+
 			return grouped;
 		}
 	},
@@ -510,7 +510,7 @@ export default {
 
 			this.loadingStatusText = 'Retrieving data sources...';
 			this.dataSources = await api.getAgentDataSources();
-		} catch(error) {
+		} catch (error) {
 			this.$toast.add({
 				severity: 'error',
 				detail: error?.response?._data || error,
@@ -522,7 +522,7 @@ export default {
 
 	methods: {
 		handleNameInput(event) {
-			let element = event.target;
+			const element = event.target;
 
 			// Remove spaces
 			let sanitizedValue = element.value.replace(/\s/g, '');
@@ -549,7 +549,7 @@ export default {
 		},
 
 		async handleCreateAgent() {
-			const errors = [];
+			const errors: Array<string> = [];
 			if (!this.agentName) {
 				errors.push('Please give the agent a name.');
 			}
@@ -602,7 +602,7 @@ export default {
 
 					prompt: this.systemPrompt,
 				});
-			} catch(error) {
+			} catch (error) {
 				this.$toast.add({
 					severity: 'error',
 					detail: 'There was an error creating the agent. Please check the settings and try again.',
