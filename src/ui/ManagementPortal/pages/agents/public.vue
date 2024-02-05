@@ -1,14 +1,14 @@
 <template>
 	<h2 class="page-header">Public Agents</h2>
 	<div class="page-subheader">View your publicly accessible agents.</div>
-	<DataTable :value="agents" stripedRows tableStyle="min-width: 50rem">
-		<Column field="name" header="Name" sortable></Column>
-		<Column field="description" header="Description"></Column>
-		<Column field="sessions_enabled" header="Sessions Enabled" sortable></Column>
-		<Column field="prompt" header="Prompt"></Column>
-		<Column field="type" header="Type" sortable></Column>
-		<Column field="conversation_history.enabled" header="Conversation History Enabled" sortable></Column>
-		<Column field="conversation_history.max_history" header="Max Conversation History" sortable></Column>
+	<DataTable :value="agents" stripedRows scrollable tableStyle="max-width: 100%" size="small">
+		<Column field="name" header="Name" sortable style="min-width: 200px"></Column>
+		<Column field="description" header="Description" style="min-width: 200px"></Column>
+		<Column field="sessions_enabled" header="Sessions Enabled" sortable style="min-width: 200px"></Column>
+		<Column field="prompt" header="Prompt" style="min-width: 200px"></Column>
+		<Column field="type" header="Type" sortable style="min-width: 200px"></Column>
+		<Column field="conversation_history.enabled" header="Conversation History Enabled" sortable style="min-width: 200px"></Column>
+		<Column field="conversation_history.max_history" header="Max Conversation History" sortable style="min-width: 200px"></Column>
 	</DataTable>
 </template>
 
