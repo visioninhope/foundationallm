@@ -79,7 +79,7 @@ var serviceType = 'agw'
 output id string = main.id
 
 /** Resources **/
-resource main 'Microsoft.Network/applicationGateways@2023-05-01' = {
+resource main 'Microsoft.Network/applicationGateways@2023-06-01' = {
   name: name
   location: location
   tags: tags

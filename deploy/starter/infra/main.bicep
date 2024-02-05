@@ -45,6 +45,7 @@ module appConfig './shared/app-config.bicep' = {
     tags: tags
   }
   scope: rg
+  dependsOn: [ keyVault ]
 }
 
 module contentSafety './shared/content-safety.bicep' = {
@@ -57,6 +58,7 @@ module contentSafety './shared/content-safety.bicep' = {
     tags: tags
   }
   scope: rg
+  dependsOn: [ keyVault ]
 }
 
 module cosmosDb './shared/cosmosdb.bicep' = {
@@ -91,6 +93,7 @@ module cosmosDb './shared/cosmosdb.bicep' = {
     tags: tags
   }
   scope: rg
+  dependsOn: [ keyVault ]
 }
 
 module cogSearch './shared/search.bicep' = {
@@ -103,6 +106,7 @@ module cogSearch './shared/search.bicep' = {
     tags: tags
   }
   scope: rg
+  dependsOn: [ keyVault ]
 }
 
 module dashboard './shared/dashboard-web.bicep' = {
@@ -137,6 +141,7 @@ module monitoring './shared/monitoring.bicep' = {
     applicationInsightsName: '${abbrs.insightsComponents}${resourceToken}'
   }
   scope: rg
+  dependsOn: [ keyVault ]
 }
 
 module openAi './shared/openai.bicep' = {
@@ -147,7 +152,7 @@ module openAi './shared/openai.bicep' = {
         name: 'completions'
         sku: {
           name: 'Standard'
-          capacity: 120
+          capacity: 10
         }
         model: {
           name: 'gpt-35-turbo'
@@ -158,7 +163,7 @@ module openAi './shared/openai.bicep' = {
         name: 'embeddings'
         sku: {
           name: 'Standard'
-          capacity: 120
+          capacity: 10
         }
         model: {
           name: 'text-embedding-ada-002'
@@ -173,6 +178,7 @@ module openAi './shared/openai.bicep' = {
     tags: tags
   }
   scope: rg
+  dependsOn: [ keyVault ]
 }
 
 module registry './shared/registry.bicep' = {
@@ -196,6 +202,7 @@ module storage './shared/storage.bicep' = {
     tags: tags
   }
   scope: rg
+  dependsOn: [ keyVault ]
 }
 
 module appsEnv './shared/apps-env.bicep' = {
@@ -240,6 +247,6 @@ module coreApiService './app/acaService.bicep' = [ for service in services: {
       ]
     }
     scope: rg
-    dependsOn: [ appConfig, cogSearch, contentSafety, cosmosDb, monitoring, openAi, storage ]
+    dependsOn: [ appConfig, cogSearch, contentSafety, cosmosDb, keyVault, monitoring, openAi, storage ]
   }
 ]
