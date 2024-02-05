@@ -148,6 +148,7 @@ module applicationInights 'modules/applicationInsights.bicep' = {
     resourceSuffix: resourceSuffix
     tags: tags
   }
+  dependsOn: [ keyVault ]
 }
 
 @description('Azure Container Registry')
@@ -246,6 +247,7 @@ module storage 'modules/storageAccount.bicep' = {
     subnetId: '${vnetId}/subnets/ops'
     tags: tags
   }
+  dependsOn: [ keyVault ]
 }
 
 @description('Placeholder configuration setting for CSV file')

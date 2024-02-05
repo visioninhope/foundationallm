@@ -669,7 +669,7 @@
     "keyVault": false,
     "featureFlag": false,
     "key": "FoundationaLLM:CosmosDB:Containers",
-    "value": "Sessions, UserSessions"
+    "value": "Sessions, UserSessions, UserProfiles"
   },
   {
     "keyVault": false,

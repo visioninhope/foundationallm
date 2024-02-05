@@ -310,7 +310,7 @@ task Vec -depends ResourceGroups, Ops, Networking, DNS {
         --template-file ./vec-rg.bicep `
         --parameters `
             actionGroupId=$script:actionGroupId `
-            dnsZoneResourceGroupName=$($resourceGroups.dns) `
+            dnsResourceGroupName=$($resourceGroups.dns) `
             environmentName=$environment `
             location=$location `
             logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
