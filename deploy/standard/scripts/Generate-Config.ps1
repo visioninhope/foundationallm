@@ -251,7 +251,7 @@ $cogSearch = $(
 )
 $cogSearch = EnsureAndReturnFirstItem $cogSearch "Cognitive Search"
 Write-Host "Cognitive Search Service: $($cogSearch.name)" -ForegroundColor Blue
-$cogSearchUri = "http://$($cogSearch.name).search.windows.net"
+$cogSearchUri = "https://$($cogSearch.name).search.windows.net"
 $cogSearchPrivateIpMapping = GetPrivateIPMapping $cogSearch.privateEndpointId
 
 Write-Host "Getting OpenAI Accounts"
