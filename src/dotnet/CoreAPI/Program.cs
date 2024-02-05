@@ -77,7 +77,9 @@ namespace FoundationaLLM.Core.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_CoreAPI));
 
             // Add event services
-            builder.Services.AddAzureEventGridEvents(builder.Configuration);
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_CoreAPI);
 
             // Add resource providers
             builder.Services.AddAgentResourceProvider(builder.Configuration);

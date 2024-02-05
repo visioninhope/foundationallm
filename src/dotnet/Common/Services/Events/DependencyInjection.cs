@@ -18,14 +18,16 @@ namespace FoundationaLLM
         /// </summary>
         /// <param name="services">Application builder service collection.</param>
         /// <param name="configuration">The <see cref="IConfigurationManager"/> providing access to configuration.</param>
+        /// <param name="eventGridProfileSection">The name of the configuration section that contains the Event Grid profile to load.</param>
         public static void AddAzureEventGridEvents(this IServiceCollection services,
-            IConfigurationManager configuration)
+            IConfigurationManager configuration,
+            string eventGridProfileSection)
         {
             services.AddOptions<AzureEventGridEventServiceSettings>()
                 .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService));
 
             services.AddOptions<AzureEventGridEventServiceProfile>()
-                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_CoreAPI));
+                .Bind(configuration.GetSection(eventGridProfileSection));
 
             services.AddSingleton<IEventService, AzureEventGridEventService>();
         }
