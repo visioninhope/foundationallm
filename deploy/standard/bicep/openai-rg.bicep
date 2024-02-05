@@ -90,7 +90,7 @@ module apim 'modules/apim.bicep' = {
       keys: openai[x].outputs.keys
     }]
   }
-  dependsOn: [openai]
+  dependsOn: [ openai ]
 }
 
 @description('Content Safety')
