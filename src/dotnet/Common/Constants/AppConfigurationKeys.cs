@@ -345,6 +345,10 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Branding_SecondaryTextColor = "FoundationaLLM:Branding:SecondaryTextColor";
         /// <summary>
+        /// The key for the FoundationaLLM:Branding:AllowAgentSelection app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Branding_AllowAgentSelection = "FoundationaLLM:Branding:AllowAgentSelection";
+        /// <summary>
         /// The key for the FoundationaLLM:Chat:Entra:CallbackPath app configuration setting.
         /// </summary>
         public const string FoundationaLLM_Chat_Entra_CallbackPath = "FoundationaLLM:Chat:Entra:CallbackPath";
