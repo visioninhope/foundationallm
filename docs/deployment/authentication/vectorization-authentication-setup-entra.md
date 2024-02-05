@@ -1,4 +1,4 @@
-# Vectorization API Authentication
+# Vectorization Authentication
 
 FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authentication, meaning that you can use Entra to protect access to the Vectorization API.
 
@@ -93,18 +93,6 @@ If you wish to [configure authentication in Postman](../../development/directly-
 
     ![Both the Access tokens and ID tokens checkboxes are checked and the Save button is highlighted.](media/entra-app-client-authentication-implicit-grant.png)
 
-#### Client secret for the API application
-
-1. Under **Manage**, select **Certificates & secrets**.
-2. Under **Client secrets**, select **+ New client secret**.
-3. For **Description**, enter a description for the secret. For example, enter *FoundationaLLM*.
-4. Select a desired expiration date.
-
-    ![The steps to create a client secret are highlighted.](media/entra-vectorization-api-app-secret.png)
-
-5. Select **Add**.
-6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
-
 #### Expose an API for the API application
 
 1. Under **Manage**, select **Expose an API** > **Add a scope**. For **Application ID URI**, accept the default or specify a custom one, then select **Save and continue**, and then enter the following details:
@@ -173,13 +161,3 @@ The client application's configured permissions should now look like the followi
    - `FoundationaLLM:VectorizationAPI:Entra:Instance`: `https://login.microsoftonline.com/`
    - `FoundationaLLM:VectorizationAPI:Entra:TenantId`: The **Directory (tenant) ID** of the client application that you created earlier.
    - `FoundationaLLM:VectorizationAPI:Entra:Scopes`: `Data.Manage`
-
-### Update Key Vault secrets
-
-Key Vault stores the secrets for the client and API applications. You need to update the secrets with the values that you recorded earlier.
-
-1. Return to the [Azure portal](https://portal.azure.com/).
-2. Navigate to the resource group that was created as part of the deployment.
-3. Select the **Key Vault** resource and select **Secrets**. If you cannot see the secrets, add your user account as a **Key Vault Secrets Officer** through Access Control (IAM). You need this role in order to access the secrets and update them as a required part of the authentication setup.
-4. Open the `foundationallm-vectorizationapi-entra-clientsecret` secret, then select **+ New Version**.
-5. Within the **Secret value** field, enter the **Client secret** of the API application that you created earlier, then select **Create**.

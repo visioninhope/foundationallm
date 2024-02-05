@@ -15,11 +15,11 @@ items:
   - name: Authentication setup
     href: deployment/authentication/index.md
     items:
-    - name: Core API Authentication
+    - name: Core Authentication
       href: deployment/authentication/core-authentication-setup-entra.md
-    - name: Management API Authentication
+    - name: Management Authentication
       href: deployment/authentication/management-authentication-setup-entra.md
-    - name: Vectorization API Authentication
+    - name: Vectorization Authentication
       href: deployment/authentication/vectorization-authentication-setup-entra.md
 - name: Development
   href: development/index.md
