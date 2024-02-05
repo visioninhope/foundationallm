@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Context;
+using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
@@ -17,7 +18,6 @@ using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
@@ -79,7 +79,9 @@ namespace FoundationaLLM.Core.API
             // Add event services
             builder.Services.AddAzureEventGridEvents(builder.Configuration);
 
+            // Add resource providers
             builder.Services.AddAgentResourceProvider(builder.Configuration);
+
             // Activate all resource providers (give them a chance to initialize).
             builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();
 
