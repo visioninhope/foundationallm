@@ -1,4 +1,4 @@
-# Vectorization Authentication
+# Vectorization API and client authentication setup: Microsoft Entra ID
 
 FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authentication, meaning that you can use Entra to protect access to the Vectorization API.
 
