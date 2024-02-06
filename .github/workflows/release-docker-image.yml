@@ -90,7 +90,7 @@ jobs:
 
     - name: Helm Chart Update, Package, and Push
       run: |
-        cd ./deploy/helm/${{ inputs.image }}
+        cd ./deploy/common/helm/${{ inputs.image }}
         sed -i "s/version\: 0\.0\.0/version\: ${{ steps.releaseVersion.outputs.release_tag }}/" Chart.yaml
         sed -i "s/tag\: latest/tag\: ${{ steps.releaseVersion.outputs.release_tag }}/" values.yaml
         helm package . --app-version ${{ steps.releaseVersion.outputs.release_tag }}
