@@ -348,20 +348,23 @@ Write-Host "Getting AKS Instances, Private Endpoints and NICs"
 $aksInstances = $(
     az aks list `
         --resource-group $resourceGroups.app `
-        --query "[].{aksName:name,privateFqdn:privateFqdn,aksId:id}" | `
+        --query "[].{aksName:name,privateFqdn:privateFqdn,aksId:id}" `
+        --output json | `
         ConvertFrom-Json
 )
 $peInstances = $(
     az network private-endpoint list `
         --resource-group $resourceGroups.app `
-        --query "[].{groupId:privateLinkServiceConnections[0].groupIds[0],peName:name,aksId:privateLinkServiceConnections[0].privateLinkServiceId,nicId:networkInterfaces[0].id,peId:id}" | `
+        --query "[].{groupId:privateLinkServiceConnections[0].groupIds[0],peName:name,aksId:privateLinkServiceConnections[0].privateLinkServiceId,nicId:networkInterfaces[0].id,peId:id}" `
+        --output json | `
         ConvertFrom-Json
 )
 
 $nicInstances = $(
     az network nic list `
         --resource-group $resourceGroups.app `
-        --query "[].{nicId:id, nicName:name, privateIpAddress:ipConfigurations[0].privateIPAddress,peId:privateEndpoint.id}" | `
+        --query "[].{nicId:id, nicName:name, privateIpAddress:ipConfigurations[0].privateIPAddress,peId:privateEndpoint.id}" `
+        --output json | `
         ConvertFrom-Json
 )
 
