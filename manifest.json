@@ -5065,6 +5065,26 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-add-vectorization-api-permission-scope.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-add-vectorization-api-permission-scope.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-app-add-vectorization-api-permission.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-app-add-vectorization-api-permission.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "deployment/authentication/media/entra-app-api-web-redirect-uri.png",
       "output": {
         "resource": {
@@ -5295,6 +5315,106 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-register-vectorization-api-app.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-register-vectorization-api-app.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-register-vectorization-client-app.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-register-vectorization-client-app.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-vectorization-api-add-client-app.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-vectorization-api-add-client-app.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-vectorization-api-add-scope.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-vectorization-api-add-scope.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-vectorization-api-app-overview.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-vectorization-api-app-overview.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-vectorization-api-app-scope-copy-name.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-vectorization-api-app-scope-copy-name.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-vectorization-api-app-secret.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-vectorization-api-app-secret.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-vectorization-app-configured-permissions.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-vectorization-app-configured-permissions.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-vectorization-client-app-overview.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-vectorization-client-app-overview.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication/media/entra-vectorization-client-app-secret.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication/media/entra-vectorization-client-app-secret.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "deployment/authentication/media/resource-group-aca.png",
       "output": {
         "resource": {
@@ -5329,6 +5449,16 @@
       "output": {
         "resource": {
           "relative_path": "deployment/authentication/media/restart-coreapi-aca.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "deployment/authentication/vectorization-authentication-setup-entra.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/authentication/vectorization-authentication-setup-entra.html"
         }
       },
       "version": ""
