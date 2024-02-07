@@ -1,9 +1,12 @@
 ﻿using Asp.Versioning;
-using FoundationaLLM.Common.Authentication;
-using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
+using FoundationaLLM.SemanticKernel.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Dynamic;
+using FoundationaLLM.SemanticKernel.Core.Services;
 
 namespace FoundationaLLM.SemanticKernel.API.Controllers
 {
@@ -12,7 +15,7 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
     /// </summary>
     [ApiVersion(1.0)]
     [ApiController]
-    [APIKeyAuthentication]
+    //[APIKeyAuthentication]
     [Route("[controller]")]
     public class OrchestrationController : ControllerBase
     {
@@ -31,11 +34,29 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
         /// <param name="request">The completion request containing the user prompt and message history.</param>
         /// <returns>The completion response.</returns>
         [HttpPost("completion")]
-        public async Task<CompletionResponse> GetCompletion([FromBody] CompletionRequest request)
+        public async Task<LLMOrchestrationCompletionResponse> GetCompletion([FromBody] dynamic request)
         {
-            var completionResponse = await _semanticKernelService.GetCompletion(request.UserPrompt ?? string.Empty, request.MessageHistory ?? new List<MessageHistoryItem>());
+            var expandoObject = JsonConvert.DeserializeObject<ExpandoObject>(request.ToString(), new ExpandoObjectConverter());
 
-            return new CompletionResponse() { Completion = completionResponse };
+            var agentType = string.Empty;
+            try
+            {
+                agentType = expandoObject.agent.type;
+            }
+            catch { }
+
+            if (agentType == "knowledge-management")
+            {
+                var completionRequest = JsonConvert.DeserializeObject<KnowledgeManagementCompletionRequest>(request.ToString()) as KnowledgeManagementCompletionRequest;
+
+                return await _semanticKernelService.GetCompletion(completionRequest!);
+            }
+            else
+            {
+                var completionRequest = JsonConvert.DeserializeObject<LLMOrchestrationCompletionRequest?>(request.ToString()) as LLMOrchestrationCompletionRequest;
+
+                return await _semanticKernelService.GetCompletion(completionRequest!);
+            }
         }
 
         /// <summary>

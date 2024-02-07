@@ -1,8 +1,10 @@
 ﻿using FoundationaLLM.Common.Models;
 using FoundationaLLM.Common.Models.Chat;
+using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Search;
 using FoundationaLLM.SemanticKernel.Chat;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
+using FoundationaLLM.SemanticKernel.Core.Models;
 using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using FoundationaLLM.SemanticKernel.Core.Plugins.Core;
 using FoundationaLLM.SemanticKernel.Plugins.Memory;
@@ -151,12 +153,14 @@ public class SemanticKernelService : ISemanticKernelService
     /// <summary>
     /// Gets a completion from the Semantic Kernel service.
     /// </summary>
-    /// <param name="userPrompt">The user prompt text.</param>
-    /// <param name="messageHistory">A list of previous messages.</param>
-    /// <returns>The completion text.</returns>
-    public async Task<string> GetCompletion(string userPrompt, List<MessageHistoryItem> messageHistory)
+    /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
+    /// <returns>Returns a completion response from the orchestration engine.</returns>
+    public async Task<LLMOrchestrationCompletionResponse> GetCompletion(LLMOrchestrationCompletionRequest request)
     {
         await EnsureShortTermMemory();
+
+        var userPrompt = request.UserPrompt ?? "";
+        var messageHistory = request.MessageHistory ?? [];
 
         var memoryPlugin = new TextEmbeddingObjectMemoryPlugin(
             _longTermMemory,
@@ -200,7 +204,19 @@ public class SemanticKernelService : ISemanticKernelService
         var reply = await completionResults[0].GetChatMessageAsync();
         var rawResult = (completionResults[0] as ITextResult)!.ModelResult.GetOpenAIChatResult();
 
-        return reply.Content;
+        return new LLMOrchestrationCompletionResponse() { Completion = reply.Content };
+    }
+
+    /// <summary>
+    /// Gets a completion from the Semantic Kernel service.
+    /// </summary>
+    /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
+    /// <returns>Returns a completion response from the orchestration engine.</returns>
+    public async Task<LLMOrchestrationCompletionResponse> GetCompletion(KnowledgeManagementCompletionRequest request)
+    {
+        await Task.CompletedTask;
+
+        return new LLMOrchestrationCompletionResponse();
     }
 
     /// <summary>
@@ -230,18 +246,12 @@ public class SemanticKernelService : ISemanticKernelService
     /// <param name="item">The object instance to be added to the memory.</param>
     /// <param name="itemName">The name of the object instance.</param>
     /// <returns></returns>
-    public async Task AddMemory(object item, string itemName)
-    {
-        await _longTermMemory.AddMemory(item, itemName);
-    }
+    public async Task AddMemory(object item, string itemName) => await _longTermMemory.AddMemory(item, itemName);
 
     /// <summary>
     /// Removes an object instance and its associated vectorization from the underlying memory.
     /// </summary>
     /// <param name="item">The object instance to be removed from the memory.</param>
     /// <returns></returns>
-    public async Task RemoveMemory(object item)
-    {
-        await _longTermMemory.RemoveMemory(item);
-    }
+    public async Task RemoveMemory(object item) => await _longTermMemory.RemoveMemory(item);
 }

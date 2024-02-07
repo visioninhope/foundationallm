@@ -1,4 +1,6 @@
 ﻿using FoundationaLLM.Common.Models.Chat;
+using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.SemanticKernel.Core.Models;
 
 namespace FoundationaLLM.SemanticKernel.Core.Interfaces;
 
@@ -10,10 +12,16 @@ public interface ISemanticKernelService
     /// <summary>
     /// Gets a completion from the Semantic Kernel service.
     /// </summary>
-    /// <param name="userPrompt">The user prompt text.</param>
-    /// <param name="messageHistory">A list of previous messages.</param>
-    /// <returns>The completion text.</returns>
-    Task<string> GetCompletion(string userPrompt, List<MessageHistoryItem> messageHistory);
+    /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
+    /// <returns>Returns a completion response from the orchestration engine.</returns>
+    Task<LLMOrchestrationCompletionResponse> GetCompletion(LLMOrchestrationCompletionRequest request);
+
+    /// <summary>
+    /// Gets a completion from the Semantic Kernel service.
+    /// </summary>
+    /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
+    /// <returns>Returns a completion response from the orchestration engine.</returns>
+    Task<LLMOrchestrationCompletionResponse> GetCompletion(KnowledgeManagementCompletionRequest request);
 
     /// <summary>
     /// Gets a summary from the Semantic Kernel service.
