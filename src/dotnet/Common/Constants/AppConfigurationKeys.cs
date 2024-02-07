@@ -14,6 +14,7 @@ namespace FoundationaLLM.Common.Constants
     {
         /// <summary>
         /// The key for the FoundationaLLM:Instance:Id app configuration setting.
+        /// The value should be a GUID represents a unique instance of the FoundationaLLM instance.
         /// </summary>
         public const string FoundationaLLM_Instance_Id = "FoundationaLLM:Instance:Id";
         /// <summary>
@@ -25,6 +26,16 @@ namespace FoundationaLLM.Common.Constants
         /// This is a Key Vault reference.
         /// </summary>
         public const string FoundationaLLM_AgentHub_StorageManager_BlobStorage_ConnectionString = "FoundationaLLM:AgentHub:StorageManager:BlobStorage:ConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:Agent:ResourceProviderService:Storage:AuthenticationType app configuration setting.
+        /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
+        /// </summary>
+        public const string FoundationaLLM_Agent_ResourceProviderService_Storage_AuthenticationType = "FoundationaLLM:Agent:ResourceProviderService:Storage:AuthenticationType";
+        /// <summary>
+        /// The key for the FoundationaLLM:Agent:ResourceProviderService:Storage:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the agent resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Agent_ResourceProviderService_Storage_ConnectionString = "FoundationaLLM:Agent:ResourceProviderService:Storage:ConnectionString";
         /// <summary>
         /// The key for the FoundationaLLM:APIs:AgentFactoryAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
@@ -67,6 +78,11 @@ namespace FoundationaLLM.Common.Constants
         /// This is a Key Vault reference.
         /// </summary>
         public const string FoundationaLLM_APIs_CoreAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:CoreAPI:AppInsightsConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:CoreAPI:BypassGatekeeper app configuration setting.
+        /// By default, the Core API does not bypass the Gatekeeper API. To override this behavior and allow it to bypass the Gatekeeper API, set this value to true. Beware that bypassing the Gatekeeper means that you bypass content protection and filtering in favor of improved performance. Make sure you understand the risks before setting this value to true.
+        /// </summary>
+        public const string FoundationaLLM_APIs_CoreAPI_BypassGatekeeper = "FoundationaLLM:APIs:CoreAPI:BypassGatekeeper";
         /// <summary>
         /// The key for the FoundationaLLM:APIs:DataSourceHubAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
@@ -143,6 +159,16 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:ManagementAPI:AppInsightsConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:Prompt:ResourceProviderService:Storage:AuthenticationType app configuration setting.
+        /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
+        /// </summary>
+        public const string FoundationaLLM_Prompt_ResourceProviderService_Storage_AuthenticationType = "FoundationaLLM:Prompt:ResourceProviderService:Storage:AuthenticationType";
+        /// <summary>
+        /// The key for the FoundationaLLM:Prompt:ResourceProviderService:Storage:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the prompt resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Prompt_ResourceProviderService_Storage_ConnectionString = "FoundationaLLM:Prompt:ResourceProviderService:Storage:ConnectionString";
+        /// <summary>
         /// The key for the FoundationaLLM:APIs:PromptHubAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>
@@ -170,21 +196,6 @@ namespace FoundationaLLM.Common.Constants
         /// This is a Key Vault reference.
         /// </summary>
         public const string FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString";
-        /// <summary>
-        /// The  key for the FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString";
-        /// <summary>
-        /// The key for the FoundationaLLM:AppConfig:ConnectionString app configuration setting.
-        /// This is Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_AppConfig_ConnectionString = "FoundationaLLM:AppConfig:ConnectionString";
         /// <summary>
         /// The key for the FoundationaLLM:AzureContentSafety:APIKey app configuration setting.
         /// This is a Key Vault reference.
@@ -281,26 +292,6 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Branding_AccentTextColor = "FoundationaLLM:Branding:AccentTextColor";
         /// <summary>
-        /// The key for the FoundationaLLM:Branding:PrimaryButtonBackgroundColor app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_Branding_PrimaryButtonBackgroundColor = "FoundationaLLM:Branding:PrimaryButtonBackgroundColor";
-        /// <summary>
-        /// The key for the FoundationaLLM:Branding:PrimaryButtonTextColor app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_Branding_PrimaryButtonTextColor = "FoundationaLLM:Branding:PrimaryButtonTextColor";
-        /// <summary>
-        /// The key for the FoundationaLLM:Branding:SecondaryButtonBackgroundColor app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_Branding_SecondaryButtonBackgroundColor = "FoundationaLLM:Branding:SecondaryButtonBackgroundColor";
-        /// <summary>
-        /// The key for the FoundationaLLM:Branding:SecondaryButtonTextColor app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_Branding_SecondaryButtonTextColor = "FoundationaLLM:Branding:SecondaryButtonTextColor";
-        /// <summary>
-        /// This feature flag controls whether the User Portal UI allows users to select an agent hint.
-        /// </summary>
-        public const string FoundationaLLM_AllowAgentHint_FeatureFlag = "FoundationaLLM-AllowAgentHint";
-        /// <summary>
         /// The key for the FoundationaLLM:Branding:BackgroundColor app configuration setting.
         /// </summary>
         public const string FoundationaLLM_Branding_BackgroundColor = "FoundationaLLM:Branding:BackgroundColor";
@@ -345,9 +336,21 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Branding_SecondaryTextColor = "FoundationaLLM:Branding:SecondaryTextColor";
         /// <summary>
-        /// The key for the FoundationaLLM:Branding:AllowAgentSelection app configuration setting.
+        /// The key for the FoundationaLLM:Branding:PrimaryButtonBackgroundColor app configuration setting.
         /// </summary>
-        public const string FoundationaLLM_Branding_AllowAgentSelection = "FoundationaLLM:Branding:AllowAgentSelection";
+        public const string FoundationaLLM_Branding_PrimaryButtonBackgroundColor = "FoundationaLLM:Branding:PrimaryButtonBackgroundColor";
+        /// <summary>
+        /// The key for the FoundationaLLM:Branding:PrimaryButtonTextColor app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Branding_PrimaryButtonTextColor = "FoundationaLLM:Branding:PrimaryButtonTextColor";
+        /// <summary>
+        /// The key for the FoundationaLLM:Branding:SecondaryButtonBackgroundColor app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Branding_SecondaryButtonBackgroundColor = "FoundationaLLM:Branding:SecondaryButtonBackgroundColor";
+        /// <summary>
+        /// The key for the FoundationaLLM:Branding:SecondaryButtonTextColor app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Branding_SecondaryButtonTextColor = "FoundationaLLM:Branding:SecondaryButtonTextColor";
         /// <summary>
         /// The key for the FoundationaLLM:Chat:Entra:CallbackPath app configuration setting.
         /// </summary>
@@ -651,22 +654,80 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_SemanticKernelAPI_OpenAI_ShortSummaryPromptName = "FoundationaLLM:SemanticKernelAPI:OpenAI.ShortSummaryPromptName";
         /// <summary>
-        /// The key section for the FoundationaLLM:Vectorization:VectorizationWorker app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_Vectorization_VectorizationWorker = "FoundationaLLM:Vectorization:VectorizationWorker";
-
-        /// <summary>
         /// The key for the FoundationaLLM:APIs:VectorizationAPI:APIUrl app configuration setting.
-        /// This is a Key Vault reference.
+        /// The URL of the vectorization API.
         /// </summary>
         public const string FoundationaLLM_APIs_VectorizationAPI_APIUrl = "FoundationaLLM:APIs:VectorizationAPI:APIUrl";
-
         /// <summary>
         /// The key for the FoundationaLLM:APIs:VectorizationAPI:APIKey app configuration setting.
-        /// This is a Key Vault reference.
+        /// The API key of the vectorization API.
         /// </summary>
         public const string FoundationaLLM_APIs_VectorizationAPI_APIKey = "FoundationaLLM:APIs:VectorizationAPI:APIKey";
-
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString app configuration setting.
+        /// The connection string to the Application Insights instance used by the vectorization API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationWorker:APIUrl app configuration setting.
+        /// The URL of the vectorization worker API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationWorker_APIUrl = "FoundationaLLM:APIs:VectorizationWorker:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationWorker:APIKey app configuration setting.
+        /// The API key of the vectorization worker API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationWorker_APIKey = "FoundationaLLM:APIs:VectorizationWorker:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString app configuration setting.
+        /// The connection string to the Application Insights instance used by the vectorization worker API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:VectorizationWorker app configuration setting.
+        /// The settings used by each instance of the vectorization worker service. For more details, see [default vectorization worker settings](../setup-guides/vectorization/vectorization-worker.md#default-vectorization-worker-settings)
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_VectorizationWorker = "FoundationaLLM:Vectorization:VectorizationWorker";
+        /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:Queues:Embed:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the embed vectorization queue.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_Queues_Embed_ConnectionString = "FoundationaLLM:Vectorization:Queues:Embed:ConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:Queues:Extract:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the extract vectorization queue.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_Queues_Extract_ConnectionString = "FoundationaLLM:Vectorization:Queues:Extract:ConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:Queues:Index:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the index vectorization queue.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_Queues_Index_ConnectionString = "FoundationaLLM:Vectorization:Queues:Index:ConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:Queues:Partition:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the partition vectorization queue.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_Queues_Partition_ConnectionString = "FoundationaLLM:Vectorization:Queues:Partition:ConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType app configuration setting.
+        /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_StateService_Storage_AuthenticationType = "FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType";
+        /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:StateService:Storage:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the vectorization state service.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_StateService_Storage_ConnectionString = "FoundationaLLM:Vectorization:StateService:Storage:ConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType app configuration setting.
+        /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_ResourceProviderService_Storage_AuthenticationType = "FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType";
+        /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the vectorization state service.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_ResourceProviderService_Storage_ConnectionString = "FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString";
     }
 
     /// <summary>
