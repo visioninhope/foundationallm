@@ -176,6 +176,15 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
   }
 }
 
+resource apiKey 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
+  name: '${serviceName}-apikey'
+  parent: keyvault
+  tags: tags
+  properties: {
+    value: uniqueString(subscription().id, resourceGroup().id, app.id, serviceName)
+  }
+}
+
 output defaultDomain string = containerAppsEnvironment.properties.defaultDomain
 output name string = app.name
 output uri string = hasIngress ? 'https://${app.properties.configuration.ingress.fqdn}' : ''
