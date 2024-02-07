@@ -238,7 +238,7 @@
 <td>The conversation history configuration.</td>
 </tr>
 <tr>
-<td><code>conversation_hisotry.enabled</code></td>
+<td><code>conversation_history.enabled</code></td>
 <td>Indicates if conversation history is retained for subsequent agent interactions(true).</td>
 </tr>
 <tr>
@@ -282,7 +282,7 @@ BODY
 <h2 id="validating-a-knowledge-management-agent">Validating a knowledge management agent</h2>
 <p>Once configured, the knowledge management agent can be validated using an API call to the <a href="../exposed-apis/core-api.html">Core API</a> or via the <a href="../quickstart.html">User Portal</a>.</p>
 <blockquote>
-<p><strong>Note</strong>: When validating through the user portal, ensure the <code>FoundationaLLM-AllowAgentHint</code> feature is enabled in the app configuration service. Also, the name of the agent needs to be added to the comma-delimited list of agents located in the app configuration setting named <code>FoundationaLLM:Branding:AllowAgentSelection</code> for it to display in the agent selection dropdown in the user portal. Once configuration has been modified, restart the Core API and User Portal services <a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aca-deployment">(ACA)</a> <a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aks-deployment">(AKS)</a>.</p>
+<p><strong>Note</strong>: When validating through the user portal, ensure the <code>FoundationaLLM-AllowAgentHint</code> feature is enabled in the app configuration service. Restart the Core API service <a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aca-deployment">(ACA)</a> <a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aks-deployment">(AKS)</a> for the agent to be made available to the platform. You may need to refresh your user portal browser for the agent to display in the agents list for selection.</p>
 </blockquote>
 
 </article>
