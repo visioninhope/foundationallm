@@ -1,106 +1,106 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
 
-name: fllm
+name: foundationallm
 metadata:
     template: azd-init@1.5.1
 services:
-    AgentFactoryAPI:
+    agent-factory-api:
         project: ..\..\src\dotnet\AgentFactoryAPI
         host: containerapp
         language: dotnet
         docker:
             context: ..\..\
             path: Dockerfile
-    AgentHubAPI:
+    agent-hub-api:
         project: ..\..\src\python\AgentHubAPI
         host: containerapp
         language: python
         docker:
             context: ..\
             path: Dockerfile
-    CoreAPI:
+    core-api:
         project: ..\..\src\dotnet\CoreAPI
         host: containerapp
         language: dotnet
         docker:
             context: ..\..\
             path: Dockerfile
-    CoreWorker:
+    core-job:
         project: ..\..\src\dotnet\CoreWorker
         host: containerapp
         language: dotnet
         docker:
             context: ..\..\
             path: Dockerfile
-    DataSourceHubAPI:
+    data-source-hub-api:
         project: ..\..\src\python\DataSourceHubAPI
         host: containerapp
         language: python
         docker:
             context: ..\
             path: Dockerfile
-    GatekeeperAPI:
+    gatekeeper-api:
         project: ..\..\src\dotnet\GatekeeperAPI
         host: containerapp
         language: dotnet
         docker:
             context: ..\..\
             path: Dockerfile
-    GatekeeperIntegrationAPI:
+    gatekeeper-integration-api:
         project: ..\..\src\python\GatekeeperIntegrationAPI
         host: containerapp
         language: python
         docker:
             context: ..\
             path: Dockerfile
-    LangChainAPI:
+    langchain-api:
         project: ..\..\src\python\LangChainAPI
         host: containerapp
         language: python
         docker:
             context: ..\
             path: Dockerfile
-    ManagementAPI:
+    management-api:
         project: ..\..\src\dotnet\ManagementAPI
         host: containerapp
         language: dotnet
         docker:
             context: ..\..\
             path: Dockerfile
-    ManagementPortal:
+    management-ui:
         project: ..\..\src\UI\ManagementPortal
         host: containerapp
         language: ts
         docker:
             path: Dockerfile
-    PromptHubAPI:
+    prompt-hub-api:
         project: ..\..\src\python\PromptHubAPI
         host: containerapp
         language: python
         docker:
             context: ..\
             path: Dockerfile
-    SemanticKernelAPI:
+    semantic-kernel-api:
         project: ..\..\src\dotnet\SemanticKernelAPI
         host: containerapp
         language: dotnet
         docker:
             context: ..\..\
             path: Dockerfile
-    UserPortal:
+    chat-ui:
         project: ..\..\src\UI\UserPortal
         host: containerapp
         language: js
         docker:
             path: Dockerfile
-    VectorizationAPI:
+    vectorization-api:
         project: ..\..\src\dotnet\VectorizationAPI
         host: containerapp
         language: dotnet
         docker:
             context: ..\..\
             path: Dockerfile
-    VectorizationWorker:
+    vectorization-job:
         project: ..\..\src\dotnet\VectorizationWorker
         host: containerapp
         language: dotnet

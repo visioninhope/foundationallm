@@ -14,6 +14,10 @@ param appDefinition object
 param hasIngress bool = false
 param envSettings array = []
 param secretSettings array = []
+param serviceName string
+
+var formattedAppName = replace(name, '-', '')
+var truncatedAppName = substring(formattedAppName, 0, min(length(formattedAppName), 32))
 
 var appSettingsArray = filter(array(appDefinition.settings), i => i.name != '')
 var secrets = union(map(filter(appSettingsArray, i => i.?secret != null), i => {
@@ -108,10 +112,10 @@ module fetchLatestImage '../modules/fetch-container-image.bicep' = {
 }
 
 resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
-  name: name
+  name: truncatedAppName
   location: location
-  tags: union(tags, {'azd-service-name':  'ChatServiceWebApi' })
-  dependsOn: [ acrPullRole ]
+  tags: union(tags, {'azd-service-name':  serviceName })
+  dependsOn: [ acrPullRole, secretsAccessPolicy, appConfigReaderRole ]
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: { '${identity.id}': {} }
@@ -174,5 +178,5 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
 
 output defaultDomain string = containerAppsEnvironment.properties.defaultDomain
 output name string = app.name
-output uri string = 'https://${app.properties.configuration.ingress.fqdn}'
+output uri string = hasIngress ? 'https://${app.properties.configuration.ingress.fqdn}' : ''
 output id string = app.id

@@ -53,12 +53,12 @@ module contentSafety './shared/content-safety.bicep' = {
   params: {
     keyvaultName: keyVault.outputs.name
     location: location
-    name: '${abbrs.openAiAccounts}${resourceToken}'
+    name: '${abbrs.cognitiveServicesAccounts}${resourceToken}'
     sku: 'S0'
     tags: tags
   }
   scope: rg
-  dependsOn: [ keyVault ]
+  dependsOn: [ keyVault, openAi ]
 }
 
 module cosmosDb './shared/cosmosdb.bicep' = {
@@ -217,10 +217,11 @@ module appsEnv './shared/apps-env.bicep' = {
   scope: rg
 }
 
-module coreApiService './app/acaService.bicep' = [ for service in services: {
+@batchSize(1)
+module acaServices './app/acaService.bicep' = [ for service in services: {
     name: service.name
     params: {
-      name: '${abbrs.appContainerApps}${service.name}-${resourceToken}'
+      name: '${abbrs.appContainerApps}${service.name}${resourceToken}'
       location: location
       tags: tags
       appConfigName: appConfig.outputs.name
@@ -229,7 +230,7 @@ module coreApiService './app/acaService.bicep' = [ for service in services: {
       applicationInsightsName: monitoring.outputs.applicationInsightsName
       containerAppsEnvironmentName: appsEnv.outputs.name
       containerRegistryName: registry.outputs.name
-      exists: servicesExist['${service.name}']
+      exists: servicesExist['${service.name}'] == 'true'
       appDefinition: serviceDefinition
       hasIngress: service.hasIngress
       envSettings: service.useEndpoint ? [
@@ -241,12 +242,15 @@ module coreApiService './app/acaService.bicep' = [ for service in services: {
       secretSettings: service.useEndpoint ? [] : [
         {
           name: service.appConfigEnvironmentVarName
-          value: service.appConfigConnectionStringRef
+          value: appConfig.outputs.connectionStringSecretRef
           secretRef: 'appconfig-connection-string'
         }
       ]
+      serviceName: service.name
     }
     scope: rg
     dependsOn: [ appConfig, cogSearch, contentSafety, cosmosDb, keyVault, monitoring, openAi, storage ]
   }
 ]
+
+output AZURE_CONTAINER_REGISTRY_ENDPOINT string = registry.outputs.loginServer

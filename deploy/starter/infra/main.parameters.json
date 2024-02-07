@@ -10,7 +10,21 @@
       },
       "servicesExist": {
         "value": {
-          "core-api": "${CORE_API_SERVICE_EXISTS=false}"
+          "agent-factory-api": "${SERVICE_AGENTFACTORYAPI_RESOURCE_EXISTS=false}",
+          "agent-hub-api": "${SERVICE_AGENTHUBAPI_RESOURCE_EXISTS=false}",
+          "chat-ui": "${SERVICE_CHATUI_RESOURCE_EXISTS=false}",
+          "core-api": "${SERVICE_COREAPI_RESOURCE_EXISTS=false}",
+          "core-job": "${SERVICE_COREJOB_RESOURCE_EXISTS=false}",
+          "data-source-hub-api": "${SERVICE_DATASOURCEHUBAPI_RESOURCE_EXISTS=false}",
+          "gatekeeper-api": "${SERVICE_GATEKEEPERAPI_RESOURCE_EXISTS=false}",
+          "gatekeeper-integration-api": "${SERVICE_GATEKEEPERINTEGRATIONAPI_RESOURCE_EXISTS=false}",
+          "langchain-api": "${SERVICE_LANGCHAINAPI_RESOURCE_EXISTS=false}",
+          "management-api": "${SERVICE_MANAGEMENTAPI_RESOURCE_EXISTS=false}",
+          "management-ui": "${SERVICE_MANAGEMENTUI_RESOURCE_EXISTS=false}",
+          "prompt-hub-api": "${SERVICE_PROMPTHUBAPI_RESOURCE_EXISTS=false}",
+          "semantic-kernel-api": "${SERVICE_SEMANTICKERNELAPI_RESOURCE_EXISTS=false}",
+          "vectorization-api": "${SERVICE_VECTORIZATIONAPI_RESOURCE_EXISTS=false}",
+          "vectorization-job": "${SERVICE_VECTORIZATIONJOB_RESOURCE_EXISTS=false}"
         }
       },
       "serviceDefinition": {
