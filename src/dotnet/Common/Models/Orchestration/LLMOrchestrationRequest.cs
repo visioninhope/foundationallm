@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration
+namespace FoundationaLLM.Common.Models.Orchestration
 {
     /// <summary>
     /// Base LLM orchestration request

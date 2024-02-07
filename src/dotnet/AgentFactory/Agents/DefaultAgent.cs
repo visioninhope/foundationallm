@@ -1,18 +1,13 @@
-﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
+﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
 using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
 using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Services;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Cache;
-using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.Models.Messages;
 using FoundationaLLM.Common.Models.Metadata;
+using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
-using Agent = FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.Agent;
 
 namespace FoundationaLLM.AgentFactory.Core.Agents
 {
@@ -197,7 +192,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             _completionRequestTemplate = new LLMOrchestrationCompletionRequest()
             {
                 UserPrompt = null, // to be filled in GetCompletion / GetSummary
-                Agent = new FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.Agent
+                Agent = new FoundationaLLM.Common.Models.Orchestration.Metadata.Agent
                 {
                     Name = _agentMetadata.Name,
                     Type = _agentMetadata.Type,

@@ -1,16 +1,14 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
-using FoundationaLLM.AgentFactory.Interfaces;
+﻿using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
+using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Metadata;
+using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Text;
-using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Metadata;
-using Agent = FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.Agent;
-using Azure.Core;
 
 namespace FoundationaLLM.AgentFactory.Services
 {
@@ -145,7 +143,7 @@ namespace FoundationaLLM.AgentFactory.Services
             {
                 SessionId = orchestrationRequest.SessionId,
                 UserPrompt = orchestrationRequest.UserPrompt,
-                Agent = new FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.Agent
+                Agent = new FoundationaLLM.Common.Models.Orchestration.Metadata.Agent
                 {
                     Name = "summarizer",
                     Type = "summary",

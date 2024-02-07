@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.AgentFactory.Models.Orchestration
+﻿namespace FoundationaLLM.Common.Models.Orchestration
 {
     /// <summary>
     /// Orchestration service enumerator.

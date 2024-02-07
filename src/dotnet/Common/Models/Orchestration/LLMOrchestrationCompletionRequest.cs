@@ -2,7 +2,7 @@
 using FoundationaLLM.Common.Models.Metadata;
 using Newtonsoft.Json;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration
+namespace FoundationaLLM.Common.Models.Orchestration
 {
     /// <summary>
     /// Orchestration completion request.
@@ -15,7 +15,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration
         /// Agent metadata
         /// </summary>
         [JsonProperty("agent")]
-        public FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.Agent? Agent { get; set; }
+        public FoundationaLLM.Common.Models.Orchestration.Metadata.Agent? Agent { get; set; }
 
         /// <summary>
         /// Data source metadata
