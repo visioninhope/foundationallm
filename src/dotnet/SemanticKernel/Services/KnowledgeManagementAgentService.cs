@@ -1,16 +1,12 @@
-﻿using FoundationaLLM.Agent.Models.Metadata;
-using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
 using FoundationaLLM.SemanticKernel.Core.Models;
-using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
-
+using Microsoft.SemanticKernel.ChatCompletion;
 
 namespace FoundationaLLM.SemanticKernel.Core.Services
 {
@@ -49,16 +45,19 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             }
 
             var modelVersion = _configuration.GetValue<string>(request.Agent.LanguageModel!.Version!);
-            var function = kernel.CreateFunctionFromPrompt(agentPrompt,
-                new OpenAIPromptExecutionSettings()
-                {
-                    Temperature = request.Agent.LanguageModel!.Temperature,
-                    ModelId = modelVersion
-                });
 
-            var result = await kernel.InvokeAsync(function, new() { ["input"] = request.UserPrompt });
+            //var function = kernel.CreateFunctionFromPrompt(agentPrompt,
+            //    new OpenAIPromptExecutionSettings()
+            //    {
+            //        Temperature = request.Agent.LanguageModel!.Temperature,
+            //        ModelId = modelVersion
+            //    });
+            //var result = await kernel.InvokeAsync(function, new() { ["input"] = request.UserPrompt });
 
-            return new LLMOrchestrationCompletionResponse() { Completion = result.ToString() };
+            var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+            var result = await chatCompletionService.GetChatMessageContentAsync(request.UserPrompt, new PromptExecutionSettings() { ModelId = modelVersion });
+
+            return new LLMOrchestrationCompletionResponse() { Completion = result.Content };
         }
 
         private Kernel CreateKernel(LanguageModel llm)
