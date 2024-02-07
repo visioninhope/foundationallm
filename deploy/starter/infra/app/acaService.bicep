@@ -149,6 +149,14 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
           name: 'main'
           env: union([
             {
+              name: 'AZURE_CLIENT_ID'
+              value: identity.properties.clientId
+            }
+            {
+              name: 'AZURE_TENANT_ID'
+              value: identity.properties.tenantId
+            }
+            {
               name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
               value: applicationInsights.properties.ConnectionString
             }
