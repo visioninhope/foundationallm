@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using Azure.AI.OpenAI;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
+using System.Text;
 
 namespace FoundationaLLM.SemanticKernel.Core.Services
 {
@@ -28,21 +30,40 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         {
             var kernel = CreateKernel(request.Agent.LanguageModel!);
 
-            //var agentPrompt = ResourceProviderService.GetAgentPrompt(request.Agent.Prompt);
-            var agentPrompt = "";
+            ChatHistory history = [];
+
+            var internalContext = true;
+            var messageHistoryEnabled = false;
 
             if (request.Agent.IndexingProfile != null && request.Agent.EmbeddingProfile != null)
             {
-                // TODO
+                internalContext = false;
             }
 
             if (request.Agent.ConversationHistory != null)
             {
                 if (request.Agent.ConversationHistory.Enabled)
                 {
-                    // TODO
+                    messageHistoryEnabled = true;
                 }
             }
+
+            //var agentPrompt = ResourceProviderService.GetAgentPrompt(request.Agent.Prompt);
+            var agentPrompt = string.Empty;
+            var context = string.Empty;
+            var promptBuilder = $"{context}";
+
+            if (!internalContext)
+            {
+                promptBuilder = agentPrompt;
+                if (messageHistoryEnabled)
+                {
+                    promptBuilder = $"\n\nQuestion: {request.UserPrompt}\n\nContext: {context}\n\nAnswer:";
+                }
+            }
+
+            if (messageHistoryEnabled)
+                history.AddUserMessage(request.UserPrompt);
 
             var modelVersion = _configuration.GetValue<string>(request.Agent.LanguageModel!.Version!);
 
@@ -55,9 +76,24 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             //var result = await kernel.InvokeAsync(function, new() { ["input"] = request.UserPrompt });
 
             var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
-            var result = await chatCompletionService.GetChatMessageContentAsync(request.UserPrompt, new PromptExecutionSettings() { ModelId = modelVersion });
+            var result = await chatCompletionService.GetChatMessageContentAsync(promptBuilder, new PromptExecutionSettings() { ModelId = modelVersion });
+            var usage = result.Metadata!["Usage"] as CompletionsUsage;
 
-            return new LLMOrchestrationCompletionResponse() { Completion = result.Content };
+            if (messageHistoryEnabled)
+                history.AddAssistantMessage(result.Content!);
+
+            return new LLMOrchestrationCompletionResponse()
+            {
+                Completion = result.Content,
+                UserPrompt = request.UserPrompt,
+                FullPrompt = promptBuilder,
+                PromptTemplate = "\n\nQuestion: {request.UserPrompt}\n\nContext: {context}\n\nAnswer:",
+                AgentName = request.Agent.Name,
+                PromptTokens = usage.PromptTokens,
+                CompletionTokens = usage.CompletionTokens,
+                TotalTokens = usage.TotalTokens,
+                TotalCost = 0
+            };
         }
 
         private Kernel CreateKernel(LanguageModel llm)

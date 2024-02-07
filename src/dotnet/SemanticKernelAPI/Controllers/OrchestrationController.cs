@@ -19,14 +19,16 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
     [Route("[controller]")]
     public class OrchestrationController : ControllerBase
     {
-        private readonly ISemanticKernelService _semanticKernelService;
+        //private readonly ISemanticKernelService _semanticKernelService;
+        private readonly IKnowledgeManagementAgentService _knowledgeManagementAgentService;
 
         /// <summary>
         /// Constructor for the Semantic Kernel API orchestration controller.
         /// </summary>
         /// <param name="semanticKernelService"></param>
         public OrchestrationController(
-            ISemanticKernelService semanticKernelService) => _semanticKernelService = semanticKernelService;
+            //ISemanticKernelService semanticKernelService) => _semanticKernelService = semanticKernelService;
+            IKnowledgeManagementAgentService knowledgeManagementAgentService) => _knowledgeManagementAgentService = knowledgeManagementAgentService;
 
         /// <summary>
         /// Gets a completion from the Semantic Kernel service.
@@ -49,13 +51,13 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
             {
                 var completionRequest = JsonConvert.DeserializeObject<KnowledgeManagementCompletionRequest>(request.ToString()) as KnowledgeManagementCompletionRequest;
 
-                return await _semanticKernelService.GetCompletion(completionRequest!);
+                return await _knowledgeManagementAgentService.GetCompletion(completionRequest!);
             }
             else
             {
                 var completionRequest = JsonConvert.DeserializeObject<LLMOrchestrationCompletionRequest?>(request.ToString()) as LLMOrchestrationCompletionRequest;
 
-                return await _semanticKernelService.GetCompletion(completionRequest!);
+                return null; //await _semanticKernelService.GetCompletion(completionRequest!);
             }
         }
 
@@ -67,9 +69,13 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
         [HttpPost("summary")]
         public async Task<SummaryResponse> GetSummary([FromBody] SummaryRequest request)
         {
-            var info = await _semanticKernelService.GetSummary(request.UserPrompt ?? string.Empty);
+            await Task.CompletedTask;
 
-            return new SummaryResponse() { Summary = info };
+            return null;
+
+            //var info = await _semanticKernelService.GetSummary(request.UserPrompt ?? string.Empty);
+
+            //return new SummaryResponse() { Summary = info };
         }
 
         /// <summary>
