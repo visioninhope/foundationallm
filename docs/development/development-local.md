@@ -9,7 +9,7 @@
 - Backend (APIs and worker services):
   - Visual Studio 2022 17.8 or later (required for passthrough Visual Studio authentication for the Docker container and .NET 8 support) with the [Python workload installed](https://learn.microsoft.com/visualstudio/python/installing-python-support-in-visual-studio?view=vs-2022)
   - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet) or greater
-  - [Python 3.11](https://www.python.org/downloads/) or greater (learn more about [Python environments in Visual Studio](https://learn.microsoft.com/visualstudio/python/managing-python-environments-in-visual-studio?view=vs-2022))
+  - [Python 3.11](https://www.python.org/downloads/) (learn more about [Python environments in Visual Studio](https://learn.microsoft.com/visualstudio/python/managing-python-environments-in-visual-studio?view=vs-2022))
   - Docker Desktop (with WSL for Windows machines) ([Mac install](https://docs.docker.com/desktop/install/mac-install/) or [Windows install](https://docs.docker.com/desktop/install/windows-install/))
   - Azure CLI ([v2.51.0 or greater](https://learn.microsoft.com/cli/azure/install-azure-cli))
   - [Microsoft Azure PowerShell](https://learn.microsoft.com/powershell/azure/install-azure-powershell)
@@ -17,7 +17,7 @@
 - Frontend (Vue.js (Nuxt) web app)
   - [Visual Studio Code](https://code.visualstudio.com/Download) (recommended for development)
   - [Node.js](https://nodejs.org/en/) v18.0.0 or newer
-  - [NPM](https://www.npmjs.com/)
+  - [NPM](https://www.npmjs.com/) v10.2.3 or newer
   - Recommended way to install the latest version of NPM and node.js on Windows:
     - Install NVM from https://github.com/coreybutler/nvm-windows
     - Run nvm install latest
