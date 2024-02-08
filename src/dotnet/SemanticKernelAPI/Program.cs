@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
+using FoundationaLLM.SemanticKernel.Core.Plugins;
 //using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using FoundationaLLM.SemanticKernel.Core.Services;
 //using FoundationaLLM.SemanticKernel.MemorySource;
@@ -88,7 +89,7 @@ namespace FoundationaLLM.SemanticKernel.API
             //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI));
             //builder.Services.AddSingleton<ISemanticKernelService, SemanticKernelService>();
 
-            builder.Services.AddScoped<IKnowledgeManagementAgentService, KnowledgeManagementAgentService>();
+            builder.Services.AddScoped<IKnowledgeManagementAgentPlugin, KnowledgeManagementAgentPlugin>();
 
             // Simple, static system prompt service
             //builder.Services.AddSingleton<ISystemPromptService, InMemorySystemPromptService>();

@@ -2,15 +2,8 @@
 using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Messages;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.AgentFactory.Core.Agents
 {
@@ -19,7 +12,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
     /// </summary>
     public class KMAgent : AgentBase
     {
-        private LLMOrchestrationCompletionRequest _completionRequestTemplate = null!;
+        private LegacyOrchestrationCompletionRequest _completionRequestTemplate = null!;
         private readonly ICacheService _cacheService;
         private readonly ICallContext _callContext;
         private readonly ILogger<DefaultAgent> _logger;
@@ -51,17 +44,18 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             _logger = logger;
         }
 
+        /// <inheritdoc/>
         public override Task Configure(string userPrompt, string sessionId) => base.Configure(userPrompt, sessionId);
 
+        /// <inheritdoc/>
         public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
             var result = await _orchestrationService.GetCompletion(
-                _agent.Name,
-                JsonConvert.SerializeObject(new
+                new KnowledgeManagementCompletionRequest
                 {
-                    user_prompt = completionRequest.UserPrompt,
-                    agent = _agent
-                }));
+                    UserPrompt = completionRequest.UserPrompt!,
+                    Agent = _agent
+                });
 
             return new CompletionResponse
             {

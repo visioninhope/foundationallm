@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
+﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
+using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
 using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.Common.Constants;
@@ -16,7 +17,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
     /// </summary>
     public class DefaultAgent : AgentBase
     {
-        private LLMOrchestrationCompletionRequest _completionRequestTemplate = null!;
+        private LegacyOrchestrationCompletionRequest _completionRequestTemplate = null!;
         private readonly ICacheService _cacheService;
         private readonly ICallContext _callContext;
         private readonly ILogger<DefaultAgent> _logger;
@@ -189,7 +190,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             }
 
             //create LLMOrchestrationCompletionRequest template
-            _completionRequestTemplate = new LLMOrchestrationCompletionRequest()
+            _completionRequestTemplate = new LegacyOrchestrationCompletionRequest()
             {
                 UserPrompt = null, // to be filled in GetCompletion / GetSummary
                 Agent = new FoundationaLLM.Common.Models.Orchestration.Metadata.Agent
@@ -229,26 +230,6 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                 AgentName = result.AgentName,
                 PromptTokens = result.PromptTokens,
                 CompletionTokens = result.CompletionTokens,
-            };
-        }
-
-        /// <summary>
-        /// Calls the orchestration service for the agent to get a summary.
-        /// </summary>
-        /// <param name="summaryRequest"></param>
-        /// <returns></returns>
-        public override async Task<SummaryResponse> GetSummary(SummaryRequest summaryRequest)
-        {
-            var orchestrationRequest = new LLMOrchestrationRequest
-            {
-                SessionId = summaryRequest.SessionId,
-                UserPrompt = summaryRequest.UserPrompt
-            };
-            var summary = await _orchestrationService.GetSummary(orchestrationRequest);
-
-            return new SummaryResponse
-            {
-                Summary = summary
             };
         }
     }

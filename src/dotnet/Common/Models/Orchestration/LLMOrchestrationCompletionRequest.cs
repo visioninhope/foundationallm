@@ -1,44 +1,23 @@
-﻿using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Models.Metadata;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration
 {
     /// <summary>
-    /// Orchestration completion request.
-    /// Contains the metadata needed by the orchestration services
-    /// to build and execute completions.
+    /// Base LLM orchestration request
     /// </summary>
-    public class LLMOrchestrationCompletionRequest : LLMOrchestrationRequest
+    public class LLMOrchestrationCompletionRequest
     {
         /// <summary>
-        /// Agent metadata
+        /// The session ID.
         /// </summary>
-        [JsonProperty("agent")]
-        public FoundationaLLM.Common.Models.Orchestration.Metadata.Agent? Agent { get; set; }
+        [JsonProperty("session_id")]
+        public string? SessionId { get; set; }
 
         /// <summary>
-        /// Data source metadata
+        /// Prompt entered by the user.
         /// </summary>
-        [JsonProperty("data_sources")]
-        public List<MetadataBase>? DataSourceMetadata { get; set; }
-
-        /// <summary>
-        /// Language model metadata.
-        /// </summary>
-        [JsonProperty("language_model")]
-        public LanguageModel? LanguageModel { get; set; }
-
-        /// <summary>
-        /// Embedding model metadata.
-        /// </summary>
-        [JsonProperty("embedding_model")]
-        public EmbeddingModel? EmbeddingModel { get; set; }
-
-        /// <summary>
-        /// Message history list
-        /// </summary>
-        [JsonProperty("message_history")]
-        public List<MessageHistoryItem>? MessageHistory { get; set; }
+        [JsonProperty("user_prompt")]
+        public string? UserPrompt { get; set; }
     }
 }

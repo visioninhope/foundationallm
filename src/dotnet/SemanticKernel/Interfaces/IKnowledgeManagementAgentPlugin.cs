@@ -3,7 +3,7 @@ using FoundationaLLM.SemanticKernel.Core.Models;
 
 namespace FoundationaLLM.SemanticKernel.Core.Interfaces
 {
-    public interface IKnowledgeManagementAgentService
+    public interface IKnowledgeManagementAgentPlugin
     {
         /// <summary>
         /// Gets a completion from the Semantic Kernel service.

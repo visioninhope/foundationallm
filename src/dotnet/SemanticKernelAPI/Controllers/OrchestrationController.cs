@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Dynamic;
-using FoundationaLLM.SemanticKernel.Core.Services;
 
 namespace FoundationaLLM.SemanticKernel.API.Controllers
 {
@@ -20,7 +19,7 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
     public class OrchestrationController : ControllerBase
     {
         //private readonly ISemanticKernelService _semanticKernelService;
-        private readonly IKnowledgeManagementAgentService _knowledgeManagementAgentService;
+        private readonly IKnowledgeManagementAgentPlugin _knowledgeManagementAgentService;
 
         /// <summary>
         /// Constructor for the Semantic Kernel API orchestration controller.
@@ -28,7 +27,7 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
         /// <param name="semanticKernelService"></param>
         public OrchestrationController(
             //ISemanticKernelService semanticKernelService) => _semanticKernelService = semanticKernelService;
-            IKnowledgeManagementAgentService knowledgeManagementAgentService) => _knowledgeManagementAgentService = knowledgeManagementAgentService;
+            IKnowledgeManagementAgentPlugin knowledgeManagementAgentService) => _knowledgeManagementAgentService = knowledgeManagementAgentService;
 
         /// <summary>
         /// Gets a completion from the Semantic Kernel service.
@@ -55,7 +54,7 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
             }
             else
             {
-                var completionRequest = JsonConvert.DeserializeObject<LLMOrchestrationCompletionRequest?>(request.ToString()) as LLMOrchestrationCompletionRequest;
+                var completionRequest = JsonConvert.DeserializeObject<LegacyOrchestrationCompletionRequest?>(request.ToString()) as LegacyOrchestrationCompletionRequest;
 
                 return null; //await _semanticKernelService.GetCompletion(completionRequest!);
             }

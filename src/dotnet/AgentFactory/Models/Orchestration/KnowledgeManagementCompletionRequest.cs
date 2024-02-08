@@ -1,8 +1,8 @@
 ﻿using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.SemanticKernel.Core.Models
+namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration
 {
     /// <summary>
     /// The Knowledge Management Completion Request model.
@@ -12,7 +12,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Models
         /// <summary>
         /// The Knowledge Management agent metadata.
         /// </summary>
-        [JsonProperty("agent")]
+        [JsonPropertyName("agent")]
         public required KnowledgeManagementAgent Agent { get; set; }
     }
 }

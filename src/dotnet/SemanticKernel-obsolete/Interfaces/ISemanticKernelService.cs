@@ -14,7 +14,7 @@ public interface ISemanticKernelService
     /// </summary>
     /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
     /// <returns>Returns a completion response from the orchestration engine.</returns>
-    Task<LLMOrchestrationCompletionResponse> GetCompletion(LLMOrchestrationCompletionRequest request);
+    Task<LLMOrchestrationCompletionResponse> GetCompletion(LegacyOrchestrationCompletionRequest request);
 
     /// <summary>
     /// Gets a completion from the Semantic Kernel service.

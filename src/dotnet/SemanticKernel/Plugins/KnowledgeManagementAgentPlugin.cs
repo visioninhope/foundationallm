@@ -10,15 +10,15 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using System.Text;
 
-namespace FoundationaLLM.SemanticKernel.Core.Services
+namespace FoundationaLLM.SemanticKernel.Core.Plugins
 {
-    public class KnowledgeManagementAgentService : IKnowledgeManagementAgentService
+    public class KnowledgeManagementAgentPlugin : IKnowledgeManagementAgentPlugin
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
 
-        public KnowledgeManagementAgentService(
-            ILogger<KnowledgeManagementAgentService> logger,
+        public KnowledgeManagementAgentPlugin(
+            ILogger<KnowledgeManagementAgentPlugin> logger,
             IConfiguration configuration)
         {
             _logger = logger;
@@ -49,7 +49,9 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             }
 
             //var agentPrompt = ResourceProviderService.GetAgentPrompt(request.Agent.Prompt);
-            var agentPrompt = string.Empty;
+            var agentPrompt = @"You are a political science professional named Baldwin. You are responsible for answering questions regarding the February 2023 State of the Union Address.
+Answer only questions about the February 2023 State of the Union address. Use only the information provided.
+Provide concise answers that are polite and professional.";
             var context = string.Empty;
             var promptBuilder = $"{context}";
 

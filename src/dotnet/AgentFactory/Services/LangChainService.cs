@@ -1,8 +1,7 @@
-﻿using FoundationaLLM.AgentFactory.Interfaces;
+﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
+using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
-using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
@@ -42,7 +41,6 @@ namespace FoundationaLLM.AgentFactory.Services
         /// </summary>
         public bool IsInitialized => GetServiceStatus();
 
-
         /// <summary>
         /// Executes a completion request against the orchestration service.
         /// </summary>
@@ -50,7 +48,23 @@ namespace FoundationaLLM.AgentFactory.Services
         /// <returns>Returns a completion response from the orchestration engine.</returns>
         public async Task<LLMOrchestrationCompletionResponse> GetCompletion(LLMOrchestrationCompletionRequest request)
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);           
+            var agentName = string.Empty;
+            var promptTemplate = string.Empty;
+
+            switch (request)
+            {
+                case KnowledgeManagementCompletionRequest kmcr:
+                    agentName = kmcr.Agent.Name;
+                    break;
+                case LegacyOrchestrationCompletionRequest lcr:
+                    agentName = lcr.Agent?.Name;
+                    promptTemplate = lcr.Agent?.PromptPrefix;
+                    break;
+                default:
+                    throw new Exception($"LLM orchestration completion request of type {request.GetType()} is not supported.");
+            }
+
+            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
 
             var body = JsonConvert.SerializeObject(request, _jsonSerializerSettings);
             var responseMessage = await client.PostAsync("orchestration/completion",
@@ -68,47 +82,7 @@ namespace FoundationaLLM.AgentFactory.Services
                     Completion = completionResponse!.Completion,
                     UserPrompt = completionResponse.UserPrompt,
                     FullPrompt = completionResponse.FullPrompt,
-                    PromptTemplate = request.Agent?.PromptPrefix,
-                    AgentName = request.Agent?.Name,
-                    PromptTokens = completionResponse.PromptTokens,
-                    CompletionTokens = completionResponse.CompletionTokens
-                };
-            }
-
-            _logger.LogWarning($"The LangChain orchestration service returned status code {responseMessage.StatusCode}: {responseContent}");
-
-            return new LLMOrchestrationCompletionResponse
-            {
-                Completion = "A problem on my side prevented me from responding.",
-                UserPrompt = request.UserPrompt,
-                PromptTemplate = request.Agent?.PromptPrefix,
-                AgentName = request.Agent?.Name,
-                PromptTokens = 0,
-                CompletionTokens = 0
-            };
-        }
-
-        public async Task<LLMOrchestrationCompletionResponse> GetCompletion(string agentName, string serializedRequest)
-        {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
-
-            var body = serializedRequest;
-            var responseMessage = await client.PostAsync("orchestration/completion",
-                new StringContent(
-                    body,
-                    Encoding.UTF8, "application/json"));
-            var responseContent = await responseMessage.Content.ReadAsStringAsync();
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var completionResponse = JsonConvert.DeserializeObject<LLMOrchestrationCompletionResponse>(responseContent);
-
-                return new LLMOrchestrationCompletionResponse
-                {
-                    Completion = completionResponse!.Completion,
-                    UserPrompt = completionResponse.UserPrompt,
-                    FullPrompt = completionResponse.FullPrompt,
-                    PromptTemplate = string.Empty,
+                    PromptTemplate = promptTemplate,
                     AgentName = agentName,
                     PromptTokens = completionResponse.PromptTokens,
                     CompletionTokens = completionResponse.CompletionTokens
@@ -120,59 +94,12 @@ namespace FoundationaLLM.AgentFactory.Services
             return new LLMOrchestrationCompletionResponse
             {
                 Completion = "A problem on my side prevented me from responding.",
-                UserPrompt = string.Empty,
-                PromptTemplate = string.Empty,
+                UserPrompt = request.UserPrompt,
+                PromptTemplate = promptTemplate,
                 AgentName = agentName,
                 PromptTokens = 0,
                 CompletionTokens = 0
             };
-        }
-
-
-
-        /// <summary>
-        /// Summarizes the input text.
-        /// </summary>
-        /// <param name="orchestrationRequest">The orchestration request that includes the text to summarize.</param>
-        /// <returns>Returns a summary of the input text.</returns>
-        public async Task<string> GetSummary(LLMOrchestrationRequest orchestrationRequest)
-        {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
-
-            var request = new LLMOrchestrationCompletionRequest()
-            {
-                SessionId = orchestrationRequest.SessionId,
-                UserPrompt = orchestrationRequest.UserPrompt,
-                Agent = new FoundationaLLM.Common.Models.Orchestration.Metadata.Agent
-                {
-                    Name = "summarizer",
-                    Type = "summary",
-                    Description = "Useful for summarizing input text based on a set of rules.",
-                    PromptPrefix = "Write a concise two-word summary of the following:\n\"{text}\"\nCONCISE SUMMARY IN TWO WORDS:"
-                },
-                LanguageModel = new LanguageModel
-                {
-                    Type = LanguageModelTypes.OPENAI,
-                    Provider = LanguageModelProviders.MICROSOFT,
-                    Temperature = 0f,
-                    UseChat = true
-                }
-            };
-
-            var body = JsonConvert.SerializeObject(request, _jsonSerializerSettings);
-            var responseMessage = await client.PostAsync("orchestration/completion",
-                new StringContent(
-                    body,
-                    Encoding.UTF8, "application/json"));
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var summaryResponse = JsonConvert.DeserializeObject<LLMOrchestrationCompletionResponse>(responseContent);
-                return summaryResponse!.Completion!;
-            }
-
-            return "A problem on my side prevented me from responding.";              
         }
 
         /// <summary>
