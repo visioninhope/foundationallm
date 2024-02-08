@@ -35,7 +35,7 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
         ```pwsh
         cd foundationallm
-        ./deploy/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id>
+        ./deploy/starter/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id>
         ```
 
         >**NOTE**: Make sure to set the `<location>` value to a region that supports Azure OpenAI services.  See [Azure OpenAI service regions](https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=cognitive-services&regions=all) for more information.
@@ -46,7 +46,7 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
         ```pwsh
         cd foundationallm
-        ./deploy/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id> -deployAks 1
+        ./deploy/starter/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id> -deployAks 1
         ```
 
     3. Option 3: Deployment using an existing Azure OpenAI resource
@@ -64,14 +64,14 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
         ```pwsh
         cd foundationallm
-        ./deploy/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id> -openAiRg <openai_rg_name> -openAiName <openai_resource_name> -openAiCompletionsDeployment <completions_deployment_name> -openAiEmbeddingsDeployment <embeddings_deployment_name>
+        ./deploy/starter/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id> -openAiRg <openai_rg_name> -openAiName <openai_resource_name> -openAiCompletionsDeployment <completions_deployment_name> -openAiEmbeddingsDeployment <embeddings_deployment_name>
         ```
 
         AKS:
 
         ```pwsh
         cd foundationallm
-        ./deploy/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id> -deployAks 1 -openAiRg <openai_rg_name> -openAiName <openai_resource_name> -openAiCompletionsDeployment <completions_deployment_name> -openAiEmbeddingsDeployment <embeddings_deployment_name>
+        ./deploy/starter/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id> -deployAks 1 -openAiRg <openai_rg_name> -openAiName <openai_resource_name> -openAiCompletionsDeployment <completions_deployment_name> -openAiEmbeddingsDeployment <embeddings_deployment_name>
         ```
 
 ## Post-deployment configuration
