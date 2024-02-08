@@ -1,6 +1,6 @@
 # Knowledge management agent
 
-The FoundationaLLM(FLLM) knowledge management agent supports two use cases: internal context and retrieval augmented generation (RAG).
+The FoundationaLLM (FLLM) knowledge management agent supports two use cases: internal context and retrieval augmented generation (RAG).
 
 ## Internal Context
 
@@ -10,12 +10,17 @@ The internal context flow provides a pass-through mechanism that sends the user 
 
 The RAG flow augments the user prompt with additional context to generate a more accurate response. The RAG flow uses a retrieval model to retrieve relevant documents from a knowledge base, such as a vector store, and then uses the retrieved documents to augment the user prompt before sending it to the LLM.
 
+The creation of a RAG knowledge management agent requires an existing knowledge base, such as a vector store. If it does not exist, use the [vectorization](../vectorization/index.md) API can be used to create a vector store prior to the creation of the agent.
+
 ## Knowledge management agent configuration
 
 The knowledge management agent configuration may reference the following resources:
-    - [Vectorization text embedding profile](../vectorization/vectorization-profiles.md#text-embedding-profiles): The text embedding profile contains the configuration of the text embedding model used to embed the user prompt and perform a vector search in the knowledge base. This must match the text embedding profile used to index the knowledge base.
-    - [Vectorization indexing profile](../vectorization/vectorization-profiles.md#indexing-profiles): The indexing profile contains the configuration of the service hosting the index that is to be searched.
-    - [Prompt](prompt-resource.md): The system prompt of the agent, describes the persona of the agent.
+
+- [Vectorization text embedding profile](../vectorization/vectorization-profiles.md#text-embedding-profiles): The text embedding profile contains the configuration of the text embedding model used to embed the user prompt and perform a vector search in the knowledge base. This must match the text embedding profile used to index the knowledge base.
+
+- [Vectorization indexing profile](../vectorization/vectorization-profiles.md#indexing-profiles): The indexing profile contains the configuration of the service hosting the index that is to be searched.
+
+- [Prompt](prompt-resource.md): The system prompt of the agent, describing the persona of the agent.
 
 >**Note**: The knowledge management agent implementation currently supports the [`AzureAISearchIndexer`](../vectorization/vectorization-profiles.html#azureaisearchindexer) indexing profile.
 
@@ -61,7 +66,7 @@ where:
 
 - `<name>` is the name of the agent.
 - `<instance_id>` is the instance ID of the deployment.
-- `<description>` is the description of the agent, ensure this description details the purpose of the agent.
+- `<description>` is the description of the agent. Ensure that this description details the purpose of the agent.
 - `<indexing_profile_resource_objectid>` is the object ID of the indexing profile resource.
 - `<text_embedding_profile_resource_objectid>` is the object ID of the text embedding profile resource.
 - `<prompt_resource_objectid>` is the object ID of the prompt resource.
@@ -78,10 +83,23 @@ where:
 | `embedding_profile` | The object ID of the text embedding profile resource. |
 | `prompt` | The object ID of the prompt resource. |
 | `language_model` | The language model configuration. This sample demonstrates the usage of the Azure OpenAI language model. |
+| `language_model.type` | The type of the language model. Currently supporting OpenAI based langauge models. |
+| `language_model.provider` | The provider of the language model. Currently supporting `microsoft` or `openai`.  |
+| `language_model.temperature` | The temperature value for the language model. A value between 0 and 1. Values closer to 0 return more factual information whereas values closer to 1 yield more creative responses. |
+| `language_model.use_chat` | Determines the type of language model to use, as an example, when using Microsoft's Azure OpenAI, specifying `use_chat` equal to true will use the AzureChatOpenAI model vs. the AzureOpenAI model in LangChain.|
+| `language_model.api_endpoint` | The configuration setting key that houses the API endpoint of the language model. The example above uses default FLLM values. Ensure this value is populated in application configuration. |
+| `language_model.api_key` | The configuration setting key that houses a reference to a key vault value containing the API key for the language model service. Ensure these values are populated in key vault and app configuration. |
+| `language_model.api_version` | The configuration setting key that houses the API version of the language model. The example above uses default FLLM values. Ensure this value is populated in application configuration. |
+| `language_model.version` | The configuration setting key that houses the version of the language model deployment. The example above uses default FLLM values. Ensure this value is populated in application configuration. |
+| `language_model.deployment` | The configuration setting key that houses the name given to the deployed language model. The example above uses default FLLM values. Ensure this value is populated in application configuration. |
 | `sessions_enabled` | A boolean value that indicates whether the agent is session-less (false) or supports sessions(true). |
-| `conversation_history` | The conversation history configuration. the `enabled` property indicates if conversation history is retained for subsequent agent interactions(true). The `max_history` indicates the number of messages to be retained. |
-| `gatekeeper` | The gatekeeper configuration. The `use_system_setting` property indicates if the system settings are used for the gatekeeper. The `options` property contains the list of gatekeeper options. The sample provided overrides the system setting for gatekeeper and enables Azure Content Safety and MS Presidio in the messaging pipeline. |
-| `orchestrator` | The orchestrator to be used for the agent. This can be set to Semantic Kernel or LangChain |
+| `conversation_history` | The conversation history configuration. |
+| `conversation_history.enabled` | Indicates if conversation history is retained for subsequent agent interactions(true). |
+| `conversation_history.max_history` | indicates the number of messages to be retained. |
+| `gatekeeper` | The gatekeeper configuration. |
+| `gatekeeper.use_system_setting` | Indicates if the system settings are used for the gatekeeper. |
+| `gatekeeper.options` | Contains the list of gatekeeper options. The sample provided overrides the system setting for gatekeeper and enables Azure Content Safety and MS Presidio in the messaging pipeline. |
+| `orchestrator` | The orchestrator to be used for the agent. This can be set to `SemanticKernel` or `LangChain` |
 
 ## Managing knowledge management agents
 
@@ -103,10 +121,16 @@ BODY
 <agent_configuration>
 ```
 
-where `<agent_configuration>` is the agent configuration structure described above.
+where `<agent_configuration>` is the JSON agent configuration structure described above.
 
 ### Delete
 
 ```http
 HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/agents/<name>
 ```
+
+## Validating a knowledge management agent
+
+Once configured, the knowledge management agent can be validated using an API call to the [Core API](../exposed-apis/core-api.md) or via the [User Portal](../quickstart.md).
+
+>**Note**: When validating through the user portal, ensure the `FoundationaLLM-AllowAgentHint` feature is enabled in the app configuration service. Restart the Core API service [(ACA)](../../deployment/authentication/core-authentication-setup-entra.md#restart-core-api-and-chat-ui-applications-in-an-aca-deployment) [(AKS)](../../deployment/authentication/core-authentication-setup-entra.md#restart-core-api-and-chat-ui-applications-in-an-aks-deployment) for the agent to be made available to the platform. You may need to refresh your user portal browser for the agent to display in the agents list for selection.

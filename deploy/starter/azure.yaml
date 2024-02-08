@@ -1,0 +1,109 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: fllm
+metadata:
+    template: azd-init@1.5.1
+services:
+    AgentFactoryAPI:
+        project: ..\..\src\dotnet\AgentFactoryAPI
+        host: containerapp
+        language: dotnet
+        docker:
+            context: ..\..\
+            path: Dockerfile
+    AgentHubAPI:
+        project: ..\..\src\python\AgentHubAPI
+        host: containerapp
+        language: python
+        docker:
+            context: ..\
+            path: Dockerfile
+    CoreAPI:
+        project: ..\..\src\dotnet\CoreAPI
+        host: containerapp
+        language: dotnet
+        docker:
+            context: ..\..\
+            path: Dockerfile
+    CoreWorker:
+        project: ..\..\src\dotnet\CoreWorker
+        host: containerapp
+        language: dotnet
+        docker:
+            context: ..\..\
+            path: Dockerfile
+    DataSourceHubAPI:
+        project: ..\..\src\python\DataSourceHubAPI
+        host: containerapp
+        language: python
+        docker:
+            context: ..\
+            path: Dockerfile
+    GatekeeperAPI:
+        project: ..\..\src\dotnet\GatekeeperAPI
+        host: containerapp
+        language: dotnet
+        docker:
+            context: ..\..\
+            path: Dockerfile
+    GatekeeperIntegrationAPI:
+        project: ..\..\src\python\GatekeeperIntegrationAPI
+        host: containerapp
+        language: python
+        docker:
+            context: ..\
+            path: Dockerfile
+    LangChainAPI:
+        project: ..\..\src\python\LangChainAPI
+        host: containerapp
+        language: python
+        docker:
+            context: ..\
+            path: Dockerfile
+    ManagementAPI:
+        project: ..\..\src\dotnet\ManagementAPI
+        host: containerapp
+        language: dotnet
+        docker:
+            context: ..\..\
+            path: Dockerfile
+    ManagementPortal:
+        project: ..\..\src\UI\ManagementPortal
+        host: containerapp
+        language: ts
+        docker:
+            path: Dockerfile
+    PromptHubAPI:
+        project: ..\..\src\python\PromptHubAPI
+        host: containerapp
+        language: python
+        docker:
+            context: ..\
+            path: Dockerfile
+    SemanticKernelAPI:
+        project: ..\..\src\dotnet\SemanticKernelAPI
+        host: containerapp
+        language: dotnet
+        docker:
+            context: ..\..\
+            path: Dockerfile
+    UserPortal:
+        project: ..\..\src\UI\UserPortal
+        host: containerapp
+        language: js
+        docker:
+            path: Dockerfile
+    VectorizationAPI:
+        project: ..\..\src\dotnet\VectorizationAPI
+        host: containerapp
+        language: dotnet
+        docker:
+            context: ..\..\
+            path: Dockerfile
+    VectorizationWorker:
+        project: ..\..\src\dotnet\VectorizationWorker
+        host: containerapp
+        language: dotnet
+        docker:
+            context: ..\..\
+            path: Dockerfile
