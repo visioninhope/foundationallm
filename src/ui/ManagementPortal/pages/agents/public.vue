@@ -5,8 +5,8 @@
 		<Column field="name" header="Name" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: '#000', color: '#fff'} }, sortIcon: { style: { color: '#fff'} } }"></Column>
 		<Column field="type" header="Type" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: '#000', color: '#fff'} }, sortIcon: { style: { color: '#fff'} } }"></Column>
 		<Column header="Edit" headerStyle="width:6rem" style="text-align: center" :pt="{ headerCell: { style: { backgroundColor: '#000', color: '#fff'} }, headerContent: { style: { justifyContent: 'center' } } }">
-			<template #body>
-				<i class="pi pi-cog" style="font-size: 1.5rem"></i>
+			<template #body="slotProps">
+				<NuxtLink :to="'/agents/edit/' + slotProps.data.name" class="table__button"><i class="pi pi-cog" style="font-size: 1.5rem"></i></NuxtLink>
 			</template>
 		</Column>
 	</DataTable>
@@ -40,4 +40,7 @@ export default {
 </script>
 
 <style lang="scss">
+.table__button {
+	color: var(--primary-color);
+}
 </style>
