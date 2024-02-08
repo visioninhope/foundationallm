@@ -662,36 +662,29 @@ export default {
 				prompt: this.systemPrompt,
 			};
 
-			if (this.editAgent) {
-				try {
+			let successMessage = null;
+			try {
+				if (this.editAgent) {
 					await api.updateAgent(this.editAgent, agentRequest);
-					this.$toast.add({
-						severity: 'success',
-						detail: `Agent "${this.agentName}" was succesfully updated!`,
-					});
-				} catch(error) {
-						this.$toast.add({
-						severity: 'error',
-						detail: error?.response?._data || error,
-						life: 5000,
-					});
-				}
-			} else {
-				try {
+					successMessage = `Agent "${this.agentName}" was succesfully updated!`;
+				} else {
 					await api.createAgent(agentRequest);
-					this.$toast.add({
-						severity: 'success',
-						detail: `Agent "${this.agentName}" was succesfully created!`,
-					});
+					successMessage = `Agent "${this.agentName}" was succesfully created!`;
 					this.resetForm();
-				} catch(error) {
-						this.$toast.add({
-						severity: 'error',
-						detail: error?.response?._data || error,
-						life: 5000,
-					});
 				}
+			} catch(error) {
+				this.loading = false;
+				return this.$toast.add({
+					severity: 'error',
+					detail: error?.response?._data || error,
+					life: 5000,
+				});
 			}
+
+			this.$toast.add({
+				severity: 'success',
+				detail: successMessage,
+			});
 
 			this.loading = false;
 		},
