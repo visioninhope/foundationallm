@@ -28,7 +28,6 @@ export default {
 	async created() {
 		try {
 			this.agents = await api.getAgents();
-			console.log(this.agents);
 		} catch(error) {
 			this.$toast.add({
 				severity: 'error',
