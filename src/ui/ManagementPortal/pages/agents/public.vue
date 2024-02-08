@@ -9,11 +9,6 @@
 				<i class="pi pi-cog" style="font-size: 1.5rem"></i>
 			</template>
 		</Column>
-		<Column header="Delete" headerStyle="width:6rem" style="text-align: center" :pt="{ headerCell: { style: { backgroundColor: '#000', color: '#fff'} }, headerContent: { style: { justifyContent: 'center' } } }">
-			<template #body>
-				<i class="pi pi-times" style="font-size: 1.5rem"></i>
-			</template>
-		</Column>
 	</DataTable>
 </template>
 
