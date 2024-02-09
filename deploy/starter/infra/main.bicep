@@ -19,6 +19,39 @@ param services array
 @description('Id of the user or app to assign application roles')
 param principalId string
 
+param instanceId string = guid(subscription().id, location, environmentName)
+
+var clientSecrets = [
+  {
+    name: 'foundationallm-apis-chat-ui-entra-clientsecret'
+    value: 'PLACEHOLDER'
+  }
+  {
+    name: 'foundationallm-apis-core-api-entra-clientsecret'
+    value: 'PLACEHOLDER'
+  }
+  {
+    name: 'foundationallm-apis-management-api-entra-clientsecret'
+    value: 'PLACEHOLDER'
+  }
+  {
+    name: 'foundationallm-apis-management-ui-entra-clientsecret'
+    value: 'PLACEHOLDER'
+  }
+  {
+    name: 'foundationallm-apis-vectorization-api-entra-clientsecret'
+    value: 'PLACEHOLDER'
+  }
+  {
+    name: 'foundationallm-langchain-csvfile-url'
+    value: 'PLACEHOLDER'
+  }
+  {
+    name: 'foundationallm-langchain-sqldatabase-testdb-password'
+    value: 'PLACEHOLDER'
+  }
+]
+
 // Tags that should be applied to all resources.
 // 
 // Note that 'azd-service-name' tags should be applied separately to service host resources.
@@ -29,7 +62,6 @@ var tags = {
 }
 
 var abbrs = loadJsonContent('./abbreviations.json')
-var instanceId = uniqueString(subscription().id, rg.id, location, environmentName)
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 
 resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
@@ -130,6 +162,7 @@ module keyVault './shared/keyvault.bicep' = {
     tags: tags
     name: '${abbrs.keyVaultVaults}${resourceToken}'
     principalId: principalId
+    secrets: clientSecrets
   }
   scope: rg
 }
