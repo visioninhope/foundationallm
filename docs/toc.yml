@@ -40,7 +40,7 @@ items:
     - name: Calling the Management API
       href: development/calling-apis/directly-calling-management-api.md
     - name: Calling the Vectorization APIs
-      href: development/calling-apis/directory-calling-vectorization-api.md
+      href: development/calling-apis/directly-calling-vectorization-api.md
   - name: Contributing
     href: development/contributing/index.md
     items:
