@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Text;
+using Azure.Messaging;
 using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
@@ -34,9 +35,6 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
         private const string AGENT_REFERENCES_FILE_NAME = "_agent-references.json";
         private const string AGENT_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Agent}/_agent-references.json";
-
-        private readonly ICacheService _cacheService = new MemoryCacheService(
-            loggerFactory.CreateLogger<MemoryCacheService>());
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Agent;
@@ -187,13 +185,58 @@ namespace FoundationaLLM.Agent.ResourceProviders
                     default);
         }
 
+        #region Event handling
+
         /// <inheritdoc/>
         protected override async Task HandleEvents(EventSetEventArgs e)
         {
             _logger.LogInformation("{EventsCount} events received in the {EventsNamespace} events namespace.",
                 e.Events.Count, e.Namespace);
 
+            switch (e.Namespace)
+            {
+                case EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent:
+                    foreach (var @event in e.Events)
+                        await HandleAgentResourceProviderEvent(@event);
+                    break;
+                default:
+                    // Ignore sliently any event namespace that's of no interest.
+                    break;
+            }
+
             await Task.CompletedTask;
         }
+
+        private async Task HandleAgentResourceProviderEvent(CloudEvent e)
+        {
+            if (string.IsNullOrWhiteSpace(e.Subject))
+                return;
+
+            var fileName = e.Subject.Split("/").Last();
+
+            _logger.LogInformation("The file [{FileName}] managed by the [{ResourceProvider}] resource provider has changed and will be reloaded.",
+                fileName, _name);
+
+            var agentReference = new AgentReference
+            {
+                Name = Path.GetFileNameWithoutExtension(fileName),
+                Filename = $"/{_name}/{fileName}",
+                Type = AgentTypes.Basic
+            };
+
+            var agent = await LoadAgent(agentReference);
+            agentReference.Name = agent.Name;
+            agentReference.Type = agent.Type;
+
+            _agentReferences.AddOrUpdate(
+                agentReference.Name,
+                agentReference,
+                (k, v) => v);
+
+            _logger.LogInformation("The agent reference for the [{AgentName}] agent or type [{AgentType}] was loaded.",
+                agentReference.Name, agentReference.Type);
+        }
+
+        #endregion
     }
 }

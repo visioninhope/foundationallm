@@ -445,10 +445,10 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
         private async Task DequeueEvents()
         {
+            _logger.LogInformation("The {ResourceProvider} has started processing events.", _name);
+
             while (true)
             {
-                _logger.LogInformation("The {ResourceProvider} has started processing events.", _name);
-
                 while (_eventsQueue.TryDequeue(out EventSetEventArgs? eventSet))
                 {
                     if (eventSet != null)

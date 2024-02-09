@@ -30,6 +30,7 @@ namespace FoundationaLLM.Agent.Models.Resources
         public Type AgentType =>
             Type switch
             {
+                AgentTypes.Basic => typeof(AgentBase),
                 AgentTypes.KnowledgeManagement => typeof(KnowledgeManagementAgent),
                 _ => throw new ResourceProviderException($"The agent type {Type} is not supported.")
             };
