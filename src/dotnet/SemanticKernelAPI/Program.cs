@@ -90,6 +90,7 @@ namespace FoundationaLLM.SemanticKernel.API
             //builder.Services.AddSingleton<ISemanticKernelService, SemanticKernelService>();
 
             builder.Services.AddScoped<IKnowledgeManagementAgentPlugin, KnowledgeManagementAgentPlugin>();
+            builder.Services.AddScoped<ILegacyAgentPlugin, LegacyAgentPlugin>();
 
             // Simple, static system prompt service
             //builder.Services.AddSingleton<ISystemPromptService, InMemorySystemPromptService>();
