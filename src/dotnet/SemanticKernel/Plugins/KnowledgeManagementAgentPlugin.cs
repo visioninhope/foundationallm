@@ -78,7 +78,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
                 Completion = result.Content,
                 UserPrompt = request.UserPrompt,
                 FullPrompt = promptBuilder,
-                PromptTemplate = "\n\nQuestion: {request.UserPrompt}\n\nContext: {context}\n\nAnswer:",
+                PromptTemplate = "\n\nQuestion: {question}\n\nContext: {context}\n\nAnswer:",
                 AgentName = request.Agent.Name,
                 PromptTokens = usage!.PromptTokens,
                 CompletionTokens = usage.CompletionTokens,

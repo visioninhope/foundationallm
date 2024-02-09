@@ -29,23 +29,18 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
         {
             var kernel = CreateKernel(request.LanguageModel!);
 
-            //var agentPrompt = ResourceProviderService.GetAgentPrompt(request.Agent.Prompt);
-            var agentPrompt = string.Empty;
-            var context = string.Empty;
-            var promptBuilder = $"{context}";
-
             var modelVersion = _configuration.GetValue<string>(request.LanguageModel!.Version!);
 
             var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
-            var result = await chatCompletionService.GetChatMessageContentAsync(promptBuilder, new PromptExecutionSettings() { ModelId = modelVersion });
+            var result = await chatCompletionService.GetChatMessageContentAsync(request.UserPrompt!, new PromptExecutionSettings() { ModelId = modelVersion });
             var usage = result.Metadata!["Usage"] as CompletionsUsage;
 
             return new LLMOrchestrationCompletionResponse()
             {
                 Completion = result.Content,
                 UserPrompt = request.UserPrompt,
-                FullPrompt = promptBuilder,
-                PromptTemplate = "\n\nQuestion: {request.UserPrompt}\n\nContext: {context}\n\nAnswer:",
+                FullPrompt = request.UserPrompt,
+                PromptTemplate = request.UserPrompt,
                 AgentName = request.Agent!.Name,
                 PromptTokens = usage!.PromptTokens,
                 CompletionTokens = usage.CompletionTokens,
