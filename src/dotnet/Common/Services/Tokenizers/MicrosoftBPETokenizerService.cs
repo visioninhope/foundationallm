@@ -54,6 +54,8 @@ namespace FoundationaLLM.Common.Services.Tokenizers
         /// <inheritdoc/>
         public List<int> Encode(string text, string encoderName)
         {
+            _initializationComplete.Wait();
+
             ValidateEncoder(encoderName);
             var tokenizer = GetTokenizer(encoderName)
                 ?? throw new TextProcessingException($"Could not retrieve a valid tokenizer for the {encoderName} encoder.");
@@ -70,6 +72,8 @@ namespace FoundationaLLM.Common.Services.Tokenizers
         /// <inheritdoc/>
         public string Decode(int[] tokens, string encoderName)
         {
+            _initializationComplete.Wait();
+
             ValidateEncoder(encoderName);
             var tokenizer = GetTokenizer(encoderName)
                 ?? throw new TextProcessingException($"Could not retrieve a valid tokenizer for the {encoderName} encoder.");
@@ -161,6 +165,8 @@ namespace FoundationaLLM.Common.Services.Tokenizers
 
         private LeasedTikTokenizer? GetTokenizer(string encoderName)
         {
+            _initializationComplete.Wait
+
             lock (_syncRoot)
             {
                 if (!(_tokenizers.TryGetValue(encoderName, out List<LeasedTikTokenizer>? encoderTokenizers)))
