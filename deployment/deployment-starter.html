@@ -119,7 +119,7 @@
 <ol>
 <li><p>Option 1: Full deployment using Microsoft Azure Container Apps (ACA)</p>
 <pre><code class="lang-pwsh">cd foundationallm
-./deploy/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt;
+./deploy/starter/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt;
 </code></pre>
 <blockquote>
 <p><strong>NOTE</strong>: Make sure to set the <code>&lt;location&gt;</code> value to a region that supports Azure OpenAI services.  See <a href="https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=cognitive-services&amp;regions=all">Azure OpenAI service regions</a> for more information.</p>
@@ -128,7 +128,7 @@
 <li><p>Option 2: Full deployment using Microsoft Azure Kubernetes Service (AKS)</p>
 <p>To deploy to an AKS environment instead, run the same script with the added argument <code>-deployAks 1</code>, as shown below.  This will provision all of the required infrastructure, deploy the API and web app services as pods in an AKS cluster, and import data into Cosmos DB.</p>
 <pre><code class="lang-pwsh">cd foundationallm
-./deploy/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt; -deployAks 1
+./deploy/starter/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt; -deployAks 1
 </code></pre>
 </li>
 <li><p>Option 3: Deployment using an existing Azure OpenAI resource</p>
@@ -161,11 +161,11 @@
 </table>
 <p>ACA:</p>
 <pre><code class="lang-pwsh">cd foundationallm
-./deploy/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt; -openAiRg &lt;openai_rg_name&gt; -openAiName &lt;openai_resource_name&gt; -openAiCompletionsDeployment &lt;completions_deployment_name&gt; -openAiEmbeddingsDeployment &lt;embeddings_deployment_name&gt;
+./deploy/starter/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt; -openAiRg &lt;openai_rg_name&gt; -openAiName &lt;openai_resource_name&gt; -openAiCompletionsDeployment &lt;completions_deployment_name&gt; -openAiEmbeddingsDeployment &lt;embeddings_deployment_name&gt;
 </code></pre>
 <p>AKS:</p>
 <pre><code class="lang-pwsh">cd foundationallm
-./deploy/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt; -deployAks 1 -openAiRg &lt;openai_rg_name&gt; -openAiName &lt;openai_resource_name&gt; -openAiCompletionsDeployment &lt;completions_deployment_name&gt; -openAiEmbeddingsDeployment &lt;embeddings_deployment_name&gt;
+./deploy/starter/scripts/Unified-Deploy.ps1 -resourceGroup &lt;rg_name&gt; -location &lt;location&gt; -subscription &lt;target_subscription_id&gt; -deployAks 1 -openAiRg &lt;openai_rg_name&gt; -openAiName &lt;openai_resource_name&gt; -openAiCompletionsDeployment &lt;completions_deployment_name&gt; -openAiEmbeddingsDeployment &lt;embeddings_deployment_name&gt;
 </code></pre>
 </li>
 </ol>

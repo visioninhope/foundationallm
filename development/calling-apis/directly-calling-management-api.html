@@ -98,7 +98,7 @@
 <h5>Tip</h5>
 <p>To find the Management API URL for your deployment, you can retrieve it from your App Configuration resource in the portal by viewing the <code>FoundationaLLM:APIs:ManagementAPI:APIUrl</code> configuration value.</p>
 </div>
-<p>To see the API endpoints available in FoundationaLLM, you can get your Management API endpoint from your App Configuration resource in the portal and add <code>/swagger/</code> to the end of it. For example, if your Core API endpoint is <code>https://fllmaca729managementca.icelake-c554b849.eastus.azurecontainerapps.io</code>, then you would navigate to <code>https://fllmaca729managementca.icelake-c554b849.eastus.azurecontainerapps.io/swagger/</code> to see the API endpoints.</p>
+<p>To see the API endpoints available in FoundationaLLM, you can get your Management API endpoint from your App Configuration resource in the portal and add <code>/swagger/</code> to the end of it. For example, if your Management API endpoint is <code>https://fllmaca729managementca.icelake-c554b849.eastus.azurecontainerapps.io</code>, then you would navigate to <code>https://fllmaca729managementca.icelake-c554b849.eastus.azurecontainerapps.io/swagger/</code> to see the API endpoints.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>The example link above is for a <a href="../deployment/deployment-starter.md">starter deployment</a> of FoundationaLLM, which deploys the APIs to Azure Container Apps (ACA). If you are using the standard deployment that deploys the APIs to Azure Kubernetes Service (AKS), then you cannot currently access the Swagger UI for the APIs. However, you will be able to obtain the OpenAPI swagger.json file from the Management API endpoint by navigating to <code>https://{{AKS URL}}/management/swagger/v1/swagger.json</code>.</p>
@@ -107,21 +107,22 @@
 <p>If you don't have Postman installed on your machine, visit the <a href="https://www.getpostman.com/">Postman website</a> and download the app. Once you have it installed, Create a Blank Workspace.</p>
 <h3 id="import-the-postman-collection">Import the Postman collection</h3>
 <ol>
-<li><p>First, <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/FoundationaLLM.Management.API.postman_collection.json">download the Management API Postman collection</a> and save it to your machine. To download it from GitHub, select <strong>Download raw file</strong>.</p>
+<li><p>First, select the button below to fork and import the Postman collection for the Management API.</p>
+<p><a href="https://app.getpostman.com/run-collection/269456-839af3bb-2841-40d7-bb24-6409e9ef835e?action=collection%2Ffork&amp;source=rip_markdown&amp;collection-url=entityId%3D269456-839af3bb-2841-40d7-bb24-6409e9ef835e%26entityType%3Dcollection%26workspaceId%3D0d6298a2-c3cd-4530-900c-030ed0ae6dfa"><img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;"></a></p>
 </li>
-<li><p>To import the Postman collection, click <strong>Import</strong> in the top left corner of the Postman app.</p>
-<p><img src="media/postman-import-button.png" alt="The Import button is highlighted."></p>
+<li><p>Select <strong>Fork Collection</strong> to create a fork and import the collection into your Postman workspace.</p>
+<p><img src="media/postman-fork-collection.png" alt="The Import button is highlighted."></p>
 </li>
-<li><p>Within the dialog that displays, drag and drop or navigate to the Postman collection file you downloaded in the first step.</p>
-<p><img src="media/postman-import-collection.png" alt="The Postman import dialog is highlighted."></p>
+<li><p>Within the dialog that displays, enter your fork label, select the Postman workspace into which you want to create the fork, optionally check the <em>Watch original collection</em> checkbox to receive updates to the original collection, and then select <strong>Fork collection</strong>.</p>
+<p><img src="media/postman-fork-management-collection-form.png" alt="The Postman import dialog is highlighted."></p>
 </li>
 </ol>
 <p>You will now see the <strong>FoundationaLLM.Management.API</strong> collection in your Postman workspace.</p>
 <p><img src="media/postman-imported-management-collection.png" alt="The imported collection is displayed."></p>
 <h3 id="set-up-the-postman-environment-variables">Set up the Postman environment variables</h3>
-<p>The Postman collection you imported contains a number of API endpoints that you can use to test the Core API. However, before you can use these endpoints, you need to set up a Postman environment variables within your collection that contains the Core API URL, agent hint value, and other variables. We will set up your authentication token in the next section.</p>
+<p>The Postman collection you imported contains a number of API endpoints that you can use to test the Management API. However, before you can use these endpoints, you need to set up a Postman environment variables within your collection that contains the Management API URL, agent hint value, and other variables. We will set up your authentication token in the next section.</p>
 <ol>
-<li><p>Select the <strong>FoundationaLLM.Core.API</strong> collection in the left-hand menu.</p>
+<li><p>Select the <strong>FoundationaLLM.Management.API</strong> collection in the left-hand menu.</p>
 </li>
 <li><p>Select the <strong>Variables</strong> tab.</p>
 <p><img src="media/postman-management-variables-tab.png" alt="The Variables tab is highlighted."></p>
@@ -130,11 +131,19 @@
 <p>The <code>Initial value</code> column is the value that will be used when you first import the collection. The <code>Current value</code> column is the value that will be used when you run the collection. If you change the <code>Current value</code> column, the <code>Initial value</code> column will not be updated. For the steps that follow, you will be updating the <code>Current value</code> column.</p>
 </div>
 </li>
-<li><p>Update the <code>baseUrl</code> variable <code>Current value</code> with the Core API URL for your deployment.</p>
-<p><img src="media/postman-management-api-url-variable.png" alt="The Core API URL variable is highlighted."></p>
+<li><p>Update the <code>baseUrl</code> variable <code>Current value</code> with the Management API URL for your deployment.</p>
+<p><img src="media/postman-management-api-url-variable.png" alt="The Management API URL variable is highlighted."></p>
 </li>
 <li><p>Update the <code>instanceId</code> variable <code>Current value</code> with the instance ID of your FoundationaLLM deployment. You can find the instance ID in the <code>FoundationaLLM:Instance:Id</code> Azure App Configuration property.</p>
 <p><img src="media/postman-instance-id-variable.png" alt="The instance ID variable is highlighted."></p>
+</li>
+<li><p>Fill out the <code>tenantId</code>, <code>appClientId</code>, and <code>appScope</code> <strong>Current value</strong> settings for your <strong>Management Client</strong> Entra ID app registration (<a href="../../deployment/authentication/management-authentication-setup-entra.html#register-the-client-application-in-the-microsoft-entra-id-admin-center">setup instructions</a>). Use the list below the screenshot to find the values.</p>
+<p><img src="media/postman-management-auth-variables.png" alt="The Management API auth variables are highlighted."></p>
+<ul>
+<li><strong>tenantId</strong>: The tenant ID of your Management Client (Management Portal) Entra ID app. You can find this value in the <strong>Overview</strong> tab of your Entra ID app in the portal.</li>
+<li><strong>appClientId</strong>: The client ID of your Management Client Entra ID app. You can find this value in the <strong>Overview</strong> tab of your Entra ID app in the portal.</li>
+<li><strong>appScope</strong>: The scope of your Management Client Entra ID app. You can find this value in the <strong>Api Permissions</strong> section of your Entra ID app in the portal.</li>
+</ul>
 </li>
 <li><p>Select the <strong>Save</strong> button in the top right corner of the Variables pane to save your changes.</p>
 <p><img src="media/postman-management-save-button.png" alt="The Save button is highlighted."></p>
@@ -147,34 +156,15 @@
 <h5>Important</h5>
 <p>If you previously configured the Microsoft Entra ID app registration for the Management Client (UI) application, you will need to update the <strong>Redirect URI</strong> to <code>https://oauth.pstmn.io/v1/callback</code> in order to use the Postman mobile app to get the token. You can do this by following the steps in the <a href="../../deployment/authentication/management-authentication-setup-entra.html#add-a-redirect-uri-to-the-client-application">Add a redirect URI to the client application</a> section of the authentication setup guide.</p>
 </div>
-<p>First, let's set up the request to get the token at the <strong>collection</strong> level. Make sure you choose <code>OAuth 2.0</code> as the type of authorization and <strong>not</strong> Bearer Token.</p>
-<p><img src="media/postman-management-auth-type.png" alt="The OAuth 2.0 type is selected."></p>
-<p>This is how the <strong>Authorization</strong> tab should look like <strong>before</strong> the entries that you will need to change.</p>
-<p><img src="media/postman-auth-pre.png" alt="The pre-configuration of the authentication settings is displayed."></p>
-<p>Below is a list of each change that you need to make to the <strong>Authorization</strong> tab:</p>
 <ol>
-<li><p><strong>Token Name:</strong> This is the name of the token that you will use in the <strong>Headers</strong> tab. You can name it whatever you want, for example: <strong>FLLM Management Token</strong>.</p>
-</li>
-<li><p><strong>Grant Type:</strong> This is the type of grant that you will use to get the token. In our case, we will use <strong>Authorization Code (with PKCE)</strong>. PKCE stands for <strong>Proof Key for Code Exchange</strong>. It's an extension to the OAuth 2.0 protocol that helps prevent authorization code interception attacks. PKCE is a lightweight mechanism that can be used in any application that requests an authorization code.</p>
-</li>
-<li><p><strong>Callback Url:</strong> Click on the &quot;Authhorize using browser&quot; checkbox and it will automatically fill in the url for Postman mobile call back <code>https://oauth.pstmn.io/v1/callback</code>.</p>
-<p><img src="media/postman-callback-url-authorize-using-browser.png" alt="The Authorize using browser checkbox is checked."></p>
-</li>
-<li><p><strong>Auth Url:</strong> This is the url that you will use to get the token.  In our case, it's the url of Microsoft microsoftonline login authority <code>https://login.microsoftonline.com/&lt;tenantID&gt;/oauth2/v2.0/authorize</code>. Replace the <strong>tenantID</strong> with your own Entra ID Tenant ID from your portal or from the App Configuration resource.</p>
-</li>
-<li><p><strong>Access Token Url:</strong> This is the url that you will use to get the access token.  In our case, it's the url of Microsoft microsoftonline login authority <code>https://login.microsoftonline.com/&lt;tenantID&gt;/oauth2/token</code>. Replace the <strong>tenantID</strong> with your own Entra ID Tenant ID from your portal or from the App Configuration resource.</p>
-</li>
-<li><p><strong>Client ID:</strong> This is the client ID of the application that you will use to get the token. In our case, it's the client ID of the Management Client (UI) application. You can get the client ID from the <strong>Overview</strong> tab of the Management Client application in the portal.</p>
-</li>
-<li><p><strong>Code Challenge Method:</strong> This is the method that you will use to get the token. In our case, we will use <strong>SHA-256</strong>.</p>
-</li>
-<li><p><strong>Scope:</strong> This is the scope of the token that you will use to get the token. You can find this value within the Api Permissions section of your Management Client Entra ID app. In our case, we will use <strong>api://FoundationaLLM-Management-Auth/Data.Manage</strong>.</p>
-</li>
-<li><p><strong>Client Authentication:</strong> This is the type of authentication that you will use to get the token.  In our case, we will use <strong>Send client credentials in body</strong>.</p>
+<li><p>Select the <strong>Authorization</strong> tab within the <strong>FoundationaLLM.Management.API</strong> collection. You will see the <strong>Authorization</strong> tab at the collection level. This means that you can configure the token at the collection level and use it for all of the requests in the collection. Notice that the <strong>Token Name</strong> is <strong>FLLM Management Token</strong>. This will automatically be used by the requests in the collection.</p>
+<p><img src="media/postman-management-api-authentication.png" alt="The authentication form is displayed with the token name highlighted."></p>
 </li>
 </ol>
-<p>These are the only changes that you need to make to the <strong>Authorization</strong> tab.</p>
-<p><img src="media/postman-management-auth-post.png" alt="The post-configuration of the authentication settings is displayed."></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>All of the values are pre-filled and use the variables that you set up in the previous section. You do not need to change any values at this time.</p>
+</div>
 <p>Scroll down to the bottom of the page and click on <strong>Get New Access Token</strong>. This will open a new window in your browser and will ask you to login with your credentials.  Once you login, you will be asked to consent to the permissions that you specified in the <strong>Scope</strong> field.  Click on <strong>Accept</strong> to consent to the permissions.  You will then be redirected to the callback url that you specified in the <strong>Callback Url</strong> field.  This will close the browser window and will take you back to Postman. You should now see the token in the <strong>Authorization</strong> tab. Click on <strong>Use Token</strong> to use the token in the collection.</p>
 <p><img src="media/postman-use-management-token.png" alt="The Use Token button is highlighted."></p>
 <div class="IMPORTANT">
