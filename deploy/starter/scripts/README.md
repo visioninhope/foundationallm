@@ -9,14 +9,14 @@ git clone https://github.com/solliancenet/foundationallm
 Run the following script to provision the infrastructure and deploy the API and frontend. This will provision all of the required infrastructure, deploy the API and web app services into AKS, and import data into Cosmos.
 
 ```pwsh
-./deploy/scripts/Unified-Deploy.ps1 -resourceGroup <resource-group-name> `
+./deploy/starter/scripts/Unified-Deploy.ps1 -resourceGroup <resource-group-name> `
                                   -location <location> `
                                   -subscription <subscription-id>
 ```
 
 ## Deployments using an existing OpenAI service
 
-For deployments that need to use an existing OpenAI service, run the following from the `./deploy/scripts`.  This will provision all of the necessary infrastruction except the Azure OpenAI service and will deploy the API and frontend to an AKS cluster via Helm.
+For deployments that need to use an existing OpenAI service, run the following from the `./deploy/starter/scripts`.  This will provision all of the necessary infrastruction except the Azure OpenAI service and will deploy the API and frontend to an AKS cluster via Helm.
 
 ```pwsh
 .\Unified-Deploy.ps1 -resourceGroup <resource-group-name> `
