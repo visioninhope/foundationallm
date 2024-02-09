@@ -194,7 +194,8 @@ Default structure for the `vectorization-text-partitioning-profiles.json` file:
                 "TokenizerEncoder": "cl100k_base",
                 "ChunkSizeTokens": "2000",
                 "OverlapSizeTokens": "200"
-            }
+            },
+            "ConfigurationReferences": {}
         }
     ]
 }
@@ -249,10 +250,15 @@ Default structure for the `vectorization-indexing-profiles.json` file:
             "ObjectId": "/instances/<instance_id>/providers/FoundationaLLM.Vectorization/indexingprofiles/AzureAISearch_Default_001",
             "Indexer": "AzureAISearchIndexer",
             "Settings": {
-                "IndexName": "fllm-default-001"
+                "IndexName": "fllm-default-001",
+                "TopN": "3",
+                "Filters": "",
+                "EmbeddingFieldName": "Embedding",
+                "TextFieldName": "Text"
             },
             "ConfigurationReferences": {
                 "APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
+                "QueryAPIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
                 "AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
                 "Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
             }

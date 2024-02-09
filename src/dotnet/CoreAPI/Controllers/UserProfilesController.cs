@@ -66,6 +66,7 @@ namespace FoundationaLLM.Core.API.Controllers
         public async Task<IEnumerable<Common.Models.Metadata.Agent>> GetAgents()
         {
             var agents = new List<Common.Models.Metadata.Agent>();
+            var legacyAgentsList = _settings.AllowAgentSelection;
             var globalAgentsList = await _agentResourceProvider.GetResourcesAsync<AgentReference>($"/{AgentResourceTypeNames.AgentReferences}");
             UserProfile? userProfile;
 
@@ -81,6 +82,19 @@ namespace FoundationaLLM.Core.API.Controllers
             if (globalAgentsList.Any())
             {
                 agents.AddRange(globalAgentsList.Select(globalAgent => new Common.Models.Metadata.Agent {Name = globalAgent.Name, Private = false}));
+            }
+
+            if (!string.IsNullOrWhiteSpace(legacyAgentsList))
+            {
+                var legacyAgents = legacyAgentsList.Split(',');
+                // Only add the agent if it does not already exist in the list of global agents.
+                foreach (var legacyAgent in legacyAgents)
+                {
+                    if (agents.All(agent => agent.Name != legacyAgent.Trim()))
+                    {
+                        agents.Add(new Common.Models.Metadata.Agent { Name = legacyAgent.Trim(), Private = false });
+                    }
+                }
             }
 
             if (userProfile?.PrivateAgents != null)

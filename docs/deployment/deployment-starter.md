@@ -9,6 +9,7 @@ Foundationa**LLM** deploys into your own Azure Subscription. By default it will 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
 - Docker Desktop.
 - Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/cli/azure/install-azure-cli)).
+- Azure Developer CLI ([v1.5.1 or greater](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd))
 - Helm ([v3.11.1 or greater](https://helm.sh/docs/intro/install/)).
 - Visual Studio 2022 (only needed if you plan to run/debug the solution locally).
 - Minimum quota of 65 CPUs across all VM family types. Start here to [Manage VM Quotas](https://learn.microsoft.com/azure/quotas/per-vm-quota-requests).
@@ -31,58 +32,56 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
 1. Open a PowerShell instance and run the following script to provision the infrastructure and deploy the API and frontend. This will provision all of the required infrastructure, deploy the API and web app services, and import data into Cosmos DB.
 
-    1. Option 1: Full deployment using Microsoft Azure Container Apps (ACA)
+    Run the following command to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions in the [Authentication setup document](authentication/index.md) to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.
 
-        ```pwsh
-        cd foundationallm
-        ./deploy/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id>
-        ```
+    ```pwsh
+    cd foundationallm
+    cd deploy/starter
 
-        >**NOTE**: Make sure to set the `<location>` value to a region that supports Azure OpenAI services.  See [Azure OpenAI service regions](https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=cognitive-services&regions=all) for more information.
+    azd env             # Set your target Subscription and Location
 
-    2. Option 2: Full deployment using Microsoft Azure Kubernetes Service (AKS)
+    azd env set ENTRA_CHAT_UI_CLIENT_ID <Chat UI Client Id>
+    azd env set ENTRA_CHAT_UI_SCOPES <Chat UI Scope>
+    azd env set ENTRA_CHAT_UI_TENANT_ID <Chat UI Tenant ID>
 
-        To deploy to an AKS environment instead, run the same script with the added argument `-deployAks 1`, as shown below.  This will provision all of the required infrastructure, deploy the API and web app services as pods in an AKS cluster, and import data into Cosmos DB.
+    azd env set ENTRA_CORE_API_CLIENT_ID <Core API Client Id>
+    azd env set ENTRA_CORE_API_SCOPES <Core API Scope>
+    azd env set ENTRA_CORE_API_TENANT_ID <Core API Tenant ID>
 
-        ```pwsh
-        cd foundationallm
-        ./deploy/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id> -deployAks 1
-        ```
+    azd env set ENTRA_MANAGEMENT_API_CLIENT_ID <Management API Client Id>
+    azd env set ENTRA_MANAGEMENT_API_SCOPES <Management API Scope>
+    azd env set ENTRA_MANAGEMENT_API_TENANT_ID <Management API Tenant ID>
 
-    3. Option 3: Deployment using an existing Azure OpenAI resource
+    azd env set ENTRA_MANAGEMENT_UI_CLIENT_ID <Management UI Client Id>
+    azd env set ENTRA_MANAGEMENT_UI_SCOPES <Management UI Scope>
+    azd env set ENTRA_MANAGEMENT_UI_TENANT_ID <Management UI Tenant ID>
 
-        To deploy using an already provisioned Azure OpenAI resource, add the following parameters:
+    azd env set ENTRA_VECTORIZATION_API_CLIENT_ID <Vectorization API Client Id>
+    azd env set ENTRA_VECTORIZATION_API_SCOPES <Vectorization API Scope>
+    azd env set ENTRA_VECTORIZATION_API_TENANT_ID <Vectorization API Tenant ID>
+    ```
 
-        | Parameter | Description |
-        | --- | --- |
-        | `-openAiRg` | The name of the resource group containing the Azure OpenAI resource. |
-        | `-openAiName` | The name of the Azure OpenAI resource. |
-        | `-openAiCompletionsDeployment` | The name given to the deployment of a completions model deployed within the Azure OpenAI resource, eg. `completions` |
-        | `-openAiEmbeddingsDeployment` | The name given to the deployment of an embeddings model deployed within the Azure OpenAI resource, eg. `embeddings` |
+    After setting the OIDC specific settings in the AZD environment above, run `azd up` in the same folder location to build the docker images, provision the infrastructure, update the configuration, deploy the API and web app services into container app instances, and import files into the storage account.
 
-        ACA:
-
-        ```pwsh
-        cd foundationallm
-        ./deploy/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id> -openAiRg <openai_rg_name> -openAiName <openai_resource_name> -openAiCompletionsDeployment <completions_deployment_name> -openAiEmbeddingsDeployment <embeddings_deployment_name>
-        ```
-
-        AKS:
-
-        ```pwsh
-        cd foundationallm
-        ./deploy/scripts/Unified-Deploy.ps1 -resourceGroup <rg_name> -location <location> -subscription <target_subscription_id> -deployAks 1 -openAiRg <openai_rg_name> -openAiName <openai_resource_name> -openAiCompletionsDeployment <completions_deployment_name> -openAiEmbeddingsDeployment <embeddings_deployment_name>
-        ```
-
-## Post-deployment configuration
+    ```pwsh
+    azd up
+    ```
 
 ### Authentication setup
 
 Follow the instructions in the [Authentication setup document](authentication/index.md) to configure authentication for the solution.
 
+## Update APIs and portals from local code changes
+
+To update APIs and portals from local code changes, run the following from the `./deploy/starter` folder in your locally cloned repository:
+
+```pwsh
+azd deploy
+```
+
 ## Update individual APIs or portals
 
-### Update individual APIs or portals when using Microsoft Azure Container Apps (ACA)
+### Update individual APIs or portals with images from the public container repositorywhen using Microsoft Azure Container Apps (ACA)
 
 To update an individual API or portal, you can use the following commands:
 
@@ -111,37 +110,19 @@ To update an individual API or portal, you can use the following commands:
 
     | API | Container Name |
     | --- | -------------- |
-    | Core API | `[PREFIX]coreca` |
-    | Agent Factory API | `[PREFIX]agentfactoryca` |
-    | Agent Hub API | `[PREFIX]agenthubca` |
-    | Chat UI | `[PREFIX]chatuica` |
-    | Core Job API | `[PREFIX]corejobca` |
-    | Data Source Hub API | `[PREFIX]datasourcehubca` |
-    | Gatekeeper API | `[PREFIX]gatekeeperca` |
-    | Gatekeeper Integration API | `[PREFIX]gatekeeperintca` |
-    | LangChain | `[PREFIX]langchainca` |
-    | Management API | `[PREFIX]managementca` |
-    | Management UI | `[PREFIX]managementuica` |
-    | Prompt Hub API | `[PREFIX]prompthubca` |
-    | Semantic Kernel API | `[PREFIX]semantickernelca` |
-    | Vectorization API | `[PREFIX]vectorizationca` |
-    | Vectorization Worker | `[PREFIX]vectorizationjobca` |
+    | Core API | `cacoreapi[SUFFIX]` |
+    | Agent Factory API | `caagentfactoryapi[SUFFIX]` |
+    | Agent Hub API | `caagenthubapi[SUFFIX]` |
+    | Chat UI | `cachatui[SUFFIX]` |
+    | Core Job API | `cacorejob[SUFFIX]` |
+    | Data Source Hub API | `caadatasourcehubapi[SUFFIX]` |
+    | Gatekeeper API | `cagatekeeperapi[SUFFIX]` |
+    | Gatekeeper Integration API | `cagatekeeperintegrationapi[SUFFIX]` |
+    | LangChain | `calangchainapi[SUFFIX]` |
+    | Management API | `camanagementapi[SUFFIX]` |
+    | Management UI | `camanagementui[SUFFIX]` |
+    | Prompt Hub API | `caprompthubapi[SUFFIX]` |
+    | Semantic Kernel API | `casemantickernelapi[SUFFIX]` |
+    | Vectorization API | `camanagementapi[SUFFIX]` |
+    | Vectorization Worker | `camanagementjob[SUFFIX]` |
 
-5. Alternatively, the `Update-Images-ACA-Starter.ps1` PowerShell script in the `deploy/scripts/` directory will update all containers in the deployment. Because it uses the Azure CLI, you must complete Steps 1-3.
-
-   | Name | Flag | Optional | Default Value |
-   | ---- | ---- | -------- | ------------- |
-   | Deployment Resource Group | `-resourceGroup` | False | N/A |
-   | Deployment Prefix | `-resourcePrefix` | False | N/A |
-   | Deployment Subscription | `-subscription` | False | N/A |
-   | Image Repository | `-containerPrefix` | True | `solliancenet/foundationallm` |
-   | Image Tag | `-containerTag` | True | `latest` |
-   | Registry | `-registry` | True | `ghcr.io` |
-
-   ```powershell
-   ./Update-Images-ACA-Starter.ps1 `
-      -resourceGroup "[DEPLOYMENT RESOURCE GROUP]" `
-      -resourcePrefix "[DEPLOYMENT PREFIX]" `
-      -subscription "[DEPLOYMENT SUBSCRIPTION]" `
-      -containerTag "[IMAGE TAG]"
-   ```
