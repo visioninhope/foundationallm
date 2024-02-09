@@ -32,40 +32,40 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
 1. Open a PowerShell instance and run the following script to provision the infrastructure and deploy the API and frontend. This will provision all of the required infrastructure, deploy the API and web app services, and import data into Cosmos DB.
 
-Run the following command to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions in the [Authentication setup document](authentication/index.md) to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.
+    Run the following command to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions in the [Authentication setup document](authentication/index.md) to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.
 
-```pwsh
-cd foundationallm
-cd deploy/starter
+    ```pwsh
+    cd foundationallm
+    cd deploy/starter
 
-azd env             # Set your target Subscription and Location
+    azd env             # Set your target Subscription and Location
 
-azd env set ENTRA_CHAT_UI_CLIENT_ID <Chat UI Client Id>
-azd env set ENTRA_CHAT_UI_SCOPES <Chat UI Scope>
-azd env set ENTRA_CHAT_UI_TENANT_ID <Chat UI Tenant ID>
+    azd env set ENTRA_CHAT_UI_CLIENT_ID <Chat UI Client Id>
+    azd env set ENTRA_CHAT_UI_SCOPES <Chat UI Scope>
+    azd env set ENTRA_CHAT_UI_TENANT_ID <Chat UI Tenant ID>
 
-azd env set ENTRA_CORE_API_CLIENT_ID <Core API Client Id>
-azd env set ENTRA_CORE_API_SCOPES <Core API Scope>
-azd env set ENTRA_CORE_API_TENANT_ID <Core API Tenant ID>
+    azd env set ENTRA_CORE_API_CLIENT_ID <Core API Client Id>
+    azd env set ENTRA_CORE_API_SCOPES <Core API Scope>
+    azd env set ENTRA_CORE_API_TENANT_ID <Core API Tenant ID>
 
-azd env set ENTRA_MANAGEMENT_API_CLIENT_ID <Management API Client Id>
-azd env set ENTRA_MANAGEMENT_API_SCOPES <Management API Scope>
-azd env set ENTRA_MANAGEMENT_API_TENANT_ID <Management API Tenant ID>
+    azd env set ENTRA_MANAGEMENT_API_CLIENT_ID <Management API Client Id>
+    azd env set ENTRA_MANAGEMENT_API_SCOPES <Management API Scope>
+    azd env set ENTRA_MANAGEMENT_API_TENANT_ID <Management API Tenant ID>
 
-azd env set ENTRA_MANAGEMENT_UI_CLIENT_ID <Management UI Client Id>
-azd env set ENTRA_MANAGEMENT_UI_SCOPES <Management UI Scope>
-azd env set ENTRA_MANAGEMENT_UI_TENANT_ID <Management UI Tenant ID>
+    azd env set ENTRA_MANAGEMENT_UI_CLIENT_ID <Management UI Client Id>
+    azd env set ENTRA_MANAGEMENT_UI_SCOPES <Management UI Scope>
+    azd env set ENTRA_MANAGEMENT_UI_TENANT_ID <Management UI Tenant ID>
 
-azd env set ENTRA_VECTORIZATION_API_CLIENT_ID <Vectorization API Client Id>
-azd env set ENTRA_VECTORIZATION_API_SCOPES <Vectorization API Scope>
-azd env set ENTRA_VECTORIZATION_API_TENANT_ID <Vectorization API Tenant ID>
-```
+    azd env set ENTRA_VECTORIZATION_API_CLIENT_ID <Vectorization API Client Id>
+    azd env set ENTRA_VECTORIZATION_API_SCOPES <Vectorization API Scope>
+    azd env set ENTRA_VECTORIZATION_API_TENANT_ID <Vectorization API Tenant ID>
+    ```
 
-After setting the OIDC specific settings in the AZD environment above, run `azd up` in the same folder location to build the docker images, provision the infrastructure, update the configuration, deploy the API and web app services into container app instances, and import files into the storage account.
+    After setting the OIDC specific settings in the AZD environment above, run `azd up` in the same folder location to build the docker images, provision the infrastructure, update the configuration, deploy the API and web app services into container app instances, and import files into the storage account.
 
-```pwsh
-azd up
-```
+    ```pwsh
+    azd up
+    ```
 
 ### Authentication setup
 
