@@ -85,7 +85,7 @@
           },
           {
             "name": "chat-ui",
-            "useEndpoint": true,
+            "useEndpoint": false,
             "hasIngress": true,
             "appConfigEnvironmentVarName": "NUXT_APP_CONFIG_ENDPOINT"
           },
@@ -133,7 +133,7 @@
           },
           {
             "name": "management-ui",
-            "useEndpoint": true,
+            "useEndpoint": false,
             "hasIngress": true,
             "appConfigEnvironmentVarName": "NUXT_APP_CONFIG_ENDPOINT"
           },
