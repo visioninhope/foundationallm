@@ -12,7 +12,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
     /// </summary>
     public class KMAgent : AgentBase
     {
-        private LegacyOrchestrationCompletionRequest _completionRequestTemplate = null!;
+        private KnowledgeManagementCompletionRequest _completionRequestTemplate = null!;
         private readonly ICacheService _cacheService;
         private readonly ICallContext _callContext;
         private readonly ILogger<DefaultAgent> _logger;

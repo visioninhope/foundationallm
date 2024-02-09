@@ -11,13 +11,13 @@ using Microsoft.SemanticKernel.ChatCompletion;
 
 namespace FoundationaLLM.SemanticKernel.Core.Plugins
 {
-    public class KnowledgeManagementAgentPlugin : IKnowledgeManagementAgentPlugin
+    public class LegacyAgentPlugin : ILegacyAgentPlugin
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
 
-        public KnowledgeManagementAgentPlugin(
-            ILogger<KnowledgeManagementAgentPlugin> logger,
+        public LegacyAgentPlugin(
+            ILogger<LegacyAgentPlugin> logger,
             IConfiguration configuration)
         {
             _logger = logger;
@@ -25,53 +25,20 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
         }
 
         /// <inheritdoc/>
-        public async Task<LLMOrchestrationCompletionResponse> GetCompletion(KnowledgeManagementCompletionRequest request)
+        public async Task<LLMOrchestrationCompletionResponse> GetCompletion(LegacyOrchestrationCompletionRequest request)
         {
-            var kernel = CreateKernel(request.Agent.LanguageModel!);
-
-            ChatHistory history = [];
-
-            var internalContext = true;
-            var messageHistoryEnabled = false;
-
-            if (request.Agent.IndexingProfile != null && request.Agent.EmbeddingProfile != null)
-            {
-                internalContext = false;
-            }
-
-            if (request.Agent.ConversationHistory != null)
-            {
-                if (request.Agent.ConversationHistory.Enabled)
-                {
-                    messageHistoryEnabled = true;
-                }
-            }
+            var kernel = CreateKernel(request.LanguageModel!);
 
             //var agentPrompt = ResourceProviderService.GetAgentPrompt(request.Agent.Prompt);
             var agentPrompt = string.Empty;
             var context = string.Empty;
             var promptBuilder = $"{context}";
 
-            if (!internalContext)
-            {
-                promptBuilder = agentPrompt;
-                if (messageHistoryEnabled)
-                {
-                    promptBuilder = $"\n\nQuestion: {request.UserPrompt}\n\nContext: {context}\n\nAnswer:";
-                }
-            }
-
-            if (messageHistoryEnabled)
-                history.AddUserMessage(request.UserPrompt!);
-
-            var modelVersion = _configuration.GetValue<string>(request.Agent.LanguageModel!.Version!);
+            var modelVersion = _configuration.GetValue<string>(request.LanguageModel!.Version!);
 
             var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
             var result = await chatCompletionService.GetChatMessageContentAsync(promptBuilder, new PromptExecutionSettings() { ModelId = modelVersion });
             var usage = result.Metadata!["Usage"] as CompletionsUsage;
-
-            if (messageHistoryEnabled)
-                history.AddAssistantMessage(result.Content!);
 
             return new LLMOrchestrationCompletionResponse()
             {
@@ -79,7 +46,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
                 UserPrompt = request.UserPrompt,
                 FullPrompt = promptBuilder,
                 PromptTemplate = "\n\nQuestion: {request.UserPrompt}\n\nContext: {context}\n\nAnswer:",
-                AgentName = request.Agent.Name,
+                AgentName = request.Agent!.Name,
                 PromptTokens = usage!.PromptTokens,
                 CompletionTokens = usage.CompletionTokens,
                 TotalTokens = usage.TotalTokens,

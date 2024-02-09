@@ -155,12 +155,12 @@ public class SemanticKernelService : ISemanticKernelService
     /// </summary>
     /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
     /// <returns>Returns a completion response from the orchestration engine.</returns>
-    public async Task<LLMOrchestrationCompletionResponse> GetCompletion(LegacyOrchestrationCompletionRequest request)
+    public async Task<LLMOrchestrationCompletionResponse> GetCompletion(LLMOrchestrationCompletionRequest request)
     {
         await EnsureShortTermMemory();
 
         var userPrompt = request.UserPrompt ?? "";
-        var messageHistory = request.MessageHistory ?? [];
+        var messageHistory = new List<MessageHistoryItem>();
 
         var memoryPlugin = new TextEmbeddingObjectMemoryPlugin(
             _longTermMemory,
@@ -205,18 +205,6 @@ public class SemanticKernelService : ISemanticKernelService
         var rawResult = (completionResults[0] as ITextResult)!.ModelResult.GetOpenAIChatResult();
 
         return new LLMOrchestrationCompletionResponse() { Completion = reply.Content };
-    }
-
-    /// <summary>
-    /// Gets a completion from the Semantic Kernel service.
-    /// </summary>
-    /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
-    /// <returns>Returns a completion response from the orchestration engine.</returns>
-    public async Task<LLMOrchestrationCompletionResponse> GetCompletion(KnowledgeManagementCompletionRequest request)
-    {
-        await Task.CompletedTask;
-
-        return new LLMOrchestrationCompletionResponse();
     }
 
     /// <summary>
