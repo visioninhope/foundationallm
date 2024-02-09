@@ -1,8 +1,10 @@
 ﻿using Azure;
 using Azure.Core;
 using Azure.Identity;
-using Azure.Messaging;
 using Azure.Messaging.EventGrid.Namespaces;
+using Azure.ResourceManager;
+using Azure.ResourceManager.EventGrid;
+using Azure.ResourceManager.EventGrid.Models;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
@@ -10,8 +12,7 @@ using FoundationaLLM.Common.Models.Configuration.Events;
 using FoundationaLLM.Common.Models.Events;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Threading;
+using System.Xml;
 
 namespace FoundationaLLM.Common.Services.Events
 {
@@ -23,9 +24,17 @@ namespace FoundationaLLM.Common.Services.Events
         private readonly ILogger<AzureEventGridEventService> _logger;
         private readonly AzureEventGridEventServiceSettings _settings;
         private readonly AzureEventGridEventServiceProfile _profile;
-        private readonly EventGridClient? _eventGridClient;
+        private EventGridClient? _eventGridClient;
 
         private readonly TimeSpan _eventProcessingHeartbeat = TimeSpan.FromMinutes(1);
+
+        private readonly Dictionary<string, EventSetEventDelegate?> _eventSetEventDelegates = new()
+        {
+            {
+                EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent,
+                null
+            }
+        };
 
         /// <summary>
         /// Creates a new instance of the <see cref="AzureEventGridEventService"/> event service.
@@ -41,7 +50,11 @@ namespace FoundationaLLM.Common.Services.Events
             _settings = settingsOptions.Value;
             _profile = profileOptions.Value;
             _logger = logger;
+        }
 
+        /// <inheritdoc/>
+        public async Task StartAsync(CancellationToken cancellationToken)
+        {
             try
             {
                 _eventGridClient = GetClient();
@@ -54,7 +67,14 @@ namespace FoundationaLLM.Common.Services.Events
             {
                 _logger.LogError(ex, "The Azure Event Grid client could not be initialized. The Azure Event Grid event service will not listen for any events.");
             }
+
+            // Create the topic subscriptions according to the service profile.
+            await CreateTopicSubscriptions(cancellationToken);
         }
+
+        /// <inheritdoc/>
+        public async Task StopAsync(CancellationToken cancellationToken) =>
+            await DeleteTopicSubscriptions(cancellationToken);
 
         /// <inheritdoc/>
         public async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -62,20 +82,24 @@ namespace FoundationaLLM.Common.Services.Events
             if (_eventGridClient == null)
                 return;
 
+            _logger.LogInformation("The Azure Event Grid event service is starting to process messages.");
+
             while (true)
             {
                 if (cancellationToken.IsCancellationRequested) return;
 
-                foreach (var topic in  _profile.Topics)
-                foreach (var subscription in topic.Subscriptions)
+                foreach (var topic in _profile.Topics)
                 {
                     if (cancellationToken.IsCancellationRequested) break;
+
+                    if (!topic.SubscriptionAvailable) continue;
 
                     try
                     {
                         var response = await _eventGridClient.ReceiveCloudEventsAsync(
                             topic.Name,
-                            subscription.Name,
+                            topic.SubscriptionName,
+                            maxWaitTime: TimeSpan.FromSeconds(10),
                             cancellationToken: cancellationToken);
 
                         if (response != null
@@ -83,18 +107,128 @@ namespace FoundationaLLM.Common.Services.Events
                             && response.Value.Value.Count > 0)
                         await ProcessTopicSubscriptionEvents(
                             topic.Name,
-                            subscription.Name,
-                            subscription.EventTypeHandlers,
+                            topic.SubscriptionName!,
+                            topic.EventTypeProfiles,
                             response.Value.Value);
                     }
                     catch (Exception ex)
                     {
                         _logger.LogError(ex, "An error occured while trying to retrieve events for topic {TopicName} and subscription {SubscriptionName}.",
-                            topic.Name, subscription.Name);
+                            topic.Name, topic.SubscriptionName);
                     }
                 }
 
                 await Task.Delay(_eventProcessingHeartbeat, cancellationToken);
+            }
+        }
+
+        /// <inheritdoc/>
+        public void SubscribeToEventSetEvent(string eventNamespace, EventSetEventDelegate eventHandler)
+        {
+            ArgumentNullException.ThrowIfNull(eventHandler);
+
+            if (!_eventSetEventDelegates.TryGetValue(eventNamespace, out var eventDelegate))
+                throw new EventException($"The namespace {eventNamespace} is invalid.");
+
+            if (eventDelegate == null)
+                _eventSetEventDelegates[eventNamespace] = eventHandler!;
+            else
+                eventDelegate += eventHandler;
+        }
+
+        /// <inheritdoc/>
+        public void UnsubscribeFromEventSetEvent(string eventNamespace, EventSetEventDelegate eventHandler)
+        {
+            if (!_eventSetEventDelegates.TryGetValue(eventNamespace, out var eventDelegate))
+                throw new EventException($"The namespace {eventNamespace} is invalid.");
+
+            eventDelegate -= eventHandler;
+        }
+
+        private async Task CreateTopicSubscriptions(CancellationToken cancellationToken)
+        {
+            var armClient = new ArmClient(new DefaultAzureCredential());
+
+            foreach (var topic in _profile.Topics)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    return;
+
+                topic.SubscriptionName = $"{topic.SubscriptionPrefix}-{Guid.NewGuid().ToString().ToLower()}";
+                _logger.LogInformation("The Azure Event Grid event service will create a subscription named {SubscriptionName} in topic {TopicName}.",
+                    topic.SubscriptionName, topic.Name);
+
+                try
+                {
+                    var namespaceTopicId = ResourceIdentifier.Parse($"{_settings.NamespaceId}/topics/{topic.Name}");
+                    var namespaceTopicResource = armClient.GetNamespaceTopicResource(namespaceTopicId);
+                    var namespaceTopic = await namespaceTopicResource.GetAsync();
+                    var namespaceTopicSubscriptions = namespaceTopic.Value.GetNamespaceTopicEventSubscriptions();
+
+                    var eventSubscription = new NamespaceTopicEventSubscriptionData()
+                    {
+                        DeliveryConfiguration = new DeliveryConfiguration()
+                        {
+                            DeliveryMode = DeliveryMode.Queue,
+                            Queue = new QueueInfo()
+                            {
+                                ReceiveLockDurationInSeconds = 60,
+                                MaxDeliveryCount = 10,
+                                EventTimeToLive = XmlConvert.ToTimeSpan("P1D"),
+                            },
+                        },
+                        EventDeliverySchema = DeliverySchema.CloudEventSchemaV10,
+                    };
+
+                    var newNamespaceTopicSubscription = await namespaceTopicSubscriptions.CreateOrUpdateAsync(
+                        WaitUntil.Completed,
+                        topic.SubscriptionName,
+                        eventSubscription);
+
+                    if (newNamespaceTopicSubscription.HasValue
+                        && newNamespaceTopicSubscription.HasCompleted)
+                    {
+                        topic.SubscriptionAvailable = true;
+                        _logger.LogInformation("The Azure Event Grid event service successfully created a subscription named {SubscriptionName} in topic {TopicName}.",
+                            topic.SubscriptionName, topic.Name);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "An error occured while creating a subscription named {SubscriptionName} in topic {TopicName}.",
+                        topic.SubscriptionName, topic.Name);
+                }
+            }
+        }
+
+        private async Task DeleteTopicSubscriptions(CancellationToken cancellationToken)
+        {
+            var armClient = new ArmClient(new DefaultAzureCredential());
+
+            foreach (var topic in _profile.Topics)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    return;
+
+                _logger.LogInformation("The Azure Event Grid event service will delete the subscription named {SubscriptionName} from topic {TopicName}.",
+                    topic.SubscriptionName, topic.Name);
+
+                try
+                {
+                    var eventSubscriptionId = ResourceIdentifier.Parse($"{_settings.NamespaceId}/topics/{topic.Name}/eventSubscriptions/{topic.SubscriptionName}");
+                    var eventSubscriptionResource = armClient.GetNamespaceTopicEventSubscriptionResource(eventSubscriptionId);
+
+                    await eventSubscriptionResource.DeleteAsync(WaitUntil.Completed, cancellationToken);
+
+                    topic.SubscriptionAvailable = false;
+                    _logger.LogInformation("The Azure Event Grid event service successfully deleted the subscription named {SubscriptionName} from topic {TopicName}.",
+                        topic.SubscriptionName, topic.Name);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "An error occured while deleting the subscription named {SubscriptionName} from topic {TopicName}.",
+                        topic.SubscriptionName, topic.Name);
+                }
             }
         }
 
@@ -105,21 +239,42 @@ namespace FoundationaLLM.Common.Services.Events
         {
 
             foreach (var eventTypeProfile in eventTypeProfiles)
-            foreach (var eventHandler in eventTypeProfile.EventHandlers)
+            foreach (var eventSet in eventTypeProfile.EventSets)
             {
                 var events = eventDetails
                     .Select(ed => ed.Event)
                     .Where(e =>
                         e.Type == eventTypeProfile.EventType
-                        && e.Source == eventHandler.Source
+                        && e.Source == eventSet.Source
                         && !string.IsNullOrWhiteSpace(e.Subject)
-                        && e.Subject.StartsWith(eventHandler.SubjectPrefix))
+                        && e.Subject.StartsWith(eventSet.SubjectPrefix))
                     .ToList();
 
-                if (events.Count > 0)
-
+                if (events.Count > 0
+                    && _eventSetEventDelegates.TryGetValue(eventSet.Namespace, out EventSetEventDelegate? eventSetDelegate)
+                    && eventSetDelegate != null)
+                {
+                    try
+                    {
+                        // We have new events and we have at least one event handler attached to the delegate associated with this namespace.
+                        // Fire up the event and call all registered delegates.
+                        eventSetDelegate(this, new EventSetEventArgs
+                        {
+                            Namespace = eventSet.Namespace,
+                            Events = events
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Error invoking registered delegates.");
+                    }
+                }
             }
 
+            // We are releasing messages instead of acknowledging them.
+            // This will allow other subscribers to process them as well.
+            // The typical scenario for this is when the event service is run by multiple, identical instances of the same host (e.g., a FoundationaLLM service like Core API).
+            // When this happens, all running instances of the host must get the chance to process the messages.
             await AcknowledgeMessages(topicName, subscriptionName, eventDetails);
         }
 
@@ -201,7 +356,6 @@ namespace FoundationaLLM.Common.Services.Events
 
             return client;
         }
-
         #endregion
     }
 }

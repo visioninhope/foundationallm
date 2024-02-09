@@ -14,9 +14,18 @@ namespace FoundationaLLM.Core.API.Workers
         /// <inheritdoc/>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            logger.LogInformation("The events worker is preparing to start the event service.");
+            logger.LogInformation("The events worker is starting up the event service.");
+            await eventService.StartAsync(stoppingToken);
 
+            logger.LogInformation("The events worker is preparing to start the event service.");
             await eventService.ExecuteAsync(stoppingToken);
+        }
+
+        /// <inheritdoc/>
+        public override async Task StopAsync(CancellationToken cancellationToken)
+        {
+            logger.LogInformation("The events worker is stopping up the event service.");
+            await eventService.StopAsync(cancellationToken);
         }
     }
 }

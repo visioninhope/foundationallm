@@ -1,7 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Events;
-using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Services.Events;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

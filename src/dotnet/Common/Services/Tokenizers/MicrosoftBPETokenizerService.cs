@@ -165,8 +165,6 @@ namespace FoundationaLLM.Common.Services.Tokenizers
 
         private LeasedTikTokenizer? GetTokenizer(string encoderName)
         {
-            _initializationComplete.Wait
-
             lock (_syncRoot)
             {
                 if (!(_tokenizers.TryGetValue(encoderName, out List<LeasedTikTokenizer>? encoderTokenizers)))

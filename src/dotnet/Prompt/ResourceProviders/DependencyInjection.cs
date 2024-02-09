@@ -11,12 +11,16 @@ using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM
 {
+    /// <summary>
+    /// Provides extension methods used to configure dependency injection.
+    /// </summary>
     public static partial class DependencyInjection
     {
         /// <summary>
         /// Register the handler as a hosted service, passing the step name to the handler ctor
         /// </summary>
         /// <param name="services">Application builder service collection</param>
+        /// <param name="configuration">The <see cref="IConfigurationManager"/> providing access to configuration.</param>
         public static void AddPromptResourceProvider(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddOptions<BlobStorageServiceSettings>(
@@ -42,6 +46,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt),
+                    sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<ILogger<PromptResourceProviderService>>()));
         }
     }

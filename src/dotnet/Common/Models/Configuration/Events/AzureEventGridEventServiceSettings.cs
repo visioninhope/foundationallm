@@ -24,5 +24,10 @@ namespace FoundationaLLM.Common.Models.Configuration.Events
         /// This value should be set only if AuthenticationType has a value of APIKey.
         /// </summary>
         public string? APIKey { get; set; }
+
+        /// <summary>
+        /// The Azure resource identifier for the Azure Event Grid namespace.
+        /// </summary>
+        public required string NamespaceId { get; set; }
     }
 }

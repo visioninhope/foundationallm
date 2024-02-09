@@ -20,10 +20,12 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
     public class VectorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IStorageService storageService,
+        IEventService eventService,
         ILogger<VectorizationResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             storageService,
+            eventService,
             logger)
     {
         private ConcurrentDictionary<string, ContentSourceProfile> _contentSourceProfiles = [];

@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Services.Events;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Configuration.Events
 {
@@ -24,25 +25,26 @@ namespace FoundationaLLM.Common.Models.Configuration.Events
         public required string Name { get; set; }
 
         /// <summary>
-        /// The list of <see cref="EventGridTopicSubscriptionProfile"/> topic subscription profiles used to configure event handling for an Azure Event Grid namespace topic subscription.
+        /// The prefix used for the topic subscription name.
         /// </summary>
-        public List<EventGridTopicSubscriptionProfile> Subscriptions { get; set; } = [];
-    }
-
-    /// <summary>
-    /// The profile used to configure event handling for an Azure Event Grid namespace topic subscription.
-    /// </summary>
-    public class EventGridTopicSubscriptionProfile
-    {
-        /// <summary>
-        /// The name of the Azure Event Grid namespace topic subscription.
-        /// </summary>
-        public required string Name { get; set; }
+        public required string SubscriptionPrefix { get; set; }
 
         /// <summary>
-        /// The list of <see cref="EventGridEventTypeProfile"/> event handling profiles used to configure handling for event types.
+        /// The topic subscription name.
         /// </summary>
-        public List<EventGridEventTypeProfile> EventTypeHandlers { get; set; } = [];
+        [JsonIgnore]
+        public string? SubscriptionName { get; set; }
+
+        /// <summary>
+        /// Indicates whether the subscription is available for use or not.
+        /// </summary>
+        [JsonIgnore]
+        public bool SubscriptionAvailable { get; set; }
+
+        /// <summary>
+        /// The list of <see cref="EventGridEventTypeProfile"/> event type profiles used to configure handling for event types.
+        /// </summary>
+        public List<EventGridEventTypeProfile> EventTypeProfiles { get; set; } = [];
     }
 
     /// <summary>
@@ -56,29 +58,30 @@ namespace FoundationaLLM.Common.Models.Configuration.Events
         public required string EventType { get; set; }
 
         /// <summary>
-        /// The list of <see cref="EventGridEventHandlerProfile"/> event handling profiles used to configure event handling for a specific subset of events of a specified event type.
+        /// The list of <see cref="EventGridEventSet"/> event sets used to configure event handling for a specific subset of events of a specified event type.
         /// </summary>
-        public List<EventGridEventHandlerProfile> EventHandlers { get; set; } = [];
+        public List<EventGridEventSet> EventSets { get; set; } = [];
     }
 
     /// <summary>
-    /// The event handler profile used to configure event handling for a specific subset of events of a specified event type.
+    /// The event set used to configure event handling for a specific subset of events of a specified event type.
     /// </summary>
-    public class EventGridEventHandlerProfile
+    public class EventGridEventSet
     {
         /// <summary>
-        /// The event source to which the handler applies.
+        /// The namespace associated with the event set.
+        /// FoundationaLLM event subscribers can use this to attach handlers that process events from this set.
+        /// </summary>
+        public required string Namespace { get; set; }
+
+        /// <summary>
+        /// The event source that defines the set.
         /// </summary>
         public required string Source { get; set; }
 
         /// <summary>
-        /// The event subject prefix to which the handler applies.
+        /// The event subject prefix that defines the set.
         /// </summary>
         public required string SubjectPrefix { get; set; }
-
-        /// <summary>
-        /// The name of the event handler to which FoundationaLLM event subscribers can attach handlers.
-        /// </summary>
-        public required string EventHandlerName { get; set; }
     }
 }

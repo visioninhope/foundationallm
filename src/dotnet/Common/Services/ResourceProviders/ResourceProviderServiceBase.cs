@@ -1,9 +1,12 @@
-﻿using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Collections.Concurrent;
 
 namespace FoundationaLLM.Common.Services.ResourceProviders
 {
@@ -18,6 +21,11 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// The <see cref="IStorageService"/> providing storage services to the resource provider.
         /// </summary>
         protected readonly IStorageService _storageService;
+
+        /// <summary>
+        /// The <see cref="IEventService"/> providing event services to the resource provider.
+        /// </summary>
+        protected readonly IEventService _eventService;
 
         /// <summary>
         /// The logger used for logging.
@@ -53,6 +61,11 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             Formatting = Formatting.Indented
         };
 
+        /// <summary>
+        /// The queue containing <see cref="EventSetEventArgs"/> events received via the subscriptions to the <see cref="IEventService"/>.
+        /// </summary>
+        protected readonly ConcurrentQueue<EventSetEventArgs> _eventsQueue = [];
+
         /// <inheritdoc/>
         public string Name => _name;
 
@@ -64,19 +77,27 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="instanceSettings">The <see cref="InstanceSettings"/> that provides instance-wide settings.</param>
         /// <param name="storageService">The <see cref="IStorageService"/> providing storage services to the resource provider.</param>
+        /// <param name="eventService">The <see cref="IEventService"/> providing event services to the resource provider.</param>
         /// <param name="logger">The logger used for logging.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
             IStorageService storageService,
+            IEventService eventService,
             ILogger logger)
         {
             _storageService = storageService;
+            _eventService = eventService;
             _logger = logger;
             _instanceSettings = instanceSettings;
 
             // Kicks off the initialization on a separate thread and does not wait for it to complete.
             // The completion of the initialization process will be signaled by setting the _isInitialized property.
             _ = Task.Run(Initialize);
+
+            // Kicks off the extraction of events from the events queue.
+            // The events are initially received from the events service and are handled by the IngestEvents delegate
+            // which queues them. In the background, the extraction thread will dequeue and submit them to final processing.
+            _ = Task.Run(DequeueEvents);
         }
 
         /// <inheritdoc/>
@@ -400,5 +421,63 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
             return result;
         }
+
+        #region Events handling
+
+        /// <summary>
+        /// Subscribes this instance to a specified list of event namespaces supported by the <see cref="IEventService"/>.
+        /// </summary>
+        /// <param name="eventNamespaces">The list with the namespace to subscribe to.</param>
+        protected void SubscribeToEventNamespaces(List<string> eventNamespaces)
+        {
+            foreach (var eventNamespace in eventNamespaces)
+            {
+                _eventService.SubscribeToEventSetEvent(
+                    eventNamespace,
+                    IngestEvents);
+            }
+        }
+
+        private void IngestEvents(object sender, EventSetEventArgs e) =>
+            // Trying to minimize the impact of calling this handler,
+            // so we're just queuing the event set - will be processed by a separate thread.
+            _eventsQueue.Enqueue(e);
+
+        private async Task DequeueEvents()
+        {
+            while (true)
+            {
+                _logger.LogInformation("The {ResourceProvider} has started processing events.", _name);
+
+                while (_eventsQueue.TryDequeue(out EventSetEventArgs? eventSet))
+                {
+                    if (eventSet != null)
+                    {
+                        // Play it safe, ensure that we're absorbing any exception resulting from handling the event.
+                        try
+                        {
+                            await HandleEvents(eventSet);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "An error occured while handling an event set originating from the {EventNamespace} event namespace.",
+                                eventSet.Namespace);
+                        }
+                    }
+                }
+
+                await Task.Delay(TimeSpan.FromSeconds(10));
+            }
+        }
+
+        /// <summary>
+        /// Handles events received from the <see cref="IEventService"/> when they are dequeued locally.
+        /// </summary>
+        /// <param name="e">The <see cref="EventSetEventArgs"/> containing the events namespace and the actual events.</param>
+        /// <returns></returns>
+        protected virtual async Task HandleEvents(EventSetEventArgs e) =>
+            await Task.CompletedTask;
+
+        #endregion
     }
 }

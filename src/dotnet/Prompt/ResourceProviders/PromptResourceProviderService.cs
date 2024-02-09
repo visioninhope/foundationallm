@@ -20,10 +20,12 @@ namespace FoundationaLLM.Prompt.ResourceProviders
     public class PromptResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt)] IStorageService storageService,
+        IEventService eventService,
         ILogger<PromptResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             storageService,
+            eventService,
             logger)
     {
         private ConcurrentDictionary<string, PromptReference> _promptReferences = [];
