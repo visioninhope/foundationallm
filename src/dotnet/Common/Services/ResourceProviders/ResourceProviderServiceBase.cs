@@ -1,9 +1,11 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.Events;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProvider;
+using FoundationaLLM.Common.Services.Events;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Concurrent;
@@ -16,6 +18,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
     public class ResourceProviderServiceBase : IResourceProviderService
     {
         private bool _isInitialized = false;
+
+        private LocalEventService? _localEventService;
+        private readonly List<string>? _eventNamespacesToSubscribe;
 
         /// <summary>
         /// The <see cref="IStorageService"/> providing storage services to the resource provider.
@@ -61,11 +66,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             Formatting = Formatting.Indented
         };
 
-        /// <summary>
-        /// The queue containing <see cref="EventSetEventArgs"/> events received via the subscriptions to the <see cref="IEventService"/>.
-        /// </summary>
-        protected readonly ConcurrentQueue<EventSetEventArgs> _eventsQueue = [];
-
         /// <inheritdoc/>
         public string Name => _name;
 
@@ -79,25 +79,23 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <param name="storageService">The <see cref="IStorageService"/> providing storage services to the resource provider.</param>
         /// <param name="eventService">The <see cref="IEventService"/> providing event services to the resource provider.</param>
         /// <param name="logger">The logger used for logging.</param>
+        /// <param name="eventNamespacesToSubscribe">The list of Event Service event namespaces to subscribe to for local event processing.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
             IStorageService storageService,
             IEventService eventService,
-            ILogger logger)
+            ILogger logger,
+            List<string>? eventNamespacesToSubscribe = default)
         {
             _storageService = storageService;
             _eventService = eventService;
             _logger = logger;
             _instanceSettings = instanceSettings;
+            _eventNamespacesToSubscribe = eventNamespacesToSubscribe;
 
             // Kicks off the initialization on a separate thread and does not wait for it to complete.
             // The completion of the initialization process will be signaled by setting the _isInitialized property.
             _ = Task.Run(Initialize);
-
-            // Kicks off the extraction of events from the events queue.
-            // The events are initially received from the events service and are handled by the IngestEvents delegate
-            // which queues them. In the background, the extraction thread will dequeue and submit them to final processing.
-            _ = Task.Run(DequeueEvents);
         }
 
         /// <inheritdoc/>
@@ -106,6 +104,18 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             try
             {
                 await InitializeInternal();
+
+                if (_eventNamespacesToSubscribe != null
+                    && _eventNamespacesToSubscribe.Count > 0)
+                {
+                    _localEventService = new LocalEventService(
+                        new LocalEventServiceSettings { EventProcessingCycleSeconds = 10 },
+                        _eventService,
+                        _logger);
+                    _localEventService.SubscribeToEventNamespaces(_eventNamespacesToSubscribe);
+                    _localEventService.StartLocalEventProcessing(HandleEvents);
+                }
+
                 _isInitialized = true;
             }
             catch (Exception ex)
@@ -423,52 +433,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         #region Events handling
-
-        /// <summary>
-        /// Subscribes this instance to a specified list of event namespaces supported by the <see cref="IEventService"/>.
-        /// </summary>
-        /// <param name="eventNamespaces">The list with the namespace to subscribe to.</param>
-        protected void SubscribeToEventNamespaces(List<string> eventNamespaces)
-        {
-            foreach (var eventNamespace in eventNamespaces)
-            {
-                _eventService.SubscribeToEventSetEvent(
-                    eventNamespace,
-                    IngestEvents);
-            }
-        }
-
-        private void IngestEvents(object sender, EventSetEventArgs e) =>
-            // Trying to minimize the impact of calling this handler,
-            // so we're just queuing the event set - will be processed by a separate thread.
-            _eventsQueue.Enqueue(e);
-
-        private async Task DequeueEvents()
-        {
-            _logger.LogInformation("The {ResourceProvider} has started processing events.", _name);
-
-            while (true)
-            {
-                while (_eventsQueue.TryDequeue(out EventSetEventArgs? eventSet))
-                {
-                    if (eventSet != null)
-                    {
-                        // Play it safe, ensure that we're absorbing any exception resulting from handling the event.
-                        try
-                        {
-                            await HandleEvents(eventSet);
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(ex, "An error occured while handling an event set originating from the {EventNamespace} event namespace.",
-                                eventSet.Namespace);
-                        }
-                    }
-                }
-
-                await Task.Delay(TimeSpan.FromSeconds(10));
-            }
-        }
 
         /// <summary>
         /// Handles events received from the <see cref="IEventService"/> when they are dequeued locally.
