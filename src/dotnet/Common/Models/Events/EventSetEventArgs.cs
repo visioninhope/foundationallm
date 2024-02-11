@@ -24,9 +24,10 @@ namespace FoundationaLLM.Common.Models.Events
     }
 
     /// <summary>
-    /// Delegate 
+    /// Multicast delegate used by the Azure Event Grid event service to provide support 
+    /// for subscribing to event namespaces.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
+    /// <param name="sender">The object raising the event.</param>
+    /// <param name="e">The <see cref="EventSetEventArgs"/> that contains the details about the events being raised.</param>
     public delegate void EventSetEventDelegate(object sender, EventSetEventArgs e);
 }
