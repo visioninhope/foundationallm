@@ -41,14 +41,14 @@ namespace FoundationaLLM.Common.Services.TextSplitters
                     .Select(t => _tokenizerService.Decode(t, _settings.TokenizerEncoder))
                     .ToList();
 
-                var lastChunkStart = (chunksCount - 1) * _settings.ChunkSizeTokens;
+                var lastChunkStart = (chunksCount - 1) * (_settings.ChunkSizeTokens - _settings.OverlapSizeTokens);
                 var lastChunkSize = tokens.Count - lastChunkStart + 1;
                 var resultMessage = string.Empty;
 
                 if (lastChunkSize < 2 * _settings.OverlapSizeTokens)
                 {
                     // The last chunk is to small, will just incorporate it into the second to last.
-                    var secondToLastChunkStart = (chunksCount - 2) * _settings.ChunkSizeTokens;
+                    var secondToLastChunkStart = (chunksCount - 2) * (_settings.ChunkSizeTokens - _settings.OverlapSizeTokens);
                     var newLastChunkSize = tokens.Count - secondToLastChunkStart + 1;
                     var newLastChunk = _tokenizerService.Decode(
                         tokens

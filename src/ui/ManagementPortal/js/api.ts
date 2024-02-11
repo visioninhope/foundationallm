@@ -75,6 +75,21 @@ export default {
 		return [];
 	},
 
+	async getAgents(): Promise<AgentIndex[]> {
+		return JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`));
+	},
+
+	async getAgent(agentId: string): Promise<any> {
+		return JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`));
+	},
+
+	async updateAgent(agentId: string, request: CreateAgentRequest): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: request,
+		});
+	},
+
 	async createAgent(request: CreateAgentRequest): Promise<any> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${request.name}?api-version=${this.apiVersion}`, {
 			method: 'POST',

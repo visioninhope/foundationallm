@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<h2 class="page-header">Create New Agent</h2>
+		<h2 class="page-header">{{ editAgent ? 'Edit Agent' : 'Create New Agent' }}</h2>
 		<div class="page-subheader">
-			Complete the settings below to create and deploy your new agent.
+			{{ editAgent ? 'Edit your agent settings below.' : 'Complete the settings below to create and deploy your new agent.' }}
 		</div>
 
 		<div class="steps" :class="{ 'steps--loading': loading }">
@@ -18,6 +18,11 @@
 				<div class="step-header mb-2">Agent name:</div>
 				<div class="mb-2">No special characters or spaces, lowercase letters with dashes and underscores only.</div>
 				<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" />
+			</div>
+			<div class="span-2">
+				<div class="step-header mb-2">Description:</div>
+				<div class="mb-2">Provide a description to help others understand the agent's purpose.</div>
+				<InputText v-model="agentDescription" placeholder="Enter agent description" type="text" class="w-100" />
 			</div>
 
 			<!-- Type -->
@@ -370,48 +375,83 @@
 				<Textarea v-model="systemPrompt" class="w-100" auto-resize rows="5" type="text" />
 			</div>
 
-			<!-- Create agent -->
-			<Button
-				class="primary-button column-2 justify-self-end"
-				style="width: 200px"
-				label="Create Agent"
-				@click="handleCreateAgent"
-			/>
+			<div class="button-container column-2 justify-self-end">
+				<Button
+					class="secondary-button"
+					style="margin-right: 20px;"
+					label="Cancel"
+					severity="secondary"
+					@click="handleCancel"
+				/>
+
+				<!-- Create agent -->
+				<Button
+					class="primary-button"
+					style="width: 200px"
+					:label="editAgent ? 'Update Agent' : 'Create Agent'"
+					severity="primary"
+					@click="handleCreateAgent"
+				/>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
+import type { PropType } from 'vue';
 import api from '@/js/api';
 import type { CreateAgentRequest, AgentIndex, AgentType } from '@/js/types';
 
 const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
+const defaultFormValues = {
+	agentName: '',
+	agentDescription: '',
+	agentType: 'knowledge-management' as CreateAgentRequest['type'],
+
+	editDataSource: false as boolean,
+	selectedDataSource: null as null | Object,
+
+	editIndexSource: false as boolean,
+	selectedIndexSource: null as null | AgentIndex,
+
+	chunkSize: 2000,
+	overlapSize: 100,
+
+	triggerFrequency: { label: 'Manual', value: 1 },
+	triggerFrequencyScheduled: null,
+
+	conversationHistory: false as boolean,
+	conversationMaxMessages: 5 as number,
+
+	gatekeeperEnabled: false as boolean,
+	gatekeeperContentSafety: { label: 'None', value: null },
+	gatekeeperDataProtection: { label: 'None', value: null },
+
+	systemPrompt: defaultSystemPrompt as string,
+};
+
 export default {
 	name: 'CreateAgent',
 
+	props: {
+		editAgent: {
+			type: [Boolean, String] as PropType<false | string>,
+			required: false,
+			default: false,
+		},
+	},
+
 	data() {
 		return {
+			...defaultFormValues,
+
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
-			agentName: '',
-			agentType: 'knowledge-management' as CreateAgentRequest['type'],
-
-			editDataSource: false as boolean,
 			dataSources: [],
-			selectedDataSource: null as null | Object,
-
-			editIndexSource: false as boolean,
 			indexSources: [] as AgentIndex[],
-			selectedIndexSource: null as null | AgentIndex,
 
-			// editProcessing: false as boolean,
-			chunkSize: 2000,
-			overlapSize: 100,
-
-			// editTrigger: false as boolean,
-			triggerFrequency: { label: 'Manual', value: 1 },
 			triggerFrequencyOptions: [
 				{
 					label: 'Manual',
@@ -426,7 +466,7 @@ export default {
 				// 	value: 2,
 				// },
 			],
-			triggerFrequencyScheduled: null,
+
 			triggerFrequencyScheduledOptions: [
 				{
 					label: 'Never',
@@ -450,13 +490,6 @@ export default {
 				},
 			],
 
-			// editConversationHistory: false as boolean,
-			conversationHistory: false as boolean,
-			conversationMaxMessages: 5 as number,
-
-			// editGatekeeper: false as boolean,
-			gatekeeperEnabled: false as boolean,
-			gatekeeperContentSafety: { label: 'None', value: null },
 			gatekeeperContentSafetyOptions: [
 				{
 					label: 'None',
@@ -464,10 +497,10 @@ export default {
 				},
 				{
 					label: 'Azure Content Safety',
-					value: 1,
+					value: "ContentSafety"
 				},
 			],
-			gatekeeperDataProtection: { label: 'None', value: null },
+
 			gatekeeperDataProtectionOptions: [
 				{
 					label: 'None',
@@ -475,11 +508,9 @@ export default {
 				},
 				{
 					label: 'Microsoft Presidio',
-					value: 1,
+					value: "Presidio"
 				},
 			],
-
-			systemPrompt: defaultSystemPrompt as string,
 		};
 	},
 
@@ -500,7 +531,6 @@ export default {
 
 	async created() {
 		this.loading = true;
-
 		// Uncomment to remove mock loading screen
 		// api.mockLoadTime = 0;
 
@@ -517,10 +547,61 @@ export default {
 			});
 		}
 
+		if (this.editAgent) {
+			this.loadingStatusText = `Retrieving agent "${this.editAgent}"...`;
+			const agent = await api.getAgent(this.editAgent);
+			this.loadingStatusText = `Mapping agent values to form...`;
+			this.mapAgentToForm(agent);
+		}
+
 		this.loading = false;
 	},
 
 	methods: {
+		mapAgentToForm(agent) {
+			this.agentName = agent.name || this.agentName;
+			this.agentDescription = agent.description || this.agentDescription;
+			this.agentType = agent.type || this.agentType;
+
+			this.selectedIndexSource =
+				this.indexSources.find((indexSource) => indexSource.ObjectId === agent.indexing_profile) ||
+				null;
+
+			this.selectedDataSource =
+				this.dataSources.find((dataSource) => dataSource.ObjectId === agent.embedding_profile) ||
+				null;
+
+			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
+			this.conversationMaxMessages = agent.conversation_history?.max_history || his.conversationMaxMessages;
+
+			this.gatekeeperEnabled = Boolean(agent.gatekeeper?.use_system_setting);
+
+			this.gatekeeperContentSafety =
+				this.gatekeeperContentSafetyOptions.find((localOption) =>
+					agent.gatekeeper.options.find((option) => option === localOption.value),
+				) || this.gatekeeperContentSafety;
+
+			this.gatekeeperDataProtection =
+				this.gatekeeperDataProtectionOptions.find((localOption) =>
+					agent.gatekeeper.options.find((option) => option === localOption.value),
+				) || this.gatekeeperDataProtection;
+
+			this.systemPrompt = agent.prompt || '';
+		},
+
+		resetForm() {
+			for (const key in defaultFormValues) {
+				this[key] = defaultFormValues[key];
+			}
+		},
+
+		handleCancel() {
+			if (!confirm('Are you sure you want to cancel?')) {
+				return;
+			}
+			this.$router.push('/agents/public');
+		},
+
 		handleNameInput(event) {
 			const element = event.target;
 
@@ -554,13 +635,13 @@ export default {
 				errors.push('Please give the agent a name.');
 			}
 
-			if (!this.selectedDataSource) {
-				errors.push('Please select a data source.');
-			}
+			// if (!this.selectedDataSource) {
+			// 	errors.push('Please select a data source.');
+			// }
 
-			if (!this.selectedIndexSource) {
-				errors.push('Please select an index source.');
-			}
+			// if (!this.selectedIndexSource) {
+			// 	errors.push('Please select an index source.');
+			// }
 
 			if (errors.length > 0) {
 				this.$toast.add({
@@ -575,43 +656,59 @@ export default {
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
 
+			const agentRequest = {
+				name: this.agentName,
+				description: this.agentDescription,
+				type: this.agentType,
+
+				embedding_profile: this.selectedDataSource?.ObjectId,
+				indexing_profile: this.selectedIndexSource?.ObjectId,
+
+				conversation_history: {
+					enabled: this.conversationHistory,
+					max_history: this.conversationMaxMessages,
+				},
+
+				gatekeeper: {
+					use_system_setting: this.gatekeeperEnabled,
+					options: [
+						this.gatekeeperContentSafety.value,
+						this.gatekeeperDataProtection.value,
+					].filter(option => option !== null),
+				},
+
+				prompt: this.systemPrompt,
+			};
+
+			let successMessage = null;
 			try {
-				await api.createAgent({
-					name: this.agentName,
-					type: this.agentType,
-
-					embedding_profile: this.selectedDataSource?.ObjectId,
-					indexing_profile: this.selectedIndexSource?.ObjectId,
-
-					// embedding_profile: string;
-					// sessions_enabled: boolean;
-					// orchestrator: string;
-
-					conversation_history: {
-						enabled: this.conversationHistory,
-						// max_history: number,
-					},
-
-					gatekeeper: {
-						use_system_setting: this.gatekeeperEnabled,
-						options: {
-							content_safety: this.gatekeeperContentSafety,
-							data_protection: this.gatekeeperDataProtection,
-						},
-					},
-
-					prompt: this.systemPrompt,
-				});
-			} catch (error) {
-				this.$toast.add({
+				if (this.editAgent) {
+					await api.updateAgent(this.editAgent, agentRequest);
+					successMessage = `Agent "${this.agentName}" was succesfully updated!`;
+				} else {
+					await api.createAgent(agentRequest);
+					successMessage = `Agent "${this.agentName}" was succesfully created!`;
+					this.resetForm();
+				}
+			} catch(error) {
+				this.loading = false;
+				return this.$toast.add({
 					severity: 'error',
-					detail: 'There was an error creating the agent. Please check the settings and try again.',
+					detail: error?.response?._data || error,
 					life: 5000,
 				});
 			}
 
+			this.$toast.add({
+				severity: 'success',
+				detail: successMessage,
+			});
+
 			this.loading = false;
-			// Route to created agent's page
+
+			if (!this.editAgent) {
+				this.$router.push('/agents/public');
+			}
 		},
 	},
 };
@@ -796,5 +893,11 @@ $editStepPadding: 16px;
 .step-option__header {
 	text-decoration: underline;
 	margin-right: 8px;
+}
+
+.primary-button {
+	background-color: var(--primary-button-bg)!important;
+	border-color: var(--primary-button-bg)!important;
+	color: var(--primary-button-text)!important;
 }
 </style>
