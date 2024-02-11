@@ -110,35 +110,4 @@ public class AgentFactoryService : IAgentFactoryService
             };
         }
     }
-
-    /// <summary>
-    /// Retrieve a summarization for the passed in prompt from the orchestration service.
-    /// </summary>
-    public async Task<SummaryResponse> GetSummary(SummaryRequest summaryRequest)
-    {
-        try
-        {
-            var agent = await AgentBuilder.Build(
-                summaryRequest.UserPrompt ?? string.Empty,
-                summaryRequest.SessionId ?? string.Empty,
-                _cacheService,
-                _callContext,
-                _resourceProviderServices,
-                _agentHubAPIService,
-                _orchestrationServices,
-                _promptHubAPIService,
-                _dataSourceHubAPIService,
-                _loggerFactory);
-
-            return await agent.GetSummary(summaryRequest);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Error retrieving summarization for {summaryRequest.UserPrompt}.");
-            return new SummaryResponse
-            {
-                Summary = "[No Summary]"
-            };
-        }
-    }
 }

@@ -67,16 +67,5 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             await Task.CompletedTask;
             return null!;
         }
-
-        /// <summary>
-        /// The call to get a summary after the agent has been configured.
-        /// </summary>
-        /// <param name="summaryRequest"></param>
-        /// <returns></returns>
-        public virtual async Task<SummaryResponse> GetSummary(SummaryRequest summaryRequest)
-        {
-            await Task.CompletedTask;
-            return null!;
-        }
     }
 }
