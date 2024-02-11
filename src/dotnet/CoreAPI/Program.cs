@@ -10,6 +10,7 @@ using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Core.API.Workers;
@@ -75,6 +76,9 @@ namespace FoundationaLLM.Core.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Branding));
             builder.Services.AddOptions<CoreServiceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_CoreAPI));
+
+            // Add Azure ARM services
+            builder.Services.AddAzureResourceManager();
 
             // Add event services
             builder.Services.AddAzureEventGridEvents(

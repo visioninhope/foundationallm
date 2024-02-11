@@ -24,6 +24,7 @@ namespace FoundationaLLM.Common.Services.Events
         private readonly ILogger<AzureEventGridEventService> _logger;
         private readonly AzureEventGridEventServiceSettings _settings;
         private readonly AzureEventGridEventServiceProfile _profile;
+        private readonly IAzureResourceManagerService _azureResourceManager;
         private EventGridClient? _eventGridClient;
 
         private readonly TimeSpan _eventProcessingHeartbeat = TimeSpan.FromMinutes(1);
@@ -41,14 +42,17 @@ namespace FoundationaLLM.Common.Services.Events
         /// </summary>
         /// <param name="settingsOptions">The options providing the settings for the service.</param>
         /// <param name="profileOptions">The options providing the profile for the service.</param>
+        /// <param name="azureResourceManager">The <see cref="IAzureResourceManagerService"/> service providing access to Azure ARM services.</param>
         /// <param name="logger">The logger used for logging.</param>
         public AzureEventGridEventService(
             IOptions<AzureEventGridEventServiceSettings> settingsOptions,
             IOptions<AzureEventGridEventServiceProfile> profileOptions,
+            IAzureResourceManagerService azureResourceManager,
             ILogger<AzureEventGridEventService> logger)
         {
             _settings = settingsOptions.Value;
             _profile = profileOptions.Value;
+            _azureResourceManager = azureResourceManager;
             _logger = logger;
         }
 
@@ -147,8 +151,6 @@ namespace FoundationaLLM.Common.Services.Events
 
         private async Task CreateTopicSubscriptions(CancellationToken cancellationToken)
         {
-            var armClient = new ArmClient(new DefaultAzureCredential());
-
             foreach (var topic in _profile.Topics)
             {
                 if (cancellationToken.IsCancellationRequested)
@@ -160,38 +162,15 @@ namespace FoundationaLLM.Common.Services.Events
 
                 try
                 {
-                    var namespaceTopicId = ResourceIdentifier.Parse($"{_settings.NamespaceId}/topics/{topic.Name}");
-                    var namespaceTopicResource = armClient.GetNamespaceTopicResource(namespaceTopicId);
-                    var namespaceTopic = await namespaceTopicResource.GetAsync();
-                    var namespaceTopicSubscriptions = namespaceTopic.Value.GetNamespaceTopicEventSubscriptions();
-
-                    var eventSubscription = new NamespaceTopicEventSubscriptionData()
-                    {
-                        DeliveryConfiguration = new DeliveryConfiguration()
-                        {
-                            DeliveryMode = DeliveryMode.Queue,
-                            Queue = new QueueInfo()
-                            {
-                                ReceiveLockDurationInSeconds = 60,
-                                MaxDeliveryCount = 10,
-                                EventTimeToLive = XmlConvert.ToTimeSpan("P1D"),
-                            },
-                        },
-                        EventDeliverySchema = DeliverySchema.CloudEventSchemaV10,
-                    };
-
-                    var newNamespaceTopicSubscription = await namespaceTopicSubscriptions.CreateOrUpdateAsync(
-                        WaitUntil.Completed,
+                    topic.SubscriptionAvailable = await _azureResourceManager.CreateEventGridNamespaceTopicSubscription(
+                        _settings.NamespaceId,
+                        topic.Name,
                         topic.SubscriptionName,
-                        eventSubscription);
+                        cancellationToken);
 
-                    if (newNamespaceTopicSubscription.HasValue
-                        && newNamespaceTopicSubscription.HasCompleted)
-                    {
-                        topic.SubscriptionAvailable = true;
+                    if (topic.SubscriptionAvailable)
                         _logger.LogInformation("The Azure Event Grid event service successfully created a subscription named {SubscriptionName} in topic {TopicName}.",
                             topic.SubscriptionName, topic.Name);
-                    }
                 }
                 catch (Exception ex)
                 {
@@ -203,8 +182,6 @@ namespace FoundationaLLM.Common.Services.Events
 
         private async Task DeleteTopicSubscriptions(CancellationToken cancellationToken)
         {
-            var armClient = new ArmClient(new DefaultAzureCredential());
-
             foreach (var topic in _profile.Topics)
             {
                 if (cancellationToken.IsCancellationRequested)
@@ -215,10 +192,11 @@ namespace FoundationaLLM.Common.Services.Events
 
                 try
                 {
-                    var eventSubscriptionId = ResourceIdentifier.Parse($"{_settings.NamespaceId}/topics/{topic.Name}/eventSubscriptions/{topic.SubscriptionName}");
-                    var eventSubscriptionResource = armClient.GetNamespaceTopicEventSubscriptionResource(eventSubscriptionId);
-
-                    await eventSubscriptionResource.DeleteAsync(WaitUntil.Completed, cancellationToken);
+                    await _azureResourceManager.DeleteEventGridNamespaceTopicSubscription(
+                        _settings.NamespaceId,
+                        topic.Name,
+                        topic.SubscriptionName!,
+                        cancellationToken);
 
                     topic.SubscriptionAvailable = false;
                     _logger.LogInformation("The Azure Event Grid event service successfully deleted the subscription named {SubscriptionName} from topic {TopicName}.",
