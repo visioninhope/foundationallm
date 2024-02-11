@@ -16,7 +16,7 @@ namespace FoundationaLLM.Common.Models.Configuration.AppConfiguration
     /// <param name="defaultValue"></param>
     /// <param name="contentType"></param>
     /// <param name="sampleObject"></param>
-    public class AppConfigEntry(string key, string? minimumVersion, string? keyVaultSecretName = null,
+    public class AppConfigurationEntry(string key, string? minimumVersion, string? keyVaultSecretName = null,
         string? description = null, string? defaultValue = null, string? contentType = null, object? sampleObject = null)
     {
         /// <summary>

@@ -24,7 +24,7 @@ namespace FoundationaLLM.Configuration.Validation
         {
             var missingKeys = new List<string>();
 
-            var requiredEntries = AppConfigCatalog.GetRequiredConfigsForVersion(currentVersion);
+            var requiredEntries = AppConfigurationCatalog.GetRequiredConfigsForVersion(currentVersion);
 
             foreach (var entry in requiredEntries)
             {
