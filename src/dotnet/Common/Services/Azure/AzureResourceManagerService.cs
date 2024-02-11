@@ -20,7 +20,7 @@ namespace FoundationaLLM.Common.Services.Azure
         ILogger<AzureResourceManagerService> logger) : IAzureResourceManagerService
     {
         private readonly ArmClient _armClient = new(new DefaultAzureCredential());
-        ILogger<AzureResourceManagerService> _logger = logger;
+        private readonly ILogger<AzureResourceManagerService> _logger = logger;
 
         /// <inheritdoc/>
         public async Task<bool> CreateEventGridNamespaceTopicSubscription(string namespaceResourceId, string topicName, string topicSubscriptionName, CancellationToken cancellationToken)

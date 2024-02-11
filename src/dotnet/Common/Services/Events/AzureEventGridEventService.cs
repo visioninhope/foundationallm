@@ -1,10 +1,6 @@
 ﻿using Azure;
-using Azure.Core;
 using Azure.Identity;
 using Azure.Messaging.EventGrid.Namespaces;
-using Azure.ResourceManager;
-using Azure.ResourceManager.EventGrid;
-using Azure.ResourceManager.EventGrid.Models;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
@@ -12,7 +8,6 @@ using FoundationaLLM.Common.Models.Configuration.Events;
 using FoundationaLLM.Common.Models.Events;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Xml;
 
 namespace FoundationaLLM.Common.Services.Events
 {
@@ -27,7 +22,7 @@ namespace FoundationaLLM.Common.Services.Events
         private readonly IAzureResourceManagerService _azureResourceManager;
         private EventGridClient? _eventGridClient;
 
-        private readonly TimeSpan _eventProcessingHeartbeat = TimeSpan.FromMinutes(1);
+        private readonly TimeSpan _eventProcessingCycle;
 
         private readonly Dictionary<string, EventSetEventDelegate?> _eventSetEventDelegates = new()
         {
@@ -54,6 +49,8 @@ namespace FoundationaLLM.Common.Services.Events
             _profile = profileOptions.Value;
             _azureResourceManager = azureResourceManager;
             _logger = logger;
+
+            _eventProcessingCycle = TimeSpan.FromSeconds(_profile.EventProcessingCycleSeconds);
         }
 
         /// <inheritdoc/>
@@ -127,7 +124,7 @@ namespace FoundationaLLM.Common.Services.Events
                     }
                 }
 
-                await Task.Delay(_eventProcessingHeartbeat, cancellationToken);
+                await Task.Delay(_eventProcessingCycle, cancellationToken);
             }
         }
 

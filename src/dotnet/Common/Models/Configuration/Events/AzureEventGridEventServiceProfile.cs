@@ -9,6 +9,11 @@ namespace FoundationaLLM.Common.Models.Configuration.Events
     public class AzureEventGridEventServiceProfile
     {
         /// <summary>
+        /// The time interval in seconds between successive event processing cycles.
+        /// </summary>
+        public int EventProcessingCycleSeconds { get; set; } = 60;
+
+        /// <summary>
         /// The list of <see cref="EventGridTopicProfile"/> topic profiles used to configure event handling for an Azure Event Grid namespace topic.
         /// </summary>
         public List<EventGridTopicProfile> Topics { get; set; } = [];

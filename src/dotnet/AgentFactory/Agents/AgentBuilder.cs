@@ -35,7 +35,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         /// <param name="loggerFactory">The logger factory used to create new loggers.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static async Task<AgentBase> Build(
+        public static async Task<AgentBase?> Build(
             string userPrompt,
             string sessionId,
             ICacheService cacheService,
@@ -127,7 +127,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
                     var kmAgent = new KMAgent(
-                        agent,
+                        agent!,
                         cacheService, callContext,
                         orchestrationService, promptHubAPIService, dataSourceHubAPIService,
                         loggerFactory.CreateLogger<DefaultAgent>());
@@ -152,23 +152,16 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         {
             Type? orchestrationServiceType = null;
 
-            switch (orchestrationType)
+            orchestrationServiceType = orchestrationType switch
             {
-                case LLMOrchestrationService.LangChain:
-                    orchestrationServiceType = typeof(ILangChainService);
-                    break;
-                case LLMOrchestrationService.SemanticKernel:
-                    orchestrationServiceType = typeof(ISemanticKernelService);
-                    break;
-                default:
-                    throw new ArgumentException($"The orchestration type {orchestrationType} is not supported.");
-            }
+                LLMOrchestrationService.LangChain => typeof(ILangChainService),
+                LLMOrchestrationService.SemanticKernel => typeof(ISemanticKernelService),
+                _ => throw new ArgumentException($"The orchestration type {orchestrationType} is not supported."),
+            };
 
             var orchestrationService = orchestrationServices.FirstOrDefault(x => orchestrationServiceType.IsAssignableFrom(x.GetType()));
-            if (orchestrationService == null)
-                throw new ArgumentException($"There is no orchestration service available for orchestration type {orchestrationType}.");
-
-            return orchestrationService;
+            return orchestrationService
+                ?? throw new ArgumentException($"There is no orchestration service available for orchestration type {orchestrationType}.");
         }
     }
 }
