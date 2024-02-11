@@ -10,20 +10,20 @@ using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
 
-namespace FoundationaLLM.AgentFactory.Core.Agents
+namespace FoundationaLLM.AgentFactory.Core.Orchestration
 {
     /// <summary>
-    /// DefaultAgent class
+    /// Default (legacy) orchestration.
     /// </summary>
-    public class DefaultAgent : AgentBase
+    public class LegacyOrchestration : OrchestrationBase
     {
         private LegacyOrchestrationCompletionRequest _completionRequestTemplate = null!;
         private readonly ICacheService _cacheService;
         private readonly ICallContext _callContext;
-        private readonly ILogger<DefaultAgent> _logger;
+        private readonly ILogger<LegacyOrchestration> _logger;
 
         /// <summary>
-        /// Constructor for default agent.
+        /// Constructor for a legacy orchestration.
         /// </summary>
         /// <param name="agentMetadata"></param>
         /// <param name="cacheService">The <see cref="ICacheService"/> used to cache agent-related artifacts.</param>
@@ -32,14 +32,14 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         /// <param name="promptHubService"></param>
         /// <param name="dataSourceHubService"></param>
         /// <param name="logger">The logger used for logging.</param>
-        public DefaultAgent(
+        public LegacyOrchestration(
             AgentMetadata agentMetadata,
             ICacheService cacheService,
             ICallContext callContext,
             ILLMOrchestrationService orchestrationService,
             IPromptHubAPIService promptHubService,
             IDataSourceHubAPIService dataSourceHubService,
-            ILogger<DefaultAgent> logger)
+            ILogger<LegacyOrchestration> logger)
             : base(agentMetadata, orchestrationService, promptHubService, dataSourceHubService)
         {
             _cacheService = cacheService;
@@ -47,13 +47,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             _logger = logger;
         }
 
-        /// <summary>
-        /// Used to configure the DeafultAgent class.
-        /// </summary>
-        /// <param name="userPrompt"></param>
-        /// <param name="sessionId"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
+        /// <inheritdoc/>
         public override async Task Configure(string userPrompt, string sessionId)
         {
             // Get prompts for the agent from the prompt hub.
@@ -75,7 +69,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
 
             if (promptResponse is {Prompt: not null})
             {
-                _logger.LogInformation("The DefaultAgent received the following prompt from the Prompt Hub: {PromptName}.",
+                _logger.LogInformation("The legacy orchestration received the following prompt from the Prompt Hub: {PromptName}.",
                     promptResponse!.Prompt!.Name);
             }
 
@@ -91,7 +85,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             if (dataSourceResponse is {DataSources: not null})
             {
                 _logger.LogInformation(
-                    "The DefaultAgent received the following data sources from the Data Source Hub: {DataSourceList}.",
+                    "The legacy orchestration received the following data sources from the Data Source Hub: {DataSourceList}.",
                     string.Join(",", dataSourceResponse!.DataSources!.Select(ds => ds.Name)));
             }
 
@@ -208,11 +202,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             };
         }
 
-        /// <summary>
-        /// Calls the orchestration service for the agent to get a completion.
-        /// </summary>
-        /// <param name="completionRequest"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
             _completionRequestTemplate.SessionId = completionRequest.SessionId;

@@ -1,6 +1,7 @@
-﻿using FoundationaLLM.AgentFactory.Core.Agents;
-using FoundationaLLM.AgentFactory.Core.Interfaces;
+﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
+using FoundationaLLM.AgentFactory.Core.Orchestration;
 using FoundationaLLM.AgentFactory.Interfaces;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
@@ -83,7 +84,7 @@ public class AgentFactoryService : IAgentFactoryService
     {
         try
         {
-            var agent = await AgentBuilder.Build(
+            var orchestration = await OrchestrationBuilder.Build(
                 completionRequest.UserPrompt ?? string.Empty,
                 completionRequest.SessionId ?? string.Empty,
                 _cacheService,
@@ -95,7 +96,9 @@ public class AgentFactoryService : IAgentFactoryService
                 _dataSourceHubAPIService,
                 _loggerFactory);
 
-            return await agent.GetCompletion(completionRequest);
+            return orchestration == null
+                ? throw new OrchestrationException($"The orchestration builder was not able to create an orchestration for agent [{_callContext.AgentHint?.Name ?? string.Empty }].")
+                : await orchestration.GetCompletion(completionRequest);
         }
         catch (Exception ex)
         {

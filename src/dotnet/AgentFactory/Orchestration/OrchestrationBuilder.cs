@@ -10,15 +10,15 @@ using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace FoundationaLLM.AgentFactory.Core.Agents
+namespace FoundationaLLM.AgentFactory.Core.Orchestration
 {
     /// <summary>
-    /// Agent Builder class
+    /// Builds an orchestration for a FoundationaLLM agent.
     /// </summary>
-    public class AgentBuilder
+    public class OrchestrationBuilder
     {
         /// <summary>
-        /// Used to build an agenet given the inbound parameters.
+        /// Builds the orchestration based on the user prompt, the session id, and the call context.
         /// </summary>
         /// <param name="userPrompt"></param>
         /// <param name="sessionId"></param>
@@ -32,7 +32,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         /// <param name="loggerFactory">The logger factory used to create new loggers.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static async Task<AgentBase> Build(
+        public static async Task<OrchestrationBase?> Build(
             string userPrompt,
             string sessionId,
             ICacheService cacheService,
@@ -44,7 +44,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             IDataSourceHubAPIService dataSourceHubAPIService,
             ILoggerFactory loggerFactory)
         {
-            var logger = loggerFactory.CreateLogger<AgentBuilder>();
+            var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
             if (callContext.AgentHint == null)
                 logger.LogInformation("The AgentBuilder is starting to build an agent without an agent hint.");
             else
@@ -94,12 +94,12 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
                 orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
-                AgentBase? agent = null;
-                agent = new DefaultAgent(
+                OrchestrationBase? agent = null;
+                agent = new LegacyOrchestration(
                     agentInfo!,
                     cacheService, callContext,
                     orchestrationService, promptHubAPIService, dataSourceHubAPIService,
-                    loggerFactory.CreateLogger<DefaultAgent>());
+                    loggerFactory.CreateLogger<LegacyOrchestration>());
 
                 await agent.Configure(userPrompt, sessionId);
 
@@ -123,11 +123,11 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                         throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
                     orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
-                    var kmAgent = new KMAgent(
+                    var kmAgent = new KnowledgeManagementOrchestration(
                         agent,
                         cacheService, callContext,
                         orchestrationService, promptHubAPIService, dataSourceHubAPIService,
-                        loggerFactory.CreateLogger<DefaultAgent>());
+                        loggerFactory.CreateLogger<LegacyOrchestration>());
 
                     return kmAgent;
                 }

@@ -1,15 +1,14 @@
-﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Interfaces;
+﻿using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Messages;
 using FoundationaLLM.Common.Models.Orchestration;
 
-namespace FoundationaLLM.AgentFactory.Core.Agents
+namespace FoundationaLLM.AgentFactory.Core.Orchestration
 {
     /// <summary>
-    /// Base class for an agent.
+    /// Base class for an orchestration involving a FoundationaLLM agent.
     /// </summary>
-    public class AgentBase
+    public class OrchestrationBase
     {
         /// <summary>
         /// The agent metadata.
@@ -38,7 +37,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         /// <param name="orchestrationService"></param>
         /// <param name="promptHubService"></param>
         /// <param name="dataSourceHubService"></param>
-        public AgentBase(
+        public OrchestrationBase(
             AgentMetadata agentMetadata,
             ILLMOrchestrationService orchestrationService,
             IPromptHubAPIService promptHubService,

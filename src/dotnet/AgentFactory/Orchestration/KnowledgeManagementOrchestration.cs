@@ -5,17 +5,17 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
 
-namespace FoundationaLLM.AgentFactory.Core.Agents
+namespace FoundationaLLM.AgentFactory.Core.Orchestration
 {
     /// <summary>
-    /// Knowledge Management agent.
+    /// Knowledge Management orchestration.
     /// </summary>
-    public class KMAgent : AgentBase
+    public class KnowledgeManagementOrchestration : OrchestrationBase
     {
         private KnowledgeManagementCompletionRequest _completionRequestTemplate = null!;
         private readonly ICacheService _cacheService;
         private readonly ICallContext _callContext;
-        private readonly ILogger<DefaultAgent> _logger;
+        private readonly ILogger<LegacyOrchestration> _logger;
         private readonly KnowledgeManagementAgent _agent;
 
         /// <summary>
@@ -28,14 +28,14 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         /// <param name="promptHubService"></param>
         /// <param name="dataSourceHubService"></param>
         /// <param name="logger">The logger used for logging.</param>
-        public KMAgent(
+        public KnowledgeManagementOrchestration(
             KnowledgeManagementAgent agent,
             ICacheService cacheService,
             ICallContext callContext,
             ILLMOrchestrationService orchestrationService,
             IPromptHubAPIService promptHubService,
             IDataSourceHubAPIService dataSourceHubService,
-            ILogger<DefaultAgent> logger)
+            ILogger<LegacyOrchestration> logger)
             : base(null, orchestrationService, promptHubService, dataSourceHubService)
         {
             _agent = agent;
