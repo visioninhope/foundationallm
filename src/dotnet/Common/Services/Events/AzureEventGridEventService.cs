@@ -63,17 +63,19 @@ namespace FoundationaLLM.Common.Services.Events
             {
                 _eventGridClient = GetClient();
                 if (_eventGridClient == null)
-                    _logger.LogCritical("The Azure Event Grid client could not be initialized. The Azure Event Grid event service will not listen for any events.");
+                    throw new EventException("Cound not create Azure Event Grid client.");
                 else
+                {
+                    // Create the topic subscriptions according to the service profile.
+                    await CreateTopicSubscriptions(cancellationToken);
+
                     _logger.LogInformation("The Azure Event Grid event service was successfully initialized.");
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "The Azure Event Grid client could not be initialized. The Azure Event Grid event service will not listen for any events.");
+                throw new EventException("The Azure Event Grid event service encountered an error while starting and will not listen for any events.", ex);
             }
-
-            // Create the topic subscriptions according to the service profile.
-            await CreateTopicSubscriptions(cancellationToken);
         }
 
         /// <inheritdoc/>
@@ -84,7 +86,10 @@ namespace FoundationaLLM.Common.Services.Events
         public async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             if (_eventGridClient == null)
+            {
+                _logger.LogCritical("The Azure Event Grid events service is not properly initialized and will not execute.");
                 return;
+            }
 
             _logger.LogInformation("The Azure Event Grid event service is starting to process messages.");
 
@@ -186,6 +191,13 @@ namespace FoundationaLLM.Common.Services.Events
             {
                 if (cancellationToken.IsCancellationRequested)
                     return;
+
+                if (!topic.SubscriptionAvailable)
+                {
+                    _logger.LogInformation("The Azure Event Grid event service did not create the subscription named {SubscriptionName} from topic {TopicName}. Delete will not be attempted.",
+                        topic.SubscriptionName, topic.Name);
+                    continue;
+                }
 
                 _logger.LogInformation("The Azure Event Grid event service will delete the subscription named {SubscriptionName} from topic {TopicName}.",
                     topic.SubscriptionName, topic.Name);

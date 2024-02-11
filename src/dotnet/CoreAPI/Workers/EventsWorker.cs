@@ -11,21 +11,32 @@ namespace FoundationaLLM.Core.API.Workers
         IEventService eventService,
         ILogger<EventsWorker> logger) : BackgroundService
     {
+        private readonly IEventService _eventService = eventService;
+        private readonly ILogger<EventsWorker> _logger = logger;
+
         /// <inheritdoc/>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            logger.LogInformation("The events worker is starting up the event service.");
-            await eventService.StartAsync(stoppingToken);
+            _logger.LogInformation("The events worker is starting up the event service.");
 
-            logger.LogInformation("The events worker is preparing to start the event service.");
-            await eventService.ExecuteAsync(stoppingToken);
+            try
+            {
+                await _eventService.StartAsync(stoppingToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "The event service was not able to start. In Core API, this is not considered to be a critical error.");
+            }
+
+            _logger.LogInformation("The events worker is preparing to start the event service.");
+            await _eventService.ExecuteAsync(stoppingToken);
         }
 
         /// <inheritdoc/>
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
-            logger.LogInformation("The events worker is stopping up the event service.");
-            await eventService.StopAsync(cancellationToken);
+            _logger.LogInformation("The events worker is stopping up the event service.");
+            await _eventService.StopAsync(cancellationToken);
         }
     }
 }
