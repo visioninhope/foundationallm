@@ -153,8 +153,6 @@ namespace FoundationaLLM.Common.Services.Tokenizers
 
         private void ValidateEncoder(string encoderName)
         {
-            do { } while (!_initializationComplete.IsSet);
-
             if (string.IsNullOrWhiteSpace(encoderName)
                 || (!_encoderConfigurations.TryGetValue(encoderName, out TikTokenizerConfig? value))
                 || (value.MergeableRanksFileContent is null))
