@@ -194,7 +194,8 @@ Default structure for the `vectorization-text-partitioning-profiles.json` file:
                 "TokenizerEncoder": "cl100k_base",
                 "ChunkSizeTokens": "2000",
                 "OverlapSizeTokens": "200"
-            }
+            },
+            "ConfigurationReferences": {}
         }
     ]
 }
