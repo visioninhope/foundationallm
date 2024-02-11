@@ -61,6 +61,11 @@ export default {
 		});
 	},
 
+	async getAgents(): Promise<any> {
+		const data = JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`));
+		return data;
+	},
+
 	async getAgentDataSources(): Promise<AgentDataSource[]> {
 		const data = JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`));
 		return data.map(source => ({ ...source, Formats: ['pdf', 'txt'] }));
@@ -75,7 +80,22 @@ export default {
 		return [];
 	},
 
-	async createAgent(request: CreateAgentRequest): Promise<void> {
+	async getAgents(): Promise<AgentIndex[]> {
+		return JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`));
+	},
+
+	async getAgent(agentId: string): Promise<any> {
+		return JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`));
+	},
+
+	async updateAgent(agentId: string, request: CreateAgentRequest): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: request,
+		});
+	},
+
+	async createAgent(request: CreateAgentRequest): Promise<any> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${request.name}?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: request,

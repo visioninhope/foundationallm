@@ -94,7 +94,7 @@ where:
 | `language_model.deployment` | The configuration setting key that houses the name given to the deployed language model. The example above uses default FLLM values. Ensure this value is populated in application configuration. |
 | `sessions_enabled` | A boolean value that indicates whether the agent is session-less (false) or supports sessions(true). |
 | `conversation_history` | The conversation history configuration. |
-| `conversation_hisotry.enabled` | Indicates if conversation history is retained for subsequent agent interactions(true). |
+| `conversation_history.enabled` | Indicates if conversation history is retained for subsequent agent interactions(true). |
 | `conversation_history.max_history` | indicates the number of messages to be retained. |
 | `gatekeeper` | The gatekeeper configuration. |
 | `gatekeeper.use_system_setting` | Indicates if the system settings are used for the gatekeeper. |
@@ -133,4 +133,4 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/
 
 Once configured, the knowledge management agent can be validated using an API call to the [Core API](../exposed-apis/core-api.md) or via the [User Portal](../quickstart.md).
 
->**Note**: When validating through the user portal, ensure the `FoundationaLLM-AllowAgentHint` feature is enabled in the app configuration service. Also, the name of the agent needs to be added to the comma-delimited list of agents located in the app configuration setting named `FoundationaLLM:Branding:AllowAgentSelection` for it to display in the agent selection dropdown in the user portal. Once configuration has been modified, restart the Core API and User Portal services [(ACA)](../../deployment/authentication/core-authentication-setup-entra.md#restart-core-api-and-chat-ui-applications-in-an-aca-deployment) [(AKS)](../../deployment/authentication/core-authentication-setup-entra.md#restart-core-api-and-chat-ui-applications-in-an-aks-deployment).
+>**Note**: When validating through the user portal, ensure the `FoundationaLLM-AllowAgentHint` feature is enabled in the app configuration service. Restart the Core API service [(ACA)](../../deployment/authentication/core-authentication-setup-entra.md#restart-core-api-and-chat-ui-applications-in-an-aca-deployment) [(AKS)](../../deployment/authentication/core-authentication-setup-entra.md#restart-core-api-and-chat-ui-applications-in-an-aks-deployment) for the agent to be made available to the platform. You may need to refresh your user portal browser for the agent to display in the agents list for selection.

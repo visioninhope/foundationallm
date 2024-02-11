@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<h2 class="page-header">Create New Agent</h2>
+		<h2 class="page-header">{{ editAgent ? 'Edit Agent' : 'Create New Agent' }}</h2>
 		<div class="page-subheader">
-			Complete the settings below to create and deploy your new agent.
+			{{ editAgent ? 'Edit your agent settings below.' : 'Complete the settings below to create and deploy your new agent.' }}
 		</div>
 
 		<div class="steps" :class="{ 'steps--loading': loading }">
@@ -77,7 +77,7 @@
 						<span class="step-option__header">Container name:</span>
 						<span>{{ selectedDataSource.Container.Name }}</span>
 					</div> -->
-					
+
 					<!-- <div>
 						<span class="step-option__header">Data Format(s):</span>
 						<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
@@ -89,7 +89,7 @@
 
 				<template #edit>
 					<div class="step-container__edit__header">Please select a data source.</div>
-					
+
 					<div v-for="(group, type) in groupedDataSources" :key="type">
 
 						<div class="step-container__edit__group-header">{{ type }}</div>
@@ -112,7 +112,7 @@
 								<span class="step-option__header">Container name:</span>
 								<span>{{ dataSource.Container.Name }}</span>
 							</div> -->
-							
+
 							<!-- <div>
 								<span class="step-option__header">Data Format(s):</span>
 								<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
@@ -379,7 +379,7 @@
 			<Button
 				class="primary-button column-2 justify-self-end"
 				style="width: 200px"
-				label="Create Agent"
+				:label="editAgent ? 'Update Agent' : 'Create Agent'"
 				@click="handleCreateAgent"
 			/>
 		</div>
@@ -387,6 +387,7 @@
 </template>
 
 <script lang="ts">
+import type { PropType } from 'vue';
 import api from '@/js/api';
 import type { CreateAgentRequest, AgentIndex } from '@/js/types';
 
@@ -422,6 +423,14 @@ const defaultFormValues = {
 export default {
 	name: 'CreateAgent',
 
+	props: {
+		editAgent: {
+			type: [Boolean, String] as PropType<false | string>,
+			required: false,
+			default: false,
+		},
+	},
+
 	data() {
 		return {
 			...defaultFormValues,
@@ -446,7 +455,7 @@ export default {
 				// 	value: 2,
 				// },
 			],
-			
+
 			triggerFrequencyScheduledOptions: [
 				{
 					label: 'Never',
@@ -504,14 +513,13 @@ export default {
 
 				grouped[dataSource.Type].push(dataSource);
 			});
-			
+
 			return grouped;
 		}
 	},
 
 	async created() {
 		this.loading = true;
-
 		// Uncomment to remove mock loading screen
 		// api.mockLoadTime = 0;
 
@@ -528,10 +536,48 @@ export default {
 			});
 		}
 
+		if (this.editAgent) {
+			this.loadingStatusText = `Retrieving agent "${this.editAgent}"...`;
+			const agent = await api.getAgent(this.editAgent);
+			this.loadingStatusText = `Mapping agent values to form...`;
+			this.mapAgentToForm(agent);
+		}
+
 		this.loading = false;
 	},
 
 	methods: {
+		mapAgentToForm(agent) {
+			this.agentName = agent.name || this.agentName;
+			this.agentDescription = agent.description || this.agentDescription;
+			this.agentType = agent.type || this.agentType;
+
+			this.selectedIndexSource =
+				this.indexSources.find((indexSource) => indexSource.ObjectId === agent.indexing_profile) ||
+				null;
+
+			this.selectedDataSource =
+				this.dataSources.find((dataSource) => dataSource.ObjectId === agent.embedding_profile) ||
+				null;
+
+			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
+			this.conversationMaxMessages = agent.conversation_history?.max_history || his.conversationMaxMessages;
+
+			this.gatekeeperEnabled = Boolean(agent.gatekeeper?.use_system_setting);
+
+			this.gatekeeperContentSafety =
+				this.gatekeeperContentSafetyOptions.find((localOption) =>
+					agent.gatekeeper.options.find((option) => option === localOption.value),
+				) || this.gatekeeperContentSafety;
+
+			this.gatekeeperDataProtection =
+				this.gatekeeperDataProtectionOptions.find((localOption) =>
+					agent.gatekeeper.options.find((option) => option === localOption.value),
+				) || this.gatekeeperDataProtection;
+
+			this.systemPrompt = agent.prompt || this.systemPrompt;
+		},
+
 		resetForm() {
 			for (const key in defaultFormValues) {
 				this[key] = defaultFormValues[key];
@@ -592,51 +638,55 @@ export default {
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
 
+			const agentRequest = {
+				name: this.agentName,
+				description: this.agentDescription,
+				type: this.agentType,
+
+				embedding_profile: this.selectedDataSource?.ObjectId,
+				indexing_profile: this.selectedIndexSource?.ObjectId,
+
+				conversation_history: {
+					enabled: this.conversationHistory,
+					max_history: this.conversationMaxMessages,
+				},
+
+				gatekeeper: {
+					use_system_setting: this.gatekeeperEnabled,
+					options: [
+						this.gatekeeperContentSafety.value,
+						this.gatekeeperDataProtection.value,
+					].filter(option => option !== null),
+				},
+
+				prompt: this.systemPrompt,
+			};
+
+			let successMessage = null;
 			try {
-				await api.createAgent({
-					name: this.agentName,
-					description: this.agentDescription,
-					type: this.agentType,
-
-					embedding_profile: this.selectedDataSource?.ObjectId,
-					indexing_profile: this.selectedIndexSource?.ObjectId,
-
-					// embedding_profile: string;
-					// sessions_enabled: boolean;
-					// orchestrator: string;
-
-					conversation_history: {
-						enabled: this.conversationHistory,
-						max_history: this.conversationMaxMessages,
-					},
-
-					gatekeeper: {
-						use_system_setting: this.gatekeeperEnabled,
-						options: [
-							this.gatekeeperContentSafety.value,
-							this.gatekeeperDataProtection.value,
-						].filter(option => option !== null),
-					},
-
-					prompt: this.systemPrompt,
-				});
+				if (this.editAgent) {
+					await api.updateAgent(this.editAgent, agentRequest);
+					successMessage = `Agent "${this.agentName}" was succesfully updated!`;
+				} else {
+					await api.createAgent(agentRequest);
+					successMessage = `Agent "${this.agentName}" was succesfully created!`;
+					this.resetForm();
+				}
 			} catch(error) {
 				this.loading = false;
 				return this.$toast.add({
 					severity: 'error',
-					detail: 'There was an error creating the agent. Please check the settings and try again.',
+					detail: error?.response?._data || error,
 					life: 5000,
 				});
 			}
 
 			this.$toast.add({
 				severity: 'success',
-				detail: `Agent "${this.agentName}" was succesfully created!`,
+				detail: successMessage,
 			});
 
 			this.loading = false;
-
-			this.resetForm();
 		},
 	},
 };
@@ -821,5 +871,11 @@ $editStepPadding: 16px;
 .step-option__header {
 	text-decoration: underline;
 	margin-right: 8px;
+}
+
+.primary-button {
+	background-color: var(--primary-button-bg)!important;
+	border-color: var(--primary-button-bg)!important;
+	color: var(--primary-button-text)!important;
 }
 </style>

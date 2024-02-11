@@ -40,17 +40,6 @@ If you wish to [configure authentication in Postman](../../development/directly-
 
 3. Select **Configure** to apply the changes.
 
-#### Client secret for the client application
-
-1. Under **Manage**, select **Certificates & secrets**.
-2. Under **Client secrets**, select **+ New client secret**.
-3. For **Description**, enter a description for the secret. For example, enter *FoundationaLLM-VectorizationClient*.
-4. Select a desired expiration date.
-5. Select **Add**.
-6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
-
-    ![The steps to create a client secret are highlighted.](media/entra-vectorization-client-app-secret.png)
-
 #### Update the client application manifest
 
 1. Under **Manage**, select **Manifest**.
