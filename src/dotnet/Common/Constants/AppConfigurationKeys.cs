@@ -756,6 +756,10 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Instance = "FoundationaLLM:Instance:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:Configuration:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Configuration = "FoundationaLLM:Configuration:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:Branding:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Branding = "FoundationaLLM:Branding:*";

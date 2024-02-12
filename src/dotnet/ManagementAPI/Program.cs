@@ -27,6 +27,7 @@ using Polly;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using FoundationaLLM.Configuration.Services;
 
 namespace FoundationaLLM.Management.API
 {
@@ -57,6 +58,7 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
             });
 
             if (builder.Environment.IsDevelopment())
@@ -70,6 +72,12 @@ namespace FoundationaLLM.Management.API
                 clientBuilder.AddConfigurationClient(
                     builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
             });
+
+            builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
+            builder.Services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
+            builder.Services.AddSingleton<IConfigurationHealthChecks, ConfigurationHealthChecks>();
+            //builder.Services.AddConfigurationHealthChecks(builder.Configuration);
+            builder.Services.AddHostedService<ConfigurationHealthCheckService>();
 
             var allowAllCorsOrigins = "AllowAllOrigins";
             builder.Services.AddCors(policyBuilder =>
@@ -104,10 +112,6 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
-
-            builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
-            builder.Services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
-            builder.Services.AddSingleton<IConfigurationHealthChecks, ConfigurationHealthChecks>();
 
             //----------------------------
             // Resource providers
@@ -214,8 +218,6 @@ namespace FoundationaLLM.Management.API
                 .AddSwaggerGenNewtonsoftSupport();
 
             var app = builder.Build();
-
-            await PerformConfigurationHealthChecks(app);
 
             // Set the CORS policy before other middleware.
             app.UseCors(allowAllCorsOrigins);
@@ -415,80 +417,5 @@ namespace FoundationaLLM.Management.API
             });
         }
 
-        /// <summary>
-        /// Performs the configuration health checks.
-        /// </summary>
-        /// <param name="app"></param>
-        /// <returns></returns>
-        public static async Task PerformConfigurationHealthChecks(WebApplication app)
-        {
-            var version = app.Configuration[EnvironmentVariables.FoundationaLLM_Version];
-            var healthChecks = app.Services.GetRequiredService<ConfigurationHealthChecks>();
-
-            var missingConfigurations = new List<string>();
-            var missingKeyVaultSecrets = new List<string>();
-            var missingEnvironmentVariables = new List<string>();
-
-            // Environment Variables Check.
-            try
-            {
-                healthChecks.ValidateEnvironmentVariables();
-            }
-            catch (ConfigurationValidationException ex)
-            {
-                if (ex.MissingEnvironmentVariables != null)
-                {
-                    missingEnvironmentVariables.AddRange(ex.MissingEnvironmentVariables!);
-                }
-            }
-
-            // App Configuration Check.
-            try
-            {
-                await healthChecks.ValidateConfigurationsAsync(version);
-            }
-            catch (ConfigurationValidationException ex)
-            {
-                if (ex.MissingConfigurations != null)
-                {
-                    missingConfigurations.AddRange(ex.MissingConfigurations!);
-                }
-            }
-
-            // Key Vault Secrets Check.
-            try
-            {
-                await healthChecks.ValidateKeyVaultSecretsAsync(version);
-            }
-            catch (ConfigurationValidationException ex)
-            {
-                if (ex.MissingKeyVaultSecrets != null)
-                {
-                    missingKeyVaultSecrets.AddRange(ex.MissingKeyVaultSecrets!);
-                }
-            }
-
-            // Check if any errors were accumulated across the checks
-            if (missingConfigurations.Count != 0 || missingKeyVaultSecrets.Count != 0 || missingEnvironmentVariables.Count != 0)
-            {
-                Console.WriteLine("Configuration validation failed:");
-
-                foreach (var missingConfig in missingConfigurations)
-                {
-                    Console.WriteLine($"Missing Configuration: {missingConfig}");
-                }
-                foreach (var missingSecret in missingKeyVaultSecrets)
-                {
-                    Console.WriteLine($"Missing Key Vault Secret: {missingSecret}");
-                }
-                foreach (var missingVar in missingEnvironmentVariables)
-                {
-                    Console.WriteLine($"Missing Environment Variable: {missingVar}");
-                }
-
-                // Halt the application since critical configurations or secrets are missing.
-                Environment.Exit(1);
-            }
-        }
     }
 }
