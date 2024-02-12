@@ -41,7 +41,7 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
         /// <param name="request">The completion request containing the user prompt and message history.</param>
         /// <returns>The completion response.</returns>
         [HttpPost("completion")]
-        public async Task<LLMOrchestrationCompletionResponse> GetCompletion([FromBody] dynamic request)
+        public async Task<LLMCompletionResponse> GetCompletion([FromBody] dynamic request)
         {
             var expandoObject = JsonConvert.DeserializeObject<ExpandoObject>(request.ToString(), new ExpandoObjectConverter());
 

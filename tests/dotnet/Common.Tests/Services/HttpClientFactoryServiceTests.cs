@@ -39,7 +39,7 @@ namespace FoundationaLLM.Common.Tests.Services
                 Username = "TestUsername",
                 Name = "TestName"
             };
-            var agentHint = new Agent
+            var agentHint = new AgentHint
             {
                 Name = "TestAgentHint",
                 Private = false

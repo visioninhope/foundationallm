@@ -12,7 +12,7 @@ namespace FoundationaLLM.Common.Models.Metadata
     /// Represents the name and privacy of a FoundationaLLM agent.
     /// Used as a reference in the <see cref="UserProfile"/> class.
     /// </summary>
-    public class Agent
+    public class AgentHint
     {
         /// <summary>
         /// The name of the agent.

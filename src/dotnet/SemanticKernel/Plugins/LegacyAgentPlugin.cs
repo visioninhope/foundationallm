@@ -25,7 +25,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
         }
 
         /// <inheritdoc/>
-        public async Task<LLMOrchestrationCompletionResponse> GetCompletion(LegacyOrchestrationCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(LegacyOrchestrationCompletionRequest request)
         {
             var kernel = CreateKernel(request.LanguageModel!);
 
@@ -35,7 +35,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
             var result = await chatCompletionService.GetChatMessageContentAsync(request.UserPrompt!, new PromptExecutionSettings() { ModelId = modelVersion });
             var usage = result.Metadata!["Usage"] as CompletionsUsage;
 
-            return new LLMOrchestrationCompletionResponse()
+            return new LLMCompletionResponse()
             {
                 Completion = result.Content,
                 UserPrompt = request.UserPrompt,

@@ -78,7 +78,7 @@ public class AgentHubAPIService : APIServiceBase, IAgentHubAPIService
             if (!string.IsNullOrWhiteSpace(agentHintOverride))
             {
                 var agentHint = JsonConvert.SerializeObject(
-                    new FoundationaLLM.Common.Models.Metadata.Agent { Name = agentHintOverride },
+                    new FoundationaLLM.Common.Models.Metadata.AgentHint { Name = agentHintOverride },
                     _jsonSerializerSettings);
                 client.DefaultRequestHeaders.Add(HttpHeaders.AgentHint, agentHint);
             }

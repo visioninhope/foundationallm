@@ -5,7 +5,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
     /// <summary>
     /// Base LLM orchestration request
     /// </summary>
-    public class LLMOrchestrationCompletionRequest
+    public class LLMCompletionRequest
     {
         /// <summary>
         /// The session ID.

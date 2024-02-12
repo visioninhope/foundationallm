@@ -19,6 +19,6 @@ namespace FoundationaLLM.AgentFactory.Interfaces
         /// </summary>
         /// <param name="request">Hub populated request object containing agent, prompt, language model, and data source information</param>
         /// <returns></returns>
-        Task<LLMOrchestrationCompletionResponse> GetCompletion(LLMOrchestrationCompletionRequest request);
+        Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request);
     }
 }

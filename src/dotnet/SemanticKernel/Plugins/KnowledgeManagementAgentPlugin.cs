@@ -25,7 +25,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
         }
 
         /// <inheritdoc/>
-        public async Task<LLMOrchestrationCompletionResponse> GetCompletion(KnowledgeManagementCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(KnowledgeManagementCompletionRequest request)
         {
             var kernel = CreateKernel(request.Agent.LanguageModel!);
 
@@ -73,7 +73,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
             if (messageHistoryEnabled)
                 history.AddAssistantMessage(result.Content!);
 
-            return new LLMOrchestrationCompletionResponse()
+            return new LLMCompletionResponse()
             {
                 Completion = result.Content,
                 UserPrompt = request.UserPrompt,

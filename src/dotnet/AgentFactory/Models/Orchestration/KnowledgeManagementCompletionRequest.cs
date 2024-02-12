@@ -7,7 +7,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration
     /// <summary>
     /// The Knowledge Management Completion Request model.
     /// </summary>
-    public class KnowledgeManagementCompletionRequest : LLMOrchestrationCompletionRequest
+    public class KnowledgeManagementCompletionRequest : LLMCompletionRequest
     {
         /// <summary>
         /// The Knowledge Management agent metadata.

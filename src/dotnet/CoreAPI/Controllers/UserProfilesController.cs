@@ -63,9 +63,9 @@ namespace FoundationaLLM.Core.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("agents", Name = "GetAgents")]
-        public async Task<IEnumerable<Common.Models.Metadata.Agent>> GetAgents()
+        public async Task<IEnumerable<Common.Models.Metadata.AgentHint>> GetAgents()
         {
-            var agents = new List<Common.Models.Metadata.Agent>();
+            var agents = new List<Common.Models.Metadata.AgentHint>();
             var legacyAgentsList = _settings.AllowAgentSelection;
             var globalAgentsList = await _agentResourceProvider.GetResourcesAsync<AgentReference>($"/{AgentResourceTypeNames.AgentReferences}");
             UserProfile? userProfile;
@@ -81,7 +81,7 @@ namespace FoundationaLLM.Core.API.Controllers
             
             if (globalAgentsList.Any())
             {
-                agents.AddRange(globalAgentsList.Select(globalAgent => new Common.Models.Metadata.Agent {Name = globalAgent.Name, Private = false}));
+                agents.AddRange(globalAgentsList.Select(globalAgent => new Common.Models.Metadata.AgentHint {Name = globalAgent.Name, Private = false}));
             }
 
             if (!string.IsNullOrWhiteSpace(legacyAgentsList))
@@ -92,14 +92,14 @@ namespace FoundationaLLM.Core.API.Controllers
                 {
                     if (agents.All(agent => agent.Name != legacyAgent.Trim()))
                     {
-                        agents.Add(new Common.Models.Metadata.Agent { Name = legacyAgent.Trim(), Private = false });
+                        agents.Add(new Common.Models.Metadata.AgentHint { Name = legacyAgent.Trim(), Private = false });
                     }
                 }
             }
 
             if (userProfile?.PrivateAgents != null)
             {
-                agents.AddRange(userProfile.PrivateAgents.Select(agent => new Common.Models.Metadata.Agent { Name = agent.Name, Private = true}));
+                agents.AddRange(userProfile.PrivateAgents.Select(agent => new Common.Models.Metadata.AgentHint { Name = agent.Name, Private = true}));
             }
 
             return agents;

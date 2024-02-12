@@ -13,7 +13,7 @@ namespace FoundationaLLM.Common.Models.Context
     public class CallContext : ICallContext
     {
         /// <inheritdoc/>
-        public Agent? AgentHint { get; set; }
+        public AgentHint? AgentHint { get; set; }
         /// <inheritdoc/>
         public UnifiedUserIdentity? CurrentUserIdentity { get; set; }
         /// <inheritdoc/>

@@ -56,7 +56,7 @@ namespace FoundationaLLM.Common.Middleware
             var agentHint = context.Request.Headers[Constants.HttpHeaders.AgentHint].FirstOrDefault();
             if (!string.IsNullOrWhiteSpace(agentHint))
             {
-                callContext.AgentHint = JsonConvert.DeserializeObject<Agent>(agentHint);
+                callContext.AgentHint = JsonConvert.DeserializeObject<AgentHint>(agentHint);
             }
 
             callContext.InstanceId = context.Request.RouteValues["instanceId"] as string;

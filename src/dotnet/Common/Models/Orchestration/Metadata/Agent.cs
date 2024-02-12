@@ -1,5 +1,5 @@
 ﻿using FoundationaLLM.Common.Models.Metadata;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration.Metadata
 {
@@ -11,13 +11,13 @@ namespace FoundationaLLM.Common.Models.Orchestration.Metadata
         /// <summary>
         /// The prompt prefix to assign the agent.
         /// </summary>
-        [JsonProperty("prompt_prefix")]
+        [JsonPropertyName("prompt_prefix")]
         public string? PromptPrefix { get; set; }
 
         /// <summary>
         /// The prompt suffix to assign the agent.
         /// </summary>
-        [JsonProperty("prompt_suffix")]
+        [JsonPropertyName("prompt_suffix")]
         public string? PromptSuffix { get; set; }
     }
 }

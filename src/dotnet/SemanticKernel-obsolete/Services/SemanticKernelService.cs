@@ -155,7 +155,7 @@ public class SemanticKernelService : ISemanticKernelService
     /// </summary>
     /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
     /// <returns>Returns a completion response from the orchestration engine.</returns>
-    public async Task<LLMOrchestrationCompletionResponse> GetCompletion(LLMOrchestrationCompletionRequest request)
+    public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
     {
         await EnsureShortTermMemory();
 
@@ -204,7 +204,7 @@ public class SemanticKernelService : ISemanticKernelService
         var reply = await completionResults[0].GetChatMessageAsync();
         var rawResult = (completionResults[0] as ITextResult)!.ModelResult.GetOpenAIChatResult();
 
-        return new LLMOrchestrationCompletionResponse() { Completion = reply.Content };
+        return new LLMCompletionResponse() { Completion = reply.Content };
     }
 
     /// <summary>

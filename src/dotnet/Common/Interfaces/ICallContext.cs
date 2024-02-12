@@ -24,7 +24,7 @@ namespace FoundationaLLM.Common.Interfaces
         /// <summary>
         /// The current agent hint. If empty, there is no associated header value.
         /// </summary>
-        Agent? AgentHint { get; set; }
+        AgentHint? AgentHint { get; set; }
 
         /// <summary>
         /// The current <see cref="UnifiedUserIdentity"/> object resolved

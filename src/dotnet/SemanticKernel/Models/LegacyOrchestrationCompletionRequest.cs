@@ -10,7 +10,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Models
     /// Contains the metadata needed by the orchestration services
     /// to build and execute completions.
     /// </summary>
-    public class LegacyOrchestrationCompletionRequest : LLMOrchestrationCompletionRequest
+    public class LegacyOrchestrationCompletionRequest : LLMCompletionRequest
     {
         /// <summary>
         /// Agent metadata

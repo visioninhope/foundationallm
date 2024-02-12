@@ -15,6 +15,6 @@ namespace FoundationaLLM.SemanticKernel.Core.Interfaces
         /// </summary>
         /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
         /// <returns>Returns a completion response from the orchestration engine.</returns>
-        Task<LLMOrchestrationCompletionResponse> GetCompletion(LegacyOrchestrationCompletionRequest request);
+        Task<LLMCompletionResponse> GetCompletion(LegacyOrchestrationCompletionRequest request);
     }
 }

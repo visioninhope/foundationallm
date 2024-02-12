@@ -17,7 +17,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
     /// </summary>
     public class LegacyOrchestration : OrchestrationBase
     {
-        private LegacyOrchestrationCompletionRequest _completionRequestTemplate = null!;
+        private LegacyCompletionRequest _completionRequestTemplate = null!;
         private readonly ICacheService _cacheService;
         private readonly ICallContext _callContext;
         private readonly ILogger<LegacyOrchestration> _logger;
@@ -184,7 +184,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
             }
 
             //create LLMOrchestrationCompletionRequest template
-            _completionRequestTemplate = new LegacyOrchestrationCompletionRequest()
+            _completionRequestTemplate = new LegacyCompletionRequest()
             {
                 UserPrompt = null, // to be filled in GetCompletion / GetSummary
                 Agent = new FoundationaLLM.Common.Models.Orchestration.Metadata.Agent

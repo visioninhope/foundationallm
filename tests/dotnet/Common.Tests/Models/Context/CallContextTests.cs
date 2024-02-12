@@ -12,7 +12,7 @@ namespace FoundationaLLM.Common.Tests.Models.Context
         {
             // Arrange
             var callContext = new CallContext();
-            var agentHint = new Agent
+            var agentHint = new AgentHint
             {
                 Name = "TestAgentHint",
                 Private = false

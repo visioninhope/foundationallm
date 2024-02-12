@@ -48,7 +48,7 @@ namespace FoundationaLLM.AgentFactory.Services
         /// </summary>
         /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
         /// <returns>Returns a completion response from the orchestration engine.</returns>
-        public async Task<LLMOrchestrationCompletionResponse> GetCompletion(LLMOrchestrationCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
         {
             var agentName = string.Empty;
             var promptTemplate = string.Empty;
@@ -58,7 +58,7 @@ namespace FoundationaLLM.AgentFactory.Services
                 case KnowledgeManagementCompletionRequest kmcr:
                     agentName = kmcr.Agent.Name;
                     break;
-                case LegacyOrchestrationCompletionRequest lcr:
+                case LegacyCompletionRequest lcr:
                     agentName = lcr.Agent?.Name;
                     promptTemplate = lcr.Agent?.PromptPrefix;
                     break;
@@ -77,9 +77,9 @@ namespace FoundationaLLM.AgentFactory.Services
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                var completionResponse = JsonConvert.DeserializeObject<LLMOrchestrationCompletionResponse>(responseContent);
+                var completionResponse = JsonConvert.DeserializeObject<LLMCompletionResponse>(responseContent);
 
-                return new LLMOrchestrationCompletionResponse
+                return new LLMCompletionResponse
                 {
                     Completion = completionResponse!.Completion,
                     UserPrompt = completionResponse.UserPrompt,
@@ -93,7 +93,7 @@ namespace FoundationaLLM.AgentFactory.Services
 
             _logger.LogWarning($"The LangChain orchestration service returned status code {responseMessage.StatusCode}: {responseContent}");
 
-            return new LLMOrchestrationCompletionResponse
+            return new LLMCompletionResponse
             {
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = request.UserPrompt,

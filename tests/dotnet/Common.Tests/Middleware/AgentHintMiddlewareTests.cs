@@ -71,7 +71,7 @@ namespace FoundationaLLM.Common.Tests.Middleware
             var callContext = Substitute.For<ICallContext>();
             var instanceSettings = Options.Create<InstanceSettings>(Substitute.For<InstanceSettings>());
             var middleware = new CallContextMiddleware(next: _ => Task.FromResult(0));
-            var agentHint = new Agent
+            var agentHint = new AgentHint
             {
                 Name = "test-agent-hint",
                 Private = false
@@ -82,7 +82,7 @@ namespace FoundationaLLM.Common.Tests.Middleware
             await middleware.InvokeAsync(context, claimsProviderService, callContext, instanceSettings);
 
             // Assert
-            callContext.Received(1).AgentHint = Arg.Is<Agent>(x => x.Name == agentHint.Name && x.Private == agentHint.Private);
+            callContext.Received(1).AgentHint = Arg.Is<AgentHint>(x => x.Name == agentHint.Name && x.Private == agentHint.Private);
         }
     }
 }

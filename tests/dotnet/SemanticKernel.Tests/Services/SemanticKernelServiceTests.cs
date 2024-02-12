@@ -32,7 +32,7 @@ namespace FoundationaLLM.SemanticKernel.Tests.Services
         public async Task GetCompletion_ShouldReturnACompletionForAPrompt()
         {
             // Arrange
-            var completionRequest = new LLMOrchestrationCompletionRequest()
+            var completionRequest = new LLMCompletionRequest()
             {
                 UserPrompt = "This is a prompt."
             };

@@ -5,7 +5,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
     /// <summary>
     /// LLMOrchestrationCompletionResponse class
     /// </summary>
-    public class LLMOrchestrationCompletionResponse
+    public class LLMCompletionResponse
     {
         /// <summary>
         /// The completion response from the orchestration engine.
