@@ -11,6 +11,13 @@
         /// <param name="key">The App Configuration setting key.</param>
         /// <returns></returns>
         Task<string?> GetConfigurationSettingAsync(string key);
+
+        /// <summary>
+        /// Sets the value of a configuration setting in Azure App Configuration.
+        /// </summary>
+        /// <param name="key">The App Configuration setting key.</param>
+        /// <param name="value">The value to set.</param>
+        /// <returns></returns>
         Task SetConfigurationSettingAsync(string key, string value);
 
         /// <summary>
