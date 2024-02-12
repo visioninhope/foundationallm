@@ -594,10 +594,6 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_PromptHub_StorageManager_BlobStorage_ConnectionString = "FoundationaLLM:PromptHub:StorageManager:BlobStorage:ConnectionString";
         /// <summary>
-        /// The key for the FoundationaLLM:Refinement app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_Refinement = "FoundationaLLM:Refinement";
-        /// <summary>
         /// The key for the FoundationaLLM:SemanticKernelAPI:OpenAI:Key app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>

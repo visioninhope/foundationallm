@@ -2,11 +2,9 @@ using Asp.Versioning;
 using Azure.Identity;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
-using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
@@ -24,7 +22,6 @@ using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using Polly;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FoundationaLLM.Configuration.Services;
@@ -72,11 +69,13 @@ namespace FoundationaLLM.Management.API
                 clientBuilder.AddConfigurationClient(
                     builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
             });
+            // Configure logging to filter out Azure Core and Azure Key Vault informational logs.
+            builder.Logging.AddFilter("Azure.Core", LogLevel.Warning);
+            builder.Logging.AddFilter("Azure.Security.KeyVault.Secrets", LogLevel.Warning);
 
             builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
             builder.Services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
             builder.Services.AddSingleton<IConfigurationHealthChecks, ConfigurationHealthChecks>();
-            //builder.Services.AddConfigurationHealthChecks(builder.Configuration);
             builder.Services.AddHostedService<ConfigurationHealthCheckService>();
 
             var allowAllCorsOrigins = "AllowAllOrigins";
