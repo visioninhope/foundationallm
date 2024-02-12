@@ -9,6 +9,8 @@ using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Services;
 using Microsoft.Extensions.Logging;
 using Azure.Security.KeyVault.Secrets;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Configuration.Interfaces;
 
 namespace FoundationaLLM.Configuration.Validation
 {
@@ -18,17 +20,13 @@ namespace FoundationaLLM.Configuration.Validation
     public class ConfigurationHealthChecks(
         IAzureAppConfigurationService azureAppConfigurationService,
         IAzureKeyVaultService azureKeyVaultService,
-        ILogger<ConfigurationHealthChecks> logger)
+        ILogger<ConfigurationHealthChecks> logger) : IConfigurationHealthChecks
     {
         private readonly IAzureAppConfigurationService _azureAppConfigurationService = azureAppConfigurationService;
         private readonly IAzureKeyVaultService _azureKeyVaultService = azureKeyVaultService;
         private readonly ILogger<ConfigurationHealthChecks> _logger = logger;
 
-        /// <summary>
-        /// Validates the application's configuration settings.
-        /// </summary>
-        /// <param name="version">The current app version.</param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task ValidateConfigurationsAsync(string version)
         {
             var requiredEntries = AppConfigurationCatalog.GetRequiredConfigurationsForVersion(version);
@@ -67,12 +65,7 @@ namespace FoundationaLLM.Configuration.Validation
             }
         }
 
-        /// <summary>
-        /// Validates the application's Key Vault secrets.
-        /// </summary>
-        /// <param name="version">The current app version.</param>
-        /// <returns></returns>
-        /// <exception cref="ConfigurationValidationException"></exception>
+        /// <inheritdoc/>
         public async Task ValidateKeyVaultSecretsAsync(string version)
         {
             var requiredSecrets = KeyVaultSecretsCatalog.GetRequiredKeyVaultSecretsForVersion(version);

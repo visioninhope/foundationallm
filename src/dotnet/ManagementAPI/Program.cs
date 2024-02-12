@@ -2,6 +2,7 @@ using Asp.Versioning;
 using Azure.Identity;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
@@ -11,6 +12,8 @@ using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Configuration.Interfaces;
+using FoundationaLLM.Configuration.Validation;
 using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Management.Services;
@@ -35,7 +38,7 @@ namespace FoundationaLLM.Management.API
         /// <summary>
         /// Management API service configuration.
         /// </summary>
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +47,7 @@ namespace FoundationaLLM.Management.API
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
+                options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options => { options.SetCredential(new DefaultAzureCredential()); });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
@@ -65,7 +68,7 @@ namespace FoundationaLLM.Management.API
                 clientBuilder.AddSecretClient(new Uri(keyVaultUri!))
                     .WithCredential(new DefaultAzureCredential());
                 clientBuilder.AddConfigurationClient(
-                    builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
+                    builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
             });
 
             var allowAllCorsOrigins = "AllowAllOrigins";
@@ -87,7 +90,7 @@ namespace FoundationaLLM.Management.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Branding));
             builder.Services.AddOptions<AppConfigurationSettings>()
                 .Configure(o =>
-                    o.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]!);
+                    o.ConnectionString = builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]!);
 
             builder.Services.AddInstanceProperties(builder.Configuration);
 
@@ -104,6 +107,7 @@ namespace FoundationaLLM.Management.API
 
             builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
             builder.Services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
+            builder.Services.AddSingleton<IConfigurationHealthChecks, ConfigurationHealthChecks>();
 
             //----------------------------
             // Resource providers
@@ -210,6 +214,8 @@ namespace FoundationaLLM.Management.API
                 .AddSwaggerGenNewtonsoftSupport();
 
             var app = builder.Build();
+
+            await PerformConfigurationHealthChecks(app);
 
             // Set the CORS policy before other middleware.
             app.UseCors(allowAllCorsOrigins);
@@ -407,6 +413,39 @@ namespace FoundationaLLM.Management.API
                         requiredScope.Split(' '));
                 });
             });
+        }
+
+        /// <summary>
+        /// Performs the configuration health checks.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static async Task PerformConfigurationHealthChecks(WebApplication app)
+        {
+            var version = app.Configuration[EnvironmentVariables.FoundationaLLM_Version];
+            var healthChecks = app.Services.GetRequiredService<ConfigurationHealthChecks>();
+
+            try
+            {
+                await healthChecks.ValidateConfigurationsAsync(version);
+                await healthChecks.ValidateKeyVaultSecretsAsync(version);
+            }
+            catch (ConfigurationValidationException ex)
+            {
+                // Log the details of the exception and decide whether to continue or halt.
+                Console.WriteLine(ex.Message);
+                foreach (var missingConfig in ex.MissingConfigurations)
+                {
+                    Console.WriteLine($"Missing Configuration: {missingConfig}");
+                }
+                foreach (var missingSecret in ex.MissingKeyVaultSecrets)
+                {
+                    Console.WriteLine($"Missing Key Vault Secret: {missingSecret}");
+                }
+
+                // Optionally, halt the application if critical configurations or secrets are missing.
+                // Environment.Exit(1); or throw;
+            }
         }
     }
 }
