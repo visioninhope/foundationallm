@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class StringExtensions | FoundationaLLM </title>
+      <title>Class EventSetEventArgs | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class StringExtensions | FoundationaLLM ">
+      <meta name="title" content="Class EventSetEventArgs | FoundationaLLM ">
       
-      <meta name="description" content="Extends  with helper methods.">
+      <meta name="description" content="Event arguments required for event set event delegates.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Extensions_StringExtensions.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Extensions.StringExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_Events_EventSetEventArgs.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.Events.EventSetEventArgs%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,25 +84,25 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Common.Extensions.StringExtensions">
+        <article data-uid="FoundationaLLM.Common.Models.Events.EventSetEventArgs">
 
 
 
-  <h1 id="FoundationaLLM_Common_Extensions_StringExtensions" data-uid="FoundationaLLM.Common.Extensions.StringExtensions" class="text-break">
-Class StringExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/StringExtensions.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Common_Models_Events_EventSetEventArgs" data-uid="FoundationaLLM.Common.Models.Events.EventSetEventArgs" class="text-break">
+Class EventSetEventArgs  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Events/EventSetEventArgs.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Extensions.html">Extensions</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Common.Models.Events.html">Events</a></dd></dl>
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Extends <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> with helper methods.</p>
+  <div class="markdown summary"><p>Event arguments required for event set event delegates.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class StringExtensions</code></pre>
+    <pre><code class="lang-csharp hljs">public class EventSetEventArgs : EventArgs</code></pre>
   </div>
 
 
@@ -112,7 +112,8 @@ Class StringExtensions  <a class="header-action link-secondary" title="View sour
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">StringExtensions</span></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a></div>
+      <div><span class="xref">EventSetEventArgs</span></div>
     </dd>
   </dl>
 
@@ -121,6 +122,9 @@ Class StringExtensions  <a class="header-action link-secondary" title="View sour
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs.empty">EventArgs.Empty</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -144,37 +148,74 @@ Class StringExtensions  <a class="header-action link-secondary" title="View sour
     </div>
   </dd></dl>
 
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="FoundationaLLM.Core.Utils.ObjectExtensions.html#FoundationaLLM_Core_Utils_ObjectExtensions_GetPropertyValues_System_Object_System_Collections_Generic_List_System_String__">ObjectExtensions.GetPropertyValues(object, List&lt;string&gt;)</a>
+  </div>
+  </dd></dl>
 
 
 
 
 
-  <h2 class="section" id="methods">Methods
+  <h2 class="section" id="properties">Properties
 </h2>
 
 
-  <a id="FoundationaLLM_Common_Extensions_StringExtensions_FromKnownNeutralUrl_" data-uid="FoundationaLLM.Common.Extensions.StringExtensions.FromKnownNeutralUrl*"></a>
+  <a id="FoundationaLLM_Common_Models_Events_EventSetEventArgs_Events_" data-uid="FoundationaLLM.Common.Models.Events.EventSetEventArgs.Events*"></a>
 
-  <h3 id="FoundationaLLM_Common_Extensions_StringExtensions_FromKnownNeutralUrl_System_String_" data-uid="FoundationaLLM.Common.Extensions.StringExtensions.FromKnownNeutralUrl(System.String)">
-  FromKnownNeutralUrl(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/StringExtensions.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Events_EventSetEventArgs_Events" data-uid="FoundationaLLM.Common.Models.Events.EventSetEventArgs.Events">
+  Events
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Events/EventSetEventArgs.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Translates a URL into its neutral form.</p>
+  <div class="markdown level1 summary"><p>The list of subjects associated with the event.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string FromKnownNeutralUrl(this string url)</code></pre>
+    <pre><code class="lang-csharp hljs">public required IList&lt;CloudEvent&gt; Events { get; set; }</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
+
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><code>url</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/azure.messaging.cloudevent">CloudEvent</a>&gt;</dt>
     <dd></dd>
   </dl>
 
-  <h4 class="section">Returns</h4>
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_Events_EventSetEventArgs_Namespace_" data-uid="FoundationaLLM.Common.Models.Events.EventSetEventArgs.Namespace*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Events_EventSetEventArgs_Namespace" data-uid="FoundationaLLM.Common.Models.Events.EventSetEventArgs.Namespace">
+  Namespace
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Events/EventSetEventArgs.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The namespace associated with the event set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public required string Namespace { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
@@ -188,13 +229,10 @@ Class StringExtensions  <a class="header-action link-secondary" title="View sour
 
 
 
-
-
-
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/StringExtensions.cs/#L13" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Events/EventSetEventArgs.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -157,7 +157,7 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 
   <h3 id="FoundationaLLM_DependencyInjection_AddAgentResourceProvider_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_" data-uid="FoundationaLLM.DependencyInjection.AddAgentResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)">
   AddAgentResourceProvider(IServiceCollection, IConfigurationManager)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/ResourceProviders/DependencyInjection.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/ResourceProviders/DependencyInjection.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Register the handler as a hosted service, passing the step name to the handler ctor</p>
@@ -174,7 +174,47 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
     <dd><p>Application builder service collection</p>
 </dd>
     <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationmanager">IConfigurationManager</a></dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationmanager">IConfigurationManager</a> providing configuration services.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_DependencyInjection_AddAzureEventGridEvents_" data-uid="FoundationaLLM.DependencyInjection.AddAzureEventGridEvents*"></a>
+
+  <h3 id="FoundationaLLM_DependencyInjection_AddAzureEventGridEvents_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_System_String_" data-uid="FoundationaLLM.DependencyInjection.AddAzureEventGridEvents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager,System.String)">
+  AddAzureEventGridEvents(IServiceCollection, IConfigurationManager, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/Events/DependencyInjection.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Register the dependencies required to support Azure Event Grid events.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddAzureEventGridEvents(this IServiceCollection services, IConfigurationManager configuration, string eventGridProfileSection)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd><p>Application builder service collection.</p>
+</dd>
+    <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationmanager">IConfigurationManager</a></dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationmanager">IConfigurationManager</a> providing access to configuration.</p>
+</dd>
+    <dt><code>eventGridProfileSection</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the configuration section that contains the Event Grid profile to load.</p>
+</dd>
   </dl>
 
 
@@ -228,7 +268,7 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 
   <h3 id="FoundationaLLM_DependencyInjection_AddPromptResourceProvider_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_" data-uid="FoundationaLLM.DependencyInjection.AddPromptResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)">
   AddPromptResourceProvider(IServiceCollection, IConfigurationManager)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/DependencyInjection.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/DependencyInjection.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Register the handler as a hosted service, passing the step name to the handler ctor</p>
@@ -245,7 +285,8 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
     <dd><p>Application builder service collection</p>
 </dd>
     <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationmanager">IConfigurationManager</a></dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationmanager">IConfigurationManager</a> providing access to configuration.</p>
+</dd>
   </dl>
 
 

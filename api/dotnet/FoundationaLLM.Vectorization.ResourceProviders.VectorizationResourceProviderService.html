@@ -102,7 +102,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class VectorizationResourceProviderService : ResourceProviderServiceBase, IResourceProviderService</code></pre>
+    <pre><code class="lang-csharp hljs">public class VectorizationResourceProviderService : ResourceProviderServiceBase, IResourceProviderService, IManagementProviderService</code></pre>
   </div>
 
 
@@ -121,6 +121,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
     <dt>Implements</dt>
     <dd>
       <div><a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Interfaces.IManagementProviderService.html">IManagementProviderService</a></div>
     </dd>
   </dl>
 
@@ -130,6 +131,9 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
     <dd>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__storageService">ResourceProviderServiceBase._storageService</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__eventService">ResourceProviderServiceBase._eventService</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__logger">ResourceProviderServiceBase._logger</a>
@@ -150,16 +154,19 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_IsInitialized">ResourceProviderServiceBase.IsInitialized</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_ExecuteAction_System_String_">ResourceProviderServiceBase.ExecuteAction(string)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleGetAsync_System_String_">ResourceProviderServiceBase.HandleGetAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandlePostAsync_System_String_System_String_">ResourceProviderServiceBase.HandlePostAsync(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleDeleteAsync_System_String_">ResourceProviderServiceBase.HandleDeleteAsync(string)</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResources__1_System_String_">ResourceProviderServiceBase.GetResources&lt;T&gt;(string)</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsync__1_System_String_">ResourceProviderServiceBase.GetResourcesAsync&lt;T&gt;(string)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsync_System_String_">ResourceProviderServiceBase.GetResourcesAsync(string)</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResource__1_System_String_">ResourceProviderServiceBase.GetResource&lt;T&gt;(string)</a>
@@ -171,16 +178,10 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__1_System_String___0_">ResourceProviderServiceBase.UpsertResourceAsync&lt;T&gt;(string, T)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync_System_String_System_String_">ResourceProviderServiceBase.UpsertResourceAsync(string, string)</a>
-    </div>
-    <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResource__1_System_String___0_">ResourceProviderServiceBase.UpsertResource&lt;T&gt;(string, T)</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResourceAsync__1_System_String_">ResourceProviderServiceBase.DeleteResourceAsync&lt;T&gt;(string)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResourceAsync_System_String_">ResourceProviderServiceBase.DeleteResourceAsync(string)</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResource__1_System_String_">ResourceProviderServiceBase.DeleteResource&lt;T&gt;(string)</a>
@@ -211,6 +212,9 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetObjectId_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__">ResourceProviderServiceBase.GetObjectId(List&lt;ResourceTypeInstance&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_">ResourceProviderServiceBase.HandleEvents(EventSetEventArgs)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -253,8 +257,8 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <a id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__ctor_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService})">
-  VectorizationResourceProviderService(IOptions&lt;InstanceSettings&gt;, IStorageService, ILogger&lt;VectorizationResourceProviderService&gt;)
+  <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService})">
+  VectorizationResourceProviderService(IOptions&lt;InstanceSettings&gt;, IStorageService, IEventService, ILogger&lt;VectorizationResourceProviderService&gt;)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -263,7 +267,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public VectorizationResourceProviderService(IOptions&lt;InstanceSettings&gt; instanceOptions, IStorageService storageService, ILogger&lt;VectorizationResourceProviderService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public VectorizationResourceProviderService(IOptions&lt;InstanceSettings&gt; instanceOptions, IStorageService storageService, IEventService eventService, ILogger&lt;VectorizationResourceProviderService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -271,6 +275,8 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
     <dt><code>instanceOptions</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.html">InstanceSettings</a>&gt;</dt>
     <dd></dd>
     <dt><code>storageService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a></dt>
+    <dd></dd>
+    <dt><code>eventService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IEventService.html">IEventService</a></dt>
     <dd></dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html">VectorizationResourceProviderService</a>&gt;</dt>
     <dd></dd>
@@ -295,7 +301,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__name" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService._name">
   _name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the resource provider. Must be overridden in derived classes.</p>
@@ -327,7 +333,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__resourceTypes" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService._resourceTypes">
   _resourceTypes
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The resource descriptors of the resource types managed by the resource provider. Must be overridden in derived classes.</p>
@@ -363,7 +369,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourceInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})">
   GetResourceInternal&lt;T&gt;(List&lt;ResourceTypeInstance&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L117"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L123"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResource. Must be overridden in derived classes.</p>
@@ -406,7 +412,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourcesAsyncInternal_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsyncInternal(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance})">
   GetResourcesAsyncInternal(List&lt;ResourceTypeInstance&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L255"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L261"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResourcesAsync. Must be overridden in derived classes.</p>
@@ -444,7 +450,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_InitializeInternal" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.InitializeInternal">
   InitializeInternal()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L75"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of Initialize. Must be overridden in derived classes.</p>
@@ -476,7 +482,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_UpsertResourceAsync_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance__System_String_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.UpsertResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance},System.String)">
   UpsertResourceAsync(List&lt;ResourceTypeInstance&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L184"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L190"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
@@ -517,7 +523,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_UpsertResourceAsync__1_System_Collections_Generic_List_FoundationaLLM_Common_Services_ResourceProviders_ResourceTypeInstance____0_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.UpsertResourceAsync``1(System.Collections.Generic.List{FoundationaLLM.Common.Services.ResourceProviders.ResourceTypeInstance},``0)">
   UpsertResourceAsync&lt;T&gt;(List&lt;ResourceTypeInstance&gt;, T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L230"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L236"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
