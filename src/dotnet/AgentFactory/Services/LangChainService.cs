@@ -49,21 +49,18 @@ namespace FoundationaLLM.AgentFactory.Services
         /// <returns>Returns a completion response from the orchestration engine.</returns>
         public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
         {
-            var promptTemplate = string.Empty;
-
-            string? agentName;
-            switch (request)
+            var promptTemplate = request switch
             {
-                case KnowledgeManagementCompletionRequest kmcr:
-                    agentName = kmcr.Agent.Name;
-                    break;
-                case LegacyCompletionRequest lcr:
-                    agentName = lcr.Agent?.Name;
-                    promptTemplate = lcr.Agent?.PromptPrefix;
-                    break;
-                default:
-                    throw new Exception($"LLM orchestration completion request of type {request.GetType()} is not supported.");
-            }
+                LegacyCompletionRequest lcr => lcr.Agent?.PromptPrefix,
+                _ => string.Empty,
+            };
+
+            var agentName = request switch
+            {
+                KnowledgeManagementCompletionRequest kmcr => kmcr.Agent.Name,
+                LegacyCompletionRequest lcr => lcr.Agent?.Name,
+                _ => string.Empty,
+            };
 
             var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
 
