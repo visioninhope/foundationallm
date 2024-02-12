@@ -17,6 +17,7 @@ using FoundationaLLM.Management.Services;
 using FoundationaLLM.Management.Services.APIServices;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using Polly;
@@ -57,6 +58,15 @@ namespace FoundationaLLM.Management.API
 
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
+            builder.Services.AddAzureClients(clientBuilder =>
+            {
+                var keyVaultUri = builder.Configuration[AppConfigurationKeys.FoundationaLLM_Configuration_KeyVaultURI];
+                clientBuilder.AddSecretClient(new Uri(keyVaultUri!))
+                    .WithCredential(new DefaultAzureCredential());
+                clientBuilder.AddConfigurationClient(
+                    builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
+            });
 
             var allowAllCorsOrigins = "AllowAllOrigins";
             builder.Services.AddCors(policyBuilder =>
