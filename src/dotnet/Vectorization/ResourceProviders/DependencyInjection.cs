@@ -47,6 +47,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization),
+                    sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>()));
         }
     }
