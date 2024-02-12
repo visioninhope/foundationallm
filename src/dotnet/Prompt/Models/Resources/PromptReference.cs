@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
-using Newtonsoft.Json;
+
 
 namespace FoundationaLLM.Prompt.Models.Resources
 {

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations
 {
@@ -10,7 +10,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
         /// <summary>
         /// The location of the file.
         /// </summary>
-        [JsonProperty("source_file_path")]
+        [JsonPropertyName("source_file_path")]
         public string? SourceFilePath { get; set; }
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
         /// that must be looked up, or if it is a simple path that can be 
         /// passed in as is.
         /// </summary>
-        [JsonProperty("path_value_is_secret")]
+        [JsonPropertyName("path_value_is_secret")]
         public bool PathValueIsSecret { get; set; } = true;
     }
 }

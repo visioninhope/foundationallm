@@ -1,11 +1,11 @@
 ﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
 using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
+using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSources;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Cache;
-using FoundationaLLM.Common.Models.Messages;
+using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
@@ -15,40 +15,32 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
     /// <summary>
     /// Default (legacy) orchestration.
     /// </summary>
-    public class LegacyOrchestration : OrchestrationBase
+    /// <remarks>
+    /// Constructor for a legacy orchestration.
+    /// </remarks>
+    /// <param name="agentMetadata"></param>
+    /// <param name="cacheService">The <see cref="ICacheService"/> used to cache agent-related artifacts.</param>
+    /// <param name="callContext">The call context of the request being handled.</param>
+    /// <param name="orchestrationService"></param>
+    /// <param name="promptHubService"></param>
+    /// <param name="dataSourceHubService"></param>
+    /// <param name="logger">The logger used for logging.</param>
+    public class LegacyOrchestration(
+        AgentMetadata agentMetadata,
+        ICacheService cacheService,
+        ICallContext callContext,
+        ILLMOrchestrationService orchestrationService,
+        IPromptHubAPIService promptHubService,
+        IDataSourceHubAPIService dataSourceHubService,
+        ILogger<LegacyOrchestration> logger) : OrchestrationBase(agentMetadata, orchestrationService, promptHubService, dataSourceHubService)
     {
         private LegacyCompletionRequest _completionRequestTemplate = null!;
-        private readonly ICacheService _cacheService;
-        private readonly ICallContext _callContext;
-        private readonly ILogger<LegacyOrchestration> _logger;
-
-        /// <summary>
-        /// Constructor for a legacy orchestration.
-        /// </summary>
-        /// <param name="agentMetadata"></param>
-        /// <param name="cacheService">The <see cref="ICacheService"/> used to cache agent-related artifacts.</param>
-        /// <param name="callContext">The call context of the request being handled.</param>
-        /// <param name="orchestrationService"></param>
-        /// <param name="promptHubService"></param>
-        /// <param name="dataSourceHubService"></param>
-        /// <param name="logger">The logger used for logging.</param>
-        public LegacyOrchestration(
-            AgentMetadata agentMetadata,
-            ICacheService cacheService,
-            ICallContext callContext,
-            ILLMOrchestrationService orchestrationService,
-            IPromptHubAPIService promptHubService,
-            IDataSourceHubAPIService dataSourceHubService,
-            ILogger<LegacyOrchestration> logger)
-            : base(agentMetadata, orchestrationService, promptHubService, dataSourceHubService)
-        {
-            _cacheService = cacheService;
-            _callContext = callContext;
-            _logger = logger;
-        }
+        private readonly ICacheService _cacheService = cacheService;
+        private readonly ICallContext _callContext = callContext;
+        private readonly ILogger<LegacyOrchestration> _logger = logger;
 
         /// <inheritdoc/>
-        public override async Task Configure(string userPrompt, string sessionId)
+        public override async Task Configure(CompletionRequest completionRequest)
         {
             // Get prompts for the agent from the prompt hub.
             var promptResponse = _callContext.AgentHint != null
@@ -56,15 +48,15 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                     new CacheKey(_callContext.AgentHint.Name!, CacheCategories.Prompt),
                     async () => {
                         return await _promptHubService.ResolveRequest(
-                            _agentMetadata.PromptContainer ?? _agentMetadata.Name!,
-                            sessionId
+                            _agentMetadata!.PromptContainer ?? _agentMetadata.Name!,
+                            completionRequest.SessionId ?? string.Empty
                         );
                     },
                     false,
                     TimeSpan.FromHours(1))
                 : await _promptHubService.ResolveRequest(
-                    _agentMetadata.PromptContainer ?? _agentMetadata.Name!,
-                    sessionId
+                    _agentMetadata!.PromptContainer ?? _agentMetadata.Name!,
+                    completionRequest.SessionId ?? string.Empty
                   );
 
             if (promptResponse is {Prompt: not null})
@@ -77,10 +69,14 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
             var dataSourceResponse = _callContext.AgentHint != null
                 ? await _cacheService.Get<DataSourceHubResponse>(
                     new CacheKey(_callContext.AgentHint.Name!, CacheCategories.DataSource),
-                    async () => { return await _dataSourceHubService.ResolveRequest(_agentMetadata.AllowedDataSourceNames!, sessionId); },
+                    async () => { return await _dataSourceHubService.ResolveRequest(
+                        _agentMetadata!.AllowedDataSourceNames!,
+                        completionRequest.SessionId ?? string.Empty); },
                     false,
                     TimeSpan.FromHours(1))
-                : await _dataSourceHubService.ResolveRequest(_agentMetadata.AllowedDataSourceNames!, sessionId);
+                : await _dataSourceHubService.ResolveRequest(
+                    _agentMetadata!.AllowedDataSourceNames!,
+                    completionRequest.SessionId ?? string.Empty);
 
             if (dataSourceResponse is {DataSources: not null})
             {
@@ -187,9 +183,9 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
             _completionRequestTemplate = new LegacyCompletionRequest()
             {
                 UserPrompt = null, // to be filled in GetCompletion / GetSummary
-                Agent = new FoundationaLLM.Common.Models.Orchestration.Metadata.Agent
+                Agent = new LegacyAgentMetadata
                 {
-                    Name = _agentMetadata.Name,
+                    Name = _agentMetadata!.Name,
                     Type = _agentMetadata.Type,
                     Description = _agentMetadata.Description,
                     PromptPrefix = promptResponse!.Prompt?.PromptPrefix,

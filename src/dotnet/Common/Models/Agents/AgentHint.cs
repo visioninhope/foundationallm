@@ -1,12 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 using FoundationaLLM.Common.Models.Configuration.Users;
 
-namespace FoundationaLLM.Common.Models.Metadata
+namespace FoundationaLLM.Common.Models.Agents
 {
     /// <summary>
     /// Represents the name and privacy of a FoundationaLLM agent.
@@ -17,12 +12,12 @@ namespace FoundationaLLM.Common.Models.Metadata
         /// <summary>
         /// The name of the agent.
         /// </summary>
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
         /// <summary>
         /// Indicates whether the agent is private.
         /// </summary>
-        [JsonProperty("private")]
+        [JsonPropertyName("private")]
         public bool Private { get; set; }
     }
 }

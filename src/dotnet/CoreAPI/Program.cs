@@ -97,10 +97,7 @@ namespace FoundationaLLM.Core.API
                 DeveloperMode = builder.Environment.IsDevelopment()
             });
             //builder.Services.AddServiceProfiler();
-            builder.Services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings().ContractResolver;
-            });
+            builder.Services.AddControllers();
             builder.Services.AddProblemDetails();
             builder.Services
                 .AddApiVersioning(options =>

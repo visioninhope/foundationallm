@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Common.Models.Metadata;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Messages
+namespace FoundationaLLM.Common.Models.Hubs
 {
     /// <summary>
     /// The response returned from the Agent Hub.
@@ -12,7 +12,7 @@ namespace FoundationaLLM.Common.Models.Messages
         /// Information about a requested agent from the Agent Hub.
         /// </summary>
         //[JsonObject]
-        [JsonProperty("agent")]
+        [JsonPropertyName("agent")]
         public AgentMetadata? Agent { get; set; }
 
     }
@@ -25,38 +25,38 @@ namespace FoundationaLLM.Common.Models.Messages
         /// <summary>
         /// The orchestration engine to use.
         /// </summary>
-        [JsonProperty("orchestrator")]
+        [JsonPropertyName("orchestrator")]
         public string? Orchestrator { get; set; }
 
         /// <summary>
         /// Datasources that are used or available to the agent.
         /// </summary>
-        [JsonProperty("allowed_data_source_names")]
+        [JsonPropertyName("allowed_data_source_names")]
         public List<string>? AllowedDataSourceNames { get; set; }
 
         /// <summary>
         /// The lanauge model used by the agent.
         /// </summary>
-        [JsonProperty("language_model")]
+        [JsonPropertyName("language_model")]
         public LanguageModel? LanguageModel { get; set; }
 
         /// <summary>
         /// The embedding model used by the agent.
         /// </summary>
-        [JsonProperty("embedding_model")]
+        [JsonPropertyName("embedding_model")]
         public EmbeddingModel? EmbeddingModel { get; set; }
 
         /// <summary>
         /// The maximum number of messages from the chat history to be
         /// taken into consideration when building the prompt.
         /// </summary>
-        [JsonProperty("max_message_history_size")]
+        [JsonPropertyName("max_message_history_size")]
         public int? MaxMessageHistorySize { get; set; }
 
         /// <summary>
         /// The prompt container from which prompt values will be retrieved.
         /// </summary>
-        [JsonProperty("prompt_container")]
+        [JsonPropertyName("prompt_container")]
         public string? PromptContainer { get; set; }
     }
 }

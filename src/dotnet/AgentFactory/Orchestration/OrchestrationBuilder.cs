@@ -1,14 +1,14 @@
-﻿using FoundationaLLM.Agent.Models.Metadata;
-using FoundationaLLM.Agent.ResourceProviders;
+﻿using FoundationaLLM.Agent.ResourceProviders;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Cache;
-using FoundationaLLM.Common.Models.Messages;
+using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace FoundationaLLM.AgentFactory.Core.Orchestration
 {
@@ -20,8 +20,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
         /// <summary>
         /// Builds the orchestration based on the user prompt, the session id, and the call context.
         /// </summary>
-        /// <param name="userPrompt"></param>
-        /// <param name="sessionId"></param>
+        /// <param name="completionRequest">The <see cref="CompletionRequest"/> containing details about the completion request.</param>
         /// <param name="cacheService">The <see cref="ICacheService"/> used to cache agent-related artifacts.</param>
         /// <param name="callContext">The call context of the request being handled.</param>
         /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
@@ -33,8 +32,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public static async Task<OrchestrationBase?> Build(
-            string userPrompt,
-            string sessionId,
+            CompletionRequest completionRequest,
             ICacheService cacheService,
             ICallContext callContext,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
@@ -71,10 +69,14 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 var agentResponse = callContext.AgentHint != null
                     ? await cacheService.Get<AgentHubResponse>(
                         new CacheKey(callContext.AgentHint.Name!, CacheCategories.Agent),
-                        async () => { return await agentHubAPIService.ResolveRequest(userPrompt, sessionId); },
+                        async () => { return await agentHubAPIService.ResolveRequest(
+                            completionRequest.UserPrompt,
+                            completionRequest.SessionId ?? string.Empty); },
                         false,
                         TimeSpan.FromHours(1))
-                    : await agentHubAPIService.ResolveRequest(userPrompt, sessionId);
+                    : await agentHubAPIService.ResolveRequest(
+                        completionRequest.UserPrompt,
+                        completionRequest.SessionId ?? string.Empty);
 
                 var agentInfo = agentResponse!.Agent;
 
@@ -94,25 +96,25 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                     throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
                 orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
-                OrchestrationBase? agent = null;
-                agent = new LegacyOrchestration(
+                OrchestrationBase? orchestration = null;
+                orchestration = new LegacyOrchestration(
                     agentInfo!,
                     cacheService, callContext,
                     orchestrationService, promptHubAPIService, dataSourceHubAPIService,
                     loggerFactory.CreateLogger<LegacyOrchestration>());
 
-                await agent.Configure(userPrompt, sessionId);
+                await orchestration.Configure(completionRequest);
 
-                return agent;
+                return orchestration;
             }
             else
             {
-                var agentBase = JsonConvert.DeserializeObject<FoundationaLLM.Agent.Models.Metadata.AgentBase>(serializedAgent)
+                var agentBase = JsonSerializer.Deserialize<AgentBase>(serializedAgent)
                     ?? throw new ResourceProviderException("The object definition is invalid");
 
                 if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
                 {
-                    var agent = JsonConvert.DeserializeObject<KnowledgeManagementAgent>(serializedAgent);
+                    var kmAgent = JsonSerializer.Deserialize<KnowledgeManagementAgent>(serializedAgent);
 
                     var orchestrationType = string.IsNullOrWhiteSpace(agentBase.Orchestrator)
                         ? "LangChain"
@@ -123,13 +125,14 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                         throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
                     orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
-                    var kmAgent = new KnowledgeManagementOrchestration(
-                        agent,
+                    var kmOrchestration = new KnowledgeManagementOrchestration(
+                        kmAgent!,
                         cacheService, callContext,
                         orchestrationService, promptHubAPIService, dataSourceHubAPIService,
                         loggerFactory.CreateLogger<LegacyOrchestration>());
+                    await kmOrchestration.Configure(completionRequest);
 
-                    return kmAgent;
+                    return kmOrchestration;
                 }
                 else
                     return null;
@@ -149,23 +152,16 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
         {
             Type? orchestrationServiceType = null;
 
-            switch (orchestrationType)
+            orchestrationServiceType = orchestrationType switch
             {
-                case LLMOrchestrationService.LangChain:
-                    orchestrationServiceType = typeof(ILangChainService);
-                    break;
-                case LLMOrchestrationService.SemanticKernel:
-                    orchestrationServiceType = typeof(ISemanticKernelService);
-                    break;
-                default:
-                    throw new ArgumentException($"The orchestration type {orchestrationType} is not supported.");
-            }
+                LLMOrchestrationService.LangChain => typeof(ILangChainService),
+                LLMOrchestrationService.SemanticKernel => typeof(ISemanticKernelService),
+                _ => throw new ArgumentException($"The orchestration type {orchestrationType} is not supported."),
+            };
 
             var orchestrationService = orchestrationServices.FirstOrDefault(x => orchestrationServiceType.IsAssignableFrom(x.GetType()));
-            if (orchestrationService == null)
-                throw new ArgumentException($"There is no orchestration service available for orchestration type {orchestrationType}.");
-
-            return orchestrationService;
+            return orchestrationService
+                ?? throw new ArgumentException($"There is no orchestration service available for orchestration type {orchestrationType}.");
         }
     }
 }

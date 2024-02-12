@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Messages
+namespace FoundationaLLM.Common.Models.Hubs
 {
     /// <summary>
     /// The format of a Data Source Hub Request.
@@ -10,13 +10,13 @@ namespace FoundationaLLM.Common.Models.Messages
         /// <summary>
         /// The session ID.
         /// </summary>
-        [JsonProperty("session_id")]
+        [JsonPropertyName("session_id")]
         public string? SessionId { get; set; }
 
         /// <summary>
         /// List of data sources to be returned from the Data Source Hub.
         /// </summary>
-        [JsonProperty("data_sources")]
+        [JsonPropertyName("data_sources")]
         public List<string>? DataSources { get; set; }
 
     }

@@ -1,20 +1,19 @@
 ﻿using System.Text;
 using Asp.Versioning;
-using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Agent.ResourceProviders;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Configuration.Users;
-using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+
 
 namespace FoundationaLLM.Core.API.Controllers
 {
@@ -63,9 +62,9 @@ namespace FoundationaLLM.Core.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("agents", Name = "GetAgents")]
-        public async Task<IEnumerable<Common.Models.Metadata.AgentHint>> GetAgents()
+        public async Task<IEnumerable<AgentHint>> GetAgents()
         {
-            var agents = new List<Common.Models.Metadata.AgentHint>();
+            var agents = new List<AgentHint>();
             var legacyAgentsList = _settings.AllowAgentSelection;
             var globalAgentsList = await _agentResourceProvider.GetResourcesAsync<AgentReference>($"/{AgentResourceTypeNames.AgentReferences}");
             UserProfile? userProfile;
@@ -81,7 +80,7 @@ namespace FoundationaLLM.Core.API.Controllers
             
             if (globalAgentsList.Any())
             {
-                agents.AddRange(globalAgentsList.Select(globalAgent => new Common.Models.Metadata.AgentHint {Name = globalAgent.Name, Private = false}));
+                agents.AddRange(globalAgentsList.Select(globalAgent => new AgentHint { Name = globalAgent.Name, Private = false}));
             }
 
             if (!string.IsNullOrWhiteSpace(legacyAgentsList))
@@ -92,14 +91,14 @@ namespace FoundationaLLM.Core.API.Controllers
                 {
                     if (agents.All(agent => agent.Name != legacyAgent.Trim()))
                     {
-                        agents.Add(new Common.Models.Metadata.AgentHint { Name = legacyAgent.Trim(), Private = false });
+                        agents.Add(new AgentHint { Name = legacyAgent.Trim(), Private = false });
                     }
                 }
             }
 
             if (userProfile?.PrivateAgents != null)
             {
-                agents.AddRange(userProfile.PrivateAgents.Select(agent => new Common.Models.Metadata.AgentHint { Name = agent.Name, Private = true}));
+                agents.AddRange(userProfile.PrivateAgents.Select(agent => new AgentHint { Name = agent.Name, Private = true}));
             }
 
             return agents;

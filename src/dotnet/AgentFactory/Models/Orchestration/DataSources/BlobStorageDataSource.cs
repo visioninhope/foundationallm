@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
+namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSources
 {
     /// <summary>
     /// Blob storage data source metadata model.
@@ -11,7 +11,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
         /// <summary>
         /// Blob storage configuration settings.
         /// </summary>
-        [JsonProperty("configuration")]
+        [JsonPropertyName("configuration")]
         public BlobStorageConfiguration? Configuration { get; set; }
     }
 }

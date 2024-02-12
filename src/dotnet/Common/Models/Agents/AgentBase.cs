@@ -2,9 +2,9 @@
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.ResourceProvider;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Agent.Models.Metadata
+namespace FoundationaLLM.Common.Models.Agents
 {
     /// <summary>
     /// Base agent metadata model.
@@ -14,32 +14,32 @@ namespace FoundationaLLM.Agent.Models.Metadata
         /// <summary>
         /// The agent's language model configuration.
         /// </summary>
-        [JsonProperty("language_model")]
+        [JsonPropertyName("language_model")]
         public LanguageModel? LanguageModel { get; set; }
         /// <summary>
         /// Indicates whether sessions are enabled for the agent.
         /// </summary>
-        [JsonProperty("sessions_enabled")]
+        [JsonPropertyName("sessions_enabled")]
         public bool SessionsEnabled { get; set; }
         /// <summary>
         /// The agent's conversation history configuration.
         /// </summary>
-        [JsonProperty("conversation_history")]
+        [JsonPropertyName("conversation_history")]
         public ConversationHistory? ConversationHistory { get; set; }
         /// <summary>
         /// The agent's Gatekeeper configuration.
         /// </summary>
-        [JsonProperty("gatekeeper")]
+        [JsonPropertyName("gatekeeper")]
         public Gatekeeper? Gatekeeper { get; set; }
         /// <summary>
         /// The agent's LLM orchestrator type.
         /// </summary>
-        [JsonProperty("orchestrator")]
+        [JsonPropertyName("orchestrator")]
         public string? Orchestrator { get; set; }
         /// <summary>
         /// The agent's prompt.
         /// </summary>
-        [JsonProperty("prompt")]
+        [JsonPropertyName("prompt")]
         public string? Prompt { get; set; }
 
         /// <summary>
@@ -62,12 +62,12 @@ namespace FoundationaLLM.Agent.Models.Metadata
         /// <summary>
         /// Indicates whether the conversation history is enabled.
         /// </summary>
-        [JsonProperty("enabled")]
+        [JsonPropertyName("enabled")]
         public bool Enabled { get; set; }
         /// <summary>
         /// The maximum number of turns to store in the conversation history.
         /// </summary>
-        [JsonProperty("max_history")]
+        [JsonPropertyName("max_history")]
         public int MaxHistory { get; set; }
     }
 
@@ -79,12 +79,12 @@ namespace FoundationaLLM.Agent.Models.Metadata
         /// <summary>
         /// Indicates whether to abide by or override the system settings for the Gatekeeper.
         /// </summary>
-        [JsonProperty("use_system_setting")]
+        [JsonPropertyName("use_system_setting")]
         public bool UseSystemSetting { get; set; }
         /// <summary>
         /// If <see cref="UseSystemSetting"/> is false, provides Gatekeeper feature selection.
         /// </summary>
-        [JsonProperty("options")]
+        [JsonPropertyName("options")]
         public string[]? Options { get; set; }
     }
 

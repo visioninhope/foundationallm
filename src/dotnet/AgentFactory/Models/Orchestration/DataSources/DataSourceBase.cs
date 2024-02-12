@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Common.Models.Metadata;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
+namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSources
 {
     /// <summary>
     /// Data Source base class.
@@ -12,7 +12,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata
         /// Descriptor for the type of data in the data source.
         /// </summary>
         /// <example>Survey data for a CSV file that contains survey results.</example>
-        [JsonProperty("data_description")]
+        [JsonPropertyName("data_description")]
         public string? DataDescription { get; set; }
     }
 }

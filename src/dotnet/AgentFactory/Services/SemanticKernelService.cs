@@ -6,37 +6,29 @@ using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using System.Text;
+using System.Text.Json;
 
 namespace FoundationaLLM.AgentFactory.Services
 {
     /// <summary>
     /// The FoundationaLLM Semantic Kernal Service
     /// </summary>
-    public class SemanticKernelService : ISemanticKernelService
+    /// <remarks>
+    /// Constructor for the Semantic Kernal Service
+    /// </remarks>
+    /// <param name="options"></param>
+    /// <param name="logger"></param>
+    /// <param name="httpClientFactoryService"></param>
+    public class SemanticKernelService(
+        IOptions<SemanticKernelServiceSettings> options,
+        ILogger<SemanticKernelService> logger,
+        IHttpClientFactoryService httpClientFactoryService) : ISemanticKernelService
     {
-        readonly SemanticKernelServiceSettings _settings;
-        readonly ILogger<SemanticKernelService> _logger;
-        private readonly IHttpClientFactoryService _httpClientFactoryService;
-        readonly JsonSerializerSettings _jsonSerializerSettings;
-
-        /// <summary>
-        /// Constructor for the Semantic Kernal Service
-        /// </summary>
-        /// <param name="options"></param>
-        /// <param name="logger"></param>
-        /// <param name="httpClientFactoryService"></param>
-        public SemanticKernelService(
-            IOptions<SemanticKernelServiceSettings> options,
-            ILogger<SemanticKernelService> logger,
-            IHttpClientFactoryService httpClientFactoryService)
-        {
-            _settings = options.Value;
-            _logger = logger;
-            _httpClientFactoryService = httpClientFactoryService;
-            _jsonSerializerSettings = CommonJsonSerializerSettings.GetJsonSerializerSettings();
-        }
+        readonly SemanticKernelServiceSettings _settings = options.Value;
+        readonly ILogger<SemanticKernelService> _logger = logger;
+        private readonly IHttpClientFactoryService _httpClientFactoryService = httpClientFactoryService;
+        readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
         /// <summary>
         /// Checks the Semantic Service returns a call to signal it is initialized and ready for requests.
@@ -50,9 +42,9 @@ namespace FoundationaLLM.AgentFactory.Services
         /// <returns>Returns a completion response from the orchestration engine.</returns>
         public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
         {
-            var agentName = string.Empty;
             var promptTemplate = string.Empty;
 
+            string? agentName;
             switch (request)
             {
                 case KnowledgeManagementCompletionRequest kmcr:
@@ -68,7 +60,7 @@ namespace FoundationaLLM.AgentFactory.Services
 
             var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.SemanticKernelAPI);
 
-            var body = JsonConvert.SerializeObject(request, _jsonSerializerSettings);
+            var body = JsonSerializer.Serialize(request, _jsonSerializerOptions);
             var responseMessage = await client.PostAsync("orchestration/completion",
                 new StringContent(
                     body,
@@ -77,7 +69,7 @@ namespace FoundationaLLM.AgentFactory.Services
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                var completionResponse = JsonConvert.DeserializeObject<LLMCompletionResponse>(responseContent);
+                var completionResponse = JsonSerializer.Deserialize<LLMCompletionResponse>(responseContent);
 
                 return new LLMCompletionResponse
                 {
@@ -91,7 +83,8 @@ namespace FoundationaLLM.AgentFactory.Services
                 };
             }
 
-            _logger.LogWarning($"The LangChain orchestration service returned status code {responseMessage.StatusCode}: {responseContent}");
+            _logger.LogWarning("The LangChain orchestration service returned status code {StatusCode}: {ResponseContent}",
+                responseMessage.StatusCode, responseContent);
 
             return new LLMCompletionResponse
             {

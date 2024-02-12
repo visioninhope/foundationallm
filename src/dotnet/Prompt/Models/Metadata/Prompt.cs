@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Models.ResourceProvider;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace FoundationaLLM.Prompt.Models.Metadata
 {
@@ -11,12 +12,12 @@ namespace FoundationaLLM.Prompt.Models.Metadata
         /// <summary>
         /// The prompt prefix.
         /// </summary>
-        [JsonProperty("prefix")]
+        [JsonPropertyName("prefix")]
         public string? Prefix { get; set; }
         /// <summary>
         /// The prompt suffix.
         /// </summary>
-        [JsonProperty("suffix")]
+        [JsonPropertyName("suffix")]
         public string? Suffix { get; set; }
     }
 

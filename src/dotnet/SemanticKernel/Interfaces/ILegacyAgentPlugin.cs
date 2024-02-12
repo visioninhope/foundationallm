@@ -1,10 +1,4 @@
 ﻿using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.SemanticKernel.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.SemanticKernel.Core.Interfaces
 {
@@ -15,6 +9,6 @@ namespace FoundationaLLM.SemanticKernel.Core.Interfaces
         /// </summary>
         /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
         /// <returns>Returns a completion response from the orchestration engine.</returns>
-        Task<LLMCompletionResponse> GetCompletion(LegacyOrchestrationCompletionRequest request);
+        Task<LLMCompletionResponse> GetCompletion(LegacyCompletionRequest request);
     }
 }

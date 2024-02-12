@@ -6,8 +6,9 @@ using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.AgentFactory.Services
 {
@@ -19,7 +20,7 @@ namespace FoundationaLLM.AgentFactory.Services
         readonly LangChainServiceSettings _settings;
         readonly ILogger<LangChainService> _logger;
         private readonly IHttpClientFactoryService _httpClientFactoryService;
-        readonly JsonSerializerSettings _jsonSerializerSettings;
+        readonly JsonSerializerOptions _jsonSerializerOptions;
 
         /// <summary>
         /// LangChain Orchestration Service
@@ -32,8 +33,8 @@ namespace FoundationaLLM.AgentFactory.Services
             _settings = options.Value;
             _logger = logger;
             _httpClientFactoryService = httpClientFactoryService;
-            _jsonSerializerSettings = CommonJsonSerializerSettings.GetJsonSerializerSettings();
-            _jsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
+            _jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         }
 
         /// <summary>
@@ -48,9 +49,9 @@ namespace FoundationaLLM.AgentFactory.Services
         /// <returns>Returns a completion response from the orchestration engine.</returns>
         public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
         {
-            var agentName = string.Empty;
             var promptTemplate = string.Empty;
 
+            string? agentName;
             switch (request)
             {
                 case KnowledgeManagementCompletionRequest kmcr:
@@ -66,7 +67,7 @@ namespace FoundationaLLM.AgentFactory.Services
 
             var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
 
-            var body = JsonConvert.SerializeObject(request, _jsonSerializerSettings);
+            var body = JsonSerializer.Serialize(request, _jsonSerializerOptions);
             var responseMessage = await client.PostAsync("orchestration/completion",
                 new StringContent(
                     body,
@@ -75,7 +76,7 @@ namespace FoundationaLLM.AgentFactory.Services
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                var completionResponse = JsonConvert.DeserializeObject<LLMCompletionResponse>(responseContent);
+                var completionResponse = JsonSerializer.Deserialize<LLMCompletionResponse>(responseContent);
 
                 return new LLMCompletionResponse
                 {
@@ -89,7 +90,8 @@ namespace FoundationaLLM.AgentFactory.Services
                 };
             }
 
-            _logger.LogWarning($"The LangChain orchestration service returned status code {responseMessage.StatusCode}: {responseContent}");
+            _logger.LogWarning("The LangChain orchestration service returned status code {StatusCode}: {ResponseContent}",
+                responseMessage.StatusCode, responseContent);
 
             return new LLMCompletionResponse
             {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Metadata;
+using FoundationaLLM.Common.Models.Agents;
 
 namespace FoundationaLLM.Common.Models.Context
 {

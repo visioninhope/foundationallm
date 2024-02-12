@@ -4,10 +4,10 @@ using FoundationaLLM.SemanticKernel.TextEmbedding;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel.AI.Embeddings;
 using Microsoft.SemanticKernel.Memory;
-using Newtonsoft.Json;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace FoundationaLLM.SemanticKernel.Plugins.Memory
 {
@@ -86,7 +86,7 @@ namespace FoundationaLLM.SemanticKernel.Plugins.Memory
                         itemToEmbed.TextToEmbed,
                         string.Empty,
                         string.Empty,
-                        JsonConvert.SerializeObject(item)),
+                        JsonSerializer.Serialize(item)),
                     embedding,
                     null));
 
@@ -176,16 +176,12 @@ namespace FoundationaLLM.SemanticKernel.Plugins.Memory
         /// </summary>
         /// <param name="textToEmbed">The text to embed.</param>
         /// <returns>A list of embedding structs representing the input text.</returns>
-        public async Task<ReadOnlyMemory<float>> GetEmbedding(string textToEmbed)
-        {
-            return await _textEmbedding.GenerateEmbeddingAsync(textToEmbed);
-        }
+        public async Task<ReadOnlyMemory<float>> GetEmbedding(string textToEmbed) =>
+            await _textEmbedding.GenerateEmbeddingAsync(textToEmbed);
 
-        private string GetHash(string s)
-        {
-            return Convert.ToBase64String(
+        private string GetHash(string s) =>
+            Convert.ToBase64String(
                 _hash.ComputeHash(
                     Encoding.UTF8.GetBytes(s)));
-        }
     }
 }

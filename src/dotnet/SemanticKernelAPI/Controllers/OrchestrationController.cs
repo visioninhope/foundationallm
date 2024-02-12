@@ -2,11 +2,9 @@
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
-using FoundationaLLM.SemanticKernel.Core.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System.Dynamic;
+using System.Text.Json;
 
 namespace FoundationaLLM.SemanticKernel.API.Controllers
 {
@@ -41,29 +39,31 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
         /// <param name="request">The completion request containing the user prompt and message history.</param>
         /// <returns>The completion response.</returns>
         [HttpPost("completion")]
-        public async Task<LLMCompletionResponse> GetCompletion([FromBody] dynamic request)
+        public async Task<LLMCompletionResponse> GetCompletion([FromBody] LLMCompletionRequest request)
         {
-            var expandoObject = JsonConvert.DeserializeObject<ExpandoObject>(request.ToString(), new ExpandoObjectConverter());
+            //var expandoObject = JsonSerializer.Deserialize<ExpandoObject>(request.ToString(), new ExpandoObjectConverter());
 
-            var agentType = string.Empty;
-            try
-            {
-                agentType = expandoObject.agent.type;
-            }
-            catch { }
+            //var agentType = string.Empty;
+            //try
+            //{
+            //    agentType = expandoObject.agent.type;
+            //}
+            //catch { }
 
-            if (agentType == "knowledge-management")
-            {
-                var completionRequest = JsonConvert.DeserializeObject<KnowledgeManagementCompletionRequest>(request.ToString()) as KnowledgeManagementCompletionRequest;
+            //if (agentType == "knowledge-management")
+            //{
+            //    var completionRequest = JsonSerializer.Deserialize<KnowledgeManagementCompletionRequest>(request.ToString()) as KnowledgeManagementCompletionRequest;
 
-                return await _knowledgeManagementAgentPlugin.GetCompletion(completionRequest!);
-            }
-            else
-            {
-                var completionRequest = JsonConvert.DeserializeObject<LegacyOrchestrationCompletionRequest?>(request.ToString()) as LegacyOrchestrationCompletionRequest;
+            //    return await _knowledgeManagementAgentPlugin.GetCompletion(completionRequest!);
+            //}
+            //else
+            //{
+            //    var completionRequest = JsonSerializer.Deserialize<LegacyCompletionRequest?>(request.ToString()) as LegacyCompletionRequest;
 
-                return await _legacyAgentPlugin.GetCompletion(completionRequest!);
-            }
+            //    return await _legacyAgentPlugin.GetCompletion(completionRequest!);
+            //}
+
+            return default;
         }
     }
 }

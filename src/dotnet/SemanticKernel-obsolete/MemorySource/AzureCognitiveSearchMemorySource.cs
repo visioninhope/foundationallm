@@ -8,7 +8,7 @@ using FoundationaLLM.SemanticKernel.Core.Interfaces;
 using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+
 using System.Text.Json;
 
 namespace FoundationaLLM.SemanticKernel.MemorySource
@@ -111,7 +111,7 @@ namespace FoundationaLLM.SemanticKernel.MemorySource
                 var reader = new StreamReader(await blobClient.OpenReadAsync());
                 var configContent = await reader.ReadToEndAsync();
 
-                var config = JsonConvert.DeserializeObject<AzureCognitiveSearchMemorySourceConfig>(configContent);
+                var config = JsonSerializer.Deserialize<AzureCognitiveSearchMemorySourceConfig>(configContent);
 
                 if (config != null)
                     _config = config;

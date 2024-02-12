@@ -1,12 +1,12 @@
 ﻿using FoundationaLLM.Common.Models.Metadata;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Orchestration.Metadata
+namespace FoundationaLLM.Common.Models.Orchestration
 {
     /// <summary>
     /// Agent metadata model.
     /// </summary>
-    public class Agent: MetadataBase
+    public class LegacyAgentMetadata : MetadataBase
     {
         /// <summary>
         /// The prompt prefix to assign the agent.

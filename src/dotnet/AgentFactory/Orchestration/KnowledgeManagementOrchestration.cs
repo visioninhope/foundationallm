@@ -1,7 +1,7 @@
-﻿using FoundationaLLM.Agent.Models.Metadata;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
+﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
 
@@ -10,42 +10,34 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
     /// <summary>
     /// Knowledge Management orchestration.
     /// </summary>
-    public class KnowledgeManagementOrchestration : OrchestrationBase
+    /// <remarks>
+    /// Constructor for default agent.
+    /// </remarks>
+    /// <param name="agent">The <see cref="KnowledgeManagementAgent"/> agent.</param>
+    /// <param name="cacheService">The <see cref="ICacheService"/> used to cache agent-related artifacts.</param>
+    /// <param name="callContext">The call context of the request being handled.</param>
+    /// <param name="orchestrationService"></param>
+    /// <param name="promptHubService"></param>
+    /// <param name="dataSourceHubService"></param>
+    /// <param name="logger">The logger used for logging.</param>
+    public class KnowledgeManagementOrchestration(
+        KnowledgeManagementAgent agent,
+        ICacheService cacheService,
+        ICallContext callContext,
+        ILLMOrchestrationService orchestrationService,
+        IPromptHubAPIService promptHubService,
+        IDataSourceHubAPIService dataSourceHubService,
+        ILogger<LegacyOrchestration> logger) : OrchestrationBase(null, orchestrationService, promptHubService, dataSourceHubService)
     {
-        private KnowledgeManagementCompletionRequest _completionRequestTemplate = null!;
-        private readonly ICacheService _cacheService;
-        private readonly ICallContext _callContext;
-        private readonly ILogger<LegacyOrchestration> _logger;
-        private readonly KnowledgeManagementAgent _agent;
-
-        /// <summary>
-        /// Constructor for default agent.
-        /// </summary>
-        /// <param name="agent">The <see cref="KnowledgeManagementAgent"/> agent.</param>
-        /// <param name="cacheService">The <see cref="ICacheService"/> used to cache agent-related artifacts.</param>
-        /// <param name="callContext">The call context of the request being handled.</param>
-        /// <param name="orchestrationService"></param>
-        /// <param name="promptHubService"></param>
-        /// <param name="dataSourceHubService"></param>
-        /// <param name="logger">The logger used for logging.</param>
-        public KnowledgeManagementOrchestration(
-            KnowledgeManagementAgent agent,
-            ICacheService cacheService,
-            ICallContext callContext,
-            ILLMOrchestrationService orchestrationService,
-            IPromptHubAPIService promptHubService,
-            IDataSourceHubAPIService dataSourceHubService,
-            ILogger<LegacyOrchestration> logger)
-            : base(null, orchestrationService, promptHubService, dataSourceHubService)
-        {
-            _agent = agent;
-            _cacheService = cacheService;
-            _callContext = callContext;
-            _logger = logger;
-        }
+        private readonly KnowledgeManagementCompletionRequest _completionRequestTemplate = null!;
+        private readonly ICacheService _cacheService = cacheService;
+        private readonly ICallContext _callContext = callContext;
+        private readonly ILogger<LegacyOrchestration> _logger = logger;
+        private readonly KnowledgeManagementAgent _agent = agent;
 
         /// <inheritdoc/>
-        public override Task Configure(string userPrompt, string sessionId) => base.Configure(userPrompt, sessionId);
+        public override Task Configure(CompletionRequest completionRequest) =>
+            base.Configure(completionRequest);
 
         /// <inheritdoc/>
         public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)

@@ -25,7 +25,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
         }
 
         /// <inheritdoc/>
-        public async Task<LLMCompletionResponse> GetCompletion(LegacyOrchestrationCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(LegacyCompletionRequest request)
         {
             var kernel = CreateKernel(request.LanguageModel!);
 

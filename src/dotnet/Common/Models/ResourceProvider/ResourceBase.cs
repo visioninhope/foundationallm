@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.ResourceProvider
 {
@@ -15,22 +10,26 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         /// <summary>
         /// The name of the resource.
         /// </summary>
-        [JsonProperty("name", Order = -5)]
+        [JsonPropertyName("name")]
+        [JsonPropertyOrder(-5)]
         public required string Name { get; set; }
         /// <summary>
         /// The type of the resource.
         /// </summary>
-        [JsonProperty("type", Order = -4)]
+        [JsonPropertyName("type")]
+        [JsonPropertyOrder(-4)]
         public required string Type { get; set; }
         /// <summary>
         /// The unique identifier of the resource.
         /// </summary>
-        [JsonProperty("object_id", Order = -3)]
+        [JsonPropertyName("object_id")]
+        [JsonPropertyOrder(-3)]
         public required string ObjectId { get; set; }
         /// <summary>
         /// The description of the resource.
         /// </summary>
-        [JsonProperty("description", Order = -2)]
+        [JsonPropertyName("description")]
+        [JsonPropertyOrder(-2)]
         public string? Description { get; set; }
     }
 }

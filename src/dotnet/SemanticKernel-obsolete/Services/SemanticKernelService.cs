@@ -4,7 +4,6 @@ using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Search;
 using FoundationaLLM.SemanticKernel.Chat;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
-using FoundationaLLM.SemanticKernel.Core.Models;
 using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using FoundationaLLM.SemanticKernel.Core.Plugins.Core;
 using FoundationaLLM.SemanticKernel.Plugins.Memory;
@@ -17,7 +16,7 @@ using Microsoft.SemanticKernel.AI.Embeddings;
 using Microsoft.SemanticKernel.AI.TextCompletion;
 using Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch;
 using Microsoft.SemanticKernel.Plugins.Memory;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace FoundationaLLM.SemanticKernel.Core.Services;
@@ -180,7 +179,7 @@ public class SemanticKernelService : ISemanticKernelService
         if (string.IsNullOrEmpty(memories))
             memoryCollection = new List<string>();
         else
-            memoryCollection = JsonConvert.DeserializeObject<List<string>>(memories)!;
+            memoryCollection = JsonSerializer.Deserialize<List<string>>(memories)!;
 
         var chatHistory = new ChatBuilder(
                 _semanticKernel,

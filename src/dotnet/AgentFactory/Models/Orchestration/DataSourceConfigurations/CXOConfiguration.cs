@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations
 {
@@ -15,24 +10,24 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
         /// <summary>
         /// The type of configuration. This value should not be changed.
         /// </summary>
-        [JsonProperty("configuration_type")]
+        [JsonPropertyName("configuration_type")]
         public new string ConfigurationType = "cxo";
         /// <summary>
         /// Search filter elements.
         /// </summary>
-        [JsonProperty("sources")]
+        [JsonPropertyName("sources")]
         public string[]? Sources { get; set; }
 
         /// <summary>
         /// The vector database.
         /// </summary>
-        [JsonProperty("retriever_mode")]
+        [JsonPropertyName("retriever_mode")]
         public required string RetrieverMode { get; set; }
 
         /// <summary>
         /// The name of the CXO's company.
         /// </summary>
-        [JsonProperty("company")]
+        [JsonPropertyName("company")]
         public required string Company { get; set; }
     }
 }

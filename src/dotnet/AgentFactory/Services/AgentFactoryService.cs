@@ -85,8 +85,7 @@ public class AgentFactoryService : IAgentFactoryService
         try
         {
             var orchestration = await OrchestrationBuilder.Build(
-                completionRequest.UserPrompt ?? string.Empty,
-                completionRequest.SessionId ?? string.Empty,
+                completionRequest,
                 _cacheService,
                 _callContext,
                 _resourceProviderServices,
@@ -102,14 +101,15 @@ public class AgentFactoryService : IAgentFactoryService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error retrieving completion from the orchestration service for {completionRequest.UserPrompt}.");
+            _logger.LogError(ex, "Error retrieving completion from the orchestration service for {UserPrompt}.",
+                completionRequest.UserPrompt);
             return new CompletionResponse
             {
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = completionRequest.UserPrompt ?? string.Empty,
                 PromptTokens = 0,
                 CompletionTokens = 0,
-                UserPromptEmbedding = new float[] { 0 }
+                UserPromptEmbedding = [0f]
             };
         }
     }

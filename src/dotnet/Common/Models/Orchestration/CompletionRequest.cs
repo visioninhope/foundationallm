@@ -12,5 +12,5 @@ public class CompletionRequest : OrchestrationRequest
     /// The message history associated with the completion request.
     /// </summary>
     [JsonPropertyName("message_history")]
-    public List<MessageHistoryItem>? MessageHistory { get; init; } = new List<MessageHistoryItem>();
+    public List<MessageHistoryItem>? MessageHistory { get; init; } = [];
 }

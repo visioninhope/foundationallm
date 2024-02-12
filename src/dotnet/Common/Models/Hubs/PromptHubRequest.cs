@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Messages
+namespace FoundationaLLM.Common.Models.Hubs
 {
     /// <summary>
     /// The format of a Prompt Hub request.
@@ -10,19 +10,19 @@ namespace FoundationaLLM.Common.Models.Messages
         /// <summary>
         /// The session ID.
         /// </summary>
-        [JsonProperty("session_id")]
+        [JsonPropertyName("session_id")]
         public string? SessionId { get; set; }
 
         /// <summary>
         /// The prompt container from which prompt values will be retrieved.
         /// </summary>
-        [JsonProperty("prompt_container")]
+        [JsonPropertyName("prompt_container")]
         public string? PromptContainer { get; set; }
 
         /// <summary>
         /// Name of the prompt for which the prompt values should be retrieved from the Prompt Hub.
         /// </summary>
-        [JsonProperty("prompt_name")]
+        [JsonPropertyName("prompt_name")]
         public string? PromptName { get; set; } = "default";
     }
 }

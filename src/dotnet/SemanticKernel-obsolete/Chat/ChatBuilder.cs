@@ -4,7 +4,8 @@ using FoundationaLLM.SemanticKernel.Text;
 using FoundationaLLM.SemanticKernel.TextEmbedding;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.AI.ChatCompletion;
-using Newtonsoft.Json;
+using System.Text.Json;
+
 
 namespace FoundationaLLM.SemanticKernel.Chat
 {
@@ -120,7 +121,7 @@ namespace FoundationaLLM.SemanticKernel.Chat
             if (_memories.Count > 0)
             {
                 var memoriesPrompt = string.Join(Environment.NewLine, _memories.Select(
-                    m => $"{JsonConvert.SerializeObject(m)}{Environment.NewLine}---------------------------{Environment.NewLine}").ToArray());
+                    m => $"{JsonSerializer.Serialize(m)}{Environment.NewLine}---------------------------{Environment.NewLine}").ToArray());
                 systemMessage = $"{systemMessage}{Environment.NewLine}{Environment.NewLine}{memoriesPrompt}".NormalizeLineEndings();
             }
 
@@ -144,7 +145,7 @@ namespace FoundationaLLM.SemanticKernel.Chat
             var memories = _memories.Select(m => new
             {
                 Memory = m,
-                Tokens = _tokenizer.GetTokensCount(JsonConvert.SerializeObject(m).NormalizeLineEndings())
+                Tokens = _tokenizer.GetTokensCount(JsonSerializer.Serialize(m).NormalizeLineEndings())
             }).ToList();
 
             // Keep in reverse order because we need to keep the most recents messages

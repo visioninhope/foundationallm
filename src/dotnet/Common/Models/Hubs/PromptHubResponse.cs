@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Messages
+namespace FoundationaLLM.Common.Models.Hubs
 {
     /// <summary>
     /// Response from a Prompt Hub request.
@@ -10,7 +10,7 @@ namespace FoundationaLLM.Common.Models.Messages
         /// <summary>
         /// The prompt metadata object returned from a Prompt Hub request.
         /// </summary>
-        [JsonProperty("prompt")]
+        [JsonPropertyName("prompt")]
         public PromptMetadata? Prompt { get; set; }
     }
 
@@ -22,19 +22,19 @@ namespace FoundationaLLM.Common.Models.Messages
         /// <summary>
         /// Name of the prompt.
         /// </summary>
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// Text of the prompt prefix to be assigned to an agent.
         /// </summary>
-        [JsonProperty("prompt_prefix")]
+        [JsonPropertyName("prompt_prefix")]
         public string? PromptPrefix { get; set; }
 
         /// <summary>
         /// Text of the prompt suffix to be assigned to an agent.
         /// </summary>
-        [JsonProperty("prompt_suffix")]
+        [JsonPropertyName("prompt_suffix")]
         public string? PromptSuffix { get; set; }
     }
 }

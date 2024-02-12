@@ -4,7 +4,7 @@ using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel.Text;
-using Newtonsoft.Json;
+using System.Text.Json;
 using UglyToad.PdfPig;
 
 namespace FoundationaLLM.SemanticKernel.MemorySource
@@ -64,7 +64,7 @@ namespace FoundationaLLM.SemanticKernel.MemorySource
             {
                 var configContent = await ReadConfigContent(_settings.BlobStorageContainer, _settings.ConfigFilePath);
 
-                var config = JsonConvert.DeserializeObject<BlobStorageMemorySourceConfig>(configContent);
+                var config = JsonSerializer.Deserialize<BlobStorageMemorySourceConfig>(configContent);
 
                 if (config != null)
                     _config = config;
