@@ -22,6 +22,7 @@ Param(
     [parameter(Mandatory = $false)][string]$openAiEmbeddingsDeployment = $null,
     [parameter(Mandatory = $false)][string]$openAiName = $null,
     [parameter(Mandatory = $false)][string]$openAiRg = $null,
+    [parameter(Mandatory = $false)][string]$openAiSubscription = $null,
     [parameter(Mandatory = $false)][string]$resourcePrefix = $null
 )
 
@@ -77,6 +78,10 @@ if (-not $resourcePrefix) {
 
 # Ensure OpenAI is deployed
 if ($stepDeployOpenAi) {
+    if (-not $openAiSubscription) {
+        $openAiSubscription = $subscription
+    }
+
     if (-not $openAiRg) {
         $openAiRg = $resourceGroup
     }
@@ -106,7 +111,8 @@ if ($stepDeployOpenAi) {
             -embeddingsDeployment $openAiEmbeddingsDeployment `
             -location $location `
             -name $openAiName `
-            -resourceGroup $openAiRg
+            -resourceGroup $openAiRg `
+            -subscription $openAiSubscription
     }
     finally {
         if ($LASTEXITCODE -ne 0) {
@@ -128,6 +134,8 @@ else {
 }
 
 $openAiKey = $(az cognitiveservices account keys list -g $openAiRg -n $openAi.name -o json --query key1 | ConvertFrom-Json)
+
+az account set --subscription $subscription
 
 if ($stepDeployArm) {
 

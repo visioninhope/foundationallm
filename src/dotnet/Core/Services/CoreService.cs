@@ -75,6 +75,32 @@ public partial class CoreService(
     }
 
     /// <summary>
+    /// Creates a new chat session.
+    /// </summary>
+    public async Task<Session> CreateNewChatBotSessionAsync(string sessionId, string upn)
+    {
+        Console.WriteLine($"Creating Session - SessionId:{sessionId} Upn:{upn}");
+
+        Session session = new()
+        {
+            Id = sessionId,
+            SessionId = sessionId,
+            Type = _sessionType,
+            UPN = upn
+        };
+
+        try
+        {
+            return await _cosmosDbService.InsertSessionAsync(session);
+        }
+        catch (Exception ex)
+        {
+        }
+
+        return session;
+    }
+
+    /// <summary>
     /// Rename the chat session from its default (eg., "New Chat") to the summary provided by OpenAI.
     /// </summary>
     public async Task<Session> RenameChatSessionAsync(string sessionId, string newChatSessionName)
@@ -92,6 +118,61 @@ public partial class CoreService(
     {
         ArgumentNullException.ThrowIfNull(sessionId);
         await _cosmosDbService.DeleteSessionAndMessagesAsync(sessionId);
+    }
+
+    /// <summary>
+    /// Receive a prompt from a user, retrieve the message history from the related session,
+    /// generate a completion response, and log full completion results.
+    /// </summary>
+    public async Task<Completion> GetChatBotCompletionAsync(string? sessionId, string upn, string userPrompt, string agent="default")
+    {
+        try
+        {
+            ArgumentNullException.ThrowIfNull(sessionId);
+
+            Console.WriteLine($"Getting SessionId:{sessionId} Upn:{upn} UserPrompt:{userPrompt} Agent:{agent}");
+
+            // Retrieve conversation, including latest prompt.
+            // If you put this after the vector search it doesn't take advantage of previous information given so harder to chain prompts together.
+            // However, if you put this before the vector search it can get stuck on previous answers and not pull additional information. Worth experimenting
+
+            // Retrieve conversation, including latest prompt.
+            var messages = await _cosmosDbService.GetSessionMessagesAsync(sessionId, upn ??
+                throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat completions."));
+            var messageHistoryList = messages
+                .Select(message => new MessageHistoryItem(message.Sender, message.Text))
+                .ToList();
+
+            var completionRequest = new CompletionRequest
+            {
+                SessionId = sessionId,
+                UserPrompt = userPrompt,
+                MessageHistory = messageHistoryList
+            };
+
+            _callContext.CurrentUserIdentity = new Common.Models.Authentication.UnifiedUserIdentity { Name = upn, UPN = upn, Username = upn };
+            _callContext.AgentHint = new Common.Models.Metadata.Agent { Name = agent };
+            // Generate the completion to return to the user.
+            var result = await GetDownstreamAPIService().GetCompletion(completionRequest);
+
+            // Add to prompt and completion to cache, then persist in Cosmos as transaction.
+            // Add the user's UPN to the messages.
+            var promptMessage = new Message(sessionId, nameof(Participants.User), result.PromptTokens, userPrompt, result.UserPromptEmbedding, null, upn, upn);
+            var completionMessage = new Message(sessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName);
+            var completionPromptText =
+                $"User prompt: {result.UserPrompt}{Environment.NewLine}Agent: {result.AgentName}{Environment.NewLine}Prompt template: {(!string.IsNullOrWhiteSpace(result.FullPrompt) ? result.FullPrompt : result.PromptTemplate)}";
+            var completionPrompt = new CompletionPrompt(sessionId, completionMessage.Id, completionPromptText);
+            completionMessage.CompletionPromptId = completionPrompt.Id;
+
+            await AddPromptChatBotCompletionMessagesAsync(sessionId, upn, promptMessage, completionMessage, completionPrompt);
+
+            return new Completion { Text = result.Completion };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error getting completion in session {sessionId} for user prompt [{userPrompt}].");
+            return new Completion { Text = "Could not generate a completion due to an internal error." };
+        }
     }
 
     /// <summary>
@@ -236,6 +317,30 @@ public partial class CoreService(
         completionMessage.UPN = upn;
 
         await _cosmosDbService.UpsertSessionBatchAsync(promptMessage, completionMessage, completionPrompt, session);
+    }
+
+    /// <summary>
+    /// Add user prompt and AI assistance response to the chat session message list object and insert into the data service as a transaction.
+    /// </summary>
+    private async Task AddPromptChatBotCompletionMessagesAsync(string sessionId, string upn, Message promptMessage, Message completionMessage, CompletionPrompt completionPrompt)
+    {
+        try
+        {
+            var session = await _cosmosDbService.GetSessionAsync(sessionId);
+
+            // Update session cache with tokens used.
+            session.TokensUsed += promptMessage.Tokens;
+            session.TokensUsed += completionMessage.Tokens;
+            // Add the user's UPN to the messages.
+            promptMessage.UPN = upn;
+            completionMessage.UPN = upn;
+
+            await _cosmosDbService.UpsertSessionBatchAsync(promptMessage, completionMessage, completionPrompt, session);
+        }
+        catch
+        {
+            Console.WriteLine($"Session upload failed for {sessionId}.");
+        }
     }
 
     /// <summary>

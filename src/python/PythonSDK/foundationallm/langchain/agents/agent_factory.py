@@ -13,7 +13,8 @@ from foundationallm.langchain.agents import (
     GenericResolverAgent,
     CXOAgent,
     SearchServiceAgent,
-    KnowledgeManagementAgent
+    KnowledgeManagementAgent,
+    SalesforceDataCloudAgent
 )
 
 class AgentFactory:
@@ -85,6 +86,10 @@ class AgentFactory:
             case 'cxo':
                 return CXOAgent(self.completion_request,
                                              llm=self.llm, config=self.config)
+            case 'salesforce':
+                return SalesforceDataCloudAgent(self.completion_request, llm=self.llm, config=self.config)
+            case 'salesforce-datacloud':
+                return SalesforceDataCloudAgent(self.completion_request, llm=self.llm, config=self.config)
             case 'knowledge-management':
                 return KnowledgeManagementAgent(
                     self.completion_request,

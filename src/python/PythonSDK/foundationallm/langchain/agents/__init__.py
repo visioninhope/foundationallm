@@ -10,4 +10,5 @@ from .generic_resolver_agent import GenericResolverAgent
 from .cxo_agent import CXOAgent
 from .search_service_agent import SearchServiceAgent
 from .knowledge_management_agent import KnowledgeManagementAgent
+from .salesforce_data_cloud_agent import SalesforceDataCloudAgent
 from .agent_factory import AgentFactory

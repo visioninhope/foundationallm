@@ -6,52 +6,60 @@
     "configurations": [
         {
             "name": "Python: AgentHubAPI",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "uvicorn",
             "cwd" : "${workspaceFolder}/src/python/AgentHubAPI/app",
             "env": {
-                "PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/AgentHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
+                //"PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/AgentHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
+                "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python/AgentHubAPI;C:/github/solliancenet/foundationallm/src/python/PythonSDK;",
+                "foundationallm-app-configuration-uri" : "https://fllmaks14-appconfig.azconfig.io"
             },
             "args": ["main:app","--reload", "--port", "8742"]
         },
         {
             "name": "Python: DataSourceHubAPI",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "uvicorn",
             "cwd" : "${workspaceFolder}/src/python/DataSourceHubAPI/app",
             "env": {
-                "PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/DataSourceHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
+                //"PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/DataSourceHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
+                "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python/DataSourceHubAPI;C:/github/solliancenet/foundationallm/src/python/PythonSDK;",
+                "foundationallm-app-configuration-uri" : "https://fllmaks14-appconfig.azconfig.io"
             },
             "args": ["main:app","--reload", "--port", "8842"]
         },
         {
             "name": "Python: PromptHubAPI",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "uvicorn",
             "cwd" : "${workspaceFolder}/src/python/PromptHubAPI/app",
             "env": {
-                "PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/PromptHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
+                //"PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/PromptHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
+                "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python/PromptHubAPI;C:/github/solliancenet/foundationallm/src/python/PythonSDK;",
+                "foundationallm-app-configuration-uri" : "https://fllmaks14-appconfig.azconfig.io"
             },
             "args": ["main:app","--reload", "--port", "8642"]
         },
         {
             "name": "Python: LangChainAPI",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "uvicorn",
             "cwd" : "${workspaceFolder}/src/python/LangChainAPI/app",
             "env": {
-                "PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/LangChainAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
+                //"PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/LangChainAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
+                "PYTHONPATH": "C:/github/solliancenet/foundationallm/src/python/LangChainAPI;C:/github/solliancenet/foundationallm/src/python/PythonSDK;",
+                "foundationallm-app-configuration-uri" : "https://fllmaks14-appconfig.azconfig.io"
             },
-            "args": ["main:app","--reload", "--port", "8765"],
-            "python": "${workspaceFolder}/src/python/LangChainAPI/env/Scripts/python.exe"
+            "args": ["main:app","--reload", "--port", "8765"]
+            //"python": "${workspaceFolder}/src/python/LangChainAPI/env/Scripts/python.exe"
         },
         {
             "name": "Python: Current File",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",

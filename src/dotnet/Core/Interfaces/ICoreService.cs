@@ -26,6 +26,11 @@ public interface ICoreService
     Task<Session> CreateNewChatSessionAsync();
 
     /// <summary>
+    /// Creates a new chatbot session.
+    /// </summary>
+    Task<Session> CreateNewChatBotSessionAsync(string sessionId, string upn);
+
+    /// <summary>
     /// Rename the chat session from its default (eg., "New Chat") to the summary provided by OpenAI.
     /// </summary>
     Task<Session> RenameChatSessionAsync(string sessionId, string newChatSessionName);
@@ -40,6 +45,12 @@ public interface ICoreService
     /// generate a completion response, and log full completion results.
     /// </summary>
     Task<Completion> GetChatCompletionAsync(string? sessionId, string userPrompt);
+
+    /// <summary>
+    /// Receive a prompt from a user, retrieve the message history from the related session,
+    /// generate a completion response, and log full completion results.
+    /// </summary>
+    Task<Completion> GetChatBotCompletionAsync(string? sessionId, string upn, string userPrompt, string agent);
 
     /// <summary>
     /// Provides a completion for a user prompt, without a session.

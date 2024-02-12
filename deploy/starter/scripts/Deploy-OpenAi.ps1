@@ -8,6 +8,7 @@ Param(
     [parameter(Mandatory = $true)][string]$location,
     [parameter(Mandatory = $true)][string]$name,
     [parameter(Mandatory = $true)][string]$resourceGroup,
+    [parameter(Mandatory = $true)][string]$subscription,
 
     # Optional
     [parameter(Mandatory = $false)][bool]$deploygpt4 = $false,
@@ -21,6 +22,8 @@ Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
 Push-Location $($MyInvocation.InvocationName | Split-Path)
+
+az account set --subscription $subscription
 
 if (-Not (az cognitiveservices account list -g $resourceGroup --query '[].name' -o json | ConvertFrom-Json) -Contains $name) {
     Write-Host "The Azure OpenAI account $($name) was not found, creating it..." -ForegroundColor Yellow

@@ -10,11 +10,16 @@ using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Core.Bot;
+using FoundationaLLM.Core.Dialogs;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Bot.Builder;
+using Microsoft.Bot.Builder.Integration.AspNet.Core;
+using Microsoft.Bot.Connector.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
@@ -38,6 +43,7 @@ namespace FoundationaLLM.Core.API
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
+
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
                 options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
@@ -51,9 +57,10 @@ namespace FoundationaLLM.Core.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CoreAPI_Entra);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
             });
+
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
-              
+
             var allowAllCorsOrigins = "AllowAllOrigins";
             builder.Services.AddCors(policyBuilder =>
             {
@@ -87,6 +94,27 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
+
+            // Create the storage we'll be using for User and Conversation state. (Memory is great for testing purposes.)
+            builder.Services.AddSingleton<IStorage, MemoryStorage>();
+
+            // Create the Conversation state. (Used by the Dialog system itself.)
+            builder.Services.AddSingleton<ConversationState>();
+
+            // Create the User state. (Used in this bot's Dialog implementation.)
+            builder.Services.AddSingleton<UserState>();
+
+            // Create the Bot Framework Authentication to be used with the Bot Adapter.
+            builder.Services.AddSingleton<BotFrameworkAuthentication, ConfigurationBotFrameworkAuthentication>();
+
+            // Create the Bot Adapter with error handling enabled.
+            builder.Services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();
+
+            // The MainDialog that will be run by the bot.
+            builder.Services.AddScoped<MainDialog>();
+
+            // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
+            builder.Services.AddTransient<IBot, DialogAndWelcomeBot<MainDialog>>();
 
             // Register the authentication services
             RegisterAuthConfiguration(builder);

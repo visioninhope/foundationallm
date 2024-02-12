@@ -42,6 +42,7 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
+
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
                 options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
@@ -53,6 +54,7 @@ namespace FoundationaLLM.AgentFactory.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AgentFactory);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
             });
+
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 

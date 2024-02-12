@@ -144,42 +144,7 @@ module monitoring './shared/monitoring.bicep' = {
   dependsOn: [ keyVault ]
 }
 
-module openAi './shared/openai.bicep' = {
-  name: 'openai'
-  params: {
-    deployments: [
-      {
-        name: 'completions'
-        sku: {
-          name: 'Standard'
-          capacity: 10
-        }
-        model: {
-          name: 'gpt-35-turbo'
-          version: '0613'
-        }
-      }
-      {
-        name: 'embeddings'
-        sku: {
-          name: 'Standard'
-          capacity: 10
-        }
-        model: {
-          name: 'text-embedding-ada-002'
-          version: '2'
-        }
-      }
-    ]
-    keyvaultName: keyVault.outputs.name
-    location: location
-    name: '${abbrs.openAiAccounts}${resourceToken}'
-    sku: 'S0'
-    tags: tags
-  }
-  scope: rg
-  dependsOn: [ keyVault ]
-}
+
 
 module registry './shared/registry.bicep' = {
   name: 'registry'
@@ -247,6 +212,6 @@ module coreApiService './app/acaService.bicep' = [ for service in services: {
       ]
     }
     scope: rg
-    dependsOn: [ appConfig, cogSearch, contentSafety, cosmosDb, keyVault, monitoring, openAi, storage ]
+    dependsOn: [ appConfig, cogSearch, contentSafety, cosmosDb, keyVault, monitoring, storage ]
   }
 ]

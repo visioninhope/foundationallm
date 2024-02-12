@@ -41,6 +41,10 @@ namespace FoundationaLLM.Management.API
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
+
+            if (builder.Environment.IsDevelopment())
+                builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
                 options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
@@ -55,8 +59,7 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
             });
 
-            if (builder.Environment.IsDevelopment())
-                builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+            
 
             var allowAllCorsOrigins = "AllowAllOrigins";
             builder.Services.AddCors(policyBuilder =>
