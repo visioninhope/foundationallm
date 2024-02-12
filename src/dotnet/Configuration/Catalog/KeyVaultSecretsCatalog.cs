@@ -290,6 +290,18 @@ namespace FoundationaLLM.Configuration.Catalog
                 "The connection string to the Azure Storage account used for the vectorization state service."
             )
         ];
+
+        /// <summary>
+        /// Returns the list of all the Key Vault secrets for this solution that are required for the given version.
+        /// </summary>
+        /// <param name="version">The current version of the caller.</param>
+        /// <returns></returns>
+        public static IEnumerable<KeyVaultSecretEntry> GetRequiredKeyVaultSecretsForVersion(string version)
+        {
+            var currentVersion = new Version(version);
+            return Entries.Where(entry => !string.IsNullOrWhiteSpace(entry.MinimumVersion) &&
+                                                  new Version(entry.MinimumVersion) <= currentVersion);
+        }
     }
 
 }
