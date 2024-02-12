@@ -18,6 +18,11 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Instance_Id = "FoundationaLLM:Instance:Id";
         /// <summary>
+        /// Key for the FoundationaLLM:Configuration:KeyVaultURI app configuration setting.
+        /// This value should be the URI of the Azure Key Vault that contains the application's secrets.
+        /// </summary>
+        public const string FoundationaLLM_Configuration_KeyVaultURI = "FoundationaLLM:Configuration:KeyVaultURI";
+        /// <summary>
         /// The key for the FoundationaLLM:AgentHub:AgentMetadata:StorageContainer app configuration setting.
         /// </summary>
         public const string FoundationaLLM_AgentHub_AgentMetadata_StorageContainer = "FoundationaLLM:AgentHub:AgentMetadata:StorageContainer";
@@ -196,6 +201,11 @@ namespace FoundationaLLM.Common.Constants
         /// This is a Key Vault reference.
         /// </summary>
         public const string FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:AppConfig:ConnectionString app configuration setting.
+        /// This is Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_AppConfig_ConnectionString = "FoundationaLLM:AppConfig:ConnectionString";
         /// <summary>
         /// The key for the FoundationaLLM:AzureContentSafety:APIKey app configuration setting.
         /// This is a Key Vault reference.
@@ -728,6 +738,17 @@ namespace FoundationaLLM.Common.Constants
         /// The connection string to the Azure Storage account used for the vectorization state service.
         /// </summary>
         public const string FoundationaLLM_Vectorization_ResourceProviderService_Storage_ConnectionString = "FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString";
+    }
+
+    /// <summary>
+    /// Contains constants of the feature flags for app configuration settings.
+    /// </summary>
+    public static class AppConfigurationFeatureFlags
+    {
+        /// <summary>
+        /// This feature flag controls whether the User Portal UI allows users to select an agent hint.
+        /// </summary>
+        public const string FoundationaLLM_AllowAgentHint = "FoundationaLLM-AllowAgentHint";
     }
 
     /// <summary>
