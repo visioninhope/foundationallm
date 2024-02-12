@@ -31,9 +31,18 @@ namespace FoundationaLLM.Configuration.Validation
                 .Select(entry => entry.KeyVaultSecretName)
                 .Distinct());
 
-            // Identify missing App Configuration settings by checking the configExistenceMap.
+            // Identify missing App Configuration settings by checking the configExistenceMap,
+            // considering whether the setting can be empty.
             var missingConfigurations = appConfigurationEntries
-                .Where(entry => !configExistenceMap.TryGetValue(entry.Key, out var configExists) || !configExists)
+                .Where(entry =>
+                {
+                    // Check if the setting exists in the map.
+                    var exists = configExistenceMap.TryGetValue(entry.Key, out var isPresentAndNotEmpty);
+
+                    // If the setting must not be empty and either doesn't exist or exists as empty, it's missing.
+                    // If the setting can be empty, it's only missing if it doesn't exist at all.
+                    return !exists || (!isPresentAndNotEmpty && !entry.CanBeEmpty);
+                })
                 .Select(entry => entry.Key);
 
             // Identify missing Key Vault secrets by checking the secretExistenceMap.

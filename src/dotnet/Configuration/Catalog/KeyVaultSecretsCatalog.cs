@@ -137,11 +137,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 description: ""
             ),
             new(
-                secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_Chat_Entra_ClientSecret,
-                minimumVersion: "0.3.0",
-                description: ""
-            ),
-            new(
                 secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearch_Key,
                 minimumVersion: "0.3.0",
                 description: ""
@@ -154,11 +149,6 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
             new(
                 secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearchMemorySource_Key,
-                minimumVersion: "0.3.0",
-                description: ""
-            ),
-            new(
-                secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_Coreapi_Entra_ClientSecret,
                 minimumVersion: "0.3.0",
                 description: ""
             ),
@@ -191,27 +181,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 description: ""
             ),
             new(
-                secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChain_CsvFile_Url,
-                minimumVersion: "0.3.0",
-                description: ""
-            ),
-            new(
-                secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChain_SQLDatabase_Testdb_Password,
-                minimumVersion: "0.3.0",
-                description: ""
-            ),
-            new(
                 secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChainAPI_Key,
-                minimumVersion: "0.3.0",
-                description: ""
-            ),
-            new(
-                secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_Management_Entra_ClientSecret,
-                minimumVersion: "0.3.0",
-                description: ""
-            ),
-            new(
-                secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_Managementapi_Entra_ClientSecret,
                 minimumVersion: "0.3.0",
                 description: ""
             ),

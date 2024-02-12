@@ -140,17 +140,6 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_ForceHttpsRedirection,
-                minimumVersion: "0.3.0",
-                defaultValue: "true",
-                description:
-                "By default, the Agent Factory API forces HTTPS redirection. To override this behavior and allow it to handle HTTP requests, set this value to false.",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
                 key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-agenthubapi-apikey`",
@@ -292,17 +281,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 defaultValue: "true",
                 description:
                 "By default, the Gatekeeper API has Microsoft Presidio integration enabled. To disable this feature, set this value to false.",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_ForceHttpsRedirection,
-                minimumVersion: "0.3.0",
-                defaultValue: "true",
-                description:
-                "By default, the Gatekeeper API forces HTTPS redirection. To override this behavior and allow it to handle HTTP requests, set this value to false.",
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
@@ -839,7 +817,8 @@ namespace FoundationaLLM.Configuration.Catalog
                 description: "",
                 keyVaultSecretName: "",
                 contentType: "text/plain",
-                sampleObject: null
+                sampleObject: null,
+                canBeEmpty: true
             ),
 
             new(
@@ -964,16 +943,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 defaultValue: "",
                 description: "",
                 keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Chat_Entra_ClientSecret,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-chat-entra-clientsecret`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_Chat_Entra_ClientSecret,
                 contentType: "text/plain",
                 sampleObject: null
             ),
@@ -1146,16 +1115,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 defaultValue: "",
                 description: "",
                 keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientSecret,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-coreapi-entra-clientsecret`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_Coreapi_Entra_ClientSecret,
                 contentType: "text/plain",
                 sampleObject: null
             ),
@@ -1432,16 +1391,6 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientSecret,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-management-entra-clientsecret`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_Management_Entra_ClientSecret,
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
                 key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Management_Entra_Instance,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
@@ -1483,17 +1432,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 defaultValue: "",
                 description: "",
                 keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientSecret,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-managementapi-entra-clientsecret`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
-                    .FoundationaLLM_Managementapi_Entra_ClientSecret,
                 contentType: "text/plain",
                 sampleObject: null
             ),
@@ -1589,22 +1527,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 description: "This is a Key Vault reference.",
                 keyVaultSecretName: Common.Constants.KeyVaultSecretNames
                     .FoundationaLLM_PromptHub_StorageManager_BlobStorage_ConnectionString,
-                contentType: "text/plain",
-                sampleObject: null
-            )
-        ];
-
-        /// <summary>
-        /// The Refinement configuration entries for the solution.
-        /// </summary>
-        public static readonly List<AppConfigurationEntry> Refinement =
-        [
-            new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Refinement,
-                minimumVersion: "0.3.0",
-                defaultValue: "",
-                description: "",
-                keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
             )
@@ -1925,7 +1847,6 @@ namespace FoundationaLLM.Configuration.Catalog
             allEntries.AddRange(OpenAI);
             allEntries.AddRange(Prompt);
             allEntries.AddRange(PromptHub);
-            allEntries.AddRange(Refinement);
             allEntries.AddRange(SemanticKernelAPI);
             allEntries.AddRange(UserPortal);
             allEntries.AddRange(Vectorization);

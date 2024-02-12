@@ -16,8 +16,10 @@ namespace FoundationaLLM.Common.Models.Configuration.AppConfiguration
     /// <param name="defaultValue"></param>
     /// <param name="contentType"></param>
     /// <param name="sampleObject"></param>
+    /// <param name="canBeEmpty"></param>
     public class AppConfigurationEntry(string key, string? minimumVersion, string? keyVaultSecretName = null,
-        string? description = null, string? defaultValue = null, string? contentType = null, object? sampleObject = null)
+        string? description = null, string? defaultValue = null, string? contentType = null,
+        object? sampleObject = null, bool canBeEmpty = false)
     {
         /// <summary>
         /// The App Configuration key.
@@ -39,6 +41,10 @@ namespace FoundationaLLM.Common.Models.Configuration.AppConfiguration
         /// The default value for the configuration entry.
         /// </summary>
         public string? DefaultValue { get; } = defaultValue;
+        /// <summary>
+        /// If true, the configuration entry must exist but can be empty.
+        /// </summary>
+        public bool CanBeEmpty { get; } = canBeEmpty;
         /// <summary>
         /// The content type of the configuration entry.
         /// </summary>
