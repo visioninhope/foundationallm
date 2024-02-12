@@ -425,26 +425,69 @@ namespace FoundationaLLM.Management.API
             var version = app.Configuration[EnvironmentVariables.FoundationaLLM_Version];
             var healthChecks = app.Services.GetRequiredService<ConfigurationHealthChecks>();
 
+            var missingConfigurations = new List<string>();
+            var missingKeyVaultSecrets = new List<string>();
+            var missingEnvironmentVariables = new List<string>();
+
+            // Environment Variables Check.
+            try
+            {
+                healthChecks.ValidateEnvironmentVariables();
+            }
+            catch (ConfigurationValidationException ex)
+            {
+                if (ex.MissingEnvironmentVariables != null)
+                {
+                    missingEnvironmentVariables.AddRange(ex.MissingEnvironmentVariables!);
+                }
+            }
+
+            // App Configuration Check.
             try
             {
                 await healthChecks.ValidateConfigurationsAsync(version);
+            }
+            catch (ConfigurationValidationException ex)
+            {
+                if (ex.MissingConfigurations != null)
+                {
+                    missingConfigurations.AddRange(ex.MissingConfigurations!);
+                }
+            }
+
+            // Key Vault Secrets Check.
+            try
+            {
                 await healthChecks.ValidateKeyVaultSecretsAsync(version);
             }
             catch (ConfigurationValidationException ex)
             {
-                // Log the details of the exception and decide whether to continue or halt.
-                Console.WriteLine(ex.Message);
-                foreach (var missingConfig in ex.MissingConfigurations)
+                if (ex.MissingKeyVaultSecrets != null)
+                {
+                    missingKeyVaultSecrets.AddRange(ex.MissingKeyVaultSecrets!);
+                }
+            }
+
+            // Check if any errors were accumulated across the checks
+            if (missingConfigurations.Count != 0 || missingKeyVaultSecrets.Count != 0 || missingEnvironmentVariables.Count != 0)
+            {
+                Console.WriteLine("Configuration validation failed:");
+
+                foreach (var missingConfig in missingConfigurations)
                 {
                     Console.WriteLine($"Missing Configuration: {missingConfig}");
                 }
-                foreach (var missingSecret in ex.MissingKeyVaultSecrets)
+                foreach (var missingSecret in missingKeyVaultSecrets)
                 {
                     Console.WriteLine($"Missing Key Vault Secret: {missingSecret}");
                 }
+                foreach (var missingVar in missingEnvironmentVariables)
+                {
+                    Console.WriteLine($"Missing Environment Variable: {missingVar}");
+                }
 
-                // Optionally, halt the application if critical configurations or secrets are missing.
-                // Environment.Exit(1); or throw;
+                // Halt the application since critical configurations or secrets are missing.
+                Environment.Exit(1);
             }
         }
     }

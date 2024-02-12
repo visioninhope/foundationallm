@@ -21,5 +21,10 @@ namespace FoundationaLLM.Configuration.Interfaces
         /// <returns></returns>
         /// <exception cref="ConfigurationValidationException"></exception>
         Task ValidateKeyVaultSecretsAsync(string version);
+
+        /// <summary>
+        /// Validates the application's environment variables.
+        /// </summary>
+        void ValidateEnvironmentVariables();
     }
 }

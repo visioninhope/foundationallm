@@ -1,15 +1,7 @@
 ﻿using FoundationaLLM.Configuration.Catalog;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Services;
 using Microsoft.Extensions.Logging;
-using Azure.Security.KeyVault.Secrets;
-using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Configuration.Interfaces;
 
 namespace FoundationaLLM.Configuration.Validation
@@ -61,7 +53,7 @@ namespace FoundationaLLM.Configuration.Validation
                                    $"Missing or empty Key Vault secrets for app configurations: {string.Join(", ", keyVaultSecrets)}";
                 _logger.LogError(errorMessage);
 
-                throw new ConfigurationValidationException(configurations, keyVaultSecrets);
+                throw new ConfigurationValidationException(configurations, keyVaultSecrets, null);
             }
         }
 
@@ -82,7 +74,31 @@ namespace FoundationaLLM.Configuration.Validation
             {
                 var errorMessage = $"Missing or empty Key Vault secrets: {string.Join(", ", missingKeyVaultSecrets)}";
                 _logger.LogError(errorMessage);
-                throw new ConfigurationValidationException(new List<string>(), missingKeyVaultSecrets);
+                throw new ConfigurationValidationException(null, missingKeyVaultSecrets, null);
+            }
+        }
+
+        /// <inheritdoc/>
+        public void ValidateEnvironmentVariables()
+        {
+            var missingVariables = new List<string>();
+            var requiredVariables = EnvironmentVariablesCatalog.GetRequiredEnvironmentVariables();
+
+            foreach (var variable in requiredVariables)
+            {
+                var value = Environment.GetEnvironmentVariable(variable.Name);
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    continue;
+                }
+
+                missingVariables.Add(variable.Name);
+                _logger.LogError($"Missing environment variable: {variable.Name}");
+            }
+
+            if (missingVariables.Count != 0)
+            {
+                throw new ConfigurationValidationException(null, null, missingVariables);
             }
         }
     }
