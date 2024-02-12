@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoundationaLLM.Common.Settings
+namespace FoundationaLLM.Common.Models.Configuration.Events
 {
     /// <summary>
-    /// Types of authentication for blob storage accounts.
+    /// Types of authentication for Azure Event Grid namespaces.
     /// </summary>
-    public enum BlobStorageAuthenticationTypes
+    public enum AzureEventGridAuthenticationTypes
     {
         /// <summary>
         /// Unknown authentication type.
         /// </summary>
-        Unknown = -1,
+        Unknown = 0,
 
         /// <summary>
         /// Azure managed identity authentication type.
@@ -22,13 +22,8 @@ namespace FoundationaLLM.Common.Settings
         AzureIdentity,
 
         /// <summary>
-        /// Connection string authentication type.
+        /// API key authentication type.
         /// </summary>
-        ConnectionString,
-
-        /// <summary>
-        /// Account key authentication type.
-        /// </summary>
-        AccountKey
+        APIKey
     }
 }

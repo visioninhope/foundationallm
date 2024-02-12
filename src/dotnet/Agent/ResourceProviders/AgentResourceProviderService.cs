@@ -1,11 +1,13 @@
 ﻿using System.Collections.Concurrent;
 using System.Text;
+using Azure.Messaging;
 using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,20 +22,22 @@ namespace FoundationaLLM.Agent.ResourceProviders
     /// </summary>
     public class AgentResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Agent_ResourceProviderService)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)] IStorageService storageService,
+        IEventService eventService,
         ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             storageService,
-            loggerFactory.CreateLogger<AgentResourceProviderService>())
+            eventService,
+            loggerFactory.CreateLogger<AgentResourceProviderService>(),
+            [
+                EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
+            ])
     {
         private ConcurrentDictionary<string, AgentReference> _agentReferences = [];
 
         private const string AGENT_REFERENCES_FILE_NAME = "_agent-references.json";
         private const string AGENT_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Agent}/_agent-references.json";
-
-        private readonly ICacheService _cacheService = new MemoryCacheService(
-            loggerFactory.CreateLogger<MemoryCacheService>());
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Agent;
@@ -44,7 +48,11 @@ namespace FoundationaLLM.Agent.ResourceProviders
             {
                 {
                     AgentResourceTypeNames.Agents,
-                    new ResourceTypeDescriptor(AgentResourceTypeNames.Agents)
+                    new ResourceTypeDescriptor(
+                        AgentResourceTypeNames.Agents)
+                    {
+                        Actions = ["checkname"]
+                    }
                 },
                 {
                     AgentResourceTypeNames.AgentReferences,
@@ -172,7 +180,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 default,
                 default);
 
-            _agentReferences[agentReference.Name] = agentReference;
+            _agentReferences.AddOrUpdate(agentReference.Name, agentReference, (k,v) => agentReference);
 
             await _storageService.WriteFileAsync(
                     _storageContainerName,
@@ -182,60 +190,58 @@ namespace FoundationaLLM.Agent.ResourceProviders
                     default);
         }
 
-
-
-
-
-
-
+        #region Event handling
 
         /// <inheritdoc/>
-        protected override async Task<T> GetResourceAsyncInternal<T>(List<ResourceTypeInstance> instances) where T: class =>
-            instances[0].ResourceType switch
-            {
-                AgentResourceTypeNames.AgentReferences => await GetAgentAsync<T>(instances),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
-            };
-
-        /// <inheritdoc/>
-        protected override async Task<IList<T>> GetResourcesAsyncInternal<T>(List<ResourceTypeInstance> instances) where T : class =>
-            instances[0].ResourceType switch
-            {
-                AgentResourceTypeNames.AgentReferences => await GetAgentsAsync<T>(instances),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
-            };
-
-
-        private async Task<List<T>> GetAgentsAsync<T>(List<ResourceTypeInstance> instances) where T : class
+        protected override async Task HandleEvents(EventSetEventArgs e)
         {
-            if (typeof(T) != typeof(AgentReference))
-                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+            _logger.LogInformation("{EventsCount} events received in the {EventsNamespace} events namespace.",
+                e.Events.Count, e.Namespace);
 
-            var agentReferences = _agentReferences.Values.Cast<AgentReference>().ToList();
-            foreach (var agentReference in agentReferences)
+            switch (e.Namespace)
             {
-                var agent = await LoadAgent(agentReference);
+                case EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent:
+                    foreach (var @event in e.Events)
+                        await HandleAgentResourceProviderEvent(@event);
+                    break;
+                default:
+                    // Ignore sliently any event namespace that's of no interest.
+                    break;
             }
 
-            return agentReferences.Cast<T>().ToList();
+            await Task.CompletedTask;
         }
 
-        private async Task<T> GetAgentAsync<T>(List<ResourceTypeInstance> instances) where T : class
+        private async Task HandleAgentResourceProviderEvent(CloudEvent e)
         {
-            if (instances.Count != 1)
-                throw new ResourceProviderException($"Invalid resource path");
+            if (string.IsNullOrWhiteSpace(e.Subject))
+                return;
 
-            if (typeof(T) != typeof(AgentReference))
-                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+            var fileName = e.Subject.Split("/").Last();
 
-            _agentReferences.TryGetValue(instances[0].ResourceId!, out var agentReference);
-            if (agentReference != null)
+            _logger.LogInformation("The file [{FileName}] managed by the [{ResourceProvider}] resource provider has changed and will be reloaded.",
+                fileName, _name);
+
+            var agentReference = new AgentReference
             {
-                return agentReference as T ?? throw new ResourceProviderException(
-                    $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
-            }
-            throw new ResourceProviderException(
-                $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
+                Name = Path.GetFileNameWithoutExtension(fileName),
+                Filename = $"/{_name}/{fileName}",
+                Type = AgentTypes.Basic
+            };
+
+            var agent = await LoadAgent(agentReference);
+            agentReference.Name = agent.Name;
+            agentReference.Type = agent.Type;
+
+            _agentReferences.AddOrUpdate(
+                agentReference.Name,
+                agentReference,
+                (k, v) => v);
+
+            _logger.LogInformation("The agent reference for the [{AgentName}] agent or type [{AgentType}] was loaded.",
+                agentReference.Name, agentReference.Type);
         }
+
+        #endregion
     }
 }

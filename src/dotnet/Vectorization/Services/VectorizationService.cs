@@ -26,7 +26,7 @@ namespace FoundationaLLM.Vectorization.Services
     public class VectorizationService(
         IRequestSourcesCache requestSourcesCache,
         IVectorizationStateService vectorizationStateService,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IResourceProviderService vectorizationResourceProvider,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IResourceProviderService vectorizationResourceProvider,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps)] IConfigurationSection stepsConfiguration,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory) : IVectorizationService

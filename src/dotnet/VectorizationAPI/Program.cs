@@ -4,10 +4,10 @@ using FoundationaLLM;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services;
+using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Services.Tokenizers;
-using FoundationaLLM.Common.Settings;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -66,7 +66,7 @@ builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker));
 
 builder.Services.AddOptions<BlobStorageServiceSettings>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)
+    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
 
 builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
@@ -88,10 +88,10 @@ builder.Services.AddKeyedSingleton(
 // Add services to the container.
 
 builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService, (sp, obj) =>
+    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization, (sp, obj) =>
     {
         var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-            .Get(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
+            .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
         var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
 
         return new BlobStorageService(
@@ -104,9 +104,9 @@ builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationSta
 
 // Vectorization resource provider
 builder.Services.AddKeyedSingleton<IResourceProviderService, VectorizationResourceProviderService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
+    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
 builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
+    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
 
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();

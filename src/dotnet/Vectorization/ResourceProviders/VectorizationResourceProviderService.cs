@@ -8,9 +8,9 @@ using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Vectorization.ResourceProviders
 {
@@ -19,17 +19,19 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
     /// </summary>
     public class VectorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IStorageService storageService,
+        IEventService eventService,
         ILogger<VectorizationResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             storageService,
+            eventService,
             logger)
     {
-        private Dictionary<string, ContentSourceProfile> _contentSourceProfiles = [];
-        private Dictionary<string, TextPartitioningProfile> _textPartitioningProfiles = [];
-        private Dictionary<string, TextEmbeddingProfile> _textEmbeddingProfiles = [];
-        private Dictionary<string, IndexingProfile> _indexingProfiles = [];
+        private ConcurrentDictionary<string, ContentSourceProfile> _contentSourceProfiles = [];
+        private ConcurrentDictionary<string, TextPartitioningProfile> _textPartitioningProfiles = [];
+        private ConcurrentDictionary<string, TextEmbeddingProfile> _textEmbeddingProfiles = [];
+        private ConcurrentDictionary<string, IndexingProfile> _indexingProfiles = [];
 
         private const string CONTENT_SOURCE_PROFILES_FILE_NAME = "vectorization-content-source-profiles.json";
         private const string TEXT_PARTITIONING_PROFILES_FILE_NAME = "vectorization-text-partitioning-profiles.json";
@@ -80,7 +82,8 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 var contentSourceProfilesStore = JsonSerializer.Deserialize<ProfileStore<ContentSourceProfile>>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
 
-                _contentSourceProfiles = contentSourceProfilesStore!.ToDictionary();
+                _contentSourceProfiles = new ConcurrentDictionary<string, ContentSourceProfile>(
+                    contentSourceProfilesStore!.ToDictionary());
             }
 
             if (await _storageService.FileExistsAsync(_storageContainerName, TEXT_PARTITIONING_PROFILES_FILE_PATH, default))
@@ -89,7 +92,8 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 var textPartitionProfileStore = JsonSerializer.Deserialize<ProfileStore<TextPartitioningProfile>>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
 
-                _textPartitioningProfiles = textPartitionProfileStore!.ToDictionary();
+                _textPartitioningProfiles = new ConcurrentDictionary<string, TextPartitioningProfile>(
+                    textPartitionProfileStore!.ToDictionary());
             }
 
             if (await _storageService.FileExistsAsync(_storageContainerName, TEXT_EMBEDDING_PROFILES_FILE_PATH, default))
@@ -98,7 +102,8 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 var textEmbeddingProfileStore = JsonSerializer.Deserialize<ProfileStore<TextEmbeddingProfile>>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
 
-                _textEmbeddingProfiles = textEmbeddingProfileStore!.ToDictionary();
+                _textEmbeddingProfiles = new ConcurrentDictionary<string, TextEmbeddingProfile>(
+                    textEmbeddingProfileStore!.ToDictionary());
             }
 
             if (await _storageService.FileExistsAsync(_storageContainerName, INDEXING_PROFILES_FILE_PATH, default))
@@ -107,7 +112,8 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 var indexingProfileStore = JsonSerializer.Deserialize<ProfileStore<IndexingProfile>>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
 
-                _indexingProfiles = indexingProfileStore!.ToDictionary();
+                _indexingProfiles = new ConcurrentDictionary<string, IndexingProfile>(
+                    indexingProfileStore!.ToDictionary());
             }
 
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
@@ -204,7 +210,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task UpdateProfile<T>(List<ResourceTypeInstance> instances, string serializedProfile, Dictionary<string, T> profileStore, string storagePath)
+        private async Task UpdateProfile<T>(List<ResourceTypeInstance> instances, string serializedProfile, ConcurrentDictionary<string, T> profileStore, string storagePath)
             where T : VectorizationProfileBase
         {
             var profile = JsonSerializer.Deserialize<T>(serializedProfile)
@@ -214,12 +220,12 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (instances[0].ResourceId != profile.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).");
 
-            profileStore[profile.Name] = profile;
+            profileStore.AddOrUpdate(profile.Name, profile, (k,v) => profile);
 
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     storagePath,
-                    JsonSerializer.Serialize(ProfileStore<T>.FromDictionary(profileStore)),
+                    JsonSerializer.Serialize(ProfileStore<T>.FromDictionary(profileStore.ToDictionary())),
                     default,
                     default);
         }
@@ -265,7 +271,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private string LoadAndSerializeProfiles<T>(ResourceTypeInstance instance, Dictionary<string, T> profileStore)
+        private string LoadAndSerializeProfiles<T>(ResourceTypeInstance instance, ConcurrentDictionary<string, T> profileStore)
         {
             if (instance.ResourceId == null)
             {

@@ -42,7 +42,7 @@ namespace FoundationaLLM.Management.API.Controllers
                 resourcePath,
                 async (resourceProviderService) =>
                 {
-                    var result = await resourceProviderService.GetResourcesAsync(resourcePath);
+                    var result = await resourceProviderService.HandleGetAsync(resourcePath);
                     return new OkObjectResult(result);
                 });
 
@@ -61,7 +61,7 @@ namespace FoundationaLLM.Management.API.Controllers
                 resourcePath,
                 async (resourceProviderService) =>
                 {
-                    var objectId = await resourceProviderService.UpsertResourceAsync(resourcePath, serializedResource.ToString()!);
+                    var objectId = await resourceProviderService.HandlePostAsync(resourcePath, serializedResource.ToString()!);
                     return new OkObjectResult(new ResourceProviderUpsertResult { ObjectId = objectId });
                 });
 
@@ -79,7 +79,7 @@ namespace FoundationaLLM.Management.API.Controllers
                 resourcePath,
                 async (resourceProviderService) =>
                 {
-                    await resourceProviderService.DeleteResourceAsync(resourcePath);
+                    await resourceProviderService.HandleDeleteAsync(resourcePath);
                     return new OkResult();
                 });
 

@@ -19,11 +19,13 @@ namespace FoundationaLLM.Prompt.ResourceProviders
     /// </summary>
     public class PromptResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Prompt_ResourceProviderService)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt)] IStorageService storageService,
+        IEventService eventService,
         ILogger<PromptResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             storageService,
+            eventService,
             logger)
     {
         private ConcurrentDictionary<string, PromptReference> _promptReferences = [];
@@ -159,6 +161,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 default,
                 default);
 
+            _promptReferences.AddOrUpdate(promptReference.Name, promptReference, (k,v) => promptReference);
             _promptReferences[promptReference.Name] = promptReference;
 
             await _storageService.WriteFileAsync(

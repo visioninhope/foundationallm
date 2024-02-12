@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Settings
+namespace FoundationaLLM.Common.Models.Configuration.Storage
 {
     /// <summary>
     /// Provides configuration settings to initialize a blob storage service.
@@ -22,7 +22,7 @@ namespace FoundationaLLM.Common.Settings
         /// The account key used for authentication.
         /// This value should be set only if AuthenticationType has a value of AccountKey.
         /// </summary>
-        public string? AccountKey {  get; set; }
+        public string? AccountKey { get; set; }
 
         /// <summary>
         /// The connection string used for authentication.

@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.Security
 {
     /// <summary>
     /// No-op implementation of <see cref="IUserClaimsProviderService"/> in cases

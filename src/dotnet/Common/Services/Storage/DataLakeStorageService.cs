@@ -4,11 +4,11 @@ using Azure.Storage;
 using Azure.Storage.Files.DataLake;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.Storage
 {
     /// <summary>
     /// Provides access to Azure Data Lake blob storage.

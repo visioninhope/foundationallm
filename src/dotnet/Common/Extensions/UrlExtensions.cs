@@ -10,7 +10,7 @@ namespace FoundationaLLM.Common.Extensions
     /// <summary>
     /// Extends <see cref="string"/> with helper methods.
     /// </summary>
-    public static class StringExtensions
+    public static class UrlExtensions
     {
         private static List<string> KnownFQDNs => [
             "onelake.dfs.fabric.microsoft.com",

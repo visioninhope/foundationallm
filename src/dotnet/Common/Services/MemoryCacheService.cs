@@ -59,12 +59,15 @@ namespace FoundationaLLM.Common.Services
         }
 
         /// <inheritdoc/>
-        public void Set<T>(CacheKey key, T? value, TimeSpan? expirationTime) =>
-            _cache[key] = new CacheItem
+        public void Set<T>(CacheKey key, T? value, TimeSpan? expirationTime)
+        {
+            var newCacheItem = new CacheItem
             {
                 Value = value,
                 ExpirationTimeUtc = expirationTime.HasValue ? DateTime.UtcNow.Add(expirationTime.Value) : null
             };
+            _cache.AddOrUpdate(key, newCacheItem, (k, v) => newCacheItem);
+        }
 
         /// <inheritdoc/>
         public void Remove(CacheKey key) =>
