@@ -102,6 +102,9 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
+            builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
+            builder.Services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
+
             //----------------------------
             // Resource providers
             //----------------------------
