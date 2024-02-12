@@ -145,6 +145,7 @@
     <Compile Include="foundationallm\models\orchestration\message_history_item.py" />
     <Compile Include="foundationallm\models\orchestration\__init__.py" />
     <Compile Include="foundationallm\models\resource_providers\prompts\prompt.py" />
+    <Compile Include="foundationallm\models\resource_providers\prompts\__init__.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\configuration_references_base.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\azure_openai\azure_openai_configuration_references.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\azure_openai\azure_openai_embedding_profile.py" />

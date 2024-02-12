@@ -10,8 +10,8 @@ class AzureOpenAIConfigurationReferences(ConfigurationReferencesBase):
     """
     Configuration references for an Azure OpenAI text embedding service.
     """
-    APIKey: Optional[str] = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey"
-    APIVersion: Optional[str] = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion"
-    AuthenticationType: Optional[str] = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType"
-    DeploymentName: Optional[str] = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName"
-    Endpoint: Optional[str] = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"
+    api_key: Optional[str] = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey"
+    api_version: Optional[str] = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion"
+    authentication_type: Optional[str] = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType"
+    deployment_name: Optional[str] = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName"
+    endpoint: Optional[str] = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"

@@ -2,7 +2,6 @@
 Class: Prompt
 Description: Prompt model from resource provider.
 """
-
 from typing import Optional
 from pydantic import BaseModel
 

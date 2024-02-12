@@ -8,4 +8,4 @@ class IndexingProfileBase(ProfileBase):
     """
     Base class to hold indexing profile information.
     """
-    indexer = str
+    indexer: str
