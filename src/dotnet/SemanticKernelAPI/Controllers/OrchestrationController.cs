@@ -3,8 +3,6 @@ using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Dynamic;
-using System.Text.Json;
 
 namespace FoundationaLLM.SemanticKernel.API.Controllers
 {
@@ -41,29 +39,17 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
         [HttpPost("completion")]
         public async Task<LLMCompletionResponse> GetCompletion([FromBody] LLMCompletionRequest request)
         {
-            //var expandoObject = JsonSerializer.Deserialize<ExpandoObject>(request.ToString(), new ExpandoObjectConverter());
+            string? agentType = request switch
+            {
+                KnowledgeManagementCompletionRequest kmcr => kmcr.Agent.Type,
+                LegacyCompletionRequest lcr => lcr.Agent?.Type,
+                _ => throw new Exception($"LLM orchestration completion request of type {request.GetType()} is not supported."),
+            };
 
-            //var agentType = string.Empty;
-            //try
-            //{
-            //    agentType = expandoObject.agent.type;
-            //}
-            //catch { }
-
-            //if (agentType == "knowledge-management")
-            //{
-            //    var completionRequest = JsonSerializer.Deserialize<KnowledgeManagementCompletionRequest>(request.ToString()) as KnowledgeManagementCompletionRequest;
-
-            //    return await _knowledgeManagementAgentPlugin.GetCompletion(completionRequest!);
-            //}
-            //else
-            //{
-            //    var completionRequest = JsonSerializer.Deserialize<LegacyCompletionRequest?>(request.ToString()) as LegacyCompletionRequest;
-
-            //    return await _legacyAgentPlugin.GetCompletion(completionRequest!);
-            //}
-
-            return default;
+            if (agentType == "knowledge-management")
+                return await _knowledgeManagementAgentPlugin.GetCompletion((KnowledgeManagementCompletionRequest)request);
+            else
+                return await _legacyAgentPlugin.GetCompletion((LegacyCompletionRequest)request);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.SemanticKernel.Core.Models;
 
 namespace FoundationaLLM.SemanticKernel.Core.Interfaces
 {
