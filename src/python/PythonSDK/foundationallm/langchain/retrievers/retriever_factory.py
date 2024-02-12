@@ -12,15 +12,15 @@ class RetrieverFactory:
     """
     def __init__(
                 self,
-                indexing_profile_resource_id: str,
-                embedding_profile_resource_id:str,
+                indexing_profile_object_id: str,
+                embedding_profile_object_id:str,
                 config: Configuration,
                 resource_provider: ResourceProvider
                 ):
         self.config = config
         self.resource_provider = resource_provider
-        self.indexing_profile = resource_provider.get_resource(indexing_profile_resource_id)
-        self.embedding_profile = resource_provider.get_resource(embedding_profile_resource_id)        
+        self.indexing_profile_object_id = indexing_profile_object_id
+        self.embedding_profile_object_id = embedding_profile_object_id
 
     def get_retriever(self) -> BaseRetriever:
         """
@@ -37,6 +37,7 @@ class RetrieverFactory:
         #embedding_model = None
         #match embedding_model_type:            
         #    case "SemanticKernelTextEmbedding": # same as Azure Open AI Embedding
+        embedding_profile_dict = self.resource_provider.get_resource_as_dict(self.embedding_profile_object_id)
         e_model = EmbeddingModel(
             type = LanguageModelType.OPENAI,
             provider = LanguageModelProvider.MICROSOFT,

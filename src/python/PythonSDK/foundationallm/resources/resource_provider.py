@@ -1,9 +1,17 @@
+"""
+Class: ResourceProvider
+Description:
+    Responsible for retrieving resource data as a dictionary.
+"""
 import re
 import json
 from foundationallm.config import Configuration
 from foundationallm.storage import BlobStorageManager
 
 class ResourceProvider:
+    """
+    Responsible for read-only access to resource metadata.
+    """
     def __init__(
             self,
             config: Configuration
@@ -15,13 +23,13 @@ class ResourceProvider:
             container_name="resource-provider"
         )
 
-    def get_resource(self, resource_id:str):
+    def get_resource_as_dict(self, object_id:str):
         """
-        Retrieves the resource with the given id.
+        Retrieves the resource with the given object id.
 
         Parameters
         ----------
-        resource_id : str
+        object_id : str
             The id of the resource to retrieve.
 
         Returns
@@ -29,7 +37,7 @@ class ResourceProvider:
         Any
             The resource with the given id.
         """
-        tokens = resource_id.split("/")
+        tokens = object_id.split("/")
         # the last token is resource
         resource = tokens[-1]
         # the second to last token is resource type
@@ -58,8 +66,8 @@ class ResourceProvider:
                     file_content = self.blob_storage_manager.read_file_content(full_path)
                     if file_content is not None:
                         decoded_content = file_content.decode("utf-8")
-                        profiles = json.loads(decoded_content)["Profiles"]
-                        filtered = next(filter(lambda profile: profile["Name"] == resource, profiles), None)
+                        profiles = json.loads(decoded_content).get("Profiles", [])
+                        filtered = next(filter(lambda profile: profile.get("Name","") == resource, profiles), None)
                         if filtered is not None:
                             filtered = self.__translate_keys(filtered)
                             return filtered
