@@ -37,19 +37,11 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
         /// <param name="request">The completion request containing the user prompt and message history.</param>
         /// <returns>The completion response.</returns>
         [HttpPost("completion")]
-        public async Task<LLMCompletionResponse> GetCompletion([FromBody] LLMCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion([FromBody] LLMCompletionRequest request) => request switch
         {
-            string? agentType = request switch
-            {
-                KnowledgeManagementCompletionRequest kmcr => kmcr.Agent.Type,
-                LegacyCompletionRequest lcr => lcr.Agent?.Type,
-                _ => throw new Exception($"LLM orchestration completion request of type {request.GetType()} is not supported."),
-            };
-
-            if (agentType == "knowledge-management")
-                return await _knowledgeManagementAgentPlugin.GetCompletion((KnowledgeManagementCompletionRequest)request);
-            else
-                return await _legacyAgentPlugin.GetCompletion((LegacyCompletionRequest)request);
-        }
+            KnowledgeManagementCompletionRequest kmcr => await _knowledgeManagementAgentPlugin.GetCompletion(kmcr),
+            LegacyCompletionRequest lcr => await _legacyAgentPlugin.GetCompletion(lcr),
+            _ => throw new Exception($"LLM orchestration completion request of type {request.GetType()} is not supported."),
+        };
     }
 }

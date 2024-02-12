@@ -3,7 +3,6 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
-using FoundationaLLM.SemanticKernel.Core.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
