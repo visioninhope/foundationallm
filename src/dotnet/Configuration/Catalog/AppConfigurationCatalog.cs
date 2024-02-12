@@ -29,6 +29,22 @@ namespace FoundationaLLM.Configuration.Catalog
         ];
 
         /// <summary>
+        /// The Configuration-based configuration entries for the solution.
+        /// </summary>
+        public static readonly List<AppConfigurationEntry> Configuration =
+        [
+            new(
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Configuration_KeyVaultURI,
+                minimumVersion: "1.0.0",
+                defaultValue: "",
+                description: "The value URI for the deployed Key Vault instance.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            )
+        ];
+
+        /// <summary>
         /// The Agent Hub configuration entries for the solution.
         /// </summary>
         public static readonly List<AppConfigurationEntry> AgentHub =
@@ -1895,6 +1911,7 @@ namespace FoundationaLLM.Configuration.Catalog
             allEntries.AddRange(Branding);
             allEntries.AddRange(CognitiveSearch);
             allEntries.AddRange(CognitiveSearchMemorySource);
+            allEntries.AddRange(Configuration);
             allEntries.AddRange(CoreAPI);
             allEntries.AddRange(CoreWorker);
             allEntries.AddRange(CosmosDB);
