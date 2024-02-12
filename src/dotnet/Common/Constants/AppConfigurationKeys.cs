@@ -202,11 +202,6 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString";
         /// <summary>
-        /// The key for the FoundationaLLM:AppConfig:ConnectionString app configuration setting.
-        /// This is Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_AppConfig_ConnectionString = "FoundationaLLM:AppConfig:ConnectionString";
-        /// <summary>
         /// The key for the FoundationaLLM:AzureContentSafety:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>
