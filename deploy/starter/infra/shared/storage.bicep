@@ -1,5 +1,6 @@
 param containers array = []
 param files array = []
+param queues array = []
 param keyvaultName string
 param location string = resourceGroup().location
 param name string
@@ -24,6 +25,18 @@ resource blobContainers 'Microsoft.Storage/storageAccounts/blobServices/containe
   for container in containers: {
     parent: blobService
     name: container.name
+  }
+]
+
+resource queueService 'Microsoft.Storage/storageAccounts/queueServices@2023-01-01' = {
+  parent: storage
+  name: 'default'
+}
+
+resource storageQueues 'Microsoft.Storage/storageAccounts/queueServices/queues@2023-01-01' = [
+  for queue in queues: {
+    parent: queueService
+    name: queue.name
   }
 ]
 

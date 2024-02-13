@@ -59,6 +59,8 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
+        build-args: |
+          FOUNDATIONALLM_VERSION=${{ steps.releaseVersion.outputs.release_tag }}
 
   helm_chart_package_and_push:
     runs-on: ubuntu-latest

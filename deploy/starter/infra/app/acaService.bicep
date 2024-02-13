@@ -14,6 +14,10 @@ param appDefinition object
 param hasIngress bool = false
 param envSettings array = []
 param secretSettings array = []
+param serviceName string
+
+var formattedAppName = replace(name, '-', '')
+var truncatedAppName = substring(formattedAppName, 0, min(length(formattedAppName), 32))
 
 var appSettingsArray = filter(array(appDefinition.settings), i => i.name != '')
 var secrets = union(map(filter(appSettingsArray, i => i.?secret != null), i => {
@@ -108,10 +112,10 @@ module fetchLatestImage '../modules/fetch-container-image.bicep' = {
 }
 
 resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
-  name: name
+  name: truncatedAppName
   location: location
-  tags: union(tags, {'azd-service-name':  'ChatServiceWebApi' })
-  dependsOn: [ acrPullRole ]
+  tags: union(tags, {'azd-service-name':  serviceName })
+  dependsOn: [ acrPullRole, secretsAccessPolicy, appConfigReaderRole ]
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: { '${identity.id}': {} }
@@ -145,6 +149,14 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
           name: 'main'
           env: union([
             {
+              name: 'AZURE_CLIENT_ID'
+              value: identity.properties.clientId
+            }
+            {
+              name: 'AZURE_TENANT_ID'
+              value: identity.properties.tenantId
+            }
+            {
               name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
               value: applicationInsights.properties.ConnectionString
             }
@@ -172,7 +184,16 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
   }
 }
 
+resource apiKey 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
+  name: '${serviceName}-apikey'
+  parent: keyvault
+  tags: tags
+  properties: {
+    value: uniqueString(subscription().id, resourceGroup().id, app.id, serviceName)
+  }
+}
+
 output defaultDomain string = containerAppsEnvironment.properties.defaultDomain
 output name string = app.name
-output uri string = 'https://${app.properties.configuration.ingress.fqdn}'
+output uri string = hasIngress ? 'https://${app.properties.configuration.ingress.fqdn}' : ''
 output id string = app.id

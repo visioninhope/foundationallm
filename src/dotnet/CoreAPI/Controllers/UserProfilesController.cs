@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using Asp.Versioning;
+using FoundationaLLM.Agent.Constants;
 using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.Agent.Models.Resources;
-using FoundationaLLM.Agent.ResourceProviders;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
@@ -37,6 +37,7 @@ namespace FoundationaLLM.Core.API.Controllers
         /// </summary>
         /// <param name="userProfileService">The Core service provides methods for managing the user profile.</param>
         /// <param name="settings">The branding configuration for the client.</param>
+        /// <param name="resourceProviderServices">The list of <see cref="IResourceProviderService"/> resource provider services.</param>
         public UserProfilesController(
             IUserProfileService userProfileService,
             IOptions<ClientBrandingConfiguration> settings,

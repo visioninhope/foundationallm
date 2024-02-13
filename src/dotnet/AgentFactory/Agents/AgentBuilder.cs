@@ -1,5 +1,5 @@
-﻿using FoundationaLLM.Agent.Models.Metadata;
-using FoundationaLLM.Agent.ResourceProviders;
+﻿using FoundationaLLM.Agent.Constants;
+using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.AgentFactory.Models.Orchestration;
@@ -35,7 +35,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         /// <param name="loggerFactory">The logger factory used to create new loggers.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static async Task<AgentBase> Build(
+        public static async Task<AgentBase?> Build(
             string userPrompt,
             string sessionId,
             ICacheService cacheService,
@@ -58,16 +58,17 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                 throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
 
             // TODO: Implement a cleaner pattern for handling missing resources
-            var serializedAgent = string.Empty;
+            FoundationaLLM.Agent.Models.Metadata.AgentBase? agentBase = default;
             try
             {
-                serializedAgent = await agentResourceProvider.GetResourcesAsync($"/{AgentResourceTypeNames.Agents}/{callContext.AgentHint!.Name}");
+                var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{callContext.AgentHint!.Name}");
+                agentBase = (FoundationaLLM.Agent.Models.Metadata.AgentBase)((object[]) agents)[0];
             }
             catch { }
 
             ILLMOrchestrationService? orchestrationService = null;
 
-            if (string.IsNullOrWhiteSpace(serializedAgent))
+            if (agentBase == null)
             {
                 // Using the old way to build agents
 
@@ -110,13 +111,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
             }
             else
             {
-                var agentBase = JsonConvert.DeserializeObject<FoundationaLLM.Agent.Models.Metadata.AgentBase>(serializedAgent)
-                    ?? throw new ResourceProviderException("The object definition is invalid");
-
                 if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
                 {
-                    var agent = JsonConvert.DeserializeObject<KnowledgeManagementAgent>(serializedAgent);
-
                     var orchestrationType = string.IsNullOrWhiteSpace(agentBase.Orchestrator)
                         ? "LangChain"
                         : agentBase.Orchestrator;
@@ -127,7 +123,7 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                     orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
                     var kmAgent = new KMAgent(
-                        agent,
+                        (KnowledgeManagementAgent)agentBase!,
                         cacheService, callContext,
                         orchestrationService, promptHubAPIService, dataSourceHubAPIService,
                         loggerFactory.CreateLogger<DefaultAgent>());
@@ -152,23 +148,16 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
         {
             Type? orchestrationServiceType = null;
 
-            switch (orchestrationType)
+            orchestrationServiceType = orchestrationType switch
             {
-                case LLMOrchestrationService.LangChain:
-                    orchestrationServiceType = typeof(ILangChainService);
-                    break;
-                case LLMOrchestrationService.SemanticKernel:
-                    orchestrationServiceType = typeof(ISemanticKernelService);
-                    break;
-                default:
-                    throw new ArgumentException($"The orchestration type {orchestrationType} is not supported.");
-            }
+                LLMOrchestrationService.LangChain => typeof(ILangChainService),
+                LLMOrchestrationService.SemanticKernel => typeof(ISemanticKernelService),
+                _ => throw new ArgumentException($"The orchestration type {orchestrationType} is not supported."),
+            };
 
             var orchestrationService = orchestrationServices.FirstOrDefault(x => orchestrationServiceType.IsAssignableFrom(x.GetType()));
-            if (orchestrationService == null)
-                throw new ArgumentException($"There is no orchestration service available for orchestration type {orchestrationType}.");
-
-            return orchestrationService;
+            return orchestrationService
+                ?? throw new ArgumentException($"There is no orchestration service available for orchestration type {orchestrationType}.");
         }
     }
 }

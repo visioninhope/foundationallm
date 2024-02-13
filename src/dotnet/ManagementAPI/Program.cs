@@ -24,6 +24,8 @@ using Microsoft.Identity.Web;
 using Polly;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using FoundationaLLM.Common.Services.Security;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Configuration.Services;
 
 namespace FoundationaLLM.Management.API
@@ -55,6 +57,7 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
             });
 
@@ -100,6 +103,14 @@ namespace FoundationaLLM.Management.API
                     o.ConnectionString = builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]!);
 
             builder.Services.AddInstanceProperties(builder.Configuration);
+
+            // Add Azure ARM services
+            builder.Services.AddAzureResourceManager();
+
+            // Add event services
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI);
 
             builder.Services.AddScoped<IAgentFactoryAPIService, AgentFactoryAPIService>();
             builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
@@ -266,7 +277,7 @@ namespace FoundationaLLM.Management.API
         {
             var downstreamAPISettings = new DownstreamAPISettings
             {
-                DownstreamAPIs = new Dictionary<string, DownstreamAPIKeySettings>()
+                DownstreamAPIs = []
             };
             var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
 

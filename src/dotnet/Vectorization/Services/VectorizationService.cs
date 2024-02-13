@@ -1,10 +1,10 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Vectorization.Constants;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
-using FoundationaLLM.Vectorization.ResourceProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -26,7 +26,7 @@ namespace FoundationaLLM.Vectorization.Services
     public class VectorizationService(
         IRequestSourcesCache requestSourcesCache,
         IVectorizationStateService vectorizationStateService,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IResourceProviderService vectorizationResourceProvider,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IResourceProviderService vectorizationResourceProvider,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps)] IConfigurationSection stepsConfiguration,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory) : IVectorizationService

@@ -1,0 +1,21 @@
+﻿namespace FoundationaLLM.Common.Models.ResourceProvider
+{
+    /// <summary>
+    /// Resource reference used by resource providers to index the resources they manage.
+    /// </summary>
+    public class ResourceReference
+    {
+        /// <summary>
+        /// The name of the resource.
+        /// </summary>
+        public required string Name { get; set; }
+        /// <summary>
+        /// The filename of the resource.
+        /// </summary>
+        public required string Filename { get; set; }
+        /// <summary>
+        /// The type of the resource.
+        /// </summary>
+        public required string Type { get; set; }
+    }
+}

@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Settings;
+﻿using FoundationaLLM.Common.Models.Configuration.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
