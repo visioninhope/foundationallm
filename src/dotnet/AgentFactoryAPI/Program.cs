@@ -18,6 +18,7 @@ using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
@@ -53,6 +54,7 @@ namespace FoundationaLLM.AgentFactory.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AgentFactory);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -63,6 +65,17 @@ namespace FoundationaLLM.AgentFactory.API
                 ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString],
                 DeveloperMode = builder.Environment.IsDevelopment()
             });
+
+            builder.Services.AddInstanceProperties(builder.Configuration);
+
+            // Add Azure ARM services
+            builder.Services.AddAzureResourceManager();
+
+            // Add event services
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI);
+
             //builder.Services.AddServiceProfiler();
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
             {
