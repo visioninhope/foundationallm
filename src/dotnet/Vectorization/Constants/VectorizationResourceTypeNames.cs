@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Vectorization.ResourceProviders
+﻿namespace FoundationaLLM.Vectorization.Constants
 {
     /// <summary>
     /// Contains constants of the names of the resource types managed by the FoundationaLLM.Vectorization resource manager.

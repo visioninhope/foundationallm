@@ -1,6 +1,8 @@
 ﻿using FoundationaLLM.Common.Interfaces;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace FoundationaLLM.Core.API.Workers
+namespace FoundationaLLM.Common.Services.Events
 {
     /// <summary>
     /// Background worker used to execute the event service.
