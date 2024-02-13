@@ -1,9 +1,14 @@
-﻿using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.Events;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProvider;
+using FoundationaLLM.Common.Services.Events;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Collections.Concurrent;
 
 namespace FoundationaLLM.Common.Services.ResourceProviders
 {
@@ -14,10 +19,18 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
     {
         private bool _isInitialized = false;
 
+        private LocalEventService? _localEventService;
+        private readonly List<string>? _eventNamespacesToSubscribe;
+
         /// <summary>
         /// The <see cref="IStorageService"/> providing storage services to the resource provider.
         /// </summary>
         protected readonly IStorageService _storageService;
+
+        /// <summary>
+        /// The <see cref="IEventService"/> providing event services to the resource provider.
+        /// </summary>
+        protected readonly IEventService _eventService;
 
         /// <summary>
         /// The logger used for logging.
@@ -64,15 +77,21 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="instanceSettings">The <see cref="InstanceSettings"/> that provides instance-wide settings.</param>
         /// <param name="storageService">The <see cref="IStorageService"/> providing storage services to the resource provider.</param>
+        /// <param name="eventService">The <see cref="IEventService"/> providing event services to the resource provider.</param>
         /// <param name="logger">The logger used for logging.</param>
+        /// <param name="eventNamespacesToSubscribe">The list of Event Service event namespaces to subscribe to for local event processing.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
             IStorageService storageService,
-            ILogger logger)
+            IEventService eventService,
+            ILogger logger,
+            List<string>? eventNamespacesToSubscribe = default)
         {
             _storageService = storageService;
+            _eventService = eventService;
             _logger = logger;
             _instanceSettings = instanceSettings;
+            _eventNamespacesToSubscribe = eventNamespacesToSubscribe;
 
             // Kicks off the initialization on a separate thread and does not wait for it to complete.
             // The completion of the initialization process will be signaled by setting the _isInitialized property.
@@ -85,6 +104,18 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             try
             {
                 await InitializeInternal();
+
+                if (_eventNamespacesToSubscribe != null
+                    && _eventNamespacesToSubscribe.Count > 0)
+                {
+                    _localEventService = new LocalEventService(
+                        new LocalEventServiceSettings { EventProcessingCycleSeconds = 10 },
+                        _eventService,
+                        _logger);
+                    _localEventService.SubscribeToEventNamespaces(_eventNamespacesToSubscribe);
+                    _localEventService.StartLocalEventProcessing(HandleEvents);
+                }
+
                 _isInitialized = true;
             }
             catch (Exception ex)
@@ -93,16 +124,39 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             }
         }
 
-        #region IResourceProviderService
+        #region IManagementProviderService
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderActionResult> ExecuteAction(string actionPath)
+        public async Task<string> HandleGetAsync(string resourcePath)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(actionPath);
-            return await ExecuteActionInternal(instances);
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            return await GetResourcesAsyncInternal(instances);
         }
+
+        /// <inheritdoc/>
+        public async Task<string> HandlePostAsync(string resourcePath, string serializedResource)
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            await UpsertResourceAsync(instances, serializedResource);
+            return GetObjectId(instances);
+        }
+
+        /// <inheritdoc/>
+        public async Task HandleDeleteAsync(string resourcePath)
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            await DeleteResourceAsync(instances);
+        }
+
+        #endregion
+
+        #region IResourceProviderService
 
         /// <inheritdoc/>
         public IList<T> GetResources<T>(string resourcePath) where T : class
@@ -120,15 +174,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
             var instances = GetResourceInstancesFromPath(resourcePath);
             return await GetResourcesAsyncInternal<T>(instances);
-        }
-
-        /// <inheritdoc/>
-        public async Task<string> GetResourcesAsync(string resourcePath)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(resourcePath);
-            return await GetResourcesAsyncInternal(instances);
         }
 
         /// <inheritdoc/>
@@ -160,16 +205,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         /// <inheritdoc/>
-        public async Task<string> UpsertResourceAsync(string resourcePath, string serializedResource)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(resourcePath);
-            await UpsertResourceAsync(instances, serializedResource);
-            return GetObjectId(instances);
-        }
-
-        /// <inheritdoc/>
         public string UpsertResource<T>(string resourcePath, T resource) where T : class
         {
             if (!_isInitialized)
@@ -186,15 +221,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
             var instances = GetResourceInstancesFromPath(resourcePath);
             await DeleteResourceAsync<T>(instances);
-        }
-
-        /// <inheritdoc/>
-        public async Task DeleteResourceAsync(string resourcePath)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(resourcePath);
-            await DeleteResourceAsync(instances);
         }
 
         /// <inheritdoc/>
@@ -405,5 +431,17 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
             return result;
         }
+
+        #region Events handling
+
+        /// <summary>
+        /// Handles events received from the <see cref="IEventService"/> when they are dequeued locally.
+        /// </summary>
+        /// <param name="e">The <see cref="EventSetEventArgs"/> containing the events namespace and the actual events.</param>
+        /// <returns></returns>
+        protected virtual async Task HandleEvents(EventSetEventArgs e) =>
+            await Task.CompletedTask;
+
+        #endregion
     }
 }

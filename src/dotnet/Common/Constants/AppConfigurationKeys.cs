@@ -40,11 +40,6 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:AgentFactoryAPI:AppInsightsConnectionString";
         /// <summary>
-        /// The key for the FoundationaLLM:APIs:AgentFactoryAPI:ForceHttpsRedirection app configuration setting.
-        /// By default, the Agent Factory API forces HTTPS redirection. To override this behavior and allow it to handle HTTP requests, set this value to false.
-        /// </summary>
-        public const string FoundationaLLM_APIs_AgentFactoryAPI_ForceHttpsRedirection = "FoundationaLLM:APIs:AgentFactoryAPI:ForceHttpsRedirection";
-        /// <summary>
         /// The key for the FoundationaLLM:APIs:AgentHubAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>
@@ -105,11 +100,6 @@ namespace FoundationaLLM.Common.Constants
         /// By default, the Gatekeeper API has Microsoft Presidio integration enabled. To disable this feature, set this value to false.
         /// </summary>
         public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableMicrosoftPresidio = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableMicrosoftPresidio";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:GatekeeperAPI:ForceHttpsRedirection app configuration setting.
-        /// By default, the Gatekeeper API forces HTTPS redirection. To override this behavior and allow it to handle HTTP requests, set this value to false.
-        /// </summary>
-        public const string FoundationaLLM_APIs_GatekeeperAPI_ForceHttpsRedirection = "FoundationaLLM:APIs:GatekeeperAPI:ForceHttpsRedirection";
         /// <summary>
         /// The key for the FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
@@ -746,6 +736,10 @@ namespace FoundationaLLM.Common.Constants
         /// The key filter for the FoundationaLLM:Prompt:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Prompt = "FoundationaLLM:Prompt:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Events:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Events = "FoundationaLLM:Events:*";
     }
 
     /// <summary>
@@ -876,6 +870,21 @@ namespace FoundationaLLM.Common.Constants
         /// The key section for the FoundationaLLM:Prompt:ResourceProviderService:Storage app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Prompt_ResourceProviderService_Storage = "FoundationaLLM:Prompt:ResourceProviderService:Storage";
+
+        #endregion
+
+        #region Event Grid events
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Events:AzureEventGridEventService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService = "FoundationaLLM:Events:AzureEventGridEventService";
+
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_CoreAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI";
 
         #endregion
     }

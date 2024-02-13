@@ -5,7 +5,7 @@ namespace FoundationaLLM.Common.Interfaces
     /// <summary>
     /// Provides the core services implemented by all resource providers. 
     /// </summary>
-    public interface IResourceProviderService
+    public interface IResourceProviderService : IManagementProviderService
     {
         /// <summary>
         /// The name of the resource provider.
@@ -34,13 +34,6 @@ namespace FoundationaLLM.Common.Interfaces
         IList<T> GetResources<T>(string resourcePath) where T : class;
 
         /// <summary>
-        /// Gets the resources based on the logical path of the resource type.
-        /// </summary>
-        /// <param name="resourcePath">The logical path of the resource type.</param>
-        /// <returns>The serialized form of resources corresponding to the specified logical path.</returns>
-        Task<string> GetResourcesAsync(string resourcePath);
-
-        /// <summary>
         /// Gets a resource based on its logical path.
         /// </summary>
         /// <typeparam name="T">The type of the resource.</typeparam>
@@ -55,13 +48,6 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="resourcePath">The logical path of the resource.</param>
         /// <returns>The instance of the resource corresponding to the specified logical path.</returns>
         T GetResource<T>(string resourcePath) where T : class;
-
-        /// <summary>
-        /// Executes an action based on its logical path.
-        /// </summary>
-        /// <param name="actionPath">The logical path of the action to be executed.</param>
-        /// <returns>The <see cref="ResourceProviderActionResult"/> that contains details about the result of the execution.</returns>
-        Task<ResourceProviderActionResult> ExecuteAction(string actionPath);
 
         /// <summary>
         /// Creates or updates a resource based on its logical path.
@@ -82,14 +68,6 @@ namespace FoundationaLLM.Common.Interfaces
         string UpsertResource<T>(string resourcePath, T resource) where T : class;
 
         /// <summary>
-        /// Creates or updates a resource based on its logical path.
-        /// </summary>
-        /// <param name="resourcePath">The logical path of the resource.</param>
-        /// <param name="serializedResource">The serialized instance of the resource being created or updated.</param>
-        /// <returns>The object id of the resource.</returns>
-        Task<string> UpsertResourceAsync(string resourcePath, string serializedResource);
-
-        /// <summary>
         /// Deletes a resource based on its logical path.
         /// </summary>
         /// <typeparam name="T">The type of the resource.</typeparam>
@@ -103,12 +81,5 @@ namespace FoundationaLLM.Common.Interfaces
         /// <typeparam name="T">The type of the resource.</typeparam>
         /// <param name="resourcePath">The logical path of the resource.</param>
         void DeleteResource<T>(string resourcePath) where T : class;
-
-        /// <summary>
-        /// Deletes a resource based on its logical path.
-        /// </summary>
-        /// <param name="resourcePath">The logical path of the resource.</param>
-        /// <returns></returns>
-        Task DeleteResourceAsync(string resourcePath);
     }
 }

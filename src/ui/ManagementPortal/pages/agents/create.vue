@@ -375,13 +375,24 @@
 				<Textarea v-model="systemPrompt" class="w-100" auto-resize rows="5" type="text" />
 			</div>
 
-			<!-- Create agent -->
-			<Button
-				class="primary-button column-2 justify-self-end"
-				style="width: 200px"
-				:label="editAgent ? 'Update Agent' : 'Create Agent'"
-				@click="handleCreateAgent"
-			/>
+			<div class="button-container column-2 justify-self-end">
+				<Button
+					class="secondary-button"
+					style="margin-right: 20px;"
+					label="Cancel"
+					severity="secondary"
+					@click="handleCancel"
+				/>
+
+				<!-- Create agent -->
+				<Button
+					class="primary-button"
+					style="width: 200px"
+					:label="editAgent ? 'Update Agent' : 'Create Agent'"
+					severity="primary"
+					@click="handleCreateAgent"
+				/>
+			</div>
 		</div>
 	</div>
 </template>
@@ -575,13 +586,20 @@ export default {
 					agent.gatekeeper.options.find((option) => option === localOption.value),
 				) || this.gatekeeperDataProtection;
 
-			this.systemPrompt = agent.prompt || this.systemPrompt;
+			this.systemPrompt = agent.prompt || '';
 		},
 
 		resetForm() {
 			for (const key in defaultFormValues) {
 				this[key] = defaultFormValues[key];
 			}
+		},
+
+		handleCancel() {
+			if (!confirm('Are you sure you want to cancel?')) {
+				return;
+			}
+			this.$router.push('/agents/public');
 		},
 
 		handleNameInput(event) {
@@ -687,6 +705,10 @@ export default {
 			});
 
 			this.loading = false;
+
+			if (!this.editAgent) {
+				this.$router.push('/agents/public');
+			}
 		},
 	},
 };

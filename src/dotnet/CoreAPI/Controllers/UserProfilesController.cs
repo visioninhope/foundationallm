@@ -37,6 +37,7 @@ namespace FoundationaLLM.Core.API.Controllers
         /// </summary>
         /// <param name="userProfileService">The Core service provides methods for managing the user profile.</param>
         /// <param name="settings">The branding configuration for the client.</param>
+        /// <param name="resourceProviderServices">The list of <see cref="IResourceProviderService"/> resource provider services.</param>
         public UserProfilesController(
             IUserProfileService userProfileService,
             IOptions<ClientBrandingConfiguration> settings,

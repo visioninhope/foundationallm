@@ -61,11 +61,6 @@ export default {
 		});
 	},
 
-	async getAgents(): Promise<any> {
-		const data = JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`));
-		return data;
-	},
-
 	async getAgentDataSources(): Promise<AgentDataSource[]> {
 		const data = JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`));
 		return data.map(source => ({ ...source, Formats: ['pdf', 'txt'] }));

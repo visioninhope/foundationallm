@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Services;
+﻿using FoundationaLLM.Common.Services.Security;
 using System.Security.Claims;
 
 namespace FoundationaLLM.Common.Tests.Services
