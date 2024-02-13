@@ -178,7 +178,7 @@ Interface IManagementProviderService  <a class="header-action link-secondary" ti
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;string&gt; HandleGetAsync(string resourcePath)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;object&gt; HandleGetAsync(string resourcePath)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -190,7 +190,7 @@ Interface IManagementProviderService  <a class="header-action link-secondary" ti
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
     <dd><p>The serialized form of the result of handling the request.</p>
 </dd>
   </dl>
@@ -217,7 +217,7 @@ Interface IManagementProviderService  <a class="header-action link-secondary" ti
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;string&gt; HandlePostAsync(string resourcePath, string requestPayload)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;object&gt; HandlePostAsync(string resourcePath, string requestPayload)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -232,7 +232,7 @@ Interface IManagementProviderService  <a class="header-action link-secondary" ti
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
     <dd><p>The serialized form of the result of handling the request.</p>
 </dd>
   </dl>

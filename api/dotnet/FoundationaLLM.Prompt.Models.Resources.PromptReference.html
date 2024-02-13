@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Prompt_Models_Resources_PromptReference" data-uid="FoundationaLLM.Prompt.Models.Resources.PromptReference" class="text-break">
-Class PromptReference  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Resources/PromptReference.cs/#L10"><i class="bi bi-code-slash"></i></a>
+Class PromptReference  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Resources/PromptReference.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -102,7 +102,7 @@ Class PromptReference  <a class="header-action link-secondary" title="View sourc
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class PromptReference</code></pre>
+    <pre><code class="lang-csharp hljs">public class PromptReference : ResourceReference</code></pre>
   </div>
 
 
@@ -112,6 +112,7 @@ Class PromptReference  <a class="header-action link-secondary" title="View sourc
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.html">ResourceReference</a></div>
       <div><span class="xref">PromptReference</span></div>
     </dd>
   </dl>
@@ -121,6 +122,15 @@ Class PromptReference  <a class="header-action link-secondary" title="View sourc
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceReference_Name">ResourceReference.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceReference_Filename">ResourceReference.Filename</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceReference_Type">ResourceReference.Type</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -160,19 +170,20 @@ Class PromptReference  <a class="header-action link-secondary" title="View sourc
 </h2>
 
 
-  <a id="FoundationaLLM_Prompt_Models_Resources_PromptReference_Filename_" data-uid="FoundationaLLM.Prompt.Models.Resources.PromptReference.Filename*"></a>
+  <a id="FoundationaLLM_Prompt_Models_Resources_PromptReference_PromptType_" data-uid="FoundationaLLM.Prompt.Models.Resources.PromptReference.PromptType*"></a>
 
-  <h3 id="FoundationaLLM_Prompt_Models_Resources_PromptReference_Filename" data-uid="FoundationaLLM.Prompt.Models.Resources.PromptReference.Filename">
-  Filename
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Resources/PromptReference.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Prompt_Models_Resources_PromptReference_PromptType" data-uid="FoundationaLLM.Prompt.Models.Resources.PromptReference.PromptType">
+  PromptType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Resources/PromptReference.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The filename of the prompt.</p>
+  <div class="markdown level1 summary"><p>The object type of the agent.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required string Filename { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public Type PromptType { get; }</code></pre>
   </div>
 
 
@@ -181,39 +192,7 @@ Class PromptReference  <a class="header-action link-secondary" title="View sourc
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Prompt_Models_Resources_PromptReference_Name_" data-uid="FoundationaLLM.Prompt.Models.Resources.PromptReference.Name*"></a>
-
-  <h3 id="FoundationaLLM_Prompt_Models_Resources_PromptReference_Name" data-uid="FoundationaLLM.Prompt.Models.Resources.PromptReference.Name">
-  Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Resources/PromptReference.cs/#L15"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The name of the prompt.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required string Name { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
     <dd></dd>
   </dl>
 
@@ -228,7 +207,7 @@ Class PromptReference  <a class="header-action link-secondary" title="View sourc
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Resources/PromptReference.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Resources/PromptReference.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
 

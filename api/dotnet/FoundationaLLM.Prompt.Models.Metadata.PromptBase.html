@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class Prompt | FoundationaLLM </title>
+      <title>Class PromptBase | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Prompt | FoundationaLLM ">
+      <meta name="title" content="Class PromptBase | FoundationaLLM ">
       
-      <meta name="description" content="Prompt metadata model.">
+      <meta name="description" content="Basic prompt.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Prompt_Models_Metadata_Prompt.md&amp;value=---%0Auid%3A%20FoundationaLLM.Prompt.Models.Metadata.Prompt%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Prompt_Models_Metadata_PromptBase.md&amp;value=---%0Auid%3A%20FoundationaLLM.Prompt.Models.Metadata.PromptBase%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,12 +84,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Prompt.Models.Metadata.Prompt">
+        <article data-uid="FoundationaLLM.Prompt.Models.Metadata.PromptBase">
 
 
 
-  <h1 id="FoundationaLLM_Prompt_Models_Metadata_Prompt" data-uid="FoundationaLLM.Prompt.Models.Metadata.Prompt" class="text-break">
-Class Prompt  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Metadata/Prompt.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Prompt_Models_Metadata_PromptBase" data-uid="FoundationaLLM.Prompt.Models.Metadata.PromptBase" class="text-break">
+Class PromptBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Metadata/PromptBase.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,12 +97,12 @@ Class Prompt  <a class="header-action link-secondary" title="View source" href="
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Prompt.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Prompt metadata model.</p>
+  <div class="markdown summary"><p>Basic prompt.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Prompt : ResourceBase</code></pre>
+    <pre><code class="lang-csharp hljs">public class PromptBase : ResourceBase</code></pre>
   </div>
 
 
@@ -112,27 +112,34 @@ Class Prompt  <a class="header-action link-secondary" title="View source" href="
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html">ResourceName</a></div>
       <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html">ResourceBase</a></div>
-      <div><span class="xref">Prompt</span></div>
+      <div><span class="xref">PromptBase</span></div>
     </dd>
   </dl>
 
 
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.html">MultipartPrompt</a></div>
+    </dd>
+  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Name">ResourceBase.Name</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Type">ResourceBase.Type</a>
-    </div>
-    <div>
       <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_ObjectId">ResourceBase.ObjectId</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Description">ResourceBase.Description</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceName_Name">ResourceName.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceName_Type">ResourceName.Type</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -169,81 +176,11 @@ Class Prompt  <a class="header-action link-secondary" title="View source" href="
 
 
 
-  <h2 class="section" id="properties">Properties
-</h2>
-
-
-  <a id="FoundationaLLM_Prompt_Models_Metadata_Prompt_Prefix_" data-uid="FoundationaLLM.Prompt.Models.Metadata.Prompt.Prefix*"></a>
-
-  <h3 id="FoundationaLLM_Prompt_Models_Metadata_Prompt_Prefix" data-uid="FoundationaLLM.Prompt.Models.Metadata.Prompt.Prefix">
-  Prefix
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Metadata/Prompt.cs/#L14"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The prompt prefix.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;prefix&quot;)]
-public string? Prefix { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Prompt_Models_Metadata_Prompt_Suffix_" data-uid="FoundationaLLM.Prompt.Models.Metadata.Prompt.Suffix*"></a>
-
-  <h3 id="FoundationaLLM_Prompt_Models_Metadata_Prompt_Suffix" data-uid="FoundationaLLM.Prompt.Models.Metadata.Prompt.Suffix">
-  Suffix
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Metadata/Prompt.cs/#L19"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The prompt suffix.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;suffix&quot;)]
-public string? Suffix { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Metadata/Prompt.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Metadata/PromptBase.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

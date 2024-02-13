@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Agent_Models_Metadata_AgentBase" data-uid="FoundationaLLM.Agent.Models.Metadata.AgentBase" class="text-break">
-Class AgentBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L12"><i class="bi bi-code-slash"></i></a>
+Class AgentBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -112,6 +112,7 @@ Class AgentBase  <a class="header-action link-secondary" title="View source" hre
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html">ResourceName</a></div>
       <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html">ResourceBase</a></div>
       <div><span class="xref">AgentBase</span></div>
     </dd>
@@ -129,16 +130,16 @@ Class AgentBase  <a class="header-action link-secondary" title="View source" hre
     <dt>Inherited Members</dt>
     <dd>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Name">ResourceBase.Name</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Type">ResourceBase.Type</a>
-    </div>
-    <div>
       <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_ObjectId">ResourceBase.ObjectId</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Description">ResourceBase.Description</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceName_Name">ResourceName.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceName_Type">ResourceName.Type</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -183,7 +184,7 @@ Class AgentBase  <a class="header-action link-secondary" title="View source" hre
 
   <h3 id="FoundationaLLM_Agent_Models_Metadata_AgentBase_AgentType" data-uid="FoundationaLLM.Agent.Models.Metadata.AgentBase.AgentType">
   AgentType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The object type of the agent.</p>
@@ -216,7 +217,7 @@ public Type AgentType { get; }</code></pre>
 
   <h3 id="FoundationaLLM_Agent_Models_Metadata_AgentBase_ConversationHistory" data-uid="FoundationaLLM.Agent.Models.Metadata.AgentBase.ConversationHistory">
   ConversationHistory
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The agent's conversation history configuration.</p>
@@ -249,7 +250,7 @@ public ConversationHistory? ConversationHistory { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Agent_Models_Metadata_AgentBase_Gatekeeper" data-uid="FoundationaLLM.Agent.Models.Metadata.AgentBase.Gatekeeper">
   Gatekeeper
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The agent's Gatekeeper configuration.</p>
@@ -282,7 +283,7 @@ public Gatekeeper? Gatekeeper { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Agent_Models_Metadata_AgentBase_LanguageModel" data-uid="FoundationaLLM.Agent.Models.Metadata.AgentBase.LanguageModel">
   LanguageModel
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The agent's language model configuration.</p>
@@ -315,7 +316,7 @@ public LanguageModel? LanguageModel { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Agent_Models_Metadata_AgentBase_Orchestrator" data-uid="FoundationaLLM.Agent.Models.Metadata.AgentBase.Orchestrator">
   Orchestrator
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The agent's LLM orchestrator type.</p>
@@ -348,7 +349,7 @@ public string? Orchestrator { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Agent_Models_Metadata_AgentBase_Prompt" data-uid="FoundationaLLM.Agent.Models.Metadata.AgentBase.Prompt">
   Prompt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L43"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The agent's prompt.</p>
@@ -381,7 +382,7 @@ public string? Prompt { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Agent_Models_Metadata_AgentBase_SessionsEnabled" data-uid="FoundationaLLM.Agent.Models.Metadata.AgentBase.SessionsEnabled">
   SessionsEnabled
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Indicates whether sessions are enabled for the agent.</p>
@@ -414,7 +415,7 @@ public bool SessionsEnabled { get; set; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L12" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Agent/Models/Metadata/AgentBase.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
 
