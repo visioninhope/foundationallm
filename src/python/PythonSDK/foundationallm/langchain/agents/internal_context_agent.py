@@ -1,6 +1,8 @@
 """
-The InternalContextAgent class is responsible for executing a completion request
-over text directing the user prompt directly to the language model.
+Class: InternalContextAgent
+Description:
+    The InternalContextAgent class is responsible for executing a completion request
+    over text directing the user prompt directly to the language model.
 """
 from typing import List
 from langchain_community.callbacks import get_openai_callback
@@ -21,7 +23,6 @@ class InternalContextAgent(AgentBase):
     """
     Agent for pass-through user_prompt to the LLM.
     """
-
     def __init__(
             self,
             completion_request: InternalContextCompletionRequest,
@@ -98,7 +99,8 @@ class InternalContextAgent(AgentBase):
             # The prompt is the context
             prompt_builder = "{context}"
             if self.message_history_enabled == True:
-                prompt_builder += "\n\n"+ build_message_history(self.message_history, self.message_history_count)
+                prompt_builder = build_message_history(self.message_history, self.message_history_count) \
+                    + "\n\n" + prompt_builder
                 
             prompt_template = PromptTemplate.from_template(prompt_builder)
 
