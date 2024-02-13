@@ -162,5 +162,10 @@ namespace FoundationaLLM.Common.Constants
         /// The connection string to the Azure Storage account used for the vectorization state service.
         /// </summary>
         public const string FoundationaLLM_Vectorization_ResourceProvider_Storage_ConnectionString = "foundationallm-vectorization-resourceprovider-storage-connectionstring";
+        /// <summary>
+        /// The foundationallm-events-azureeventgrid-apikey Key Vault secret name.
+        /// The API key for the Azure Event Grid service.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGrid_APIKey = "foundationallm-events-azureeventgrid-apikey";
     }
 }

@@ -258,7 +258,13 @@ namespace FoundationaLLM.Configuration.Catalog
                 minimumVersion: "0.3.0",
                 description:
                 "The connection string to the Azure Storage account used for the vectorization state service."
-            )
+            ),
+            new (
+                secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_Events_AzureEventGrid_APIKey,
+                minimumVersion: "0.4.0",
+                description:
+                "The API key for the Azure Event Grid service."
+            ),
         ];
 
         /// <summary>

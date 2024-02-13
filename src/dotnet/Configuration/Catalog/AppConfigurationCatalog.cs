@@ -1302,32 +1302,96 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        public static readonly List<AppConfigurationEntry> Event =
+        [
+            new (
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_APIKey,
+                minimumVersion: "0.4.0",
+                defaultValue: "",
+                description: "This is a Key Vault reference.",
+                keyVaultSecretName: "foundationallm-events-azureeventgrid-apikey",
+                contentType: "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+                sampleObject: null
+            ),
+            new(
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_AuthenticationType,
+                minimumVersion: "0.4.0",
+                defaultValue: "APIKey",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+            new(
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Endpoint,
+                minimumVersion: "0.4.0",
+                defaultValue: "",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+            new(
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_NamespaceId,
+                minimumVersion: "0.4.0",
+                defaultValue: "",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+            new(
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_CoreAPI,
+                minimumVersion: "0.4.0",
+                defaultValue: "",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "application/json",
+                sampleObject: null
+            ),
+            new(
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI,
+                minimumVersion: "0.4.0",
+                defaultValue: "",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "application/json",
+                sampleObject: null
+            ),
+            new(
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI,
+                minimumVersion: "0.4.0",
+                defaultValue: "",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "application/json",
+                sampleObject: null
+            ),
+            new(
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationAPI,
+                minimumVersion: "0.4.0",
+                defaultValue: "",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "application/json",
+                sampleObject: null
+            ),
+            new(
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker,
+                minimumVersion: "0.4.0",
+                defaultValue: "",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "application/json",
+                sampleObject: null
+            ),
+        ];
+
         /// <summary>
         /// The LangChain configuration entries for the solution.
         /// </summary>
         public static readonly List<AppConfigurationEntry> LangChain =
         [
-            //new(
-            //    key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChain_CSVFile_URL,
-            //    minimumVersion: "0.3.0",
-            //    defaultValue: "Key Vault secret name: `foundationallm-langchain-csvfile-url`",
-            //    description: "This is a Key Vault reference.",
-            //    keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChain_CsvFile_Url,
-            //    contentType: "text/plain",
-            //    sampleObject: null
-            //),
-
-            //new(
-            //    key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChain_SQLDatabase_TestDB_Password,
-            //    minimumVersion: "0.3.0",
-            //    defaultValue: "Key Vault secret name: `foundationallm-langchain-sqldatabase-testdb-password`",
-            //    description: "This is a Key Vault reference.",
-            //    keyVaultSecretName: Common.Constants.KeyVaultSecretNames
-            //        .FoundationaLLM_LangChain_SQLDatabase_Testdb_Password,
-            //    contentType: "text/plain",
-            //    sampleObject: null
-            //),
-
             new(
                 key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChain_Summary_MaxTokens,
                 minimumVersion: "0.3.0",

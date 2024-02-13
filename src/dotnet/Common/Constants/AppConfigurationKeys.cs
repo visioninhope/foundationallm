@@ -719,6 +719,44 @@ namespace FoundationaLLM.Common.Constants
         /// The connection string to the Azure Storage account used for the vectorization state service.
         /// </summary>
         public const string FoundationaLLM_Vectorization_ResourceProviderService_Storage_ConnectionString = "FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:Events:AzureEventGridEventService:APIKey app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_APIKey = "FoundationaLLM:Events:AzureEventGridEventService:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:Events:AzureEventGridEventService:AuthenticationType app configuration setting.
+        /// Default value is 'APIKey'.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_AuthenticationType = "FoundationaLLM:Events:AzureEventGridEventService:AuthenticationType";
+        /// <summary>
+        /// The key for the FoundationaLLM:Events:AzureEventGridEventService:Endpoint app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Endpoint = "FoundationaLLM:Events:AzureEventGridEventService:Endpoint";
+        /// <summary>
+        /// The key for the FoundationaLLM:Events:AzureEventGridEventService:NamespaceId app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_NamespaceId = "FoundationaLLM:Events:AzureEventGridEventService:NamespaceId";
+        /// <summary>
+        /// The key for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_CoreAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI";
+        /// <summary>
+        /// The key for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI";
+        /// <summary>
+        /// The key for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI";
+        /// <summary>
+        /// The key for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationAPI app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationAPI";
+        /// <summary>
+        /// The key for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker";
     }
 
     /// <summary>
