@@ -1,9 +1,9 @@
-﻿namespace FoundationaLLM.Common.Constants
+﻿namespace FoundationaLLM.Agent.Constants
 {
     /// <summary>
     /// Contains constants for the types of agents.
     /// </summary>
-    public class AgentTypes
+    public static class AgentTypes
     {
         /// <summary>
         /// Basic agent without practical functionality. Used as base for all the other agents.

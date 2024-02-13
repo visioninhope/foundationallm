@@ -39,7 +39,6 @@ jq -c '.[]' ./config/appconfig.json | while read i; do
 
     echo $cmd
     eval $cmd </dev/null
-    sleep 2
 done
 
 az storage azcopy blob upload -c agents --account-name $AZURE_STORAGE_ACCOUNT_NAME -s "../common/data/agents/*" --recursive --only-show-errors

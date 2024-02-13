@@ -88,6 +88,12 @@ namespace FoundationaLLM.Common.Services.Events
                 return;
             }
 
+            if (_profile.Topics.Count == 0)
+            {
+                _logger.LogInformation("The Azure Event Grid event service stopped running because it is not configured to listen to any events.");
+                return;
+            }
+
             _logger.LogInformation("The Azure Event Grid event service is starting to process messages.");
 
             while (true)
