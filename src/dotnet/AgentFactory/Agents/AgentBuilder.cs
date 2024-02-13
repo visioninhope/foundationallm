@@ -110,8 +110,8 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                 return agent;
             }
             else
-            {
-                if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
+            {                    
+                if (agentBase.AgentType == typeof(KnowledgeManagementAgent) || agentBase.AgentType == typeof(InternalContextAgent))
                 {
                     var orchestrationType = string.IsNullOrWhiteSpace(agentBase.Orchestrator)
                         ? "LangChain"
@@ -122,13 +122,27 @@ namespace FoundationaLLM.AgentFactory.Core.Agents
                         throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
                     orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
-                    var kmAgent = new KMAgent(
+                    if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
+                    {
+                        var kmAgent = new KMAgent(
                         (KnowledgeManagementAgent)agentBase!,
                         cacheService, callContext,
                         orchestrationService, promptHubAPIService, dataSourceHubAPIService,
                         loggerFactory.CreateLogger<DefaultAgent>());
 
-                    return kmAgent;
+                        return kmAgent;
+                    }
+                    else
+                    {
+                        var icAgent = new ICAgent(
+                        (InternalContextAgent)agentBase!,
+                        cacheService, callContext,
+                        orchestrationService, promptHubAPIService, dataSourceHubAPIService,
+                        loggerFactory.CreateLogger<DefaultAgent>());
+
+                        return icAgent;
+                    }
+                    
                 }
                 else
                     return null;
