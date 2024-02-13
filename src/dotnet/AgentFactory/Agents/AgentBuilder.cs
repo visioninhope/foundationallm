@@ -1,5 +1,5 @@
-﻿using FoundationaLLM.Agent.Models.Metadata;
-using FoundationaLLM.Agent.ResourceProviders;
+﻿using FoundationaLLM.Agent.Constants;
+using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.AgentFactory.Models.Orchestration;

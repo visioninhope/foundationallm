@@ -102,9 +102,6 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
-
-            builder.Services.AddHostedService<EventsWorker>();
-
             // Register the authentication services
             RegisterAuthConfiguration(builder);
 
