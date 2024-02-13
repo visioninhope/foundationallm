@@ -1,6 +1,5 @@
 ﻿using Azure.Messaging;
 using FoundationaLLM.Agent.Constants;
-using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
@@ -232,7 +231,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
         private ResourceNameCheckResult CheckAgentName(string serializedAction)
         {
-            var resourceName = JsonConvert.DeserializeObject<ResourceName>(serializedAction);
+            var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
             return _agentReferences.Values.Any(ar => ar.Name == resourceName!.Name)
                 ? new ResourceNameCheckResult
                 {

@@ -1,7 +1,5 @@
-﻿using System.Text;
-using Asp.Versioning;
+﻿using Asp.Versioning;
 using FoundationaLLM.Agent.Constants;
-using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;

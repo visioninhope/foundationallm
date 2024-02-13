@@ -1,6 +1,4 @@
 ﻿using FoundationaLLM.Agent.Constants;
-using FoundationaLLM.Agent.Models.Metadata;
-using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
@@ -10,7 +8,6 @@ using FoundationaLLM.Common.Models.Cache;
 using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
 namespace FoundationaLLM.AgentFactory.Core.Orchestration
 {
@@ -55,11 +52,11 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
 
             // TODO: Implement a cleaner pattern for handling missing resources
-            FoundationaLLM.Agent.Models.Metadata.AgentBase? agentBase = default;
+            AgentBase? agentBase = default;
             try
             {
                 var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{callContext.AgentHint!.Name}");
-                agentBase = (FoundationaLLM.Agent.Models.Metadata.AgentBase)((object[]) agents)[0];
+                agentBase = (AgentBase)((object[]) agents)[0];
             }
             catch { }
 
@@ -123,7 +120,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                         throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
                     orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
-                    var kmAgent = new KMAgent(
+                    var kmOrchestration = new KnowledgeManagementOrchestration(
                         (KnowledgeManagementAgent)agentBase!,
                         cacheService, callContext,
                         orchestrationService, promptHubAPIService, dataSourceHubAPIService,

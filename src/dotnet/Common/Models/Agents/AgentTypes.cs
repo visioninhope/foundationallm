@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Agent.Constants
+﻿namespace FoundationaLLM.Common.Models.Agents
 {
     /// <summary>
     /// Contains constants for the types of agents.

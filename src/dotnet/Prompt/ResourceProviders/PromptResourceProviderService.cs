@@ -144,7 +144,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             if (await _storageService.FileExistsAsync(_storageContainerName, promptReference.Filename, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(_storageContainerName, promptReference.Filename, default);
-                return JsonSerializer.Deserialize<Models.Metadata.Prompt>(
+                return JsonSerializer.Deserialize(
                     Encoding.UTF8.GetString(fileContent.ToArray()),
                     promptReference.PromptType,
                     _serializerSettings) as Models.Metadata.MultipartPrompt
@@ -168,7 +168,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         private async Task<ResourceProviderUpsertResult> UpdatePrompt(List<ResourceTypeInstance> instances, string serializedPrompt)
         {
-            var prompt = JsonSerializer.Deserialize<Models.Metadata.Prompt>(serializedPrompt)
+            var promptBase = JsonSerializer.Deserialize<PromptBase>(serializedPrompt)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
 
             if (instances[0].ResourceId != promptBase.Name)
@@ -181,13 +181,13 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 Filename = $"/{_name}/{promptBase.Name}.json"
             };
 
-            var prompt = JsonConvert.DeserializeObject(serializedPrompt, promptReference.PromptType, _serializerSettings);
+            var prompt = JsonSerializer.Deserialize(serializedPrompt, promptReference.PromptType, _serializerSettings);
             (prompt as PromptBase)!.ObjectId = GetObjectId(instances);
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 promptReference.Filename,
-                JsonConvert.SerializeObject(prompt, promptReference.PromptType, _serializerSettings),
+                JsonSerializer.Serialize(prompt, promptReference.PromptType, _serializerSettings),
                 default,
                 default);
 
@@ -226,7 +226,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         private ResourceNameCheckResult CheckPromptName(string serializedAction)
         {
-            var resourceName = JsonConvert.DeserializeObject<ResourceName>(serializedAction);
+            var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
             return _promptReferences.Values.Any(ar => ar.Name == resourceName!.Name)
                 ? new ResourceNameCheckResult
                 {
