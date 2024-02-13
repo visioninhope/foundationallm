@@ -313,7 +313,7 @@ module storageSub 'shared/system-topic-subscription.bicep' = {
     name: 'resource-provider'
     eventGridName: eventgrid.outputs.name
     topicName: storageTopic.outputs.name
-    destinationEventGridTopicId: eventgrid.outputs.topicIds[indexOf(eventgrid.outputs.topicNames, 'storage')]
+    destinationTopicName: 'storage'
     filterPrefix: '/blobServices/default/containers/resource-provider/blobs'
     includedEventTypes: [
       'Microsoft.Storage.BlobCreated'
