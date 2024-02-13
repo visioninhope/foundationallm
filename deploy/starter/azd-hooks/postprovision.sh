@@ -18,7 +18,12 @@ EOF
 
 export VECTORIZATION_WORKER_CONFIG=`cat ./config/vectorization.json`
 
+envsubst < ./config/core-api-event-profile.template.json > ./config/core-api-event-profile.json
+export FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE=`cat ./config/core-api-event-profile.json`
+
 envsubst < ./config/appconfig.template.json > ./config/appconfig.json
+
+
 
 jq -c '.[]' ./config/appconfig.json | while read i; do
     keyVault=`echo $i | jq '.keyVault'`
