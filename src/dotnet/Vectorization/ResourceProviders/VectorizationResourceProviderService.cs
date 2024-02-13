@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
+using FluentValidation;
 
 namespace FoundationaLLM.Vectorization.ResourceProviders
 {
@@ -21,6 +22,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         IOptions<InstanceSettings> instanceOptions,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IStorageService storageService,
         IEventService eventService,
+        IServiceProvider serviceProvider,
         ILogger<VectorizationResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -215,6 +217,17 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         {
             var profile = JsonSerializer.Deserialize<T>(serializedProfile)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
+
+            var validator = serviceProvider.GetService<IValidator<T>>();
+            if (validator != null)
+            {
+                var validationResult = await validator.ValidateAsync(profile);
+                if (!validationResult.IsValid)
+                {
+                    throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
+                }
+            }
+
             profile.ObjectId = GetObjectId(instances);
 
             if (instances[0].ResourceId != profile.Name)

@@ -93,6 +93,11 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
+            // Add event services
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService);
+
             //----------------------------
             // Resource providers
             //----------------------------
