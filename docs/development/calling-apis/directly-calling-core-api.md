@@ -71,17 +71,17 @@ If you don't have Postman installed on your machine, visit the [Postman website]
 
 ### Import the Postman collection
 
-1. First, [download the Core API Postman collection](https://github.com/solliancenet/foundationallm/blob/main/docs/FoundationaLLM.Core.API.postman_collection.json) and save it to your machine. To download it from GitHub, select **Download raw file**.
+1. First, select the button below to fork and import the Postman collection for the Core API.
 
-    ![The Download raw button is highlighted.](media/github-postman-collection-download-raw.png)
+    [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/269456-9ad62116-3057-4166-abfc-ece23923bff5?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D269456-9ad62116-3057-4166-abfc-ece23923bff5%26entityType%3Dcollection%26workspaceId%3D0d6298a2-c3cd-4530-900c-030ed0ae6dfa)
 
-2. To import the Postman collection, click **Import** in the top left corner of the Postman app.
+2. Select **Fork Collection** to create a fork and import the collection into your Postman workspace.
 
-    ![The Import button is highlighted.](media/postman-import-button.png)
+    ![The Import button is highlighted.](media/postman-fork-collection.png)
 
-3. Within the dialog that displays, drag and drop or navigate to the Postman collection file you downloaded in the first step.
+3. Within the dialog that displays, enter your fork label, select the Postman workspace into which you want to create the fork, optionally check the *Watch original collection* checkbox to receive updates to the original collection, and then select **Fork collection**.
 
-    ![The Postman import dialog is highlighted.](media/postman-import-collection.png)
+    ![The Postman import dialog is highlighted.](media/postman-fork-collection-form.png)
 
 You will now see the **FoundationaLLM.Core.API** collection in your Postman workspace.
 
@@ -107,7 +107,15 @@ The Postman collection you imported contains a number of API endpoints that you 
 
     ![The Core API URL variable is highlighted.](media/postman-core-api-url-variable.png)
 
-4. Select the **Save** button in the top right corner of the Variables pane to save your changes.
+4. Fill out the `tenantId`, `appClientId`, and `appScope` **Current value** settings for your **Core Client** Entra ID app registration ([setup instructions](../../deployment/authentication/core-authentication-setup-entra.md#register-the-client-application-in-the-microsoft-entra-id-admin-center)). Use the list below the screenshot to find the values.
+
+    ![The additional variables are highlighted.](media/postman-core-api-variables.png)
+
+    - **tenantId**: The tenant ID of your Core Client (Chat UI) Entra ID app. You can find this value in the **Overview** tab of your Entra ID app in the portal.
+    - **appClientId**: The client ID of your Core Client Entra ID app. You can find this value in the **Overview** tab of your Entra ID app in the portal.
+    - **appScope**: The scope of your Core Client Entra ID app. You can find this value in the **Api Permissions** section of your Entra ID app in the portal.
+
+5. Select the **Save** button in the top right corner of the Variables pane to save your changes.
 
     ![The Save button is highlighted.](media/postman-save-button.png)
 
@@ -124,34 +132,14 @@ There are two ways to obtain the authentication token that you will use to authe
 Though this method takes a few more steps, it is the recommended method because it allows you to use the same token for all of the API calls in the collection.
 
 > [!IMPORTANT]
-> If you previously configured the Microsoft Entra ID app registration for the Chat UI application, you will need to update the **Redirect URI** to `https://oauth.pstmn.io/v1/callback` in order to use the Postman mobile app to get the token. You can do this by following the steps in the [Add a redirect URI to the client application](../../deployment/authentication/core-authentication-setup-entra.md#add-a-redirect-uri-to-the-client-application) section of the authentication setup guide.
+> If you previously configured the Microsoft Entra ID app registration for the Chat UI application (Core Client), you will need to update the **Redirect URI** to `https://oauth.pstmn.io/v1/callback` in order to use the Postman mobile app to get the token. You can do this by following the steps in the [Add a redirect URI to the client application](../../deployment/authentication/core-authentication-setup-entra.md#add-a-redirect-uri-to-the-client-application) section of the authentication setup guide.
 
-First, let's set up the request to get the token at the **collection** level. Make sure you choose `OAuth 2.0` as the type of authorization and **not** Bearer Token.
+1. Select the **Authorization** tab within the **FoundationaLLM.Core.API** collection. You will see the **Authorization** tab at the collection level. This means that you can configure the token at the collection level and use it for all of the requests in the collection. Notice that the **Token Name** is **FLLM CoreAPI Token**. This will automatically be used by the requests in the collection.
 
-![The OAuth 2.0 type is selected.](media/postman-auth-type.png)
+    ![The authentication form is displayed with the token name highlighted.](media/postman-core-api-authentication.png)
 
-This is how the **Authorization** tab should look like **before** the entries that you will need to change.
-
-![The pre-configuration of the authentication settings is displayed.](media/postman-auth-pre.png)
-
-Below is a list of each change that you need to make to the **Authorization** tab:
-
-1. **Token Name:** This is the name of the token that you will use in the **Headers** tab. You can name it whatever you want, for example: **FLLM CoreAPI Token**.
-2. **Grant Type:** This is the type of grant that you will use to get the token. In our case, we will use **Authorization Code (with PKCE)**. PKCE stands for **Proof Key for Code Exchange**. It's an extension to the OAuth 2.0 protocol that helps prevent authorization code interception attacks. PKCE is a lightweight mechanism that can be used in any application that requests an authorization code.
-3. **Callback Url:** Click on the "Authhorize using browser" checkbox and it will automatically fill in the url for Postman mobile call back `https://oauth.pstmn.io/v1/callback`.
-
-    ![The Authorize using browser checkbox is checked.](media/postman-callback-url-authorize-using-browser.png)
-
-4. **Auth Url:** This is the url that you will use to get the token.  In our case, it's the url of Microsoft microsoftonline login authority `https://login.microsoftonline.com/<tenantID>/oauth2/v2.0/authorize`. Replace the **tenantID** with your own Entra ID Tenant ID from your portal or from the App Configuration resource.
-5. **Access Token Url:** This is the url that you will use to get the access token.  In our case, it's the url of Microsoft microsoftonline login authority `https://login.microsoftonline.com/<tenantID>/oauth2/token`. Replace the **tenantID** with your own Entra ID Tenant ID from your portal or from the App Configuration resource.
-6. **Client ID:** This is the client ID of the application that you will use to get the token. In our case, it's the client ID of the Chat UI application. You can get the client ID from the **Overview** tab of the Chat UI application in the portal.
-7. **Code Challenge Method:** This is the method that you will use to get the token. In our case, we will use **SHA-256**.
-8. **Scope:** This is the scope of the token that you will use to get the token. You can find this value within the Api Permissions section of your Chat UI Entra ID app. In our case, we will use **api://FoundationaLLM-Auth/Data.Read**.
-9. **Client Authentication:** This is the type of authentication that you will use to get the token.  In our case, we will use **Send client credentials in body**.
-
-These are the only changes that you need to make to the **Authorization** tab.  
-
-![The post-configuration of the authentication settings is displayed.](media/postman-auth-post.png)
+> [!NOTE]
+> All of the values are pre-filled and use the variables that you set up in the previous section. You do not need to change any values at this time.
 
 Scroll down to the bottom of the page and click on **Get New Access Token**. This will open a new window in your browser and will ask you to login with your credentials.  Once you login, you will be asked to consent to the permissions that you specified in the **Scope** field.  Click on **Accept** to consent to the permissions.  You will then be redirected to the callback url that you specified in the **Callback Url** field.  This will close the browser window and will take you back to Postman. You should now see the token in the **Authorization** tab. Click on **Use Token** to use the token in the collection.
 

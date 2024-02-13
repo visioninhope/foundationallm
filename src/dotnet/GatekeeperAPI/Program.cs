@@ -11,6 +11,7 @@ using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
+using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Gatekeeper.Core.Interfaces;
 using FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions;
@@ -177,11 +178,7 @@ namespace FoundationaLLM.Gatekeeper.API
                     }
                 });
 
-            _ = bool.TryParse(builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_ForceHttpsRedirection], out var forceHttpsRedirection);
-            if (forceHttpsRedirection)
-            {
-                app.UseHttpsRedirection();
-            }
+            app.UseHttpsRedirection();
             app.UseAuthorization();
 
             app.MapControllers();

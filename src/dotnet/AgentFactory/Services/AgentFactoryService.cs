@@ -1,16 +1,9 @@
 ﻿using FoundationaLLM.AgentFactory.Core.Agents;
 using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
 using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
-using FoundationaLLM.AgentFactory.Models.Orchestration;
-using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Orchestration;
+using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.AgentFactory.Core.Services;
 
@@ -113,7 +106,7 @@ public class AgentFactoryService : IAgentFactoryService
                 UserPrompt = completionRequest.UserPrompt ?? string.Empty,
                 PromptTokens = 0,
                 CompletionTokens = 0,
-                UserPromptEmbedding = new float[] { 0 }
+                UserPromptEmbedding = [0]
             };
         }
     }
