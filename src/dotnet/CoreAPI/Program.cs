@@ -13,7 +13,6 @@ using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
-using FoundationaLLM.Core.API.Workers;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
@@ -101,9 +100,6 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
-
-
-            builder.Services.AddHostedService<EventsWorker>();
 
             // Register the authentication services
             RegisterAuthConfiguration(builder);

@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.OpenAPI;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Services.Tokenizers;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
@@ -35,6 +36,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
 });
 
 if (builder.Environment.IsDevelopment())
@@ -60,6 +62,14 @@ builder.Services.AddCors(policyBuilder =>
 
 // Add configurations to the container
 builder.Services.AddInstanceProperties(builder.Configuration);
+
+// Add Azure ARM services
+builder.Services.AddAzureResourceManager();
+
+// Add event services
+builder.Services.AddAzureEventGridEvents(
+    builder.Configuration,
+    AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker);
 
 builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker));

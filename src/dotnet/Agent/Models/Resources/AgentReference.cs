@@ -1,6 +1,8 @@
-﻿using FoundationaLLM.Agent.Models.Metadata;
+﻿using FoundationaLLM.Agent.Constants;
+using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using Newtonsoft.Json;
 
 namespace FoundationaLLM.Agent.Models.Resources
@@ -8,21 +10,8 @@ namespace FoundationaLLM.Agent.Models.Resources
     /// <summary>
     /// Provides details about an agent.
     /// </summary>
-    public class AgentReference
+    public class AgentReference : ResourceReference
     {
-        /// <summary>
-        /// The name of the agent.
-        /// </summary>
-        public required string Name { get; set; }
-        /// <summary>
-        /// The filename of the agent.
-        /// </summary>
-        public required string Filename { get; set; }
-        /// <summary>
-        /// The type of the agent.
-        /// </summary>
-        public required string Type { get; set; }
-
         /// <summary>
         /// The object type of the agent.
         /// </summary>

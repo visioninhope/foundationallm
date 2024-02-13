@@ -880,11 +880,30 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Events_AzureEventGridEventService = "FoundationaLLM:Events:AzureEventGridEventService";
 
-
         /// <summary>
         /// The key section for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_CoreAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationAPI";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker";
 
         #endregion
     }
