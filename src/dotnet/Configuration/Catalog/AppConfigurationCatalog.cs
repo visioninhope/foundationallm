@@ -1903,6 +1903,7 @@ namespace FoundationaLLM.Configuration.Catalog
             allEntries.AddRange(CosmosDB);
             allEntries.AddRange(DataSourceHub);
             allEntries.AddRange(DurableSystemPrompt);
+            allEntries.AddRange(Event);
             allEntries.AddRange(Instance);
             allEntries.AddRange(LangChain);
             allEntries.AddRange(LangChainAPI);

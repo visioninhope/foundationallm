@@ -59,7 +59,7 @@ namespace FoundationaLLM.Configuration.Validation
             {
                 var errorMessage = $"Missing or empty app configurations: {string.Join(", ", configurations)}" +
                                    $"{(configurations.Count != 0 && keyVaultSecrets.Count != 0 ? "\n" : "")}" +
-                                   $"Missing or empty Key Vault secrets for app configurations: {string.Join(", ", keyVaultSecrets)}";
+                                   $"{(keyVaultSecrets.Count != 0 ? "Missing or empty Key Vault secrets for app configurations: " + string.Join(", ", keyVaultSecrets) : "\n")}";
                 _logger.LogError(errorMessage);
 
                 throw new ConfigurationValidationException(configurations, keyVaultSecrets, null);
