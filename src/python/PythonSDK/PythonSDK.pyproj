@@ -27,6 +27,7 @@
     <Compile Include="foundationallm\hubs\data_source\data_sources\cxo\cxo_data_source_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\cxo\__init__.py" />
     <Compile Include="foundationallm\langchain\agents\cxo_agent.py" />
+    <Compile Include="foundationallm\langchain\agents\internal_context_agent.py" />
     <Compile Include="foundationallm\langchain\agents\knowledge_management_agent.py" />
     <Compile Include="foundationallm\langchain\agents\search_service_agent.py" />
     <Compile Include="foundationallm\langchain\data_sources\cxo\cxo_configuration.py" />
@@ -133,6 +134,7 @@
     <Compile Include="foundationallm\models\metadata\data_source.py" />
     <Compile Include="foundationallm\models\language_models\language_model.py" />
     <Compile Include="foundationallm\models\metadata\gatekeeper.py" />
+    <Compile Include="foundationallm\models\metadata\internal_context_agent.py" />
     <Compile Include="foundationallm\models\metadata\knowledge_management_agent.py" />
     <Compile Include="foundationallm\models\metadata\metadata_base.py" />
     <Compile Include="foundationallm\models\metadata\__init__.py" />
@@ -141,6 +143,7 @@
     <Compile Include="foundationallm\models\orchestration\completion_request_base.py" />
     <Compile Include="foundationallm\models\orchestration\completion_response.py" />
     <Compile Include="foundationallm\models\metadata\conversation_history.py" />
+    <Compile Include="foundationallm\models\orchestration\internal_context_completion_request.py" />
     <Compile Include="foundationallm\models\orchestration\knowledge_management_completion_request.py" />
     <Compile Include="foundationallm\models\orchestration\message_history_item.py" />
     <Compile Include="foundationallm\models\orchestration\__init__.py" />

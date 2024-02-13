@@ -13,6 +13,7 @@ from foundationallm.langchain.agents import (
     GenericResolverAgent,
     CXOAgent,
     SearchServiceAgent,
+    InternalContextAgent,
     KnowledgeManagementAgent
 )
 
@@ -91,6 +92,12 @@ class AgentFactory:
                     llm=self.llm,
                     config=self.config,                                            
                     resource_provider=self.resource_provider
+                )
+            case 'internal-context':
+                return InternalContextAgent(
+                    self.completion_request,
+                    llm=self.llm,
+                    config=self.config
                 )
             case _:
                 raise ValueError(f'No agent found for the specified agent type: {self.agent.type}.')
