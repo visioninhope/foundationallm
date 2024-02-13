@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Agent.ResourceProviders;
+﻿using FoundationaLLM.Agent.Constants;
+using FoundationaLLM.Agent.Models.Metadata;
+using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
@@ -53,16 +55,17 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
 
             // TODO: Implement a cleaner pattern for handling missing resources
-            var serializedAgent = string.Empty;
+            FoundationaLLM.Agent.Models.Metadata.AgentBase? agentBase = default;
             try
             {
-                serializedAgent = await agentResourceProvider.GetResourcesAsync($"/{AgentResourceTypeNames.Agents}/{callContext.AgentHint!.Name}");
+                var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{callContext.AgentHint!.Name}");
+                agentBase = (FoundationaLLM.Agent.Models.Metadata.AgentBase)((object[]) agents)[0];
             }
             catch { }
 
             ILLMOrchestrationService? orchestrationService = null;
 
-            if (string.IsNullOrWhiteSpace(serializedAgent))
+            if (agentBase == null)
             {
                 // Using the old way to build agents
 
@@ -109,13 +112,8 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
             }
             else
             {
-                var agentBase = JsonSerializer.Deserialize<AgentBase>(serializedAgent)
-                    ?? throw new ResourceProviderException("The object definition is invalid");
-
                 if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
                 {
-                    var kmAgent = JsonSerializer.Deserialize<KnowledgeManagementAgent>(serializedAgent);
-
                     var orchestrationType = string.IsNullOrWhiteSpace(agentBase.Orchestrator)
                         ? "LangChain"
                         : agentBase.Orchestrator;
@@ -125,8 +123,8 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                         throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
                     orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
-                    var kmOrchestration = new KnowledgeManagementOrchestration(
-                        kmAgent!,
+                    var kmAgent = new KMAgent(
+                        (KnowledgeManagementAgent)agentBase!,
                         cacheService, callContext,
                         orchestrationService, promptHubAPIService, dataSourceHubAPIService,
                         loggerFactory.CreateLogger<LegacyOrchestration>());

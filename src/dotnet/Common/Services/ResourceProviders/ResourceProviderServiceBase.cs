@@ -1,7 +1,12 @@
-﻿using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.Events;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProvider;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Services.Events;
 using Microsoft.Extensions.Logging;
 
 using System.Text.Json;
@@ -15,10 +20,18 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
     {
         private bool _isInitialized = false;
 
+        private LocalEventService? _localEventService;
+        private readonly List<string>? _eventNamespacesToSubscribe;
+
         /// <summary>
         /// The <see cref="IStorageService"/> providing storage services to the resource provider.
         /// </summary>
         protected readonly IStorageService _storageService;
+
+        /// <summary>
+        /// The <see cref="IEventService"/> providing event services to the resource provider.
+        /// </summary>
+        protected readonly IEventService _eventService;
 
         /// <summary>
         /// The logger used for logging.
@@ -34,11 +47,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// The name of the storage container name used by the resource provider to store its internal data.
         /// </summary>
         protected virtual string _storageContainerName => "resource-provider";
-
-        /// <summary>
-        /// The resource descriptors of the resource types managed by the resource provider. Must be overridden in derived classes.
-        /// </summary>
-        protected virtual Dictionary<string, ResourceTypeDescriptor> _resourceTypes => [];
 
         /// <summary>
         /// The name of the resource provider. Must be overridden in derived classes.
@@ -64,15 +72,21 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="instanceSettings">The <see cref="InstanceSettings"/> that provides instance-wide settings.</param>
         /// <param name="storageService">The <see cref="IStorageService"/> providing storage services to the resource provider.</param>
+        /// <param name="eventService">The <see cref="IEventService"/> providing event services to the resource provider.</param>
         /// <param name="logger">The logger used for logging.</param>
+        /// <param name="eventNamespacesToSubscribe">The list of Event Service event namespaces to subscribe to for local event processing.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
             IStorageService storageService,
-            ILogger logger)
+            IEventService eventService,
+            ILogger logger,
+            List<string>? eventNamespacesToSubscribe = default)
         {
             _storageService = storageService;
+            _eventService = eventService;
             _logger = logger;
             _instanceSettings = instanceSettings;
+            _eventNamespacesToSubscribe = eventNamespacesToSubscribe;
 
             // Kicks off the initialization on a separate thread and does not wait for it to complete.
             // The completion of the initialization process will be signaled by setting the _isInitialized property.
@@ -85,6 +99,18 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             try
             {
                 await InitializeInternal();
+
+                if (_eventNamespacesToSubscribe != null
+                    && _eventNamespacesToSubscribe.Count > 0)
+                {
+                    _localEventService = new LocalEventService(
+                        new LocalEventServiceSettings { EventProcessingCycleSeconds = 10 },
+                        _eventService,
+                        _logger);
+                    _localEventService.SubscribeToEventNamespaces(_eventNamespacesToSubscribe);
+                    _localEventService.StartLocalEventProcessing(HandleEvents);
+                }
+
                 _isInitialized = true;
             }
             catch (Exception ex)
@@ -93,16 +119,92 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             }
         }
 
-        #region IResourceProviderService
+        #region IManagementProviderService
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderActionResult> ExecuteAction(string actionPath)
+        public async Task<object> HandleGetAsync(string resourcePath)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(actionPath);
-            return await ExecuteActionInternal(instances);
+            var instances = GetResourceInstancesFromPath(resourcePath, allowAction: false);
+            return await GetResourcesAsyncInternal(instances);
         }
+
+        /// <inheritdoc/>
+        public async Task<object> HandlePostAsync(string resourcePath, string serializedResource)
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            var instances = GetResourceInstancesFromPath(resourcePath);
+            if (instances.Last().Action != null)
+                return await ExecuteActionAsync(instances, serializedResource);
+            else
+                return await UpsertResourceAsync(instances, serializedResource);
+        }
+
+        /// <inheritdoc/>
+        public async Task HandleDeleteAsync(string resourcePath)
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            var instances = GetResourceInstancesFromPath(resourcePath, allowAction: false);
+            await DeleteResourceAsync(instances);
+        }
+
+        #region Virtuals to be overriden in derived classes
+
+        /// <summary>
+        /// The internal implementation of GetResourcesAsync. Must be overridden in derived classes.
+        /// </summary>
+        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
+        /// <returns></returns>
+        protected virtual async Task<object> GetResourcesAsyncInternal(List<ResourceTypeInstance> instances)
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.
+        /// </summary>
+        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
+        /// <param name="serializedResource">The serialized resource being created or updated.</param>
+        /// <returns></returns>
+        protected virtual async Task<object> UpsertResourceAsync(List<ResourceTypeInstance> instances, string serializedResource)
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// The internal implementation of ExecuteActionAsync. Must be overriden in derived classes.
+        /// </summary>
+        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
+        /// <param name="serializedAction">The serialized details of the action being executed.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        protected virtual async Task<object> ExecuteActionAsync(List<ResourceTypeInstance> instances, string serializedAction)
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.
+        /// </summary>
+        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
+        /// <returns></returns>
+        protected virtual async Task DeleteResourceAsync(List<ResourceTypeInstance> instances)
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #endregion
+
+        #region IResourceProviderService
 
         /// <inheritdoc/>
         public IList<T> GetResources<T>(string resourcePath) where T : class
@@ -120,15 +222,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
             var instances = GetResourceInstancesFromPath(resourcePath);
             return await GetResourcesAsyncInternal<T>(instances);
-        }
-
-        /// <inheritdoc/>
-        public async Task<string> GetResourcesAsync(string resourcePath)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(resourcePath);
-            return await GetResourcesAsyncInternal(instances);
         }
 
         /// <inheritdoc/>
@@ -160,16 +253,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         /// <inheritdoc/>
-        public async Task<string> UpsertResourceAsync(string resourcePath, string serializedResource)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(resourcePath);
-            await UpsertResourceAsync(instances, serializedResource);
-            return GetObjectId(instances);
-        }
-
-        /// <inheritdoc/>
         public string UpsertResource<T>(string resourcePath, T resource) where T : class
         {
             if (!_isInitialized)
@@ -186,15 +269,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
             var instances = GetResourceInstancesFromPath(resourcePath);
             await DeleteResourceAsync<T>(instances);
-        }
-
-        /// <inheritdoc/>
-        public async Task DeleteResourceAsync(string resourcePath)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var instances = GetResourceInstancesFromPath(resourcePath);
-            await DeleteResourceAsync(instances);
         }
 
         /// <inheritdoc/>
@@ -217,6 +291,14 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             await Task.CompletedTask;
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Gets the resource types dictionary. Must be overriden in derived classes.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        protected virtual Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+            throw new NotImplementedException();
 
         /// <summary>
         /// The internal implementation of ExecuteAction. Must be overridden in derived classes.
@@ -243,17 +325,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
         /// <returns></returns>
         protected virtual async Task<IList<T>> GetResourcesAsyncInternal<T>(List<ResourceTypeInstance> instances) where T : class
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// The internal implementation of GetResourcesAsync. Must be overridden in derived classes.
-        /// </summary>
-        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
-        /// <returns></returns>
-        protected virtual async Task<string> GetResourcesAsyncInternal(List<ResourceTypeInstance> instances)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -300,18 +371,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         /// <summary>
-        /// The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.
-        /// </summary>
-        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
-        /// <param name="serializedResource">The serialized resource being created or updated.</param>
-        /// <returns></returns>
-        protected virtual async Task UpsertResourceAsync(List<ResourceTypeInstance> instances, string serializedResource)
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// The internal implementation of DeleteResource. Must be overridden in derived classes.
         /// </summary>
         /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
@@ -325,17 +384,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
         /// <returns></returns>
         protected virtual async Task DeleteResourceAsync<T>(List<ResourceTypeInstance> instances)
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.
-        /// </summary>
-        /// <param name="instances">The list of <see cref="ResourceTypeInstance"/> objects parsed from the resource path.</param>
-        /// <returns></returns>
-        protected virtual async Task DeleteResourceAsync(List<ResourceTypeInstance> instances)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -359,7 +407,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 instances.Select(i => $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
         }
 
-        private List<ResourceTypeInstance> GetResourceInstancesFromPath(string resourcePath)
+        private List<ResourceTypeInstance> GetResourceInstancesFromPath(string resourcePath, bool allowAction = true)
         {
             if (string.IsNullOrWhiteSpace(resourcePath))
                 throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.");
@@ -367,7 +415,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             var tokens = resourcePath.Split('/', StringSplitOptions.RemoveEmptyEntries);
 
             var result = new List<ResourceTypeInstance>();
-            var currentResourceTypes = _resourceTypes;
+            var currentResourceTypes = GetResourceTypes();
             var currentIndex = 0;
             while (currentIndex < tokens.Length)
             {
@@ -383,15 +431,37 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                     // This will be used by resource providers to retrieve all resources of a specific resource type.
                     break;
 
-                resourceTypeInstance.ResourceId = tokens[currentIndex + 1];
+                // Check if the next token is an action or a resource id.
+                // The only way to determine is by matching the token with the list of supported actions.
+                // If there is not match, the token is considered to be a resource identifier.
+                if (currentResourceType.Actions.Any(a => a.Name == tokens[currentIndex + 1]))
+                {
+                    // The next token is an action
+                    if (!allowAction)
+                        throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.");
+
+                    resourceTypeInstance.Action = tokens[currentIndex + 1];
+
+                    // It must be the last token
+                    if (currentIndex + 2 == tokens.Length)
+                        break;
+                    else
+                        throw new ResourceProviderException($"An action must be the last token in a resource path.");
+                }
+                else
+                    // The next token is a resource identifier
+                    resourceTypeInstance.ResourceId = tokens[currentIndex + 1];
 
                 if (currentIndex + 2 == tokens.Length - 1)
                 {
                     // Only one token left after the resource identifier.
                     // This means it can only be an action.
-                    if (currentResourceType.Actions.Contains(tokens[currentIndex + 2]))
+                    if (currentResourceType.Actions.Any(a => a.Name == tokens[currentIndex + 2]))
                     {
                         // The token represents an action.
+                        if (!allowAction)
+                            throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.");
+
                         resourceTypeInstance.Action = tokens[currentIndex + 2];
                         break;
                     }
@@ -405,5 +475,17 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
             return result;
         }
+
+        #region Events handling
+
+        /// <summary>
+        /// Handles events received from the <see cref="IEventService"/> when they are dequeued locally.
+        /// </summary>
+        /// <param name="e">The <see cref="EventSetEventArgs"/> containing the events namespace and the actual events.</param>
+        /// <returns></returns>
+        protected virtual async Task HandleEvents(EventSetEventArgs e) =>
+            await Task.CompletedTask;
+
+        #endregion
     }
 }

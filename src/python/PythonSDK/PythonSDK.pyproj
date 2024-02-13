@@ -144,6 +144,19 @@
     <Compile Include="foundationallm\models\orchestration\knowledge_management_completion_request.py" />
     <Compile Include="foundationallm\models\orchestration\message_history_item.py" />
     <Compile Include="foundationallm\models\orchestration\__init__.py" />
+    <Compile Include="foundationallm\models\resource_providers\prompts\prompt.py" />
+    <Compile Include="foundationallm\models\resource_providers\prompts\__init__.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\configuration_references_base.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\azure_openai\azure_openai_configuration_references.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\azure_openai\azure_openai_embedding_profile.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\embedding_profile_base.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\azure_ai_search\azure_ai_search_configuration_references.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\azure_ai_search\azure_ai_search_indexing_profile.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\azure_ai_search\azure_ai_search_settings.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\indexing_profile_base.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\profile_base.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\settings_base.py" />
+    <Compile Include="foundationallm\models\resource_providers\vectorization\__init__.py" />
     <Compile Include="foundationallm\models\__init__.py" />
     <Compile Include="foundationallm\config\configuration.py" />
     <Compile Include="foundationallm\config\__init__.py" />
@@ -190,8 +203,15 @@
     <Folder Include="foundationallm\models\" />
     <Folder Include="foundationallm\models\metadata\" />
     <Folder Include="foundationallm\models\language_models\" />
+    <Folder Include="foundationallm\models\resource_providers\" />
     <Folder Include="foundationallm\models\orchestration\" />
     <Folder Include="foundationallm\hubs\" />
+    <Folder Include="foundationallm\models\resource_providers\prompts\" />
+    <Folder Include="foundationallm\models\resource_providers\vectorization\" />
+    <Folder Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\azure_openai\" />
+    <Folder Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\" />
+    <Folder Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\azure_ai_search\" />
+    <Folder Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\" />
     <Folder Include="foundationallm\resources\" />
     <Folder Include="foundationallm\storage\" />
   </ItemGroup>

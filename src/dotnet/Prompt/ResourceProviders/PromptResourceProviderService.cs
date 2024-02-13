@@ -5,13 +5,15 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.ResourceProvider;
+using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services.ResourceProviders;
+using FoundationaLLM.Prompt.Constants;
 using FoundationaLLM.Prompt.Models.Metadata;
 using FoundationaLLM.Prompt.Models.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
 
 namespace FoundationaLLM.Prompt.ResourceProviders
 {
@@ -20,13 +22,41 @@ namespace FoundationaLLM.Prompt.ResourceProviders
     /// </summary>
     public class PromptResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Prompt_ResourceProviderService)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt)] IStorageService storageService,
+        IEventService eventService,
         ILogger<PromptResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             storageService,
+            eventService,
             logger)
     {
+        /// <inheritdoc/>
+        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
+        {
+            {
+                PromptResourceTypeNames.Prompts,
+                new ResourceTypeDescriptor(
+                        PromptResourceTypeNames.Prompts)
+                {
+                    AllowedTypes = [
+                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(MultipartPrompt)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(MultipartPrompt)], [typeof(ResourceProviderUpsertResult)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
+                    ],
+                    Actions = [
+                            new ResourceTypeAction("checkname", false, true, [
+                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
+                            ])
+                        ]
+                }
+            },
+            {
+                PromptResourceTypeNames.PromptReferences,
+                new ResourceTypeDescriptor(PromptResourceTypeNames.PromptReferences)
+            }
+        };
+
         private ConcurrentDictionary<string, PromptReference> _promptReferences = [];
 
         private const string PROMPT_REFERENCES_FILE_NAME = "_prompt-references.json";
@@ -34,20 +64,6 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Prompt;
-
-        /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> _resourceTypes =>
-            new()
-            {
-                {
-                    PromptResourceTypeNames.Prompts,
-                    new ResourceTypeDescriptor(PromptResourceTypeNames.Prompts)
-                },
-                {
-                    PromptResourceTypeNames.PromptReferences,
-                    new ResourceTypeDescriptor(PromptResourceTypeNames.PromptReferences)
-                }
-            };
 
         /// <inheritdoc/>
         protected override async Task InitializeInternal()
@@ -76,91 +92,106 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
 
+        #region Support for Management API
+
         /// <inheritdoc/>
-        protected override async Task<string> GetResourcesAsyncInternal(List<ResourceTypeInstance> instances) =>
+        protected override async Task<object> GetResourcesAsyncInternal(List<ResourceTypeInstance> instances) =>
             instances[0].ResourceType switch
             {
-                PromptResourceTypeNames.Prompts => await LoadAndSerializePrompts(instances[0]),
+                PromptResourceTypeNames.Prompts => await LoadPrompts(instances[0]),
                 _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
             };
 
-        /// <inheritdoc/>
-        protected override async Task UpsertResourceAsync(List<ResourceTypeInstance> instances, string serializedResource)
-        {
-            switch (instances[0].ResourceType)
-            {
-                case PromptResourceTypeNames.Prompts:
-                    await UpdatePrompt(instances, serializedResource);
-                    break;
-                default:
-                    throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.");
-            }
-        }
+        #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<string> LoadAndSerializePrompts(ResourceTypeInstance instance)
+        private async Task<List<PromptBase>> LoadPrompts(ResourceTypeInstance instance)
         {
             if (instance.ResourceId == null)
             {
-                var serializedPrompts = new List<string>();
-
-                foreach (var promptReference in _promptReferences.Values)
-                {
-                    var prompt = await LoadPrompt(promptReference);
-                    serializedPrompts.Add(
-                        JsonSerializer.Serialize(prompt, _serializerSettings));
-                }
-
-                return $"[{string.Join(",", [.. serializedPrompts])}]";
+                return
+                [
+                    .. (await Task.WhenAll(
+                            _promptReferences.Values.Select(pr => LoadPrompt(pr))))
+                ];
             }
             else
             {
-                if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference))
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} prompt resource.");
+                //TODO: Find a more efficient way to load and agent when the type is not known in advance
+                // (ideally avoiding the double load below).
 
+                var promptReference = new PromptReference
+                {
+                    Name = instance.ResourceId,
+                    Type = PromptTypes.Basic,
+                    Filename = $"/{_name}/{instance.ResourceId}.json"
+                };
                 var prompt = await LoadPrompt(promptReference);
-                return JsonSerializer.Serialize(prompt, _serializerSettings);
+
+                promptReference.Type = prompt.Type;
+                prompt = await LoadPrompt(promptReference);
+
+                _promptReferences.AddOrUpdate(
+                    promptReference.Name,
+                    promptReference,
+                    (k, v) => v);
+
+                return [prompt];
             }
         }
 
-        private async Task<Models.Metadata.Prompt> LoadPrompt(PromptReference promptReference)
+        private async Task<MultipartPrompt> LoadPrompt(PromptReference promptReference)
         {
             if (await _storageService.FileExistsAsync(_storageContainerName, promptReference.Filename, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(_storageContainerName, promptReference.Filename, default);
                 return JsonSerializer.Deserialize<Models.Metadata.Prompt>(
                     Encoding.UTF8.GetString(fileContent.ToArray()),
-                    _serializerSettings) as Models.Metadata.Prompt
+                    promptReference.PromptType,
+                    _serializerSettings) as Models.Metadata.MultipartPrompt
                     ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.");
             }
 
             throw new ResourceProviderException($"Could not locate the {promptReference.Name} prompt resource.");
         }
 
-        private async Task UpdatePrompt(List<ResourceTypeInstance> instances, string serializedPrompt)
+        #endregion
+
+        /// <inheritdoc/>
+        protected override async Task<object> UpsertResourceAsync(List<ResourceTypeInstance> instances, string serializedResource) =>
+            instances[0].ResourceType switch
+            {
+                PromptResourceTypeNames.Prompts => await UpdatePrompt(instances, serializedResource),
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager."),
+            };
+
+        #region Helpers for UpsertResourceAsync
+
+        private async Task<ResourceProviderUpsertResult> UpdatePrompt(List<ResourceTypeInstance> instances, string serializedPrompt)
         {
             var prompt = JsonSerializer.Deserialize<Models.Metadata.Prompt>(serializedPrompt)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
 
-            if (instances[0].ResourceId != prompt.Name)
+            if (instances[0].ResourceId != promptBase.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).");
 
             var promptReference = new PromptReference
             {
-                Name = prompt.Name!,
-                Filename = $"/{_name}/{prompt.Name}.json"
+                Name = promptBase.Name!,
+                Type = promptBase.Type!,
+                Filename = $"/{_name}/{promptBase.Name}.json"
             };
 
-            var deserializeObject = JsonSerializer.Deserialize<Models.Metadata.Prompt>(serializedPrompt, _serializerSettings);
-            deserializeObject!.ObjectId = GetObjectId(instances);
+            var prompt = JsonConvert.DeserializeObject(serializedPrompt, promptReference.PromptType, _serializerSettings);
+            (prompt as PromptBase)!.ObjectId = GetObjectId(instances);
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 promptReference.Filename,
-                JsonSerializer.Serialize(deserializeObject, _serializerSettings),
+                JsonConvert.SerializeObject(prompt, promptReference.PromptType, _serializerSettings),
                 default,
                 default);
 
-            _promptReferences[promptReference.Name] = promptReference;
+            _promptReferences.AddOrUpdate(promptReference.Name, promptReference, (k, v) => v);
 
             await _storageService.WriteFileAsync(
                     _storageContainerName,
@@ -168,7 +199,56 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                     JsonSerializer.Serialize(PromptReferenceStore.FromDictionary(_promptReferences.ToDictionary())),
                     default,
                     default);
+
+            return new ResourceProviderUpsertResult
+            {
+                ObjectId = (prompt as PromptBase)!.ObjectId
+            };
         }
+
+        #endregion
+
+        /// <inheritdoc/>
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        protected override async Task<object> ExecuteActionAsync(List<ResourceTypeInstance> instances, string serializedAction) =>
+            instances.Last().ResourceType switch
+            {
+                PromptResourceTypeNames.Prompts => instances.Last().Action switch
+                {
+                    PromptResourceProviderActions.CheckName => CheckPromptName(serializedAction),
+                    _ => throw new ResourceProviderException($"The action {instances.Last().Action} is not supported by the {_name} resource provider.")
+                },
+                _ => throw new ResourceProviderException()
+            };
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+
+        #region Helpers for ExecuteActionAsync
+
+        private ResourceNameCheckResult CheckPromptName(string serializedAction)
+        {
+            var resourceName = JsonConvert.DeserializeObject<ResourceName>(serializedAction);
+            return _promptReferences.Values.Any(ar => ar.Name == resourceName!.Name)
+                ? new ResourceNameCheckResult
+                {
+                    Name = resourceName!.Name,
+                    Type = resourceName.Type,
+                    Status = NameCheckResultType.Denied,
+                    Message = "A resource with the specified name already exists."
+                }
+                : new ResourceNameCheckResult
+                {
+                    Name = resourceName!.Name,
+                    Type = resourceName.Type,
+                    Status = NameCheckResultType.Allowed
+                };
+        }
+
+        #endregion
+
+        #endregion
+
+
+        #region Obsolete
 
         /// <inheritdoc/>
         protected override async Task<T> GetResourceAsyncInternal<T>(List<ResourceTypeInstance> instances) where T: class =>
@@ -218,5 +298,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             throw new ResourceProviderException(
                 $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
         }
+
+        #endregion
     }
 }

@@ -49,12 +49,12 @@ class KnowledgeManagementAgent(AgentBase):
         if completion_request.agent.indexing_profile is not None:
             self.internal_context = False
             retriever_factory = RetrieverFactory(
-                            indexing_profile_resource_id = completion_request.agent.indexing_profile,
-                            embedding_profile_resource_id= completion_request.agent.embedding_profile,
+                            indexing_profile_object_id = completion_request.agent.indexing_profile,
+                            embedding_profile_object_id= completion_request.agent.embedding_profile,
                             config = config,
                             resource_provider = resource_provider)
             self.retriever = retriever_factory.get_retriever()
-            self.agent_prompt = resource_provider.get_resource(completion_request.agent.prompt)["prefix"]
+            self.agent_prompt = resource_provider.get_resource(completion_request.agent.prompt).prefix
 
         #default conversation history
         self.message_history_enabled = False

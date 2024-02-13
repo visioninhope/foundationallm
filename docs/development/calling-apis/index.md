@@ -6,3 +6,4 @@ The links below provide the documentation for calling the Core and Management AP
 
 - [Core API](./directly-calling-core-api.md)
 - [Management API](./directly-calling-management-api.md)
+- [Vectorization API](./directly-calling-vectorization-api.md)

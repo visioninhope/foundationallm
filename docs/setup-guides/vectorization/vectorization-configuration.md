@@ -194,7 +194,8 @@ Default structure for the `vectorization-text-partitioning-profiles.json` file:
                 "TokenizerEncoder": "cl100k_base",
                 "ChunkSizeTokens": "2000",
                 "OverlapSizeTokens": "200"
-            }
+            },
+            "ConfigurationReferences": {}
         }
     ]
 }
@@ -220,7 +221,7 @@ Default structure for the `vectorization-text-embedding-profiles.json` file:
             "Settings": {},
             "ConfigurationReferences": {
                 "APIKey": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
-                "APIVersion": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APVersion",
+                "APIVersion": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion",
                 "AuthenticationType": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
                 "DeploymentName": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName",
                 "Endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"

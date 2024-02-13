@@ -33,4 +33,5 @@ resource connectionStringSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' =
 
 output endpoint string = appconfig.properties.endpoint
 output connectionStringSecretName string = connectionStringSecret.name
+output connectionStringSecretRef string = connectionStringSecret.properties.secretUri
 output name string = appconfig.name
