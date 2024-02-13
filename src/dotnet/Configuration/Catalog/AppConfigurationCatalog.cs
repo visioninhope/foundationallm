@@ -1303,30 +1303,30 @@ namespace FoundationaLLM.Configuration.Catalog
         ];
 
         /// <summary>
-        /// The LainChain configuration entries for the solution.
+        /// The LangChain configuration entries for the solution.
         /// </summary>
         public static readonly List<AppConfigurationEntry> LangChain =
         [
-            new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChain_CSVFile_URL,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-langchain-csvfile-url`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChain_CsvFile_Url,
-                contentType: "text/plain",
-                sampleObject: null
-            ),
+            //new(
+            //    key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChain_CSVFile_URL,
+            //    minimumVersion: "0.3.0",
+            //    defaultValue: "Key Vault secret name: `foundationallm-langchain-csvfile-url`",
+            //    description: "This is a Key Vault reference.",
+            //    keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChain_CsvFile_Url,
+            //    contentType: "text/plain",
+            //    sampleObject: null
+            //),
 
-            new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChain_SQLDatabase_TestDB_Password,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-langchain-sqldatabase-testdb-password`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
-                    .FoundationaLLM_LangChain_SQLDatabase_Testdb_Password,
-                contentType: "text/plain",
-                sampleObject: null
-            ),
+            //new(
+            //    key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChain_SQLDatabase_TestDB_Password,
+            //    minimumVersion: "0.3.0",
+            //    defaultValue: "Key Vault secret name: `foundationallm-langchain-sqldatabase-testdb-password`",
+            //    description: "This is a Key Vault reference.",
+            //    keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+            //        .FoundationaLLM_LangChain_SQLDatabase_Testdb_Password,
+            //    contentType: "text/plain",
+            //    sampleObject: null
+            //),
 
             new(
                 key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChain_Summary_MaxTokens,

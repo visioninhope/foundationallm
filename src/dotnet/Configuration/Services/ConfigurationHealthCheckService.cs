@@ -52,6 +52,11 @@ namespace FoundationaLLM.Configuration.Services
                 {
                     missingConfigurations.AddRange(ex.MissingConfigurations!);
                 }
+                // Some App Configuration variables exist, but their Key Vault secrets are missing.
+                if (ex.MissingKeyVaultSecrets != null)
+                {
+                    missingKeyVaultSecrets.AddRange(ex.MissingKeyVaultSecrets!);
+                }
             }
 
             // Key Vault Secrets Check.
