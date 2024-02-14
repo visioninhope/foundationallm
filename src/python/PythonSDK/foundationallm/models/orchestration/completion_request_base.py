@@ -7,6 +7,6 @@ class CompletionRequestBase(BaseModel):
     """
     Orchestration completion request.
     """
-    id: Optional[str] = uuid.uuid4().hex
+    request_id: Optional[str] = str(uuid.uuid4())
     user_prompt: str    
     message_history: Optional[List[MessageHistoryItem]] = []

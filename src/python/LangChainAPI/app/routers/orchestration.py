@@ -59,7 +59,7 @@ async def get_completion(
     """
     with tracer.start_as_current_span('completion') as span:
         try:
-            span.set_attribute('completion_request_id', completion_request.id)
+            span.set_attribute('request_id', completion_request.request_id)
 
             orchestration_manager = OrchestrationManager(
                 completion_request = completion_request,
