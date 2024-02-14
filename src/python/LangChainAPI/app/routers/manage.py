@@ -3,7 +3,11 @@ The endpoint for managing the LangChainAPI.
 """
 import time
 from fastapi import APIRouter, Depends, HTTPException
+from foundationallm.telemetry import Telemetry
 from app.dependencies import get_config, handle_exception, validate_api_key_header
+
+logger = Telemetry.get_logger(__name__)
+tracer = Telemetry.get_tracer(__name__)
 
 # Initialize API routing
 router = APIRouter(
@@ -24,16 +28,25 @@ async def refresh_cache(name: str):
         The name of the cache object to refresh.
         "config", for example.
     """
-    start = time.time()
+    with tracer.start_as_current_span('cache_refresh') as span:
+        span.set_attribute('cache_name', name)
+        span.add_event(f'LangChainAPI {name} cache refresh requested.')
         
-    if name=='config' or name=='configuration':
-        try:
-            get_config('refresh')
-        except Exception as e:
-            handle_exception(e)
-    else:
-        raise HTTPException(status_code=404, detail=f'Cache named {name} not found.')
+        start = time.time()
+        
+        if name=='config' or name=='configuration':
+            try:
+                get_config('refresh')
+            except Exception as e:
+                Telemetry.record_exception(span, e)
+                handle_exception(e)
+        else:
+            raise HTTPException(status_code=404, detail=f'Cache named {name} not found.')
             
-    end = time.time()
-    
-    return {'detail':f'The {name} cache was refreshed in {round(end-start, 3)} seconds.'}
+        end = time.time()
+        
+        span.add_event(f'LangChainAPI {name} cache refresh completed in {round(end-start, 3)} seconds.')
+
+        detail = f'The LangChainAPI {name} cache was refreshed in {round(end-start, 3)} seconds.'
+        logger.info(detail)
+        return {'detail':detail}

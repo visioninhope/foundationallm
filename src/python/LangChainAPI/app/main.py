@@ -9,13 +9,12 @@ from app.routers import (
     orchestration,
     status
 )
-#from azure.monitor.opentelemetry import configure_azure_monitor
+from azure.monitor.opentelemetry import configure_azure_monitor
 
-# configure_azure_monitor(
-#     connection_string=
-#       config.get_value('FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString'),
-#     disable_offline_storage=True
-# )
+configure_azure_monitor(
+     connection_string=get_config().get_value('FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString'),
+     disable_offline_storage=True
+)
 
 app = FastAPI(
     title='FoundationaLLM LangChainAPI',

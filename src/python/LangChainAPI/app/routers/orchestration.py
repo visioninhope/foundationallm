@@ -11,7 +11,12 @@ from foundationallm.models.orchestration import (
     CompletionResponse
 )
 from foundationallm.langchain.orchestration import OrchestrationManager
-from app.dependencies import handle_exception, validate_api_key_header
+from foundationallm.telemetry import Telemetry
+from app.dependencies import handle_exception, validate_api_key_header #get_logger, get_otel_tracer, 
+
+# Initialize telemetry logging
+logger = Telemetry.get_logger(__name__)
+tracer = Telemetry.get_tracer(__name__)
 
 # Initialize API routing
 router = APIRouter(
@@ -52,10 +57,16 @@ async def get_completion(
     CompletionResponse
         Object containing the completion response and token usage details.
     """
-    try:
-        orchestration_manager = OrchestrationManager(completion_request = completion_request,
-                                                     configuration=request.app.extra['config'],
-                                                     context=Context(user_identity=x_user_identity))
-        return orchestration_manager.run(completion_request.user_prompt)
-    except Exception as e:
-        handle_exception(e)
+    with tracer.start_as_current_span('completion') as span:
+        try:
+            span.set_attribute('completion_request_id', completion_request.id)
+            #span.add_event('LangChain completion requested.')
+
+            orchestration_manager = OrchestrationManager(
+                completion_request = completion_request,
+                configuration=request.app.extra['config'],
+                context=Context(user_identity=x_user_identity)
+            )
+            return orchestration_manager.run(completion_request.user_prompt)
+        except Exception as e:
+            handle_exception(e)
