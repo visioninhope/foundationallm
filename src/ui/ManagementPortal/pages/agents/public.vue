@@ -17,8 +17,10 @@
 				<Column field="name" header="Name" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, sortIcon: { style: { color: 'var(--primary-text)' } } }"></Column>
 				<Column field="type" header="Type" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, sortIcon: { style: { color: 'var(--primary-text)' } } }"></Column>
 				<Column header="Edit" headerStyle="width:6rem" style="text-align: center" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, headerContent: { style: { justifyContent: 'center' } } }">
-					<template #body="slotProps">
-						<NuxtLink :to="'/agents/edit/' + slotProps.data.name" class="table__button"><i class="pi pi-cog" style="font-size: 1.5rem"></i></NuxtLink>
+					<template #body="{ data }">
+						<NuxtLink :to="'/agents/edit/' + data.name" class="table__button">
+							<i class="pi pi-cog" style="font-size: 1.5rem"></i>
+						</NuxtLink>
 					</template>
 				</Column>
 			</DataTable>
