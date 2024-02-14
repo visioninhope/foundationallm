@@ -7,14 +7,14 @@
 			<div class="step">
 				<div class="page-subheader">View your publicly accessible agents.</div>
 			</div>
-			<div class="step justify-self-end">
+			<!-- <div class="step justify-self-end">
 				<Button
 					class="primary-button"
 					label="+ New Agent"
 					severity="primary"
 					@click="handleCreateAgent"
 				/>
-			</div>
+			</div> -->
 		</div>
 		<div :class="{ 'grid--loading': loading }">
 				<!-- Loading overlay -->
@@ -66,9 +66,9 @@ export default {
 	},
 
 	methods: {
-		handleCreateAgent() {
-			this.$router.push('/agents/create');
-		}
+		// handleCreateAgent() {
+		// 	this.$router.push('/agents/create');
+		// }
 	}
 };
 </script>
