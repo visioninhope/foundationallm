@@ -25,21 +25,21 @@ export type AgentDataSource = {
 };
 
 export type AgentIndex = {
-	Name: string;
-	ObjectId: string;
-	Description: string;
-	Indexer: string;
-	Settings: {
-		IndexName: string;
-		TopN?: string;
-		Filters?: string;
-		EmbeddingFieldName?: string;
-		TextFieldName?: string;
+	name: string;
+	objectId: string;
+	description: string;
+	indexer: string;
+	settings: {
+		indexName: string;
+		topN?: string;
+		filters?: string;
+		embeddingFieldName?: string;
+		textFieldName?: string;
 	};
-	ConfigurationReferences: {
-		APIKey: string;
-		AuthenticationType: string;
-		Endpoint: string;
+	configurationReferences: {
+		apiKey: string;
+		authenticationType: string;
+		endpoint: string;
 	};
 };
 

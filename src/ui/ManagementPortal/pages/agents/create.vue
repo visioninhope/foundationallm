@@ -127,14 +127,14 @@
 			<!-- Index source -->
 			<CreateAgentStepItem v-model="editIndexSource">
 				<template v-if="selectedIndexSource">
-					<div class="step-container__header">{{ selectedIndexSource.Name }}</div>
+					<div class="step-container__header">{{ selectedIndexSource.name }}</div>
 					<div>
 						<span class="step-option__header">URL:</span>
-						<span>{{ selectedIndexSource.ConfigurationReferences.Endpoint }}</span>
+						<span>{{ selectedIndexSource.configurationReferences.endpoint }}</span>
 					</div>
 					<div>
 						<span class="step-option__header">Index Name:</span>
-						<span>{{ selectedIndexSource.Settings.IndexName }}</span>
+						<span>{{ selectedIndexSource.settings.indexName }}</span>
 					</div>
 				</template>
 				<template v-else>Please select an index source.</template>
@@ -143,22 +143,22 @@
 					<div class="step-container__edit__header">Please select an index source.</div>
 					<div
 						v-for="indexSource in indexSources"
-						:key="indexSource.Name"
+						:key="indexSource.name"
 						class="step-container__edit__option"
 						:class="{
 							'step-container__edit__option--selected':
-								indexSource.Name === selectedIndexSource?.Name,
+								indexSource.name === selectedIndexSource?.name,
 						}"
 						@click.stop="handleIndexSourceSelected(indexSource)"
 					>
-						<div class="step-container__header">{{ indexSource.Name }}</div>
+						<div class="step-container__header">{{ indexSource.name }}</div>
 						<div>
 							<span class="step-option__header">URL:</span>
-							<span>{{ indexSource.ConfigurationReferences.Endpoint }}</span>
+							<span>{{ indexSource.configurationReferences.endpoint }}</span>
 						</div>
 						<div>
 							<span class="step-option__header">Index Name:</span>
-							<span>{{ indexSource.Settings.IndexName }}</span>
+							<span>{{ indexSource.settings.indexName }}</span>
 						</div>
 					</div>
 				</template>
@@ -563,11 +563,11 @@ export default {
 			this.agentType = agent.type || this.agentType;
 
 			this.selectedIndexSource =
-				this.indexSources.find((indexSource) => indexSource.ObjectId === agent.indexing_profile) ||
+				this.indexSources.find((indexSource) => indexSource.objectId === agent.indexing_profile) ||
 				null;
 
 			this.selectedDataSource =
-				this.dataSources.find((dataSource) => dataSource.ObjectId === agent.embedding_profile) ||
+				this.dataSources.find((dataSource) => dataSource.objectId === agent.embedding_profile) ||
 				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
