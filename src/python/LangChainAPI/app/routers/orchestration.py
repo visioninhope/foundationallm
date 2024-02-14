@@ -12,7 +12,7 @@ from foundationallm.models.orchestration import (
 )
 from foundationallm.langchain.orchestration import OrchestrationManager
 from foundationallm.telemetry import Telemetry
-from app.dependencies import handle_exception, validate_api_key_header #get_logger, get_otel_tracer, 
+from app.dependencies import handle_exception, validate_api_key_header
 
 # Initialize telemetry logging
 logger = Telemetry.get_logger(__name__)

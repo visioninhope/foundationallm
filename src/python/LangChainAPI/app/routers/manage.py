@@ -44,9 +44,7 @@ async def refresh_cache(name: str):
             raise HTTPException(status_code=404, detail=f'Cache named {name} not found.')
             
         end = time.time()
-        
-        span.add_event(f'LangChainAPI {name} cache refresh completed in {round(end-start, 3)} seconds.')
 
         detail = f'The LangChainAPI {name} cache was refreshed in {round(end-start, 3)} seconds.'
-        logger.info(detail)
+        span.add_event(detail)
         return {'detail':detail}
