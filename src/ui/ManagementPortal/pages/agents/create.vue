@@ -376,21 +376,20 @@
 			</div>
 
 			<div class="button-container column-2 justify-self-end">
+				<!-- Create agent -->
 				<Button
-					class="secondary-button"
-					style="margin-right: 20px;"
+					:label="editAgent ? 'Save Changes' : 'Create Agent'"
+					severity="primary"
+					@click="handleCreateAgent"
+				/>
+
+				<!-- Cancel -->
+				<Button
+					v-if="editAgent"
+					style="margin-left: 16px;"
 					label="Cancel"
 					severity="secondary"
 					@click="handleCancel"
-				/>
-
-				<!-- Create agent -->
-				<Button
-					class="primary-button"
-					style="width: 200px"
-					:label="editAgent ? 'Update Agent' : 'Create Agent'"
-					severity="primary"
-					@click="handleCreateAgent"
 				/>
 			</div>
 		</div>
