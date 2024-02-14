@@ -399,7 +399,7 @@
 <script lang="ts">
 import type { PropType } from 'vue';
 import api from '@/js/api';
-import type { CreateAgentRequest, AgentIndex } from '@/js/types';
+import type { Agent, AgentIndex, AgentDataSource, CreateAgentRequest } from '@/js/types';
 
 const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
@@ -448,7 +448,7 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
-			dataSources: [],
+			dataSources: [] as AgentDataSource[],
 			indexSources: [] as AgentIndex[],
 
 			triggerFrequencyOptions: [
@@ -496,7 +496,7 @@ export default {
 				},
 				{
 					label: 'Azure Content Safety',
-					value: "ContentSafety"
+					value: 'ContentSafety',
 				},
 			],
 
@@ -507,7 +507,7 @@ export default {
 				},
 				{
 					label: 'Microsoft Presidio',
-					value: "Presidio"
+					value: 'Presidio',
 				},
 			],
 		};
@@ -516,7 +516,7 @@ export default {
 	computed: {
 		groupedDataSources() {
 			const grouped = {};
-			this.dataSources.forEach(dataSource => {
+			this.dataSources.forEach((dataSource) => {
 				if (!grouped[dataSource.Type]) {
 					grouped[dataSource.Type] = [];
 				}
@@ -539,7 +539,7 @@ export default {
 
 			this.loadingStatusText = 'Retrieving data sources...';
 			this.dataSources = await api.getAgentDataSources();
-		} catch(error) {
+		} catch (error) {
 			this.$toast.add({
 				severity: 'error',
 				detail: error?.response?._data || error,
@@ -557,7 +557,7 @@ export default {
 	},
 
 	methods: {
-		mapAgentToForm(agent) {
+		mapAgentToForm(agent: Agent) {
 			this.agentName = agent.name || this.agentName;
 			this.agentDescription = agent.description || this.agentDescription;
 			this.agentType = agent.type || this.agentType;
@@ -602,7 +602,7 @@ export default {
 		},
 
 		handleNameInput(event) {
-			let element = event.target;
+			const element = event.target;
 
 			// Remove spaces
 			let sanitizedValue = element.value.replace(/\s/g, '');
@@ -614,16 +614,16 @@ export default {
 			this.agentName = sanitizedValue;
 		},
 
-		handleAgentTypeSelect(type: AgentType) {
+		handleAgentTypeSelect(type: Agent['type']) {
 			this.agentType = type;
 		},
 
-		handleDataSourceSelected(dataSource) {
+		handleDataSourceSelected(dataSource: AgentDataSource) {
 			this.selectedDataSource = dataSource;
 			this.editDataSource = false;
 		},
 
-		handleIndexSourceSelected(indexSource) {
+		handleIndexSourceSelected(indexSource: AgentIndex) {
 			this.selectedIndexSource = indexSource;
 			this.editIndexSource = false;
 		},
