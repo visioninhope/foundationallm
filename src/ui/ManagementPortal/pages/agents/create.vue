@@ -572,7 +572,7 @@ export default {
 				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
-			this.conversationMaxMessages = agent.conversation_history?.max_history || his.conversationMaxMessages;
+			this.conversationMaxMessages = agent.conversation_history?.max_history || this.conversationMaxMessages;
 
 			this.gatekeeperEnabled = Boolean(agent.gatekeeper?.use_system_setting);
 
