@@ -1,20 +1,45 @@
-export type AgentDataSource = {};
+export type Agent = {
+	name: string;
+	type: 'knowledge-management' | 'analytics';
+	indexing_profile: string;
+	embedding_profile: string;
+	sessions_enabled: boolean;
+	orchestrator: string;
+	conversation_history: {
+		enabled: boolean;
+		max_history: number;
+	};
+	gatekeeper: {
+		use_system_setting: boolean;
+		options: {
+			content_safety: number;
+			data_protection: number;
+		};
+	};
+	prompt: string;
+};
+
+export type AgentDataSource = {
+	Name: string;
+	ObjectId: string;
+};
 
 export type AgentIndex = {
-	Name: string;
-	Description: string;
-	Indexer: string;
-	Settings: {
-		IndexName: string;
-		TopN?: string;
-		Filters?: string;
-		EmbeddingFieldName?: string;
-		TextFieldName?: string;
+	name: string;
+	objectId: string;
+	description: string;
+	indexer: string;
+	settings: {
+		indexName: string;
+		topN?: string;
+		filters?: string;
+		embeddingFieldName?: string;
+		textFieldName?: string;
 	};
-	ConfigurationReferences: {
-		APIKey: string;
-		AuthenticationType: string;
-		Endpoint: string;
+	configurationReferences: {
+		apiKey: string;
+		authenticationType: string;
+		endpoint: string;
 	};
 };
 
