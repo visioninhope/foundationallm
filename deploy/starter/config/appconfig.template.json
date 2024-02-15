@@ -854,21 +854,21 @@
     "value": "APIKey"
   },
   {
-    "keyVault": true,
+    "keyVault": false,
     "featureFlag": false,
     "isJson": false,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:Endpoint",
     "value": "${AZURE_EVENT_GRID_ENDPOINT}"
   },
   {
-    "keyVault": true,
+    "keyVault": false,
     "featureFlag": false,
     "isJson": false,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:NamespaceId",
     "value": "${AZURE_EVENT_GRID_ID}"
   },
   {
-    "keyVault": true,
+    "keyVault": false,
     "featureFlag": false,
     "isJson": false,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI",

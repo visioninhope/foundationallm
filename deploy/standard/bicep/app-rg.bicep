@@ -68,6 +68,9 @@ param vnetId string
 @description('KeyVault resource suffix')
 var opsResourceSuffix = '${project}-${environmentName}-${location}-ops'
 
+@description('Storage resource suffix')
+var storageResourceSuffix = '${project}-${environmentName}-${location}-storage'
+
 @description('Resource Suffix used in naming resources.')
 var resourceSuffix = '${project}-${environmentName}-${location}-${workload}'
 
@@ -162,6 +165,55 @@ module aksFrontend 'modules/aks.bicep' = {
     subnetIdPrivateEndpoint: '${vnetId}/subnets/FLLMServices'
     tags: tags
   }
+}
+
+module eventgrid 'modules/eventgrid.bicep' = {
+  name: 'eventgrid-${timestamp}'
+  params: {
+    actionGroupId: actionGroupId
+    dnsResourceGroupName: dnsResourceGroupName
+    kvResourceSuffix: opsResourceSuffix
+    location: location
+    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
+    logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
+    networkingResourceGroupName: networkingResourceGroupName
+    opsResourceGroupName: opsResourceGroupName
+    privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'eventgrid' ], zone.key))
+    resourceSuffix: resourceSuffix 
+    subnetId: '${vnetId}/subnets/FLLMServices'
+    topics: [ 'storage', 'vectorization' ]
+    tags: tags
+  }
+}
+
+module storageSystemTopic 'modules/storage-system-topic.bicep' = {
+  name: 'ssTopic-${timestamp}'
+  params: {
+    actionGroupId: actionGroupId
+    location: location
+    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
+    resourceSuffix: resourceSuffix
+    storageResourceSuffix: storageResourceSuffix
+    tags: tags
+  }
+  scope: resourceGroup(storageResourceGroupName)
+}
+
+module sTopicSub 'modules/system-topic-subscription.bicep' = {
+  name: 'sTopicSub-${timestamp}'
+  params: {
+    name: 'resource-provider'
+    topicName: storageSystemTopic.outputs.name
+    destinationTopicName: 'storage'
+    eventGridName: eventgrid.outputs.name
+    appResourceGroup: resourceGroup().name
+    filterPrefix: '/blobServices/default/containers/resource-provider/blobs'
+    includedEventTypes: [
+      'Microsoft.Storage.BlobCreated'
+      'Microsoft.Storage.BlobDeleted'
+    ]
+  }
+  scope: resourceGroup(storageResourceGroupName)
 }
 
 @batchSize(3)
