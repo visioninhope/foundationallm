@@ -212,6 +212,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.yml",
       "output": {
         ".html": {
@@ -1102,6 +1112,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.InternalContextAgent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.InternalContextAgent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.yml",
       "output": {
         ".html": {
@@ -1906,6 +1926,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.html"
         }
       },
       "version": ""
@@ -6539,6 +6569,16 @@
       "output": {
         ".html": {
           "relative_path": "setup-guides/agents/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/agents/internal-context-agent.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/agents/internal-context-agent.html"
         }
       },
       "version": ""

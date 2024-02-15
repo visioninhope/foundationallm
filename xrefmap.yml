@@ -524,6 +524,57 @@ references:
   commentId: N:FoundationaLLM.AgentFactory.Core.Orchestration
   fullName: FoundationaLLM.AgentFactory.Core.Orchestration
   nameWithType: FoundationaLLM.AgentFactory.Core.Orchestration
+- uid: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration
+  name: InternalContextOrchestration
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html
+  commentId: T:FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration
+  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration
+  nameWithType: InternalContextOrchestration
+- uid: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.InternalContextAgent,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.LegacyOrchestration})
+  name: InternalContextOrchestration(InternalContextAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<LegacyOrchestration>)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_InternalContextOrchestration__ctor_FoundationaLLM_Common_Models_Agents_InternalContextAgent_FoundationaLLM_Common_Interfaces_ICacheService_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Orchestration_LegacyOrchestration__
+  commentId: M:FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.InternalContextAgent,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.LegacyOrchestration})
+  name.vb: New(InternalContextAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of LegacyOrchestration))
+  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.InternalContextOrchestration(FoundationaLLM.Common.Models.Agents.InternalContextAgent, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.AgentFactory.Core.Orchestration.LegacyOrchestration>)
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.New(FoundationaLLM.Common.Models.Agents.InternalContextAgent, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.AgentFactory.Core.Orchestration.LegacyOrchestration))
+  nameWithType: InternalContextOrchestration.InternalContextOrchestration(InternalContextAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<LegacyOrchestration>)
+  nameWithType.vb: InternalContextOrchestration.New(InternalContextAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of LegacyOrchestration))
+- uid: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.#ctor*
+  name: InternalContextOrchestration
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_InternalContextOrchestration__ctor_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.InternalContextOrchestration
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.New
+  nameWithType: InternalContextOrchestration.InternalContextOrchestration
+  nameWithType.vb: InternalContextOrchestration.New
+- uid: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.Configure(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: Configure(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_InternalContextOrchestration_Configure_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.Configure(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.Configure(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: InternalContextOrchestration.Configure(CompletionRequest)
+- uid: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.Configure*
+  name: Configure
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_InternalContextOrchestration_Configure_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.Configure
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.Configure
+  nameWithType: InternalContextOrchestration.Configure
+- uid: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_InternalContextOrchestration_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: InternalContextOrchestration.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.GetCompletion*
+  name: GetCompletion
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_InternalContextOrchestration_GetCompletion_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.GetCompletion
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.GetCompletion
+  nameWithType: InternalContextOrchestration.GetCompletion
 - uid: FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration
   name: KnowledgeManagementOrchestration
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.html
@@ -4432,6 +4483,12 @@ references:
   commentId: F:FoundationaLLM.Common.Models.Agents.AgentTypes.Basic
   fullName: FoundationaLLM.Common.Models.Agents.AgentTypes.Basic
   nameWithType: AgentTypes.Basic
+- uid: FoundationaLLM.Common.Models.Agents.AgentTypes.InternalContext
+  name: InternalContext
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentTypes.html#FoundationaLLM_Common_Models_Agents_AgentTypes_InternalContext
+  commentId: F:FoundationaLLM.Common.Models.Agents.AgentTypes.InternalContext
+  fullName: FoundationaLLM.Common.Models.Agents.AgentTypes.InternalContext
+  nameWithType: AgentTypes.InternalContext
 - uid: FoundationaLLM.Common.Models.Agents.AgentTypes.KnowledgeManagement
   name: KnowledgeManagement
   href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentTypes.html#FoundationaLLM_Common_Models_Agents_AgentTypes_KnowledgeManagement
@@ -4502,6 +4559,31 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Agents.Gatekeeper.UseSystemSetting
   nameWithType: Gatekeeper.UseSystemSetting
+- uid: FoundationaLLM.Common.Models.Agents.InternalContextAgent
+  name: InternalContextAgent
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.InternalContextAgent.html
+  commentId: T:FoundationaLLM.Common.Models.Agents.InternalContextAgent
+  fullName: FoundationaLLM.Common.Models.Agents.InternalContextAgent
+  nameWithType: InternalContextAgent
+- uid: FoundationaLLM.Common.Models.Agents.InternalContextAgent.#ctor
+  name: InternalContextAgent()
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.InternalContextAgent.html#FoundationaLLM_Common_Models_Agents_InternalContextAgent__ctor
+  commentId: M:FoundationaLLM.Common.Models.Agents.InternalContextAgent.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.Agents.InternalContextAgent.InternalContextAgent()
+  fullName.vb: FoundationaLLM.Common.Models.Agents.InternalContextAgent.New()
+  nameWithType: InternalContextAgent.InternalContextAgent()
+  nameWithType.vb: InternalContextAgent.New()
+- uid: FoundationaLLM.Common.Models.Agents.InternalContextAgent.#ctor*
+  name: InternalContextAgent
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.InternalContextAgent.html#FoundationaLLM_Common_Models_Agents_InternalContextAgent__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Agents.InternalContextAgent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Agents.InternalContextAgent.InternalContextAgent
+  fullName.vb: FoundationaLLM.Common.Models.Agents.InternalContextAgent.New
+  nameWithType: InternalContextAgent.InternalContextAgent
+  nameWithType.vb: InternalContextAgent.New
 - uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent
   name: KnowledgeManagementAgent
   href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html
@@ -8051,6 +8133,25 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.UserPrompt
   nameWithType: DirectCompletionRequest.UserPrompt
+- uid: FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest
+  name: InternalContextCompletionRequest
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest
+  fullName: FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest
+  nameWithType: InternalContextCompletionRequest
+- uid: FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.Agent
+  name: Agent
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_InternalContextCompletionRequest_Agent
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.Agent
+  fullName: FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.Agent
+  nameWithType: InternalContextCompletionRequest.Agent
+- uid: FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.Agent*
+  name: Agent
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_InternalContextCompletionRequest_Agent_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.Agent
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.Agent
+  nameWithType: InternalContextCompletionRequest.Agent
 - uid: FoundationaLLM.Common.Models.Orchestration.KnowledgeManagementCompletionRequest
   name: KnowledgeManagementCompletionRequest
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.KnowledgeManagementCompletionRequest.html
