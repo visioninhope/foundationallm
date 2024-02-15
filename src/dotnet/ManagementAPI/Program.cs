@@ -1,30 +1,30 @@
 using Asp.Versioning;
 using Azure.Identity;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
-using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
+using FoundationaLLM.Common.Services.Azure;
+using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Management.Services;
 using FoundationaLLM.Management.Services.APIServices;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
-using Polly;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using FoundationaLLM.Common.Services.Security;
-using FoundationaLLM.Common.Services.Azure;
 
 namespace FoundationaLLM.Management.API
 {
@@ -117,12 +117,23 @@ namespace FoundationaLLM.Management.API
             // Register the authentication services:
             RegisterAuthConfiguration(builder);
 
-            builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
+            // Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
+            builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
             {
-                ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString],
-                DeveloperMode = builder.Environment.IsDevelopment()
+                options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString];
             });
-            //builder.Services.AddServiceProfiler();
+
+            // Create a dictionary of resource attributes.
+            var resourceAttributes = new Dictionary<string, object> {
+                { "service.name", "ManagementAPI" },
+                { "service.namespace", "FoundationaLLM" },
+                { "service.instance.id", Guid.NewGuid().ToString() }
+            };
+
+            // Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
+            builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) =>
+                builder.ConfigureResource(resourceBuilder =>
+                    resourceBuilder.AddAttributes(resourceAttributes)));
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
