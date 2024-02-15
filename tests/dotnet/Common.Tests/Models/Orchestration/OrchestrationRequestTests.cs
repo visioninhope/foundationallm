@@ -13,11 +13,9 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
         public void OrchestrationRequest_UserPrompt_SetCorrectly()
         {
             // Arrange
-            var orchestrationRequest = new OrchestrationRequest();
             var testUserPrompt = "User_Prompt";
-
-            // Act
-            orchestrationRequest.UserPrompt = testUserPrompt;
+            var orchestrationRequest = new OrchestrationRequest
+            { UserPrompt = testUserPrompt };
 
             // Assert
             Assert.Equal(testUserPrompt, orchestrationRequest.UserPrompt);

@@ -1,9 +1,8 @@
-﻿using FoundationaLLM.Agent.Constants;
-using FoundationaLLM.Agent.Models.Metadata;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.ResourceProvider;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Agent.Models.Resources
 {

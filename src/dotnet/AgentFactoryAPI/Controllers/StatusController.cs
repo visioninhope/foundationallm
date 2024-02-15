@@ -15,7 +15,8 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
         /// Returns the status of the Agent Factory API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
-        public IActionResult Get() => Ok();
+        public IActionResult Get() =>
+            Ok("AgentFactoryAPI - ready");
 
         /// <summary>
         /// Returns the allowed HTTP methods for the Agent Factory API service.
