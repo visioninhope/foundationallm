@@ -122,7 +122,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
             }
             else
             {
-                if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
+                if (agentBase.AgentType == typeof(KnowledgeManagementAgent) || agentBase.AgentType == typeof(InternalContextAgent))
                 {
                     var orchestrationType = string.IsNullOrWhiteSpace(agentBase.Orchestrator)
                         ? "LangChain"
@@ -133,17 +133,38 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                         throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
                     orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
-                    var kmOrchestration = new KnowledgeManagementOrchestration(
-                        (KnowledgeManagementAgent)agentBase!,
-                        cacheService, callContext,
-                        orchestrationService, promptHubAPIService, dataSourceHubAPIService,
-                        loggerFactory.CreateLogger<LegacyOrchestration>());
-                    await kmOrchestration.Configure(completionRequest);
+                    if(agentBase.AgentType == typeof(KnowledgeManagementAgent))
+                    {
+                        var kmOrchestration = new KnowledgeManagementOrchestration(
+                            (KnowledgeManagementAgent)agentBase!,
+                            cacheService,
+                            callContext,
+                            orchestrationService,
+                            promptHubAPIService,
+                            dataSourceHubAPIService,
+                            loggerFactory.CreateLogger<LegacyOrchestration>());
+                        await kmOrchestration.Configure(completionRequest);
 
-                    return kmOrchestration;
+                        return kmOrchestration;
+                    }
+                    else
+                    {
+                        var icOrchestration = new InternalContextOrchestration(
+                            (InternalContextAgent)agentBase!,
+                            cacheService, callContext,
+                            orchestrationService,
+                            promptHubAPIService,
+                            dataSourceHubAPIService,
+                            loggerFactory.CreateLogger<LegacyOrchestration>());
+                        await icOrchestration.Configure(completionRequest);
+
+                        return icOrchestration;
+                    }
+
                 }
                 else
                     return null;
+
             }
         }
 

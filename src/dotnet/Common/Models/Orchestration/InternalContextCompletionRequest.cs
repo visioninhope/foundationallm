@@ -4,14 +4,14 @@ using System.Text.Json.Serialization;
 namespace FoundationaLLM.Common.Models.Orchestration
 {
     /// <summary>
-    /// The Knowledge Management Completion Request model.
+    /// The Internal Context Completion Request model.
     /// </summary>
-    public class KnowledgeManagementCompletionRequest : LLMCompletionRequest
+    public class InternalContextCompletionRequest : LLMCompletionRequest
     {
         /// <summary>
-        /// The Knowledge Management agent metadata.
+        /// The Internal Context agent metadata.
         /// </summary>
         [JsonPropertyName("agent")]
-        public required KnowledgeManagementAgent Agent { get; set; }
+        public required InternalContextAgent Agent { get; set; }
     }
 }
