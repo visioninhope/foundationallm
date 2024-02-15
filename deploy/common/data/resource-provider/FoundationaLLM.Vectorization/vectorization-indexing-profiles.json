@@ -5,7 +5,11 @@
 			"Description": "Azure AI Search index for vectorization.",
 			"Indexer": "AzureAISearchIndexer",
 			"Settings": {
-				"IndexName": "fllm-default-001"
+				"IndexName": "fllm-default-001",
+				"TopN": "3",
+				"Filters": "",
+				"EmbeddingFieldName": "Embedding",
+				"TextFieldName": "Text"
 			},
 			"ConfigurationReferences": {
 				"APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
