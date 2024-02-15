@@ -1,10 +1,10 @@
 ﻿using Azure.Messaging;
 using FoundationaLLM.Agent.Constants;
-using FoundationaLLM.Agent.Models.Metadata;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProvider;
@@ -13,9 +13,9 @@ using FoundationaLLM.Common.Services.ResourceProviders;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using System.Collections.Concurrent;
 using System.Text;
+using System.Text.Json;
 
 namespace FoundationaLLM.Agent.ResourceProviders
 {
@@ -78,7 +78,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             if (await _storageService.FileExistsAsync(_storageContainerName, AGENT_REFERENCES_FILE_PATH, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(_storageContainerName, AGENT_REFERENCES_FILE_PATH, default);
-                var agentReferenceStore = JsonConvert.DeserializeObject<AgentReferenceStore>(
+                var agentReferenceStore = JsonSerializer.Deserialize<AgentReferenceStore>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
 
                 _agentReferences = new ConcurrentDictionary<string, AgentReference>(
@@ -89,7 +89,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
                     AGENT_REFERENCES_FILE_PATH,
-                    JsonConvert.SerializeObject(new AgentReferenceStore { AgentReferences = [] }),
+                    JsonSerializer.Serialize(new AgentReferenceStore { AgentReferences = [] }),
                     default,
                     default);
             }
@@ -149,7 +149,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             if (await _storageService.FileExistsAsync(_storageContainerName, agentReference.Filename, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentReference.Filename, default);
-                return JsonConvert.DeserializeObject(
+                return JsonSerializer.Deserialize(
                     Encoding.UTF8.GetString(fileContent.ToArray()),
                     agentReference.AgentType,
                     _serializerSettings) as AgentBase
@@ -173,7 +173,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
         private async Task<ResourceProviderUpsertResult> UpdateAgent(List<ResourceTypeInstance> instances, string serializedAgent)
         {
-            var agentBase = JsonConvert.DeserializeObject<AgentBase>(serializedAgent)
+            var agentBase = JsonSerializer.Deserialize<AgentBase>(serializedAgent)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
 
             if (instances[0].ResourceId != agentBase.Name)
@@ -186,13 +186,13 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 Filename = $"/{_name}/{agentBase.Name}.json"
             };
 
-            var agent = JsonConvert.DeserializeObject(serializedAgent, agentReference.AgentType, _serializerSettings);
+            var agent = JsonSerializer.Deserialize(serializedAgent, agentReference.AgentType, _serializerSettings);
             (agent as AgentBase)!.ObjectId = GetObjectId(instances);
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 agentReference.Filename,
-                JsonConvert.SerializeObject(agent, agentReference.AgentType, _serializerSettings),
+                JsonSerializer.Serialize(agent, agentReference.AgentType, _serializerSettings),
                 default,
                 default);
 
@@ -201,7 +201,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     AGENT_REFERENCES_FILE_PATH,
-                    JsonConvert.SerializeObject(AgentReferenceStore.FromDictionary(_agentReferences.ToDictionary())),
+                    JsonSerializer.Serialize(AgentReferenceStore.FromDictionary(_agentReferences.ToDictionary())),
                     default,
                     default);
 
@@ -231,7 +231,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
         private ResourceNameCheckResult CheckAgentName(string serializedAction)
         {
-            var resourceName = JsonConvert.DeserializeObject<ResourceName>(serializedAction);
+            var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
             return _agentReferences.Values.Any(ar => ar.Name == resourceName!.Name)
                 ? new ResourceNameCheckResult
                 {

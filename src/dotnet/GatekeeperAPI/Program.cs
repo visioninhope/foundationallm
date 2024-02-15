@@ -61,10 +61,7 @@ namespace FoundationaLLM.Gatekeeper.API
                 DeveloperMode = builder.Environment.IsDevelopment()
             });
             //builder.Services.AddServiceProfiler();
-            builder.Services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings().ContractResolver;
-            });
+            builder.Services.AddControllers();
 
             // Add API Key Authorization
             builder.Services.AddHttpContextAccessor();

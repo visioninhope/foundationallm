@@ -7,6 +7,7 @@ from foundationallm.config import Context
 from foundationallm.models.orchestration import (
     CompletionRequestBase,
     CompletionRequest,
+    InternalContextCompletionRequest,
     KnowledgeManagementCompletionRequest,
     CompletionResponse
 )
@@ -21,13 +22,16 @@ router = APIRouter(
     responses={404: {'description':'Not found'}}
 )
 
-# temporary to support legacy agents alongside the knowledge-management agent
+# temporary to support legacy agents alongside the knowledge-management and internal context agent
 async def resolve_completion_request(request_body: dict = Body(...)) -> CompletionRequestBase:  
-    agent_type = request_body.get("agent", {}).get("type", None)  
-    if agent_type == "knowledge-management":  
-        return KnowledgeManagementCompletionRequest(**request_body)  
-    else:  
-        return CompletionRequest(**request_body)
+    agent_type = request_body.get("agent", {}).get("type", None)
+    match agent_type:
+        case "knowledge-management":
+            return KnowledgeManagementCompletionRequest(**request_body)
+        case "internal-context":
+            return InternalContextCompletionRequest(**request_body)
+        case _:
+            return CompletionRequest(**request_body)
 
 @router.post('/completion')
 async def get_completion(
