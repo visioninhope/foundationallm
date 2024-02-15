@@ -1,5 +1,4 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
-using FoundationaLLM.AgentFactory.Interfaces;
+﻿using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;

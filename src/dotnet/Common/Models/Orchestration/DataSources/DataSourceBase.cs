@@ -1,11 +1,16 @@
 ﻿using FoundationaLLM.Common.Models.Metadata;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSources
+namespace FoundationaLLM.Common.Models.Orchestration.DataSources
 {
     /// <summary>
     /// Data Source base class.
     /// </summary>
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "underlying_implementation")]
+    [JsonDerivedType(typeof(BlobStorageDataSource), "blob-storage")]
+    [JsonDerivedType(typeof(CXODataSource), "cxo")]
+    [JsonDerivedType(typeof(SearchServiceDataSource), "search-service")]
+    [JsonDerivedType(typeof(SQLDatabaseDataSource), "sql")]
     public class DataSourceBase : MetadataBase
     {
         /// <summary>

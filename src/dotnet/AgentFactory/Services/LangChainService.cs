@@ -1,8 +1,7 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
+﻿using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

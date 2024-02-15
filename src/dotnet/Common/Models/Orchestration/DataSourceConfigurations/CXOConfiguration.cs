@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations
-{
+namespace FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations
+{ 
     /// <summary>
     /// Configuration for the CXO agent.
     /// </summary>
@@ -11,7 +11,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
         /// The type of configuration. This value should not be changed.
         /// </summary>
         [JsonPropertyName("configuration_type")]
-        public new string ConfigurationType = "cxo";
+        public new string ConfigurationType => "cxo";
         /// <summary>
         /// Search filter elements.
         /// </summary>

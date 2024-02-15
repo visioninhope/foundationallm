@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Metadata;
 using System.Text.Json.Serialization;
+using FoundationaLLM.Common.Models.Orchestration.DataSources;
 
 namespace FoundationaLLM.Common.Models.Orchestration
 {
@@ -21,7 +22,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// Data source metadata
         /// </summary>
         [JsonPropertyName("data_sources")]
-        public List<MetadataBase>? DataSourceMetadata { get; set; }
+        public List<DataSourceBase>? DataSourceMetadata { get; set; }
 
         /// <summary>
         /// Language model metadata.

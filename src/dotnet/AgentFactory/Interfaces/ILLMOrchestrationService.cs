@@ -1,6 +1,4 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
-using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Models.Orchestration;
+﻿using FoundationaLLM.Common.Models.Orchestration;
 
 namespace FoundationaLLM.AgentFactory.Interfaces
 {

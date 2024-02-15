@@ -1,7 +1,7 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
+﻿using FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSources
+namespace FoundationaLLM.Common.Models.Orchestration.DataSources
 {
     /// <summary>
     /// CXO data source metadata model.

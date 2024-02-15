@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations
+namespace FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations
 {
     /// <summary>
     /// Blob storage configuration settings.
@@ -11,7 +11,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
         /// The type of configuration. This value should not be changed.
         /// </summary>
         [JsonPropertyName("configuration_type")]
-        public string ConfigurationType = "blob_storage";
+        public string ConfigurationType => "blob_storage";
 
         /// <summary>
         /// The connection string key vault secret name that is retrieved from key vault.

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Hubs
 {
@@ -150,12 +151,12 @@ namespace FoundationaLLM.Common.Models.Hubs
         /// The vector database.
         /// </summary>
         [JsonPropertyName("retriever_mode")]
-        public required string RetrieverMode { get; set; }
+        public string? RetrieverMode { get; set; }
 
         /// <summary>
         /// The name of the CXO's company.
         /// </summary>
         [JsonPropertyName("company")]
-        public required string Company { get; set; }
+        public string? Company { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations
+namespace FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations
 {
     /// <summary>
     /// SQL Database configuration settings.
@@ -11,7 +11,7 @@ namespace FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfig
         /// The type of configuration. This value should not be changed.
         /// </summary>
         [JsonPropertyName("configuration_type")]
-        public string ConfigurationType = "sql_database";
+        public string ConfigurationType => "sql_database";
         /// <summary>
         /// The SQL dialect
         /// </summary>

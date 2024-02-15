@@ -53,12 +53,25 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
 
             // TODO: Implement a cleaner pattern for handling missing resources
             AgentBase? agentBase = default;
-            try
+
+            // When agent hint is null, use the default agent that is a legacy agent
+            if (callContext.AgentHint != null)
             {
-                var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{callContext.AgentHint!.Name}");
-                agentBase = (AgentBase)((object[]) agents)[0];
+                try
+                {
+                    var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{callContext.AgentHint!.Name}");
+                    agentBase = ((List<AgentBase>)agents)[0];
+                }
+                catch (ResourceProviderException)
+                {
+                    logger.LogInformation("AgentBuilder: The requested agent was not found in the resource provider, defaulting to legacy agent path.");
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, $"The AgentBuilder failed to properly retrieve the agent: /{AgentResourceTypeNames.Agents}/{callContext.AgentHint!.Name}");
+                    throw;
+                }
             }
-            catch { }
 
             ILLMOrchestrationService? orchestrationService = null;
 

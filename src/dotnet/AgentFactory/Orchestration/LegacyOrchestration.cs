@@ -1,13 +1,12 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSources;
+﻿using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations;
+using FoundationaLLM.Common.Models.Orchestration.DataSources;
 using FoundationaLLM.AgentFactory.Interfaces;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Cache;
 using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Metadata;
-using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.AgentFactory.Core.Orchestration
@@ -77,7 +76,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 : await _dataSourceHubService.ResolveRequest(
                     _agentMetadata!.AllowedDataSourceNames!,
                     completionRequest.SessionId ?? string.Empty);
-
+            
             if (dataSourceResponse is {DataSources: not null})
             {
                 _logger.LogInformation(
@@ -85,7 +84,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                     string.Join(",", dataSourceResponse!.DataSources!.Select(ds => ds.Name)));
             }
 
-            var dataSourceMetadata = new List<MetadataBase>();
+            var dataSourceMetadata = new List<DataSourceBase>();
 
             var dataSources = dataSourceResponse!.DataSources!;
                         
