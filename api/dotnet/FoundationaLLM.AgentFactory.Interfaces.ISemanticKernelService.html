@@ -118,13 +118,7 @@ Interface ISemanticKernelService  <a class="header-action link-secondary" title=
       <a class="xref" href="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_IsInitialized">ILLMOrchestrationService.IsInitialized</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetCompletion_FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionRequest_">ILLMOrchestrationService.GetCompletion(LLMOrchestrationCompletionRequest)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetSummary_FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationRequest_">ILLMOrchestrationService.GetSummary(LLMOrchestrationRequest)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetCompletion_System_String_System_String_">ILLMOrchestrationService.GetCompletion(string, string)</a>
+      <a class="xref" href="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_">ILLMOrchestrationService.GetCompletion(LLMCompletionRequest)</a>
     </div>
   </dd></dl>
 
@@ -135,88 +129,6 @@ Interface ISemanticKernelService  <a class="header-action link-secondary" title=
       <a class="xref" href="FoundationaLLM.Core.Utils.ObjectExtensions.html#FoundationaLLM_Core_Utils_ObjectExtensions_GetPropertyValues_System_Object_System_Collections_Generic_List_System_String__">ObjectExtensions.GetPropertyValues(object, List&lt;string&gt;)</a>
   </div>
   </dd></dl>
-
-
-
-
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-
-  <a id="FoundationaLLM_AgentFactory_Interfaces_ISemanticKernelService_AddMemory_" data-uid="FoundationaLLM.AgentFactory.Interfaces.ISemanticKernelService.AddMemory*"></a>
-
-  <h3 id="FoundationaLLM_AgentFactory_Interfaces_ISemanticKernelService_AddMemory_System_Object_System_String_System_Action_System_Object_System_Single____" data-uid="FoundationaLLM.AgentFactory.Interfaces.ISemanticKernelService.AddMemory(System.Object,System.String,System.Action{System.Object,System.Single[]})">
-  AddMemory(object, string, Action&lt;object, float[]&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ISemanticKernelService.cs/#L16"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Adds an item to memory</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task AddMemory(object item, string itemName, Action&lt;object, float[]&gt; vectorizer)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>item</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-    <dt><code>itemName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>vectorizer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]&gt;</dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_AgentFactory_Interfaces_ISemanticKernelService_RemoveMemory_" data-uid="FoundationaLLM.AgentFactory.Interfaces.ISemanticKernelService.RemoveMemory*"></a>
-
-  <h3 id="FoundationaLLM_AgentFactory_Interfaces_ISemanticKernelService_RemoveMemory_System_Object_" data-uid="FoundationaLLM.AgentFactory.Interfaces.ISemanticKernelService.RemoveMemory(System.Object)">
-  RemoveMemory(object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ISemanticKernelService.cs/#L23"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Removes an item from memory</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task RemoveMemory(object item)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>item</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
 
 
 

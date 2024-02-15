@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Models_Configuration_Users_UserProfile" data-uid="FoundationaLLM.Common.Models.Configuration.Users.UserProfile" class="text-break">
-Class UserProfile  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L11"><i class="bi bi-code-slash"></i></a>
+Class UserProfile  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -168,9 +168,9 @@ Class UserProfile  <a class="header-action link-secondary" title="View source" h
 
   <a id="FoundationaLLM_Common_Models_Configuration_Users_UserProfile__ctor_" data-uid="FoundationaLLM.Common.Models.Configuration.Users.UserProfile.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Configuration_Users_UserProfile__ctor_System_String_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Models_Metadata_Agent__" data-uid="FoundationaLLM.Common.Models.Configuration.Users.UserProfile.#ctor(System.String,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Models.Metadata.Agent})">
-  UserProfile(string, IEnumerable&lt;Agent&gt;?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Configuration_Users_UserProfile__ctor_System_String_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Models_Agents_AgentHint__" data-uid="FoundationaLLM.Common.Models.Configuration.Users.UserProfile.#ctor(System.String,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Models.Agents.AgentHint})">
+  UserProfile(string, IEnumerable&lt;AgentHint&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The user profile object persisted in long-term storage.</p>
@@ -178,7 +178,7 @@ Class UserProfile  <a class="header-action link-secondary" title="View source" h
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UserProfile(string UPN, IEnumerable&lt;Agent&gt;? PrivateAgents)</code></pre>
+    <pre><code class="lang-csharp hljs">public UserProfile(string UPN, IEnumerable&lt;AgentHint&gt;? PrivateAgents)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -186,7 +186,7 @@ Class UserProfile  <a class="header-action link-secondary" title="View source" h
     <dt><code>UPN</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The user's account user principal name.</p>
 </dd>
-    <dt><code>PrivateAgents</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Metadata.Agent.html">Agent</a>&gt;</dt>
+    <dt><code>PrivateAgents</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentHint.html">AgentHint</a>&gt;</dt>
     <dd><p>Private agents assigned to the user.</p>
 </dd>
   </dl>
@@ -210,7 +210,7 @@ Class UserProfile  <a class="header-action link-secondary" title="View source" h
 
   <h3 id="FoundationaLLM_Common_Models_Configuration_Users_UserProfile_Id" data-uid="FoundationaLLM.Common.Models.Configuration.Users.UserProfile.Id">
   Id
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The unique identifier.</p>
@@ -218,7 +218,7 @@ Class UserProfile  <a class="header-action link-secondary" title="View source" h
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;id&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;id&quot;)]
 public string Id { get; set; }</code></pre>
   </div>
 
@@ -243,7 +243,7 @@ public string Id { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Configuration_Users_UserProfile_PrivateAgents" data-uid="FoundationaLLM.Common.Models.Configuration.Users.UserProfile.PrivateAgents">
   PrivateAgents
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Names of private agents assigned to the user.</p>
@@ -251,8 +251,8 @@ public string Id { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;privateAgents&quot;)]
-public IEnumerable&lt;Agent&gt;? PrivateAgents { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;privateAgents&quot;)]
+public IEnumerable&lt;AgentHint&gt;? PrivateAgents { get; set; }</code></pre>
   </div>
 
 
@@ -261,7 +261,7 @@ public IEnumerable&lt;Agent&gt;? PrivateAgents { get; set; }</code></pre>
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Metadata.Agent.html">Agent</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentHint.html">AgentHint</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -276,7 +276,7 @@ public IEnumerable&lt;Agent&gt;? PrivateAgents { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Configuration_Users_UserProfile_Type" data-uid="FoundationaLLM.Common.Models.Configuration.Users.UserProfile.Type">
   Type
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The document type.</p>
@@ -284,7 +284,7 @@ public IEnumerable&lt;Agent&gt;? PrivateAgents { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;type&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;type&quot;)]
 public string Type { get; set; }</code></pre>
   </div>
 
@@ -309,7 +309,7 @@ public string Type { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Configuration_Users_UserProfile_UPN" data-uid="FoundationaLLM.Common.Models.Configuration.Users.UserProfile.UPN">
   UPN
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The user principal name.</p>
@@ -317,7 +317,7 @@ public string Type { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;upn&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;upn&quot;)]
 public string UPN { get; set; }</code></pre>
   </div>
 
@@ -342,7 +342,7 @@ public string UPN { get; set; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/Users/UserProfile.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 

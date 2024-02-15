@@ -32,70 +32,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Agent.Constants.AgentTypes.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Agent.Constants.AgentTypes.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Agent.Constants.yml",
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Agent.Constants.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Metadata.AgentBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Metadata.AgentBase.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Metadata.ConversationHistory.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Metadata.ConversationHistory.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Metadata.Gatekeeper.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Metadata.Gatekeeper.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Metadata.KnowledgeManagementAgent.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Metadata.KnowledgeManagementAgent.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Metadata.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Metadata.html"
         }
       },
       "version": ""
@@ -126,16 +66,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Resources.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Agent.Models.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Agent.Models.html"
         }
       },
       "version": ""
@@ -242,56 +172,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.AgentBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.AgentBase.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.AgentBuilder.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.DefaultAgent.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.DefaultAgent.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.KMAgent.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.KMAgent.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Agents.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Interfaces.IAgentFactoryService.yml",
       "output": {
         ".html": {
@@ -332,190 +212,50 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.BlobStorageConfiguration.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.BlobStorageConfiguration.html"
+          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.CSVFileConfiguration.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.LegacyOrchestration.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.CSVFileConfiguration.html"
+          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.LegacyOrchestration.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.CXOConfiguration.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.CXOConfiguration.html"
+          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SQLDatabaseConfiguration.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBuilder.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SQLDatabaseConfiguration.html"
+          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBuilder.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationRequest.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationRequest.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.Agent.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.Agent.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.BlobStorageDataSource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.BlobStorageDataSource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.CSVFileDataSource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.CSVFileDataSource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.CXODataSource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.CXODataSource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.DataSourceBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.DataSourceBase.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SQLDatabaseDataSource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SQLDatabaseDataSource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.SearchServiceDataSource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.Orchestration.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Models.html"
+          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.html"
         }
       },
       "version": ""
@@ -616,36 +356,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Models.ConfigurationOptions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Models.Orchestration.LLMOrchestrationService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Models.Orchestration.LLMOrchestrationService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Models.Orchestration.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Models.Orchestration.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Models.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.AgentFactory.Models.html"
         }
       },
       "version": ""
@@ -1002,6 +712,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Exceptions.OrchestrationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Exceptions.OrchestrationException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Exceptions.ResourceProviderException.yml",
       "output": {
         ".html": {
@@ -1326,6 +1046,76 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Middleware.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.AgentHint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.AgentHint.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.AgentTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.AgentTypes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.ConversationHistory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.ConversationHistory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.Gatekeeper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.Gatekeeper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Agents.html"
         }
       },
       "version": ""
@@ -1802,130 +1592,120 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.AgentHubRequest.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.AgentHubRequest.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.AgentHubRequest.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.AgentHubRequest.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.AgentHubResponse.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.AgentHubResponse.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.AgentHubResponse.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.AgentHubResponse.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.AgentMetadata.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.AgentMetadata.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.AgentMetadata.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.AgentMetadata.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.BlobStorageDataSourceMetadata.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.BlobStorageDataSourceMetadata.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.BlobStorageDataSourceMetadata.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.BlobStorageDataSourceMetadata.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.DataSourceHubRequest.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.DataSourceHubRequest.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.DataSourceHubRequest.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.DataSourceHubRequest.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.DataSourceHubResponse.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.DataSourceHubResponse.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.DataSourceHubResponse.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.DataSourceHubResponse.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.DataSourceMetadata.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.DataSourceMetadata.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.DataSourceMetadata.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.DataSourceMetadata.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.PromptHubRequest.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.PromptHubRequest.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.PromptHubRequest.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.PromptHubRequest.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.PromptHubResponse.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.PromptHubResponse.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.PromptHubResponse.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.PromptHubResponse.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.PromptMetadata.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.PromptMetadata.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.PromptMetadata.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.PromptMetadata.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.SQLDataSourceMetadata.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.SQLDataSourceMetadata.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.SQLDataSourceMetadata.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.SQLDataSourceMetadata.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Messages.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Metadata.Agent.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Metadata.Agent.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.html"
         }
       },
       "version": ""
@@ -2012,10 +1792,180 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations.BlobStorageConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations.BlobStorageConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations.CXOConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations.CXOConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations.SQLDatabaseConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations.SQLDatabaseConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations.SearchServiceConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSourceConfigurations.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.BlobStorageDataSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.BlobStorageDataSource.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.CXODataSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.CXODataSource.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.DataSourceBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.DataSourceBase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.SQLDatabaseDataSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.SQLDatabaseDataSource.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.SearchServiceDataSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.SearchServiceDataSource.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DataSources.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.yml",
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.KnowledgeManagementCompletionRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.KnowledgeManagementCompletionRequest.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LegacyAgentMetadata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LegacyAgentMetadata.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.html"
         }
       },
       "version": ""
@@ -2792,10 +2742,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Settings.CommonJsonSerializerSettings.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Settings.CommonJsonSerializerSettings.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.html"
         }
       },
       "version": ""
@@ -3922,70 +3872,20 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Chat.ChatBuilder.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.IKnowledgeManagementAgentPlugin.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Chat.ChatBuilder.html"
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.IKnowledgeManagementAgentPlugin.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Chat.PromptOptimizationSettings.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ILegacyAgentPlugin.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Chat.PromptOptimizationSettings.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Chat.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Chat.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.IMemorySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.IMemorySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISystemPromptService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISystemPromptService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ITokenizer.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ITokenizer.html"
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ILegacyAgentPlugin.html"
         }
       },
       "version": ""
@@ -4032,110 +3932,30 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.AzureCognitiveSearchMemorySourceSettings.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.AzureCognitiveSearchMemorySourceSettings.html"
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.BlobStorageMemorySourceSettings.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.LegacyAgentPlugin.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.BlobStorageMemorySourceSettings.html"
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.LegacyAgentPlugin.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.DurableSystemPromptServiceSettings.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.DurableSystemPromptServiceSettings.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.CognitiveSearchSettings.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.CognitiveSearchSettings.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.OpenAISettings.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.OpenAISettings.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.Core.TextEmbeddingObjectMemoryPlugin.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.Core.TextEmbeddingObjectMemoryPlugin.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.Core.TextSummaryPlugin.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.Core.TextSummaryPlugin.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.Core.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.Core.html"
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.html"
         }
       },
       "version": ""
@@ -4152,50 +3972,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.DurableSystemPromptService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.DurableSystemPromptService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.InMemorySystemPromptService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.InMemorySystemPromptService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.yml",
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTokenizer.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTokenizer.html"
         }
       },
       "version": ""
@@ -4216,156 +3996,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.AzureCognitiveSearchMemorySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.AzureCognitiveSearchMemorySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.AzureCognitiveSearchMemorySourceConfig.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.AzureCognitiveSearchMemorySourceConfig.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.BlobStorageMemorySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.BlobStorageMemorySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.BlobStorageMemorySourceConfig.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.BlobStorageMemorySourceConfig.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.FacetedQueryFacet.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.FacetedQueryFacet.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.FacetedQueryMemorySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.FacetedQueryMemorySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.FileMemorySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.FileMemorySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.FileMemorySourceFile.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.FileMemorySourceFile.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.MemorySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Plugins.Memory.VectorMemoryStore.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Plugins.Memory.VectorMemoryStore.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Plugins.Memory.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Plugins.Memory.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Text.StringExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Text.StringExtensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Text.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Text.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.TextEmbedding.EmbeddingUtility.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.TextEmbedding.EmbeddingUtility.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.TextEmbedding.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.TextEmbedding.html"
         }
       },
       "version": ""

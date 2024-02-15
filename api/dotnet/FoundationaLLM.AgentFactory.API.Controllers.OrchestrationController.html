@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_AgentFactory_API_Controllers_OrchestrationController" data-uid="FoundationaLLM.AgentFactory.API.Controllers.OrchestrationController" class="text-break">
-Class OrchestrationController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/OrchestrationController.cs/#L12"><i class="bi bi-code-slash"></i></a>
+Class OrchestrationController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/OrchestrationController.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -678,6 +678,9 @@ public class OrchestrationController : ControllerBase</code></pre>
 
 
 
+  <h2 id="FoundationaLLM_AgentFactory_API_Controllers_OrchestrationController_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Constructor for the Agent Factory orchestration controller</p>
+</div>
 
 
   <h2 class="section" id="constructors">Constructors
@@ -688,10 +691,10 @@ public class OrchestrationController : ControllerBase</code></pre>
 
   <h3 id="FoundationaLLM_AgentFactory_API_Controllers_OrchestrationController__ctor_FoundationaLLM_AgentFactory_Core_Interfaces_IAgentFactoryService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_API_Controllers_OrchestrationController__" data-uid="FoundationaLLM.AgentFactory.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.AgentFactory.Core.Interfaces.IAgentFactoryService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.API.Controllers.OrchestrationController})">
   OrchestrationController(IAgentFactoryService, ILogger&lt;OrchestrationController&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/OrchestrationController.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/OrchestrationController.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Constructor for the Agent Factory orchestration controller</p>
+  <div class="markdown level1 summary"><p>OrchestrationController class</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -714,6 +717,9 @@ public class OrchestrationController : ControllerBase</code></pre>
 
 
 
+  <h4 class="section" id="FoundationaLLM_AgentFactory_API_Controllers_OrchestrationController__ctor_FoundationaLLM_AgentFactory_Core_Interfaces_IAgentFactoryService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_API_Controllers_OrchestrationController___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Constructor for the Agent Factory orchestration controller</p>
+</div>
 
 
 
@@ -726,7 +732,7 @@ public class OrchestrationController : ControllerBase</code></pre>
 
   <h3 id="FoundationaLLM_AgentFactory_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.AgentFactory.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
   GetCompletion(CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/OrchestrationController.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/OrchestrationController.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a completion from an orchestration service</p>
@@ -760,49 +766,11 @@ public Task&lt;CompletionResponse&gt; GetCompletion(CompletionRequest completion
 
 
 
-  <a id="FoundationaLLM_AgentFactory_API_Controllers_OrchestrationController_GetSummary_" data-uid="FoundationaLLM.AgentFactory.API.Controllers.OrchestrationController.GetSummary*"></a>
-
-  <h3 id="FoundationaLLM_AgentFactory_API_Controllers_OrchestrationController_GetSummary_FoundationaLLM_Common_Models_Orchestration_SummaryRequest_" data-uid="FoundationaLLM.AgentFactory.API.Controllers.OrchestrationController.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)">
-  GetSummary(SummaryRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/OrchestrationController.cs/#L48"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets a summary from the Agent Factory</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost(&quot;summary&quot;)]
-public Task&lt;SummaryResponse&gt; GetSummary(SummaryRequest content)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>content</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.SummaryRequest.html">SummaryRequest</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.SummaryResponse.html">SummaryResponse</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/OrchestrationController.cs/#L12" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactoryAPI/Controllers/OrchestrationController.cs/#L17" class="edit-link">Edit this page</a>
         </div>
 
 

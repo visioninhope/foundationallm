@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Core_API_Controllers_UserProfilesController" data-uid="FoundationaLLM.Core.API.Controllers.UserProfilesController" class="text-break">
-Class UserProfilesController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/UserProfilesController.cs/#L24"><i class="bi bi-code-slash"></i></a>
+Class UserProfilesController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/UserProfilesController.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -689,7 +689,7 @@ public class UserProfilesController : ControllerBase</code></pre>
 
   <h3 id="FoundationaLLM_Core_API_Controllers_UserProfilesController__ctor_FoundationaLLM_Core_Interfaces_IUserProfileService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration__System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__" data-uid="FoundationaLLM.Core.API.Controllers.UserProfilesController.#ctor(FoundationaLLM.Core.Interfaces.IUserProfileService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})">
   UserProfilesController(IUserProfileService, IOptions&lt;ClientBrandingConfiguration&gt;, IEnumerable&lt;IResourceProviderService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/UserProfilesController.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/UserProfilesController.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Constructor for the UserProfiles Controller.</p>
@@ -732,7 +732,7 @@ public class UserProfilesController : ControllerBase</code></pre>
 
   <h3 id="FoundationaLLM_Core_API_Controllers_UserProfilesController_GetAgents" data-uid="FoundationaLLM.Core.API.Controllers.UserProfilesController.GetAgents">
   GetAgents()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/UserProfilesController.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/UserProfilesController.cs/#L64"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a list of global and private agents.</p>
@@ -741,13 +741,13 @@ public class UserProfilesController : ControllerBase</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[HttpGet(&quot;agents&quot;, Name = &quot;GetAgents&quot;)]
-public Task&lt;IEnumerable&lt;Agent&gt;&gt; GetAgents()</code></pre>
+public Task&lt;IEnumerable&lt;AgentHint&gt;&gt; GetAgents()</code></pre>
   </div>
 
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Metadata.Agent.html">Agent</a>&gt;&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentHint.html">AgentHint</a>&gt;&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -765,7 +765,7 @@ public Task&lt;IEnumerable&lt;Agent&gt;&gt; GetAgents()</code></pre>
 
   <h3 id="FoundationaLLM_Core_API_Controllers_UserProfilesController_Index" data-uid="FoundationaLLM.Core.API.Controllers.UserProfilesController.Index">
   Index()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/UserProfilesController.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/UserProfilesController.cs/#L56"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the branding information for the client.</p>
@@ -798,7 +798,7 @@ public Task&lt;IActionResult&gt; Index()</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/UserProfilesController.cs/#L24" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/UserProfilesController.cs/#L22" class="edit-link">Edit this page</a>
         </div>
 
 

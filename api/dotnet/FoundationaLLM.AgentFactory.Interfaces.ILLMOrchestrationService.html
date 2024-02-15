@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService" data-uid="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService" class="text-break">
-Interface ILLMOrchestrationService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ILLMOrchestrationService.cs/#L10"><i class="bi bi-code-slash"></i></a>
+Interface ILLMOrchestrationService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ILLMOrchestrationService.cs/#L8"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -132,7 +132,7 @@ Interface ILLMOrchestrationService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_IsInitialized" data-uid="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.IsInitialized">
   IsInitialized
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ILLMOrchestrationService.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ILLMOrchestrationService.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Flag indicating if the orchestration service has been initialized.</p>
@@ -166,9 +166,9 @@ Interface ILLMOrchestrationService  <a class="header-action link-secondary" titl
 
   <a id="FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetCompletion_" data-uid="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion*"></a>
 
-  <h3 id="FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetCompletion_FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionRequest_" data-uid="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion(FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest)">
-  GetCompletion(LLMOrchestrationCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ILLMOrchestrationService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
+  GetCompletion(LLMCompletionRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ILLMOrchestrationService.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Method for retrieving a completion from the orchestration service.</p>
@@ -176,97 +176,20 @@ Interface ILLMOrchestrationService  <a class="header-action link-secondary" titl
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;LLMOrchestrationCompletionResponse&gt; GetCompletion(LLMOrchestrationCompletionRequest request)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;LLMCompletionResponse&gt; GetCompletion(LLMCompletionRequest request)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>request</code> <a class="xref" href="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest.html">LLMOrchestrationCompletionRequest</a></dt>
+    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a></dt>
     <dd><p>Hub populated request object containing agent, prompt, language model, and data source information</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.html">LLMOrchestrationCompletionResponse</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.html">LLMCompletionResponse</a>&gt;</dt>
     <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetCompletion_" data-uid="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion*"></a>
-
-  <h3 id="FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetCompletion_System_String_System_String_" data-uid="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetCompletion(System.String,System.String)">
-  GetCompletion(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ILLMOrchestrationService.cs/#L31"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;LLMOrchestrationCompletionResponse&gt; GetCompletion(string agentName, string serializedRequest)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>agentName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>serializedRequest</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.html">LLMOrchestrationCompletionResponse</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetSummary_" data-uid="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetSummary*"></a>
-
-  <h3 id="FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_GetSummary_FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationRequest_" data-uid="FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService.GetSummary(FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationRequest)">
-  GetSummary(LLMOrchestrationRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ILLMOrchestrationService.cs/#L29"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Method for retrieving a string summarizing text passed into the function.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;string&gt; GetSummary(LLMOrchestrationRequest orchestrationRequest)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>orchestrationRequest</code> <a class="xref" href="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationRequest.html">LLMOrchestrationRequest</a></dt>
-    <dd><p>TThe orchestration request that includes the text to summarize.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd><p>Returns a string containing the summary.</p>
-</dd>
   </dl>
 
 
@@ -283,7 +206,7 @@ Interface ILLMOrchestrationService  <a class="header-action link-secondary" titl
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ILLMOrchestrationService.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Interfaces/ILLMOrchestrationService.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
 

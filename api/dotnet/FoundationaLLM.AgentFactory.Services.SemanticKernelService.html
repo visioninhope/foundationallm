@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_AgentFactory_Services_SemanticKernelService" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService" class="text-break">
-Class SemanticKernelService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L18"><i class="bi bi-code-slash"></i></a>
+Class SemanticKernelService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -161,6 +161,9 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 
 
 
+  <h2 id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Constructor for the Semantic Kernal Service</p>
+</div>
 
 
   <h2 class="section" id="constructors">Constructors
@@ -171,10 +174,10 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 
   <h3 id="FoundationaLLM_AgentFactory_Services_SemanticKernelService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_AgentFactory_Models_ConfigurationOptions_SemanticKernelServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Services_SemanticKernelService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.AgentFactory.Models.ConfigurationOptions.SemanticKernelServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Services.SemanticKernelService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)">
   SemanticKernelService(IOptions&lt;SemanticKernelServiceSettings&gt;, ILogger&lt;SemanticKernelService&gt;, IHttpClientFactoryService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Constructor for the Semantic Kernal Service</p>
+  <div class="markdown level1 summary"><p>The FoundationaLLM Semantic Kernal Service</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -199,6 +202,9 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 
 
 
+  <h4 class="section" id="FoundationaLLM_AgentFactory_Services_SemanticKernelService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_AgentFactory_Models_ConfigurationOptions_SemanticKernelServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Services_SemanticKernelService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Constructor for the Semantic Kernal Service</p>
+</div>
 
 
 
@@ -211,7 +217,7 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 
   <h3 id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_IsInitialized" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.IsInitialized">
   IsInitialized
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks the Semantic Service returns a call to signal it is initialized and ready for requests.</p>
@@ -243,57 +249,11 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 </h2>
 
 
-  <a id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_AddMemory_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.AddMemory*"></a>
-
-  <h3 id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_AddMemory_System_Object_System_String_System_Action_System_Object_System_Single____" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.AddMemory(System.Object,System.String,System.Action{System.Object,System.Single[]})">
-  AddMemory(object, string, Action&lt;object, float[]&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L131"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Adds an item to memory</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task AddMemory(object item, string itemName, Action&lt;object, float[]&gt; vectorizer)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>item</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-    <dt><code>itemName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>vectorizer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]&gt;</dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.notimplementedexception">NotImplementedException</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
   <a id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_GetCompletion_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion*"></a>
 
-  <h3 id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_GetCompletion_FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationCompletionRequest_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion(FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest)">
-  GetCompletion(LLMOrchestrationCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
+  GetCompletion(LLMCompletionRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a completion from the Semantic Kernel service.</p>
@@ -301,19 +261,19 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LLMOrchestrationCompletionResponse&gt; GetCompletion(LLMOrchestrationCompletionRequest request)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LLMCompletionResponse&gt; GetCompletion(LLMCompletionRequest request)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>request</code> <a class="xref" href="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionRequest.html">LLMOrchestrationCompletionRequest</a></dt>
+    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a></dt>
     <dd><p>Request object populated from the hub APIs including agent, prompt, data source, and model information.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.html">LLMOrchestrationCompletionResponse</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.html">LLMCompletionResponse</a>&gt;</dt>
     <dd><p>Returns a completion response from the orchestration engine.</p>
 </dd>
   </dl>
@@ -328,130 +288,11 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 
 
 
-  <a id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_GetCompletion_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion*"></a>
-
-  <h3 id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_GetCompletion_System_String_System_String_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetCompletion(System.String,System.String)">
-  GetCompletion(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L160"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LLMOrchestrationCompletionResponse&gt; GetCompletion(string agentName, string serializedRequest)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>agentName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>serializedRequest</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationCompletionResponse.html">LLMOrchestrationCompletionResponse</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_GetSummary_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetSummary*"></a>
-
-  <h3 id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_GetSummary_FoundationaLLM_AgentFactory_Core_Models_Orchestration_LLMOrchestrationRequest_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.GetSummary(FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationRequest)">
-  GetSummary(LLMOrchestrationRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L99"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets a summary from the Semantic Kernel service.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; GetSummary(LLMOrchestrationRequest orchestrationRequest)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>orchestrationRequest</code> <a class="xref" href="FoundationaLLM.AgentFactory.Core.Models.Orchestration.LLMOrchestrationRequest.html">LLMOrchestrationRequest</a></dt>
-    <dd><p>The orchestration request that includes the text to summarize.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd><p>Returns a summary of the input text.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_RemoveMemory_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.RemoveMemory*"></a>
-
-  <h3 id="FoundationaLLM_AgentFactory_Services_SemanticKernelService_RemoveMemory_System_Object_" data-uid="FoundationaLLM.AgentFactory.Services.SemanticKernelService.RemoveMemory(System.Object)">
-  RemoveMemory(object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L142"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Removes an item from memory</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task RemoveMemory(object item)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>item</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.notimplementedexception">NotImplementedException</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L18" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/SemanticKernelService.cs/#L22" class="edit-link">Edit this page</a>
         </div>
 
 

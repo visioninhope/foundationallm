@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Services_API_AgentHubAPIService" data-uid="FoundationaLLM.Common.Services.API.AgentHubAPIService" class="text-break">
-Class AgentHubAPIService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L15"><i class="bi bi-code-slash"></i></a>
+Class AgentHubAPIService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -169,6 +169,9 @@ Class AgentHubAPIService  <a class="header-action link-secondary" title="View so
 
 
 
+  <h2 id="FoundationaLLM_Common_Services_API_AgentHubAPIService_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Constructor for the Agent Hub API Service</p>
+</div>
 
 
   <h2 class="section" id="constructors">Constructors
@@ -179,10 +182,10 @@ Class AgentHubAPIService  <a class="header-action link-secondary" title="View so
 
   <h3 id="FoundationaLLM_Common_Services_API_AgentHubAPIService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_API_AgentHubSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_API_AgentHubAPIService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_" data-uid="FoundationaLLM.Common.Services.API.AgentHubAPIService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.AgentHubSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.API.AgentHubAPIService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)">
   AgentHubAPIService(IOptions&lt;AgentHubSettings&gt;, ILogger&lt;AgentHubAPIService&gt;, IHttpClientFactoryService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Constructor for the Agent Hub API Service</p>
+  <div class="markdown level1 summary"><p>Class for the Agent Hub API Service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -207,6 +210,9 @@ Class AgentHubAPIService  <a class="header-action link-secondary" title="View so
 
 
 
+  <h4 class="section" id="FoundationaLLM_Common_Services_API_AgentHubAPIService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_API_AgentHubSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_API_AgentHubAPIService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Constructor for the Agent Hub API Service</p>
+</div>
 
 
 
@@ -219,7 +225,7 @@ Class AgentHubAPIService  <a class="header-action link-secondary" title="View so
 
   <h3 id="FoundationaLLM_Common_Services_API_AgentHubAPIService_ListAgents" data-uid="FoundationaLLM.Common.Services.API.AgentHubAPIService.ListAgents">
   ListAgents()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L99"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the list with all the agent names and descriptions.</p>
@@ -233,8 +239,8 @@ Class AgentHubAPIService  <a class="header-action link-secondary" title="View so
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Messages.AgentMetadata.html">AgentMetadata</a>&gt;&gt;</dt>
-    <dd><p>A list of <a class="xref" href="FoundationaLLM.Common.Models.Messages.AgentMetadata.html">AgentMetadata</a> objects containing the names and descriptions of the agents.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Hubs.AgentMetadata.html">AgentMetadata</a>&gt;&gt;</dt>
+    <dd><p>A list of <a class="xref" href="FoundationaLLM.Common.Models.Hubs.AgentMetadata.html">AgentMetadata</a> objects containing the names and descriptions of the agents.</p>
 </dd>
   </dl>
 
@@ -252,7 +258,7 @@ Class AgentHubAPIService  <a class="header-action link-secondary" title="View so
 
   <h3 id="FoundationaLLM_Common_Services_API_AgentHubAPIService_ResolveRequest_System_String_System_String_System_String_" data-uid="FoundationaLLM.Common.Services.API.AgentHubAPIService.ResolveRequest(System.String,System.String,System.String)">
   ResolveRequest(string, string, string?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L61"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a set of agents from the Agent Hub based on the prompt and user context.</p>
@@ -280,7 +286,7 @@ a request context.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Messages.AgentHubResponse.html">AgentHubResponse</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Hubs.AgentHubResponse.html">AgentHubResponse</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -298,7 +304,7 @@ a request context.</p>
 
   <h3 id="FoundationaLLM_Common_Services_API_AgentHubAPIService_Status" data-uid="FoundationaLLM.Common.Services.API.AgentHubAPIService.Status">
   Status()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the status of the Agent Hub API</p>
@@ -330,7 +336,7 @@ a request context.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L15" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L23" class="edit-link">Edit this page</a>
         </div>
 
 

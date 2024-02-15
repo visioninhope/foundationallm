@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Services_API_PromptHubAPIService" data-uid="FoundationaLLM.Common.Services.API.PromptHubAPIService" class="text-break">
-Class PromptHubAPIService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/PromptHubAPIService.cs/#L14"><i class="bi bi-code-slash"></i></a>
+Class PromptHubAPIService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/PromptHubAPIService.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -169,6 +169,9 @@ Class PromptHubAPIService  <a class="header-action link-secondary" title="View s
 
 
 
+  <h2 id="FoundationaLLM_Common_Services_API_PromptHubAPIService_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Constructor for the PromptHub API Service</p>
+</div>
 
 
   <h2 class="section" id="constructors">Constructors
@@ -179,10 +182,10 @@ Class PromptHubAPIService  <a class="header-action link-secondary" title="View s
 
   <h3 id="FoundationaLLM_Common_Services_API_PromptHubAPIService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_API_PromptHubSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_API_PromptHubAPIService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_" data-uid="FoundationaLLM.Common.Services.API.PromptHubAPIService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.PromptHubSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.API.PromptHubAPIService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)">
   PromptHubAPIService(IOptions&lt;PromptHubSettings&gt;, ILogger&lt;PromptHubAPIService&gt;, IHttpClientFactoryService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/PromptHubAPIService.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/PromptHubAPIService.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Constructor for the PromptHub API Service</p>
+  <div class="markdown level1 summary"><p>Class for the PromptHub API Service</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -207,6 +210,9 @@ Class PromptHubAPIService  <a class="header-action link-secondary" title="View s
 
 
 
+  <h4 class="section" id="FoundationaLLM_Common_Services_API_PromptHubAPIService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_API_PromptHubSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_API_PromptHubAPIService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Constructor for the PromptHub API Service</p>
+</div>
 
 
 
@@ -219,7 +225,7 @@ Class PromptHubAPIService  <a class="header-action link-secondary" title="View s
 
   <h3 id="FoundationaLLM_Common_Services_API_PromptHubAPIService_ResolveRequest_System_String_System_String_System_String_" data-uid="FoundationaLLM.Common.Services.API.PromptHubAPIService.ResolveRequest(System.String,System.String,System.String)">
   ResolveRequest(string, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/PromptHubAPIService.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/PromptHubAPIService.cs/#L61"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Used to get prompts for a target agent and user context.</p>
@@ -245,8 +251,8 @@ Class PromptHubAPIService  <a class="header-action link-secondary" title="View s
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Messages.PromptHubResponse.html">PromptHubResponse</a>&gt;</dt>
-    <dd><p>Returns a <a class="xref" href="FoundationaLLM.Common.Models.Messages.PromptHubResponse.html">PromptHubResponse</a> object containing the list of prompts for the specified agent.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Hubs.PromptHubResponse.html">PromptHubResponse</a>&gt;</dt>
+    <dd><p>Returns a <a class="xref" href="FoundationaLLM.Common.Models.Hubs.PromptHubResponse.html">PromptHubResponse</a> object containing the list of prompts for the specified agent.</p>
 </dd>
   </dl>
 
@@ -264,7 +270,7 @@ Class PromptHubAPIService  <a class="header-action link-secondary" title="View s
 
   <h3 id="FoundationaLLM_Common_Services_API_PromptHubAPIService_Status" data-uid="FoundationaLLM.Common.Services.API.PromptHubAPIService.Status">
   Status()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/PromptHubAPIService.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/PromptHubAPIService.cs/#L36"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the status of the Prompt Hub API</p>
@@ -296,7 +302,7 @@ Class PromptHubAPIService  <a class="header-action link-secondary" title="View s
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/PromptHubAPIService.cs/#L14" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/PromptHubAPIService.cs/#L21" class="edit-link">Edit this page</a>
         </div>
 
 
