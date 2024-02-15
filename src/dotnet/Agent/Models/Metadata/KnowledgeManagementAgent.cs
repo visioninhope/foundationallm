@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FoundationaLLM.Agent.Constants;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Agent.Models.Metadata
 {
@@ -22,6 +23,6 @@ namespace FoundationaLLM.Agent.Models.Metadata
         /// Set default property values.
         /// </summary>
         public KnowledgeManagementAgent() =>
-            Type = Common.Constants.AgentTypes.KnowledgeManagement;
+            Type = AgentTypes.KnowledgeManagement;
     }
 }

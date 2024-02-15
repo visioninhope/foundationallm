@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Prompt.ResourceProviders
+﻿namespace FoundationaLLM.Prompt.Constants
 {
     /// <summary>
     /// Contains constants of the names of the resource types managed by the FoundationaLLM.Prompt resource manager.

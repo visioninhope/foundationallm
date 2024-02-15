@@ -1,12 +1,11 @@
-﻿using FoundationaLLM.Common.Models.ResourceProvider;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace FoundationaLLM.Prompt.Models.Metadata
 {
     /// <summary>
-    /// Prompt metadata model.
+    /// Multipart prompt composed of a prefix and a suffix.
     /// </summary>
-    public class Prompt : ResourceBase
+    public class MultipartPrompt : PromptBase
     {
         /// <summary>
         /// The prompt prefix.
