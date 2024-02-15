@@ -6,6 +6,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
     /// Base LLM orchestration request
     /// </summary>
     [JsonDerivedType(typeof(KnowledgeManagementCompletionRequest), typeDiscriminator: "knowledge-management")]
+    [JsonDerivedType(typeof(InternalContextCompletionRequest), typeDiscriminator: "internal-context")]    
     [JsonDerivedType(typeof(LegacyCompletionRequest), typeDiscriminator: "legacy")]
     [JsonDerivedType(typeof(LLMCompletionRequest), typeDiscriminator: "llm")]
     public class LLMCompletionRequest

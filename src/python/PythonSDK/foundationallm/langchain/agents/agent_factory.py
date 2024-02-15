@@ -90,14 +90,15 @@ class AgentFactory:
                 return KnowledgeManagementAgent(
                     self.completion_request,
                     llm=self.llm,
-                    config=self.config,                                            
+                    config=self.config,
                     resource_provider=self.resource_provider
                 )
             case 'internal-context':
                 return InternalContextAgent(
                     self.completion_request,
                     llm=self.llm,
-                    config=self.config
+                    config=self.config,
+                    resource_provider=self.resource_provider
                 )
             case _:
                 raise ValueError(f'No agent found for the specified agent type: {self.agent.type}.')

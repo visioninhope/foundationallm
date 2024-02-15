@@ -1,7 +1,7 @@
-﻿using FoundationaLLM.Common.Models.Orchestration;
+﻿using FoundationaLLM.Common.Models.Agents;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Agents
+namespace FoundationaLLM.Common.Models.Orchestration
 {
     /// <summary>
     /// The Knowledge Management Completion Request model.
