@@ -110,7 +110,7 @@ namespace FoundationaLLM.Core.API
             {
                 options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_AppInsightsConnectionString];
             });
-
+            
             // Create a dictionary of resource attributes.
             var resourceAttributes = new Dictionary<string, object> {
                 { "service.name", "CoreAPI" },
@@ -123,10 +123,8 @@ namespace FoundationaLLM.Core.API
                 builder.ConfigureResource(resourceBuilder =>
                     resourceBuilder.AddAttributes(resourceAttributes)));
 
-            builder.Services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings().ContractResolver;
-            });
+            builder.Services.AddControllers();
+
             builder.Services.AddProblemDetails();
             builder.Services
                 .AddApiVersioning(options =>

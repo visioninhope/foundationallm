@@ -8,8 +8,8 @@ using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services.Events;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System.Collections.Concurrent;
+
+using System.Text.Json;
 
 namespace FoundationaLLM.Common.Services.ResourceProviders
 {
@@ -56,10 +56,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <summary>
         /// Default JSON serialization settings.
         /// </summary>
-        protected virtual JsonSerializerSettings _serializerSettings => new()
+        protected virtual JsonSerializerOptions _serializerSettings => new()
         {
-            TypeNameHandling = TypeNameHandling.Auto,
-            Formatting = Formatting.Indented
+            WriteIndented = true
         };
 
         /// <inheritdoc/>

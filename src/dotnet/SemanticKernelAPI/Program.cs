@@ -7,9 +7,8 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
-using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
-using FoundationaLLM.SemanticKernel.Core.Services;
-using FoundationaLLM.SemanticKernel.MemorySource;
+using FoundationaLLM.SemanticKernel.Core.Plugins;
+//using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
@@ -42,6 +41,11 @@ namespace FoundationaLLM.SemanticKernel.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_DurableSystemPrompt);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CognitiveSearchMemorySource);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_BlobStorageMemorySource);
+                options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Key);
+                options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Endpoint);
+                options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Version);
+                options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_DeploymentName);
+                options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_ModelVersion);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -81,9 +85,12 @@ namespace FoundationaLLM.SemanticKernel.API
                 })
                 .AddSwaggerGenNewtonsoftSupport();
 
-            builder.Services.AddOptions<SemanticKernelServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI));
-            builder.Services.AddSingleton<ISemanticKernelService, SemanticKernelService>();
+            //builder.Services.AddOptions<SemanticKernelServiceSettings>()
+            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI));
+            //builder.Services.AddSingleton<ISemanticKernelService, SemanticKernelService>();
+
+            builder.Services.AddScoped<IKnowledgeManagementAgentPlugin, KnowledgeManagementAgentPlugin>();
+            builder.Services.AddScoped<ILegacyAgentPlugin, LegacyAgentPlugin>();
 
             // Simple, static system prompt service
             //builder.Services.AddSingleton<ISystemPromptService, InMemorySystemPromptService>();
@@ -107,17 +114,17 @@ namespace FoundationaLLM.SemanticKernel.API
                     resourceBuilder.AddAttributes(resourceAttributes)));
 
             // System prompt service backed by an Azure blob storage account
-            builder.Services.AddOptions<DurableSystemPromptServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_DurableSystemPrompt));
-            builder.Services.AddSingleton<ISystemPromptService, DurableSystemPromptService>();
+            //builder.Services.AddOptions<DurableSystemPromptServiceSettings>()
+            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_DurableSystemPrompt));
+            //builder.Services.AddSingleton<ISystemPromptService, DurableSystemPromptService>();
 
-            builder.Services.AddOptions<AzureCognitiveSearchMemorySourceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource));
-            builder.Services.AddTransient<IMemorySource, AzureCognitiveSearchMemorySource>();
+            //builder.Services.AddOptions<AzureCognitiveSearchMemorySourceSettings>()
+            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource));
+            //builder.Services.AddTransient<IMemorySource, AzureCognitiveSearchMemorySource>();
 
-            builder.Services.AddOptions<BlobStorageMemorySourceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_BlobStorageMemorySource));
-            builder.Services.AddTransient<IMemorySource, BlobStorageMemorySource>();
+            //builder.Services.AddOptions<BlobStorageMemorySourceSettings>()
+            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_BlobStorageMemorySource));
+            //builder.Services.AddTransient<IMemorySource, BlobStorageMemorySource>();
 
             builder.Services.Configure<RouteOptions>(options =>
             {

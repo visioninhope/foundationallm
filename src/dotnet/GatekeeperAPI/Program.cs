@@ -61,7 +61,7 @@ namespace FoundationaLLM.Gatekeeper.API
             {
                 options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_AppInsightsConnectionString];
             });
-
+            
             // Create a dictionary of resource attributes.
             var resourceAttributes = new Dictionary<string, object> {
                 { "service.name", "GatekeeperAPI" },
@@ -74,10 +74,7 @@ namespace FoundationaLLM.Gatekeeper.API
                 builder.ConfigureResource(resourceBuilder =>
                     resourceBuilder.AddAttributes(resourceAttributes)));
 
-            builder.Services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings().ContractResolver;
-            });
+            builder.Services.AddControllers();
 
             // Add API Key Authorization
             builder.Services.AddHttpContextAccessor();
