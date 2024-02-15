@@ -127,14 +127,14 @@
 			<!-- Index source -->
 			<CreateAgentStepItem v-model="editIndexSource">
 				<template v-if="selectedIndexSource">
-					<div class="step-container__header">{{ selectedIndexSource.Name }}</div>
+					<div class="step-container__header">{{ selectedIndexSource.name }}</div>
 					<div>
 						<span class="step-option__header">URL:</span>
-						<span>{{ selectedIndexSource.ConfigurationReferences.Endpoint }}</span>
+						<span>{{ selectedIndexSource.configurationReferences.endpoint }}</span>
 					</div>
 					<div>
 						<span class="step-option__header">Index Name:</span>
-						<span>{{ selectedIndexSource.Settings.IndexName }}</span>
+						<span>{{ selectedIndexSource.settings.indexName }}</span>
 					</div>
 				</template>
 				<template v-else>Please select an index source.</template>
@@ -143,22 +143,22 @@
 					<div class="step-container__edit__header">Please select an index source.</div>
 					<div
 						v-for="indexSource in indexSources"
-						:key="indexSource.Name"
+						:key="indexSource.name"
 						class="step-container__edit__option"
 						:class="{
 							'step-container__edit__option--selected':
-								indexSource.Name === selectedIndexSource?.Name,
+								indexSource.name === selectedIndexSource?.name,
 						}"
 						@click.stop="handleIndexSourceSelected(indexSource)"
 					>
-						<div class="step-container__header">{{ indexSource.Name }}</div>
+						<div class="step-container__header">{{ indexSource.name }}</div>
 						<div>
 							<span class="step-option__header">URL:</span>
-							<span>{{ indexSource.ConfigurationReferences.Endpoint }}</span>
+							<span>{{ indexSource.configurationReferences.endpoint }}</span>
 						</div>
 						<div>
 							<span class="step-option__header">Index Name:</span>
-							<span>{{ indexSource.Settings.IndexName }}</span>
+							<span>{{ indexSource.settings.indexName }}</span>
 						</div>
 					</div>
 				</template>
@@ -376,21 +376,20 @@
 			</div>
 
 			<div class="button-container column-2 justify-self-end">
+				<!-- Create agent -->
 				<Button
-					class="secondary-button"
-					style="margin-right: 20px;"
+					:label="editAgent ? 'Save Changes' : 'Create Agent'"
+					severity="primary"
+					@click="handleCreateAgent"
+				/>
+
+				<!-- Cancel -->
+				<Button
+					v-if="editAgent"
+					style="margin-left: 16px;"
 					label="Cancel"
 					severity="secondary"
 					@click="handleCancel"
-				/>
-
-				<!-- Create agent -->
-				<Button
-					class="primary-button"
-					style="width: 200px"
-					:label="editAgent ? 'Update Agent' : 'Create Agent'"
-					severity="primary"
-					@click="handleCreateAgent"
 				/>
 			</div>
 		</div>
@@ -400,7 +399,7 @@
 <script lang="ts">
 import type { PropType } from 'vue';
 import api from '@/js/api';
-import type { CreateAgentRequest, AgentIndex } from '@/js/types';
+import type { Agent, AgentIndex, AgentDataSource, CreateAgentRequest } from '@/js/types';
 
 const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
@@ -449,7 +448,7 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
-			dataSources: [],
+			dataSources: [] as AgentDataSource[],
 			indexSources: [] as AgentIndex[],
 
 			triggerFrequencyOptions: [
@@ -497,7 +496,7 @@ export default {
 				},
 				{
 					label: 'Azure Content Safety',
-					value: "ContentSafety"
+					value: 'ContentSafety',
 				},
 			],
 
@@ -508,7 +507,7 @@ export default {
 				},
 				{
 					label: 'Microsoft Presidio',
-					value: "Presidio"
+					value: 'Presidio',
 				},
 			],
 		};
@@ -517,7 +516,7 @@ export default {
 	computed: {
 		groupedDataSources() {
 			const grouped = {};
-			this.dataSources.forEach(dataSource => {
+			this.dataSources.forEach((dataSource) => {
 				if (!grouped[dataSource.Type]) {
 					grouped[dataSource.Type] = [];
 				}
@@ -540,7 +539,7 @@ export default {
 
 			this.loadingStatusText = 'Retrieving data sources...';
 			this.dataSources = await api.getAgentDataSources();
-		} catch(error) {
+		} catch (error) {
 			this.$toast.add({
 				severity: 'error',
 				detail: error?.response?._data || error,
@@ -558,17 +557,17 @@ export default {
 	},
 
 	methods: {
-		mapAgentToForm(agent) {
+		mapAgentToForm(agent: Agent) {
 			this.agentName = agent.name || this.agentName;
 			this.agentDescription = agent.description || this.agentDescription;
 			this.agentType = agent.type || this.agentType;
 
 			this.selectedIndexSource =
-				this.indexSources.find((indexSource) => indexSource.ObjectId === agent.indexing_profile) ||
+				this.indexSources.find((indexSource) => indexSource.objectId === agent.indexing_profile) ||
 				null;
 
 			this.selectedDataSource =
-				this.dataSources.find((dataSource) => dataSource.ObjectId === agent.embedding_profile) ||
+				this.dataSources.find((dataSource) => dataSource.objectId === agent.embedding_profile) ||
 				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
@@ -603,7 +602,7 @@ export default {
 		},
 
 		handleNameInput(event) {
-			let element = event.target;
+			const element = event.target;
 
 			// Remove spaces
 			let sanitizedValue = element.value.replace(/\s/g, '');
@@ -615,16 +614,16 @@ export default {
 			this.agentName = sanitizedValue;
 		},
 
-		handleAgentTypeSelect(type: AgentType) {
+		handleAgentTypeSelect(type: Agent['type']) {
 			this.agentType = type;
 		},
 
-		handleDataSourceSelected(dataSource) {
+		handleDataSourceSelected(dataSource: AgentDataSource) {
 			this.selectedDataSource = dataSource;
 			this.editDataSource = false;
 		},
 
-		handleIndexSourceSelected(indexSource) {
+		handleIndexSourceSelected(indexSource: AgentIndex) {
 			this.selectedIndexSource = indexSource;
 			this.editIndexSource = false;
 		},

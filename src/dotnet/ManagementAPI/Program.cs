@@ -132,12 +132,7 @@ namespace FoundationaLLM.Management.API
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
 
-            builder.Services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = FoundationaLLM.Common.Settings
-                    .CommonJsonSerializerSettings
-                    .GetJsonSerializerSettings().ContractResolver;
-            });
+            builder.Services.AddControllers();
             builder.Services.AddProblemDetails();
             builder.Services
                 .AddApiVersioning(options =>
