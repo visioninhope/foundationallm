@@ -840,6 +840,41 @@
     "value": "prompts"
   },
   {
+    "keyVault": true,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:APIKey",
+    "value": "event-grid-key"
+  },
+  {
+    "keyVault": false,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:AuthenticationType",
+    "value": "APIKey"
+  },
+  {
+    "keyVault": true,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:Endpoint",
+    "value": "${AZURE_EVENT_GRID_ENDPOINT}"
+  },
+  {
+    "keyVault": true,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:NamespaceId",
+    "value": "${AZURE_EVENT_GRID_ID}"
+  },
+  {
+    "keyVault": true,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI",
+    "value": "${FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE}"
+  },
+  {
     "keyVault": false,
     "featureFlag": false,
     "isJson": false,

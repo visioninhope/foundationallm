@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
-using Newtonsoft.Json;
+
 
 namespace FoundationaLLM.Core.API.Controllers
 {

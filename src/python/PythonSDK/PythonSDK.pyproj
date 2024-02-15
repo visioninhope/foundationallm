@@ -47,9 +47,6 @@
     <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\blob_storage_authentication_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\blob_storage_data_source_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\__init__.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\csv\csv_authentication.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\csv\csv_data_source_metadata.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\csv\__init__.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\search_service\search_service_authentication_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\search_service\search_service_data_source_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\search_service\__init__.py" />
@@ -100,8 +97,6 @@
     <Compile Include="foundationallm\langchain\agents\summary_agent.py" />
     <Compile Include="foundationallm\langchain\agents\__init__.py" />
     <Compile Include="foundationallm\langchain\agents\agent_factory.py" />
-    <Compile Include="foundationallm\langchain\data_sources\csv\csv_configuration.py" />
-    <Compile Include="foundationallm\langchain\data_sources\csv\__init__.py" />
     <Compile Include="foundationallm\langchain\data_sources\sql\mssql.py" />
     <Compile Include="foundationallm\langchain\data_sources\sql\mysql.py" />
     <Compile Include="foundationallm\langchain\data_sources\sql\postgresql.py" />
@@ -178,7 +173,6 @@
     <Folder Include="foundationallm\" />
     <Folder Include="foundationallm\hubs\data_source\data_sources\" />
     <Folder Include="foundationallm\hubs\data_source\data_sources\blob_storage\" />
-    <Folder Include="foundationallm\hubs\data_source\data_sources\csv\" />
     <Folder Include="foundationallm\hubs\data_source\data_sources\cxo\" />
     <Folder Include="foundationallm\hubs\data_source\data_sources\search_service\" />
     <Folder Include="foundationallm\hubs\data_source\data_sources\sql\" />
@@ -188,7 +182,6 @@
     <Folder Include="foundationallm\langchain\" />
     <Folder Include="foundationallm\langchain\agents\" />
     <Folder Include="foundationallm\langchain\data_sources\blob\" />
-    <Folder Include="foundationallm\langchain\data_sources\csv\" />
     <Folder Include="foundationallm\langchain\data_sources\cxo\" />
     <Folder Include="foundationallm\langchain\data_sources\search_service\" />
     <Folder Include="foundationallm\langchain\language_models\" />
