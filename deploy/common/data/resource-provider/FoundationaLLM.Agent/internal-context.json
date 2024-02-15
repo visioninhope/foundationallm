@@ -1,6 +1,6 @@
 {
     "name": "internal-context",
-    "type": "knowledge-management",
+    "type": "internal-context",
     "description": "Session-less agent that issues the user prompt directly to the language model.",    
     "language_model": {
 		"type": "openai",
