@@ -11,13 +11,18 @@ using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Configuration.Interfaces;
+using FoundationaLLM.Configuration.Services;
+using FoundationaLLM.Configuration.Validation;
 using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Management.Services;
 using FoundationaLLM.Management.Services.APIServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
@@ -36,7 +41,7 @@ namespace FoundationaLLM.Management.API
         /// <summary>
         /// Management API service configuration.
         /// </summary>
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +50,7 @@ namespace FoundationaLLM.Management.API
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
+                options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options => { options.SetCredential(new DefaultAzureCredential()); });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
@@ -56,10 +61,28 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
             });
 
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
+            builder.Services.AddAzureClients(clientBuilder =>
+            {
+                var keyVaultUri = builder.Configuration[AppConfigurationKeys.FoundationaLLM_Configuration_KeyVaultURI];
+                clientBuilder.AddSecretClient(new Uri(keyVaultUri!))
+                    .WithCredential(new DefaultAzureCredential());
+                clientBuilder.AddConfigurationClient(
+                    builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
+            });
+            // Configure logging to filter out Azure Core and Azure Key Vault informational logs.
+            builder.Logging.AddFilter("Azure.Core", LogLevel.Warning);
+            builder.Logging.AddFilter("Azure.Security.KeyVault.Secrets", LogLevel.Warning);
+
+            builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
+            builder.Services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
+            builder.Services.AddSingleton<IConfigurationHealthChecks, ConfigurationHealthChecks>();
+            builder.Services.AddHostedService<ConfigurationHealthCheckService>();
 
             var allowAllCorsOrigins = "AllowAllOrigins";
             builder.Services.AddCors(policyBuilder =>
@@ -80,7 +103,7 @@ namespace FoundationaLLM.Management.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Branding));
             builder.Services.AddOptions<AppConfigurationSettings>()
                 .Configure(o =>
-                    o.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]!);
+                    o.ConnectionString = builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]!);
 
             builder.Services.AddInstanceProperties(builder.Configuration);
 
@@ -412,5 +435,6 @@ namespace FoundationaLLM.Management.API
                 });
             });
         }
+
     }
 }
