@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Azure.Identity;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FoundationaLLM;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
@@ -18,8 +19,9 @@ using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.Text;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using FoundationaLLM.Vectorization.Worker;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.Extensions.Options;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +30,7 @@ builder.Configuration.AddJsonFile("appsettings.json", false, true);
 builder.Configuration.AddEnvironmentVariables();
 builder.Configuration.AddAzureAppConfiguration(options =>
 {
-    options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
+    options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
         options.SetCredential(new DefaultAzureCredential());
@@ -42,11 +44,23 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
+// Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
+builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
 {
-    ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString],
-    DeveloperMode = builder.Environment.IsDevelopment()
+    options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString];
 });
+
+// Create a dictionary of resource attributes.
+var resourceAttributes = new Dictionary<string, object> {
+    { "service.name", "VectorizationWorker" },
+    { "service.namespace", "FoundationaLLM" },
+    { "service.instance.id", Guid.NewGuid().ToString() }
+};
+
+// Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
+builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) =>
+    builder.ConfigureResource(resourceBuilder =>
+        resourceBuilder.AddAttributes(resourceAttributes)));
 
 var allowAllCorsOrigins = "AllowAllOrigins";
 builder.Services.AddCors(policyBuilder =>
