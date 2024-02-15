@@ -1,10 +1,5 @@
 ﻿using FluentValidation;
-using FoundationaLLM.Agent.Models.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FoundationaLLM.Common.Models.Agents;
 
 namespace FoundationaLLM.Agent.Validation.Metadata
 {

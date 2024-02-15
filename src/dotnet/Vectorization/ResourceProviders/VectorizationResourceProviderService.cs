@@ -15,6 +15,7 @@ using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
 using FluentValidation;
+using IValidatorFactory = FoundationaLLM.Common.Interfaces.IValidatorFactory;
 
 namespace FoundationaLLM.Vectorization.ResourceProviders
 {
@@ -25,7 +26,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         IOptions<InstanceSettings> instanceOptions,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IStorageService storageService,
         IEventService eventService,
-        IServiceProvider serviceProvider,
+        IValidatorFactory validatorFactory,
         ILogger<VectorizationResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -33,6 +34,8 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             eventService,
             logger)
     {
+        private readonly IValidatorFactory _validatorFactory = validatorFactory;
+
         /// <inheritdoc/>
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
         {
@@ -238,7 +241,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             var profile = JsonSerializer.Deserialize<T>(serializedProfile)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
 
-            var validator = serviceProvider.GetService<IValidator<T>>();
+            var validator = _validatorFactory.GetValidator<T>();
             if (validator != null)
             {
                 var validationResult = await validator.ValidateAsync(profile);

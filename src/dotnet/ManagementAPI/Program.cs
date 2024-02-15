@@ -25,6 +25,8 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Services.Azure;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using FoundationaLLM.Common.Validation;
 
 namespace FoundationaLLM.Management.API
 {
@@ -111,7 +113,7 @@ namespace FoundationaLLM.Management.API
             //----------------------------
             // Resource providers
             //----------------------------
-
+            builder.Services.AddSingleton<IValidatorFactory, ValidatorFactory>();
             builder.Services.AddVectorizationResourceProvider(builder.Configuration);
             builder.Services.AddAgentResourceProvider(builder.Configuration);
             builder.Services.AddPromptResourceProvider(builder.Configuration);

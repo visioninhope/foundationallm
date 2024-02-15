@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using IValidatorFactory = FoundationaLLM.Common.Interfaces.IValidatorFactory;
 
 namespace FoundationaLLM
 {
@@ -45,10 +46,10 @@ namespace FoundationaLLM
             });
 
             // Register validators.
-            services.AddScoped<IValidator<ContentSourceProfile>, ContentSourceProfileValidator>();
-            services.AddScoped<IValidator<TextPartitioningProfile>, TextPartitioningProfileValidator>();
-            services.AddScoped<IValidator<TextEmbeddingProfile>, TextEmbeddingProfileValidator>();
-            services.AddScoped<IValidator<IndexingProfile>, IndexingProfileValidator>();
+            services.AddSingleton<IValidator<ContentSourceProfile>, ContentSourceProfileValidator>();
+            services.AddSingleton<IValidator<TextPartitioningProfile>, TextPartitioningProfileValidator>();
+            services.AddSingleton<IValidator<TextEmbeddingProfile>, TextEmbeddingProfileValidator>();
+            services.AddSingleton<IValidator<IndexingProfile>, IndexingProfileValidator>();
 
             // Register the resource provider services (cannot use Keyed singletons due to the Microsoft Identity package being incompatible):
             services.AddSingleton<IResourceProviderService, VectorizationResourceProviderService>(sp =>
@@ -57,7 +58,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization),
                     sp.GetRequiredService<IEventService>(),
-                    sp.GetRequiredService<IServiceProvider>(),
+                    sp.GetRequiredService<IValidatorFactory>(),
                     sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>()));
         }
     }
