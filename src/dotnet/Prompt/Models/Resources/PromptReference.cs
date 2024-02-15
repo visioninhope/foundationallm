@@ -1,9 +1,8 @@
-﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Prompt.Constants;
 using FoundationaLLM.Prompt.Models.Metadata;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Prompt.Models.Resources
 {

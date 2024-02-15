@@ -77,10 +77,7 @@ namespace FoundationaLLM.AgentFactory.API
                 AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI);
 
             //builder.Services.AddServiceProfiler();
-            builder.Services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings().ContractResolver;
-            });
+            builder.Services.AddControllers();
 
             // Add API Key Authorization
             builder.Services.AddHttpContextAccessor();
