@@ -65,8 +65,8 @@ namespace FoundationaLLM.Core.API.Controllers
         public async Task<IEnumerable<AgentHint>> GetAgents()
         {
             var agents = new List<AgentHint>();
+            
             var legacyAgentsList = _settings.AllowAgentSelection;
-            var globalAgentsList = await _agentResourceProvider.GetResourcesAsync<AgentReference>($"/{AgentResourceTypeNames.AgentReferences}");
             UserProfile? userProfile;
 
             try
@@ -78,7 +78,7 @@ namespace FoundationaLLM.Core.API.Controllers
                 userProfile = null;
             }
             
-            if (globalAgentsList.Any())
+            if (await _agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}") is List<AgentBase> globalAgentsList && globalAgentsList.Count != 0)
             {
                 agents.AddRange(globalAgentsList.Select(globalAgent => new AgentHint { Name = globalAgent.Name, Private = false}));
             }
