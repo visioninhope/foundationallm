@@ -1,4 +1,7 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using System.Collections.Concurrent;
+using System.Text;
+using System.Text.Json;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
@@ -11,9 +14,6 @@ using FoundationaLLM.Prompt.Models.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System.Collections.Concurrent;
-using System.Text;
 
 namespace FoundationaLLM.Prompt.ResourceProviders
 {
@@ -73,7 +73,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             if (await _storageService.FileExistsAsync(_storageContainerName, PROMPT_REFERENCES_FILE_PATH, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(_storageContainerName, PROMPT_REFERENCES_FILE_PATH, default);
-                var promptReferenceStore = JsonConvert.DeserializeObject<PromptReferenceStore>(
+                var promptReferenceStore = JsonSerializer.Deserialize<PromptReferenceStore>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
 
                 _promptReferences = new ConcurrentDictionary<string, PromptReference>(
@@ -84,7 +84,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
                     PROMPT_REFERENCES_FILE_PATH,
-                    JsonConvert.SerializeObject(new PromptReferenceStore { PromptReferences = [] }),
+                    JsonSerializer.Serialize(new PromptReferenceStore { PromptReferences = [] }),
                     default,
                     default);
             }
@@ -144,7 +144,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             if (await _storageService.FileExistsAsync(_storageContainerName, promptReference.Filename, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(_storageContainerName, promptReference.Filename, default);
-                return JsonConvert.DeserializeObject(
+                return JsonSerializer.Deserialize(
                     Encoding.UTF8.GetString(fileContent.ToArray()),
                     promptReference.PromptType,
                     _serializerSettings) as Models.Metadata.MultipartPrompt
@@ -168,7 +168,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         private async Task<ResourceProviderUpsertResult> UpdatePrompt(List<ResourceTypeInstance> instances, string serializedPrompt)
         {
-            var promptBase = JsonConvert.DeserializeObject<PromptBase>(serializedPrompt)
+            var promptBase = JsonSerializer.Deserialize<PromptBase>(serializedPrompt)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
 
             if (instances[0].ResourceId != promptBase.Name)
@@ -181,13 +181,13 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 Filename = $"/{_name}/{promptBase.Name}.json"
             };
 
-            var prompt = JsonConvert.DeserializeObject(serializedPrompt, promptReference.PromptType, _serializerSettings);
+            var prompt = JsonSerializer.Deserialize(serializedPrompt, promptReference.PromptType, _serializerSettings);
             (prompt as PromptBase)!.ObjectId = GetObjectId(instances);
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 promptReference.Filename,
-                JsonConvert.SerializeObject(prompt, promptReference.PromptType, _serializerSettings),
+                JsonSerializer.Serialize(prompt, promptReference.PromptType, _serializerSettings),
                 default,
                 default);
 
@@ -196,7 +196,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     PROMPT_REFERENCES_FILE_PATH,
-                    JsonConvert.SerializeObject(PromptReferenceStore.FromDictionary(_promptReferences.ToDictionary())),
+                    JsonSerializer.Serialize(PromptReferenceStore.FromDictionary(_promptReferences.ToDictionary())),
                     default,
                     default);
 
@@ -226,7 +226,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         private ResourceNameCheckResult CheckPromptName(string serializedAction)
         {
-            var resourceName = JsonConvert.DeserializeObject<ResourceName>(serializedAction);
+            var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
             return _promptReferences.Values.Any(ar => ar.Name == resourceName!.Name)
                 ? new ResourceNameCheckResult
                 {
