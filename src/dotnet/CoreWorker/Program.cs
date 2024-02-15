@@ -1,9 +1,12 @@
 using Azure.Identity;
-using FoundationaLLM.Core.Models.Configuration;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Core.Interfaces;
+using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using FoundationaLLM.Core.Worker;
-using FoundationaLLM.Common.Constants;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -29,10 +32,24 @@ builder.Services.AddOptions<CosmosDbSettings>()
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>();
 builder.Services.AddSingleton<ICosmosDbChangeFeedService, CosmosDbChangeFeedService>();
 builder.Services.AddHostedService<ChangeFeedWorker>();
-builder.Services.AddApplicationInsightsTelemetryWorkerService(options =>
+
+// Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
+builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
 {
     options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_CoreWorker_AppInsightsConnectionString];
 });
+
+// Create a dictionary of resource attributes.
+var resourceAttributes = new Dictionary<string, object> {
+    { "service.name", "CoreWorker" },
+    { "service.namespace", "FoundationaLLM" },
+    { "service.instance.id", Guid.NewGuid().ToString() }
+};
+
+// Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
+builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) =>
+    builder.ConfigureResource(resourceBuilder =>
+        resourceBuilder.AddAttributes(resourceAttributes)));
 
 var host = builder.Build();
 
