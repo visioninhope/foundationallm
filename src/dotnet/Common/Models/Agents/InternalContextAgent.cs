@@ -1,7 +1,7 @@
 ﻿namespace FoundationaLLM.Common.Models.Agents
 {
     /// <summary>
-    /// The Knowledge Management agent metadata model.
+    /// The Internal Context agent metadata model.
     /// </summary>
     public class InternalContextAgent : AgentBase
     {

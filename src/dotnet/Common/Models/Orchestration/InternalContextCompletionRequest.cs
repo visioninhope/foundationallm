@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace FoundationaLLM.Common.Models.Orchestration
 {
     /// <summary>
-    /// The Knowledge Management Completion Request model.
+    /// The Internal Context Completion Request model.
     /// </summary>
     public class InternalContextCompletionRequest : LLMCompletionRequest
     {
