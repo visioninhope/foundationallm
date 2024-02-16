@@ -2824,6 +2824,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
   fullName: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
   nameWithType: EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
+- uid: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization
+  name: FoundationaLLM_ResourceProvider_Vectorization
+  href: api/dotnet/FoundationaLLM.Common.Constants.EventSetEventNamespaces.html#FoundationaLLM_Common_Constants_EventSetEventNamespaces_FoundationaLLM_ResourceProvider_Vectorization
+  commentId: F:FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization
+  fullName: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization
+  nameWithType: EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization
 - uid: FoundationaLLM.Common.Constants.FileExtensions
   name: FileExtensions
   href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html
@@ -21034,6 +21040,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsyncInternal
   nameWithType: VectorizationResourceProviderService.GetResourcesAsyncInternal
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
+  name: HandleEvents(EventSetEventArgs)
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_
+  commentId: M:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
+  nameWithType: VectorizationResourceProviderService.HandleEvents(EventSetEventArgs)
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.HandleEvents*
+  name: HandleEvents
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_HandleEvents_
+  commentId: Overload:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.HandleEvents
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.HandleEvents
+  nameWithType: VectorizationResourceProviderService.HandleEvents
 - uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.InitializeInternal
   name: InitializeInternal()
   href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_InitializeInternal
