@@ -26,7 +26,6 @@ namespace FoundationaLLM.Core.API.Controllers
     /// <see cref="OrchestrationController"/> type name.</param>
     [Authorize]
     [Authorize(Policy = "RequiredScope")]
-    [ApiVersion(1.0)]
     [ApiController]
     [Route("[controller]")]
     public class OrchestrationController(

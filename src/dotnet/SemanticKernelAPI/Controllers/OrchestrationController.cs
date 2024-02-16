@@ -9,7 +9,6 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
     /// <summary>
     /// Wrapper for the Semantic Kernel service.
     /// </summary>
-    [ApiVersion(1.0)]
     [ApiController]
     [APIKeyAuthentication]
     [Route("[controller]")]
