@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.Metadata;
+using FoundationaLLM.Common.Models.Orchestration.DataSources;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using System.Text.Json.Serialization;
 
@@ -8,6 +9,9 @@ namespace FoundationaLLM.Common.Models.Agents
     /// <summary>
     /// Base agent metadata model.
     /// </summary>
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+    [JsonDerivedType(typeof(KnowledgeManagementAgent), "knowledge-management")]
+    [JsonDerivedType(typeof(InternalContextAgent), "internal-context")]
     public class AgentBase : ResourceBase
     {
         /// <summary>

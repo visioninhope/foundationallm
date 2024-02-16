@@ -17,7 +17,7 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         /// The type of the resource.
         /// </summary>
         [JsonPropertyName("type")]
-        [JsonPropertyOrder(-4)]
+        [JsonPropertyOrder(-100)]
         public required string Type { get; set; }
     }
 }
