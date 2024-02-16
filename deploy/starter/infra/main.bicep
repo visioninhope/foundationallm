@@ -365,6 +365,7 @@ module acaServices './app/acaService.bicep' = [ for service in services: {
           secretRef: 'appconfig-connection-string'
         }
       ]
+      apiKeySecretName: service.apiSecretName
       serviceName: service.name
     }
     scope: rg

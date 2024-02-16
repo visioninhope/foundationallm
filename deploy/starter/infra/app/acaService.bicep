@@ -14,7 +14,13 @@ param appDefinition object
 param hasIngress bool = false
 param envSettings array = []
 param secretSettings array = []
+param apiKeySecretName string
 param serviceName string
+
+var secretNames = [
+  '${serviceName}-apikey'
+  apiKeySecretName
+]
 
 var formattedAppName = replace(name, '-', '')
 var truncatedAppName = substring(formattedAppName, 0, min(length(formattedAppName), 32))
@@ -184,14 +190,16 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
   }
 }
 
-resource apiKey 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
-  name: '${serviceName}-apikey'
-  parent: keyvault
-  tags: tags
-  properties: {
-    value: uniqueString(subscription().id, resourceGroup().id, app.id, serviceName)
+resource apiKey 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = [
+  for secretName in secretNames: {
+    name: secretName
+    parent: keyvault
+    tags: tags
+    properties: {
+      value: uniqueString(subscription().id, resourceGroup().id, app.id, serviceName)
+    }
   }
-}
+]
 
 output defaultDomain string = containerAppsEnvironment.properties.defaultDomain
 output name string = app.name
