@@ -82,6 +82,7 @@ function Get-Hosts-Default-Strategy {
 
 $manifest = $(Get-Content -Raw -Path ../Deployment-Manifest.json | ConvertFrom-Json)
 
+$hosts = @{}
 foreach ($resourceGroup in $manifest.resourceGroups.PSObject.Properties) {
     Write-Host "Finding Private Endpoints in Resource Group: $($resourceGroup.Name)" -ForegroundColor Green
 
@@ -104,7 +105,6 @@ foreach ($resourceGroup in $manifest.resourceGroups.PSObject.Properties) {
         continue
     }
 
-    $hosts = @{}
     foreach ($privateEndpoint in $privateEndpoints) {
         $networkInterfaceFqdns = @()
         switch ($privateEndpoint.groupId) {
@@ -125,6 +125,12 @@ foreach ($resourceGroup in $manifest.resourceGroups.PSObject.Properties) {
             $hosts[$fqdn.fqdn] = $fqdn.privateIPAddress
         }
     }
-
-    $hosts | ConvertTo-Json
 }
+
+$hostFile = @()
+foreach ($endpoint in $hosts.GetEnumerator()) {
+    $hostFile += "$($endpoint.Value)  $($endpoint.Key)"
+}
+
+Write-Host "Writing hosts file" -ForegroundColor Green
+$hostFile | Sort-Object | Out-File -FilePath "../config/hosts" -Encoding ascii -Force
