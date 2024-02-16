@@ -17,7 +17,6 @@ using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
 using FluentValidation;
-using IValidatorFactory = FoundationaLLM.Common.Interfaces.IValidatorFactory;
 
 namespace FoundationaLLM.Agent.ResourceProviders
 {
@@ -28,7 +27,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         IOptions<InstanceSettings> instanceOptions,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)] IStorageService storageService,
         IEventService eventService,
-        IValidatorFactory validatorFactory,
+        IResourceValidatorFactory resourceValidatorFactory,
         ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -39,7 +38,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
             ])
     {
-        private readonly IValidatorFactory _validatorFactory = validatorFactory;
+        private readonly IResourceValidatorFactory _resourceValidatorFactory = resourceValidatorFactory;
 
         /// <inheritdoc/>
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
@@ -194,7 +193,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             var agent = JsonSerializer.Deserialize(serializedAgent, agentReference.AgentType, _serializerSettings);
             (agent as AgentBase)!.ObjectId = GetObjectId(instances);
 
-            var validator = _validatorFactory.GetValidator(agentReference.AgentType);
+            var validator = _resourceValidatorFactory.GetValidator(agentReference.AgentType);
             if (validator is IValidator agentValidator)
             {
                 var context = new ValidationContext<object>(agent);

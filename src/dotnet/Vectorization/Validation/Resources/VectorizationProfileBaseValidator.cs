@@ -29,16 +29,16 @@ namespace FoundationaLLM.Vectorization.Validation.Resources
             When(x => x.Settings != null && x.Settings.Count != 0, () =>
             {
                 RuleForEach(x => x.Settings)
-                    .Must((profile, kv) => !string.IsNullOrEmpty(kv.Key) && !string.IsNullOrEmpty(kv.Value))
-                    .WithMessage("Settings keys and values must not be empty.");
+                    .Must((profile, kv) => !string.IsNullOrEmpty(kv.Key))
+                    .WithMessage("Settings keys must not be empty.");
             });
 
             // Validate ConfigurationReferences if needed.
             When(x => x.ConfigurationReferences != null && x.ConfigurationReferences.Count != 0, () =>
             {
                 RuleForEach(x => x.ConfigurationReferences)
-                    .Must((profile, kv) => !string.IsNullOrEmpty(kv.Key) && !string.IsNullOrEmpty(kv.Value))
-                    .WithMessage("ConfigurationReferences keys and values must not be empty.");
+                    .Must((profile, kv) => !string.IsNullOrEmpty(kv.Key))
+                    .WithMessage("ConfigurationReferences keys must not be empty.");
             });
         }
     }

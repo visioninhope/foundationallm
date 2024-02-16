@@ -10,7 +10,7 @@ namespace FoundationaLLM.Common.Interfaces
     /// <summary>
     /// Provides methods for getting validators.
     /// </summary>
-    public interface IValidatorFactory
+    public interface IResourceValidatorFactory
     {
         /// <summary>
         /// Gets a validator for the specified type.

@@ -134,7 +134,7 @@ namespace FoundationaLLM.Management.API
             //----------------------------
             // Resource providers
             //----------------------------
-            builder.Services.AddSingleton<IValidatorFactory, ValidatorFactory>();
+            builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
             builder.Services.AddVectorizationResourceProvider(builder.Configuration);
             builder.Services.AddAgentResourceProvider(builder.Configuration);
             builder.Services.AddPromptResourceProvider(builder.Configuration);

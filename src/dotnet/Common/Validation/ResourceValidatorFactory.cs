@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
+using FoundationaLLM.Common.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using IValidatorFactory = FoundationaLLM.Common.Interfaces.IValidatorFactory;
 
 namespace FoundationaLLM.Common.Validation
 {
     /// <inheritdoc/>
-    public class ValidatorFactory(IServiceProvider serviceProvider) : IValidatorFactory
+    public class ResourceValidatorFactory(IServiceProvider serviceProvider) : IResourceValidatorFactory
     {
         private readonly IServiceProvider _serviceProvider = serviceProvider;
 

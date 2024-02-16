@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using IValidatorFactory = FoundationaLLM.Common.Interfaces.IValidatorFactory;
 
 namespace FoundationaLLM
 {
@@ -58,7 +57,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization),
                     sp.GetRequiredService<IEventService>(),
-                    sp.GetRequiredService<IValidatorFactory>(),
+                    sp.GetRequiredService<IResourceValidatorFactory>(),
                     sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>()));
         }
     }
