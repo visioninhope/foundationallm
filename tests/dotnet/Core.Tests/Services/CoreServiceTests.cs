@@ -4,6 +4,7 @@ using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Core.Interfaces;
+using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -21,9 +22,16 @@ namespace FoundationaLLM.Core.Tests.Services
         private readonly ICallContext _callContext = Substitute.For<ICallContext>();
         private readonly ILogger<CoreService> _logger = Substitute.For<ILogger<CoreService>>();
         private readonly IOptions<ClientBrandingConfiguration> _brandingConfig = Substitute.For<IOptions<ClientBrandingConfiguration>>();
+        private readonly IEnumerable<IDownstreamAPIService> _downstreamAPIServices = Substitute.For<IEnumerable<IDownstreamAPIService>>();
+        private IOptions<CoreServiceSettings> _options;
 
         public CoreServiceTests()
         {
+            _options = Options.Create(new CoreServiceSettings {
+                BypassGatekeeper =  true, 
+                SessionSummarization = ChatSessionNameSummarizationType.LLM
+            });
+
             _brandingConfig.Value.Returns(new ClientBrandingConfiguration());
             _callContext.CurrentUserIdentity.Returns(new UnifiedUserIdentity
             {
@@ -31,7 +39,7 @@ namespace FoundationaLLM.Core.Tests.Services
                 UPN = "test@foundationallm.ai",
                 Username = "test@foundationallm.ai"
             });
-            _testedService = new CoreService(_cosmosDbService, _gatekeeperAPIService, _logger, _brandingConfig, _callContext);
+            _testedService = new CoreService(_cosmosDbService, _downstreamAPIServices, _logger, _brandingConfig, _options, _callContext);
         }
 
         #region GetAllChatSessionsAsync
@@ -278,7 +286,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Arrange
             var sessionId = Guid.NewGuid().ToString();
             var prompt = "Prompt";
-            var summary = "Summary";
+            var summary = "[No Summary]";
             var summaryRequest = new SummaryRequest
             {
                 SessionId = sessionId,
@@ -385,20 +393,6 @@ namespace FoundationaLLM.Core.Tests.Services
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 await _testedService.RateMessageAsync(id, null!, rating);
-            });
-        }
-
-        [Fact]
-        public async Task RateMessageAsync_ShouldThrowExceptionWhenRatingIsNull()
-        {
-            // Arrange
-            var id = Guid.NewGuid().ToString();
-            var sessionId = Guid.NewGuid().ToString();
-
-            // Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
-            {
-                await _testedService.RateMessageAsync(id, sessionId, null);
             });
         }
 

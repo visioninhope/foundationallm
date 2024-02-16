@@ -127,42 +127,5 @@ namespace FoundationaLLM.Core.Tests.Services
         }
 
         #endregion
-
-        #region AddMemory
-
-        [Fact]
-        public async Task AddMemory_ShouldNotThrowException()
-        {
-            // Arrange
-            var item = new { Prompt = "Test Prompt" };
-            var itemName = "Prompt Name";
-            var vectorizer = new Action<object, float[]>((obj, flt) => { });
-
-            //Act
-            var exception = await Record.ExceptionAsync(async () => await _testedService.AddMemory(item, itemName, vectorizer));
-
-            //Assert
-            Assert.Null(exception);
-        }
-
-        #endregion
-
-        #region RemoveMemory
-
-        [Fact]
-        public async Task RemoveMemory_ShouldNotThrowException()
-        {
-            // Arrange
-            var item = new { Prompt = "Test Prompt" };
-
-            //Act
-            var exception = await Record.ExceptionAsync(async () => await _testedService.RemoveMemory(item));
-
-            //Assert
-            Assert.Null(exception);
-        }
-
-        #endregion
-
     }
 }
