@@ -15,7 +15,7 @@ async function wait(milliseconds: number = 1000): Promise<void> {
 export default {
 	mockLoadTime: 1000,
 
-	apiVersion: '1.0',
+	apiVersion: '2024-02-16',
 	apiUrl: null as string | null,
 	setApiUrl(apiUrl: string) {
 		this.apiUrl = apiUrl;
