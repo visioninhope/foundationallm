@@ -10,6 +10,7 @@ using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Services.Tokenizers;
+using FoundationaLLM.Common.Validation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -127,6 +128,7 @@ builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
 builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
 
 // Vectorization resource provider
+builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 builder.Services.AddKeyedSingleton<IResourceProviderService, VectorizationResourceProviderService>(
     DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
 builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
