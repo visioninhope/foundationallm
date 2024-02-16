@@ -125,6 +125,20 @@ foreach ($resourceGroup in $manifest.resourceGroups.PSObject.Properties) {
             $hosts[$fqdn.fqdn] = $fqdn.privateIPAddress
         }
     }
+
+    Write-Host "Checking for APIM instances..." -ForegroundColor Green
+    $apimInstances = Invoke-AndRequireSuccess "Get APIM Instances" {
+        az apim list `
+            --resource-group $resourceGroup.Value `
+            --query '[].{name:name, privateIPAddress:privateIpAddresses[0], fqdn:hostnameConfigurations[0].hostName}' `
+            --output json | `
+            ConvertFrom-Json
+    }
+
+    foreach ($apimInstance in $apimInstances) {
+        Write-Host "Found APIM Instance: $($apimInstance.name)" -ForegroundColor Yellow
+        $hosts[$apimInstance.fqdn] = $apimInstance.privateIPAddress
+    }
 }
 
 $hostFile = @()
