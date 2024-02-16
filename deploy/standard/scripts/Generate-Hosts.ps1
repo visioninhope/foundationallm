@@ -8,27 +8,64 @@ Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enabl
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
-function EnsureSuccess {
+function Invoke-AndRequireSuccess {
     param (
-        [parameter(Mandatory = $true)][int]$exitcode,
-        [parameter(Mandatory = $true)][string]$message
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$Message,
+
+        [Parameter(Mandatory = $true, Position = 1)]
+        [ScriptBlock]$ScriptBlock
     )
 
-    if ($exitcode -ne 0) {
-        Write-Host $message -ForegroundColor Red
-        exit $exitcode
+    $result = & $ScriptBlock
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Failed: ${message}" -ForegroundColor Red
+        exit $LASTEXITCODE
     }
+
+    return $result
+}
+
+function Get-Hosts-Aks-Strategy {
+    param(
+        [parameter(Mandatory = $true)][string]$privateEndpointName,
+        [parameter(Mandatory = $true)][string]$privateEndpointServiceId,
+        [parameter(Mandatory = $true)][string]$privateEndpointNetworkInterfaceId
+    )
+
+    $aksInstance = Invoke-AndRequireSuccess "Get AKS Instances for Private Endpoint: $($privateEndpointName)" {
+        az aks list `
+            --resource-group $resourceGroup.Value `
+            --query '[].{id:id, name:name, privateFqdn:privateFqdn}' `
+            --output json | `
+            ConvertFrom-Json | `
+            Where-Object { $_.id -eq $privateEndpointServiceId } | `
+            Select-Object -Property name, @{Name = 'fqdn'; Expression = { $_.privateFqdn } } | `
+            Add-Member -MemberType NoteProperty -Name nicId -Value $privateEndpointNetworkInterfaceId -PassThru
+    }
+
+    $networkInterfaceFqdns = Invoke-AndRequireSuccess "Get Network Interface FQDNs for AKS Instance: $($aksInstance.name)" {
+        az network nic show `
+            --ids $aksInstance.nicId `
+            --query 'ipConfigurations[].{privateIPAddress:privateIPAddress}' `
+            --output json | `
+            ConvertFrom-Json | `
+            Add-Member -MemberType NoteProperty -Name fqdn -Value $aksInstance.fqdn -PassThru
+    }
+
+    return $networkInterfaceFqdns
 }
 
 function Get-Hosts-Default-Strategy {
     param (
-        [parameter(Mandatory = $true)][string]$id,
-        [parameter(Mandatory = $true)][hashtable]$hosts
+        [parameter(Mandatory = $true)][string]$id
     )
 
-    $networkInterfaceFqdns = az network nic show `
-        --ids $id `
-        --query 'ipConfigurations[].{
+    $networkInterfaceFqdns = Invoke-AndRequireSuccess "Get Network Interface FQDNs" {
+        az network nic show `
+            --ids $id `
+            --query 'ipConfigurations[].{
                 fqdn:privateLinkConnectionProperties.fqdns[0],
                 groupId:privateLinkConnectionProperties.groupId,
                 nicId:id,
@@ -36,13 +73,11 @@ function Get-Hosts-Default-Strategy {
                 peId:privateEndpoint.id
                 privateIPAddress:privateIPAddress
             }' `
-        --output json | `
-        ConvertFrom-Json
-    EnsureSuccess $LASTEXITCODE "Failed to get Network Interface FQDNs"
-
-    foreach ($fqdn in $networkInterfaceFqdns) {
-        $hosts[$fqdn.fqdn] = $fqdn.privateIPAddress
+            --output json | `
+            ConvertFrom-Json
     }
+
+    return $networkInterfaceFqdns
 }
 
 $manifest = $(Get-Content -Raw -Path ../Deployment-Manifest.json | ConvertFrom-Json)
@@ -50,19 +85,19 @@ $manifest = $(Get-Content -Raw -Path ../Deployment-Manifest.json | ConvertFrom-J
 foreach ($resourceGroup in $manifest.resourceGroups.PSObject.Properties) {
     Write-Host "Finding Private Endpoints in Resource Group: $($resourceGroup.Name)" -ForegroundColor Green
 
-    $privateEndpoints = az network private-endpoint list `
-        --resource-group $resourceGroup.Value `
-        --query "[].{
-            groupId:privateLinkServiceConnections[0].groupIds[0],
-            nicId:networkInterfaces[0].id,
-            peId:id,
-            peName:name,
-            serviceId:privateLinkServiceConnections[0].privateLinkServiceId
-        }" `
-        --subscription $subscription `
-        --output json   `
-    | ConvertFrom-Json
-    EnsureSuccess $LASTEXITCODE "Failed to get Private Endpoints in Resource Group: $($resourceGroup.Name)"
+    $privateEndpoints = Invoke-AndRequireSuccess "Get Private Endpoints in Resource Group: $($resourceGroup.Name)" {
+        az network private-endpoint list `
+            --resource-group $resourceGroup.Value `
+            --query "[].{
+                groupId:privateLinkServiceConnections[0].groupIds[0],
+                nicId:networkInterfaces[0].id,
+                peName:name,
+                serviceId:privateLinkServiceConnections[0].privateLinkServiceId
+            }" `
+            --subscription $subscription `
+            --output json | `
+            ConvertFrom-Json
+    }
 
     if ($null -eq $privateEndpoints -or $privateEndpoints.Count -lt 1) {
         Write-Host "No Private Endpoints found in Resource Group: $($resourceGroup.Name)" -ForegroundColor Yellow
@@ -71,86 +106,25 @@ foreach ($resourceGroup in $manifest.resourceGroups.PSObject.Properties) {
 
     $hosts = @{}
     foreach ($privateEndpoint in $privateEndpoints) {
+        $networkInterfaceFqdns = @()
         switch ($privateEndpoint.groupId) {
             "management" {
                 Write-Host "Found AKS Management Private Endpoint: $($privateEndpoint.peName)" -ForegroundColor Yellow
-                $aksInstance = az aks list `
-                    --resource-group $resourceGroup.Value `
-                    --output json | `
-                    ConvertFrom-Json | `
-                    Where-Object { $_.id -eq $privateEndpoint.serviceId } | `
-                    Select-Object -Property id, name, privateFqdn | `
-                    Add-Member -MemberType NoteProperty -Name nicId -Value $privateEndpoint.nicId -PassThru
-
-                EnsureSuccess $LASTEXITCODE "Failed to get AKS Instances for Private Endpoint: $($privateEndpoint.peName)"
-
-                $networkInterfaceFqdns = az network nic show `
-                    --ids $aksInstance.nicId `
-                    --query 'ipConfigurations[].{privateIPAddress:privateIPAddress}' `
-                    --output json | `
-                    ConvertFrom-Json | `
-                    Add-Member -MemberType NoteProperty -Name fqdn -Value $aksInstance.privateFqdn -PassThru
-                EnsureSuccess $LASTEXITCODE "Failed to get Network Interface FQDNs for AKS Instance: $($aksInstance.name)"
-
-                foreach ($fqdn in $networkInterfaceFqdns) {
-                    $hosts[$fqdn.fqdn] = $fqdn.privateIPAddress
-                }
+                $networkInterfaceFqdns = Get-Hosts-Aks-Strategy `
+                    -privateEndpointName $privateEndpoint.peName `
+                    -privateEndpointServiceId $privateEndpoint.serviceId `
+                    -privateEndpointNetworkInterfaceId $privateEndpoint.nicId
             }
             default {
-                Get-Hosts-Default-Strategy -id $privateEndpoint.nicId -hosts $hosts
+                Write-Host "Found Default Private Endpoint: $($privateEndpoint.peName)" -ForegroundColor Yellow
+                $networkInterfaceFqdns = Get-Hosts-Default-Strategy -id $privateEndpoint.nicId
             }
+        }
+
+        foreach ($fqdn in $networkInterfaceFqdns) {
+            $hosts[$fqdn.fqdn] = $fqdn.privateIPAddress
         }
     }
 
     $hosts | ConvertTo-Json
 }
-
-# $peInstances = $(
-#     az network private-endpoint list `
-#         --resource-group $resourceGroups.app `
-#         --query "[].{groupId:privateLinkServiceConnections[0].groupIds[0],peName:name,aksId:privateLinkServiceConnections[0].privateLinkServiceId,nicId:networkInterfaces[0].id,peId:id}" `
-#         --output json | `
-#         ConvertFrom-Json
-# )
-
-# $nicInstances = $(
-#     az network nic list `
-#         --resource-group $resourceGroups.app `
-#         --query "[].{nicId:id, nicName:name, privateIpAddress:ipConfigurations[0].privateIPAddress,peId:privateEndpoint.id}" `
-#         --output json | `
-#         ConvertFrom-Json
-# )
-
-####
-
-# function GetAksPrivateIPMapping($aksInstance, $peInstances, $nicInstances) {
-#     $peInstance = $peInstances | Where-Object { $_.aksId -eq $aksInstance.aksId }
-#     $nicInstance = $nicInstances | Where-Object { $_.peId -eq $peInstance.peId }
-
-#     return @{
-#         privateIPAddress = $nicInstance.privateIpAddress
-#         fqdn             = $aksInstance.privateFqdn
-#         groupId          = $peInstance.groupId
-#     }
-# }
-
-# Write-Host "Getting AKS Instances, Private Endpoints and NICs"
-# $aksInstances = $(
-#     az aks list `
-#         --resource-group $resourceGroups.app `
-#         --query "[].{aksName:name,privateFqdn:privateFqdn,aksId:id}" `
-#         --output json | `
-#         ConvertFrom-Json
-# )
-
-
-
-
-# Write-Host "Found $($aksInstances.Length) AKS Instances" -ForegroundColor Yellow
-# for ($i = 0; $i -lt $aksInstances.Length; $i++) {
-#     $aksInstance = $aksInstances[$i]
-#     Write-Host "AKS Instance $($i): $($aksInstance.aksName)" -ForegroundColor Blue
-#     $privateIpMapping = GetAksPrivateIPMapping $aksInstance $peInstances $nicInstances
-#     $tokens.Add("aksFqdn$($i)", $aksInstance.privateFqdn)
-#     $tokens.Add("aksPrivateIp$($i)", $privateIpMapping.privateIPAddress)
-# }
