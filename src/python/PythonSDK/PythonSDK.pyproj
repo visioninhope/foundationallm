@@ -163,6 +163,8 @@
     <Compile Include="foundationallm\storage\blob_storage_manager.py" />
     <Compile Include="foundationallm\storage\storage_manager_base.py" />
     <Compile Include="foundationallm\storage\__init__.py" />
+    <Compile Include="foundationallm\telemetry\telemetry.py" />
+    <Compile Include="foundationallm\telemetry\__init__.py" />
     <Compile Include="main.py" />
     <Compile Include="foundationallm\__init__.py" />
     <Compile Include="foundationallm\_version.py" />
@@ -208,6 +210,7 @@
     <Folder Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\" />
     <Folder Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\azure_ai_search\" />
     <Folder Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\" />
+    <Folder Include="foundationallm\telemetry\" />
     <Folder Include="foundationallm\resources\" />
     <Folder Include="foundationallm\storage\" />
   </ItemGroup>

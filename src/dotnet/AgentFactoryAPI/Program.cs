@@ -1,6 +1,6 @@
 using Asp.Versioning;
 using Azure.Identity;
-using FoundationaLLM;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
 using FoundationaLLM.AgentFactory.Core.Services;
@@ -21,8 +21,9 @@ using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.Extensions.Options;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -46,7 +47,7 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
+                options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
                     options.SetCredential(new DefaultAzureCredential());
@@ -60,11 +61,23 @@ namespace FoundationaLLM.AgentFactory.API
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
             // Add services to the container.
-            builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
+            // Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
+            builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
             {
-                ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString],
-                DeveloperMode = builder.Environment.IsDevelopment()
+                options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString];
             });
+
+            // Create a dictionary of resource attributes.
+            var resourceAttributes = new Dictionary<string, object> {
+                { "service.name", "AgentFactoryAPI" },
+                { "service.namespace", "FoundationaLLM" },
+                { "service.instance.id", Guid.NewGuid().ToString() }
+            };
+
+            // Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
+            builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) =>
+                builder.ConfigureResource(resourceBuilder =>
+                    resourceBuilder.AddAttributes(resourceAttributes)));
 
             builder.Services.AddInstanceProperties(builder.Configuration);
 
