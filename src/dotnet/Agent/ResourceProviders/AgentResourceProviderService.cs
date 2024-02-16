@@ -17,6 +17,7 @@ using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 
 namespace FoundationaLLM.Agent.ResourceProviders
 {
@@ -108,7 +109,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
             instances[0].ResourceType switch
             {
                 AgentResourceTypeNames.Agents => await LoadAgents(instances[0]),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.")
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for GetResourcesAsyncInternal
@@ -157,10 +159,12 @@ namespace FoundationaLLM.Agent.ResourceProviders
                     Encoding.UTF8.GetString(fileContent.ToArray()),
                     agentReference.AgentType,
                     _serializerSettings) as AgentBase
-                    ?? throw new ResourceProviderException($"Failed to load the agent {agentReference.Name}.");
+                    ?? throw new ResourceProviderException($"Failed to load the agent {agentReference.Name}.",
+                        StatusCodes.Status400BadRequest);
             }
 
-            throw new ResourceProviderException($"Could not locate the {agentReference.Name} agent resource.");
+            throw new ResourceProviderException($"Could not locate the {agentReference.Name} agent resource.",
+                StatusCodes.Status404NotFound);
         }
 
         #endregion
@@ -170,7 +174,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
             instances[0].ResourceType switch
             {
                 AgentResourceTypeNames.Agents => await UpdateAgent(instances, serializedResource),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.")
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for UpsertResourceAsync
@@ -178,10 +183,12 @@ namespace FoundationaLLM.Agent.ResourceProviders
         private async Task<ResourceProviderUpsertResult> UpdateAgent(List<ResourceTypeInstance> instances, string serializedAgent)
         {
             var agentBase = JsonSerializer.Deserialize<AgentBase>(serializedAgent)
-                ?? throw new ResourceProviderException("The object definition is invalid.");
+                ?? throw new ResourceProviderException("The object definition is invalid.",
+                    StatusCodes.Status400BadRequest);
 
             if (instances[0].ResourceId != agentBase.Name)
-                throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).");
+                throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
+                    StatusCodes.Status400BadRequest);
 
             var agentReference = new AgentReference
             {
@@ -200,7 +207,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 var validationResult = await agentValidator.ValidateAsync(context);
                 if (!validationResult.IsValid)
                 {
-                    throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
+                    throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}",
+                        StatusCodes.Status400BadRequest);
                 }
             }
 
@@ -236,7 +244,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 AgentResourceTypeNames.Agents => instances.Last().Action switch
                 {
                     AgentResourceProviderActions.CheckName => CheckAgentName(serializedAction),
-                    _ => throw new ResourceProviderException($"The action {instances.Last().Action} is not supported by the {_name} resource provider.")
+                    _ => throw new ResourceProviderException($"The action {instances.Last().Action} is not supported by the {_name} resource provider.",
+                        StatusCodes.Status400BadRequest)
                 },
                 _ => throw new ResourceProviderException()
             };
