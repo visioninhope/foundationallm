@@ -25,6 +25,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -158,6 +159,8 @@ builder.Services.ActivateSingleton<IRequestSourcesCache>();
 
 // Vectorization
 builder.Services.AddScoped<IVectorizationService, VectorizationService>();
+
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 builder.Services.AddControllers();
