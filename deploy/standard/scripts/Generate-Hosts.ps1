@@ -1,5 +1,21 @@
 #!/usr/bin/env pwsh
 
+<#
+.SYNOPSIS
+    Generates a hosts file based on the private endpoints and APIM instances in the deployment manifest.
+
+.DESCRIPTION
+    This script generates a hosts file that maps fully qualified domain names (FQDNs) to private IP addresses.
+    It retrieves the private endpoints and APIM instances from the deployment manifest and uses Azure CLI commands
+    to get the necessary information. The hosts file is then written to the specified location.
+
+.PARAMETER subscription
+    The Azure subscription ID.
+
+.EXAMPLE
+    Generate-Hosts.ps1 -subscription "12345678-1234-1234-1234-1234567890ab"
+#>
+
 param (
     [parameter(Mandatory = $true)][string]$subscription
 )
@@ -8,6 +24,7 @@ Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enabl
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
+# Function to invoke a script block and require success
 function Invoke-AndRequireSuccess {
     param (
         [Parameter(Mandatory = $true, Position = 0)]
@@ -27,6 +44,7 @@ function Invoke-AndRequireSuccess {
     return $result
 }
 
+# Function to get hosts for AKS private endpoints
 function Get-Hosts-Aks-Strategy {
     param(
         [parameter(Mandatory = $true)][string]$privateEndpointName,
@@ -57,6 +75,7 @@ function Get-Hosts-Aks-Strategy {
     return $networkInterfaceFqdns
 }
 
+# Function to get hosts for default private endpoints
 function Get-Hosts-Default-Strategy {
     param (
         [parameter(Mandatory = $true)][string]$id
@@ -80,6 +99,7 @@ function Get-Hosts-Default-Strategy {
     return $networkInterfaceFqdns
 }
 
+# Read the deployment manifest
 $manifest = $(Get-Content -Raw -Path ../Deployment-Manifest.json | ConvertFrom-Json)
 
 $hosts = @{}
