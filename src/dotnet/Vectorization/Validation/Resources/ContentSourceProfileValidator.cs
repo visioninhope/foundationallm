@@ -24,6 +24,31 @@ namespace FoundationaLLM.Vectorization.Validation.Resources
             // Validate the Type property to ensure it's a valid enum value.
             RuleFor(x => x.Type)
                 .IsInEnum().WithMessage("The content source type must be a valid value.");
+
+            RuleFor(profile => profile.ConfigurationReferences)
+                .Must((profile, configurationReferences) =>
+                {
+                    if (configurationReferences == null || !configurationReferences.Any())
+                    {
+                        return true;
+                    }
+
+                    var keysToCheck = new[] { "AuthenticationType", "ConnectionString", "AccountName" };
+
+                    foreach (var key in keysToCheck)
+                    {
+                        if (configurationReferences.TryGetValue(key, out var value))
+                        {
+                            if (!value.Contains(profile.Name))
+                            {
+                                return false;
+                            }
+                        }
+                    }
+
+                    return true;
+                })
+                .WithMessage("ConfigurationReferences must include the profile Name in values for 'AuthenticationType', 'ConnectionString', or 'AccountName'.");
         }
     }
 }

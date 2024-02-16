@@ -240,6 +240,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         {
             var profile = JsonSerializer.Deserialize<T>(serializedProfile)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
+            profile.ObjectId = GetObjectId(instances);
 
             var validator = _validatorFactory.GetValidator<T>();
             if (validator != null)
@@ -250,8 +251,6 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}");
                 }
             }
-
-            profile.ObjectId = GetObjectId(instances);
 
             if (instances[0].ResourceId != profile.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).");
