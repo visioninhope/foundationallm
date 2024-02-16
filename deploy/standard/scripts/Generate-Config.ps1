@@ -5,6 +5,7 @@ Param (
     [parameter(Mandatory = $true)][object]$entraClientIds,
     [parameter(Mandatory = $true)][object]$resourceGroups,
     [parameter(Mandatory = $true)][string]$resourceSuffix,
+    [parameter(Mandatory = $true)][string]$subscriptionId,
     [parameter(Mandatory = $true)][object]$ingress
 )
 
@@ -123,6 +124,9 @@ $services = @{
 
 ### Getting Resources
 $tokens = @{}
+
+$tokens.subscriptionId = $subscriptionId
+$tokens.storageResourceGroup = $resourceGroups.storage
 
 $tenantId = $(az account show --query homeTenantId --output tsv)
 
@@ -248,6 +252,7 @@ $tokens.openAiEndpointUri = $apim.uri
 
 
 $tokens.cosmosEndpoint = $docdb.documentEndpoint
+$tokens.storageAccountAdlsName = $storageAccountAdls.name
 
 $tokens.agentFactoryApiMiClientId = $services["agentfactoryapi"].miClientId
 $tokens.agentHubApiMiClientId = $services["agenthubapi"].miClientId
@@ -275,6 +280,41 @@ Write-Host "===========================================================" -Foregr
 Write-Host "appconfig.json file will be generated with values:"
 Write-Host ($tokens | ConvertTo-Json) -ForegroundColor Yellow
 Write-Host "===========================================================" -ForegroundColor Yellow
+
+PopulateTemplate $tokens "..,config,agent-factory-api-event-profile.template.json" "..,config,agent-factory-api-event-profile.json"
+$tokens.agentFactoryApiEventGridProfile = $(
+    Get-Content -Raw -Path "../config/agent-factory-api-event-profile.json" | `
+        ConvertFrom-Json | `
+        ConvertTo-Json -Compress
+).Replace('"', '\"')
+
+PopulateTemplate $tokens "..,config,core-api-event-profile.template.json" "..,config,core-api-event-profile.json"
+$tokens.coreApiEventGridProfile = $(
+    Get-Content -Raw -Path "../config/core-api-event-profile.json" | `
+        ConvertFrom-Json | `
+        ConvertTo-Json -Compress
+).Replace('"', '\"')
+
+$tokens.managementApiEventGridProfile = $(
+    Get-Content -Raw -Path "../config/management-api-event-profile.json" | `
+        ConvertFrom-Json | `
+        ConvertTo-Json -Compress
+).Replace('"', '\"')
+
+PopulateTemplate $tokens "..,config,vectorization-api-event-profile.template.json" "..,config,vectorization-api-event-profile.json"
+$tokens.vectorizationApiEventGridProfile = $(
+    Get-Content -Raw -Path "../config/vectorization-api-event-profile.json" | `
+        ConvertFrom-Json | `
+        ConvertTo-Json -Compress
+).Replace('"', '\"')
+
+PopulateTemplate $tokens "..,config,vectorization-worker-event-profile.template.json" "..,config,vectorization-worker-event-profile.json"
+$tokens.vectorizationWorkerEventGridProfile = $(
+    Get-Content -Raw -Path "../config/vectorization-worker-event-profile.json" | `
+        ConvertFrom-Json | `
+        ConvertTo-Json -Compress
+).Replace('"', '\"')
+
 
 PopulateTemplate $tokens "..,config,appconfig.template.json" "..,config,appconfig.json"
 PopulateTemplate $tokens "..,values,internal-service.template.yml" "..,values,microservice-values.yml"

@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Azure.Identity;
 using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FoundationaLLM.Common.Authentication;
@@ -8,9 +9,11 @@ using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
 using FoundationaLLM.SemanticKernel.Core.Plugins;
+using Microsoft.Extensions.Options;
 //using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FoundationaLLM.SemanticKernel.API
 {
@@ -54,7 +57,17 @@ namespace FoundationaLLM.SemanticKernel.API
             //builder.Services.AddApplicationInsightsTelemetry();
             builder.Services.AddAuthorization();
             builder.Services.AddControllers();
-            builder.Services.AddApiVersioning();
+            builder.Services
+                .AddApiVersioning(options =>
+                {
+                    // Reporting api versions will return the headers
+                    // "api-supported-versions" and "api-deprecated-versions"
+                    options.ReportApiVersions = true;
+                    options.AssumeDefaultVersionWhenUnspecified = true;
+                    options.DefaultApiVersion = new ApiVersion(new DateOnly(2024, 2, 16));
+                })
+                .AddMvc()
+                .AddApiExplorer();
 
             // Add API Key Authorization
             builder.Services.AddHttpContextAccessor();
@@ -64,25 +77,26 @@ namespace FoundationaLLM.SemanticKernel.API
             builder.Services.AddOptions<InstanceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
             builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
+            builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
             builder.Services.AddSwaggerGen(
-                options =>
-                {
-                    // Add a custom operation filter which sets default values
-                    options.OperationFilter<SwaggerDefaultValues>();
+                    options =>
+                    {
+                        // Add a custom operation filter which sets default values
+                        options.OperationFilter<SwaggerDefaultValues>();
 
-                    var fileName = typeof(Program).Assembly.GetName().Name + ".xml";
-                    var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+                        var fileName = typeof(Program).Assembly.GetName().Name + ".xml";
+                        var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
 
-                    // Integrate xml comments
-                    options.IncludeXmlComments(filePath);
+                        // Integrate xml comments
+                        options.IncludeXmlComments(filePath);
 
-                    // Adds auth via X-API-KEY header
-                    options.AddAPIKeyAuth();
-                })
+                        // Adds auth via X-API-KEY header
+                        options.AddAPIKeyAuth();
+                    })
                 .AddSwaggerGenNewtonsoftSupport();
 
             //builder.Services.AddOptions<SemanticKernelServiceSettings>()
@@ -138,8 +152,22 @@ namespace FoundationaLLM.SemanticKernel.API
                     => await Results.Problem().ExecuteAsync(context)));
 
             // Configure the HTTP request pipeline.
-            app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwagger(p => p.SerializeAsV2 = true);
+            app.UseSwaggerUI(
+                options =>
+                {
+                    var descriptions = app.DescribeApiVersions();
+
+                    // build a swagger endpoint for each discovered API version
+                    foreach (var description in descriptions)
+                    {
+                        var url = $"/swagger/{description.GroupName}/swagger.json";
+                        var name = description.GroupName.ToUpperInvariant();
+                        options.SwaggerEndpoint(url, name);
+                    }
+
+                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId] } });
+                });
 
             app.UseHttpsRedirection();
             app.UseAuthorization();

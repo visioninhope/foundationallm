@@ -127,24 +127,11 @@ namespace FoundationaLLM.Agent.ResourceProviders
             }
             else
             {
-                //TODO: Find a more efficient way to load and agent when the type is not known in advance
-                // (ideally avoiding the double load below).
+                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference))
+                    new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
+                        StatusCodes.Status404NotFound);
 
-                var agentReference = new AgentReference
-                {
-                    Name = instance.ResourceId,
-                    Type = AgentTypes.Basic,
-                    Filename = $"/{_name}/{instance.ResourceId}.json"
-                };
-                var agent = await LoadAgent(agentReference);
-
-                agentReference.Type = agent.Type;
-                agent = await LoadAgent(agentReference);
-
-                _agentReferences.AddOrUpdate(
-                    agentReference.Name,
-                    agentReference,
-                    (k, v) => v);
+                var agent = await LoadAgent(agentReference!);
 
                 return [agent];
             }

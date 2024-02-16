@@ -95,6 +95,7 @@ namespace FoundationaLLM.Configuration.Services
             }
         }
 
-        public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
+        public async Task StopAsync(CancellationToken cancellationToken) =>
+            await Task.CompletedTask;
     }
 }

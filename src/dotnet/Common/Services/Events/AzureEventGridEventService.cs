@@ -29,6 +29,10 @@ namespace FoundationaLLM.Common.Services.Events
             {
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent,
                 null
+            },
+            {
+                EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization,
+                null
             }
         };
 

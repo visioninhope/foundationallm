@@ -14,7 +14,6 @@ namespace FoundationaLLM.Management.API.Controllers
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
     [Authorize]
     [Authorize(Policy = "RequiredScope")]
-    [ApiVersion(1.0)]
     [ApiController]
     [Consumes("application/json")]
     [Produces("application/json")]
