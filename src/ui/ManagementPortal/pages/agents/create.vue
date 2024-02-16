@@ -660,9 +660,9 @@ export default {
 			this.loadingStatusText = 'Creating agent...';
 
 			const agentRequest = {
+				type: this.agentType,
 				name: this.agentName,
 				description: this.agentDescription,
-				type: this.agentType,
 				object_id: this.object_id,
 
 				embedding_profile: this.selectedDataSource?.objectId,
