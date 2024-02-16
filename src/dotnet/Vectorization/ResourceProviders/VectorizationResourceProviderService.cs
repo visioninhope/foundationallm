@@ -1,7 +1,10 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using Azure.Messaging;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services.ResourceProviders;
@@ -29,7 +32,10 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             instanceOptions.Value,
             storageService,
             eventService,
-            logger)
+            logger,
+            [
+                EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization
+            ])
     {
         /// <inheritdoc/>
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
@@ -386,6 +392,43 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         {
             request.ObjectId = GetObjectId(instances);
             await Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region Event handling
+
+        /// <inheritdoc/>
+        protected override async Task HandleEvents(EventSetEventArgs e)
+        {
+            _logger.LogInformation("{EventsCount} events received in the {EventsNamespace} events namespace.",
+                e.Events.Count, e.Namespace);
+
+            switch (e.Namespace)
+            {
+                case EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent:
+                    foreach (var @event in e.Events)
+                        await HandleVectorizationResourceProviderEvent(@event);
+                    break;
+                default:
+                    // Ignore sliently any event namespace that's of no interest.
+                    break;
+            }
+
+            await Task.CompletedTask;
+        }
+
+        private async Task HandleVectorizationResourceProviderEvent(CloudEvent e)
+        {
+            if (string.IsNullOrWhiteSpace(e.Subject))
+                return;
+
+            var fileName = e.Subject.Split("/").Last();
+
+            _logger.LogInformation("The file [{FileName}] managed by the [{ResourceProvider}] resource provider has changed and will be reloaded.",
+                fileName, _name);
+
+            
         }
 
         #endregion
