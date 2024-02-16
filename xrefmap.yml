@@ -131,15 +131,15 @@ references:
   commentId: T:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService
   fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService
   nameWithType: AgentResourceProviderService
-- uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,Microsoft.Extensions.Logging.ILoggerFactory)
-  name: AgentResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: New(IOptions(Of InstanceSettings), IStorageService, IEventService, ILoggerFactory)
-  fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.AgentResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: AgentResourceProviderService.AgentResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, ILoggerFactory)
-  nameWithType.vb: AgentResourceProviderService.New(IOptions(Of InstanceSettings), IStorageService, IEventService, ILoggerFactory)
+- uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: AgentResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, IResourceValidatorFactory, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IOptions(Of InstanceSettings), IStorageService, IEventService, IResourceValidatorFactory, ILoggerFactory)
+  fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.AgentResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: AgentResourceProviderService.AgentResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, IResourceValidatorFactory, ILoggerFactory)
+  nameWithType.vb: AgentResourceProviderService.New(IOptions(Of InstanceSettings), IStorageService, IEventService, IResourceValidatorFactory, ILoggerFactory)
 - uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.#ctor*
   name: AgentResourceProviderService
   href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService__ctor_
@@ -250,6 +250,62 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService._name
   nameWithType: AgentResourceProviderService._name
+- uid: FoundationaLLM.Agent.Validation.Metadata
+  name: FoundationaLLM.Agent.Validation.Metadata
+  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.html
+  commentId: N:FoundationaLLM.Agent.Validation.Metadata
+  fullName: FoundationaLLM.Agent.Validation.Metadata
+  nameWithType: FoundationaLLM.Agent.Validation.Metadata
+- uid: FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator
+  name: AgentBaseValidator
+  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.html
+  commentId: T:FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator
+  fullName: FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator
+  nameWithType: AgentBaseValidator
+- uid: FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.#ctor
+  name: AgentBaseValidator()
+  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.html#FoundationaLLM_Agent_Validation_Metadata_AgentBaseValidator__ctor
+  commentId: M:FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.AgentBaseValidator()
+  fullName.vb: FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.New()
+  nameWithType: AgentBaseValidator.AgentBaseValidator()
+  nameWithType.vb: AgentBaseValidator.New()
+- uid: FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.#ctor*
+  name: AgentBaseValidator
+  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.html#FoundationaLLM_Agent_Validation_Metadata_AgentBaseValidator__ctor_
+  commentId: Overload:FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.AgentBaseValidator
+  fullName.vb: FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.New
+  nameWithType: AgentBaseValidator.AgentBaseValidator
+  nameWithType.vb: AgentBaseValidator.New
+- uid: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator
+  name: KnowledgeManagementAgentValidator
+  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.html
+  commentId: T:FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator
+  fullName: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator
+  nameWithType: KnowledgeManagementAgentValidator
+- uid: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.#ctor
+  name: KnowledgeManagementAgentValidator()
+  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.html#FoundationaLLM_Agent_Validation_Metadata_KnowledgeManagementAgentValidator__ctor
+  commentId: M:FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.KnowledgeManagementAgentValidator()
+  fullName.vb: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.New()
+  nameWithType: KnowledgeManagementAgentValidator.KnowledgeManagementAgentValidator()
+  nameWithType.vb: KnowledgeManagementAgentValidator.New()
+- uid: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.#ctor*
+  name: KnowledgeManagementAgentValidator
+  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.html#FoundationaLLM_Agent_Validation_Metadata_KnowledgeManagementAgentValidator__ctor_
+  commentId: Overload:FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.KnowledgeManagementAgentValidator
+  fullName.vb: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.New
+  nameWithType: KnowledgeManagementAgentValidator.KnowledgeManagementAgentValidator
+  nameWithType.vb: KnowledgeManagementAgentValidator.New
 - uid: FoundationaLLM.AgentFactory
   name: FoundationaLLM.AgentFactory
   href: api/dotnet/FoundationaLLM.AgentFactory.html
@@ -3588,24 +3644,24 @@ references:
   fullName.vb: FoundationaLLM.Common.Exceptions.ResourceProviderException.New()
   nameWithType: ResourceProviderException.ResourceProviderException()
   nameWithType.vb: ResourceProviderException.New()
-- uid: FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor(System.String)
-  name: ResourceProviderException(string?)
-  href: api/dotnet/FoundationaLLM.Common.Exceptions.ResourceProviderException.html#FoundationaLLM_Common_Exceptions_ResourceProviderException__ctor_System_String_
-  commentId: M:FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor(System.String)
-  name.vb: New(String)
-  fullName: FoundationaLLM.Common.Exceptions.ResourceProviderException.ResourceProviderException(string?)
-  fullName.vb: FoundationaLLM.Common.Exceptions.ResourceProviderException.New(String)
-  nameWithType: ResourceProviderException.ResourceProviderException(string?)
-  nameWithType.vb: ResourceProviderException.New(String)
-- uid: FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor(System.String,System.Exception)
-  name: ResourceProviderException(string?, Exception?)
-  href: api/dotnet/FoundationaLLM.Common.Exceptions.ResourceProviderException.html#FoundationaLLM_Common_Exceptions_ResourceProviderException__ctor_System_String_System_Exception_
-  commentId: M:FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor(System.String,System.Exception)
-  name.vb: New(String, Exception)
-  fullName: FoundationaLLM.Common.Exceptions.ResourceProviderException.ResourceProviderException(string?, System.Exception?)
-  fullName.vb: FoundationaLLM.Common.Exceptions.ResourceProviderException.New(String, System.Exception)
-  nameWithType: ResourceProviderException.ResourceProviderException(string?, Exception?)
-  nameWithType.vb: ResourceProviderException.New(String, Exception)
+- uid: FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor(System.String,System.Exception,System.Int32)
+  name: ResourceProviderException(string?, Exception?, int)
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ResourceProviderException.html#FoundationaLLM_Common_Exceptions_ResourceProviderException__ctor_System_String_System_Exception_System_Int32_
+  commentId: M:FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor(System.String,System.Exception,System.Int32)
+  name.vb: New(String, Exception, Integer)
+  fullName: FoundationaLLM.Common.Exceptions.ResourceProviderException.ResourceProviderException(string?, System.Exception?, int)
+  fullName.vb: FoundationaLLM.Common.Exceptions.ResourceProviderException.New(String, System.Exception, Integer)
+  nameWithType: ResourceProviderException.ResourceProviderException(string?, Exception?, int)
+  nameWithType.vb: ResourceProviderException.New(String, Exception, Integer)
+- uid: FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor(System.String,System.Int32)
+  name: ResourceProviderException(string?, int)
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ResourceProviderException.html#FoundationaLLM_Common_Exceptions_ResourceProviderException__ctor_System_String_System_Int32_
+  commentId: M:FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor(System.String,System.Int32)
+  name.vb: New(String, Integer)
+  fullName: FoundationaLLM.Common.Exceptions.ResourceProviderException.ResourceProviderException(string?, int)
+  fullName.vb: FoundationaLLM.Common.Exceptions.ResourceProviderException.New(String, Integer)
+  nameWithType: ResourceProviderException.ResourceProviderException(string?, int)
+  nameWithType.vb: ResourceProviderException.New(String, Integer)
 - uid: FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor*
   name: ResourceProviderException
   href: api/dotnet/FoundationaLLM.Common.Exceptions.ResourceProviderException.html#FoundationaLLM_Common_Exceptions_ResourceProviderException__ctor_
@@ -3616,6 +3672,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Exceptions.ResourceProviderException.New
   nameWithType: ResourceProviderException.ResourceProviderException
   nameWithType.vb: ResourceProviderException.New
+- uid: FoundationaLLM.Common.Exceptions.ResourceProviderException.StatusCode
+  name: StatusCode
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ResourceProviderException.html#FoundationaLLM_Common_Exceptions_ResourceProviderException_StatusCode
+  commentId: P:FoundationaLLM.Common.Exceptions.ResourceProviderException.StatusCode
+  fullName: FoundationaLLM.Common.Exceptions.ResourceProviderException.StatusCode
+  nameWithType: ResourceProviderException.StatusCode
+- uid: FoundationaLLM.Common.Exceptions.ResourceProviderException.StatusCode*
+  name: StatusCode
+  href: api/dotnet/FoundationaLLM.Common.Exceptions.ResourceProviderException.html#FoundationaLLM_Common_Exceptions_ResourceProviderException_StatusCode_
+  commentId: Overload:FoundationaLLM.Common.Exceptions.ResourceProviderException.StatusCode
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Exceptions.ResourceProviderException.StatusCode
+  nameWithType: ResourceProviderException.StatusCode
 - uid: FoundationaLLM.Common.Exceptions.StorageException
   name: StorageException
   href: api/dotnet/FoundationaLLM.Common.Exceptions.StorageException.html
@@ -4541,6 +4610,34 @@ references:
   fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResource(Of T)(String, T)
   nameWithType: IResourceProviderService.UpsertResource<T>(string, T)
   nameWithType.vb: IResourceProviderService.UpsertResource(Of T)(String, T)
+- uid: FoundationaLLM.Common.Interfaces.IResourceValidatorFactory
+  name: IResourceValidatorFactory
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.html
+  commentId: T:FoundationaLLM.Common.Interfaces.IResourceValidatorFactory
+  fullName: FoundationaLLM.Common.Interfaces.IResourceValidatorFactory
+  nameWithType: IResourceValidatorFactory
+- uid: FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.GetValidator(System.Type)
+  name: GetValidator(Type)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.html#FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_GetValidator_System_Type_
+  commentId: M:FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.GetValidator(System.Type)
+  fullName: FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.GetValidator(System.Type)
+  nameWithType: IResourceValidatorFactory.GetValidator(Type)
+- uid: FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.GetValidator*
+  name: GetValidator
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.html#FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_GetValidator_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.GetValidator
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.GetValidator
+  nameWithType: IResourceValidatorFactory.GetValidator
+- uid: FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.GetValidator``1
+  name: GetValidator<T>()
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.html#FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_GetValidator__1
+  commentId: M:FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.GetValidator``1
+  name.vb: GetValidator(Of T)()
+  fullName: FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.GetValidator<T>()
+  fullName.vb: FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.GetValidator(Of T)()
+  nameWithType: IResourceValidatorFactory.GetValidator<T>()
+  nameWithType.vb: IResourceValidatorFactory.GetValidator(Of T)()
 - uid: FoundationaLLM.Common.Interfaces.IStorageService
   name: IStorageService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html
@@ -13582,6 +13679,121 @@ references:
   fullName.vb: FoundationaLLM.Common.Tasks.TaskPoolException.New
   nameWithType: TaskPoolException.TaskPoolException
   nameWithType.vb: TaskPoolException.New
+- uid: FoundationaLLM.Common.Validation
+  name: FoundationaLLM.Common.Validation
+  href: api/dotnet/FoundationaLLM.Common.Validation.html
+  commentId: N:FoundationaLLM.Common.Validation
+  fullName: FoundationaLLM.Common.Validation
+  nameWithType: FoundationaLLM.Common.Validation
+- uid: FoundationaLLM.Common.Validation.Metadata
+  name: FoundationaLLM.Common.Validation.Metadata
+  href: api/dotnet/FoundationaLLM.Common.Validation.Metadata.html
+  commentId: N:FoundationaLLM.Common.Validation.Metadata
+  fullName: FoundationaLLM.Common.Validation.Metadata
+  nameWithType: FoundationaLLM.Common.Validation.Metadata
+- uid: FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator
+  name: LanguageModelValidator
+  href: api/dotnet/FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.html
+  commentId: T:FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator
+  fullName: FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator
+  nameWithType: LanguageModelValidator
+- uid: FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.#ctor
+  name: LanguageModelValidator()
+  href: api/dotnet/FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.html#FoundationaLLM_Common_Validation_Metadata_LanguageModelValidator__ctor
+  commentId: M:FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.LanguageModelValidator()
+  fullName.vb: FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.New()
+  nameWithType: LanguageModelValidator.LanguageModelValidator()
+  nameWithType.vb: LanguageModelValidator.New()
+- uid: FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.#ctor*
+  name: LanguageModelValidator
+  href: api/dotnet/FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.html#FoundationaLLM_Common_Validation_Metadata_LanguageModelValidator__ctor_
+  commentId: Overload:FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.LanguageModelValidator
+  fullName.vb: FoundationaLLM.Common.Validation.Metadata.LanguageModelValidator.New
+  nameWithType: LanguageModelValidator.LanguageModelValidator
+  nameWithType.vb: LanguageModelValidator.New
+- uid: FoundationaLLM.Common.Validation.ResourceProvider
+  name: FoundationaLLM.Common.Validation.ResourceProvider
+  href: api/dotnet/FoundationaLLM.Common.Validation.ResourceProvider.html
+  commentId: N:FoundationaLLM.Common.Validation.ResourceProvider
+  fullName: FoundationaLLM.Common.Validation.ResourceProvider
+  nameWithType: FoundationaLLM.Common.Validation.ResourceProvider
+- uid: FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator
+  name: ResourceBaseValidator
+  href: api/dotnet/FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.html
+  commentId: T:FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator
+  fullName: FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator
+  nameWithType: ResourceBaseValidator
+- uid: FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.#ctor
+  name: ResourceBaseValidator()
+  href: api/dotnet/FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.html#FoundationaLLM_Common_Validation_ResourceProvider_ResourceBaseValidator__ctor
+  commentId: M:FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.ResourceBaseValidator()
+  fullName.vb: FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.New()
+  nameWithType: ResourceBaseValidator.ResourceBaseValidator()
+  nameWithType.vb: ResourceBaseValidator.New()
+- uid: FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.#ctor*
+  name: ResourceBaseValidator
+  href: api/dotnet/FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.html#FoundationaLLM_Common_Validation_ResourceProvider_ResourceBaseValidator__ctor_
+  commentId: Overload:FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.ResourceBaseValidator
+  fullName.vb: FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.New
+  nameWithType: ResourceBaseValidator.ResourceBaseValidator
+  nameWithType.vb: ResourceBaseValidator.New
+- uid: FoundationaLLM.Common.Validation.ResourceValidatorFactory
+  name: ResourceValidatorFactory
+  href: api/dotnet/FoundationaLLM.Common.Validation.ResourceValidatorFactory.html
+  commentId: T:FoundationaLLM.Common.Validation.ResourceValidatorFactory
+  fullName: FoundationaLLM.Common.Validation.ResourceValidatorFactory
+  nameWithType: ResourceValidatorFactory
+- uid: FoundationaLLM.Common.Validation.ResourceValidatorFactory.#ctor(System.IServiceProvider)
+  name: ResourceValidatorFactory(IServiceProvider)
+  href: api/dotnet/FoundationaLLM.Common.Validation.ResourceValidatorFactory.html#FoundationaLLM_Common_Validation_ResourceValidatorFactory__ctor_System_IServiceProvider_
+  commentId: M:FoundationaLLM.Common.Validation.ResourceValidatorFactory.#ctor(System.IServiceProvider)
+  name.vb: New(IServiceProvider)
+  fullName: FoundationaLLM.Common.Validation.ResourceValidatorFactory.ResourceValidatorFactory(System.IServiceProvider)
+  fullName.vb: FoundationaLLM.Common.Validation.ResourceValidatorFactory.New(System.IServiceProvider)
+  nameWithType: ResourceValidatorFactory.ResourceValidatorFactory(IServiceProvider)
+  nameWithType.vb: ResourceValidatorFactory.New(IServiceProvider)
+- uid: FoundationaLLM.Common.Validation.ResourceValidatorFactory.#ctor*
+  name: ResourceValidatorFactory
+  href: api/dotnet/FoundationaLLM.Common.Validation.ResourceValidatorFactory.html#FoundationaLLM_Common_Validation_ResourceValidatorFactory__ctor_
+  commentId: Overload:FoundationaLLM.Common.Validation.ResourceValidatorFactory.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Validation.ResourceValidatorFactory.ResourceValidatorFactory
+  fullName.vb: FoundationaLLM.Common.Validation.ResourceValidatorFactory.New
+  nameWithType: ResourceValidatorFactory.ResourceValidatorFactory
+  nameWithType.vb: ResourceValidatorFactory.New
+- uid: FoundationaLLM.Common.Validation.ResourceValidatorFactory.GetValidator(System.Type)
+  name: GetValidator(Type)
+  href: api/dotnet/FoundationaLLM.Common.Validation.ResourceValidatorFactory.html#FoundationaLLM_Common_Validation_ResourceValidatorFactory_GetValidator_System_Type_
+  commentId: M:FoundationaLLM.Common.Validation.ResourceValidatorFactory.GetValidator(System.Type)
+  fullName: FoundationaLLM.Common.Validation.ResourceValidatorFactory.GetValidator(System.Type)
+  nameWithType: ResourceValidatorFactory.GetValidator(Type)
+- uid: FoundationaLLM.Common.Validation.ResourceValidatorFactory.GetValidator*
+  name: GetValidator
+  href: api/dotnet/FoundationaLLM.Common.Validation.ResourceValidatorFactory.html#FoundationaLLM_Common_Validation_ResourceValidatorFactory_GetValidator_
+  commentId: Overload:FoundationaLLM.Common.Validation.ResourceValidatorFactory.GetValidator
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Validation.ResourceValidatorFactory.GetValidator
+  nameWithType: ResourceValidatorFactory.GetValidator
+- uid: FoundationaLLM.Common.Validation.ResourceValidatorFactory.GetValidator``1
+  name: GetValidator<T>()
+  href: api/dotnet/FoundationaLLM.Common.Validation.ResourceValidatorFactory.html#FoundationaLLM_Common_Validation_ResourceValidatorFactory_GetValidator__1
+  commentId: M:FoundationaLLM.Common.Validation.ResourceValidatorFactory.GetValidator``1
+  name.vb: GetValidator(Of T)()
+  fullName: FoundationaLLM.Common.Validation.ResourceValidatorFactory.GetValidator<T>()
+  fullName.vb: FoundationaLLM.Common.Validation.ResourceValidatorFactory.GetValidator(Of T)()
+  nameWithType: ResourceValidatorFactory.GetValidator<T>()
+  nameWithType.vb: ResourceValidatorFactory.GetValidator(Of T)()
 - uid: FoundationaLLM.Configuration
   name: FoundationaLLM.Configuration
   href: api/dotnet/FoundationaLLM.Configuration.html
@@ -20742,15 +20954,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService
   fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService
   nameWithType: VectorizationResourceProviderService
-- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService})
-  name: VectorizationResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, ILogger<VectorizationResourceProviderService>)
-  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__
-  commentId: M:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService})
-  name.vb: New(IOptions(Of InstanceSettings), IStorageService, IEventService, ILogger(Of VectorizationResourceProviderService))
-  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.VectorizationResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService>)
-  fullName.vb: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService))
-  nameWithType: VectorizationResourceProviderService.VectorizationResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, ILogger<VectorizationResourceProviderService>)
-  nameWithType.vb: VectorizationResourceProviderService.New(IOptions(Of InstanceSettings), IStorageService, IEventService, ILogger(Of VectorizationResourceProviderService))
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService})
+  name: VectorizationResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, IResourceValidatorFactory, ILogger<VectorizationResourceProviderService>)
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__
+  commentId: M:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService})
+  name.vb: New(IOptions(Of InstanceSettings), IStorageService, IEventService, IResourceValidatorFactory, ILogger(Of VectorizationResourceProviderService))
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.VectorizationResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService>)
+  fullName.vb: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService))
+  nameWithType: VectorizationResourceProviderService.VectorizationResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, IResourceValidatorFactory, ILogger<VectorizationResourceProviderService>)
+  nameWithType.vb: VectorizationResourceProviderService.New(IOptions(Of InstanceSettings), IStorageService, IEventService, IResourceValidatorFactory, ILogger(Of VectorizationResourceProviderService))
 - uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor*
   name: VectorizationResourceProviderService
   href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__ctor_
@@ -21833,6 +22045,137 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier
   nameWithType: VectorizationStateServiceBase.HashContentIdentifier
+- uid: FoundationaLLM.Vectorization.Validation.Resources
+  name: FoundationaLLM.Vectorization.Validation.Resources
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.html
+  commentId: N:FoundationaLLM.Vectorization.Validation.Resources
+  fullName: FoundationaLLM.Vectorization.Validation.Resources
+  nameWithType: FoundationaLLM.Vectorization.Validation.Resources
+- uid: FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator
+  name: ContentSourceProfileValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.html
+  commentId: T:FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator
+  nameWithType: ContentSourceProfileValidator
+- uid: FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.#ctor
+  name: ContentSourceProfileValidator()
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.html#FoundationaLLM_Vectorization_Validation_Resources_ContentSourceProfileValidator__ctor
+  commentId: M:FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.ContentSourceProfileValidator()
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.New()
+  nameWithType: ContentSourceProfileValidator.ContentSourceProfileValidator()
+  nameWithType.vb: ContentSourceProfileValidator.New()
+- uid: FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.#ctor*
+  name: ContentSourceProfileValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.html#FoundationaLLM_Vectorization_Validation_Resources_ContentSourceProfileValidator__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.ContentSourceProfileValidator
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.ContentSourceProfileValidator.New
+  nameWithType: ContentSourceProfileValidator.ContentSourceProfileValidator
+  nameWithType.vb: ContentSourceProfileValidator.New
+- uid: FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator
+  name: IndexingProfileValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.html
+  commentId: T:FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator
+  nameWithType: IndexingProfileValidator
+- uid: FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.#ctor
+  name: IndexingProfileValidator()
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.html#FoundationaLLM_Vectorization_Validation_Resources_IndexingProfileValidator__ctor
+  commentId: M:FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.IndexingProfileValidator()
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.New()
+  nameWithType: IndexingProfileValidator.IndexingProfileValidator()
+  nameWithType.vb: IndexingProfileValidator.New()
+- uid: FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.#ctor*
+  name: IndexingProfileValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.html#FoundationaLLM_Vectorization_Validation_Resources_IndexingProfileValidator__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.IndexingProfileValidator
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.IndexingProfileValidator.New
+  nameWithType: IndexingProfileValidator.IndexingProfileValidator
+  nameWithType.vb: IndexingProfileValidator.New
+- uid: FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator
+  name: TextEmbeddingProfileValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.html
+  commentId: T:FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator
+  nameWithType: TextEmbeddingProfileValidator
+- uid: FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.#ctor
+  name: TextEmbeddingProfileValidator()
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.html#FoundationaLLM_Vectorization_Validation_Resources_TextEmbeddingProfileValidator__ctor
+  commentId: M:FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.TextEmbeddingProfileValidator()
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.New()
+  nameWithType: TextEmbeddingProfileValidator.TextEmbeddingProfileValidator()
+  nameWithType.vb: TextEmbeddingProfileValidator.New()
+- uid: FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.#ctor*
+  name: TextEmbeddingProfileValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.html#FoundationaLLM_Vectorization_Validation_Resources_TextEmbeddingProfileValidator__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.TextEmbeddingProfileValidator
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.TextEmbeddingProfileValidator.New
+  nameWithType: TextEmbeddingProfileValidator.TextEmbeddingProfileValidator
+  nameWithType.vb: TextEmbeddingProfileValidator.New
+- uid: FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator
+  name: TextPartitioningProfileValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.html
+  commentId: T:FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator
+  nameWithType: TextPartitioningProfileValidator
+- uid: FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.#ctor
+  name: TextPartitioningProfileValidator()
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.html#FoundationaLLM_Vectorization_Validation_Resources_TextPartitioningProfileValidator__ctor
+  commentId: M:FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.TextPartitioningProfileValidator()
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.New()
+  nameWithType: TextPartitioningProfileValidator.TextPartitioningProfileValidator()
+  nameWithType.vb: TextPartitioningProfileValidator.New()
+- uid: FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.#ctor*
+  name: TextPartitioningProfileValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.html#FoundationaLLM_Vectorization_Validation_Resources_TextPartitioningProfileValidator__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.TextPartitioningProfileValidator
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.New
+  nameWithType: TextPartitioningProfileValidator.TextPartitioningProfileValidator
+  nameWithType.vb: TextPartitioningProfileValidator.New
+- uid: FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator
+  name: VectorizationProfileBaseValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.html
+  commentId: T:FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator
+  nameWithType: VectorizationProfileBaseValidator
+- uid: FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.#ctor
+  name: VectorizationProfileBaseValidator()
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.html#FoundationaLLM_Vectorization_Validation_Resources_VectorizationProfileBaseValidator__ctor
+  commentId: M:FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.VectorizationProfileBaseValidator()
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.New()
+  nameWithType: VectorizationProfileBaseValidator.VectorizationProfileBaseValidator()
+  nameWithType.vb: VectorizationProfileBaseValidator.New()
+- uid: FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.#ctor*
+  name: VectorizationProfileBaseValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.html#FoundationaLLM_Vectorization_Validation_Resources_VectorizationProfileBaseValidator__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.VectorizationProfileBaseValidator
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.New
+  nameWithType: VectorizationProfileBaseValidator.VectorizationProfileBaseValidator
+  nameWithType.vb: VectorizationProfileBaseValidator.New
 - uid: FoundationaLLM.Vectorization.VectorizationWorker
   name: VectorizationWorker
   href: api/dotnet/FoundationaLLM.Vectorization.VectorizationWorker.html
