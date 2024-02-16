@@ -57,6 +57,7 @@ namespace FoundationaLLM.AgentFactory.Services
             var agentName = request switch
             {
                 KnowledgeManagementCompletionRequest kmcr => kmcr.Agent.Name,
+                InternalContextCompletionRequest icr => icr.Agent.Name,
                 LegacyCompletionRequest lcr => lcr.Agent?.Name,
                 _ => string.Empty,
             };

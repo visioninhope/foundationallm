@@ -13,6 +13,12 @@
         /// Knowledge Management agents are best for Q&amp;A, summarization, and reasoning over textual data.
         /// </summary>
         public const string KnowledgeManagement = "knowledge-management";
+
+        /// <summary>
+        /// Internal context agents are for passing through user prompts directly to the LLM.
+        /// </summary>
+        public const string InternalContext = "internal-context";
+
         /// <summary>
         /// Analytic agents are best for querying, analyzing, calculating, and reporting on tabular data.
         /// </summary>
