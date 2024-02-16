@@ -25,6 +25,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -159,6 +160,8 @@ builder.Services.ActivateSingleton<IRequestSourcesCache>();
 // Vectorization
 builder.Services.AddScoped<IVectorizationService, VectorizationService>();
 
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 builder.Services.AddControllers();
 
@@ -170,19 +173,15 @@ builder.Services.AddOptions<APIKeyValidationSettings>()
 
 builder.Services
     .AddApiVersioning(options =>
-     {
-         // Reporting api versions will return the headers
-         // "api-supported-versions" and "api-deprecated-versions"
-         options.ReportApiVersions = true;
-         options.AssumeDefaultVersionWhenUnspecified = true;
-         options.DefaultApiVersion = new ApiVersion(1, 0);
-     })
-    .AddApiExplorer(options =>
     {
-        // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-        // note: the specified format code will format the version as "'v'major[.minor][-status]"
-        options.GroupNameFormat = "'v'VVV";
-    });
+        // Reporting api versions will return the headers
+        // "api-supported-versions" and "api-deprecated-versions"
+        options.ReportApiVersions = true;
+        options.AssumeDefaultVersionWhenUnspecified = true;
+        options.DefaultApiVersion = new ApiVersion(new DateOnly(2024, 2, 16));
+    })
+    .AddMvc()
+    .AddApiExplorer();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

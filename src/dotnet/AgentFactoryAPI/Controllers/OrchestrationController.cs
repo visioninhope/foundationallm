@@ -14,7 +14,6 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
     /// </remarks>
     /// <param name="agentFactoryService"></param>
     /// <param name="logger"></param>
-    [ApiVersion(1.0)]
     [ApiController]
     [APIKeyAuthentication]
     [Route("[controller]")]
