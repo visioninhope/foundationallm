@@ -6,6 +6,21 @@ param location string = resourceGroup().location
 param name string
 param tags object = {}
 
+var secretNames = [
+  'storage-connection'
+  'foundationallm-agent-resourceprovider-storage-connectionstring'
+  'foundationallm-agenthub-storagemanager-blobstorage-connectionstring'
+  'foundationallm-blobstoragememorysource-blobstorageconnection'
+  'foundationallm-cognitivesearchmemorysource-blobstorageconnection'
+  'foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring'
+  'foundationallm-durablesystemprompt-blobstorageconnection'
+  'foundationallm-prompt-resourceprovider-storage-connectionstring'
+  'foundationallm-prompthub-storagemanager-blobstorage-connectionstring'
+  'foundationallm-vectorization-queues-connectionstring'
+  'foundationallm-vectorization-state-connectionstring'
+  'foundationallm-vectorization-resourceprovider-storage-connectionstring'
+]
+
 resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: name
   location: location

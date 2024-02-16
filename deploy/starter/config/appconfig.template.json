@@ -854,25 +854,53 @@
     "value": "APIKey"
   },
   {
-    "keyVault": true,
+    "keyVault": false,
     "featureFlag": false,
     "isJson": false,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:Endpoint",
     "value": "${AZURE_EVENT_GRID_ENDPOINT}"
   },
   {
-    "keyVault": true,
+    "keyVault": false,
     "featureFlag": false,
     "isJson": false,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:NamespaceId",
     "value": "${AZURE_EVENT_GRID_ID}"
   },
   {
-    "keyVault": true,
+    "keyVault": false,
     "featureFlag": false,
     "isJson": false,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI",
     "value": "${FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE}"
+  },
+  {
+    "keyVault": false,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI",
+    "value": "${FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE}"
+  },
+  {
+    "keyVault": false,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationAPI",
+    "value": "${FOUNDATIONALLM_VECTORIZATION_API_EVENT_GRID_PROFILE}"
+  },
+  {
+    "keyVault": false,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker",
+    "value": "${FOUNDATIONALLM_VECTORIZATION_WORKER_EVENT_GRID_PROFILE}"
+  },
+  {
+    "keyVault": false,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI",
+    "value": "${FOUNDATIONALLM_AGENT_FACTORY_API_EVENT_GRID_PROFILE}"
   },
   {
     "keyVault": false,

@@ -18,12 +18,17 @@ EOF
 
 export VECTORIZATION_WORKER_CONFIG=`cat ./config/vectorization.json`
 
+envsubst < ./config/agent-factory-api-event-profile.template.json > ./config/agent-factory-api-event-profile.json
+export FOUNDATIONALLM_AGENT_FACTORY_API_EVENT_GRID_PROFILE=`cat ./config/agent-factory-api-event-profile.json`
 envsubst < ./config/core-api-event-profile.template.json > ./config/core-api-event-profile.json
 export FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE=`cat ./config/core-api-event-profile.json`
+export FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE=`cat ./config/management-api-event-profile.json`
+envsubst < ./config/vectorization-api-event-profile.template.json > ./config/vectorization-api-event-profile.json
+export FOUNDATIONALLM_VECTORIZATION_API_EVENT_GRID_PROFILE=`cat ./config/vectorization-api-event-profile.json`
+envsubst < ./config/vectorization-worker-event-profile.template.json > ./config/vectorization-worker-event-profile.json
+export FOUNDATIONALLM_VECTORIZATION_WORKER_EVENT_GRID_PROFILE=`cat ./config/vectorization-worker-event-profile.json`
 
 envsubst < ./config/appconfig.template.json > ./config/appconfig.json
-
-
 
 jq -c '.[]' ./config/appconfig.json | while read i; do
     keyVault=`echo $i | jq '.keyVault'`
