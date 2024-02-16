@@ -413,7 +413,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         {
             if (string.IsNullOrWhiteSpace(resourcePath))
                 throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.",
-                    StatusCodes.Status404NotFound);
+                    StatusCodes.Status400BadRequest);
 
             var tokens = resourcePath.Split('/', StringSplitOptions.RemoveEmptyEntries);
 
@@ -425,7 +425,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 if (currentResourceTypes == null
                     || !currentResourceTypes.TryGetValue(tokens[currentIndex], out ResourceTypeDescriptor? currentResourceType))
                     throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.",
-                        StatusCodes.Status404NotFound);
+                        StatusCodes.Status400BadRequest);
 
                 var resourceTypeInstance = new ResourceTypeInstance(tokens[currentIndex]);
                 result.Add(resourceTypeInstance);
@@ -443,7 +443,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                     // The next token is an action
                     if (!allowAction)
                         throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.",
-                            StatusCodes.Status404NotFound);
+                            StatusCodes.Status400BadRequest);
 
                     resourceTypeInstance.Action = tokens[currentIndex + 1];
 
@@ -467,14 +467,14 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                         // The token represents an action.
                         if (!allowAction)
                             throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.",
-                                StatusCodes.Status404NotFound);
+                                StatusCodes.Status400BadRequest);
 
                         resourceTypeInstance.Action = tokens[currentIndex + 2];
                         break;
                     }
                     else
                         throw new ResourceProviderException($"The [{tokens[currentIndex + 2]}] action is invalid.",
-                            StatusCodes.Status404NotFound);
+                            StatusCodes.Status400BadRequest);
                 }
 
                 currentResourceTypes = currentResourceType.SubTypes;

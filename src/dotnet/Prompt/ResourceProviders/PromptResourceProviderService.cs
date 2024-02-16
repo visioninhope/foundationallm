@@ -100,7 +100,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             instances[0].ResourceType switch
             {
                 PromptResourceTypeNames.Prompts => await LoadPrompts(instances[0]),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.",
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
@@ -164,7 +164,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             instances[0].ResourceType switch
             {
                 PromptResourceTypeNames.Prompts => await UpdatePrompt(instances, serializedResource),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.",
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest),
             };
 
@@ -261,7 +261,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             instances[0].ResourceType switch
             {
                 PromptResourceTypeNames.PromptReferences => await GetPromptAsync<T>(instances),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.",
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
@@ -270,7 +270,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             instances[0].ResourceType switch
             {
                 PromptResourceTypeNames.PromptReferences => await GetPromptsAsync<T>(instances),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.",
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
