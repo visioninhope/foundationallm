@@ -65,16 +65,15 @@ if ($stepUploadSystemPrompts) {
     #& ./UploadSystemPrompts.ps1 -resourceGroup $resourceGroup -location $location
 }
 
-# Generate Config
-& ./Generate-Config.ps1 `
-    -instanceId $instanceId `
-    -entraClientIds $entraClientIds `
-    -resourceGroups $resourceGroups `
-    -resourceSuffix "$project-$environment-$location" `
-    -ingress $ingress
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Error generating config" -ForegroundColor Red
-    exit $LASTEXITCODE
+Write-Host "Generate Configuration" -ForegroundColor Blue
+Invoke-AndRequireSuccess "Generate Configuration" {
+    & ./Generate-Config.ps1 `
+        -instanceId $instanceId `
+        -entraClientIds $entraClientIds `
+        -resourceGroups $resourceGroups `
+        -subscriptionId $manifest.subscription `
+        -resourceSuffix "$project-$environment-$location" `
+        -ingress $ingress
 }
 
 Write-Host "Generate Host File" -ForegroundColor Blue

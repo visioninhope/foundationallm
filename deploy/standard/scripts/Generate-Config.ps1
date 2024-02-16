@@ -33,7 +33,7 @@ function PopulateTemplate($tokens, $template, $output) {
     Push-Location $($MyInvocation.InvocationName | Split-Path)
     $templatePath = $(../../common/scripts/Join-Path-Recursively -pathParts $template.Split(","))
     $outputFilePath = $(../../common/scripts/Join-Path-Recursively -pathParts $output.Split(","))
-    Write-Host "Generating $outputFilePath file..." -ForegroundColor Yellow
+    Write-Host "Generating $outputFilePath file..." -ForegroundColor Blue
     & ../../common/scripts/Token-Replace.ps1 -inputFile $templatePath -outputFile $outputFilePath -tokens $tokens
     Pop-Location
 }
@@ -134,7 +134,7 @@ $tenantId = $(az account show --query homeTenantId --output tsv)
 $vectorizationConfig = $(
     Get-Content -Raw -Path "../config/vectorization.json" | `
         ConvertFrom-Json | `
-        ConvertTo-Json -Compress
+        ConvertTo-Json -Compress -Depth 50
 ).Replace('"', '\"')
 
 $appConfigInstances = @(
@@ -217,6 +217,17 @@ Write-Host "Cognitive Search Service: $($cogSearch.name)" -ForegroundColor Blue
 $cogSearchUri = "https://$($cogSearch.name).search.windows.net"
 $tokens.cognitiveSearchEndpointUri = $cogSearchUri
 
+Write-Host "Getting ADLS Storage Account"
+$storageAccountAdls = $(
+    az storage account list `
+        --resource-group $($resourceGroups.storage) `
+        --query "[?kind=='StorageV2'].{name:name, privateEndpointIds:privateEndpointConnections[].privateEndpoint.id}" `
+        --output json | `
+        ConvertFrom-Json
+)
+
+$storageAccountAdls = EnsureAndReturnFirstItem $storageAccountAdls "Storage Account"
+
 ## Getting managed identities
 foreach ($service in $services.GetEnumerator()) {
     $mi = $(
@@ -285,34 +296,34 @@ PopulateTemplate $tokens "..,config,agent-factory-api-event-profile.template.jso
 $tokens.agentFactoryApiEventGridProfile = $(
     Get-Content -Raw -Path "../config/agent-factory-api-event-profile.json" | `
         ConvertFrom-Json | `
-        ConvertTo-Json -Compress
+        ConvertTo-Json -Compress -Depth 50
 ).Replace('"', '\"')
 
 PopulateTemplate $tokens "..,config,core-api-event-profile.template.json" "..,config,core-api-event-profile.json"
 $tokens.coreApiEventGridProfile = $(
     Get-Content -Raw -Path "../config/core-api-event-profile.json" | `
         ConvertFrom-Json | `
-        ConvertTo-Json -Compress
+        ConvertTo-Json -Compress -Depth 50
 ).Replace('"', '\"')
 
 $tokens.managementApiEventGridProfile = $(
     Get-Content -Raw -Path "../config/management-api-event-profile.json" | `
         ConvertFrom-Json | `
-        ConvertTo-Json -Compress
+        ConvertTo-Json -Compress -Depth 50
 ).Replace('"', '\"')
 
 PopulateTemplate $tokens "..,config,vectorization-api-event-profile.template.json" "..,config,vectorization-api-event-profile.json"
 $tokens.vectorizationApiEventGridProfile = $(
     Get-Content -Raw -Path "../config/vectorization-api-event-profile.json" | `
         ConvertFrom-Json | `
-        ConvertTo-Json -Compress
+        ConvertTo-Json -Compress -Depth 50
 ).Replace('"', '\"')
 
 PopulateTemplate $tokens "..,config,vectorization-worker-event-profile.template.json" "..,config,vectorization-worker-event-profile.json"
 $tokens.vectorizationWorkerEventGridProfile = $(
     Get-Content -Raw -Path "../config/vectorization-worker-event-profile.json" | `
         ConvertFrom-Json | `
-        ConvertTo-Json -Compress
+        ConvertTo-Json -Compress -Depth 50
 ).Replace('"', '\"')
 
 
