@@ -1,10 +1,6 @@
 # Knowledge management agent
 
-The FoundationaLLM (FLLM) knowledge management agent supports two use cases: internal context and retrieval augmented generation (RAG).
-
-## Internal Context
-
-The internal context flow provides a pass-through mechanism that sends the user prompt directly to the large language model (LLM) without any additional processing or context. This is useful when the user prompt is already prepared and does not require any additional context.
+The FoundationaLLM (FLLM) knowledge management agent supports retrieval augmented generation (RAG).
 
 ## Retrieval Augmented Generation (RAG)
 
@@ -70,8 +66,6 @@ where:
 - `<indexing_profile_resource_objectid>` is the object ID of the indexing profile resource.
 - `<text_embedding_profile_resource_objectid>` is the object ID of the text embedding profile resource.
 - `<prompt_resource_objectid>` is the object ID of the prompt resource.
-
-> **Note**: When an internal context agent is desired, remove the `indexing_profile`, `embedding_profile`, and `prompt` fields from the agent configuration.
 
 | Parameter | Description |
 | --- | --- |

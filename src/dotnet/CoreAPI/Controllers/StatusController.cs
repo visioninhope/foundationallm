@@ -30,6 +30,8 @@ namespace FoundationaLLM.Core.API.Controllers
         public IActionResult GetAuthStatus() =>
             Ok();
 
+        private static readonly string[] AllowedHttpVerbs = ["GET", "POST", "OPTIONS"];
+
         /// <summary>
         /// Returns the allowed HTTP methods for the Core API service.
         /// </summary>
@@ -37,7 +39,7 @@ namespace FoundationaLLM.Core.API.Controllers
         [HttpOptions]
         public IActionResult Options()
         {
-            HttpContext.Response.Headers.Append("Allow", new[] { "GET", "POST", "OPTIONS" });
+            HttpContext.Response.Headers.Append("Allow", AllowedHttpVerbs);
             
             return Ok();
         }

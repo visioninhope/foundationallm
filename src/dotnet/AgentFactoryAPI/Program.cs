@@ -1,6 +1,6 @@
 using Asp.Versioning;
 using Azure.Identity;
-using FoundationaLLM;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
 using FoundationaLLM.AgentFactory.Core.Services;
@@ -18,10 +18,12 @@ using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.Extensions.Options;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -45,7 +47,7 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
+                options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
                     options.SetCredential(new DefaultAzureCredential());
@@ -53,21 +55,42 @@ namespace FoundationaLLM.AgentFactory.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AgentFactory);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
             // Add services to the container.
-            builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
+            // Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
+            builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
             {
-                ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString],
-                DeveloperMode = builder.Environment.IsDevelopment()
+                options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString];
             });
+
+            // Create a dictionary of resource attributes.
+            var resourceAttributes = new Dictionary<string, object> {
+                { "service.name", "AgentFactoryAPI" },
+                { "service.namespace", "FoundationaLLM" },
+                { "service.instance.id", Guid.NewGuid().ToString() }
+            };
+
+            // Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
+            builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) =>
+                builder.ConfigureResource(resourceBuilder =>
+                    resourceBuilder.AddAttributes(resourceAttributes)));
+
+            builder.Services.AddInstanceProperties(builder.Configuration);
+
+            // Add Azure ARM services
+            builder.Services.AddAzureResourceManager();
+
+            // Add event services
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI);
+
             //builder.Services.AddServiceProfiler();
-            builder.Services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings().ContractResolver;
-            });
+            builder.Services.AddControllers();
 
             // Add API Key Authorization
             builder.Services.AddHttpContextAccessor();
@@ -185,11 +208,7 @@ namespace FoundationaLLM.AgentFactory.API
                     }
                 });
 
-            bool.TryParse(builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_ForceHttpsRedirection], out var forceHttpsRedirection);
-            if (forceHttpsRedirection)
-            {
-                app.UseHttpsRedirection();
-            }
+            app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
 

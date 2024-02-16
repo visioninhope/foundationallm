@@ -61,8 +61,8 @@ namespace FoundationaLLM.Management.API.Controllers
                 resourcePath,
                 async (resourceProviderService) =>
                 {
-                    var objectId = await resourceProviderService.HandlePostAsync(resourcePath, serializedResource.ToString()!);
-                    return new OkObjectResult(new ResourceProviderUpsertResult { ObjectId = objectId });
+                    var result = await resourceProviderService.HandlePostAsync(resourcePath, serializedResource.ToString()!);
+                    return new OkObjectResult(result);
                 });
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace FoundationaLLM.Management.API.Controllers
             catch (ResourceProviderException ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return StatusCode(ex.StatusCode, ex.Message);
             }
             catch (Exception ex)
             {

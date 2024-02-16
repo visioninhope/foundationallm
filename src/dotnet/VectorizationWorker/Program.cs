@@ -1,13 +1,16 @@
 using Asp.Versioning;
 using Azure.Identity;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FoundationaLLM;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.OpenAPI;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Services.Tokenizers;
+using FoundationaLLM.Common.Validation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -17,8 +20,9 @@ using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.Text;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using FoundationaLLM.Vectorization.Worker;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.Extensions.Options;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +31,7 @@ builder.Configuration.AddJsonFile("appsettings.json", false, true);
 builder.Configuration.AddEnvironmentVariables();
 builder.Configuration.AddAzureAppConfiguration(options =>
 {
-    options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
+    options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
         options.SetCredential(new DefaultAzureCredential());
@@ -35,16 +39,29 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
 });
 
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
+// Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
+builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
 {
-    ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString],
-    DeveloperMode = builder.Environment.IsDevelopment()
+    options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString];
 });
+
+// Create a dictionary of resource attributes.
+var resourceAttributes = new Dictionary<string, object> {
+    { "service.name", "VectorizationWorker" },
+    { "service.namespace", "FoundationaLLM" },
+    { "service.instance.id", Guid.NewGuid().ToString() }
+};
+
+// Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
+builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) =>
+    builder.ConfigureResource(resourceBuilder =>
+        resourceBuilder.AddAttributes(resourceAttributes)));
 
 var allowAllCorsOrigins = "AllowAllOrigins";
 builder.Services.AddCors(policyBuilder =>
@@ -60,6 +77,14 @@ builder.Services.AddCors(policyBuilder =>
 
 // Add configurations to the container
 builder.Services.AddInstanceProperties(builder.Configuration);
+
+// Add Azure ARM services
+builder.Services.AddAzureResourceManager();
+
+// Add event services
+builder.Services.AddAzureEventGridEvents(
+    builder.Configuration,
+    AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker);
 
 builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker));
@@ -116,6 +141,7 @@ builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
 builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>();
 
 // Vectorization resource provider
+builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 builder.Services.AddKeyedSingleton<IResourceProviderService, VectorizationResourceProviderService>(
     DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
 builder.Services.ActivateKeyedSingleton<IResourceProviderService>(

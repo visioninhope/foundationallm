@@ -1,13 +1,12 @@
 /* eslint-disable prettier/prettier */
 
-import { getMsalInstance } from '@/js/auth';
 import type {
 	AgentDataSource,
 	AgentIndex,
 	AgentGatekeeper,
 	CreateAgentRequest
 } from './types';
-import { mockGetAgentIndexesResponse, mockGetAgentDataSourcesResponse } from './mock';
+import { getMsalInstance } from '@/js/auth';
 
 async function wait(milliseconds: number = 1000): Promise<void> {
 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
@@ -17,16 +16,17 @@ export default {
 	mockLoadTime: 1000,
 
 	apiVersion: '1.0',
-	apiUrl: null,
-	setApiUrl(apiUrl) {
+	apiUrl: null as string | null,
+	setApiUrl(apiUrl: string) {
 		this.apiUrl = apiUrl;
 	},
 
-	instanceId: null,
-	setInstanceId(instanceId) {
+	instanceId: null as string | null,
+	setInstanceId(instanceId: string) {
 		this.instanceId = instanceId;
 	},
 
+  bearerToken: null,
 	async getBearerToken() {
 		if (this.bearerToken) return this.bearerToken;
 
@@ -62,12 +62,12 @@ export default {
 	},
 
 	async getAgentDataSources(): Promise<AgentDataSource[]> {
-		const data = JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`));
-		return data.map(source => ({ ...source, Formats: ['pdf', 'txt'] }));
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`);
+		return data.map((source) => ({ ...source, Formats: ['pdf', 'txt'] }));
 	},
 
 	async getAgentIndexes(): Promise<AgentIndex[]> {
-		return JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`));
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`);
 	},
 
 	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
@@ -76,11 +76,12 @@ export default {
 	},
 
 	async getAgents(): Promise<AgentIndex[]> {
-		return JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`));
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`);
 	},
 
 	async getAgent(agentId: string): Promise<any> {
-		return JSON.parse(await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`));
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`);
+		return data[0];
 	},
 
 	async updateAgent(agentId: string, request: CreateAgentRequest): Promise<any> {
