@@ -620,6 +620,12 @@
   {
     "keyVault": false,
     "featureFlag": false,
+    "key": "FoundationaLLM:Configuration:KeyVaultURI",
+    "value": "https://{{opsKeyVaultFqdn}}"
+  },
+  {
+    "keyVault": false,
+    "featureFlag": false,
     "key": "FoundationaLLM:CoreAPI:Entra:CallbackPath",
     "value": "/signin-oidc"
   },
@@ -759,6 +765,34 @@
     "isJson": false,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI",
     "value": "{{coreApiEventGridProfile}}"
+  },
+  {
+    "keyVault": false,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI",
+    "value": "{{managementApiEventGridProfile}}"
+  },
+  {
+    "keyVault": false,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationAPI",
+    "value": "{{vectorizationApiEventGridProfile}}"
+  },
+  {
+    "keyVault": false,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker",
+    "value": "{{vectorizationWorkerEventGridProfile}}"
+  },
+  {
+    "keyVault": false,
+    "featureFlag": false,
+    "isJson": false,
+    "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI",
+    "value": "{{agentFactoryApiEventGridProfile}}"
   },
   {
     "keyVault": false,

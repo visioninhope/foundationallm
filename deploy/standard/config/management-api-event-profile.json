@@ -1,1 +1,4 @@
-{\\\"EventProcessingCycleSeconds\\\": 60,\\\"Topics\\\": []}
+{
+    "EventProcessingCycleSeconds": 60,
+    "Topics": []
+}
