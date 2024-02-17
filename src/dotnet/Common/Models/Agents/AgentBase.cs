@@ -14,6 +14,10 @@ namespace FoundationaLLM.Common.Models.Agents
     [JsonDerivedType(typeof(InternalContextAgent), "internal-context")]
     public class AgentBase : ResourceBase
     {
+        /// <inheritdoc/>
+        [JsonIgnore]
+        public override string? Type { get; set; }
+
         /// <summary>
         /// The agent's language model configuration.
         /// </summary>
