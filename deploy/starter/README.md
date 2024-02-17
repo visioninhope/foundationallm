@@ -8,6 +8,13 @@ Mac and Linux users can install the following dependencies locally to run the de
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 - [jq](https://jqlang.github.io/jq/download/)
 
+### azd CLI
+
+The Azure Developer CLI (azd) simplifies the process of building and deploying cloud applications. FoundationaLLM uses azd to build container images, release them to a private container registry contained in the deployment, and deploy them to Azure Container Apps. Consult the following links to learn more about azd.
+
+- [What is the Azure Developer CLI?](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/overview)
+- [Azure Friday Tutorial](https://www.youtube.com/watch?v=VTk-FhJyo7s)
+
 ## Deployment Instructions
 
 Clone the FoundationaLLM repository
@@ -48,14 +55,6 @@ azd env set FOUNDATIONALLM_INSTANCE_ID <guid>
 ```
 
 >**Note:** You need to manually generate a GUID for your instance ID.
-
-    PowerShell:
-    
-    ```powershell
-    [guid]::NewGuid()
-    ```
-
-    Bash:
 
     ```bash
     uuidgen
