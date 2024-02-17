@@ -4996,6 +4996,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Agents.AgentBase.SessionsEnabled
   nameWithType: AgentBase.SessionsEnabled
+- uid: FoundationaLLM.Common.Models.Agents.AgentBase.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_Type
+  commentId: P:FoundationaLLM.Common.Models.Agents.AgentBase.Type
+  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.Type
+  nameWithType: AgentBase.Type
+- uid: FoundationaLLM.Common.Models.Agents.AgentBase.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_Type_
+  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentBase.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.Type
+  nameWithType: AgentBase.Type
 - uid: FoundationaLLM.Common.Models.Agents.AgentHint
   name: AgentHint
   href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentHint.html
