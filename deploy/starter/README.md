@@ -1,9 +1,16 @@
 # Deployment
 
+## Pre-requisites
+
+- [azd CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd)
+- Windows Users: WSL2 with the azd CLI installed in the default distribution for the post-install script
+
+## Deployment Instructions
+
 Clone the FoundationaLLM repository
 
 ```pwsh
-git clone https://github.com/solliancenet/foundationallm
+git clone -b release/0.4.0 https://github.com/solliancenet/foundationallm
 ```
 
 Run the following command to set the appropriate application registration settings for OIDC authentication.
@@ -12,7 +19,7 @@ Run the following command to set the appropriate application registration settin
 cd foundationallm
 cd deploy/starter
 
-azd env             # Set your target Subscription and Location
+azd init
 
 azd env set ENTRA_CHAT_UI_CLIENT_ID <Chat UI Client Id>
 azd env set ENTRA_CHAT_UI_SCOPES <Chat UI Scope>
@@ -33,7 +40,23 @@ azd env set ENTRA_MANAGEMENT_UI_TENANT_ID <Management UI Tenant ID>
 azd env set ENTRA_VECTORIZATION_API_CLIENT_ID <Vectorization API Client Id>
 azd env set ENTRA_VECTORIZATION_API_SCOPES <Vectorization API Scope>
 azd env set ENTRA_VECTORIZATION_API_TENANT_ID <Vectorization API Tenant ID>
+
+azd env set FOUNDATIONALLM_INSTANCE_ID <guid>
 ```
+
+>**Note:** You need to manually generate a GUID for your instance ID.
+
+    PowerShell:
+    
+    ```powershell
+    [guid]::NewGuid()
+    ```
+
+    Bash:
+
+    ```bash
+    uuidgen
+    ```
 
 After setting the OIDC specific settings in the AZD environment above, run `azd up` in the same folder location to build the docker images, provision the infrastructure, update the configuration, deploy the API and web app services into container app instances, and import files into the storage account.
 
