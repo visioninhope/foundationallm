@@ -71,7 +71,7 @@
 					<div class="step-container__header">{{ selectedDataSource.Type }}</div>
 					<div>
 						<span class="step-option__header">Name:</span>
-						<span>{{ selectedDataSource.Name }}</span>
+						<span>{{ selectedDataSource.name }}</span>
 					</div>
 					<!-- <div>
 						<span class="step-option__header">Container name:</span>
@@ -96,17 +96,17 @@
 
 						<div
 							v-for="dataSource in group"
-							:key="dataSource.Name"
+							:key="dataSource.name"
 							class="step-container__edit__option"
 							:class="{
 								'step-container__edit__option--selected':
-									dataSource.Name === selectedDataSource?.Name,
+									dataSource.name === selectedDataSource?.name,
 							}"
 							@click.stop="handleDataSourceSelected(dataSource)"
 						>
 							<div>
 								<span class="step-option__header">Name:</span>
-								<span>{{ dataSource.Name }}</span>
+								<span>{{ dataSource.name }}</span>
 							</div>
 							<!-- <div>
 								<span class="step-option__header">Container name:</span>
@@ -130,11 +130,11 @@
 					<div class="step-container__header">{{ selectedIndexSource.name }}</div>
 					<div>
 						<span class="step-option__header">URL:</span>
-						<span>{{ selectedIndexSource.configurationReferences.endpoint }}</span>
+						<span>{{ selectedIndexSource.configurationReferences.Endpoint }}</span>
 					</div>
 					<div>
 						<span class="step-option__header">Index Name:</span>
-						<span>{{ selectedIndexSource.settings.indexName }}</span>
+						<span>{{ selectedIndexSource.settings.IndexName }}</span>
 					</div>
 				</template>
 				<template v-else>Please select an index source.</template>
@@ -154,11 +154,11 @@
 						<div class="step-container__header">{{ indexSource.name }}</div>
 						<div>
 							<span class="step-option__header">URL:</span>
-							<span>{{ indexSource.configurationReferences.endpoint }}</span>
+							<span>{{ indexSource.configurationReferences.Endpoint }}</span>
 						</div>
 						<div>
 							<span class="step-option__header">Index Name:</span>
-							<span>{{ indexSource.settings.indexName }}</span>
+							<span>{{ indexSource.settings.IndexName }}</span>
 						</div>
 					</div>
 				</template>
@@ -406,6 +406,7 @@ const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that
 const defaultFormValues = {
 	agentName: '',
 	agentDescription: '',
+	object_id: '',
 	agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 	editDataSource: false as boolean,
@@ -414,8 +415,8 @@ const defaultFormValues = {
 	editIndexSource: false as boolean,
 	selectedIndexSource: null as null | AgentIndex,
 
-	chunkSize: 2000,
-	overlapSize: 100,
+	chunkSize: 500,
+	overlapSize: 50,
 
 	triggerFrequency: { label: 'Manual', value: 1 },
 	triggerFrequencyScheduled: null,
@@ -428,6 +429,7 @@ const defaultFormValues = {
 	gatekeeperDataProtection: { label: 'None', value: null },
 
 	systemPrompt: defaultSystemPrompt as string,
+	orchestrator: 'LangChain' as string,
 };
 
 export default {
@@ -561,6 +563,8 @@ export default {
 			this.agentName = agent.name || this.agentName;
 			this.agentDescription = agent.description || this.agentDescription;
 			this.agentType = agent.type || this.agentType;
+			this.object_id = agent.object_id || this.object_id;
+			this.orchestrator = agent.orchestrator || this.orchestrator;
 
 			this.selectedIndexSource =
 				this.indexSources.find((indexSource) => indexSource.objectId === agent.indexing_profile) ||
@@ -656,12 +660,13 @@ export default {
 			this.loadingStatusText = 'Creating agent...';
 
 			const agentRequest = {
+				type: this.agentType,
 				name: this.agentName,
 				description: this.agentDescription,
-				type: this.agentType,
+				object_id: this.object_id,
 
-				embedding_profile: this.selectedDataSource?.ObjectId,
-				indexing_profile: this.selectedIndexSource?.ObjectId,
+				embedding_profile: this.selectedDataSource?.objectId,
+				indexing_profile: this.selectedIndexSource?.objectId,
 
 				conversation_history: {
 					enabled: this.conversationHistory,
@@ -676,7 +681,20 @@ export default {
 					].filter(option => option !== null),
 				},
 
+				language_model: {
+					type: 'openai',
+					provider: 'microsoft',
+					temperature: 0,
+					use_chat: true,
+					api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
+					api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
+					api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
+					version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
+					deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
+				},
+
 				prompt: this.systemPrompt,
+				orchestrator: this.orchestrator,
 			};
 
 			let successMessage = null;
