@@ -1,9 +1,12 @@
 # Deployment
 
-## Pre-requisites
+## Dependencies
+
+Mac and Linux users can install the following dependencies locally to run the deployment. Windows users should use Ubuntu on [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to run all deployment steps. Other WSL Linux distributions may work, but these instructions have been validated with Ubuntu 18.04, 20.04, and 22.04.
 
 - [azd CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd)
-- Windows Users: WSL2 with the azd CLI installed in the default distribution for the post-install script
+- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+- [jq](https://jqlang.github.io/jq/download/)
 
 ## Deployment Instructions
 
