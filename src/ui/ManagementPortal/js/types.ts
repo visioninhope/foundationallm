@@ -56,6 +56,13 @@ export type AgentIndex = {
 	};
 };
 
+export type AgentCheckNameResponse = {
+    type: string;
+    name: string;
+    status: string;
+    message: string;
+};
+
 export type AgentGatekeeper = {};
 
 export type MockCreateAgentRequest = {
