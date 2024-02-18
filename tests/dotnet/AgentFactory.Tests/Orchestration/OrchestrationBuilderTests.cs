@@ -34,7 +34,7 @@ namespace FoundationaLLM.AgentFactory.Tests.Orchestration
         }
 
         [Fact]
-        public async Task Build_AgentHintNotNull_KnowledgeManagementAgent_BuildsAndConfiguresKnowledgeManagementOrchestration()
+        public async Task Build_AgentHintNotNull_KnowledgeManagementAgent()
         {
             // Arrange
             var completionRequest = new CompletionRequest() { UserPrompt = "Test_Userprompt"};
