@@ -150,47 +150,25 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         {
             _logger.LogInformation("Starting to initialize the {ResourceProvider} resource provider...", _name);
 
-            if (await _storageService.FileExistsAsync(_storageContainerName, CONTENT_SOURCE_PROFILES_FILE_PATH, default))
-            {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, CONTENT_SOURCE_PROFILES_FILE_PATH, default);
-                var contentSourceProfilesStore = JsonSerializer.Deserialize<ProfileStore<ContentSourceProfile>>(
-                    Encoding.UTF8.GetString(fileContent.ToArray()));
-
-                _contentSourceProfiles = new ConcurrentDictionary<string, ContentSourceProfile>(
-                    contentSourceProfilesStore!.ToDictionary());
-            }
-
-            if (await _storageService.FileExistsAsync(_storageContainerName, TEXT_PARTITIONING_PROFILES_FILE_PATH, default))
-            {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, TEXT_PARTITIONING_PROFILES_FILE_PATH, default);
-                var textPartitionProfileStore = JsonSerializer.Deserialize<ProfileStore<TextPartitioningProfile>>(
-                    Encoding.UTF8.GetString(fileContent.ToArray()));
-
-                _textPartitioningProfiles = new ConcurrentDictionary<string, TextPartitioningProfile>(
-                    textPartitionProfileStore!.ToDictionary());
-            }
-
-            if (await _storageService.FileExistsAsync(_storageContainerName, TEXT_EMBEDDING_PROFILES_FILE_PATH, default))
-            {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, TEXT_EMBEDDING_PROFILES_FILE_PATH, default);
-                var textEmbeddingProfileStore = JsonSerializer.Deserialize<ProfileStore<TextEmbeddingProfile>>(
-                    Encoding.UTF8.GetString(fileContent.ToArray()));
-
-                _textEmbeddingProfiles = new ConcurrentDictionary<string, TextEmbeddingProfile>(
-                    textEmbeddingProfileStore!.ToDictionary());
-            }
-
-            if (await _storageService.FileExistsAsync(_storageContainerName, INDEXING_PROFILES_FILE_PATH, default))
-            {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, INDEXING_PROFILES_FILE_PATH, default);
-                var indexingProfileStore = JsonSerializer.Deserialize<ProfileStore<IndexingProfile>>(
-                    Encoding.UTF8.GetString(fileContent.ToArray()));
-
-                _indexingProfiles = new ConcurrentDictionary<string, IndexingProfile>(
-                    indexingProfileStore!.ToDictionary());
-            }
+            await LoadProfileStore<ContentSourceProfile>(CONTENT_SOURCE_PROFILES_FILE_PATH, _contentSourceProfiles);
+            await LoadProfileStore<TextPartitioningProfile>(TEXT_PARTITIONING_PROFILES_FILE_PATH, _textPartitioningProfiles);
+            await LoadProfileStore<TextEmbeddingProfile>(TEXT_EMBEDDING_PROFILES_FILE_PATH, _textEmbeddingProfiles);
+            await LoadProfileStore<IndexingProfile>(INDEXING_PROFILES_FILE_PATH, _indexingProfiles);
 
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
+        }
+
+        private async Task LoadProfileStore<T>(string profileStoreFilePath, ConcurrentDictionary<string, T> profiles) where T: VectorizationProfileBase
+        {
+            if (await _storageService.FileExistsAsync(_storageContainerName, profileStoreFilePath, default))
+            {
+                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, profileStoreFilePath, default);
+                var profileStore = JsonSerializer.Deserialize<ProfileStore<T>>(
+                    Encoding.UTF8.GetString(fileContent.ToArray()));
+                if (profileStore != null)
+                    foreach (var profile in profileStore.Profiles)
+                        profiles.AddOrUpdate(profile.Name, profile, (k, v) => v);
+            }
         }
 
         #region Support for Management API
@@ -431,7 +409,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
             switch (e.Namespace)
             {
-                case EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent:
+                case EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization:
                     foreach (var @event in e.Events)
                         await HandleVectorizationResourceProviderEvent(@event);
                     break;
@@ -453,7 +431,24 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             _logger.LogInformation("The file [{FileName}] managed by the [{ResourceProvider}] resource provider has changed and will be reloaded.",
                 fileName, _name);
 
-            
+            switch (fileName)
+            {
+                case CONTENT_SOURCE_PROFILES_FILE_NAME:
+                    await LoadProfileStore<ContentSourceProfile>(CONTENT_SOURCE_PROFILES_FILE_PATH, _contentSourceProfiles);
+                    break;
+                case TEXT_PARTITIONING_PROFILES_FILE_NAME:
+                    await LoadProfileStore<TextPartitioningProfile>(TEXT_PARTITIONING_PROFILES_FILE_PATH, _textPartitioningProfiles);
+                    break;
+                case TEXT_EMBEDDING_PROFILES_FILE_NAME:
+                    await LoadProfileStore<TextEmbeddingProfile>(TEXT_EMBEDDING_PROFILES_FILE_PATH, _textEmbeddingProfiles);
+                    break;
+                case INDEXING_PROFILES_FILE_NAME:
+                    await LoadProfileStore<IndexingProfile>(INDEXING_PROFILES_FILE_PATH, _indexingProfiles);
+                    break;
+                default:
+                    _logger.LogWarning("The file {FileName} is not managed by the FoundationaLLM.Vectorization resource provider.", fileName);
+                    break;
+            }
         }
 
         #endregion
