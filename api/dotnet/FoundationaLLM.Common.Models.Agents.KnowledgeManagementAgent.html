@@ -143,7 +143,7 @@ Class KnowledgeManagementAgent  <a class="header-action link-secondary" title="V
       <a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_Orchestrator">AgentBase.Orchestrator</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_Prompt">AgentBase.Prompt</a>
+      <a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_PromptObjectId">AgentBase.PromptObjectId</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_AgentType">AgentBase.AgentType</a>
@@ -200,7 +200,7 @@ Class KnowledgeManagementAgent  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent__ctor" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.#ctor">
   KnowledgeManagementAgent()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Agents/KnowledgeManagementAgent.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Agents/KnowledgeManagementAgent.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Set default property values.</p>
@@ -227,20 +227,20 @@ Class KnowledgeManagementAgent  <a class="header-action link-secondary" title="V
 </h2>
 
 
-  <a id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_EmbeddingProfile_" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.EmbeddingProfile*"></a>
+  <a id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_IndexingProfileObjectId_" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfileObjectId*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_EmbeddingProfile" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.EmbeddingProfile">
-  EmbeddingProfile
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Agents/KnowledgeManagementAgent.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_IndexingProfileObjectId" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfileObjectId">
+  IndexingProfileObjectId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Agents/KnowledgeManagementAgent.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The vectorization embedding profile resource path.</p>
+  <div class="markdown level1 summary"><p>The vectorization indexing profile resource path.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;embedding_profile&quot;)]
-public string? EmbeddingProfile { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;indexing_profile_object_id&quot;)]
+public string? IndexingProfileObjectId { get; set; }</code></pre>
   </div>
 
 
@@ -260,20 +260,53 @@ public string? EmbeddingProfile { get; set; }</code></pre>
 
 
 
-  <a id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_IndexingProfile_" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfile*"></a>
+  <a id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_TextEmbeddingProfileObjectId_" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextEmbeddingProfileObjectId*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_IndexingProfile" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfile">
-  IndexingProfile
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Agents/KnowledgeManagementAgent.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_TextEmbeddingProfileObjectId" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextEmbeddingProfileObjectId">
+  TextEmbeddingProfileObjectId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Agents/KnowledgeManagementAgent.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The vectorization indexing profile resource path.</p>
+  <div class="markdown level1 summary"><p>The vectorization text embedding profile resource path.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;indexing_profile&quot;)]
-public string? IndexingProfile { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;text_embedding_profile_object_id&quot;)]
+public string? TextEmbeddingProfileObjectId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_TextPartitioningProfileObjectId_" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextPartitioningProfileObjectId*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_TextPartitioningProfileObjectId" data-uid="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextPartitioningProfileObjectId">
+  TextPartitioningProfileObjectId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Agents/KnowledgeManagementAgent.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The vectorization text partitioning profile resource path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;text_partitioning_profile_object_id&quot;)]
+public string? TextPartitioningProfileObjectId { get; set; }</code></pre>
   </div>
 
 

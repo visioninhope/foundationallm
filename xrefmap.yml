@@ -5010,19 +5010,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Agents.AgentBase.Orchestrator
   nameWithType: AgentBase.Orchestrator
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.Prompt
-  name: Prompt
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_Prompt
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentBase.Prompt
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.Prompt
-  nameWithType: AgentBase.Prompt
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.Prompt*
-  name: Prompt
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_Prompt_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentBase.Prompt
+- uid: FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId
+  name: PromptObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_PromptObjectId
+  commentId: P:FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId
+  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId
+  nameWithType: AgentBase.PromptObjectId
+- uid: FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId*
+  name: PromptObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_PromptObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.Prompt
-  nameWithType: AgentBase.Prompt
+  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId
+  nameWithType: AgentBase.PromptObjectId
 - uid: FoundationaLLM.Common.Models.Agents.AgentBase.SessionsEnabled
   name: SessionsEnabled
   href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_SessionsEnabled
@@ -5225,32 +5225,45 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.New
   nameWithType: KnowledgeManagementAgent.KnowledgeManagementAgent
   nameWithType.vb: KnowledgeManagementAgent.New
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.EmbeddingProfile
-  name: EmbeddingProfile
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_EmbeddingProfile
-  commentId: P:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.EmbeddingProfile
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.EmbeddingProfile
-  nameWithType: KnowledgeManagementAgent.EmbeddingProfile
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.EmbeddingProfile*
-  name: EmbeddingProfile
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_EmbeddingProfile_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.EmbeddingProfile
+- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfileObjectId
+  name: IndexingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_IndexingProfileObjectId
+  commentId: P:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfileObjectId
+  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfileObjectId
+  nameWithType: KnowledgeManagementAgent.IndexingProfileObjectId
+- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfileObjectId*
+  name: IndexingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_IndexingProfileObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfileObjectId
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.EmbeddingProfile
-  nameWithType: KnowledgeManagementAgent.EmbeddingProfile
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfile
-  name: IndexingProfile
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_IndexingProfile
-  commentId: P:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfile
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfile
-  nameWithType: KnowledgeManagementAgent.IndexingProfile
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfile*
-  name: IndexingProfile
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_IndexingProfile_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfile
+  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfileObjectId
+  nameWithType: KnowledgeManagementAgent.IndexingProfileObjectId
+- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextEmbeddingProfileObjectId
+  name: TextEmbeddingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_TextEmbeddingProfileObjectId
+  commentId: P:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextEmbeddingProfileObjectId
+  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextEmbeddingProfileObjectId
+  nameWithType: KnowledgeManagementAgent.TextEmbeddingProfileObjectId
+- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextEmbeddingProfileObjectId*
+  name: TextEmbeddingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_TextEmbeddingProfileObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextEmbeddingProfileObjectId
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfile
-  nameWithType: KnowledgeManagementAgent.IndexingProfile
+  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextEmbeddingProfileObjectId
+  nameWithType: KnowledgeManagementAgent.TextEmbeddingProfileObjectId
+- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextPartitioningProfileObjectId
+  name: TextPartitioningProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_TextPartitioningProfileObjectId
+  commentId: P:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextPartitioningProfileObjectId
+  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextPartitioningProfileObjectId
+  nameWithType: KnowledgeManagementAgent.TextPartitioningProfileObjectId
+- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextPartitioningProfileObjectId*
+  name: TextPartitioningProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_TextPartitioningProfileObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextPartitioningProfileObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.TextPartitioningProfileObjectId
+  nameWithType: KnowledgeManagementAgent.TextPartitioningProfileObjectId
 - uid: FoundationaLLM.Common.Models.Authentication
   name: FoundationaLLM.Common.Models.Authentication
   href: api/dotnet/FoundationaLLM.Common.Models.Authentication.html
