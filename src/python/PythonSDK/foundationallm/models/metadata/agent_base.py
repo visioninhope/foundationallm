@@ -12,7 +12,7 @@ from .gatekeeper import Gatekeeper
 
 class AgentBase(MetadataBase):
     """ Agent Base metadata model."""
-    prompt: Optional[str] = None
+    prompt_object_id: Optional[str] = None
     language_model: Optional[LanguageModel] = LanguageModel()
     sessions_enabled: Optional[bool] = False
     conversation_history: Optional[ConversationHistory] = ConversationHistory()
