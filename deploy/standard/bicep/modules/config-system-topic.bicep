@@ -11,7 +11,7 @@ param logAnalyticWorkspaceId string
 param resourceSuffix string
 
 @description('Storage resource suffix')
-param storageResourceSuffix string = resourceSuffix
+param opsResourceSuffix string = resourceSuffix
 
 @description('Tags for all resources')
 param tags object
@@ -66,16 +66,16 @@ var name = '${serviceType}-${resourceSuffix}'
 var serviceType = 'eg'
 
 @description('Formatted untruncated resource name')
-var stFormattedName = toLower(replace('${stServiceType}-${storageResourceSuffix}', '-', ''))
+var acFormattedName = toLower(replace('${acServiceType}-${opsResourceSuffix}', '-', ''))
 
 @description('The Resource Name')
-var storageAccountName = substring(stFormattedName,0,min([length(stFormattedName),24]))
+var appConfigAccountName = substring(acFormattedName,0,min([length(acFormattedName),24]))
 
 @description('The Resource Service Type token')
-var stServiceType = 'adls'
+var acServiceType = 'appconfig'
 
-resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' existing = {
-  name: storageAccountName
+resource appConfig 'Microsoft.AppConfiguration/configurationStores@2023-08-01-preview' existing = {
+  name: appConfigAccountName
 }
 
 resource main 'Microsoft.EventGrid/systemTopics@2023-12-15-preview' = {
@@ -86,15 +86,15 @@ resource main 'Microsoft.EventGrid/systemTopics@2023-12-15-preview' = {
     type: 'SystemAssigned'
   }
   properties: {
-    source: storage.id
-    topicType: 'Microsoft.Storage.StorageAccounts'
+    source: appConfig.id
+    topicType: 'Microsoft.AppConfiguration.ConfigurationStores'
   }
 }
 
 @description('Diagnostic settings for the resource')
 resource diagnostics 'Microsoft.Insights/diagnosticSettings@2017-05-01-preview' = {
   scope: main
-  name: 'diag-storage-${serviceType}'
+  name: 'diag-appconfig-${serviceType}'
   properties: {
     workspaceId: logAnalyticWorkspaceId
     logs: [for log in logs: {

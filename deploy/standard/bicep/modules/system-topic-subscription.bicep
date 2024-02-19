@@ -2,7 +2,7 @@ param name string
 param topicName string
 param destinationTopicName string
 param eventGridName string
-param filterPrefix string
+param filterPrefix string = ''
 param includedEventTypes array
 param appResourceGroup string
 param timestamp string = utcNow()

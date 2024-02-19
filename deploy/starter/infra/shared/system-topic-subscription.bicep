@@ -2,7 +2,7 @@ param name string
 param topicName string
 param destinationTopicName string
 param eventGridName string
-param filterPrefix string
+param filterPrefix string = ''
 param includedEventTypes array
 
 resource eventGridNamespace 'Microsoft.EventGrid/namespaces@2023-12-15-preview' existing = {
