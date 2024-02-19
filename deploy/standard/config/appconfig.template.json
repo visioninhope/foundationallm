@@ -762,35 +762,35 @@
   {
     "keyVault": false,
     "featureFlag": false,
-    "isJson": false,
+    "isJson": true,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI",
     "value": "{{coreApiEventGridProfile}}"
   },
   {
     "keyVault": false,
     "featureFlag": false,
-    "isJson": false,
+    "isJson": true,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI",
     "value": "{{managementApiEventGridProfile}}"
   },
   {
     "keyVault": false,
     "featureFlag": false,
-    "isJson": false,
+    "isJson": true,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationAPI",
     "value": "{{vectorizationApiEventGridProfile}}"
   },
   {
     "keyVault": false,
     "featureFlag": false,
-    "isJson": false,
+    "isJson": true,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker",
     "value": "{{vectorizationWorkerEventGridProfile}}"
   },
   {
     "keyVault": false,
     "featureFlag": false,
-    "isJson": false,
+    "isJson": true,
     "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI",
     "value": "{{agentFactoryApiEventGridProfile}}"
   },
