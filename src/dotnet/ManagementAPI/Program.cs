@@ -67,22 +67,8 @@ namespace FoundationaLLM.Management.API
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-            builder.Services.AddAzureClients(clientBuilder =>
-            {
-                var keyVaultUri = builder.Configuration[AppConfigurationKeys.FoundationaLLM_Configuration_KeyVaultURI];
-                clientBuilder.AddSecretClient(new Uri(keyVaultUri!))
-                    .WithCredential(new DefaultAzureCredential());
-                clientBuilder.AddConfigurationClient(
-                    builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
-            });
-            // Configure logging to filter out Azure Core and Azure Key Vault informational logs.
-            builder.Logging.AddFilter("Azure.Core", LogLevel.Warning);
-            builder.Logging.AddFilter("Azure.Security.KeyVault.Secrets", LogLevel.Warning);
-
-            builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
-            builder.Services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
-            builder.Services.AddSingleton<IConfigurationHealthChecks, ConfigurationHealthChecks>();
-            builder.Services.AddHostedService<ConfigurationHealthCheckService>();
+            // Add the Configuration resource provider
+            builder.AddConfigurationResourceProvider();
 
             var allowAllCorsOrigins = "AllowAllOrigins";
             builder.Services.AddCors(policyBuilder =>
@@ -131,16 +117,15 @@ namespace FoundationaLLM.Management.API
                 builder.Configuration,
                 AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService);
 
+            // Resource validation
+            builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
+
             //----------------------------
             // Resource providers
             //----------------------------
-            builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
             builder.Services.AddVectorizationResourceProvider(builder.Configuration);
             builder.Services.AddAgentResourceProvider(builder.Configuration);
             builder.Services.AddPromptResourceProvider(builder.Configuration);
-
-            // Activate all resource providers (give them a chance to initialize).
-            builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();
 
             // Register the authentication services:
             RegisterAuthConfiguration(builder);

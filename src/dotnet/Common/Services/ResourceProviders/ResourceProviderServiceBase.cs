@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
+using FoundationaLLM.Common.Validation;
 
 namespace FoundationaLLM.Common.Services.ResourceProviders
 {
@@ -33,6 +34,11 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// The <see cref="IEventService"/> providing event services to the resource provider.
         /// </summary>
         protected readonly IEventService _eventService;
+
+        /// <summary>
+        /// The <see cref="IResourceValidatorFactory"/> providing services to instantiate resource validators.
+        /// </summary>
+        protected readonly IResourceValidatorFactory _resourceValidatorFactory;
 
         /// <summary>
         /// The logger used for logging.
@@ -74,17 +80,20 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <param name="instanceSettings">The <see cref="InstanceSettings"/> that provides instance-wide settings.</param>
         /// <param name="storageService">The <see cref="IStorageService"/> providing storage services to the resource provider.</param>
         /// <param name="eventService">The <see cref="IEventService"/> providing event services to the resource provider.</param>
+        /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing services to instantiate resource validators.</param>
         /// <param name="logger">The logger used for logging.</param>
         /// <param name="eventNamespacesToSubscribe">The list of Event Service event namespaces to subscribe to for local event processing.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
             IStorageService storageService,
             IEventService eventService,
+            IResourceValidatorFactory resourceValidatorFactory,
             ILogger logger,
             List<string>? eventNamespacesToSubscribe = default)
         {
             _storageService = storageService;
             _eventService = eventService;
+            _resourceValidatorFactory = resourceValidatorFactory;
             _logger = logger;
             _instanceSettings = instanceSettings;
             _eventNamespacesToSubscribe = eventNamespacesToSubscribe;
