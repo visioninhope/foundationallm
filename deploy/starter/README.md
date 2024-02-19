@@ -24,9 +24,9 @@ Clone the FoundationaLLM repository
 git clone -b release/0.4.0 https://github.com/solliancenet/foundationallm
 ```
 
-Run the following command to set the appropriate application registration settings for OIDC authentication.
+Run the following commands to set the appropriate application registration settings for OIDC authentication. **Windows users should run them in WSL.**
 
-```pwsh
+```bash
 cd foundationallm
 cd deploy/starter
 
@@ -57,13 +57,13 @@ azd env set FOUNDATIONALLM_INSTANCE_ID <guid>
 
 >**Note:** You need to manually generate a GUID for your instance ID.
 
-    ```bash
-    uuidgen
-    ```
+```bash
+uuidgen
+```
 
-After setting the OIDC specific settings in the AZD environment above, run `azd up` in the same folder location to build the docker images, provision the infrastructure, update the configuration, deploy the API and web app services into container app instances, and import files into the storage account.
+After setting the OIDC-specific settings in the AZD environment above, run `azd up` in the same folder location to build the Docker images, provision the infrastructure, update the App Configuration entries, deploy the API and web app services, and import files into the storage account.
 
-```pwsh
+```bash
 azd up
 ```
 
