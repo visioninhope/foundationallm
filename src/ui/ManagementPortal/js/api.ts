@@ -4,7 +4,8 @@ import type {
 	AgentDataSource,
 	AgentIndex,
 	AgentGatekeeper,
-	CreateAgentRequest
+	CreateAgentRequest,
+	AgentCheckNameResponse
 } from './types';
 import { getMsalInstance } from '@/js/auth';
 
@@ -58,6 +59,17 @@ export default {
 			params: {
 				key
 			}
+		});
+	},
+
+	async checkAgentName(name: string, agentType: string): Promise<AgentCheckNameResponse> {
+		const payload = {
+			name: name,
+			type: agentType,
+		};
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/checkname?api-version=${this.apiVersion}`, {
+			method: 'POST',	
+			body: payload,
 		});
 	},
 

@@ -17,7 +17,11 @@
 			<div class="span-2">
 				<div class="step-header mb-2">Agent name:</div>
 				<div class="mb-2">No special characters or spaces, lowercase letters with dashes and underscores only.</div>
-				<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" />
+				<div class="input-wrapper">
+					<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" :disabled="editAgent" />
+					<span v-if="nameValidationStatus === 'valid'" class="icon valid" title="Name is available">✔️</span>
+        			<span v-else-if="nameValidationStatus === 'invalid'" class="icon invalid" :title="validationMessage">❌</span>
+				</div>
 			</div>
 			<div class="span-2">
 				<div class="step-header mb-2">Description:</div>
@@ -398,8 +402,9 @@
 
 <script lang="ts">
 import type { PropType } from 'vue';
+import { debounce } from 'lodash';
 import api from '@/js/api';
-import type { Agent, AgentIndex, AgentDataSource, CreateAgentRequest } from '@/js/types';
+import type { Agent, AgentIndex, AgentDataSource, CreateAgentRequest, AgentCheckNameResponse } from '@/js/types';
 
 const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
@@ -449,6 +454,9 @@ export default {
 
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
+
+			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
+			validationMessage: '' as string,
 
 			dataSources: [] as AgentDataSource[],
 			indexSources: [] as AgentIndex[],
@@ -556,6 +564,8 @@ export default {
 		}
 
 		this.loading = false;
+
+		this.debouncedCheckName = debounce(this.checkName, 500);
 	},
 
 	methods: {
@@ -592,6 +602,31 @@ export default {
 			this.systemPrompt = agent.prompt || '';
 		},
 
+		async checkName() {
+			try {
+				const response = await api.checkAgentName(this.agentName, this.agentType);
+				
+				// Handle response based on the status
+				if(response.status === "Allowed") {
+					// Name is available
+					this.nameValidationStatus = 'valid';
+      				this.validationMessage = null;
+				} else if(response.status === "Denied") {
+					// Name is taken
+					this.nameValidationStatus = 'invalid';
+      				this.validationMessage = response.message;
+					// this.$toast.add({
+					// 	severity: 'warn',
+					// 	detail: `Agent name "${this.agentName}" is already taken for the selected ${response.type} agent type. Please choose another name.`,
+					// });
+				}
+			} catch(error) {
+				console.error("Error checking agent name: ", error);
+				this.nameValidationStatus = 'invalid';
+    			this.validationMessage = 'Error checking the agent name. Please try again.';
+			}
+		},
+
 		resetForm() {
 			for (const key in defaultFormValues) {
 				this[key] = defaultFormValues[key];
@@ -608,14 +643,19 @@ export default {
 		handleNameInput(event) {
 			const element = event.target;
 
-			// Remove spaces
+			// Remove spaces.
 			let sanitizedValue = element.value.replace(/\s/g, '');
 
-			// Remove any characters that are not lowercase letters, digits, dashes, or underscores
+			// Remove any characters that are not lowercase letters, digits, dashes, or underscores.
 			sanitizedValue = sanitizedValue.replace(/[^a-z0-9-_]/g, '');
 
 			element.value = sanitizedValue;
 			this.agentName = sanitizedValue;
+
+			// Check if the name is available if we are creating a new agent.
+			if (!this.editAgent) {
+				this.debouncedCheckName();
+			}
 		},
 
 		handleAgentTypeSelect(type: Agent['type']) {
@@ -636,6 +676,9 @@ export default {
 			const errors = [];
 			if (!this.agentName) {
 				errors.push('Please give the agent a name.');
+			}
+			if (this.nameValidationStatus === 'invalid') {
+				errors.push(this.validationMessage);
 			}
 
 			// if (!this.selectedDataSource) {
@@ -916,5 +959,30 @@ $editStepPadding: 16px;
 	background-color: var(--primary-button-bg)!important;
 	border-color: var(--primary-button-bg)!important;
 	color: var(--primary-button-text)!important;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+input {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.icon {
+  position: absolute;
+  right: 10px;
+  cursor: default;
+}
+
+.valid {
+  color: green;
+}
+
+.invalid {
+  color: red;
 }
 </style>
