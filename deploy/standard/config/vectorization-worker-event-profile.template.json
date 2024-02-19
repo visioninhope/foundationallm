@@ -3,7 +3,7 @@
     "Topics": [
         {
             "Name": "storage",
-            "SubscriptionPrefix": "storage-core",
+            "SubscriptionPrefix": "storage-vectw",
             "EventTypeProfiles": [
                 {
                     "EventType": "Microsoft.Storage.BlobCreated",
@@ -12,6 +12,21 @@
                             "Namespace": "ResourceProvider.FoundationaLLM.Vectorization",
                             "Source": "/subscriptions/{{subscriptionId}}/resourceGroups/{{storageResourceGroup}}/providers/Microsoft.Storage/storageAccounts/{{storageAccountAdlsName}}",
                             "SubjectPrefix": "/blobServices/default/containers/resource-provider/blobs/FoundationaLLM.Vectorization"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Name": "configuration",
+            "SubscriptionPrefix": "config-vectw",
+            "EventTypeProfiles": [
+                {
+                    "EventType": "Microsoft.AppConfiguration.KeyValueModified",
+                    "EventSets": [
+                        {
+                            "Namespace": "ResourceProvider.FoundationaLLM.Configuration",
+                            "Source": "/subscriptions/{{subscriptionId}}/resourceGroups/{{opsResourceGroup}}/providers/Microsoft.AppConfiguration/configurationStores/{{appConfigName}}"
                         }
                     ]
                 }
