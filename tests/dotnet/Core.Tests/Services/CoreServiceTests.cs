@@ -121,10 +121,9 @@ namespace FoundationaLLM.Core.Tests.Services
             var sessionType = "Test_type";
             var newSession = new Session { Type = sessionType, UPN = currentUserUPN };
 
-            // Mock the CurrentUserIdentity property of ICallContext to return a valid user identity
+            // Set up mock returns
             _callContext.CurrentUserIdentity.Returns(new UnifiedUserIdentity { UPN = currentUserUPN });
 
-            // Set up the mock to return the new session when InsertSessionAsync is called
             _cosmosDbService.InsertSessionAsync(Arg.Any<Session>())
                 .Returns(Task.FromResult(newSession));
 
