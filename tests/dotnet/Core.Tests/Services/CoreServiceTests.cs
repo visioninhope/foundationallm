@@ -245,10 +245,9 @@ namespace FoundationaLLM.Core.Tests.Services
             _cosmosDbService.GetSessionMessagesAsync(sessionId, upn).Returns(expectedMessages);
 
             var completionResponse = new CompletionResponse() { Completion = "Completion" };
-            _gatekeeperAPIService.GetCompletion(Arg.Any<CompletionRequest>()).Returns(completionResponse);
+            _downstreamAPIServices.Last().GetCompletion(Arg.Any<CompletionRequest>()).Returns(completionResponse);
 
             _cosmosDbService.GetSessionAsync(sessionId).Returns(new Session());
-
             _cosmosDbService.UpsertSessionBatchAsync().Returns(Task.CompletedTask);
 
             // Act
