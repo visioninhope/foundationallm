@@ -2,6 +2,7 @@
 The API endpoint for returning the completion from the LLM for the specified user prompt.
 """
 from typing import Optional
+from urllib import request
 from fastapi import APIRouter, Depends, Header, Request, Body
 from foundationallm.config import Context
 from foundationallm.models.orchestration import (
@@ -28,13 +29,20 @@ router = APIRouter(
 )
 
 # temporary to support legacy agents alongside the knowledge-management and internal context agent
-async def resolve_completion_request(request_body: dict = Body(...)) -> CompletionRequestBase:  
-    agent_type = request_body.get("agent", {}).get("type", None)
+async def resolve_completion_request(request_body: dict = Body(...)) -> CompletionRequestBase:   
+    agent_type = request_body.get("$type", None)
+    if agent_type is None:
+        agent_type = request_body.get("agent", {}).get("type", None)    
+    
     match agent_type:
         case "knowledge-management":
-            return KnowledgeManagementCompletionRequest(**request_body)
+            kma = KnowledgeManagementCompletionRequest(**request_body)
+            kma.agent.type = "knowledge-management"
+            return kma
         case "internal-context":
-            return InternalContextCompletionRequest(**request_body)
+            ica = InternalContextCompletionRequest(**request_body)
+            ica.agent.type = "internal-context"
+            return ica
         case _:
             return CompletionRequest(**request_body)
 

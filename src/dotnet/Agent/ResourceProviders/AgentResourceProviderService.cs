@@ -139,18 +139,27 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
         private async Task<AgentBase> LoadAgent(AgentReference agentReference)
         {
-            if (await _storageService.FileExistsAsync(_storageContainerName, agentReference.Filename, default))
+            // agentReference is null for legacy agents
+            if (agentReference != null)
             {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentReference.Filename, default);
-                return JsonSerializer.Deserialize(
-                    Encoding.UTF8.GetString(fileContent.ToArray()),
-                    agentReference.AgentType,
-                    _serializerSettings) as AgentBase
-                    ?? throw new ResourceProviderException($"Failed to load the agent {agentReference.Name}.",
-                        StatusCodes.Status400BadRequest);
+                if (await _storageService.FileExistsAsync(_storageContainerName, agentReference.Filename, default))
+                {
+                    var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentReference.Filename, default);
+                    return JsonSerializer.Deserialize(
+                        Encoding.UTF8.GetString(fileContent.ToArray()),
+                        agentReference.AgentType,
+                        _serializerSettings) as AgentBase
+                        ?? throw new ResourceProviderException($"Failed to load the agent {agentReference.Name}.",
+                            StatusCodes.Status400BadRequest);
+                }
             }
 
-            throw new ResourceProviderException($"Could not locate the {agentReference.Name} agent resource.",
+            var agentName = "legacy";
+            if (agentReference!= null)
+            {
+                agentName = agentReference.Name;
+            }
+            throw new ResourceProviderException($"Could not locate the {agentName} agent resource.",
                 StatusCodes.Status404NotFound);
         }
 
