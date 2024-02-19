@@ -103,7 +103,7 @@ namespace FoundationaLLM.Core.Tests.Services
         public async Task GetSummary_UnsuccessfulDefaultResponse()
         {
             // Arrange
-            var expected = "[No Summary]";
+            var expected = "A problem on my side prevented me from responding.";
             var summaryRequest = new SummaryRequest
             {
                 SessionId = "TestSessionId",

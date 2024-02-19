@@ -1,8 +1,10 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
@@ -22,11 +24,23 @@ namespace FoundationaLLM.Core.Tests.Services
         private readonly ICallContext _callContext = Substitute.For<ICallContext>();
         private readonly ILogger<CoreService> _logger = Substitute.For<ILogger<CoreService>>();
         private readonly IOptions<ClientBrandingConfiguration> _brandingConfig = Substitute.For<IOptions<ClientBrandingConfiguration>>();
-        private readonly IEnumerable<IDownstreamAPIService> _downstreamAPIServices = Substitute.For<IEnumerable<IDownstreamAPIService>>();
+        private readonly IEnumerable<IDownstreamAPIService> _downstreamAPIServices;
         private IOptions<CoreServiceSettings> _options;
 
         public CoreServiceTests()
         {
+            var gatekeeperAPIDownstream = Substitute.For<IDownstreamAPIService>();
+            gatekeeperAPIDownstream.APIName.Returns(HttpClients.GatekeeperAPI);
+
+            var agentFactoryAPIDownstream = Substitute.For<IDownstreamAPIService>();
+            agentFactoryAPIDownstream.APIName.Returns(HttpClients.AgentFactoryAPI);
+
+            _downstreamAPIServices = new List<IDownstreamAPIService>
+            {
+                gatekeeperAPIDownstream,
+                agentFactoryAPIDownstream
+            };
+
             _options = Options.Create(new CoreServiceSettings {
                 BypassGatekeeper =  true, 
                 SessionSummarization = ChatSessionNameSummarizationType.LLM
