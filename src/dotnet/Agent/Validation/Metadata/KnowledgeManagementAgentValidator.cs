@@ -15,8 +15,8 @@ namespace FoundationaLLM.Agent.Validation.Metadata
         {
             Include(new AgentBaseValidator());
 
-            RuleFor(x => x.IndexingProfile).NotEmpty().WithMessage("Indexing profile is required for Knowledge Management Agents.");
-            RuleFor(x => x.EmbeddingProfile).NotEmpty().WithMessage("Embedding profile is required for Knowledge Management Agents.");
+            RuleFor(x => x.IndexingProfileObjectId).NotEmpty().WithMessage("Indexing profile is required for Knowledge Management Agents.");
+            RuleFor(x => x.TextEmbeddingProfileObjectId).NotEmpty().WithMessage("Embedding profile is required for Knowledge Management Agents.");
         }
     }
 }
