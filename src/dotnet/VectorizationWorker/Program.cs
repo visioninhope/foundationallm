@@ -40,10 +40,14 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
 });
 
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
+// Add the Configuration resource provider
+builder.AddConfigurationResourceProvider();
 
 // Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
 builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
@@ -92,9 +96,6 @@ builder.Services.AddOptions<VectorizationWorkerSettings>()
 builder.Services.AddOptions<BlobStorageServiceSettings>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService)
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService));
-builder.Services.AddOptions<BlobStorageServiceSettings>(
-    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
 
 builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService));
@@ -125,27 +126,15 @@ builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
             Options.Create<BlobStorageServiceSettings>(settings),
             logger);
     });
-builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
-    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization, (sp, obj) =>
-    {
-        var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-            .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-        var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
-
-        return new BlobStorageService(
-            Options.Create<BlobStorageServiceSettings>(settings),
-            logger);
-    });
 
 // Vectorization state
 builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>();
 
-// Vectorization resource provider
+// Resource validation
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
-builder.Services.AddKeyedSingleton<IResourceProviderService, VectorizationResourceProviderService>(
-    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
-    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
+
+// Vectorization resource provider
+builder.Services.AddVectorizationResourceProvider(builder.Configuration);
 
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();

@@ -34,13 +34,12 @@ namespace FoundationaLLM.Agent.ResourceProviders
             instanceOptions.Value,
             storageService,
             eventService,
+            resourceValidatorFactory,
             loggerFactory.CreateLogger<AgentResourceProviderService>(),
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
             ])
     {
-        private readonly IResourceValidatorFactory _resourceValidatorFactory = resourceValidatorFactory;
-
         /// <inheritdoc/>
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
         {
