@@ -59,6 +59,8 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
                     sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>()));
+
+            services.ActivateSingleton<IResourceProviderService>();
         }
     }
 }
