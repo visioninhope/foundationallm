@@ -35,13 +35,12 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             instanceOptions.Value,
             storageService,
             eventService,
+            resourceValidatorFactory,
             logger,
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization
             ])
     {
-        private readonly IResourceValidatorFactory _resourceValidatorFactory = resourceValidatorFactory;
-
         /// <inheritdoc/>
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
         {

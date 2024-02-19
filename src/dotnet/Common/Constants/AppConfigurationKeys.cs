@@ -986,6 +986,11 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Prompt_ResourceProviderService_Storage = "FoundationaLLM:Prompt:ResourceProviderService:Storage";
 
+        /// <summary>
+        /// The key section for the FoundationaLLM:Configuration:ResourceProviderService:Storage app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Configuration_ResourceProviderService_Storage = "FoundationaLLM:Configuration:ResourceProviderService:Storage";
+
         #endregion
 
         #region Event Grid events

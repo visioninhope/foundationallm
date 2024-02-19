@@ -25,11 +25,13 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         IOptions<InstanceSettings> instanceOptions,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt)] IStorageService storageService,
         IEventService eventService,
+        IResourceValidatorFactory resourceValidatorFactory,
         ILogger<PromptResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             storageService,
             eventService,
+            resourceValidatorFactory,
             logger)
     {
         /// <inheritdoc/>
