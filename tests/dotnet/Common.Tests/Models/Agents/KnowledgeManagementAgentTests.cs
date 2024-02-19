@@ -18,14 +18,14 @@ namespace FoundationaLLM.Common.Tests.Models.Agents
         public void KnowledgeManagementAgent_IndexingProfile_DefaultIsNull()
         {
             // Assert
-            Assert.Null(_knowledgeManagementAgent.IndexingProfile);
+            Assert.Null(_knowledgeManagementAgent.IndexingProfileObjectId);
         }
 
         [Fact]
         public void KnowledgeManagementAgent_EmbeddingProfile_DefaultIsNull()
         {
             // Assert
-            Assert.Null(_knowledgeManagementAgent.EmbeddingProfile);
+            Assert.Null(_knowledgeManagementAgent.TextEmbeddingProfileObjectId);
         }
     }
 }

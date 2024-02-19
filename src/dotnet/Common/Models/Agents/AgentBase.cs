@@ -46,8 +46,8 @@ namespace FoundationaLLM.Common.Models.Agents
         /// <summary>
         /// The agent's prompt.
         /// </summary>
-        [JsonPropertyName("prompt")]
-        public string? Prompt { get; set; }
+        [JsonPropertyName("prompt_object_id")]
+        public string? PromptObjectId { get; set; }
 
         /// <summary>
         /// The object type of the agent.
