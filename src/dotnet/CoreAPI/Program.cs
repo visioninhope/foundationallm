@@ -13,6 +13,7 @@ using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
@@ -86,6 +87,7 @@ namespace FoundationaLLM.Core.API
                 AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_CoreAPI);
 
             // Add resource providers
+            builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
             builder.Services.AddAgentResourceProvider(builder.Configuration);
 
             // Activate all resource providers (give them a chance to initialize).
@@ -133,15 +135,10 @@ namespace FoundationaLLM.Core.API
                     // "api-supported-versions" and "api-deprecated-versions"
                     options.ReportApiVersions = true;
                     options.AssumeDefaultVersionWhenUnspecified = true;
-                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                    options.DefaultApiVersion = new ApiVersion(new DateOnly(2024, 2, 16));
                 })
                 .AddMvc()
-                .AddApiExplorer(options =>
-                {
-                    // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-                    // note: the specified format code will format the version as "'v'major[.minor][-status]"
-                    options.GroupNameFormat = "'v'VVV";
-                });
+                .AddApiExplorer();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

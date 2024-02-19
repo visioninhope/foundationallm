@@ -18,9 +18,7 @@ namespace FoundationaLLM.Configuration.Catalog
             new EnvironmentVariableEntry(EnvironmentVariables.Hostname,
                 "The Azure Container App or Azure Kubernetes Service hostname."),
             new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_Version,
-                "The build version of the container. This is also used for the app version used to validate the minimum version of the app required to use certain configuration entries."),
-            new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString,
-                "The key for the FoundationaLLM:AppConfig:ConnectionString environment variable. This allows the caller to connect to the Azure App Configuration service.")
+                "The build version of the container. This is also used for the app version used to validate the minimum version of the app required to use certain configuration entries.")
         ];
 
         /// <summary>

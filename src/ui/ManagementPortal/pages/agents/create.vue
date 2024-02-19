@@ -17,7 +17,11 @@
 			<div class="span-2">
 				<div class="step-header mb-2">Agent name:</div>
 				<div class="mb-2">No special characters or spaces, lowercase letters with dashes and underscores only.</div>
-				<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" />
+				<div class="input-wrapper">
+					<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" :disabled="editAgent" />
+					<span v-if="nameValidationStatus === 'valid'" class="icon valid" title="Name is available">✔️</span>
+        			<span v-else-if="nameValidationStatus === 'invalid'" class="icon invalid" :title="validationMessage">❌</span>
+				</div>
 			</div>
 			<div class="span-2">
 				<div class="step-header mb-2">Description:</div>
@@ -71,7 +75,7 @@
 					<div class="step-container__header">{{ selectedDataSource.Type }}</div>
 					<div>
 						<span class="step-option__header">Name:</span>
-						<span>{{ selectedDataSource.Name }}</span>
+						<span>{{ selectedDataSource.name }}</span>
 					</div>
 					<!-- <div>
 						<span class="step-option__header">Container name:</span>
@@ -96,17 +100,17 @@
 
 						<div
 							v-for="dataSource in group"
-							:key="dataSource.Name"
+							:key="dataSource.name"
 							class="step-container__edit__option"
 							:class="{
 								'step-container__edit__option--selected':
-									dataSource.Name === selectedDataSource?.Name,
+									dataSource.name === selectedDataSource?.name,
 							}"
 							@click.stop="handleDataSourceSelected(dataSource)"
 						>
 							<div>
 								<span class="step-option__header">Name:</span>
-								<span>{{ dataSource.Name }}</span>
+								<span>{{ dataSource.name }}</span>
 							</div>
 							<!-- <div>
 								<span class="step-option__header">Container name:</span>
@@ -130,11 +134,11 @@
 					<div class="step-container__header">{{ selectedIndexSource.name }}</div>
 					<div>
 						<span class="step-option__header">URL:</span>
-						<span>{{ selectedIndexSource.configurationReferences.endpoint }}</span>
+						<span>{{ selectedIndexSource.configurationReferences.Endpoint }}</span>
 					</div>
 					<div>
 						<span class="step-option__header">Index Name:</span>
-						<span>{{ selectedIndexSource.settings.indexName }}</span>
+						<span>{{ selectedIndexSource.settings.IndexName }}</span>
 					</div>
 				</template>
 				<template v-else>Please select an index source.</template>
@@ -154,11 +158,11 @@
 						<div class="step-container__header">{{ indexSource.name }}</div>
 						<div>
 							<span class="step-option__header">URL:</span>
-							<span>{{ indexSource.configurationReferences.endpoint }}</span>
+							<span>{{ indexSource.configurationReferences.Endpoint }}</span>
 						</div>
 						<div>
 							<span class="step-option__header">Index Name:</span>
-							<span>{{ indexSource.settings.indexName }}</span>
+							<span>{{ indexSource.settings.IndexName }}</span>
 						</div>
 					</div>
 				</template>
@@ -398,14 +402,16 @@
 
 <script lang="ts">
 import type { PropType } from 'vue';
+import { debounce } from 'lodash';
 import api from '@/js/api';
-import type { Agent, AgentIndex, AgentDataSource, CreateAgentRequest } from '@/js/types';
+import type { Agent, AgentIndex, AgentDataSource, CreateAgentRequest, AgentCheckNameResponse } from '@/js/types';
 
 const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
 const defaultFormValues = {
 	agentName: '',
 	agentDescription: '',
+	object_id: '',
 	agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 	editDataSource: false as boolean,
@@ -414,8 +420,8 @@ const defaultFormValues = {
 	editIndexSource: false as boolean,
 	selectedIndexSource: null as null | AgentIndex,
 
-	chunkSize: 2000,
-	overlapSize: 100,
+	chunkSize: 500,
+	overlapSize: 50,
 
 	triggerFrequency: { label: 'Manual', value: 1 },
 	triggerFrequencyScheduled: null,
@@ -428,6 +434,7 @@ const defaultFormValues = {
 	gatekeeperDataProtection: { label: 'None', value: null },
 
 	systemPrompt: defaultSystemPrompt as string,
+	orchestrator: 'LangChain' as string,
 };
 
 export default {
@@ -447,6 +454,9 @@ export default {
 
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
+
+			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
+			validationMessage: '' as string,
 
 			dataSources: [] as AgentDataSource[],
 			indexSources: [] as AgentIndex[],
@@ -554,6 +564,8 @@ export default {
 		}
 
 		this.loading = false;
+
+		this.debouncedCheckName = debounce(this.checkName, 500);
 	},
 
 	methods: {
@@ -561,6 +573,8 @@ export default {
 			this.agentName = agent.name || this.agentName;
 			this.agentDescription = agent.description || this.agentDescription;
 			this.agentType = agent.type || this.agentType;
+			this.object_id = agent.object_id || this.object_id;
+			this.orchestrator = agent.orchestrator || this.orchestrator;
 
 			this.selectedIndexSource =
 				this.indexSources.find((indexSource) => indexSource.objectId === agent.indexing_profile) ||
@@ -588,6 +602,31 @@ export default {
 			this.systemPrompt = agent.prompt || '';
 		},
 
+		async checkName() {
+			try {
+				const response = await api.checkAgentName(this.agentName, this.agentType);
+				
+				// Handle response based on the status
+				if(response.status === "Allowed") {
+					// Name is available
+					this.nameValidationStatus = 'valid';
+      				this.validationMessage = null;
+				} else if(response.status === "Denied") {
+					// Name is taken
+					this.nameValidationStatus = 'invalid';
+      				this.validationMessage = response.message;
+					// this.$toast.add({
+					// 	severity: 'warn',
+					// 	detail: `Agent name "${this.agentName}" is already taken for the selected ${response.type} agent type. Please choose another name.`,
+					// });
+				}
+			} catch(error) {
+				console.error("Error checking agent name: ", error);
+				this.nameValidationStatus = 'invalid';
+    			this.validationMessage = 'Error checking the agent name. Please try again.';
+			}
+		},
+
 		resetForm() {
 			for (const key in defaultFormValues) {
 				this[key] = defaultFormValues[key];
@@ -604,14 +643,19 @@ export default {
 		handleNameInput(event) {
 			const element = event.target;
 
-			// Remove spaces
+			// Remove spaces.
 			let sanitizedValue = element.value.replace(/\s/g, '');
 
-			// Remove any characters that are not lowercase letters, digits, dashes, or underscores
+			// Remove any characters that are not lowercase letters, digits, dashes, or underscores.
 			sanitizedValue = sanitizedValue.replace(/[^a-z0-9-_]/g, '');
 
 			element.value = sanitizedValue;
 			this.agentName = sanitizedValue;
+
+			// Check if the name is available if we are creating a new agent.
+			if (!this.editAgent) {
+				this.debouncedCheckName();
+			}
 		},
 
 		handleAgentTypeSelect(type: Agent['type']) {
@@ -632,6 +676,9 @@ export default {
 			const errors = [];
 			if (!this.agentName) {
 				errors.push('Please give the agent a name.');
+			}
+			if (this.nameValidationStatus === 'invalid') {
+				errors.push(this.validationMessage);
 			}
 
 			// if (!this.selectedDataSource) {
@@ -656,12 +703,13 @@ export default {
 			this.loadingStatusText = 'Creating agent...';
 
 			const agentRequest = {
+				type: this.agentType,
 				name: this.agentName,
 				description: this.agentDescription,
-				type: this.agentType,
+				object_id: this.object_id,
 
-				embedding_profile: this.selectedDataSource?.ObjectId,
-				indexing_profile: this.selectedIndexSource?.ObjectId,
+				embedding_profile: this.selectedDataSource?.objectId,
+				indexing_profile: this.selectedIndexSource?.objectId,
 
 				conversation_history: {
 					enabled: this.conversationHistory,
@@ -676,7 +724,20 @@ export default {
 					].filter(option => option !== null),
 				},
 
+				language_model: {
+					type: 'openai',
+					provider: 'microsoft',
+					temperature: 0,
+					use_chat: true,
+					api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
+					api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
+					api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
+					version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
+					deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
+				},
+
 				prompt: this.systemPrompt,
+				orchestrator: this.orchestrator,
 			};
 
 			let successMessage = null;
@@ -898,5 +959,30 @@ $editStepPadding: 16px;
 	background-color: var(--primary-button-bg)!important;
 	border-color: var(--primary-button-bg)!important;
 	color: var(--primary-button-text)!important;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+input {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.icon {
+  position: absolute;
+  right: 10px;
+  cursor: default;
+}
+
+.valid {
+  color: green;
+}
+
+.invalid {
+  color: red;
 }
 </style>

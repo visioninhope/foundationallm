@@ -1,5 +1,7 @@
 export type Agent = {
 	name: string;
+	object_id: string;
+	description: string;
 	type: 'knowledge-management' | 'analytics';
 	indexing_profile: string;
 	embedding_profile: string;
@@ -16,12 +18,23 @@ export type Agent = {
 			data_protection: number;
 		};
 	};
+	language_model: {
+		type: string;
+		provider: string;
+		temperature: number;
+		use_chat: boolean;
+		api_endpoint: string;
+		api_key: string;
+		api_version: string;
+		version: string;
+		deployment: string;
+	}
 	prompt: string;
 };
 
 export type AgentDataSource = {
-	Name: string;
-	ObjectId: string;
+	name: string;
+	objectId: string;
 };
 
 export type AgentIndex = {
@@ -30,17 +43,24 @@ export type AgentIndex = {
 	description: string;
 	indexer: string;
 	settings: {
-		indexName: string;
-		topN?: string;
-		filters?: string;
-		embeddingFieldName?: string;
-		textFieldName?: string;
+		IndexName: string;
+		TopN?: string;
+		Filters?: string;
+		EmbeddingFieldName?: string;
+		TextFieldName?: string;
 	};
 	configurationReferences: {
-		apiKey: string;
-		authenticationType: string;
-		endpoint: string;
+		APIKey: string;
+		AuthenticationType: string;
+		Endpoint: string;
 	};
+};
+
+export type AgentCheckNameResponse = {
+    type: string;
+    name: string;
+    status: string;
+    message: string;
 };
 
 export type AgentGatekeeper = {};

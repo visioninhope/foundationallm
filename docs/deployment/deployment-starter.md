@@ -28,6 +28,7 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
     ```cmd
     git clone https://github.com/solliancenet/foundationallm.git
+    git checkout release/0.4.0
     ```
 
 1. Open a PowerShell instance and run the following script to provision the infrastructure and deploy the API and frontend. This will provision all of the required infrastructure, deploy the API and web app services, and import data into Cosmos DB.

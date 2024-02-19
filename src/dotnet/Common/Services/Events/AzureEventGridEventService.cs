@@ -29,6 +29,14 @@ namespace FoundationaLLM.Common.Services.Events
             {
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent,
                 null
+            },
+            {
+                EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization,
+                null
+            },
+            {
+                EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration,
+                null
             }
         };
 
@@ -238,9 +246,9 @@ namespace FoundationaLLM.Common.Services.Events
                     .Select(ed => ed.Event)
                     .Where(e =>
                         e.Type == eventTypeProfile.EventType
-                        && e.Source == eventSet.Source
+                        && string.Equals(e.Source, eventSet.Source, StringComparison.OrdinalIgnoreCase)
                         && !string.IsNullOrWhiteSpace(e.Subject)
-                        && e.Subject.StartsWith(eventSet.SubjectPrefix))
+                        && (string.IsNullOrWhiteSpace(eventSet.SubjectPrefix) || e.Subject.StartsWith(eventSet.SubjectPrefix)))
                     .ToList();
 
                 if (events.Count > 0

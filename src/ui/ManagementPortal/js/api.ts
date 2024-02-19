@@ -4,7 +4,8 @@ import type {
 	AgentDataSource,
 	AgentIndex,
 	AgentGatekeeper,
-	CreateAgentRequest
+	CreateAgentRequest,
+	AgentCheckNameResponse
 } from './types';
 import { getMsalInstance } from '@/js/auth';
 
@@ -15,7 +16,7 @@ async function wait(milliseconds: number = 1000): Promise<void> {
 export default {
 	mockLoadTime: 1000,
 
-	apiVersion: '1.0',
+	apiVersion: '2024-02-16',
 	apiUrl: null as string | null,
 	setApiUrl(apiUrl: string) {
 		this.apiUrl = apiUrl;
@@ -58,6 +59,17 @@ export default {
 			params: {
 				key
 			}
+		});
+	},
+
+	async checkAgentName(name: string, agentType: string): Promise<AgentCheckNameResponse> {
+		const payload = {
+			name: name,
+			type: agentType,
+		};
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/checkname?api-version=${this.apiVersion}`, {
+			method: 'POST',	
+			body: payload,
 		});
 	},
 

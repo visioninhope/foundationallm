@@ -169,6 +169,9 @@ module eventgrid './shared/eventgrid.bicep' = {
       {
         name: 'vectorization'
       }
+      {
+        name: 'configuration'
+      }
     ]
   }
   scope: rg
@@ -296,6 +299,17 @@ module storage './shared/storage.bicep' = {
   dependsOn: [ keyVault ]
 }
 
+module configTopic 'shared/config-system-topic.bicep' = {
+  name: 'configTopic'
+  params: {
+    name: '${abbrs.eventGridDomainsTopics}config${resourceToken}'
+    location: location
+    tags: tags
+    appConfigAccountName: appConfig.outputs.name
+  }
+  scope: rg
+}
+
 module storageTopic 'shared/storage-system-topic.bicep' = {
   name: 'storageTopic'
   params: {
@@ -322,6 +336,21 @@ module storageSub 'shared/system-topic-subscription.bicep' = {
   }
   scope: rg
   dependsOn: [ eventgrid, storageTopic ]
+}
+
+module configSub 'shared/system-topic-subscription.bicep' = {
+  name: 'configSub'
+  params: {
+    name: 'app-config'
+    eventGridName: eventgrid.outputs.name
+    topicName: configTopic.outputs.name
+    destinationTopicName: 'configuration'
+    includedEventTypes: [
+      'Microsoft.AppConfiguration.KeyValueModified'
+    ]
+  }
+  scope: rg
+  dependsOn: [ eventgrid, configTopic ]
 }
 
 module appsEnv './shared/apps-env.bicep' = {
@@ -365,6 +394,7 @@ module acaServices './app/acaService.bicep' = [ for service in services: {
           secretRef: 'appconfig-connection-string'
         }
       ]
+      apiKeySecretName: service.apiKeySecretName
       serviceName: service.name
     }
     scope: rg

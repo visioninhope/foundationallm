@@ -11,9 +11,9 @@ using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
-using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Configuration.Interfaces;
 using FoundationaLLM.Configuration.Services;
 using FoundationaLLM.Configuration.Validation;
@@ -67,22 +67,8 @@ namespace FoundationaLLM.Management.API
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-            builder.Services.AddAzureClients(clientBuilder =>
-            {
-                var keyVaultUri = builder.Configuration[AppConfigurationKeys.FoundationaLLM_Configuration_KeyVaultURI];
-                clientBuilder.AddSecretClient(new Uri(keyVaultUri!))
-                    .WithCredential(new DefaultAzureCredential());
-                clientBuilder.AddConfigurationClient(
-                    builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
-            });
-            // Configure logging to filter out Azure Core and Azure Key Vault informational logs.
-            builder.Logging.AddFilter("Azure.Core", LogLevel.Warning);
-            builder.Logging.AddFilter("Azure.Security.KeyVault.Secrets", LogLevel.Warning);
-
-            builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
-            builder.Services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
-            builder.Services.AddSingleton<IConfigurationHealthChecks, ConfigurationHealthChecks>();
-            builder.Services.AddHostedService<ConfigurationHealthCheckService>();
+            // Add the Configuration resource provider
+            builder.AddConfigurationResourceProvider();
 
             var allowAllCorsOrigins = "AllowAllOrigins";
             builder.Services.AddCors(policyBuilder =>
@@ -126,16 +112,20 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
+            // Add event services
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService);
+
+            // Resource validation
+            builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
+
             //----------------------------
             // Resource providers
             //----------------------------
-
             builder.Services.AddVectorizationResourceProvider(builder.Configuration);
             builder.Services.AddAgentResourceProvider(builder.Configuration);
             builder.Services.AddPromptResourceProvider(builder.Configuration);
-
-            // Activate all resource providers (give them a chance to initialize).
-            builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();
 
             // Register the authentication services:
             RegisterAuthConfiguration(builder);
@@ -170,15 +160,10 @@ namespace FoundationaLLM.Management.API
                     // "api-supported-versions" and "api-deprecated-versions"
                     options.ReportApiVersions = true;
                     options.AssumeDefaultVersionWhenUnspecified = true;
-                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                    options.DefaultApiVersion = new ApiVersion(new DateOnly(2024, 2, 16));
                 })
                 .AddMvc()
-                .AddApiExplorer(options =>
-                {
-                    // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-                    // note: the specified format code will format the version as "'v'major[.minor][-status]"
-                    options.GroupNameFormat = "'v'VVV";
-                });
+                .AddApiExplorer();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

@@ -10,6 +10,8 @@ using FoundationaLLM.Common.Services.Events;
 using Microsoft.Extensions.Logging;
 
 using System.Text.Json;
+using Microsoft.AspNetCore.Http;
+using FoundationaLLM.Common.Validation;
 
 namespace FoundationaLLM.Common.Services.ResourceProviders
 {
@@ -32,6 +34,11 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// The <see cref="IEventService"/> providing event services to the resource provider.
         /// </summary>
         protected readonly IEventService _eventService;
+
+        /// <summary>
+        /// The <see cref="IResourceValidatorFactory"/> providing services to instantiate resource validators.
+        /// </summary>
+        protected readonly IResourceValidatorFactory _resourceValidatorFactory;
 
         /// <summary>
         /// The logger used for logging.
@@ -73,17 +80,20 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <param name="instanceSettings">The <see cref="InstanceSettings"/> that provides instance-wide settings.</param>
         /// <param name="storageService">The <see cref="IStorageService"/> providing storage services to the resource provider.</param>
         /// <param name="eventService">The <see cref="IEventService"/> providing event services to the resource provider.</param>
+        /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing services to instantiate resource validators.</param>
         /// <param name="logger">The logger used for logging.</param>
         /// <param name="eventNamespacesToSubscribe">The list of Event Service event namespaces to subscribe to for local event processing.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
             IStorageService storageService,
             IEventService eventService,
+            IResourceValidatorFactory resourceValidatorFactory,
             ILogger logger,
             List<string>? eventNamespacesToSubscribe = default)
         {
             _storageService = storageService;
             _eventService = eventService;
+            _resourceValidatorFactory = resourceValidatorFactory;
             _logger = logger;
             _instanceSettings = instanceSettings;
             _eventNamespacesToSubscribe = eventNamespacesToSubscribe;
@@ -401,7 +411,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 if (string.IsNullOrWhiteSpace(instance.ResourceType)
                     || string.IsNullOrWhiteSpace(instance.ResourceId)
                     || !(instance.Action == null))
-                    throw new ResourceProviderException("The provided resource path is not a valid resource identifier.");
+                    throw new ResourceProviderException("The provided resource path is not a valid resource identifier.",
+                        StatusCodes.Status400BadRequest);
 
             return $"/instances/{_instanceSettings.Id}/providers/{_name}/{string.Join("/",
                 instances.Select(i => $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
@@ -410,7 +421,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private List<ResourceTypeInstance> GetResourceInstancesFromPath(string resourcePath, bool allowAction = true)
         {
             if (string.IsNullOrWhiteSpace(resourcePath))
-                throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.");
+                throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.",
+                    StatusCodes.Status400BadRequest);
 
             var tokens = resourcePath.Split('/', StringSplitOptions.RemoveEmptyEntries);
 
@@ -421,7 +433,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             {
                 if (currentResourceTypes == null
                     || !currentResourceTypes.TryGetValue(tokens[currentIndex], out ResourceTypeDescriptor? currentResourceType))
-                    throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.");
+                    throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.",
+                        StatusCodes.Status400BadRequest);
 
                 var resourceTypeInstance = new ResourceTypeInstance(tokens[currentIndex]);
                 result.Add(resourceTypeInstance);
@@ -438,7 +451,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 {
                     // The next token is an action
                     if (!allowAction)
-                        throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.");
+                        throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.",
+                            StatusCodes.Status400BadRequest);
 
                     resourceTypeInstance.Action = tokens[currentIndex + 1];
 
@@ -446,7 +460,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                     if (currentIndex + 2 == tokens.Length)
                         break;
                     else
-                        throw new ResourceProviderException($"An action must be the last token in a resource path.");
+                        throw new ResourceProviderException($"An action must be the last token in a resource path.",
+                            StatusCodes.Status400BadRequest);
                 }
                 else
                     // The next token is a resource identifier
@@ -460,13 +475,15 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                     {
                         // The token represents an action.
                         if (!allowAction)
-                            throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.");
+                            throw new ResourceProviderException($"The resource path [{resourcePath}] is invalid.",
+                                StatusCodes.Status400BadRequest);
 
                         resourceTypeInstance.Action = tokens[currentIndex + 2];
                         break;
                     }
                     else
-                        throw new ResourceProviderException($"The [{tokens[currentIndex + 2]}] action is invalid.");
+                        throw new ResourceProviderException($"The [{tokens[currentIndex + 2]}] action is invalid.",
+                            StatusCodes.Status400BadRequest);
                 }
 
                 currentResourceTypes = currentResourceType.SubTypes;

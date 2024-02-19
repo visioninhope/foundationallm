@@ -14,7 +14,6 @@ namespace FoundationaLLM.Management.API.Controllers
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
     [Authorize]
     [Authorize(Policy = "RequiredScope")]
-    [ApiVersion(1.0)]
     [ApiController]
     [Consumes("application/json")]
     [Produces("application/json")]
@@ -95,7 +94,7 @@ namespace FoundationaLLM.Management.API.Controllers
             catch (ResourceProviderException ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return StatusCode(ex.StatusCode, ex.Message);
             }
             catch (Exception ex)
             {

@@ -95,16 +95,16 @@ Follow the instructions in the [Authentication setup document](https://docs.foun
 
 ### Deployment-Manifest.json Reference
 
-| Property | Description | Default Value |
-------------------------------------------
-| environment | Target deployment environment | `stg` |
-| location | Target deployment region in Azure | `EastUS2` |
-| project | Project identifier associated with this deployment | `fllm01` |
-| subscriptoin | Target deployment subscription in Azure | N/A |
-| k8sNamespace | Target Kubernetes namespace for deployed services in AKS clusters | `default` |
-| adminObjectId | Object Id of the Azure AD User or Group to grant appropriate rights to administer the deployment | N/A |
-| createVpnGateway | Flag to enable/disable creation of a VPN Gateway for private network access | `true` |
-| publicEndpoints | Flag to enable/disable exposing service endpoints on the public Internet | `true` |
-| createApimUdr | Flag to enable/disable creating UDR rule to support APIM deployment in a peered VNET environment | `false` |
-| vnetName | Desired VNET name for deployment. | N/A |
-| vnetCidr | Desired VNET CIDR Address range. | `10.220.128.0/21` |
+| Property         | Description                                                                                      | Default Value     |
+| ---------------- | ------------------------------------------------------------------------------------------------ | ----------------- |
+| environment      | Target deployment environment                                                                    | `stg`             |
+| location         | Target deployment region in Azure                                                                | `EastUS2`         |
+| project          | Project identifier associated with this deployment                                               | `fllm01`          |
+| subscriptoin     | Target deployment subscription in Azure                                                          | N/A               |
+| k8sNamespace     | Target Kubernetes namespace for deployed services in AKS clusters                                | `default`         |
+| adminObjectId    | Object Id of the Azure AD User or Group to grant appropriate rights to administer the deployment | N/A               |
+| createVpnGateway | Flag to enable/disable creation of a VPN Gateway for private network access                      | `true`            |
+| publicEndpoints  | Flag to enable/disable exposing service endpoints on the public Internet                         | `true`            |
+| createApimUdr    | Flag to enable/disable creating UDR rule to support APIM deployment in a peered VNET environment | `false`           |
+| vnetName         | Desired VNET name for deployment.                                                                | N/A               |
+| vnetCidr         | Desired VNET CIDR Address range.                                                                 | `10.220.128.0/21` |

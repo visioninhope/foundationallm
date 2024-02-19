@@ -4,11 +4,6 @@ using FoundationaLLM.Configuration.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Configuration.Services
 {
@@ -95,6 +90,7 @@ namespace FoundationaLLM.Configuration.Services
             }
         }
 
-        public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
+        public async Task StopAsync(CancellationToken cancellationToken) =>
+            await Task.CompletedTask;
     }
 }

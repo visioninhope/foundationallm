@@ -9,7 +9,6 @@ namespace FoundationaLLM.Core.API.Controllers
     /// </summary>
     [Authorize]
     [Authorize(Policy = "RequiredScope")]
-    [ApiVersion(1.0)]
     [ApiController]
     [Route("[controller]")]
     public class StatusController : ControllerBase

@@ -1,20 +1,17 @@
 using Asp.Versioning;
-using Azure.Identity;
 using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FoundationaLLM;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
-using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Services.Tokenizers;
+using FoundationaLLM.Common.Validation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
-using FoundationaLLM.Vectorization.ResourceProviders;
 using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.RequestSources;
@@ -25,6 +22,7 @@ using Microsoft.OpenApi.Models;
 using FoundationaLLM.Common.Middleware;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,15 +34,20 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(new DefaultAzureCredential());
+        options.SetCredential(DefaultAuthentication.GetAzureCredential(
+            builder.Environment.IsDevelopment()));
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
+// Add the Configuration resource provider
+builder.AddConfigurationResourceProvider();
 
 // Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
 builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
@@ -90,10 +93,6 @@ builder.Services.AddAzureEventGridEvents(
 builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker));
 
-builder.Services.AddOptions<BlobStorageServiceSettings>(
-    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
-
 builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService));
 
@@ -110,28 +109,14 @@ builder.Services.AddKeyedSingleton(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps,
     builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps));
 
-// Add services to the container.
-
-builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
-    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization, (sp, obj) =>
-    {
-        var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-            .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-        var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
-
-        return new BlobStorageService(
-            Options.Create<BlobStorageServiceSettings>(settings),
-            logger);
-    });
-
 // Vectorization state
 builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
 
+// Resource validation
+builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
+
 // Vectorization resource provider
-builder.Services.AddKeyedSingleton<IResourceProviderService, VectorizationResourceProviderService>(
-    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
-    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
+builder.Services.AddVectorizationResourceProvider(builder.Configuration);
 
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
@@ -158,6 +143,8 @@ builder.Services.ActivateSingleton<IRequestSourcesCache>();
 // Vectorization
 builder.Services.AddScoped<IVectorizationService, VectorizationService>();
 
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 builder.Services.AddControllers();
 
@@ -169,19 +156,15 @@ builder.Services.AddOptions<APIKeyValidationSettings>()
 
 builder.Services
     .AddApiVersioning(options =>
-     {
-         // Reporting api versions will return the headers
-         // "api-supported-versions" and "api-deprecated-versions"
-         options.ReportApiVersions = true;
-         options.AssumeDefaultVersionWhenUnspecified = true;
-         options.DefaultApiVersion = new ApiVersion(1, 0);
-     })
-    .AddApiExplorer(options =>
     {
-        // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-        // note: the specified format code will format the version as "'v'major[.minor][-status]"
-        options.GroupNameFormat = "'v'VVV";
-    });
+        // Reporting api versions will return the headers
+        // "api-supported-versions" and "api-deprecated-versions"
+        options.ReportApiVersions = true;
+        options.AssumeDefaultVersionWhenUnspecified = true;
+        options.DefaultApiVersion = new ApiVersion(new DateOnly(2024, 2, 16));
+    })
+    .AddMvc()
+    .AddApiExplorer();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

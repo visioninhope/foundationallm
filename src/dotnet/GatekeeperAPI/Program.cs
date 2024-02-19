@@ -114,15 +114,10 @@ namespace FoundationaLLM.Gatekeeper.API
                     // "api-supported-versions" and "api-deprecated-versions"
                     options.ReportApiVersions = true;
                     options.AssumeDefaultVersionWhenUnspecified = true;
-                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                    options.DefaultApiVersion = new ApiVersion(new DateOnly(2024, 2, 16));
                 })
                 .AddMvc()
-                .AddApiExplorer(options =>
-                {
-                    // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-                    // note: the specified format code will format the version as "'v'major[.minor][-status]"
-                    options.GroupNameFormat = "'v'VVV";
-                });
+                .AddApiExplorer();
 
             // Add services to the container.
             builder.Services.AddAuthorization();

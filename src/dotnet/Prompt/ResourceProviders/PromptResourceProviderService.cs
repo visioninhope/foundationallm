@@ -11,6 +11,7 @@ using FoundationaLLM.Common.Services.ResourceProviders;
 using FoundationaLLM.Prompt.Constants;
 using FoundationaLLM.Prompt.Models.Metadata;
 using FoundationaLLM.Prompt.Models.Resources;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -24,11 +25,13 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         IOptions<InstanceSettings> instanceOptions,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt)] IStorageService storageService,
         IEventService eventService,
+        IResourceValidatorFactory resourceValidatorFactory,
         ILogger<PromptResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             storageService,
             eventService,
+            resourceValidatorFactory,
             logger)
     {
         /// <inheritdoc/>
@@ -99,7 +102,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             instances[0].ResourceType switch
             {
                 PromptResourceTypeNames.Prompts => await LoadPrompts(instances[0]),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for GetResourcesAsyncInternal
@@ -151,7 +155,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                     ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.");
             }
 
-            throw new ResourceProviderException($"Could not locate the {promptReference.Name} prompt resource.");
+            throw new ResourceProviderException($"Could not locate the {promptReference.Name} prompt resource.",
+                StatusCodes.Status404NotFound);
         }
 
         #endregion
@@ -161,7 +166,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             instances[0].ResourceType switch
             {
                 PromptResourceTypeNames.Prompts => await UpdatePrompt(instances, serializedResource),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager."),
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest),
             };
 
         #region Helpers for UpsertResourceAsync
@@ -172,7 +178,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 ?? throw new ResourceProviderException("The object definition is invalid.");
 
             if (instances[0].ResourceId != promptBase.Name)
-                throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).");
+                throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
+                    StatusCodes.Status400BadRequest);
 
             var promptReference = new PromptReference
             {
@@ -216,7 +223,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 PromptResourceTypeNames.Prompts => instances.Last().Action switch
                 {
                     PromptResourceProviderActions.CheckName => CheckPromptName(serializedAction),
-                    _ => throw new ResourceProviderException($"The action {instances.Last().Action} is not supported by the {_name} resource provider.")
+                    _ => throw new ResourceProviderException($"The action {instances.Last().Action} is not supported by the {_name} resource provider.",
+                        StatusCodes.Status400BadRequest)
                 },
                 _ => throw new ResourceProviderException()
             };
@@ -255,7 +263,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             instances[0].ResourceType switch
             {
                 PromptResourceTypeNames.PromptReferences => await GetPromptAsync<T>(instances),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest)
             };
 
         /// <inheritdoc/>
@@ -263,14 +272,16 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             instances[0].ResourceType switch
             {
                 PromptResourceTypeNames.PromptReferences => await GetPromptsAsync<T>(instances),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource manager.")
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest)
             };
 
 
         private async Task<List<T>> GetPromptsAsync<T>(List<ResourceTypeInstance> instances) where T : class
         {
             if (typeof(T) != typeof(PromptReference))
-                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).",
+                    StatusCodes.Status400BadRequest);
 
             var promptReferences = _promptReferences.Values.Cast<PromptReference>().ToList();
             foreach (var promptReference in promptReferences)
@@ -284,19 +295,23 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         private async Task<T> GetPromptAsync<T>(List<ResourceTypeInstance> instances) where T : class
         {
             if (instances.Count != 1)
-                throw new ResourceProviderException($"Invalid resource path");
+                throw new ResourceProviderException($"Invalid resource path",
+                    StatusCodes.Status400BadRequest);
 
             if (typeof(T) != typeof(PromptReference))
-                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).");
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({instances[0].ResourceType}).",
+                    StatusCodes.Status400BadRequest);
 
             _promptReferences.TryGetValue(instances[0].ResourceId!, out var promptReference);
             if (promptReference != null)
             {
                 return promptReference as T ?? throw new ResourceProviderException(
-                    $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
+                    $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.",
+                    StatusCodes.Status404NotFound);
             }
             throw new ResourceProviderException(
-                $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.");
+                $"The resource {instances[0].ResourceId!} of type {instances[0].ResourceType} was not found.",
+                StatusCodes.Status404NotFound);
         }
 
         #endregion
