@@ -35,7 +35,7 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
 3. **Windows users should use Ubuntu in WSL, opened in the `foundationallm` directory, for the following steps; Mac and Linux users can follow them locally.**
 
-    Run the following commands to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions in the [Authentication setup document](authentication/index.md) to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.
+    Run the following commands to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions on the [authentication setup page](authentication/index.md) to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.
 
     ```bash
     cd deploy/starter
