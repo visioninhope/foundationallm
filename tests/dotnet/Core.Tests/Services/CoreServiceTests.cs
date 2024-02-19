@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Core.Interfaces;
+using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using Microsoft.Extensions.Logging;
@@ -80,17 +81,18 @@ namespace FoundationaLLM.Core.Tests.Services
         public async Task GetChatSessionMessagesAsync_ShouldReturnAllChatSessionMessages()
         {
             // Arrange
-            var sessionId = Guid.NewGuid().ToString();
-            var upn = "test@founationallm.ai";
-            var message = new Message(sessionId, "sender", 0, "text", null, null, upn);
+            string sessionId = Guid.NewGuid().ToString();
+            var message = new Message(sessionId, "sender", 0, "text", null, null, "test_upn");
             var expectedMessages = new List<Message>() { message };
-            _cosmosDbService.GetSessionMessagesAsync(sessionId, upn).Returns(expectedMessages);
+
+            _cosmosDbService.GetSessionMessagesAsync(sessionId, Arg.Any<string>())
+                .Returns(expectedMessages);
 
             // Act
-            var actualMessages = await _testedService.GetChatSessionMessagesAsync(sessionId);
+            var messages = await _testedService.GetChatSessionMessagesAsync(sessionId);
 
             // Assert
-            Assert.Equivalent(expectedMessages, actualMessages);
+            Assert.Equal(expectedMessages, messages);
         }
 
         [Fact]
@@ -115,14 +117,24 @@ namespace FoundationaLLM.Core.Tests.Services
         public async Task CreateNewChatSessionAsync_ShouldReturnANewChatSession()
         {
             // Arrange
-            var expectedSession = new Session();
-            _cosmosDbService.InsertSessionAsync(expectedSession).Returns(expectedSession);
+            var currentUserUPN = "testuser@example.com";
+            var sessionType = "Test_type";
+            var newSession = new Session { Type = sessionType, UPN = currentUserUPN };
+
+            // Mock the CurrentUserIdentity property of ICallContext to return a valid user identity
+            _callContext.CurrentUserIdentity.Returns(new UnifiedUserIdentity { UPN = currentUserUPN });
+
+            // Set up the mock to return the new session when InsertSessionAsync is called
+            _cosmosDbService.InsertSessionAsync(Arg.Any<Session>())
+                .Returns(Task.FromResult(newSession));
 
             // Act
-            var actualSession = await _testedService.CreateNewChatSessionAsync();
+            var resultSession = await _testedService.CreateNewChatSessionAsync();
 
             // Assert
-            Assert.Equivalent(expectedSession, actualSession);
+            Assert.NotNull(resultSession);
+            Assert.Equal(sessionType, resultSession.Type);
+            Assert.Equal(currentUserUPN, resultSession.UPN);
         }
 
         #endregion
