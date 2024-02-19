@@ -482,6 +482,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.yml",
       "output": {
         ".html": {
@@ -1406,6 +1416,26 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEntry.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.html"
         }
       },
       "version": ""
@@ -3136,6 +3166,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationHealthCheckService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html"
         }
       },
       "version": ""

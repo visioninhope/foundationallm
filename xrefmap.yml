@@ -1195,6 +1195,28 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Authentication.APIKeyValidationSettings.APIKey
   nameWithType: APIKeyValidationSettings.APIKey
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication
+  name: DefaultAuthentication
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html
+  commentId: T:FoundationaLLM.Common.Authentication.DefaultAuthentication
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication
+  nameWithType: DefaultAuthentication
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential(System.Boolean)
+  name: GetAzureCredential(bool)
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_GetAzureCredential_System_Boolean_
+  commentId: M:FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential(System.Boolean)
+  name.vb: GetAzureCredential(Boolean)
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential(bool)
+  fullName.vb: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential(Boolean)
+  nameWithType: DefaultAuthentication.GetAzureCredential(bool)
+  nameWithType.vb: DefaultAuthentication.GetAzureCredential(Boolean)
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential*
+  name: GetAzureCredential
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_GetAzureCredential_
+  commentId: Overload:FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential
+  nameWithType: DefaultAuthentication.GetAzureCredential
 - uid: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings
   name: DownstreamAPIKeySettings
   href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.html
@@ -1492,6 +1514,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource
   nameWithType: AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Configuration_ResourceProviderService_Storage
+  name: FoundationaLLM_Configuration_ResourceProviderService_Storage
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Configuration_ResourceProviderService_Storage
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Configuration_ResourceProviderService_Storage
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Configuration_ResourceProviderService_Storage
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Configuration_ResourceProviderService_Storage
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_CosmosDB
   name: FoundationaLLM_CosmosDB
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_CosmosDB
@@ -2698,6 +2726,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent
   fullName: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent
   nameWithType: DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent
+- uid: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Configuration
+  name: FoundationaLLM_ResourceProvider_Configuration
+  href: api/dotnet/FoundationaLLM.Common.Constants.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_DependencyInjectionKeys_FoundationaLLM_ResourceProvider_Configuration
+  commentId: F:FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Configuration
+  fullName: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Configuration
+  nameWithType: DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Configuration
 - uid: FoundationaLLM.Common.Constants.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt
   name: FoundationaLLM_ResourceProvider_Prompt
   href: api/dotnet/FoundationaLLM.Common.Constants.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_DependencyInjectionKeys_FoundationaLLM_ResourceProvider_Prompt
@@ -2824,6 +2858,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
   fullName: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
   nameWithType: EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
+- uid: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration
+  name: FoundationaLLM_ResourceProvider_Configuration
+  href: api/dotnet/FoundationaLLM.Common.Constants.EventSetEventNamespaces.html#FoundationaLLM_Common_Constants_EventSetEventNamespaces_FoundationaLLM_ResourceProvider_Configuration
+  commentId: F:FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration
+  fullName: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration
+  nameWithType: EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration
 - uid: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization
   name: FoundationaLLM_ResourceProvider_Vectorization
   href: api/dotnet/FoundationaLLM.Common.Constants.EventSetEventNamespaces.html#FoundationaLLM_Common_Constants_EventSetEventNamespaces_FoundationaLLM_ResourceProvider_Vectorization
@@ -6223,6 +6263,70 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEntry.SampleObject
   nameWithType: AppConfigurationEntry.SampleObject
+- uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData
+  name: AppConfigurationEventData
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.html
+  commentId: T:FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData
+  fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData
+  nameWithType: AppConfigurationEventData
+- uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Etag
+  name: Etag
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.html#FoundationaLLM_Common_Models_Configuration_AppConfiguration_AppConfigurationEventData_Etag
+  commentId: P:FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Etag
+  fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Etag
+  nameWithType: AppConfigurationEventData.Etag
+- uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Etag*
+  name: Etag
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.html#FoundationaLLM_Common_Models_Configuration_AppConfiguration_AppConfigurationEventData_Etag_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Etag
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Etag
+  nameWithType: AppConfigurationEventData.Etag
+- uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Key
+  name: Key
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.html#FoundationaLLM_Common_Models_Configuration_AppConfiguration_AppConfigurationEventData_Key
+  commentId: P:FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Key
+  fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Key
+  nameWithType: AppConfigurationEventData.Key
+- uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Key*
+  name: Key
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.html#FoundationaLLM_Common_Models_Configuration_AppConfiguration_AppConfigurationEventData_Key_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Key
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Key
+  nameWithType: AppConfigurationEventData.Key
+- uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Label
+  name: Label
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.html#FoundationaLLM_Common_Models_Configuration_AppConfiguration_AppConfigurationEventData_Label
+  commentId: P:FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Label
+  fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Label
+  nameWithType: AppConfigurationEventData.Label
+- uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Label*
+  name: Label
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.html#FoundationaLLM_Common_Models_Configuration_AppConfiguration_AppConfigurationEventData_Label_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Label
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationEventData.Label
+  nameWithType: AppConfigurationEventData.Label
+- uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri
+  name: AppConfigurationKeyVaultUri
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.html
+  commentId: T:FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri
+  fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri
+  nameWithType: AppConfigurationKeyVaultUri
+- uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.Uri
+  name: Uri
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.html#FoundationaLLM_Common_Models_Configuration_AppConfiguration_AppConfigurationKeyVaultUri_Uri
+  commentId: P:FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.Uri
+  fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.Uri
+  nameWithType: AppConfigurationKeyVaultUri.Uri
+- uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.Uri*
+  name: Uri
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.html#FoundationaLLM_Common_Models_Configuration_AppConfiguration_AppConfigurationKeyVaultUri_Uri_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.Uri
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.AppConfiguration.AppConfigurationKeyVaultUri.Uri
+  nameWithType: AppConfigurationKeyVaultUri.Uri
 - uid: FoundationaLLM.Common.Models.Configuration.Authentication
   name: FoundationaLLM.Common.Models.Configuration.Authentication
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Authentication.html
@@ -11509,15 +11613,15 @@ references:
   commentId: T:FoundationaLLM.Common.Services.Azure.AzureResourceManagerService
   fullName: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService
   nameWithType: AzureResourceManagerService
-- uid: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Azure.AzureResourceManagerService})
-  name: AzureResourceManagerService(ILogger<AzureResourceManagerService>)
-  href: api/dotnet/FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.html#FoundationaLLM_Common_Services_Azure_AzureResourceManagerService__ctor_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_Azure_AzureResourceManagerService__
-  commentId: M:FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Azure.AzureResourceManagerService})
-  name.vb: New(ILogger(Of AzureResourceManagerService))
-  fullName: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.AzureResourceManagerService(Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.Azure.AzureResourceManagerService>)
-  fullName.vb: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.New(Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.Azure.AzureResourceManagerService))
-  nameWithType: AzureResourceManagerService.AzureResourceManagerService(ILogger<AzureResourceManagerService>)
-  nameWithType.vb: AzureResourceManagerService.New(ILogger(Of AzureResourceManagerService))
+- uid: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.#ctor(Microsoft.Extensions.Hosting.IHostEnvironment,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Azure.AzureResourceManagerService})
+  name: AzureResourceManagerService(IHostEnvironment, ILogger<AzureResourceManagerService>)
+  href: api/dotnet/FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.html#FoundationaLLM_Common_Services_Azure_AzureResourceManagerService__ctor_Microsoft_Extensions_Hosting_IHostEnvironment_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_Azure_AzureResourceManagerService__
+  commentId: M:FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.#ctor(Microsoft.Extensions.Hosting.IHostEnvironment,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Azure.AzureResourceManagerService})
+  name.vb: New(IHostEnvironment, ILogger(Of AzureResourceManagerService))
+  fullName: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.AzureResourceManagerService(Microsoft.Extensions.Hosting.IHostEnvironment, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.Azure.AzureResourceManagerService>)
+  fullName.vb: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.New(Microsoft.Extensions.Hosting.IHostEnvironment, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.Azure.AzureResourceManagerService))
+  nameWithType: AzureResourceManagerService.AzureResourceManagerService(IHostEnvironment, ILogger<AzureResourceManagerService>)
+  nameWithType.vb: AzureResourceManagerService.New(IHostEnvironment, ILogger(Of AzureResourceManagerService))
 - uid: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.#ctor*
   name: AzureResourceManagerService
   href: api/dotnet/FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.html#FoundationaLLM_Common_Services_Azure_AzureResourceManagerService__ctor_
@@ -12294,15 +12398,15 @@ references:
   commentId: T:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase
   fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase
   nameWithType: ResourceProviderServiceBase
-- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.#ctor(FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings,FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,Microsoft.Extensions.Logging.ILogger,System.Collections.Generic.List{System.String})
-  name: ResourceProviderServiceBase(InstanceSettings, IStorageService, IEventService, ILogger, List<string>?)
-  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__ctor_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings_FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_Microsoft_Extensions_Logging_ILogger_System_Collections_Generic_List_System_String__
-  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.#ctor(FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings,FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,Microsoft.Extensions.Logging.ILogger,System.Collections.Generic.List{System.String})
-  name.vb: New(InstanceSettings, IStorageService, IEventService, ILogger, List(Of String))
-  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.ResourceProviderServiceBase(FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, Microsoft.Extensions.Logging.ILogger, System.Collections.Generic.List<string>?)
-  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.New(FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, Microsoft.Extensions.Logging.ILogger, System.Collections.Generic.List(Of String))
-  nameWithType: ResourceProviderServiceBase.ResourceProviderServiceBase(InstanceSettings, IStorageService, IEventService, ILogger, List<string>?)
-  nameWithType.vb: ResourceProviderServiceBase.New(InstanceSettings, IStorageService, IEventService, ILogger, List(Of String))
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.#ctor(FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings,FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,Microsoft.Extensions.Logging.ILogger,System.Collections.Generic.List{System.String})
+  name: ResourceProviderServiceBase(InstanceSettings, IStorageService, IEventService, IResourceValidatorFactory, ILogger, List<string>?)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__ctor_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings_FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_Microsoft_Extensions_Logging_ILogger_System_Collections_Generic_List_System_String__
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.#ctor(FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings,FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,Microsoft.Extensions.Logging.ILogger,System.Collections.Generic.List{System.String})
+  name.vb: New(InstanceSettings, IStorageService, IEventService, IResourceValidatorFactory, ILogger, List(Of String))
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.ResourceProviderServiceBase(FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, Microsoft.Extensions.Logging.ILogger, System.Collections.Generic.List<string>?)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.New(FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, Microsoft.Extensions.Logging.ILogger, System.Collections.Generic.List(Of String))
+  nameWithType: ResourceProviderServiceBase.ResourceProviderServiceBase(InstanceSettings, IStorageService, IEventService, IResourceValidatorFactory, ILogger, List<string>?)
+  nameWithType.vb: ResourceProviderServiceBase.New(InstanceSettings, IStorageService, IEventService, IResourceValidatorFactory, ILogger, List(Of String))
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.#ctor*
   name: ResourceProviderServiceBase
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__ctor_
@@ -12760,6 +12864,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase._name
   nameWithType: ResourceProviderServiceBase._name
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase._resourceValidatorFactory
+  name: _resourceValidatorFactory
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__resourceValidatorFactory
+  commentId: F:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase._resourceValidatorFactory
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase._resourceValidatorFactory
+  nameWithType: ResourceProviderServiceBase._resourceValidatorFactory
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase._serializerSettings
   name: _serializerSettings
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__serializerSettings
@@ -14180,6 +14290,70 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Configuration.Services.ConfigurationHealthCheckService.StopAsync
   nameWithType: ConfigurationHealthCheckService.StopAsync
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService
+  name: ConfigurationResourceProviderService
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html
+  commentId: T:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService
+  nameWithType: ConfigurationResourceProviderService
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,FoundationaLLM.Common.Services.IAzureAppConfigurationService,FoundationaLLM.Common.Services.IAzureKeyVaultService,Microsoft.Extensions.Configuration.IConfigurationManager,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService})
+  name: ConfigurationResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, IResourceValidatorFactory, IAzureAppConfigurationService, IAzureKeyVaultService, IConfigurationManager, ILogger<ConfigurationResourceProviderService>)
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_FoundationaLLM_Common_Services_IAzureAppConfigurationService_FoundationaLLM_Common_Services_IAzureKeyVaultService_Microsoft_Extensions_Configuration_IConfigurationManager_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService__
+  commentId: M:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,FoundationaLLM.Common.Services.IAzureAppConfigurationService,FoundationaLLM.Common.Services.IAzureKeyVaultService,Microsoft.Extensions.Configuration.IConfigurationManager,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService})
+  name.vb: New(IOptions(Of InstanceSettings), IStorageService, IEventService, IResourceValidatorFactory, IAzureAppConfigurationService, IAzureKeyVaultService, IConfigurationManager, ILogger(Of ConfigurationResourceProviderService))
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.ConfigurationResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, FoundationaLLM.Common.Services.IAzureAppConfigurationService, FoundationaLLM.Common.Services.IAzureKeyVaultService, Microsoft.Extensions.Configuration.IConfigurationManager, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService>)
+  fullName.vb: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, FoundationaLLM.Common.Services.IAzureAppConfigurationService, FoundationaLLM.Common.Services.IAzureKeyVaultService, Microsoft.Extensions.Configuration.IConfigurationManager, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService))
+  nameWithType: ConfigurationResourceProviderService.ConfigurationResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, IResourceValidatorFactory, IAzureAppConfigurationService, IAzureKeyVaultService, IConfigurationManager, ILogger<ConfigurationResourceProviderService>)
+  nameWithType.vb: ConfigurationResourceProviderService.New(IOptions(Of InstanceSettings), IStorageService, IEventService, IResourceValidatorFactory, IAzureAppConfigurationService, IAzureKeyVaultService, IConfigurationManager, ILogger(Of ConfigurationResourceProviderService))
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.#ctor*
+  name: ConfigurationResourceProviderService
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService__ctor_
+  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.ConfigurationResourceProviderService
+  fullName.vb: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.New
+  nameWithType: ConfigurationResourceProviderService.ConfigurationResourceProviderService
+  nameWithType.vb: ConfigurationResourceProviderService.New
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
+  name: HandleEvents(EventSetEventArgs)
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_
+  commentId: M:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
+  nameWithType: ConfigurationResourceProviderService.HandleEvents(EventSetEventArgs)
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.HandleEvents*
+  name: HandleEvents
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_HandleEvents_
+  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.HandleEvents
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.HandleEvents
+  nameWithType: ConfigurationResourceProviderService.HandleEvents
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.InitializeInternal
+  name: InitializeInternal()
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_InitializeInternal
+  commentId: M:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.InitializeInternal
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.InitializeInternal()
+  nameWithType: ConfigurationResourceProviderService.InitializeInternal()
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.InitializeInternal*
+  name: InitializeInternal
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_InitializeInternal_
+  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.InitializeInternal
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.InitializeInternal
+  nameWithType: ConfigurationResourceProviderService.InitializeInternal
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService._name
+  name: _name
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService__name
+  commentId: P:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService._name
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService._name
+  nameWithType: ConfigurationResourceProviderService._name
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService._name*
+  name: _name
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService__name_
+  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService._name
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService._name
+  nameWithType: ConfigurationResourceProviderService._name
 - uid: FoundationaLLM.Configuration.Validation
   name: FoundationaLLM.Configuration.Validation
   href: api/dotnet/FoundationaLLM.Configuration.Validation.html
@@ -16484,6 +16658,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAzureEventGridEvents
   nameWithType: DependencyInjection.AddAzureEventGridEvents
+- uid: FoundationaLLM.DependencyInjection.AddConfigurationResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  name: AddConfigurationResourceProvider(IHostApplicationBuilder)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddConfigurationResourceProvider_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
+  commentId: M:FoundationaLLM.DependencyInjection.AddConfigurationResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  fullName: FoundationaLLM.DependencyInjection.AddConfigurationResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  nameWithType: DependencyInjection.AddConfigurationResourceProvider(IHostApplicationBuilder)
+- uid: FoundationaLLM.DependencyInjection.AddConfigurationResourceProvider*
+  name: AddConfigurationResourceProvider
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddConfigurationResourceProvider_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddConfigurationResourceProvider
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddConfigurationResourceProvider
+  nameWithType: DependencyInjection.AddConfigurationResourceProvider
 - uid: FoundationaLLM.DependencyInjection.AddInstanceProperties(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
   name: AddInstanceProperties(IServiceCollection, IConfigurationManager)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddInstanceProperties_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
@@ -18254,15 +18441,15 @@ references:
   commentId: T:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService
   fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService
   nameWithType: PromptResourceProviderService
-- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService})
-  name: PromptResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, ILogger<PromptResourceProviderService>)
-  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__
-  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService})
-  name.vb: New(IOptions(Of InstanceSettings), IStorageService, IEventService, ILogger(Of PromptResourceProviderService))
-  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.PromptResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService>)
-  fullName.vb: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService))
-  nameWithType: PromptResourceProviderService.PromptResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, ILogger<PromptResourceProviderService>)
-  nameWithType.vb: PromptResourceProviderService.New(IOptions(Of InstanceSettings), IStorageService, IEventService, ILogger(Of PromptResourceProviderService))
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService})
+  name: PromptResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, IResourceValidatorFactory, ILogger<PromptResourceProviderService>)
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__
+  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService})
+  name.vb: New(IOptions(Of InstanceSettings), IStorageService, IEventService, IResourceValidatorFactory, ILogger(Of PromptResourceProviderService))
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.PromptResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService>)
+  fullName.vb: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService))
+  nameWithType: PromptResourceProviderService.PromptResourceProviderService(IOptions<InstanceSettings>, IStorageService, IEventService, IResourceValidatorFactory, ILogger<PromptResourceProviderService>)
+  nameWithType.vb: PromptResourceProviderService.New(IOptions(Of InstanceSettings), IStorageService, IEventService, IResourceValidatorFactory, ILogger(Of PromptResourceProviderService))
 - uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.#ctor*
   name: PromptResourceProviderService
   href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService__ctor_
