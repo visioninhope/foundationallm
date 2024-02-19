@@ -181,9 +181,22 @@ module eventgrid 'modules/eventgrid.bicep' = {
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'eventgrid' ], zone.key))
     resourceSuffix: resourceSuffix 
     subnetId: '${vnetId}/subnets/FLLMServices'
-    topics: [ 'storage', 'vectorization' ]
+    topics: [ 'storage', 'vectorization', 'configuration' ]
     tags: tags
   }
+}
+
+module appConfigSystemTopic 'modules/config-system-topic.bicep' = {
+  name: 'ssTopic-${timestamp}'
+  params: {
+    actionGroupId: actionGroupId
+    location: location
+    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
+    resourceSuffix: resourceSuffix
+    opsResourceSuffix: opsResourceSuffix
+    tags: tags
+  }
+  scope: resourceGroup(opsResourceGroupName)  
 }
 
 module storageSystemTopic 'modules/storage-system-topic.bicep' = {
@@ -214,6 +227,21 @@ module sTopicSub 'modules/system-topic-subscription.bicep' = {
     ]
   }
   scope: resourceGroup(storageResourceGroupName)
+}
+
+module acTopicSub 'modules/system-topic-subscription.bicep' = {
+  name: 'acTopicSub-${timestamp}'
+  params: {
+    name: 'app-config'
+    topicName: appConfigSystemTopic.outputs.name
+    destinationTopicName: 'configuration'
+    eventGridName: eventgrid.outputs.name
+    appResourceGroup: resourceGroup().name
+    includedEventTypes: [
+      'Microsoft.AppConfiguration.KeyValueModified'
+    ]
+  }
+  scope: resourceGroup(opsResourceGroupName)
 }
 
 @batchSize(3)
