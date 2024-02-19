@@ -33,7 +33,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
             var internalContext = true;
             var messageHistoryEnabled = false;
 
-            if (request.Agent.IndexingProfile != null && request.Agent.EmbeddingProfile != null)
+            if (request.Agent.IndexingProfileObjectId != null && request.Agent.TextEmbeddingProfileObjectId != null)
             {
                 internalContext = false;
             }
