@@ -115,13 +115,16 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 return
                 [
                     .. (await Task.WhenAll(
-                            _promptReferences.Values.Select(pr => LoadPrompt(pr))))
+                        _promptReferences.Values
+                            .Where(pr => !pr.Deleted)
+                            .Select(pr => LoadPrompt(pr))))
                 ];
             }
             else
             {
-                if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference))
-                    new ResourceProviderException($"Could not locate the {instance.ResourceId} prompt resource.",
+                if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference)
+                    || promptReference.Deleted)
+                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} prompt resource.",
                         StatusCodes.Status404NotFound);
 
                 var prompt = await LoadPrompt(promptReference!);
@@ -164,6 +167,11 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             var promptBase = JsonSerializer.Deserialize<PromptBase>(serializedPrompt)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
 
+            if (_promptReferences.TryGetValue(promptBase.Name!, out var existingPromptReference)
+                && existingPromptReference!.Deleted)
+                throw new ResourceProviderException($"The prompt resource {existingPromptReference.Name} cannot be added or updated.",
+                        StatusCodes.Status400BadRequest);
+
             if (instances[0].ResourceId != promptBase.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
@@ -172,7 +180,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             {
                 Name = promptBase.Name!,
                 Type = promptBase.Type!,
-                Filename = $"/{_name}/{promptBase.Name}.json"
+                Filename = $"/{_name}/{promptBase.Name}.json",
+                Deleted = false
             };
 
             var prompt = JsonSerializer.Deserialize(serializedPrompt, promptReference.PromptType, _serializerSettings);
@@ -228,7 +237,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                     Name = resourceName!.Name,
                     Type = resourceName.Type,
                     Status = NameCheckResultType.Denied,
-                    Message = "A resource with the specified name already exists."
+                    Message = "A resource with the specified name already exists or was previously deleted and not purged."
                 }
                 : new ResourceNameCheckResult
                 {
@@ -240,8 +249,44 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         #endregion
 
+        /// <inheritdoc/>
+        protected override async Task DeleteResourceAsync(List<ResourceTypeInstance> instances)
+        {
+            switch (instances.Last().ResourceType)
+            {
+                case PromptResourceTypeNames.Prompts:
+                    await DeletePrompt(instances);
+                    break;
+                default:
+                    throw new ResourceProviderException($"The resource type {instances.Last().ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest);
+            };
+        }
+
+        #region Helpers for DeleteResourceAsync
+
+        private async Task DeletePrompt(List<ResourceTypeInstance> instances)
+        {
+            if (_promptReferences.TryGetValue(instances.Last().ResourceId!, out var promptReference)
+                || promptReference!.Deleted)
+            {
+                promptReference.Deleted = true;
+
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    PROMPT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(PromptReferenceStore.FromDictionary(_promptReferences.ToDictionary())),
+                    default,
+                    default);
+            }
+            else
+                throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} agent resource.",
+                            StatusCodes.Status404NotFound);
+        }
+
         #endregion
 
+        #endregion
 
         #region Obsolete
 
