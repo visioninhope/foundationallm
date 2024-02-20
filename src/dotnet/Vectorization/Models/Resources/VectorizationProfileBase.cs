@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FoundationaLLM.Common.Models.ResourceProvider;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Vectorization.Models.Resources
 {
@@ -10,26 +11,13 @@ namespace FoundationaLLM.Vectorization.Models.Resources
     [JsonDerivedType(typeof(TextPartitioningProfile), "text-partitioning-profile")]
     [JsonDerivedType(typeof(TextEmbeddingProfile), "text-embedding-profile")]
     [JsonDerivedType(typeof(IndexingProfile), "indexing-profile")]
-    public class VectorizationProfileBase
+    public class VectorizationProfileBase : ResourceBase
     {
         /// <summary>
         /// The type of the vectorization profile.
         /// </summary>
         [JsonIgnore]
-        [JsonPropertyName("type")]
-        public string? Type { get; set; }
-
-        /// <summary>
-        /// The name of the vectorization profile.
-        /// </summary>
-        [JsonPropertyName("name")]
-        public required string Name { get; set; }
-
-        /// <summary>
-        /// The unique identifier of the object.
-        /// </summary>
-        [JsonPropertyName("object_id")]
-        public string? ObjectId { get; set; }
+        public override string? Type { get; set; }
 
         /// <summary>
         /// The configuration associated with the vectorization profile.
