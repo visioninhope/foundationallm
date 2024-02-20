@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 import type {
+	Agent,
 	AgentDataSource,
 	AgentIndex,
 	AgentGatekeeper,
@@ -91,7 +92,7 @@ export default {
 		return [];
 	},
 
-	async getAgents(): Promise<AgentIndex[]> {
+	async getAgents(): Promise<Agent[]> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`);
 	},
 

@@ -72,10 +72,10 @@
 			<!-- Data source -->
 			<CreateAgentStepItem v-model="editDataSource">
 				<template v-if="selectedDataSource">
-					<div class="step-container__header">{{ selectedDataSource.Type }}</div>
+					<div class="step-container__header">{{ selectedDataSource.content_source }}</div>
 					<div>
 						<span class="step-option__header">Name:</span>
-						<span>{{ selectedDataSource.Name }}</span>
+						<span>{{ selectedDataSource.name }}</span>
 					</div>
 					<!-- <div>
 						<span class="step-option__header">Container name:</span>
@@ -100,17 +100,17 @@
 
 						<div
 							v-for="dataSource in group"
-							:key="dataSource.Name"
+							:key="dataSource.name"
 							class="step-container__edit__option"
 							:class="{
 								'step-container__edit__option--selected':
-									dataSource.Name === selectedDataSource?.Name,
+									dataSource.name === selectedDataSource?.name,
 							}"
 							@click.stop="handleDataSourceSelected(dataSource)"
 						>
 							<div>
 								<span class="step-option__header">Name:</span>
-								<span>{{ dataSource.Name }}</span>
+								<span>{{ dataSource.name }}</span>
 							</div>
 							<!-- <div>
 								<span class="step-option__header">Container name:</span>
@@ -131,14 +131,14 @@
 			<!-- Index source -->
 			<CreateAgentStepItem v-model="editIndexSource">
 				<template v-if="selectedIndexSource">
-					<div class="step-container__header">{{ selectedIndexSource.Name }}</div>
+					<div class="step-container__header">{{ selectedIndexSource.name }}</div>
 					<div>
 						<span class="step-option__header">URL:</span>
-						<span>{{ selectedIndexSource.ConfigurationReferences.Endpoint }}</span>
+						<span>{{ selectedIndexSource.configuration_references.Endpoint }}</span>
 					</div>
 					<div>
 						<span class="step-option__header">Index Name:</span>
-						<span>{{ selectedIndexSource.Settings.IndexName }}</span>
+						<span>{{ selectedIndexSource.settings.IndexName }}</span>
 					</div>
 				</template>
 				<template v-else>Please select an index source.</template>
@@ -147,22 +147,22 @@
 					<div class="step-container__edit__header">Please select an index source.</div>
 					<div
 						v-for="indexSource in indexSources"
-						:key="indexSource.Name"
+						:key="indexSource.name"
 						class="step-container__edit__option"
 						:class="{
 							'step-container__edit__option--selected':
-								indexSource.Name === selectedIndexSource?.Name,
+								indexSource.name === selectedIndexSource?.name,
 						}"
 						@click.stop="handleIndexSourceSelected(indexSource)"
 					>
-						<div class="step-container__header">{{ indexSource.Name }}</div>
+						<div class="step-container__header">{{ indexSource.name }}</div>
 						<div>
 							<span class="step-option__header">URL:</span>
-							<span>{{ indexSource.ConfigurationReferences.Endpoint }}</span>
+							<span>{{ indexSource.configuration_references.Endpoint }}</span>
 						</div>
 						<div>
 							<span class="step-option__header">Index Name:</span>
-							<span>{{ indexSource.Settings.IndexName }}</span>
+							<span>{{ indexSource.settings.IndexName }}</span>
 						</div>
 					</div>
 				</template>
@@ -529,11 +529,11 @@ export default {
 		groupedDataSources() {
 			const grouped = {};
 			this.dataSources.forEach((dataSource) => {
-				if (!grouped[dataSource.Type]) {
-					grouped[dataSource.Type] = [];
+				if (!grouped[dataSource.content_source]) {
+					grouped[dataSource.content_source] = [];
 				}
 
-				grouped[dataSource.Type].push(dataSource);
+				grouped[dataSource.content_source].push(dataSource);
 			});
 
 			return grouped;
@@ -564,8 +564,8 @@ export default {
 			this.loadingStatusText = `Retrieving text partitioning profile...`;
 			const textPartitioningProfile = await api.getTextPartitioningProfile(agent.text_partitioning_profile_object_id);
 			if (textPartitioningProfile) {
-				this.chunkSize = Number(textPartitioningProfile.Settings.ChunkSizeTokens);
-				this.overlapSize = Number(textPartitioningProfile.Settings.OverlapSizeTokens);
+				this.chunkSize = Number(textPartitioningProfile.settings.ChunkSizeTokens);
+				this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
 			}
 			this.loadingStatusText = `Retrieving prompt...`;
 			const prompt = await api.getPrompt(agent.prompt_object_id);
@@ -590,11 +590,11 @@ export default {
 			this.orchestrator = agent.orchestrator || this.orchestrator;
 
 			this.selectedIndexSource =
-				this.indexSources.find((indexSource) => indexSource.objectId === agent.indexing_profile) ||
+				this.indexSources.find((indexSource) => indexSource.object_id === agent.indexing_profile_object_id) ||
 				null;
 
 			this.selectedDataSource =
-				this.dataSources.find((dataSource) => dataSource.objectId === agent.embedding_profile) ||
+				this.dataSources.find((dataSource) => dataSource.object_id === agent.text_embedding_profile_object_id) ||
 				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
@@ -714,17 +714,17 @@ export default {
 			this.loadingStatusText = 'Creating agent...';
 
 			const promptRequest = {
-				name: this.agentName,
 				type: 'multipart',
+				name: this.agentName,
 				description: `System prompt for the ${this.agentName} agent`,
 				prefix: this.systemPrompt,
 				suffix: '',
 			};
 
 			const tokenTextPartitionRequest = {
-				Name: this.agentName,
-				TextSplitter: "TokenTextSplitter",
-				Settings: {
+				text_splitter: "TokenTextSplitter",
+				name: this.agentName,
+				settings: {
 					Tokenizer: "MicrosoftBPETokenizer",
 					TokenizerEncoder: "cl100k_base",
 					ChunkSizeTokens: this.chunkSize.toString(),
@@ -748,8 +748,8 @@ export default {
 					description: this.agentDescription,
 					object_id: this.object_id,
 
-					text_embedding_profile_object_id: this.selectedDataSource?.ObjectId,
-					indexing_profile_object_id: this.selectedIndexSource?.ObjectId,
+					text_embedding_profile_object_id: this.selectedDataSource?.object_id,
+					indexing_profile_object_id: this.selectedIndexSource?.object_id,
 					text_partitioning_profile_object_id: textPartitioningProfileObjectId,
 
 					conversation_history: {

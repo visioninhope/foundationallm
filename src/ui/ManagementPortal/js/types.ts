@@ -43,24 +43,24 @@ export type Prompt = {
 };
 
 export type AgentDataSource = {
-	Name: string;
-	Type: string;
-	ObjectId: string;
+	name: string;
+	content_source: string;
+	object_id: string;
 };
 
 export type AgentIndex = {
-	Name: string;
-	ObjectId: string;
-	Description: string;
-	Indexer: string;
-	Settings: {
+	name: string;
+	object_id: string;
+	description: string;
+	indexer: string;
+	settings: {
 		IndexName: string;
 		TopN?: string;
 		Filters?: string;
 		EmbeddingFieldName?: string;
 		TextFieldName?: string;
 	};
-	ConfigurationReferences: {
+	configuration_references: {
 		APIKey: string;
 		AuthenticationType: string;
 		Endpoint: string;
@@ -68,10 +68,10 @@ export type AgentIndex = {
 };
 
 export type TextPartitioningProfile = {
-	TextSplitter: string;
-	Name: string;
-	ObjectId: string;
-	Settings: {
+	text_splitter: string;
+	name: string;
+	object_id: string;
+	settings: {
 		Tokenizer: string;
 		TokenizerEncoder: string;
 		ChunkSizeTokens: string;
@@ -154,10 +154,10 @@ export type CreatePromptRequest = {
 };
 
 export type CreateTextPartitioningProfileRequest = {
-	TextSplitter: string;
-	Name: string;
-	ObjectId: string;
-	Settings: {
+	text_splitter: string;
+	name: string;
+	object_id: string;
+	settings: {
 		Tokenizer: string;
 		TokenizerEncoder: string;
 		ChunkSizeTokens: string;
