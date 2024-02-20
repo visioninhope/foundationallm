@@ -127,6 +127,7 @@ $tokens = @{}
 
 $tokens.subscriptionId = $subscriptionId
 $tokens.storageResourceGroup = $resourceGroups.storage
+$tokens.opsResourceGroup = $resourceGroups.ops
 
 $tenantId = $(az account show --query homeTenantId --output tsv)
 
@@ -161,6 +162,7 @@ $appConfigProperties = $(
         ConvertFrom-Json
 )
 
+$appConfigName = $appConfigProperties.name
 $appConfigEndpoint = $appConfigProperties.endpoint
 $appConfigConnectionString = $(
     az appconfig credential list `
@@ -283,6 +285,7 @@ $tokens.vectorizationJobMiClientId = $services["vectorizationjob"].miClientId
 $tokens.vectorizationConfig = $vectorizationConfig
 
 $tokens.tenantId = $tenantId
+$tokens.appConfigName = $appConfigName
 $tokens.appConfigEndpoint = $appConfigEndpoint
 $tokens.appConfigConnectionString = $appConfigConnectionString
 
