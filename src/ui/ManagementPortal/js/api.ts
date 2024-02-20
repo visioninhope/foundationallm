@@ -1,10 +1,16 @@
 /* eslint-disable prettier/prettier */
 
 import type {
+	Agent,
 	AgentDataSource,
 	AgentIndex,
 	AgentGatekeeper,
-	CreateAgentRequest
+	CreateAgentRequest,
+	AgentCheckNameResponse,
+	Prompt,
+	TextPartitioningProfile,
+	CreatePromptRequest,
+	CreateTextPartitioningProfileRequest
 } from './types';
 import { getMsalInstance } from '@/js/auth';
 
@@ -75,7 +81,7 @@ export default {
 		return [];
 	},
 
-	async getAgents(): Promise<AgentIndex[]> {
+	async getAgents(): Promise<Agent[]> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`);
 	},
 
@@ -93,6 +99,30 @@ export default {
 
 	async createAgent(request: CreateAgentRequest): Promise<any> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${request.name}?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: request,
+		});
+	},
+
+	async getPrompt(promptId: string): Promise<Prompt> {
+		const data = await this.fetch(`${promptId}?api-version=${this.apiVersion}`);
+		return data[0];
+	},
+
+	async createOrUpdatePrompt(agentId: string, request: CreatePromptRequest): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Prompt/prompts/${agentId}?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: request,
+		});
+	},
+
+	async getTextPartitioningProfile(profileId: string): Promise<TextPartitioningProfile> {
+		const data = await this.fetch(`${profileId}?api-version=${this.apiVersion}`);
+		return data[0];
+	},
+
+	async createOrUpdateTextPartitioningProfile(agentId: string, request: CreateTextPartitioningProfileRequest): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/${agentId}?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: request,
 		});
