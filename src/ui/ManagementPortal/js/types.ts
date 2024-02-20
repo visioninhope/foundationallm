@@ -6,6 +6,8 @@ export type Agent = {
 	indexing_profile_object_id: string;
 	text_embedding_profile_object_id: string;
 	text_partitioning_profile_object_id: string;
+	content_source_profile_object_id: string;
+
 	sessions_enabled: boolean;
 	orchestrator: string;
 	conversation_history: {
@@ -79,6 +81,20 @@ export type TextPartitioningProfile = {
 	};
 };
 
+export type TextEmbeddingProfile = {
+	type: string;
+	text_embedding: string;
+	name: string;
+	object_id: string;
+	configuration_references: {
+		APIKey: string;
+		APIVersion: string;
+		AuthenticationType: string;
+		DeploymentName: string;
+		Endpoint: string;
+	};
+};
+
 export type AgentCheckNameResponse = {
     type: string;
     name: string;
@@ -131,6 +147,8 @@ export type CreateAgentRequest = {
 	}
 	indexing_profile_object_id: string;
 	text_embedding_profile_object_id: string;
+	content_source_profile_object_id: string;
+	text_partitioning_profile_object_id: string;
 	sessions_enabled: boolean;
 	orchestrator: string;
 	conversation_history: {
