@@ -112,7 +112,7 @@ class ResourceProvider:
                     if file_content is not None:
                         decoded_content = file_content.decode("utf-8")
                         profiles = json.loads(decoded_content).get("Profiles", [])
-                        filtered = next(filter(lambda profile: profile.get("Name","") == resource, profiles), None)
+                        filtered = next(filter(lambda profile: profile.get("name","") == resource, profiles), None)
                         if filtered is not None:
                             filtered = self.__translate_keys(filtered)
                             return filtered
