@@ -20192,19 +20192,19 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile
   fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile
   nameWithType: ContentSourceProfile
-- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type
-  name: Type
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceProfile_Type
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type
-  nameWithType: ContentSourceProfile.Type
-- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type*
-  name: Type
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceProfile_Type_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type
+- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.ContentSource
+  name: ContentSource
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceProfile_ContentSource
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.ContentSource
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.ContentSource
+  nameWithType: ContentSourceProfile.ContentSource
+- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.ContentSource*
+  name: ContentSource
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceProfile_ContentSource_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.ContentSource
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.Type
-  nameWithType: ContentSourceProfile.Type
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.ContentSource
+  nameWithType: ContentSourceProfile.ContentSource
 - uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType
   name: ContentSourceType
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.html
@@ -20441,6 +20441,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Settings
   nameWithType: VectorizationProfileBase.Settings
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Type
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Type
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Type
+  nameWithType: VectorizationProfileBase.Type
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Type_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Type
+  nameWithType: VectorizationProfileBase.Type
 - uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact
   name: VectorizationArtifact
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html

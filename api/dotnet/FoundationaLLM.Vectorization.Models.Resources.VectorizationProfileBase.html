@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase" class="text-break">
-Class VectorizationProfileBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L11"><i class="bi bi-code-slash"></i></a>
+Class VectorizationProfileBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L8"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -102,7 +102,12 @@ Class VectorizationProfileBase  <a class="header-action link-secondary" title="V
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class VectorizationProfileBase</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPolymorphic(TypeDiscriminatorPropertyName = &quot;Type&quot;)]
+[JsonDerivedType(typeof(ContentSourceProfile), &quot;content-source-profile&quot;)]
+[JsonDerivedType(typeof(TextPartitioningProfile), &quot;text-partitioning-profile&quot;)]
+[JsonDerivedType(typeof(TextEmbeddingProfile), &quot;text-embedding-profile&quot;)]
+[JsonDerivedType(typeof(IndexingProfile), &quot;indexing-profile&quot;)]
+public class VectorizationProfileBase</code></pre>
   </div>
 
 
@@ -173,7 +178,7 @@ Class VectorizationProfileBase  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_ConfigurationReferences" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ConfigurationReferences">
   ConfigurationReferences
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configuration references associated with the vectorization profile.</p>
@@ -181,7 +186,8 @@ Class VectorizationProfileBase  <a class="header-action link-secondary" title="V
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, string&gt;? ConfigurationReferences { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;ConfigurationReferences&quot;)]
+public Dictionary&lt;string, string&gt;? ConfigurationReferences { get; set; }</code></pre>
   </div>
 
 
@@ -205,15 +211,16 @@ Class VectorizationProfileBase  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Name" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Name">
   Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The name of the vectorization profile</p>
+  <div class="markdown level1 summary"><p>The name of the vectorization profile.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required string Name { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;Name&quot;)]
+public required string Name { get; set; }</code></pre>
   </div>
 
 
@@ -237,7 +244,7 @@ Class VectorizationProfileBase  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_ObjectId" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ObjectId">
   ObjectId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The unique identifier of the object.</p>
@@ -245,7 +252,8 @@ Class VectorizationProfileBase  <a class="header-action link-secondary" title="V
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? ObjectId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;ObjectId&quot;)]
+public string? ObjectId { get; set; }</code></pre>
   </div>
 
 
@@ -269,7 +277,7 @@ Class VectorizationProfileBase  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Settings" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Settings">
   Settings
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L36"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The configuration associated with the vectorization profile.</p>
@@ -277,7 +285,8 @@ Class VectorizationProfileBase  <a class="header-action link-secondary" title="V
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, string&gt;? Settings { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;Settings&quot;)]
+public Dictionary&lt;string, string&gt;? Settings { get; set; }</code></pre>
   </div>
 
 
@@ -297,11 +306,44 @@ Class VectorizationProfileBase  <a class="header-action link-secondary" title="V
 
 
 
+  <a id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Type_" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Type*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Type" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Type">
+  Type
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The type of the vectorization profile.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string? Type { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
 
