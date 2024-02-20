@@ -7215,6 +7215,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "setup-guides/media/edit-agent-page.png",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/media/edit-agent-page.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "setup-guides/media/enable-disable-conversation-history.png",
       "output": {
         "resource": {

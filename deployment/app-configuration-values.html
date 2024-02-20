@@ -908,6 +908,51 @@
 <td>Key Vault secret name: <code>foundationallm-vectorization-resourceprovider-storage-connectionstring</code></td>
 <td>The connection string to the Azure Storage account used for the vectorization state service.</td>
 </tr>
+<tr>
+<td><code>FoundationaLLM:Events:AzureEventGridEventService:APIKey</code></td>
+<td>Key Vault secret name: <code>foundationallm-events-azureeventgrid-apikey</code></td>
+<td>The API key used to access FLLM's Event Grid namespace.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Events:AzureEventGridEventService:AuthenticationType</code></td>
+<td></td>
+<td>The authentication type used to connect to the underlying Event Grid namespace. Currently supports <code>APIKey</code>.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Events:AzureEventGridEventService:Endpoint</code></td>
+<td></td>
+<td>The endpoint for the Azure Event Grid namespace.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Events:AzureEventGridEventService:NamespaceId</code></td>
+<td></td>
+<td>The Azure resource ID of the Event Grid namespace.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI</code></td>
+<td></td>
+<td>FLLM eventing infrastructure configuration for the Agent Factory API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI</code></td>
+<td></td>
+<td>FLLM eventing infrastructure configuration for the Core API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI</code></td>
+<td></td>
+<td>FLLM eventing infrastructure configuration for the Management API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationAPI</code></td>
+<td></td>
+<td>FLLM eventing infrastructure configuration for the Vectorization API.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker</code></td>
+<td></td>
+<td>FLLM eventing infrastructure configuration for the Vectorization Worker.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="feature-flags">Feature flags</h2>
