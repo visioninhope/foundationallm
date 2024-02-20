@@ -123,6 +123,7 @@ Class ResourceBase  <a class="header-action link-secondary" title="View source" 
     <dd>
       <div><a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentBase.html">AgentBase</a></div>
       <div><a class="xref" href="FoundationaLLM.Prompt.Models.Metadata.PromptBase.html">PromptBase</a></div>
+      <div><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html">VectorizationProfileBase</a></div>
     </dd>
   </dl>
 
@@ -174,11 +175,45 @@ Class ResourceBase  <a class="header-action link-secondary" title="View source" 
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Deleted_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Deleted*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Deleted" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Deleted">
+  Deleted
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether the resource has been logically deleted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;deleted&quot;)]
+[JsonPropertyOrder(-3)]
+public bool Deleted { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Description_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Description*"></a>
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Description" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Description">
   Description
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The description of the resource.</p>
@@ -187,7 +222,7 @@ Class ResourceBase  <a class="header-action link-secondary" title="View source" 
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;description&quot;)]
-[JsonPropertyOrder(-2)]
+[JsonPropertyOrder(-3)]
 public string? Description { get; set; }</code></pre>
   </div>
 
@@ -221,7 +256,7 @@ public string? Description { get; set; }</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;object_id&quot;)]
-[JsonPropertyOrder(-3)]
+[JsonPropertyOrder(-4)]
 public string? ObjectId { get; set; }</code></pre>
   </div>
 

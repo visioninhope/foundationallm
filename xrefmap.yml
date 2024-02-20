@@ -150,6 +150,22 @@ references:
   fullName.vb: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.New
   nameWithType: AgentResourceProviderService.AgentResourceProviderService
   nameWithType.vb: AgentResourceProviderService.New
+- uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})
+  name: DeleteResourceAsync(List<ResourceTypeInstance>)
+  href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService_DeleteResourceAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__
+  commentId: M:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})
+  name.vb: DeleteResourceAsync(List(Of ResourceTypeInstance))
+  fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List<FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance>)
+  fullName.vb: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List(Of FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance))
+  nameWithType: AgentResourceProviderService.DeleteResourceAsync(List<ResourceTypeInstance>)
+  nameWithType.vb: AgentResourceProviderService.DeleteResourceAsync(List(Of ResourceTypeInstance))
+- uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.DeleteResourceAsync*
+  name: DeleteResourceAsync
+  href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService_DeleteResourceAsync_
+  commentId: Overload:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.DeleteResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.DeleteResourceAsync
+  nameWithType: AgentResourceProviderService.DeleteResourceAsync
 - uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.ExecuteActionAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance},System.String)
   name: ExecuteActionAsync(List<ResourceTypeInstance>, string)
   href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService_ExecuteActionAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__System_String_
@@ -5225,6 +5241,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.New
   nameWithType: KnowledgeManagementAgent.KnowledgeManagementAgent
   nameWithType.vb: KnowledgeManagementAgent.New
+- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.ContentSourceProfileObjectId
+  name: ContentSourceProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_ContentSourceProfileObjectId
+  commentId: P:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.ContentSourceProfileObjectId
+  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.ContentSourceProfileObjectId
+  nameWithType: KnowledgeManagementAgent.ContentSourceProfileObjectId
+- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.ContentSourceProfileObjectId*
+  name: ContentSourceProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_ContentSourceProfileObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.ContentSourceProfileObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.ContentSourceProfileObjectId
+  nameWithType: KnowledgeManagementAgent.ContentSourceProfileObjectId
 - uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.IndexingProfileObjectId
   name: IndexingProfileObjectId
   href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_IndexingProfileObjectId
@@ -9502,6 +9531,19 @@ references:
   commentId: T:FoundationaLLM.Common.Models.ResourceProvider.ResourceBase
   fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceBase
   nameWithType: ResourceBase
+- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Deleted
+  name: Deleted
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Deleted
+  commentId: P:FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Deleted
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Deleted
+  nameWithType: ResourceBase.Deleted
+- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Deleted*
+  name: Deleted
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Deleted_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Deleted
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Deleted
+  nameWithType: ResourceBase.Deleted
 - uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Description
   name: Description
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Description
@@ -9655,6 +9697,19 @@ references:
   commentId: T:FoundationaLLM.Common.Models.ResourceProvider.ResourceReference
   fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceReference
   nameWithType: ResourceReference
+- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.Deleted
+  name: Deleted
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceReference_Deleted
+  commentId: P:FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.Deleted
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.Deleted
+  nameWithType: ResourceReference.Deleted
+- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.Deleted*
+  name: Deleted
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceReference_Deleted_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.Deleted
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.Deleted
+  nameWithType: ResourceReference.Deleted
 - uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.Filename
   name: Filename
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceReference.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceReference_Filename
@@ -18505,6 +18560,22 @@ references:
   fullName.vb: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.New
   nameWithType: PromptResourceProviderService.PromptResourceProviderService
   nameWithType.vb: PromptResourceProviderService.New
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})
+  name: DeleteResourceAsync(List<ResourceTypeInstance>)
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_DeleteResourceAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__
+  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})
+  name.vb: DeleteResourceAsync(List(Of ResourceTypeInstance))
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List<FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance>)
+  fullName.vb: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List(Of FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance))
+  nameWithType: PromptResourceProviderService.DeleteResourceAsync(List<ResourceTypeInstance>)
+  nameWithType.vb: PromptResourceProviderService.DeleteResourceAsync(List(Of ResourceTypeInstance))
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.DeleteResourceAsync*
+  name: DeleteResourceAsync
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_DeleteResourceAsync_
+  commentId: Overload:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.DeleteResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.DeleteResourceAsync
+  nameWithType: PromptResourceProviderService.DeleteResourceAsync
 - uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.ExecuteActionAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance},System.String)
   name: ExecuteActionAsync(List<ResourceTypeInstance>, string)
   href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_ExecuteActionAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__System_String_
@@ -20434,32 +20505,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ConfigurationReferences
   nameWithType: VectorizationProfileBase.ConfigurationReferences
-- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Name
-  name: Name
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Name
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Name
-  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Name
-  nameWithType: VectorizationProfileBase.Name
-- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Name*
-  name: Name
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Name_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Name
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Name
-  nameWithType: VectorizationProfileBase.Name
-- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ObjectId
-  name: ObjectId
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_ObjectId
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ObjectId
-  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ObjectId
-  nameWithType: VectorizationProfileBase.ObjectId
-- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ObjectId*
-  name: ObjectId
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_ObjectId_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ObjectId
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ObjectId
-  nameWithType: VectorizationProfileBase.ObjectId
 - uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Settings
   name: Settings
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Settings
@@ -21237,6 +21282,22 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.New
   nameWithType: VectorizationResourceProviderService.VectorizationResourceProviderService
   nameWithType.vb: VectorizationResourceProviderService.New
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})
+  name: DeleteResourceAsync(List<ResourceTypeInstance>)
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_DeleteResourceAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__
+  commentId: M:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})
+  name.vb: DeleteResourceAsync(List(Of ResourceTypeInstance))
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List<FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance>)
+  fullName.vb: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List(Of FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance))
+  nameWithType: VectorizationResourceProviderService.DeleteResourceAsync(List<ResourceTypeInstance>)
+  nameWithType.vb: VectorizationResourceProviderService.DeleteResourceAsync(List(Of ResourceTypeInstance))
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.DeleteResourceAsync*
+  name: DeleteResourceAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_DeleteResourceAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.DeleteResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.DeleteResourceAsync
+  nameWithType: VectorizationResourceProviderService.DeleteResourceAsync
 - uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.ExecuteActionAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance},System.String)
   name: ExecuteActionAsync(List<ResourceTypeInstance>, string)
   href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_ExecuteActionAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__System_String_

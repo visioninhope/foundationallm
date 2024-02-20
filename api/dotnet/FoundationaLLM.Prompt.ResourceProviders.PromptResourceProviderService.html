@@ -166,9 +166,6 @@ Class PromptResourceProviderService  <a class="header-action link-secondary" tit
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleDeleteAsync_System_String_">ResourceProviderServiceBase.HandleDeleteAsync(string)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResourceAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__">ResourceProviderServiceBase.DeleteResourceAsync(List&lt;ResourceTypeInstance&gt;)</a>
-    </div>
-    <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResources__1_System_String_">ResourceProviderServiceBase.GetResources&lt;T&gt;(string)</a>
     </div>
     <div>
@@ -338,11 +335,49 @@ Class PromptResourceProviderService  <a class="header-action link-secondary" tit
 </h2>
 
 
+  <a id="FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_DeleteResourceAsync_" data-uid="FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.DeleteResourceAsync*"></a>
+
+  <h3 id="FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_DeleteResourceAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__" data-uid="FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})">
+  DeleteResourceAsync(List&lt;ResourceTypeInstance&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/PromptResourceProviderService.cs/#L253"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Task DeleteResourceAsync(List&lt;ResourceTypeInstance&gt; instances)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instances</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html">ResourceTypeInstance</a>&gt;</dt>
+    <dd><p>The list of <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html">ResourceTypeInstance</a> objects parsed from the resource path.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_ExecuteActionAsync_" data-uid="FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.ExecuteActionAsync*"></a>
 
   <h3 id="FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_ExecuteActionAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__System_String_" data-uid="FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.ExecuteActionAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance},System.String)">
   ExecuteActionAsync(List&lt;ResourceTypeInstance&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/PromptResourceProviderService.cs/#L207"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/PromptResourceProviderService.cs/#L216"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of ExecuteActionAsync. Must be overriden in derived classes.</p>
@@ -388,7 +423,7 @@ Class PromptResourceProviderService  <a class="header-action link-secondary" tit
 
   <h3 id="FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourceAsyncInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__" data-uid="FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourceAsyncInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})">
   GetResourceAsyncInternal&lt;T&gt;(List&lt;ResourceTypeInstance&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/PromptResourceProviderService.cs/#L249"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/PromptResourceProviderService.cs/#L294"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResourceAsync. Must be overridden in derived classes.</p>
@@ -506,7 +541,7 @@ Class PromptResourceProviderService  <a class="header-action link-secondary" tit
 
   <h3 id="FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourcesAsyncInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__" data-uid="FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal``1(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})">
   GetResourcesAsyncInternal&lt;T&gt;(List&lt;ResourceTypeInstance&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/PromptResourceProviderService.cs/#L258"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/PromptResourceProviderService.cs/#L303"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResourcesAsync. Must be overridden in derived classes.</p>
@@ -581,7 +616,7 @@ Class PromptResourceProviderService  <a class="header-action link-secondary" tit
 
   <h3 id="FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_UpsertResourceAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__System_String_" data-uid="FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.UpsertResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance},System.String)">
   UpsertResourceAsync(List&lt;ResourceTypeInstance&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/PromptResourceProviderService.cs/#L152"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/ResourceProviders/PromptResourceProviderService.cs/#L155"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
