@@ -75,7 +75,7 @@
 					<div class="step-container__header">{{ selectedDataSource.Type }}</div>
 					<div>
 						<span class="step-option__header">Name:</span>
-						<span>{{ selectedDataSource.name }}</span>
+						<span>{{ selectedDataSource.Name }}</span>
 					</div>
 					<!-- <div>
 						<span class="step-option__header">Container name:</span>
@@ -100,17 +100,17 @@
 
 						<div
 							v-for="dataSource in group"
-							:key="dataSource.name"
+							:key="dataSource.Name"
 							class="step-container__edit__option"
 							:class="{
 								'step-container__edit__option--selected':
-									dataSource.name === selectedDataSource?.name,
+									dataSource.Name === selectedDataSource?.Name,
 							}"
 							@click.stop="handleDataSourceSelected(dataSource)"
 						>
 							<div>
 								<span class="step-option__header">Name:</span>
-								<span>{{ dataSource.name }}</span>
+								<span>{{ dataSource.Name }}</span>
 							</div>
 							<!-- <div>
 								<span class="step-option__header">Container name:</span>
@@ -131,14 +131,14 @@
 			<!-- Index source -->
 			<CreateAgentStepItem v-model="editIndexSource">
 				<template v-if="selectedIndexSource">
-					<div class="step-container__header">{{ selectedIndexSource.name }}</div>
+					<div class="step-container__header">{{ selectedIndexSource.Name }}</div>
 					<div>
 						<span class="step-option__header">URL:</span>
-						<span>{{ selectedIndexSource.configurationReferences.Endpoint }}</span>
+						<span>{{ selectedIndexSource.ConfigurationReferences.Endpoint }}</span>
 					</div>
 					<div>
 						<span class="step-option__header">Index Name:</span>
-						<span>{{ selectedIndexSource.settings.IndexName }}</span>
+						<span>{{ selectedIndexSource.Settings.IndexName }}</span>
 					</div>
 				</template>
 				<template v-else>Please select an index source.</template>
@@ -147,22 +147,22 @@
 					<div class="step-container__edit__header">Please select an index source.</div>
 					<div
 						v-for="indexSource in indexSources"
-						:key="indexSource.name"
+						:key="indexSource.Name"
 						class="step-container__edit__option"
 						:class="{
 							'step-container__edit__option--selected':
-								indexSource.name === selectedIndexSource?.name,
+								indexSource.Name === selectedIndexSource?.Name,
 						}"
 						@click.stop="handleIndexSourceSelected(indexSource)"
 					>
-						<div class="step-container__header">{{ indexSource.name }}</div>
+						<div class="step-container__header">{{ indexSource.Name }}</div>
 						<div>
 							<span class="step-option__header">URL:</span>
-							<span>{{ indexSource.configurationReferences.Endpoint }}</span>
+							<span>{{ indexSource.ConfigurationReferences.Endpoint }}</span>
 						</div>
 						<div>
 							<span class="step-option__header">Index Name:</span>
-							<span>{{ indexSource.settings.IndexName }}</span>
+							<span>{{ indexSource.Settings.IndexName }}</span>
 						</div>
 					</div>
 				</template>
@@ -412,10 +412,12 @@ const defaultFormValues = {
 	agentName: '',
 	agentDescription: '',
 	object_id: '',
+	text_partitioning_profile_object_id: '',
+	prompt_object_id: '',
 	agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 	editDataSource: false as boolean,
-	selectedDataSource: null as null | Object,
+	selectedDataSource: null as null | AgentDataSource,
 
 	editIndexSource: false as boolean,
 	selectedIndexSource: null as null | AgentIndex,
@@ -559,6 +561,17 @@ export default {
 		if (this.editAgent) {
 			this.loadingStatusText = `Retrieving agent "${this.editAgent}"...`;
 			const agent = await api.getAgent(this.editAgent);
+			this.loadingStatusText = `Retrieving text partitioning profile...`;
+			const textPartitioningProfile = await api.getTextPartitioningProfile(agent.text_partitioning_profile_object_id);
+			if (textPartitioningProfile) {
+				this.chunkSize = Number(textPartitioningProfile.Settings.ChunkSizeTokens);
+				this.overlapSize = Number(textPartitioningProfile.Settings.OverlapSizeTokens);
+			}
+			this.loadingStatusText = `Retrieving prompt...`;
+			const prompt = await api.getPrompt(agent.prompt_object_id);
+			if (prompt) {
+				this.systemPrompt = prompt.prefix;
+			}
 			this.loadingStatusText = `Mapping agent values to form...`;
 			this.mapAgentToForm(agent);
 		}
@@ -598,8 +611,6 @@ export default {
 				this.gatekeeperDataProtectionOptions.find((localOption) =>
 					agent.gatekeeper.options.find((option) => option === localOption.value),
 				) || this.gatekeeperDataProtection;
-
-			this.systemPrompt = agent.prompt || '';
 		},
 
 		async checkName() {
@@ -702,46 +713,76 @@ export default {
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
 
-			const agentRequest = {
-				type: this.agentType,
+			const promptRequest = {
 				name: this.agentName,
-				description: this.agentDescription,
-				object_id: this.object_id,
+				type: 'multipart',
+				description: `System prompt for the ${this.agentName} agent`,
+				prefix: this.systemPrompt,
+				suffix: '',
+			};
 
-				embedding_profile: this.selectedDataSource?.objectId,
-				indexing_profile: this.selectedIndexSource?.objectId,
-
-				conversation_history: {
-					enabled: this.conversationHistory,
-					max_history: this.conversationMaxMessages,
-				},
-
-				gatekeeper: {
-					use_system_setting: this.gatekeeperEnabled,
-					options: [
-						this.gatekeeperContentSafety.value,
-						this.gatekeeperDataProtection.value,
-					].filter(option => option !== null),
-				},
-
-				language_model: {
-					type: 'openai',
-					provider: 'microsoft',
-					temperature: 0,
-					use_chat: true,
-					api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
-					api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
-					api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
-					version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
-					deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
-				},
-
-				prompt: this.systemPrompt,
-				orchestrator: this.orchestrator,
+			const tokenTextPartitionRequest = {
+				Name: this.agentName,
+				TextSplitter: "TokenTextSplitter",
+				Settings: {
+					Tokenizer: "MicrosoftBPETokenizer",
+					TokenizerEncoder: "cl100k_base",
+					ChunkSizeTokens: this.chunkSize.toString(),
+					OverlapSizeTokens: this.overlapSize.toString()
+				}
 			};
 
 			let successMessage = null;
 			try {
+				// Handle Prompt creation/update.
+				const promptResponse = await api.createOrUpdatePrompt(this.agentName, promptRequest);
+				const promptObjectId = promptResponse.objectId;
+
+				// Handle TextPartitioningProfile creation/update.
+				const tokenTextPartitionResponse = await api.createOrUpdateTextPartitioningProfile(this.agentName, tokenTextPartitionRequest);
+				const textPartitioningProfileObjectId = tokenTextPartitionResponse.objectId;
+
+				const agentRequest = {
+					type: this.agentType,
+					name: this.agentName,
+					description: this.agentDescription,
+					object_id: this.object_id,
+
+					text_embedding_profile_object_id: this.selectedDataSource?.ObjectId,
+					indexing_profile_object_id: this.selectedIndexSource?.ObjectId,
+					text_partitioning_profile_object_id: textPartitioningProfileObjectId,
+
+					conversation_history: {
+						enabled: this.conversationHistory,
+						max_history: this.conversationMaxMessages,
+					},
+
+					gatekeeper: {
+						use_system_setting: this.gatekeeperEnabled,
+						options: [
+							this.gatekeeperContentSafety.value,
+							this.gatekeeperDataProtection.value,
+						].filter(option => option !== null),
+					},
+
+					language_model: {
+						type: 'openai',
+						provider: 'microsoft',
+						temperature: 0,
+						use_chat: true,
+						api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
+						api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
+						api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
+						version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
+						deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
+					},
+
+					sessions_enabled: true,
+
+					prompt_object_id: promptObjectId,
+					orchestrator: this.orchestrator,
+				};
+
 				if (this.editAgent) {
 					await api.updateAgent(this.editAgent, agentRequest);
 					successMessage = `Agent "${this.agentName}" was succesfully updated!`;

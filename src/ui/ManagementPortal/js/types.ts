@@ -3,8 +3,9 @@ export type Agent = {
 	object_id: string;
 	description: string;
 	type: 'knowledge-management' | 'analytics';
-	indexing_profile: string;
-	embedding_profile: string;
+	indexing_profile_object_id: string;
+	text_embedding_profile_object_id: string;
+	text_partitioning_profile_object_id: string;
 	sessions_enabled: boolean;
 	orchestrator: string;
 	conversation_history: {
@@ -29,30 +30,52 @@ export type Agent = {
 		version: string;
 		deployment: string;
 	}
-	prompt: string;
+	prompt_object_id: string;
+};
+
+export type Prompt = {
+	type: string
+	name: string;
+	object_id: string;
+	description: string;
+	prefix: string;
+	suffix: string;
 };
 
 export type AgentDataSource = {
-	name: string;
-	objectId: string;
+	Name: string;
+	Type: string;
+	ObjectId: string;
 };
 
 export type AgentIndex = {
-	name: string;
-	objectId: string;
-	description: string;
-	indexer: string;
-	settings: {
+	Name: string;
+	ObjectId: string;
+	Description: string;
+	Indexer: string;
+	Settings: {
 		IndexName: string;
 		TopN?: string;
 		Filters?: string;
 		EmbeddingFieldName?: string;
 		TextFieldName?: string;
 	};
-	configurationReferences: {
+	ConfigurationReferences: {
 		APIKey: string;
 		AuthenticationType: string;
 		Endpoint: string;
+	};
+};
+
+export type TextPartitioningProfile = {
+	TextSplitter: string;
+	Name: string;
+	ObjectId: string;
+	Settings: {
+		Tokenizer: string;
+		TokenizerEncoder: string;
+		ChunkSizeTokens: string;
+		OverlapSizeTokens: string;
 	};
 };
 
@@ -91,22 +114,23 @@ export type MockCreateAgentRequest = {
 };
 
 export type CreateAgentRequest = {
-	name: string;
 	type: 'knowledge-management' | 'analytics';
-	// description: string;
-	// "language_model": {
-	//   "type": "openai",
-	//   "provider": "microsoft",
-	//   "temperature": 0,
-	//   "use_chat": true,
-	//   "api_endpoint": "FoundationaLLM:AzureOpenAI:API:Endpoint",
-	//   "api_key": "FoundationaLLM:AzureOpenAI:API:Key",
-	//   "api_version": "FoundationaLLM:AzureOpenAI:API:Version",
-	//   "version": "FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion",
-	//   "deployment": "FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName"
-	// },
-	indexing_profile: string;
-	embedding_profile: string;
+	name: string;
+	description: string;
+	object_id: string;
+	language_model: {
+		type: string;
+		provider: string;
+		temperature: number;
+		use_chat: boolean;
+		api_endpoint: string;
+		api_key: string;
+		api_version: string;
+		version: string;
+		deployment: string;
+	}
+	indexing_profile_object_id: string;
+	text_embedding_profile_object_id: string;
 	sessions_enabled: boolean;
 	orchestrator: string;
 	conversation_history: {
@@ -115,10 +139,28 @@ export type CreateAgentRequest = {
 	};
 	gatekeeper: {
 		use_system_setting: boolean;
-		options: {
-			content_safety: number;
-			data_protection: number;
-		};
+		options: string[];
 	};
-	prompt: string;
+	prompt_object_id: string;
+};
+
+export type CreatePromptRequest = {
+	type: 'basic' | 'multipart';
+	name: string;
+	object_id: string;
+	description: string;
+	prefix: string;
+	suffix: string;
+};
+
+export type CreateTextPartitioningProfileRequest = {
+	TextSplitter: string;
+	Name: string;
+	ObjectId: string;
+	Settings: {
+		Tokenizer: string;
+		TokenizerEncoder: string;
+		ChunkSizeTokens: string;
+		OverlapSizeTokens: string;
+	};
 };
