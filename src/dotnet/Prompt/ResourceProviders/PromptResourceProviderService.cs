@@ -120,24 +120,11 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             }
             else
             {
-                //TODO: Find a more efficient way to load and agent when the type is not known in advance
-                // (ideally avoiding the double load below).
+                if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference))
+                    new ResourceProviderException($"Could not locate the {instance.ResourceId} prompt resource.",
+                        StatusCodes.Status404NotFound);
 
-                var promptReference = new PromptReference
-                {
-                    Name = instance.ResourceId,
-                    Type = PromptTypes.Basic,
-                    Filename = $"/{_name}/{instance.ResourceId}.json"
-                };
-                var prompt = await LoadPrompt(promptReference);
-
-                promptReference.Type = prompt.Type;
-                prompt = await LoadPrompt(promptReference);
-
-                _promptReferences.AddOrUpdate(
-                    promptReference.Name,
-                    promptReference,
-                    (k, v) => v);
+                var prompt = await LoadPrompt(promptReference!);
 
                 return [prompt];
             }
