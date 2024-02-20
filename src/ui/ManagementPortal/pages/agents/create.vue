@@ -413,6 +413,7 @@ const defaultFormValues = {
 	agentDescription: '',
 	object_id: '',
 	text_partitioning_profile_object_id: '',
+	text_embedding_profile_object_id: '',
 	prompt_object_id: '',
 	agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
@@ -588,6 +589,7 @@ export default {
 			this.agentType = agent.type || this.agentType;
 			this.object_id = agent.object_id || this.object_id;
 			this.orchestrator = agent.orchestrator || this.orchestrator;
+			this.text_embedding_profile_object_id = agent.text_embedding_profile_object_id || this.text_embedding_profile_object_id;
 
 			this.selectedIndexSource =
 				this.indexSources.find((indexSource) => indexSource.object_id === agent.indexing_profile_object_id) ||
@@ -692,11 +694,13 @@ export default {
 				errors.push(this.validationMessage);
 			}
 
-			const textEmbeddingProfiles = await api.getTextEmbeddingProfiles();
-			if (textEmbeddingProfiles.length === 0) {
-				errors.push('No vectorization text embedding profiles found.');
+			if (this.text_embedding_profile_object_id === '') {
+				const textEmbeddingProfiles = await api.getTextEmbeddingProfiles();
+				if (textEmbeddingProfiles.length === 0) {
+					errors.push('No vectorization text embedding profiles found.');
+				}
+				this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
 			}
-			const textEmbeddingProfileObjectId = textEmbeddingProfiles[0].object_id;
 
 			// if (!this.selectedDataSource) {
 			// 	errors.push('Please select a data source.');
@@ -754,7 +758,7 @@ export default {
 					description: this.agentDescription,
 					object_id: this.object_id,
 
-					text_embedding_profile_object_id: textEmbeddingProfileObjectId,
+					text_embedding_profile_object_id: this.text_embedding_profile_object_id,
 					indexing_profile_object_id: this.selectedIndexSource?.object_id ?? '',
 					text_partitioning_profile_object_id: textPartitioningProfileObjectId,
 					content_source_profile_object_id: this.selectedDataSource?.object_id ?? '',
