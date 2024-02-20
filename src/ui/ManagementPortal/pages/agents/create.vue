@@ -584,7 +584,7 @@ export default {
 				null;
 
 			this.selectedDataSource =
-				this.dataSources.find((dataSource) => dataSource.object_id === agent.text_embedding_profile_object_id) ||
+				this.dataSources.find((dataSource) => dataSource.object_id === agent.content_source_profile_object_id) ||
 				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
@@ -649,6 +649,12 @@ export default {
 				errors.push('Please give the agent a name.');
 			}
 
+			const textEmbeddingProfiles = await api.getTextEmbeddingProfiles();
+			if (textEmbeddingProfiles.length === 0) {
+				errors.push('No vectorization text embedding profiles found.');
+			}
+			const textEmbeddingProfileObjectId = textEmbeddingProfiles[0].object_id;
+
 			// if (!this.selectedDataSource) {
 			// 	errors.push('Please select a data source.');
 			// }
@@ -698,27 +704,28 @@ export default {
 				// Handle TextPartitioningProfile creation/update.
 				const tokenTextPartitionResponse = await api.createOrUpdateTextPartitioningProfile(this.agentName, tokenTextPartitionRequest);
 				const textPartitioningProfileObjectId = tokenTextPartitionResponse.objectId;
-
-				const agentRequest = {
+				
+				const agentRequest: CreateAgentRequest = {
 					type: this.agentType,
 					name: this.agentName,
 					description: this.agentDescription,
 					object_id: this.object_id,
 
-					text_embedding_profile_object_id: this.selectedDataSource?.object_id,
-					indexing_profile_object_id: this.selectedIndexSource?.object_id,
+					text_embedding_profile_object_id: textEmbeddingProfileObjectId,
+					indexing_profile_object_id: this.selectedIndexSource?.object_id ?? '',
 					text_partitioning_profile_object_id: textPartitioningProfileObjectId,
+					content_source_profile_object_id: this.selectedDataSource?.object_id ?? '',
 
 					conversation_history: {
 						enabled: this.conversationHistory,
-						max_history: this.conversationMaxMessages,
+						max_history: Number(this.conversationMaxMessages),
 					},
 
 					gatekeeper: {
 						use_system_setting: this.gatekeeperEnabled,
 						options: [
-							this.gatekeeperContentSafety.value,
-							this.gatekeeperDataProtection.value,
+							this.gatekeeperContentSafety.value as unknown as string,
+							this.gatekeeperDataProtection.value as unknown as string,
 						].filter(option => option !== null),
 					},
 

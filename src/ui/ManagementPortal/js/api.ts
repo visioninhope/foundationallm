@@ -9,6 +9,7 @@ import type {
 	AgentCheckNameResponse,
 	Prompt,
 	TextPartitioningProfile,
+	TextEmbeddingProfile,
 	CreatePromptRequest,
 	CreateTextPartitioningProfileRequest
 } from './types';
@@ -74,6 +75,10 @@ export default {
 
 	async getAgentIndexes(): Promise<AgentIndex[]> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`);
+	},
+
+	async getTextEmbeddingProfiles(): Promise<TextEmbeddingProfile[]> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textembeddingprofiles?api-version=${this.apiVersion}`);
 	},
 
 	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
