@@ -1,5 +1,5 @@
-﻿using FoundationaLLM.Common.Models.ResourceProvider;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using FoundationaLLM.Prompt.Constants;
 
 
 namespace FoundationaLLM.Prompt.Models.Metadata
@@ -19,6 +19,12 @@ namespace FoundationaLLM.Prompt.Models.Metadata
         /// </summary>
         [JsonPropertyName("suffix")]
         public string? Suffix { get; set; }
+
+        /// <summary>
+        /// Set default property values.
+        /// </summary>
+        public MultipartPrompt() =>
+            Type = PromptTypes.Multipart;
     }
 
 }
