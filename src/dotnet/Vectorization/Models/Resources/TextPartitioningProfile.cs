@@ -10,7 +10,7 @@ namespace FoundationaLLM.Vectorization.Models.Resources
         /// <summary>
         /// The type of the text splitter.
         /// </summary>
-        [JsonPropertyName("TextSplitter")]
+        [JsonPropertyName("text_splitter")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public required TextSplitterType TextSplitter { get; set; }
     }
