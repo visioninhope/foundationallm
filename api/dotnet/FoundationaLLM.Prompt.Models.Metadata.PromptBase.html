@@ -102,7 +102,9 @@ Class PromptBase  <a class="header-action link-secondary" title="View source" hr
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class PromptBase : ResourceBase</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPolymorphic(TypeDiscriminatorPropertyName = &quot;type&quot;)]
+[JsonDerivedType(typeof(MultipartPrompt), &quot;multipart&quot;)]
+public class PromptBase : ResourceBase</code></pre>
   </div>
 
 
@@ -139,9 +141,6 @@ Class PromptBase  <a class="header-action link-secondary" title="View source" hr
       <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceName_Name">ResourceName.Name</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceName_Type">ResourceName.Type</a>
-    </div>
-    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
     <div>
@@ -171,6 +170,43 @@ Class PromptBase  <a class="header-action link-secondary" title="View source" hr
       <a class="xref" href="FoundationaLLM.Core.Utils.ObjectExtensions.html#FoundationaLLM_Core_Utils_ObjectExtensions_GetPropertyValues_System_Object_System_Collections_Generic_List_System_String__">ObjectExtensions.GetPropertyValues(object, List&lt;string&gt;)</a>
   </div>
   </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="FoundationaLLM_Prompt_Models_Metadata_PromptBase_Type_" data-uid="FoundationaLLM.Prompt.Models.Metadata.PromptBase.Type*"></a>
+
+  <h3 id="FoundationaLLM_Prompt_Models_Metadata_PromptBase_Type" data-uid="FoundationaLLM.Prompt.Models.Metadata.PromptBase.Type">
+  Type
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Prompt/Models/Metadata/PromptBase.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The type of the resource.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public override string? Type { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
 
 
 

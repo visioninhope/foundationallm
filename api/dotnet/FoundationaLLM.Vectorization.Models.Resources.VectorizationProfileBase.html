@@ -102,7 +102,7 @@ Class VectorizationProfileBase  <a class="header-action link-secondary" title="V
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPolymorphic(TypeDiscriminatorPropertyName = &quot;Type&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonPolymorphic(TypeDiscriminatorPropertyName = &quot;type&quot;)]
 [JsonDerivedType(typeof(ContentSourceProfile), &quot;content-source-profile&quot;)]
 [JsonDerivedType(typeof(TextPartitioningProfile), &quot;text-partitioning-profile&quot;)]
 [JsonDerivedType(typeof(TextEmbeddingProfile), &quot;text-embedding-profile&quot;)]
@@ -178,7 +178,7 @@ public class VectorizationProfileBase</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_ConfigurationReferences" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ConfigurationReferences">
   ConfigurationReferences
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L43"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configuration references associated with the vectorization profile.</p>
@@ -186,7 +186,7 @@ public class VectorizationProfileBase</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;ConfigurationReferences&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;configuration_references&quot;)]
 public Dictionary&lt;string, string&gt;? ConfigurationReferences { get; set; }</code></pre>
   </div>
 
@@ -211,7 +211,7 @@ public Dictionary&lt;string, string&gt;? ConfigurationReferences { get; set; }</
 
   <h3 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Name" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Name">
   Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the vectorization profile.</p>
@@ -219,7 +219,7 @@ public Dictionary&lt;string, string&gt;? ConfigurationReferences { get; set; }</
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;Name&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;name&quot;)]
 public required string Name { get; set; }</code></pre>
   </div>
 
@@ -244,7 +244,7 @@ public required string Name { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_ObjectId" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.ObjectId">
   ObjectId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The unique identifier of the object.</p>
@@ -252,7 +252,7 @@ public required string Name { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;ObjectId&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;object_id&quot;)]
 public string? ObjectId { get; set; }</code></pre>
   </div>
 
@@ -277,7 +277,7 @@ public string? ObjectId { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationProfileBase_Settings" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.Settings">
   Settings
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationProfileBase.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The configuration associated with the vectorization profile.</p>
@@ -285,7 +285,7 @@ public string? ObjectId { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;Settings&quot;)]
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;settings&quot;)]
 public Dictionary&lt;string, string&gt;? Settings { get; set; }</code></pre>
   </div>
 
@@ -319,6 +319,7 @@ public Dictionary&lt;string, string&gt;? Settings { get; set; }</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonIgnore]
+[JsonPropertyName(&quot;type&quot;)]
 public string? Type { get; set; }</code></pre>
   </div>
 

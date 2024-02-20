@@ -18337,6 +18337,25 @@ references:
   commentId: T:FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt
   fullName: FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt
   nameWithType: MultipartPrompt
+- uid: FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.#ctor
+  name: MultipartPrompt()
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.html#FoundationaLLM_Prompt_Models_Metadata_MultipartPrompt__ctor
+  commentId: M:FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.MultipartPrompt()
+  fullName.vb: FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.New()
+  nameWithType: MultipartPrompt.MultipartPrompt()
+  nameWithType.vb: MultipartPrompt.New()
+- uid: FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.#ctor*
+  name: MultipartPrompt
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.html#FoundationaLLM_Prompt_Models_Metadata_MultipartPrompt__ctor_
+  commentId: Overload:FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.MultipartPrompt
+  fullName.vb: FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.New
+  nameWithType: MultipartPrompt.MultipartPrompt
+  nameWithType.vb: MultipartPrompt.New
 - uid: FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.Prefix
   name: Prefix
   href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.MultipartPrompt.html#FoundationaLLM_Prompt_Models_Metadata_MultipartPrompt_Prefix
@@ -18369,6 +18388,19 @@ references:
   commentId: T:FoundationaLLM.Prompt.Models.Metadata.PromptBase
   fullName: FoundationaLLM.Prompt.Models.Metadata.PromptBase
   nameWithType: PromptBase
+- uid: FoundationaLLM.Prompt.Models.Metadata.PromptBase.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.PromptBase.html#FoundationaLLM_Prompt_Models_Metadata_PromptBase_Type
+  commentId: P:FoundationaLLM.Prompt.Models.Metadata.PromptBase.Type
+  fullName: FoundationaLLM.Prompt.Models.Metadata.PromptBase.Type
+  nameWithType: PromptBase.Type
+- uid: FoundationaLLM.Prompt.Models.Metadata.PromptBase.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Prompt.Models.Metadata.PromptBase.html#FoundationaLLM_Prompt_Models_Metadata_PromptBase_Type_
+  commentId: Overload:FoundationaLLM.Prompt.Models.Metadata.PromptBase.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Prompt.Models.Metadata.PromptBase.Type
+  nameWithType: PromptBase.Type
 - uid: FoundationaLLM.Prompt.Models.Resources
   name: FoundationaLLM.Prompt.Models.Resources
   href: api/dotnet/FoundationaLLM.Prompt.Models.Resources.html
