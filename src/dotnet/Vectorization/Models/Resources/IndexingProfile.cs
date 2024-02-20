@@ -10,6 +10,7 @@ namespace FoundationaLLM.Vectorization.Models.Resources
         /// <summary>
         /// The type of the indexer.
         /// </summary>
+        [JsonPropertyName("Indexer")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public required IndexerType Indexer { get; set; }
     }

@@ -126,10 +126,10 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             }
         };
 
-        private ConcurrentDictionary<string, ContentSourceProfile> _contentSourceProfiles = [];
-        private ConcurrentDictionary<string, TextPartitioningProfile> _textPartitioningProfiles = [];
-        private ConcurrentDictionary<string, TextEmbeddingProfile> _textEmbeddingProfiles = [];
-        private ConcurrentDictionary<string, IndexingProfile> _indexingProfiles = [];
+        private ConcurrentDictionary<string, VectorizationProfileBase> _contentSourceProfiles = [];
+        private ConcurrentDictionary<string, VectorizationProfileBase> _textPartitioningProfiles = [];
+        private ConcurrentDictionary<string, VectorizationProfileBase> _textEmbeddingProfiles = [];
+        private ConcurrentDictionary<string, VectorizationProfileBase> _indexingProfiles = [];
 
         private const string CONTENT_SOURCE_PROFILES_FILE_NAME = "vectorization-content-source-profiles.json";
         private const string TEXT_PARTITIONING_PROFILES_FILE_NAME = "vectorization-text-partitioning-profiles.json";
@@ -157,7 +157,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
 
-        private async Task LoadProfileStore<T>(string profileStoreFilePath, ConcurrentDictionary<string, T> profiles) where T: VectorizationProfileBase
+        private async Task LoadProfileStore<T>(string profileStoreFilePath, ConcurrentDictionary<string, VectorizationProfileBase> profiles) where T: VectorizationProfileBase
         {
             if (await _storageService.FileExistsAsync(_storageContainerName, profileStoreFilePath, default))
             {
@@ -188,7 +188,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private List<VectorizationProfileBase> LoadProfiles<T>(ResourceTypeInstance instance, ConcurrentDictionary<string, T> profileStore) where T : VectorizationProfileBase
+        private List<VectorizationProfileBase> LoadProfiles<T>(ResourceTypeInstance instance, ConcurrentDictionary<string, VectorizationProfileBase> profileStore) where T : VectorizationProfileBase
         {
             if (instance.ResourceId == null)
             {
@@ -221,7 +221,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateProfile<T>(List<ResourceTypeInstance> instances, string serializedProfile, ConcurrentDictionary<string, T> profileStore, string storagePath)
+        private async Task<ResourceProviderUpsertResult> UpdateProfile<T>(List<ResourceTypeInstance> instances, string serializedProfile, ConcurrentDictionary<string, VectorizationProfileBase> profileStore, string storagePath)
             where T : VectorizationProfileBase
         {
             var profile = JsonSerializer.Deserialize<T>(serializedProfile)
@@ -249,7 +249,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     storagePath,
-                    JsonSerializer.Serialize(ProfileStore<T>.FromDictionary(profileStore.ToDictionary())),
+                    JsonSerializer.Serialize(ProfileStore<VectorizationProfileBase>.FromDictionary(profileStore.ToDictionary())),
                     default,
                     default);
 
@@ -278,7 +278,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for ExecuteActionAsync
 
-        private ResourceNameCheckResult CheckProfileName<T>(string serializedAction, ConcurrentDictionary<string, T> profileStore)
+        private ResourceNameCheckResult CheckProfileName<T>(string serializedAction, ConcurrentDictionary<string, VectorizationProfileBase> profileStore)
             where T : VectorizationProfileBase
         {
             var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
