@@ -22,7 +22,7 @@ namespace FoundationaLLM.Vectorization.Validation.Resources
             Include(new VectorizationProfileBaseValidator());
 
             // Validate the Type property to ensure it's a valid enum value.
-            RuleFor(x => x.Type)
+            RuleFor(x => x.ContentSource)
                 .IsInEnum().WithMessage("The content source type must be a valid value.");
 
             RuleFor(profile => profile.ConfigurationReferences)
