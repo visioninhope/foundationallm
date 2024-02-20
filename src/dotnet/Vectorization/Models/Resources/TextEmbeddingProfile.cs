@@ -10,7 +10,7 @@ namespace FoundationaLLM.Vectorization.Models.Resources
         /// <summary>
         /// The type of the text splitter.
         /// </summary>
-        [JsonPropertyName("TextEmbedding")]
+        [JsonPropertyName("text_embedding")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public required TextEmbeddingType TextEmbedding { get; set; }
     }
