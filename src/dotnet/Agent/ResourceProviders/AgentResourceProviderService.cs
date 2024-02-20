@@ -18,6 +18,7 @@ using System.Text;
 using System.Text.Json;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using System.Formats.Asn1;
 
 namespace FoundationaLLM.Agent.ResourceProviders
 {
@@ -121,12 +122,15 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 return
                 [
                     .. (await Task.WhenAll(
-                            _agentReferences.Values.Select(ar => LoadAgent(ar))))
+                        _agentReferences.Values
+                            .Where(ar => !ar.Deleted)
+                            .Select(ar => LoadAgent(ar))))
                 ];
             }
             else
             {
-                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference))
+                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference)
+                    || agentReference.Deleted)
                     new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
                         StatusCodes.Status404NotFound);
 
@@ -181,6 +185,11 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
 
+            if (_agentReferences.TryGetValue(agentBase.Name!, out var existingAgentReference)
+                && existingAgentReference!.Deleted)
+                throw new ResourceProviderException($"The agent resource {existingAgentReference.Name} cannot be added or updated.",
+                        StatusCodes.Status400BadRequest);
+
             if (instances[0].ResourceId != agentBase.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
@@ -189,7 +198,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
             {
                 Name = agentBase.Name!,
                 Type = agentBase.Type!,
-                Filename = $"/{_name}/{agentBase.Name}.json"
+                Filename = $"/{_name}/{agentBase.Name}.json",
+                Deleted = false
             };
 
             var agent = JsonSerializer.Deserialize(serializedAgent, agentReference.AgentType, _serializerSettings);
@@ -257,7 +267,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                     Name = resourceName!.Name,
                     Type = resourceName.Type,
                     Status = NameCheckResultType.Denied,
-                    Message = "A resource with the specified name already exists."
+                    Message = "A resource with the specified name already exists or was previously deleted and not purged."
                 }
                 : new ResourceNameCheckResult
                 {
@@ -265,6 +275,43 @@ namespace FoundationaLLM.Agent.ResourceProviders
                     Type = resourceName.Type,
                     Status = NameCheckResultType.Allowed
                 };
+        }
+
+        #endregion
+
+        /// <inheritdoc/>
+        protected override async Task DeleteResourceAsync(List<ResourceTypeInstance> instances)
+        {
+            switch (instances.Last().ResourceType)
+            {
+                case AgentResourceTypeNames.Agents:
+                    await DeleteAgent(instances);
+                    break;
+                default:
+                    throw new ResourceProviderException($"The resource type {instances.Last().ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest);
+            };
+        }
+
+        #region Helpers for DeleteResourceAsync
+
+        private async Task DeleteAgent(List<ResourceTypeInstance> instances)
+        {
+            if (_agentReferences.TryGetValue(instances.Last().ResourceId!, out var agentReference)
+                || agentReference!.Deleted)
+            {
+                agentReference.Deleted = true;
+
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    AGENT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(AgentReferenceStore.FromDictionary(_agentReferences.ToDictionary())),
+                    default,
+                    default);
+            }
+            else
+                throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} agent resource.",
+                            StatusCodes.Status404NotFound);
         }
 
         #endregion
@@ -307,7 +354,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
             {
                 Name = Path.GetFileNameWithoutExtension(fileName),
                 Filename = $"/{_name}/{fileName}",
-                Type = AgentTypes.Basic
+                Type = AgentTypes.Basic,
+                Deleted = false
             };
 
             var agent = await LoadAgent(agentReference);
