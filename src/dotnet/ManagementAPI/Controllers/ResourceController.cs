@@ -1,9 +1,9 @@
-﻿using Asp.Versioning;
-using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.ResourceProvider;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace FoundationaLLM.Management.API.Controllers
 {
@@ -42,7 +42,19 @@ namespace FoundationaLLM.Management.API.Controllers
                 async (resourceProviderService) =>
                 {
                     var result = await resourceProviderService.HandleGetAsync(resourcePath);
-                    return new OkObjectResult(result);
+                    string jsonString;
+                    // Serialize based on the runtime type of the result. This is necessary to handle polymorphic types in the most efficient and generic way possible.
+                    if (result is IEnumerable<object> collection)
+                    {
+                        var serializedItems = collection
+                            .Select(item => JsonSerializer.Serialize(item, item.GetType())).ToList();
+                        jsonString = $"[{string.Join(",", serializedItems)}]";
+                    }
+                    else
+                    {
+                        jsonString = JsonSerializer.Serialize(result, result.GetType());
+                    }
+                    return Content(jsonString, "application/json");
                 });
 
         /// <summary>
