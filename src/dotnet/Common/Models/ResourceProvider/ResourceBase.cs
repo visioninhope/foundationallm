@@ -12,7 +12,7 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         /// </summary>
         [JsonPropertyName("object_id")]
         [JsonPropertyOrder(-3)]
-        public required string ObjectId { get; set; }
+        public string? ObjectId { get; set; }
         /// <summary>
         /// The description of the resource.
         /// </summary>
