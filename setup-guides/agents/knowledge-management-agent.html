@@ -110,9 +110,9 @@
   &quot;type&quot;: &quot;knowledge-management&quot;,
   &quot;object_id&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.Agent/agents/&lt;name&gt;&quot;,
   &quot;description&quot;: &quot;&lt;description&gt;&quot;,
-  &quot;indexing_profile&quot;: &quot;&lt;indexing_profile_resource_objectid&gt;&quot;,
-  &quot;embedding_profile&quot;: &quot;&lt;text_embedding_profile_resource_objectid&gt;&quot;,
-  &quot;prompt&quot;: &quot;&lt;prompt_resource_objectid&gt;&quot;,
+  &quot;indexing_profile_object_id&quot;: &quot;&lt;indexing_profile_resource_objectid&gt;&quot;,
+  &quot;text_embedding_profile_object_id&quot;: &quot;&lt;text_embedding_profile_resource_objectid&gt;&quot;,
+  &quot;prompt_object_id&quot;: &quot;&lt;prompt_resource_objectid&gt;&quot;,
   &quot;language_model&quot;: {
     &quot;type&quot;: &quot;openai&quot;,
     &quot;provider&quot;: &quot;microsoft&quot;,
@@ -173,15 +173,15 @@
 <td>The description of the agent, ensure this description details the purpose of the agent.</td>
 </tr>
 <tr>
-<td><code>indexing_profile</code></td>
+<td><code>indexing_profile_object_id</code></td>
 <td>The object ID of the indexing profile resource.</td>
 </tr>
 <tr>
-<td><code>embedding_profile</code></td>
+<td><code>text_embedding_profile_object_id</code></td>
 <td>The object ID of the text embedding profile resource.</td>
 </tr>
 <tr>
-<td><code>prompt</code></td>
+<td><code>prompt_object_id</code></td>
 <td>The object ID of the prompt resource.</td>
 </tr>
 <tr>
@@ -277,7 +277,7 @@ BODY
 <h2 id="validating-a-knowledge-management-agent">Validating a knowledge management agent</h2>
 <p>Once configured, the knowledge management agent can be validated using an API call to the <a href="../exposed-apis/core-api.html">Core API</a> or via the <a href="../quickstart.html">User Portal</a>.</p>
 <blockquote>
-<p><strong>Note</strong>: When validating through the user portal, ensure the <code>FoundationaLLM-AllowAgentHint</code> feature is enabled in the app configuration service. Restart the Core API service <a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aca-deployment">(ACA)</a> <a href="../../deployment/authentication/core-authentication-setup-entra.html#restart-core-api-and-chat-ui-applications-in-an-aks-deployment">(AKS)</a> for the agent to be made available to the platform. You may need to refresh your user portal browser for the agent to display in the agents list for selection.</p>
+<p><strong>Note</strong>: When validating through the user portal, ensure the <code>FoundationaLLM-AllowAgentHint</code> feature is enabled in the app configuration service. You may need to refresh your user portal browser for the agent to display in the agents list for selection.</p>
 </blockquote>
 
 </article>
