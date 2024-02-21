@@ -1,3 +1,34 @@
+/*
+  This Bicep file deploys an Event Grid system topic and configures diagnostic settings for it.
+  It also includes nested modules for configuring metric alerts.
+
+  Parameters:
+  - actionGroupId: Action Group Id for alerts
+  - location: Location for all resources
+  - logAnalyticWorkspaceId: Log Analytic Workspace Id to use for diagnostics
+  - resourceSuffix: Resource suffix for all resources
+  - opsResourceSuffix: Storage resource suffix
+  - tags: Tags for all resources
+  - timestamp: Timestamp for nested deployments
+
+  Locals:
+  - alerts: Metric alerts for the resource
+  - logs: The Resource logs to enable
+  - name: The Resource Name
+  - serviceType: The Resource Service Type token
+  - acFormattedName: Formatted untruncated resource name
+  - appConfigAccountName: The Resource Name
+
+  Resources:
+  - appConfig: Microsoft.AppConfiguration/configurationStores resource
+  - main: Microsoft.EventGrid/systemTopics resource
+  - diagnostics: Microsoft.Insights/diagnosticSettings resource
+
+  Nested Modules:
+  - metricAlerts: Metric alerts for the resource
+*/
+
+/** Inputs **/
 @description('Action Group Id for alerts')
 param actionGroupId string
 
@@ -19,8 +50,14 @@ param tags object
 @description('Timestamp for nested deployments')
 param timestamp string = utcNow()
 
+/** Outputs **/
+output name string = main.name
+
 /** Locals **/
-@description('Metric alerts for the resource.')
+var name = '${serviceType}-${resourceSuffix}'
+var serviceType = 'eg'
+var appConfigAccountName = toLower('appconfig-${opsResourceSuffix}')
+
 var alerts = [
   // {
   //   description: 'Node CPU utilization greater than 95% for 1 hour'
@@ -46,7 +83,6 @@ var alerts = [
   // }
 ]
 
-@description('The Resource logs to enable')
 var logs = [
   // 'CassandraRequests'
   // 'ControlPlaneRequests'
@@ -59,25 +95,12 @@ var logs = [
   // 'TableApiRequests'
 ]
 
-@description('The Resource Name')
-var name = '${serviceType}-${resourceSuffix}'
-
-@description('The Resource Service Type token')
-var serviceType = 'eg'
-
-@description('Formatted untruncated resource name')
-var acFormattedName = toLower(replace('${acServiceType}-${opsResourceSuffix}', '-', ''))
-
-@description('The Resource Name')
-var appConfigAccountName = substring(acFormattedName,0,min([length(acFormattedName),24]))
-
-@description('The Resource Service Type token')
-var acServiceType = 'appconfig'
-
+/** Data Resources **/
 resource appConfig 'Microsoft.AppConfiguration/configurationStores@2023-08-01-preview' existing = {
   name: appConfigAccountName
 }
 
+/** Resources **/
 resource main 'Microsoft.EventGrid/systemTopics@2023-12-15-preview' = {
   name: name
   location: location
@@ -123,5 +146,3 @@ module metricAlerts 'utility/metricAlerts.bicep' = {
     tags: tags
   }
 }
-
-output name string = main.name
