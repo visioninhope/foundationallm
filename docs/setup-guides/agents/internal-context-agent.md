@@ -102,4 +102,4 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/
 
 Once configured, the internal context agent can be validated using an API call to the [Core API](../exposed-apis/core-api.md) or via the [User Portal](../quickstart.md).
 
->**Note**: When validating through the user portal, ensure the `FoundationaLLM-AllowAgentHint` feature is enabled in the app configuration service. Restart the Core API service [(ACA)](../../deployment/authentication/core-authentication-setup-entra.md#restart-core-api-and-chat-ui-applications-in-an-aca-deployment) [(AKS)](../../deployment/authentication/core-authentication-setup-entra.md#restart-core-api-and-chat-ui-applications-in-an-aks-deployment) for the agent to be made available to the platform. You may need to refresh your user portal browser for the agent to display in the agents list for selection.
+>**Note**: When validating through the user portal, ensure the `FoundationaLLM-AllowAgentHint` feature is enabled in the app configuration service. You may need to refresh your user portal browser for the agent to display in the agents list for selection.
