@@ -30,26 +30,7 @@ export FOUNDATIONALLM_VECTORIZATION_WORKER_EVENT_GRID_PROFILE=`cat ./config/vect
 
 envsubst < ./config/appconfig.template.json > ./config/appconfig.json
 
-jq -c '.[]' ./config/appconfig.json | while read i; do
-    keyVault=`echo $i | jq '.keyVault'`
-    featureFlag=`echo $i | jq '.featureFlag'`
-    isJson=`echo $i | jq '.isJson'`
-    key=`echo $i | jq -r '.key'`
-    value=`echo $i | jq -r '.value'`
-
-    if [ $keyVault == 'true' ]; then
-        cmd="az appconfig kv set-keyvault --key $key --name $AZURE_APP_CONFIG_NAME --secret-identifier ${AZURE_KEY_VAULT_ENDPOINT}secrets/$value --yes"
-    elif [ $featureFlag == 'true' ]; then
-        cmd="az appconfig feature set --feature $value --key $key --name $AZURE_APP_CONFIG_NAME --yes"
-    elif [ $isJson == 'true' ]; then
-        cmd="az appconfig kv set --key $key --name $AZURE_APP_CONFIG_NAME  --content-type application/json --yes --value '$value'"
-    else
-        cmd="az appconfig kv set --key $key --name $AZURE_APP_CONFIG_NAME --value '$value' --yes"
-    fi
-
-    echo $cmd
-    eval $cmd </dev/null
-done
+az appconfig kv import --profile appconfig/kvset --name $AZURE_APP_CONFIG_NAME --source file --path ./config/appconfig.json --format json --yes
 
 az storage azcopy blob upload -c agents --account-name $AZURE_STORAGE_ACCOUNT_NAME -s "../common/data/agents/*" --recursive --only-show-errors
 az storage azcopy blob upload -c data-sources --account-name $AZURE_STORAGE_ACCOUNT_NAME -s "../common/data/data-sources/*" --recursive --only-show-errors
