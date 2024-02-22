@@ -325,6 +325,13 @@
     "keyVault": true,
     "featureFlag": false,
     "isJson": false,
+    "key": "FoundationaLLM:APIs:VectorizationWorker:APIUrl",
+    "value": "WHYDOESTHISEXIST"
+  },
+  {
+    "keyVault": true,
+    "featureFlag": false,
+    "isJson": false,
     "key": "FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString",
     "value": "appinsights-connection"
   },
