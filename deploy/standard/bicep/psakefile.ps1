@@ -44,6 +44,31 @@ $resourceGroups.PSObject.Properties | ForEach-Object {
 
 task default -depends Agw, Storage, App, DNS, Networking, OpenAI, Ops, ResourceGroups, Vec
 
+task Clean {
+    Write-Host -ForegroundColor Blue "Deleting all resource groups..."
+
+    foreach ($property in $resourceGroups.PSObject.Properties) {
+        if (-Not ($(az group list --query '[].name' -o json | ConvertFrom-Json) -Contains $property.Value)) {
+            Write-Host -ForegroundColor Blue "The resource group $($property.Value) was not found."
+        }
+        else {
+            Write-Host -ForegroundColor Magenta "Deleting $($property.Value)..."
+            az group delete `
+                --name $property.Value `
+                --yes `
+                --no-wait
+        }
+    }
+
+    $deleteMessage = @"
+Sent delete requests for all resource groups.  Deletion can take up to an hour.
+Some resources are only soft-deleted and may need to be purged to completely remove them.
+Check the Azure Portal for status.
+"@
+
+    Write-Host -ForegroundColor Blue $deleteMessage
+}
+
 task Agw -depends ResourceGroups, Ops, Networking {
     if ($skipAgw -eq $true) {
         Write-Host -ForegroundColor Yellow "Skipping agw creation."
@@ -248,17 +273,17 @@ task ResourceGroups {
 
     Write-Host -ForegroundColor Blue "Ensure resource groups exist"
 
-    $resourceGroups.PSObject.Properties | ForEach-Object {
-        if (-Not ($(az group list --query '[].name' -o json | ConvertFrom-Json) -Contains $($_.Value))) {
-            Write-Host "The resource group $($_.Value) was not found, creating it..."
-            az group create -g $($_.Value) -l $location --subscription $subscription
+    foreach ($property in $resourceGroups.PSObject.Properties) {
+        if (-Not ($(az group list --query '[].name' -o json | ConvertFrom-Json) -Contains $property.Value)) {
+            Write-Host "The resource group $($property.Value) was not found, creating it..."
+            az group create -g $property.Value -l $location --subscription $subscription
 
-            if (-Not ($(az group list --query '[].name' -o json | ConvertFrom-Json) -Contains $($_.Value))) {
-                throw "The resource group $($_.Value) was not found, and could not be created."
+            if (-Not ($(az group list --query '[].name' -o json | ConvertFrom-Json) -Contains $property.Value)) {
+                throw "The resource group $($property.Value) was not found, and could not be created."
             }
         }
         else {
-            Write-Host -ForegroundColor Blue "The resource group $($_.Value) was found."
+            Write-Host -ForegroundColor Blue "The resource group $($property.Value) was found."
         }
     }
 }
