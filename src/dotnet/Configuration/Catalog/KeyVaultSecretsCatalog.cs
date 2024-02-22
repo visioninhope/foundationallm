@@ -181,11 +181,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 description: ""
             ),
             new(
-                secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChainAPI_Key,
-                minimumVersion: "0.3.0",
-                description: ""
-            ),
-            new(
                 secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_OpenAI_Api_Key,
                 minimumVersion: "0.3.0",
                 description: ""
