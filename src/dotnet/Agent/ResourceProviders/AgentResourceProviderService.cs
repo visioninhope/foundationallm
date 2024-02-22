@@ -297,21 +297,25 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
         private async Task DeleteAgent(List<ResourceTypeInstance> instances)
         {
-            if (_agentReferences.TryGetValue(instances.Last().ResourceId!, out var agentReference)
-                || agentReference!.Deleted)
+            if (_agentReferences.TryGetValue(instances.Last().ResourceId!, out var agentReference))
             {
-                agentReference.Deleted = true;
+                if (!agentReference.Deleted)
+                {
+                    agentReference.Deleted = true;
 
-                await _storageService.WriteFileAsync(
-                    _storageContainerName,
-                    AGENT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(AgentReferenceStore.FromDictionary(_agentReferences.ToDictionary())),
-                    default,
-                    default);
+                    await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                        AGENT_REFERENCES_FILE_PATH,
+                        JsonSerializer.Serialize(AgentReferenceStore.FromDictionary(_agentReferences.ToDictionary())),
+                        default,
+                        default);
+                }
             }
             else
+            {
                 throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} agent resource.",
-                            StatusCodes.Status404NotFound);
+                    StatusCodes.Status404NotFound);
+            }
         }
 
         #endregion
