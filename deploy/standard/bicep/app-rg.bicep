@@ -179,7 +179,7 @@ module eventgrid 'modules/eventgrid.bicep' = {
     networkingResourceGroupName: networkingResourceGroupName
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'eventgrid' ], zone.key))
-    resourceSuffix: resourceSuffix 
+    resourceSuffix: resourceSuffix
     subnetId: '${vnetId}/subnets/FLLMServices'
     topics: [ 'storage', 'vectorization', 'configuration' ]
     tags: tags
@@ -196,7 +196,7 @@ module appConfigSystemTopic 'modules/config-system-topic.bicep' = {
     opsResourceSuffix: opsResourceSuffix
     tags: tags
   }
-  scope: resourceGroup(opsResourceGroupName)  
+  scope: resourceGroup(opsResourceGroupName)
 }
 
 module storageSystemTopic 'modules/storage-system-topic.bicep' = {
@@ -246,7 +246,7 @@ module acTopicSub 'modules/system-topic-subscription.bicep' = {
 
 @batchSize(3)
 module backendServiceResources 'modules/service.bicep' = [for service in items(backendServices): {
-    name: 'beSvc-${service.key}'
+    name: 'beSvc-${service.key}-${timestamp}'
     params: {
       location: location
       namespace: k8sNamespace
@@ -262,7 +262,7 @@ module backendServiceResources 'modules/service.bicep' = [for service in items(b
 ]
 
 module chatUiServiceResources 'modules/service.bicep' = [for service in items(chatUiService): {
-    name: 'feSvc-${service.key}'
+    name: 'feSvc-${service.key}-${timestamp}'
     params: {
       clientSecret: chatUiClientSecret
       location: location
@@ -280,7 +280,7 @@ module chatUiServiceResources 'modules/service.bicep' = [for service in items(ch
 ]
 
 module managementUiServiceResources 'modules/service.bicep' = [for service in items(managementUiService): {
-    name: 'feSvc-${service.key}'
+    name: 'feSvc-${service.key}-${timestamp}'
     params: {
       clientSecret: managementUiClientSecret
       location: location
@@ -298,7 +298,7 @@ module managementUiServiceResources 'modules/service.bicep' = [for service in it
 ]
 
 module coreApiServiceResources 'modules/service.bicep' = [for service in items(coreApiService): {
-    name: 'feSvc-${service.key}'
+    name: 'feSvc-${service.key}-${timestamp}'
     params: {
       clientSecret: coreApiClientSecret
       location: location
@@ -316,7 +316,7 @@ module coreApiServiceResources 'modules/service.bicep' = [for service in items(c
 ]
 
 module managementApiServiceResources 'modules/service.bicep' = [for service in items(managementApiService): {
-    name: 'feSvc-${service.key}'
+    name: 'feSvc-${service.key}-${timestamp}'
     params: {
       clientSecret: managementApiClientSecret
       location: location
@@ -334,7 +334,7 @@ module managementApiServiceResources 'modules/service.bicep' = [for service in i
 ]
 
 module vectorizationApiServiceResources 'modules/service.bicep' = [for service in items(vectorizationApiService): {
-  name: 'feSvc-${service.key}'
+  name: 'feSvc-${service.key}-${timestamp}'
   params: {
     clientSecret: vectorizationApiClientSecret
     location: location

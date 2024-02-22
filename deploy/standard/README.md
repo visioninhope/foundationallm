@@ -64,18 +64,8 @@ Follow the steps below to deploy the solution to your Azure subscription.
      ```powershell
      ./bootstrap.ps1
      ```
-
-4. **Edit psakefile.ps1 with your deployment details:**
-
-   - Edit the following variables in the `psakefile.ps1` file:
-     ```powershell
-     $aksAdmnistratorObjectId = <Entra object id for the user or group to set as the AKS cluster administrator>
-     $environment = <your prefered environment name like demo, dev, prod>
-     $location = <Azure region to deploy to>
-     $project = <your prefered tag to add to all resource names>
-     $subscription = <your subscription id>
-     ```
-5. **Execute the deployment:**
+     
+4. **Execute the deployment:**
    - Execute the following command to deploy the solution:
      ```powershell
      Invoke-psake
