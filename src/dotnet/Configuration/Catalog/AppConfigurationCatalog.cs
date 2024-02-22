@@ -1421,9 +1421,9 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChainAPI_Key,
                 minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-langchainapi-key`",
+                defaultValue: "Key Vault secret name: `foundationallm-apis-langchainapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChainAPI_Key,
+                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_LangChainAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             )
