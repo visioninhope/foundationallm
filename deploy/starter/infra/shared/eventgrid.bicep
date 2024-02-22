@@ -6,7 +6,7 @@ param keyvaultName string
 
 var secretNames = [
   'event-grid-key'
-  'foundationallm-openai-api-key'
+  'foundationallm-events-azureeventgrid-apikey'
 ]
 
 resource namespace 'Microsoft.EventGrid/namespaces@2023-12-15-preview' = {
