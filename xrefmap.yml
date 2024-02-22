@@ -3180,12 +3180,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_Events_AzureEventGrid_APIKey
   fullName: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_Events_AzureEventGrid_APIKey
   nameWithType: KeyVaultSecretNames.FoundationaLLM_Events_AzureEventGrid_APIKey
-- uid: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChainAPI_Key
-  name: FoundationaLLM_LangChainAPI_Key
-  href: api/dotnet/FoundationaLLM.Common.Constants.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_KeyVaultSecretNames_FoundationaLLM_LangChainAPI_Key
-  commentId: F:FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChainAPI_Key
-  fullName: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChainAPI_Key
-  nameWithType: KeyVaultSecretNames.FoundationaLLM_LangChainAPI_Key
 - uid: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChain_CsvFile_Url
   name: FoundationaLLM_LangChain_CsvFile_Url
   href: api/dotnet/FoundationaLLM.Common.Constants.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_KeyVaultSecretNames_FoundationaLLM_LangChain_CsvFile_Url
