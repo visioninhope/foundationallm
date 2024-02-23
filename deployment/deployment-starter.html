@@ -95,11 +95,22 @@
 <li><a href="https://dotnet.microsoft.com/download/dotnet/8.0">.NET 8 SDK</a>.</li>
 <li>Docker Desktop.</li>
 <li>Azure CLI (<a href="https://docs.microsoft.com/cli/azure/install-azure-cli">v2.51.0 or greater</a>).</li>
-<li>Azure Developer CLI (<a href="https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd">v1.5.1 or greater</a>)</li>
-<li>Helm (<a href="https://helm.sh/docs/intro/install/">v3.11.1 or greater</a>).</li>
+<li>Azure Developer CLI (<a href="https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd">v1.6.1 or greater</a>)</li>
+<li>Powershell 7 (<a href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4">7.4.1 or greater</a>)
+<blockquote>
+<p>Note: Powershell 7 is required for <code>pwsh</code> to work in the AZD hooks as an alias to <code>powershell</code></p>
+</blockquote>
+</li>
 <li>Visual Studio 2022 (only needed if you plan to run/debug the solution locally).</li>
 <li>Minimum quota of 65 CPUs across all VM family types. Start here to <a href="https://learn.microsoft.com/azure/quotas/per-vm-quota-requests">Manage VM Quotas</a>.</li>
-<li>Two App Registrations created in the Entra ID tenant (Azure Active Directory).</li>
+<li>Four App Registrations created in the Entra ID tenant (Azure Active Directory). Follow the instructions in the <a href="authentication/index.html">Authentication setup document</a> to configure authentication for the solution.
+<ul>
+<li>Chat Client App Registration</li>
+<li>Core API App Registration</li>
+<li>Management Client App Registration</li>
+<li>Management API App Registration</li>
+</ul>
+</li>
 <li>User with the following role assignments:
 <ul>
 <li>Owner on the target subscription;</li>
@@ -121,6 +132,9 @@ git checkout release/0.4.0
 <p>Run the following command to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions in the <a href="authentication/index.html">Authentication setup document</a> to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.</p>
 <pre><code class="lang-pwsh">cd foundationallm
 cd deploy/starter
+
+az login            # Log into Azure CLI
+azd auth login      # Log into Azure Developer CLI
 
 azd env             # Set your target Subscription and Location
 
