@@ -381,6 +381,7 @@ module acaServices './app/acaService.bicep' = [ for service in services: {
       exists: servicesExist['${service.name}'] == 'true'
       appDefinition: serviceDefinition
       hasIngress: service.hasIngress
+      imageName: service.image
       envSettings: service.useEndpoint ? [
         {
           name: service.appConfigEnvironmentVarName
