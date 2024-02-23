@@ -11,6 +11,7 @@ Foundationa**LLM** deploys into your own Azure Subscription. By default it will 
 - Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/cli/azure/install-azure-cli)).
 - Azure Developer CLI ([v1.6.1 or greater](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd))
 - Powershell 7 ([7.4.1 or greater](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4))
+    > Note: Powershell 7 is required for `pwsh` to work in the AZD hooks as an alias to `powershell`
 - Visual Studio 2022 (only needed if you plan to run/debug the solution locally).
 - Minimum quota of 65 CPUs across all VM family types. Start here to [Manage VM Quotas](https://learn.microsoft.com/azure/quotas/per-vm-quota-requests).
 - Four App Registrations created in the Entra ID tenant (Azure Active Directory). Follow the instructions in the [Authentication setup document](authentication/index.md) to configure authentication for the solution. 
