@@ -23,6 +23,11 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_Configuration_KeyVaultURI = "FoundationaLLM:Configuration:KeyVaultURI";
         /// <summary>
+        /// Key for the FoundationaLLM:Configuration:ResourceProviderService:Storage:AuthenticationType app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Configuration_ResourceProviderService_Storage_AuthenticationType =
+            "FoundationaLLM:Configuration:ResourceProviderService:Storage:AuthenticationType";
+        /// <summary>
         /// The key for the FoundationaLLM:AgentHub:AgentMetadata:StorageContainer app configuration setting.
         /// </summary>
         public const string FoundationaLLM_AgentHub_AgentMetadata_StorageContainer = "FoundationaLLM:AgentHub:AgentMetadata:StorageContainer";
