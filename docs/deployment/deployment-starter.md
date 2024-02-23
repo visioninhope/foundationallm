@@ -9,11 +9,15 @@ Foundationa**LLM** deploys into your own Azure Subscription. By default it will 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
 - Docker Desktop.
 - Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/cli/azure/install-azure-cli)).
-- Azure Developer CLI ([v1.5.1 or greater](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd))
-- Helm ([v3.11.1 or greater](https://helm.sh/docs/intro/install/)).
+- Azure Developer CLI ([v1.6.1 or greater](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd))
+- Powershell 7 ([7.4.1 or greater](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4))
 - Visual Studio 2022 (only needed if you plan to run/debug the solution locally).
 - Minimum quota of 65 CPUs across all VM family types. Start here to [Manage VM Quotas](https://learn.microsoft.com/azure/quotas/per-vm-quota-requests).
-- Two App Registrations created in the Entra ID tenant (Azure Active Directory).
+- Four App Registrations created in the Entra ID tenant (Azure Active Directory). Follow the instructions in the [Authentication setup document](authentication/index.md) to configure authentication for the solution. 
+    - Chat Client App Registration
+    - Core API App Registration
+    - Management Client App Registration
+    - Management API App Registration
 - User with the following role assignments:
     - Owner on the target subscription;
     - Owner on the two app registrations.
