@@ -4,11 +4,11 @@ name: foundationallm
 metadata:
     template: azd-init@1.5.1
 hooks:
-  postup:
-    shell: sh
+  postprovision:
+    shell: pwsh
     continueOnError: false
     interactive: true
-    run: azd-hooks/postprovision.sh
+    run: azd-hooks/postprovision.ps1
 # services:
 #     agent-factory-api:
 #         image: ghcr.io/solliancenet/foundationallm/agent-factory-api:0.4.0
