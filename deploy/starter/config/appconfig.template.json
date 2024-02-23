@@ -9,21 +9,21 @@
     },
     {
       "key": "FoundationaLLM:APIs:AgentFactoryAPI:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/agent-factory-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/agent-factory-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:AgentFactoryAPI:APIUrl",
-      "value": "${SERVICE_AGENT_FACTORY_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_AGENT_FACTORY_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:AgentFactoryAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -37,35 +37,35 @@
     },
     {
       "key": "FoundationaLLM:APIs:AgentHubAPI:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/agent-hub-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/agent-hub-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:AgentHubAPI:APIUrl",
-      "value": "${SERVICE_AGENT_HUB_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_AGENT_HUB_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:AgentHubAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:CoreAPI:APIUrl",
-      "value": "${SERVICE_CORE_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_CORE_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:CoreAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -79,42 +79,42 @@
     },
     {
       "key": "FoundationaLLM:APIs:DataSourceHubAPI:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/data-source-hub-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/data-source-hub-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:DataSourceHubAPI:APIUrl",
-      "value": "${SERVICE_DATA_SOURCE_HUB_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_DATA_SOURCE_HUB_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:DataSourceHubAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:GatekeeperAPI:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/gatekeeper-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/gatekeeper-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:GatekeeperAPI:APIUrl",
-      "value": "${SERVICE_GATEKEEPER_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_GATEKEEPER_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:GatekeeperAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -142,98 +142,98 @@
     },
     {
       "key": "FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/gatekeeper-integration-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/gatekeeper-integration-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIUrl",
-      "value": "${SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:GatekeeperIntegrationAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:LangChainAPI:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/langchain-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/langchain-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:LangChainAPI:APIUrl",
-      "value": "${SERVICE_LANGCHAIN_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_LANGCHAIN_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:LangChainAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:ManagementAPI:APIUrl",
-      "value": "${SERVICE_MANAGEMENT_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_MANAGEMENT_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:ManagementAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:PromptHubAPI:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/prompt-hub-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/prompt-hub-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:PromptHubAPI:APIUrl",
-      "value": "${SERVICE_PROMPT_HUB_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_PROMPT_HUB_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:PromptHubAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:SemanticKernelAPI:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/semantic-kernel-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/semantic-kernel-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:SemanticKernelAPI:APIUrl",
-      "value": "${SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -247,21 +247,21 @@
     },
     {
       "key": "FoundationaLLM:APIs:VectorizationAPI:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/vectorization-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/vectorization-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:VectorizationAPI:APIUrl",
-      "value": "${SERVICE_VECTORIZATION_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_VECTORIZATION_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -275,7 +275,7 @@
     },
     {
       "key": "FoundationaLLM:APIs:VectorizationWorker:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/vectorization-job-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/vectorization-job-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -289,7 +289,7 @@
     },
     {
       "key": "FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -303,7 +303,7 @@
     },
     {
       "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -317,21 +317,21 @@
     },
     {
       "key": "FoundationaLLM:AgentHub:StorageManager:BlobStorage:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:AzureContentSafety:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/content-safety-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/content-safety-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:AzureContentSafety:APIUrl",
-      "value": "${AZURE_CONTENT_SAFETY_ENDPOINT}",
+      "value": "${env:AZURE_CONTENT_SAFETY_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
@@ -429,14 +429,14 @@
     },
     {
       "key": "FoundationaLLM:AzureOpenAI:API:Endpoint",
-      "value": "${AZURE_OPENAI_ENDPOINT}",
+      "value": "${env:AZURE_OPENAI_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:AzureOpenAI:API:Key",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/openai-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/openai-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -450,7 +450,7 @@
     },
     {
       "key": "FoundationaLLM:BlobStorageMemorySource:BlobStorageConnection",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -604,14 +604,14 @@
     },
     {
       "key": "FoundationaLLM:Chat:Entra:ClientId",
-      "value": "${ENTRA_CHAT_UI_CLIENT_ID}",
+      "value": "${env:ENTRA_CHAT_UI_CLIENT_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Chat:Entra:ClientSecret",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-chat-ui-entra-clientsecret\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-chat-ui-entra-clientsecret\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -625,21 +625,21 @@
     },
     {
       "key": "FoundationaLLM:Chat:Entra:Scopes",
-      "value": "${ENTRA_CHAT_UI_SCOPES}",
+      "value": "${env:ENTRA_CHAT_UI_SCOPES}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Chat:Entra:TenantId",
-      "value": "${ENTRA_CHAT_UI_TENANT_ID}",
+      "value": "${env:ENTRA_CHAT_UI_TENANT_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:CognitiveSearch:EndPoint",
-      "value": "${AZURE_COGNITIVE_SEARCH_ENDPOINT}",
+      "value": "${env:AZURE_COGNITIVE_SEARCH_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
@@ -653,7 +653,7 @@
     },
     {
       "key": "FoundationaLLM:CognitiveSearch:Key",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/search-key\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/search-key\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -667,7 +667,7 @@
     },
     {
       "key": "FoundationaLLM:CognitiveSearchMemorySource:BlobStorageConnection",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -688,7 +688,7 @@
     },
     {
       "key": "FoundationaLLM:CognitiveSearchMemorySource:EndPoint",
-      "value": "${AZURE_COGNITIVE_SEARCH_ENDPOINT}",
+      "value": "${env:AZURE_COGNITIVE_SEARCH_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
@@ -702,14 +702,14 @@
     },
     {
       "key": "FoundationaLLM:CognitiveSearchMemorySource:Key",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/search-key\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/search-key\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Configuration:KeyVaultURI",
-      "value": "${AZURE_KEY_VAULT_ENDPOINT}",
+      "value": "${env:AZURE_KEY_VAULT_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
@@ -723,7 +723,7 @@
     },
     {
       "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-configuration-resourceprovider-storage-connectionstring\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-configuration-resourceprovider-storage-connectionstring\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -737,14 +737,14 @@
     },
     {
       "key": "FoundationaLLM:CoreAPI:Entra:ClientId",
-      "value": "${ENTRA_CORE_API_CLIENT_ID}",
+      "value": "${env:ENTRA_CORE_API_CLIENT_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:CoreAPI:Entra:ClientSecret",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-core-api-entra-clientsecret\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-core-api-entra-clientsecret\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -765,14 +765,14 @@
     },
     {
       "key": "FoundationaLLM:CoreAPI:Entra:TenantId",
-      "value": "${ENTRA_CORE_API_TENANT_ID}",
+      "value": "${env:ENTRA_CORE_API_TENANT_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:CoreWorker:AppInsightsConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/appinsights-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -800,14 +800,14 @@
     },
     {
       "key": "FoundationaLLM:CosmosDB:Endpoint",
-      "value": "${AZURE_COSMOS_DB_ENDPOINT}",
+      "value": "${env:AZURE_COSMOS_DB_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:CosmosDB:Key",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/cosmos-key\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/cosmos-key\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -828,21 +828,21 @@
     },
     {
       "key": "FoundationaLLM:DataSourceHub:StorageManager:BlobStorage:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:DataSources:AboutFoundationaLLM:BlobStorage:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:DurableSystemPrompt:BlobStorageConnection",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -856,7 +856,7 @@
     },
     {
       "key": "FoundationaLLM:Events:AzureEventGridEventService:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/event-grid-key\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/event-grid-key\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -870,70 +870,70 @@
     },
     {
       "key": "FoundationaLLM:Events:AzureEventGridEventService:Endpoint",
-      "value": "${AZURE_EVENT_GRID_ENDPOINT}",
+      "value": "${env:AZURE_EVENT_GRID_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Events:AzureEventGridEventService:NamespaceId",
-      "value": "${AZURE_EVENT_GRID_ID}",
+      "value": "${env:AZURE_EVENT_GRID_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI",
-      "value": "${FOUNDATIONALLM_AGENT_FACTORY_API_EVENT_GRID_PROFILE}",
+      "value": "${env:FOUNDATIONALLM_AGENT_FACTORY_API_EVENT_GRID_PROFILE}",
       "label": null,
       "content_type": "application/json",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI",
-      "value": "${FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE}",
+      "value": "${env:FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE}",
       "label": null,
       "content_type": "application/json",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI",
-      "value": "${FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE}",
+      "value": "${env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE}",
       "label": null,
       "content_type": "application/json",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationAPI",
-      "value": "${FOUNDATIONALLM_VECTORIZATION_API_EVENT_GRID_PROFILE}",
+      "value": "${env:FOUNDATIONALLM_VECTORIZATION_API_EVENT_GRID_PROFILE}",
       "label": null,
       "content_type": "application/json",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker",
-      "value": "${FOUNDATIONALLM_VECTORIZATION_WORKER_EVENT_GRID_PROFILE}",
+      "value": "${env:FOUNDATIONALLM_VECTORIZATION_WORKER_EVENT_GRID_PROFILE}",
       "label": null,
       "content_type": "application/json",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Instance:Id",
-      "value": "${FOUNDATIONALLM_INSTANCE_ID}",
+      "value": "${env:FOUNDATIONALLM_INSTANCE_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:LangChain:CSVFile:URL",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-langchain-csvfile-url\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-langchain-csvfile-url\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:LangChain:SQLDatabase:TestDB:Password",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-langchain-sqldatabase-testdb-password\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-langchain-sqldatabase-testdb-password\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -954,7 +954,7 @@
     },
     {
       "key": "FoundationaLLM:LangChainAPI:Key",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/langchain-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/langchain-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -968,14 +968,14 @@
     },
     {
       "key": "FoundationaLLM:Management:Entra:ClientId",
-      "value": "${ENTRA_MANAGEMENT_UI_CLIENT_ID}",
+      "value": "${env:ENTRA_MANAGEMENT_UI_CLIENT_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Management:Entra:ClientSecret",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-management-ui-entra-clientsecret\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-management-ui-entra-clientsecret\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -989,14 +989,14 @@
     },
     {
       "key": "FoundationaLLM:Management:Entra:Scopes",
-      "value": "${ENTRA_MANAGEMENT_UI_SCOPES}",
+      "value": "${env:ENTRA_MANAGEMENT_UI_SCOPES}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Management:Entra:TenantId",
-      "value": "${ENTRA_MANAGEMENT_UI_TENANT_ID}",
+      "value": "${env:ENTRA_MANAGEMENT_UI_TENANT_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
@@ -1010,14 +1010,14 @@
     },
     {
       "key": "FoundationaLLM:ManagementAPI:Entra:ClientId",
-      "value": "${ENTRA_MANAGEMENT_API_CLIENT_ID}",
+      "value": "${env:ENTRA_MANAGEMENT_API_CLIENT_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:ManagementAPI:Entra:ClientSecret",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-management-api-entra-clientsecret\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-management-api-entra-clientsecret\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -1031,28 +1031,28 @@
     },
     {
       "key": "FoundationaLLM:ManagementAPI:Entra:Scopes",
-      "value": "${ENTRA_MANAGEMENT_API_SCOPES}",
+      "value": "${env:ENTRA_MANAGEMENT_API_SCOPES}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:ManagementAPI:Entra:TenantId",
-      "value": "${ENTRA_MANAGEMENT_API_TENANT_ID}",
+      "value": "${env:ENTRA_MANAGEMENT_API_TENANT_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:OpenAI:API:Endpoint",
-      "value": "${AZURE_OPENAI_ENDPOINT}",
+      "value": "${env:AZURE_OPENAI_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:OpenAI:API:Key",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/openai-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/openai-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -1073,7 +1073,7 @@
     },
     {
       "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -1087,7 +1087,7 @@
     },
     {
       "key": "FoundationaLLM:PromptHub:StorageManager:BlobStorage:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -1136,7 +1136,7 @@
     },
     {
       "key": "FoundationaLLM:SemanticKernelAPI:OpenAI.Endpoint",
-      "value": "${AZURE_OPENAI_ENDPOINT}",
+      "value": "${env:AZURE_OPENAI_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
@@ -1199,14 +1199,14 @@
     },
     {
       "key": "FoundationaLLM:SemanticKernelAPI:OpenAI:Key",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/openai-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/openai-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/search-key\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/search-key\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -1220,42 +1220,42 @@
     },
     {
       "key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint",
-      "value": "${AZURE_COGNITIVE_SEARCH_ENDPOINT}",
+      "value": "${env:AZURE_COGNITIVE_SEARCH_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/search-key\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/search-key\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:Queues:Embed:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:Queues:Extract:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:Queues:Index:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:Queues:Partition:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -1269,14 +1269,14 @@
     },
     {
       "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/openai-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/openai-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -1304,7 +1304,7 @@
     },
     {
       "key": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint",
-      "value": "${AZURE_OPENAI_ENDPOINT}",
+      "value": "${env:AZURE_OPENAI_ENDPOINT}",
       "label": null,
       "content_type": "",
       "tags": {}
@@ -1318,14 +1318,14 @@
     },
     {
       "key": "FoundationaLLM:Vectorization:StateService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:VectorizationWorker",
-      "value": "${VECTORIZATION_WORKER_CONFIG}",
+      "value": "${env:VECTORIZATION_WORKER_CONFIG}",
       "label": null,
       "content_type": "application/json",
       "tags": {}
@@ -1339,14 +1339,14 @@
     },
     {
       "key": "FoundationaLLM:VectorizationAPI:Entra:ClientId",
-      "value": "${ENTRA_VECTORIZATION_API_CLIENT_ID}",
+      "value": "${env:ENTRA_VECTORIZATION_API_CLIENT_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:VectorizationAPI:Entra:ClientSecret",
-      "value": "{\"uri\":\"${AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-management-api-entra-clientsecret\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-management-api-entra-clientsecret\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -1360,14 +1360,14 @@
     },
     {
       "key": "FoundationaLLM:VectorizationAPI:Entra:Scopes",
-      "value": "${ENTRA_VECTORIZATION_API_SCOPES}",
+      "value": "${env:ENTRA_VECTORIZATION_API_SCOPES}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:VectorizationAPI:Entra:TenantId",
-      "value": "${ENTRA_VECTORIZATION_API_TENANT_ID}",
+      "value": "${env:ENTRA_VECTORIZATION_API_TENANT_ID}",
       "label": null,
       "content_type": "",
       "tags": {}
