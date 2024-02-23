@@ -16,6 +16,7 @@ param envSettings array = []
 param secretSettings array = []
 param apiKeySecretName string
 param serviceName string
+param imageName string
 
 var secretNames = [
   '${serviceName}-apikey'
@@ -113,7 +114,7 @@ module fetchLatestImage '../modules/fetch-container-image.bicep' = {
   name: '${name}-fetch-image'
   params: {
     exists: exists
-    name: name
+    name: imageName
   }
 }
 
@@ -151,7 +152,7 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
     template: {
       containers: [
         {
-          image: fetchLatestImage.outputs.?containers[?0].?image ?? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+          image: fetchLatestImage.outputs.?containers[?0].?image ?? imageName
           name: 'main'
           env: union([
             {
@@ -187,6 +188,7 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
         maxReplicas: 10
       }
     }
+    workloadProfileName: 'Warm'
   }
 }
 
