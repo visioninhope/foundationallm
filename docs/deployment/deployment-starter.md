@@ -39,6 +39,9 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
     cd foundationallm
     cd deploy/starter
 
+    az login            # Log into Azure CLI
+    azd auth login      # Log into Azure Developer CLI
+
     azd env             # Set your target Subscription and Location
 
     azd env set ENTRA_CHAT_UI_CLIENT_ID <Chat UI Client Id>
