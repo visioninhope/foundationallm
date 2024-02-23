@@ -41,6 +41,10 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
     cd deploy/starter
 
     azd init
+    az login            # Log into Azure CLI
+    azd auth login      # Log into Azure Developer CLI
+
+    azd env             # Set your target Subscription and Location
 
     azd env set ENTRA_CHAT_UI_CLIENT_ID <Chat UI Client Id>
     azd env set ENTRA_CHAT_UI_SCOPES <Chat UI Scope>
