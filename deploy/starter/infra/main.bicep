@@ -373,6 +373,7 @@ module acaServices './app/acaService.bicep' = [ for service in services: {
       location: location
       tags: tags
       appConfigName: appConfig.outputs.name
+      eventgridName: eventgrid.outputs.name
       identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
       keyvaultName: keyVault.outputs.name
       applicationInsightsName: monitoring.outputs.applicationInsightsName

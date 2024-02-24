@@ -3,6 +3,7 @@ param location string = resourceGroup().location
 param tags object = {}
 
 param appConfigName string
+param eventgridName string
 param identityName string
 param keyvaultName string
 param containerRegistryName string
@@ -107,6 +108,21 @@ resource secretsAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2023-07-0
         tenantId: subscription().tenantId
       }
     ]
+  }
+}
+
+resource eventgrid 'Microsoft.EventGrid/namespaces@2023-12-15-preview' existing = {
+  name: eventgridName
+}
+
+resource eventGridContributorRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: eventgrid
+  name: guid(subscription().id, resourceGroup().id, identity.id, 'eventGridContributorRole')
+  properties: {
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions', '1e241071-0855-49ea-94dc-649edcd759de')
+      principalType: 'ServicePrincipal'
+      principalId: identity.properties.principalId
   }
 }
 
