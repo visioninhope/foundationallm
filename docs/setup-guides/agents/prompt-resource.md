@@ -62,4 +62,5 @@ where `<prompt_configuration>` is the prompt configuration structure described a
 HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Prompt/prompts/<name>
 ```
 
->**Note:** FLLM currently implements logical deletes for Prompts. This means that users cannot create a Prompt with the same name as a deleted Prompt. Support for purging Prompts will be added in a future release.
+> [!NOTE]
+> FLLM currently implements logical deletes for Prompts. This means that users cannot create a Prompt with the same name as a deleted Prompt. Support for purging Prompts will be added in a future release.
