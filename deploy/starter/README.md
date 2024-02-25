@@ -8,6 +8,7 @@ Mac and Linux users can install the following dependencies locally to run the de
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 - [jq](https://jqlang.github.io/jq/download/)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [git](https://git-scm.com/downloads)
 
 ### azd CLI
 
