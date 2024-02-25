@@ -123,7 +123,8 @@ where `<agent_configuration>` is the JSON agent configuration structure describe
 HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/agents/<name>
 ```
 
->**Note:** FLLM currently implements logical deletes for Knowledge Management agents. This means that users cannot create a Knowledge Management agent with the same name as a deleted Knowledge Management agent. Support for purging Knowledge Management agents will be added in a future release.
+> [!NOTE]
+> FLLM currently implements logical deletes for Knowledge Management agents. This means that users cannot create a Knowledge Management agent with the same name as a deleted Knowledge Management agent. Support for purging Knowledge Management agents will be added in a future release.
 
 ## Validating a knowledge management agent
 

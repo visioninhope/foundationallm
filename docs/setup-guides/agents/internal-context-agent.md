@@ -98,7 +98,8 @@ where `<agent_configuration>` is the JSON agent configuration structure describe
 HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/agents/<name>
 ```
 
->**Note:** FLLM currently implements logical deletes for Internal Context agents. This means that users cannot create an Internal Context agent with the same name as a deleted Internal Context agent. Support for purging Internal Context agents will be added in a future release.
+> [!NOTE]
+> FLLM currently implements logical deletes for Internal Context agents. This means that users cannot create an Internal Context agent with the same name as a deleted Internal Context agent. Support for purging Internal Context agents will be added in a future release.
 
 ## Validating an internal context agent
 

@@ -110,7 +110,8 @@ where `<content source profile>` is a JSON object with the structure described a
 HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/<name>
 ```
 
->**Note:** FLLM implements a *logical delete* for Content Source profiles. This means that users cannot create a Content Source profile with the same name as a deleted profile. Support for purging Content Source profiles will be added in a future release.
+> [!NOTE]
+> FLLM implements a *logical delete* for Content Source profiles. This means that users cannot create a Content Source profile with the same name as a deleted profile. Support for purging Content Source profiles will be added in a future release.
 
 ## Text partitioning profiles
 
@@ -184,7 +185,8 @@ where `<text partitioning profile>` is a JSON object with the structure describe
 HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/<name>
 ```
 
->**Note:** FLLM implements a *logical delete* for Text Partitioning profiles. This means that users cannot create a Text Partitioning profile with the same name as a deleted profile. Support for purging Text Partitioning profiles will be added in a future release.
+> [!NOTE]
+> FLLM implements a *logical delete* for Text Partitioning profiles. This means that users cannot create a Text Partitioning profile with the same name as a deleted profile. Support for purging Text Partitioning profiles will be added in a future release.
 
 ## Text embedding profiles
 
@@ -258,7 +260,8 @@ where `<text embedding profile>` is a JSON object with the structure described a
 HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles/<name>
 ```
 
->**Note:** FLLM implements a *logical delete* for Text Embedding profiles. This means that users cannot create a Text Embedding profile with the same name as a deleted profile. Support for purging Text Embedding profiles will be added in a future release.
+> [!NOTE]
+> FLLM implements a *logical delete* for Text Embedding profiles. This means that users cannot create a Text Embedding profile with the same name as a deleted profile. Support for purging Text Embedding profiles will be added in a future release.
 
 ## Indexing profiles
 
@@ -333,7 +336,8 @@ where `<indexing profile>` is a JSON object with the structure described above.
 HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles/<name>
 ```
 
->**Note:** FLLM implements a *logical delete* for Text Indexing profiles. This means that users cannot create a Text Indexing profile with the same name as a deleted profile. Support for purging Text Indexing profiles will be added in a future release.
+> [!NOTE]
+> FLLM implements a *logical delete* for Text Indexing profiles. This means that users cannot create a Text Indexing profile with the same name as a deleted profile. Support for purging Text Indexing profiles will be added in a future release.
 
 ## Additional configuration steps
 
