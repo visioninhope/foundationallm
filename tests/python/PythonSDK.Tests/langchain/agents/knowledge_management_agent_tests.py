@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch
 from foundationallm.config import Configuration
 from foundationallm.models.metadata import KnowledgeManagementAgent as KnowledgeManagementAgentMetadata
 from foundationallm.models.metadata import ConversationHistory, Gatekeeper
@@ -57,7 +58,33 @@ def test_llm(test_azure_ai_search_service_completion_request, test_config):
     model_factory = LanguageModelFactory(language_model=test_azure_ai_search_service_completion_request.agent.language_model, config = test_config)
     return model_factory.get_llm()
 
-class KnowledgeManagementAgentTests:    
+class KnowledgeManagementAgentTests:
+    @staticmethod
+    def get_resource_side_effect(object_id):
+        # when the side effect is used, and the indexing profile is used, override the auth to azure auth
+        rp = ResourceProvider(config=Configuration())
+        resource = rp.get_resource(object_id=object_id)
+        if "indexingprofiles" in object_id:
+            # this app config value does not exist, it is mocked in the config patch
+            resource.configuration_references.authentication_type = "Foundationallm:Test:AuthenticationType:AzureIdentity"
+        return resource
+    
+    @staticmethod
+    def app_config_get_value_side_effect(setting_key):
+        # when the side effect is used, and the indexing profile is used, override the auth to azure auth       
+        if "Foundationallm:Test:AuthenticationType:AzureIdentity" == setting_key:
+            # this app config value does not exist, it is mocked in the config patch
+            return "AzureIdentity"
+        return Configuration().get_value(setting_key)
+                        
+    def test_azure_ai_search_azure_authentication(self, test_llm, test_azure_ai_search_service_completion_request):
+        with patch.object(Configuration, 'get_value', side_effect=KnowledgeManagementAgentTests.app_config_get_value_side_effect):
+            config = Configuration()
+            with patch.object(ResourceProvider, 'get_resource', side_effect=KnowledgeManagementAgentTests.get_resource_side_effect):
+                rp = ResourceProvider(config=config)
+                resource = rp.get_resource(object_id=test_azure_ai_search_service_completion_request.agent.indexing_profile_object_id)
+                assert resource.configuration_references.authentication_type == "AzureIdentity"      
+        
 
     def test_azure_ai_search_service_agent_initializes(self, test_llm, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
         agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=test_llm, config=test_config, resource_provider=test_resource_provider)              
@@ -74,3 +101,5 @@ class KnowledgeManagementAgentTests:
         completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
         print(completion_response.completion)
         assert "february" in completion_response.completion.lower() or "2023" in completion_response.completion
+        
+    
