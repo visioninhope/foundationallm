@@ -10,7 +10,7 @@ Foundationa**LLM** deploys into your own Azure Subscription. By default, it will
 - Docker Desktop.
 - Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/cli/azure/install-azure-cli)).
 - Azure Developer CLI ([v1.6.1 or greater](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd))
-- Powershell 7 ([7.4.1 or greater](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4))
+- PowerShell 7 ([7.4.1 or greater](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4))
     > Note: Powershell 7 is required for `pwsh` to work in the AZD hooks as an alias to `powershell`
 - Visual Studio 2022 (only needed if you plan to run/debug the solution locally).
 - Minimum quota of 65 CPUs across all VM family types. Start here to [Manage VM Quotas](https://learn.microsoft.com/azure/quotas/per-vm-quota-requests).
@@ -35,9 +35,7 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
     git clone -b release/0.4.0 https://github.com/solliancenet/foundationallm.git 
     ```
 
-3. **Windows users should use Ubuntu in WSL, opened in the `foundationallm` directory, for the following steps; Mac and Linux users can follow them locally.**
-
-    Run the following commands to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions on the [authentication setup page](authentication/index.md) to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.
+3. Run the following commands to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions on the [authentication setup page](authentication/index.md) to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.
 
     ```bash
     cd deploy/starter
@@ -71,10 +69,19 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
     azd env set FOUNDATIONALLM_INSTANCE_ID <guid>
     ```
 
-    >**Note:** You need to manually generate a GUID for `FOUNDATIONALLM_INSTANCE_ID`.
+    >[!NOTE]
+    > You need to manually generate a GUID for `FOUNDATIONALLM_INSTANCE_ID`.
+
+    Bash:
 
     ```bash
     uuidgen
+    ```
+
+    PowerShell:
+
+    ```powershell
+    [guid]::NewGuid().ToString()
     ```
 
     After setting the OIDC-specific settings in the AZD environment above, run `azd up` in the same folder location to build the Docker images, provision the infrastructure, update the App Configuration entries, deploy the API and web app services, and import files into the storage account.
@@ -89,7 +96,7 @@ Follow the instructions on the [authentication setup page](authentication/index.
 
 ## Update APIs and portals from local code changes
 
-To update all APIs and portals from local code changes, run the following from the `./deploy/starter` folder in your locally cloned repository. Again, Windows users should use WSL.
+To update all APIs and portals from local code changes, run the following from the `./deploy/starter` folder in your locally cloned repository.
 
 ```bash
 azd deploy
