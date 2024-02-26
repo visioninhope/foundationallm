@@ -144,6 +144,11 @@
 <td>This is a Key Vault reference.</td>
 </tr>
 <tr>
+<td><code>FoundationaLLM:APIs:AgentFactoryAPI:ForceHttpsRedirection</code></td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
 <td><code>FoundationaLLM:APIs:AgentHubAPI:APIKey</code></td>
 <td>Key Vault secret name: <code>foundationallm-apis-agenthubapi-apikey</code></td>
 <td>This is a Key Vault reference.</td>
@@ -214,6 +219,11 @@
 <td>By default, the Gatekeeper API has Microsoft Presidio integration enabled. To disable this feature, set this value to false.</td>
 </tr>
 <tr>
+<td><code>FoundationaLLM:APIs:GatekeeperAPI:ForceHttpsRedirection</code></td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
 <td><code>FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIKey</code></td>
 <td>Key Vault secret name: <code>foundationallm-apis-gatekeeperintegrationapi-apikey</code></td>
 <td>This is a Key Vault reference.</td>
@@ -222,6 +232,11 @@
 <td><code>FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIUrl</code></td>
 <td>Enter the URL to the service.</td>
 <td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:GatekeeperIntegrationAPI:AppInsightsConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
+<td>This is a Key Vault reference.</td>
 </tr>
 <tr>
 <td><code>FoundationaLLM:APIs:LangChainAPI:APIKey</code></td>
@@ -287,6 +302,11 @@
 <td><code>FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString</code></td>
 <td>Key Vault secret name: <code>foundationallm-app-insights-connection-string</code></td>
 <td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:APIs:SemanticKernelAPI:ForceHttpsRedirection</code></td>
+<td>false</td>
+<td></td>
 </tr>
 <tr>
 <td><code>FoundationaLLM:AzureContentSafety:APIKey</code></td>
@@ -704,6 +724,11 @@
 <td></td>
 </tr>
 <tr>
+<td><code>FoundationaLLM:ManagementAPI:Entra:CallbackPath</code></td>
+<td><code>/signin-oidc</code></td>
+<td></td>
+</tr>
+<tr>
 <td><code>FoundationaLLM:ManagementAPI:Entra:ClientId</code></td>
 <td></td>
 <td></td>
@@ -849,6 +874,11 @@
 <td>The connection string to the Application Insights instance used by the vectorization API.</td>
 </tr>
 <tr>
+<td><code>FoundationaLLM:APIs:VectorizationAPI:ForceHttpsRedirection</code></td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
 <td><code>FoundationaLLM:APIs:VectorizationWorker:APIUrl</code></td>
 <td></td>
 <td>The URL of the vectorization worker API.</td>
@@ -895,7 +925,7 @@
 </tr>
 <tr>
 <td><code>FoundationaLLM:Vectorization:StateService:Storage:ConnectionString</code></td>
-<td>Key Vault secret name: <code>foundationallm-vectorization-state-connectionstring</code></td>
+<td>Key Vault secret name: <code>storage-connection</code></td>
 <td>The connection string to the Azure Storage account used for the vectorization state service.</td>
 </tr>
 <tr>
@@ -952,6 +982,91 @@
 <td><code>FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker</code></td>
 <td></td>
 <td>FLLM eventing infrastructure configuration for the Vectorization Worker.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Configuration:ResourceProviderService:Storage:AuthenticationType</code></td>
+<td></td>
+<td>The authentication type used to connect to the underlying storage. Can be one of <code>AzureIdentity</code>, <code>AccountKey</code>, or <code>ConnectionString</code>.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Configuration:ResourceProviderService:Storage:ConnectionString</code></td>
+<td>Key Vault secret name: <code>foundationallm-configuration-resourceprovider-storage-connectionstring</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType</code></td>
+<td><code>APIKey</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey</code></td>
+<td>Key Vault secret name: <code>search-key</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint</code></td>
+<td></td>
+<td>Azure AI Search service endpoint.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey</code></td>
+<td>Key Vault secret name: <code>search-key</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:ContentSources:DefaultAzureDataLake:AuthenticationType</code></td>
+<td><code>ConnectionString</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:ContentSources:DefaultAzureDataLake:ConnectionString</code></td>
+<td>Key Vault secret name: <code>search-key</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion</code></td>
+<td><code>2023-05-15</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName</code></td>
+<td><code>embeddings</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:VectorizationAPI:Entra:CallbackPath</code></td>
+<td>/signin-oidc</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:VectorizationAPI:Entra:ClientId</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:VectorizationAPI:Entra:ClientSecret</code></td>
+<td>Key Vault secret name: <code>foundationallm-apis-management-api-entra-clientsecret</code></td>
+<td>This is a Key Vault reference.</td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:VectorizationAPI:Entra:Instance</code></td>
+<td>Enter the URL to the service.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:VectorizationAPI:Entra:Scopes</code></td>
+<td>api://FoundationaLLM-Vectorization/Data.Manage</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FoundationaLLM:VectorizationAPI:Entra:TenantId</code></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>

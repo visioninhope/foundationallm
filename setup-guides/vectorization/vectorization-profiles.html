@@ -212,6 +212,10 @@ BODY
 <p><strong>Delete</strong></p>
 <pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/&lt;name&gt;
 </code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>FLLM implements a <em>logical delete</em> for Content Source profiles. This means that users cannot create a Content Source profile with the same name as a deleted profile. Support for purging Content Source profiles will be added in a future release.</p>
+</div>
 <h2 id="text-partitioning-profiles">Text partitioning profiles</h2>
 <p>The structure of a text partitioning profile is the following:</p>
 <pre><code class="lang-json">{
@@ -283,6 +287,10 @@ BODY
 <p><strong>Delete</strong></p>
 <pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/&lt;name&gt;
 </code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>FLLM implements a <em>logical delete</em> for Text Partitioning profiles. This means that users cannot create a Text Partitioning profile with the same name as a deleted profile. Support for purging Text Partitioning profiles will be added in a future release.</p>
+</div>
 <h2 id="text-embedding-profiles">Text embedding profiles</h2>
 <p>The structure of a text embedding profile is the following:</p>
 <pre><code class="lang-json">{
@@ -354,6 +362,10 @@ BODY
 <p><strong>Delete</strong></p>
 <pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles/&lt;name&gt;
 </code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>FLLM implements a <em>logical delete</em> for Text Embedding profiles. This means that users cannot create a Text Embedding profile with the same name as a deleted profile. Support for purging Text Embedding profiles will be added in a future release.</p>
+</div>
 <h2 id="indexing-profiles">Indexing profiles</h2>
 <p>The structure of an indexing profile is the following:</p>
 <pre><code class="lang-json">{
@@ -426,6 +438,10 @@ BODY
 <p><strong>Delete</strong></p>
 <pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles/&lt;name&gt;
 </code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>FLLM implements a <em>logical delete</em> for Text Indexing profiles. This means that users cannot create a Text Indexing profile with the same name as a deleted profile. Support for purging Text Indexing profiles will be added in a future release.</p>
+</div>
 <h2 id="additional-configuration-steps">Additional configuration steps</h2>
 <h3 id="entra-id-app-registration-for-sharepoint-online-content-source">Entra ID app registration for SharePoint Online content source</h3>
 <p>Apps typically access SharePoint Online through certificates: Anyone having the certificate and its private key can use the app with the permissions granted to it.</p>

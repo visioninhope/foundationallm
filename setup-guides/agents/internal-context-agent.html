@@ -91,8 +91,8 @@
 <h2 id="internal-context-agent-configuration">Internal context agent configuration</h2>
 <p>The structure of an internal context agent is the following:</p>
 <pre><code class="lang-json">{
-  &quot;name&quot;: &quot;&lt;name&gt;&quot;,
   &quot;type&quot;: &quot;internal-context&quot;,
+  &quot;name&quot;: &quot;&lt;name&gt;&quot;,
   &quot;object_id&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.Agent/agents/&lt;name&gt;&quot;,
   &quot;description&quot;: &quot;&lt;description&gt;&quot;,  
   &quot;language_model&quot;: {
@@ -136,12 +136,12 @@
 </thead>
 <tbody>
 <tr>
-<td><code>name</code></td>
-<td>The name of the agent.</td>
+<td><code>type</code></td>
+<td>The type of the agent - will always be <code>internal-context</code>. <strong><code>type</code> must be the first parameter in the request body.</strong></td>
 </tr>
 <tr>
-<td><code>type</code></td>
-<td>The type of the agent - will always be <code>internal-context</code>.</td>
+<td><code>name</code></td>
+<td>The name of the agent.</td>
 </tr>
 <tr>
 <td><code>object_id</code></td>
@@ -241,6 +241,10 @@ BODY
 <h3 id="delete">Delete</h3>
 <pre><code class="lang-http">HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/agents/&lt;name&gt;
 </code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>FLLM currently implements logical deletes for Internal Context agents. This means that users cannot create an Internal Context agent with the same name as a deleted Internal Context agent. Support for purging Internal Context agents will be added in a future release.</p>
+</div>
 <h2 id="validating-an-internal-context-agent">Validating an internal context agent</h2>
 <p>Once configured, the internal context agent can be validated using an API call to the <a href="../exposed-apis/core-api.html">Core API</a> or via the <a href="../quickstart.html">User Portal</a>.</p>
 <blockquote>

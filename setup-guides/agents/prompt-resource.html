@@ -91,8 +91,8 @@
 <h2 id="prompt-configuration">Prompt configuration</h2>
 <p>The structure of a prompt is the following:</p>
 <pre><code class="lang-json">{
+  &quot;type&quot;: &quot;multipart&quot;,
   &quot;name&quot;: &quot;&lt;name&gt;&quot;,
-  &quot;type&quot;: &quot;prompt&quot;,
   &quot;object_id&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.Prompt/prompts/&lt;name&gt;&quot;,
   &quot;description&quot;: &quot;&lt;description&gt;&quot;,
   &quot;prefix&quot;: &quot;&lt;prompt_prefix&gt;&quot;,
@@ -116,12 +116,12 @@
 </thead>
 <tbody>
 <tr>
-<td><code>name</code></td>
-<td>The name of the prompt.</td>
+<td><code>type</code></td>
+<td>The type - will be <code>multipart</code>. <code>multipart</code> prompts have a prefix and suffix. Support for <code>basic</code> prompts, which have no suffix, will be added in a future release. <strong><code>type</code> must be the first parameter in the request body.</strong></td>
 </tr>
 <tr>
-<td><code>type</code></td>
-<td>The type - will always be <code>prompt</code>.</td>
+<td><code>name</code></td>
+<td>The name of the prompt.</td>
 </tr>
 <tr>
 <td><code>object_id</code></td>
@@ -157,6 +157,10 @@ BODY
 <h3 id="delete">Delete</h3>
 <pre><code class="lang-http">HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Prompt/prompts/&lt;name&gt;
 </code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>FLLM currently implements logical deletes for Prompts. This means that users cannot create a Prompt with the same name as a deleted Prompt. Support for purging Prompts will be added in a future release.</p>
+</div>
 
 </article>
 
