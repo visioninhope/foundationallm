@@ -126,10 +126,10 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             }
         };
 
-        private ConcurrentDictionary<string, ContentSourceProfile> _contentSourceProfiles = [];
-        private ConcurrentDictionary<string, TextPartitioningProfile> _textPartitioningProfiles = [];
-        private ConcurrentDictionary<string, TextEmbeddingProfile> _textEmbeddingProfiles = [];
-        private ConcurrentDictionary<string, IndexingProfile> _indexingProfiles = [];
+        private ConcurrentDictionary<string, VectorizationProfileBase> _contentSourceProfiles = [];
+        private ConcurrentDictionary<string, VectorizationProfileBase> _textPartitioningProfiles = [];
+        private ConcurrentDictionary<string, VectorizationProfileBase> _textEmbeddingProfiles = [];
+        private ConcurrentDictionary<string, VectorizationProfileBase> _indexingProfiles = [];
 
         private const string CONTENT_SOURCE_PROFILES_FILE_NAME = "vectorization-content-source-profiles.json";
         private const string TEXT_PARTITIONING_PROFILES_FILE_NAME = "vectorization-text-partitioning-profiles.json";
@@ -157,7 +157,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
 
-        private async Task LoadProfileStore<T>(string profileStoreFilePath, ConcurrentDictionary<string, T> profiles) where T: VectorizationProfileBase
+        private async Task LoadProfileStore<T>(string profileStoreFilePath, ConcurrentDictionary<string, VectorizationProfileBase> profiles) where T: VectorizationProfileBase
         {
             if (await _storageService.FileExistsAsync(_storageContainerName, profileStoreFilePath, default))
             {
@@ -188,16 +188,19 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private List<VectorizationProfileBase> LoadProfiles<T>(ResourceTypeInstance instance, ConcurrentDictionary<string, T> profileStore) where T : VectorizationProfileBase
+        private List<VectorizationProfileBase> LoadProfiles<T>(ResourceTypeInstance instance, ConcurrentDictionary<string, VectorizationProfileBase> profileStore) where T : VectorizationProfileBase
         {
             if (instance.ResourceId == null)
             {
                 return
-                    [.. profileStore.Values];
+                    [.. profileStore.Values
+                            .Where(p => !p.Deleted)
+                    ];
             }
             else
             {
-                if (!profileStore.TryGetValue(instance.ResourceId, out var profile))
+                if (!profileStore.TryGetValue(instance.ResourceId, out var profile)
+                    || profile.Deleted)
                     throw new ResourceProviderException($"Could not locate the {instance.ResourceId} vectorization profile resource.",
                         StatusCodes.Status404NotFound);
 
@@ -216,17 +219,23 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 VectorizationResourceTypeNames.TextEmbeddingProfiles => await UpdateProfile<TextEmbeddingProfile>(instances, serializedResource, _textEmbeddingProfiles, TEXT_EMBEDDING_PROFILES_FILE_PATH),
                 VectorizationResourceTypeNames.IndexingProfiles => await UpdateProfile<IndexingProfile>(instances, serializedResource, _indexingProfiles, INDEXING_PROFILES_FILE_PATH),
                 _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
-                    StatusCodes.Status400BadRequest),
+                    StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateProfile<T>(List<ResourceTypeInstance> instances, string serializedProfile, ConcurrentDictionary<string, T> profileStore, string storagePath)
+        private async Task<ResourceProviderUpsertResult> UpdateProfile<T>(List<ResourceTypeInstance> instances, string serializedProfile, ConcurrentDictionary<string, VectorizationProfileBase> profileStore, string storagePath)
             where T : VectorizationProfileBase
         {
             var profile = JsonSerializer.Deserialize<T>(serializedProfile)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
+
+            if (profileStore.TryGetValue(profile.Name, out var existingProfile)
+                && existingProfile!.Deleted)
+                throw new ResourceProviderException($"The agent resource {existingProfile.Name} cannot be added or updated.",
+                        StatusCodes.Status400BadRequest);
+
             profile.ObjectId = GetObjectId(instances);
 
             var validator = _resourceValidatorFactory.GetValidator<T>();
@@ -249,7 +258,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     storagePath,
-                    JsonSerializer.Serialize(ProfileStore<T>.FromDictionary(profileStore.ToDictionary())),
+                    JsonSerializer.Serialize(ProfileStore<VectorizationProfileBase>.FromDictionary(profileStore.ToDictionary())),
                     default,
                     default);
 
@@ -272,13 +281,14 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     _ => throw new ResourceProviderException($"The action {instances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
-                _ => throw new ResourceProviderException()
+                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} does not support actions in the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest)
             };
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
         #region Helpers for ExecuteActionAsync
 
-        private ResourceNameCheckResult CheckProfileName<T>(string serializedAction, ConcurrentDictionary<string, T> profileStore)
+        private ResourceNameCheckResult CheckProfileName<T>(string serializedAction, ConcurrentDictionary<string, VectorizationProfileBase> profileStore)
             where T : VectorizationProfileBase
         {
             var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
@@ -288,7 +298,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     Name = resourceName!.Name,
                     Type = resourceName.Type,
                     Status = NameCheckResultType.Denied,
-                    Message = "A resource with the specified name already exists."
+                    Message = "A resource with the specified name already exists or was previously deleted and not purged."
                 }
                 : new ResourceNameCheckResult
                 {
@@ -300,7 +310,52 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #endregion
 
+        /// <inheritdoc/>
+        protected override async Task DeleteResourceAsync(List<ResourceTypeInstance> instances)
+        {
+            switch (instances.Last().ResourceType)
+            {
+                case VectorizationResourceTypeNames.ContentSourceProfiles:
+                    await DeleteProfile<ContentSourceProfile>(instances, _contentSourceProfiles, CONTENT_SOURCE_PROFILES_FILE_PATH);
+                    break;
+                case VectorizationResourceTypeNames.TextPartitioningProfiles:
+                    await DeleteProfile<TextPartitioningProfile>(instances, _textPartitioningProfiles, TEXT_PARTITIONING_PROFILES_FILE_PATH);
+                    break;
+                case VectorizationResourceTypeNames.TextEmbeddingProfiles:
+                    await DeleteProfile<TextEmbeddingProfile>(instances, _textEmbeddingProfiles, TEXT_EMBEDDING_PROFILES_FILE_PATH);
+                    break;
+                case VectorizationResourceTypeNames.IndexingProfiles:
+                    await DeleteProfile<IndexingProfile>(instances, _indexingProfiles, INDEXING_PROFILES_FILE_PATH);
+                    break;
+                default:
+                    throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest);
+            };
+        }
 
+        #region Helpers for DeleteResourceAsync
+
+        private async Task DeleteProfile<T>(List<ResourceTypeInstance> instances, ConcurrentDictionary<string, VectorizationProfileBase> profileStore, string storagePath)
+            where T : VectorizationProfileBase
+        {
+            if (profileStore.TryGetValue(instances[0].ResourceId!, out var profile)
+                || profile!.Deleted)
+            {
+                profile.Deleted = true;
+
+                await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                        storagePath,
+                        JsonSerializer.Serialize(ProfileStore<VectorizationProfileBase>.FromDictionary(profileStore.ToDictionary())),
+                        default,
+                        default);
+            }
+            else
+                throw new ResourceProviderException($"Could not locate the {instances[0].ResourceId} vectorization profile resource.",
+                            StatusCodes.Status404NotFound);
+        }
+
+        #endregion
 
         #endregion
 

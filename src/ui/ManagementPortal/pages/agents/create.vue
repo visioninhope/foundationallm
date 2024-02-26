@@ -72,7 +72,7 @@
 			<!-- Data source -->
 			<CreateAgentStepItem v-model="editDataSource">
 				<template v-if="selectedDataSource">
-					<div class="step-container__header">{{ selectedDataSource.Type }}</div>
+					<div class="step-container__header">{{ selectedDataSource.content_source }}</div>
 					<div>
 						<span class="step-option__header">Name:</span>
 						<span>{{ selectedDataSource.name }}</span>
@@ -134,7 +134,7 @@
 					<div class="step-container__header">{{ selectedIndexSource.name }}</div>
 					<div>
 						<span class="step-option__header">URL:</span>
-						<span>{{ selectedIndexSource.configurationReferences.Endpoint }}</span>
+						<span>{{ selectedIndexSource.configuration_references.Endpoint }}</span>
 					</div>
 					<div>
 						<span class="step-option__header">Index Name:</span>
@@ -158,7 +158,7 @@
 						<div class="step-container__header">{{ indexSource.name }}</div>
 						<div>
 							<span class="step-option__header">URL:</span>
-							<span>{{ indexSource.configurationReferences.Endpoint }}</span>
+							<span>{{ indexSource.configuration_references.Endpoint }}</span>
 						</div>
 						<div>
 							<span class="step-option__header">Index Name:</span>
@@ -412,10 +412,13 @@ const defaultFormValues = {
 	agentName: '',
 	agentDescription: '',
 	object_id: '',
+	text_partitioning_profile_object_id: '',
+	text_embedding_profile_object_id: '',
+	prompt_object_id: '',
 	agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 	editDataSource: false as boolean,
-	selectedDataSource: null as null | Object,
+	selectedDataSource: null as null | AgentDataSource,
 
 	editIndexSource: false as boolean,
 	selectedIndexSource: null as null | AgentIndex,
@@ -527,11 +530,11 @@ export default {
 		groupedDataSources() {
 			const grouped = {};
 			this.dataSources.forEach((dataSource) => {
-				if (!grouped[dataSource.Type]) {
-					grouped[dataSource.Type] = [];
+				if (!grouped[dataSource.content_source]) {
+					grouped[dataSource.content_source] = [];
 				}
 
-				grouped[dataSource.Type].push(dataSource);
+				grouped[dataSource.content_source].push(dataSource);
 			});
 
 			return grouped;
@@ -559,6 +562,17 @@ export default {
 		if (this.editAgent) {
 			this.loadingStatusText = `Retrieving agent "${this.editAgent}"...`;
 			const agent = await api.getAgent(this.editAgent);
+			this.loadingStatusText = `Retrieving text partitioning profile...`;
+			const textPartitioningProfile = await api.getTextPartitioningProfile(agent.text_partitioning_profile_object_id);
+			if (textPartitioningProfile) {
+				this.chunkSize = Number(textPartitioningProfile.settings.ChunkSizeTokens);
+				this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
+			}
+			this.loadingStatusText = `Retrieving prompt...`;
+			const prompt = await api.getPrompt(agent.prompt_object_id);
+			if (prompt) {
+				this.systemPrompt = prompt.prefix;
+			}
 			this.loadingStatusText = `Mapping agent values to form...`;
 			this.mapAgentToForm(agent);
 		}
@@ -575,13 +589,14 @@ export default {
 			this.agentType = agent.type || this.agentType;
 			this.object_id = agent.object_id || this.object_id;
 			this.orchestrator = agent.orchestrator || this.orchestrator;
+			this.text_embedding_profile_object_id = agent.text_embedding_profile_object_id || this.text_embedding_profile_object_id;
 
 			this.selectedIndexSource =
-				this.indexSources.find((indexSource) => indexSource.objectId === agent.indexing_profile) ||
+				this.indexSources.find((indexSource) => indexSource.object_id === agent.indexing_profile_object_id) ||
 				null;
 
 			this.selectedDataSource =
-				this.dataSources.find((dataSource) => dataSource.objectId === agent.embedding_profile) ||
+				this.dataSources.find((dataSource) => dataSource.object_id === agent.content_source_profile_object_id) ||
 				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
@@ -598,8 +613,6 @@ export default {
 				this.gatekeeperDataProtectionOptions.find((localOption) =>
 					agent.gatekeeper.options.find((option) => option === localOption.value),
 				) || this.gatekeeperDataProtection;
-
-			this.systemPrompt = agent.prompt || '';
 		},
 
 		async checkName() {
@@ -681,6 +694,14 @@ export default {
 				errors.push(this.validationMessage);
 			}
 
+			if (this.text_embedding_profile_object_id === '') {
+				const textEmbeddingProfiles = await api.getTextEmbeddingProfiles();
+				if (textEmbeddingProfiles.length === 0) {
+					errors.push('No vectorization text embedding profiles found.');
+				}
+				this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+			}
+
 			// if (!this.selectedDataSource) {
 			// 	errors.push('Please select a data source.');
 			// }
@@ -702,46 +723,77 @@ export default {
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
 
-			const agentRequest = {
-				type: this.agentType,
+			const promptRequest = {
+				type: 'multipart',
 				name: this.agentName,
-				description: this.agentDescription,
-				object_id: this.object_id,
+				description: `System prompt for the ${this.agentName} agent`,
+				prefix: this.systemPrompt,
+				suffix: '',
+			};
 
-				embedding_profile: this.selectedDataSource?.objectId,
-				indexing_profile: this.selectedIndexSource?.objectId,
-
-				conversation_history: {
-					enabled: this.conversationHistory,
-					max_history: this.conversationMaxMessages,
-				},
-
-				gatekeeper: {
-					use_system_setting: this.gatekeeperEnabled,
-					options: [
-						this.gatekeeperContentSafety.value,
-						this.gatekeeperDataProtection.value,
-					].filter(option => option !== null),
-				},
-
-				language_model: {
-					type: 'openai',
-					provider: 'microsoft',
-					temperature: 0,
-					use_chat: true,
-					api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
-					api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
-					api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
-					version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
-					deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
-				},
-
-				prompt: this.systemPrompt,
-				orchestrator: this.orchestrator,
+			const tokenTextPartitionRequest = {
+				text_splitter: "TokenTextSplitter",
+				name: this.agentName,
+				settings: {
+					Tokenizer: "MicrosoftBPETokenizer",
+					TokenizerEncoder: "cl100k_base",
+					ChunkSizeTokens: this.chunkSize.toString(),
+					OverlapSizeTokens: this.overlapSize.toString()
+				}
 			};
 
 			let successMessage = null;
 			try {
+				// Handle Prompt creation/update.
+				const promptResponse = await api.createOrUpdatePrompt(this.agentName, promptRequest);
+				const promptObjectId = promptResponse.objectId;
+
+				// Handle TextPartitioningProfile creation/update.
+				const tokenTextPartitionResponse = await api.createOrUpdateTextPartitioningProfile(this.agentName, tokenTextPartitionRequest);
+				const textPartitioningProfileObjectId = tokenTextPartitionResponse.objectId;
+				
+				const agentRequest: CreateAgentRequest = {
+					type: this.agentType,
+					name: this.agentName,
+					description: this.agentDescription,
+					object_id: this.object_id,
+
+					text_embedding_profile_object_id: this.text_embedding_profile_object_id,
+					indexing_profile_object_id: this.selectedIndexSource?.object_id ?? '',
+					text_partitioning_profile_object_id: textPartitioningProfileObjectId,
+					content_source_profile_object_id: this.selectedDataSource?.object_id ?? '',
+
+					conversation_history: {
+						enabled: this.conversationHistory,
+						max_history: Number(this.conversationMaxMessages),
+					},
+
+					gatekeeper: {
+						use_system_setting: this.gatekeeperEnabled,
+						options: [
+							this.gatekeeperContentSafety.value as unknown as string,
+							this.gatekeeperDataProtection.value as unknown as string,
+						].filter(option => option !== null),
+					},
+
+					language_model: {
+						type: 'openai',
+						provider: 'microsoft',
+						temperature: 0,
+						use_chat: true,
+						api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
+						api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
+						api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
+						version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
+						deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
+					},
+
+					sessions_enabled: true,
+
+					prompt_object_id: promptObjectId,
+					orchestrator: this.orchestrator,
+				};
+
 				if (this.editAgent) {
 					await api.updateAgent(this.editAgent, agentRequest);
 					successMessage = `Agent "${this.agentName}" was succesfully updated!`;

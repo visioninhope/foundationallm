@@ -41,7 +41,17 @@ namespace FoundationaLLM.Configuration.Catalog
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
-            )
+            ),
+            new (
+                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Configuration_ResourceProviderService_Storage_AuthenticationType,
+                minimumVersion: "0.4.0",
+                defaultValue: "",
+                description:
+                "The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
         ];
 
         /// <summary>
@@ -1421,9 +1431,9 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChainAPI_Key,
                 minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-langchainapi-key`",
+                defaultValue: "Key Vault secret name: `foundationallm-apis-langchainapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChainAPI_Key,
+                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_LangChainAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             )
@@ -1926,9 +1936,32 @@ namespace FoundationaLLM.Configuration.Catalog
         /// <returns></returns>
         public static IEnumerable<AppConfigurationEntry> GetRequiredConfigurationsForVersion(string version)
         {
-            var currentVersion = new Version(version);
-            return GetAllEntries().Where(entry => !string.IsNullOrWhiteSpace(entry.MinimumVersion) &&
-                                                new Version(entry.MinimumVersion) <= currentVersion);
+            // Extract the numeric part of the version, ignoring pre-release tags.
+            var numericVersionPart = version.Split('-')[0];
+            if (!Version.TryParse(numericVersionPart, out var currentVersion))
+            {
+                throw new ArgumentException($"Invalid version format for the provided version ({version}).", nameof(version));
+            }
+
+            // Compare based on the Major, Minor, and Build numbers only.
+            return GetAllEntries().Where(entry =>
+            {
+                if (string.IsNullOrWhiteSpace(entry.MinimumVersion))
+                {
+                    return false;
+                }
+
+                var entryNumericVersionPart = entry.MinimumVersion.Split('-')[0];
+                if (!Version.TryParse(entryNumericVersionPart, out var entryVersion))
+                {
+                    return false;
+                }
+
+                var entryVersionWithoutRevision = new Version(entryVersion.Major, entryVersion.Minor, entryVersion.Build);
+                var currentVersionWithoutRevision = new Version(currentVersion.Major, currentVersion.Minor, currentVersion.Build);
+
+                return entryVersionWithoutRevision <= currentVersionWithoutRevision;
+            });
         }
     }
 }
