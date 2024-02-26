@@ -2,12 +2,14 @@
 
 ## Dependencies
 
-Mac and Linux users can install the following dependencies locally to run the deployment. Windows users should use Ubuntu on [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to run all deployment steps. Other WSL Linux distributions may work, but these instructions have been validated with Ubuntu 18.04, 20.04, and 22.04.
+Please install the following dependencies to deploy FLLM.
 
+- [PowerShell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.4) (required for `pwsh` to work in the AZD hooks as an alias to powershell)
 - [azd CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd)
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 - [jq](https://jqlang.github.io/jq/download/)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [git](https://git-scm.com/downloads)
 
 ### azd CLI
 
@@ -24,7 +26,7 @@ Clone the FoundationaLLM repository
 git clone -b release/0.4.0 https://github.com/solliancenet/foundationallm
 ```
 
-Run the following commands to set the appropriate application registration settings for OIDC authentication. **Windows users should run them in WSL.**
+Run the following commands to set the appropriate application registration settings for OIDC authentication.
 
 ```bash
 cd foundationallm
@@ -59,10 +61,19 @@ azd env set ENTRA_VECTORIZATION_API_TENANT_ID <Vectorization API Tenant ID>
 azd env set FOUNDATIONALLM_INSTANCE_ID <guid>
 ```
 
->**Note:** You need to manually generate a GUID for your instance ID.
+>[!NOTE]
+> You need to manually generate a GUID for `FOUNDATIONALLM_INSTANCE_ID`.
+
+Bash:
 
 ```bash
 uuidgen
+```
+
+PowerShell:
+
+```powershell
+[guid]::NewGuid().ToString()
 ```
 
 After setting the OIDC-specific settings in the AZD environment above, run `azd up` in the same folder location to build the Docker images, provision the infrastructure, update the App Configuration entries, deploy the API and web app services, and import files into the storage account.
