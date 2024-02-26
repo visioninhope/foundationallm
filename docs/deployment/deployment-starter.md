@@ -10,7 +10,7 @@ Foundationa**LLM** deploys into your own Azure Subscription. By default it will 
 - Docker Desktop.
 - Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/cli/azure/install-azure-cli)).
 - Azure Developer CLI ([v1.6.1 or greater](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd))
-- Powershell 7 ([7.4.1 or greater](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4))
+- PowerShell 7 ([7.4.1 or greater](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4))
     > Note: Powershell 7 is required for `pwsh` to work in the AZD hooks as an alias to `powershell`
 - Visual Studio 2022 (only needed if you plan to run/debug the solution locally).
 - Minimum quota of 65 CPUs across all VM family types. Start here to [Manage VM Quotas](https://learn.microsoft.com/azure/quotas/per-vm-quota-requests).
@@ -36,9 +36,7 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
     git checkout release/0.4.0
     ```
 
-1. Open a PowerShell instance and run the following script to provision the infrastructure and deploy the API and frontend. This will provision all of the required infrastructure, deploy the API and web app services, and import data into Cosmos DB.
-
-    Run the following command to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions in the [Authentication setup document](authentication/index.md) to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.
+3. Run the following commands to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions on the [authentication setup page](authentication/index.md) to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.
 
     ```pwsh
     cd foundationallm
@@ -68,9 +66,26 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
     azd env set ENTRA_VECTORIZATION_API_CLIENT_ID <Vectorization API Client Id>
     azd env set ENTRA_VECTORIZATION_API_SCOPES <Vectorization API Scope>
     azd env set ENTRA_VECTORIZATION_API_TENANT_ID <Vectorization API Tenant ID>
+
+    azd env set FOUNDATIONALLM_INSTANCE_ID <guid>
     ```
 
-    After setting the OIDC specific settings in the AZD environment above, run `azd up` in the same folder location to build the docker images, provision the infrastructure, update the configuration, deploy the API and web app services into container app instances, and import files into the storage account.
+    >[!NOTE]
+    > You need to manually generate a GUID for `FOUNDATIONALLM_INSTANCE_ID`.
+
+    Bash:
+
+    ```bash
+    uuidgen
+    ```
+
+    PowerShell:
+
+    ```powershell
+    [guid]::NewGuid().ToString()
+    ```
+
+    After setting the OIDC-specific settings in the AZD environment above, run `azd up` in the same folder location to build the Docker images, provision the infrastructure, update the App Configuration entries, deploy the API and web app services, and import files into the storage account.
 
     ```pwsh
     azd up
@@ -79,59 +94,3 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 ### Authentication setup
 
 Follow the instructions in the [Authentication setup document](authentication/index.md) to configure authentication for the solution.
-
-## Update APIs and portals from local code changes
-
-To update APIs and portals from local code changes, run the following from the `./deploy/starter` folder in your locally cloned repository:
-
-```pwsh
-azd deploy
-```
-
-## Update individual APIs or portals
-
-### Update individual APIs or portals with images from the public container repositorywhen using Microsoft Azure Container Apps (ACA)
-
-To update an individual API or portal, you can use the following commands:
-
-1. Login with your Entra ID account:
-   
-    ```pwsh
-    az login
-    ```
-2. Set the target subscription:
-   
-    ```pwsh
-    az account set --subscription <target_subscription_id>
-    ```
-
-3. Navigate to the FoundationaLLM GitHub Container Registry and obtain the SHA or image tag of the container you would like to update.
-
-    ![Latest release of the image on the GitHub Container Registry.](./media/latest-image-release.png "Verifying Latest Image Release")
-
-4. Use the following Azure CLI command to update the desired container. `--image` is a fully-qualified name (e.g., `ghcr.io/solliancenet/foundationallm/agent-factory-api:latest`).
-
-    ```pwsh
-    az containerapp update --name <aca_name> --resource-group <resource_group_name> --image <image_name>
-    ```
-
-    The following table indicates the mapping between each component of FLLM and the relevant Azure Container Apps instance (`--name`).
-
-    | API | Container Name |
-    | --- | -------------- |
-    | Core API | `cacoreapi[SUFFIX]` |
-    | Agent Factory API | `caagentfactoryapi[SUFFIX]` |
-    | Agent Hub API | `caagenthubapi[SUFFIX]` |
-    | Chat UI | `cachatui[SUFFIX]` |
-    | Core Job API | `cacorejob[SUFFIX]` |
-    | Data Source Hub API | `caadatasourcehubapi[SUFFIX]` |
-    | Gatekeeper API | `cagatekeeperapi[SUFFIX]` |
-    | Gatekeeper Integration API | `cagatekeeperintegrationapi[SUFFIX]` |
-    | LangChain | `calangchainapi[SUFFIX]` |
-    | Management API | `camanagementapi[SUFFIX]` |
-    | Management UI | `camanagementui[SUFFIX]` |
-    | Prompt Hub API | `caprompthubapi[SUFFIX]` |
-    | Semantic Kernel API | `casemantickernelapi[SUFFIX]` |
-    | Vectorization API | `camanagementapi[SUFFIX]` |
-    | Vectorization Worker | `camanagementjob[SUFFIX]` |
-
