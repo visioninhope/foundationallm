@@ -92,16 +92,12 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
 Follow the instructions on the [authentication setup page](authentication/index.md) to configure authentication for the solution.
 
-## Update APIs and portals from local code changes
+## Teardown
 
-To update all APIs and portals from local code changes, run the following from the `./deploy/starter` folder in your locally cloned repository.
-
-```pwsh
-azd deploy
-```
-
-To update an individual API or portal, suffix the command with the name of the service, as specified in the `./deploy/starter/azure.yaml` file.
+To tear down the environment, execute `azd down` in the same folder location.
 
 ```pwsh
-azd deploy "prompt-hub-api"
+azd down --purge
 ```
+
+> Note the `--purge` argument in the command above. This ensures that resources that would otherwise be soft-deleted are instead completely purged from your Azure subscription.
