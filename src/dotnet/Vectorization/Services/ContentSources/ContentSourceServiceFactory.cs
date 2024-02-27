@@ -21,17 +21,14 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
     /// </remarks>
     /// <param name="vectorizationResourceProviderService">The vectorization resource provider service.</param>
     /// <param name="configuration">The global configuration provider.</param>
-    /// <param name="environment">The hosting environment.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public class ContentSourceServiceFactory(
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IResourceProviderService vectorizationResourceProviderService,
         IConfiguration configuration,
-        IHostEnvironment environment,
         ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IContentSourceService>
     {
         private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
         private readonly IConfiguration _configuration = configuration;
-        private readonly IHostEnvironment _environment = environment;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
