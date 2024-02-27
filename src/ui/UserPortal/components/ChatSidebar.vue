@@ -1,5 +1,7 @@
 <template>
-	<div class="chat-sidebar">
+		<div class="chat-sidebar" :style="{ width: sidebarWidth }">
+			<!-- Sidebar content -->
+
 		<!-- Sidebar section header -->
 		<div class="chat-sidebar__section-header--mobile">
 			<img v-if="appConfigStore.logoUrl !== ''" :src="$filters.enforceLeadingSlash(appConfigStore.logoUrl)" />
@@ -128,6 +130,7 @@ export default {
 			sessionToDelete: null as Session | null,
 			accountName: '' as string,
 			userName: '' as string,
+			sidebarWidth: '300px',
 		};
 	},
 
@@ -207,6 +210,8 @@ export default {
 
 <style lang="scss" scoped>
 .chat-sidebar {
+	resize: horizontal; /* Allow horizontal resizing */
+	overflow: auto; /* Enable scrolling when content exceeds the sidebar width */
 	width: 300px;
 	max-width: 100%;
 	height: 100%;
