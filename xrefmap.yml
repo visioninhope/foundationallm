@@ -1217,15 +1217,12 @@ references:
   commentId: T:FoundationaLLM.Common.Authentication.DefaultAuthentication
   fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication
   nameWithType: DefaultAuthentication
-- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential(System.Boolean)
-  name: GetAzureCredential(bool)
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_GetAzureCredential_System_Boolean_
-  commentId: M:FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential(System.Boolean)
-  name.vb: GetAzureCredential(Boolean)
-  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential(bool)
-  fullName.vb: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential(Boolean)
-  nameWithType: DefaultAuthentication.GetAzureCredential(bool)
-  nameWithType.vb: DefaultAuthentication.GetAzureCredential(Boolean)
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential
+  name: GetAzureCredential()
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_GetAzureCredential
+  commentId: M:FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential()
+  nameWithType: DefaultAuthentication.GetAzureCredential()
 - uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential*
   name: GetAzureCredential
   href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_GetAzureCredential_
@@ -1233,6 +1230,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential
   nameWithType: DefaultAuthentication.GetAzureCredential
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.Production
+  name: Production
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_Production
+  commentId: P:FoundationaLLM.Common.Authentication.DefaultAuthentication.Production
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.Production
+  nameWithType: DefaultAuthentication.Production
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.Production*
+  name: Production
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_Production_
+  commentId: Overload:FoundationaLLM.Common.Authentication.DefaultAuthentication.Production
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.Production
+  nameWithType: DefaultAuthentication.Production
 - uid: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings
   name: DownstreamAPIKeySettings
   href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.html
@@ -2814,6 +2824,12 @@ references:
   commentId: T:FoundationaLLM.Common.Constants.EnvironmentVariables
   fullName: FoundationaLLM.Common.Constants.EnvironmentVariables
   nameWithType: EnvironmentVariables
+- uid: FoundationaLLM.Common.Constants.EnvironmentVariables.AzureClientId
+  name: AzureClientId
+  href: api/dotnet/FoundationaLLM.Common.Constants.EnvironmentVariables.html#FoundationaLLM_Common_Constants_EnvironmentVariables_AzureClientId
+  commentId: F:FoundationaLLM.Common.Constants.EnvironmentVariables.AzureClientId
+  fullName: FoundationaLLM.Common.Constants.EnvironmentVariables.AzureClientId
+  nameWithType: EnvironmentVariables.AzureClientId
 - uid: FoundationaLLM.Common.Constants.EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString
   name: FoundationaLLM_AppConfig_ConnectionString
   href: api/dotnet/FoundationaLLM.Common.Constants.EnvironmentVariables.html#FoundationaLLM_Common_Constants_EnvironmentVariables_FoundationaLLM_AppConfig_ConnectionString
@@ -11681,15 +11697,15 @@ references:
   commentId: T:FoundationaLLM.Common.Services.Azure.AzureResourceManagerService
   fullName: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService
   nameWithType: AzureResourceManagerService
-- uid: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.#ctor(Microsoft.Extensions.Hosting.IHostEnvironment,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Azure.AzureResourceManagerService})
-  name: AzureResourceManagerService(IHostEnvironment, ILogger<AzureResourceManagerService>)
-  href: api/dotnet/FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.html#FoundationaLLM_Common_Services_Azure_AzureResourceManagerService__ctor_Microsoft_Extensions_Hosting_IHostEnvironment_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_Azure_AzureResourceManagerService__
-  commentId: M:FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.#ctor(Microsoft.Extensions.Hosting.IHostEnvironment,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Azure.AzureResourceManagerService})
-  name.vb: New(IHostEnvironment, ILogger(Of AzureResourceManagerService))
-  fullName: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.AzureResourceManagerService(Microsoft.Extensions.Hosting.IHostEnvironment, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.Azure.AzureResourceManagerService>)
-  fullName.vb: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.New(Microsoft.Extensions.Hosting.IHostEnvironment, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.Azure.AzureResourceManagerService))
-  nameWithType: AzureResourceManagerService.AzureResourceManagerService(IHostEnvironment, ILogger<AzureResourceManagerService>)
-  nameWithType.vb: AzureResourceManagerService.New(IHostEnvironment, ILogger(Of AzureResourceManagerService))
+- uid: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Azure.AzureResourceManagerService})
+  name: AzureResourceManagerService(ILogger<AzureResourceManagerService>)
+  href: api/dotnet/FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.html#FoundationaLLM_Common_Services_Azure_AzureResourceManagerService__ctor_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_Azure_AzureResourceManagerService__
+  commentId: M:FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Azure.AzureResourceManagerService})
+  name.vb: New(ILogger(Of AzureResourceManagerService))
+  fullName: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.AzureResourceManagerService(Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.Azure.AzureResourceManagerService>)
+  fullName.vb: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.New(Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.Azure.AzureResourceManagerService))
+  nameWithType: AzureResourceManagerService.AzureResourceManagerService(ILogger<AzureResourceManagerService>)
+  nameWithType.vb: AzureResourceManagerService.New(ILogger(Of AzureResourceManagerService))
 - uid: FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.#ctor*
   name: AzureResourceManagerService
   href: api/dotnet/FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.html#FoundationaLLM_Common_Services_Azure_AzureResourceManagerService__ctor_
