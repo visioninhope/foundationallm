@@ -1,6 +1,6 @@
 # Deployment - Starter
 
-Foundationa**LLM** deploys into your own Azure Subscription. By default it will deploy to Azure Container Apps (ACA) that make it fast to get started. When you want to deploy to production at scale, you can also deploy to Azure Kubernetes Service (AKS). Given that there are Azure Subscription quota limits to the number of Azure OpenAI Service resources you can deploy, you can choose to use an existing Azure OpenAI Service resource instead of a creating a new one with your deployment.
+Foundationa**LLM** deploys into your own Azure Subscription. By default, it will deploy to Azure Container Apps (ACA), making it fast to get started. When you want to deploy to production at scale, you can also deploy to Azure Kubernetes Service (AKS).
 
 ## Prerequisites
 
@@ -29,23 +29,20 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
 1. Ensure all the prerequisites are met, and that Docker Desktop is running.  
 
-1. From a PowerShell prompt, execute the following to clone the repository:
+2. From a PowerShell or bash prompt, execute the following to clone the latest release from the FLLM repository:
 
-    ```cmd
-    git clone https://github.com/solliancenet/foundationallm.git
-    git checkout release/0.4.0
+    ```pwsh
+    git clone -b release/0.4.0 https://github.com/solliancenet/foundationallm.git 
     ```
 
 3. Run the following commands to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions on the [authentication setup page](authentication/index.md) to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.
 
     ```pwsh
-    cd foundationallm
     cd deploy/starter
 
+    azd init
     az login            # Log into Azure CLI
     azd auth login      # Log into Azure Developer CLI
-
-    azd env             # Set your target Subscription and Location
 
     azd env set ENTRA_CHAT_UI_CLIENT_ID <Chat UI Client Id>
     azd env set ENTRA_CHAT_UI_SCOPES <Chat UI Scope>
@@ -81,7 +78,7 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
     PowerShell:
 
-    ```powershell
+    ```pwsh
     [guid]::NewGuid().ToString()
     ```
 
@@ -93,4 +90,18 @@ Follow the steps below to deploy the solution to your Azure subscription. You wi
 
 ### Authentication setup
 
-Follow the instructions in the [Authentication setup document](authentication/index.md) to configure authentication for the solution.
+Follow the instructions on the [authentication setup page](authentication/index.md) to configure authentication for the solution.
+
+## Update APIs and portals from local code changes
+
+To update all APIs and portals from local code changes, run the following from the `./deploy/starter` folder in your locally cloned repository.
+
+```pwsh
+azd deploy
+```
+
+To update an individual API or portal, suffix the command with the name of the service, as specified in the `./deploy/starter/azure.yaml` file.
+
+```pwsh
+azd deploy "prompt-hub-api"
+```

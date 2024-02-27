@@ -23,7 +23,7 @@ The Azure Developer CLI (azd) simplifies the process of building and deploying c
 Clone the FoundationaLLM repository
 
 ```pwsh
-git clone https://github.com/solliancenet/foundationallm
+git clone -b release/0.4.0 https://github.com/solliancenet/foundationallm
 ```
 
 Run the following commands to set the appropriate application registration settings for OIDC authentication.
@@ -32,10 +32,9 @@ Run the following commands to set the appropriate application registration setti
 cd foundationallm
 cd deploy/starter
 
+azd init
 az login            # Log into Azure CLI
 azd auth login      # Log into Azure Developer CLI
-
-azd env             # Set your target Subscription and Location
 
 azd env set ENTRA_CHAT_UI_CLIENT_ID <Chat UI Client Id>
 azd env set ENTRA_CHAT_UI_SCOPES <Chat UI Scope>
@@ -71,7 +70,7 @@ uuidgen
 
 PowerShell:
 
-```powershell
+```pwsh
 [guid]::NewGuid().ToString()
 ```
 
