@@ -61,21 +61,24 @@ def test_llm(test_azure_ai_search_service_completion_request, test_config, test_
 
 class KnowledgeManagementAgentTests:
          
-    def test_azure_ai_search_azure_authentication(self):  
-        config = Configuration()  
-        resource_provider = ResourceProvider(config)  
+    def test_azure_ai_search_azure_authentication(self, test_azure_ai_search_service_completion_request):
+        config = Configuration()
+        resource_provider = ResourceProvider(config)
   
-        # Save the original methods  
-        og_config_get_value_fn = config.get_value  
-        og_rp_get_resource_fn = resource_provider.get_resource  
+        # Save the original methods without side effects
+        og_config_get_value_fn = config.get_value
+        og_rp_get_resource_fn = resource_provider.get_resource
   
-        # Define a side effect function for our mock  
+        # side effect function for when Foundationallm:Test:AuthenticationType:AzureIdentity is 
+        #   requested, return AzureIdentity (this is a faux app settings key for this test)
         def config_get_value_side_effect(key):  
             if key == "Foundationallm:Test:AuthenticationType:AzureIdentity":  
                 return "AzureIdentity"  
             else:  
                 return og_config_get_value_fn(key)  
   
+        # side effect function to override indexing profile authentication type key
+        #  to Foundationallm:Test:AuthenticationType:AzureIdentity (faux app settings key)
         def resource_provider_get_resource_side_effect(object_id):  
             if "indexingprofiles" in object_id:  
                 # Modify the authentication_type directly for this test  
@@ -85,14 +88,15 @@ class KnowledgeManagementAgentTests:
             else:  
                 return og_rp_get_resource_fn(object_id)  
   
-        # Patch the get_value method on the Configuration instance  
-        with patch.object(Configuration, 'get_value', side_effect=config_get_value_side_effect):  
-            # Patch the get_resource method on the ResourceProvider instance  
-            with patch.object(ResourceProvider, 'get_resource', side_effect=resource_provider_get_resource_side_effect):  
-                #resource = resource_provider.get_resource("/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/indexingprofiles/sotu-index")  
-                # assert resource.configuration_references.authentication_type =="Foundationallm:Test:AuthenticationType:AzureIdentity"                
-                # assert config.get_value("Foundationallm:Test:AuthenticationType:AzureIdentity") == "AzureIdentity"
-                assert True
+        # Patch the methods on Configuration and ResourceProvider with the side effect functions
+        with patch.object(Configuration, 'get_value', side_effect=config_get_value_side_effect):              
+            with patch.object(ResourceProvider, 'get_resource', side_effect=resource_provider_get_resource_side_effect):               
+                model_factory = LanguageModelFactory(language_model=test_azure_ai_search_service_completion_request.agent.language_model, config = config)
+                llm = model_factory.get_llm()
+                agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=llm, config=config, resource_provider=resource_provider)
+                completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
+                print(completion_response.completion)
+                assert completion_response.completion is not None
                 
              
     def test_azure_ai_search_service_agent_initializes(self, test_llm, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
@@ -110,5 +114,3 @@ class KnowledgeManagementAgentTests:
         completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
         print(completion_response.completion)
         assert "february" in completion_response.completion.lower() or "2023" in completion_response.completion
-        
-    
