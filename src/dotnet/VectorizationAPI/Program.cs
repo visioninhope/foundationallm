@@ -33,8 +33,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(DefaultAuthentication.GetAzureCredential(
-            builder.Environment.IsDevelopment()));
+        options.SetCredential(DefaultAuthentication.GetAzureCredential());
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
@@ -44,6 +43,8 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
+DefaultAuthentication.Production = builder.Environment.IsProduction();
 
 // Add the Configuration resource provider
 builder.AddConfigurationResourceProvider();

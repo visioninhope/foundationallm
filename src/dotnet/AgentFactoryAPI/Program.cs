@@ -51,7 +51,7 @@ namespace FoundationaLLM.AgentFactory.API
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
-                    options.SetCredential(new DefaultAzureCredential());
+                    options.SetCredential(DefaultAuthentication.GetAzureCredential());
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AgentFactory);
@@ -60,6 +60,8 @@ namespace FoundationaLLM.AgentFactory.API
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
+            DefaultAuthentication.Production = builder.Environment.IsProduction();
 
             // Add services to the container.
             // Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.

@@ -23,8 +23,7 @@ namespace FoundationaLLM.Common.Services.Azure
         IHostEnvironment environment,
         ILogger<AzureResourceManagerService> logger) : IAzureResourceManagerService
     {
-        private readonly ArmClient _armClient = new(DefaultAuthentication.GetAzureCredential(
-            environment.IsDevelopment()));
+        private readonly ArmClient _armClient = new(DefaultAuthentication.GetAzureCredential());
         private readonly ILogger<AzureResourceManagerService> _logger = logger;
 
         /// <inheritdoc/>

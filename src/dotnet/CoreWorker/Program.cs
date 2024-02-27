@@ -1,4 +1,5 @@
 using Azure.Identity;
+using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
@@ -16,7 +17,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(new DefaultAzureCredential());
+        options.SetCredential(DefaultAuthentication.GetAzureCredential());
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_CoreWorker);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
