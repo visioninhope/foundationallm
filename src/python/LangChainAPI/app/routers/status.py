@@ -1,6 +1,7 @@
 """
 Status API endpoint that acts as a health check for the API.
 """
+import os
 from fastapi import APIRouter
 
 router = APIRouter(
@@ -10,13 +11,19 @@ router = APIRouter(
 )
 
 @router.get('')
-async def get_status() -> str:
+async def get_status():
     """
     Retrieves the status of the API.
     
     Returns
     -------
-    string
-        String containing the current status of the API.
-    """
-    return 'ready'
+    JSON
+        Object containing the name, instance, version, and status of the API.
+    """    
+    statusMessage = {
+        "name": "LangChainAPI",
+        "instance": os.environ["HOSTNAME"],
+        "version": os.environ["FOUNDATIONALLM_VERSION"],
+        "Status": "ready"
+    }
+    return statusMessage
