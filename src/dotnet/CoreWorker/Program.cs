@@ -8,6 +8,8 @@ using FoundationaLLM.Core.Worker;
 
 var builder = Host.CreateApplicationBuilder(args);
 
+DefaultAuthentication.Production = builder.Environment.IsProduction();
+
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
 builder.Configuration.AddEnvironmentVariables();
