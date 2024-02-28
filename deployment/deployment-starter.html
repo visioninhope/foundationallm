@@ -87,7 +87,7 @@
         <article data-uid="">
 <h1 id="deployment---starter">Deployment - Starter</h1>
 
-<p>Foundationa<strong>LLM</strong> deploys into your own Azure Subscription. By default it will deploy to Azure Container Apps (ACA) that make it fast to get started. When you want to deploy to production at scale, you can also deploy to Azure Kubernetes Service (AKS). Given that there are Azure Subscription quota limits to the number of Azure OpenAI Service resources you can deploy, you can choose to use an existing Azure OpenAI Service resource instead of a creating a new one with your deployment.</p>
+<p>Foundationa<strong>LLM</strong> (FLLM) deploys into your own Azure Subscription. By default, it will deploy to Azure Container Apps (ACA), making it fast to get started. When you want to deploy to production at scale, you can also deploy to Azure Kubernetes Service (AKS).</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li>Azure Subscription (Subscription needs to be whitelisted for Azure OpenAI).</li>
@@ -123,19 +123,16 @@
 <ol>
 <li><p>Ensure all the prerequisites are met, and that Docker Desktop is running.</p>
 </li>
-<li><p>From a PowerShell prompt, execute the following to clone the repository:</p>
-<pre><code class="lang-cmd">git clone https://github.com/solliancenet/foundationallm.git
-git checkout release/0.4.0
+<li><p>From a PowerShell or bash prompt, execute the following to clone the latest release from the FLLM repository:</p>
+<pre><code class="lang-pwsh">git clone -b release/0.4.0 https://github.com/solliancenet/foundationallm.git 
 </code></pre>
 </li>
 <li><p>Run the following commands to set the appropriate application registration settings for OIDC authentication. Please refer to the instructions on the <a href="authentication/index.html">authentication setup page</a> to configure authentication for the solution and obtain the appropriate client Ids, scopes, and tenant Ids for the following steps.</p>
-<pre><code class="lang-pwsh">cd foundationallm
-cd deploy/starter
+<pre><code class="lang-pwsh">cd deploy/starter
 
+azd init
 az login            # Log into Azure CLI
 azd auth login      # Log into Azure Developer CLI
-
-azd env             # Set your target Subscription and Location
 
 azd env set ENTRA_CHAT_UI_CLIENT_ID &lt;Chat UI Client Id&gt;
 azd env set ENTRA_CHAT_UI_SCOPES &lt;Chat UI Scope&gt;
@@ -167,7 +164,7 @@ azd env set FOUNDATIONALLM_INSTANCE_ID &lt;guid&gt;
 <pre><code class="lang-bash">uuidgen
 </code></pre>
 <p>PowerShell:</p>
-<pre><code class="lang-powershell">[guid]::NewGuid().ToString()
+<pre><code class="lang-pwsh">[guid]::NewGuid().ToString()
 </code></pre>
 <p>After setting the OIDC-specific settings in the AZD environment above, run <code>azd up</code> in the same folder location to build the Docker images, provision the infrastructure, update the App Configuration entries, deploy the API and web app services, and import files into the storage account.</p>
 <pre><code class="lang-pwsh">azd up
@@ -175,7 +172,14 @@ azd env set FOUNDATIONALLM_INSTANCE_ID &lt;guid&gt;
 </li>
 </ol>
 <h3 id="authentication-setup">Authentication setup</h3>
-<p>Follow the instructions in the <a href="authentication/index.html">Authentication setup document</a> to configure authentication for the solution.</p>
+<p>Follow the instructions on the <a href="authentication/index.html">authentication setup page</a> to configure authentication for the solution.</p>
+<h2 id="teardown">Teardown</h2>
+<p>To tear down the environment, execute <code>azd down</code> in the same folder location.</p>
+<pre><code class="lang-pwsh">azd down --purge
+</code></pre>
+<blockquote>
+<p>Note the <code>--purge</code> argument in the command above. This ensures that resources that would otherwise be soft-deleted are instead completely purged from your Azure subscription.</p>
+</blockquote>
 
 </article>
 

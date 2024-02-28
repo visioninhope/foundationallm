@@ -91,7 +91,7 @@
 <div class="NOTE">
 <h5>Note</h5>
 <p>These configurations should already be in place if you deployed FoundationaLLM (FLLM) using the recommended deployment scripts.
-The detailes presented here are provided for cases in which you need to troubleshoot or customize the configuration.</p>
+The details presented here are provided for cases in which you need to troubleshoot or customize the configuration.</p>
 </div>
 <h2 id="configuration-for-vectorization-api">Configuration for Vectorization API</h2>
 <p>The following table describes the Azure artifacts required for the vectorization pipelines.</p>
@@ -191,19 +191,19 @@ The detailes presented here are provided for cases in which you need to troubles
 </tr>
 <tr>
 <td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-content-source-profiles.json</code></td>
-<td>Azure storage blob used for the content sources managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-content-source-profiles">default vectorization content source profiles</a>.</td>
+<td>Azure storage blob used for the content sources managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="vectorization-profiles.html#content-source-profiles">vectorization content source profiles</a>.</td>
 </tr>
 <tr>
 <td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-text-partitioning-profiles.json</code></td>
-<td>Azure storage blob used for the text partitioning profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-text-partitioning-profiles">default vectorization text partitioning profiles</a>.</td>
+<td>Azure storage blob used for the text partitioning profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="vectorization-profiles.html#text-partitioning-profiles">vectorization text partitioning profiles</a>.</td>
 </tr>
 <tr>
 <td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-text-embedding-profiles.json</code></td>
-<td>Azure storage blob used for the text embedding profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-text-embedding-profiles">default vectorization text embedding profiles</a>.</td>
+<td>Azure storage blob used for the text embedding profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="vectorization-profiles.html#text-embedding-profiles">vectorization text embedding profiles</a>.</td>
 </tr>
 <tr>
 <td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-indexing-profiles.json</code></td>
-<td>Azure storage blob used for the indexing profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="#default-vectorization-indexing-profiles">default vectorization indexing profiles</a>.</td>
+<td>Azure storage blob used for the indexing profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="vectorization-profiles.html#indexing-profiles">vectorization indexing profiles</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -425,109 +425,6 @@ The detailes presented here are provided for cases in which you need to troubles
 </tr>
 </tbody>
 </table>
-<h3 id="default-vectorization-content-source-profiles">Default vectorization content source profiles</h3>
-<p>Default structure for the <code>vectorization-content-source-profiles.json</code> file:</p>
-<pre><code class="lang-json">{
-    &quot;Profiles&quot;: [
-        {
-            &quot;Name&quot;: &quot;DefaultAzureDataLake&quot;,
-            &quot;Type&quot;: &quot;AzureDataLake&quot;,
-            &quot;ObjectId&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.Vectorization/contentsourceprofiles/DefaultAzureDataLake&quot;,
-            &quot;Settings&quot;: {},
-            &quot;ConfigurationReferences&quot;: {
-                &quot;AuthenticationType&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:DefaultAzureDataLake:AuthenticationType&quot;,
-                &quot;ConnectionString&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:DefaultAzureDataLake:ConnectionString&quot;
-            }
-        }
-    ]
-}
-</code></pre>
-<p>By default, FLLM includes one content source profile named <code>DefaultAzureDataLake</code>. You can add content source profiles to this file to configure the content sources used by the vectorization pipelines. For more details, see <a href="vectorization-profiles.html">Managing vectorization profiles</a>.</p>
-<p>Currently, the following content source types are supported:</p>
-<ul>
-<li><code>AzureDataLake</code> - uses an Azure Data Lake storage account as the content source (see <a href="vectorization-profiles.html#azuredatalake"><code>AzureDataLakeContentSource</code></a>).</li>
-<li><code>SharePointOnline</code> - uses a SharePoint Online site as the content source (see <a href="vectorization-profiles.html#sharepointonline"><code>SharePointOnlineContentSource</code></a>).</li>
-<li><code>AzureSQLDatabase</code> - uses an Azure SQL database as the content source (see <a href="vectorization-profiles.html#azuresqldatabase"><code>AzureSQLDatabaseContentSource</code></a>).</li>
-</ul>
-<h3 id="default-vectorization-text-partitioning-profiles">Default vectorization text partitioning profiles</h3>
-<p>Default structure for the <code>vectorization-text-partitioning-profiles.json</code> file:</p>
-<pre><code class="lang-json">{
-    &quot;Profiles&quot;: [
-        {
-            &quot;Name&quot;: &quot;DefaultTokenTextPartition&quot;,
-            &quot;ObjectId&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/DefaultTokenTextPartition&quot;,
-            &quot;TextSplitter&quot;: &quot;TokenTextSplitter&quot;,
-            &quot;Settings&quot;: {
-                &quot;Tokenizer&quot;: &quot;MicrosoftBPETokenizer&quot;,
-                &quot;TokenizerEncoder&quot;: &quot;cl100k_base&quot;,
-                &quot;ChunkSizeTokens&quot;: &quot;2000&quot;,
-                &quot;OverlapSizeTokens&quot;: &quot;200&quot;
-            },
-            &quot;ConfigurationReferences&quot;: {}
-        }
-    ]
-}
-</code></pre>
-<p>By default, FLLM includes one text partitioning profile named <code>DefaultTokenTextPartition</code> which uses the <code>TokenTextSplitter</code> text splitter. You can add text partitioning profiles to this file to configure the text partitioning used by the vectorization pipelines. For more details, see <a href="vectorization-profiles.html">Managing vectorization profiles</a>.</p>
-<p>Currently, the following text splitters are supported:</p>
-<ul>
-<li><code>TokenTextSplitter</code> - splits the text into chunks based on the number of tokens (see <a href="vectorization-profiles.html#texttokensplitter"><code>TextTokenSplitter</code></a>).</li>
-</ul>
-<h3 id="default-vectorization-text-embedding-profiles">Default vectorization text embedding profiles</h3>
-<p>Default structure for the <code>vectorization-text-embedding-profiles.json</code> file:</p>
-<pre><code class="lang-json">{
-    &quot;Profiles&quot;: [
-        {
-            &quot;Name&quot;: &quot;AzureOpenAI_Embedding&quot;,
-            &quot;ObjectId&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.Vectorization/textembeddingprofiles/AzureOpenAI_Embedding&quot;,
-            &quot;TextEmbedding&quot;: &quot;SemanticKernelTextEmbedding&quot;,
-            &quot;Settings&quot;: {},
-            &quot;ConfigurationReferences&quot;: {
-                &quot;APIKey&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey&quot;,
-                &quot;APIVersion&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion&quot;,
-                &quot;AuthenticationType&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType&quot;,
-                &quot;DeploymentName&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName&quot;,
-                &quot;Endpoint&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint&quot;
-            }
-        }
-    ]
-}
-</code></pre>
-<p>By default, FLLM includes one text embedding profile named <code>AzureOpenAI_Embedding</code> which uses the <code>SemanticKernelTextEmbedding</code> text embedder. You can add text embedding profiles to this file to configure the text embedding used by the vectorization pipelines. For more details, see <a href="vectorization-profiles.html">Managing vectorization profiles</a>.</p>
-<p>Currently, the following text embedders are supported:</p>
-<ul>
-<li><code>SemanticKernelTextEmbedding</code> - embeds the text using Semantic Kernel to call into the default FLLM Azure OpenAI embedding model (see <a href="vectorization-profiles.html#semantickerneltextembedding"><code>SemanticKernelTextEmbedding</code></a>).</li>
-</ul>
-<h3 id="default-vectorization-indexing-profiles">Default vectorization indexing profiles</h3>
-<p>Default structure for the <code>vectorization-indexing-profiles.json</code> file:</p>
-<pre><code class="lang-json">{
-    &quot;Profiles&quot;: [
-        {
-            &quot;Name&quot;: &quot;AzureAISearch_Default_001&quot;,
-            &quot;ObjectId&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.Vectorization/indexingprofiles/AzureAISearch_Default_001&quot;,
-            &quot;Indexer&quot;: &quot;AzureAISearchIndexer&quot;,
-            &quot;Settings&quot;: {
-                &quot;IndexName&quot;: &quot;fllm-default-001&quot;,
-                &quot;TopN&quot;: &quot;3&quot;,
-                &quot;Filters&quot;: &quot;&quot;,
-                &quot;EmbeddingFieldName&quot;: &quot;Embedding&quot;,
-                &quot;TextFieldName&quot;: &quot;Text&quot;
-            },
-            &quot;ConfigurationReferences&quot;: {
-                &quot;APIKey&quot;: &quot;FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey&quot;,
-                &quot;QueryAPIKey&quot;: &quot;FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey&quot;,
-                &quot;AuthenticationType&quot;: &quot;FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType&quot;,
-                &quot;Endpoint&quot;: &quot;FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint&quot;
-            }
-        }
-    ]
-}
-</code></pre>
-<p>By default, FLLM includes one indexing profile named <code>AzureAISearch_Default_001</code> which uses the <code>AzureAISearchIndexer</code> indexer. You can add indexing profiles to this file to configure the indexing used by the vectorization pipelines. For more details, see <a href="vectorization-profiles.html">Managing vectorization profiles</a>.</p>
-<p>Currently, the following indexers are supported:</p>
-<ul>
-<li><code>AzureAISearchIndexer</code> - indexes the vectors into an Azure AI Search index (see <a href="vectorization-profiles.html#azureaisearchindexer"><code>AzureAISearchIndexer</code></a>).</li>
-</ul>
 
 </article>
 
