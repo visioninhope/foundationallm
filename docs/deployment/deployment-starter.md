@@ -1,6 +1,6 @@
 # Deployment - Starter
 
-Foundationa**LLM** deploys into your own Azure Subscription. By default, it will deploy to Azure Container Apps (ACA), making it fast to get started. When you want to deploy to production at scale, you can also deploy to Azure Kubernetes Service (AKS).
+Foundationa**LLM** (FLLM) deploys into your own Azure Subscription. By default, it will deploy to Azure Container Apps (ACA), making it fast to get started. When you want to deploy to production at scale, you can also deploy to Azure Kubernetes Service (AKS).
 
 ## Prerequisites
 

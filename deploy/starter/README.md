@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-Please install the following dependencies to deploy FLLM.
+Please install the following dependencies to deploy FoundationaLLM (FLLM).
 
 - [PowerShell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.4) (required for `pwsh` to work in the AZD hooks as an alias to powershell)
 - [azd CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd)
