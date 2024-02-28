@@ -181,11 +181,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 description: ""
             ),
             new(
-                secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_LangChainAPI_Key,
-                minimumVersion: "0.3.0",
-                description: ""
-            ),
-            new(
                 secretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_OpenAI_Api_Key,
                 minimumVersion: "0.3.0",
                 description: ""
@@ -274,9 +269,32 @@ namespace FoundationaLLM.Configuration.Catalog
         /// <returns></returns>
         public static IEnumerable<KeyVaultSecretEntry> GetRequiredKeyVaultSecretsForVersion(string version)
         {
-            var currentVersion = new Version(version);
-            return Entries.Where(entry => !string.IsNullOrWhiteSpace(entry.MinimumVersion) &&
-                                                  new Version(entry.MinimumVersion) <= currentVersion);
+            // Extract the numeric part of the version, ignoring pre-release tags.
+            var numericVersionPart = version.Split('-')[0];
+            if (!Version.TryParse(numericVersionPart, out var currentVersion))
+            {
+                throw new ArgumentException($"Invalid version format for the provided version ({version}).", nameof(version));
+            }
+
+            // Compare based on the Major, Minor, and Build numbers only.
+            return Entries.Where(entry =>
+            {
+                if (string.IsNullOrWhiteSpace(entry.MinimumVersion))
+                {
+                    return false;
+                }
+
+                var entryNumericVersionPart = entry.MinimumVersion.Split('-')[0];
+                if (!Version.TryParse(entryNumericVersionPart, out var entryVersion))
+                {
+                    return false;
+                }
+
+                var entryVersionWithoutRevision = new Version(entryVersion.Major, entryVersion.Minor, entryVersion.Build);
+                var currentVersionWithoutRevision = new Version(currentVersion.Major, currentVersion.Minor, currentVersion.Build);
+
+                return entryVersionWithoutRevision <= currentVersionWithoutRevision;
+            });
         }
     }
 

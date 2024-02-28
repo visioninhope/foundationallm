@@ -1,14 +1,14 @@
 using Azure.Identity;
-using Azure.Monitor.OpenTelemetry.AspNetCore;
+using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using FoundationaLLM.Core.Worker;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 
 var builder = Host.CreateApplicationBuilder(args);
+
+DefaultAuthentication.Production = builder.Environment.IsProduction();
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -19,7 +19,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(new DefaultAzureCredential());
+        options.SetCredential(DefaultAuthentication.GetAzureCredential());
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_CoreWorker);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
@@ -32,24 +32,10 @@ builder.Services.AddOptions<CosmosDbSettings>()
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>();
 builder.Services.AddSingleton<ICosmosDbChangeFeedService, CosmosDbChangeFeedService>();
 builder.Services.AddHostedService<ChangeFeedWorker>();
-
-// Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
-builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
+builder.Services.AddApplicationInsightsTelemetryWorkerService(options =>
 {
     options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_CoreWorker_AppInsightsConnectionString];
 });
-
-// Create a dictionary of resource attributes.
-var resourceAttributes = new Dictionary<string, object> {
-    { "service.name", "CoreWorker" },
-    { "service.namespace", "FoundationaLLM" },
-    { "service.instance.id", Guid.NewGuid().ToString() }
-};
-
-// Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
-builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) =>
-    builder.ConfigureResource(resourceBuilder =>
-        resourceBuilder.AddAttributes(resourceAttributes)));
 
 var host = builder.Build();
 

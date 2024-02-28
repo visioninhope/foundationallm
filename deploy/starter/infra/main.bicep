@@ -373,6 +373,7 @@ module acaServices './app/acaService.bicep' = [ for service in services: {
       location: location
       tags: tags
       appConfigName: appConfig.outputs.name
+      eventgridName: eventgrid.outputs.name
       identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
       keyvaultName: keyVault.outputs.name
       applicationInsightsName: monitoring.outputs.applicationInsightsName
@@ -381,6 +382,7 @@ module acaServices './app/acaService.bicep' = [ for service in services: {
       exists: servicesExist['${service.name}'] == 'true'
       appDefinition: serviceDefinition
       hasIngress: service.hasIngress
+      imageName: service.image
       envSettings: service.useEndpoint ? [
         {
           name: service.appConfigEnvironmentVarName
