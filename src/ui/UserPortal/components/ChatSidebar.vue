@@ -31,7 +31,7 @@
 			>
 				<div class="chat" :class="{ 'chat--selected': currentSession?.id === session.id }">
 					<!-- Chat name -->
-					<span class="chat__name">{{ session.name }}</span>
+					<span class="chat__name" v-tooltip="{ value: session.name }">{{ session.name }}</span>
 
 					<!-- Chat icons -->
 					<span v-if="currentSession?.id === session.id" class="chat__icons">
@@ -116,6 +116,7 @@ import type { Session } from '@/js/types';
 import { useAppConfigStore } from '@/stores/appConfigStore';
 import { useAppStore } from '@/stores/appStore';
 import { getMsalInstance } from '@/js/auth';
+import Tooltip from 'primevue/tooltip';
 declare const process: any;
 
 export default {
