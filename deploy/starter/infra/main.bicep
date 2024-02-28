@@ -63,7 +63,7 @@ var azureOpenAi = deployOpenAi ? openAiInstance : existingOpenAiInstance
 var openAiInstance = {
   name: openAi.outputs.name
   resourceGroup: rg.name
-  subscriptionId: subscription().id
+  subscriptionId: subscription().subscriptionId
 }
 
 // Tags that should be applied to all resources.
@@ -231,8 +231,16 @@ module monitoring './shared/monitoring.bicep' = {
 }
 
 module openAi './shared/openai.bicep' = if (deployOpenAi) {
+  dependsOn: [ keyVault ]
   name: 'openai'
+  scope: rg
+
   params: {
+    location: location
+    name: '${abbrs.openAiAccounts}${resourceToken}'
+    sku: 'S0'
+    tags: tags
+
     deployments: [
       {
         name: 'completions'
@@ -257,13 +265,7 @@ module openAi './shared/openai.bicep' = if (deployOpenAi) {
         }
       }
     ]
-    location: location
-    name: '${abbrs.openAiAccounts}${resourceToken}'
-    sku: 'S0'
-    tags: tags
   }
-  scope: rg
-  dependsOn: [ keyVault ]
 }
 
 module openAiSecrets './shared/openai-secrets.bicep' = {
@@ -273,6 +275,7 @@ module openAiSecrets './shared/openai-secrets.bicep' = {
   params: {
     keyvaultName: keyVault.outputs.name
     openAiInstance: azureOpenAi
+    tags: tags
   }
 }
 
