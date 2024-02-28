@@ -40,6 +40,7 @@
 							icon="pi pi-pencil"
 							size="small"
 							severity="secondary"
+							v-tooltip="'Rename chat session'"
 							text
 							@click.stop="openRenameModal(session)"
 						/>
@@ -49,6 +50,7 @@
 							icon="pi pi-trash"
 							size="small"
 							severity="danger"
+							v-tooltip="'Delete chat session'"
 							text
 							@click.stop="sessionToDelete = session"
 						/>
