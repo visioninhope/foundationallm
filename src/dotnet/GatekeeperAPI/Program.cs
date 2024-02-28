@@ -38,6 +38,8 @@ namespace FoundationaLLM.Gatekeeper.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            DefaultAuthentication.Production = builder.Environment.IsProduction();
+
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
@@ -54,8 +56,6 @@ namespace FoundationaLLM.Gatekeeper.API
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
-
-            DefaultAuthentication.Production = builder.Environment.IsProduction();
 
             // Add services to the container.
             // Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.

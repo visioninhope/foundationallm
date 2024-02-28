@@ -26,6 +26,8 @@ using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
+DefaultAuthentication.Production = builder.Environment.IsProduction();
+
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
 builder.Configuration.AddEnvironmentVariables();
@@ -45,8 +47,6 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
-
-DefaultAuthentication.Production = builder.Environment.IsProduction();
 
 // Add the Configuration resource provider
 builder.AddConfigurationResourceProvider();

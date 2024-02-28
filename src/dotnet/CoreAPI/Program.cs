@@ -39,6 +39,8 @@ namespace FoundationaLLM.Core.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            DefaultAuthentication.Production = builder.Environment.IsProduction();
+
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
@@ -58,8 +60,6 @@ namespace FoundationaLLM.Core.API
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
-
-            DefaultAuthentication.Production = builder.Environment.IsProduction();
 
             var allowAllCorsOrigins = "AllowAllOrigins";
             builder.Services.AddCors(policyBuilder =>
