@@ -71,6 +71,8 @@ var opsResourceSuffix = '${project}-${environmentName}-${location}-ops'
 @description('Storage resource suffix')
 var storageResourceSuffix = '${project}-${environmentName}-${location}-storage'
 
+var oidcDefault = false
+
 @description('Resource Suffix used in naming resources.')
 var resourceSuffix = '${project}-${environmentName}-${location}-${workload}'
 
@@ -274,7 +276,7 @@ module chatUiServiceResources 'modules/service.bicep' = [for service in items(ch
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
       tags: tags
-      useOidc: true
+      useOidc: oidcDefault
     }
   }
 ]
@@ -292,7 +294,7 @@ module managementUiServiceResources 'modules/service.bicep' = [for service in it
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
       tags: tags
-      useOidc: true
+      useOidc: oidcDefault
     }
   }
 ]
@@ -310,7 +312,7 @@ module coreApiServiceResources 'modules/service.bicep' = [for service in items(c
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
       tags: tags
-      useOidc: true
+      useOidc: oidcDefault
     }
   }
 ]
@@ -328,7 +330,7 @@ module managementApiServiceResources 'modules/service.bicep' = [for service in i
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
       tags: tags
-      useOidc: true
+      useOidc: oidcDefault
     }
   }
 ]
@@ -346,7 +348,7 @@ module vectorizationApiServiceResources 'modules/service.bicep' = [for service i
     serviceName: service.key
     storageResourceGroupName: storageResourceGroupName
     tags: tags
-    useOidc: true
+    useOidc: oidcDefault
   }
 }
 ]
