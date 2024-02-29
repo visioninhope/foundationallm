@@ -162,7 +162,7 @@ $appConfigProperties = $(
         ConvertFrom-Json
 )
 
-$appConfigName = $appConfigProperties.name
+$appConfigName = $appConfig
 $appConfigEndpoint = $appConfigProperties.endpoint
 $appConfigConnectionString = $(
     az appconfig credential list `
