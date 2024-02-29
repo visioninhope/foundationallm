@@ -120,6 +120,12 @@ export default {
 		});
 	},
 
+	async deleteAgent(agentId: string): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`, {
+			method: 'DELETE',
+		});
+	},
+
 	async getPrompt(promptId: string): Promise<Prompt> {
 		const data = await this.fetch(`${promptId}?api-version=${this.apiVersion}`);
 		return data[0];
