@@ -227,6 +227,14 @@ $eventGridNamespace = $(
 
 $eventGridNamespace = EnsureAndReturnFirstItem $eventGridNamespace "Event Grid"
 
+$keyvault = $(
+    az keyvault list `
+        --resource-group $($resourceGroups.ops) `
+        --output json | `
+        ConvertFrom-Json
+)
+
+$keyvault = EnsureAndReturnFirstItem $keyvault "Key Vault"
 
 $tokens.cognitiveSearchEndpointUri = $cogSearchUri
 
@@ -277,6 +285,7 @@ $tokens.openAiEndpointUri = $apim.uri
 $tokens.eventGridNamespaceEndpoint = "https://$($eventGridNamespace.topicsConfiguration.hostname)/"
 
 $tokens.eventGridNamespaceId = $eventGridNamespace.id
+$tokens.keyvaultUri = $keyvault.properties.vaultUri
 
 $tokens.cosmosEndpoint = $docdb.documentEndpoint
 $tokens.storageAccountAdlsName = $storageAccountAdls.name

@@ -620,12 +620,6 @@
   {
     "keyVault": false,
     "featureFlag": false,
-    "key": "FoundationaLLM:Configuration:KeyVaultURI",
-    "value": "https://{{opsKeyVaultFqdn}}"
-  },
-  {
-    "keyVault": false,
-    "featureFlag": false,
     "key": "FoundationaLLM:CoreAPI:Entra:CallbackPath",
     "value": "/signin-oidc"
   },
@@ -801,6 +795,12 @@
     "value": "{{instanceId}}"
   },
   {
+    "keyVault": false,
+    "featureFlag": false,
+    "key": "FoundationaLLM:Configuration:KeyVaultURI",
+    "value": "{{keyvaultUri}}"
+  },
+  {
     "keyVault": true,
     "featureFlag": false,
     "key": "FoundationaLLM:LangChain:CSVFile:URL",
@@ -931,12 +931,6 @@
     "featureFlag": false,
     "key": "FoundationaLLM:PromptHub:StorageManager:BlobStorage:ConnectionString",
     "value": "foundationallm-storage-connectionstring"
-  },
-  {
-    "keyVault": false,
-    "featureFlag": false,
-    "key": "FoundationaLLM:Refinement",
-    "value": ""
   },
   {
     "keyVault": true,
