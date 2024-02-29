@@ -276,7 +276,7 @@ module chatUiServiceResources 'modules/service.bicep' = [for service in items(ch
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
       tags: tags
-      useOidc: oidcDefault
+      useOidc: true
     }
   }
 ]
@@ -294,7 +294,7 @@ module managementUiServiceResources 'modules/service.bicep' = [for service in it
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
       tags: tags
-      useOidc: oidcDefault
+      useOidc: true
     }
   }
 ]
@@ -312,7 +312,7 @@ module coreApiServiceResources 'modules/service.bicep' = [for service in items(c
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
       tags: tags
-      useOidc: oidcDefault
+      useOidc: true
     }
   }
 ]
@@ -330,7 +330,7 @@ module managementApiServiceResources 'modules/service.bicep' = [for service in i
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
       tags: tags
-      useOidc: oidcDefault
+      useOidc: true
     }
   }
 ]
@@ -348,7 +348,7 @@ module vectorizationApiServiceResources 'modules/service.bicep' = [for service i
     serviceName: service.key
     storageResourceGroupName: storageResourceGroupName
     tags: tags
-    useOidc: oidcDefault
+    useOidc: false
   }
 }
 ]
