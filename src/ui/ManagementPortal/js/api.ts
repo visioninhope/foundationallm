@@ -84,6 +84,12 @@ export default {
 		return data.map((source) => ({ ...source, Formats: ['pdf', 'txt'] }));
 	},
 
+	async deleteDataSource(dataSourceId: string): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${dataSourceId}?api-version=${this.apiVersion}`, {
+			method: 'DELETE',
+		});
+	},
+
 	async getAgentIndexes(): Promise<AgentIndex[]> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`);
 	},
