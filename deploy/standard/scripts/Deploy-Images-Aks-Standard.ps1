@@ -58,34 +58,64 @@ Param(
     [parameter(Mandatory = $false)][string]$version = "0.4.1"
 )
 
+Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enable verbose)
+Set-StrictMode -Version 3.0
+$ErrorActionPreference = "Stop"
+
+function Invoke-AndRequireSuccess {
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$Message,
+
+        [Parameter(Mandatory = $true, Position = 1)]
+        [ScriptBlock]$ScriptBlock
+    )
+
+    Write-Host "${message}..." -ForegroundColor Blue
+    $result = & $ScriptBlock
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed ${message} (code: ${LASTEXITCODE})"
+    }
+
+    return $result
+}
+
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 
-az aks get-credentials `
-    -n $backendAksName `
-    -g $resourceGroup
+Invoke-AndRequireSuccess "Retrieving credentials for AKS cluster ${backendAksName}" {
+    az aks get-credentials `
+        -n $backendAksName `
+        -g $resourceGroup
+}
 
-& ./Deploy-Backend-Images-Aks.ps1 `
-    -name $name `
-    -aksName $backendAksName `
-    -resourceGroup $resourceGroup `
-    -namespace $namespace `
-    -charts $charts `
-    -version $version
+Invoke-AndRequireSuccess "Deploying backend images to AKS cluster ${backendAksName}" {
+    & ./Deploy-Backend-Images-Aks.ps1 `
+        -name $name `
+        -aksName $backendAksName `
+        -resourceGroup $resourceGroup `
+        -namespace $namespace `
+        -charts $charts `
+        -version $version
+}
 
 Pop-Location
-
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 
-az aks get-credentials `
-    -n $frontendAksName `
-    -g $resourceGroup
+Invoke-AndRequireSuccess "Retrieving credentials for AKS cluster ${frontendAksName}" {
+    az aks get-credentials `
+        -n $frontendAksName `
+        -g $resourceGroup
+}
 
-& ./Deploy-Frontend-Images-Aks.ps1 `
-    -name $name `
-    -aksName $frontendAksName `
-    -resourceGroup $resourceGroup `
-    -namespace $namespace `
-    -charts $charts `
-    -version $version
+Invoke-AndRequireSuccess "Deploying frontend images to AKS cluster ${frontendAksName}" {
+    & ./Deploy-Frontend-Images-Aks.ps1 `
+        -name $name `
+        -aksName $frontendAksName `
+        -resourceGroup $resourceGroup `
+        -namespace $namespace `
+        -charts $charts `
+        -version $version
+}
 
 Pop-Location
