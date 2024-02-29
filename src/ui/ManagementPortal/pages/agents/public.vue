@@ -14,15 +14,17 @@
 
 			<!-- Table -->
 			<DataTable :value="agents" stripedRows scrollable tableStyle="max-width: 100%" size="small">
-				<template #empty>No agents found. Please use the menu on the left to create a new agent.</template>
+				<template #empty>
+          No agents found. Please use the menu on the left to create a new agent.</template
+				>
     		<template #loading>Loading agent data. Please wait.</template>
-					
+
 				<!-- Name -->
 				<Column field="name" header="Name" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, sortIcon: { style: { color: 'var(--primary-text)' } } }"></Column>
-				
+
 				<!-- Type -->
 				<Column field="type" header="Type" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, sortIcon: { style: { color: 'var(--primary-text)' } } }"></Column>
-				
+
 				<!-- Edit -->
 				<Column header="Edit" headerStyle="width:6rem" style="text-align: center" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, headerContent: { style: { justifyContent: 'center' } } }">
 					<template #body="{ data }">
@@ -63,7 +65,7 @@
 
 <script lang="ts">
 import api from '@/js/api';
-import type Agent from '@/js/types';
+import type { Agent } from '@/js/types';
 
 export default {
 	name: 'PublicAgents',
@@ -73,12 +75,12 @@ export default {
 			agents: [] as Agent,
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
-			agentToDelete: null,
+			agentToDelete: null as Agent | null,
 		};
 	},
 
 	async created() {
-		this.getAgents();
+		await this.getAgents();
 	},
 
 	methods: {
@@ -86,7 +88,7 @@ export default {
 			this.loading = true;
 			try {
 				this.agents = await api.getAgents();
-			} catch(error) {
+			} catch (error) {
 				this.$toast.add({
 					severity: 'error',
 					detail: error?.response?._data || error,
@@ -98,9 +100,9 @@ export default {
 
 		async handleDeleteAgent() {
 			try {
-				await api.deleteAgent(this.agentToDelete.name);
+				await api.deleteAgent(this.agentToDelete!.name);
 				this.agentToDelete = null;
-			} catch(error) {
+			} catch (error) {
 				return this.$toast.add({
 					severity: 'error',
 					detail: error?.response?._data || error,
