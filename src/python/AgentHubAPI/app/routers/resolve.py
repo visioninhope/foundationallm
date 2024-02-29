@@ -47,7 +47,7 @@ async def resolve(
         try:
             return AgentHub(config = request.app.extra['config'])
                 .resolve(
-                    request=agent_request,
+                    request = agent_request,
                     user_context = Context(user_identity=x_user_identity)
                 )
         except Exception as e:
