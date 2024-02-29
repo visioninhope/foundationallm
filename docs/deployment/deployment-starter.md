@@ -37,9 +37,8 @@ Follow the steps below to deploy the solution to your Azure subscription.
 
 2. From a PowerShell prompt, execute the following to clone the repository:
 
-    ```cmd
-    git clone https://github.com/solliancenet/foundationallm.git
-    git checkout release/0.4.0
+    ```pwsh
+    git clone -b release/0.4.0 https://github.com/solliancenet/foundationallm.git
     ```
 
 3. Run the following commands to set the appropriate application registration settings for OIDC authentication.
@@ -47,6 +46,7 @@ Follow the steps below to deploy the solution to your Azure subscription.
     ```text
     cd foundationallm/deploy/starter
 
+    azd init
     az login            # Log into Azure CLI
     azd auth login      # Log into Azure Developer CLI
 
@@ -87,7 +87,7 @@ Follow the steps below to deploy the solution to your Azure subscription.
 
     PowerShell:
 
-    ```powershell
+    ```pwsh
     [guid]::NewGuid().ToString()
     ```
 
@@ -113,6 +113,16 @@ Follow the steps below to deploy the solution to your Azure subscription.
 Follow the instructions in the [Authentication setup document](authentication/index.md) to finalizie authentication for the solution.
 
 # Teardown
+
+To tear down the environment, execute `azd down` in the same folder location.
+
+```pwsh
+azd down --purge
+```
+
+> Note the `--purge` argument in the command above. This ensures that resources that would otherwise be soft-deleted are instead completely purged from your Azure subscription.
+
+## Teardown
 
 To tear down the environment, execute `azd down` in the same folder location.
 
