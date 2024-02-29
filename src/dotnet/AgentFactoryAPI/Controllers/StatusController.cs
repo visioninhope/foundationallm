@@ -17,9 +17,9 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
         public IActionResult Get() =>
-            new OkObjectResult(new ServiceStatus
+            new OkObjectResult(new ServiceStatusInfo
             {
-                Name = "AgentFactoryAPI",
+                Name = ServiceNames.AgentFactoryAPI,
                 Instance = Environment.GetEnvironmentVariable(EnvironmentVariables.Hostname),
                 Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
                 Status = ServiceStatuses.Ready

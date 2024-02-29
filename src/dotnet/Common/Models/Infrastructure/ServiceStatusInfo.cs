@@ -9,7 +9,7 @@ namespace FoundationaLLM.Common.Models.Infrastructure
     /// <summary>
     /// Represents the status of a service.
     /// </summary>
-    public class ServiceStatus
+    public class ServiceStatusInfo
     {
         /// <summary>
         /// The name of the service.

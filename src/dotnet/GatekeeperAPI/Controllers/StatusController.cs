@@ -16,9 +16,9 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         /// Returns the status of the Gatekeeper API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
-        public IActionResult Get() => new OkObjectResult(new ServiceStatus
+        public IActionResult Get() => new OkObjectResult(new ServiceStatusInfo
         {
-            Name = "GatekeeperAPI",
+            Name = ServiceNames.GatekeeperAPI,
             Instance = Environment.GetEnvironmentVariable(EnvironmentVariables.Hostname),
             Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
             Status = ServiceStatuses.Ready

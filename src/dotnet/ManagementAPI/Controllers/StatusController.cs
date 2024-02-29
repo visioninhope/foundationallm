@@ -23,9 +23,9 @@ namespace FoundationaLLM.Management.API.Controllers
         [AllowAnonymous]
         [HttpGet(Name = "GetServiceStatus")]
         public IActionResult GetServiceStatus() =>
-            new OkObjectResult(new ServiceStatus
+            new OkObjectResult(new ServiceStatusInfo
             {
-                Name = "ManagementAPI",
+                Name = ServiceNames.ManagementAPI,
                 Instance = Environment.GetEnvironmentVariable(EnvironmentVariables.Hostname),
                 Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
                 Status = ServiceStatuses.Ready

@@ -16,9 +16,9 @@ namespace FoundationaLLM.Vectorization.API.Controllers
         /// Returns the status of the Vectorization API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
-        public IActionResult Get() => new OkObjectResult(new ServiceStatus
+        public IActionResult Get() => new OkObjectResult(new ServiceStatusInfo
         {
-            Name = "VectorizationAPI",
+            Name = ServiceNames.VectorizationAPI,
             Instance = Environment.GetEnvironmentVariable(EnvironmentVariables.Hostname),
             Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
             Status = ServiceStatuses.Ready
