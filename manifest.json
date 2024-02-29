@@ -722,6 +722,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.ServiceNames.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.ServiceNames.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.ServiceStatuses.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.ServiceStatuses.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Swagger.yml",
       "output": {
         ".html": {
@@ -1896,6 +1916,26 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Hubs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Infrastructure.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Infrastructure.html"
         }
       },
       "version": ""
