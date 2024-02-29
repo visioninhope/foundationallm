@@ -126,7 +126,7 @@ module apiKeySecret 'kvSecret.bicep' = if (!useOidc) {
   scope: resourceGroup(opsResourceGroupName)
   params: {
     kvName: kvName
-    secretName: '${serviceName}-apikey'
+    secretName: 'foundationallm-${replace(serviceName,'-','')}-apikey'
     secretValue: useOidc ? '' : apiKey
     tags: tags
   }

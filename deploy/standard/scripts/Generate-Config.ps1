@@ -138,6 +138,17 @@ $vectorizationConfig = $(
         ConvertTo-Json -Compress -Depth 50
 ).Replace('"', '\"')
 
+## Getting OpenAI endpoint
+$apim = $(
+    az apim list `
+        --resource-group $($resourceGroups.oai) `
+        --query "[].{name:name, uri: gatewayUrl, privateIPAddress:privateIpAddresses[0], fqdn:hostnameConfigurations[0].hostName}" `
+        --output json | `
+        ConvertFrom-Json
+)
+$apim = EnsureAndReturnFirstItem $apim "OpenAI Endpoint (APIM)"
+Write-Host "OpenAI Frontend Endpoint: $($apim.name)" -ForegroundColor Blue
+
 $appConfigInstances = @(
     az appconfig show `
         --name "appconfig-$resourceSuffix-ops" `
@@ -173,16 +184,17 @@ $appConfigConnectionString = $(
         ConvertFrom-Json
 ).connectionString
 
-## Getting CosmosDb info
-$docdb = $(
-    az cosmosdb list `
-        --resource-group $($resourceGroups.storage) `
-        --query "[?kind=='GlobalDocumentDB'].{name: name, kind:kind, documentEndpoint:documentEndpoint, privateEndpointId:privateEndpointConnections[0].privateEndpoint.id}" `
+## Getting Cognitive search endpoint
+$cogSearch = $(
+    az search service list `
+        --resource-group $resourceGroups.vec `
+        --query "[].{name: name, privateEndpointId:privateEndpointConnections[0].properties.privateEndpoint.id}" `
         --output json | `
         ConvertFrom-Json
 )
-$docdb = EnsureAndReturnFirstItem $docdb "CosmosDB (Document Db)"
-Write-Host "Document Db Account: $($docdb.name)" -ForegroundColor Blue
+$cogSearch = EnsureAndReturnFirstItem $cogSearch "Cognitive Search"
+Write-Host "Cognitive Search Service: $($cogSearch.name)" -ForegroundColor Blue
+$cogSearchUri = "https://$($cogSearch.name).search.windows.net"
 
 ## Getting Content Safety endpoint
 $contentSafety = $(
@@ -195,28 +207,27 @@ $contentSafety = $(
 $contentSafety = EnsureAndReturnFirstItem $contentSafety "Content Safety"
 Write-Host "Content Safety Account: $($contentSafety.name)" -ForegroundColor Blue
 
-## Getting OpenAI endpoint
-$apim = $(
-    az apim list `
-        --resource-group $($resourceGroups.oai) `
-        --query "[].{name:name, uri: gatewayUrl, privateIPAddress:privateIpAddresses[0], fqdn:hostnameConfigurations[0].hostName}" `
+## Getting CosmosDb info
+$docdb = $(
+    az cosmosdb list `
+        --resource-group $($resourceGroups.storage) `
+        --query "[?kind=='GlobalDocumentDB'].{name: name, kind:kind, documentEndpoint:documentEndpoint, privateEndpointId:privateEndpointConnections[0].privateEndpoint.id}" `
         --output json | `
         ConvertFrom-Json
 )
-$apim = EnsureAndReturnFirstItem $apim "OpenAI Endpoint (APIM)"
-Write-Host "OpenAI Frontend Endpoint: $($apim.name)" -ForegroundColor Blue
+$docdb = EnsureAndReturnFirstItem $docdb "CosmosDB (Document Db)"
+Write-Host "Document Db Account: $($docdb.name)" -ForegroundColor Blue
 
-## Getting Cognitive search endpoint
-$cogSearch = $(
-    az search service list `
-        --resource-group $resourceGroups.vec `
-        --query "[].{name: name, privateEndpointId:privateEndpointConnections[0].properties.privateEndpoint.id}" `
+$eventGridNamespace = $(
+    az eventgrid namespace list `
+        --resource-group $($resourceGroups.app) `
         --output json | `
         ConvertFrom-Json
 )
-$cogSearch = EnsureAndReturnFirstItem $cogSearch "Cognitive Search"
-Write-Host "Cognitive Search Service: $($cogSearch.name)" -ForegroundColor Blue
-$cogSearchUri = "https://$($cogSearch.name).search.windows.net"
+
+$eventGridNamespace = EnsureAndReturnFirstItem $eventGridNamespace "Event Grid"
+
+
 $tokens.cognitiveSearchEndpointUri = $cogSearchUri
 
 Write-Host "Getting ADLS Storage Account"
@@ -263,6 +274,9 @@ $tokens.contentSafetyEndpointUri = $contentSafety.uri
 
 $tokens.openAiEndpointUri = $apim.uri
 
+$tokens.eventGridNamespaceEndpoint = "https://$($eventGridNamespace.topicsConfiguration.hostname)/"
+
+$tokens.eventGridNamespaceId = $eventGridNamespace.id
 
 $tokens.cosmosEndpoint = $docdb.documentEndpoint
 $tokens.storageAccountAdlsName = $storageAccountAdls.name
