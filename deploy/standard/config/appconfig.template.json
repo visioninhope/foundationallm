@@ -249,7 +249,7 @@
     "keyVault": true,
     "featureFlag": false,
     "key": "FoundationaLLM:APIs:VectorizationAPI:APIKey",
-    "value": "foundationallm-apis-vectorization-api-apikey"
+    "value": "foundationallm-apis-vectorizationapi-apikey"
   },
   {
     "keyVault": false,
