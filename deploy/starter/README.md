@@ -23,11 +23,14 @@ You will use the following tools during deployment:
 - PowerShell 7 ([7.4.1 or greater](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4)):
 PowerShell 7 is a cross-platform (Windows, macOS, and Linux) automation tool and scripting language, an evolution of PowerShell that works with the .NET Core framework. It offers enhanced features and performance improvements over its predecessors and is designed for heterogeneous environments and the hybrid cloud. In PowerShell 7, the command-line executable is referred to as pwsh, an alias that is essential for integration with Azure Developer CLI (AZD) hooks and other modern automation scenarios.
 
-To run or debug the solution locally, you will need to install the following dependencies:
+**Optional** To run or debug the solution locally, you will need to install the following dependencies:
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/): Docker Desktop is an application for MacOS and Windows machines for the building and sharing of containerized applications and microservices. It provides an integrated environment to use Docker containers, simplifying the process of building, testing, and deploying applications in a consistent and isolated environment. Docker Desktop includes Docker Engine, Docker CLI client, Docker Compose, and other Docker tools, making it a key tool for developers working with container-based applications.
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0): The .NET 8 SDK is the latest iteration of Microsoft's .NET software development kit, offering enhanced features and improvements for building applications across various platforms, including web, mobile, desktop, cloud, and IoT. It provides a comprehensive set of libraries, runtime features, and APIs, supporting multiple programming languages like C#, F#, and Visual Basic. This SDK is designed for high performance and efficiency, catering to modern development needs with support for cloud-native applications, microservices, and machine learning.
 - Visual Studio 2022: Visual Studio 2022 is an advanced integrated development environment (IDE) from Microsoft, offering robust tools for developing applications on the .NET platform and other technologies. It brings improved performance, better usability, and enhanced collaboration features, supporting a wide range of programming languages and frameworks. Visual Studio 2022 is tailored for both individual developers and teams, integrating seamlessly with modern workflows and cloud services, and providing powerful debugging, code navigation, and refactoring capabilities.
+
+**Optional** To build or test container images, you will need to install the following dependencies:
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/): Docker Desktop is an application for MacOS and Windows machines for the building and sharing of containerized applications and microservices. It provides an integrated environment to use Docker containers, simplifying the process of building, testing, and deploying applications in a consistent and isolated environment. Docker Desktop includes Docker Engine, Docker CLI client, Docker Compose, and other Docker tools, making it a key tool for developers working with container-based applications.
 
 ## Deployment steps
 
