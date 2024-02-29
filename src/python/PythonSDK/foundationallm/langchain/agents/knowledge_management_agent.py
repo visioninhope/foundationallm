@@ -45,7 +45,6 @@ class KnowledgeManagementAgent(AgentBase):
         """       
         self.llm = llm.get_completion_model(completion_request.agent.language_model)        
        
-        self.internal_context = False
         retriever_factory = RetrieverFactory(
                         indexing_profile_object_id = completion_request.agent.indexing_profile_object_id,
                         text_embedding_profile_object_id= completion_request.agent.text_embedding_profile_object_id,
