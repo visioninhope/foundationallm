@@ -68,6 +68,40 @@ export default {
 		});
 	},
 
+	// Data sources
+	async getAgentDataSources(): Promise<AgentDataSource[]> {
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`);
+		return data.map((source) => ({ ...source, Formats: ['pdf', 'txt'] }));
+	},
+
+	async getDataSource(dataSourceId: string): Promise<AgentDataSource[]> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/${dataSourceId}?api-version=${this.apiVersion}`);
+	},
+
+	async createDataSource(request): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/${request.name}?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: request,
+		});
+	},
+
+	async deleteDataSource(dataSourceId: string): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/${dataSourceId}?api-version=${this.apiVersion}`, {
+			method: 'DELETE',
+		});
+	},
+
+	// Indexes
+	async getAgentIndexes(): Promise<AgentIndex[]> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`);
+	},
+
+	// Text embedding profiles
+	async getTextEmbeddingProfiles(): Promise<TextEmbeddingProfile[]> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textembeddingprofiles?api-version=${this.apiVersion}`);
+	},
+
+	// Agents
 	async checkAgentName(name: string, agentType: string): Promise<AgentCheckNameResponse> {
 		const payload = {
 			name: name,
@@ -77,30 +111,6 @@ export default {
 			method: 'POST',	
 			body: payload,
 		});
-	},
-
-	async getAgentDataSources(): Promise<AgentDataSource[]> {
-		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`);
-		return data.map((source) => ({ ...source, Formats: ['pdf', 'txt'] }));
-	},
-
-	async deleteDataSource(dataSourceId: string): Promise<any> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${dataSourceId}?api-version=${this.apiVersion}`, {
-			method: 'DELETE',
-		});
-	},
-
-	async getAgentIndexes(): Promise<AgentIndex[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`);
-	},
-
-	async getTextEmbeddingProfiles(): Promise<TextEmbeddingProfile[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textembeddingprofiles?api-version=${this.apiVersion}`);
-	},
-
-	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
-		await wait(this.mockLoadTime);
-		return [];
 	},
 
 	async getAgents(): Promise<Agent[]> {
@@ -132,6 +142,12 @@ export default {
 		});
 	},
 
+	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
+		await wait(this.mockLoadTime);
+		return [];
+	},
+
+	// Prompts
 	async getPrompt(promptId: string): Promise<Prompt> {
 		const data = await this.fetch(`${promptId}?api-version=${this.apiVersion}`);
 		return data[0];
