@@ -5,7 +5,6 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Header, Request
 from foundationallm.config import Context
 from foundationallm.hubs.agent import AgentHub, AgentHubRequest, AgentHubResponse
-from foundationallm.models import AgentHint
 from foundationallm.telemetry import Telemetry
 from app.dependencies import handle_exception, validate_api_key_header
 
@@ -45,11 +44,10 @@ async def resolve(
     """
     with tracer.start_as_current_span('resolve') as span:
         try:
-            return AgentHub(config = request.app.extra['config'])
-                .resolve(
-                    request = agent_request,
-                    user_context = Context(user_identity=x_user_identity)
-                )
+            return AgentHub(config = request.app.extra['config']).resolve(
+                request = agent_request,
+                user_context = Context(user_identity=x_user_identity)
+            )
         except Exception as e:
             Telemetry.record_exception(span, e)
             handle_exception(e)
