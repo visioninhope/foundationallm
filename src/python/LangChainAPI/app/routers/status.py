@@ -26,6 +26,6 @@ async def get_status():
         "name": API_NAME,
         "instance": os.environ[HOSTNAME],
         "version": os.environ[FOUNDATIONALLM_VERSION],
-        "Status": "ready"
+        "status": "ready"
     }
     return statusMessage
