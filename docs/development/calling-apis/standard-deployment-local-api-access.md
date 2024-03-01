@@ -13,6 +13,7 @@ Standard deployments expose backend services internally, preventing API access o
   Obtain these credentials using the Azure CLI.
 
   ```
+  az login
   az aks get-credentials --name MyManagedCluster --resource-group MyResourceGroup
   ```
 
@@ -61,7 +62,8 @@ finally {
 }
 ```
 
-You will need to rerun the script if you restart any nodes while the script is running.
+> [!NOTE]
+> You will need to rerun the script if you restart any nodes while the script is running.
 
 ### Verification
 
