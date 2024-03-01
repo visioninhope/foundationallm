@@ -21,11 +21,11 @@ function Invoke-AndRequireSuccess {
         [ScriptBlock]$ScriptBlock
     )
 
+    Write-Host "${message}..." -ForegroundColor Blue
     $result = & $ScriptBlock
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "Failed: ${message}" -ForegroundColor Red
-        exit $LASTEXITCODE
+        throw "Failed ${message} (code: ${LASTEXITCODE})"
     }
 
     return $result
