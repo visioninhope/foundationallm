@@ -1,7 +1,20 @@
 <template>
 	<div>
-		<h2 class="page-header">Data Sources</h2>
-		<div class="page-subheader">The following data sources are available.</div>
+		<div style="display: flex;">
+			<div style="flex: 1">
+				<h2 class="page-header">Data Sources</h2>
+				<div class="page-subheader">The following data sources are available.</div>
+			</div>
+
+			<div style="display: flex; align-items: center;">
+				<NuxtLink to="/data-sources/create">
+					<Button>
+						<i class="pi pi-plus" style="color: var(--text-primary); margin-right: 8px;"></i>
+						Create Data Source
+					</Button>
+				</NuxtLink>
+			</div>
+		</div>
 
 		<div :class="{ 'grid--loading': loading }">
 			<!-- Loading overlay -->
