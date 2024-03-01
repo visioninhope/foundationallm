@@ -1,4 +1,4 @@
-# Security-Hardened Standard Deployment Local API Access
+# Standard Deployment Local API Access
 
 Standard deployments expose backend services internally, preventing API access over the public internet. Using the `kubectl` CLI, however, it is possible to forward FoundationaLLM APIs deployed within Kubernetes for local consumption.
 
