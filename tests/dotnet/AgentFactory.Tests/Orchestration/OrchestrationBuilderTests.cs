@@ -37,14 +37,19 @@ namespace FoundationaLLM.AgentFactory.Tests.Orchestration
         public async Task Build_AgentHintNotNull_KnowledgeManagementAgent()
         {
             // Arrange
-            var completionRequest = new CompletionRequest() { UserPrompt = "Test_Userprompt"};
-            var agentHint = new AgentHint { Name = "knowledge-management", Private = false };
-            _callContext.AgentHint.Returns(agentHint);
+            var completionRequest = new CompletionRequest()
+            {
+                UserPrompt = "Test_Userprompt",
+                Settings = new OrchestrationSettings
+                {
+                    AgentName = "knowledge-management"
+                }
+            };
 
             var agentResourceProvider = Substitute.For<IResourceProviderService>();
             var knowledgeManagementAgent = new KnowledgeManagementAgent() { Name = "knowledge-management", ObjectId = "Test_objectid", Type = AgentTypes.KnowledgeManagement };
             var agentList = new List<AgentBase> { knowledgeManagementAgent };
-            agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{_callContext.AgentHint!.Name}").Returns(agentList);
+            agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{completionRequest.Settings.AgentName}").Returns(agentList);
 
             _resourceProviderServices.Add(ResourceProviderNames.FoundationaLLM_Agent, agentResourceProvider);
 
