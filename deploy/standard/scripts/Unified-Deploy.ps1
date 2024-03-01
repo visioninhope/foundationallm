@@ -3,9 +3,8 @@
 Param(
     [parameter(Mandatory = $false)][bool]$stepDeployCerts = $false,
     [parameter(Mandatory = $false)][bool]$stepDeployImages = $false,
-    [parameter(Mandatory = $false)][bool]$stepUploadSystemPrompts = $false,
-    [parameter(Mandatory = $false)][bool]$stepLoginAzure = $false,
-    [parameter(Mandatory = $false)][bool]$init = $true
+    [parameter(Mandatory = $false)][bool]$init = $true,
+    [parameter(Mandatory = $false)][string]$manifestName = "Deployment-Manifest.json"
 )
 
 Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
@@ -31,70 +30,78 @@ function Invoke-AndRequireSuccess {
     return $result
 }
 
+# Navigate to the script directory so that we can use relative paths.
 Push-Location $($MyInvocation.InvocationName | Split-Path)
+try {
+    if ($init) {
+        $extensions = @("aks-preview", "application-insights", "storage-preview")
+        foreach ($extension in $extensions) {
+            Invoke-AndRequireSuccess "Install $extension extension" {
+                az extension add --name $extension --allow-preview true --yes
+                az extension update --name $extension --allow-preview true
+            }
+        }
 
-if ($init) {
-    # Update the extension to make sure you have the latest version installed
-    az extension add --name aks-preview
-    az extension update --name aks-preview
+        Invoke-AndRequireSuccess "Login to Azure" {
+            az login
+        }
+    }
 
-    az extension add --name  application-insights
-    az extension update --name  application-insights
+    Write-Host "Loading Deployment Manifest ../${manifestName}" -ForegroundColor Blue
+    $manifest = $(Get-Content -Raw -Path ../${manifestName} | ConvertFrom-Json)
 
-    az extension add --name storage-preview
-    az extension update --name storage-preview
+    # Convert the manifest resource groups to a hashtable for easier access
+    $resourceGroup = @{}
+    $manifest.resourceGroups.PSObject.Properties | ForEach-Object { $resourceGroup[$_.Name] = $_.Value }
+
+    Invoke-AndRequireSuccess "Uploading System Prompts" {
+        ./UploadSystemPrompts.ps1 `
+            -resourceGroup $resourceGroup["storage"] `
+            -location $manifest.location
+    }
+}
+finally {
+    Pop-Location
+    Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 }
 
-if ($stepLoginAzure) {
-    # Write-Host "Login in your account" -ForegroundColor Yellow
-    az login
-}
 
-$manifest = $(Get-Content -Raw -Path ../Deployment-Manifest.json | ConvertFrom-Json)
+# $instanceId = $manifest.instanceId
+# $ingress = $manifest.ingress
+# $entraClientIds = $manifest.entraClientIds
+# $environment = $manifest.environment
+# $location = $manifest.location
+# $project = $manifest.project
+# $resourceGroups = $manifest.resourceGroups
 
-$instanceId = $manifest.instanceId
-$ingress = $manifest.ingress
-$entraClientIds = $manifest.entraClientIds
-$environment = $manifest.environment
-$location = $manifest.location
-$project = $manifest.project
-$resourceGroups = $manifest.resourceGroups
+# Write-Host "Generate Configuration" -ForegroundColor Blue
+# Invoke-AndRequireSuccess "Generate Configuration" {
+#     & ./Generate-Config.ps1 `
+#         -instanceId $instanceId `
+#         -entraClientIds $entraClientIds `
+#         -resourceGroups $resourceGroups `
+#         -subscriptionId $manifest.subscription `
+#         -resourceSuffix "$project-$environment-$location" `
+#         -ingress $ingress
+# }
 
-if ($stepUploadSystemPrompts) {
-    # Upload System Prompts
-    #& ./UploadSystemPrompts.ps1 -resourceGroup $resourceGroup -location $location
-}
+# Write-Host "Generate Host File" -ForegroundColor Blue
+# Invoke-AndRequireSuccess "Generate Host File" {
+#     & ./Generate-Hosts.ps1 -subscription $manifest.subscription
+# }
 
-Write-Host "Generate Configuration" -ForegroundColor Blue
-Invoke-AndRequireSuccess "Generate Configuration" {
-    & ./Generate-Config.ps1 `
-        -instanceId $instanceId `
-        -entraClientIds $entraClientIds `
-        -resourceGroups $resourceGroups `
-        -subscriptionId $manifest.subscription `
-        -resourceSuffix "$project-$environment-$location" `
-        -ingress $ingress
-}
+# if ($stepDeployCerts) {
+#     # TODO Deploy Certs to AGWs
+# }
 
-Write-Host "Generate Host File" -ForegroundColor Blue
-Invoke-AndRequireSuccess "Generate Host File" {
-    & ./Generate-Hosts.ps1 -subscription $manifest.subscription
-}
+# if ($stepDeployImages) {
+#     # Deploy images in AKS
+#     $chartsToDeploy = "*"
 
-if ($stepDeployCerts) {
-    # TODO Deploy Certs to AGWs
-}
+#     #& ./Deploy-Images-Aks-Standard.ps1 -aksName $aksName -resourceGroup $resourceGroup -charts $chartsToDeploy
+# }
 
-if ($stepDeployImages) {
-    # Deploy images in AKS
-    $chartsToDeploy = "*"
-
-    #& ./Deploy-Images-Aks-Standard.ps1 -aksName $aksName -resourceGroup $resourceGroup -charts $chartsToDeploy
-}
-
-# Write-Host "===========================================================" -ForegroundColor Yellow
-# Write-Host "The frontend is hosted at https://$webappHostname" -ForegroundColor Yellow
-# Write-Host "The Core API is hosted at $coreApiUri" -ForegroundColor Yellow
-# Write-Host "===========================================================" -ForegroundColor Yellow
-
-Pop-Location
+# # Write-Host "===========================================================" -ForegroundColor Yellow
+# # Write-Host "The frontend is hosted at https://$webappHostname" -ForegroundColor Yellow
+# # Write-Host "The Core API is hosted at $coreApiUri" -ForegroundColor Yellow
+# # Write-Host "===========================================================" -ForegroundColor Yellow
