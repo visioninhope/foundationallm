@@ -17,6 +17,7 @@ using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Configuration.Interfaces;
 using FoundationaLLM.Configuration.Services;
 using FoundationaLLM.Configuration.Validation;
+using FoundationaLLM.Management.API.Swagger;
 using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Management.Services;
@@ -59,6 +60,7 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Branding);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_CoreAPI_Entra);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
@@ -70,7 +72,24 @@ namespace FoundationaLLM.Management.API
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
             // Add the Configuration resource provider
-            builder.AddConfigurationResourceProvider();
+            //builder.AddConfigurationResourceProvider();
+
+            builder.Services.AddAzureClients(clientBuilder =>
+            {
+                var keyVaultUri = builder.Configuration[AppConfigurationKeys.FoundationaLLM_Configuration_KeyVaultURI];
+                clientBuilder.AddSecretClient(new Uri(keyVaultUri!))
+                    .WithCredential(new DefaultAzureCredential());
+                clientBuilder.AddConfigurationClient(
+                    builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
+            });
+            // Configure logging to filter out Azure Core and Azure Key Vault informational logs.
+            builder.Logging.AddFilter("Azure.Core", LogLevel.Warning);
+            builder.Logging.AddFilter("Azure.Security.KeyVault.Secrets", LogLevel.Warning);
+
+            builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
+            builder.Services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
+            builder.Services.AddSingleton<IConfigurationHealthChecks, ConfigurationHealthChecks>();
+            //builder.Services.AddHostedService<ConfigurationHealthCheckService>();
 
             var allowAllCorsOrigins = "AllowAllOrigins";
             builder.Services.AddCors(policyBuilder =>
@@ -125,6 +144,15 @@ namespace FoundationaLLM.Management.API
             //----------------------------
             // Resource providers
             //----------------------------
+            
+            // Add Azure ARM services
+            builder.Services.AddAzureResourceManager();
+
+            // Add event services
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_CoreAPI);
+
             builder.Services.AddVectorizationResourceProvider(builder.Configuration);
             builder.Services.AddAgentResourceProvider(builder.Configuration);
             builder.Services.AddPromptResourceProvider(builder.Configuration);
@@ -176,6 +204,8 @@ namespace FoundationaLLM.Management.API
                     // Add a custom operation filter which sets default values
                     options.OperationFilter<SwaggerDefaultValues>();
 
+                    options.DocumentFilter<FllmIOperationsDocumentFilter>();
+
                     var fileName = typeof(Program).Assembly.GetName().Name + ".xml";
                     var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
 
@@ -195,7 +225,7 @@ namespace FoundationaLLM.Management.API
                             },
                             new[] {"user_impersonation"}
                         }
-                    });                    
+                    });
 
                     options.AddSecurityDefinition("azure_auth", new OpenApiSecurityScheme
                     {
@@ -254,7 +284,9 @@ namespace FoundationaLLM.Management.API
                         options.SwaggerEndpoint(url, name);
                     }
 
-                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId] } });
+                    //options.OAuthClientId(builder.Configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId]);
+                    //options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId] } });
+                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId] } });
                 });
 
             app.UseHttpsRedirection();
@@ -398,11 +430,11 @@ namespace FoundationaLLM.Management.API
                 .AddMicrosoftIdentityWebApi(jwtOptions => { },
                     identityOptions =>
                     {
-                        identityOptions.ClientSecret =
-                            builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientSecret];
+                        identityOptions.ClientSecret =builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientSecret];
                         identityOptions.Instance = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Instance] ?? "";
                         identityOptions.TenantId = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_TenantId];
                         identityOptions.ClientId = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId];
+                        identityOptions.CallbackPath = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_CallbackPath];
                     });
             //.EnableTokenAcquisitionToCallDownstreamApi()
             //.AddInMemoryTokenCaches();

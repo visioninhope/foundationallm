@@ -307,7 +307,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected virtual Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+        public virtual Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             throw new NotImplementedException();
 
         /// <summary>

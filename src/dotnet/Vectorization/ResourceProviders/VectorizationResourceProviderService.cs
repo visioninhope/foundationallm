@@ -42,7 +42,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             ])
     {
         /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
+        public override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
         {
             {
                 VectorizationResourceTypeNames.VectorizationRequests,

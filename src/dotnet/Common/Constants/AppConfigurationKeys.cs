@@ -550,6 +550,10 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_ManagementAPI_Entra_ClientId = "FoundationaLLM:ManagementAPI:Entra:ClientId";
         /// <summary>
+        /// The key for the FoundationaLLM:ManagementAPI:Entra:CallbackPath app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_ManagementAPI_Entra_CallbackPath = "FoundationaLLM:ManagementAPI:Entra:CallbackPath";
+        /// <summary>
         /// The key for the FoundationaLLM:ManagementAPI:Entra:ClientSecret app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>

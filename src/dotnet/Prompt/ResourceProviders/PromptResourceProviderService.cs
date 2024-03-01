@@ -35,7 +35,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             logger)
     {
         /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
+        public override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
         {
             {
                 PromptResourceTypeNames.Prompts,
@@ -122,9 +122,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             }
             else
             {
-                if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference)
-                    || promptReference.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} prompt resource.",
+                if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference))
+                    new ResourceProviderException($"Could not locate the {instance.ResourceId} prompt resource.",
                         StatusCodes.Status404NotFound);
 
                 var prompt = await LoadPrompt(promptReference!);
