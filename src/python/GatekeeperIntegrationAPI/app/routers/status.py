@@ -3,6 +3,7 @@ Status API endpoint that acts as a health check for the API.
 """
 import os
 from fastapi import APIRouter
+from foundationallm.integration.config.environment_variables import HOSTNAME, FOUNDATIONALLM_VERSION
 
 router = APIRouter(
     prefix='/status',
@@ -22,8 +23,8 @@ async def get_status():
     """    
     statusMessage = {
         "name": "GatekeeperIntegrationAPI",
-        "instance": os.environ["HOSTNAME"],
-        "version": os.environ["FOUNDATIONALLM_VERSION"],
+        "instance": os.environ[HOSTNAME],
+        "version": os.environ[FOUNDATIONALLM_VERSION],
         "Status": "ready"
     }
     return statusMessage
