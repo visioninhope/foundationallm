@@ -1,7 +1,20 @@
 <template>
 	<div>
-		<h2 class="page-header">Public Agents</h2>
-		<div class="page-subheader">View your publicly accessible agents.</div>
+		<div style="display: flex;">
+			<div style="flex: 1">
+				<h2 class="page-header">Data Sources</h2>
+				<div class="page-subheader">The following data sources are available.</div>
+			</div>
+
+			<div style="display: flex; align-items: center;">
+				<NuxtLink to="/data-sources/create">
+					<Button>
+						<i class="pi pi-plus" style="color: var(--text-primary); margin-right: 8px;"></i>
+						Create Data Source
+					</Button>
+				</NuxtLink>
+			</div>
+		</div>
 
 		<div :class="{ 'grid--loading': loading }">
 			<!-- Loading overlay -->
@@ -13,22 +26,22 @@
 			</template>
 
 			<!-- Table -->
-			<DataTable :value="agents" stripedRows scrollable tableStyle="max-width: 100%" size="small">
+			<DataTable :value="dataSources" stripedRows scrollable tableStyle="max-width: 100%" size="small">
 				<template #empty>
-          No agents found. Please use the menu on the left to create a new agent.</template
+          No data sources found. Please use the menu on the left to create a new data source.</template
 				>
-    		<template #loading>Loading agent data. Please wait.</template>
+    		<template #loading>Loading data sources. Please wait.</template>
 
 				<!-- Name -->
 				<Column field="name" header="Name" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, sortIcon: { style: { color: 'var(--primary-text)' } } }"></Column>
 
 				<!-- Type -->
-				<Column field="type" header="Type" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, sortIcon: { style: { color: 'var(--primary-text)' } } }"></Column>
+				<Column field="type" header="Source Type" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, sortIcon: { style: { color: 'var(--primary-text)' } } }"></Column>
 
 				<!-- Edit -->
 				<Column header="Edit" headerStyle="width:6rem" style="text-align: center" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, headerContent: { style: { justifyContent: 'center' } } }">
 					<template #body="{ data }">
-						<NuxtLink :to="'/agents/edit/' + data.name" class="table__button">
+						<NuxtLink :to="'/data-sources/edit/' + data.name" class="table__button">
 							<Button link>
 								<i class="pi pi-cog" style="font-size: 1.2rem"></i>
 							</Button>
@@ -39,7 +52,7 @@
 				<!-- Delete -->
 				<Column header="Delete" headerStyle="width:6rem" style="text-align: center" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, headerContent: { style: { justifyContent: 'center' } } }">
 					<template #body="{ data }">
-						<Button link @click="agentToDelete = data">
+						<Button link @click="dataSourceToDelete = data">
 							<i class="pi pi-trash" style="font-size: 1.2rem; color: var(--red-400);"></i>
 						</Button>
 					</template>
@@ -49,15 +62,15 @@
 
 		<!-- Delete agent dialog -->
 		<Dialog
-			:visible="agentToDelete !== null"
+			:visible="dataSourceToDelete !== null"
 			modal
-			header="Delete Agent"
+			header="Delete Data Source"
 			:closable="false"
 		>
-			<p>Do you want to delete the agent "{{ agentToDelete.name }}" ?</p>
+			<p>Do you want to delete the data source "{{ dataSourceToDelete.name }}" ?</p>
 			<template #footer>
-				<Button label="Cancel" text @click="agentToDelete = null" />
-				<Button label="Delete" severity="danger" @click="handleDeleteAgent" />
+				<Button label="Cancel" text @click="dataSourceToDelete = null" />
+				<Button label="Delete" severity="danger" @click="handleDeleteDataSource" />
 			</template>
 		</Dialog>
 	</div>
@@ -72,22 +85,22 @@ export default {
 
 	data() {
 		return {
-			agents: [] as Agent,
+			dataSources: [] as Agent,
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
-			agentToDelete: null as Agent | null,
+			dataSourceToDelete: null as Agent | null,
 		};
 	},
 
 	async created() {
-		await this.getAgents();
+		await this.getAgentDataSources();
 	},
 
 	methods: {
-		async getAgents() {
+		async getAgentDataSources() {
 			this.loading = true;
 			try {
-				this.agents = await api.getAgents();
+				this.dataSources = await api.getAgentDataSources();
 			} catch (error) {
 				this.$toast.add({
 					severity: 'error',
@@ -98,10 +111,10 @@ export default {
 			this.loading = false;
 		},
 
-		async handleDeleteAgent() {
+		async handleDeleteDataSource() {
 			try {
-				await api.deleteAgent(this.agentToDelete!.name);
-				this.agentToDelete = null;
+				await api.deleteDataSource(this.dataSourceToDelete!.name);
+				this.dataSourceToDelete = null;
 			} catch (error) {
 				return this.$toast.add({
 					severity: 'error',
