@@ -20,7 +20,6 @@ resource namespace 'Microsoft.EventGrid/namespaces@2023-12-15-preview' = {
     type: 'SystemAssigned'
   }
   properties: {
-    isZoneRedundant: false
     publicNetworkAccess: 'Enabled'
     inboundIpRules: []
   }

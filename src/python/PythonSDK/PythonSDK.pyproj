@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="foundationallm\config\context.py" />
+    <Compile Include="foundationallm\config\environment_variables.py" />
     <Compile Include="foundationallm\config\user_identity.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\cxo\cxo_data_source_metadata.py" />
     <Compile Include="foundationallm\hubs\data_source\data_sources\cxo\__init__.py" />
