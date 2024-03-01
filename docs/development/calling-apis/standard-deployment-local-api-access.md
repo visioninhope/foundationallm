@@ -7,7 +7,7 @@ Standard deployments expose backend services internally, preventing API access o
 ### Prerequisites
 
 - `kubectl` with the [`kubelogin`](https://azure.github.io/kubelogin/) extension
-  - Both of these utilities can be installed by the Azure CLI: `az aks install-cli`
+  - Both of these utilities can be installed by the Azure CLI: `az aks install-cli`. If you use this command, you will need to restart your terminal to reflect the changes to `$PATH`.
 - Kubernetes credentials stored in `$HOME/.kube/config`
 
   Obtain these credentials using the Azure CLI.
@@ -60,6 +60,8 @@ finally {
     }
 }
 ```
+
+You will need to rerun the script if you restart any nodes while the script is running.
 
 ### Verification
 
