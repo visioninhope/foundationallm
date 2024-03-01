@@ -59,6 +59,10 @@ try {
             -resourceGroup $resourceGroup["storage"] `
             -location $manifest.location
     }
+
+    Invoke-AndRequireSuccess "Generate Host File" {
+        & ./Generate-Hosts.ps1 -subscription $manifest.subscription
+    }
 }
 finally {
     Pop-Location
@@ -85,10 +89,7 @@ finally {
 #         -ingress $ingress
 # }
 
-# Write-Host "Generate Host File" -ForegroundColor Blue
-# Invoke-AndRequireSuccess "Generate Host File" {
-#     & ./Generate-Hosts.ps1 -subscription $manifest.subscription
-# }
+
 
 # if ($stepDeployCerts) {
 #     # TODO Deploy Certs to AGWs
