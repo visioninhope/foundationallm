@@ -4,7 +4,6 @@ The API endpoint for returning the requested data source metadata.
 from typing import Optional
 from fastapi import APIRouter, Depends, Header, Request
 from foundationallm.config import Context
-from foundationallm.models import AgentHint
 from foundationallm.telemetry import Telemetry
 from foundationallm.hubs.data_source import (
     DataSourceHubRequest,
@@ -47,11 +46,10 @@ async def resolve(
     """
     with tracer.start_as_current_span('resolve') as span:
         try:
-            return DataSourceHub(config = request.app.extra['config'])
-                .resolve(
-                    request = datasource_request,
-                    user_context = Context(user_identity=x_user_identity)
-                )
+            return DataSourceHub(config = request.app.extra['config']).resolve(
+                request = datasource_request,
+                user_context = Context(user_identity=x_user_identity)
+            )
         except Exception as e:
             Telemetry.record_exception(span, e)
             handle_exception(e)
