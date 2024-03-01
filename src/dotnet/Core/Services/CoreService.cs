@@ -157,7 +157,8 @@ public partial class CoreService(
             {
                 SessionId = null,
                 UserPrompt = directCompletionRequest.UserPrompt,
-                MessageHistory = null
+                MessageHistory = null,
+                Settings = directCompletionRequest.Settings
             };
 
             // Generate the completion to return to the user.
