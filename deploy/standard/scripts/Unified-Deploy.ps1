@@ -33,8 +33,11 @@ function Invoke-AndRequireSuccess {
 # Navigate to the script directory so that we can use relative paths.
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 try {
+    Write-Host "Loading Deployment Manifest ../${manifestName}" -ForegroundColor Blue
+    $manifest = $(Get-Content -Raw -Path ../${manifestName} | ConvertFrom-Json)
+
     if ($init) {
-        $extensions = @("aks-preview", "application-insights", "storage-preview")
+        $extensions = @("aks-preview", "application-insights", "storage-preview", "eventgrid")
         foreach ($extension in $extensions) {
             Invoke-AndRequireSuccess "Install $extension extension" {
                 az extension add --name $extension --allow-preview true --yes
@@ -44,24 +47,15 @@ try {
 
         Invoke-AndRequireSuccess "Login to Azure" {
             az login
+            az account set --subscription $manifest.subscription
+            az account show
         }
     }
-
-    Write-Host "Loading Deployment Manifest ../${manifestName}" -ForegroundColor Blue
-    $manifest = $(Get-Content -Raw -Path ../${manifestName} | ConvertFrom-Json)
 
     # Convert the manifest resource groups to a hashtable for easier access
     $resourceGroup = @{}
     $manifest.resourceGroups.PSObject.Properties | ForEach-Object { $resourceGroup[$_.Name] = $_.Value }
     $resourceSuffix = "$($manifest.project)-$($manifest.environment)-$($manifest.location)"
-
-
-
-    Invoke-AndRequireSuccess "Generate Host File" {
-        ./Generate-Hosts.ps1 `
-            -resourceGroup $resourceGroup `
-            -subscription $manifest.subscription
-    }
 
     Invoke-AndRequireSuccess "Generate Configuration" {
         ./Generate-Config.ps1 `
@@ -71,6 +65,12 @@ try {
             -subscriptionId $manifest.subscription `
             -resourceSuffix $resourceSuffix `
             -ingress $manifest.ingress
+    }
+
+    Invoke-AndRequireSuccess "Generate Host File" {
+        ./Generate-Hosts.ps1 `
+            -resourceGroup $resourceGroup `
+            -subscription $manifest.subscription
     }
 
     Invoke-AndRequireSuccess "Uploading System Prompts" {
