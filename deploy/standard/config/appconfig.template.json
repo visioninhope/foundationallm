@@ -422,12 +422,6 @@
   {
     "keyVault": false,
     "featureFlag": false,
-    "key": "FoundationaLLM:Branding:AllowAgentSelection",
-    "value": "default, anomaly, hai, movies, sdzwa, weather, weather-sec"
-  },
-  {
-    "keyVault": false,
-    "featureFlag": false,
     "key": "FoundationaLLM:Branding:BackgroundColor",
     "value": "#fff"
   },
