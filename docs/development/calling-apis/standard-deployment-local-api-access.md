@@ -1,13 +1,6 @@
 # Security-Hardened Standard Deployment Local API Access
 
-Unlike starter deployments, security-hardened standard deployments expose backend services internally, preventing public API access. Using the Azure VPN Gateway Client and the `kubectl` CLI, however, it is possible to forward FoundationaLLM APIs deployed within Kubernetes for local consumption.
-
-## Networking Requirements
-
-- Use the Azure VPN Gateway Client to enable network access to the same virtual network used by the Kubernetes nodes and the managed Azure services
-- If the Azure VPN Gateway Client is unable to resolve Private Link DNS names, you may need to modify your system's hosts file
-  - The standard deployment scripts generate the hosts file entries automatically
-  - After updating your system's hosts file, ensure that you refresh your DNS cache
+Standard deployments expose backend services internally, preventing API access over the public internet. Using the `kubectl` CLI, however, it is possible to forward FoundationaLLM APIs deployed within Kubernetes for local consumption.
 
 ## kubectl Forwarding Script
 
@@ -25,7 +18,7 @@ Unlike starter deployments, security-hardened standard deployments expose backen
 
 ### Script
 
-Navigate to `/deploy/standard/scripts/Kubectl-Proxy.ps1` or copy the following PowerShell script to your local environment. Before running it, ensure that no applications are running on ports 5000-5010.
+Navigate to `/deploy/standard/scripts/Kubectl-Proxy.ps1` or copy the following PowerShell script to your local environment. Before running it, ensure that no applications are running on ports 5000-5010. To stop the tunnels, press any key in the terminal context where you started the script.
 
 ```pwsh
 #!/bin/pwsh
