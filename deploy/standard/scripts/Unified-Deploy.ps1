@@ -53,15 +53,30 @@ try {
     # Convert the manifest resource groups to a hashtable for easier access
     $resourceGroup = @{}
     $manifest.resourceGroups.PSObject.Properties | ForEach-Object { $resourceGroup[$_.Name] = $_.Value }
+    $resourceSuffix = "$($manifest.project)-$($manifest.environment)-$($manifest.location)"
+
+
+
+    Invoke-AndRequireSuccess "Generate Host File" {
+        ./Generate-Hosts.ps1 `
+            -resourceGroup $resourceGroup `
+            -subscription $manifest.subscription
+    }
+
+    Invoke-AndRequireSuccess "Generate Configuration" {
+        ./Generate-Config.ps1 `
+            -instanceId $manifest.instanceId `
+            -entraClientIds $manifest.entraClientIds `
+            -resourceGroups $resourceGroup `
+            -subscriptionId $manifest.subscription `
+            -resourceSuffix $resourceSuffix `
+            -ingress $manifest.ingress
+    }
 
     Invoke-AndRequireSuccess "Uploading System Prompts" {
         ./UploadSystemPrompts.ps1 `
             -resourceGroup $resourceGroup["storage"] `
             -location $manifest.location
-    }
-
-    Invoke-AndRequireSuccess "Generate Host File" {
-        & ./Generate-Hosts.ps1 -subscription $manifest.subscription
     }
 }
 finally {
@@ -78,16 +93,7 @@ finally {
 # $project = $manifest.project
 # $resourceGroups = $manifest.resourceGroups
 
-# Write-Host "Generate Configuration" -ForegroundColor Blue
-# Invoke-AndRequireSuccess "Generate Configuration" {
-#     & ./Generate-Config.ps1 `
-#         -instanceId $instanceId `
-#         -entraClientIds $entraClientIds `
-#         -resourceGroups $resourceGroups `
-#         -subscriptionId $manifest.subscription `
-#         -resourceSuffix "$project-$environment-$location" `
-#         -ingress $ingress
-# }
+
 
 
 
