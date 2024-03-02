@@ -142,16 +142,19 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 agentBase.LanguageModel!.Deployment = deploymentName;
 
                 // Extract any override settings and apply them to the agent's LanguageModel.
-                foreach (var key in completionRequest.Settings?.ModelSettings?.Keys!)
+                if (completionRequest.Settings?.ModelSettings != null)
                 {
-                    switch (key)
+                    foreach (var key in completionRequest.Settings?.ModelSettings?.Keys!)
                     {
-                        case "deployment_name":
-                            agentBase.LanguageModel!.Deployment = completionRequest.Settings?.ModelSettings?.GetValueOrDefault(key)!.ToString();
-                            break;
-                        case "temperature":
-                            agentBase.LanguageModel!.Temperature = Convert.ToSingle(completionRequest.Settings?.ModelSettings?.GetValueOrDefault(key, 0f)!.ToString());
-                            break;
+                        switch (key)
+                        {
+                            case "deployment_name":
+                                agentBase.LanguageModel!.Deployment = completionRequest.Settings?.ModelSettings?.GetValueOrDefault(key)!.ToString();
+                                break;
+                            case "temperature":
+                                agentBase.LanguageModel!.Temperature = Convert.ToSingle(completionRequest.Settings?.ModelSettings?.GetValueOrDefault(key, 0f)!.ToString());
+                                break;
+                        }
                     }
                 }
 
