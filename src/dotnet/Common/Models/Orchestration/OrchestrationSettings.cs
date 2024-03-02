@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration
 {
@@ -21,6 +16,6 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// Options to override the default behavior of the agent's language model.
         /// </summary>
         [JsonPropertyName("model_settings")]
-        public Dictionary<string, object> ModelSettings { get; set; }
+        public Dictionary<string, object>? ModelSettings { get; set; }
     }
 }

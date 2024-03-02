@@ -7,6 +7,8 @@ using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Cache;
 using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Orchestration;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.AgentFactory.Core.Orchestration
@@ -34,6 +36,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
             CompletionRequest completionRequest,
             ICacheService cacheService,
             ICallContext callContext,
+            IConfiguration configuration,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
             IAgentHubAPIService agentHubAPIService,
             IEnumerable<ILLMOrchestrationService> orchestrationServices,
@@ -134,6 +137,24 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 if (!validType)
                     throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
                 orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
+
+                // Hydrate overridable values from config and assign them back to the agent's LanguageModel.
+                var deploymentName = configuration.GetValue<string>(agentBase.LanguageModel?.Deployment!);
+                agentBase.LanguageModel!.Deployment = deploymentName;
+
+                // Extract any override settings and apply them to the agent's LanguageModel.
+                foreach (var key in completionRequest.Settings?.ModelSettings?.Keys!)
+                {
+                    switch (key)
+                    {
+                        case "deployment_name":
+                            agentBase.LanguageModel!.Deployment = completionRequest.Settings?.ModelSettings?.GetValueOrDefault(key)!.ToString();
+                            break;
+                        case "temperature":
+                            agentBase.LanguageModel!.Temperature = Convert.ToSingle(completionRequest.Settings?.ModelSettings?.GetValueOrDefault(key, 0f)!.ToString());
+                            break;
+                    }
+                }
 
                 if(agentBase.AgentType == typeof(KnowledgeManagementAgent))
                 {

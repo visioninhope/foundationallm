@@ -849,6 +849,10 @@ namespace FoundationaLLM.Common.Constants
         /// The key filter for the FoundationaLLM:Events:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Events = "FoundationaLLM:Events:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:AzureOpenAI:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI = "FoundationaLLM:AzureOpenAI:*";
     }
 
     /// <summary>
