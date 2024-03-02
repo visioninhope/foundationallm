@@ -24,6 +24,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
         /// <param name="completionRequest">The <see cref="CompletionRequest"/> containing details about the completion request.</param>
         /// <param name="cacheService">The <see cref="ICacheService"/> used to cache agent-related artifacts.</param>
         /// <param name="callContext">The call context of the request being handled.</param>
+        /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
         /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
         /// <param name="agentHubAPIService"></param>
         /// <param name="orchestrationServices"></param>
@@ -148,10 +149,10 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                     {
                         switch (key)
                         {
-                            case "deployment_name":
+                            case ModelSettingsKeys.Deployment_Name:
                                 agentBase.LanguageModel!.Deployment = completionRequest.Settings?.ModelSettings?.GetValueOrDefault(key)!.ToString();
                                 break;
-                            case "temperature":
+                            case ModelSettingsKeys.Temperature:
                                 agentBase.LanguageModel!.Temperature = Convert.ToSingle(completionRequest.Settings?.ModelSettings?.GetValueOrDefault(key, 0f)!.ToString());
                                 break;
                         }
