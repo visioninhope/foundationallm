@@ -43,9 +43,9 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
         {
             var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
             if (completionRequest.Settings?.AgentName == null)
-                logger.LogInformation("The AgentBuilder is starting to build an agent without an agent hint.");
+                logger.LogInformation("The AgentBuilder is starting to build an agent without an agent name.");
             else
-                logger.LogInformation("The AgentBuilder is starting to build an agent with the following agent hint: {AgentName}.",
+                logger.LogInformation("The AgentBuilder is starting to build an agent with the following agent name: {AgentName}.",
                     completionRequest.Settings?.AgentName);
 
             if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Agent, out var agentResourceProvider))
