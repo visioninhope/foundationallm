@@ -57,7 +57,6 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
             // TODO: Implement a cleaner pattern for handling missing resources
             AgentBase? agentBase = default;
 
-            // When agent hint is null, use the default agent that is a legacy agent
             if (!string.IsNullOrWhiteSpace(completionRequest.Settings?.AgentName))
             {
                 try
