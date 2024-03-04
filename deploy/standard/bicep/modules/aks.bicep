@@ -4,8 +4,6 @@
  * Inputs:
  * - actionGroupId: Action Group Id for alerts
  * - admnistratorObjectIds: The Managed Identity for the AKS Cluster
- * - agw: Application Gateway Details
- * - agwResourceGroupName: Application Gateway resource group name
  * - dnsResourceGroupName: DNS resource group name
  * - location: Location for all resources
  * - logAnalyticWorkspaceId: Log Analytic Workspace Id to use for diagnostics
@@ -31,21 +29,17 @@
  * - main: The AKS Cluster
  * - diagnostics: Diagnostic settings for the resource
  * - uai: The Managed Identity for the AKS Cluster
- * - agwClusterRoleAssignment: Role assignment for Application Gateway
  * - dnsRoleAssignment: Role assignment for DNS
  * - netRoleAssignment: Role assignment for networking
  * - metricAlerts: Resource for configuring the Key Vault metric alerts
  * - privateEndpoint: Private endpoint for App Configuration
- * - agwAgicRoleAssignment: Role assignment for Application Gateway Ingress Controller
  * - subnetRoleAssignment: Role assignment for subnet
  *
  * Nested Modules:
- * - agwClusterRoleAssignment: Role assignment for Application Gateway
  * - dnsRoleAssignment: Role assignment for DNS
  * - netRoleAssignment: Role assignment for networking
  * - metricAlerts: Resource for configuring the Key Vault metric alerts
  * - privateEndpoint: Private endpoint for App Configuration
- * - agwAgicRoleAssignment: Role assignment for Application Gateway Ingress Controller
  * - subnetRoleAssignment: Role assignment for subnet
  */
 
@@ -55,12 +49,6 @@ param actionGroupId string
 
 @description('The Managed Identity for the AKS Cluster')
 param admnistratorObjectIds array
-
-@description('Application Gateway Details')
-param agw object
-
-@description('Application Gateway resource group name')
-param agwResourceGroupName string
 
 @description('DNS resource group name')
 param dnsResourceGroupName string
@@ -192,10 +180,7 @@ resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = 
       }
 
       ingressApplicationGateway: {
-        enabled: true
-        config: {
-          applicationGatewayId: agw.id
-        }
+        enabled: false
       }
 
       omsagent: {
@@ -352,17 +337,6 @@ resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
 }
 
 /** Nested Modules **/
-module agwClusterRoleAssignment 'utility/roleAssignments.bicep' = {
-  name: 'agwra-${resourceSuffix}-${timestamp}'
-  scope: resourceGroup(agwResourceGroupName)
-  params: {
-    principalId: uai.properties.principalId
-    roleDefinitionIds: {
-      Contributor: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    }
-  }
-}
-
 module dnsRoleAssignment 'utility/roleAssignments.bicep' = {
   name: 'dnsra-${resourceSuffix}-${timestamp}'
   scope: resourceGroup(dnsResourceGroupName)
@@ -411,17 +385,6 @@ module privateEndpoint 'utility/privateEndpoint.bicep' = {
     service: {
       id: main.id
       name: main.name
-    }
-  }
-}
-
-module agwAgicRoleAssignment 'utility/roleAssignments.bicep' = {
-  name: 'agicra-${resourceSuffix}-${timestamp}'
-  scope: resourceGroup(agwResourceGroupName)
-  params: {
-    principalId: main.properties.addonProfiles.ingressApplicationGateway.identity.objectId
-    roleDefinitionIds: {
-      Contributor: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
     }
   }
 }
