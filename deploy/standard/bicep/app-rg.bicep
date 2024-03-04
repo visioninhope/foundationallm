@@ -80,7 +80,7 @@ var tags = {
 }
 
 var backendServices = {
-  'agent-factory-api': { displayName: 'AgentFactoryAPI'}
+  'agent-factory-api': { displayName: 'AgentFactoryAPI' }
   'agent-hub-api': { displayName: 'AgentHubAPI' }
   'core-job': { displayName: 'CoreWorker' }
   'data-source-hub-api': { displayName: 'DataSourceHubAPI' }
@@ -171,6 +171,7 @@ module eventgrid 'modules/eventgrid.bicep' = {
 
 module appConfigSystemTopic 'modules/config-system-topic.bicep' = {
   name: 'ssTopic-${timestamp}'
+  scope: resourceGroup(opsResourceGroupName)
   params: {
     actionGroupId: actionGroupId
     location: location
@@ -179,11 +180,11 @@ module appConfigSystemTopic 'modules/config-system-topic.bicep' = {
     opsResourceSuffix: opsResourceSuffix
     tags: tags
   }
-  scope: resourceGroup(opsResourceGroupName)
 }
 
 module storageSystemTopic 'modules/storage-system-topic.bicep' = {
   name: 'ssTopic-${timestamp}'
+  scope: resourceGroup(storageResourceGroupName)
   params: {
     actionGroupId: actionGroupId
     location: location
@@ -192,11 +193,11 @@ module storageSystemTopic 'modules/storage-system-topic.bicep' = {
     storageResourceSuffix: storageResourceSuffix
     tags: tags
   }
-  scope: resourceGroup(storageResourceGroupName)
 }
 
 module sTopicSub 'modules/system-topic-subscription.bicep' = {
   name: 'sTopicSub-${timestamp}'
+  scope: resourceGroup(storageResourceGroupName)
   params: {
     name: 'resource-provider'
     topicName: storageSystemTopic.outputs.name
@@ -209,11 +210,11 @@ module sTopicSub 'modules/system-topic-subscription.bicep' = {
       'Microsoft.Storage.BlobDeleted'
     ]
   }
-  scope: resourceGroup(storageResourceGroupName)
 }
 
 module acTopicSub 'modules/system-topic-subscription.bicep' = {
   name: 'acTopicSub-${timestamp}'
+  scope: resourceGroup(opsResourceGroupName)
   params: {
     name: 'app-config'
     topicName: appConfigSystemTopic.outputs.name
@@ -224,97 +225,91 @@ module acTopicSub 'modules/system-topic-subscription.bicep' = {
       'Microsoft.AppConfiguration.KeyValueModified'
     ]
   }
-  scope: resourceGroup(opsResourceGroupName)
 }
 
 @batchSize(3)
 module backendServiceResources 'modules/service.bicep' = [for service in items(backendServices): {
-    name: 'beSvc-${service.key}-${timestamp}'
-    params: {
-      location: location
-      namespace: k8sNamespace
-      oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
-      opsResourceGroupName: opsResourceGroupName
-      opsResourceSuffix: opsResourceSuffix
-      resourceSuffix: resourceSuffix
-      serviceName: service.key
-      storageResourceGroupName: storageResourceGroupName
-      tags: tags
-    }
+  name: 'beSvc-${service.key}-${timestamp}'
+  params: {
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
   }
-]
+}]
 
 module chatUiServiceResources 'modules/service.bicep' = [for service in items(chatUiService): {
-    name: 'feSvc-${service.key}-${timestamp}'
-    params: {
-      clientSecret: chatUiClientSecret
-      location: location
-      namespace: k8sNamespace
-      oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
-      opsResourceGroupName: opsResourceGroupName
-      opsResourceSuffix: opsResourceSuffix
-      resourceSuffix: resourceSuffix
-      serviceName: service.key
-      storageResourceGroupName: storageResourceGroupName
-      tags: tags
-      useOidc: true
-    }
+  name: 'feSvc-${service.key}-${timestamp}'
+  params: {
+    clientSecret: chatUiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+    useOidc: true
   }
-]
+}]
 
 module managementUiServiceResources 'modules/service.bicep' = [for service in items(managementUiService): {
-    name: 'feSvc-${service.key}-${timestamp}'
-    params: {
-      clientSecret: managementUiClientSecret
-      location: location
-      namespace: k8sNamespace
-      oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
-      opsResourceGroupName: opsResourceGroupName
-      opsResourceSuffix: opsResourceSuffix
-      resourceSuffix: resourceSuffix
-      serviceName: service.key
-      storageResourceGroupName: storageResourceGroupName
-      tags: tags
-      useOidc: true
-    }
+  name: 'feSvc-${service.key}-${timestamp}'
+  params: {
+    clientSecret: managementUiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+    useOidc: true
   }
-]
+}]
 
 module coreApiServiceResources 'modules/service.bicep' = [for service in items(coreApiService): {
-    name: 'feSvc-${service.key}-${timestamp}'
-    params: {
-      clientSecret: coreApiClientSecret
-      location: location
-      namespace: k8sNamespace
-      oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
-      opsResourceGroupName: opsResourceGroupName
-      opsResourceSuffix: opsResourceSuffix
-      resourceSuffix: resourceSuffix
-      serviceName: service.key
-      storageResourceGroupName: storageResourceGroupName
-      tags: tags
-      useOidc: true
-    }
+  name: 'feSvc-${service.key}-${timestamp}'
+  params: {
+    clientSecret: coreApiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+    useOidc: true
   }
-]
+}]
 
 module managementApiServiceResources 'modules/service.bicep' = [for service in items(managementApiService): {
-    name: 'feSvc-${service.key}-${timestamp}'
-    params: {
-      clientSecret: managementApiClientSecret
-      location: location
-      namespace: k8sNamespace
-      oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
-      opsResourceGroupName: opsResourceGroupName
-      opsResourceSuffix: opsResourceSuffix
-      resourceSuffix: resourceSuffix
-      serviceName: service.key
-      storageResourceGroupName: storageResourceGroupName
-      tags: tags
-      useOidc: true
-    }
+  name: 'feSvc-${service.key}-${timestamp}'
+  params: {
+    clientSecret: managementApiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+    useOidc: true
   }
-]
+}]
 
 module vectorizationApiServiceResources 'modules/service.bicep' = [for service in items(vectorizationApiService): {
   name: 'feSvc-${service.key}-${timestamp}'
@@ -331,5 +326,4 @@ module vectorizationApiServiceResources 'modules/service.bicep' = [for service i
     tags: tags
     useOidc: false
   }
-}
-]
+}]

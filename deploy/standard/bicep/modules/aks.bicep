@@ -388,14 +388,3 @@ module privateEndpoint 'utility/privateEndpoint.bicep' = {
     }
   }
 }
-
-module subnetRoleAssignment 'utility/roleAssignments.bicep' = {
-  name: 'sra-${resourceSuffix}-${timestamp}'
-  scope: resourceGroup(networkingResourceGroupName)
-  params: {
-    principalId: main.properties.addonProfiles.ingressApplicationGateway.identity.objectId
-    roleDefinitionIds: {
-      'Network Contributor': '4d97b98b-1d4f-4787-a291-c67834d212e7'
-    }
-  }
-}
