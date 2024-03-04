@@ -87,16 +87,29 @@
         <article data-uid="">
 <h1 id="core-api">Core API</h1>
 
-<p>The Core API serves as the entry point for user requests to FLLM's underlying engine. While clients primarily interact with the Core API through the Chat UI, the Core API exposes some convenient interfaces for developers.</p>
-<h2 id="session-less-completion">Session-less Completion</h2>
-<p>The session-less completion endpoint enables users to query agents without first creating a chat session.</p>
+<p>The Core API serves as the entry point for user requests to FoundationaLLM's underlying engine. While clients primarily interact with the Core API through the Chat UI, the Core API exposes some convenient interfaces for developers.</p>
+<h2 id="sessionless-completion">Sessionless Completion</h2>
+<p>The sessionless completion endpoint enables users to query agents without first creating a chat session.</p>
 <p><strong>Endpoint:</strong> <code>[DEPLOYMENT URL]/core/orchestration/completion?api-version=1.0</code></p>
 <blockquote>
 <p><strong>Note:</strong> For AKS deployments, <code>[DEPLOYMENT URL]</code> is the same as the cluster FQDN, while for ACA deployments, the Core API endpoint can be found by navigating to the <code>[DEPLOYMENT PREFIX]coreca</code> Container App in the Azure Portal.</p>
 </blockquote>
 <p><strong>Sample Request:</strong></p>
-<pre><code class="lang-json">{&quot;user_prompt&quot;: &quot;What are your capabilities?&quot;}
+<pre><code class="lang-json">{
+    &quot;user_prompt&quot;: &quot;What are your capabilities?&quot;,
+    &quot;settings&quot;: {
+        &quot;agent_name&quot;: &quot;internal-context&quot;,
+        &quot;model_settings&quot;: {
+            &quot;temperature&quot;: 0.4,
+            &quot;deployment_name&quot;: &quot;completions&quot;
+        }
+    }
+}
 </code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The <code>settings</code> object is optional and can be used to specify the agent name and model settings. If the <code>settings</code> object is not provided, the Core API will use the default agent and its model settings.</p>
+</div>
 <p><strong>Payload Headers:</strong></p>
 <table>
 <thead>
@@ -111,11 +124,6 @@
 <td><code>Authorization</code></td>
 <td><code>Bearer [ENTRA ID BEARER TOKEN]</code></td>
 <td>Valid token from Entra ID</td>
-</tr>
-<tr>
-<td><code>X-AGENT-HINT</code></td>
-<td><code>{&quot;name&quot;: &quot;[AGENT NAME]&quot;, &quot;private&quot;: [true/false]}</code></td>
-<td>JSON document specifying the desired agent to handle the completion request</td>
 </tr>
 <tr>
 <td><code>Content-Type</code></td>

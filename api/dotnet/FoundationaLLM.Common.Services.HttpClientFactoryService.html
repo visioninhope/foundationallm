@@ -170,7 +170,7 @@ Class HttpClientFactoryService  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Common_Services_HttpClientFactoryService__ctor_System_Net_Http_IHttpClientFactory_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IDownstreamAPISettings_" data-uid="FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor(System.Net.Http.IHttpClientFactory,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IDownstreamAPISettings)">
   HttpClientFactoryService(IHttpClientFactory, ICallContext, IDownstreamAPISettings)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/HttpClientFactoryService.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/HttpClientFactoryService.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new instance of the <a class="xref" href="FoundationaLLM.Common.Services.HttpClientFactoryService.html">HttpClientFactoryService</a> class.</p>
@@ -189,9 +189,7 @@ that allows access to <a class="xref" href="https://learn.microsoft.com/dotnet/a
 </dd>
     <dt><code>callContext</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a></dt>
     <dd><p>Stores a <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> object resolved from
-one or more services, and the agent hint value extracted from the request header,
-if any. If the agent hint value is not empty or null, the service adds its contents
-to the agent hint header for the returned <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance.</p>
+one or more services.</p>
 </dd>
     <dt><code>apiSettings</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.html">IDownstreamAPISettings</a></dt>
     <dd><p>A <a class="xref" href="FoundationaLLM.Common.Authentication.DownstreamAPISettings.html">DownstreamAPISettings</a> class that
@@ -223,7 +221,7 @@ contains the configured path to the desired API key.</p>
 
   <h3 id="FoundationaLLM_Common_Services_HttpClientFactoryService_CreateClient_System_String_" data-uid="FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(System.String)">
   CreateClient(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/HttpClientFactoryService.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/HttpClientFactoryService.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance from the provided client name.
@@ -233,7 +231,6 @@ The headers added to the request are:</p>
 <ul>
 <li>X-API-KEY: The API key for the target API.</li>
 <li>X-USER-IDENTITY: The user identity information for the current user.</li>
-<li>X-AGENT-HINT: The agent hint provided in an incoming HTTP request, if any.</li>
 </ul>
 </div>
   <div class="markdown level1 conceptual"></div>

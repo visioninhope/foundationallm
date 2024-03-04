@@ -225,7 +225,7 @@ Class AgentHubAPIService  <a class="header-action link-secondary" title="View so
 
   <h3 id="FoundationaLLM_Common_Services_API_AgentHubAPIService_ListAgents" data-uid="FoundationaLLM.Common.Services.API.AgentHubAPIService.ListAgents">
   ListAgents()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L90"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the list with all the agent names and descriptions.</p>
@@ -256,8 +256,8 @@ Class AgentHubAPIService  <a class="header-action link-secondary" title="View so
 
   <a id="FoundationaLLM_Common_Services_API_AgentHubAPIService_ResolveRequest_" data-uid="FoundationaLLM.Common.Services.API.AgentHubAPIService.ResolveRequest*"></a>
 
-  <h3 id="FoundationaLLM_Common_Services_API_AgentHubAPIService_ResolveRequest_System_String_System_String_System_String_" data-uid="FoundationaLLM.Common.Services.API.AgentHubAPIService.ResolveRequest(System.String,System.String,System.String)">
-  ResolveRequest(string, string, string?)
+  <h3 id="FoundationaLLM_Common_Services_API_AgentHubAPIService_ResolveRequest_System_String_System_String_" data-uid="FoundationaLLM.Common.Services.API.AgentHubAPIService.ResolveRequest(System.String,System.String)">
+  ResolveRequest(string, string)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/API/AgentHubAPIService.cs/#L61"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -266,7 +266,7 @@ Class AgentHubAPIService  <a class="header-action link-secondary" title="View so
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;AgentHubResponse&gt; ResolveRequest(string userPrompt, string sessionId, string? agentHintOverride = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;AgentHubResponse&gt; ResolveRequest(string userPrompt, string sessionId)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -276,11 +276,6 @@ Class AgentHubAPIService  <a class="header-action link-secondary" title="View so
 </dd>
     <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The session ID.</p>
-</dd>
-    <dt><code>agentHintOverride</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>Override the agent hint passed in the header.
-This is useful when warming the cache since the agent hint will not exist within
-a request context.</p>
 </dd>
   </dl>
 

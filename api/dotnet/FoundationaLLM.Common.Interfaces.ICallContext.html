@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Interface ICallContext | FoundationaLLM ">
       
-      <meta name="description" content="Stores context information for the current HTTP request. The AgentHint property is extracted from the request header, if any. This is used in scenarios where the client wants to hint the API about a specific agent to resolve, and is passed through the API layers in the form of a header. The CurrentUserIdentity stores a  object resolved from one or more services.">
+      <meta name="description" content="Stores context information for the current HTTP request. The CurrentUserIdentity stores a  object resolved from one or more services.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Interfaces_ICallContext" data-uid="FoundationaLLM.Common.Interfaces.ICallContext" class="text-break">
-Interface ICallContext  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/ICallContext.cs/#L22"><i class="bi bi-code-slash"></i></a>
+Interface ICallContext  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/ICallContext.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -98,10 +98,6 @@ Interface ICallContext  <a class="header-action link-secondary" title="View sour
   </div>
 
   <div class="markdown summary"><p>Stores context information for the current HTTP request.</p>
-<p>The AgentHint property is extracted from the request header, if any.
-This is used in scenarios where the client wants to hint the API about
-a specific agent to resolve, and is passed through the API layers in
-the form of a header.</p>
 <p>The CurrentUserIdentity stores a <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> object
 resolved from one or more services.</p>
 </div>
@@ -134,43 +130,11 @@ resolved from one or more services.</p>
 </h2>
 
 
-  <a id="FoundationaLLM_Common_Interfaces_ICallContext_AgentHint_" data-uid="FoundationaLLM.Common.Interfaces.ICallContext.AgentHint*"></a>
-
-  <h3 id="FoundationaLLM_Common_Interfaces_ICallContext_AgentHint" data-uid="FoundationaLLM.Common.Interfaces.ICallContext.AgentHint">
-  AgentHint
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/ICallContext.cs/#L27"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The current agent hint. If empty, there is no associated header value.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">AgentHint? AgentHint { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentHint.html">AgentHint</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
   <a id="FoundationaLLM_Common_Interfaces_ICallContext_CurrentUserIdentity_" data-uid="FoundationaLLM.Common.Interfaces.ICallContext.CurrentUserIdentity*"></a>
 
   <h3 id="FoundationaLLM_Common_Interfaces_ICallContext_CurrentUserIdentity" data-uid="FoundationaLLM.Common.Interfaces.ICallContext.CurrentUserIdentity">
   CurrentUserIdentity
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/ICallContext.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/ICallContext.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The current <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> object resolved
@@ -203,7 +167,7 @@ from one or more services.</p>
 
   <h3 id="FoundationaLLM_Common_Interfaces_ICallContext_InstanceId" data-uid="FoundationaLLM.Common.Interfaces.ICallContext.InstanceId">
   InstanceId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/ICallContext.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/ICallContext.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The unique identifier of the current FoundationaLLM deployment instance.</p>
@@ -235,7 +199,7 @@ from one or more services.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/ICallContext.cs/#L22" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/ICallContext.cs/#L17" class="edit-link">Edit this page</a>
         </div>
 
 
