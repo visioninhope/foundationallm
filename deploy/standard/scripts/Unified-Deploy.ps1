@@ -57,6 +57,13 @@ try {
     $manifest.resourceGroups.PSObject.Properties | ForEach-Object { $resourceGroup[$_.Name] = $_.Value }
     $resourceSuffix = "$($manifest.project)-$($manifest.environment)-$($manifest.location)"
 
+    # Invoke-AndRequireSuccess "Deploy Certificates to Application Gateway" {
+    #     ./Deploy-Certs.ps1 `
+    #         -resourceGroup $resourceGroup["network"] `
+    #         -subscriptionId $manifest.subscription `
+    #         -resourceSuffix $resourceSuffix
+    # }
+
     Invoke-AndRequireSuccess "Generate Configuration" {
         ./Generate-Config.ps1 `
             -instanceId $manifest.instanceId `
