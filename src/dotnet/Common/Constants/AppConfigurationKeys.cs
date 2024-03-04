@@ -89,6 +89,16 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_APIs_CoreAPI_BypassGatekeeper = "FoundationaLLM:APIs:CoreAPI:BypassGatekeeper";
         /// <summary>
+        /// The key for the FoundationaLLM:DataSource:ResourceProviderService:Storage:AuthenticationType app configuration setting.
+        /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
+        /// </summary>
+        public const string FoundationaLLM_DataSource_ResourceProviderService_Storage_AuthenticationType = "FoundationaLLM:DataSource:ResourceProviderService:Storage:AuthenticationType";
+        /// <summary>
+        /// The key for the FoundationaLLM:DataSource:ResourceProviderService:Storage:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the data source resource provider.
+        /// </summary>
+        public const string FoundationaLLM_DataSource_ResourceProviderService_Storage_ConnectionString = "FoundationaLLM:DataSource:ResourceProviderService:Storage:ConnectionString";
+        /// <summary>
         /// The key for the FoundationaLLM:APIs:DataSourceHubAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>
@@ -860,6 +870,10 @@ namespace FoundationaLLM.Common.Constants
         /// The key filter for the FoundationaLLM:Events:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Events = "FoundationaLLM:Events:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:DataSource:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_DataSource = "FoundationaLLM:DataSource:*";
     }
 
     /// <summary>
@@ -995,6 +1009,11 @@ namespace FoundationaLLM.Common.Constants
         /// The key section for the FoundationaLLM:Configuration:ResourceProviderService:Storage app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Configuration_ResourceProviderService_Storage = "FoundationaLLM:Configuration:ResourceProviderService:Storage";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:DataSource:ResourceProviderService:Storage app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_DataSource_ResourceProviderService_Storage = "FoundationaLLM:DataSource:ResourceProviderService:Storage";
 
         #endregion
 
