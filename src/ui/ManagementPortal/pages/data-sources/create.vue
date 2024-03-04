@@ -32,6 +32,7 @@
 					v-model="sourceType"
 					:options="sourceTypeOptions"
 					option-label="label"
+					option-value="value"
 					placeholder="--Select--"
 					class="dropdown--agent"
 				/>
@@ -109,16 +110,20 @@ export default {
 
 			sourceTypeOptions: [
 				{
-					label: 'Blob Storage',
-					value: 1,
+					label: 'Basic',
+					value: 'basic'
 				},
 				{
-					label: 'SQL Server / SQL Database',
-					value: 2,
+					label: 'Azure Data Lake',
+					value: 'azure-data-lake',
+				},
+				{
+					label: 'Azure SQL Database',
+					value: 'azure-sql-database',
 				},
 				{
 					label: 'SharePoint List',
-					value: 3,
+					value: 'sharepoint-online-site',
 				},
 			],
 
