@@ -60,6 +60,26 @@ export type AgentDataSource = {
 	object_id: string;
 };
 
+export type DataSource = {
+	type: string;
+	name: string;
+	object_id: string;
+	description: string;
+	tables?: string[];
+	folders?: string[];
+	document_libraries?: string[];
+	configuration_references: {
+		AuthenticationType: string;
+		ConnectionString: string;
+		ClientId: string;
+		TenantId: string;
+		CertificateName: string;
+		KeyVaultUrl: string;
+		Endpoint: string;
+	};
+
+};
+
 export type AgentIndex = {
 	name: string;
 	object_id: string;

@@ -2,7 +2,7 @@
 
 import type {
 	Agent,
-	AgentDataSource,
+	DataSource,
 	AgentIndex,
 	AgentGatekeeper,
 	CreateAgentRequest,
@@ -69,103 +69,24 @@ export default {
 	},
 
 	// Data sources
-	async checkDataSourceName(name: string, type: string): Promise<CheckNameResponse> {
-		const payload = {
-			name,
-			type: type,
-		};
-
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/checkname?api-version=${this.apiVersion}`, {
-			method: 'POST',
-			body: payload,
-		});
-	},
-	
 	async getAgentDataSources(): Promise<DataSource[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources?api-version=${this.apiVersion}`) as DataSource[];
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources?api-version=${this.apiVersion}`);
+		return data.map((source) => ({ ...source, Formats: ['pdf', 'txt'] }));
 	},
 
-	async getDataSource(dataSourceId: string): Promise<DataSource> {
-		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/${dataSourceId}?api-version=${this.apiVersion}`);
-		let dataSource = data[0] as DataSource;
-		dataSource.resolved_configuration_references = {};
-		// Retrieve all the app config values for the data source.
-		const appConfigFilter = `FoundationaLLM:DataSources:${dataSource.name}:*`;
-		const appConfigs = await this.getAppConfigs(appConfigFilter);
-
-		// If set the resolved_configuration_references property on the data source with the app config values.
-		if (appConfigs) {
-			for (const appConfig of appConfigs) {
-				const propertyName = appConfig.name.split(':').pop();
-				dataSource.resolved_configuration_references[propertyName as string] = String(appConfig.value);
-			}
-		}
-		else {
-			for (const [configName, configValue] of Object.entries(dataSource.configuration_references)) {
-				const resolvedValue = await this.getAppConfig(dataSource.configuration_references[configName as keyof typeof dataSource.configuration_references]);
-				if (resolvedValue) {
-					dataSource.resolved_configuration_references[configName] = String(resolvedValue.value);
-				}
-				else {
-					dataSource.resolved_configuration_references[configName] = '';
-				}
-			}
-		}
-		dataSource = convertToDataSource(dataSource);
-		return dataSource;
+	async getDataSource(dataSourceId: string): Promise<DataSource[]> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${dataSourceId}?api-version=${this.apiVersion}`);
 	},
 
-	async upsertDataSource(request): Promise<any> {
-		const dataSource = convertToDataSource(request);
-		for (const [propertyName, propertyValue] of Object.entries(dataSource.resolved_configuration_references || {})) {
-			if (!propertyValue) {
-				continue;
-			}
-
-			const appConfigKey = `FoundationaLLM:DataSources:${dataSource.name}:${propertyName}`;
-			const keyVaultSecretName = `foundationallm-datasources-${dataSource.name}-${propertyName}`.toLowerCase();
-			const metadata = dataSource.configuration_reference_metadata?.[propertyName];
-
-			let keyVaultUri = await this.getAppConfig('FoundationaLLM:Configuration:KeyVaultURI');
-
-			let appConfig: AppConfigUnion = {
-				name: appConfigKey,
-				display_name: appConfigKey,
-				description: '',
-				key: appConfigKey,
-				value: propertyValue,
-			};
-
-			if (metadata && metadata.isKeyVaultBacked) {
-				appConfig = convertToAppConfigKeyVault({
-					...appConfig,
-					key_vault_uri: keyVaultUri.value,
-					key_vault_secret_name: keyVaultSecretName,
-				});
-			} else {
-				appConfig = convertToAppConfig(appConfig);
-			}
-	
-			await this.upsertAppConfig(appConfig);
-	
-			dataSource.configuration_references[propertyName] = appConfigKey;
-		}
-
-		// Remove any any configuration_references whose values are null or empty strings.
-		for (const [propertyName, propertyValue] of Object.entries(dataSource.configuration_references)) {
-			if (!propertyValue) {
-				delete dataSource.configuration_references[propertyName];
-			}
-		}
-	
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/${dataSource.name}?api-version=${this.apiVersion}`, {
+	async createDataSource(request): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${request.name}?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: request,
 		});
 	},
 
 	async deleteDataSource(dataSourceId: string): Promise<any> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/${dataSourceId}?api-version=${this.apiVersion}`, {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${dataSourceId}?api-version=${this.apiVersion}`, {
 			method: 'DELETE',
 		});
 	},
