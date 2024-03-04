@@ -5,9 +5,6 @@ param actionGroupId string
 @description('Administrator Object Id')
 param administratorObjectId string
 
-@description('Application Gateway resource group name')
-param agwResourceGroupName string
-
 @description('Chat UI OIDC Client Secret')
 @secure()
 param chatUiClientSecret string
@@ -71,8 +68,6 @@ var opsResourceSuffix = '${project}-${environmentName}-${location}-ops'
 @description('Storage resource suffix')
 var storageResourceSuffix = '${project}-${environmentName}-${location}-storage'
 
-var oidcDefault = false
-
 @description('Resource Suffix used in naming resources.')
 var resourceSuffix = '${project}-${environmentName}-${location}-${workload}'
 
@@ -110,16 +105,6 @@ var workload = 'svc'
 /** Outputs **/
 
 /** Nested Modules **/
-module agws 'modules/utility/agwData.bicep' = {
-  name: 'agws-${timestamp}'
-  scope: resourceGroup(agwResourceGroupName)
-  params: {
-    location: location
-    environmentName: environmentName
-    project: project
-  }
-}
-
 @description('Read DNS Zones')
 module dnsZones 'modules/utility/dnsZoneData.bicep' = {
   name: 'dnsZones-${timestamp}'
@@ -134,8 +119,6 @@ module aksBackend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
-    agw: first(filter(agws.outputs.applicationGateways, (agw) => agw.key == 'api'))
-    agwResourceGroupName: agwResourceGroupName
     dnsResourceGroupName: dnsResourceGroupName
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
@@ -154,8 +137,6 @@ module aksFrontend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
-    agw: first(filter(agws.outputs.applicationGateways, (agw) => agw.key == 'www'))
-    agwResourceGroupName: agwResourceGroupName
     dnsResourceGroupName: dnsResourceGroupName
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
