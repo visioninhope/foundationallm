@@ -775,17 +775,6 @@ namespace FoundationaLLM.Common.Constants
     }
 
     /// <summary>
-    /// Contains constants of the feature flags for app configuration settings.
-    /// </summary>
-    public static class AppConfigurationFeatureFlags
-    {
-        /// <summary>
-        /// This feature flag controls whether the User Portal UI allows users to select an agent hint.
-        /// </summary>
-        public const string FoundationaLLM_AllowAgentHint = "FoundationaLLM-AllowAgentHint";
-    }
-
-    /// <summary>
     /// Contains constants of the keys filters for app configuration setting namespaces.
     /// </summary>
     public static class AppConfigurationKeyFilters
@@ -874,6 +863,9 @@ namespace FoundationaLLM.Common.Constants
         /// The key filter for the FoundationaLLM:DataSource:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_DataSource = "FoundationaLLM:DataSource:*";
+        /// The key filter for the FoundationaLLM:AzureOpenAI:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI = "FoundationaLLM:AzureOpenAI:*";
     }
 
     /// <summary>

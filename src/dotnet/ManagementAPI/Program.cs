@@ -81,7 +81,7 @@ namespace FoundationaLLM.Management.API
                     {
                         policy.AllowAnyOrigin();
                         policy.WithHeaders("DNT", "Keep-Alive", "User-Agent", "X-Requested-With", "If-Modified-Since",
-                            "Cache-Control", "Content-Type", "Range", "Authorization", "X-AGENT-HINT");
+                            "Cache-Control", "Content-Type", "Range", "Authorization");
                         policy.AllowAnyMethod();
                     });
             });
