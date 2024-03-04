@@ -2,7 +2,7 @@
 
 import type {
 	Agent,
-	AgentDataSource,
+	DataSource,
 	AgentIndex,
 	AgentGatekeeper,
 	CreateAgentRequest,
@@ -69,24 +69,24 @@ export default {
 	},
 
 	// Data sources
-	async getAgentDataSources(): Promise<AgentDataSource[]> {
-		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles?api-version=${this.apiVersion}`);
+	async getAgentDataSources(): Promise<DataSource[]> {
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources?api-version=${this.apiVersion}`);
 		return data.map((source) => ({ ...source, Formats: ['pdf', 'txt'] }));
 	},
 
-	async getDataSource(dataSourceId: string): Promise<AgentDataSource[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/${dataSourceId}?api-version=${this.apiVersion}`);
+	async getDataSource(dataSourceId: string): Promise<DataSource[]> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${dataSourceId}?api-version=${this.apiVersion}`);
 	},
 
 	async createDataSource(request): Promise<any> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/${request.name}?api-version=${this.apiVersion}`, {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${request.name}?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: request,
 		});
 	},
 
 	async deleteDataSource(dataSourceId: string): Promise<any> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/${dataSourceId}?api-version=${this.apiVersion}`, {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${dataSourceId}?api-version=${this.apiVersion}`, {
 			method: 'DELETE',
 		});
 	},
