@@ -50,25 +50,45 @@ export type AgentDataSource = {
 	object_id: string;
 };
 
-export type DataSource = {
+// Data sources
+
+interface DataSource {
 	type: string;
 	name: string;
 	object_id: string;
 	description: string;
-	tables?: string[];
+	configuration_references: { [key: string]: string };
+};
+
+interface AzureDataLakeDataSource extends DataSource {
 	folders?: string[];
+	configuration_references: {
+	  AuthenticationType: string;
+	  ConnectionString: string;
+	  APIKey: string;
+	  Endpoint: string;
+	};
+};
+
+interface SharePointOnlineSiteDataSource extends DataSource {
+	site_url?: string;
 	document_libraries?: string[];
 	configuration_references: {
-		AuthenticationType: string;
-		ConnectionString: string;
-		ClientId: string;
-		TenantId: string;
-		CertificateName: string;
-		KeyVaultUrl: string;
-		Endpoint: string;
+	  ClientId: string;
+	  TenantId: string;
+	  CertificateName: string;
+	  KeyVaultURL: string;
 	};
-
 };
+
+interface AzureSQLDatabaseDataSource extends DataSource {
+	tables?: string[];
+	configuration_references: {
+	  ConnectionString: string;
+	};
+};
+
+// End data sources
 
 export type AgentIndex = {
 	name: string;
@@ -202,3 +222,18 @@ export type CreateTextPartitioningProfileRequest = {
 		OverlapSizeTokens: string;
 	};
 };
+
+// Type guards
+
+export function isAzureDataLakeDataSource(dataSource: any): dataSource is AzureDataLakeDataSource {
+	return dataSource.type === 'azure-data-lake';
+}
+  
+export function isSharePointOnlineSiteDataSource(dataSource: any): dataSource is SharePointOnlineSiteDataSource {
+	return dataSource.type === 'sharepoint-online-site';
+}
+  
+export function isAzureSQLDatabaseDataSource(dataSource: any): dataSource is AzureSQLDatabaseDataSource {
+	return dataSource.type === 'azure-sql-database';
+}
+  
