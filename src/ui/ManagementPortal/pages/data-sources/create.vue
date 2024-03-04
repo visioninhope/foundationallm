@@ -58,22 +58,72 @@
 			</div>
 
 			<!-- Connection details -->
-			<div class="step-header span-2">What are the connection details?</div>
-			<div class="span-2">
-				<div class="mb-2">Authentication type:</div>
-				<Dropdown
-					v-model="authenticationType"
-					:options="authenticationTypeOptions"
-					option-label="label"
-					placeholder="--Select--"
-					class="dropdown--agent"
-				/>
-			</div>
+			<!-- Show this section only if a source type is selected -->
+			<div v-if="sourceType" class="span-2">
+				<div class="step-header mb-2">What are the connection details?</div>
+				
+				<div v-if="sourceType === 'azure-data-lake'">
+					<div class="mb-2">Authentication type:</div>
+					<Dropdown
+						v-model="authenticationType"
+						:options="authenticationTypeOptions"
+						option-label="label"
+						option-value="value"
+						placeholder="--Select--"
+						class="dropdown--agent"
+					/>
+					
+					<!-- Connection string -->
+					<div v-if="authenticationType === 'ConnectionString'" class="span-2">
+						<div class="mb-2 mt-2">Connection string:</div>
+						<Textarea v-model="connectionString" class="w-100" auto-resize rows="5" type="text" />
+					</div>
+					
+					<!-- API Key -->
+					<div v-if="authenticationType === 'AccountKey'" class="span-2">
+						<div class="mb-2 mt-2">API Key:</div>
+						<InputText v-model="apiKey" class="w-100" type="text" />
+						<div class="mb-2 mt-2">Endpoint:</div>
+						<InputText v-model="endpoint" class="w-100" type="text" />
+					</div>
 
-			<!-- Connection string -->
-			<div class="span-2">
-				<div class="mb-2">Connection string:</div>
-				<Textarea v-model="connectionString" class="w-100" auto-resize rows="5" type="text" />
+					<div class="mb-2 mt-2">Folder(s):</div>
+					<InputText v-model="folders" class="w-100" type="text" />
+
+				</div>
+
+				<div v-if="sourceType === 'azure-sql-database'">
+					<!-- Connection string -->
+					<div class="span-2">
+						<div class="mb-2">Connection string:</div>
+						<Textarea v-model="connectionString" class="w-100" auto-resize rows="5" type="text" />
+						<div class="mb-2 mt-2">Table Name(s):</div>
+						<InputText v-model="tables" class="w-100" type="text" />
+					</div>
+				</div>
+
+				<div v-if="sourceType === 'sharepoint-online-site'">
+					<div class="span-2">
+						<div class="mb-2">App ID (Client ID):</div>
+						<InputText v-model="clientId" class="w-100" type="text" />
+
+						<div class="mb-2 mt-2">Tenant ID:</div>
+						<InputText v-model="tenantId" class="w-100" type="text" />
+
+						<div class="mb-2 mt-2">Certificate Name:</div>
+						<InputText v-model="certificateName" class="w-100" type="text" />
+
+						<div class="mb-2 mt-2">Key Vault URL:</div>
+						<InputText v-model="keyVaultUrl" class="w-100" type="text" />
+
+						<div class="mb-2 mt-2">Site URL:</div>
+						<InputText v-model="site_url" class="w-100" type="text" />
+
+						<div class="mb-2 mt-2">Document Library(s):</div>
+						<InputText v-model="document_libraries" class="w-100" type="text" />
+					</div>
+				</div>
+				
 			</div>
 
 			<!-- Buttons -->
@@ -102,11 +152,13 @@
 import type { PropType } from 'vue';
 import { debounce } from 'lodash';
 import api from '@/js/api';
+import type { DataSource, AzureDataLakeDataSource, SharePointOnlineSiteDataSource, AzureSQLDatabaseDataSource } from '@/js/types';
+import { isAzureDataLakeDataSource, isSharePointOnlineSiteDataSource, isAzureSQLDatabaseDataSource } from '@/js/types';
 
 const defaultFormValues = {
 	sourceName: '',
 	sourceType: null,
-	authenticationType: 1,
+	authenticationType: 'ConnectionString',
 	connectionString: '',
 };
 
@@ -160,10 +212,10 @@ export default {
 			} as null | DataSource,
 
 			sourceTypeOptions: [
-				{
-					label: 'Basic',
-					value: 'basic'
-				},
+				// {
+				// 	label: 'Basic',
+				// 	value: 'basic'
+				// },
 				{
 					label: 'Azure Data Lake',
 					value: 'azure-data-lake',
@@ -181,7 +233,15 @@ export default {
 			authenticationTypeOptions: [
 				{
 					label: 'Connection String',
-					value: 1,
+					value: 'ConnectionString',
+				},
+				{
+					label: 'Account Key',
+					value: 'AccountKey',
+				},
+				{
+					label: 'Azure Identity',
+					value: 'AzureIdentity',
 				},
 			],
 		};
@@ -206,55 +266,35 @@ export default {
 	},
 
 	methods: {
-		isAzureDataLakeDataSource,
-		isSharePointOnlineSiteDataSource,
-		isAzureSQLDatabaseDataSource,
-		convertToDataSource,
-
-		initializeShowSecret() {
-			const uniqueIdentifier = this.dataSource.type; // Or any other unique property
-			for (const key in this.dataSource.configuration_references) {
-				const uniqueKey = `${uniqueIdentifier}_${key}`;
-
-				// Determine the initial visibility based on whether a resolved value exists.
-				// If a resolved value exists and is not an empty string, it defaults to being hidden (false).
-				// If no resolved value exists (undefined or empty string), the field should be shown to allow input (true).
-				const resolvedValue = this.dataSource.resolved_configuration_references[key];
-				this.showSecret[uniqueKey] = !resolvedValue;
+		mapDataSourceToForm(dataSource: any) {
+			console.log(dataSource);
+			this.sourceName = dataSource.name;
+			this.sourceType = dataSource.type;
+			
+			if (isAzureDataLakeDataSource(dataSource)) {
+				const azureDataLakeDataSource = dataSource as AzureDataLakeDataSource;
+				this.folders = azureDataLakeDataSource.folders;
+				this.connectionString = azureDataLakeDataSource.configuration_references?.ConnectionString;
+				this.apiKey = azureDataLakeDataSource.configuration_references?.APIKey;
+				this.endpoint = azureDataLakeDataSource.configuration_references?.Endpoint;
+			} else if (isSharePointOnlineSiteDataSource(dataSource)) {
+				const sharePointOnlineSiteDataSource = dataSource as SharePointOnlineSiteDataSource;
+				this.site_url = sharePointOnlineSiteDataSource.site_url;
+				this.document_libraries = sharePointOnlineSiteDataSource.document_libraries;
+				this.clientId = sharePointOnlineSiteDataSource.configuration_references?.ClientId;
+				this.tenantId = sharePointOnlineSiteDataSource.configuration_references?.TenantId;
+				this.certificateName = sharePointOnlineSiteDataSource.configuration_references?.CertificateName;
+				this.keyVaultUrl = sharePointOnlineSiteDataSource.configuration_references?.KeyVaultURL;
+			} else if (isAzureSQLDatabaseDataSource(dataSource)) {
+				const azureSQLDatabaseDataSource = dataSource as AzureSQLDatabaseDataSource;
+				this.tables = azureSQLDatabaseDataSource.tables;
+				this.connectionString = azureSQLDatabaseDataSource.configuration_references?.ConnectionString;
 			}
 		},
 
-		async checkName() {
-			try {
-				const response = await api.checkDataSourceName(this.dataSource.name, this.dataSource.type);
-
-				// Handle response based on the status
-				if (response.status === 'Allowed') {
-					// Name is available
-					this.nameValidationStatus = 'valid';
-					this.validationMessage = null;
-				} else if (response.status === 'Denied') {
-					// Name is taken
-					this.nameValidationStatus = 'invalid';
-					this.validationMessage = response.message;
-				}
-			} catch (error) {
-				console.error("Error checking agent name: ", error);
-				this.nameValidationStatus = 'invalid';
-				this.validationMessage = 'Error checking the agent name. Please try again.';
-			}
-		},
-		
-		toggleSecretVisibility(key) {
-			const uniqueKey = `${this.dataSource.type}_${key}`;
-			// Directly toggle the visibility.
-			if (this.showSecret[uniqueKey] === undefined) {
-				this.showSecret[uniqueKey] = !this.dataSource.resolved_configuration_references[key];
-			} else {
-				this.showSecret[uniqueKey] = !this.showSecret[uniqueKey];
-			}
-			if (this.showSecret[uniqueKey] && !this.dataSource.resolved_configuration_references[key]) {
-				this.showSecret[uniqueKey] = true;
+		resetForm() {
+			for (const key in defaultFormValues) {
+				this[key] = defaultFormValues[key];
 			}
 		},
 

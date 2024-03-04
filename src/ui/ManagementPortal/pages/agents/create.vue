@@ -826,10 +826,10 @@ export default {
 
 				if (this.editAgent) {
 					await api.updateAgent(this.editAgent, agentRequest);
-					successMessage = `Agent "${this.agentName}" was succesfully updated!`;
+					successMessage = `Agent "${this.agentName}" was successfully updated!`;
 				} else {
 					await api.createAgent(agentRequest);
-					successMessage = `Agent "${this.agentName}" was succesfully created!`;
+					successMessage = `Agent "${this.agentName}" was successfully created!`;
 					this.resetForm();
 				}
 			} catch (error) {
