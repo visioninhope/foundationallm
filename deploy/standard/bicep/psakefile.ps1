@@ -16,7 +16,6 @@ $script:k8sNamespace=$manifest.k8sNamespace
 $script:managementApiClientSecret="MGMT-API-CLIENT-SECRET"
 $script:managementUiClientSecret="MGMT-CLIENT-SECRET"
 $script:vectorizationApiClientSecret="VEC-API-CLIENT-SECRET"
-$skipAgw = $true
 $skipApp = $false
 $skipDns = $false
 $skipNetworking = $false
@@ -42,7 +41,7 @@ $resourceGroups.PSObject.Properties | ForEach-Object {
     $deployments.Add($_.Name, "$($_.Value)-${timestamp}")
 }
 
-task default -depends Agw, Storage, App, DNS, Networking, OpenAI, Ops, ResourceGroups, Vec
+task default -depends Storage, App, DNS, Networking, OpenAI, Ops, ResourceGroups, Vec
 
 task Clean {
     Write-Host -ForegroundColor Blue "Deleting all resource groups..."
@@ -69,34 +68,7 @@ Check the Azure Portal for status.
     Write-Host -ForegroundColor Blue $deleteMessage
 }
 
-task Agw -depends ResourceGroups, Ops, Networking {
-    if ($skipAgw -eq $true) {
-        Write-Host -ForegroundColor Yellow "Skipping agw creation."
-        return;
-    }
-
-    Write-Host -ForegroundColor Blue "Ensure agw resources exist"
-
-    az deployment group create `
-        --name $deployments["agw"] `
-        --resource-group $resourceGroups.agw `
-        --template-file ./agw-rg.bicep `
-        --parameters `
-            actionGroupId=$script:actionGroupId `
-            environmentName=$environment `
-            location=$location `
-            logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-            networkingResourceGroupName="$($resourceGroups.net)" `
-            opsResourceGroupName="$($resourceGroups.ops)" `
-            project=$project `
-            vnetId=$script:vnetId
-
-    if ($LASTEXITCODE -ne 0) {
-        throw "The agw deployment failed."
-    }
-}
-
-task App -depends Agw, ResourceGroups, Ops, Networking, DNS {
+task App -depends ResourceGroups, Ops, Networking, DNS {
     if ($skipApp -eq $true) {
         Write-Host -ForegroundColor Yellow "Skipping app creation."
         return;
@@ -109,7 +81,6 @@ task App -depends Agw, ResourceGroups, Ops, Networking, DNS {
                         --template-file ./app-rg.bicep `
                         --parameters actionGroupId=$script:actionGroupId `
                                     administratorObjectId=$administratorObjectId `
-                                    agwResourceGroupName=$($resourceGroups.agw) `
                                     chatUiClientSecret=$script:chatUiClientSecret `
                                     coreApiClientSecret=$script:coreApiClientSecret `
                                     dnsResourceGroupName=$($resourceGroups.dns) `
