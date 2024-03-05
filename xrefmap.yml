@@ -297,6 +297,31 @@ references:
   fullName.vb: FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.New
   nameWithType: AgentBaseValidator.AgentBaseValidator
   nameWithType.vb: AgentBaseValidator.New
+- uid: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator
+  name: InternalContextAgentValidator
+  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.html
+  commentId: T:FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator
+  fullName: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator
+  nameWithType: InternalContextAgentValidator
+- uid: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.#ctor
+  name: InternalContextAgentValidator()
+  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.html#FoundationaLLM_Agent_Validation_Metadata_InternalContextAgentValidator__ctor
+  commentId: M:FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.InternalContextAgentValidator()
+  fullName.vb: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.New()
+  nameWithType: InternalContextAgentValidator.InternalContextAgentValidator()
+  nameWithType.vb: InternalContextAgentValidator.New()
+- uid: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.#ctor*
+  name: InternalContextAgentValidator
+  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.html#FoundationaLLM_Agent_Validation_Metadata_InternalContextAgentValidator__ctor_
+  commentId: Overload:FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.InternalContextAgentValidator
+  fullName.vb: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.New
+  nameWithType: InternalContextAgentValidator.InternalContextAgentValidator
+  nameWithType.vb: InternalContextAgentValidator.New
 - uid: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator
   name: KnowledgeManagementAgentValidator
   href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.html
