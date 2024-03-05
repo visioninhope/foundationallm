@@ -185,7 +185,7 @@ namespace FoundationaLLM.Core.API
             var app = builder.Build();
 
             // Set the CORS policy before other middleware.
-            app.UseCors("AllowAllOrigins");
+            app.UseCors(CorsPolicyNames.AllowAllOrigins);
 
             // For the CoreAPI, we need to make sure that UseAuthentication is called before the UserIdentityMiddleware.
             app.UseAuthentication();

@@ -23,7 +23,7 @@ namespace FoundationaLLM
         public static void AddCorsPolicies(this IHostApplicationBuilder builder) =>
             builder.Services.AddCors(policyBuilder =>
                 {
-                    policyBuilder.AddPolicy("AllowAllOrigins",
+                    policyBuilder.AddPolicy(CorsPolicyNames.AllowAllOrigins,
                         policy =>
                         {
                             policy.AllowAnyOrigin();
