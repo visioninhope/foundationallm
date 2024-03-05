@@ -994,16 +994,6 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> CoreAPI =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_CallbackPath,
-                minimumVersion: "0.3.0",
-                defaultValue: "/signin-oidc",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
                 key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
