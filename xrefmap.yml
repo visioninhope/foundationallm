@@ -1309,12 +1309,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_Branding
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_Branding
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Branding
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_CognitiveSearchMemorySource
-  name: FoundationaLLM_CognitiveSearchMemorySource
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_AppConfigurationKeyFilters_FoundationaLLM_CognitiveSearchMemorySource
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_CognitiveSearchMemorySource
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_CognitiveSearchMemorySource
-  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_CognitiveSearchMemorySource
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_Configuration
   name: FoundationaLLM_Configuration
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_AppConfigurationKeyFilters_FoundationaLLM_Configuration
@@ -1345,12 +1339,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_DataSource
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_DataSource
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_DataSource
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_DurableSystemPrompt
-  name: FoundationaLLM_DurableSystemPrompt
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_AppConfigurationKeyFilters_FoundationaLLM_DurableSystemPrompt
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_DurableSystemPrompt
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_DurableSystemPrompt
-  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_DurableSystemPrompt
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.FoundationaLLM_Events
   name: FoundationaLLM_Events
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_AppConfigurationKeyFilters_FoundationaLLM_Events
@@ -1483,12 +1471,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Branding
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Branding
   nameWithType: AppConfigurationKeySections.FoundationaLLM_Branding
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource
-  name: FoundationaLLM_CognitiveSearchMemorySource
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_CognitiveSearchMemorySource
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource
-  nameWithType: AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Configuration_ResourceProviderService_Storage
   name: FoundationaLLM_Configuration_ResourceProviderService_Storage
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Configuration_ResourceProviderService_Storage
@@ -1507,12 +1489,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_DataSource_ResourceProviderService_Storage
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_DataSource_ResourceProviderService_Storage
   nameWithType: AppConfigurationKeySections.FoundationaLLM_DataSource_ResourceProviderService_Storage
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_DurableSystemPrompt
-  name: FoundationaLLM_DurableSystemPrompt
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_DurableSystemPrompt
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_DurableSystemPrompt
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_DurableSystemPrompt
-  nameWithType: AppConfigurationKeySections.FoundationaLLM_DurableSystemPrompt
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService
   name: FoundationaLLM_Events_AzureEventGridEventService
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_AppConfigurationKeySections_FoundationaLLM_Events_AzureEventGridEventService
@@ -2125,66 +2101,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Chat_Entra_TenantId
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Chat_Entra_TenantId
   nameWithType: AppConfigurationKeys.FoundationaLLM_Chat_Entra_TenantId
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_BlobStorageConnection
-  name: FoundationaLLM_CognitiveSearchMemorySource_BlobStorageConnection
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_CognitiveSearchMemorySource_BlobStorageConnection
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_BlobStorageConnection
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_BlobStorageConnection
-  nameWithType: AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_BlobStorageConnection
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_BlobStorageContainer
-  name: FoundationaLLM_CognitiveSearchMemorySource_BlobStorageContainer
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_CognitiveSearchMemorySource_BlobStorageContainer
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_BlobStorageContainer
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_BlobStorageContainer
-  nameWithType: AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_BlobStorageContainer
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_ConfigFilePath
-  name: FoundationaLLM_CognitiveSearchMemorySource_ConfigFilePath
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_CognitiveSearchMemorySource_ConfigFilePath
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_ConfigFilePath
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_ConfigFilePath
-  nameWithType: AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_ConfigFilePath
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_EndPoint
-  name: FoundationaLLM_CognitiveSearchMemorySource_EndPoint
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_CognitiveSearchMemorySource_EndPoint
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_EndPoint
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_EndPoint
-  nameWithType: AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_EndPoint
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_IndexName
-  name: FoundationaLLM_CognitiveSearchMemorySource_IndexName
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_CognitiveSearchMemorySource_IndexName
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_IndexName
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_IndexName
-  nameWithType: AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_IndexName
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_Key
-  name: FoundationaLLM_CognitiveSearchMemorySource_Key
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_CognitiveSearchMemorySource_Key
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_Key
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_Key
-  nameWithType: AppConfigurationKeys.FoundationaLLM_CognitiveSearchMemorySource_Key
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_EndPoint
-  name: FoundationaLLM_CognitiveSearch_EndPoint
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_CognitiveSearch_EndPoint
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_EndPoint
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_EndPoint
-  nameWithType: AppConfigurationKeys.FoundationaLLM_CognitiveSearch_EndPoint
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_IndexName
-  name: FoundationaLLM_CognitiveSearch_IndexName
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_CognitiveSearch_IndexName
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_IndexName
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_IndexName
-  nameWithType: AppConfigurationKeys.FoundationaLLM_CognitiveSearch_IndexName
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_Key
-  name: FoundationaLLM_CognitiveSearch_Key
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_CognitiveSearch_Key
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_Key
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_Key
-  nameWithType: AppConfigurationKeys.FoundationaLLM_CognitiveSearch_Key
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_MaxVectorSearchResults
-  name: FoundationaLLM_CognitiveSearch_MaxVectorSearchResults
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_CognitiveSearch_MaxVectorSearchResults
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_MaxVectorSearchResults
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_CognitiveSearch_MaxVectorSearchResults
-  nameWithType: AppConfigurationKeys.FoundationaLLM_CognitiveSearch_MaxVectorSearchResults
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Configuration_KeyVaultURI
   name: FoundationaLLM_Configuration_KeyVaultURI
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_Configuration_KeyVaultURI
@@ -2305,18 +2221,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_DataSources_AboutFoundationaLLM_BlobStorage_ConnectionString
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_DataSources_AboutFoundationaLLM_BlobStorage_ConnectionString
   nameWithType: AppConfigurationKeys.FoundationaLLM_DataSources_AboutFoundationaLLM_BlobStorage_ConnectionString
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-  name: FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-  nameWithType: AppConfigurationKeys.FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_DurableSystemPrompt_BlobStorageContainer
-  name: FoundationaLLM_DurableSystemPrompt_BlobStorageContainer
-  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_DurableSystemPrompt_BlobStorageContainer
-  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_DurableSystemPrompt_BlobStorageContainer
-  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_DurableSystemPrompt_BlobStorageContainer
-  nameWithType: AppConfigurationKeys.FoundationaLLM_DurableSystemPrompt_BlobStorageContainer
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_APIKey
   name: FoundationaLLM_Events_AzureEventGridEventService_APIKey
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_Events_AzureEventGridEventService_APIKey
@@ -3127,24 +3031,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_Chat_Entra_ClientSecret
   fullName: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_Chat_Entra_ClientSecret
   nameWithType: KeyVaultSecretNames.FoundationaLLM_Chat_Entra_ClientSecret
-- uid: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearchMemorySource_Blobstorageconnection
-  name: FoundationaLLM_CognitiveSearchMemorySource_Blobstorageconnection
-  href: api/dotnet/FoundationaLLM.Common.Constants.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_KeyVaultSecretNames_FoundationaLLM_CognitiveSearchMemorySource_Blobstorageconnection
-  commentId: F:FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearchMemorySource_Blobstorageconnection
-  fullName: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearchMemorySource_Blobstorageconnection
-  nameWithType: KeyVaultSecretNames.FoundationaLLM_CognitiveSearchMemorySource_Blobstorageconnection
-- uid: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearchMemorySource_Key
-  name: FoundationaLLM_CognitiveSearchMemorySource_Key
-  href: api/dotnet/FoundationaLLM.Common.Constants.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_KeyVaultSecretNames_FoundationaLLM_CognitiveSearchMemorySource_Key
-  commentId: F:FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearchMemorySource_Key
-  fullName: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearchMemorySource_Key
-  nameWithType: KeyVaultSecretNames.FoundationaLLM_CognitiveSearchMemorySource_Key
-- uid: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearch_Key
-  name: FoundationaLLM_CognitiveSearch_Key
-  href: api/dotnet/FoundationaLLM.Common.Constants.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_KeyVaultSecretNames_FoundationaLLM_CognitiveSearch_Key
-  commentId: F:FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearch_Key
-  fullName: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_CognitiveSearch_Key
-  nameWithType: KeyVaultSecretNames.FoundationaLLM_CognitiveSearch_Key
 - uid: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_Coreapi_Entra_ClientSecret
   name: FoundationaLLM_Coreapi_Entra_ClientSecret
   href: api/dotnet/FoundationaLLM.Common.Constants.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_KeyVaultSecretNames_FoundationaLLM_Coreapi_Entra_ClientSecret
@@ -3169,12 +3055,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_DataSource_ResourceProvider_Storage_ConnectionString
   fullName: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_DataSource_ResourceProvider_Storage_ConnectionString
   nameWithType: KeyVaultSecretNames.FoundationaLLM_DataSource_ResourceProvider_Storage_ConnectionString
-- uid: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-  name: FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-  href: api/dotnet/FoundationaLLM.Common.Constants.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_KeyVaultSecretNames_FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-  commentId: F:FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-  fullName: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
-  nameWithType: KeyVaultSecretNames.FoundationaLLM_DurableSystemPrompt_BlobStorageConnection
 - uid: FoundationaLLM.Common.Constants.KeyVaultSecretNames.FoundationaLLM_Events_AzureEventGrid_APIKey
   name: FoundationaLLM_Events_AzureEventGrid_APIKey
   href: api/dotnet/FoundationaLLM.Common.Constants.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_KeyVaultSecretNames_FoundationaLLM_Events_AzureEventGrid_APIKey
@@ -14206,18 +14086,6 @@ references:
   commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Branding
   fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Branding
   nameWithType: AppConfigurationCatalog.Branding
-- uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.CognitiveSearch
-  name: CognitiveSearch
-  href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_CognitiveSearch
-  commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.CognitiveSearch
-  fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.CognitiveSearch
-  nameWithType: AppConfigurationCatalog.CognitiveSearch
-- uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.CognitiveSearchMemorySource
-  name: CognitiveSearchMemorySource
-  href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_CognitiveSearchMemorySource
-  commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.CognitiveSearchMemorySource
-  fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.CognitiveSearchMemorySource
-  nameWithType: AppConfigurationCatalog.CognitiveSearchMemorySource
 - uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Configuration
   name: Configuration
   href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_Configuration
@@ -14254,12 +14122,6 @@ references:
   commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.DataSourceHub
   fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.DataSourceHub
   nameWithType: AppConfigurationCatalog.DataSourceHub
-- uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.DurableSystemPrompt
-  name: DurableSystemPrompt
-  href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_DurableSystemPrompt
-  commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.DurableSystemPrompt
-  fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.DurableSystemPrompt
-  nameWithType: AppConfigurationCatalog.DurableSystemPrompt
 - uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Event
   name: Event
   href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_Event
@@ -15560,82 +15422,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.RemoveMemory
   nameWithType: IGatekeeperAPIService.RemoveMemory
-- uid: FoundationaLLM.Core.Interfaces.IOpenAiService
-  name: IOpenAiService
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IOpenAiService.html
-  commentId: T:FoundationaLLM.Core.Interfaces.IOpenAiService
-  fullName: FoundationaLLM.Core.Interfaces.IOpenAiService
-  nameWithType: IOpenAiService
-- uid: FoundationaLLM.Core.Interfaces.IOpenAiService.GetChatCompletionAsync(System.String,System.String,System.String)
-  name: GetChatCompletionAsync(string, string, string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IOpenAiService.html#FoundationaLLM_Core_Interfaces_IOpenAiService_GetChatCompletionAsync_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.IOpenAiService.GetChatCompletionAsync(System.String,System.String,System.String)
-  name.vb: GetChatCompletionAsync(String, String, String)
-  fullName: FoundationaLLM.Core.Interfaces.IOpenAiService.GetChatCompletionAsync(string, string, string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.IOpenAiService.GetChatCompletionAsync(String, String, String)
-  nameWithType: IOpenAiService.GetChatCompletionAsync(string, string, string)
-  nameWithType.vb: IOpenAiService.GetChatCompletionAsync(String, String, String)
-- uid: FoundationaLLM.Core.Interfaces.IOpenAiService.GetChatCompletionAsync*
-  name: GetChatCompletionAsync
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IOpenAiService.html#FoundationaLLM_Core_Interfaces_IOpenAiService_GetChatCompletionAsync_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.IOpenAiService.GetChatCompletionAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.IOpenAiService.GetChatCompletionAsync
-  nameWithType: IOpenAiService.GetChatCompletionAsync
-- uid: FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync(System.Object)
-  name: GetEmbeddingsAsync(dynamic)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IOpenAiService.html#FoundationaLLM_Core_Interfaces_IOpenAiService_GetEmbeddingsAsync_System_Object_
-  commentId: M:FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync(System.Object)
-  name.vb: GetEmbeddingsAsync(Object)
-  fullName: FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync(dynamic)
-  fullName.vb: FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync(Object)
-  nameWithType: IOpenAiService.GetEmbeddingsAsync(dynamic)
-  nameWithType.vb: IOpenAiService.GetEmbeddingsAsync(Object)
-- uid: FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync(System.Object,System.String)
-  name: GetEmbeddingsAsync(dynamic, string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IOpenAiService.html#FoundationaLLM_Core_Interfaces_IOpenAiService_GetEmbeddingsAsync_System_Object_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync(System.Object,System.String)
-  name.vb: GetEmbeddingsAsync(Object, String)
-  fullName: FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync(dynamic, string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync(Object, String)
-  nameWithType: IOpenAiService.GetEmbeddingsAsync(dynamic, string)
-  nameWithType.vb: IOpenAiService.GetEmbeddingsAsync(Object, String)
-- uid: FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync*
-  name: GetEmbeddingsAsync
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IOpenAiService.html#FoundationaLLM_Core_Interfaces_IOpenAiService_GetEmbeddingsAsync_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.IOpenAiService.GetEmbeddingsAsync
-  nameWithType: IOpenAiService.GetEmbeddingsAsync
-- uid: FoundationaLLM.Core.Interfaces.IOpenAiService.MaxConversationBytes
-  name: MaxConversationBytes
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IOpenAiService.html#FoundationaLLM_Core_Interfaces_IOpenAiService_MaxConversationBytes
-  commentId: P:FoundationaLLM.Core.Interfaces.IOpenAiService.MaxConversationBytes
-  fullName: FoundationaLLM.Core.Interfaces.IOpenAiService.MaxConversationBytes
-  nameWithType: IOpenAiService.MaxConversationBytes
-- uid: FoundationaLLM.Core.Interfaces.IOpenAiService.MaxConversationBytes*
-  name: MaxConversationBytes
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IOpenAiService.html#FoundationaLLM_Core_Interfaces_IOpenAiService_MaxConversationBytes_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.IOpenAiService.MaxConversationBytes
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.IOpenAiService.MaxConversationBytes
-  nameWithType: IOpenAiService.MaxConversationBytes
-- uid: FoundationaLLM.Core.Interfaces.IOpenAiService.SummarizeAsync(System.String,System.String)
-  name: SummarizeAsync(string, string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IOpenAiService.html#FoundationaLLM_Core_Interfaces_IOpenAiService_SummarizeAsync_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.IOpenAiService.SummarizeAsync(System.String,System.String)
-  name.vb: SummarizeAsync(String, String)
-  fullName: FoundationaLLM.Core.Interfaces.IOpenAiService.SummarizeAsync(string, string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.IOpenAiService.SummarizeAsync(String, String)
-  nameWithType: IOpenAiService.SummarizeAsync(string, string)
-  nameWithType.vb: IOpenAiService.SummarizeAsync(String, String)
-- uid: FoundationaLLM.Core.Interfaces.IOpenAiService.SummarizeAsync*
-  name: SummarizeAsync
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IOpenAiService.html#FoundationaLLM_Core_Interfaces_IOpenAiService_SummarizeAsync_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.IOpenAiService.SummarizeAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.IOpenAiService.SummarizeAsync
-  nameWithType: IOpenAiService.SummarizeAsync
 - uid: FoundationaLLM.Core.Interfaces.IUserProfileService
   name: IUserProfileService
   href: api/dotnet/FoundationaLLM.Core.Interfaces.IUserProfileService.html
@@ -15684,82 +15470,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.IUserProfileService.UpsertUserProfileAsync
   nameWithType: IUserProfileService.UpsertUserProfileAsync
-- uid: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement
-  name: IVectorDatabaseServiceManagement
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.html
-  commentId: T:FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement
-  fullName: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement
-  nameWithType: IVectorDatabaseServiceManagement
-- uid: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.DeleteVector(System.Object)
-  name: DeleteVector(object)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.html#FoundationaLLM_Core_Interfaces_IVectorDatabaseServiceManagement_DeleteVector_System_Object_
-  commentId: M:FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.DeleteVector(System.Object)
-  name.vb: DeleteVector(Object)
-  fullName: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.DeleteVector(object)
-  fullName.vb: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.DeleteVector(Object)
-  nameWithType: IVectorDatabaseServiceManagement.DeleteVector(object)
-  nameWithType.vb: IVectorDatabaseServiceManagement.DeleteVector(Object)
-- uid: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.DeleteVector*
-  name: DeleteVector
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.html#FoundationaLLM_Core_Interfaces_IVectorDatabaseServiceManagement_DeleteVector_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.DeleteVector
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.DeleteVector
-  nameWithType: IVectorDatabaseServiceManagement.DeleteVector
-- uid: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVector(System.Object)
-  name: InsertVector(object)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.html#FoundationaLLM_Core_Interfaces_IVectorDatabaseServiceManagement_InsertVector_System_Object_
-  commentId: M:FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVector(System.Object)
-  name.vb: InsertVector(Object)
-  fullName: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVector(object)
-  fullName.vb: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVector(Object)
-  nameWithType: IVectorDatabaseServiceManagement.InsertVector(object)
-  nameWithType.vb: IVectorDatabaseServiceManagement.InsertVector(Object)
-- uid: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVector*
-  name: InsertVector
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.html#FoundationaLLM_Core_Interfaces_IVectorDatabaseServiceManagement_InsertVector_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVector
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVector
-  nameWithType: IVectorDatabaseServiceManagement.InsertVector
-- uid: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVectors(System.Collections.Generic.IEnumerable{System.Object})
-  name: InsertVectors(IEnumerable<object>)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.html#FoundationaLLM_Core_Interfaces_IVectorDatabaseServiceManagement_InsertVectors_System_Collections_Generic_IEnumerable_System_Object__
-  commentId: M:FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVectors(System.Collections.Generic.IEnumerable{System.Object})
-  name.vb: InsertVectors(IEnumerable(Of Object))
-  fullName: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVectors(System.Collections.Generic.IEnumerable<object>)
-  fullName.vb: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVectors(System.Collections.Generic.IEnumerable(Of Object))
-  nameWithType: IVectorDatabaseServiceManagement.InsertVectors(IEnumerable<object>)
-  nameWithType.vb: IVectorDatabaseServiceManagement.InsertVectors(IEnumerable(Of Object))
-- uid: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVectors*
-  name: InsertVectors
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.html#FoundationaLLM_Core_Interfaces_IVectorDatabaseServiceManagement_InsertVectors_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVectors
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceManagement.InsertVectors
-  nameWithType: IVectorDatabaseServiceManagement.InsertVectors
-- uid: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries
-  name: IVectorDatabaseServiceQueries
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries.html
-  commentId: T:FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries
-  fullName: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries
-  nameWithType: IVectorDatabaseServiceQueries
-- uid: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries.VectorSearchAsync(System.Single[])
-  name: VectorSearchAsync(float[])
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries.html#FoundationaLLM_Core_Interfaces_IVectorDatabaseServiceQueries_VectorSearchAsync_System_Single___
-  commentId: M:FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries.VectorSearchAsync(System.Single[])
-  name.vb: VectorSearchAsync(Single())
-  fullName: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries.VectorSearchAsync(float[])
-  fullName.vb: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries.VectorSearchAsync(Single())
-  nameWithType: IVectorDatabaseServiceQueries.VectorSearchAsync(float[])
-  nameWithType.vb: IVectorDatabaseServiceQueries.VectorSearchAsync(Single())
-- uid: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries.VectorSearchAsync*
-  name: VectorSearchAsync
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries.html#FoundationaLLM_Core_Interfaces_IVectorDatabaseServiceQueries_VectorSearchAsync_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries.VectorSearchAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.IVectorDatabaseServiceQueries.VectorSearchAsync
-  nameWithType: IVectorDatabaseServiceQueries.VectorSearchAsync
 - uid: FoundationaLLM.Core.Models
   name: FoundationaLLM.Core.Models
   href: api/dotnet/FoundationaLLM.Core.Models.html
@@ -15943,95 +15653,6 @@ references:
   commentId: N:FoundationaLLM.Core.Services
   fullName: FoundationaLLM.Core.Services
   nameWithType: FoundationaLLM.Core.Services
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService
-  name: CognitiveSearchService
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html
-  commentId: T:FoundationaLLM.Core.Services.CognitiveSearchService
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService
-  nameWithType: CognitiveSearchService
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService.#ctor(System.String,System.String,System.String,System.String,Microsoft.Extensions.Logging.ILogger,System.Boolean)
-  name: CognitiveSearchService(string, string, string, string, ILogger, bool)
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html#FoundationaLLM_Core_Services_CognitiveSearchService__ctor_System_String_System_String_System_String_System_String_Microsoft_Extensions_Logging_ILogger_System_Boolean_
-  commentId: M:FoundationaLLM.Core.Services.CognitiveSearchService.#ctor(System.String,System.String,System.String,System.String,Microsoft.Extensions.Logging.ILogger,System.Boolean)
-  name.vb: New(String, String, String, String, ILogger, Boolean)
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService.CognitiveSearchService(string, string, string, string, Microsoft.Extensions.Logging.ILogger, bool)
-  fullName.vb: FoundationaLLM.Core.Services.CognitiveSearchService.New(String, String, String, String, Microsoft.Extensions.Logging.ILogger, Boolean)
-  nameWithType: CognitiveSearchService.CognitiveSearchService(string, string, string, string, ILogger, bool)
-  nameWithType.vb: CognitiveSearchService.New(String, String, String, String, ILogger, Boolean)
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService.#ctor*
-  name: CognitiveSearchService
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html#FoundationaLLM_Core_Services_CognitiveSearchService__ctor_
-  commentId: Overload:FoundationaLLM.Core.Services.CognitiveSearchService.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService.CognitiveSearchService
-  fullName.vb: FoundationaLLM.Core.Services.CognitiveSearchService.New
-  nameWithType: CognitiveSearchService.CognitiveSearchService
-  nameWithType.vb: CognitiveSearchService.New
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService.DeleteVector(System.Object)
-  name: DeleteVector(object)
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html#FoundationaLLM_Core_Services_CognitiveSearchService_DeleteVector_System_Object_
-  commentId: M:FoundationaLLM.Core.Services.CognitiveSearchService.DeleteVector(System.Object)
-  name.vb: DeleteVector(Object)
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService.DeleteVector(object)
-  fullName.vb: FoundationaLLM.Core.Services.CognitiveSearchService.DeleteVector(Object)
-  nameWithType: CognitiveSearchService.DeleteVector(object)
-  nameWithType.vb: CognitiveSearchService.DeleteVector(Object)
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService.DeleteVector*
-  name: DeleteVector
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html#FoundationaLLM_Core_Services_CognitiveSearchService_DeleteVector_
-  commentId: Overload:FoundationaLLM.Core.Services.CognitiveSearchService.DeleteVector
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService.DeleteVector
-  nameWithType: CognitiveSearchService.DeleteVector
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService.InsertVector(System.Object)
-  name: InsertVector(object)
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html#FoundationaLLM_Core_Services_CognitiveSearchService_InsertVector_System_Object_
-  commentId: M:FoundationaLLM.Core.Services.CognitiveSearchService.InsertVector(System.Object)
-  name.vb: InsertVector(Object)
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService.InsertVector(object)
-  fullName.vb: FoundationaLLM.Core.Services.CognitiveSearchService.InsertVector(Object)
-  nameWithType: CognitiveSearchService.InsertVector(object)
-  nameWithType.vb: CognitiveSearchService.InsertVector(Object)
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService.InsertVector*
-  name: InsertVector
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html#FoundationaLLM_Core_Services_CognitiveSearchService_InsertVector_
-  commentId: Overload:FoundationaLLM.Core.Services.CognitiveSearchService.InsertVector
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService.InsertVector
-  nameWithType: CognitiveSearchService.InsertVector
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService.InsertVectors(System.Collections.Generic.IEnumerable{System.Object})
-  name: InsertVectors(IEnumerable<object>)
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html#FoundationaLLM_Core_Services_CognitiveSearchService_InsertVectors_System_Collections_Generic_IEnumerable_System_Object__
-  commentId: M:FoundationaLLM.Core.Services.CognitiveSearchService.InsertVectors(System.Collections.Generic.IEnumerable{System.Object})
-  name.vb: InsertVectors(IEnumerable(Of Object))
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService.InsertVectors(System.Collections.Generic.IEnumerable<object>)
-  fullName.vb: FoundationaLLM.Core.Services.CognitiveSearchService.InsertVectors(System.Collections.Generic.IEnumerable(Of Object))
-  nameWithType: CognitiveSearchService.InsertVectors(IEnumerable<object>)
-  nameWithType.vb: CognitiveSearchService.InsertVectors(IEnumerable(Of Object))
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService.InsertVectors*
-  name: InsertVectors
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html#FoundationaLLM_Core_Services_CognitiveSearchService_InsertVectors_
-  commentId: Overload:FoundationaLLM.Core.Services.CognitiveSearchService.InsertVectors
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService.InsertVectors
-  nameWithType: CognitiveSearchService.InsertVectors
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService.VectorSearchAsync(System.Single[])
-  name: VectorSearchAsync(float[])
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html#FoundationaLLM_Core_Services_CognitiveSearchService_VectorSearchAsync_System_Single___
-  commentId: M:FoundationaLLM.Core.Services.CognitiveSearchService.VectorSearchAsync(System.Single[])
-  name.vb: VectorSearchAsync(Single())
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService.VectorSearchAsync(float[])
-  fullName.vb: FoundationaLLM.Core.Services.CognitiveSearchService.VectorSearchAsync(Single())
-  nameWithType: CognitiveSearchService.VectorSearchAsync(float[])
-  nameWithType.vb: CognitiveSearchService.VectorSearchAsync(Single())
-- uid: FoundationaLLM.Core.Services.CognitiveSearchService.VectorSearchAsync*
-  name: VectorSearchAsync
-  href: api/dotnet/FoundationaLLM.Core.Services.CognitiveSearchService.html#FoundationaLLM_Core_Services_CognitiveSearchService_VectorSearchAsync_
-  commentId: Overload:FoundationaLLM.Core.Services.CognitiveSearchService.VectorSearchAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.CognitiveSearchService.VectorSearchAsync
-  nameWithType: CognitiveSearchService.VectorSearchAsync
 - uid: FoundationaLLM.Core.Services.CoreService
   name: CoreService
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html
@@ -16615,101 +16236,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.GatekeeperAPIService.RemoveMemory
   nameWithType: GatekeeperAPIService.RemoveMemory
-- uid: FoundationaLLM.Core.Services.OpenAiService
-  name: OpenAiService
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html
-  commentId: T:FoundationaLLM.Core.Services.OpenAiService
-  fullName: FoundationaLLM.Core.Services.OpenAiService
-  nameWithType: OpenAiService
-- uid: FoundationaLLM.Core.Services.OpenAiService.#ctor(System.String,System.String,System.String,System.String,System.String,Microsoft.Extensions.Logging.ILogger)
-  name: OpenAiService(string, string, string, string, string, ILogger)
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService__ctor_System_String_System_String_System_String_System_String_System_String_Microsoft_Extensions_Logging_ILogger_
-  commentId: M:FoundationaLLM.Core.Services.OpenAiService.#ctor(System.String,System.String,System.String,System.String,System.String,Microsoft.Extensions.Logging.ILogger)
-  name.vb: New(String, String, String, String, String, ILogger)
-  fullName: FoundationaLLM.Core.Services.OpenAiService.OpenAiService(string, string, string, string, string, Microsoft.Extensions.Logging.ILogger)
-  fullName.vb: FoundationaLLM.Core.Services.OpenAiService.New(String, String, String, String, String, Microsoft.Extensions.Logging.ILogger)
-  nameWithType: OpenAiService.OpenAiService(string, string, string, string, string, ILogger)
-  nameWithType.vb: OpenAiService.New(String, String, String, String, String, ILogger)
-- uid: FoundationaLLM.Core.Services.OpenAiService.#ctor*
-  name: OpenAiService
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService__ctor_
-  commentId: Overload:FoundationaLLM.Core.Services.OpenAiService.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Core.Services.OpenAiService.OpenAiService
-  fullName.vb: FoundationaLLM.Core.Services.OpenAiService.New
-  nameWithType: OpenAiService.OpenAiService
-  nameWithType.vb: OpenAiService.New
-- uid: FoundationaLLM.Core.Services.OpenAiService.GetChatCompletionAsync(System.String,System.String,System.String)
-  name: GetChatCompletionAsync(string, string, string)
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService_GetChatCompletionAsync_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Services.OpenAiService.GetChatCompletionAsync(System.String,System.String,System.String)
-  name.vb: GetChatCompletionAsync(String, String, String)
-  fullName: FoundationaLLM.Core.Services.OpenAiService.GetChatCompletionAsync(string, string, string)
-  fullName.vb: FoundationaLLM.Core.Services.OpenAiService.GetChatCompletionAsync(String, String, String)
-  nameWithType: OpenAiService.GetChatCompletionAsync(string, string, string)
-  nameWithType.vb: OpenAiService.GetChatCompletionAsync(String, String, String)
-- uid: FoundationaLLM.Core.Services.OpenAiService.GetChatCompletionAsync*
-  name: GetChatCompletionAsync
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService_GetChatCompletionAsync_
-  commentId: Overload:FoundationaLLM.Core.Services.OpenAiService.GetChatCompletionAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.OpenAiService.GetChatCompletionAsync
-  nameWithType: OpenAiService.GetChatCompletionAsync
-- uid: FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync(System.Object)
-  name: GetEmbeddingsAsync(dynamic)
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService_GetEmbeddingsAsync_System_Object_
-  commentId: M:FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync(System.Object)
-  name.vb: GetEmbeddingsAsync(Object)
-  fullName: FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync(dynamic)
-  fullName.vb: FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync(Object)
-  nameWithType: OpenAiService.GetEmbeddingsAsync(dynamic)
-  nameWithType.vb: OpenAiService.GetEmbeddingsAsync(Object)
-- uid: FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync(System.Object,System.String)
-  name: GetEmbeddingsAsync(dynamic, string)
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService_GetEmbeddingsAsync_System_Object_System_String_
-  commentId: M:FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync(System.Object,System.String)
-  name.vb: GetEmbeddingsAsync(Object, String)
-  fullName: FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync(dynamic, string)
-  fullName.vb: FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync(Object, String)
-  nameWithType: OpenAiService.GetEmbeddingsAsync(dynamic, string)
-  nameWithType.vb: OpenAiService.GetEmbeddingsAsync(Object, String)
-- uid: FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync*
-  name: GetEmbeddingsAsync
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService_GetEmbeddingsAsync_
-  commentId: Overload:FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.OpenAiService.GetEmbeddingsAsync
-  nameWithType: OpenAiService.GetEmbeddingsAsync
-- uid: FoundationaLLM.Core.Services.OpenAiService.MaxConversationBytes
-  name: MaxConversationBytes
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService_MaxConversationBytes
-  commentId: P:FoundationaLLM.Core.Services.OpenAiService.MaxConversationBytes
-  fullName: FoundationaLLM.Core.Services.OpenAiService.MaxConversationBytes
-  nameWithType: OpenAiService.MaxConversationBytes
-- uid: FoundationaLLM.Core.Services.OpenAiService.MaxConversationBytes*
-  name: MaxConversationBytes
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService_MaxConversationBytes_
-  commentId: Overload:FoundationaLLM.Core.Services.OpenAiService.MaxConversationBytes
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.OpenAiService.MaxConversationBytes
-  nameWithType: OpenAiService.MaxConversationBytes
-- uid: FoundationaLLM.Core.Services.OpenAiService.SummarizeAsync(System.String,System.String)
-  name: SummarizeAsync(string, string)
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService_SummarizeAsync_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Services.OpenAiService.SummarizeAsync(System.String,System.String)
-  name.vb: SummarizeAsync(String, String)
-  fullName: FoundationaLLM.Core.Services.OpenAiService.SummarizeAsync(string, string)
-  fullName.vb: FoundationaLLM.Core.Services.OpenAiService.SummarizeAsync(String, String)
-  nameWithType: OpenAiService.SummarizeAsync(string, string)
-  nameWithType.vb: OpenAiService.SummarizeAsync(String, String)
-- uid: FoundationaLLM.Core.Services.OpenAiService.SummarizeAsync*
-  name: SummarizeAsync
-  href: api/dotnet/FoundationaLLM.Core.Services.OpenAiService.html#FoundationaLLM_Core_Services_OpenAiService_SummarizeAsync_
-  commentId: Overload:FoundationaLLM.Core.Services.OpenAiService.SummarizeAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.OpenAiService.SummarizeAsync
-  nameWithType: OpenAiService.SummarizeAsync
 - uid: FoundationaLLM.Core.Services.UserProfileService
   name: UserProfileService
   href: api/dotnet/FoundationaLLM.Core.Services.UserProfileService.html
