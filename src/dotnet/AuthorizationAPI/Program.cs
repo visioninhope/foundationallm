@@ -38,7 +38,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 // Set the CORS policy before other middleware.
-app.UseCors("AllowAllOrigins");
+app.UseCors(CorsPolicyNames.AllowAllOrigins);
 
 app.UseHttpsRedirection();
 
