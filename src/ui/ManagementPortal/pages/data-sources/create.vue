@@ -209,13 +209,6 @@ import {
 	convertDataSourceToAzureSQLDatabase,
 } from '@/js/types';
 
-// const defaultFormValues = {
-// 	sourceName: '',
-// 	sourceType: null,
-// 	authenticationType: 'ConnectionString',
-// 	connectionString: '',
-// };
-
 export default {
 	name: 'CreateDataSource',
 
@@ -229,8 +222,6 @@ export default {
 
 	data() {
 		return {
-			// ...defaultFormValues,
-
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
@@ -302,8 +293,6 @@ export default {
 		if (this.editId) {
 			this.loadingStatusText = `Retrieving data source "${this.editId}"...`;
 			const dataSource = await api.getDataSource(this.editId);
-			// this.loadingStatusText = `Mapping data source values to form...`;
-			// this.mapDataSourceToForm(dataSource[0]);
 			this.dataSource = dataSource;
 		}
 
@@ -318,38 +307,6 @@ export default {
 		isAzureDataLakeDataSource,
 		isSharePointOnlineSiteDataSource,
 		isAzureSQLDatabaseDataSource,
-
-		// mapDataSourceToForm(dataSource: any) {
-		// 	console.log(dataSource);
-		// 	this.sourceName = dataSource.name;
-		// 	this.sourceType = dataSource.type;
-
-		// 	if (isAzureDataLakeDataSource(dataSource)) {
-		// 		const azureDataLakeDataSource = dataSource as AzureDataLakeDataSource;
-		// 		this.folders = azureDataLakeDataSource.folders;
-		// 		this.connectionString = azureDataLakeDataSource.configuration_references?.ConnectionString;
-		// 		this.apiKey = azureDataLakeDataSource.configuration_references?.APIKey;
-		// 		this.endpoint = azureDataLakeDataSource.configuration_references?.Endpoint;
-		// 	} else if (isSharePointOnlineSiteDataSource(dataSource)) {
-		// 		const sharePointOnlineSiteDataSource = dataSource as SharePointOnlineSiteDataSource;
-		// 		this.site_url = sharePointOnlineSiteDataSource.site_url;
-		// 		this.document_libraries = sharePointOnlineSiteDataSource.document_libraries;
-		// 		this.clientId = sharePointOnlineSiteDataSource.configuration_references?.ClientId;
-		// 		this.tenantId = sharePointOnlineSiteDataSource.configuration_references?.TenantId;
-		// 		this.certificateName = sharePointOnlineSiteDataSource.configuration_references?.CertificateName;
-		// 		this.keyVaultUrl = sharePointOnlineSiteDataSource.configuration_references?.KeyVaultURL;
-		// 	} else if (isAzureSQLDatabaseDataSource(dataSource)) {
-		// 		const azureSQLDatabaseDataSource = dataSource as AzureSQLDatabaseDataSource;
-		// 		this.tables = azureSQLDatabaseDataSource.tables;
-		// 		this.connectionString = azureSQLDatabaseDataSource.configuration_references?.ConnectionString;
-		// 	}
-		// },
-
-		// resetForm() {
-		// 	for (const key in defaultFormValues) {
-		// 		this[key] = defaultFormValues[key];
-		// 	}
-		// },
 
 		handleCancel() {
 			if (!confirm('Are you sure you want to cancel?')) {
@@ -400,14 +357,6 @@ export default {
 			this.loading = true;
 			let successMessage = null as null | string;
 			try {
-				// const dataSourceRequest: DataSourceRequest = {
-				// 	name: this.sourceName,
-				// 	configuration_references: {
-				// 		AuthenticationType: this.authenticationType,
-				// 		ConnectionString: this.connectionString,
-				// 	},
-				// };
-
 				if (this.editId) {
 					this.loadingStatusText = 'Updating data source...';
 					await api.updateDataSource(this.editId, this.dataSource);
@@ -416,7 +365,6 @@ export default {
 					this.loadingStatusText = 'Creating data source...';
 					await api.createDataSource(this.dataSource);
 					successMessage = `Data source "${this.sourceName}" was succesfully created!`;
-					// this.resetForm();
 				}
 			} catch (error) {
 				this.loading = false;
