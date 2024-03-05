@@ -21,5 +21,8 @@ az storage azcopy blob upload -c foundationallm-source --account-name $storageAc
 az storage container create --account-name $storageAccount --name "prompts" --only-show-errors
 az storage azcopy blob upload -c prompts --account-name $storageAccount -s "./prompts/*" --recursive --only-show-errors
 
+az storage container create --account-name $storageAccount --name "resource-provider" --only-show-errors
+az storage azcopy blob upload -c prompts --account-name $storageAccount -s "./resource-provider/*" --recursive --only-show-errors
+
 Pop-Location
 Pop-Location
