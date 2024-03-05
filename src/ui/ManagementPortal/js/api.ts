@@ -13,7 +13,9 @@ import type {
 	CreatePromptRequest,
 	CreateTextPartitioningProfileRequest
 } from './types';
+// import { mockAzureDataLakeDataSource1 } from './mock';
 import { getMsalInstance } from '@/js/auth';
+
 
 async function wait(milliseconds: number = 1000): Promise<void> {
 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
@@ -75,11 +77,20 @@ export default {
 	},
 
 	async getDataSource(dataSourceId: string): Promise<DataSource[]> {
+		// await wait(this.mockLoadTime);
+    // return mockAzureDataLakeDataSource1;
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${dataSourceId}?api-version=${this.apiVersion}`);
 	},
 
 	async createDataSource(request): Promise<any> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${request.name}?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: request,
+		});
+	},
+
+  async updateDataSource(sourceId: string, request): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${sourceId}?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: request,
 		});
@@ -104,11 +115,12 @@ export default {
 	// Agents
 	async checkAgentName(name: string, agentType: string): Promise<AgentCheckNameResponse> {
 		const payload = {
-			name: name,
+			name,
 			type: agentType,
 		};
+
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/checkname?api-version=${this.apiVersion}`, {
-			method: 'POST',	
+			method: 'POST',
 			body: payload,
 		});
 	},

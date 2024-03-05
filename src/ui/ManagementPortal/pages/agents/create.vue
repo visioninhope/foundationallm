@@ -404,9 +404,16 @@
 import type { PropType } from 'vue';
 import { debounce } from 'lodash';
 import api from '@/js/api';
-import type { Agent, AgentIndex, AgentDataSource, CreateAgentRequest, AgentCheckNameResponse } from '@/js/types';
+import type {
+	Agent,
+	AgentIndex,
+	AgentDataSource,
+	CreateAgentRequest,
+	// AgentCheckNameResponse,
+} from '@/js/types';
 
-const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
+const defaultSystemPrompt: string =
+	'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
 const defaultFormValues = {
 	agentName: '',
