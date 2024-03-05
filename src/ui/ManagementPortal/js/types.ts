@@ -41,7 +41,7 @@ export type Agent = {
 		api_version: string;
 		version: string;
 		deployment: string;
-	}
+	};
 	prompt_object_id: string;
 };
 
@@ -61,43 +61,49 @@ export type AgentDataSource = {
 };
 
 // Data sources
-
-interface DataSource {
+interface BaseDataSource {
 	type: string;
 	name: string;
 	object_id: string;
 	description: string;
 	configuration_references: { [key: string]: string };
-};
+}
 
-interface AzureDataLakeDataSource extends DataSource {
+export interface AzureDataLakeDataSource extends BaseDataSource {
+	type: 'azure-data-lake';
 	folders?: string[];
 	configuration_references: {
-	  AuthenticationType: string;
-	  ConnectionString: string;
-	  APIKey: string;
-	  Endpoint: string;
+		AuthenticationType: string;
+		ConnectionString: string;
+		APIKey: string;
+		Endpoint: string;
 	};
-};
+}
 
-interface SharePointOnlineSiteDataSource extends DataSource {
+export interface AzureSQLDatabaseDataSource extends BaseDataSource {
+	type: 'azure-sql-database';
+	tables?: string[];
+	configuration_references: {
+		ConnectionString: string;
+	};
+}
+
+export interface SharePointOnlineSiteDataSource extends BaseDataSource {
+	type: 'sharepoint-online-site';
 	site_url?: string;
 	document_libraries?: string[];
 	configuration_references: {
-	  ClientId: string;
-	  TenantId: string;
-	  CertificateName: string;
-	  KeyVaultURL: string;
+		ClientId: string;
+		TenantId: string;
+		CertificateName: string;
+		KeyVaultURL: string;
 	};
-};
+}
 
-interface AzureSQLDatabaseDataSource extends DataSource {
-	tables?: string[];
-	configuration_references: {
-	  ConnectionString: string;
-	};
-};
-
+export type DataSource =
+	| AzureDataLakeDataSource
+	| SharePointOnlineSiteDataSource
+	| AzureSQLDatabaseDataSource;
 // End data sources
 
 export type AgentIndex = {
@@ -194,7 +200,7 @@ export type CreateAgentRequest = {
 		api_version: string;
 		version: string;
 		deployment: string;
-	}
+	};
 	indexing_profile_object_id: string;
 	text_embedding_profile_object_id: string;
 	content_source_profile_object_id: string;
@@ -244,16 +250,59 @@ export type CreateTextPartitioningProfileRequest = {
 };
 
 // Type guards
-
-export function isAzureDataLakeDataSource(dataSource: any): dataSource is AzureDataLakeDataSource {
+export function isAzureDataLakeDataSource(dataSource: DataSource): dataSource is AzureDataLakeDataSource {
 	return dataSource.type === 'azure-data-lake';
 }
-  
-export function isSharePointOnlineSiteDataSource(dataSource: any): dataSource is SharePointOnlineSiteDataSource {
+
+export function isSharePointOnlineSiteDataSource(dataSource: DataSource): dataSource is SharePointOnlineSiteDataSource {
 	return dataSource.type === 'sharepoint-online-site';
 }
-  
-export function isAzureSQLDatabaseDataSource(dataSource: any): dataSource is AzureSQLDatabaseDataSource {
+
+export function isAzureSQLDatabaseDataSource(dataSource: DataSource): dataSource is AzureSQLDatabaseDataSource {
 	return dataSource.type === 'azure-sql-database';
 }
-  
+
+export function convertDataSourceToAzureDataLake(dataSource: DataSource): AzureDataLakeDataSource {
+	return {
+		type: 'azure-data-lake',
+		name: dataSource.name,
+		object_id: dataSource.object_id,
+		description: dataSource.description,
+		configuration_references: {
+			AuthenticationType: dataSource.configuration_references?.AuthenticationType || '',
+			ConnectionString: dataSource.configuration_references?.ConnectionString || '',
+			APIKey: dataSource.configuration_references?.APIKey || '',
+			Endpoint: dataSource.configuration_references?.Endpoint || '',
+		},
+	};
+}
+
+export function convertDataSourceToSharePointOnlineSite(dataSource: DataSource): SharePointOnlineSiteDataSource {
+	return {
+		type: 'sharepoint-online-site',
+		name: dataSource.name,
+		object_id: dataSource.object_id,
+		description: dataSource.description,
+		site_url: dataSource.site_url || '',
+		document_libraries: dataSource.document_libraries || [],
+		configuration_references: {
+			ClientId: dataSource.configuration_references?.ClientId || '',
+			TenantId: dataSource.configuration_references?.TenantId || '',
+			CertificateName: dataSource.configuration_references?.CertificateName || '',
+			KeyVaultURL: dataSource.configuration_references?.KeyVaultURL || '',
+		},
+	};
+}
+
+export function convertDataSourceToAzureSQLDatabase(dataSource: DataSource): AzureSQLDatabaseDataSource {
+	return {
+		type: 'azure-sql-database',
+		name: dataSource.name,
+		object_id: dataSource.object_id,
+		description: dataSource.description,
+		tables: dataSource.tables || [],
+		configuration_references: {
+			ConnectionString: dataSource.configuration_references?.ConnectionString || '',
+		},
+	};
+}
