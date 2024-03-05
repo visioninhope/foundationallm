@@ -356,7 +356,7 @@ $tokens.vectorizationWorkerEventGridProfile = $(
 PopulateTemplate $tokens "..,config,appconfig.template.json" "..,config,appconfig.json"
 PopulateTemplate $tokens "..,values,internal-service.template.yml" "..,values,microservice-values.yml"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.template.json" "..,common,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.json"
-PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Vectorization,FoundationaLLM.template.json" "..,common,data,resource-provider,FoundationaLLM.Vectorization,FoundationaLLM.json"
+PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.template.json" "..,common,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.json"
 
 $($ingress.apiIngress).PSObject.Properties | ForEach-Object {
     $tokens.serviceHostname = $_.Value.host

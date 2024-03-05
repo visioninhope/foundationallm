@@ -39,7 +39,7 @@ Invoke-AndRequireSuccess "Loading storage-preview extension" {
 }
 
 cat ./data/resource-provider/FoundationaLLM.Agent/FoundationaLLM.template.json > ../common/data/resource-provider/FoundationaLLM.Agent/FoundationaLLM.json
-cat ./data/resource-provider/FoundationaLLM.Vectorization/FoundationaLLM.template.json > ../common/data/resource-provider/FoundationaLLM.Vectorization/FoundationaLLM.json
+cat ./data/resource-provider/FoundationaLLM.Prompt/FoundationaLLM.template.json > ../common/data/resource-provider/FoundationaLLM.Prompt/FoundationaLLM.json
 
 $env:VECTORIZATION_WORKER_CONFIG = Get-Content ./config/vectorization.json
 cat ./config/agent-factory-api-event-profile.template.json | envsubst > ./config/agent-factory-api-event-profile.json
