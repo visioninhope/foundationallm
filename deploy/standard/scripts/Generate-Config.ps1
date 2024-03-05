@@ -49,7 +49,9 @@ function PopulateTemplate {
     $outputFilePath = $(
         ../../common/scripts/Join-Path-Recursively `
             -pathParts $output.Split(",")
-    ) | Resolve-Path
+    )
+    # This works when output file doesn't exist
+    $outputFilePath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($outputFilePath)
     Write-Host "Output: $outputFilePath" -ForegroundColor Blue
 
     ../../common/scripts/Token-Replace.ps1 `
@@ -321,8 +323,8 @@ $tokens.managementApiEventGridProfile = $eventGridProfiles["management-api-event
 
 PopulateTemplate $tokens "..,config,appconfig.template.json" "..,config,appconfig.json"
 PopulateTemplate $tokens "..,values,internal-service.template.yml" "..,values,microservice-values.yml"
-PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.template.json" "..,common,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.json"
-PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.template.json" "..,common,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.json"
+PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.json"
+PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.json"
 
 $($ingress.apiIngress).PSObject.Properties | ForEach-Object {
     $tokens.serviceHostname = $_.Value.host
