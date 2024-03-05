@@ -100,10 +100,9 @@
 						/>
 					</div>
 
-					<template v-if="dataSource.folders">
-						<div class="mb-2 mt-2">Folder(s):</div>
-						<InputText v-model="dataSource.folders" class="w-100" type="text" />
-					</template>
+					<div class="mb-2 mt-2">Folder(s):</div>
+					<InputText v-model="dataSource.folders" class="w-100" type="text" />
+
 				</div>
 
 				<!-- Azure SQL database -->
@@ -312,15 +311,8 @@ export default {
 		},
 
 		handleNameInput(event) {
-			const element = event.target;
-
-			// Remove spaces.
-			let sanitizedValue = element.value.replace(/\s/g, '');
-
-			// Remove any characters that are not lowercase letters, digits, dashes, or underscores.
-			sanitizedValue = sanitizedValue.replace(/[^a-z0-9-_]/g, '');
-
-			element.value = sanitizedValue;
+			const sanitizedValue = this.$filters.sanitizeNameInput(event);
+			this.dataSource.name = sanitizedValue;
 			this.sourceName = sanitizedValue;
 		},
 

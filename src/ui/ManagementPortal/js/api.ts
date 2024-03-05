@@ -72,14 +72,14 @@ export default {
 
 	// Data sources
 	async getAgentDataSources(): Promise<DataSource[]> {
-		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources?api-version=${this.apiVersion}`);
-		return data.map((source) => ({ ...source, Formats: ['pdf', 'txt'] }));
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources?api-version=${this.apiVersion}`) as DataSource[];
 	},
 
-	async getDataSource(dataSourceId: string): Promise<DataSource[]> {
+	async getDataSource(dataSourceId: string): Promise<DataSource> {
 		// await wait(this.mockLoadTime);
-    // return mockAzureDataLakeDataSource1;
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${dataSourceId}?api-version=${this.apiVersion}`);
+    	// return mockAzureDataLakeDataSource1;
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/datasources/${dataSourceId}?api-version=${this.apiVersion}`);
+		return data[0] as DataSource;
 	},
 
 	async createDataSource(request): Promise<any> {
