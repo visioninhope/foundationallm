@@ -39,8 +39,6 @@ namespace FoundationaLLM.SemanticKernel.API
                     options.SetCredential(DefaultAuthentication.GetAzureCredential());
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_DurableSystemPrompt);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_CognitiveSearchMemorySource);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_BlobStorageMemorySource);
                 options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Key);
                 options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Endpoint);
@@ -111,19 +109,6 @@ namespace FoundationaLLM.SemanticKernel.API
             builder.AddOpenTelemetry(
                 AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString,
                 ServiceNames.SemanticKernelAPI);
-
-            // System prompt service backed by an Azure blob storage account
-            //builder.Services.AddOptions<DurableSystemPromptServiceSettings>()
-            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_DurableSystemPrompt));
-            //builder.Services.AddSingleton<ISystemPromptService, DurableSystemPromptService>();
-
-            //builder.Services.AddOptions<AzureCognitiveSearchMemorySourceSettings>()
-            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource));
-            //builder.Services.AddTransient<IMemorySource, AzureCognitiveSearchMemorySource>();
-
-            //builder.Services.AddOptions<BlobStorageMemorySourceSettings>()
-            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_BlobStorageMemorySource));
-            //builder.Services.AddTransient<IMemorySource, BlobStorageMemorySource>();
 
             builder.Services.Configure<RouteOptions>(options =>
             {
