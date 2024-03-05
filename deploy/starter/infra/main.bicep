@@ -1,5 +1,8 @@
 targetScope = 'subscription'
 
+param adminGroupObjectId string
+
+param authAppRegistration object
 param appRegistrations array
 
 param createDate string = utcNow('u')
@@ -21,8 +24,13 @@ param principalId string
 @secure()
 param serviceDefinition object
 
+@secure()
+param authEntraClientSecret string
+
+param authService object
 param services array
 
+param authServiceExists bool
 param servicesExist object
 
 /********** Locals **********/
@@ -54,6 +62,10 @@ var clientSecrets = [
   {
     name: 'foundationallm-langchain-sqldatabase-testdb-password'
     value: 'PLACEHOLDER'
+  }
+  {
+    name: 'foundationallm-apis-auth-api-entra-clientsecret'
+    value: authEntraClientSecret
   }
 ]
 
@@ -109,6 +121,17 @@ module appConfig './shared/app-config.bicep' = {
   }
   scope: rg
   dependsOn: [ keyVault ]
+}
+
+module authStore './shared/authorization-store.bicep' = {
+  name: 'auth-store'
+  params: {
+    adminGroupObjectId: adminGroupObjectId
+    location: location
+    name: '${abbrs.storageStorageAccounts}auth${resourceToken}'
+    tags: tags
+  }
+  scope: rg
 }
 
 module contentSafety './shared/content-safety.bicep' = {
@@ -403,6 +426,62 @@ module appsEnv './shared/apps-env.bicep' = {
   scope: rg
 }
 
+module authAcaService './app/authAcaService.bicep' = {
+  name: authService.name
+  params: {
+    name: '${abbrs.appContainerApps}authapi${resourceToken}'
+    location: location
+    tags: tags
+    authStoreName: authStore.outputs.name
+    identityName: '${abbrs.managedIdentityUserAssignedIdentities}auth-api-${resourceToken}'
+    keyvaultName: keyVault.outputs.name
+    applicationInsightsName: monitoring.outputs.applicationInsightsName
+    containerAppsEnvironmentName: appsEnv.outputs.name
+    containerRegistryName: registry.outputs.name
+    exists: authServiceExists == 'true'
+    appDefinition: serviceDefinition
+    hasIngress: true
+    imageName: authService.image
+    envSettings: [
+      {
+        name: 'FoundationaLLM__AuthorizationAPI__Entra__Instance'
+        value: authAppRegistration.instance
+      }
+      {
+        name: 'FoundationaLLM__AuthorizationAPI__Entra__TenantId'
+        value: authAppRegistration.tenantId
+      }
+      {
+        name: 'FoundationaLLM__AuthorizationAPI__Entra__ClientId'
+        value: authAppRegistration.clientId
+      }
+      {
+        name: 'FoundationaLLM__AuthorizationAPI__Entra__Scopes'
+        value: authAppRegistration.scopes
+      }
+      {
+        name: 'FoundationaLLM__AuthorizationAPI__Storage__AccountName'
+        value: authStore.outputs.name
+      }
+    ]
+    secretSettings: [
+      {
+        name: 'FoundationaLLM__AuthorizationAPI__AppInsightsConnectionString'
+        value: monitoring.outputs.applicationInsightsConnectionSecretRef
+        secretRef: monitoring.outputs.applicationInsightsConnectionSecretName
+      }
+      {
+        name: 'FoundationaLLM__AuthorizationAPI__Entra__ClientSecret'
+        value: keyVault.outputs.secretRefs[indexOf(keyVault.outputs.secretNames, 'foundationallm-apis-auth-api-entra-clientsecret')]
+        secretRef: 'foundationallm-apis-auth-api-entra-clientsecret'
+      }
+    ]
+    serviceName: 'auth-api'
+  }
+  scope: rg
+  dependsOn: [ authStore, keyVault, monitoring ]
+}
+
 @batchSize(3)
 module acaServices './app/acaService.bicep' = [for service in services: {
   name: service.name
@@ -479,6 +558,8 @@ output ENTRA_VECTORIZATION_API_TENANT_ID string = appRegistrations[indexOf(appRe
 output FOUNDATIONALLM_INSTANCE_ID string = instanceId
 
 var serviceNames = [for service in services: service.name]
+
+output SERVICE_AUTH_API_ENDPOINT_URL string = authAcaService.outputs.uri
 
 output SERVICE_AGENT_FACTORY_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'agent-factory-api')].outputs.uri
 output SERVICE_AGENT_HUB_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'agent-hub-api')].outputs.uri
