@@ -3,7 +3,7 @@ using FoundationaLLM.Common.Models.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FoundationaLLM.Management.API.Controllers
+namespace FoundationaLLM.Authorization.API.Controllers
 {
     /// <summary>
     /// Provides methods for checking the status of the service.
@@ -24,7 +24,7 @@ namespace FoundationaLLM.Management.API.Controllers
         public IActionResult GetServiceStatus() =>
             new OkObjectResult(new ServiceStatusInfo
             {
-                Name = ServiceNames.ManagementAPI,
+                Name = ServiceNames.AuthorizationAPI,
                 Instance = Environment.GetEnvironmentVariable(EnvironmentVariables.Hostname),
                 Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
                 Status = ServiceStatuses.Ready
