@@ -34,6 +34,16 @@
 						@input="handleNameInput"
 					/>
 				</div>
+
+				<div class="mb-2 mt-2">Data description:</div>
+				<div class="input-wrapper">
+					<InputText
+						v-model="dataSource.description"
+						placeholder="Enter a description for this data source"
+						type="text"
+						class="w-100"
+					/>
+				</div>
 			</div>
 
 			<!-- Type -->
@@ -101,7 +111,7 @@
 					</div>
 
 					<div class="mb-2 mt-2">Folder(s):</div>
-					<InputText v-model="dataSource.folders" class="w-100" type="text" />
+					<InputText v-model="foldersString" class="w-100" type="text" />
 
 				</div>
 
@@ -120,7 +130,7 @@
 
 						<template v-if="dataSource.tables">
 							<div class="mb-2 mt-2">Table Name(s):</div>
-							<InputText v-model="dataSource.tables" class="w-100" type="text" />
+							<InputText v-model="tablesString" class="w-100" type="text" />
 						</template>
 					</div>
 				</div>
@@ -161,7 +171,7 @@
 
 						<template v-if="dataSource.document_libraries">
 							<div class="mb-2 mt-2">Document Library(s):</div>
-							<InputText v-model="dataSource.document_libraries" class="w-100" type="text" />
+							<InputText v-model="documentLibrariesString" class="w-100" type="text" />
 						</template>
 					</div>
 				</div>
@@ -224,12 +234,16 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
+			
+			foldersString: '',
+			documentLibrariesString: '',
+			tablesString: '',
+
 			dataSource: {
 				type: 'azure-data-lake',
 				name: '',
 				object_id: '',
 				description: '',
-				// folders?: string[];
 				configuration_references: {
 					AuthenticationType: '',
 					ConnectionString: '',
@@ -293,6 +307,16 @@ export default {
 			this.loadingStatusText = `Retrieving data source "${this.editId}"...`;
 			const dataSource = await api.getDataSource(this.editId);
 			this.dataSource = dataSource;
+
+			if (this.dataSource.folders) {
+				this.foldersString = this.dataSource.folders.join(', ');
+			}
+			if (this.dataSource.document_libraries) {
+				this.documentLibrariesString = this.dataSource.document_libraries.join(', ');
+			}
+			if (this.dataSource.tables) {
+				this.tablesString = this.dataSource.tables.join(', ');
+			}
 		}
 
 		this.initializeShowSecret();
@@ -332,15 +356,23 @@ export default {
 				errors.push('Please give the data source a name.');
 			}
 
-			// if (!this.dataSource.configuration_references.ConnectionString) {
-			// 	errors.push('Please specify a connection string.');
-			// }
+			if (!this.dataSource.type) {
+				errors.push('Please specify a data source type.');
+			}
+
+			// Convert string representations of array fields back to arrays.
+			if (isAzureDataLakeDataSource(this.dataSource)) {
+				this.dataSource.folders = this.foldersString.split(',').map(s => s.trim());
+			} else if (isSharePointOnlineSiteDataSource(this.dataSource)) {
+				this.dataSource.document_libraries = this.documentLibrariesString.split(',').map(s => s.trim());
+			} else if (isAzureSQLDatabaseDataSource(this.dataSource)) {
+				this.dataSource.tables = this.tablesString.split(',').map(s => s.trim());
+			}
 
 			if (errors.length > 0) {
 				this.$toast.add({
 					severity: 'error',
 					detail: errors.join('\n'),
-					life: 5000,
 				});
 
 				return;
@@ -352,18 +384,17 @@ export default {
 				if (this.editId) {
 					this.loadingStatusText = 'Updating data source...';
 					await api.updateDataSource(this.editId, this.dataSource);
-					successMessage = `Data source "${this.sourceName}" was succesfully updated!`;
+					successMessage = `Data source "${this.sourceName}" was successfully updated!`;
 				} else {
 					this.loadingStatusText = 'Creating data source...';
 					await api.createDataSource(this.dataSource);
-					successMessage = `Data source "${this.sourceName}" was succesfully created!`;
+					successMessage = `Data source "${this.sourceName}" was successfully created!`;
 				}
 			} catch (error) {
 				this.loading = false;
 				return this.$toast.add({
 					severity: 'error',
 					detail: error?.response?._data || error,
-					life: 5000,
 				});
 			}
 

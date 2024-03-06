@@ -268,6 +268,7 @@ export function convertDataSourceToAzureDataLake(dataSource: DataSource): AzureD
 		name: dataSource.name,
 		object_id: dataSource.object_id,
 		description: dataSource.description,
+		folders: dataSource.folders || [],
 		configuration_references: {
 			AuthenticationType: dataSource.configuration_references?.AuthenticationType || '',
 			ConnectionString: dataSource.configuration_references?.ConnectionString || '',
