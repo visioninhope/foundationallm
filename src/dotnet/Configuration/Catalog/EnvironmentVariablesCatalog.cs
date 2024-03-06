@@ -36,6 +36,10 @@ namespace FoundationaLLM.Configuration.Catalog
                     "The Entra ID client secret."),
                 new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_Scopes,
                     "The Entra ID scopes."),
+                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Storage_AccountName,
+                    "The name of the storage account used by the Authorization API."),
+                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_InstanceIds,
+                    "The comma separated list of the identifiers of FoundationaLLM instances managed by the authorization core."),
             ];
 
         /// <summary>

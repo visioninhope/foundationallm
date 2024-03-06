@@ -61,5 +61,10 @@
         /// The key for the FoundationaLLM:AuthorizationAPI:Storage:AccountName environment variable.
         /// </summary>
         public const string FoundationaLLM_AuthorizationAPI_Storage_AccountName = "FoundationaLLM:AuthorizationAPI:Storage:AccountName";
+
+        /// <summary>
+        /// The key for the FoundationaLLM:AuthorizationAPI:InstanceIds environment variable.
+        /// </summary>
+        public const string FoundationaLLM_AuthorizationAPI_InstanceIds = "FoundationaLLM:AuthorizationAPI:InstanceIds";
     }
 }

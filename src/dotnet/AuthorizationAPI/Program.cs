@@ -1,6 +1,8 @@
 using FoundationaLLM;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,12 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
 // Add services to the container.
+
+// Resource validation.
+builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
+
+// Authorization core.
+builder.AddAuthorizationCore();
 
 // CORS policies
 builder.AddCorsPolicies();
