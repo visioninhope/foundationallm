@@ -48,17 +48,12 @@ var privateDnsZone = {
 /** Outputs **/
 
 /** Resources **/
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2022-05-01' existing = {
-  name: vnetName
-  scope: resourceGroup(networkResourceGroupName)
-}
-
 resource resolver 'Microsoft.Network/dnsResolvers@2022-07-01' = {
   name: resolverName
   location: location
   properties: {
     virtualNetwork: {
-      id: virtualNetwork.id
+      id: resourceId(networkResourceGroupName, 'Microsoft.Network/virtualNetworks', vnetName)
     }
   }
 }
@@ -72,7 +67,7 @@ resource inboundEndpoint 'Microsoft.Network/dnsResolvers/inboundEndpoints@2022-0
       {
         privateIpAllocationMethod: 'Dynamic'
         subnet: {
-          id: resourceId('Microsoft.Network/VirtualNetworks/subnets', virtualNetwork.name, 'FLLMNetSvc')
+          id: resourceId(networkResourceGroupName, 'Microsoft.Network/virtualNetworks/subnets', vnetName, 'FLLMNetSvc')
         }
       }
     ]
@@ -85,7 +80,7 @@ module dns './modules/dns.bicep' = [for zone in items(privateDnsZone): {
   name: '${zone.value}-${timestamp}'
   params: {
     key: zone.key
-    vnetId: virtualNetwork.id
+    vnetId: resourceId(networkResourceGroupName, 'Microsoft.Network/virtualNetworks', vnetName)
     zone: zone.value
 
     tags: {

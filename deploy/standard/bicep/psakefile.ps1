@@ -118,7 +118,7 @@ task DNS -depends ResourceGroups, Networking {
         environmentName=$environment `
         location=$location `
         project=$project `
-        virtualNetworkResourceGroupName=$resourceGroups.net `
+        networkResourceGroupName=$($resourceGroups.net) `
         vnetName=$script:vnetName `
         --resource-group $resourceGroups.dns `
         --template-file ./dns-rg.bicep
@@ -154,10 +154,7 @@ task Networking -depends ResourceGroups {
         az deployment group show `
             --name $deployments["net"] `
             --output json `
-            --query "{
-                id:properties.outputs.vnetId.value,
-                name:properties.outputs.vnetName.value
-            }" `
+            --query "{id:properties.outputs.vnetId.value,name:properties.outputs.vnetName.value}" `
             --resource-group $resourceGroups.net | `
         ConvertFrom-Json
     )
