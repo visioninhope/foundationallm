@@ -10,12 +10,12 @@ $environment = $manifest.environment
 $location = $manifest.location
 $project = $manifest.project
 $regenerateScripts = $false
-$script:chatUiClientSecret="CHAT-CLIENT-SECRET"
-$script:coreApiClientSecret="CORE-API-CLIENT-SECRET"
-$script:k8sNamespace=$manifest.k8sNamespace
-$script:managementApiClientSecret="MGMT-API-CLIENT-SECRET"
-$script:managementUiClientSecret="MGMT-CLIENT-SECRET"
-$script:vectorizationApiClientSecret="VEC-API-CLIENT-SECRET"
+$script:chatUiClientSecret = "CHAT-CLIENT-SECRET"
+$script:coreApiClientSecret = "CORE-API-CLIENT-SECRET"
+$script:k8sNamespace = $manifest.k8sNamespace
+$script:managementApiClientSecret = "MGMT-API-CLIENT-SECRET"
+$script:managementUiClientSecret = "MGMT-CLIENT-SECRET"
+$script:vectorizationApiClientSecret = "VEC-API-CLIENT-SECRET"
 $skipApp = $false
 $skipDns = $false
 $skipNetworking = $false
@@ -31,6 +31,7 @@ properties {
     $actionGroupId = ""
     $logAnalyticsWorkspaceId = ""
     $vnetId = ""
+    $vnetName = ""
 }
 
 $resourceGroups = $manifest.resourceGroups
@@ -77,26 +78,26 @@ task App -depends ResourceGroups, Ops, Networking, DNS {
     Write-Host -ForegroundColor Blue "Ensure app resources exist"
 
     az deployment group create --name  $deployments["app"] `
-                        --resource-group $resourceGroups.app `
-                        --template-file ./app-rg.bicep `
-                        --parameters actionGroupId=$script:actionGroupId `
-                                    administratorObjectId=$administratorObjectId `
-                                    chatUiClientSecret=$script:chatUiClientSecret `
-                                    coreApiClientSecret=$script:coreApiClientSecret `
-                                    dnsResourceGroupName=$($resourceGroups.dns) `
-                                    environmentName=$environment `
-                                    k8sNamespace=$script:k8sNamespace `
-                                    location=$location `
-                                    logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-                                    logAnalyticsWorkspaceResourceId=$script:logAnalyticsWorkspaceId `
-                                    managementUiClientSecret=$script:managementUiClientSecret `
-                                    managementApiClientSecret=$script:managementApiClientSecret `
-                                    networkingResourceGroupName=$($resourceGroups.net) `
-                                    opsResourceGroupName=$($resourceGroups.ops) `
-                                    project=$project `
-                                    storageResourceGroupName=$($resourceGroups.storage) `
-                                    vectorizationApiClientSecret=$script:vectorizationApiClientSecret `
-                                    vnetId=$script:vnetId
+        --resource-group $resourceGroups.app `
+        --template-file ./app-rg.bicep `
+        --parameters actionGroupId=$script:actionGroupId `
+        administratorObjectId=$administratorObjectId `
+        chatUiClientSecret=$script:chatUiClientSecret `
+        coreApiClientSecret=$script:coreApiClientSecret `
+        dnsResourceGroupName=$($resourceGroups.dns) `
+        environmentName=$environment `
+        k8sNamespace=$script:k8sNamespace `
+        location=$location `
+        logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
+        logAnalyticsWorkspaceResourceId=$script:logAnalyticsWorkspaceId `
+        managementUiClientSecret=$script:managementUiClientSecret `
+        managementApiClientSecret=$script:managementApiClientSecret `
+        networkingResourceGroupName=$($resourceGroups.net) `
+        opsResourceGroupName=$($resourceGroups.ops) `
+        project=$project `
+        storageResourceGroupName=$($resourceGroups.storage) `
+        vectorizationApiClientSecret=$script:vectorizationApiClientSecret `
+        vnetId=$script:vnetId
 
     if ($LASTEXITCODE -ne 0) {
         throw "The app deployment failed."
@@ -114,10 +115,11 @@ task DNS -depends ResourceGroups, Networking {
     az deployment group create `
         --name $deployments["dns"] `
         --parameters `
-            environmentName=$environment `
-            location=$location `
-            project=$project `
-            vnetId=$script:vnetId `
+        environmentName=$environment `
+        location=$location `
+        project=$project `
+        virtualNetworkResourceGroupName=$resourceGroups.net `
+        vnetName=$script:vnetName `
         --resource-group $resourceGroups.dns `
         --template-file ./dns-rg.bicep
 
@@ -137,10 +139,10 @@ task Networking -depends ResourceGroups {
     az deployment group create `
         --name $deployments["net"] `
         --parameters `
-            environmentName=$environment `
-            location=$location `
-            project=$project `
-            createVpnGateway=$createVpnGateway `
+        environmentName=$environment `
+        location=$location `
+        project=$project `
+        createVpnGateway=$createVpnGateway `
         --resource-group $resourceGroups.net `
         --template-file ./networking-rg.bicep
 
@@ -148,17 +150,24 @@ task Networking -depends ResourceGroups {
         throw "The networking deployment failed."
     }
 
-    $script:vnetId = $(
+    $vnet = $(
         az deployment group show `
             --name $deployments["net"] `
-            --output tsv `
-            --query properties.outputs.vnetId.value `
-            --resource-group $resourceGroups.net
+            --output json `
+            --query "{
+                id:properties.outputs.vnetId.value,
+                name:properties.outputs.vnetName.value
+            }" `
+            --resource-group $resourceGroups.net | `
+        ConvertFrom-Json
     )
 
     if ($LASTEXITCODE -ne 0) {
-        throw "The VNet ID could not be retrieved."
+        throw "The VNet details could not be retrieved."
     }
+
+    $script:vnetId = $vnet.id
+    $script:vnetName = $vnet.name
 }
 
 task OpenAI -depends ResourceGroups, Ops, Networking, DNS {
@@ -173,14 +182,14 @@ task OpenAI -depends ResourceGroups, Ops, Networking, DNS {
         --resource-group  $resourceGroups.oai `
         --template-file ./openai-rg.bicep `
         --parameters actionGroupId=$script:actionGroupId `
-                        administratorObjectId=$administratorObjectId `
-                        dnsResourceGroupName=$($resourceGroups.dns) `
-                        environmentName=$environment `
-                        location=$location `
-                        logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-                        opsResourceGroupName=$($resourceGroups.ops) `
-                        project=$project `
-                        vnetId=$script:vnetId
+        administratorObjectId=$administratorObjectId `
+        dnsResourceGroupName=$($resourceGroups.dns) `
+        environmentName=$environment `
+        location=$location `
+        logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
+        opsResourceGroupName=$($resourceGroups.ops) `
+        project=$project `
+        vnetId=$script:vnetId
 
     if ($LASTEXITCODE -ne 0) {
         throw "The OpenAI deployment failed."
@@ -200,12 +209,12 @@ task Ops -depends ResourceGroups, Networking, DNS {
         --resource-group $resourceGroups.ops `
         --template-file ./ops-rg.bicep `
         --parameters `
-            administratorObjectId=$administratorObjectId `
-            dnsResourceGroupName=$($resourceGroups.dns) `
-            environmentName=$environment `
-            location=$location `
-            project=$project `
-            vnetId=$script:vnetId
+        administratorObjectId=$administratorObjectId `
+        dnsResourceGroupName=$($resourceGroups.dns) `
+        environmentName=$environment `
+        location=$location `
+        project=$project `
+        vnetId=$script:vnetId
 
     if ($LASTEXITCODE -ne 0) {
         throw "The ops deployment failed."
@@ -272,14 +281,14 @@ task Storage -depends ResourceGroups, Ops, Networking, DNS {
         --resource-group $resourceGroups.storage `
         --template-file ./storage-rg.bicep `
         --parameters `
-            actionGroupId=$script:actionGroupId `
-            environmentName=$environment `
-            location=$location `
-            logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-            dnsResourceGroupName=$($resourceGroups.dns) `
-            opsResourceGroupName=$($resourceGroups.ops) `
-            project=$project `
-            vnetId=$script:vnetId
+        actionGroupId=$script:actionGroupId `
+        environmentName=$environment `
+        location=$location `
+        logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
+        dnsResourceGroupName=$($resourceGroups.dns) `
+        opsResourceGroupName=$($resourceGroups.ops) `
+        project=$project `
+        vnetId=$script:vnetId
 
     if ($LASTEXITCODE -ne 0) {
         throw "The storage deployment failed."
@@ -299,14 +308,14 @@ task Vec -depends ResourceGroups, Ops, Networking, DNS {
         --resource-group $resourceGroups.vec `
         --template-file ./vec-rg.bicep `
         --parameters `
-            actionGroupId=$script:actionGroupId `
-            dnsResourceGroupName=$($resourceGroups.dns) `
-            environmentName=$environment `
-            location=$location `
-            logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-            opsResourceGroupName=$($resourceGroups.ops) `
-            project=$project `
-            vnetId=$script:vnetId
+        actionGroupId=$script:actionGroupId `
+        dnsResourceGroupName=$($resourceGroups.dns) `
+        environmentName=$environment `
+        location=$location `
+        logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
+        opsResourceGroupName=$($resourceGroups.ops) `
+        project=$project `
+        vnetId=$script:vnetId
 
     if ($LASTEXITCODE -ne 0) {
         throw "The vec deployment failed."
