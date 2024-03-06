@@ -105,15 +105,6 @@ var workload = 'svc'
 /** Outputs **/
 
 /** Nested Modules **/
-@description('Read DNS Zones')
-module dnsZones 'modules/utility/dnsZoneData.bicep' = {
-  name: 'dnsZones-${timestamp}'
-  scope: resourceGroup(dnsResourceGroupName)
-  params: {
-    location: location
-  }
-}
-
 module aksBackend 'modules/aks.bicep' = {
   name: 'aksBackend-${timestamp}'
   params: {
@@ -150,6 +141,14 @@ module aksFrontend 'modules/aks.bicep' = {
   }
 }
 
+module dnsZones 'modules/utility/dnsZoneData.bicep' = {
+  name: 'dnsZones-${timestamp}'
+  scope: resourceGroup(dnsResourceGroupName)
+  params: {
+    location: location
+  }
+}
+
 module eventgrid 'modules/eventgrid.bicep' = {
   name: 'eventgrid-${timestamp}'
   params: {
@@ -169,67 +168,9 @@ module eventgrid 'modules/eventgrid.bicep' = {
   }
 }
 
-module appConfigSystemTopic 'modules/config-system-topic.bicep' = {
-  name: 'ssTopic-${timestamp}'
-  scope: resourceGroup(opsResourceGroupName)
-  params: {
-    actionGroupId: actionGroupId
-    location: location
-    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    resourceSuffix: resourceSuffix
-    opsResourceSuffix: opsResourceSuffix
-    tags: tags
-  }
-}
-
-module storageSystemTopic 'modules/storage-system-topic.bicep' = {
-  name: 'ssTopic-${timestamp}'
-  scope: resourceGroup(storageResourceGroupName)
-  params: {
-    actionGroupId: actionGroupId
-    location: location
-    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    resourceSuffix: resourceSuffix
-    storageResourceSuffix: storageResourceSuffix
-    tags: tags
-  }
-}
-
-module sTopicSub 'modules/system-topic-subscription.bicep' = {
-  name: 'sTopicSub-${timestamp}'
-  scope: resourceGroup(storageResourceGroupName)
-  params: {
-    name: 'resource-provider'
-    topicName: storageSystemTopic.outputs.name
-    destinationTopicName: 'storage'
-    eventGridName: eventgrid.outputs.name
-    appResourceGroup: resourceGroup().name
-    filterPrefix: '/blobServices/default/containers/resource-provider/blobs'
-    includedEventTypes: [
-      'Microsoft.Storage.BlobCreated'
-      'Microsoft.Storage.BlobDeleted'
-    ]
-  }
-}
-
-module acTopicSub 'modules/system-topic-subscription.bicep' = {
-  name: 'acTopicSub-${timestamp}'
-  scope: resourceGroup(opsResourceGroupName)
-  params: {
-    name: 'app-config'
-    topicName: appConfigSystemTopic.outputs.name
-    destinationTopicName: 'configuration'
-    eventGridName: eventgrid.outputs.name
-    appResourceGroup: resourceGroup().name
-    includedEventTypes: [
-      'Microsoft.AppConfiguration.KeyValueModified'
-    ]
-  }
-}
-
 @batchSize(3)
-module backendServiceResources 'modules/service.bicep' = [for service in items(backendServices): {
-  name: 'beSvc-${service.key}-${timestamp}'
+module serviceResourcesBackend 'modules/service.bicep' = [for service in items(backendServices): {
+  name: 'serviceResourcesBackend-${service.key}-${timestamp}'
   params: {
     location: location
     namespace: k8sNamespace
@@ -243,42 +184,9 @@ module backendServiceResources 'modules/service.bicep' = [for service in items(b
   }
 }]
 
-module chatUiServiceResources 'modules/service.bicep' = [for service in items(chatUiService): {
-  name: 'feSvc-${service.key}-${timestamp}'
-  params: {
-    clientSecret: chatUiClientSecret
-    location: location
-    namespace: k8sNamespace
-    oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
-    opsResourceGroupName: opsResourceGroupName
-    opsResourceSuffix: opsResourceSuffix
-    resourceSuffix: resourceSuffix
-    serviceName: service.key
-    storageResourceGroupName: storageResourceGroupName
-    tags: tags
-    useOidc: true
-  }
-}]
-
-module managementUiServiceResources 'modules/service.bicep' = [for service in items(managementUiService): {
-  name: 'feSvc-${service.key}-${timestamp}'
-  params: {
-    clientSecret: managementUiClientSecret
-    location: location
-    namespace: k8sNamespace
-    oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
-    opsResourceGroupName: opsResourceGroupName
-    opsResourceSuffix: opsResourceSuffix
-    resourceSuffix: resourceSuffix
-    serviceName: service.key
-    storageResourceGroupName: storageResourceGroupName
-    tags: tags
-    useOidc: true
-  }
-}]
-
-module coreApiServiceResources 'modules/service.bicep' = [for service in items(coreApiService): {
-  name: 'feSvc-${service.key}-${timestamp}'
+@batchSize(3)
+module serviceResourcesCoreApi 'modules/service.bicep' = [for service in items(coreApiService): {
+  name: 'serviceResourcesCoreApi-${service.key}-${timestamp}'
   params: {
     clientSecret: coreApiClientSecret
     location: location
@@ -294,8 +202,27 @@ module coreApiServiceResources 'modules/service.bicep' = [for service in items(c
   }
 }]
 
-module managementApiServiceResources 'modules/service.bicep' = [for service in items(managementApiService): {
-  name: 'feSvc-${service.key}-${timestamp}'
+@batchSize(3)
+module serviceResourcesChatUi 'modules/service.bicep' = [for service in items(chatUiService): {
+  name: 'serviceResourcesChatUi-${service.key}-${timestamp}'
+  params: {
+    clientSecret: chatUiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+    useOidc: true
+  }
+}]
+
+@batchSize(3)
+module serviceResourcesManagementApi 'modules/service.bicep' = [for service in items(managementApiService): {
+  name: 'serviceResourcesManagementApi-${service.key}-${timestamp}'
   params: {
     clientSecret: managementApiClientSecret
     location: location
@@ -311,8 +238,27 @@ module managementApiServiceResources 'modules/service.bicep' = [for service in i
   }
 }]
 
-module vectorizationApiServiceResources 'modules/service.bicep' = [for service in items(vectorizationApiService): {
-  name: 'feSvc-${service.key}-${timestamp}'
+@batchSize(3)
+module serviceResourcesManagementUi 'modules/service.bicep' = [for service in items(managementUiService): {
+  name: 'serviceResourcesManagementUi-${service.key}-${timestamp}'
+  params: {
+    clientSecret: managementUiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+    useOidc: true
+  }
+}]
+
+@batchSize(3)
+module serviceResourcesVectorizationApi 'modules/service.bicep' = [for service in items(vectorizationApiService): {
+  name: 'serviceResourcesVectorizationApi-${service.key}-${timestamp}'
   params: {
     clientSecret: vectorizationApiClientSecret
     location: location
@@ -327,3 +273,61 @@ module vectorizationApiServiceResources 'modules/service.bicep' = [for service i
     useOidc: false
   }
 }]
+
+module systemTopicAppConfig 'modules/config-system-topic.bicep' = {
+  name: 'ssTopic-${timestamp}'
+  scope: resourceGroup(opsResourceGroupName)
+  params: {
+    actionGroupId: actionGroupId
+    location: location
+    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
+    resourceSuffix: resourceSuffix
+    opsResourceSuffix: opsResourceSuffix
+    tags: tags
+  }
+}
+
+module systemTopicStorage 'modules/storage-system-topic.bicep' = {
+  name: 'ssTopic-${timestamp}'
+  scope: resourceGroup(storageResourceGroupName)
+  params: {
+    actionGroupId: actionGroupId
+    location: location
+    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
+    resourceSuffix: resourceSuffix
+    storageResourceSuffix: storageResourceSuffix
+    tags: tags
+  }
+}
+
+module systemTopicSubscriptionAppConfig 'modules/system-topic-subscription.bicep' = {
+  name: 'systemTopicSubscriptionAppConfig-${timestamp}'
+  scope: resourceGroup(opsResourceGroupName)
+  params: {
+    name: 'app-config'
+    topicName: systemTopicAppConfig.outputs.name
+    destinationTopicName: 'configuration'
+    eventGridName: eventgrid.outputs.name
+    appResourceGroup: resourceGroup().name
+    includedEventTypes: [
+      'Microsoft.AppConfiguration.KeyValueModified'
+    ]
+  }
+}
+
+module systemTopicSubscriptionStorage 'modules/system-topic-subscription.bicep' = {
+  name: 'systemTopicSubscriptionStorage-${timestamp}'
+  scope: resourceGroup(storageResourceGroupName)
+  params: {
+    name: 'resource-provider'
+    topicName: systemTopicStorage.outputs.name
+    destinationTopicName: 'storage'
+    eventGridName: eventgrid.outputs.name
+    appResourceGroup: resourceGroup().name
+    filterPrefix: '/blobServices/default/containers/resource-provider/blobs'
+    includedEventTypes: [
+      'Microsoft.Storage.BlobCreated'
+      'Microsoft.Storage.BlobDeleted'
+    ]
+  }
+}
