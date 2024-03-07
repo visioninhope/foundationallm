@@ -131,7 +131,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         };
                     }
 
-                    _logger.LogWarning("The LangChain orchestration service returned status code {StatusCode}: {ResponseContent}",
+                    _logger.LogWarning("The AzureAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
                         responseMessage.StatusCode, responseContent);
                 }
             }
