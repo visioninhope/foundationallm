@@ -1,0 +1,22 @@
+[
+  {
+    "category": "Authorization",
+    "actions": [
+      {
+        "name": "FoundationaLLM.Authorization/roleAssignments/read",
+        "description": "Read role assignments.",
+        "field_name": "FoundationaLLM_Authorization_RoleAssignments_Read"
+      },
+      {
+        "name": "FoundationaLLM.Authorization/roleAssignments/write",
+        "description": "Create or update role assignments.",
+        "field_name": "FoundationaLLM_Authorization_RoleAssignments_Write"
+      },
+      {
+        "name": "FoundationaLLM.Authorization/roleAssignments/delete",
+        "description": "Delete role assignments.",
+        "field_name": "FoundationaLLM_Authorization_RoleAssignments_Delete"
+      }
+    ]
+  }
+]

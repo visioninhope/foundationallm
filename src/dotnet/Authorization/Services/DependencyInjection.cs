@@ -23,11 +23,11 @@ namespace FoundationaLLM
         /// <param name="builder">The host application builder.</param>
         public static void AddAuthorizationCore(this IHostApplicationBuilder builder)
         {
-            builder.Services.AddSingleton<IStorageService, BlobStorageService>(sp =>
+            builder.Services.AddSingleton<IStorageService, DataLakeStorageService>(sp =>
             {
-                var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
+                var logger = sp.GetRequiredService<ILogger<DataLakeStorageService>>();
 
-                return new BlobStorageService(
+                return new DataLakeStorageService(
                     Options.Create<BlobStorageServiceSettings>(new BlobStorageServiceSettings
                     {
                         AuthenticationType = BlobStorageAuthenticationTypes.AzureIdentity,
