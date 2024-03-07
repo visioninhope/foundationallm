@@ -20,6 +20,12 @@ namespace FoundationaLLM.Common.Models.Orchestration
         public required string UserPrompt { get; set; }
 
         /// <summary>
+        /// The name of the selected agent.
+        /// </summary>
+        [JsonPropertyName("agent_name")]
+        public string? AgentName { get; set; }
+
+        /// <summary>
         /// Settings for the orchestration request.
         /// </summary>
         [JsonPropertyName("settings")]
