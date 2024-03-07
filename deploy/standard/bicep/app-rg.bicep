@@ -153,12 +153,9 @@ module eventgrid 'modules/eventgrid.bicep' = {
   name: 'eventgrid-${timestamp}'
   params: {
     actionGroupId: actionGroupId
-    dnsResourceGroupName: dnsResourceGroupName
     kvResourceSuffix: opsResourceSuffix
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
-    networkingResourceGroupName: networkingResourceGroupName
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'eventgrid' ], zone.key))
     resourceSuffix: resourceSuffix
@@ -168,9 +165,26 @@ module eventgrid 'modules/eventgrid.bicep' = {
   }
 }
 
+module helmIngressNginx 'br/public:deployment-scripts/aks-run-helm:2.0.3' = {
+  name: 'helmIngressNginx-${timestamp}'
+  params: {
+    aksName: aksBackend.outputs.name
+    location: location
+    helmRepoURL: 'https://kubernetes.github.io/ingress-nginx'
+    helmRepo: 'ingress-nginx'
+    helmApps: [
+      {
+        helmApp: 'ingress-nginx/ingress-nginx'
+        helmAppName: 'gateway'
+        helmAppParams: '--namespace gateway-system --create-namespace'
+      }
+    ]
+  }
+}
+
 @batchSize(3)
-module serviceResourcesBackend 'modules/service.bicep' = [for service in items(backendServices): {
-  name: 'serviceResourcesBackend-${service.key}-${timestamp}'
+module srBackend 'modules/service.bicep' = [for service in items(backendServices): {
+  name: 'srBackend-${service.key}-${timestamp}'
   params: {
     location: location
     namespace: k8sNamespace
@@ -185,8 +199,8 @@ module serviceResourcesBackend 'modules/service.bicep' = [for service in items(b
 }]
 
 @batchSize(3)
-module serviceResourcesCoreApi 'modules/service.bicep' = [for service in items(coreApiService): {
-  name: 'serviceResourcesCoreApi-${service.key}-${timestamp}'
+module srCoreApi 'modules/service.bicep' = [for service in items(coreApiService): {
+  name: 'srCoreApi-${service.key}-${timestamp}'
   params: {
     clientSecret: coreApiClientSecret
     location: location
@@ -203,8 +217,8 @@ module serviceResourcesCoreApi 'modules/service.bicep' = [for service in items(c
 }]
 
 @batchSize(3)
-module serviceResourcesChatUi 'modules/service.bicep' = [for service in items(chatUiService): {
-  name: 'serviceResourcesChatUi-${service.key}-${timestamp}'
+module srChatUi 'modules/service.bicep' = [for service in items(chatUiService): {
+  name: 'srChatUi-${service.key}-${timestamp}'
   params: {
     clientSecret: chatUiClientSecret
     location: location
@@ -221,8 +235,8 @@ module serviceResourcesChatUi 'modules/service.bicep' = [for service in items(ch
 }]
 
 @batchSize(3)
-module serviceResourcesManagementApi 'modules/service.bicep' = [for service in items(managementApiService): {
-  name: 'serviceResourcesManagementApi-${service.key}-${timestamp}'
+module srManagementApi 'modules/service.bicep' = [for service in items(managementApiService): {
+  name: 'srManagementApi-${service.key}-${timestamp}'
   params: {
     clientSecret: managementApiClientSecret
     location: location
@@ -239,8 +253,8 @@ module serviceResourcesManagementApi 'modules/service.bicep' = [for service in i
 }]
 
 @batchSize(3)
-module serviceResourcesManagementUi 'modules/service.bicep' = [for service in items(managementUiService): {
-  name: 'serviceResourcesManagementUi-${service.key}-${timestamp}'
+module srManagementUi 'modules/service.bicep' = [for service in items(managementUiService): {
+  name: 'srManagementUi-${service.key}-${timestamp}'
   params: {
     clientSecret: managementUiClientSecret
     location: location
@@ -257,8 +271,8 @@ module serviceResourcesManagementUi 'modules/service.bicep' = [for service in it
 }]
 
 @batchSize(3)
-module serviceResourcesVectorizationApi 'modules/service.bicep' = [for service in items(vectorizationApiService): {
-  name: 'serviceResourcesVectorizationApi-${service.key}-${timestamp}'
+module srVectorizationApi 'modules/service.bicep' = [for service in items(vectorizationApiService): {
+  name: 'srVectorizationApi-${service.key}-${timestamp}'
   params: {
     clientSecret: vectorizationApiClientSecret
     location: location
@@ -275,7 +289,7 @@ module serviceResourcesVectorizationApi 'modules/service.bicep' = [for service i
 }]
 
 module systemTopicAppConfig 'modules/config-system-topic.bicep' = {
-  name: 'ssTopic-${timestamp}'
+  name: 'systemTopicAppConfig-${timestamp}'
   scope: resourceGroup(opsResourceGroupName)
   params: {
     actionGroupId: actionGroupId
@@ -288,7 +302,7 @@ module systemTopicAppConfig 'modules/config-system-topic.bicep' = {
 }
 
 module systemTopicStorage 'modules/storage-system-topic.bicep' = {
-  name: 'ssTopic-${timestamp}'
+  name: 'systemTopicStorage-${timestamp}'
   scope: resourceGroup(storageResourceGroupName)
   params: {
     actionGroupId: actionGroupId

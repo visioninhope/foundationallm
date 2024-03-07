@@ -84,6 +84,9 @@ param tags object
 param timestamp string = utcNow()
 
 /** Outputs **/
+@description('AKS Cluster Name')
+output name string = main.name
+
 @description('AKS OIDC Issuer URL')
 output oidcIssuerUrl string = main.properties.oidcIssuerProfile.issuerURL
 

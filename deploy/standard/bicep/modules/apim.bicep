@@ -366,12 +366,6 @@ resource serviceDiagnostics 'Microsoft.ApiManagement/service/diagnostics@2023-03
   }
 }
 
-// @description('Service Diagnostics Logger')
-// resource serviceDiagnosticsLogger 'Microsoft.ApiManagement/service/diagnostics/loggers@2022-08-01' = {
-//   parent: serviceDiagnostics
-//   name: 'azuremonitor'
-// }
-
 //** Nested Modules **//
 module backend 'apimBackend.bicep' = [for (account, i) in cognitiveAccounts: {
   dependsOn: [ roleAssignment ]
