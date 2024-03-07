@@ -53,7 +53,7 @@ namespace FoundationaLLM.Authorization.Services
             {
                 foreach (var instanceId in _settings.InstanceIds)
                 {
-                    var roleAssignmentStoreFile = $"{instanceId.ToLower()}.json";
+                    var roleAssignmentStoreFile = $"/{instanceId.ToLower()}.json";
                     if (await _storageService.FileExistsAsync(ROLE_ASSIGNMENTS_CONTAINER_NAME, roleAssignmentStoreFile, default))
                     {
                         var fileContent = await _storageService.ReadFileAsync(ROLE_ASSIGNMENTS_CONTAINER_NAME, roleAssignmentStoreFile, default);

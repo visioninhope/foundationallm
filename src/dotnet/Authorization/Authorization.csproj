@@ -16,4 +16,41 @@
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Constants\AuthorizableActionNames.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AuthorizableActionNames.cs</LastGenOutput>
+    </None>
+    <None Update="Models\AuthorizableActions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AuthorizableActions.cs</LastGenOutput>
+    </None>
+    <None Update="Models\RoleDefinitions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RoleDefinitions.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Constants\AuthorizableActionNames.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AuthorizableActionNames.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Models\AuthorizableActions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AuthorizableActions.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Models\RoleDefinitions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RoleDefinitions.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
