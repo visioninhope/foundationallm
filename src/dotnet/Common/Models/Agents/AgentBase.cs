@@ -1,7 +1,6 @@
 ﻿using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Models.Orchestration.DataSources;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using System.Text.Json.Serialization;
 
@@ -39,11 +38,6 @@ namespace FoundationaLLM.Common.Models.Agents
         /// </summary>
         [JsonPropertyName("gatekeeper")]
         public Gatekeeper? Gatekeeper { get; set; }
-        ///// <summary>
-        ///// The agent's LLM orchestrator type.
-        ///// </summary>
-        //[JsonPropertyName("orchestrator")]
-        //public string? Orchestrator { get; set; }
 
         /// <summary>
         /// Settings for the orchestration service.
