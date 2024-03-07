@@ -104,6 +104,8 @@ var workload = 'svc'
 
 /** Outputs **/
 
+/** Resources **/
+
 /** Nested Modules **/
 module aksBackend 'modules/aks.bicep' = {
   name: 'aksBackend-${timestamp}'
@@ -174,6 +176,9 @@ module helmIngressNginx 'br/public:deployment-scripts/aks-run-helm:2.0.3' = {
     helmRepo: 'ingress-nginx'
     helmApps: [
       {
+        useExistingManagedIdentity: true
+        managedIdentityName: deploymentIdentity.name
+
         helmApp: 'ingress-nginx/ingress-nginx'
         helmAppName: 'gateway'
         helmAppParams: '--namespace gateway-system --create-namespace'
