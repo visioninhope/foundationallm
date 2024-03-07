@@ -27,14 +27,13 @@ namespace FoundationaLLM.AgentFactory.Core.Services
     public class AzureAIDirectService(
         IOptions<AzureAIDirectServiceSettings> options,
         ILogger<AzureAIDirectService> logger,
-        IHttpClientFactoryService httpClientFactoryService,
-        Dictionary<string, IResourceProviderService> resourceProviderServices) : IAzureAIDirectService
+        IHttpClientFactoryService httpClientFactoryService) : IAzureAIDirectService
     {
         readonly AzureAIDirectServiceSettings _settings = options.Value;
         readonly ILogger<AzureAIDirectService> _logger = logger;
         private readonly IHttpClientFactoryService _httpClientFactoryService = httpClientFactoryService;
         readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
-        readonly Dictionary<string, IResourceProviderService> _resourceProviderServices = new Dictionary<string, IResourceProviderService>();
+        //readonly Dictionary<string, IResourceProviderService> _resourceProviderServices = new Dictionary<string, IResourceProviderService>();
 
         /// <inheritdoc/>
         public bool IsInitialized => true;
@@ -56,10 +55,10 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             endpointConfiguration.TryGetValue(EndpointConfigurationKeys.Endpoint, out var endpoint);
             endpointConfiguration.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKey);
 
-            if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
-                throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
+            //if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
+            //    throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
 
-            var systemPrompt = await promptResourceProvider.GetResourceAsync<MultipartPrompt>(agent.PromptObjectId!);
+            //var systemPrompt = await promptResourceProvider.GetResourceAsync<MultipartPrompt>(agent.PromptObjectId!);
 
             if (endpoint != null && apiKey != null)
             {
@@ -79,12 +78,11 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         {
                             InputString =
                             [
-                                new InputString { Role = "system", Content = systemPrompt.Prefix },
                                 new InputString { Role = "user", Content = request.UserPrompt }
                             ],
                             Parameters = new Parameters
                             {
-                                Temperature = Convert.ToSingle(modelParameters.GetValueOrDefault(ModelParameterKeys.Temperature, 0.0f))
+                                Temperature = Convert.ToSingle(modelParameters.GetValueOrDefault(ModelParameterKeys.Temperature, 0.0f).ToString())
                             }
                         }
                     };
@@ -106,7 +104,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                             Completion = completionResponse!.Output,
                             UserPrompt = request.UserPrompt,
                             FullPrompt = body,
-                            PromptTemplate = systemPrompt.Prefix,
+                            PromptTemplate = null,
                             AgentName = agent.Name,
                             PromptTokens = 0,
                             CompletionTokens = 0
@@ -122,7 +120,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             {
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = request.UserPrompt,
-                PromptTemplate = systemPrompt.Prefix,
+                PromptTemplate = null,
                 AgentName = agent.Name,
                 PromptTokens = 0,
                 CompletionTokens = 0

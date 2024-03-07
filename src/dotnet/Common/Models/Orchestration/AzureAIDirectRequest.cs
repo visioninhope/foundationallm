@@ -43,6 +43,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// and higher values will make the model more random.
         /// </summary>
         [JsonPropertyName("temperature")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public float? Temperature { get; set; } = 0.0f;
 
         /// <summary>
@@ -50,6 +51,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// Default value is null, which disables top-k-filtering.
         /// </summary>
         [JsonPropertyName("top_k")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public float? TopK { get; set; }
 
         /// <summary>
@@ -57,18 +59,21 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// to keep for nucleus sampling, defaults to null.
         /// </summary>
         [JsonPropertyName("top_p")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public float? TopP { get; set; }
 
         /// <summary>
         /// Whether or not to use sampling; use greedy decoding otherwise.
         /// </summary>
         [JsonPropertyName("do_sample")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public bool? DoSample { get; set; }
 
         /// <summary>
         /// The maximum number of tokens to generate.
         /// </summary>
         [JsonPropertyName("max_new_tokens")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public int? MaxNewTokens { get; set; }
 
         /// <summary>
@@ -76,6 +81,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// Default value is false.
         /// </summary>
         [JsonPropertyName("return_full_text")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public bool? ReturnFullText { get; set; }
 
         /// <summary>
@@ -83,6 +89,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// Defaults to False.
         /// </summary>
         [JsonPropertyName("ignore_eos")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public bool? IgnoreEOS { get; set; }
     }
 
@@ -96,12 +103,14 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// Value will be either "user" or "assistant".
         /// </summary>
         [JsonPropertyName("role")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? Role { get; set; }
 
         /// <summary>
         /// The text either input into or output by the model.
         /// </summary>
         [JsonPropertyName("content")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? Content { get; set; }
     }
 }

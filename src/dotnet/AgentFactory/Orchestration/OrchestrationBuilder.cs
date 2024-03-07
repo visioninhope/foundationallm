@@ -91,6 +91,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 var validType = Enum.TryParse(orchestrationType, out LLMOrchestrationService llmOrchestrationType);
                 if (!validType)
                     throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
+
                 orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
                 // Hydrate overridable values from config and assign them back to the agent's LanguageModel.
