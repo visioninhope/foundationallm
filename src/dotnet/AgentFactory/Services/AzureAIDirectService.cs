@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
+using FoundationaLLM.Prompt.Constants;
+using Azure.ResourceManager.Models;
+using static Microsoft.IO.RecyclableMemoryStreamManager;
 
 namespace FoundationaLLM.AgentFactory.Core.Services
 {
@@ -55,7 +58,22 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
                 throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
 
-            var systemPrompt = await promptResourceProvider.GetResourceAsync<MultipartPrompt>(agent.PromptObjectId!);
+            MultipartPrompt? prompt = null;
+            InputString? systemPrompt = null;
+            if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
+            {
+                var resourcePath = promptResourceProvider.GetResourcePathFromObjectId(agent.PromptObjectId);
+                var resource = await promptResourceProvider.HandleGetAsync(resourcePath);
+                if (resource is List<PromptBase> prompts)
+                {
+                    prompt = prompts.FirstOrDefault() as MultipartPrompt;
+                    systemPrompt = new InputString
+                    {
+                        Role = "system",
+                        Content = prompt?.Prefix ?? string.Empty
+                    };
+                }
+            }
 
             if (endpoint != null && apiKey != null)
             {
@@ -76,7 +94,8 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         {
                             InputString =
                             [
-                                new InputString { Role = "user", Content = request.UserPrompt }
+                                new InputString { Role = "user", Content = request.UserPrompt },
+                                systemPrompt
                             ],
                             Parameters = new Parameters
                             {
@@ -105,7 +124,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                             Completion = completionResponse!.Output,
                             UserPrompt = request.UserPrompt,
                             FullPrompt = body,
-                            PromptTemplate = null,
+                            PromptTemplate = systemPrompt?.Content,
                             AgentName = agent.Name,
                             PromptTokens = 0,
                             CompletionTokens = 0
@@ -121,7 +140,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             {
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = request.UserPrompt,
-                PromptTemplate = null,
+                PromptTemplate = systemPrompt?.Content,
                 AgentName = agent.Name,
                 PromptTokens = 0,
                 CompletionTokens = 0
