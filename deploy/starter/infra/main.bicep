@@ -63,10 +63,6 @@ var clientSecrets = [
     name: 'foundationallm-langchain-sqldatabase-testdb-password'
     value: 'PLACEHOLDER'
   }
-  {
-    name: 'foundationallm-apis-auth-api-entra-clientsecret'
-    value: authEntraClientSecret
-  }
 ]
 
 var deployOpenAi = empty(existingOpenAiInstance.name)
@@ -99,6 +95,12 @@ resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   tags: tags
 }
 
+resource authRg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
+  name: 'rg-auth-${environmentName}'
+  location: location
+  tags: tags
+}
+
 resource customerOpenAiResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!deployOpenAi) {
   scope: subscription(existingOpenAiInstance.subscriptionId)
   name: existingOpenAiInstance.resourceGroup
@@ -123,6 +125,23 @@ module appConfig './shared/app-config.bicep' = {
   dependsOn: [ keyVault ]
 }
 
+module authKeyvault './shared/keyvault.bicep' = {
+  name: 'auth-kv'
+  params: {
+    location: location
+    name: '${abbrs.keyVaultVaults}auth${resourceToken}'
+    tags: tags
+    principalId: principalId
+    secrets: [
+      {
+        name: 'foundationallm-apis-auth-api-entra-clientsecret'
+        value: authEntraClientSecret
+      }
+    ]
+  }
+  scope: authRg
+}
+
 module authStore './shared/authorization-store.bicep' = {
   name: 'auth-store'
   params: {
@@ -131,7 +150,7 @@ module authStore './shared/authorization-store.bicep' = {
     name: '${abbrs.storageStorageAccounts}auth${resourceToken}'
     tags: tags
   }
-  scope: rg
+  scope: authRg
 }
 
 module contentSafety './shared/content-safety.bicep' = {
@@ -300,16 +319,6 @@ module openAiSecrets './shared/openai-secrets.bicep' = {
   }
 }
 
-module registry './shared/registry.bicep' = {
-  name: 'registry'
-  params: {
-    location: location
-    tags: tags
-    name: '${abbrs.containerRegistryRegistries}${resourceToken}'
-  }
-  scope: rg
-}
-
 module storage './shared/storage.bicep' = {
   name: 'storage'
   params: {
@@ -432,12 +441,12 @@ module authAcaService './app/authAcaService.bicep' = {
     name: '${abbrs.appContainerApps}authapi${resourceToken}'
     location: location
     tags: tags
+    authRgName: authRg.name
     authStoreName: authStore.outputs.name
     identityName: '${abbrs.managedIdentityUserAssignedIdentities}auth-api-${resourceToken}'
-    keyvaultName: keyVault.outputs.name
+    keyvaultName: authKeyvault.outputs.name
     applicationInsightsName: monitoring.outputs.applicationInsightsName
     containerAppsEnvironmentName: appsEnv.outputs.name
-    containerRegistryName: registry.outputs.name
     exists: authServiceExists == 'true'
     appDefinition: serviceDefinition
     hasIngress: true
@@ -466,13 +475,8 @@ module authAcaService './app/authAcaService.bicep' = {
     ]
     secretSettings: [
       {
-        name: 'FoundationaLLM__AuthorizationAPI__AppInsightsConnectionString'
-        value: monitoring.outputs.applicationInsightsConnectionSecretRef
-        secretRef: monitoring.outputs.applicationInsightsConnectionSecretName
-      }
-      {
         name: 'FoundationaLLM__AuthorizationAPI__Entra__ClientSecret'
-        value: keyVault.outputs.secretRefs[indexOf(keyVault.outputs.secretNames, 'foundationallm-apis-auth-api-entra-clientsecret')]
+        value: authKeyvault.outputs.secretRefs[indexOf(authKeyvault.outputs.secretNames, 'foundationallm-apis-auth-api-entra-clientsecret')]
         secretRef: 'foundationallm-apis-auth-api-entra-clientsecret'
       }
     ]
@@ -496,7 +500,6 @@ module acaServices './app/acaService.bicep' = [for service in services: {
     keyvaultName: keyVault.outputs.name
     applicationInsightsName: monitoring.outputs.applicationInsightsName
     containerAppsEnvironmentName: appsEnv.outputs.name
-    containerRegistryName: registry.outputs.name
     exists: servicesExist['${service.name}'] == 'true'
     appDefinition: serviceDefinition
     hasIngress: service.hasIngress
@@ -523,7 +526,6 @@ module acaServices './app/acaService.bicep' = [for service in services: {
 
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
 output AZURE_COGNITIVE_SEARCH_ENDPOINT string = cogSearch.outputs.endpoint
-output AZURE_CONTAINER_REGISTRY_ENDPOINT string = registry.outputs.loginServer
 output AZURE_CONTENT_SAFETY_ENDPOINT string = contentSafety.outputs.endpoint
 output AZURE_COSMOS_DB_ENDPOINT string = cosmosDb.outputs.endpoint
 output AZURE_EVENT_GRID_ENDPOINT string = eventgrid.outputs.endpoint

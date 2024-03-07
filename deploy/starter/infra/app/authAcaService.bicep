@@ -1,11 +1,10 @@
 param name string
 param location string = resourceGroup().location
 param tags object = {}
-
+param authRgName string
 param authStoreName string
 param identityName string
 param keyvaultName string
-param containerRegistryName string
 param containerAppsEnvironmentName string
 param applicationInsightsName string
 param exists bool
@@ -37,10 +36,6 @@ resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' 
   location: location
 }
 
-resource containerRegistry 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' existing = {
-  name: containerRegistryName
-}
-
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2023-04-01-preview' existing = {
   name: containerAppsEnvironmentName
 }
@@ -49,58 +44,14 @@ resource applicationInsights 'Microsoft.Insights/components@2020-02-02' existing
   name: applicationInsightsName
 }
 
-resource acrPullRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  scope: containerRegistry
-  name: guid(subscription().id, resourceGroup().id, identity.id, 'acrPullRole')
-  properties: {
-    roleDefinitionId:  subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d')
-    principalType: 'ServicePrincipal'
+module authRoles '../shared/auth-roles.bicep' = {
+  name: 'auth-roles'
+  scope: resourceGroup(authRgName)
+  params: {
+    authStoreName: authStoreName
+    keyvaultName: keyvaultName
+    identityId: identity.id
     principalId: identity.properties.principalId
-  }
-}
-
-resource keyvault 'Microsoft.KeyVault/vaults@2023-07-01' existing = {
-  name: keyvaultName
-}
-
-resource secretsUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  scope: keyvault
-  name: guid(subscription().id, resourceGroup().id, identity.id, 'secretsUserRole')
-  properties: {
-    roleDefinitionId: subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions', '4633458b-17de-408a-b874-0445c86b69e6')
-    principalType: 'ServicePrincipal'
-    principalId: identity.properties.principalId
-  }
-}
-
-resource authStore 'Microsoft.Storage/storageAccounts@2023-01-01' existing = {
-  name: authStoreName
-}
-
-resource authStoreRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  scope: authStore
-  name: guid(subscription().id, resourceGroup().id, identity.id, 'blobAdmin')
-  properties: {
-    roleDefinitionId: subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions', 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b')
-    principalType: 'ServicePrincipal'
-    principalId: identity.properties.principalId
-  }
-}
-
-resource secretsAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2023-07-01' = {
-  parent: keyvault
-  name: 'add'
-  properties: {
-    accessPolicies: [
-      {
-        objectId: identity.properties.principalId
-        permissions: { secrets: [ 'get', 'list' ] }
-        tenantId: subscription().tenantId
-      }
-    ]
   }
 }
 
@@ -116,7 +67,7 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
   name: truncatedAppName
   location: location
   tags: union(tags, {'azd-service-name':  serviceName })
-  dependsOn: [ acrPullRole, secretsAccessPolicy ]
+  dependsOn: [ authRoles ]
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: { '${identity.id}': {} }
@@ -129,12 +80,6 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
         targetPort: 80
         transport: 'auto'
       } : null
-      registries: [
-        {
-          server: '${containerRegistryName}.azurecr.io'
-          identity: identity.id
-        }
-      ]
       secrets: union([
       ],
       map(secrets, secret => {
@@ -159,6 +104,10 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
             }
             {
               name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+              value: applicationInsights.properties.ConnectionString
+            }
+            {
+              name: 'FoundationaLLM__AuthorizationAPI__AppInsightsConnectionString'
               value: applicationInsights.properties.ConnectionString
             }
             {
