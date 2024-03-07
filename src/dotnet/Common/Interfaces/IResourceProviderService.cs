@@ -18,6 +18,13 @@ namespace FoundationaLLM.Common.Interfaces
         bool IsInitialized { get; }
 
         /// <summary>
+        /// Returns the logical resource path from the object id.
+        /// </summary>
+        /// <param name="objectId">The object ID of the resource.</param>
+        /// <returns></returns>
+        string GetResourcePathFromObjectId(string objectId);
+
+        /// <summary>
         /// Gets the resources based on the logical path of the resource type.
         /// </summary>
         /// <typeparam name="T">The type of the resource.</typeparam>

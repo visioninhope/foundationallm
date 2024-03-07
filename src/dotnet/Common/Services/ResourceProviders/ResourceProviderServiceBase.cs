@@ -129,6 +129,21 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             }
         }
 
+        /// <inheritdoc/>
+        public string GetResourcePathFromObjectId(string objectId)
+        {
+            if (string.IsNullOrWhiteSpace(objectId))
+                throw new ResourceProviderException("The provided object id is invalid.",
+                                       StatusCodes.Status400BadRequest);
+
+            var tokens = objectId.Split('/', StringSplitOptions.RemoveEmptyEntries);
+            if (tokens.Length < 6)
+                throw new ResourceProviderException("The provided object id is invalid.",
+                                       StatusCodes.Status400BadRequest);
+
+            return $"/{string.Join("/", tokens[4..])}";
+        }
+
         #region IManagementProviderService
 
         /// <inheritdoc/>
