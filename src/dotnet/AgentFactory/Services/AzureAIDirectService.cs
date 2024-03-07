@@ -9,12 +9,8 @@ using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Prompt.Models.Metadata;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.AgentFactory.Core.Services
 {
@@ -27,13 +23,15 @@ namespace FoundationaLLM.AgentFactory.Core.Services
     public class AzureAIDirectService(
         IOptions<AzureAIDirectServiceSettings> options,
         ILogger<AzureAIDirectService> logger,
-        IHttpClientFactoryService httpClientFactoryService) : IAzureAIDirectService
+        IHttpClientFactoryService httpClientFactoryService,
+        IEnumerable<IResourceProviderService> resourceProviderServices) : IAzureAIDirectService
     {
         readonly AzureAIDirectServiceSettings _settings = options.Value;
         readonly ILogger<AzureAIDirectService> _logger = logger;
         private readonly IHttpClientFactoryService _httpClientFactoryService = httpClientFactoryService;
         readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
-        //readonly Dictionary<string, IResourceProviderService> _resourceProviderServices = new Dictionary<string, IResourceProviderService>();
+        readonly Dictionary<string, IResourceProviderService> _resourceProviderServices = resourceProviderServices.ToDictionary(
+                rps => rps.Name);
 
         /// <inheritdoc/>
         public bool IsInitialized => true;
@@ -49,24 +47,24 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             };
             if (agent == null) throw new Exception("Agent cannot be null.");
 
-            var endpointConfiguration = agent.OrchestrationSettings?.EndpointConfiguration;
-            if (endpointConfiguration == null) throw new Exception("Endpoint Configuration must be provided.");
-
+            var endpointConfiguration = (agent.OrchestrationSettings?.EndpointConfiguration)
+                ?? throw new Exception("Endpoint Configuration must be provided.");
             endpointConfiguration.TryGetValue(EndpointConfigurationKeys.Endpoint, out var endpoint);
             endpointConfiguration.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKey);
 
-            //if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
-            //    throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
+            if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
+                throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
 
-            //var systemPrompt = await promptResourceProvider.GetResourceAsync<MultipartPrompt>(agent.PromptObjectId!);
+            var systemPrompt = await promptResourceProvider.GetResourceAsync<MultipartPrompt>(agent.PromptObjectId!);
 
             if (endpoint != null && apiKey != null)
             {
-                var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.AzureAIDirect);
+                var client = _httpClientFactoryService.CreateClient(HttpClients.AzureAIDirect);
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
                     "Bearer", apiKey.ToString()
                 );
-
+                client.BaseAddress = new Uri(endpoint.ToString()!);
+                
                 var modelParameters = agent.OrchestrationSettings?.ModelParameters;
                 AzureAIDirectRequest azureAIDirectRequest;
 
@@ -82,17 +80,20 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                             ],
                             Parameters = new Parameters
                             {
-                                Temperature = Convert.ToSingle(modelParameters.GetValueOrDefault(ModelParameterKeys.Temperature, 0.0f).ToString())
+                                Temperature = Convert.ToSingle(modelParameters.GetValueOrDefault(ModelParameterKeys.Temperature, 0.0f).ToString()),
+                                MaxNewTokens = Convert.ToInt32(modelParameters.GetValueOrDefault(ModelParameterKeys.MaxNewTokens, 128).ToString())
                             }
                         }
                     };
 
                     var body = JsonSerializer.Serialize(azureAIDirectRequest, _jsonSerializerOptions);
+                    var content = new StringContent(body, Encoding.UTF8, "application/json");
+                    if (modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment))
+                    {
+                        content.Headers.Add("azureml-model-deployment", deployment.ToString());
+                    }
 
-                    var responseMessage = await client.PostAsync(
-                        endpoint.ToString(),
-                        new StringContent(body, Encoding.UTF8, "application/json")
-                    );
+                    var responseMessage = await client.PostAsync("", content);
                     var responseContent = await responseMessage.Content.ReadAsStringAsync();
 
                     if (responseMessage.IsSuccessStatusCode)

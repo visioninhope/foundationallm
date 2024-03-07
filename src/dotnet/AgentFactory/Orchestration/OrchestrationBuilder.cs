@@ -105,7 +105,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                     {
                         switch (key)
                         {
-                            case ModelParameterKeys.Deployment_Name:
+                            case ModelParameterKeys.DeploymentName:
                                 agentBase.LanguageModel!.Deployment = completionRequest.Settings?.ModelParameters?.GetValueOrDefault(key)!.ToString();
                                 break;
                             case ModelParameterKeys.Temperature:

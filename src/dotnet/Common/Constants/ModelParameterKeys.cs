@@ -9,7 +9,7 @@
         /// The key name for the deployment_name model parameter.
         /// This value should be a string representing the name of the model deployment in Azure OpenAI.
         /// </summary>
-        public const string Deployment_Name = "deployment_name";
+        public const string DeploymentName = "deployment_name";
         /// <summary>
         /// The key name for the temperature parameter.
         /// This value should be a float between 0.0 and 1.0.

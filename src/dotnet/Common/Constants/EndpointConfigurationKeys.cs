@@ -9,10 +9,10 @@
         /// The API Endpoint configuration setting.
         /// This value should be a URI representing the endpoint of the API.
         /// </summary>
-        public const string Endpoint = "Endpoint";
+        public const string Endpoint = "endpoint";
         /// <summary>
         /// The API Key configuration setting.
         /// </summary>
-        public const string APIKey = "APIKey";
+        public const string APIKey = "api_key";
     }
 }
