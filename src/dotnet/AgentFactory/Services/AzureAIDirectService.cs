@@ -11,18 +11,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
-using FoundationaLLM.Prompt.Constants;
-using Azure.ResourceManager.Models;
-using static Microsoft.IO.RecyclableMemoryStreamManager;
 
 namespace FoundationaLLM.AgentFactory.Core.Services
 {
     /// <summary>
     /// The Azure AI direct orchestration service.
     /// </summary>
-    /// <param name="options"></param>
-    /// <param name="logger"></param>
-    /// <param name="httpClientFactoryService"></param>
+    /// <param name="options">Service settings options.</param>
+    /// <param name="logger">The logger used for logging.</param>
+    /// <param name="httpClientFactoryService">The HTTP client factory service.</param>
+    /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
     public class AzureAIDirectService(
         IOptions<AzureAIDirectServiceSettings> options,
         ILogger<AzureAIDirectService> logger,
