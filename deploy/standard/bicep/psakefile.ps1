@@ -341,7 +341,6 @@ task Vec -depends ResourceGroups, Ops, Networking, DNS, Configuration {
         environmentName=$script:environment `
         location=$script:location `
         logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-        opsResourceGroupName=$($script:resourceGroups.ops) `
         project=$script:project `
         vnetId=$script:vnetId
 

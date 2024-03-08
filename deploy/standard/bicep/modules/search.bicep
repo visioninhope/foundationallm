@@ -2,17 +2,11 @@
 @description('Action Group Id for alerts')
 param actionGroupId string
 
-@description('KeyVault resource suffix for all resources')
-param kvResourceSuffix string = resourceSuffix
-
 @description('Location for all resources')
 param location string
 
 @description('Log Analytic Workspace Id to use for diagnostics')
 param logAnalyticsWorkspaceId string
-
-@description('OPS Resource Group name.')
-param opsResourceGroupName string = resourceGroup().name
 
 @description('Private DNS Zones for private endpoint')
 param privateDnsZones array
@@ -56,17 +50,6 @@ var alerts = [
   }
 ]
 
-@description('Formatted untruncated resource name')
-var kvFormattedName = toLower('${kvServiceType}-${substring(kvResourceSuffix, 0, length(kvResourceSuffix) - 4)}')
-
-@description('The Resource Name')
-var kvTruncatedName = substring(kvFormattedName,0,min([length(kvFormattedName),20]))
-var kvName = '${kvTruncatedName}-${substring(kvResourceSuffix, length(kvResourceSuffix) - 3, 3)}'
-
-
-@description('The Resource Service Type token')
-var kvServiceType = 'kv'
-
 @description('The Resource logs to enable')
 var logs = [
   'OperationLogs'
@@ -76,7 +59,7 @@ var logs = [
 var formattedName = toLower('${serviceType}-${resourceSuffix}')
 
 @description('The Resource Name')
-var name = substring(formattedName,0,min([length(formattedName),60]))
+var name = substring(formattedName, 0, min([ length(formattedName), 60 ]))
 
 @description('The Resource Service Type token')
 var serviceType = 'search'
