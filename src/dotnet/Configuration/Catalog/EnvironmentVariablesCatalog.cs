@@ -52,7 +52,7 @@ namespace FoundationaLLM.Configuration.Catalog
             serviceName switch
             {
                 ServiceNames.AuthorizationAPI => GenericEntries.Concat(AuthorizationEntries),
-                _ => GenericEntries.Concat(AuthorizationEntries),
+                _ => GenericEntries.Concat(AppConfigEntries),
             };
     }
 

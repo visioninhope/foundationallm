@@ -23,7 +23,7 @@ namespace FoundationaLLM.Authorization.Services
 
         private const string ROLE_ASSIGNMENTS_CONTAINER_NAME = "role-assignments";
         private bool _initialized = false;
-        private object _syncRoot = new object();
+        private readonly object _syncRoot = new();
 
         /// <summary>
         /// Creates a new instance of the <see cref="AuthorizationCore"/> class.
