@@ -14,5 +14,10 @@
         /// The API Key configuration setting.
         /// </summary>
         public const string APIKey = "api_key";
+        /// <summary>
+        /// The type of authentication to use for connecting to the endpoint.
+        /// This value with be either key or token.
+        /// </summary>
+        public const string AuthenticationType = "authentication_type";
     }
 }

@@ -5,10 +5,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.Cache;
-using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Orchestration;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 

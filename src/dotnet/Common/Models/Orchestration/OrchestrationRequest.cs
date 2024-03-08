@@ -26,7 +26,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         public string? AgentName { get; set; }
 
         /// <summary>
-        /// Settings for the orchestration request.
+        /// Collection of model settings to override with the orchestration request.
         /// </summary>
         [JsonPropertyName("settings")]
         public OrchestrationSettings? Settings { get; set; }

@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
@@ -7,8 +6,8 @@ using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Prompt.Models.Metadata;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
 
@@ -17,21 +16,21 @@ namespace FoundationaLLM.AgentFactory.Core.Services
     /// <summary>
     /// The Azure AI direct orchestration service.
     /// </summary>
-    /// <param name="options">Service settings options.</param>
     /// <param name="logger">The logger used for logging.</param>
+    /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
     /// <param name="httpClientFactoryService">The HTTP client factory service.</param>
     /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
     public class AzureAIDirectService(
-        IOptions<AzureAIDirectServiceSettings> options,
         ILogger<AzureAIDirectService> logger,
+        IConfiguration configuration,
         IHttpClientFactoryService httpClientFactoryService,
         IEnumerable<IResourceProviderService> resourceProviderServices) : IAzureAIDirectService
     {
-        readonly AzureAIDirectServiceSettings _settings = options.Value;
-        readonly ILogger<AzureAIDirectService> _logger = logger;
+        private readonly ILogger<AzureAIDirectService> _logger = logger;
+        private readonly IConfiguration _configuration = configuration;
         private readonly IHttpClientFactoryService _httpClientFactoryService = httpClientFactoryService;
-        readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
-        readonly Dictionary<string, IResourceProviderService> _resourceProviderServices = resourceProviderServices.ToDictionary(
+        private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
+        private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices = resourceProviderServices.ToDictionary(
                 rps => rps.Name);
 
         /// <inheritdoc/>
@@ -50,20 +49,19 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
             var endpointConfiguration = (agent.OrchestrationSettings?.EndpointConfiguration)
                 ?? throw new Exception("Endpoint Configuration must be provided.");
-            endpointConfiguration.TryGetValue(EndpointConfigurationKeys.Endpoint, out var endpoint);
-            endpointConfiguration.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKey);
 
-            if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
-                throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
+            var endpointSettings = GetEndpointSettings(endpointConfiguration);
 
-            MultipartPrompt? prompt = null;
             InputString? systemPrompt = null;
             if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
             {
+                if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
+                    throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
+
                 var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId);
                 if (resource is List<PromptBase> prompts)
                 {
-                    prompt = prompts.FirstOrDefault() as MultipartPrompt;
+                    MultipartPrompt? prompt = prompts.FirstOrDefault() as MultipartPrompt;
                     systemPrompt = new InputString
                     {
                         Role = "system",
@@ -72,15 +70,40 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 }
             }
 
-            if (endpoint != null && apiKey != null)
+            var userPrompt = new InputString { Role = "user", Content = request.UserPrompt };
+            var inputStrings = new List<InputString>();
+            // Add system prompt, if exists.
+            if (systemPrompt != null) inputStrings.Add(systemPrompt);
+            // Add conversation history.
+            if (agent.ConversationHistory?.Enabled == true && request.MessageHistory?.Count != 0)
+            {
+                var messageHistoryItems = request.MessageHistory?.TakeLast(agent.ConversationHistory.MaxHistory);
+                foreach(var item in messageHistoryItems!)
+                {
+                    inputStrings.Add(new InputString
+                    {
+                        Role = item.Sender.ToLower(),
+                        Content = item.Text
+                    });
+                }
+            }
+            // Add current user prompt.
+            inputStrings.Add(userPrompt);
+
+            if (!string.IsNullOrWhiteSpace(endpointSettings.Endpoint) && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
             {
                 var client = _httpClientFactoryService.CreateClient(HttpClients.AzureAIDirect);
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
-                    "Bearer", apiKey.ToString()
-                );
-                client.BaseAddress = new Uri(endpoint.ToString()!);
+                if (endpointSettings.AuthenticationType == "key" && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
+                {
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
+                        "Bearer", endpointSettings.APIKey
+                    );
+                }
+                
+                client.BaseAddress = new Uri(endpointSettings.Endpoint);
                 
                 var modelParameters = agent.OrchestrationSettings?.ModelParameters;
+                
                 AzureAIDirectRequest azureAIDirectRequest;
 
                 if (modelParameters != null)
@@ -89,16 +112,8 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                     {
                         InputData = new()
                         {
-                            InputString =
-                            [
-                                new InputString { Role = "user", Content = request.UserPrompt },
-                                systemPrompt
-                            ],
-                            Parameters = new Parameters
-                            {
-                                Temperature = Convert.ToSingle(modelParameters.GetValueOrDefault(ModelParameterKeys.Temperature, 0.0f).ToString()),
-                                MaxNewTokens = Convert.ToInt32(modelParameters.GetValueOrDefault(ModelParameterKeys.MaxNewTokens, 128).ToString())
-                            }
+                            InputString = [.. inputStrings],
+                            Parameters = GetModelParameters(modelParameters)
                         }
                     };
 
@@ -141,6 +156,66 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 AgentName = agent.Name,
                 PromptTokens = 0,
                 CompletionTokens = 0
+            };
+        }
+
+        /// <summary>
+        /// Extracts endpoint configuration values from a dictionary and writes them into a
+        /// <see cref="EndpointSettings"/> object.
+        /// </summary>
+        /// <param name="endpointConfiguration">Dictionary containing orchestration endpoint configuration values.</param>
+        /// <returns>Returns a <see cref="EndpointSettings"/> object containing the endpoint configuration.</returns>
+        /// <exception cref="Exception"></exception>
+        private EndpointSettings GetEndpointSettings(Dictionary<string, object> endpointConfiguration)
+        {
+            if (!endpointConfiguration.TryGetValue(EndpointConfigurationKeys.Endpoint, out var endpointKeyName))
+                throw new Exception("An endpoint value must be passed in via an Azure App Config key name.");
+
+            var endpoint = _configuration.GetValue<string>(endpointKeyName?.ToString()!);
+
+            var authenticationType = endpointConfiguration.GetValueOrDefault(EndpointConfigurationKeys.AuthenticationType, "key").ToString();
+            string apiKey = string.Empty;
+
+            if (authenticationType == "key")
+            {
+                if (!endpointConfiguration.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKeyKeyName))
+                    throw new Exception("An API key must be passed in via an Azure App Config key name.");
+
+                apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
+            }
+            
+            return new EndpointSettings
+            {
+                Endpoint = endpoint!,
+                APIKey = apiKey!,
+                AuthenticationType = authenticationType!
+            };
+        }
+
+        /// <summary>
+        /// Extracts model parameters from a dictionary and writes them into a <see cref="Parameters"/> object.
+        /// </summary>
+        /// <param name="modelParameters">Dictionary containing model parameter values.</param>
+        /// <returns>Returns a <see cref="Parameters"/> object containing model parameters.</returns>
+        private static Parameters GetModelParameters(Dictionary<string, object> modelParameters)
+        {
+            modelParameters.TryGetValue(ModelParameterKeys.Temperature, out var temperature);
+            modelParameters.TryGetValue(ModelParameterKeys.TopK, out var topK);
+            modelParameters.TryGetValue(ModelParameterKeys.TopP, out var topP);
+            modelParameters.TryGetValue(ModelParameterKeys.DoSample, out var doSample);
+            modelParameters.TryGetValue(ModelParameterKeys.MaxNewTokens, out var maxNewTokens);
+            modelParameters.TryGetValue(ModelParameterKeys.ReturnFullText, out var returnFullText);
+            modelParameters.TryGetValue(ModelParameterKeys.IgnoreEOS, out var ignoreEOS);
+
+            return new Parameters
+            {
+                Temperature = temperature != null ? Convert.ToSingle(temperature.ToString()) : null,
+                TopK = topK != null ? Convert.ToSingle(topK.ToString()) : null,
+                TopP = topP != null ? Convert.ToSingle(topP.ToString()) : null,
+                DoSample = doSample != null ? Convert.ToBoolean(doSample.ToString()) : null,
+                MaxNewTokens = maxNewTokens != null ? Convert.ToInt32(maxNewTokens.ToString()) : null,
+                ReturnFullText = returnFullText != null ? Convert.ToBoolean(returnFullText.ToString()) : null,
+                IgnoreEOS = ignoreEOS != null ? Convert.ToBoolean(ignoreEOS.ToString()) : null
             };
         }
     }
