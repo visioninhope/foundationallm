@@ -17,9 +17,10 @@ namespace FoundationaLLM.AgentFactory.Core.Services
     /// <summary>
     /// The Azure AI direct orchestration service.
     /// </summary>
-    /// <param name="options"></param>
-    /// <param name="logger"></param>
-    /// <param name="httpClientFactoryService"></param>
+    /// <param name="options">Service settings options.</param>
+    /// <param name="logger">The logger used for logging.</param>
+    /// <param name="httpClientFactoryService">The HTTP client factory service.</param>
+    /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
     public class AzureAIDirectService(
         IOptions<AzureAIDirectServiceSettings> options,
         ILogger<AzureAIDirectService> logger,
@@ -128,7 +129,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         };
                     }
 
-                    _logger.LogWarning("The LangChain orchestration service returned status code {StatusCode}: {ResponseContent}",
+                    _logger.LogWarning("The AzureAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
                         responseMessage.StatusCode, responseContent);
                 }
             }
