@@ -589,11 +589,6 @@ module acaServices './app/acaService.bicep' = [
   }
 ]
 
-var cosmosRoleTargets = [
-  'core-api'
-  'core-job'
-]
-
 module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
   for target in cosmosRoleTargets: {
     scope: rg
@@ -607,6 +602,14 @@ module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
     }
   }
 ]
+
+var cosmosRoleTargets = [
+  'core-api'
+  'core-job'
+]
+
+
+
 
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
 output AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME string = authStore.outputs.name
