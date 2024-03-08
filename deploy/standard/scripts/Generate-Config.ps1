@@ -60,24 +60,6 @@ function PopulateTemplate {
         -tokens $tokens
 }
 
-# function EnsureAndReturnFirstItem($arr, $restype) {
-#     if (-not $arr -or $arr.Length -ne 1) {
-#         Write-Host "Fatal: No $restype found (or found more than one)" -ForegroundColor Red
-#         exit 1
-#     }
-
-#     return $arr[0]
-# }
-
-# function EnsureSuccess($message) {
-#     if ($LASTEXITCODE -ne 0) {
-#         Write-Host $message -ForegroundColor Red
-#         exit $LASTEXITCODE
-#     }
-# }
-
-
-
 $svcResourceSuffix = "${resourceSuffix}-svc"
 $tokens = @{}
 $services = @{
