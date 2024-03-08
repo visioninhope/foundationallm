@@ -105,6 +105,11 @@ var workload = 'svc'
 /** Outputs **/
 
 /** Resources **/
+resource identityDeployment 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
+  location: location
+  name: 'uai-deployment-${resourceSuffix}'
+  tags: tags
+}
 
 /** Nested Modules **/
 module aksBackend 'modules/aks.bicep' = {
@@ -167,23 +172,28 @@ module eventgrid 'modules/eventgrid.bicep' = {
   }
 }
 
-module helmIngressNginx 'br/public:deployment-scripts/aks-run-helm:2.0.3' = {
+module helmIngressNginx 'modules/utility/aksRunHelm.bicep' = {
   name: 'helmIngressNginx-${timestamp}'
   params: {
     aksName: aksBackend.outputs.name
-    location: location
-    helmRepoURL: 'https://kubernetes.github.io/ingress-nginx'
+    helmApp: 'ingress-nginx/ingress-nginx'
+    helmAppName: 'gateway'
+    helmAppParams: '--namespace gateway-system --create-namespace'
     helmRepo: 'ingress-nginx'
-    helmApps: [
-      {
-        useExistingManagedIdentity: true
-        managedIdentityName: deploymentIdentity.name
+    helmRepoURL: 'https://kubernetes.github.io/ingress-nginx'
+    location: location
+    uaiId: identityDeployment.id
+  }
+}
 
-        helmApp: 'ingress-nginx/ingress-nginx'
-        helmAppName: 'gateway'
-        helmAppParams: '--namespace gateway-system --create-namespace'
-      }
-    ]
+module identityDeploymentRoleAssignments 'modules/utility/roleAssignments.bicep' = {
+  name: 'identityDeploymentRoleAssignments-${timestamp}'
+  params: {
+    principalId: identityDeployment.properties.principalId
+    roleDefinitionIds: {
+      Contributor: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
+      'Azure Kubernetes Service RBAC Cluster Admin': 'b1ff04bb-8a4e-4dc4-8eb5-8693973ce19b'
+    }
   }
 }
 

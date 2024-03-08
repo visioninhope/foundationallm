@@ -4,8 +4,6 @@ param location string
 /** Locals **/
 @description('Private DNS Zones to read.')
 var privateDnsZone = {
-  // grafana: 'privatelink.grafana.azure.com'
-  // prometheusMetrics: 'privatelink.${location}.prometheus.monitor.azure.com'
   agentsvc: 'privatelink.agentsvc.azure-automation.net'
   aks: 'privatelink.${location}.azmk8s.io'
   blob: 'privatelink.blob.${environment().suffixes.storage}'
@@ -44,6 +42,11 @@ var zoneIds = [for (zone, i) in items(privateDnsZone): {
 /** Outputs **/
 @description('Private DNS Zones to use in other modules.')
 output ids array = zoneIds
+
+output idsApim array = filter(
+  zoneIds,
+  (zone) => contains([ 'gateway_developer', 'gateway_management', 'gateway_portal', 'gateway_public', 'gateway_scm' ], zone.key)
+)
 
 @description('Private DNS Zones for Storage Accounts')
 output idsStorage array = filter(

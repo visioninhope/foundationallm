@@ -2,11 +2,7 @@
 @description('Action Group Id for alerts')
 param actionGroupId string
 
-@description('Model deployment capacity')
-param capacity object = {
-  completions: 60
-  embeddings: 60
-}
+param deployments array = []
 
 @description('Key Vault Name for secrets')
 param keyVaultName string
@@ -62,30 +58,6 @@ var alerts = [
     threshold: 1000
     timeAggregation: 'Average'
     windowSize: 'PT1H'
-  }
-]
-
-@description('The Model Deployment Config')
-var deploymentConfig = [
-  {
-    name: 'completions'
-    capacity: capacity.completions
-    raiPolicyName: ''
-    model: {
-      format: 'OpenAI'
-      name: 'gpt-35-turbo'
-      version: '0613'
-    }
-  }
-  {
-    name: 'embeddings'
-    capacity: capacity.embeddings
-    raiPolicyName: 'Microsoft.Default'
-    model: {
-      format: 'OpenAI'
-      name: 'text-embedding-ada-002'
-      version: '2'
-    }
   }
 ]
 
@@ -169,7 +141,7 @@ resource main 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
 }
 
 @batchSize(1)
-resource deployment 'Microsoft.CognitiveServices/accounts/deployments@2023-10-01-preview' = [for config in deploymentConfig: {
+resource deployment 'Microsoft.CognitiveServices/accounts/deployments@2023-10-01-preview' = [for config in deployments: {
   name: config.name
   parent: main
 
@@ -179,10 +151,7 @@ resource deployment 'Microsoft.CognitiveServices/accounts/deployments@2023-10-01
     model: config.model
   }
 
-  sku: {
-    capacity: config.capacity
-    name: 'Standard'
-  }
+  sku: config.sku
 }]
 
 @description('Resource for configuring the diagnostics.')
