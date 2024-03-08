@@ -58,6 +58,31 @@ task App -depends ResourceGroups, Ops, Networking, DNS, Configuration {
 }
 
 task Clean -depends Configuration {
+    Write-Host -ForegroundColor Blue "Removing OpenAI model deployments..."
+
+    # List OpenAI resources in the oai resource group
+    $openAIResources = az cognitiveservices account list `
+        --resource-group $resourceGroups.oai `
+        --output json | ConvertFrom-Json
+
+    # for each resource, list the deployments
+    foreach ($resource in $openAIResources) {
+        $deployments = az cognitiveservices account deployment list `
+            --name $resource.name `
+            --resource-group $resourceGroups.oai `
+            --output json | ConvertFrom-Json
+
+        # for each deployment, delete it
+        foreach ($deployment in $deployments) {
+            Write-Host -ForegroundColor Magenta "Deleting $($deployment.name) in $($resource.name)..."
+            az cognitiveservices account deployment delete `
+                --name $resource.name `
+                --resource-group $resourceGroups.oai `
+                --deployment-name $deployment.name `
+                --output json
+        }
+    }
+
     Write-Host -ForegroundColor Blue "Deleting all resource groups..."
 
     foreach ($property in $script:resourceGroups.GetEnumerator()) {
