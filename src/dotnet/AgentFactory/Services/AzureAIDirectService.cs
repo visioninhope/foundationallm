@@ -60,8 +60,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             InputString? systemPrompt = null;
             if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
             {
-                var resourcePath = promptResourceProvider.GetResourcePathFromObjectId(agent.PromptObjectId);
-                var resource = await promptResourceProvider.HandleGetAsync(resourcePath);
+                var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId);
                 if (resource is List<PromptBase> prompts)
                 {
                     prompt = prompts.FirstOrDefault() as MultipartPrompt;
