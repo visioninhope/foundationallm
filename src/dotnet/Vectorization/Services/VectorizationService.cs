@@ -96,7 +96,14 @@ namespace FoundationaLLM.Vectorization.Services
                 HandleValidationError("The completed steps of the vectorization request must be empty.");
 
             if (vectorizationRequest.RemainingSteps == null || vectorizationRequest.RemainingSteps.Count == 0)
-                HandleValidationError("The list of the remaining steps of the vectorization request should not be empty.");
+                HandleValidationError("The list of the remaining steps of the vectorization request should not be empty.");                        
+
+            // Validate the file extension is supported by vectorization
+            string fileNameExtension = Path.GetExtension(vectorizationRequest.ContentIdentifier!.FileName);            
+            if (string.IsNullOrWhiteSpace(fileNameExtension))
+                HandleValidationError("The file does not have an extension.");
+            if(!FileExtensions.AllowedFileExtensions.Contains(fileNameExtension))
+                HandleValidationError($"The file extension {fileNameExtension} is not supported.");
         }
 
         private void HandleValidationError(string validationError)
