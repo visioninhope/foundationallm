@@ -24,9 +24,6 @@ param principalId string
 @secure()
 param serviceDefinition object
 
-@secure()
-param authEntraClientSecret string
-
 param authService object
 param services array
 
@@ -133,10 +130,6 @@ module authKeyvault './shared/keyvault.bicep' = {
     tags: tags
     principalId: principalId
     secrets: [
-      {
-        name: 'foundationallm-apis-auth-api-entra-clientsecret'
-        value: authEntraClientSecret
-      }
       {
         name: 'foundationallm-authorization-api-entra-instance'
         value: authAppRegistration.instance
