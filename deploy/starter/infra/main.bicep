@@ -137,6 +137,26 @@ module authKeyvault './shared/keyvault.bicep' = {
         name: 'foundationallm-apis-auth-api-entra-clientsecret'
         value: authEntraClientSecret
       }
+      {
+        name: 'foundationallm-authorization-api-entra-instance'
+        value: authAppRegistration.instance
+      }
+      {
+        name: 'foundationallm-authorization-api-entra-tenant-id'
+        value: authAppRegistration.tenantId
+      }
+      {
+        name: 'foundationallm-authorization-api-entra-client-id'
+        value: authAppRegistration.clientId
+      }
+      {
+        name: 'foundationallm-authorization-api-entra-scopes'
+        value: authAppRegistration.scopes
+      }
+      {
+        name: 'foundationallm-authorization-api-storage-account'
+        value: authStore.outputs.name
+      }
     ]
   }
   scope: authRg
@@ -453,31 +473,8 @@ module authAcaService './app/authAcaService.bicep' = {
     imageName: authService.image
     envSettings: [
       {
-        name: 'FoundationaLLM__AuthorizationAPI__Entra__Instance'
-        value: authAppRegistration.instance
-      }
-      {
-        name: 'FoundationaLLM__AuthorizationAPI__Entra__TenantId'
-        value: authAppRegistration.tenantId
-      }
-      {
-        name: 'FoundationaLLM__AuthorizationAPI__Entra__ClientId'
-        value: authAppRegistration.clientId
-      }
-      {
-        name: 'FoundationaLLM__AuthorizationAPI__Entra__Scopes'
-        value: authAppRegistration.scopes
-      }
-      {
-        name: 'FoundationaLLM__AuthorizationAPI__Storage__AccountName'
-        value: authStore.outputs.name
-      }
-    ]
-    secretSettings: [
-      {
-        name: 'FoundationaLLM__AuthorizationAPI__Entra__ClientSecret'
-        value: authKeyvault.outputs.secretRefs[indexOf(authKeyvault.outputs.secretNames, 'foundationallm-apis-auth-api-entra-clientsecret')]
-        secretRef: 'foundationallm-apis-auth-api-entra-clientsecret'
+        name: 'FoundationaLLM__AuthorizationAPI__KeyVaultUri'
+        value: authKeyvault.outputs.endpoint
       }
     ]
     serviceName: 'auth-api'
