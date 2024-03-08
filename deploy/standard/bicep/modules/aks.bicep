@@ -87,10 +87,7 @@ param timestamp string = utcNow()
 param uaiDeploymentid string
 
 /** Outputs **/
-@description('AKS Cluster Name')
 output name string = main.name
-
-@description('AKS OIDC Issuer URL')
 output oidcIssuerUrl string = main.properties.oidcIssuerProfile.issuerURL
 
 /** Locals **/
@@ -135,6 +132,21 @@ var logs = [
   'kube-controller-manager'
   'kube-scheduler'
 ]
+
+/** Data Sources **/
+resource network 'Microsoft.Network/virtualNetworks@2020-11-01' existing = {
+  name: vnetName
+}
+
+resource subnet 'Microsoft.Network/virtualNetworks/subnets@2022-01-01' existing = {
+  name: subnetName
+  parent: network
+}
+
+resource subnetPrivateEndpoint 'Microsoft.Network/virtualNetworks/subnets@2022-01-01' existing = {
+  name: subnetPrivateEndpointName
+  parent: network
+}
 
 /** Resources **/
 resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = {
@@ -365,6 +377,15 @@ module helmIngressNginx 'utility/aksRunHelm.bicep' = {
     helmRepoURL: 'https://kubernetes.github.io/ingress-nginx'
     location: location
     uaiId: uaiDeploymentid
+    helmAppSettings: {
+      'controller.kind': 'DaemonSet'
+      'controller.service.annotations.service\\.beta\\.kubernetes\\.io/azure-load-balancer-internal': 'true'
+      'controller.service.enableHttp': 'true'
+      'controller.service.externalTrafficPolicy': 'Local'
+      'controller.service.loadBalancerIP': cidrHost(subnet.properties.addressPrefix, 250)
+      'controller.service.ports.https': '443'
+      // 'controller.extraArgs.default-ssl-certificate': '${kubernetes_secret.tls.metadata.0.namespace}/${kubernetes_secret.tls.metadata.0.name}'
+    }
   }
 }
 

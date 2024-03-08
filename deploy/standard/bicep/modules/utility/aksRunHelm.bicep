@@ -4,6 +4,7 @@ param forceUpdateTag string = utcNow()
 param helmApp string = 'azure-marketplace/wordpress'
 param helmAppName string = 'my-wordpress'
 param helmAppParams string = ''
+param helmAppSettings object = {}
 param helmRepo string = 'azure-marketplace'
 param helmRepoURL string = 'https://marketplace.azurecr.io/helm/v1/repo'
 param location string = resourceGroup().location
@@ -21,7 +22,9 @@ param cleanupPreference string = 'OnSuccess'
 param initialScriptDelay string = '120s'
 
 /** Locals **/
-var command  = 'helm repo add ${helmRepo} ${helmRepoURL} && helm repo update && helm upgrade --install ${helmAppName} ${helmApp} ${helmAppParams}'
+var command  = 'helm repo add ${helmRepo} ${helmRepoURL} && helm repo update && helm upgrade --install ${helmAppName} ${helmApp} ${helmAppParams} ${appSettings}'
+var settings = map(items(helmAppSettings), item => '--set ${item.key}=${item.value}')
+var appSettings = join(settings, ' ')
 
 /** Outputs **/
 @description('Array of command output from each Deployment Script AKS run command')
