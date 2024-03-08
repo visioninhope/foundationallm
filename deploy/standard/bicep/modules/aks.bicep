@@ -83,6 +83,9 @@ param tags object
 @description('Timestamp for nested deployments')
 param timestamp string = utcNow()
 
+@description('Managed Identity for the AKS Cluster Helm Deployments')
+param uaiDeploymentid string
+
 /** Outputs **/
 @description('AKS Cluster Name')
 output name string = main.name
@@ -348,6 +351,20 @@ module dnsRoleAssignment 'utility/roleAssignments.bicep' = {
     roleDefinitionIds: {
       'Private DNS Zone Contributor': 'b12aa53e-6015-4669-85d0-8515ebb3ae7f'
     }
+  }
+}
+
+module helmIngressNginx 'utility/aksRunHelm.bicep' = {
+  name: 'helmIngressNginx-${resourceSuffix}-${timestamp}'
+  params: {
+    aksName: main.name
+    helmApp: 'ingress-nginx/ingress-nginx'
+    helmAppName: 'gateway'
+    helmAppParams: '--namespace gateway-system --create-namespace'
+    helmRepo: 'ingress-nginx'
+    helmRepoURL: 'https://kubernetes.github.io/ingress-nginx'
+    location: location
+    uaiId: uaiDeploymentid
   }
 }
 

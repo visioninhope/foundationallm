@@ -127,6 +127,7 @@ module aksBackend 'modules/aks.bicep' = {
     subnetId: '${vnetId}/subnets/FLLMBackend'
     subnetIdPrivateEndpoint: '${vnetId}/subnets/FLLMServices'
     tags: tags
+    uaiDeploymentid: identityDeployment.id
   }
 }
 
@@ -145,6 +146,7 @@ module aksFrontend 'modules/aks.bicep' = {
     subnetId: '${vnetId}/subnets/FLLMFrontend'
     subnetIdPrivateEndpoint: '${vnetId}/subnets/FLLMServices'
     tags: tags
+    uaiDeploymentid: identityDeployment.id
   }
 }
 
@@ -169,34 +171,6 @@ module eventgrid 'modules/eventgrid.bicep' = {
     subnetId: '${vnetId}/subnets/FLLMServices'
     topics: [ 'storage', 'vectorization', 'configuration' ]
     tags: tags
-  }
-}
-
-module helmIngressNginxBackend 'modules/utility/aksRunHelm.bicep' = {
-  name: 'helmIngressNginxBackend-${timestamp}'
-  params: {
-    aksName: aksBackend.outputs.name
-    helmApp: 'ingress-nginx/ingress-nginx'
-    helmAppName: 'gateway'
-    helmAppParams: '--namespace gateway-system --create-namespace'
-    helmRepo: 'ingress-nginx'
-    helmRepoURL: 'https://kubernetes.github.io/ingress-nginx'
-    location: location
-    uaiId: identityDeployment.id
-  }
-}
-
-module helmIngressNginxFrontend 'modules/utility/aksRunHelm.bicep' = {
-  name: 'helmIngressNginxFrontend-${timestamp}'
-  params: {
-    aksName: aksFrontend.outputs.name
-    helmApp: 'ingress-nginx/ingress-nginx'
-    helmAppName: 'gateway'
-    helmAppParams: '--namespace gateway-system --create-namespace'
-    helmRepo: 'ingress-nginx'
-    helmRepoURL: 'https://kubernetes.github.io/ingress-nginx'
-    location: location
-    uaiId: identityDeployment.id
   }
 }
 
