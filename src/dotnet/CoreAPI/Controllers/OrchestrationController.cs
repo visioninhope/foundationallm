@@ -1,19 +1,13 @@
-﻿using Asp.Versioning;
-using FoundationaLLM.Agent.Constants;
+﻿using FoundationaLLM.Agent.Constants;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Models.Configuration.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Core.Interfaces;
-using FoundationaLLM.Core.Models.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.Identity.Web;
 
 
 namespace FoundationaLLM.Core.API.Controllers
