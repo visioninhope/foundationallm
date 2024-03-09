@@ -69,7 +69,7 @@ namespace FoundationaLLM.Vectorization.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, ex.Message);
                 return new VectorizationProcessingResult(vectorizationRequest.ObjectId!, false, ex.Message);
             }
         }
