@@ -1,17 +1,17 @@
 ﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Prompt.Models.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;
-using FoundationaLLM.Common.Extensions;
-using FoundationaLLM.Common.Models.Orchestration.Direct;
 
 namespace FoundationaLLM.AgentFactory.Core.Services
 {
@@ -54,43 +54,48 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
             var endpointSettings = GetEndpointSettings(endpointConfiguration);
 
-            SystemInputMessage? systemPrompt = null;
-            if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
-            {
-                if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
-                    throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
-
-                var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId);
-                if (resource is List<PromptBase> prompts)
-                {
-                    var prompt = prompts.FirstOrDefault() as MultipartPrompt;
-                    systemPrompt = new SystemInputMessage
-                    {
-                        Role = InputMessageRoles.System,
-                        Content = prompt?.Prefix ?? string.Empty
-                    };
-                }
-            }
 
             var inputStrings = new List<InputMessage>();
-            // Add system prompt, if exists.
-            if (systemPrompt != null) inputStrings.Add(systemPrompt);
-            // Add conversation history.
-            if (agent.ConversationHistory?.Enabled == true && request.MessageHistory?.Count != 0)
+            SystemInputMessage? systemPrompt = null;
+
+            if (endpointSettings.OperationType == OperationTypes.ChatCompletions)
             {
-                var messageHistoryItems = request.MessageHistory?.TakeLast(agent.ConversationHistory.MaxHistory);
-                foreach(var item in messageHistoryItems!)
+                if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
                 {
-                    inputStrings.Add(new InputMessage
+                    if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
+                        throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
+
+                    var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId);
+                    if (resource is List<PromptBase> prompts)
                     {
-                        Role = item.Sender.ToLower(),
-                        Content = item.Text
-                    });
+                        var prompt = prompts.FirstOrDefault() as MultipartPrompt;
+                        systemPrompt = new SystemInputMessage
+                        {
+                            Role = InputMessageRoles.System,
+                            Content = prompt?.Prefix ?? string.Empty
+                        };
+                    }
                 }
+
+                // Add system prompt, if exists.
+                if (systemPrompt != null) inputStrings.Add(systemPrompt);
+                // Add conversation history.
+                if (agent.ConversationHistory?.Enabled == true && request.MessageHistory?.Count != 0)
+                {
+                    var messageHistoryItems = request.MessageHistory?.TakeLast(agent.ConversationHistory.MaxHistory);
+                    foreach (var item in messageHistoryItems!)
+                    {
+                        inputStrings.Add(new InputMessage
+                        {
+                            Role = item.Sender.ToLower(),
+                            Content = item.Text
+                        });
+                    }
+                }
+                // Add current user prompt.
+                var userPrompt = new UserInputMessage { Content = request.UserPrompt };
+                inputStrings.Add(userPrompt);
             }
-            // Add current user prompt.
-            var userPrompt = new UserInputMessage { Content = request.UserPrompt };
-            inputStrings.Add(userPrompt);
 
             if (!string.IsNullOrWhiteSpace(endpointSettings.Endpoint) && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
             {
@@ -104,25 +109,31 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 
                 var modelParameters = agent.OrchestrationSettings?.ModelParameters;
                 var modelOverrides = request.Settings?.ModelParameters;
-                
-                AzureOpenAIDirectRequest azureOpenAIDirectRequest;
 
                 if (modelParameters != null)
                 {
-                    azureOpenAIDirectRequest = new()
+                    var azureOpenAIDirectRequest = endpointSettings.OperationType switch
                     {
-                        InputData = new()
-                        {
-                            InputString = [.. inputStrings],
-                            Parameters = modelParameters.ToObject<AzureOpenAIDirectParameters>(modelOverrides)
-                        }
+                        OperationTypes.Completions => modelParameters.ToObject<AzureOpenAIDirectCompletionRequest>(modelOverrides),
+                        OperationTypes.ChatCompletions => modelParameters.ToObject<AzureOpenAIDirectChatCompletionRequest>(modelOverrides),
+                        _ => throw new ArgumentException($"The specified operation type {endpointSettings.OperationType} is not supported.")
                     };
 
+                    if (endpointSettings.OperationType == OperationTypes.Completions)
+                    {
+                        azureOpenAIDirectRequest.Prompt = request.UserPrompt;
+                    }
+                    else if (endpointSettings.OperationType == OperationTypes.ChatCompletions)
+                    {
+                        azureOpenAIDirectRequest.Messages = [.. inputStrings];
+                    }
+                    
                     var body = JsonSerializer.Serialize(azureOpenAIDirectRequest, _jsonSerializerOptions);
                     var content = new StringContent(body, Encoding.UTF8, "application/json");
                     modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment);
 
-                    var responseMessage = await client.PostAsync($"/openai/deployments/{deployment}/completions?api-version={endpointSettings.APIVersion}", content);
+                    // TODO: the /chat section of the post path will depend on the endpointSettings.OperationType == "chat_completions"
+                    var responseMessage = await client.PostAsync($"/openai/deployments/{deployment}/chat/completions?api-version={endpointSettings.APIVersion}", content);
                     var responseContent = await responseMessage.Content.ReadAsStringAsync();
 
                     if (responseMessage.IsSuccessStatusCode)
@@ -141,7 +152,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         };
                     }
 
-                    _logger.LogWarning("The AzureAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
+                    _logger.LogWarning("The AzureOpenAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
                         responseMessage.StatusCode, responseContent);
                 }
             }
@@ -187,12 +198,17 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
             var apiVersion = _configuration.GetValue<string>(apiVersionKeyName?.ToString()!);
 
+            var operationType = string.Empty;
+            if (endpointConfiguration.TryGetValue(EndpointConfigurationKeys.OperationType, out var operationTypeKeyName))
+                operationType = _configuration.GetValue<string>(operationTypeKeyName?.ToString()!) ?? OperationTypes.ChatCompletions;
+
             return new EndpointSettings
             {
                 Endpoint = endpoint!,
                 APIKey = apiKey!,
                 APIVersion = apiVersion!,
-                AuthenticationType = authenticationType!
+                AuthenticationType = authenticationType!,
+                OperationType = operationType
             };
         }
     }

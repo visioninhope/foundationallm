@@ -1,4 +1,6 @@
-﻿namespace FoundationaLLM.Common.Models.Orchestration
+﻿using FoundationaLLM.Common.Constants;
+
+namespace FoundationaLLM.Common.Models.Orchestration
 {
     /// <summary>
     /// Settings for an orchestration endpoint.
@@ -25,5 +27,12 @@
         /// This value should be either key or token.
         /// </summary>
         public string? AuthenticationType { get; set; }
+
+        /// <summary>
+        /// Type of operation the endpoint is performing.
+        /// This value should be completions, chat-completions, or embeddings.
+        /// Default value is chat-completions.
+        /// </summary>
+        public string OperationType { get; set; } = OperationTypes.ChatCompletions;
     }
 }

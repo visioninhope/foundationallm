@@ -26,5 +26,11 @@
         /// This value with be either key or token.
         /// </summary>
         public const string AuthenticationType = "authentication_type";
+
+        /// <summary>
+        /// The type of operation the endpoint is performing.
+        /// This value should be completion, chat-completion, or embedding.
+        /// </summary>
+        public const string OperationType = "operation_type";
     }
 }
