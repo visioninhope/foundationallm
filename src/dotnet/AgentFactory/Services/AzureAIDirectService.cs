@@ -115,7 +115,6 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         InputData = new()
                         {
                             InputString = [.. inputStrings],
-                            //Parameters = GetModelParameters(modelParameters, modelOverrides)
                             Parameters = modelParameters.ToObject<Parameters>(modelOverrides)
                         }
                     };
@@ -177,7 +176,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             var endpoint = _configuration.GetValue<string>(endpointKeyName?.ToString()!);
 
             var authenticationType = endpointConfiguration.GetValueOrDefault(EndpointConfigurationKeys.AuthenticationType, "key").ToString();
-            string apiKey = string.Empty;
+            var apiKey = string.Empty;
 
             if (authenticationType == "key")
             {
