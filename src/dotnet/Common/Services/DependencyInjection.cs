@@ -1,10 +1,14 @@
 ﻿using Azure.Monitor.OpenTelemetry.AspNetCore;
+using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -101,6 +105,27 @@ namespace FoundationaLLM
                         requiredScope.Split(' '));
                 });
             });
+        }
+
+        /// <summary>
+        /// Register the <see cref="AzureKeyVaultService"/> with the dependency injection container.
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="keyVaultUriConfigurationKeyName">The name of the configuration key that provides the URI of the Azure Key Vault service.</param>
+        public static void AddAzureKeyVaultService(this IHostApplicationBuilder builder,
+            string keyVaultUriConfigurationKeyName)
+        {
+            builder.Services.AddAzureClients(clientBuilder =>
+            {
+                var keyVaultUri = builder.Configuration[keyVaultUriConfigurationKeyName];
+                clientBuilder.AddSecretClient(new Uri(keyVaultUri!))
+                    .WithCredential(DefaultAuthentication.GetAzureCredential());
+            });
+
+            // Configure logging to filter out Azure Core and Azure Key Vault informational logs.
+            builder.Logging.AddFilter("Azure.Core", LogLevel.Warning);
+            builder.Logging.AddFilter("Azure.Security.KeyVault.Secrets", LogLevel.Warning);
+            builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
         }
     }
 }

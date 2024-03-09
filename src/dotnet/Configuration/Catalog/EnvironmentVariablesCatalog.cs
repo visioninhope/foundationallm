@@ -24,22 +24,8 @@ namespace FoundationaLLM.Configuration.Catalog
 
         private static readonly List<EnvironmentVariableEntry> AuthorizationEntries =
             [
-                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_AppInsightsConnectionString,
-                    "The connection string used by OpenTelemetry to connect to App Insights."),
-                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_Instance,
-                    "The Entra ID instance."),
-                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_TenantId,
-                    "The Entra ID tenant id."),
-                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_ClientId,
-                    "The Entra ID client id."),
-                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_ClientSecret,
-                    "The Entra ID client secret."),
-                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_Scopes,
-                    "The Entra ID scopes."),
-                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Storage_AccountName,
-                    "The name of the storage account used by the Authorization API."),
-                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_InstanceIds,
-                    "The comma separated list of the identifiers of FoundationaLLM instances managed by the authorization core."),
+                new EnvironmentVariableEntry(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_KeyVaultURI,
+                    "The URI of the Azure Key Vault used by the Authorization API.")
             ];
 
         /// <summary>
