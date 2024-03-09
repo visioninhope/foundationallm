@@ -57,9 +57,7 @@ param timestamp string = utcNow()
 @description('Vectorization API OIDC Client Secret')
 @secure()
 param vectorizationApiClientSecret string
-
-@description('Virtual Network ID, used to find the subnet IDs.')
-param vnetId string
+param vnetName string
 
 /** Locals **/
 @description('KeyVault resource suffix')
@@ -104,6 +102,31 @@ var workload = 'svc'
 
 /** Outputs **/
 
+/** Data Sources **/
+module network 'modules/utility/virtualNetworkData.bicep' = {
+  name: 'network-${resourceSuffix}-${timestamp}'
+  scope: resourceGroup(networkingResourceGroupName)
+  params: {
+    vnetName: vnetName
+    subnetNames: [
+      'FLLMBackend'
+      'FLLMFrontend'
+      'FLLMServices'
+    ]
+  }
+}
+
+var subnets = reduce(
+  map(network.outputs.subnets, subnet => {
+      '${subnet.name}': {
+        id: subnet.id
+        addressPrefix: subnet.addressPrefix
+      }
+    }),
+  {},
+  (cur, acc) => union(cur, acc)
+)
+
 /** Resources **/
 resource identityDeployment 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   location: location
@@ -123,9 +146,10 @@ module aksBackend 'modules/aks.bicep' = {
     logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
     networkingResourceGroupName: networkingResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
+    privateIpIngress: cidrHost(subnets.FLLMBackend.addressPrefix, 250)
     resourceSuffix: '${resourceSuffix}-backend'
-    subnetId: '${vnetId}/subnets/FLLMBackend'
-    subnetIdPrivateEndpoint: '${vnetId}/subnets/FLLMServices'
+    subnetId: subnets.FLLMBackend.id
+    subnetIdPrivateEndpoint: subnets.FLLMServices.id
     tags: tags
     uaiDeploymentid: identityDeployment.id
   }
@@ -142,9 +166,10 @@ module aksFrontend 'modules/aks.bicep' = {
     logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
     networkingResourceGroupName: networkingResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
+    privateIpIngress: cidrHost(subnets.FLLMFrontend.addressPrefix, 250)
     resourceSuffix: '${resourceSuffix}-frontend'
-    subnetId: '${vnetId}/subnets/FLLMFrontend'
-    subnetIdPrivateEndpoint: '${vnetId}/subnets/FLLMServices'
+    subnetId: subnets.FLLMFrontend.id
+    subnetIdPrivateEndpoint: subnets.FLLMServices.id
     tags: tags
     uaiDeploymentid: identityDeployment.id
   }
@@ -168,7 +193,7 @@ module eventgrid 'modules/eventgrid.bicep' = {
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'eventgrid' ], zone.key))
     resourceSuffix: resourceSuffix
-    subnetId: '${vnetId}/subnets/FLLMServices'
+    subnetId: subnets.FLLMServices.id
     topics: [ 'storage', 'vectorization', 'configuration' ]
     tags: tags
   }

@@ -50,7 +50,7 @@ task App -depends ResourceGroups, Ops, Networking, DNS, Configuration {
         project=$script:project `
         storageResourceGroupName=$($script:resourceGroups.storage) `
         vectorizationApiClientSecret=$script:vectorizationApiClientSecret `
-        vnetId=$script:vnetId
+        vnetName=$script:vnetName
 
     if ($LASTEXITCODE -ne 0) {
         throw "The app deployment failed."

@@ -10,6 +10,7 @@
  * - logAnalyticWorkspaceResourceId: Log Analytic Workspace Resource Id to use for diagnostics
  * - networkingResourceGroupName: Networking resource group name
  * - privateDnsZones: Private DNS Zones for private endpoint
+ * - privateIpIngress: Private IP for ingress
  * - resourceSuffix: Resource suffix for all resources
  * - subnetId: Subnet Id for private endpoint
  * - subnetIdPrivateEndpoint: Subnet Id for private endpoint
@@ -67,6 +68,9 @@ param networkingResourceGroupName string
 
 @description('Private DNS Zones for private endpoint')
 param privateDnsZones array
+
+@description('Private IP for ingress')
+param privateIpIngress string
 
 @description('Resource suffix for all resources')
 param resourceSuffix string
@@ -134,19 +138,6 @@ var logs = [
 ]
 
 /** Data Sources **/
-resource network 'Microsoft.Network/virtualNetworks@2020-11-01' existing = {
-  name: vnetName
-}
-
-resource subnet 'Microsoft.Network/virtualNetworks/subnets@2022-01-01' existing = {
-  name: subnetName
-  parent: network
-}
-
-resource subnetPrivateEndpoint 'Microsoft.Network/virtualNetworks/subnets@2022-01-01' existing = {
-  name: subnetPrivateEndpointName
-  parent: network
-}
 
 /** Resources **/
 resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = {
@@ -379,10 +370,11 @@ module helmIngressNginx 'utility/aksRunHelm.bicep' = {
     uaiId: uaiDeploymentid
     helmAppSettings: {
       'controller.kind': 'DaemonSet'
-      'controller.service.annotations.service\\.beta\\.kubernetes\\.io/azure-load-balancer-internal': 'true'
+      'controller.service.annotations."service\\.beta\\.kubernetes\\.io/azure-load-balancer-internal"': 'true'
+      'controller.service.annotations."service\\.beta\\.kubernetes\\.io/azure-load-balancer-ipv4"': privateIpIngress
       'controller.service.enableHttp': 'true'
       'controller.service.externalTrafficPolicy': 'Local'
-      'controller.service.loadBalancerIP': cidrHost(subnet.properties.addressPrefix, 250)
+      'controller.service.loadBalancerIP': privateIpIngress
       'controller.service.ports.https': '443'
       // 'controller.extraArgs.default-ssl-certificate': '${kubernetes_secret.tls.metadata.0.namespace}/${kubernetes_secret.tls.metadata.0.name}'
     }
