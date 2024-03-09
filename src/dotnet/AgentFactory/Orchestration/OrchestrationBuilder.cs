@@ -161,6 +161,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
             orchestrationServiceType = orchestrationType switch
             {
                 LLMOrchestrationService.AzureAIDirect => typeof(IAzureAIDirectService),
+                LLMOrchestrationService.AzureOpenAIDirect => typeof(IAzureOpenAIDirectService),
                 LLMOrchestrationService.LangChain => typeof(ILangChainService),
                 LLMOrchestrationService.SemanticKernel => typeof(ISemanticKernelService),
                 _ => throw new ArgumentException($"The orchestration type {orchestrationType} is not supported."),

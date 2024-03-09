@@ -126,6 +126,7 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Services.AddScoped<ILLMOrchestrationService, SemanticKernelService>();
             builder.Services.AddScoped<ILLMOrchestrationService, LangChainService>();
             builder.Services.AddScoped<ILLMOrchestrationService, AzureAIDirectService>();
+            builder.Services.AddScoped<ILLMOrchestrationService, AzureOpenAIDirectService>();
 
             builder.Services.AddScoped<IAgentFactoryService, AgentFactoryService>();
             builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();

@@ -11,6 +11,7 @@ using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime;
+using FoundationaLLM.Common.Models.Orchestration.Direct;
 
 namespace FoundationaLLM.Core.Services;
 

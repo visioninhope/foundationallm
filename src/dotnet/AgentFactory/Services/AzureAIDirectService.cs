@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;
 using FoundationaLLM.Common.Extensions;
+using FoundationaLLM.Common.Models.Orchestration.Direct;
 
 namespace FoundationaLLM.AgentFactory.Core.Services
 {
@@ -53,7 +54,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
             var endpointSettings = GetEndpointSettings(endpointConfiguration);
 
-            InputString? systemPrompt = null;
+            SystemInputMessage? systemPrompt = null;
             if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
             {
                 if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
@@ -62,17 +63,16 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId);
                 if (resource is List<PromptBase> prompts)
                 {
-                    MultipartPrompt? prompt = prompts.FirstOrDefault() as MultipartPrompt;
-                    systemPrompt = new InputString
+                    var prompt = prompts.FirstOrDefault() as MultipartPrompt;
+                    systemPrompt = new SystemInputMessage
                     {
-                        Role = "system",
+                        Role = InputMessageRoles.System,
                         Content = prompt?.Prefix ?? string.Empty
                     };
                 }
             }
 
-            var userPrompt = new InputString { Role = "user", Content = request.UserPrompt };
-            var inputStrings = new List<InputString>();
+            var inputStrings = new List<InputMessage>();
             // Add system prompt, if exists.
             if (systemPrompt != null) inputStrings.Add(systemPrompt);
             // Add conversation history.
@@ -81,7 +81,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 var messageHistoryItems = request.MessageHistory?.TakeLast(agent.ConversationHistory.MaxHistory);
                 foreach(var item in messageHistoryItems!)
                 {
-                    inputStrings.Add(new InputString
+                    inputStrings.Add(new InputMessage
                     {
                         Role = item.Sender.ToLower(),
                         Content = item.Text
@@ -89,6 +89,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 }
             }
             // Add current user prompt.
+            var userPrompt = new UserInputMessage { Content = request.UserPrompt };
             inputStrings.Add(userPrompt);
 
             if (!string.IsNullOrWhiteSpace(endpointSettings.Endpoint) && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
@@ -115,7 +116,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         InputData = new()
                         {
                             InputString = [.. inputStrings],
-                            Parameters = modelParameters.ToObject<Parameters>(modelOverrides)
+                            Parameters = modelParameters.ToObject<AzureAIDirectParameters>(modelOverrides)
                         }
                     };
 

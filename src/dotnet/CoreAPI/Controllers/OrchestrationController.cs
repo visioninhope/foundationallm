@@ -6,7 +6,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration.Authentication;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
