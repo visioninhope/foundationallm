@@ -7,7 +7,7 @@
     {
         /// <summary>
         /// The key name for the index filter expression agent parameter.
-        /// This value should be a string representing the search filter expression to limit documents returned
+        /// This value should be a string representing the search filter expression to limit documents to be searched
         /// by the index.
         /// </summary>
         public const string IndexFilterExpression = "index_filter_expression";
