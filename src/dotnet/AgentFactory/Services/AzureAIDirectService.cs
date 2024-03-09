@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;
+using FoundationaLLM.Common.Extensions;
 
 namespace FoundationaLLM.AgentFactory.Core.Services
 {
@@ -114,7 +115,8 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         InputData = new()
                         {
                             InputString = [.. inputStrings],
-                            Parameters = GetModelParameters(modelParameters, modelOverrides)
+                            //Parameters = GetModelParameters(modelParameters, modelOverrides)
+                            Parameters = modelParameters.ToObject<Parameters>(modelOverrides)
                         }
                     };
 
@@ -190,51 +192,6 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 Endpoint = endpoint!,
                 APIKey = apiKey!,
                 AuthenticationType = authenticationType!
-            };
-        }
-
-        /// <summary>
-        /// Extracts model parameters from a dictionary and writes them into a <see cref="Parameters"/> object.
-        /// </summary>
-        /// <param name="modelParameters">Dictionary containing model parameter values.</param>
-        /// <returns>Returns a <see cref="Parameters"/> object containing model parameters.</returns>
-        private static Parameters GetModelParameters(Dictionary<string, object> modelParameters, Dictionary<string, object>? overrideParameters = null)
-        {
-            modelParameters.TryGetValue(ModelParameterKeys.Temperature, out var temperature);
-            modelParameters.TryGetValue(ModelParameterKeys.TopK, out var topK);
-            modelParameters.TryGetValue(ModelParameterKeys.TopP, out var topP);
-            modelParameters.TryGetValue(ModelParameterKeys.DoSample, out var doSample);
-            modelParameters.TryGetValue(ModelParameterKeys.MaxNewTokens, out var maxNewTokens);
-            modelParameters.TryGetValue(ModelParameterKeys.ReturnFullText, out var returnFullText);
-            modelParameters.TryGetValue(ModelParameterKeys.IgnoreEOS, out var ignoreEOS);
-
-            if (overrideParameters != null)
-            {
-                if (overrideParameters.TryGetValue(ModelParameterKeys.Temperature, out var temperatureOverride))
-                    temperature = temperatureOverride ?? temperature;
-                if (overrideParameters.TryGetValue(ModelParameterKeys.TopK, out var topKOverride))
-                    topK = topKOverride ?? topK;
-                if (overrideParameters.TryGetValue(ModelParameterKeys.TopP, out var topPOverride))
-                    topP = topPOverride ?? topP;
-                if (overrideParameters.TryGetValue(ModelParameterKeys.DoSample, out var doSampleOverride))
-                    doSample = doSampleOverride ?? doSample;
-                if (overrideParameters.TryGetValue(ModelParameterKeys.MaxNewTokens, out var maxNewTokensOverride))
-                    maxNewTokens = maxNewTokensOverride ?? maxNewTokens;
-                if (overrideParameters.TryGetValue(ModelParameterKeys.ReturnFullText, out var returnFullTextOverride))
-                    returnFullText = returnFullTextOverride ?? returnFullText;
-                if (overrideParameters.TryGetValue(ModelParameterKeys.IgnoreEOS, out var ignoreEOSOverride))
-                    ignoreEOS = ignoreEOSOverride ?? ignoreEOS;
-            }
-
-            return new Parameters
-            {
-                Temperature = temperature != null ? Convert.ToSingle(temperature.ToString()) : null,
-                TopK = topK != null ? Convert.ToSingle(topK.ToString()) : null,
-                TopP = topP != null ? Convert.ToSingle(topP.ToString()) : null,
-                DoSample = doSample != null ? Convert.ToBoolean(doSample.ToString()) : null,
-                MaxNewTokens = maxNewTokens != null ? Convert.ToInt32(maxNewTokens.ToString()) : null,
-                ReturnFullText = returnFullText != null ? Convert.ToBoolean(returnFullText.ToString()) : null,
-                IgnoreEOS = ignoreEOS != null ? Convert.ToBoolean(ignoreEOS.ToString()) : null
             };
         }
     }
