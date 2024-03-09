@@ -42,6 +42,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
                 ContentSourceType.AzureDataLake => CreateAzureDataLakeContentSourceService(serviceName),
                 ContentSourceType.SharePointOnline => CreateSharePointOnlineContentSourceService(serviceName),
                 ContentSourceType.AzureSQLDatabase => CreateAzureSQLDatabaseContentSourceService(serviceName),
+                ContentSourceType.Web => new WebPageContentSourceService(_loggerFactory),
                 _ => throw new VectorizationException($"The content source type {contentSourceProfile.ContentSource} is not supported."),
             };
         }
@@ -57,6 +58,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
                 ContentSourceType.AzureDataLake => (CreateAzureDataLakeContentSourceService(serviceName), contentSourceProfile),
                 ContentSourceType.SharePointOnline => (CreateSharePointOnlineContentSourceService(serviceName), contentSourceProfile),
                 ContentSourceType.AzureSQLDatabase => (CreateAzureSQLDatabaseContentSourceService(serviceName), contentSourceProfile),
+                ContentSourceType.Web => (new WebPageContentSourceService(_loggerFactory), contentSourceProfile),
                 _ => throw new VectorizationException($"The content source type {contentSourceProfile.ContentSource} is not supported."),
             };
         }
