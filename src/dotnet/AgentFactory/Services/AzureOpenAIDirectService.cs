@@ -122,12 +122,9 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
                     var body = JsonSerializer.Serialize(azureOpenAiDirectRequest, _jsonSerializerOptions);
                     var content = new StringContent(body, Encoding.UTF8, "application/json");
-                    if (modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment))
-                    {
-                        content.Headers.Add("azureml-model-deployment", deployment.ToString());
-                    }
+                    modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment);
 
-                    var responseMessage = await client.PostAsync("", content);
+                    var responseMessage = await client.PostAsync($"/openai/deployments/{deployment}/completions", content);
                     var responseContent = await responseMessage.Content.ReadAsStringAsync();
 
                     if (responseMessage.IsSuccessStatusCode)
