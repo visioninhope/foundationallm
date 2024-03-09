@@ -13,17 +13,17 @@ namespace FoundationaLLM.Common.Models.Orchestration
         [JsonPropertyName("orchestrator")]
         public string? Orchestrator { get; set; }
         /// <summary>
-        /// Parameters to override the behavior of the agent.
+        /// AzureAIDirectParameters to override the behavior of the agent.
         /// </summary>
         public Dictionary<string, object>? AgentParameters { get; set; }
         /// <summary>
         /// Options to override endpoint configuration (endpoint and key) used to
-        /// access a language model by the orchstrator.
+        /// access a language model by the orchestrator.
         /// </summary>
         [JsonPropertyName("endpoint_configuration")]
         public Dictionary<string, object>? EndpointConfiguration { get; set; }
         /// <summary>
-        /// Parameters to override the behavior of the language model as defined on the agent.
+        /// AzureAIDirectParameters to override the behavior of the language model as defined on the agent.
         /// </summary>
         [JsonPropertyName("model_parameters")]
         public Dictionary<string, object>? ModelParameters { get; set; }
