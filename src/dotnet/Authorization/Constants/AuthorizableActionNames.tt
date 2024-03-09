@@ -21,8 +21,8 @@ namespace FoundationaLLM.Authorization.Constants
     {
 <#
     foreach (var jsonObject in jsonObjects.AsArray())
-    {
-#>
+    {#>
+
         #region <#= jsonObject["category"] #>
 
 <#
