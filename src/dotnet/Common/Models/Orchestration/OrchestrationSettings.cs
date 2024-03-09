@@ -13,6 +13,10 @@ namespace FoundationaLLM.Common.Models.Orchestration
         [JsonPropertyName("orchestrator")]
         public string? Orchestrator { get; set; }
         /// <summary>
+        /// Parameters to override the behavior of the agent.
+        /// </summary>
+        public Dictionary<string, object>? AgentParameters { get; set; }
+        /// <summary>
         /// Options to override endpoint configuration (endpoint and key) used to
         /// access a language model by the orchstrator.
         /// </summary>
