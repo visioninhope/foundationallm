@@ -2915,6 +2915,12 @@ references:
   commentId: T:FoundationaLLM.Common.Constants.FileExtensions
   fullName: FoundationaLLM.Common.Constants.FileExtensions
   nameWithType: FileExtensions
+- uid: FoundationaLLM.Common.Constants.FileExtensions.AllowedFileExtensions
+  name: AllowedFileExtensions
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_AllowedFileExtensions
+  commentId: F:FoundationaLLM.Common.Constants.FileExtensions.AllowedFileExtensions
+  fullName: FoundationaLLM.Common.Constants.FileExtensions.AllowedFileExtensions
+  nameWithType: FileExtensions.AllowedFileExtensions
 - uid: FoundationaLLM.Common.Constants.FileExtensions.Excel
   name: Excel
   href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_Excel
@@ -11521,6 +11527,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.this[]
   nameWithType: ContentIdentifier.this
   nameWithType.vb: ContentIdentifier.this[]
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata
+  name: Metadata
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_Metadata
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata
+  nameWithType: ContentIdentifier.Metadata
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata*
+  name: Metadata
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_Metadata_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata
+  nameWithType: ContentIdentifier.Metadata
 - uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
   name: MultipartId
   href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_MultipartId
@@ -20725,6 +20744,32 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.MaxHandlerInstances
   nameWithType: RequestManagerServiceSettings.MaxHandlerInstances
+- uid: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueuePollingInterval
+  name: QueuePollingInterval
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueuePollingInterval
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueuePollingInterval
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueuePollingInterval
+  nameWithType: RequestManagerServiceSettings.QueuePollingInterval
+- uid: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueuePollingInterval*
+  name: QueuePollingInterval
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueuePollingInterval_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueuePollingInterval
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueuePollingInterval
+  nameWithType: RequestManagerServiceSettings.QueuePollingInterval
+- uid: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueProcessingPace
+  name: QueueProcessingPace
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueueProcessingPace
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueProcessingPace
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueProcessingPace
+  nameWithType: RequestManagerServiceSettings.QueueProcessingPace
+- uid: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueProcessingPace*
+  name: QueueProcessingPace
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueueProcessingPace_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueProcessingPace
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueProcessingPace
+  nameWithType: RequestManagerServiceSettings.QueueProcessingPace
 - uid: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.RequestSourceName
   name: RequestSourceName
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_RequestSourceName

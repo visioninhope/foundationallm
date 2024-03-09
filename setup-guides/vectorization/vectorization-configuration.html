@@ -358,19 +358,27 @@ The details presented here are provided for cases in which you need to troublesh
     &quot;RequestManagers&quot;: [
         {
             &quot;RequestSourceName&quot;: &quot;extract&quot;,
-            &quot;MaxHandlerInstances&quot;: 1
+            &quot;MaxHandlerInstances&quot;: 1,
+            &quot;QueueProcessingPace&quot;: 5,
+            &quot;QueuePollingInterval&quot;: 60
         },
         {
             &quot;RequestSourceName&quot;: &quot;partition&quot;,
-            &quot;MaxHandlerInstances&quot;: 1
+            &quot;MaxHandlerInstances&quot;: 1,
+            &quot;QueueProcessingPace&quot;: 5,
+            &quot;QueuePollingInterval&quot;: 60
         },
         {
             &quot;RequestSourceName&quot;: &quot;embed&quot;,
-            &quot;MaxHandlerInstances&quot;: 1
+            &quot;MaxHandlerInstances&quot;: 1,
+            &quot;QueueProcessingPace&quot;: 5,
+            &quot;QueuePollingInterval&quot;: 60
         },
         {
             &quot;RequestSourceName&quot;: &quot;index&quot;,
-            &quot;MaxHandlerInstances&quot;: 1
+            &quot;MaxHandlerInstances&quot;: 1,
+            &quot;QueueProcessingPace&quot;: 5,
+            &quot;QueuePollingInterval&quot;: 60
         }
     ],
     &quot;RequestSources&quot;: [
@@ -414,6 +422,14 @@ The details presented here are provided for cases in which you need to troublesh
 <tr>
 <td><code>RequestManagers.MaxHandlerInstances</code></td>
 <td>The maximum number of request handlers that process requests for the specified request source. By default, the value is 1. You can change the value to increase the processing capacity of each vectorization worker instance. The value applies to all istances of the vectorization worker. NOTE: It is important to align the value of this setting with the level of compute and memory resources allocated to the individual vectorization worker instances.</td>
+</tr>
+<tr>
+<td><code>RequestManagers.QueueProcessingPace</code></td>
+<td><strong>Optional</strong> The delay in seconds to wait between requests after a request has been processed. The default value is 5.</td>
+</tr>
+<tr>
+<td><code>RequestManagers.QueuePollingInterval</code></td>
+<td><strong>Optional</strong> The polling interval in seconds, this is the amount of time to wait if the previous check on the queue had no items. The default value is 60.</td>
 </tr>
 <tr>
 <td><code>RequestSources</code></td>
