@@ -160,20 +160,19 @@ Class OrchestrationSettings  <a class="header-action link-secondary" title="View
 </h2>
 
 
-  <a id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_AgentName_" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.AgentName*"></a>
+  <a id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_AgentParameters_" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.AgentParameters*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_AgentName" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.AgentName">
-  AgentName
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_AgentParameters" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.AgentParameters">
+  AgentParameters
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The name of the selected agent.</p>
+  <div class="markdown level1 summary"><p>Parameters to override the behavior of the agent.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;agent_name&quot;)]
-public string AgentName { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, object&gt;? AgentParameters { get; set; }</code></pre>
   </div>
 
 
@@ -182,7 +181,7 @@ public string AgentName { get; set; }</code></pre>
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -193,20 +192,21 @@ public string AgentName { get; set; }</code></pre>
 
 
 
-  <a id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_ModelSettings_" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.ModelSettings*"></a>
+  <a id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_EndpointConfiguration_" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.EndpointConfiguration*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_ModelSettings" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.ModelSettings">
-  ModelSettings
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_EndpointConfiguration" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.EndpointConfiguration">
+  EndpointConfiguration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Options to override the default behavior of the agent's language model.</p>
+  <div class="markdown level1 summary"><p>Options to override endpoint configuration (endpoint and key) used to
+access a language model by the orchstrator.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;model_settings&quot;)]
-public Dictionary&lt;string, object&gt;? ModelSettings { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;endpoint_configuration&quot;)]
+public Dictionary&lt;string, object&gt;? EndpointConfiguration { get; set; }</code></pre>
   </div>
 
 
@@ -216,6 +216,72 @@ public Dictionary&lt;string, object&gt;? ModelSettings { get; set; }</code></pre
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_ModelParameters_" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.ModelParameters*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_ModelParameters" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.ModelParameters">
+  ModelParameters
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Parameters to override the behavior of the language model as defined on the agent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;model_parameters&quot;)]
+public Dictionary&lt;string, object&gt;? ModelParameters { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_Orchestrator_" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.Orchestrator*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_Orchestrator" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.Orchestrator">
+  Orchestrator
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The agent's LLM orchestrator type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;orchestrator&quot;)]
+public string? Orchestrator { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
