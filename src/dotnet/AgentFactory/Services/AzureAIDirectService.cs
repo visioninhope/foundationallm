@@ -197,6 +197,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
         /// Extracts model parameters from a dictionary and writes them into a <see cref="Parameters"/> object.
         /// </summary>
         /// <param name="modelParameters">Dictionary containing model parameter values.</param>
+        /// <param name="overrideParameters">Optional dictionary containing parameter values to override.</param>
         /// <returns>Returns a <see cref="Parameters"/> object containing model parameters.</returns>
         private static Parameters GetModelParameters(Dictionary<string, object> modelParameters, Dictionary<string, object>? overrideParameters = null)
         {
