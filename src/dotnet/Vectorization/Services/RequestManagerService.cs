@@ -81,7 +81,7 @@ namespace FoundationaLLM.Vectorization.Services
 
                     if (taskPoolAvailableCapacity > 0 && (await _incomingRequestSourceService.HasRequests().ConfigureAwait(false)))
                     {
-                        var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity).ConfigureAwait(false);
+                        var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity, _vectorizationStateService).ConfigureAwait(false);
 
                         // No need to use ConfigureAwait(false) since the code is going to be executed on a
                         // thread pool thread, with no user code higher on the stack (for details, see

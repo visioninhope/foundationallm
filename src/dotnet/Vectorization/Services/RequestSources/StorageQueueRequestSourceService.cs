@@ -1,11 +1,9 @@
 ﻿using Azure.Storage.Queues;
-using Azure.Storage.Queues.Models;
+using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System.Linq;
 using System.Text.Json;
 
 namespace FoundationaLLM.Vectorization.Services.RequestSources
@@ -17,7 +15,6 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
     {
         private readonly RequestSourceServiceSettings _settings;
         private readonly ILogger<StorageQueueRequestSourceService> _logger;
-
         private readonly QueueClient _queueClient;
 
         /// <inheritdoc/>
@@ -28,15 +25,18 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         /// </summary>
         /// <param name="settings">The <see cref="RequestSourceServiceSettings"/> object providing the settings.</param>
         /// <param name="logger">The logger used for logging.</param>
+        
         public StorageQueueRequestSourceService(
             RequestSourceServiceSettings settings,
-            ILogger<StorageQueueRequestSourceService> logger)
+            ILogger<StorageQueueRequestSourceService> logger
+            )
         {
             _settings = settings;
             _logger = logger;
 
             var queueServiceClient = new QueueServiceClient(_settings.ConnectionString);
             _queueClient = queueServiceClient.GetQueueClient(_settings.Name);
+           
         }
 
         /// <inheritdoc/>
@@ -47,7 +47,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count)
+        public async Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count, IVectorizationStateService vectorizationStateService)
         {
             var receivedMessages = await _queueClient.ReceiveMessagesAsync(count, TimeSpan.FromSeconds(_settings.VisibilityTimeoutSeconds)).ConfigureAwait(false);
 
@@ -57,9 +57,26 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             {
                 foreach (var m in receivedMessages.Value)
                 {
+                    
                     try
                     {
                         var vectorizationRequest = JsonSerializer.Deserialize<VectorizationRequest>(m.Body.ToString());
+                        if(vectorizationRequest is not null)
+                        {
+                            if (m.DequeueCount > _settings.MaxNumberOfRetries)
+                            {
+                                _logger.LogWarning("Message with id {MessageId} has been retried {DequeueCount} times and will be deleted.", m.MessageId, m.DequeueCount);
+                                var state = await vectorizationStateService.HasState(vectorizationRequest).ConfigureAwait(false)
+                                    ? await vectorizationStateService.ReadState(vectorizationRequest).ConfigureAwait(false)
+                                    : VectorizationState.FromRequest(vectorizationRequest);
+                                
+                                state.LogEntries.Add(new VectorizationLogEntry(vectorizationRequest.Id!, m.MessageId, vectorizationRequest.CurrentStep ?? "StorageQueueService", "ERROR: The message has been retried too many times and will be deleted."));                                
+                                await _queueClient.DeleteMessageAsync(m.MessageId, m.PopReceipt).ConfigureAwait(false);
+                                await vectorizationStateService.SaveState(state).ConfigureAwait(false);
+                                continue;
+                            }
+                        }
+                        
                         result.Add(new(
                             vectorizationRequest!,
                             m.MessageId,

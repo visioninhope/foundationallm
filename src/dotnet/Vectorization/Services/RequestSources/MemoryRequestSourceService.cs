@@ -32,7 +32,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             Task.FromResult(!_requests.IsEmpty);
 
         /// <inheritdoc/>
-        public Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count)
+        public Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count, IVectorizationStateService vectorizationStateService)
         {
             var result = new List<(VectorizationRequest, string, string)>();
 

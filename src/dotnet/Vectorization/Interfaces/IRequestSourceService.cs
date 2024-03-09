@@ -25,9 +25,10 @@ namespace FoundationaLLM.Vectorization.Interfaces
         /// They should be removed from the source by calling <see cref="DeleteRequest(string, string)"/> before the timeout expires.
         /// </summary>
         /// <param name="count">The number of requests to receive.</param>
+        /// <param name="vectorizationStateService">The <see cref="IVectorizationStateService"/> object used to manage the vectorization state.</param>
         /// <returns>A collection of tuples containg a <see cref="VectorizationRequest"/> object, a message id and a pop receipt.
-        /// The message id and pop receipt will be used to delete the message from the request source after it has been processed.</returns>
-        Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count);
+        /// The message id and pop receipt will be used to delete the message from the request source after it has been processed.</returns>        
+        Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count, IVectorizationStateService vectorizationStateService);
 
         /// <summary>
         /// Removes a specified vectorization request from the source.
