@@ -94,12 +94,10 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
             if (!string.IsNullOrWhiteSpace(endpointSettings.Endpoint) && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
             {
-                var client = _httpClientFactoryService.CreateClient(HttpClients.AzureAIDirect);
+                var client = _httpClientFactoryService.CreateClient(HttpClients.AzureOpenAIDirect);
                 if (endpointSettings.AuthenticationType == "key" && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
                 {
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
-                        "Bearer", endpointSettings.APIKey
-                    );
+                    client.DefaultRequestHeaders.Add("api-key", endpointSettings.APIKey);
                 }
                 
                 client.BaseAddress = new Uri(endpointSettings.Endpoint);
@@ -107,11 +105,11 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 var modelParameters = agent.OrchestrationSettings?.ModelParameters;
                 var modelOverrides = request.Settings?.ModelParameters;
                 
-                AzureOpenAIDirectRequest azureOpenAiDirectRequest;
+                AzureOpenAIDirectRequest azureOpenAIDirectRequest;
 
                 if (modelParameters != null)
                 {
-                    azureOpenAiDirectRequest = new()
+                    azureOpenAIDirectRequest = new()
                     {
                         InputData = new()
                         {
@@ -120,11 +118,11 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         }
                     };
 
-                    var body = JsonSerializer.Serialize(azureOpenAiDirectRequest, _jsonSerializerOptions);
+                    var body = JsonSerializer.Serialize(azureOpenAIDirectRequest, _jsonSerializerOptions);
                     var content = new StringContent(body, Encoding.UTF8, "application/json");
                     modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment);
 
-                    var responseMessage = await client.PostAsync($"/openai/deployments/{deployment}/completions", content);
+                    var responseMessage = await client.PostAsync($"/openai/deployments/{deployment}/completions?api-version={endpointSettings.APIVersion}", content);
                     var responseContent = await responseMessage.Content.ReadAsStringAsync();
 
                     if (responseMessage.IsSuccessStatusCode)
@@ -183,11 +181,17 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
                 apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
             }
-            
+
+            if (!endpointConfiguration.TryGetValue(EndpointConfigurationKeys.APIVersion, out var apiVersionKeyName))
+                throw new Exception("An API version must be passed in via an Azure App Config key name.");
+
+            var apiVersion = _configuration.GetValue<string>(apiVersionKeyName?.ToString()!);
+
             return new EndpointSettings
             {
                 Endpoint = endpoint!,
                 APIKey = apiKey!,
+                APIVersion = apiVersion!,
                 AuthenticationType = authenticationType!
             };
         }
