@@ -103,6 +103,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 client.BaseAddress = new Uri(endpointSettings.Endpoint);
                 
                 var modelParameters = agent.OrchestrationSettings?.ModelParameters;
+                var modelOverrides = request.Settings?.ModelParameters;
                 
                 AzureAIDirectRequest azureAIDirectRequest;
 
@@ -113,7 +114,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         InputData = new()
                         {
                             InputString = [.. inputStrings],
-                            Parameters = GetModelParameters(modelParameters)
+                            Parameters = GetModelParameters(modelParameters, modelOverrides)
                         }
                     };
 
@@ -197,7 +198,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
         /// </summary>
         /// <param name="modelParameters">Dictionary containing model parameter values.</param>
         /// <returns>Returns a <see cref="Parameters"/> object containing model parameters.</returns>
-        private static Parameters GetModelParameters(Dictionary<string, object> modelParameters)
+        private static Parameters GetModelParameters(Dictionary<string, object> modelParameters, Dictionary<string, object>? overrideParameters = null)
         {
             modelParameters.TryGetValue(ModelParameterKeys.Temperature, out var temperature);
             modelParameters.TryGetValue(ModelParameterKeys.TopK, out var topK);
@@ -206,6 +207,24 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             modelParameters.TryGetValue(ModelParameterKeys.MaxNewTokens, out var maxNewTokens);
             modelParameters.TryGetValue(ModelParameterKeys.ReturnFullText, out var returnFullText);
             modelParameters.TryGetValue(ModelParameterKeys.IgnoreEOS, out var ignoreEOS);
+
+            if (overrideParameters != null)
+            {
+                if (overrideParameters.TryGetValue(ModelParameterKeys.Temperature, out var temperatureOverride))
+                    temperature = temperatureOverride ?? temperature;
+                if (overrideParameters.TryGetValue(ModelParameterKeys.TopK, out var topKOverride))
+                    topK = topKOverride ?? topK;
+                if (overrideParameters.TryGetValue(ModelParameterKeys.TopP, out var topPOverride))
+                    topP = topPOverride ?? topP;
+                if (overrideParameters.TryGetValue(ModelParameterKeys.DoSample, out var doSampleOverride))
+                    doSample = doSampleOverride ?? doSample;
+                if (overrideParameters.TryGetValue(ModelParameterKeys.MaxNewTokens, out var maxNewTokensOverride))
+                    maxNewTokens = maxNewTokensOverride ?? maxNewTokens;
+                if (overrideParameters.TryGetValue(ModelParameterKeys.ReturnFullText, out var returnFullTextOverride))
+                    returnFullText = returnFullTextOverride ?? returnFullText;
+                if (overrideParameters.TryGetValue(ModelParameterKeys.IgnoreEOS, out var ignoreEOSOverride))
+                    ignoreEOS = ignoreEOSOverride ?? ignoreEOS;
+            }
 
             return new Parameters
             {

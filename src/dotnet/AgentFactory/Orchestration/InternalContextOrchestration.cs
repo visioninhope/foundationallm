@@ -46,7 +46,8 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 {
                     UserPrompt = completionRequest.UserPrompt!,
                     Agent = _agent,
-                    MessageHistory = completionRequest.MessageHistory
+                    MessageHistory = completionRequest.MessageHistory,
+                    Settings = completionRequest.Settings
                 });
 
             return new CompletionResponse

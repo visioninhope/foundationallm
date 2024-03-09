@@ -29,5 +29,11 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// </summary>
         [JsonPropertyName("message_history")]
         public List<MessageHistoryItem>? MessageHistory { get; init; } = [];
+
+        /// <summary>
+        /// Collection of model settings to override with the orchestration request.
+        /// </summary>
+        [JsonPropertyName("settings")]
+        public OrchestrationSettings? Settings { get; set; }
     }
 }
