@@ -1337,6 +1337,24 @@ references:
   commentId: N:FoundationaLLM.Common.Constants
   fullName: FoundationaLLM.Common.Constants
   nameWithType: FoundationaLLM.Common.Constants
+- uid: FoundationaLLM.Common.Constants.AgentParameterKeys
+  name: AgentParameterKeys
+  href: api/dotnet/FoundationaLLM.Common.Constants.AgentParameterKeys.html
+  commentId: T:FoundationaLLM.Common.Constants.AgentParameterKeys
+  fullName: FoundationaLLM.Common.Constants.AgentParameterKeys
+  nameWithType: AgentParameterKeys
+- uid: FoundationaLLM.Common.Constants.AgentParameterKeys.IndexFilterExpression
+  name: IndexFilterExpression
+  href: api/dotnet/FoundationaLLM.Common.Constants.AgentParameterKeys.html#FoundationaLLM_Common_Constants_AgentParameterKeys_IndexFilterExpression
+  commentId: F:FoundationaLLM.Common.Constants.AgentParameterKeys.IndexFilterExpression
+  fullName: FoundationaLLM.Common.Constants.AgentParameterKeys.IndexFilterExpression
+  nameWithType: AgentParameterKeys.IndexFilterExpression
+- uid: FoundationaLLM.Common.Constants.AgentParameterKeys.IndexTopN
+  name: IndexTopN
+  href: api/dotnet/FoundationaLLM.Common.Constants.AgentParameterKeys.html#FoundationaLLM_Common_Constants_AgentParameterKeys_IndexTopN
+  commentId: F:FoundationaLLM.Common.Constants.AgentParameterKeys.IndexTopN
+  fullName: FoundationaLLM.Common.Constants.AgentParameterKeys.IndexTopN
+  nameWithType: AgentParameterKeys.IndexTopN
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeyFilters
   name: AppConfigurationKeyFilters
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeyFilters.html

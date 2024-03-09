@@ -164,7 +164,7 @@ Class OrchestrationSettings  <a class="header-action link-secondary" title="View
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_AgentParameters" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.AgentParameters">
   AgentParameters
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Parameters to override the behavior of the agent.</p>
@@ -172,7 +172,8 @@ Class OrchestrationSettings  <a class="header-action link-secondary" title="View
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, object&gt;? AgentParameters { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;agent_parameters&quot;)]
+public Dictionary&lt;string, object&gt;? AgentParameters { get; set; }</code></pre>
   </div>
 
 
@@ -196,7 +197,7 @@ Class OrchestrationSettings  <a class="header-action link-secondary" title="View
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_EndpointConfiguration" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.EndpointConfiguration">
   EndpointConfiguration
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Options to override endpoint configuration (endpoint and key) used to
@@ -230,7 +231,7 @@ public Dictionary&lt;string, object&gt;? EndpointConfiguration { get; set; }</co
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_OrchestrationSettings_ModelParameters" data-uid="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.ModelParameters">
   ModelParameters
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OrchestrationSettings.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Parameters to override the behavior of the language model as defined on the agent.</p>
