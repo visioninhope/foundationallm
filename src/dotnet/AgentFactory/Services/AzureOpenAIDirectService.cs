@@ -55,10 +55,10 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             var endpointSettings = GetEndpointSettings(endpointConfiguration);
 
 
-            var inputStrings = new List<InputMessage>();
-            SystemInputMessage? systemPrompt = null;
+            var inputStrings = new List<CompletionMessage>();
+            SystemCompletionMessage? systemPrompt = null;
 
-            if (endpointSettings.OperationType == OperationTypes.ChatCompletions)
+            if (endpointSettings.OperationType == OperationTypes.Chat)
             {
                 if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
                 {
@@ -69,7 +69,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                     if (resource is List<PromptBase> prompts)
                     {
                         var prompt = prompts.FirstOrDefault() as MultipartPrompt;
-                        systemPrompt = new SystemInputMessage
+                        systemPrompt = new SystemCompletionMessage
                         {
                             Role = InputMessageRoles.System,
                             Content = prompt?.Prefix ?? string.Empty
@@ -85,7 +85,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                     var messageHistoryItems = request.MessageHistory?.TakeLast(agent.ConversationHistory.MaxHistory);
                     foreach (var item in messageHistoryItems!)
                     {
-                        inputStrings.Add(new InputMessage
+                        inputStrings.Add(new CompletionMessage
                         {
                             Role = item.Sender.ToLower(),
                             Content = item.Text
@@ -93,7 +93,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                     }
                 }
                 // Add current user prompt.
-                var userPrompt = new UserInputMessage { Content = request.UserPrompt };
+                var userPrompt = new UserCompletionMessage { Content = request.UserPrompt };
                 inputStrings.Add(userPrompt);
             }
 
@@ -112,43 +112,42 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
                 if (modelParameters != null)
                 {
-                    var azureOpenAIDirectRequest = endpointSettings.OperationType switch
-                    {
-                        OperationTypes.Completions => modelParameters.ToObject<AzureOpenAIDirectCompletionRequest>(modelOverrides),
-                        OperationTypes.ChatCompletions => modelParameters.ToObject<AzureOpenAIDirectChatCompletionRequest>(modelOverrides),
-                        _ => throw new ArgumentException($"The specified operation type {endpointSettings.OperationType} is not supported.")
-                    };
+                    var azureOpenAIDirectRequest = modelParameters.ToObject<AzureOpenAICompletionRequest>(modelOverrides);
+                    var chatOperation = string.Empty;
 
-                    if (endpointSettings.OperationType == OperationTypes.Completions)
+                    switch (endpointSettings.OperationType)
                     {
-                        azureOpenAIDirectRequest.Prompt = request.UserPrompt;
+                        case OperationTypes.Completions:
+                            azureOpenAIDirectRequest.Prompt = request.UserPrompt;
+                            break;
+                        case OperationTypes.Chat:
+                            chatOperation = "/chat";
+                            azureOpenAIDirectRequest.Messages = [.. inputStrings];
+                            break;
                     }
-                    else if (endpointSettings.OperationType == OperationTypes.ChatCompletions)
-                    {
-                        azureOpenAIDirectRequest.Messages = [.. inputStrings];
-                    }
-                    
+
                     var body = JsonSerializer.Serialize(azureOpenAIDirectRequest, _jsonSerializerOptions);
                     var content = new StringContent(body, Encoding.UTF8, "application/json");
                     modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment);
 
-                    // TODO: the /chat section of the post path will depend on the endpointSettings.OperationType == "chat_completions"
-                    var responseMessage = await client.PostAsync($"/openai/deployments/{deployment}/chat/completions?api-version={endpointSettings.APIVersion}", content);
+                    var responseMessage = await client.PostAsync($"/openai/deployments/{deployment}{chatOperation}/completions?api-version={endpointSettings.APIVersion}", content);
                     var responseContent = await responseMessage.Content.ReadAsStringAsync();
 
                     if (responseMessage.IsSuccessStatusCode)
                     {
-                        var completionResponse = JsonSerializer.Deserialize<AzureOpenAIDirectResponse>(responseContent);
+                        var completionResponse = JsonSerializer.Deserialize<AzureOpenAICompletionResponse>(responseContent);
 
                         return new LLMCompletionResponse
                         {
-                            Completion = completionResponse!.Choices?[0].Text,
+                            Completion = endpointSettings.OperationType == OperationTypes.Chat
+                                ? completionResponse!.Choices?[0].Message?.Content
+                                : completionResponse!.Choices?[0].Text,
                             UserPrompt = request.UserPrompt,
                             FullPrompt = body,
                             PromptTemplate = systemPrompt?.Content,
                             AgentName = agent.Name,
-                            PromptTokens = 0,
-                            CompletionTokens = 0
+                            PromptTokens = completionResponse!.Usage!.PromptTokens,
+                            CompletionTokens = completionResponse!.Usage!.CompletionTokens
                         };
                     }
 
@@ -200,7 +199,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
             var operationType = string.Empty;
             if (endpointConfiguration.TryGetValue(EndpointConfigurationKeys.OperationType, out var operationTypeKeyName))
-                operationType = _configuration.GetValue<string>(operationTypeKeyName?.ToString()!) ?? OperationTypes.ChatCompletions;
+                operationType = _configuration.GetValue<string>(operationTypeKeyName?.ToString()!) ?? OperationTypes.Chat;
 
             return new EndpointSettings
             {
