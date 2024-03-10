@@ -139,6 +139,12 @@ azd auth login      # Log into Azure Developer CLI
 # Set your target Subscription and Location
 azd env new --location &lt;Supported Azure Region&gt; --subscription &lt;Azure Subscription ID&gt;
 
+azd env set ENTRA_AUTH_API_INSTANCE &lt;Auth API Instance&gt;
+azd env set ENTRA_AUTH_API_CLIENT_ID &lt;Auth API Client Id&gt;
+azd env set ENTRA_AUTH_API_CLIENT_SECRET &lt;Auth API Client Secret&gt;
+azd env set ENTRA_AUTH_API_SCOPES &lt;Auth API Scope&gt;
+azd env set ENTRA_AUTH_API_TENANT_ID &lt;Auth API Tenant ID&gt;
+
 azd env set ENTRA_CHAT_UI_CLIENT_ID &lt;Chat UI Client Id&gt;
 azd env set ENTRA_CHAT_UI_SCOPES &lt;Chat UI Scope&gt;
 azd env set ENTRA_CHAT_UI_TENANT_ID &lt;Chat UI Tenant ID&gt;
