@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "adminGroupObjectId": {
-        "value": "d3bd4e8e-d413-477d-a420-0792b0504adf"
+        "value": "${ADMIN_GROUP_OBJECT_ID}"
       },
       "authAppRegistration": {
         "value": {
