@@ -107,10 +107,6 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
               value: applicationInsights.properties.ConnectionString
             }
             {
-              name: 'FoundationaLLM__AuthorizationAPI__AppInsightsConnectionString'
-              value: applicationInsights.properties.ConnectionString
-            }
-            {
               name: 'PORT'
               value: '80'
             }

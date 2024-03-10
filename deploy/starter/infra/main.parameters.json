@@ -13,6 +13,9 @@
           "tenantId": "${ENTRA_AUTH_API_TENANT_ID}"
         }
       },
+      "authClientSecret": {
+        "value": "${ENTRA_AUTH_API_CLIENT_SECRET}"
+      },
       "appRegistrations": {
         "value": [
           {

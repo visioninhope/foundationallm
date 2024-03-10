@@ -3,6 +3,8 @@ targetScope = 'subscription'
 param adminGroupObjectId string
 
 param authAppRegistration object
+param authClientSecret string
+
 param appRegistrations array
 
 param createDate string = utcNow('u')
@@ -131,24 +133,36 @@ module authKeyvault './shared/keyvault.bicep' = {
     principalId: principalId
     secrets: [
       {
-        name: 'foundationallm-authorization-api-entra-instance'
+        name: 'foundationallm-authorizationapi-appinsights-connectionstring'
+        value: monitoring.outputs.applicationInsightsConnectionString
+      }
+      {
+        name: 'foundationallm-authorizationapi-entra-instance'
         value: authAppRegistration.instance
       }
       {
-        name: 'foundationallm-authorization-api-entra-tenant-id'
+        name: 'foundationallm-authorizationapi-entra-tenantid'
         value: authAppRegistration.tenantId
       }
       {
-        name: 'foundationallm-authorization-api-entra-client-id'
+        name: 'foundationallm-authorizationapi-entra-clientid'
         value: authAppRegistration.clientId
       }
       {
-        name: 'foundationallm-authorization-api-entra-scopes'
+        name: 'foundationallm-authorizationapi-entra-clientsecret'
+        value: authClientSecret
+      }
+      {
+        name: 'foundationallm-authorizationapi-entra-scopes'
         value: authAppRegistration.scopes
       }
       {
-        name: 'foundationallm-authorization-api-storage-account'
+        name: 'foundationallm-authorizationapi-storage-accountname'
         value: authStore.outputs.name
+      }
+      {
+        name: 'foundationallm-authorizationapi-instanceids'
+        value: instanceId
       }
     ]
   }
