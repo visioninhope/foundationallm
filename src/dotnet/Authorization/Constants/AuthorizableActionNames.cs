@@ -23,6 +23,7 @@ namespace FoundationaLLM.Authorization.Constants
         public const string FoundationaLLM_Authorization_RoleAssignments_Delete = "FoundationaLLM.Authorization/roleAssignments/delete";
 
         #endregion
+
         #region Agent
 
         /// <summary>
@@ -41,6 +42,7 @@ namespace FoundationaLLM.Authorization.Constants
         public const string FoundationaLLM_Agent_Agents_Delete = "FoundationaLLM.Agent/agents/delete";
 
         #endregion
+
         #region Configuration
 
         /// <summary>
@@ -74,6 +76,7 @@ namespace FoundationaLLM.Authorization.Constants
         public const string FoundationaLLM_Configuration_KeyVaultSecrets_Delete = "FoundationaLLM.Configuration/keyVaultSecrets/delete";
 
         #endregion
+
         #region DataSource
 
         /// <summary>
@@ -92,6 +95,7 @@ namespace FoundationaLLM.Authorization.Constants
         public const string FoundationaLLM_DataSource_DataSources_Delete = "FoundationaLLM.DataSource/dataSources/delete";
 
         #endregion
+
         #region Prompt
 
         /// <summary>
@@ -110,6 +114,7 @@ namespace FoundationaLLM.Authorization.Constants
         public const string FoundationaLLM_Prompt_Prompts_Delete = "FoundationaLLM.Prompt/prompts/delete";
 
         #endregion
+
         #region Vectorization
 
         /// <summary>
@@ -188,6 +193,7 @@ namespace FoundationaLLM.Authorization.Constants
         public const string FoundationaLLM_Vectorization_IndexingProfiles_Delete = "FoundationaLLM.Vectorization/indexingProfiles/delete";
 
         #endregion
+
         #region Completion
 
         /// <summary>

@@ -89,7 +89,7 @@
       {
         "actions": [
           "*/read",
-          "Microsoft.Authorization/*"
+          "FoundationaLLM.Authorization/*"
         ],
         "not_actions": [],
         "data_actions": [],
