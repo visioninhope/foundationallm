@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Authorization.Interfaces;
+﻿using FluentValidation;
+using FoundationaLLM.Authorization.Interfaces;
 using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Authorization.Models.Configuration;
 using FoundationaLLM.Common.Interfaces;
@@ -21,6 +22,7 @@ namespace FoundationaLLM.Authorization.Services
         private readonly AuthorizationCoreSettings _settings;
         private readonly ConcurrentDictionary<string, RoleAssignmentStore> _roleAssignmentStores = [];
         private readonly ConcurrentDictionary<string, RoleAssignmentCache> _roleAssignmentCaches = [];
+        private readonly IValidator<ActionAuthorizationRequest> _actionAuthorizationRequestValidator;
 
         private const string ROLE_ASSIGNMENTS_CONTAINER_NAME = "role-assignments";
         private bool _initialized = false;
@@ -42,6 +44,8 @@ namespace FoundationaLLM.Authorization.Services
             _storageService = storageService;
             _resourceValidatorFactory = resourceValidatorFactory;
             _logger = logger;
+
+            _actionAuthorizationRequestValidator = _resourceValidatorFactory.GetValidator<ActionAuthorizationRequest>()!;
 
             // Kicks off the initialization on a separate thread and does not wait for it to complete.
             // The completion of the initialization process will be signaled by setting the _initialized property.
@@ -108,6 +112,17 @@ namespace FoundationaLLM.Authorization.Services
         {
             try
             {
+                if (!_initialized)
+                {
+                    _logger.LogError("The authorization core is not initialized.");
+                    return new ActionAuthorizationResult
+                    {
+                        Authorized = false
+                    };
+                }
+
+                _actionAuthorizationRequestValidator.ValidateAndThrow(authorizationRequest);
+
                 var objectIds = new List<string> { authorizationRequest.PrincipalId };
                 if (authorizationRequest.SecurityGroupIds != null)
                     objectIds.AddRange(authorizationRequest.SecurityGroupIds);
