@@ -10,6 +10,7 @@ namespace FoundationaLLM.Authorization.Models
         /// <summary>
         /// The FoundationaLLM instance id to which the request is targeted.
         /// </summary>
+        [JsonPropertyName("instance_id")]
         public required string InstanceId { get; set; }
 
         /// <summary>

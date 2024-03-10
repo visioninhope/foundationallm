@@ -1,6 +1,9 @@
-﻿using FoundationaLLM.Authorization.Interfaces;
+﻿using FluentValidation;
+using FoundationaLLM.Authorization.Interfaces;
+using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Authorization.Models.Configuration;
 using FoundationaLLM.Authorization.Services;
+using FoundationaLLM.Authorization.Validation;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Storage;
@@ -36,6 +39,9 @@ namespace FoundationaLLM
                     InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Authorization
                 };
             });
+
+            // Register validators.
+            builder.Services.AddSingleton<IValidator<RoleAssignment>, RoleAssignmentValidator>();
 
             builder.Services.AddSingleton<IAuthorizationCore, AuthorizationCore>(sp => new AuthorizationCore(
                     Options.Create<AuthorizationCoreSettings>(new AuthorizationCoreSettings

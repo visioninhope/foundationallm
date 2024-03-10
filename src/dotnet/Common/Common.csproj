@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <Content Remove="C:\Users\ciprian.jichici\.nuget\packages\azure.messaging.eventgrid\4.22.0-beta.1\contentFiles\any\netstandard2.0\EventGridClient.xml" />
+    <Content Remove="C:\Users\CiprianJichici\.nuget\packages\azure.messaging.eventgrid\4.22.0-beta.1\contentFiles\any\netstandard2.0\EventGridClient.xml" />
   </ItemGroup>
   
   <ItemGroup>
