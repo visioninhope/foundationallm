@@ -75,8 +75,6 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 }
             }
 
-            ILLMOrchestrationService? orchestrationService = null;
-
             if (agentBase == null) return null;
             
             if (agentBase.AgentType == typeof(KnowledgeManagementAgent) || agentBase.AgentType == typeof(InternalContextAgent))
@@ -89,7 +87,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 if (!validType)
                     throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
 
-                orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
+                var orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
 
                 // Hydrate overridable values from config and assign them back to the agent's LanguageModel.
                 var deploymentName = configuration.GetValue<string>(agentBase.LanguageModel?.Deployment!);
@@ -116,8 +114,6 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 {
                     var kmOrchestration = new KnowledgeManagementOrchestration(
                         (KnowledgeManagementAgent)agentBase!,
-                        cacheService,
-                        callContext,
                         orchestrationService,
                         promptHubAPIService,
                         dataSourceHubAPIService,
@@ -130,8 +126,6 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 {
                     var icOrchestration = new InternalContextOrchestration(
                         (InternalContextAgent)agentBase!,
-                        cacheService,
-                        callContext,
                         orchestrationService,
                         promptHubAPIService,
                         dataSourceHubAPIService,

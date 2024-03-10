@@ -13,11 +13,6 @@
         /// <summary>
         /// Chat completions operation.
         /// </summary>
-        public const string ChatCompletions = "chat-completions";
-
-        /// <summary>
-        /// Endeddings operation.
-        /// </summary>
-        public const string Embeddings = "embeddings";
+        public const string Chat = "chat";
     }
 }
