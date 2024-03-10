@@ -20,6 +20,7 @@ namespace FoundationaLLM.Authorization.Services
         private readonly ILogger<AuthorizationCore> _logger;
         private readonly AuthorizationCoreSettings _settings;
         private readonly ConcurrentDictionary<string, RoleAssignmentStore> _roleAssignmentStores = [];
+        private readonly ConcurrentDictionary<string, RoleAssignmentCache> _roleAssignmentCaches = [];
 
         private const string ROLE_ASSIGNMENTS_CONTAINER_NAME = "role-assignments";
         private bool _initialized = false;
@@ -54,10 +55,12 @@ namespace FoundationaLLM.Authorization.Services
                 foreach (var instanceId in _settings.InstanceIds)
                 {
                     var roleAssignmentStoreFile = $"/{instanceId.ToLower()}.json";
+                    RoleAssignmentStore? roleAssignmentStore;
+
                     if (await _storageService.FileExistsAsync(ROLE_ASSIGNMENTS_CONTAINER_NAME, roleAssignmentStoreFile, default))
                     {
                         var fileContent = await _storageService.ReadFileAsync(ROLE_ASSIGNMENTS_CONTAINER_NAME, roleAssignmentStoreFile, default);
-                        var roleAssignmentStore = JsonSerializer.Deserialize<RoleAssignmentStore>(
+                        roleAssignmentStore = JsonSerializer.Deserialize<RoleAssignmentStore>(
                             Encoding.UTF8.GetString(fileContent.ToArray()));
                         if (roleAssignmentStore == null
                             || string.Compare(roleAssignmentStore.InstanceId, instanceId) != 0)
@@ -72,7 +75,7 @@ namespace FoundationaLLM.Authorization.Services
                     }
                     else
                     {
-                        var roleAssignmentStore = new RoleAssignmentStore
+                        roleAssignmentStore = new RoleAssignmentStore
                         {
                             InstanceId = instanceId,
                             RoleAssignments = []
@@ -87,6 +90,9 @@ namespace FoundationaLLM.Authorization.Services
                             default);
                         _logger.LogInformation("The role assignment store for instance {InstanceId} has been created.", instanceId);
                     }
+
+                    if (roleAssignmentStore != null)
+                        _roleAssignmentCaches.AddOrUpdate(instanceId, new RoleAssignmentCache(_roleAssignmentStores[instanceId]), (k, v) => v);
                 }
 
                 _initialized = true;
@@ -94,6 +100,47 @@ namespace FoundationaLLM.Authorization.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "The authorization core failed to initialize.");
+            }
+        }
+
+        /// <inheritdoc/>
+        public ActionAuthorizationResult ProcessAuthorizationRequest(ActionAuthorizationRequest authorizationRequest)
+        {
+            try
+            {
+                var objectIds = new List<string> { authorizationRequest.PrincipalId };
+                if (authorizationRequest.SecurityGroupIds != null)
+                    objectIds.AddRange(authorizationRequest.SecurityGroupIds);
+
+                foreach (var objectId in objectIds)
+                {
+                    if (_roleAssignmentCaches.TryGetValue(authorizationRequest.InstanceId, out var roleAssignmentCache))
+                    {
+                        var roleAssignments = roleAssignmentCache.GetRoleAssignments(objectId);
+                        foreach (var roleAssignment in roleAssignments)
+                            if (RoleDefinitions.All.TryGetValue(roleAssignment.RoleDefinitionId, out var roleDefinition))
+                            {
+                                // Check if the scope of the role assignment includes the resource.
+
+                                // Check if the actions of the role definition include the requested action.
+                            }
+                    }
+                }
+
+                return new ActionAuthorizationResult
+                {
+                    Authorized = false
+                };
+            }
+            catch (Exception ex)
+            {
+                // If anything goes wrong, we default to denying the request.
+
+                _logger.LogError(ex, "The authorization core failed to process the authorization request.");
+                return new ActionAuthorizationResult
+                {
+                    Authorized = false,
+                };
             }
         }
     }
