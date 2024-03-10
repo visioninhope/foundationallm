@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 namespace FoundationaLLM.Common.Models.Orchestration.Direct
 {
     /// <summary>
-    /// User input message for a direct orchestration request.
+    /// Assistant input message for a direct orchestration request.
     /// </summary>
-    public class UserInputMessage : InputMessage
+    public class AssistantCompletionMessage : CompletionMessage
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserInputMessage"/> class.
+        /// Initializes a new instance of the <see cref="AssistantCompletionMessage"/> class.
         /// </summary>
-        public UserInputMessage() =>
-            Role = InputMessageRoles.User;
+        public AssistantCompletionMessage() =>
+            Role = InputMessageRoles.Assistant;
 
         /// <summary>
         /// An optional name for the participant. Provides the model information

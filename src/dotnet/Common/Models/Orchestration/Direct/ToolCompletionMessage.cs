@@ -6,12 +6,12 @@ namespace FoundationaLLM.Common.Models.Orchestration.Direct
     /// <summary>
     /// Tool input message for a direct orchestration request.
     /// </summary>
-    public class ToolInputMessage : InputMessage
+    public class ToolCompletionMessage : CompletionMessage
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ToolInputMessage"/> class.
+        /// Initializes a new instance of the <see cref="ToolCompletionMessage"/> class.
         /// </summary>
-        public ToolInputMessage() =>
+        public ToolCompletionMessage() =>
             Role = InputMessageRoles.Tool;
 
         /// <summary>

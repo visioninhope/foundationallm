@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 namespace FoundationaLLM.Common.Models.Orchestration.Direct
 {
     /// <summary>
-    /// Input data for a direct request to an Azure OpenAI model.
+    /// Input data for a direct request to an Azure AI model.
     /// </summary>
-    public class AzureOpenAIDirectInputData
+    public class AzureAICompletionInputData
     {
         /// <summary>
         /// Object defining the required input role and content key value pairs.
         /// </summary>
         [JsonPropertyName("input_string")]
-        public InputMessage[]? InputString { get; set; }
+        public CompletionMessage[]? InputString { get; set; }
 
         /// <summary>
         /// Model configuration parameters.
         /// </summary>
         [JsonPropertyName("parameters")]
-        public AzureOpenAIDirectParameters? Parameters { get; set; }
+        public AzureAICompletionParameters? Parameters { get; set; }
     }
 }

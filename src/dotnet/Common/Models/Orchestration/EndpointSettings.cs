@@ -30,9 +30,9 @@ namespace FoundationaLLM.Common.Models.Orchestration
 
         /// <summary>
         /// Type of operation the endpoint is performing.
-        /// This value should be completions, chat-completions, or embeddings.
-        /// Default value is chat-completions.
+        /// This value should be completions or chat.
+        /// Default value is chat.
         /// </summary>
-        public string OperationType { get; set; } = OperationTypes.ChatCompletions;
+        public string OperationType { get; set; } = OperationTypes.Chat;
     }
 }

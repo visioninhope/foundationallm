@@ -1,11 +1,12 @@
 ﻿using System.Text.Json.Serialization;
+using FoundationaLLM.Common.Interfaces;
 
 namespace FoundationaLLM.Common.Models.Orchestration.Direct
 {
     /// <summary>
     /// Supported model configuration parameters.
     /// </summary>
-    public class AzureAIDirectParameters
+    public class AzureAICompletionParameters
     {
         /// <summary>
         /// Controls randomness in the model.

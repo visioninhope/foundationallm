@@ -1,11 +1,12 @@
 ﻿using System.Text.Json.Serialization;
+using FoundationaLLM.Common.Interfaces;
 
 namespace FoundationaLLM.Common.Models.Orchestration.Direct
 {
     /// <summary>
     /// Supported model configuration parameters.
     /// </summary>
-    public class AzureOpenAIDirectParameters
+    public class AzureOpenAICompletionParameters
     {
         /// <summary>
         /// The maximum number of tokens to generate.

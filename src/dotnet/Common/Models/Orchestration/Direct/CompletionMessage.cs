@@ -3,13 +3,13 @@
 namespace FoundationaLLM.Common.Models.Orchestration.Direct
 {
     /// <summary>
-    /// Object defining the required input role and content key value pairs.
+    /// Object defining the completion role and content key value pairs.
     /// </summary>
-    public class InputMessage
+    public class CompletionMessage
     {
         /// <summary>
         /// The role of the chat persona creating content.
-        /// Value will be either "user" or "assistant".
+        /// Value will be one of: "user", "assistant", "tool", or "system".
         /// </summary>
         [JsonPropertyName("role")]
         public string? Role { get; set; }
