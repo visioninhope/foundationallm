@@ -18,8 +18,7 @@ namespace FoundationaLLM.Authorization.Constants
     /// Provides the names of the authorizable actions managed by the FoundationaLLM.Authorization provider.
     /// </summary>
     public static class AuthorizableActionNames
-    {
-<#
+    {<#
     foreach (var jsonObject in jsonObjects.AsArray())
     {#>
 

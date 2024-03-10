@@ -1,4 +1,6 @@
-﻿namespace FoundationaLLM.Authorization.Models
+﻿using System.Text.Json.Serialization;
+
+namespace FoundationaLLM.Authorization.Models
 {
     /// <summary>
     /// Models the content of the role assignments store managed by the FoundationaLLM.Authorization resource provider.
@@ -8,11 +10,13 @@
         /// <summary>
         /// The unique identifier of the FoundationaLLM instance.
         /// </summary>
+        [JsonPropertyName("instance_id")]
         public required string InstanceId { get; set; }
 
         /// <summary>
         /// The list of all role assignments in the FoundationaLLM instance.
         /// </summary>
+        [JsonPropertyName("role_assignments")]
         public required List<RoleAssignment> RoleAssignments { get; set; } = [];
     }
 }
