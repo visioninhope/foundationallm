@@ -54,7 +54,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
             var endpointSettings = GetEndpointSettings(endpointConfiguration);
 
-            SystemInputMessage? systemPrompt = null;
+            SystemCompletionMessage? systemPrompt = null;
             if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
             {
                 if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
@@ -64,7 +64,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 if (resource is List<PromptBase> prompts)
                 {
                     var prompt = prompts.FirstOrDefault() as MultipartPrompt;
-                    systemPrompt = new SystemInputMessage
+                    systemPrompt = new SystemCompletionMessage
                     {
                         Role = InputMessageRoles.System,
                         Content = prompt?.Prefix ?? string.Empty
@@ -72,7 +72,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 }
             }
 
-            var inputStrings = new List<InputMessage>();
+            var inputStrings = new List<CompletionMessage>();
             // Add system prompt, if exists.
             if (systemPrompt != null) inputStrings.Add(systemPrompt);
             // Add conversation history.
@@ -81,7 +81,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 var messageHistoryItems = request.MessageHistory?.TakeLast(agent.ConversationHistory.MaxHistory);
                 foreach(var item in messageHistoryItems!)
                 {
-                    inputStrings.Add(new InputMessage
+                    inputStrings.Add(new CompletionMessage
                     {
                         Role = item.Sender.ToLower(),
                         Content = item.Text
@@ -89,7 +89,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 }
             }
             // Add current user prompt.
-            var userPrompt = new UserInputMessage { Content = request.UserPrompt };
+            var userPrompt = new UserCompletionMessage { Content = request.UserPrompt };
             inputStrings.Add(userPrompt);
 
             if (!string.IsNullOrWhiteSpace(endpointSettings.Endpoint) && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
@@ -107,20 +107,20 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 var modelParameters = agent.OrchestrationSettings?.ModelParameters;
                 var modelOverrides = request.Settings?.ModelParameters;
                 
-                AzureAIDirectRequest azureAIDirectRequest;
+                AzureAICompletionRequest azureAiCompletionRequest;
 
                 if (modelParameters != null)
                 {
-                    azureAIDirectRequest = new()
+                    azureAiCompletionRequest = new()
                     {
                         InputData = new()
                         {
                             InputString = [.. inputStrings],
-                            Parameters = modelParameters.ToObject<AzureAIDirectParameters>(modelOverrides)
+                            Parameters = modelParameters.ToObject<AzureAICompletionParameters>(modelOverrides)
                         }
                     };
 
-                    var body = JsonSerializer.Serialize(azureAIDirectRequest, _jsonSerializerOptions);
+                    var body = JsonSerializer.Serialize(azureAiCompletionRequest, _jsonSerializerOptions);
                     var content = new StringContent(body, Encoding.UTF8, "application/json");
                     if (modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment))
                     {
@@ -132,7 +132,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
                     if (responseMessage.IsSuccessStatusCode)
                     {
-                        var completionResponse = JsonSerializer.Deserialize<AzureAIDirectResponse>(responseContent);
+                        var completionResponse = JsonSerializer.Deserialize<AzureAICompletionResponse>(responseContent);
 
                         return new LLMCompletionResponse
                         {
