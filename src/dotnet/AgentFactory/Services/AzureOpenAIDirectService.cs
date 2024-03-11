@@ -126,6 +126,11 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                             break;
                     }
 
+                    if (modelOverrides != null && modelOverrides.ContainsKey(ModelParameterKeys.DeploymentName))
+                    {
+                        modelParameters[ModelParameterKeys.DeploymentName] = modelOverrides[ModelParameterKeys.DeploymentName];
+                    }
+
                     var body = JsonSerializer.Serialize(azureOpenAIDirectRequest, _jsonSerializerOptions);
                     var content = new StringContent(body, Encoding.UTF8, "application/json");
                     modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment);

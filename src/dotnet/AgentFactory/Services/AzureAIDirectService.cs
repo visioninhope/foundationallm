@@ -120,7 +120,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                         }
                     };
 
-                    if (modelOverrides.ContainsKey(ModelParameterKeys.DeploymentName))
+                    if (modelOverrides != null && modelOverrides.ContainsKey(ModelParameterKeys.DeploymentName))
                     {
                         modelParameters[ModelParameterKeys.DeploymentName] = modelOverrides[ModelParameterKeys.DeploymentName];
                     }
