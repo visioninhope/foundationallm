@@ -529,6 +529,7 @@ module acaServices './app/acaService.bicep' = [for service in services: {
 }]
 
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
+output AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME string = authStore.outputs.name
 output AZURE_COGNITIVE_SEARCH_ENDPOINT string = cogSearch.outputs.endpoint
 output AZURE_CONTENT_SAFETY_ENDPOINT string = contentSafety.outputs.endpoint
 output AZURE_COSMOS_DB_ENDPOINT string = cosmosDb.outputs.endpoint
