@@ -11,24 +11,8 @@ Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
-function Invoke-AndRequireSuccess {
-    param (
-        [Parameter(Mandatory = $true, Position = 0)]
-        [string]$Message,
-
-        [Parameter(Mandatory = $true, Position = 1)]
-        [ScriptBlock]$ScriptBlock
-    )
-
-    Write-Host "${message}..." -ForegroundColor Blue
-    $result = & $ScriptBlock
-
-    if ($LASTEXITCODE -ne 0) {
-        throw "Failed ${message} (code: ${LASTEXITCODE})"
-    }
-
-    return $result
-}
+# Load the Invoke-AndRequireSuccess function
+. ./utility/Invoke-AndRequireSuccess.ps1
 
 # Navigate to the script directory so that we can use relative paths.
 Push-Location $($MyInvocation.InvocationName | Split-Path)
