@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FoundationaLLM.Authorization.Utils;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Authorization.Models
 {
@@ -18,5 +19,16 @@ namespace FoundationaLLM.Authorization.Models
         /// </summary>
         [JsonPropertyName("role_assignments")]
         public required List<RoleAssignment> RoleAssignments { get; set; } = [];
+
+        /// <summary>
+        /// Loads calculated properties for all role assignments.
+        /// </summary>
+        public void EnrichRoleAssignments()
+        {
+            var allowedInstanceIds = new List<string>() { InstanceId };
+
+            foreach (var roleAssignment in RoleAssignments)
+                roleAssignment.Enrich(allowedInstanceIds);
+        }
     }
 }

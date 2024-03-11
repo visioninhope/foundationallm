@@ -38,30 +38,8 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             ])
     {
         /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
-        {
-            {
-                DataSourceResourceTypeNames.DataSources,
-                new ResourceTypeDescriptor(
-                        DataSourceResourceTypeNames.DataSources)
-                {
-                    AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(DataSourceBase)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(DataSourceBase)], [typeof(ResourceProviderUpsertResult)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
-                    ],
-                    Actions = [
-                            new ResourceTypeAction(DataSourceResourceProviderActions.CheckName, false, true, [
-                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
-                            ])
-                        ]
-                }
-            },
-            {
-                DataSourceResourceTypeNames.DataSourceReferences,
-                new ResourceTypeDescriptor(DataSourceResourceTypeNames.DataSources)
-            }
-        };
+        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+            DataSourceResourceProviderMetadata.AllowedResourceTypes;
 
         private ConcurrentDictionary<string, DataSourceReference> _dataSourceReferences = [];
 

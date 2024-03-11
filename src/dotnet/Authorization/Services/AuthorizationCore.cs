@@ -1,11 +1,22 @@
 ﻿using FluentValidation;
+using FoundationaLLM.Agent.ResourceProviders;
+using FoundationaLLM.Authorization.Exceptions;
 using FoundationaLLM.Authorization.Interfaces;
 using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Authorization.Models.Configuration;
+using FoundationaLLM.Authorization.Utils;
+using FoundationaLLM.Authorization.Validation;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.ResourceProvider;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.DataSource.ResourceProviders;
+using FoundationaLLM.Prompt.ResourceProviders;
+using FoundationaLLM.Vectorization.ResourceProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using System.Text;
 using System.Text.Json;
 
@@ -96,7 +107,10 @@ namespace FoundationaLLM.Authorization.Services
                     }
 
                     if (roleAssignmentStore != null)
+                    {
+                        roleAssignmentStore.EnrichRoleAssignments();
                         _roleAssignmentCaches.AddOrUpdate(instanceId, new RoleAssignmentCache(_roleAssignmentStores[instanceId]), (k, v) => v);
+                    }
                 }
 
                 _initialized = true;
@@ -115,47 +129,55 @@ namespace FoundationaLLM.Authorization.Services
                 if (!_initialized)
                 {
                     _logger.LogError("The authorization core is not initialized.");
-                    return new ActionAuthorizationResult
-                    {
-                        Authorized = false
-                    };
+                    return new ActionAuthorizationResult { Authorized = false };
                 }
 
+                // Basic validation
                 _actionAuthorizationRequestValidator.ValidateAndThrow(authorizationRequest);
 
+                var resourcePath = ResourcePathUtils.ParseForAuthorizationRequestResourcePath(
+                    authorizationRequest.ResourcePath, _settings.InstanceIds);
+
+                // Combine the principal id and security group ids into one list.
                 var objectIds = new List<string> { authorizationRequest.PrincipalId };
                 if (authorizationRequest.SecurityGroupIds != null)
                     objectIds.AddRange(authorizationRequest.SecurityGroupIds);
 
-                foreach (var objectId in objectIds)
+                // Get cache associated with the instance id.
+                if (_roleAssignmentCaches.TryGetValue(resourcePath.InstanceId!, out var roleAssignmentCache))
                 {
-                    if (_roleAssignmentCaches.TryGetValue(authorizationRequest.InstanceId, out var roleAssignmentCache))
+                    foreach (var objectId in objectIds)
                     {
+                        // Retrieve all role assignments associated with the id.
                         var roleAssignments = roleAssignmentCache.GetRoleAssignments(objectId);
                         foreach (var roleAssignment in roleAssignments)
+                        {
+                            // Retrieve the role definition object
                             if (RoleDefinitions.All.TryGetValue(roleAssignment.RoleDefinitionId, out var roleDefinition))
                             {
                                 // Check if the scope of the role assignment includes the resource.
-
                                 // Check if the actions of the role definition include the requested action.
+                                if (resourcePath.IncludesResourcePath(roleAssignment.ScopeResourcePath!)
+                                    && roleAssignment.AllowedActions.Contains(authorizationRequest.Action))
+                                {
+                                    return new ActionAuthorizationResult{ Authorized = true };
+                                }
                             }
+                            else
+                                _logger.LogWarning("The role assignment {RoleAssignmentName} references the role definition {RoleDefinitionId} which is invalid.",
+                                    roleAssignment.Name, roleAssignment.RoleDefinitionId);
+                        }
                     }
                 }
 
-                return new ActionAuthorizationResult
-                {
-                    Authorized = false
-                };
+                return new ActionAuthorizationResult { Authorized = false };
             }
             catch (Exception ex)
             {
                 // If anything goes wrong, we default to denying the request.
 
                 _logger.LogError(ex, "The authorization core failed to process the authorization request.");
-                return new ActionAuthorizationResult
-                {
-                    Authorized = false,
-                };
+                return new ActionAuthorizationResult { Authorized = false };
             }
         }
     }

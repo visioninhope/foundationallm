@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Common.Models.ResourceProvider;
+﻿using FoundationaLLM.Authorization.Utils;
+using FoundationaLLM.Common.Models.ResourceProvider;
+using PnP.Core.Model.Security;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Authorization.Models
@@ -31,5 +33,34 @@ namespace FoundationaLLM.Authorization.Models
         /// </summary>
         [JsonPropertyName("scope")]
         public required string Scope { get; set; }
+
+        /// <summary>
+        /// The <see cref="ResourcePath"/> resulting from parsing the scope path.
+        /// </summary>
+        [JsonIgnore]
+        public ResourcePath? ScopeResourcePath { get; set; }
+
+        /// <summary>
+        /// The <see cref="RoleDefinition"/> referenced by the <see cref="RoleDefinitionId"/> property.
+        /// </summary>
+        [JsonIgnore]
+        public RoleDefinition? RoleDefinition { get; set; }
+
+        /// <summary>
+        /// The explicit list of all allowed actions resulting from expanding all wildcards.
+        /// </summary>
+        [JsonIgnore]
+        public HashSet<string> AllowedActions { get; set; } = [];
+
+        public void Enrich(List<string> allowedInstanceIds)
+        {
+            ScopeResourcePath = ResourcePathUtils.ParseForRoleAssignmentScope(
+                Scope,
+                allowedInstanceIds);
+
+            RoleDefinition = RoleDefinitions.All[RoleDefinitionId];
+            AllowedActions = new HashSet<string>(
+                RoleDefinition.GetAllowedActions());
+        }
     }
 }

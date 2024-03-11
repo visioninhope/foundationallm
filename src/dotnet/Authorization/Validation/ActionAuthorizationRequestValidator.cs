@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FoundationaLLM.Authorization.Models;
+using FoundationaLLM.Common.Models.ResourceProvider;
 
 namespace FoundationaLLM.Authorization.Validation
 {
@@ -15,25 +16,31 @@ namespace FoundationaLLM.Authorization.Validation
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 
-            RuleFor(x => x.InstanceId)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("The FoundationaLLM instance identifier must be a valid string.");
-
             RuleFor(x => x.Action)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("The action must be a valid string.");
-
-            RuleFor(x => x.ResourcePath)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("The resource must be a valid string.");
+                .WithMessage("The action must be a valid string.")
+                .Must(x => AuthorizableActions.Actions.ContainsKey(x))
+                .WithMessage("The action must be a valid action.");
 
             RuleFor(x => x.PrincipalId)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("The principal identifier must be a valid string.");
+                .WithMessage("The principal identifier must be a valid string.")
+                .Must(x => Guid.TryParse(x, out _))
+                .WithMessage("The principal identifier must be a valid GUID.");
+
+            RuleForEach(x => x.SecurityGroupIds)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("The security group identifier must be a valid string.")
+                .Must(x => Guid.TryParse(x, out _))
+                .WithMessage("The security group identifier must be a valid GUID.");
+
+            RuleFor(x => x.ResourcePath)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("The resource path must be a valid string.");
         }
     }
 }

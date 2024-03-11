@@ -85,11 +85,23 @@ namespace FoundationaLLM.Common.Tests.Models.ResourceProvider
             Add(resourcePath, _allowedResourceProviders, _allowedResourceTypes, allowAction, true);
     }
 
+    public class ResourcePathResourceProviderTestData: TheoryData<string, bool>
+    {
+        public ResourcePathResourceProviderTestData()
+        {
+            Add($"/instances/{Guid.NewGuid()}", false);
+            Add($"/instances/{Guid.NewGuid()}/providers/FoundationaLLM.InvalidResourceProvider", false);
+
+            Add($"/instances/{Guid.NewGuid()}/providers/FoundationaLLM.Authorization", true);
+            Add($"/providers/FoundationaLLM.Authorization", true);
+        }
+    }
+
     public class ResourcePathTests
     {
         [Theory]
         [ClassData(typeof(ResourcePathTestData))]
-        public void ResourceIdentifier_ResourcePath_ParsedCorrectly(
+        public void ResourcePath_ParsedCorrectly(
             string resourcePath,
             ImmutableList<string> allowedResourceProviders,
             Dictionary<string, ResourceTypeDescriptor> allowedResourceTypes,
@@ -108,6 +120,23 @@ namespace FoundationaLLM.Common.Tests.Models.ResourceProvider
                     allowedResourceProviders,
                     allowedResourceTypes,
                     allowAction));
+        }
+
+        [Theory]
+        [ClassData(typeof(ResourcePathResourceProviderTestData))]
+        public void ResourcePath_ResourceProvider_IdentifiedCorrectly( string resourcePath, bool expectSuccess )
+        {
+            var success = ResourcePath.TryParseResourceProvider(resourcePath, out string? resourceProvider);
+            if (expectSuccess)
+            {
+                Assert.True(success);
+                Assert.Equal("FoundationaLLM.Authorization", resourceProvider);
+            }
+            else
+            {
+                Assert.False(success);
+                Assert.Null(resourceProvider);
+            }
         }
     }
 }

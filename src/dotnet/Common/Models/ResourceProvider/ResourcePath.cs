@@ -14,6 +14,7 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         private readonly string? _instanceId;
         private readonly string? _resourceProvider;
         private readonly List<ResourceTypeInstance> _resourceTypeInstances;
+        private readonly bool _rootPath;
 
         private const string INSTANCE_TOKEN = "instances";
         private const string RESOURCE_PROVIDER_TOKEN = "providers";
@@ -34,6 +35,18 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         public List<ResourceTypeInstance> ResourceTypeInstances => _resourceTypeInstances;
 
         /// <summary>
+        /// Indicates whether the resource path is a root path ("/") or not.
+        /// </summary>
+        public bool RootPath => _rootPath;
+
+        /// <summary>
+        /// Indicates whether the resource path is an instance path or not (i.e., only contains the FoundationaLLM instance identifier).
+        /// </summary>
+        public bool InstancePath =>
+            !(_instanceId == null)
+            && (_resourceProvider == null);
+
+        /// <summary>
         /// Creates a new resource identifier from a resource path optionally allowing an action.
         /// </summary>
         /// <param name="resourcePath">The resource path used to create the resource identifier.</param>
@@ -50,6 +63,7 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
                 allowedResourceProviders,
                 allowedResourceTypes,
                 allowAction,
+                out _rootPath,
                 out _instanceId,
                 out _resourceProvider,
                 out _resourceTypeInstances);
@@ -62,7 +76,7 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         /// <param name="allowedResourceTypes">Provides a dictionary of <see cref="ResourceTypeDescriptor"/> used to validate resource types.</param>
         /// <param name="allowAction">Optional parameter that indicates whether an action name is allowed as part of the resource identifier.</param>
         /// <param name="resourcePathInstance">The parsed resource path.</param>
-        /// <returns></returns>
+        /// <returns>True if the resource path is parsed successfully.</returns>
         public static bool TryParse(
             string resourcePath,
             ImmutableList<string> allowedResourceProviders,
@@ -87,12 +101,45 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         }
 
         /// <summary>
+        /// Tries to retrieve the identifier of the FoundationaLLM instance from a resource path.
+        /// </summary>
+        /// <param name="resourcePath">The resource path to analyze.</param>
+        /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
+        /// <returns>True if a valid intance identifier is retrieved successfully.</returns>
+        public static bool TryParseInstanceId(string resourcePath, out string? instanceId)
+        {
+            instanceId = GetInstanceId(resourcePath);
+            return instanceId != null;
+        }
+
+        /// <summary>
+        /// Tries to retrieve the name of the resource provider from a resource path.
+        /// </summary>
+        /// <param name="resourcePath">The resource path to analyze.</param>
+        /// <param name="resourceProvider">The resource provider name.</param>
+        /// <returns>True if a valid resource provider name is retrieved successfully.</returns>
+        public static bool TryParseResourceProvider(string resourcePath, out string? resourceProvider)
+        {
+            resourceProvider = GetResourceProvider(resourcePath);
+            return resourceProvider != null;
+        }
+
+        /// <summary>
         /// Computes the object id of the resource identifier.
         /// </summary>
         /// <returns>The object id.</returns>
-        public string GetObjectId() =>
-            $"/instances/{_instanceId}/providers/{_resourceProvider}/{string.Join("/",
-                _resourceTypeInstances.Select(i => $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
+        public string GetObjectId()
+        {
+            if (_instanceId == null
+            || _resourceProvider == null
+            || _resourceTypeInstances == null
+            || _resourceTypeInstances.Count == 0)
+                throw new ResourceProviderException("The resource path does not reprezent a fully qualified resource identifier.",
+                    StatusCodes.Status400BadRequest);
+            else
+                return $"/instances/{_instanceId}/providers/{_resourceProvider}/{string.Join("/",
+                    _resourceTypeInstances.Select(i => $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
+        }
 
         /// <summary>
         /// Computes the object id of the resource identifier providing the instance id and resource provider.
@@ -104,14 +151,60 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
             string instanceId,
             string resourceProvider)
         {
-            if (_instanceId == null
-                && _resourceProvider == null)
-                return $"/instances/{instanceId}/providers/{resourceProvider}/{string.Join("/",
-                    _resourceTypeInstances.Select(i => $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
+            if (_instanceId == null && _resourceProvider == null)
+            {
+                if (_resourceTypeInstances == null
+                    || _resourceTypeInstances.Count == 0)
+                    throw new ResourceProviderException("The resource path cannot be converted to a fully qualified resource identifier.",
+                        StatusCodes.Status400BadRequest);
+                else
+                    return $"/instances/{instanceId}/providers/{resourceProvider}/{string.Join("/",
+                        _resourceTypeInstances.Select(i => $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
+            }
 
             throw new ResourceProviderException(
-                "Cannot override original values for either instance id or resource provider.",
+                "The resource path already has a valid FoundationaLLM instance id and/or a resource provider name.",
                 StatusCodes.Status400BadRequest);
+        }
+
+        /// <summary>
+        /// Determines whether the resource path includes another specified resource path.
+        /// </summary>
+        /// <param name="other">The <see cref="ResourcePath"/> to check for inclusion.</param>
+        /// <returns>True if the specified resource path is included in the resource path.</returns>
+        public bool IncludesResourcePath(ResourcePath other)
+        {
+            if (_rootPath)
+                // The other path is included only if it is root.
+                return
+                    other.RootPath;
+
+            if (InstancePath)
+            {
+                // An instance path includes a root path.
+                if (other.RootPath)
+                    return true;
+
+                // An instance path includes another instance path for the same instance id.
+                if (other.InstancePath)
+                    return _instanceId == other.InstanceId;
+            }
+
+            // A full path includes a root path or an instance path.
+            if (other.RootPath || other.InstancePath)
+                return true;
+
+            // A full path does not include a full path that is longer than it.
+            if (other.ResourceTypeInstances.Count > _resourceTypeInstances.Count)
+                return false;
+
+            for (int i = 0; i < other.ResourceTypeInstances.Count; i++)
+            {
+                if (!other.ResourceTypeInstances[i].EqualTo(_resourceTypeInstances[i]))
+                    return false;
+            }
+
+            return true;
         }
 
         private void ParseResourcePath(
@@ -119,6 +212,7 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
             ImmutableList<string> allowedResourceProviders,
             Dictionary<string, ResourceTypeDescriptor> allowedResourceTypes,
             bool allowAction,
+            out bool rootPath,
             out string? instanceId,
             out string? resourceProvider,
             out List<ResourceTypeInstance> resourceTypeInstances)
@@ -128,20 +222,16 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
                 instanceId = null;
                 resourceProvider = null;
                 resourceTypeInstances = [];
+                rootPath = false;
 
-                // Resource path cannot be null, empty or whitespace.
-                if (string.IsNullOrWhiteSpace(resourcePath))
-                    throw new Exception();
+                // Check if we deal with a root path ("/").
+                if (resourcePath == "/")
+                {
+                    rootPath = true;
+                    return;
+                }
 
-                // Remove leading slash if present.
-                if (resourcePath.StartsWith('/'))
-                    resourcePath = resourcePath[1..];
-
-                var tokens = resourcePath.Split('/', StringSplitOptions.TrimEntries);
-
-                // None of the tokens can be null, empty or whitespace.
-                if (tokens.Any(t => string.IsNullOrWhiteSpace(t)))
-                    throw new Exception();
+                var tokens = GetPathTokens(resourcePath);
 
                 int currentIndex = 0;
 
@@ -258,6 +348,69 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
                     $"The resource path [{resourcePath}] is invalid.",
                     StatusCodes.Status400BadRequest);
             }
+        }
+
+        private static string[] GetPathTokens(string resourcePath)
+        {
+            // Resource path cannot be null, empty or whitespace.
+            if (string.IsNullOrWhiteSpace(resourcePath))
+                throw new Exception();
+
+            // Remove leading slash if present.
+            if (resourcePath.StartsWith('/'))
+                resourcePath = resourcePath[1..];
+
+            var tokens = resourcePath.Split('/', StringSplitOptions.TrimEntries);
+
+            // None of the tokens can be null, empty or whitespace.
+            if (tokens.Any(t => string.IsNullOrWhiteSpace(t)))
+                throw new Exception();
+
+            return tokens;
+        }
+
+        private static string? GetResourceProvider(
+            string resourcePath)
+        {
+            try
+            {
+                var tokens = GetPathTokens(resourcePath);
+
+                var startIndex = tokens[0] == INSTANCE_TOKEN
+                    ? 2
+                    : 0;
+
+                if (tokens[startIndex] == RESOURCE_PROVIDER_TOKEN)
+                {
+                    if (ResourceProviderNames.All.Contains(tokens[startIndex + 1]))
+                        return tokens[startIndex + 1];
+                }
+            }
+            catch
+            {
+            }
+
+            return null;
+        }
+
+        private static string? GetInstanceId(
+            string resourcePath)
+        {
+            try
+            {
+                var tokens = GetPathTokens(resourcePath);
+
+                if (tokens[0] == INSTANCE_TOKEN)
+                {
+                    if (Guid.TryParse(tokens[1], out _))
+                        return tokens[1];
+                }
+            }
+            catch
+            {
+            }
+
+            return null;
         }
     }
 }

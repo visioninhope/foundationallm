@@ -25,5 +25,8 @@ namespace FoundationaLLM.Authorization.Models
         [JsonPropertyName("permissions")]
         [JsonPropertyOrder(2)]
         public List<RoleDefinitionPermissions> Permissions { get; set; } = [];
+
+        public List<string> GetAllowedActions() =>
+            Permissions.SelectMany(p => p.GetAllowedActions()).Distinct().ToList();
     }
 }

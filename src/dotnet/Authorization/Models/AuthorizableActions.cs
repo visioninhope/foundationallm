@@ -1,5 +1,6 @@
 using FoundationaLLM.Authorization.Constants;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 namespace FoundationaLLM.Authorization.Models
 {
@@ -285,5 +286,24 @@ namespace FoundationaLLM.Authorization.Models
                         "Completion")
                 },
             });
+
+        /// <summary>
+        /// Selects all actions whose names match the specified action pattern.
+        /// </summary>
+        /// <param name="actionPattern">The action pattern used for selection.</param>
+        /// <returns>The list of matching action names.</returns>
+        public static List<string> GetMatchingActions(string actionPattern)
+        {
+            var regexPattern = actionPattern
+                .Replace(".", "\\.")
+                .Replace("/", "\\/")
+                .Replace("*", "[a-zA-Z\\/.]*");
+            regexPattern = $"^{regexPattern}$";
+
+            return Actions.Values
+                .Select(v => v.Name)
+                .Where(name => Regex.IsMatch(name, regexPattern))
+                .ToList();
+        }
     }
 }

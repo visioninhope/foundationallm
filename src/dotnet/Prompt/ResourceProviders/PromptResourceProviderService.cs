@@ -35,30 +35,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             logger)
     {
         /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
-        {
-            {
-                PromptResourceTypeNames.Prompts,
-                new ResourceTypeDescriptor(
-                        PromptResourceTypeNames.Prompts)
-                {
-                    AllowedTypes = [
-                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(MultipartPrompt)]),
-                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(MultipartPrompt)], [typeof(ResourceProviderUpsertResult)]),
-                        new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
-                    ],
-                    Actions = [
-                            new ResourceTypeAction("checkname", false, true, [
-                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
-                            ])
-                        ]
-                }
-            },
-            {
-                PromptResourceTypeNames.PromptReferences,
-                new ResourceTypeDescriptor(PromptResourceTypeNames.PromptReferences)
-            }
-        };
+        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+            PromptResourceProviderMetadata.AllowedResourceTypes;
 
         private ConcurrentDictionary<string, PromptReference> _promptReferences = [];
 

@@ -8,12 +8,6 @@ namespace FoundationaLLM.Authorization.Models
     public class ActionAuthorizationRequest
     {
         /// <summary>
-        /// The FoundationaLLM instance id to which the request is targeted.
-        /// </summary>
-        [JsonPropertyName("instance_id")]
-        public required string InstanceId { get; set; }
-
-        /// <summary>
         /// The authorizable action for which authorization is requested.
         /// </summary>
         [JsonPropertyName("action")]

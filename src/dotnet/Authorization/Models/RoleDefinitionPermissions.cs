@@ -34,5 +34,34 @@ namespace FoundationaLLM.Authorization.Models
         [JsonPropertyName("not_data_actions")]
         [JsonPropertyOrder(4)]
         public List<string> NotDataActions { get; set; } = [];
+
+        public List<string> GetAllowedActions()
+        {
+            var actions = Actions
+                .SelectMany(x => AuthorizableActions.GetMatchingActions(x))
+                .Distinct()
+                .ToList();
+
+            var notActions = NotActions
+                .SelectMany(x => AuthorizableActions.GetMatchingActions(x))
+                .Distinct()
+                .ToList();
+
+            var dataActions = DataActions
+                .SelectMany(x => AuthorizableActions.GetMatchingActions(x))
+                .Distinct()
+                .ToList();
+
+            var notDataActions = NotDataActions
+                .SelectMany(x => AuthorizableActions.GetMatchingActions(x))
+                .Distinct()
+                .ToList();
+
+            return actions
+                .Except(notActions)
+                .Union(dataActions)
+                .Except(notDataActions)
+                .ToList();
+        }
     }
 }

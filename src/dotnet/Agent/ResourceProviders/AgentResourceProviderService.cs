@@ -41,30 +41,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
             ])
     {
         /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
-        {
-            {
-                AgentResourceTypeNames.Agents,
-                new ResourceTypeDescriptor(
-                        AgentResourceTypeNames.Agents)
-                {
-                    AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(AgentBase)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(AgentBase)], [typeof(ResourceProviderUpsertResult)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
-                    ],
-                    Actions = [
-                            new ResourceTypeAction(AgentResourceProviderActions.CheckName, false, true, [
-                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
-                            ])
-                        ]
-                }
-            },
-            {
-                AgentResourceTypeNames.AgentReferences,
-                new ResourceTypeDescriptor(AgentResourceTypeNames.AgentReferences)
-            }
-        };
+        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+            AgentResourceProviderMetadata.AllowedResourceTypes;
 
         private ConcurrentDictionary<string, AgentReference> _agentReferences = [];
 
