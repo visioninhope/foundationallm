@@ -25,7 +25,7 @@ resource roleAssignment 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignment
     parent: cosmosDb
     properties: {
       principalId: principalId
-      roleDefinitionId: '/${subscription().id}/resourceGroups/${resourceGroup().name}/providers/Microsoft.DocumentDB/databaseAccounts/${cosmosDb.name}/sqlRoleDefinitions/${roleAssignmentToCreate.roleDefinitionId}'
+      roleDefinitionId: resourceId('Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions', cosmosDb.name, roleAssignmentToCreate.roleDefinitionId)
       scope: cosmosDb.id
     }
   }
