@@ -32,44 +32,8 @@
         public const string FoundationaLLM_AppConfig_ConnectionString = "FoundationaLLM:AppConfig:ConnectionString";
 
         /// <summary>
-        /// The key for the FoundationaLLM:AuthorizationAPI:AppInsightsConnectionString environment variable.
-        /// This allows the caller to connect to OpenTelemetry and send telemetry data to Azure Monitor.
+        /// They key for the FoundationaLLM:Configuration:KeyVaultURI environment variable.
         /// </summary>
-        public const string FoundationaLLM_AuthorizationAPI_AppInsightsConnectionString = "FoundationaLLM:AuthorizationAPI:AppInsightsConnectionString";
-
-        /// <summary>
-        /// The key for the FoundationaLLM:AuthorizationAPI:Entra:Instance environment variable.
-        /// </summary>
-        public const string FoundationaLLM_AuthorizationAPI_Entra_Instance = "FoundationaLLM:AuthorizationAPI:Entra:Instance";
-
-        /// <summary>
-        /// The key for the FoundationaLLM:AuthorizationAPI:Entra:TenantId environment variable.
-        /// </summary>
-        public const string FoundationaLLM_AuthorizationAPI_Entra_TenantId = "FoundationaLLM:AuthorizationAPI:Entra:TenantId";
-
-        /// <summary>
-        /// The key for the FoundationaLLM:AuthorizationAPI:Entra:ClientId environment variable.
-        /// </summary>
-        public const string FoundationaLLM_AuthorizationAPI_Entra_ClientId = "FoundationaLLM:AuthorizationAPI:Entra:ClientId";
-
-        /// <summary>
-        /// The key for the FoundationaLLM:AuthorizationAPI:Entra:ClientSecret environment variable.
-        /// </summary>
-        public const string FoundationaLLM_AuthorizationAPI_Entra_ClientSecret = "FoundationaLLM:AuthorizationAPI:Entra:ClientSecret";
-
-        /// <summary>
-        /// The key for the FoundationaLLM:AuthorizationAPI:Entra:Scopes environment variable.
-        /// </summary>
-        public const string FoundationaLLM_AuthorizationAPI_Entra_Scopes = "FoundationaLLM:AuthorizationAPI:Entra:Scopes";
-
-        /// <summary>
-        /// The key for the FoundationaLLM:AuthorizationAPI:Storage:AccountName environment variable.
-        /// </summary>
-        public const string FoundationaLLM_AuthorizationAPI_Storage_AccountName = "FoundationaLLM:AuthorizationAPI:Storage:AccountName";
-
-        /// <summary>
-        /// The key for the FoundationaLLM:AuthorizationAPI:InstanceIds environment variable.
-        /// </summary>
-        public const string FoundationaLLM_AuthorizationAPI_InstanceIds = "FoundationaLLM:AuthorizationAPI:InstanceIds";
+        public const string FoundationaLLM_AuthorizationAPI_KeyVaultURI = "FoundationLLM:AuthorizationAPI:KeyVaultURI";
     }
 }

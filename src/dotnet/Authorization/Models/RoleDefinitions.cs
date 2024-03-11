@@ -106,7 +106,7 @@ namespace FoundationaLLM.Authorization.Models
                             {
                                 Actions = [
                                     "*/read",
-                                    "Microsoft.Authorization/*",],
+                                    "FoundationaLLM.Authorization/*",],
                                 NotActions = [],
                                 DataActions = [],
                                 NotDataActions = [],

@@ -11,10 +11,15 @@ DefaultAuthentication.Production = builder.Environment.IsProduction();
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
 builder.Configuration.AddEnvironmentVariables();
+builder.Configuration.AddAzureKeyVault(
+    new Uri(Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_KeyVaultURI)!),
+    DefaultAuthentication.GetAzureCredential());
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
 // Add services to the container.
+builder.AddAzureKeyVaultService(
+    EnvironmentVariables.FoundationaLLM_AuthorizationAPI_KeyVaultURI);
 
 // Resource validation.
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
@@ -27,15 +32,15 @@ builder.AddCorsPolicies();
 
 // Add authentication configuration.
 builder.AddAuthenticationConfiguration(
-    EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_Instance,
-    EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_TenantId,
-    EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_ClientId,
-    EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_ClientSecret,
-    EnvironmentVariables.FoundationaLLM_AuthorizationAPI_Entra_Scopes);
+    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_Instance,
+    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_TenantId,
+    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_ClientId,
+    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_ClientSecret,
+    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_Scopes);
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
-    EnvironmentVariables.FoundationaLLM_AuthorizationAPI_AppInsightsConnectionString,
+    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_AppInsights_ConnectionString,
     ServiceNames.AuthorizationAPI);
 
 builder.Services.AddControllers();
