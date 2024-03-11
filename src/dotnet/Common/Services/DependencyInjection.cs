@@ -73,13 +73,11 @@ namespace FoundationaLLM
         /// <param name="entraInstanceConfigurationKey">The configuration key for the Entra ID instance.</param>
         /// <param name="entraTenantIdConfigurationKey">The configuration key for the Entra ID tenant id.</param>
         /// <param name="entraClientIdConfigurationkey">The configuration key for the Entra ID client id.</param>
-        /// <param name="entraClientSecretConfigurationKey">The configuration key for the Entra ID client secret.</param>
         /// <param name="entraScopesConfigurationKey">The configuration key for the Entra ID scopes.</param>
         public static void AddAuthenticationConfiguration(this IHostApplicationBuilder builder,
             string entraInstanceConfigurationKey,
             string entraTenantIdConfigurationKey,
             string entraClientIdConfigurationkey,
-            string entraClientSecretConfigurationKey,
             string entraScopesConfigurationKey)
         {
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -89,7 +87,6 @@ namespace FoundationaLLM
                         identityOptions.Instance = builder.Configuration[entraInstanceConfigurationKey] ?? "";
                         identityOptions.TenantId = builder.Configuration[entraTenantIdConfigurationKey];
                         identityOptions.ClientId = builder.Configuration[entraClientIdConfigurationkey];
-                        identityOptions.ClientSecret = builder.Configuration[entraClientSecretConfigurationKey];
                     });
 
             builder.Services.AddScoped<IUserClaimsProviderService, EntraUserClaimsProviderService>();
