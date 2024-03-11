@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Configuration.AppConfiguration;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
+using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using Microsoft.Extensions.Configuration;
@@ -61,6 +62,9 @@ namespace FoundationaLLM.Configuration.Services
         /// <inheritdoc/>
         protected override async Task InitializeInternal() =>
             await Task.CompletedTask;
+
+        /// <inheritdoc/>
+        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => [];
 
         #region Event handling
 
