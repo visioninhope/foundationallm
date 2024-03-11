@@ -35,7 +35,6 @@ builder.AddAuthenticationConfiguration(
     KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_Instance,
     KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_TenantId,
     KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_ClientId,
-    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_ClientSecret,
     KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_Scopes);
 
 // Add OpenTelemetry.
