@@ -59,10 +59,7 @@ namespace FoundationaLLM.Management.API
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-            builder.AddGroupMembership();
-
-            // Add the Configuration resource provider
-            builder.AddConfigurationResourceProvider();
+            builder.AddGroupMembership();            
 
             // CORS policies
             builder.AddCorsPolicies();
@@ -107,10 +104,12 @@ namespace FoundationaLLM.Management.API
             //----------------------------
             // Resource providers
             //----------------------------
-            builder.Services.AddVectorizationResourceProvider(builder.Configuration);
-            builder.Services.AddAgentResourceProvider(builder.Configuration);
-            builder.Services.AddPromptResourceProvider(builder.Configuration);
-            builder.Services.AddDataSourceResourceProvider(builder.Configuration);
+            builder.AddAuthorizationResourceProvider();
+            builder.AddConfigurationResourceProvider();
+            builder.AddVectorizationResourceProvider();
+            builder.AddAgentResourceProvider();
+            builder.AddPromptResourceProvider();
+            builder.AddDataSourceResourceProvider();
 
             // Add authentication configuration.
             builder.AddAuthenticationConfiguration(

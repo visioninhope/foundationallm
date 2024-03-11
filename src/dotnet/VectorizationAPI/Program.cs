@@ -91,7 +91,7 @@ builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationSta
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
 // Vectorization resource provider
-builder.Services.AddVectorizationResourceProvider(builder.Configuration);
+builder.AddVectorizationResourceProvider();
 
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();

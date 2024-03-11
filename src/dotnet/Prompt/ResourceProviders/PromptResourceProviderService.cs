@@ -41,7 +41,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         private ConcurrentDictionary<string, PromptReference> _promptReferences = [];
 
         private const string PROMPT_REFERENCES_FILE_NAME = "_prompt-references.json";
-        private const string PROMPT_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Prompt}/_prompt-references.json";
+        private const string PROMPT_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Prompt}/{PROMPT_REFERENCES_FILE_NAME}";
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Prompt;

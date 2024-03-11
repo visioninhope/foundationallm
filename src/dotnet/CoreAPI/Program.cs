@@ -79,7 +79,7 @@ namespace FoundationaLLM.Core.API
 
             // Add resource providers
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
-            builder.Services.AddAgentResourceProvider(builder.Configuration);
+            builder.AddAgentResourceProvider();
 
             // Activate all resource providers (give them a chance to initialize).
             builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();

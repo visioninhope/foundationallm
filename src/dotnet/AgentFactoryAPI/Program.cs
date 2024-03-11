@@ -130,8 +130,8 @@ namespace FoundationaLLM.AgentFactory.API
             //----------------------------
             // Resource providers
             //----------------------------
-            builder.Services.AddAgentResourceProvider(builder.Configuration);
-            builder.Services.AddPromptResourceProvider(builder.Configuration);
+            builder.AddAgentResourceProvider();
+            builder.AddPromptResourceProvider();
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);

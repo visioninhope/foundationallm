@@ -2,7 +2,6 @@
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProvider;
@@ -11,14 +10,13 @@ using FoundationaLLM.Common.Services.ResourceProviders;
 using FoundationaLLM.Vectorization.Constants;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Resources;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
-using FluentValidation;
-using Microsoft.AspNetCore.Http;
 
 namespace FoundationaLLM.Vectorization.ResourceProviders
 {

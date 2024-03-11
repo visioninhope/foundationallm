@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Configuration.AppConfiguration;
 
 namespace FoundationaLLM.Configuration.Catalog
@@ -489,6 +490,16 @@ namespace FoundationaLLM.Configuration.Catalog
                 description:
                 "The connection string to the Application Insights instance used by the vectorization worker API.",
                 keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_AuthorizationAPI_APIUrl,
+                minimumVersion: "0.5.0",
+                defaultValue: "",
+                description: "The URL of the authorization API.",
+                keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
             )
