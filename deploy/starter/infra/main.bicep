@@ -447,11 +447,6 @@ var cosmosRoleTargets = [
   'core-job'
 ]
 
-resource cosmosDbRef 'Microsoft.DocumentDB/databaseAccounts@2023-11-15' existing = {
-  name: cosmosDb.outputs.name
-  scope: rg
-}
-
 module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
   for target in cosmosRoleTargets: {
     scope: rg
