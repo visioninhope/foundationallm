@@ -21,11 +21,6 @@
         public const string FoundationaLLM_Version = "FOUNDATIONALLM_VERSION";
 
         /// <summary>
-        /// The URI if the Azure Key Vault used by the Authorization API.
-        /// </summary>
-        public const string FoundationaLLM_AuthorizationAPI_KeyVaultUri = "FoundationaLLM:AuthorizationAPI:KeyVaultUri";
-
-        /// <summary>
         /// The key for the FoundationaLLM:AppConfig:ConnectionString environment variable.
         /// This allows the caller to connect to the Azure App Configuration service.
         /// </summary>
