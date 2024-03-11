@@ -101,11 +101,11 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(List<ResourceTypeInstance> instances) =>
-            instances[0].ResourceType switch
+        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+            resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                DataSourceResourceTypeNames.DataSources => await LoadDataSources(instances[0]),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                DataSourceResourceTypeNames.DataSources => await LoadDataSources(resourcePath.ResourceTypeInstances[0]),
+                _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
@@ -156,17 +156,17 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task<object> UpsertResourceAsync(List<ResourceTypeInstance> instances, string serializedResource) =>
-            instances[0].ResourceType switch
+        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource) =>
+            resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                DataSourceResourceTypeNames.DataSources => await UpdateDataSource(instances, serializedResource),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                DataSourceResourceTypeNames.DataSources => await UpdateDataSource(resourcePath, serializedResource),
+                _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateDataSource(List<ResourceTypeInstance> instances, string serializedDataSource)
+        private async Task<ResourceProviderUpsertResult> UpdateDataSource(ResourcePath resourcePath, string serializedDataSource)
         {
             var dataSourceBase = JsonSerializer.Deserialize<DataSourceBase>(serializedDataSource)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
@@ -177,7 +177,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 throw new ResourceProviderException($"The data source resource {existingDataSourceReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            if (instances[0].ResourceId != dataSourceBase.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != dataSourceBase.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
@@ -190,7 +190,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             };
 
             var dataSource = JsonSerializer.Deserialize(serializedDataSource, dataSourceReference.DataSourceType, _serializerSettings);
-            (dataSource as DataSourceBase)!.ObjectId = GetObjectId(instances);
+            (dataSource as DataSourceBase)!.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
             var validator = _resourceValidatorFactory.GetValidator(dataSourceReference.DataSourceType);
             if (validator is IValidator dataSourceValidator)
@@ -230,13 +230,13 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> ExecuteActionAsync(List<ResourceTypeInstance> instances, string serializedAction) =>
-            instances.Last().ResourceType switch
+        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction) =>
+            resourcePath.ResourceTypeInstances.Last().ResourceType switch
             {
-                DataSourceResourceTypeNames.DataSources => instances.Last().Action switch
+                DataSourceResourceTypeNames.DataSources => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     DataSourceResourceProviderActions.CheckName => CheckDataSourceName(serializedAction),
-                    _ => throw new ResourceProviderException($"The action {instances.Last().Action} is not supported by the {_name} resource provider.",
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
                 _ => throw new ResourceProviderException()
@@ -267,15 +267,15 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task DeleteResourceAsync(List<ResourceTypeInstance> instances)
+        protected override async Task DeleteResourceAsync(ResourcePath resourcePath)
         {
-            switch (instances.Last().ResourceType)
+            switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
             {
                 case DataSourceResourceTypeNames.DataSources:
-                    await DeleteDataSource(instances);
+                    await DeleteDataSource(resourcePath.ResourceTypeInstances);
                     break;
                 default:
-                    throw new ResourceProviderException($"The resource type {instances.Last().ResourceType} is not supported by the {_name} resource provider.",
+                    throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances.Last().ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest);
             };
         }

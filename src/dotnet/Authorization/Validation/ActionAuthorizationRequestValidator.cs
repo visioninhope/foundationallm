@@ -25,7 +25,7 @@ namespace FoundationaLLM.Authorization.Validation
                 .NotEmpty()
                 .WithMessage("The action must be a valid string.");
 
-            RuleFor(x => x.Resource)
+            RuleFor(x => x.ResourcePath)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("The resource must be a valid string.");

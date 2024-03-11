@@ -23,7 +23,7 @@ namespace FoundationaLLM.Authorization.Models
         /// The resource for which authorization is requested.
         /// </summary>
         [JsonPropertyName("resource")]
-        public required string Resource { get; set; }
+        public required string ResourcePath { get; set; }
 
         /// <summary>
         /// The id of the security principal requesting authorization.
