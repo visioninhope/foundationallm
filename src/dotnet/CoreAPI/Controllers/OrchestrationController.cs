@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration.Authentication;
+using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Core.Interfaces;
@@ -64,7 +65,7 @@ namespace FoundationaLLM.Core.API.Controllers
         /// </summary>
         /// <param name="directCompletionRequest">The user prompt for which to generate a completion.</param>
         [HttpPost("completion", Name = "GetCompletion")]
-        public async Task<IActionResult> GetCompletion([FromBody] DirectCompletionRequest directCompletionRequest)
+        public async Task<IActionResult> GetCompletion([FromBody] CompletionRequest directCompletionRequest)
         {
             var completionResponse = await _coreService.GetCompletionAsync(directCompletionRequest);
 

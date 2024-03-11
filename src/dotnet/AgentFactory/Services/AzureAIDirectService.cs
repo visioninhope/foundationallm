@@ -76,7 +76,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             // Add system prompt, if exists.
             if (systemPrompt != null) inputStrings.Add(systemPrompt);
             // Add conversation history.
-            if (agent.ConversationHistory?.Enabled == true && request.MessageHistory?.Count != 0)
+            if (agent.ConversationHistory?.Enabled == true && request.MessageHistory != null)
             {
                 var messageHistoryItems = request.MessageHistory?.TakeLast(agent.ConversationHistory.MaxHistory);
                 foreach(var item in messageHistoryItems!)
@@ -119,6 +119,11 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                             Parameters = modelParameters.ToObject<AzureAICompletionParameters>(modelOverrides)
                         }
                     };
+
+                    if (modelOverrides.ContainsKey(ModelParameterKeys.DeploymentName))
+                    {
+                        modelParameters[ModelParameterKeys.DeploymentName] = modelOverrides[ModelParameterKeys.DeploymentName];
+                    }
 
                     var body = JsonSerializer.Serialize(azureAiCompletionRequest, _jsonSerializerOptions);
                     var content = new StringContent(body, Encoding.UTF8, "application/json");
