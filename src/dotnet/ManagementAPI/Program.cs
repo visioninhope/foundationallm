@@ -9,16 +9,13 @@ using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
-using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Management.Interfaces;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Management.Services;
 using FoundationaLLM.Management.Services.APIServices;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -61,6 +58,8 @@ namespace FoundationaLLM.Management.API
 
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
+
+            builder.AddGroupMembership();
 
             // Add the Configuration resource provider
             builder.AddConfigurationResourceProvider();
