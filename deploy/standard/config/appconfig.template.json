@@ -71,6 +71,13 @@
         "tags": {}
       },
       {
+        "key": "FoundationaLLM:APIs:AgentHubAPI:APIScope",
+        "value": "{{authorizationApiScope}}",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
         "key": "FoundationaLLM:APIs:AgentHubAPI:AppInsightsConnectionString",
         "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
         "label": null,
