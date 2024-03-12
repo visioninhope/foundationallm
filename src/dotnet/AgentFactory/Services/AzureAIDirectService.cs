@@ -55,6 +55,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
             var endpointSettings = GetEndpointSettings(endpointConfiguration);
 
             SystemCompletionMessage? systemPrompt = null;
+            CompletionMessage? assistantPrompt = null;
             if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
             {
                 if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
@@ -64,17 +65,28 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 if (resource is List<PromptBase> prompts)
                 {
                     var prompt = prompts.FirstOrDefault() as MultipartPrompt;
+                    // We are adding an empty assistant prompt and setting the system prompt to the user role to support
+                    // some models (like Mistral) that require user/assistant prompts and not system prompts.
                     systemPrompt = new SystemCompletionMessage
                     {
-                        Role = InputMessageRoles.System,
+                        Role = InputMessageRoles.User,
                         Content = prompt?.Prefix ?? string.Empty
+                    };
+                    assistantPrompt = new CompletionMessage
+                    {
+                        Role = InputMessageRoles.Assistant,
+                        Content = string.Empty
                     };
                 }
             }
 
             var inputStrings = new List<CompletionMessage>();
             // Add system prompt, if exists.
-            if (systemPrompt != null) inputStrings.Add(systemPrompt);
+            if (systemPrompt != null)
+            {
+                inputStrings.Add(systemPrompt);
+                inputStrings.Add(assistantPrompt!);
+            }
             // Add conversation history.
             if (agent.ConversationHistory?.Enabled == true && request.MessageHistory != null)
             {
