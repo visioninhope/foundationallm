@@ -21,10 +21,10 @@ $basenames = @(
 )
 
 $directories = @{
-    "config" = "./certbot/config"
-    "work"   = "./certbot/work"
-    "log"    = "./certbot/log"
-    "certs"  = "../config/certs"
+    "config" = "../config/certbot/config"
+    "work"   = "../config/certbot/work"
+    "log"    = "../config/certbot/log"
+    "certs"  = "../config/certbot/certs"
 }
 
 foreach ($directory in $directories.GetEnumerator()) {
