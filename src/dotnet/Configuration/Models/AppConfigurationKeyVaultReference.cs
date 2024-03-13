@@ -5,7 +5,7 @@ namespace FoundationaLLM.Configuration.Models
     /// <summary>
     /// Azure App Configuration key vault reference.
     /// </summary>
-    public class AppConfigurationKeyVaultReference
+    public class AppConfigurationKeyVaultReference : AppConfigurationKeyBase
     {
         /// <summary>
         /// The URI of the Azure Key Vault service being referenced.

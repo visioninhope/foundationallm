@@ -8,6 +8,6 @@
         /// <summary>
         /// Azure App Configuration key values.
         /// </summary>
-        public const string AppConfigurationKeys = "appConfigurationKeys";
+        public const string AppConfigurations = "appConfigurations";
     }
 }
