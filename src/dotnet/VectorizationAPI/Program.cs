@@ -43,6 +43,10 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
+// NOTE: This is required while the service uses API key authentication.
+// Once the service is moved over to Entra ID authentication, this must be replaced with the proper implementation.
+builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>();
+
 // Add the Configuration resource provider
 builder.AddConfigurationResourceProvider();
 

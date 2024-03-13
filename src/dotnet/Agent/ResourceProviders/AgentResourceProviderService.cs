@@ -24,18 +24,29 @@ namespace FoundationaLLM.Agent.ResourceProviders
     /// <summary>
     /// Implements the FoundationaLLM.Agent resource provider.
     /// </summary>
+    /// <param name="instanceOptions">The options providing the <see cref="InstanceSettings"/> with instance settings.</param>
+    /// <param name="authorizationService">The <see cref="IAuthorizationService"/> providing authorization services.</param>
+    /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
+    /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
+    /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
+    /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> dependency injection service provider used to resolve scoped dependencies.</param>
     public class AgentResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
+        IAuthorizationService authorizationService,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
-        ILoggerFactory loggerFactory)
+        ILoggerFactory loggerFactory,
+        IServiceProvider serviceProvider)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
+            authorizationService,
             storageService,
             eventService,
             resourceValidatorFactory,
             loggerFactory.CreateLogger<AgentResourceProviderService>(),
+            serviceProvider,
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
             ])

@@ -59,7 +59,8 @@ namespace FoundationaLLM.Management.API
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-            builder.AddGroupMembership();            
+            builder.AddGroupMembership();
+            builder.AddAuthorizationService();
 
             // CORS policies
             builder.AddCorsPolicies();

@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.Configuration.Events;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
@@ -7,6 +8,7 @@ using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services.Events;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Immutable;
 using System.Text.Json;
@@ -24,6 +26,12 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private readonly List<string>? _eventNamespacesToSubscribe;
         private readonly ImmutableList<string> _allowedResourceProviders;
         private readonly Dictionary<string, ResourceTypeDescriptor> _allowedResourceTypes;
+        private readonly IServiceProvider _serviceProvider;
+
+        /// <summary>
+        /// The <see cref="IAuthorizationService"/> providing authorization services to the resource provider.
+        /// </summary>
+        protected readonly IAuthorizationService _authorizationService;
 
         /// <summary>
         /// The <see cref="IStorageService"/> providing storage services to the resource provider.
@@ -78,23 +86,29 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// Creates a new instance of the resource provider.
         /// </summary>
         /// <param name="instanceSettings">The <see cref="InstanceSettings"/> that provides instance-wide settings.</param>
+        /// <param name="authorizationService">The <see cref="IAuthorizationService"/> providing authorization services to the resource provider.</param>
         /// <param name="storageService">The <see cref="IStorageService"/> providing storage services to the resource provider.</param>
         /// <param name="eventService">The <see cref="IEventService"/> providing event services to the resource provider.</param>
         /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing services to instantiate resource validators.</param>
         /// <param name="logger">The logger used for logging.</param>
+        /// <param name="serviceProvider">The <see cref="IServiceProvider"/> dependency injection service provider used to resolve scoped dependencies.</param>
         /// <param name="eventNamespacesToSubscribe">The list of Event Service event namespaces to subscribe to for local event processing.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
+            IAuthorizationService authorizationService,
             IStorageService storageService,
             IEventService eventService,
             IResourceValidatorFactory resourceValidatorFactory,
             ILogger logger,
+            IServiceProvider serviceProvider,
             List<string>? eventNamespacesToSubscribe = default)
         {
+            _authorizationService = authorizationService;
             _storageService = storageService;
             _eventService = eventService;
             _resourceValidatorFactory = resourceValidatorFactory;
             _logger = logger;
+            _serviceProvider = serviceProvider;
             _instanceSettings = instanceSettings;
             _eventNamespacesToSubscribe = eventNamespacesToSubscribe;
 
@@ -144,6 +158,10 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 _allowedResourceProviders,
                 _allowedResourceTypes,
                 allowAction: false);
+
+            // Authorize access to the resource path.
+            await Authorize(parsedResourcePath, "read");
+
             return await GetResourcesAsyncInternal(parsedResourcePath);
         }
 
@@ -156,6 +174,10 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 resourcePath,
                 _allowedResourceProviders,
                 _allowedResourceTypes);
+
+            // Authorize access to the resource path.
+            await Authorize(parsedResourcePath, "write");
+
             if (parsedResourcePath.ResourceTypeInstances.Last().Action != null)
                 return await ExecuteActionAsync(parsedResourcePath, serializedResource);
             else
@@ -172,6 +194,10 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 _allowedResourceProviders,
                 _allowedResourceTypes,
                 allowAction: false);
+
+            // Authorize access to the resource path.
+            await Authorize(parsedResourcePath, "delete");
+
             await DeleteResourceAsync(parsedResourcePath);
         }
 
@@ -304,7 +330,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             DeleteResource<T>(parsedResourcePath);
         }
 
-        #endregion
+        #region Virtuals to be overriden in derived classes
 
         /// <summary>
         /// The internal implementation of Initialize. Must be overridden in derived classes.
@@ -412,6 +438,49 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             await Task.CompletedTask;
             throw new NotImplementedException();
         }
+
+        #endregion
+
+        #endregion
+
+        #region Authorization
+
+        /// <summary>
+        /// Authorizes the specified action on a resource path.
+        /// </summary>
+        /// <param name="resourcePath"></param>
+        /// <param name="actionType"></param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        private async Task Authorize(ResourcePath resourcePath, string actionType)
+        {
+            try
+            {
+                using var scope = _serviceProvider.CreateScope();
+                var callContext = scope.ServiceProvider.GetRequiredService<ICallContext>();
+
+                if (callContext.CurrentUserIdentity == null
+                    || callContext.CurrentUserIdentity.UserId == null)
+                    throw new Exception("The call context does not contain enough information for authorizaiton.");
+
+                var result = await _authorizationService.ProcessAuthorizationRequest(new ActionAuthorizationRequest
+                {
+                    Action = $"{_name}/{resourcePath.MainResourceType}/{actionType}",
+                    ResourcePath = resourcePath.GetObjectId(_instanceSettings.Id, _name),
+                    PrincipalId = callContext.CurrentUserIdentity.UserId,
+                    SecurityGroupIds = callContext.CurrentUserIdentity.GroupIds
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while attempting to authorize access to the resource path.");
+                throw new ResourceProviderException(
+                    "An error occurred while attempting to authorize access to the resource path.",
+                    StatusCodes.Status403Forbidden);
+            }
+        }
+
+        #endregion
 
         #region Events handling
 

@@ -8,6 +8,6 @@
         /// <summary>
         /// Action authorization requests.
         /// </summary>
-        public const string ActionAuthorizationRequests = "actionauthorizationrequests";
+        public const string RoleAssignments = "roleAssignments";
     }
 }

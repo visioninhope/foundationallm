@@ -20,6 +20,7 @@ namespace FoundationaLLM.Configuration.Services
     /// Implements the FoundationaLLM.Configuration resource provider.
     /// </summary>
     /// <param name="instanceOptions">The options providing the <see cref="InstanceSettings"/> with instance settings.</param>
+    /// <param name="authorizationService">The <see cref="IAuthorizationService"/> providing authorization services.</param>
     /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
@@ -27,21 +28,26 @@ namespace FoundationaLLM.Configuration.Services
     /// <param name="keyVaultService">The <see cref="IAzureKeyVaultService"/> providing access to the key vault service.</param>
     /// <param name="configurationManager">The <see cref="IConfigurationManager"/> providing configuration services.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> dependency injection service provider used to resolve scoped dependencies.</param>
     public class ConfigurationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
+        IAuthorizationService authorizationService,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Configuration)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
         IAzureAppConfigurationService appConfigurationService,
         IAzureKeyVaultService keyVaultService,
         IConfigurationManager configurationManager,
-        ILogger<ConfigurationResourceProviderService> logger)
+        ILogger<ConfigurationResourceProviderService> logger,
+        IServiceProvider serviceProvider)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
+            authorizationService,
             storageService,
             eventService,
             resourceValidatorFactory,
             logger,
+            serviceProvider,
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration
             ])

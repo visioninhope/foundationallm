@@ -44,11 +44,13 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<IResourceProviderService, PromptResourceProviderService>(sp =>
                 new PromptResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
+                    sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp.GetRequiredService<ILogger<PromptResourceProviderService>>()));
+                    sp.GetRequiredService<ILogger<PromptResourceProviderService>>(),
+                    sp));
 
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }

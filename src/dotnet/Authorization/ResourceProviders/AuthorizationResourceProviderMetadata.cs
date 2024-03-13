@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Authorization.Constants;
 using FoundationaLLM.Authorization.Models;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 
 namespace FoundationaLLM.Authorization.ResourceProviders
@@ -15,16 +16,16 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         public static Dictionary<string, ResourceTypeDescriptor> AllowedResourceTypes => new()
         {
             {
-                AuthorizationResourceTypeNames.ActionAuthorizationRequests,
+                AuthorizationResourceTypeNames.RoleAssignments,
                 new ResourceTypeDescriptor(
-                        AuthorizationResourceTypeNames.ActionAuthorizationRequests)
+                        AuthorizationResourceTypeNames.RoleAssignments)
                 {
-                    AllowedTypes = [],
-                    Actions = [
-                            new ResourceTypeAction(AuthorizationResourceProviderActions.Process, true, false, [
-                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ActionAuthorizationRequest)], [typeof(ActionAuthorizationResult)])
-                            ])
-                        ]
+                    AllowedTypes = [
+                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(RoleAssignment)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(RoleAssignment)], [typeof(ResourceProviderUpsertResult)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
+                    ],
+                    Actions = []
                 }
             }
         };

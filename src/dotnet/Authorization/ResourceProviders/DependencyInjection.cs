@@ -1,11 +1,5 @@
-﻿using FluentValidation;
-using FoundationaLLM.Authorization.Interfaces;
-using FoundationaLLM.Authorization.Models;
-using FoundationaLLM.Authorization.Models.Configuration;
+﻿using FoundationaLLM.Authorization.Interfaces;
 using FoundationaLLM.Authorization.ResourceProviders;
-using FoundationaLLM.Authorization.Services;
-using FoundationaLLM.Authorization.Validation;
-using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,20 +20,13 @@ namespace FoundationaLLM
         /// <param name="builder">Application builder.</param>
         public static void AddAuthorizationResourceProvider(this IHostApplicationBuilder builder)
         {
-            builder.Services.AddOptions<AuthorizationAPIServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_AuthorizationAPI));
-            builder.Services.AddSingleton<IAuthorizationAPIService, AuthorizationAPIService>();
-
-            // Register validators.
-            builder.Services.AddSingleton<IValidator<ActionAuthorizationRequest>, ActionAuthorizationRequestValidator>();
-            builder.Services.AddSingleton<IValidator<RoleAssignment>, RoleAssignmentValidator>();
-
             builder.Services.AddSingleton<IResourceProviderService, AuthorizationResourceProviderService>(sp =>
                 new AuthorizationResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
-                    sp.GetRequiredService<IAuthorizationAPIService>(),
+                    sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp.GetRequiredService<ILoggerFactory>()));
+                    sp.GetRequiredService<ILoggerFactory>(),
+                    sp));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
     }

@@ -1,5 +1,4 @@
-﻿using FoundationaLLM.Authorization.Interfaces;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders;
@@ -12,25 +11,27 @@ namespace FoundationaLLM.Authorization.ResourceProviders
     /// <summary>
     /// Implements the FoundationaLLM.Authorization resource provider.
     /// </summary>
-    /// <param name="instanceOptions"></param>
-    /// <param name="downstreamAPIServices"></param>
-    /// <param name="resourceValidatorFactory"></param>
-    /// <param name="loggerFactory"></param>
+    /// <param name="instanceOptions">The options providing the <see cref="InstanceSettings"/> with instance settings.</param>
+    /// <param name="authorizationService">The <see cref="IAuthorizationService"/> providing authorization services.</param>
+    /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
+    /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> dependency injection service provider used to resolve scoped dependencies.</param>
     public class AuthorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
-        IAuthorizationAPIService authorizationAPIService,
+        IAuthorizationService authorizationService,
         IResourceValidatorFactory resourceValidatorFactory,
-        ILoggerFactory loggerFactory)
+        ILoggerFactory loggerFactory,
+        IServiceProvider serviceProvider)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
+            authorizationService,
             null,
             null,
             resourceValidatorFactory,
             loggerFactory.CreateLogger<AuthorizationResourceProviderService>(),
+            serviceProvider,
             [])
     {
-        private readonly IAuthorizationAPIService authorizationAPIService = authorizationAPIService;
-
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             AuthorizationResourceProviderMetadata.AllowedResourceTypes;
 
@@ -40,7 +41,5 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         /// <inheritdoc/>
         protected override async Task InitializeInternal() =>
             await Task.CompletedTask;
-
-
     }
 }

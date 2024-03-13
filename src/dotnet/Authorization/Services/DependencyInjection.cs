@@ -6,6 +6,7 @@ using FoundationaLLM.Authorization.Services;
 using FoundationaLLM.Authorization.Validation;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services.Storage;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,12 +17,12 @@ using Microsoft.Extensions.Options;
 namespace FoundationaLLM
 {
     /// <summary>
-    /// Authorization resource provider service implementation of resource provider dependency injection extensions.
+    /// Provides extension methods used to configure dependency injection.
     /// </summary>
     public static partial class DependencyInjection
     {
         /// <summary>
-        /// Add the Agent resource provider and its related services the the dependency injection container.
+        /// Add the Authorization Core service to the dependency injection container (used by the Authorization API).
         /// </summary>
         /// <param name="builder">The host application builder.</param>
         public static void AddAuthorizationCore(this IHostApplicationBuilder builder)
@@ -55,6 +56,17 @@ namespace FoundationaLLM
                     sp.GetRequiredService<ILogger<AuthorizationCore>>()));
 
             builder.Services.ActivateSingleton<IAuthorizationCore>();
+        }
+
+        /// <summary>
+        /// Add the authorization service to the dependency injection container (used by all resource providers).
+        /// </summary>
+        /// <param name="builder"></param>
+        public static void AddAuthorizationService(this IHostApplicationBuilder builder)
+        {
+            builder.Services.AddOptions<AuthorizationServiceSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_AuthorizationAPI));
+            builder.Services.AddSingleton<IAuthorizationService, AuthorizationService>();
         }
     }
 }

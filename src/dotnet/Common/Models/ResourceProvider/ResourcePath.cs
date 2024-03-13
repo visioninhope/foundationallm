@@ -14,7 +14,7 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         private readonly string? _instanceId;
         private readonly string? _resourceProvider;
         private readonly List<ResourceTypeInstance> _resourceTypeInstances;
-        private readonly bool _rootPath;
+        private readonly bool _isRootPath;
 
         private const string INSTANCE_TOKEN = "instances";
         private const string RESOURCE_PROVIDER_TOKEN = "providers";
@@ -37,12 +37,20 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         /// <summary>
         /// Indicates whether the resource path is a root path ("/") or not.
         /// </summary>
-        public bool RootPath => _rootPath;
+        public bool IsRootPath => _isRootPath;
+
+        /// <summary>
+        /// The main resource type of the path.
+        /// </summary>
+        public string MainResourceType =>
+            _resourceProvider == null
+            ? throw new ResourceProviderException()
+            : _resourceTypeInstances[0].ResourceType;
 
         /// <summary>
         /// Indicates whether the resource path is an instance path or not (i.e., only contains the FoundationaLLM instance identifier).
         /// </summary>
-        public bool InstancePath =>
+        public bool IsInstancePath =>
             !(_instanceId == null)
             && (_resourceProvider == null);
 
@@ -63,7 +71,7 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
                 allowedResourceProviders,
                 allowedResourceTypes,
                 allowAction,
-                out _rootPath,
+                out _isRootPath,
                 out _instanceId,
                 out _resourceProvider,
                 out _resourceTypeInstances);
@@ -174,24 +182,24 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         /// <returns>True if the specified resource path is included in the resource path.</returns>
         public bool IncludesResourcePath(ResourcePath other)
         {
-            if (_rootPath)
+            if (_isRootPath)
                 // The other path is included only if it is root.
                 return
-                    other.RootPath;
+                    other.IsRootPath;
 
-            if (InstancePath)
+            if (IsInstancePath)
             {
                 // An instance path includes a root path.
-                if (other.RootPath)
+                if (other.IsRootPath)
                     return true;
 
                 // An instance path includes another instance path for the same instance id.
-                if (other.InstancePath)
+                if (other.IsInstancePath)
                     return _instanceId == other.InstanceId;
             }
 
             // A full path includes a root path or an instance path.
-            if (other.RootPath || other.InstancePath)
+            if (other.IsRootPath || other.IsInstancePath)
                 return true;
 
             // A full path does not include a full path that is longer than it.

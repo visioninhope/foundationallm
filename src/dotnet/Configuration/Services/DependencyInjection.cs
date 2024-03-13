@@ -60,6 +60,7 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<IResourceProviderService, ConfigurationResourceProviderService>(sp =>
                 new ConfigurationResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
+                    sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Configuration),
                     sp.GetRequiredService<IEventService>(),
@@ -67,7 +68,8 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IAzureAppConfigurationService>(),
                     sp.GetRequiredService<IAzureKeyVaultService>(),
                     builder.Configuration,
-                    sp.GetRequiredService<ILogger<ConfigurationResourceProviderService>>()));
+                    sp.GetRequiredService<ILogger<ConfigurationResourceProviderService>>(),
+                    sp));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
     }

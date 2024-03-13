@@ -26,7 +26,8 @@ namespace FoundationaLLM.Common.Services.Security
             {
                 Name = userPrincipal.FindFirstValue("name"),
                 Username = ResolveUsername(userPrincipal),
-                UPN = ResolveUsername(userPrincipal)
+                UPN = ResolveUsername(userPrincipal),
+                UserId = userPrincipal.FindFirstValue("oid")
             };
         }
 

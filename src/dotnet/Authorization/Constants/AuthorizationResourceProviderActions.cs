@@ -5,9 +5,5 @@
     /// </summary>
     public static class AuthorizationResourceProviderActions
     {
-        /// <summary>
-        /// Process an action authorization request. 
-        /// </summary>
-        public const string Process = "process";
     }
 }

@@ -52,11 +52,13 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<IResourceProviderService, AgentResourceProviderService>(sp =>
                 new AgentResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
+                    sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp.GetRequiredService<ILoggerFactory>()));
+                    sp.GetRequiredService<ILoggerFactory>(),
+                    sp));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
     }

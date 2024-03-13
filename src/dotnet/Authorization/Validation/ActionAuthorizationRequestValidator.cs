@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using FoundationaLLM.Authorization.Models;
-using FoundationaLLM.Common.Models.ResourceProvider;
+using FoundationaLLM.Common.Models.Authorization;
 
 namespace FoundationaLLM.Authorization.Validation
 {

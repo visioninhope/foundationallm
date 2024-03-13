@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Authorization.Models
+namespace FoundationaLLM.Common.Models.Authorization
 {
     /// <summary>
     /// Represents the result of an action authorization request.

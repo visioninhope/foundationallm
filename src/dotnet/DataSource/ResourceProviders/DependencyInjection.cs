@@ -53,11 +53,13 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<IResourceProviderService, DataSourceResourceProviderService>(sp =>
                 new DataSourceResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
+                    sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp.GetRequiredService<ILoggerFactory>()));
+                    sp.GetRequiredService<ILoggerFactory>(),
+                    sp));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
     }

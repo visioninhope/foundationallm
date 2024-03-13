@@ -1,22 +1,13 @@
 ﻿using FluentValidation;
-using FoundationaLLM.Agent.ResourceProviders;
-using FoundationaLLM.Authorization.Exceptions;
 using FoundationaLLM.Authorization.Interfaces;
 using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Authorization.Models.Configuration;
 using FoundationaLLM.Authorization.Utils;
-using FoundationaLLM.Authorization.Validation;
-using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.ResourceProvider;
-using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.DataSource.ResourceProviders;
-using FoundationaLLM.Prompt.ResourceProviders;
-using FoundationaLLM.Vectorization.ResourceProviders;
+using FoundationaLLM.Common.Models.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
-using System.Collections.Immutable;
 using System.Text;
 using System.Text.Json;
 

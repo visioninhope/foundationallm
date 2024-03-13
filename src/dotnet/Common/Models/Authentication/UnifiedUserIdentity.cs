@@ -21,6 +21,12 @@ namespace FoundationaLLM.Common.Models.Authentication
         public string? Username { get; set; }
 
         /// <summary>
+        /// The unique identifier of the user.
+        /// </summary>
+        [JsonPropertyName("user_id")]
+        public string ? UserId { get; set; }
+
+        /// <summary>
         /// The User Principal Name (UPN) of the user.
         /// </summary>
         [JsonPropertyName("upn")]

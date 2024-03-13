@@ -40,7 +40,7 @@ namespace FoundationaLLM.Authorization.Utils
 
             var parsedResourcePath = GetResourcePath(resourcePath);
 
-            if (!allowRootPath && parsedResourcePath.RootPath)
+            if (!allowRootPath && parsedResourcePath.IsRootPath)
                 throw new AuthorizationException("A root resource path is not allowed in this context.");
 
             return parsedResourcePath;

@@ -54,11 +54,13 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<IResourceProviderService, VectorizationResourceProviderService>(sp =>
                 new VectorizationResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
+                    sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>()));
+                    sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>(),
+                    sp));
 
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
