@@ -1,5 +1,4 @@
 ﻿using Azure.Storage.Queues;
-using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
