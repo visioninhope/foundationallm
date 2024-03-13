@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class AzureSQLDatabaseContentSourceService | FoundationaLLM </title>
+      <title>Class WebPageContentSourceService | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class AzureSQLDatabaseContentSourceService | FoundationaLLM ">
+      <meta name="title" content="Class WebPageContentSourceService | FoundationaLLM ">
       
-      <meta name="description" content="Implements a vectorization content source for content residing in Azure SQL.">
+      <meta name="description" content="Extracts text from a web page.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,12 +84,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService">
+        <article data-uid="FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService">
 
 
 
-  <h1 id="FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService" class="text-break">
-Class AzureSQLDatabaseContentSourceService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/AzureSQLDatabaseContentSourceService.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService" class="text-break">
+Class WebPageContentSourceService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/WebPageContentSourceService.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,12 +97,12 @@ Class AzureSQLDatabaseContentSourceService  <a class="header-action link-seconda
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Implements a vectorization content source for content residing in Azure SQL.</p>
+  <div class="markdown summary"><p>Extracts text from a web page.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class AzureSQLDatabaseContentSourceService : ContentSourceServiceBase, IContentSourceService</code></pre>
+    <pre><code class="lang-csharp hljs">public class WebPageContentSourceService : IContentSourceService</code></pre>
   </div>
 
 
@@ -112,8 +112,7 @@ Class AzureSQLDatabaseContentSourceService  <a class="header-action link-seconda
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html">ContentSourceServiceBase</a></div>
-      <div><span class="xref">AzureSQLDatabaseContentSourceService</span></div>
+      <div><span class="xref">WebPageContentSourceService</span></div>
     </dd>
   </dl>
 
@@ -128,9 +127,6 @@ Class AzureSQLDatabaseContentSourceService  <a class="header-action link-seconda
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
-    <div>
-      <a class="xref" href="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceBase_ExtractTextFromFileAsync_System_String_System_BinaryData_">ContentSourceServiceBase.ExtractTextFromFileAsync(string, BinaryData)</a>
-    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -170,27 +166,26 @@ Class AzureSQLDatabaseContentSourceService  <a class="header-action link-seconda
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService__ctor_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.#ctor*"></a>
+  <a id="FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService__ctor_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService__ctor_FoundationaLLM_Vectorization_Models_Configuration_AzureSQLDatabaseContentSourceServiceSettings_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.#ctor(FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings,Microsoft.Extensions.Logging.ILoggerFactory)">
-  AzureSQLDatabaseContentSourceService(AzureSQLDatabaseContentSourceServiceSettings, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/AzureSQLDatabaseContentSourceService.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService__ctor_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
+  WebPageContentSourceService(ILoggerFactory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/WebPageContentSourceService.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Creates a new instance of the vectorization content source.</p>
+  <div class="markdown level1 summary"><p>Creates a new instance of the vectorization content source that scrapes web pages.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AzureSQLDatabaseContentSourceService(AzureSQLDatabaseContentSourceServiceSettings settings, ILoggerFactory loggerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public WebPageContentSourceService(ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>settings</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.AzureSQLDatabaseContentSourceServiceSettings.html">AzureSQLDatabaseContentSourceServiceSettings</a></dt>
-    <dd></dd>
     <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
-    <dd></dd>
+    <dd><p>Logger factory that generates loggers for the class.</p>
+</dd>
   </dl>
 
 
@@ -208,11 +203,11 @@ Class AzureSQLDatabaseContentSourceService  <a class="header-action link-seconda
 </h2>
 
 
-  <a id="FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextAsync_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync*"></a>
+  <a id="FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService_ExtractTextAsync_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)">
+  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)">
   ExtractTextAsync(ContentIdentifier, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/AzureSQLDatabaseContentSourceService.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/WebPageContentSourceService.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Reads the binary content of a specified file from the storage.</p>
@@ -246,12 +241,10 @@ Class AzureSQLDatabaseContentSourceService  <a class="header-action link-seconda
 
 
 
-  <h4 class="section" id="FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>contentId[0] = the schema.
-contentId[1] = the table.
-contentId[2] = the column containing the contents of the files.
-contentId[3] = the column containing the file names.
-contentId[4] = the name of the file.</p>
+  <h4 class="section" id="FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Expected MultipartId:
+contentId[0] = Protocol: either http or https
+contentId[1] = the web URL without the protocol</p>
 </div>
 
 
@@ -261,7 +254,7 @@ contentId[4] = the name of the file.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/AzureSQLDatabaseContentSourceService.cs/#L13" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/WebPageContentSourceService.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 

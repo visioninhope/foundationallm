@@ -22100,19 +22100,19 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Interfaces.IContentSourceService
   fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService
   nameWithType: IContentSourceService
-- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  name: ExtractTextFromFileAsync(ContentIdentifier, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceService_ExtractTextFromFileAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
-  nameWithType: IContentSourceService.ExtractTextFromFileAsync(ContentIdentifier, CancellationToken)
-- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync*
-  name: ExtractTextFromFileAsync
-  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceService_ExtractTextFromFileAsync_
-  commentId: Overload:FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync
+- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+  name: ExtractTextAsync(ContentIdentifier, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
+  nameWithType: IContentSourceService.ExtractTextAsync(ContentIdentifier, CancellationToken)
+- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync*
+  name: ExtractTextAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceService_ExtractTextAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextFromFileAsync
-  nameWithType: IContentSourceService.ExtractTextFromFileAsync
+  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync
+  nameWithType: IContentSourceService.ExtractTextAsync
 - uid: FoundationaLLM.Vectorization.Interfaces.IRequestManagerService
   name: IRequestManagerService
   href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IRequestManagerService.html
@@ -22713,6 +22713,12 @@ references:
   commentId: F:FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.SharePointOnline
   fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.SharePointOnline
   nameWithType: ContentSourceType.SharePointOnline
+- uid: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.Web
+  name: Web
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.html#FoundationaLLM_Vectorization_Models_Resources_ContentSourceType_Web
+  commentId: F:FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.Web
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.Web
+  nameWithType: ContentSourceType.Web
 - uid: FoundationaLLM.Vectorization.Models.Resources.IndexerType
   name: IndexerType
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.IndexerType.html
@@ -23854,19 +23860,19 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.New
   nameWithType: AzureSQLDatabaseContentSourceService.AzureSQLDatabaseContentSourceService
   nameWithType.vb: AzureSQLDatabaseContentSourceService.New
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  name: ExtractTextFromFileAsync(ContentIdentifier, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextFromFileAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
-  nameWithType: AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync(ContentIdentifier, CancellationToken)
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync*
-  name: ExtractTextFromFileAsync
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextFromFileAsync_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+  name: ExtractTextAsync(ContentIdentifier, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
+  nameWithType: AzureSQLDatabaseContentSourceService.ExtractTextAsync(ContentIdentifier, CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync*
+  name: ExtractTextAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync
-  nameWithType: AzureSQLDatabaseContentSourceService.ExtractTextFromFileAsync
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync
+  nameWithType: AzureSQLDatabaseContentSourceService.ExtractTextAsync
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase
   name: ContentSourceServiceBase
   href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceBase.html
@@ -23971,19 +23977,19 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.New
   nameWithType: DataLakeContentSourceService.DataLakeContentSourceService
   nameWithType.vb: DataLakeContentSourceService.New
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  name: ExtractTextFromFileAsync(ContentIdentifier, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_DataLakeContentSourceService_ExtractTextFromFileAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
-  nameWithType: DataLakeContentSourceService.ExtractTextFromFileAsync(ContentIdentifier, CancellationToken)
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync*
-  name: ExtractTextFromFileAsync
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_DataLakeContentSourceService_ExtractTextFromFileAsync_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+  name: ExtractTextAsync(ContentIdentifier, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_DataLakeContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
+  nameWithType: DataLakeContentSourceService.ExtractTextAsync(ContentIdentifier, CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync*
+  name: ExtractTextAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_DataLakeContentSourceService_ExtractTextAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextFromFileAsync
-  nameWithType: DataLakeContentSourceService.ExtractTextFromFileAsync
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync
+  nameWithType: DataLakeContentSourceService.ExtractTextAsync
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService
   name: SharePointOnlineContentSourceService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html
@@ -24009,19 +24015,57 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.New
   nameWithType: SharePointOnlineContentSourceService.SharePointOnlineContentSourceService
   nameWithType.vb: SharePointOnlineContentSourceService.New
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  name: ExtractTextFromFileAsync(ContentIdentifier, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_SharePointOnlineContentSourceService_ExtractTextFromFileAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
-  nameWithType: SharePointOnlineContentSourceService.ExtractTextFromFileAsync(ContentIdentifier, CancellationToken)
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync*
-  name: ExtractTextFromFileAsync
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_SharePointOnlineContentSourceService_ExtractTextFromFileAsync_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+  name: ExtractTextAsync(ContentIdentifier, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_SharePointOnlineContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
+  nameWithType: SharePointOnlineContentSourceService.ExtractTextAsync(ContentIdentifier, CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync*
+  name: ExtractTextAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_SharePointOnlineContentSourceService_ExtractTextAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextFromFileAsync
-  nameWithType: SharePointOnlineContentSourceService.ExtractTextFromFileAsync
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync
+  nameWithType: SharePointOnlineContentSourceService.ExtractTextAsync
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService
+  name: WebPageContentSourceService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.html
+  commentId: T:FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService
+  nameWithType: WebPageContentSourceService
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)
+  name: WebPageContentSourceService(ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService__ctor_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.WebPageContentSourceService(Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.New(Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: WebPageContentSourceService.WebPageContentSourceService(ILoggerFactory)
+  nameWithType.vb: WebPageContentSourceService.New(ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.#ctor*
+  name: WebPageContentSourceService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.WebPageContentSourceService
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.New
+  nameWithType: WebPageContentSourceService.WebPageContentSourceService
+  nameWithType.vb: WebPageContentSourceService.New
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+  name: ExtractTextAsync(ContentIdentifier, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
+  nameWithType: WebPageContentSourceService.ExtractTextAsync(ContentIdentifier, CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync*
+  name: ExtractTextAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService_ExtractTextAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync
+  nameWithType: WebPageContentSourceService.ExtractTextAsync
 - uid: FoundationaLLM.Vectorization.Services.NullAuthorizationService
   name: NullAuthorizationService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.NullAuthorizationService.html
