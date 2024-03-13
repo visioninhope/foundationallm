@@ -34,6 +34,7 @@ namespace FoundationaLLM.Vectorization.Models.Configuration
         /// <summary>
         /// The maximum number of retries to process a request in case of a failure.
         /// </summary>
+        [JsonPropertyOrder(5)]
         public int QueueMaxNumberOfRetries { get; set; } = 5;
     }
 }
