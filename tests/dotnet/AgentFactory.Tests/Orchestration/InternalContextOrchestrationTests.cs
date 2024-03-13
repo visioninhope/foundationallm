@@ -10,6 +10,7 @@ namespace FoundationaLLM.AgentFactory.Tests.Orchestration
     {
         private InternalContextOrchestration _internalContextOrchestration;
         private InternalContextAgent _agent = new InternalContextAgent() { Name = "Test_agent", ObjectId = "Test_objctid", Type = AgentTypes.InternalContext };
+        private ICallContext _callContext = Substitute.For<ICallContext>();
         private ILLMOrchestrationService _orchestrationService = Substitute.For<ILLMOrchestrationService>();
         private IPromptHubAPIService _promptHubService = Substitute.For<IPromptHubAPIService>();
         private IDataSourceHubAPIService _dataSourceHubService = Substitute.For<IDataSourceHubAPIService>();
@@ -19,6 +20,7 @@ namespace FoundationaLLM.AgentFactory.Tests.Orchestration
         {
             _internalContextOrchestration = new InternalContextOrchestration(
                 _agent,
+                _callContext,
                 _orchestrationService,
                 _promptHubService,
                 _dataSourceHubService,
