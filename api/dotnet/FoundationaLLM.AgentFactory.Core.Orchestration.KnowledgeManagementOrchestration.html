@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration" data-uid="FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration" class="text-break">
-Class KnowledgeManagementOrchestration  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Orchestration/KnowledgeManagementOrchestration.cs/#L22"><i class="bi bi-code-slash"></i></a>
+Class KnowledgeManagementOrchestration  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Orchestration/KnowledgeManagementOrchestration.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -178,9 +178,9 @@ Class KnowledgeManagementOrchestration  <a class="header-action link-secondary" 
 
   <a id="FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration__ctor_" data-uid="FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration__ctor_FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICacheService_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Orchestration_OrchestrationBase__" data-uid="FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase})">
-  KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger&lt;OrchestrationBase&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Orchestration/KnowledgeManagementOrchestration.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration__ctor_FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Orchestration_OrchestrationBase__" data-uid="FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase})">
+  KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger&lt;OrchestrationBase&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Orchestration/KnowledgeManagementOrchestration.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Knowledge Management orchestration.</p>
@@ -188,16 +188,13 @@ Class KnowledgeManagementOrchestration  <a class="header-action link-secondary" 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public KnowledgeManagementOrchestration(KnowledgeManagementAgent agent, ICacheService cacheService, ICallContext callContext, ILLMOrchestrationService orchestrationService, IPromptHubAPIService promptHubService, IDataSourceHubAPIService dataSourceHubService, ILogger&lt;OrchestrationBase&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public KnowledgeManagementOrchestration(KnowledgeManagementAgent agent, ICallContext callContext, ILLMOrchestrationService orchestrationService, IPromptHubAPIService promptHubService, IDataSourceHubAPIService dataSourceHubService, ILogger&lt;OrchestrationBase&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>agent</code> <a class="xref" href="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html">KnowledgeManagementAgent</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html">KnowledgeManagementAgent</a> agent.</p>
-</dd>
-    <dt><code>cacheService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.ICacheService.html">ICacheService</a></dt>
-    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.ICacheService.html">ICacheService</a> used to cache agent-related artifacts.</p>
 </dd>
     <dt><code>callContext</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a></dt>
     <dd><p>The call context of the request being handled.</p>
@@ -220,7 +217,7 @@ Class KnowledgeManagementOrchestration  <a class="header-action link-secondary" 
 
 
 
-  <h4 class="section" id="FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration__ctor_FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICacheService_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Orchestration_OrchestrationBase___remarks">Remarks</h4>
+  <h4 class="section" id="FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration__ctor_FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Orchestration_OrchestrationBase___remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>Constructor for default agent.</p>
 </div>
 
@@ -235,7 +232,7 @@ Class KnowledgeManagementOrchestration  <a class="header-action link-secondary" 
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration_Configure_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.Configure(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
   Configure(CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Orchestration/KnowledgeManagementOrchestration.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Orchestration/KnowledgeManagementOrchestration.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>This will setup the agent based on its metadata.</p>
@@ -272,7 +269,7 @@ Class KnowledgeManagementOrchestration  <a class="header-action link-secondary" 
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
   GetCompletion(CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Orchestration/KnowledgeManagementOrchestration.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Orchestration/KnowledgeManagementOrchestration.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The call to execute a completion after the agent is configured.</p>
@@ -309,7 +306,7 @@ Class KnowledgeManagementOrchestration  <a class="header-action link-secondary" 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Orchestration/KnowledgeManagementOrchestration.cs/#L22" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Orchestration/KnowledgeManagementOrchestration.cs/#L21" class="edit-link">Edit this page</a>
         </div>
 
 

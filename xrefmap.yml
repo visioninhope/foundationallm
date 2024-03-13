@@ -647,6 +647,12 @@ references:
   commentId: T:FoundationaLLM.AgentFactory.Core.Interfaces.IAzureAIDirectService
   fullName: FoundationaLLM.AgentFactory.Core.Interfaces.IAzureAIDirectService
   nameWithType: IAzureAIDirectService
+- uid: FoundationaLLM.AgentFactory.Core.Interfaces.IAzureOpenAIDirectService
+  name: IAzureOpenAIDirectService
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Interfaces.IAzureOpenAIDirectService.html
+  commentId: T:FoundationaLLM.AgentFactory.Core.Interfaces.IAzureOpenAIDirectService
+  fullName: FoundationaLLM.AgentFactory.Core.Interfaces.IAzureOpenAIDirectService
+  nameWithType: IAzureOpenAIDirectService
 - uid: FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions
   name: FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions.html
@@ -690,15 +696,15 @@ references:
   commentId: T:FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration
   fullName: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration
   nameWithType: InternalContextOrchestration
-- uid: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.InternalContextAgent,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase})
-  name: InternalContextOrchestration(InternalContextAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<OrchestrationBase>)
-  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_InternalContextOrchestration__ctor_FoundationaLLM_Common_Models_Agents_InternalContextAgent_FoundationaLLM_Common_Interfaces_ICacheService_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Orchestration_OrchestrationBase__
-  commentId: M:FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.InternalContextAgent,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase})
-  name.vb: New(InternalContextAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of OrchestrationBase))
-  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.InternalContextOrchestration(FoundationaLLM.Common.Models.Agents.InternalContextAgent, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase>)
-  fullName.vb: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.New(FoundationaLLM.Common.Models.Agents.InternalContextAgent, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase))
-  nameWithType: InternalContextOrchestration.InternalContextOrchestration(InternalContextAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<OrchestrationBase>)
-  nameWithType.vb: InternalContextOrchestration.New(InternalContextAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of OrchestrationBase))
+- uid: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.InternalContextAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase})
+  name: InternalContextOrchestration(InternalContextAgent, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<OrchestrationBase>)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_InternalContextOrchestration__ctor_FoundationaLLM_Common_Models_Agents_InternalContextAgent_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Orchestration_OrchestrationBase__
+  commentId: M:FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.InternalContextAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase})
+  name.vb: New(InternalContextAgent, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of OrchestrationBase))
+  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.InternalContextOrchestration(FoundationaLLM.Common.Models.Agents.InternalContextAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase>)
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.New(FoundationaLLM.Common.Models.Agents.InternalContextAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase))
+  nameWithType: InternalContextOrchestration.InternalContextOrchestration(InternalContextAgent, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<OrchestrationBase>)
+  nameWithType.vb: InternalContextOrchestration.New(InternalContextAgent, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of OrchestrationBase))
 - uid: FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.#ctor*
   name: InternalContextOrchestration
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.InternalContextOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_InternalContextOrchestration__ctor_
@@ -741,15 +747,15 @@ references:
   commentId: T:FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration
   fullName: FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration
   nameWithType: KnowledgeManagementOrchestration
-- uid: FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase})
-  name: KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<OrchestrationBase>)
-  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration__ctor_FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICacheService_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Orchestration_OrchestrationBase__
-  commentId: M:FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICacheService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase})
-  name.vb: New(KnowledgeManagementAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of OrchestrationBase))
-  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase>)
-  fullName.vb: FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.New(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICacheService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase))
-  nameWithType: KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<OrchestrationBase>)
-  nameWithType.vb: KnowledgeManagementOrchestration.New(KnowledgeManagementAgent, ICacheService, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of OrchestrationBase))
+- uid: FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase})
+  name: KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<OrchestrationBase>)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration__ctor_FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_AgentFactory_Interfaces_ILLMOrchestrationService_FoundationaLLM_Common_Interfaces_IPromptHubAPIService_FoundationaLLM_Common_Interfaces_IDataSourceHubAPIService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Orchestration_OrchestrationBase__
+  commentId: M:FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService,FoundationaLLM.Common.Interfaces.IPromptHubAPIService,FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase})
+  name.vb: New(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of OrchestrationBase))
+  fullName: FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase>)
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.New(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.AgentFactory.Interfaces.ILLMOrchestrationService, FoundationaLLM.Common.Interfaces.IPromptHubAPIService, FoundationaLLM.Common.Interfaces.IDataSourceHubAPIService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.AgentFactory.Core.Orchestration.OrchestrationBase))
+  nameWithType: KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger<OrchestrationBase>)
+  nameWithType.vb: KnowledgeManagementOrchestration.New(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, IPromptHubAPIService, IDataSourceHubAPIService, ILogger(Of OrchestrationBase))
 - uid: FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.#ctor*
   name: KnowledgeManagementOrchestration
   href: api/dotnet/FoundationaLLM.AgentFactory.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_AgentFactory_Core_Orchestration_KnowledgeManagementOrchestration__ctor_
@@ -991,6 +997,57 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.AgentFactory.Core.Services.AzureAIDirectService.IsInitialized
   nameWithType: AzureAIDirectService.IsInitialized
+- uid: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService
+  name: AzureOpenAIDirectService
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.html
+  commentId: T:FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService
+  fullName: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService
+  nameWithType: AzureOpenAIDirectService
+- uid: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService},Microsoft.Extensions.Configuration.IConfiguration,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
+  name: AzureOpenAIDirectService(ICallContext, ILogger<AzureOpenAIDirectService>, IConfiguration, IHttpClientFactoryService, IEnumerable<IResourceProviderService>)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_AgentFactory_Core_Services_AzureOpenAIDirectService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Services_AzureOpenAIDirectService__Microsoft_Extensions_Configuration_IConfiguration_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__
+  commentId: M:FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService},Microsoft.Extensions.Configuration.IConfiguration,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
+  name.vb: New(ICallContext, ILogger(Of AzureOpenAIDirectService), IConfiguration, IHttpClientFactoryService, IEnumerable(Of IResourceProviderService))
+  fullName: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.AzureOpenAIDirectService(FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService>, Microsoft.Extensions.Configuration.IConfiguration, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>)
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.New(FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService), Microsoft.Extensions.Configuration.IConfiguration, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService))
+  nameWithType: AzureOpenAIDirectService.AzureOpenAIDirectService(ICallContext, ILogger<AzureOpenAIDirectService>, IConfiguration, IHttpClientFactoryService, IEnumerable<IResourceProviderService>)
+  nameWithType.vb: AzureOpenAIDirectService.New(ICallContext, ILogger(Of AzureOpenAIDirectService), IConfiguration, IHttpClientFactoryService, IEnumerable(Of IResourceProviderService))
+- uid: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.#ctor*
+  name: AzureOpenAIDirectService
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_AgentFactory_Core_Services_AzureOpenAIDirectService__ctor_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.AzureOpenAIDirectService
+  fullName.vb: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.New
+  nameWithType: AzureOpenAIDirectService.AzureOpenAIDirectService
+  nameWithType.vb: AzureOpenAIDirectService.New
+- uid: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: GetCompletion(LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_AgentFactory_Core_Services_AzureOpenAIDirectService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: AzureOpenAIDirectService.GetCompletion(LLMCompletionRequest)
+- uid: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.GetCompletion*
+  name: GetCompletion
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_AgentFactory_Core_Services_AzureOpenAIDirectService_GetCompletion_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.GetCompletion
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.GetCompletion
+  nameWithType: AzureOpenAIDirectService.GetCompletion
+- uid: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.IsInitialized
+  name: IsInitialized
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_AgentFactory_Core_Services_AzureOpenAIDirectService_IsInitialized
+  commentId: P:FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.IsInitialized
+  fullName: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.IsInitialized
+  nameWithType: AzureOpenAIDirectService.IsInitialized
+- uid: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.IsInitialized*
+  name: IsInitialized
+  href: api/dotnet/FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_AgentFactory_Core_Services_AzureOpenAIDirectService_IsInitialized_
+  commentId: Overload:FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.IsInitialized
+  isSpec: "True"
+  fullName: FoundationaLLM.AgentFactory.Core.Services.AzureOpenAIDirectService.IsInitialized
+  nameWithType: AzureOpenAIDirectService.IsInitialized
 - uid: FoundationaLLM.AgentFactory.Interfaces
   name: FoundationaLLM.AgentFactory.Interfaces
   href: api/dotnet/FoundationaLLM.AgentFactory.Interfaces.html
@@ -4078,6 +4135,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.EndpointConfigurationKeys.APIKey
   fullName: FoundationaLLM.Common.Constants.EndpointConfigurationKeys.APIKey
   nameWithType: EndpointConfigurationKeys.APIKey
+- uid: FoundationaLLM.Common.Constants.EndpointConfigurationKeys.APIVersion
+  name: APIVersion
+  href: api/dotnet/FoundationaLLM.Common.Constants.EndpointConfigurationKeys.html#FoundationaLLM_Common_Constants_EndpointConfigurationKeys_APIVersion
+  commentId: F:FoundationaLLM.Common.Constants.EndpointConfigurationKeys.APIVersion
+  fullName: FoundationaLLM.Common.Constants.EndpointConfigurationKeys.APIVersion
+  nameWithType: EndpointConfigurationKeys.APIVersion
 - uid: FoundationaLLM.Common.Constants.EndpointConfigurationKeys.AuthenticationType
   name: AuthenticationType
   href: api/dotnet/FoundationaLLM.Common.Constants.EndpointConfigurationKeys.html#FoundationaLLM_Common_Constants_EndpointConfigurationKeys_AuthenticationType
@@ -4090,6 +4153,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.EndpointConfigurationKeys.Endpoint
   fullName: FoundationaLLM.Common.Constants.EndpointConfigurationKeys.Endpoint
   nameWithType: EndpointConfigurationKeys.Endpoint
+- uid: FoundationaLLM.Common.Constants.EndpointConfigurationKeys.OperationType
+  name: OperationType
+  href: api/dotnet/FoundationaLLM.Common.Constants.EndpointConfigurationKeys.html#FoundationaLLM_Common_Constants_EndpointConfigurationKeys_OperationType
+  commentId: F:FoundationaLLM.Common.Constants.EndpointConfigurationKeys.OperationType
+  fullName: FoundationaLLM.Common.Constants.EndpointConfigurationKeys.OperationType
+  nameWithType: EndpointConfigurationKeys.OperationType
 - uid: FoundationaLLM.Common.Constants.EnvironmentVariables
   name: EnvironmentVariables
   href: api/dotnet/FoundationaLLM.Common.Constants.EnvironmentVariables.html
@@ -4276,6 +4345,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpClients.AzureAIDirect
   fullName: FoundationaLLM.Common.Constants.HttpClients.AzureAIDirect
   nameWithType: HttpClients.AzureAIDirect
+- uid: FoundationaLLM.Common.Constants.HttpClients.AzureOpenAIDirect
+  name: AzureOpenAIDirect
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_AzureOpenAIDirect
+  commentId: F:FoundationaLLM.Common.Constants.HttpClients.AzureOpenAIDirect
+  fullName: FoundationaLLM.Common.Constants.HttpClients.AzureOpenAIDirect
+  nameWithType: HttpClients.AzureOpenAIDirect
 - uid: FoundationaLLM.Common.Constants.HttpClients.CoreAPI
   name: CoreAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_CoreAPI
@@ -4342,6 +4417,36 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpHeaders.UserIdentity
   fullName: FoundationaLLM.Common.Constants.HttpHeaders.UserIdentity
   nameWithType: HttpHeaders.UserIdentity
+- uid: FoundationaLLM.Common.Constants.InputMessageRoles
+  name: InputMessageRoles
+  href: api/dotnet/FoundationaLLM.Common.Constants.InputMessageRoles.html
+  commentId: T:FoundationaLLM.Common.Constants.InputMessageRoles
+  fullName: FoundationaLLM.Common.Constants.InputMessageRoles
+  nameWithType: InputMessageRoles
+- uid: FoundationaLLM.Common.Constants.InputMessageRoles.Assistant
+  name: Assistant
+  href: api/dotnet/FoundationaLLM.Common.Constants.InputMessageRoles.html#FoundationaLLM_Common_Constants_InputMessageRoles_Assistant
+  commentId: F:FoundationaLLM.Common.Constants.InputMessageRoles.Assistant
+  fullName: FoundationaLLM.Common.Constants.InputMessageRoles.Assistant
+  nameWithType: InputMessageRoles.Assistant
+- uid: FoundationaLLM.Common.Constants.InputMessageRoles.System
+  name: System
+  href: api/dotnet/FoundationaLLM.Common.Constants.InputMessageRoles.html#FoundationaLLM_Common_Constants_InputMessageRoles_System
+  commentId: F:FoundationaLLM.Common.Constants.InputMessageRoles.System
+  fullName: FoundationaLLM.Common.Constants.InputMessageRoles.System
+  nameWithType: InputMessageRoles.System
+- uid: FoundationaLLM.Common.Constants.InputMessageRoles.Tool
+  name: Tool
+  href: api/dotnet/FoundationaLLM.Common.Constants.InputMessageRoles.html#FoundationaLLM_Common_Constants_InputMessageRoles_Tool
+  commentId: F:FoundationaLLM.Common.Constants.InputMessageRoles.Tool
+  fullName: FoundationaLLM.Common.Constants.InputMessageRoles.Tool
+  nameWithType: InputMessageRoles.Tool
+- uid: FoundationaLLM.Common.Constants.InputMessageRoles.User
+  name: User
+  href: api/dotnet/FoundationaLLM.Common.Constants.InputMessageRoles.html#FoundationaLLM_Common_Constants_InputMessageRoles_User
+  commentId: F:FoundationaLLM.Common.Constants.InputMessageRoles.User
+  fullName: FoundationaLLM.Common.Constants.InputMessageRoles.User
+  nameWithType: InputMessageRoles.User
 - uid: FoundationaLLM.Common.Constants.KeyVaultSecretNames
   name: KeyVaultSecretNames
   href: api/dotnet/FoundationaLLM.Common.Constants.KeyVaultSecretNames.html
@@ -4678,6 +4783,24 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ModelParameterKeys.TopP
   fullName: FoundationaLLM.Common.Constants.ModelParameterKeys.TopP
   nameWithType: ModelParameterKeys.TopP
+- uid: FoundationaLLM.Common.Constants.OperationTypes
+  name: OperationTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.OperationTypes.html
+  commentId: T:FoundationaLLM.Common.Constants.OperationTypes
+  fullName: FoundationaLLM.Common.Constants.OperationTypes
+  nameWithType: OperationTypes
+- uid: FoundationaLLM.Common.Constants.OperationTypes.Chat
+  name: Chat
+  href: api/dotnet/FoundationaLLM.Common.Constants.OperationTypes.html#FoundationaLLM_Common_Constants_OperationTypes_Chat
+  commentId: F:FoundationaLLM.Common.Constants.OperationTypes.Chat
+  fullName: FoundationaLLM.Common.Constants.OperationTypes.Chat
+  nameWithType: OperationTypes.Chat
+- uid: FoundationaLLM.Common.Constants.OperationTypes.Completions
+  name: Completions
+  href: api/dotnet/FoundationaLLM.Common.Constants.OperationTypes.html#FoundationaLLM_Common_Constants_OperationTypes_Completions
+  commentId: F:FoundationaLLM.Common.Constants.OperationTypes.Completions
+  fullName: FoundationaLLM.Common.Constants.OperationTypes.Completions
+  nameWithType: OperationTypes.Completions
 - uid: FoundationaLLM.Common.Constants.Participants
   name: Participants
   href: api/dotnet/FoundationaLLM.Common.Constants.Participants.html
@@ -10105,44 +10228,6 @@ references:
   commentId: N:FoundationaLLM.Common.Models.Orchestration
   fullName: FoundationaLLM.Common.Models.Orchestration
   nameWithType: FoundationaLLM.Common.Models.Orchestration
-- uid: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest
-  name: AzureAIDirectRequest
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest.html
-  commentId: T:FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest
-  fullName: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest
-  nameWithType: AzureAIDirectRequest
-- uid: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest.InputData
-  name: InputData
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest.html#FoundationaLLM_Common_Models_Orchestration_AzureAIDirectRequest_InputData
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest.InputData
-  fullName: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest.InputData
-  nameWithType: AzureAIDirectRequest.InputData
-- uid: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest.InputData*
-  name: InputData
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest.html#FoundationaLLM_Common_Models_Orchestration_AzureAIDirectRequest_InputData_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest.InputData
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectRequest.InputData
-  nameWithType: AzureAIDirectRequest.InputData
-- uid: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse
-  name: AzureAIDirectResponse
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse.html
-  commentId: T:FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse
-  fullName: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse
-  nameWithType: AzureAIDirectResponse
-- uid: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse.Output
-  name: Output
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse.html#FoundationaLLM_Common_Models_Orchestration_AzureAIDirectResponse_Output
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse.Output
-  fullName: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse.Output
-  nameWithType: AzureAIDirectResponse.Output
-- uid: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse.Output*
-  name: Output
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse.html#FoundationaLLM_Common_Models_Orchestration_AzureAIDirectResponse_Output_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse.Output
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.AzureAIDirectResponse.Output
-  nameWithType: AzureAIDirectResponse.Output
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest
   name: CompletionRequest
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html
@@ -10795,12 +10880,821 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.DataSources.SearchServiceDataSource.Configuration
   nameWithType: SearchServiceDataSource.Configuration
-- uid: FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct
+  name: FoundationaLLM.Common.Models.Orchestration.Direct
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.html
+  commentId: N:FoundationaLLM.Common.Models.Orchestration.Direct
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct
+  nameWithType: FoundationaLLM.Common.Models.Orchestration.Direct
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage
+  name: AssistantCompletionMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage
+  nameWithType: AssistantCompletionMessage
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.#ctor
+  name: AssistantCompletionMessage()
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_AssistantCompletionMessage__ctor
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.AssistantCompletionMessage()
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.New()
+  nameWithType: AssistantCompletionMessage.AssistantCompletionMessage()
+  nameWithType.vb: AssistantCompletionMessage.New()
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.#ctor*
+  name: AssistantCompletionMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_AssistantCompletionMessage__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.AssistantCompletionMessage
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.New
+  nameWithType: AssistantCompletionMessage.AssistantCompletionMessage
+  nameWithType.vb: AssistantCompletionMessage.New
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_AssistantCompletionMessage_Name
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.Name
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.Name
+  nameWithType: AssistantCompletionMessage.Name
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_AssistantCompletionMessage_Name_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AssistantCompletionMessage.Name
+  nameWithType: AssistantCompletionMessage.Name
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData
+  name: AzureAICompletionInputData
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData
+  nameWithType: AzureAICompletionInputData
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.InputString
+  name: InputString
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionInputData_InputString
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.InputString
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.InputString
+  nameWithType: AzureAICompletionInputData.InputString
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.InputString*
+  name: InputString
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionInputData_InputString_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.InputString
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.InputString
+  nameWithType: AzureAICompletionInputData.InputString
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.Parameters
+  name: Parameters
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionInputData_Parameters
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.Parameters
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.Parameters
+  nameWithType: AzureAICompletionInputData.Parameters
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.Parameters*
+  name: Parameters
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionInputData_Parameters_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.Parameters
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionInputData.Parameters
+  nameWithType: AzureAICompletionInputData.Parameters
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters
+  name: AzureAICompletionParameters
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters
+  nameWithType: AzureAICompletionParameters
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.DoSample
+  name: DoSample
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_DoSample
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.DoSample
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.DoSample
+  nameWithType: AzureAICompletionParameters.DoSample
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.DoSample*
+  name: DoSample
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_DoSample_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.DoSample
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.DoSample
+  nameWithType: AzureAICompletionParameters.DoSample
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.IgnoreEOS
+  name: IgnoreEOS
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_IgnoreEOS
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.IgnoreEOS
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.IgnoreEOS
+  nameWithType: AzureAICompletionParameters.IgnoreEOS
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.IgnoreEOS*
+  name: IgnoreEOS
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_IgnoreEOS_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.IgnoreEOS
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.IgnoreEOS
+  nameWithType: AzureAICompletionParameters.IgnoreEOS
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.MaxNewTokens
+  name: MaxNewTokens
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_MaxNewTokens
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.MaxNewTokens
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.MaxNewTokens
+  nameWithType: AzureAICompletionParameters.MaxNewTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.MaxNewTokens*
+  name: MaxNewTokens
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_MaxNewTokens_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.MaxNewTokens
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.MaxNewTokens
+  nameWithType: AzureAICompletionParameters.MaxNewTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.ReturnFullText
+  name: ReturnFullText
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_ReturnFullText
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.ReturnFullText
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.ReturnFullText
+  nameWithType: AzureAICompletionParameters.ReturnFullText
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.ReturnFullText*
+  name: ReturnFullText
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_ReturnFullText_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.ReturnFullText
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.ReturnFullText
+  nameWithType: AzureAICompletionParameters.ReturnFullText
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.Temperature
+  name: Temperature
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_Temperature
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.Temperature
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.Temperature
+  nameWithType: AzureAICompletionParameters.Temperature
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.Temperature*
+  name: Temperature
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_Temperature_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.Temperature
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.Temperature
+  nameWithType: AzureAICompletionParameters.Temperature
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopK
+  name: TopK
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_TopK
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopK
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopK
+  nameWithType: AzureAICompletionParameters.TopK
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopK*
+  name: TopK
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_TopK_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopK
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopK
+  nameWithType: AzureAICompletionParameters.TopK
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopP
+  name: TopP
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_TopP
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopP
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopP
+  nameWithType: AzureAICompletionParameters.TopP
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopP*
+  name: TopP
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionParameters_TopP_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopP
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionParameters.TopP
+  nameWithType: AzureAICompletionParameters.TopP
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest
+  name: AzureAICompletionRequest
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest
+  nameWithType: AzureAICompletionRequest
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest.InputData
+  name: InputData
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionRequest_InputData
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest.InputData
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest.InputData
+  nameWithType: AzureAICompletionRequest.InputData
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest.InputData*
+  name: InputData
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionRequest_InputData_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest.InputData
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionRequest.InputData
+  nameWithType: AzureAICompletionRequest.InputData
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse
+  name: AzureAICompletionResponse
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse
+  nameWithType: AzureAICompletionResponse
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse.Output
+  name: Output
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionResponse_Output
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse.Output
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse.Output
+  nameWithType: AzureAICompletionResponse.Output
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse.Output*
+  name: Output
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureAICompletionResponse_Output_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse.Output
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureAICompletionResponse.Output
+  nameWithType: AzureAICompletionResponse.Output
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters
+  name: AzureOpenAICompletionParameters
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters
+  nameWithType: AzureOpenAICompletionParameters
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.BestOf
+  name: BestOf
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_BestOf
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.BestOf
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.BestOf
+  nameWithType: AzureOpenAICompletionParameters.BestOf
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.BestOf*
+  name: BestOf
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_BestOf_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.BestOf
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.BestOf
+  nameWithType: AzureOpenAICompletionParameters.BestOf
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Echo
+  name: Echo
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_Echo
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Echo
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Echo
+  nameWithType: AzureOpenAICompletionParameters.Echo
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Echo*
+  name: Echo
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_Echo_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Echo
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Echo
+  nameWithType: AzureOpenAICompletionParameters.Echo
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.FrequencyPenalty
+  name: FrequencyPenalty
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_FrequencyPenalty
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.FrequencyPenalty
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.FrequencyPenalty
+  nameWithType: AzureOpenAICompletionParameters.FrequencyPenalty
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.FrequencyPenalty*
+  name: FrequencyPenalty
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_FrequencyPenalty_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.FrequencyPenalty
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.FrequencyPenalty
+  nameWithType: AzureOpenAICompletionParameters.FrequencyPenalty
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogProbs
+  name: LogProbs
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_LogProbs
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogProbs
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogProbs
+  nameWithType: AzureOpenAICompletionParameters.LogProbs
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogProbs*
+  name: LogProbs
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_LogProbs_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogProbs
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogProbs
+  nameWithType: AzureOpenAICompletionParameters.LogProbs
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogitBias
+  name: LogitBias
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_LogitBias
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogitBias
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogitBias
+  nameWithType: AzureOpenAICompletionParameters.LogitBias
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogitBias*
+  name: LogitBias
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_LogitBias_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogitBias
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.LogitBias
+  nameWithType: AzureOpenAICompletionParameters.LogitBias
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.MaxTokens
+  name: MaxTokens
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_MaxTokens
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.MaxTokens
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.MaxTokens
+  nameWithType: AzureOpenAICompletionParameters.MaxTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.MaxTokens*
+  name: MaxTokens
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_MaxTokens_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.MaxTokens
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.MaxTokens
+  nameWithType: AzureOpenAICompletionParameters.MaxTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.N
+  name: N
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_N
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.N
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.N
+  nameWithType: AzureOpenAICompletionParameters.N
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.N*
+  name: N
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_N_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.N
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.N
+  nameWithType: AzureOpenAICompletionParameters.N
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.PresencePenalty
+  name: PresencePenalty
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_PresencePenalty
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.PresencePenalty
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.PresencePenalty
+  nameWithType: AzureOpenAICompletionParameters.PresencePenalty
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.PresencePenalty*
+  name: PresencePenalty
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_PresencePenalty_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.PresencePenalty
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.PresencePenalty
+  nameWithType: AzureOpenAICompletionParameters.PresencePenalty
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stop
+  name: Stop
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_Stop
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stop
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stop
+  nameWithType: AzureOpenAICompletionParameters.Stop
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stop*
+  name: Stop
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_Stop_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stop
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stop
+  nameWithType: AzureOpenAICompletionParameters.Stop
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stream
+  name: Stream
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_Stream
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stream
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stream
+  nameWithType: AzureOpenAICompletionParameters.Stream
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stream*
+  name: Stream
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_Stream_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stream
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Stream
+  nameWithType: AzureOpenAICompletionParameters.Stream
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Suffix
+  name: Suffix
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_Suffix
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Suffix
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Suffix
+  nameWithType: AzureOpenAICompletionParameters.Suffix
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Suffix*
+  name: Suffix
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_Suffix_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Suffix
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Suffix
+  nameWithType: AzureOpenAICompletionParameters.Suffix
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Temperature
+  name: Temperature
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_Temperature
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Temperature
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Temperature
+  nameWithType: AzureOpenAICompletionParameters.Temperature
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Temperature*
+  name: Temperature
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_Temperature_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Temperature
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.Temperature
+  nameWithType: AzureOpenAICompletionParameters.Temperature
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.TopP
+  name: TopP
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_TopP
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.TopP
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.TopP
+  nameWithType: AzureOpenAICompletionParameters.TopP
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.TopP*
+  name: TopP
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_TopP_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.TopP
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.TopP
+  nameWithType: AzureOpenAICompletionParameters.TopP
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.User
+  name: User
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_User
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.User
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.User
+  nameWithType: AzureOpenAICompletionParameters.User
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.User*
+  name: User
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionParameters_User_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.User
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionParameters.User
+  nameWithType: AzureOpenAICompletionParameters.User
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest
+  name: AzureOpenAICompletionRequest
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest
+  nameWithType: AzureOpenAICompletionRequest
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Messages
+  name: Messages
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionRequest_Messages
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Messages
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Messages
+  nameWithType: AzureOpenAICompletionRequest.Messages
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Messages*
+  name: Messages
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionRequest_Messages_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Messages
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Messages
+  nameWithType: AzureOpenAICompletionRequest.Messages
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Prompt
+  name: Prompt
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionRequest_Prompt
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Prompt
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Prompt
+  nameWithType: AzureOpenAICompletionRequest.Prompt
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Prompt*
+  name: Prompt
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionRequest_Prompt_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Prompt
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionRequest.Prompt
+  nameWithType: AzureOpenAICompletionRequest.Prompt
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse
+  name: AzureOpenAICompletionResponse
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse
+  nameWithType: AzureOpenAICompletionResponse
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Choices
+  name: Choices
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Choices
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Choices
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Choices
+  nameWithType: AzureOpenAICompletionResponse.Choices
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Choices*
+  name: Choices
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Choices_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Choices
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Choices
+  nameWithType: AzureOpenAICompletionResponse.Choices
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Created
+  name: Created
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Created
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Created
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Created
+  nameWithType: AzureOpenAICompletionResponse.Created
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Created*
+  name: Created
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Created_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Created
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Created
+  nameWithType: AzureOpenAICompletionResponse.Created
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Id
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Id
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Id
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Id
+  nameWithType: AzureOpenAICompletionResponse.Id
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Id*
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Id_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Id
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Id
+  nameWithType: AzureOpenAICompletionResponse.Id
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Model
+  name: Model
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Model
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Model
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Model
+  nameWithType: AzureOpenAICompletionResponse.Model
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Model*
+  name: Model
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Model_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Model
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Model
+  nameWithType: AzureOpenAICompletionResponse.Model
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Object
+  name: Object
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Object
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Object
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Object
+  nameWithType: AzureOpenAICompletionResponse.Object
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Object*
+  name: Object
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Object_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Object
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Object
+  nameWithType: AzureOpenAICompletionResponse.Object
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Usage
+  name: Usage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Usage
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Usage
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Usage
+  nameWithType: AzureOpenAICompletionResponse.Usage
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Usage*
+  name: Usage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponse_Usage_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Usage
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponse.Usage
+  nameWithType: AzureOpenAICompletionResponse.Usage
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice
+  name: AzureOpenAICompletionResponseChoice
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice
+  nameWithType: AzureOpenAICompletionResponseChoice
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.FinishReason
+  name: FinishReason
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponseChoice_FinishReason
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.FinishReason
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.FinishReason
+  nameWithType: AzureOpenAICompletionResponseChoice.FinishReason
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.FinishReason*
+  name: FinishReason
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponseChoice_FinishReason_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.FinishReason
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.FinishReason
+  nameWithType: AzureOpenAICompletionResponseChoice.FinishReason
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Index
+  name: Index
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponseChoice_Index
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Index
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Index
+  nameWithType: AzureOpenAICompletionResponseChoice.Index
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Index*
+  name: Index
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponseChoice_Index_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Index
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Index
+  nameWithType: AzureOpenAICompletionResponseChoice.Index
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.LogProbs
+  name: LogProbs
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponseChoice_LogProbs
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.LogProbs
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.LogProbs
+  nameWithType: AzureOpenAICompletionResponseChoice.LogProbs
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.LogProbs*
+  name: LogProbs
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponseChoice_LogProbs_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.LogProbs
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.LogProbs
+  nameWithType: AzureOpenAICompletionResponseChoice.LogProbs
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Message
+  name: Message
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponseChoice_Message
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Message
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Message
+  nameWithType: AzureOpenAICompletionResponseChoice.Message
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Message*
+  name: Message
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponseChoice_Message_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Message
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Message
+  nameWithType: AzureOpenAICompletionResponseChoice.Message
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Text
+  name: Text
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponseChoice_Text
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Text
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Text
+  nameWithType: AzureOpenAICompletionResponseChoice.Text
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Text*
+  name: Text
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.html#FoundationaLLM_Common_Models_Orchestration_Direct_AzureOpenAICompletionResponseChoice_Text_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Text
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.AzureOpenAICompletionResponseChoice.Text
+  nameWithType: AzureOpenAICompletionResponseChoice.Text
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage
+  name: CompletionMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage
+  nameWithType: CompletionMessage
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Content
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionMessage_Content
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Content
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Content
+  nameWithType: CompletionMessage.Content
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Content*
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionMessage_Content_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Content
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Content
+  nameWithType: CompletionMessage.Content
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Role
+  name: Role
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionMessage_Role
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Role
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Role
+  nameWithType: CompletionMessage.Role
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Role*
+  name: Role
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionMessage_Role_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Role
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.Role
+  nameWithType: CompletionMessage.Role
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage
+  name: CompletionUsage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage
+  nameWithType: CompletionUsage
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.CompletionTokens
+  name: CompletionTokens
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionUsage_CompletionTokens
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.CompletionTokens
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.CompletionTokens
+  nameWithType: CompletionUsage.CompletionTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.CompletionTokens*
+  name: CompletionTokens
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionUsage_CompletionTokens_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.CompletionTokens
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.CompletionTokens
+  nameWithType: CompletionUsage.CompletionTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.PromptTokens
+  name: PromptTokens
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionUsage_PromptTokens
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.PromptTokens
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.PromptTokens
+  nameWithType: CompletionUsage.PromptTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.PromptTokens*
+  name: PromptTokens
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionUsage_PromptTokens_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.PromptTokens
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.PromptTokens
+  nameWithType: CompletionUsage.PromptTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.TotalTokens
+  name: TotalTokens
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionUsage_TotalTokens
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.TotalTokens
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.TotalTokens
+  nameWithType: CompletionUsage.TotalTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.TotalTokens*
+  name: TotalTokens
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionUsage_TotalTokens_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.TotalTokens
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.TotalTokens
+  nameWithType: CompletionUsage.TotalTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.DirectCompletionRequest
   name: DirectCompletionRequest
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest.html
-  commentId: T:FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest
-  fullName: FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.DirectCompletionRequest.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.DirectCompletionRequest
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.DirectCompletionRequest
   nameWithType: DirectCompletionRequest
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias
+  name: LogitBias
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias
+  nameWithType: LogitBias
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.Bias
+  name: Bias
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.html#FoundationaLLM_Common_Models_Orchestration_Direct_LogitBias_Bias
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.Bias
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.Bias
+  nameWithType: LogitBias.Bias
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.Bias*
+  name: Bias
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.html#FoundationaLLM_Common_Models_Orchestration_Direct_LogitBias_Bias_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.Bias
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.Bias
+  nameWithType: LogitBias.Bias
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.TokenId
+  name: TokenId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.html#FoundationaLLM_Common_Models_Orchestration_Direct_LogitBias_TokenId
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.TokenId
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.TokenId
+  nameWithType: LogitBias.TokenId
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.TokenId*
+  name: TokenId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.html#FoundationaLLM_Common_Models_Orchestration_Direct_LogitBias_TokenId_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.TokenId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.TokenId
+  nameWithType: LogitBias.TokenId
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage
+  name: SystemCompletionMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage
+  nameWithType: SystemCompletionMessage
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.#ctor
+  name: SystemCompletionMessage()
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_SystemCompletionMessage__ctor
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.SystemCompletionMessage()
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.New()
+  nameWithType: SystemCompletionMessage.SystemCompletionMessage()
+  nameWithType.vb: SystemCompletionMessage.New()
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.#ctor*
+  name: SystemCompletionMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_SystemCompletionMessage__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.SystemCompletionMessage
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.New
+  nameWithType: SystemCompletionMessage.SystemCompletionMessage
+  nameWithType.vb: SystemCompletionMessage.New
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_SystemCompletionMessage_Name
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.Name
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.Name
+  nameWithType: SystemCompletionMessage.Name
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_SystemCompletionMessage_Name_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.Name
+  nameWithType: SystemCompletionMessage.Name
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage
+  name: ToolCompletionMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage
+  nameWithType: ToolCompletionMessage
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.#ctor
+  name: ToolCompletionMessage()
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_ToolCompletionMessage__ctor
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.ToolCompletionMessage()
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.New()
+  nameWithType: ToolCompletionMessage.ToolCompletionMessage()
+  nameWithType.vb: ToolCompletionMessage.New()
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.#ctor*
+  name: ToolCompletionMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_ToolCompletionMessage__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.ToolCompletionMessage
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.New
+  nameWithType: ToolCompletionMessage.ToolCompletionMessage
+  nameWithType.vb: ToolCompletionMessage.New
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.ToolCallId
+  name: ToolCallId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_ToolCompletionMessage_ToolCallId
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.ToolCallId
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.ToolCallId
+  nameWithType: ToolCompletionMessage.ToolCallId
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.ToolCallId*
+  name: ToolCallId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_ToolCompletionMessage_ToolCallId_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.ToolCallId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.ToolCompletionMessage.ToolCallId
+  nameWithType: ToolCompletionMessage.ToolCallId
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage
+  name: UserCompletionMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage
+  nameWithType: UserCompletionMessage
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.#ctor
+  name: UserCompletionMessage()
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_UserCompletionMessage__ctor
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.UserCompletionMessage()
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.New()
+  nameWithType: UserCompletionMessage.UserCompletionMessage()
+  nameWithType.vb: UserCompletionMessage.New()
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.#ctor*
+  name: UserCompletionMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_UserCompletionMessage__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.UserCompletionMessage
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.New
+  nameWithType: UserCompletionMessage.UserCompletionMessage
+  nameWithType.vb: UserCompletionMessage.New
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_UserCompletionMessage_Name
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.Name
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.Name
+  nameWithType: UserCompletionMessage.Name
+- uid: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_UserCompletionMessage_Name_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.UserCompletionMessage.Name
+  nameWithType: UserCompletionMessage.Name
 - uid: FoundationaLLM.Common.Models.Orchestration.EndpointSettings
   name: EndpointSettings
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.EndpointSettings.html
@@ -10820,6 +11714,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.APIKey
   nameWithType: EndpointSettings.APIKey
+- uid: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.APIVersion
+  name: APIVersion
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.EndpointSettings.html#FoundationaLLM_Common_Models_Orchestration_EndpointSettings_APIVersion
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.EndpointSettings.APIVersion
+  fullName: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.APIVersion
+  nameWithType: EndpointSettings.APIVersion
+- uid: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.APIVersion*
+  name: APIVersion
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.EndpointSettings.html#FoundationaLLM_Common_Models_Orchestration_EndpointSettings_APIVersion_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.EndpointSettings.APIVersion
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.APIVersion
+  nameWithType: EndpointSettings.APIVersion
 - uid: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.AuthenticationType
   name: AuthenticationType
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.EndpointSettings.html#FoundationaLLM_Common_Models_Orchestration_EndpointSettings_AuthenticationType
@@ -10846,70 +11753,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.Endpoint
   nameWithType: EndpointSettings.Endpoint
-- uid: FoundationaLLM.Common.Models.Orchestration.InputData
-  name: InputData
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InputData.html
-  commentId: T:FoundationaLLM.Common.Models.Orchestration.InputData
-  fullName: FoundationaLLM.Common.Models.Orchestration.InputData
-  nameWithType: InputData
-- uid: FoundationaLLM.Common.Models.Orchestration.InputData.InputString
-  name: InputString
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InputData.html#FoundationaLLM_Common_Models_Orchestration_InputData_InputString
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.InputData.InputString
-  fullName: FoundationaLLM.Common.Models.Orchestration.InputData.InputString
-  nameWithType: InputData.InputString
-- uid: FoundationaLLM.Common.Models.Orchestration.InputData.InputString*
-  name: InputString
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InputData.html#FoundationaLLM_Common_Models_Orchestration_InputData_InputString_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.InputData.InputString
+- uid: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.OperationType
+  name: OperationType
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.EndpointSettings.html#FoundationaLLM_Common_Models_Orchestration_EndpointSettings_OperationType
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.EndpointSettings.OperationType
+  fullName: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.OperationType
+  nameWithType: EndpointSettings.OperationType
+- uid: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.OperationType*
+  name: OperationType
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.EndpointSettings.html#FoundationaLLM_Common_Models_Orchestration_EndpointSettings_OperationType_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.EndpointSettings.OperationType
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.InputData.InputString
-  nameWithType: InputData.InputString
-- uid: FoundationaLLM.Common.Models.Orchestration.InputData.Parameters
-  name: Parameters
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InputData.html#FoundationaLLM_Common_Models_Orchestration_InputData_Parameters
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.InputData.Parameters
-  fullName: FoundationaLLM.Common.Models.Orchestration.InputData.Parameters
-  nameWithType: InputData.Parameters
-- uid: FoundationaLLM.Common.Models.Orchestration.InputData.Parameters*
-  name: Parameters
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InputData.html#FoundationaLLM_Common_Models_Orchestration_InputData_Parameters_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.InputData.Parameters
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.InputData.Parameters
-  nameWithType: InputData.Parameters
-- uid: FoundationaLLM.Common.Models.Orchestration.InputString
-  name: InputString
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InputString.html
-  commentId: T:FoundationaLLM.Common.Models.Orchestration.InputString
-  fullName: FoundationaLLM.Common.Models.Orchestration.InputString
-  nameWithType: InputString
-- uid: FoundationaLLM.Common.Models.Orchestration.InputString.Content
-  name: Content
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InputString.html#FoundationaLLM_Common_Models_Orchestration_InputString_Content
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.InputString.Content
-  fullName: FoundationaLLM.Common.Models.Orchestration.InputString.Content
-  nameWithType: InputString.Content
-- uid: FoundationaLLM.Common.Models.Orchestration.InputString.Content*
-  name: Content
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InputString.html#FoundationaLLM_Common_Models_Orchestration_InputString_Content_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.InputString.Content
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.InputString.Content
-  nameWithType: InputString.Content
-- uid: FoundationaLLM.Common.Models.Orchestration.InputString.Role
-  name: Role
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InputString.html#FoundationaLLM_Common_Models_Orchestration_InputString_Role
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.InputString.Role
-  fullName: FoundationaLLM.Common.Models.Orchestration.InputString.Role
-  nameWithType: InputString.Role
-- uid: FoundationaLLM.Common.Models.Orchestration.InputString.Role*
-  name: Role
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InputString.html#FoundationaLLM_Common_Models_Orchestration_InputString_Role_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.InputString.Role
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.InputString.Role
-  nameWithType: InputString.Role
+  fullName: FoundationaLLM.Common.Models.Orchestration.EndpointSettings.OperationType
+  nameWithType: EndpointSettings.OperationType
 - uid: FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest
   name: InternalContextCompletionRequest
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.html
@@ -11141,6 +11997,12 @@ references:
   commentId: F:FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureAIDirect
   fullName: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureAIDirect
   nameWithType: LLMOrchestrationService.AzureAIDirect
+- uid: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureOpenAIDirect
+  name: AzureOpenAIDirect
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.html#FoundationaLLM_Common_Models_Orchestration_LLMOrchestrationService_AzureOpenAIDirect
+  commentId: F:FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureOpenAIDirect
+  fullName: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureOpenAIDirect
+  nameWithType: LLMOrchestrationService.AzureOpenAIDirect
 - uid: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.LangChain
   name: LangChain
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.html#FoundationaLLM_Common_Models_Orchestration_LLMOrchestrationService_LangChain
@@ -11243,19 +12105,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.LanguageModel
   nameWithType: LegacyCompletionRequest.LanguageModel
-- uid: FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.MessageHistory
-  name: MessageHistory
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_LegacyCompletionRequest_MessageHistory
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.MessageHistory
-  fullName: FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.MessageHistory
-  nameWithType: LegacyCompletionRequest.MessageHistory
-- uid: FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.MessageHistory*
-  name: MessageHistory
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_LegacyCompletionRequest_MessageHistory_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.MessageHistory
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.MessageHistory
-  nameWithType: LegacyCompletionRequest.MessageHistory
 - uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest
   name: OrchestrationRequest
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html
@@ -11372,103 +12221,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.Orchestrator
   nameWithType: OrchestrationSettings.Orchestrator
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters
-  name: Parameters
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html
-  commentId: T:FoundationaLLM.Common.Models.Orchestration.Parameters
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters
-  nameWithType: Parameters
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.DoSample
-  name: DoSample
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_DoSample
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.Parameters.DoSample
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.DoSample
-  nameWithType: Parameters.DoSample
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.DoSample*
-  name: DoSample
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_DoSample_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Parameters.DoSample
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.DoSample
-  nameWithType: Parameters.DoSample
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.IgnoreEOS
-  name: IgnoreEOS
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_IgnoreEOS
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.Parameters.IgnoreEOS
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.IgnoreEOS
-  nameWithType: Parameters.IgnoreEOS
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.IgnoreEOS*
-  name: IgnoreEOS
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_IgnoreEOS_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Parameters.IgnoreEOS
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.IgnoreEOS
-  nameWithType: Parameters.IgnoreEOS
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.MaxNewTokens
-  name: MaxNewTokens
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_MaxNewTokens
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.Parameters.MaxNewTokens
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.MaxNewTokens
-  nameWithType: Parameters.MaxNewTokens
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.MaxNewTokens*
-  name: MaxNewTokens
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_MaxNewTokens_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Parameters.MaxNewTokens
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.MaxNewTokens
-  nameWithType: Parameters.MaxNewTokens
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.ReturnFullText
-  name: ReturnFullText
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_ReturnFullText
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.Parameters.ReturnFullText
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.ReturnFullText
-  nameWithType: Parameters.ReturnFullText
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.ReturnFullText*
-  name: ReturnFullText
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_ReturnFullText_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Parameters.ReturnFullText
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.ReturnFullText
-  nameWithType: Parameters.ReturnFullText
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.Temperature
-  name: Temperature
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_Temperature
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.Parameters.Temperature
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.Temperature
-  nameWithType: Parameters.Temperature
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.Temperature*
-  name: Temperature
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_Temperature_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Parameters.Temperature
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.Temperature
-  nameWithType: Parameters.Temperature
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.TopK
-  name: TopK
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_TopK
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.Parameters.TopK
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.TopK
-  nameWithType: Parameters.TopK
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.TopK*
-  name: TopK
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_TopK_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Parameters.TopK
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.TopK
-  nameWithType: Parameters.TopK
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.TopP
-  name: TopP
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_TopP
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.Parameters.TopP
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.TopP
-  nameWithType: Parameters.TopP
-- uid: FoundationaLLM.Common.Models.Orchestration.Parameters.TopP*
-  name: TopP
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Parameters.html#FoundationaLLM_Common_Models_Orchestration_Parameters_TopP_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Parameters.TopP
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.Parameters.TopP
-  nameWithType: Parameters.TopP
 - uid: FoundationaLLM.Common.Models.Orchestration.SummaryRequest
   name: SummaryRequest
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.SummaryRequest.html
@@ -11717,20 +12469,14 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.New
   nameWithType: ResourcePath.ResourcePath
   nameWithType.vb: ResourcePath.New
-- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.GetObjectId
-  name: GetObjectId()
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html#FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_GetObjectId
-  commentId: M:FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.GetObjectId
-  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.GetObjectId()
-  nameWithType: ResourcePath.GetObjectId()
 - uid: FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.GetObjectId(System.String,System.String)
-  name: GetObjectId(string, string)
+  name: GetObjectId(string?, string?)
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html#FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_GetObjectId_System_String_System_String_
   commentId: M:FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.GetObjectId(System.String,System.String)
   name.vb: GetObjectId(String, String)
-  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.GetObjectId(string, string)
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.GetObjectId(string?, string?)
   fullName.vb: FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.GetObjectId(String, String)
-  nameWithType: ResourcePath.GetObjectId(string, string)
+  nameWithType: ResourcePath.GetObjectId(string?, string?)
   nameWithType.vb: ResourcePath.GetObjectId(String, String)
 - uid: FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.GetObjectId*
   name: GetObjectId
@@ -16737,12 +17483,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetAgents
   nameWithType: OrchestrationController.GetAgents
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
-  name: GetCompletion(DirectCompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_DirectCompletionRequest_
-  commentId: M:FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
-  nameWithType: OrchestrationController.GetCompletion(DirectCompletionRequest)
+- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: OrchestrationController.GetCompletion(CompletionRequest)
 - uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetCompletion_
@@ -17101,12 +17847,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync
   nameWithType: ICoreService.GetChatSessionMessagesAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
-  name: GetCompletionAsync(DirectCompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_DirectCompletionRequest_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
-  nameWithType: ICoreService.GetCompletionAsync(DirectCompletionRequest)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletionAsync(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: ICoreService.GetCompletionAsync(CompletionRequest)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync*
   name: GetCompletionAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_
@@ -17858,12 +18604,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync
   nameWithType: CoreService.GetChatSessionMessagesAsync
-- uid: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
-  name: GetCompletionAsync(DirectCompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_DirectCompletionRequest_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
-  fullName: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.DirectCompletionRequest)
-  nameWithType: CoreService.GetCompletionAsync(DirectCompletionRequest)
+- uid: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletionAsync(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CoreService.GetCompletionAsync(CompletionRequest)
 - uid: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync*
   name: GetCompletionAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionAsync_

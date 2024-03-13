@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class EndpointConfigurationKeys | FoundationaLLM </title>
+      <title>Class SystemCompletionMessage | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class EndpointConfigurationKeys | FoundationaLLM ">
+      <meta name="title" content="Class SystemCompletionMessage | FoundationaLLM ">
       
-      <meta name="description" content="Contains constants of the keys for endpoint configuration settings.">
+      <meta name="description" content="System input message for a direct orchestration request.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Constants_EndpointConfigurationKeys.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Constants.EndpointConfigurationKeys%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_Orchestration_Direct_SystemCompletionMessage.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,25 +84,25 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Common.Constants.EndpointConfigurationKeys">
+        <article data-uid="FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage">
 
 
 
-  <h1 id="FoundationaLLM_Common_Constants_EndpointConfigurationKeys" data-uid="FoundationaLLM.Common.Constants.EndpointConfigurationKeys" class="text-break">
-Class EndpointConfigurationKeys  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/EndpointConfigurationKeys.cs/#L6"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Common_Models_Orchestration_Direct_SystemCompletionMessage" data-uid="FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage" class="text-break">
+Class SystemCompletionMessage  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/Direct/SystemCompletionMessage.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Constants.html">Constants</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.html">Orchestration</a>.<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Direct.html">Direct</a></dd></dl>
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Contains constants of the keys for endpoint configuration settings.</p>
+  <div class="markdown summary"><p>System input message for a direct orchestration request.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class EndpointConfigurationKeys</code></pre>
+    <pre><code class="lang-csharp hljs">public class SystemCompletionMessage : CompletionMessage</code></pre>
   </div>
 
 
@@ -112,7 +112,8 @@ Class EndpointConfigurationKeys  <a class="header-action link-secondary" title="
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">EndpointConfigurationKeys</span></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.html">CompletionMessage</a></div>
+      <div><span class="xref">SystemCompletionMessage</span></div>
     </dd>
   </dl>
 
@@ -121,6 +122,12 @@ Class EndpointConfigurationKeys  <a class="header-action link-secondary" title="
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionMessage_Role">CompletionMessage.Role</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Direct.CompletionMessage.html#FoundationaLLM_Common_Models_Orchestration_Direct_CompletionMessage_Content">CompletionMessage.Content</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -144,37 +151,40 @@ Class EndpointConfigurationKeys  <a class="header-action link-secondary" title="
     </div>
   </dd></dl>
 
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="FoundationaLLM.Core.Utils.ObjectExtensions.html#FoundationaLLM_Core_Utils_ObjectExtensions_GetPropertyValues_System_Object_System_Collections_Generic_List_System_String__">ObjectExtensions.GetPropertyValues(object, List&lt;string&gt;)</a>
+  </div>
+  </dd></dl>
 
 
 
 
 
-  <h2 class="section" id="fields">Fields
+  <h2 class="section" id="constructors">Constructors
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Models_Orchestration_Direct_SystemCompletionMessage__ctor_" data-uid="FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Common_Constants_EndpointConfigurationKeys_APIKey" data-uid="FoundationaLLM.Common.Constants.EndpointConfigurationKeys.APIKey">
-  APIKey
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/EndpointConfigurationKeys.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_Direct_SystemCompletionMessage__ctor" data-uid="FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.#ctor">
+  SystemCompletionMessage()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/Direct/SystemCompletionMessage.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The API Key configuration setting.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.html">SystemCompletionMessage</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string APIKey = &quot;api_key&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public SystemCompletionMessage()</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -184,125 +194,37 @@ Class EndpointConfigurationKeys  <a class="header-action link-secondary" title="
 
 
 
+  <h2 class="section" id="properties">Properties
+</h2>
 
-  <h3 id="FoundationaLLM_Common_Constants_EndpointConfigurationKeys_APIVersion" data-uid="FoundationaLLM.Common.Constants.EndpointConfigurationKeys.APIVersion">
-  APIVersion
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/EndpointConfigurationKeys.cs/#L22"><i class="bi bi-code-slash"></i></a>
+
+  <a id="FoundationaLLM_Common_Models_Orchestration_Direct_SystemCompletionMessage_Name_" data-uid="FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.Name*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_Direct_SystemCompletionMessage_Name" data-uid="FoundationaLLM.Common.Models.Orchestration.Direct.SystemCompletionMessage.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/Direct/SystemCompletionMessage.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The API Version configuration setting.</p>
+  <div class="markdown level1 summary"><p>An optional name for the participant. Provides the model information
+to differentiate between participants of the same role.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string APIVersion = &quot;api_version&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;name&quot;)]
+[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+public string? Name { get; set; }</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="FoundationaLLM_Common_Constants_EndpointConfigurationKeys_AuthenticationType" data-uid="FoundationaLLM.Common.Constants.EndpointConfigurationKeys.AuthenticationType">
-  AuthenticationType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/EndpointConfigurationKeys.cs/#L28"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The type of authentication to use for connecting to the endpoint.
-This value with be either key or token.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string AuthenticationType = &quot;authentication_type&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="FoundationaLLM_Common_Constants_EndpointConfigurationKeys_Endpoint" data-uid="FoundationaLLM.Common.Constants.EndpointConfigurationKeys.Endpoint">
-  Endpoint
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/EndpointConfigurationKeys.cs/#L12"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The API Endpoint configuration setting.
-This value should be a URI representing the endpoint of the API.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string Endpoint = &quot;endpoint&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="FoundationaLLM_Common_Constants_EndpointConfigurationKeys_OperationType" data-uid="FoundationaLLM.Common.Constants.EndpointConfigurationKeys.OperationType">
-  OperationType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/EndpointConfigurationKeys.cs/#L34"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The type of operation the endpoint is performing.
-This value should be completion, chat-completion, or embedding.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string OperationType = &quot;operation_type&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
 
 
 
@@ -315,7 +237,7 @@ This value should be completion, chat-completion, or embedding.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/EndpointConfigurationKeys.cs/#L6" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/Direct/SystemCompletionMessage.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 
