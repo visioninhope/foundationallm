@@ -207,7 +207,7 @@ Class AzureKeyVaultService  <a class="header-action link-secondary" title="View 
 
   <h3 id="FoundationaLLM_Common_Services_AzureKeyVaultService_CheckKeyVaultSecretsExistAsync_System_Collections_Generic_IEnumerable_System_String__" data-uid="FoundationaLLM.Common.Services.AzureKeyVaultService.CheckKeyVaultSecretsExistAsync(System.Collections.Generic.IEnumerable{System.String})">
   CheckKeyVaultSecretsExistAsync(IEnumerable&lt;string?&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureKeyVaultService.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureKeyVaultService.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a map of secret names and whether they exist in Key Vault.</p>
@@ -245,7 +245,7 @@ Class AzureKeyVaultService  <a class="header-action link-secondary" title="View 
 
   <h3 id="FoundationaLLM_Common_Services_AzureKeyVaultService_CheckSecretExistsAsync_System_String_" data-uid="FoundationaLLM.Common.Services.AzureKeyVaultService.CheckSecretExistsAsync(System.String)">
   CheckSecretExistsAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureKeyVaultService.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureKeyVaultService.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns whether a secret exists in Key Vault.</p>
@@ -266,6 +266,44 @@ Class AzureKeyVaultService  <a class="header-action link-secondary" title="View 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Services_AzureKeyVaultService_GetSecretValue_" data-uid="FoundationaLLM.Common.Services.AzureKeyVaultService.GetSecretValue*"></a>
+
+  <h3 id="FoundationaLLM_Common_Services_AzureKeyVaultService_GetSecretValue_System_String_" data-uid="FoundationaLLM.Common.Services.AzureKeyVaultService.GetSecretValue(System.String)">
+  GetSecretValue(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureKeyVaultService.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the value of a secret from Key Vault.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? GetSecretValue(string secretName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>secretName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the secret whose value you wish to retrieve.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -321,7 +359,7 @@ Class AzureKeyVaultService  <a class="header-action link-secondary" title="View 
 
   <h3 id="FoundationaLLM_Common_Services_AzureKeyVaultService_SetSecretValueAsync_System_String_System_String_" data-uid="FoundationaLLM.Common.Services.AzureKeyVaultService.SetSecretValueAsync(System.String,System.String)">
   SetSecretValueAsync(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureKeyVaultService.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureKeyVaultService.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sets the value of a secret in Key Vault.</p>

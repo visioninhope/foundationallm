@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_AgentFactory_Core_Services_AzureAIDirectService" data-uid="FoundationaLLM.AgentFactory.Core.Services.AzureAIDirectService" class="text-break">
-Class AzureAIDirectService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/AzureAIDirectService.cs/#L24"><i class="bi bi-code-slash"></i></a>
+Class AzureAIDirectService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/AzureAIDirectService.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -169,9 +169,9 @@ Class AzureAIDirectService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_AgentFactory_Core_Services_AzureAIDirectService__ctor_" data-uid="FoundationaLLM.AgentFactory.Core.Services.AzureAIDirectService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_AgentFactory_Core_Services_AzureAIDirectService__ctor_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Services_AzureAIDirectService__Microsoft_Extensions_Configuration_IConfiguration_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__" data-uid="FoundationaLLM.AgentFactory.Core.Services.AzureAIDirectService.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Services.AzureAIDirectService},Microsoft.Extensions.Configuration.IConfiguration,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})">
-  AzureAIDirectService(ILogger&lt;AzureAIDirectService&gt;, IConfiguration, IHttpClientFactoryService, IEnumerable&lt;IResourceProviderService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/AzureAIDirectService.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_AgentFactory_Core_Services_AzureAIDirectService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_AgentFactory_Core_Services_AzureAIDirectService__Microsoft_Extensions_Configuration_IConfiguration_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__" data-uid="FoundationaLLM.AgentFactory.Core.Services.AzureAIDirectService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.AgentFactory.Core.Services.AzureAIDirectService},Microsoft.Extensions.Configuration.IConfiguration,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})">
+  AzureAIDirectService(ICallContext, ILogger&lt;AzureAIDirectService&gt;, IConfiguration, IHttpClientFactoryService, IEnumerable&lt;IResourceProviderService&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/AzureAIDirectService.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The Azure AI direct orchestration service.</p>
@@ -179,11 +179,14 @@ Class AzureAIDirectService  <a class="header-action link-secondary" title="View 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AzureAIDirectService(ILogger&lt;AzureAIDirectService&gt; logger, IConfiguration configuration, IHttpClientFactoryService httpClientFactoryService, IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices)</code></pre>
+    <pre><code class="lang-csharp hljs">public AzureAIDirectService(ICallContext callContext, ILogger&lt;AzureAIDirectService&gt; logger, IConfiguration configuration, IHttpClientFactoryService httpClientFactoryService, IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>callContext</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a> providing details about the call context.</p>
+</dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.AgentFactory.Core.Services.AzureAIDirectService.html">AzureAIDirectService</a>&gt;</dt>
     <dd><p>The logger used for logging.</p>
 </dd>
@@ -217,7 +220,7 @@ Class AzureAIDirectService  <a class="header-action link-secondary" title="View 
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Services_AzureAIDirectService_IsInitialized" data-uid="FoundationaLLM.AgentFactory.Core.Services.AzureAIDirectService.IsInitialized">
   IsInitialized
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/AzureAIDirectService.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/AzureAIDirectService.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Flag indicating if the orchestration service has been initialized.</p>
@@ -253,7 +256,7 @@ Class AzureAIDirectService  <a class="header-action link-secondary" title="View 
 
   <h3 id="FoundationaLLM_AgentFactory_Core_Services_AzureAIDirectService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.AgentFactory.Core.Services.AzureAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
   GetCompletion(LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/AzureAIDirectService.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/AzureAIDirectService.cs/#L44"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Method for retrieving a completion from the orchestration service.</p>
@@ -291,7 +294,7 @@ Class AzureAIDirectService  <a class="header-action link-secondary" title="View 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/AzureAIDirectService.cs/#L24" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AgentFactory/Services/AzureAIDirectService.cs/#L25" class="edit-link">Edit this page</a>
         </div>
 
 

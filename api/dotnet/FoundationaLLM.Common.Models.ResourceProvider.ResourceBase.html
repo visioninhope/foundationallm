@@ -121,6 +121,8 @@ Class ResourceBase  <a class="header-action link-secondary" title="View source" 
   <dl class="typelist derived">
     <dt>Derived</dt>
     <dd>
+      <div><a class="xref" href="FoundationaLLM.Authorization.Models.RoleAssignment.html">RoleAssignment</a></div>
+      <div><a class="xref" href="FoundationaLLM.Authorization.Models.RoleDefinition.html">RoleDefinition</a></div>
       <div><a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentBase.html">AgentBase</a></div>
       <div><a class="xref" href="FoundationaLLM.DataSource.Models.DataSourceBase.html">DataSourceBase</a></div>
       <div><a class="xref" href="FoundationaLLM.Prompt.Models.Metadata.PromptBase.html">PromptBase</a></div>
@@ -132,10 +134,10 @@ Class ResourceBase  <a class="header-action link-secondary" title="View source" 
     <dt>Inherited Members</dt>
     <dd>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceName_Name">ResourceName.Name</a>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceName_Type">ResourceName.Type</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceName_Type">ResourceName.Type</a>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceName_Name">ResourceName.Name</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -176,11 +178,79 @@ Class ResourceBase  <a class="header-action link-secondary" title="View source" 
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_CreatedBy_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.CreatedBy*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_CreatedBy" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.CreatedBy">
+  CreatedBy
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The entity who created the security role definition.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;created_by&quot;)]
+[JsonPropertyOrder(82)]
+public string? CreatedBy { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_CreatedOn_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.CreatedOn*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_CreatedOn" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.CreatedOn">
+  CreatedOn
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The time at which the security role definition was created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;created_on&quot;)]
+[JsonPropertyOrder(80)]
+public DateTimeOffset CreatedOn { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Deleted_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Deleted*"></a>
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Deleted" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Deleted">
   Deleted
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L62"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Indicates whether the resource has been logically deleted.</p>
@@ -189,8 +259,8 @@ Class ResourceBase  <a class="header-action link-secondary" title="View source" 
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;deleted&quot;)]
-[JsonPropertyOrder(-3)]
-public bool Deleted { get; set; }</code></pre>
+[JsonPropertyOrder(100)]
+public virtual bool Deleted { get; set; }</code></pre>
   </div>
 
 
@@ -214,7 +284,7 @@ public bool Deleted { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_Description" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.Description">
   Description
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The description of the resource.</p>
@@ -223,8 +293,42 @@ public bool Deleted { get; set; }</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;description&quot;)]
-[JsonPropertyOrder(-3)]
+[JsonPropertyOrder(-2)]
 public string? Description { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_DisplayName_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.DisplayName*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_DisplayName" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.DisplayName">
+  DisplayName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The display name of the resource.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;display_name&quot;)]
+[JsonPropertyOrder(-3)]
+public string? DisplayName { get; set; }</code></pre>
   </div>
 
 
@@ -268,6 +372,74 @@ public string? ObjectId { get; set; }</code></pre>
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_UpdatedBy_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.UpdatedBy*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_UpdatedBy" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.UpdatedBy">
+  UpdatedBy
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The entity who last updated the security role definition.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;updated_by&quot;)]
+[JsonPropertyOrder(83)]
+public string? UpdatedBy { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_UpdatedOn_" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.UpdatedOn*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_ResourceProvider_ResourceBase_UpdatedOn" data-uid="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.UpdatedOn">
+  UpdatedOn
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProvider/ResourceBase.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The time at which the security role definition was last updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;updated_on&quot;)]
+[JsonPropertyOrder(81)]
+public DateTimeOffset UpdatedOn { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a></dt>
     <dd></dd>
   </dl>
 

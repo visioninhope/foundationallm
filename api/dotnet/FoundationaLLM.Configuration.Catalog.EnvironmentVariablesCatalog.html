@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Configuration_Catalog_EnvironmentVariablesCatalog" data-uid="FoundationaLLM.Configuration.Catalog.EnvironmentVariablesCatalog" class="text-break">
-Class EnvironmentVariablesCatalog  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Configuration/Catalog/EnvironmentVariablesCatalog.cs/#L14"><i class="bi bi-code-slash"></i></a>
+Class EnvironmentVariablesCatalog  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Configuration/Catalog/EnvironmentVariablesCatalog.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -155,9 +155,9 @@ Class EnvironmentVariablesCatalog  <a class="header-action link-secondary" title
 
   <a id="FoundationaLLM_Configuration_Catalog_EnvironmentVariablesCatalog_GetRequiredEnvironmentVariables_" data-uid="FoundationaLLM.Configuration.Catalog.EnvironmentVariablesCatalog.GetRequiredEnvironmentVariables*"></a>
 
-  <h3 id="FoundationaLLM_Configuration_Catalog_EnvironmentVariablesCatalog_GetRequiredEnvironmentVariables" data-uid="FoundationaLLM.Configuration.Catalog.EnvironmentVariablesCatalog.GetRequiredEnvironmentVariables">
-  GetRequiredEnvironmentVariables()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Configuration/Catalog/EnvironmentVariablesCatalog.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Configuration_Catalog_EnvironmentVariablesCatalog_GetRequiredEnvironmentVariables_System_String_" data-uid="FoundationaLLM.Configuration.Catalog.EnvironmentVariablesCatalog.GetRequiredEnvironmentVariables(System.String)">
+  GetRequiredEnvironmentVariables(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Configuration/Catalog/EnvironmentVariablesCatalog.cs/#L36"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the required environment variables.</p>
@@ -165,9 +165,15 @@ Class EnvironmentVariablesCatalog  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;EnvironmentVariableEntry&gt; GetRequiredEnvironmentVariables()</code></pre>
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;EnvironmentVariableEntry&gt; GetRequiredEnvironmentVariables(string serviceName = &quot;&quot;)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>serviceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Optional service name. When not specified, the default environment variables list is returned.</p>
+</dd>
+  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
@@ -189,7 +195,7 @@ Class EnvironmentVariablesCatalog  <a class="header-action link-secondary" title
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Configuration/Catalog/EnvironmentVariablesCatalog.cs/#L14" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Configuration/Catalog/EnvironmentVariablesCatalog.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

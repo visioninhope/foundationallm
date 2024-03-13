@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class DataSourceResourceProviderService | FoundationaLLM ">
       
-      
+      <meta name="description" content="Implements the FoundationaLLM.DataSource resource provider.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService" class="text-break">
-Class DataSourceResourceProviderService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L24"><i class="bi bi-code-slash"></i></a>
+Class DataSourceResourceProviderService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,7 +97,8 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
   <dl><dt>Assembly</dt><dd>FoundationaLLM.DataSource.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Implements the FoundationaLLM.DataSource resource provider.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -129,6 +130,9 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
     <dt>Inherited Members</dt>
     <dd>
     <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__authorizationService">ResourceProviderServiceBase._authorizationService</a>
+    </div>
+    <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__storageService">ResourceProviderServiceBase._storageService</a>
     </div>
     <div>
@@ -156,67 +160,25 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_IsInitialized">ResourceProviderServiceBase.IsInitialized</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleGetAsync_System_String_">ResourceProviderServiceBase.HandleGetAsync(string)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleGetAsync_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase.HandleGetAsync(string, UnifiedUserIdentity)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandlePostAsync_System_String_System_String_">ResourceProviderServiceBase.HandlePostAsync(string, string)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandlePostAsync_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase.HandlePostAsync(string, string, UnifiedUserIdentity)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleDeleteAsync_System_String_">ResourceProviderServiceBase.HandleDeleteAsync(string)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResources__1_System_String_">ResourceProviderServiceBase.GetResources&lt;T&gt;(string)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsync__1_System_String_">ResourceProviderServiceBase.GetResourcesAsync&lt;T&gt;(string)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleDeleteAsync_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase.HandleDeleteAsync(string, UnifiedUserIdentity)</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResource__1_System_String_">ResourceProviderServiceBase.GetResource&lt;T&gt;(string)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceAsync__1_System_String_">ResourceProviderServiceBase.GetResourceAsync&lt;T&gt;(string)</a>
-    </div>
-    <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__1_System_String___0_">ResourceProviderServiceBase.UpsertResourceAsync&lt;T&gt;(string, T)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResource__1_System_String___0_">ResourceProviderServiceBase.UpsertResource&lt;T&gt;(string, T)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_">ResourceProviderServiceBase.GetResourceInternal&lt;T&gt;(ResourcePath)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResourceAsync__1_System_String_">ResourceProviderServiceBase.DeleteResourceAsync&lt;T&gt;(string)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResource__1_System_String_">ResourceProviderServiceBase.DeleteResource&lt;T&gt;(string)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_ExecuteActionInternal_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__">ResourceProviderServiceBase.ExecuteActionInternal(List&lt;ResourceTypeInstance&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__">ResourceProviderServiceBase.GetResourcesInternal&lt;T&gt;(List&lt;ResourceTypeInstance&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsyncInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__">ResourceProviderServiceBase.GetResourcesAsyncInternal&lt;T&gt;(List&lt;ResourceTypeInstance&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__">ResourceProviderServiceBase.GetResourceInternal&lt;T&gt;(List&lt;ResourceTypeInstance&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceAsyncInternal__1_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__">ResourceProviderServiceBase.GetResourceAsyncInternal&lt;T&gt;(List&lt;ResourceTypeInstance&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResource__1_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance____0_">ResourceProviderServiceBase.UpsertResource&lt;T&gt;(List&lt;ResourceTypeInstance&gt;, T)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__1_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance____0_">ResourceProviderServiceBase.UpsertResourceAsync&lt;T&gt;(List&lt;ResourceTypeInstance&gt;, T)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResource__1_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__">ResourceProviderServiceBase.DeleteResource&lt;T&gt;(List&lt;ResourceTypeInstance&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResourceAsync__1_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__">ResourceProviderServiceBase.DeleteResourceAsync&lt;T&gt;(List&lt;ResourceTypeInstance&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetObjectId_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__">ResourceProviderServiceBase.GetObjectId(List&lt;ResourceTypeInstance&gt;)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__1_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath___0_">ResourceProviderServiceBase.UpsertResourceAsync&lt;T&gt;(ResourcePath, T)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -259,30 +221,39 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
   <a id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService__ctor_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,Microsoft.Extensions.Logging.ILoggerFactory)">
-  DataSourceResourceProviderService(IOptions&lt;InstanceSettings&gt;, IStorageService, IEventService, IResourceValidatorFactory, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IAuthorizationService_FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IAuthorizationService,FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,Microsoft.Extensions.Logging.ILoggerFactory)">
+  DataSourceResourceProviderService(IOptions&lt;InstanceSettings&gt;, IAuthorizationService, IStorageService, IEventService, IResourceValidatorFactory, ILoggerFactory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Implements the FoundationaLLM.DataSource resource provider.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DataSourceResourceProviderService(IOptions&lt;InstanceSettings&gt; instanceOptions, IStorageService storageService, IEventService eventService, IResourceValidatorFactory resourceValidatorFactory, ILoggerFactory loggerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public DataSourceResourceProviderService(IOptions&lt;InstanceSettings&gt; instanceOptions, IAuthorizationService authorizationService, IStorageService storageService, IEventService eventService, IResourceValidatorFactory resourceValidatorFactory, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>instanceOptions</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.html">InstanceSettings</a>&gt;</dt>
-    <dd></dd>
+    <dd><p>The options providing the <a class="xref" href="FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.html">InstanceSettings</a> with instance settings.</p>
+</dd>
+    <dt><code>authorizationService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IAuthorizationService.html">IAuthorizationService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IAuthorizationService.html">IAuthorizationService</a> providing authorization services.</p>
+</dd>
     <dt><code>storageService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a></dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a> providing storage services.</p>
+</dd>
     <dt><code>eventService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IEventService.html">IEventService</a></dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IEventService.html">IEventService</a> providing event services.</p>
+</dd>
     <dt><code>resourceValidatorFactory</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.html">IResourceValidatorFactory</a></dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.html">IResourceValidatorFactory</a> providing the factory to create resource validators.</p>
+</dd>
     <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a> used to provide loggers for logging.</p>
+</dd>
   </dl>
 
 
@@ -304,7 +275,7 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService__name" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService._name">
   _name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the resource provider. Must be overridden in derived classes.</p>
@@ -338,9 +309,9 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
   <a id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_DeleteResourceAsync_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.DeleteResourceAsync*"></a>
 
-  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_DeleteResourceAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.DeleteResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})">
-  DeleteResourceAsync(List&lt;ResourceTypeInstance&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L270"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_DeleteResourceAsync_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)">
+  DeleteResourceAsync(ResourcePath)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L258"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.</p>
@@ -348,13 +319,13 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override Task DeleteResourceAsync(List&lt;ResourceTypeInstance&gt; instances)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override Task DeleteResourceAsync(ResourcePath resourcePath)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>instances</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html">ResourceTypeInstance</a>&gt;</dt>
-    <dd><p>The list of <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html">ResourceTypeInstance</a> objects parsed from the resource path.</p>
+    <dt><code>resourcePath</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html">ResourcePath</a></dt>
+    <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html">ResourcePath</a> containing information about the resource path.</p>
 </dd>
   </dl>
 
@@ -376,9 +347,9 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
   <a id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_ExecuteActionAsync_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.ExecuteActionAsync*"></a>
 
-  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_ExecuteActionAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__System_String_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.ExecuteActionAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance},System.String)">
-  ExecuteActionAsync(List&lt;ResourceTypeInstance&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L233"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_ExecuteActionAsync_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_System_String_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath,System.String)">
+  ExecuteActionAsync(ResourcePath, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L221"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of ExecuteActionAsync. Must be overriden in derived classes.</p>
@@ -386,13 +357,13 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override Task&lt;object&gt; ExecuteActionAsync(List&lt;ResourceTypeInstance&gt; instances, string serializedAction)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override Task&lt;object&gt; ExecuteActionAsync(ResourcePath resourcePath, string serializedAction)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>instances</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html">ResourceTypeInstance</a>&gt;</dt>
-    <dd><p>The list of <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html">ResourceTypeInstance</a> objects parsed from the resource path.</p>
+    <dt><code>resourcePath</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html">ResourcePath</a></dt>
+    <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html">ResourcePath</a> containing information about the resource path.</p>
 </dd>
     <dt><code>serializedAction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The serialized details of the action being executed.</p>
@@ -424,10 +395,10 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceTypes" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceTypes">
   GetResourceTypes()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets the resource types dictionary. Must be overriden in derived classes.</p>
+  <div class="markdown level1 summary"><p>Gets the details about the resource types managed by the resource provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -439,7 +410,8 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.html">ResourceTypeDescriptor</a>&gt;</dt>
-    <dd></dd>
+    <dd><p>A dictionary of <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.html">ResourceTypeDescriptor</a> objects with details about the resource types.</p>
+</dd>
   </dl>
 
 
@@ -449,19 +421,14 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
 
 
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.notimplementedexception">NotImplementedException</a></dt>
-    <dd></dd>
-  </dl>
 
 
 
   <a id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourcesAsyncInternal_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsyncInternal*"></a>
 
-  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourcesAsyncInternal_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsyncInternal(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance})">
-  GetResourcesAsyncInternal(List&lt;ResourceTypeInstance&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourcesAsyncInternal_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)">
+  GetResourcesAsyncInternal(ResourcePath)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L92"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResourcesAsync. Must be overridden in derived classes.</p>
@@ -469,13 +436,13 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override Task&lt;object&gt; GetResourcesAsyncInternal(List&lt;ResourceTypeInstance&gt; instances)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override Task&lt;object&gt; GetResourcesAsyncInternal(ResourcePath resourcePath)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>instances</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html">ResourceTypeInstance</a>&gt;</dt>
-    <dd><p>The list of <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html">ResourceTypeInstance</a> objects parsed from the resource path.</p>
+    <dt><code>resourcePath</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html">ResourcePath</a></dt>
+    <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html">ResourcePath</a> containing information about the resource path.</p>
 </dd>
   </dl>
 
@@ -499,7 +466,7 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)">
   HandleEvents(EventSetEventArgs)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L315"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L303"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Handles events received from the <a class="xref" href="FoundationaLLM.Common.Interfaces.IEventService.html">IEventService</a> when they are dequeued locally.</p>
@@ -537,7 +504,7 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_InitializeInternal" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.InitializeInternal">
   InitializeInternal()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of Initialize. Must be overridden in derived classes.</p>
@@ -567,9 +534,9 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
   <a id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_UpsertResourceAsync_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.UpsertResourceAsync*"></a>
 
-  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_UpsertResourceAsync_System_Collections_Generic_List_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance__System_String_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.UpsertResourceAsync(System.Collections.Generic.List{FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance},System.String)">
-  UpsertResourceAsync(List&lt;ResourceTypeInstance&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L159"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_UpsertResourceAsync_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_System_String_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath,System.String)">
+  UpsertResourceAsync(ResourcePath, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L147"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
@@ -577,13 +544,13 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override Task&lt;object&gt; UpsertResourceAsync(List&lt;ResourceTypeInstance&gt; instances, string serializedResource)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override Task&lt;object&gt; UpsertResourceAsync(ResourcePath resourcePath, string serializedResource)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>instances</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html">ResourceTypeInstance</a>&gt;</dt>
-    <dd><p>The list of <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html">ResourceTypeInstance</a> objects parsed from the resource path.</p>
+    <dt><code>resourcePath</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html">ResourcePath</a></dt>
+    <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html">ResourcePath</a> containing information about the resource path.</p>
 </dd>
     <dt><code>serializedResource</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The serialized resource being created or updated.</p>
@@ -610,7 +577,7 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L24" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L32" class="edit-link">Edit this page</a>
         </div>
 
 
