@@ -38,7 +38,9 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 new KnowledgeManagementCompletionRequest
                 {
                     UserPrompt = completionRequest.UserPrompt!,
-                    Agent = _agent
+                    Agent = _agent,
+                    MessageHistory = completionRequest.MessageHistory,
+                    Settings = completionRequest.Settings
                 });
 
             return new CompletionResponse
