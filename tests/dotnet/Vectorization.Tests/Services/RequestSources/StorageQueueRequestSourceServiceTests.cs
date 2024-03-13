@@ -60,7 +60,7 @@ namespace Vectorization.Tests.Services.RequestSources
 
             Assert.True(await _storageQueueRequestSourceService.HasRequests());
 
-            var vectorizationRequestQueueMessages = await _storageQueueRequestSourceService.ReceiveRequests(10, _stateService);
+            var vectorizationRequestQueueMessages = await _storageQueueRequestSourceService.ReceiveRequests(10);
 
             Assert.True(
                 vectorizationRequestQueueMessages.Count() == 1

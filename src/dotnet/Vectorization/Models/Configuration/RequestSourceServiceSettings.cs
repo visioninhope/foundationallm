@@ -23,11 +23,6 @@
         public required int VisibilityTimeoutSeconds { get; set; }
 
         /// <summary>
-        /// The maximum number of retries to process a request in case of a failure.
-        /// </summary>
-        public int MaxNumberOfRetries { get; set; } = 5;
-
-        /// <summary>
         /// The connection string to connect to the request source queue.
         /// </summary>
         public string? ConnectionString {  get; set; } 

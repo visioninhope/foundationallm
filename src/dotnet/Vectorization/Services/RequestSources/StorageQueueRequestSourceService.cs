@@ -47,40 +47,25 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count, IVectorizationStateService vectorizationStateService)
+        public async Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt, long DequeueCount)>> ReceiveRequests(int count)
         {
             var receivedMessages = await _queueClient.ReceiveMessagesAsync(count, TimeSpan.FromSeconds(_settings.VisibilityTimeoutSeconds)).ConfigureAwait(false);
 
-            var result = new List<(VectorizationRequest, string, string)>();
+            var result = new List<(VectorizationRequest, string, string, long)>();
 
             if (receivedMessages.HasValue)
             {
                 foreach (var m in receivedMessages.Value)
                 {
-                    
                     try
                     {
                         var vectorizationRequest = JsonSerializer.Deserialize<VectorizationRequest>(m.Body.ToString());
-                        if(vectorizationRequest is not null)
-                        {
-                            if (m.DequeueCount > _settings.MaxNumberOfRetries)
-                            {
-                                _logger.LogWarning("Message with id {MessageId} has been retried {DequeueCount} times and will be deleted.", m.MessageId, m.DequeueCount);
-                                var state = await vectorizationStateService.HasState(vectorizationRequest).ConfigureAwait(false)
-                                    ? await vectorizationStateService.ReadState(vectorizationRequest).ConfigureAwait(false)
-                                    : VectorizationState.FromRequest(vectorizationRequest);
-                                
-                                state.LogEntries.Add(new VectorizationLogEntry(vectorizationRequest.Id!, m.MessageId, vectorizationRequest.CurrentStep ?? "StorageQueueService", "ERROR: The message has been retried too many times and will be deleted."));                                
-                                await _queueClient.DeleteMessageAsync(m.MessageId, m.PopReceipt).ConfigureAwait(false);
-                                await vectorizationStateService.SaveState(state).ConfigureAwait(false);
-                                continue;
-                            }
-                        }
-                        
+                                               
                         result.Add(new(
                             vectorizationRequest!,
                             m.MessageId,
-                            m.PopReceipt));
+                            m.PopReceipt,
+                            m.DequeueCount));
                     }
                     catch (Exception ex)
                     {
