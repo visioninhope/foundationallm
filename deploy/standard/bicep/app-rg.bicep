@@ -145,6 +145,7 @@ module aksBackend 'modules/aks.bicep' = {
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
     networkingResourceGroupName: networkingResourceGroupName
+    opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
     privateIpIngress: cidrHost(subnets.FLLMBackend.addressPrefix, 250)
     resourceSuffix: '${resourceSuffix}-backend'
@@ -165,6 +166,7 @@ module aksFrontend 'modules/aks.bicep' = {
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
     networkingResourceGroupName: networkingResourceGroupName
+    opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
     privateIpIngress: cidrHost(subnets.FLLMFrontend.addressPrefix, 250)
     resourceSuffix: '${resourceSuffix}-frontend'

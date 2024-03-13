@@ -9,6 +9,7 @@
  * - logAnalyticWorkspaceId: Log Analytic Workspace Id to use for diagnostics
  * - logAnalyticWorkspaceResourceId: Log Analytic Workspace Resource Id to use for diagnostics
  * - networkingResourceGroupName: Networking resource group name
+ * - opsResourceGroupName: Ops resource group name
  * - privateDnsZones: Private DNS Zones for private endpoint
  * - privateIpIngress: Private IP for ingress
  * - resourceSuffix: Resource suffix for all resources
@@ -24,6 +25,7 @@
  * - serviceType: The Resource Service Type token
  *
  * Outputs:
+ * - name: The AKS Cluster Name
  * - oidcIssuerUrl: AKS OIDC Issuer URL
  *
  * Resources:
@@ -65,6 +67,9 @@ param logAnalyticWorkspaceResourceId string
 
 @description('Networking resource group name')
 param networkingResourceGroupName string
+
+@description('Ops resource group name')
+param opsResourceGroupName string
 
 @description('Private DNS Zones for private endpoint')
 param privateDnsZones array
@@ -388,6 +393,17 @@ module netRoleAssignment 'utility/roleAssignments.bicep' = {
     principalId: uai.properties.principalId
     roleDefinitionIds: {
       'Network Contributor': '4d97b98b-1d4f-4787-a291-c67834d212e7'
+    }
+  }
+}
+
+module opsRoleAssignment 'utility/roleAssignments.bicep' = {
+  name: 'opsra-${resourceSuffix}-${timestamp}'
+  scope: resourceGroup(opsResourceGroupName)
+  params: {
+    principalId: main.properties.addonProfiles.azureKeyvaultSecretsProvider.identity.objectId
+    roleDefinitionIds: {
+      'Key Vault Secrets User': '4633458b-17de-408a-b874-0445c86b69e6'
     }
   }
 }
