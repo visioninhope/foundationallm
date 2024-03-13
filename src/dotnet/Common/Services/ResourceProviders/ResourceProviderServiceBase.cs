@@ -117,6 +117,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             _ = Task.Run(Initialize);
         }
 
+        #region Initialization
+
         /// <inheritdoc/>
         private async Task Initialize()
         {
@@ -142,6 +144,28 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 _logger.LogError(ex, "The resource provider {ResourceProviderName} failed to initialize.", _name);
             }
         }
+
+        #region Virtuals to override in derived classes
+
+        /// <summary>
+        /// The internal implementation of Initialize. Must be overridden in derived classes.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual async Task InitializeInternal()
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets the details about the resource types managed by the resource provider.
+        /// </summary>
+        /// <returns>A dictionary of <see cref="ResourceTypeDescriptor"/> objects with details about the resource types.</returns>
+        protected virtual Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => [];
+
+        #endregion
+
+        #endregion
 
         #region IManagementProviderService
 
@@ -198,7 +222,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             await DeleteResourceAsync(parsedResourcePath);
         }
 
-        #region Virtuals to be overriden in derived classes
+        #region Virtuals to override in derived classes
 
         /// <summary>
         /// The internal implementation of GetResourcesAsync. Must be overridden in derived classes.
@@ -254,39 +278,12 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         #region IResourceProviderService
 
         /// <inheritdoc/>
-        public IList<T> GetResources<T>(string resourcePath) where T : class
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(resourcePath, _allowedResourceProviders, _allowedResourceTypes);
-            return GetResourcesInternal<T>(parsedResourcePath);
-        }
-
-        /// <inheritdoc/>
-        public async Task<IList<T>> GetResourcesAsync<T>(string resourcePath) where T : class
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(resourcePath, _allowedResourceProviders, _allowedResourceTypes);
-            return await GetResourcesAsyncInternal<T>(parsedResourcePath);
-        }
-
-        /// <inheritdoc/>
         public T GetResource<T>(string resourcePath) where T : class
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
             var parsedResourcePath = new ResourcePath(resourcePath, _allowedResourceProviders, _allowedResourceTypes);
             return GetResourceInternal<T>(parsedResourcePath);
-        }
-
-        /// <inheritdoc/>
-        public async Task<T> GetResourceAsync<T>(string resourcePath) where T : class
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(resourcePath, _allowedResourceProviders, _allowedResourceTypes);
-            return await GetResourceAsyncInternal<T>(parsedResourcePath);
         }
 
         /// <inheritdoc/>
@@ -299,83 +296,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             return parsedResourcePath.GetObjectId(_instanceSettings.Id, _name);
         }
 
-        /// <inheritdoc/>
-        public string UpsertResource<T>(string resourcePath, T resource) where T : class
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(resourcePath, _allowedResourceProviders, _allowedResourceTypes);
-            UpsertResource<T>(parsedResourcePath, resource);
-            return parsedResourcePath.GetObjectId(_instanceSettings.Id, _name);
-        }    
-
-        /// <inheritdoc/>
-        public async Task DeleteResourceAsync<T>(string resourcePath) where T : class
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(resourcePath, _allowedResourceProviders, _allowedResourceTypes);
-            await DeleteResourceAsync<T>(parsedResourcePath);
-        }
-
-        /// <inheritdoc/>
-        public void DeleteResource<T>(string resourcePath) where T : class
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(resourcePath, _allowedResourceProviders, _allowedResourceTypes);
-            DeleteResource<T>(parsedResourcePath);
-        }
-
-        #region Virtuals to be overriden in derived classes
-
-        /// <summary>
-        /// The internal implementation of Initialize. Must be overridden in derived classes.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual async Task InitializeInternal()
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Gets the resource types dictionary. Must be overriden in derived classes.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        protected virtual Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
-            throw new NotImplementedException();
-
-        /// <summary>
-        /// The internal implementation of ExecuteAction. Must be overridden in derived classes.
-        /// </summary>
-        /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
-        /// <returns></returns>
-        protected virtual async Task<ResourceProviderActionResult> ExecuteActionInternal(ResourcePath resourcePath)
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// The internal implementation of GetResources. Must be overridden in derived classes.
-        /// </summary>
-        /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
-        /// <returns></returns>
-        protected virtual IList<T> GetResourcesInternal<T>(ResourcePath resourcePath) where T : class =>
-            throw new NotImplementedException();
-
-        /// <summary>
-        /// The internal implementation of GetResourcesAsync. Must be overridden in derived classes.
-        /// </summary>
-        /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
-        /// <returns></returns>
-        protected virtual async Task<IList<T>> GetResourcesAsyncInternal<T>(ResourcePath resourcePath) where T : class
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
+        #region Virtuals to override in derived classes
 
         /// <summary>
         /// The internal implementation of GetResource. Must be overridden in derived classes.
@@ -386,51 +307,12 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             throw new NotImplementedException();
 
         /// <summary>
-        /// The internal implementation of GetResourceAsync. Must be overridden in derived classes.
-        /// </summary>
-        /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
-        /// <returns></returns>
-        protected virtual async Task<T> GetResourceAsyncInternal<T>(ResourcePath resourcePath) where T : class
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// The internal implementation of UpsertResource. Must be overridden in derived classes.
-        /// </summary>
-        /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
-        /// <param name="resource">The instance of the resource being created or updated.</param>
-        /// <returns></returns>
-        protected virtual void UpsertResource<T>(ResourcePath resourcePath, T resource) =>
-            throw new NotImplementedException();
-
-        /// <summary>
         /// The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
         /// <param name="resource">The instance of the resource being created or updated.</param>
         /// <returns></returns>
         protected virtual async Task UpsertResourceAsync<T>(ResourcePath resourcePath, T resource)
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// The internal implementation of DeleteResource. Must be overridden in derived classes.
-        /// </summary>
-        /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
-        /// <returns></returns>
-        protected virtual void DeleteResource<T>(ResourcePath resourcePath) =>
-            throw new NotImplementedException();
-
-        /// <summary>
-        /// The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.
-        /// </summary>
-        /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
-        /// <returns></returns>
-        protected virtual async Task DeleteResourceAsync<T>(ResourcePath resourcePath)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
