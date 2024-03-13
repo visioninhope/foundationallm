@@ -5,9 +5,13 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.AppConfiguration;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.ResourceProviders;
+using FoundationaLLM.Configuration.Constants;
+using FoundationaLLM.Configuration.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -62,6 +66,36 @@ namespace FoundationaLLM.Configuration.Services
 
         /// <inheritdoc/>
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => [];
+
+        #region Support for Management API
+
+        /// <inheritdoc/>
+        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+            resourcePath.ResourceTypeInstances[0].ResourceType switch
+            {
+                ConfigurationResourceTypeNames.AppConfigurationKeys => await LoadAppConfigurationKeys(resourcePath.ResourceTypeInstances[0]),
+                _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest)
+            };
+
+        #region Helpers for GetResourcesAsyncInternal
+
+        private async Task<List<AppConfigurationKeyBase>> LoadAppConfigurationKeys(ResourceTypeInstance instance)
+        {
+            if (instance.ResourceId == null)
+            {
+                return
+                [];
+            }
+            else
+            {
+                return default;
+            }
+        }
+
+        #endregion
+
+        #endregion
 
         #region Event handling
 
@@ -120,5 +154,7 @@ namespace FoundationaLLM.Configuration.Services
         }
 
         #endregion
+
+        
     }
 }
