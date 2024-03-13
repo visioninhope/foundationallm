@@ -113,7 +113,8 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 if(agentBase.AgentType == typeof(KnowledgeManagementAgent))
                 {
                     var kmOrchestration = new KnowledgeManagementOrchestration(
-                        (KnowledgeManagementAgent)agentBase!,
+                        (KnowledgeManagementAgent)agentBase,
+                        callContext,
                         orchestrationService,
                         promptHubAPIService,
                         dataSourceHubAPIService,
@@ -125,7 +126,8 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                 else
                 {
                     var icOrchestration = new InternalContextOrchestration(
-                        (InternalContextAgent)agentBase!,
+                        (InternalContextAgent)agentBase,
+                        callContext,
                         orchestrationService,
                         promptHubAPIService,
                         dataSourceHubAPIService,

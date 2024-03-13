@@ -23,11 +23,13 @@ namespace FoundationaLLM.AgentFactory.Core.Services
     /// <param name="httpClientFactoryService">The HTTP client factory service.</param>
     /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
     public class AzureOpenAIDirectService(
+        ICallContext callContext,
         ILogger<AzureOpenAIDirectService> logger,
         IConfiguration configuration,
         IHttpClientFactoryService httpClientFactoryService,
         IEnumerable<IResourceProviderService> resourceProviderServices) : IAzureOpenAIDirectService
     {
+        private readonly ICallContext _callContext = callContext;
         private readonly ILogger<AzureOpenAIDirectService> _logger = logger;
         private readonly IConfiguration _configuration = configuration;
         private readonly IHttpClientFactoryService _httpClientFactoryService = httpClientFactoryService;
@@ -65,7 +67,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                     if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
                         throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
 
-                    var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId);
+                    var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId, _callContext.CurrentUserIdentity);
                     if (resource is List<PromptBase> prompts)
                     {
                         var prompt = prompts.FirstOrDefault() as MultipartPrompt;
