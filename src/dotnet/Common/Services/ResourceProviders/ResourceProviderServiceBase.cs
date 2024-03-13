@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.Configuration.Events;
 using FoundationaLLM.Common.Models.Configuration.Instance;
@@ -26,7 +27,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private readonly List<string>? _eventNamespacesToSubscribe;
         private readonly ImmutableList<string> _allowedResourceProviders;
         private readonly Dictionary<string, ResourceTypeDescriptor> _allowedResourceTypes;
-        private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
         /// The <see cref="IAuthorizationService"/> providing authorization services to the resource provider.
@@ -91,7 +91,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <param name="eventService">The <see cref="IEventService"/> providing event services to the resource provider.</param>
         /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing services to instantiate resource validators.</param>
         /// <param name="logger">The logger used for logging.</param>
-        /// <param name="serviceProvider">The <see cref="IServiceProvider"/> dependency injection service provider used to resolve scoped dependencies.</param>
         /// <param name="eventNamespacesToSubscribe">The list of Event Service event namespaces to subscribe to for local event processing.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
@@ -100,7 +99,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             IEventService eventService,
             IResourceValidatorFactory resourceValidatorFactory,
             ILogger logger,
-            IServiceProvider serviceProvider,
             List<string>? eventNamespacesToSubscribe = default)
         {
             _authorizationService = authorizationService;
@@ -108,7 +106,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             _eventService = eventService;
             _resourceValidatorFactory = resourceValidatorFactory;
             _logger = logger;
-            _serviceProvider = serviceProvider;
             _instanceSettings = instanceSettings;
             _eventNamespacesToSubscribe = eventNamespacesToSubscribe;
 
@@ -149,7 +146,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         #region IManagementProviderService
 
         /// <inheritdoc/>
-        public async Task<object> HandleGetAsync(string resourcePath)
+        public async Task<object> HandleGetAsync(string resourcePath, UnifiedUserIdentity? userIdentity)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
@@ -160,13 +157,13 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 allowAction: false);
 
             // Authorize access to the resource path.
-            await Authorize(parsedResourcePath, "read");
+            await Authorize(parsedResourcePath, userIdentity, "read");
 
             return await GetResourcesAsyncInternal(parsedResourcePath);
         }
 
         /// <inheritdoc/>
-        public async Task<object> HandlePostAsync(string resourcePath, string serializedResource)
+        public async Task<object> HandlePostAsync(string resourcePath, string serializedResource, UnifiedUserIdentity? userIdentity)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
@@ -176,7 +173,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 _allowedResourceTypes);
 
             // Authorize access to the resource path.
-            await Authorize(parsedResourcePath, "write");
+            await Authorize(parsedResourcePath, userIdentity, "write");
 
             if (parsedResourcePath.ResourceTypeInstances.Last().Action != null)
                 return await ExecuteActionAsync(parsedResourcePath, serializedResource);
@@ -185,7 +182,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         /// <inheritdoc/>
-        public async Task HandleDeleteAsync(string resourcePath)
+        public async Task HandleDeleteAsync(string resourcePath, UnifiedUserIdentity? userIdentity)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
@@ -196,7 +193,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 allowAction: false);
 
             // Authorize access to the resource path.
-            await Authorize(parsedResourcePath, "delete");
+            await Authorize(parsedResourcePath, userIdentity, "delete");
 
             await DeleteResourceAsync(parsedResourcePath);
         }
@@ -449,27 +446,34 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// Authorizes the specified action on a resource path.
         /// </summary>
         /// <param name="resourcePath"></param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> containing information about the identity of the user.</param>
         /// <param name="actionType"></param>
         /// <returns></returns>
         /// <exception cref="ResourceProviderException"></exception>
-        private async Task Authorize(ResourcePath resourcePath, string actionType)
+        private async Task Authorize(ResourcePath resourcePath, UnifiedUserIdentity? userIdentity, string actionType)
         {
             try
             {
-                using var scope = _serviceProvider.CreateScope();
-                var callContext = scope.ServiceProvider.GetRequiredService<ICallContext>();
-
-                if (callContext.CurrentUserIdentity == null
-                    || callContext.CurrentUserIdentity.UserId == null)
-                    throw new Exception("The call context does not contain enough information for authorizaiton.");
+                if (userIdentity == null
+                    || userIdentity.UserId == null)
+                    throw new Exception("The provided user identity information cannot be used for authorization.");
 
                 var result = await _authorizationService.ProcessAuthorizationRequest(new ActionAuthorizationRequest
                 {
                     Action = $"{_name}/{resourcePath.MainResourceType}/{actionType}",
                     ResourcePath = resourcePath.GetObjectId(_instanceSettings.Id, _name),
-                    PrincipalId = callContext.CurrentUserIdentity.UserId,
-                    SecurityGroupIds = callContext.CurrentUserIdentity.GroupIds
+                    PrincipalId = userIdentity.UserId,
+                    SecurityGroupIds = userIdentity.GroupIds
                 });
+
+                if (!result.Authorized)
+                    throw new AuthorizationException("Access is not authorized.");
+            }
+            catch (AuthorizationException)
+            {
+                _logger.LogWarning("The {ActionType} access to the resource path {ResourcePath} was not authorized for user {UserName}.",
+                    actionType, resourcePath.GetObjectId(_instanceSettings.Id, _name), userIdentity!.Username);
+                new ResourceProviderException("Access is not authorized.", StatusCodes.Status403Forbidden);
             }
             catch (Exception ex)
             {

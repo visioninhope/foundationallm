@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Models.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace FoundationaLLM.Authorization.Services
@@ -21,7 +22,6 @@ namespace FoundationaLLM.Authorization.Services
         public AuthorizationService(
             IHttpClientFactory httpClientFactory,
             IOptions<AuthorizationServiceSettings> options,
-            ICallContext callContext,
             ILogger<AuthorizationService> logger)
         {
             _settings = options.Value;
@@ -37,7 +37,7 @@ namespace FoundationaLLM.Authorization.Services
                 var httpClient = await CreateHttpClient();
                 var response = await httpClient.PostAsync(
                     "/authorize",
-                    new StringContent(JsonSerializer.Serialize(authorizationRequest)));
+                    JsonContent.Create(authorizationRequest));
 
                 if (response.IsSuccessStatusCode)
                 {

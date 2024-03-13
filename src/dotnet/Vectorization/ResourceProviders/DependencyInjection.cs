@@ -59,8 +59,7 @@ namespace FoundationaLLM
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>(),
-                    sp));
+                    sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>()));
 
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }

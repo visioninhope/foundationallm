@@ -25,8 +25,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
                     sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp.GetRequiredService<ILoggerFactory>(),
-                    sp));
+                    sp.GetRequiredService<ILoggerFactory>()));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
     }

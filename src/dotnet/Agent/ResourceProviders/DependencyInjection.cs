@@ -57,8 +57,7 @@ namespace FoundationaLLM
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp.GetRequiredService<ILoggerFactory>(),
-                    sp));
+                    sp.GetRequiredService<ILoggerFactory>()));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
     }

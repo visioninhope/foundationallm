@@ -59,7 +59,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
                     throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
 
-                var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId);
+                var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId, null);
                 if (resource is List<PromptBase> prompts)
                 {
                     MultipartPrompt? prompt = prompts.FirstOrDefault() as MultipartPrompt;

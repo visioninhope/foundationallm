@@ -28,6 +28,7 @@ namespace FoundationaLLM.Core.API.Controllers
         private readonly IResourceProviderService _agentResourceProvider;
 #pragma warning disable IDE0052 // Remove unread private members.
         private readonly ILogger<OrchestrationController> _logger;
+        ICallContext _callContext;
 
         /// <summary>
         /// Methods for orchestration services exposed by the Gatekeeper API service.
@@ -41,6 +42,7 @@ namespace FoundationaLLM.Core.API.Controllers
         /// <param name="logger">The logging interface used to log under the
         /// <see cref="OrchestrationController"/> type name.</param>
         public OrchestrationController(ICoreService coreService,
+            ICallContext callContext,
             IEnumerable<IResourceProviderService> resourceProviderServices,
             ILogger<OrchestrationController> logger)
         {
@@ -51,6 +53,7 @@ namespace FoundationaLLM.Core.API.Controllers
                 throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
             _agentResourceProvider = agentResourceProvider; ;
             _logger = logger;
+            _callContext = callContext;
         }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace FoundationaLLM.Core.API.Controllers
         {
             var agents = new List<ResourceBase>();
 
-            if (await _agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}") is List<AgentBase> globalAgentsList && globalAgentsList.Count != 0)
+            if (await _agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}", _callContext.CurrentUserIdentity) is List<AgentBase> globalAgentsList && globalAgentsList.Count != 0)
             {
                 agents.AddRange(globalAgentsList);
             }

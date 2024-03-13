@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Agent.ResourceProviders;
-using FoundationaLLM.Authorization.Exceptions;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.DataSource.ResourceProviders;
@@ -55,7 +55,7 @@ namespace FoundationaLLM.Authorization.Utils
 
             if (resourceProvider != null)
             {
-                allowedResourceProviders.Add(resourceProvider);
+                allowedResourceProviders = allowedResourceProviders.Add(resourceProvider);
                 allowedResourceTypes = GetAllowedResourceTypes(resourceProvider);
             }
 

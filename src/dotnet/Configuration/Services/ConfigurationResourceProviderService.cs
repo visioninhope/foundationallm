@@ -28,7 +28,6 @@ namespace FoundationaLLM.Configuration.Services
     /// <param name="keyVaultService">The <see cref="IAzureKeyVaultService"/> providing access to the key vault service.</param>
     /// <param name="configurationManager">The <see cref="IConfigurationManager"/> providing configuration services.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
-    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> dependency injection service provider used to resolve scoped dependencies.</param>
     public class ConfigurationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
@@ -38,8 +37,7 @@ namespace FoundationaLLM.Configuration.Services
         IAzureAppConfigurationService appConfigurationService,
         IAzureKeyVaultService keyVaultService,
         IConfigurationManager configurationManager,
-        ILogger<ConfigurationResourceProviderService> logger,
-        IServiceProvider serviceProvider)
+        ILogger<ConfigurationResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             authorizationService,
@@ -47,7 +45,6 @@ namespace FoundationaLLM.Configuration.Services
             eventService,
             resourceValidatorFactory,
             logger,
-            serviceProvider,
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration
             ])

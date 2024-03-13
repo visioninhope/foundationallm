@@ -60,7 +60,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
             {
                 try
                 {
-                    var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}");
+                    var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", null);
                     agentBase = ((List<AgentBase>)agents)[0];
                 }
                 catch (ResourceProviderException)

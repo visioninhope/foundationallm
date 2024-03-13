@@ -30,15 +30,13 @@ namespace FoundationaLLM.Agent.ResourceProviders
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
-    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> dependency injection service provider used to resolve scoped dependencies.</param>
     public class AgentResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
-        ILoggerFactory loggerFactory,
-        IServiceProvider serviceProvider)
+        ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             authorizationService,
@@ -46,7 +44,6 @@ namespace FoundationaLLM.Agent.ResourceProviders
             eventService,
             resourceValidatorFactory,
             loggerFactory.CreateLogger<AgentResourceProviderService>(),
-            serviceProvider,
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
             ])

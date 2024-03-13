@@ -29,15 +29,13 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
-    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> dependency injection service provider used to resolve scoped dependencies.</param>
     public class VectorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
-        ILogger<VectorizationResourceProviderService> logger,
-        IServiceProvider serviceProvider)
+        ILogger<VectorizationResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             authorizationService,
@@ -45,7 +43,6 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             eventService,
             resourceValidatorFactory,
             logger,
-            serviceProvider,
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization
             ])

@@ -49,8 +49,7 @@ namespace FoundationaLLM
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp.GetRequiredService<ILogger<PromptResourceProviderService>>(),
-                    sp));
+                    sp.GetRequiredService<ILogger<PromptResourceProviderService>>()));
 
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }

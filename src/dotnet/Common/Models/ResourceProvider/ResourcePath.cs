@@ -43,7 +43,7 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
         /// The main resource type of the path.
         /// </summary>
         public string MainResourceType =>
-            _resourceProvider == null
+            _resourceTypeInstances == null || _resourceTypeInstances.Count == 0
             ? throw new ResourceProviderException()
             : _resourceTypeInstances[0].ResourceType;
 
@@ -167,7 +167,7 @@ namespace FoundationaLLM.Common.Models.ResourceProvider
                         StatusCodes.Status400BadRequest);
                 else
                     return $"/instances/{instanceId}/providers/{resourceProvider}/{string.Join("/",
-                        _resourceTypeInstances.Select(i => $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
+                        _resourceTypeInstances.Select(i => i.ResourceId == null ? $"{i.ResourceType}" : $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
             }
 
             throw new ResourceProviderException(
