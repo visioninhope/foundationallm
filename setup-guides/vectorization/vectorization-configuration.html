@@ -360,25 +360,29 @@ The details presented here are provided for cases in which you need to troublesh
             &quot;RequestSourceName&quot;: &quot;extract&quot;,
             &quot;MaxHandlerInstances&quot;: 1,
             &quot;QueueProcessingPace&quot;: 5,
-            &quot;QueuePollingInterval&quot;: 60
+            &quot;QueuePollingInterval&quot;: 60,
+            &quot;QueueMaxNumberOfRetries&quot;: 5
         },
         {
             &quot;RequestSourceName&quot;: &quot;partition&quot;,
             &quot;MaxHandlerInstances&quot;: 1,
             &quot;QueueProcessingPace&quot;: 5,
-            &quot;QueuePollingInterval&quot;: 60
+            &quot;QueuePollingInterval&quot;: 60,
+            &quot;QueueMaxNumberOfRetries&quot;: 5
         },
         {
             &quot;RequestSourceName&quot;: &quot;embed&quot;,
             &quot;MaxHandlerInstances&quot;: 1,
             &quot;QueueProcessingPace&quot;: 5,
-            &quot;QueuePollingInterval&quot;: 60
+            &quot;QueuePollingInterval&quot;: 60,
+            &quot;QueueMaxNumberOfRetries&quot;: 5
         },
         {
             &quot;RequestSourceName&quot;: &quot;index&quot;,
             &quot;MaxHandlerInstances&quot;: 1,
             &quot;QueueProcessingPace&quot;: 5,
-            &quot;QueuePollingInterval&quot;: 60
+            &quot;QueuePollingInterval&quot;: 60,
+            &quot;QueueMaxNumberOfRetries&quot;: 5
         }
     ],
     &quot;RequestSources&quot;: [
@@ -430,6 +434,10 @@ The details presented here are provided for cases in which you need to troublesh
 <tr>
 <td><code>RequestManagers.QueuePollingInterval</code></td>
 <td><strong>Optional</strong> The polling interval in seconds, this is the amount of time to wait if the previous check on the queue had no items. The default value is 60.</td>
+</tr>
+<tr>
+<td><code>RequestManagers.QueueMaxNumberOfRetries</code></td>
+<td><strong>Optional</strong> The maximum number of retries to attempt to process a request before being removed from the queue. The default value is 5.</td>
 </tr>
 <tr>
 <td><code>RequestSources</code></td>

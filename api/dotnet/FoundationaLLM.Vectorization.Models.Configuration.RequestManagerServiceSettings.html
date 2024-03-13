@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings" data-uid="FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings" class="text-break">
-Class RequestManagerServiceSettings  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L13"><i class="bi bi-code-slash"></i></a>
+Class RequestManagerServiceSettings  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L8"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -170,7 +170,7 @@ Class RequestManagerServiceSettings  <a class="header-action link-secondary" tit
 
   <h3 id="FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_MaxHandlerInstances" data-uid="FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.MaxHandlerInstances">
   MaxHandlerInstances
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The maximum number of handler instances allowed to run in parallel.</p>
@@ -199,11 +199,44 @@ public int MaxHandlerInstances { get; set; }</code></pre>
 
 
 
+  <a id="FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueueMaxNumberOfRetries_" data-uid="FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueMaxNumberOfRetries*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueueMaxNumberOfRetries" data-uid="FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueMaxNumberOfRetries">
+  QueueMaxNumberOfRetries
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The maximum number of retries to process a request in case of a failure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyOrder(5)]
+public int QueueMaxNumberOfRetries { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueuePollingInterval_" data-uid="FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueuePollingInterval*"></a>
 
   <h3 id="FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueuePollingInterval" data-uid="FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueuePollingInterval">
   QueuePollingInterval
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The interval in seconds to poll the queue for new requests, when the request queue is empty.</p>
@@ -236,7 +269,7 @@ public int QueuePollingInterval { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueueProcessingPace" data-uid="FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueProcessingPace">
   QueueProcessingPace
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The wait time after processing a request from the queue in seconds.</p>
@@ -269,7 +302,7 @@ public int QueueProcessingPace { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_RequestSourceName" data-uid="FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.RequestSourceName">
   RequestSourceName
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the request source that provides the requests processed by the request manager.</p>
@@ -302,7 +335,7 @@ public required string RequestSourceName { get; set; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L13" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Configuration/RequestManagerServiceSettings.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
 

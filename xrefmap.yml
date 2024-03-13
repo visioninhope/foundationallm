@@ -22432,6 +22432,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.MaxHandlerInstances
   nameWithType: RequestManagerServiceSettings.MaxHandlerInstances
+- uid: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueMaxNumberOfRetries
+  name: QueueMaxNumberOfRetries
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueueMaxNumberOfRetries
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueMaxNumberOfRetries
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueMaxNumberOfRetries
+  nameWithType: RequestManagerServiceSettings.QueueMaxNumberOfRetries
+- uid: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueMaxNumberOfRetries*
+  name: QueueMaxNumberOfRetries
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueueMaxNumberOfRetries_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueMaxNumberOfRetries
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueueMaxNumberOfRetries
+  nameWithType: RequestManagerServiceSettings.QueueMaxNumberOfRetries
 - uid: FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.QueuePollingInterval
   name: QueuePollingInterval
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestManagerServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestManagerServiceSettings_QueuePollingInterval

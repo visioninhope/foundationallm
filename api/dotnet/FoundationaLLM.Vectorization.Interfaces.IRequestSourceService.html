@@ -253,7 +253,7 @@ They should be removed from the source by calling <a class="xref" href="Foundati
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;IEnumerable&lt;(VectorizationRequest Request, string MessageId, string PopReceipt)&gt;&gt; ReceiveRequests(int count)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;IEnumerable&lt;(VectorizationRequest Request, string MessageId, string PopReceipt, long DequeueCount)&gt;&gt; ReceiveRequests(int count)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -265,8 +265,8 @@ They should be removed from the source by calling <a class="xref" href="Foundati
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;(<a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.models.vectorizationrequest,system.string,system.string-.request">Request</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.models.vectorizationrequest,system.string,system.string-.messageid">MessageId</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.models.vectorizationrequest,system.string,system.string-.popreceipt">PopReceipt</a>)&gt;&gt;</dt>
-    <dd><p>A collection of tuples containg a <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> object, a message id and a pop receipt.
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;(<a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.models.vectorizationrequest,system.string,system.string,system.int64-.request">Request</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.models.vectorizationrequest,system.string,system.string,system.int64-.messageid">MessageId</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.models.vectorizationrequest,system.string,system.string,system.int64-.popreceipt">PopReceipt</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.models.vectorizationrequest,system.string,system.string,system.int64-.dequeuecount">DequeueCount</a>)&gt;&gt;</dt>
+    <dd><p>A collection of tuples containg a <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> object, a message id, pop receipt, and dequeue count.
 The message id and pop receipt will be used to delete the message from the request source after it has been processed.</p>
 </dd>
   </dl>
