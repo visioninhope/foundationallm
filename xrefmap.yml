@@ -14824,6 +14824,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingAsync
   nameWithType: AzureAppConfigurationService.GetConfigurationSettingAsync
+- uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingsAsync(System.String)
+  name: GetConfigurationSettingsAsync(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_GetConfigurationSettingsAsync_System_String_
+  commentId: M:FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingsAsync(System.String)
+  name.vb: GetConfigurationSettingsAsync(String)
+  fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingsAsync(string)
+  fullName.vb: FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingsAsync(String)
+  nameWithType: AzureAppConfigurationService.GetConfigurationSettingsAsync(string)
+  nameWithType.vb: AzureAppConfigurationService.GetConfigurationSettingsAsync(String)
+- uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingsAsync*
+  name: GetConfigurationSettingsAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_GetConfigurationSettingsAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingsAsync
+  nameWithType: AzureAppConfigurationService.GetConfigurationSettingsAsync
 - uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.GetFeatureFlagAsync(System.String)
   name: GetFeatureFlagAsync(string)
   href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_GetFeatureFlagAsync_System_String_
@@ -14840,15 +14856,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.GetFeatureFlagAsync
   nameWithType: AzureAppConfigurationService.GetFeatureFlagAsync
-- uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.SetConfigurationSettingAsync(System.String,System.String)
-  name: SetConfigurationSettingAsync(string, string)
-  href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_SetConfigurationSettingAsync_System_String_System_String_
-  commentId: M:FoundationaLLM.Common.Services.AzureAppConfigurationService.SetConfigurationSettingAsync(System.String,System.String)
-  name.vb: SetConfigurationSettingAsync(String, String)
-  fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.SetConfigurationSettingAsync(string, string)
-  fullName.vb: FoundationaLLM.Common.Services.AzureAppConfigurationService.SetConfigurationSettingAsync(String, String)
-  nameWithType: AzureAppConfigurationService.SetConfigurationSettingAsync(string, string)
-  nameWithType.vb: AzureAppConfigurationService.SetConfigurationSettingAsync(String, String)
+- uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.SetConfigurationSettingAsync(System.String,System.String,System.String)
+  name: SetConfigurationSettingAsync(string, string, string)
+  href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_SetConfigurationSettingAsync_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Services.AzureAppConfigurationService.SetConfigurationSettingAsync(System.String,System.String,System.String)
+  name.vb: SetConfigurationSettingAsync(String, String, String)
+  fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.SetConfigurationSettingAsync(string, string, string)
+  fullName.vb: FoundationaLLM.Common.Services.AzureAppConfigurationService.SetConfigurationSettingAsync(String, String, String)
+  nameWithType: AzureAppConfigurationService.SetConfigurationSettingAsync(string, string, string)
+  nameWithType.vb: AzureAppConfigurationService.SetConfigurationSettingAsync(String, String, String)
 - uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.SetConfigurationSettingAsync*
   name: SetConfigurationSettingAsync
   href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_SetConfigurationSettingAsync_
@@ -14961,6 +14977,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.AzureKeyVaultService.GetSecretValueAsync
   nameWithType: AzureKeyVaultService.GetSecretValueAsync
+- uid: FoundationaLLM.Common.Services.AzureKeyVaultService.KeyVaultUri
+  name: KeyVaultUri
+  href: api/dotnet/FoundationaLLM.Common.Services.AzureKeyVaultService.html#FoundationaLLM_Common_Services_AzureKeyVaultService_KeyVaultUri
+  commentId: P:FoundationaLLM.Common.Services.AzureKeyVaultService.KeyVaultUri
+  fullName: FoundationaLLM.Common.Services.AzureKeyVaultService.KeyVaultUri
+  nameWithType: AzureKeyVaultService.KeyVaultUri
+- uid: FoundationaLLM.Common.Services.AzureKeyVaultService.KeyVaultUri*
+  name: KeyVaultUri
+  href: api/dotnet/FoundationaLLM.Common.Services.AzureKeyVaultService.html#FoundationaLLM_Common_Services_AzureKeyVaultService_KeyVaultUri_
+  commentId: Overload:FoundationaLLM.Common.Services.AzureKeyVaultService.KeyVaultUri
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.AzureKeyVaultService.KeyVaultUri
+  nameWithType: AzureKeyVaultService.KeyVaultUri
 - uid: FoundationaLLM.Common.Services.AzureKeyVaultService.SetSecretValueAsync(System.String,System.String)
   name: SetSecretValueAsync(string, string)
   href: api/dotnet/FoundationaLLM.Common.Services.AzureKeyVaultService.html#FoundationaLLM_Common_Services_AzureKeyVaultService_SetSecretValueAsync_System_String_System_String_
@@ -15263,6 +15292,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetConfigurationSettingAsync
   nameWithType: IAzureAppConfigurationService.GetConfigurationSettingAsync
+- uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetConfigurationSettingsAsync(System.String)
+  name: GetConfigurationSettingsAsync(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_GetConfigurationSettingsAsync_System_String_
+  commentId: M:FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetConfigurationSettingsAsync(System.String)
+  name.vb: GetConfigurationSettingsAsync(String)
+  fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetConfigurationSettingsAsync(string)
+  fullName.vb: FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetConfigurationSettingsAsync(String)
+  nameWithType: IAzureAppConfigurationService.GetConfigurationSettingsAsync(string)
+  nameWithType.vb: IAzureAppConfigurationService.GetConfigurationSettingsAsync(String)
+- uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetConfigurationSettingsAsync*
+  name: GetConfigurationSettingsAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_GetConfigurationSettingsAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetConfigurationSettingsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetConfigurationSettingsAsync
+  nameWithType: IAzureAppConfigurationService.GetConfigurationSettingsAsync
 - uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetFeatureFlagAsync(System.String)
   name: GetFeatureFlagAsync(string)
   href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_GetFeatureFlagAsync_System_String_
@@ -15279,15 +15324,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetFeatureFlagAsync
   nameWithType: IAzureAppConfigurationService.GetFeatureFlagAsync
-- uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.SetConfigurationSettingAsync(System.String,System.String)
-  name: SetConfigurationSettingAsync(string, string)
-  href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_SetConfigurationSettingAsync_System_String_System_String_
-  commentId: M:FoundationaLLM.Common.Services.IAzureAppConfigurationService.SetConfigurationSettingAsync(System.String,System.String)
-  name.vb: SetConfigurationSettingAsync(String, String)
-  fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.SetConfigurationSettingAsync(string, string)
-  fullName.vb: FoundationaLLM.Common.Services.IAzureAppConfigurationService.SetConfigurationSettingAsync(String, String)
-  nameWithType: IAzureAppConfigurationService.SetConfigurationSettingAsync(string, string)
-  nameWithType.vb: IAzureAppConfigurationService.SetConfigurationSettingAsync(String, String)
+- uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.SetConfigurationSettingAsync(System.String,System.String,System.String)
+  name: SetConfigurationSettingAsync(string, string, string)
+  href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_SetConfigurationSettingAsync_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Services.IAzureAppConfigurationService.SetConfigurationSettingAsync(System.String,System.String,System.String)
+  name.vb: SetConfigurationSettingAsync(String, String, String)
+  fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.SetConfigurationSettingAsync(string, string, string)
+  fullName.vb: FoundationaLLM.Common.Services.IAzureAppConfigurationService.SetConfigurationSettingAsync(String, String, String)
+  nameWithType: IAzureAppConfigurationService.SetConfigurationSettingAsync(string, string, string)
+  nameWithType.vb: IAzureAppConfigurationService.SetConfigurationSettingAsync(String, String, String)
 - uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.SetConfigurationSettingAsync*
   name: SetConfigurationSettingAsync
   href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_SetConfigurationSettingAsync_
@@ -15381,6 +15426,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.IAzureKeyVaultService.GetSecretValueAsync
   nameWithType: IAzureKeyVaultService.GetSecretValueAsync
+- uid: FoundationaLLM.Common.Services.IAzureKeyVaultService.KeyVaultUri
+  name: KeyVaultUri
+  href: api/dotnet/FoundationaLLM.Common.Services.IAzureKeyVaultService.html#FoundationaLLM_Common_Services_IAzureKeyVaultService_KeyVaultUri
+  commentId: P:FoundationaLLM.Common.Services.IAzureKeyVaultService.KeyVaultUri
+  fullName: FoundationaLLM.Common.Services.IAzureKeyVaultService.KeyVaultUri
+  nameWithType: IAzureKeyVaultService.KeyVaultUri
+- uid: FoundationaLLM.Common.Services.IAzureKeyVaultService.KeyVaultUri*
+  name: KeyVaultUri
+  href: api/dotnet/FoundationaLLM.Common.Services.IAzureKeyVaultService.html#FoundationaLLM_Common_Services_IAzureKeyVaultService_KeyVaultUri_
+  commentId: Overload:FoundationaLLM.Common.Services.IAzureKeyVaultService.KeyVaultUri
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.IAzureKeyVaultService.KeyVaultUri
+  nameWithType: IAzureKeyVaultService.KeyVaultUri
 - uid: FoundationaLLM.Common.Services.IAzureKeyVaultService.SetSecretValueAsync(System.String,System.String)
   name: SetSecretValueAsync(string, string)
   href: api/dotnet/FoundationaLLM.Common.Services.IAzureKeyVaultService.html#FoundationaLLM_Common_Services_IAzureKeyVaultService_SetSecretValueAsync_System_String_System_String_
@@ -17125,6 +17183,60 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Configuration.Catalog.KeyVaultSecretsCatalog.GetRequiredKeyVaultSecretsForVersion
   nameWithType: KeyVaultSecretsCatalog.GetRequiredKeyVaultSecretsForVersion
+- uid: FoundationaLLM.Configuration.Constants
+  name: FoundationaLLM.Configuration.Constants
+  href: api/dotnet/FoundationaLLM.Configuration.Constants.html
+  commentId: N:FoundationaLLM.Configuration.Constants
+  fullName: FoundationaLLM.Configuration.Constants
+  nameWithType: FoundationaLLM.Configuration.Constants
+- uid: FoundationaLLM.Configuration.Constants.ConfigurationResourceProviderActions
+  name: ConfigurationResourceProviderActions
+  href: api/dotnet/FoundationaLLM.Configuration.Constants.ConfigurationResourceProviderActions.html
+  commentId: T:FoundationaLLM.Configuration.Constants.ConfigurationResourceProviderActions
+  fullName: FoundationaLLM.Configuration.Constants.ConfigurationResourceProviderActions
+  nameWithType: ConfigurationResourceProviderActions
+- uid: FoundationaLLM.Configuration.Constants.ConfigurationResourceProviderActions.CheckName
+  name: CheckName
+  href: api/dotnet/FoundationaLLM.Configuration.Constants.ConfigurationResourceProviderActions.html#FoundationaLLM_Configuration_Constants_ConfigurationResourceProviderActions_CheckName
+  commentId: F:FoundationaLLM.Configuration.Constants.ConfigurationResourceProviderActions.CheckName
+  fullName: FoundationaLLM.Configuration.Constants.ConfigurationResourceProviderActions.CheckName
+  nameWithType: ConfigurationResourceProviderActions.CheckName
+- uid: FoundationaLLM.Configuration.Constants.ConfigurationResourceTypeNames
+  name: ConfigurationResourceTypeNames
+  href: api/dotnet/FoundationaLLM.Configuration.Constants.ConfigurationResourceTypeNames.html
+  commentId: T:FoundationaLLM.Configuration.Constants.ConfigurationResourceTypeNames
+  fullName: FoundationaLLM.Configuration.Constants.ConfigurationResourceTypeNames
+  nameWithType: ConfigurationResourceTypeNames
+- uid: FoundationaLLM.Configuration.Constants.ConfigurationResourceTypeNames.AppConfigurations
+  name: AppConfigurations
+  href: api/dotnet/FoundationaLLM.Configuration.Constants.ConfigurationResourceTypeNames.html#FoundationaLLM_Configuration_Constants_ConfigurationResourceTypeNames_AppConfigurations
+  commentId: F:FoundationaLLM.Configuration.Constants.ConfigurationResourceTypeNames.AppConfigurations
+  fullName: FoundationaLLM.Configuration.Constants.ConfigurationResourceTypeNames.AppConfigurations
+  nameWithType: ConfigurationResourceTypeNames.AppConfigurations
+- uid: FoundationaLLM.Configuration.Constants.ConfigurationTypes
+  name: ConfigurationTypes
+  href: api/dotnet/FoundationaLLM.Configuration.Constants.ConfigurationTypes.html
+  commentId: T:FoundationaLLM.Configuration.Constants.ConfigurationTypes
+  fullName: FoundationaLLM.Configuration.Constants.ConfigurationTypes
+  nameWithType: ConfigurationTypes
+- uid: FoundationaLLM.Configuration.Constants.ConfigurationTypes.AppConfigurationKeyValue
+  name: AppConfigurationKeyValue
+  href: api/dotnet/FoundationaLLM.Configuration.Constants.ConfigurationTypes.html#FoundationaLLM_Configuration_Constants_ConfigurationTypes_AppConfigurationKeyValue
+  commentId: F:FoundationaLLM.Configuration.Constants.ConfigurationTypes.AppConfigurationKeyValue
+  fullName: FoundationaLLM.Configuration.Constants.ConfigurationTypes.AppConfigurationKeyValue
+  nameWithType: ConfigurationTypes.AppConfigurationKeyValue
+- uid: FoundationaLLM.Configuration.Constants.ConfigurationTypes.AppConfigurationKeyVaultReference
+  name: AppConfigurationKeyVaultReference
+  href: api/dotnet/FoundationaLLM.Configuration.Constants.ConfigurationTypes.html#FoundationaLLM_Configuration_Constants_ConfigurationTypes_AppConfigurationKeyVaultReference
+  commentId: F:FoundationaLLM.Configuration.Constants.ConfigurationTypes.AppConfigurationKeyVaultReference
+  fullName: FoundationaLLM.Configuration.Constants.ConfigurationTypes.AppConfigurationKeyVaultReference
+  nameWithType: ConfigurationTypes.AppConfigurationKeyVaultReference
+- uid: FoundationaLLM.Configuration.Constants.ConfigurationTypes.Basic
+  name: Basic
+  href: api/dotnet/FoundationaLLM.Configuration.Constants.ConfigurationTypes.html#FoundationaLLM_Configuration_Constants_ConfigurationTypes_Basic
+  commentId: F:FoundationaLLM.Configuration.Constants.ConfigurationTypes.Basic
+  fullName: FoundationaLLM.Configuration.Constants.ConfigurationTypes.Basic
+  nameWithType: ConfigurationTypes.Basic
 - uid: FoundationaLLM.Configuration.Interfaces
   name: FoundationaLLM.Configuration.Interfaces
   href: api/dotnet/FoundationaLLM.Configuration.Interfaces.html
@@ -17182,6 +17294,108 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Configuration.Interfaces.IConfigurationHealthChecks.ValidateKeyVaultSecretsAsync
   nameWithType: IConfigurationHealthChecks.ValidateKeyVaultSecretsAsync
+- uid: FoundationaLLM.Configuration.Models
+  name: FoundationaLLM.Configuration.Models
+  href: api/dotnet/FoundationaLLM.Configuration.Models.html
+  commentId: N:FoundationaLLM.Configuration.Models
+  fullName: FoundationaLLM.Configuration.Models
+  nameWithType: FoundationaLLM.Configuration.Models
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase
+  name: AppConfigurationKeyBase
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.html
+  commentId: T:FoundationaLLM.Configuration.Models.AppConfigurationKeyBase
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase
+  nameWithType: AppConfigurationKeyBase
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.ContentType
+  name: ContentType
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyBase_ContentType
+  commentId: P:FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.ContentType
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.ContentType
+  nameWithType: AppConfigurationKeyBase.ContentType
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.ContentType*
+  name: ContentType
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyBase_ContentType_
+  commentId: Overload:FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.ContentType
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.ContentType
+  nameWithType: AppConfigurationKeyBase.ContentType
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Key
+  name: Key
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyBase_Key
+  commentId: P:FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Key
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Key
+  nameWithType: AppConfigurationKeyBase.Key
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Key*
+  name: Key
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyBase_Key_
+  commentId: Overload:FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Key
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Key
+  nameWithType: AppConfigurationKeyBase.Key
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyBase_Type
+  commentId: P:FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Type
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Type
+  nameWithType: AppConfigurationKeyBase.Type
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyBase_Type_
+  commentId: Overload:FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Type
+  nameWithType: AppConfigurationKeyBase.Type
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Value
+  name: Value
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyBase_Value
+  commentId: P:FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Value
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Value
+  nameWithType: AppConfigurationKeyBase.Value
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Value*
+  name: Value
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyBase_Value_
+  commentId: Overload:FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Value
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyBase.Value
+  nameWithType: AppConfigurationKeyBase.Value
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyValue
+  name: AppConfigurationKeyValue
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyValue.html
+  commentId: T:FoundationaLLM.Configuration.Models.AppConfigurationKeyValue
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyValue
+  nameWithType: AppConfigurationKeyValue
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference
+  name: AppConfigurationKeyVaultReference
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.html
+  commentId: T:FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference
+  nameWithType: AppConfigurationKeyVaultReference
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultSecretName
+  name: KeyVaultSecretName
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyVaultReference_KeyVaultSecretName
+  commentId: P:FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultSecretName
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultSecretName
+  nameWithType: AppConfigurationKeyVaultReference.KeyVaultSecretName
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultSecretName*
+  name: KeyVaultSecretName
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyVaultReference_KeyVaultSecretName_
+  commentId: Overload:FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultSecretName
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultSecretName
+  nameWithType: AppConfigurationKeyVaultReference.KeyVaultSecretName
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultUri
+  name: KeyVaultUri
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyVaultReference_KeyVaultUri
+  commentId: P:FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultUri
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultUri
+  nameWithType: AppConfigurationKeyVaultReference.KeyVaultUri
+- uid: FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultUri*
+  name: KeyVaultUri
+  href: api/dotnet/FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.html#FoundationaLLM_Configuration_Models_AppConfigurationKeyVaultReference_KeyVaultUri_
+  commentId: Overload:FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultUri
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Models.AppConfigurationKeyVaultReference.KeyVaultUri
+  nameWithType: AppConfigurationKeyVaultReference.KeyVaultUri
 - uid: FoundationaLLM.Configuration.Services
   name: FoundationaLLM.Configuration.Services
   href: api/dotnet/FoundationaLLM.Configuration.Services.html
@@ -17239,6 +17453,25 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Configuration.Services.ConfigurationHealthCheckService.StopAsync
   nameWithType: ConfigurationHealthCheckService.StopAsync
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata
+  name: ConfigurationResourceProviderMetadata
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.html
+  commentId: T:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata
+  nameWithType: ConfigurationResourceProviderMetadata
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes
+  name: AllowedResourceTypes
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderMetadata_AllowedResourceTypes
+  commentId: P:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes
+  nameWithType: ConfigurationResourceProviderMetadata.AllowedResourceTypes
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes*
+  name: AllowedResourceTypes
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderMetadata_AllowedResourceTypes_
+  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes
+  nameWithType: ConfigurationResourceProviderMetadata.AllowedResourceTypes
 - uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService
   name: ConfigurationResourceProviderService
   href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html
@@ -17277,6 +17510,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourceTypes
   nameWithType: ConfigurationResourceProviderService.GetResourceTypes
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  name: GetResourcesAsyncInternal(ResourcePath)
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_GetResourcesAsyncInternal_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
+  commentId: M:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  nameWithType: ConfigurationResourceProviderService.GetResourcesAsyncInternal(ResourcePath)
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal*
+  name: GetResourcesAsyncInternal
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_GetResourcesAsyncInternal_
+  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal
+  nameWithType: ConfigurationResourceProviderService.GetResourcesAsyncInternal
 - uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
   name: HandleEvents(EventSetEventArgs)
   href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_
@@ -17303,6 +17549,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.InitializeInternal
   nameWithType: ConfigurationResourceProviderService.InitializeInternal
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath,System.String)
+  name: UpsertResourceAsync(ResourcePath, string)
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_UpsertResourceAsync_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_System_String_
+  commentId: M:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath,System.String)
+  name.vb: UpsertResourceAsync(ResourcePath, String)
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath, string)
+  fullName.vb: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath, String)
+  nameWithType: ConfigurationResourceProviderService.UpsertResourceAsync(ResourcePath, string)
+  nameWithType.vb: ConfigurationResourceProviderService.UpsertResourceAsync(ResourcePath, String)
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.UpsertResourceAsync*
+  name: UpsertResourceAsync
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_UpsertResourceAsync_
+  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.UpsertResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.UpsertResourceAsync
+  nameWithType: ConfigurationResourceProviderService.UpsertResourceAsync
 - uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService._name
   name: _name
   href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService__name

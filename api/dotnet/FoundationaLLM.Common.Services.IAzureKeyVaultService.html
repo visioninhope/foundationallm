@@ -124,6 +124,42 @@ Interface IAzureKeyVaultService  <a class="header-action link-secondary" title="
 
 
 
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="FoundationaLLM_Common_Services_IAzureKeyVaultService_KeyVaultUri_" data-uid="FoundationaLLM.Common.Services.IAzureKeyVaultService.KeyVaultUri*"></a>
+
+  <h3 id="FoundationaLLM_Common_Services_IAzureKeyVaultService_KeyVaultUri" data-uid="FoundationaLLM.Common.Services.IAzureKeyVaultService.KeyVaultUri">
+  KeyVaultUri
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the URI of the Key Vault.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string KeyVaultUri { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -132,7 +168,7 @@ Interface IAzureKeyVaultService  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Common_Services_IAzureKeyVaultService_CheckKeyVaultSecretsExistAsync_System_Collections_Generic_IEnumerable_System_String__" data-uid="FoundationaLLM.Common.Services.IAzureKeyVaultService.CheckKeyVaultSecretsExistAsync(System.Collections.Generic.IEnumerable{System.String})">
   CheckKeyVaultSecretsExistAsync(IEnumerable&lt;string?&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a map of secret names and whether they exist in Key Vault.</p>
@@ -170,7 +206,7 @@ Interface IAzureKeyVaultService  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Common_Services_IAzureKeyVaultService_CheckSecretExistsAsync_System_String_" data-uid="FoundationaLLM.Common.Services.IAzureKeyVaultService.CheckSecretExistsAsync(System.String)">
   CheckSecretExistsAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns whether a secret exists in Key Vault.</p>
@@ -208,7 +244,7 @@ Interface IAzureKeyVaultService  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Common_Services_IAzureKeyVaultService_GetSecretValue_System_String_" data-uid="FoundationaLLM.Common.Services.IAzureKeyVaultService.GetSecretValue(System.String)">
   GetSecretValue(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the value of a secret from Key Vault.</p>
@@ -246,7 +282,7 @@ Interface IAzureKeyVaultService  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Common_Services_IAzureKeyVaultService_GetSecretValueAsync_System_String_" data-uid="FoundationaLLM.Common.Services.IAzureKeyVaultService.GetSecretValueAsync(System.String)">
   GetSecretValueAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the value of a secret from Key Vault.</p>
@@ -284,7 +320,7 @@ Interface IAzureKeyVaultService  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Common_Services_IAzureKeyVaultService_SetSecretValueAsync_System_String_System_String_" data-uid="FoundationaLLM.Common.Services.IAzureKeyVaultService.SetSecretValueAsync(System.String,System.String)">
   SetSecretValueAsync(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IAzureKeyVaultService.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sets the value of a secret in Key Vault.</p>
