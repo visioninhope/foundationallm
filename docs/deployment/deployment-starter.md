@@ -50,12 +50,17 @@ Follow the steps below to deploy the solution to your Azure subscription.
     ```text
     cd foundationallm/deploy/starter
 
-    azd init
     az login            # Log into Azure CLI
     azd auth login      # Log into Azure Developer CLI
 
     # Set your target Subscription and Location
     azd env new --location <Supported Azure Region> --subscription <Azure Subscription ID>
+
+    azd env set ENTRA_AUTH_API_INSTANCE <Auth API Instance>
+    azd env set ENTRA_AUTH_API_CLIENT_ID <Auth API Client Id>
+    azd env set ENTRA_AUTH_API_CLIENT_SECRET <Auth API Client Secret>
+    azd env set ENTRA_AUTH_API_SCOPES <Auth API Scope>
+    azd env set ENTRA_AUTH_API_TENANT_ID <Auth API Tenant ID>
 
     azd env set ENTRA_CHAT_UI_CLIENT_ID <Chat UI Client Id>
     azd env set ENTRA_CHAT_UI_SCOPES <Chat UI Scope>

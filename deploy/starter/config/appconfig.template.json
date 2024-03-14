@@ -50,6 +50,20 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIs:AuthorizationAPI:APIUrl",
+      "value": "${env:SERVICE_AUTH_API_ENDPOINT_URL}",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
+      "key": "FoundationaLLM:APIs:AuthorizationAPI:APIScope",
+      "value": "${env:ENTRA_AUTH_API_SCOPE}",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:CoreAPI:APIUrl",
       "value": "${env:SERVICE_CORE_API_ENDPOINT_URL}",
       "label": null,
@@ -624,76 +638,6 @@
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:CognitiveSearch:EndPoint",
-      "value": "${env:AZURE_COGNITIVE_SEARCH_ENDPOINT}",
-      "label": null,
-      "content_type": "",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:CognitiveSearch:IndexName",
-      "value": "vector-index",
-      "label": null,
-      "content_type": "",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:CognitiveSearch:Key",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/search-key\"}",
-      "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:CognitiveSearch:MaxVectorSearchResults",
-      "value": "10",
-      "label": null,
-      "content_type": "",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:CognitiveSearchMemorySource:BlobStorageConnection",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
-      "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:CognitiveSearchMemorySource:BlobStorageContainer",
-      "value": "memory-source",
-      "label": null,
-      "content_type": "",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:CognitiveSearchMemorySource:ConfigFilePath",
-      "value": "ACSMemorySourceConfig.json",
-      "label": null,
-      "content_type": "",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:CognitiveSearchMemorySource:EndPoint",
-      "value": "${env:AZURE_COGNITIVE_SEARCH_ENDPOINT}",
-      "label": null,
-      "content_type": "",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:CognitiveSearchMemorySource:IndexName",
-      "value": "vector-index",
-      "label": null,
-      "content_type": "",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:CognitiveSearchMemorySource:Key",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/search-key\"}",
-      "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-      "tags": {}
-    },
-    {
       "key": "FoundationaLLM:Configuration:KeyVaultURI",
       "value": "${env:AZURE_KEY_VAULT_ENDPOINT}",
       "label": null,
@@ -838,20 +782,6 @@
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-datasource-resourceprovider-storage-connectionstring\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:DurableSystemPrompt:BlobStorageConnection",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
-      "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:DurableSystemPrompt:BlobStorageContainer",
-      "value": "prompts",
-      "label": null,
-      "content_type": "",
       "tags": {}
     },
     {

@@ -638,6 +638,11 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:APIs:AuthorizationAPI:APIUrl app configuration setting.
+        /// The URL of the authorization API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_AuthorizationAPI_APIUrl = "FoundationaLLM:APIs:AuthorizationAPI:APIUrl";
+        /// <summary>
         /// The key for the FoundationaLLM:Vectorization:VectorizationWorker app configuration setting.
         /// The settings used by each instance of the vectorization worker service. For more details, see [default vectorization worker settings](../setup-guides/vectorization/vectorization-worker.md#default-vectorization-worker-settings)
         /// </summary>
@@ -803,9 +808,14 @@ namespace FoundationaLLM.Common.Constants
         /// The key filter for the FoundationaLLM:DataSource:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_DataSource = "FoundationaLLM:DataSource:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:AzureOpenAI:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AzureOpenAI = "FoundationaLLM:AzureOpenAI:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:AzureAI:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AzureAI = "FoundationaLLM:AzureAI:*";
     }
 
     /// <summary>
@@ -865,6 +875,10 @@ namespace FoundationaLLM.Common.Constants
         /// The key section for the FoundationaLLM:APIs:VectorizationWorker app configuration settings.
         /// </summary>
         public const string FoundationaLLM_APIs_VectorizationWorker = "FoundationaLLM:APIs:VectorizationWorker";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:AuthorizationAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_AuthorizationAPI = "FoundationaLLM:APIs:AuthorizationAPI";
         /// <summary>
         /// The key section for the FoundationaLLM:AgentFactory app configuration settings.
         /// </summary>
