@@ -162,7 +162,7 @@ namespace FoundationaLLM.Configuration.Services
                 if (string.IsNullOrWhiteSpace(kvAppConfig.KeyVaultUri))
                     throw new ResourceProviderException("The key vault URI is invalid.", StatusCodes.Status400BadRequest);
 
-                if (_keyVaultService.KeyVaultUri.CompareTo(kvAppConfig.KeyVaultUri.ToLower()) != 0)
+                if ((new Uri(_keyVaultService.KeyVaultUri)).Host.ToLower().CompareTo((new Uri(kvAppConfig.KeyVaultUri)).Host.ToLower()) != 0)
                     throw new ResourceProviderException("The key vault URI does not match the key vault URI of the key vault service.", StatusCodes.Status400BadRequest);
 
                 if (string.IsNullOrWhiteSpace(kvAppConfig.KeyVaultSecretName))
@@ -173,7 +173,7 @@ namespace FoundationaLLM.Configuration.Services
                     appConfig.Key,
                     JsonSerializer.Serialize(new AppConfigurationKeyVaultUri
                         {
-                            Uri = Path.Join(kvAppConfig.KeyVaultUri, "secrets", kvAppConfig.KeyVaultSecretName)
+                            Uri = new Uri(new Uri(kvAppConfig.KeyVaultUri), $"/secrets/{kvAppConfig.KeyVaultSecretName}").AbsoluteUri
                         }),
                     appConfig.ContentType);
 
