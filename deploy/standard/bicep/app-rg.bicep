@@ -147,12 +147,12 @@ module aksBackend 'modules/aks.bicep' = {
     networkingResourceGroupName: networkingResourceGroupName
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
-    privateIpIngress: cidrHost(subnets.FLLMBackend.addressPrefix, 250)
+    // privateIpIngress: cidrHost(subnets.FLLMBackend.addressPrefix, 250)
     resourceSuffix: '${resourceSuffix}-backend'
     subnetId: subnets.FLLMBackend.id
     subnetIdPrivateEndpoint: subnets.FLLMServices.id
     tags: tags
-    uaiDeploymentid: identityDeployment.id
+    // uaiDeploymentid: identityDeployment.id
   }
 }
 
@@ -168,12 +168,12 @@ module aksFrontend 'modules/aks.bicep' = {
     networkingResourceGroupName: networkingResourceGroupName
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
-    privateIpIngress: cidrHost(subnets.FLLMFrontend.addressPrefix, 250)
+    // privateIpIngress: cidrHost(subnets.FLLMFrontend.addressPrefix, 250)
     resourceSuffix: '${resourceSuffix}-frontend'
     subnetId: subnets.FLLMFrontend.id
     subnetIdPrivateEndpoint: subnets.FLLMServices.id
     tags: tags
-    uaiDeploymentid: identityDeployment.id
+    // uaiDeploymentid: identityDeployment.id
   }
 }
 

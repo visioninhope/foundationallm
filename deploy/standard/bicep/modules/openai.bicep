@@ -98,6 +98,13 @@ var roleAssignmentsToCreate = [for roleDefinitionId in items(roleDefinitionIds):
 @description('The Resource Service Type token')
 var serviceType = 'oai'
 
+var secretNames = [
+  'foundationallm-openai-api-key'
+  'foundationallm-semantickernelapi-openai-key'
+  'foundationallm-azureopenai-api-key'
+  'foundationallm-apis-vectorizationworker-apikey' // This isn't even used, but ManagementAPI is checking for it, so needed a placeholder.
+]
+
 /** Outputs **/
 @description('The Account Name')
 output name string = main.name
@@ -224,17 +231,10 @@ module privateEndpoint 'utility/privateEndpoint.bicep' = {
   }
 }
 
-var secretNames = [
-  'foundationallm-openai-api-key'
-  'foundationallm-semantickernelapi-openai-key'
-  'foundationallm-azureopenai-api-key'
-  'foundationallm-apis-vectorizationworker-apikey' // This isn't even used, but ManagementAPI is checking for it, so needed a placeholder.
-]
-
 @description('OpenAI API Key OPS KeyVault Secret (Currently unused but added as a placeholder).')
 module apiKeySecret 'kvSecret.bicep' = [
   for (secretName, i) in secretNames: {
-    name: 'oaiApiKey-${i}'
+    name: 'oaiApiKey-${i}-${timestamp}'
     scope: resourceGroup(opsResourceGroupName)
     params: {
       kvName: opsKvName
