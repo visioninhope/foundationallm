@@ -405,7 +405,7 @@ PopulateTemplate $tokens "..,config,kubernetes,spc.foundationallm-certificates.b
 PopulateTemplate $tokens "..,config,kubernetes,spc.foundationallm-certificates.frontend.template.yml" "..,config,kubernetes,spc.foundationallm-certificates.frontend.yml"
 PopulateTemplate $tokens "..,config,helm,ingress-nginx.values.backend.template.yml" "..,config,helm,ingress-nginx.values.backend.yml"
 PopulateTemplate $tokens "..,config,helm,ingress-nginx.values.frontend.template.yml" "..,config,helm,ingress-nginx.values.frontend.yml"
-PopulateTemplate $tokens "..,values,internal-service.template.yml" "..,values,microservice-values.yml"
+PopulateTemplate $tokens "..,config,helm,internal-service.template.yml" "..,config,helm,microservice-values.yml"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.json"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.json"
 
@@ -413,14 +413,14 @@ $($ingress.apiIngress).PSObject.Properties | ForEach-Object {
     $tokens.serviceHostname = $_.Value.host
     $tokens.servicePath = $_.Value.path
     $tokens.servicePathType = $_.Value.pathType
-    $tokens.serviceAgwSslCert = $_.Value.sslCert
-    PopulateTemplate $tokens "..,values,exposed-service.template.yml" "..,values,$($_.Name)-values.yml"
+    $tokens.serviceSecretName = $_.Value.sslCert
+    PopulateTemplate $tokens "..,config,helm,exposed-service.template.yml" "..,config,helm,$($_.Name)-values.yml"
 }
 
 $($ingress.frontendIngress).PSObject.Properties | ForEach-Object {
     $tokens.serviceHostname = $_.Value.host
     $tokens.servicePath = $_.Value.path
     $tokens.servicePathType = $_.Value.pathType
-    $tokens.serviceAgwSslCert = $_.Value.sslCert
-    PopulateTemplate $tokens "..,values,frontend-service.template.yml" "..,values,$($_.Name)-values.yml"
+    $tokens.serviceSecretName = $_.Value.sslCert
+    PopulateTemplate $tokens "..,config,helm,frontend-service.template.yml" "..,config,helm,$($_.Name)-values.yml"
 }
