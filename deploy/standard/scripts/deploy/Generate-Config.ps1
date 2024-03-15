@@ -13,7 +13,30 @@ Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enabl
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
+#!/usr/bin/env pwsh
+
 function Invoke-AndRequireSuccess {
+    <#
+    .SYNOPSIS
+    Invokes a script block and requires it to execute successfully.
+
+    .DESCRIPTION
+    The Invoke-AndRequireSuccess function is used to invoke a script block and ensure that it executes successfully. It takes a message and a script block as parameters. The function will display the message in blue color, execute the script block, and check the exit code. If the exit code is non-zero, an exception will be thrown.
+
+    .PARAMETER Message
+    The message to be displayed before executing the script block.
+
+    .PARAMETER ScriptBlock
+    The script block to be executed.
+
+    .EXAMPLE
+    Invoke-AndRequireSuccess -Message "Running script" -ScriptBlock {
+        # Your script code here
+    }
+
+    This example demonstrates how to use the Invoke-AndRequireSuccess function to run a script block and require it to execute successfully.
+
+    #>
     param (
         [Parameter(Mandatory = $true, Position = 0)]
         [string]$Message,
@@ -22,7 +45,6 @@ function Invoke-AndRequireSuccess {
         [ScriptBlock]$ScriptBlock
     )
 
-    $LASTEXITCODE = 0
     Write-Host "${message}..." -ForegroundColor Blue
     $result = & $ScriptBlock
 
@@ -206,6 +228,22 @@ $cogSearchName = Invoke-AndRequireSuccess "Get Cognitive Search endpoint" {
 }
 $tokens.cognitiveSearchEndpointUri = "https://$($cogSearchName).search.windows.net"
 
+$backendAks = Invoke-AndRequireSuccess "Get Backend AKS" {
+    az aks list `
+        --resource-group $($resourceGroups.app) `
+        --query "[?contains(name, 'backend')].addonProfiles.azureKeyvaultSecretsProvider.identity.clientId | [0]" `
+        --output tsv
+}
+$tokens.aksBackendCsiIdentityClientId = $backendAks
+
+$frontendAks = Invoke-AndRequireSuccess "Get Frontend AKS" {
+    az aks list `
+        --resource-group $($resourceGroups.app) `
+        --query "[?contains(name, 'frontend')].addonProfiles.azureKeyvaultSecretsProvider.identity.clientId | [0]" `
+        --output tsv
+}
+$tokens.aksFrontendCsiIdentityClientId = $frontendAks
+
 $contentSafetyUri = Invoke-AndRequireSuccess "Get Content Safety endpoint" {
     az cognitiveservices account list `
         --resource-group $($resourceGroups.oai) `
@@ -232,13 +270,15 @@ $eventGridNamespace = Invoke-AndRequireSuccess "Get Event Grid Namespace" {
 $tokens.eventGridNamespaceEndpoint = "https://$($eventGridNamespace.hostname)/"
 $tokens.eventGridNamespaceId = $eventGridNamespace.id
 
-$keyvaultUri = Invoke-AndRequireSuccess "Get Key Vault URI" {
+$keyVault = Invoke-AndRequireSuccess "Get Key Vault URI" {
     az keyvault list `
         --resource-group $($resourceGroups.ops) `
-        --query "[0].properties.vaultUri" `
-        --output tsv
+        --query "[0].{uri:properties.vaultUri,name:name}" `
+        --output json | `
+        ConvertFrom-Json
 }
-$tokens.keyvaultUri = $keyvaultUri
+$tokens.keyVaultName = $keyVault.name
+$tokens.keyvaultUri = $keyvault.uri
 
 $storageAccountAdlsName = Invoke-AndRequireSuccess "Get ADLS Storage Account" {
     az storage account list `
@@ -304,6 +344,8 @@ $tokens.vectorizationWorkerEventGridProfile = $eventGridProfiles["vectorization-
 $tokens.managementApiEventGridProfile = $eventGridProfiles["management-api-event-profile"]
 
 PopulateTemplate $tokens "..,config,appconfig.template.json" "..,config,appconfig.json"
+PopulateTemplate $tokens "..,config,kubernetes,spc.foundationallm-certificates.backend.template.yml" "..,config,kubernetes,spc.foundationallm-certificates.backend.yml"
+PopulateTemplate $tokens "..,config,kubernetes,spc.foundationallm-certificates.frontend.template.yml" "..,config,kubernetes,spc.foundationallm-certificates.frontend.yml"
 PopulateTemplate $tokens "..,values,internal-service.template.yml" "..,values,microservice-values.yml"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.json"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.json"

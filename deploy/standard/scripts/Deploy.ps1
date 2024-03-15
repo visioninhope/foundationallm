@@ -1,8 +1,6 @@
 #! /usr/bin/pwsh
 
 Param(
-    [parameter(Mandatory = $false)][bool]$stepDeployCerts = $false,
-    [parameter(Mandatory = $false)][bool]$stepDeployImages = $false,
     [parameter(Mandatory = $false)][bool]$init = $true,
     [parameter(Mandatory = $false)][string]$manifestName = "Deployment-Manifest.json"
 )
@@ -41,25 +39,14 @@ try {
     $manifest.resourceGroups.PSObject.Properties | ForEach-Object { $resourceGroup[$_.Name] = $_.Value }
     $resourceSuffix = "$($manifest.project)-$($manifest.environment)-$($manifest.location)"
 
-    Invoke-AndRequireSuccess "Load Certificates into Key Vault" {
-        ./Load-Certificates.ps1 `
-            -keyVaultResourceGroup $resourceGroup["ops"] `
-    }
-
     Invoke-AndRequireSuccess "Generate Configuration" {
-        ./Generate-Config.ps1 `
+        ./deploy/Generate-Config.ps1 `
             -instanceId $manifest.instanceId `
             -entraClientIds $manifest.entraClientIds `
             -resourceGroups $resourceGroup `
             -subscriptionId $manifest.subscription `
             -resourceSuffix $resourceSuffix `
             -ingress $manifest.ingress
-    }
-
-    Invoke-AndRequireSuccess "Generate Host File" {
-        ./Generate-Hosts.ps1 `
-            -resourceGroup $resourceGroup `
-            -subscription $manifest.subscription
     }
 
     Invoke-AndRequireSuccess "Uploading System Prompts" {
