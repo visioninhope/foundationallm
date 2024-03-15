@@ -11,22 +11,26 @@ using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;
 using FoundationaLLM.Common.Extensions;
+using FoundationaLLM.Common.Models.Orchestration.Direct;
 
 namespace FoundationaLLM.AgentFactory.Core.Services
 {
     /// <summary>
     /// The Azure AI direct orchestration service.
     /// </summary>
+    /// <param name="callContext">The <see cref="ICallContext"/> providing details about the call context.</param>
     /// <param name="logger">The logger used for logging.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
     /// <param name="httpClientFactoryService">The HTTP client factory service.</param>
     /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
     public class AzureAIDirectService(
+        ICallContext callContext,
         ILogger<AzureAIDirectService> logger,
         IConfiguration configuration,
         IHttpClientFactoryService httpClientFactoryService,
         IEnumerable<IResourceProviderService> resourceProviderServices) : IAzureAIDirectService
     {
+        private readonly ICallContext _callContext = callContext;
         private readonly ILogger<AzureAIDirectService> _logger = logger;
         private readonly IConfiguration _configuration = configuration;
         private readonly IHttpClientFactoryService _httpClientFactoryService = httpClientFactoryService;
@@ -53,35 +57,46 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
             var endpointSettings = GetEndpointSettings(endpointConfiguration);
 
-            InputString? systemPrompt = null;
+            SystemCompletionMessage? systemPrompt = null;
+            CompletionMessage? assistantPrompt = null;
             if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
             {
                 if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
                     throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
 
-                var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId);
+                var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId, _callContext.CurrentUserIdentity);
                 if (resource is List<PromptBase> prompts)
                 {
-                    MultipartPrompt? prompt = prompts.FirstOrDefault() as MultipartPrompt;
-                    systemPrompt = new InputString
+                    var prompt = prompts.FirstOrDefault() as MultipartPrompt;
+                    // We are adding an empty assistant prompt and setting the system prompt to the user role to support
+                    // some models (like Mistral) that require user/assistant prompts and not system prompts.
+                    systemPrompt = new SystemCompletionMessage
                     {
-                        Role = "system",
+                        Role = InputMessageRoles.User,
                         Content = prompt?.Prefix ?? string.Empty
+                    };
+                    assistantPrompt = new CompletionMessage
+                    {
+                        Role = InputMessageRoles.Assistant,
+                        Content = string.Empty
                     };
                 }
             }
 
-            var userPrompt = new InputString { Role = "user", Content = request.UserPrompt };
-            var inputStrings = new List<InputString>();
+            var inputStrings = new List<CompletionMessage>();
             // Add system prompt, if exists.
-            if (systemPrompt != null) inputStrings.Add(systemPrompt);
+            if (systemPrompt != null)
+            {
+                inputStrings.Add(systemPrompt);
+                inputStrings.Add(assistantPrompt!);
+            }
             // Add conversation history.
-            if (agent.ConversationHistory?.Enabled == true && request.MessageHistory?.Count != 0)
+            if (agent.ConversationHistory?.Enabled == true && request.MessageHistory != null)
             {
                 var messageHistoryItems = request.MessageHistory?.TakeLast(agent.ConversationHistory.MaxHistory);
                 foreach(var item in messageHistoryItems!)
                 {
-                    inputStrings.Add(new InputString
+                    inputStrings.Add(new CompletionMessage
                     {
                         Role = item.Sender.ToLower(),
                         Content = item.Text
@@ -89,6 +104,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 }
             }
             // Add current user prompt.
+            var userPrompt = new UserCompletionMessage { Content = request.UserPrompt };
             inputStrings.Add(userPrompt);
 
             if (!string.IsNullOrWhiteSpace(endpointSettings.Endpoint) && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
@@ -106,20 +122,25 @@ namespace FoundationaLLM.AgentFactory.Core.Services
                 var modelParameters = agent.OrchestrationSettings?.ModelParameters;
                 var modelOverrides = request.Settings?.ModelParameters;
                 
-                AzureAIDirectRequest azureAIDirectRequest;
+                AzureAICompletionRequest azureAiCompletionRequest;
 
                 if (modelParameters != null)
                 {
-                    azureAIDirectRequest = new()
+                    azureAiCompletionRequest = new()
                     {
                         InputData = new()
                         {
                             InputString = [.. inputStrings],
-                            Parameters = modelParameters.ToObject<Parameters>(modelOverrides)
+                            Parameters = modelParameters.ToObject<AzureAICompletionParameters>(modelOverrides)
                         }
                     };
 
-                    var body = JsonSerializer.Serialize(azureAIDirectRequest, _jsonSerializerOptions);
+                    if (modelOverrides != null && modelOverrides.ContainsKey(ModelParameterKeys.DeploymentName))
+                    {
+                        modelParameters[ModelParameterKeys.DeploymentName] = modelOverrides[ModelParameterKeys.DeploymentName];
+                    }
+
+                    var body = JsonSerializer.Serialize(azureAiCompletionRequest, _jsonSerializerOptions);
                     var content = new StringContent(body, Encoding.UTF8, "application/json");
                     if (modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment))
                     {
@@ -131,7 +152,7 @@ namespace FoundationaLLM.AgentFactory.Core.Services
 
                     if (responseMessage.IsSuccessStatusCode)
                     {
-                        var completionResponse = JsonSerializer.Deserialize<AzureAIDirectResponse>(responseContent);
+                        var completionResponse = JsonSerializer.Deserialize<AzureAICompletionResponse>(responseContent);
 
                         return new LLMCompletionResponse
                         {
