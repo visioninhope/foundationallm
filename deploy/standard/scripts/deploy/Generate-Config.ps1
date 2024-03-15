@@ -13,8 +13,6 @@ Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enabl
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
-#!/usr/bin/env pwsh
-
 function Invoke-AndRequireSuccess {
     <#
     .SYNOPSIS
@@ -366,4 +364,3 @@ $($ingress.frontendIngress).PSObject.Properties | ForEach-Object {
     PopulateTemplate $tokens "..,values,frontend-service.template.yml" "..,values,$($_.Name)-values.yml"
 }
 
-exit 0

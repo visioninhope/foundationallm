@@ -13,4 +13,6 @@
    3. Run `Post-Provision.2.ps1` after connecting to VPN and updating host files.
       1. To put the certificates into the ops key vault
 4. Deploy: Deploy.ps1
-   1. Deploys the secret class provider
+   1. Generates the secret class provider for each cluster
+   2. Creates the gateway-system namespace
+   3. Deploys the secret class provider to gateway-system

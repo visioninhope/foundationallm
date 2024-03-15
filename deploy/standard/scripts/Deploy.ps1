@@ -49,6 +49,27 @@ try {
             -ingress $manifest.ingress
     }
 
+    $backendAks = Invoke-AndRequireSuccess "Get Backend AKS" {
+        az aks list `
+            --resource-group $($resourceGroup.app) `
+            --query "[?contains(name, 'backend')].name | [0]" `
+            --output tsv
+    }
+
+    $secretProviderClassManifestBackend = Resolve-Path "../config/kubernetes/spc.foundationallm-certificates.backend.yml"
+    Invoke-AndRequireSuccess "Deploy Backend" {
+        ./deploy/Deploy-Backend-Aks.ps1 `
+            -aksName $backendAks `
+            -resourceGroup $resourceGroup.app `
+            -secretProviderClassManifest $secretProviderClassManifestBackend
+    }
+
+    $frontendAks = Invoke-AndRequireSuccess "Get Frontend AKS" {
+        az aks list `
+            --resource-group $($resourceGroup.app) `
+            --query "[?contains(name, 'frontend')].name | [0]" `
+            --output tsv
+    }''
     Invoke-AndRequireSuccess "Uploading System Prompts" {
         ./UploadSystemPrompts.ps1 `
             -resourceGroup $resourceGroup["storage"] `
