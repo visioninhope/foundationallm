@@ -57,6 +57,10 @@ interface BaseDataSource {
 	object_id: string;
 	description: string;
 	configuration_references: { [key: string]: string };
+	// The resolved configuration references are used to store the resolved values for displaying in the UI and updating the configuration.
+	resolved_configuration_references: { [key: string]: string | null };
+	// The metadata objects that specify the nature of each configuration reference.
+	configuration_reference_metadata: { [key: string]: ConfigurationReferenceMetadata };
 }
 
 export interface AzureDataLakeDataSource extends BaseDataSource {
@@ -89,12 +93,43 @@ export interface SharePointOnlineSiteDataSource extends BaseDataSource {
 		KeyVaultURL: string;
 	};
 }
+  
+export interface ConfigurationReferenceMetadata {
+	isKeyVaultBacked: boolean;
+}
 
 export type DataSource =
 	| AzureDataLakeDataSource
 	| SharePointOnlineSiteDataSource
 	| AzureSQLDatabaseDataSource;
 // End data sources
+
+// App Configuration
+export interface AppConfigBase {
+	type: string;
+	name: string;
+	object_id: string;
+	display_name: string;
+	description: string | null;
+	key: string;
+	value: string;
+	content_type: string | null;
+}
+
+export interface AppConfig extends AppConfigBase {
+	type: 'appconfiguration-key-value';
+	content_type: ''
+}
+
+export interface AppConfigKeyVault extends AppConfigBase {
+	type: 'appconfiguration-key-vault-reference';
+	key_vault_uri: string;
+	key_vault_secret_name: string;
+	content_type: 'application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8'
+}
+
+export type AppConfigUnion = AppConfig | AppConfigKeyVault;
+// End App Configuration
 
 export type AgentIndex = {
 	name: string;
@@ -242,6 +277,15 @@ export function isAzureSQLDatabaseDataSource(dataSource: DataSource): dataSource
 	return dataSource.type === 'azure-sql-database';
 }
 
+export function isAppConfig(config: AppConfigUnion): config is AppConfig {
+	return config.type === 'appconfiguration-key-value';
+}
+  
+export function isAppConfigKeyVault(config: AppConfigUnion): config is AppConfigKeyVault {
+	return config.type === 'appconfiguration-key-vault-reference';
+}
+  
+
 export function convertDataSourceToAzureDataLake(dataSource: DataSource): AzureDataLakeDataSource {
 	return {
 		type: 'azure-data-lake',
@@ -255,6 +299,13 @@ export function convertDataSourceToAzureDataLake(dataSource: DataSource): AzureD
 			APIKey: dataSource.configuration_references?.APIKey || '',
 			Endpoint: dataSource.configuration_references?.Endpoint || '',
 		},
+		configuration_reference_metadata: {
+			AuthenticationType: { isKeyVaultBacked: false },
+			ConnectionString: { isKeyVaultBacked: true },
+			APIKey: { isKeyVaultBacked: true },
+			Endpoint: { isKeyVaultBacked: false },
+		},
+		resolved_configuration_references: dataSource.resolved_configuration_references,
 	};
 }
 
@@ -272,6 +323,13 @@ export function convertDataSourceToSharePointOnlineSite(dataSource: DataSource):
 			CertificateName: dataSource.configuration_references?.CertificateName || '',
 			KeyVaultURL: dataSource.configuration_references?.KeyVaultURL || '',
 		},
+		configuration_reference_metadata: {
+			ClientId: { isKeyVaultBacked: false },
+			TenantId: { isKeyVaultBacked: false },
+			CertificateName: { isKeyVaultBacked: false },
+			KeyVaultURL: { isKeyVaultBacked: false },
+		},
+		resolved_configuration_references: dataSource.resolved_configuration_references,
 	};
 }
 
@@ -285,5 +343,43 @@ export function convertDataSourceToAzureSQLDatabase(dataSource: DataSource): Azu
 		configuration_references: {
 			ConnectionString: dataSource.configuration_references?.ConnectionString || '',
 		},
+		configuration_reference_metadata: {
+			ConnectionString: { isKeyVaultBacked: true },
+		},
+		resolved_configuration_references: dataSource.resolved_configuration_references,
 	};
 }
+
+export function convertToDataSource(dataSource: DataSource): DataSource {
+	if (isAzureDataLakeDataSource(dataSource)) {
+		return convertDataSourceToAzureDataLake(dataSource);
+	} else if (isSharePointOnlineSiteDataSource(dataSource)) {
+		return convertDataSourceToSharePointOnlineSite(dataSource);
+	} else if (isAzureSQLDatabaseDataSource(dataSource)) {
+		return convertDataSourceToAzureSQLDatabase(dataSource);
+	}
+	return dataSource;
+}
+
+export function convertToAppConfig(baseConfig: AppConfigUnion): AppConfig {
+	return {
+	  ...baseConfig,
+	  type: 'appconfiguration-key-value',
+	  content_type: '',
+	};
+}
+  
+export function convertToAppConfigKeyVault(baseConfig: AppConfigUnion): AppConfigKeyVault {
+	if (!('key_vault_uri' in baseConfig) || !('key_vault_secret_name' in baseConfig)) {
+	  throw new Error("Missing Key Vault properties");
+	}
+  
+	return {
+	  ...baseConfig,
+	  type: 'appconfiguration-key-vault-reference',
+	  key_vault_uri: baseConfig.key_vault_uri,
+	  key_vault_secret_name: baseConfig.key_vault_secret_name,
+	  content_type: 'application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8',
+	};
+}
+  
