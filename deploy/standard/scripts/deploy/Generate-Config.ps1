@@ -13,6 +13,37 @@ Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enabl
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
+function Get-CIDRHost {
+    param(
+        [string]$baseCidr,
+        [int]$hostNum
+    )
+
+    $parts = $baseCidr -split '/'
+    $baseIp = $parts[0]
+    $subnetMask = [int]$parts[1]
+
+    $totalHosts = [math]::Pow(2, (32 - $subnetMask)) - 2 # Subtract 2 for network and broadcast addresses
+
+    if ($hostNum -lt 0 -or $hostNum -gt $totalHosts) {
+        throw "Host number is out of range for the given CIDR block"
+    }
+
+    $baseIpBinary = [System.Net.IPAddress]::Parse($baseIp).GetAddressBytes()
+    [Array]::Reverse($baseIpBinary)
+    $baseIpLong = [System.BitConverter]::ToUInt32($baseIpBinary, 0)
+
+    $offset = $hostNum
+    $specificIpLong = $baseIpLong + $offset
+    $specificIpBinary = [System.BitConverter]::GetBytes($specificIpLong)
+    [Array]::Reverse($specificIpBinary)
+
+    $specificIp = [System.Net.IPAddress]::new($specificIpBinary)
+    return $specificIp.ToString()
+}
+
+
+
 function Invoke-AndRequireSuccess {
     <#
     .SYNOPSIS
@@ -278,6 +309,34 @@ $keyVault = Invoke-AndRequireSuccess "Get Key Vault URI" {
 $tokens.keyVaultName = $keyVault.name
 $tokens.keyvaultUri = $keyvault.uri
 
+$vnetName = Invoke-AndRequireSuccess "Get VNet Name" {
+    az network vnet list `
+        --output tsv `
+        --query "[0].name" `
+        --resource-group $resourceGroups.net `
+        --output tsv
+}
+
+$subnetBackend = Invoke-AndRequireSuccess "Get Backend Subnet CIDR" {
+    az network vnet subnet show `
+        --name "FLLMBackend" `
+        --query addressPrefix `
+        --resource-group $resourceGroups.net `
+        --vnet-name $vnetName `
+        --output tsv
+}
+$tokens.privateIpIngressBackend = Get-CIDRHost -baseCidr $subnetBackend -hostNum 250
+
+$subnetFrontend = Invoke-AndRequireSuccess "Get Frontend Subnet CIDR" {
+    az network vnet subnet show `
+        --name "FLLMFrontend" `
+        --query addressPrefix `
+        --resource-group $resourceGroups.net `
+        --vnet-name $vnetName `
+        --output tsv
+}
+$tokens.privateIpIngressFrontend = Get-CIDRHost -baseCidr $subnetFrontend -hostNum 250
+
 $storageAccountAdlsName = Invoke-AndRequireSuccess "Get ADLS Storage Account" {
     az storage account list `
         --resource-group $($resourceGroups.storage) `
@@ -344,6 +403,8 @@ $tokens.managementApiEventGridProfile = $eventGridProfiles["management-api-event
 PopulateTemplate $tokens "..,config,appconfig.template.json" "..,config,appconfig.json"
 PopulateTemplate $tokens "..,config,kubernetes,spc.foundationallm-certificates.backend.template.yml" "..,config,kubernetes,spc.foundationallm-certificates.backend.yml"
 PopulateTemplate $tokens "..,config,kubernetes,spc.foundationallm-certificates.frontend.template.yml" "..,config,kubernetes,spc.foundationallm-certificates.frontend.yml"
+PopulateTemplate $tokens "..,config,helm,ingress-nginx.values.backend.template.yml" "..,config,helm,ingress-nginx.values.backend.yml"
+PopulateTemplate $tokens "..,config,helm,ingress-nginx.values.frontend.template.yml" "..,config,helm,ingress-nginx.values.frontend.yml"
 PopulateTemplate $tokens "..,values,internal-service.template.yml" "..,values,microservice-values.yml"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.json"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.json"
@@ -363,4 +424,3 @@ $($ingress.frontendIngress).PSObject.Properties | ForEach-Object {
     $tokens.serviceAgwSslCert = $_.Value.sslCert
     PopulateTemplate $tokens "..,values,frontend-service.template.yml" "..,values,$($_.Name)-values.yml"
 }
-

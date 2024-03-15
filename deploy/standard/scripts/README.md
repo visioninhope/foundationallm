@@ -16,3 +16,5 @@
    1. Generates the secret class provider for each cluster
    2. Creates the gateway-system namespace
    3. Deploys the secret class provider to gateway-system
+   4. Generate values file for ingress-nginx
+   5. Deploy ingress-nginx

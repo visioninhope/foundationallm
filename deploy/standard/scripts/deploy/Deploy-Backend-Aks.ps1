@@ -4,7 +4,8 @@ Param(
     # [parameter(Mandatory=$false)][string]$name = "foundationallm",
     [parameter(Mandatory = $false)][string]$aksName,
     [parameter(Mandatory = $false)][string]$resourceGroup,
-    [parameter(Mandatory = $false)][string]$secretProviderClassManifest
+    [parameter(Mandatory = $false)][string]$secretProviderClassManifest,
+    [parameter(Mandatory = $false)][string]$ingressNginxValues
     # [parameter(Mandatory=$false)][string]$charts = "*",
     # [parameter(Mandatory=$false)][string]$namespace = "fllm",
     # [parameter(Mandatory=$false)][bool]$autoscale=$false,
@@ -45,7 +46,6 @@ kind: Namespace
 metadata:
   name: ${gatewayNamespace}
 "@
-Write-Host $gatewayNamespaceYaml
 Invoke-AndRequireSuccess "Create ${gatewayNamespace} namespace" {
     $gatewayNamespaceYaml | kubectl apply --filename -
 }
@@ -56,4 +56,11 @@ Invoke-AndRequireSuccess "Deploying secret provider class" {
         --namespace=${gatewayNamespace}
 }
 
-# Deploy nginx
+Invoke-AndRequireSuccess "Deploy ingress-nginx" {
+    helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+    helm repo update
+    helm upgrade `
+        --install gateway ingress-nginx/ingress-nginx `
+        --namespace ${gatewayNamespace} `
+        --values ${ingressNginxValues}
+}

@@ -57,11 +57,13 @@ try {
     }
 
     $secretProviderClassManifestBackend = Resolve-Path "../config/kubernetes/spc.foundationallm-certificates.backend.yml"
+    $ingressNginxValuesBackend = Resolve-Path "../config/helm/ingress-nginx.values.backend.yml"
     Invoke-AndRequireSuccess "Deploy Backend" {
         ./deploy/Deploy-Backend-Aks.ps1 `
             -aksName $backendAks `
             -resourceGroup $resourceGroup.app `
-            -secretProviderClassManifest $secretProviderClassManifestBackend
+            -secretProviderClassManifest $secretProviderClassManifestBackend `
+            -ingressNginxValues $ingressNginxValuesBackend
     }
 
     $frontendAks = Invoke-AndRequireSuccess "Get Frontend AKS" {
