@@ -48,6 +48,10 @@ class InternalContextAgent(AgentBase):
         self.llm = llm.get_completion_model(completion_request.agent.language_model)
         self.internal_context = True
         self.agent_prompt = ""
+
+        prompt_resource = resource_provider.get_resource(completion_request.agent.prompt_object_id)
+        if prompt_resource is not None and prompt_resource.prefix is not None:
+            self.agent_prompt = prompt_resource.prefix
         
         #default conversation history
         self.message_history_enabled = False
@@ -59,7 +63,7 @@ class InternalContextAgent(AgentBase):
             self.message_history_count = conversation_history.max_history
         
         self.message_history = completion_request.message_history
-        self.full_prompt = ""          
+        self.full_prompt = ""
     
     def __record_full_prompt(self, prompt: str) -> str:
         """
