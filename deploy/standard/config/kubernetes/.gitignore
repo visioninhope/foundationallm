@@ -1,2 +1,5 @@
-spc.foundationallm-certificates.backend.yml
-spc.foundationallm-certificates.frontend.yml
+# Ignore everything
+*
+# Except for the following files
+!**.template.*
+!.gitignore
