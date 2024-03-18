@@ -20,7 +20,7 @@
         /// The key for the FoundationaLLM:AppConfig:ConnectionString environment variable.
         /// This allows the caller to connect to the Azure App Configuration service.
         /// </summary>
-        public const string FoundationaLLM_AppConfig_ConnectionString = "FoundationaLLM:AppConfig:ConnectionString";
+        public const string FoundationaLLM_AppConfig_ConnectionString = "FoundationaLLM_AppConfig_ConnectionString";
 
         /// <summary>
         /// They key for the FoundationaLLM:Configuration:KeyVaultURI environment variable.
