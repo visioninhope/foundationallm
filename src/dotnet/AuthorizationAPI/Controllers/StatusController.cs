@@ -25,7 +25,7 @@ namespace FoundationaLLM.Authorization.API.Controllers
             new OkObjectResult(new ServiceStatusInfo
             {
                 Name = ServiceNames.AuthorizationAPI,
-                Instance = Environment.GetEnvironmentVariable(EnvironmentVariables.Hostname),
+                Instance = ValidatedEnvironment.MachineName,
                 Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
                 Status = ServiceStatuses.Ready
             });

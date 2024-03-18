@@ -57,7 +57,7 @@ namespace FoundationaLLM
             var resourceAttributes = new Dictionary<string, object> {
                 { "service.name", serviceName },
                 { "service.namespace", "FoundationaLLM" },
-                { "service.instance.id", builder.Configuration[EnvironmentVariables.Hostname]! }
+                { "service.instance.id", ValidatedEnvironment.MachineName }
             };
 
             // Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
