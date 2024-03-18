@@ -11,10 +11,6 @@
         public const string AzureClientId = "AZURE_CLIENT_ID";
 
         /// <summary>
-        /// The Azure Container App or Azure Kubernetes Service hostname.
-        /// </summary>
-        public const string Hostname = "HOSTNAME";
-        /// <summary>
         /// The build version of the container. This is also used for the app version used
         /// to validate the minimum version of the app required to use certain configuration entries.
         /// </summary>
