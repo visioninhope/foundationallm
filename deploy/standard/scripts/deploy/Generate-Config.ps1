@@ -1,12 +1,13 @@
 #! /usr/bin/pwsh
 
 Param (
-    [parameter(Mandatory = $true)][object]$instanceId,
     [parameter(Mandatory = $true)][object]$entraClientIds,
+    [parameter(Mandatory = $true)][object]$ingress,
+    [parameter(Mandatory = $true)][object]$instanceId,
     [parameter(Mandatory = $true)][object]$resourceGroups,
+    [parameter(Mandatory = $true)][object]$serviceNamespaceName,
     [parameter(Mandatory = $true)][string]$resourceSuffix,
-    [parameter(Mandatory = $true)][string]$subscriptionId,
-    [parameter(Mandatory = $true)][object]$ingress
+    [parameter(Mandatory = $true)][string]$subscriptionId
 )
 
 Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enable verbose)
@@ -41,8 +42,6 @@ function Get-CIDRHost {
     $specificIp = [System.Net.IPAddress]::new($specificIpBinary)
     return $specificIp.ToString()
 }
-
-
 
 function Invoke-AndRequireSuccess {
     <#
@@ -156,6 +155,11 @@ $services = @{
         miConfigName   = "gatekeeperIntegrationApiMiClientId"
         ingressEnabled = $false
     }
+    langchainapi             = @{
+        miName         = "mi-langchain-api-$svcResourceSuffix"
+        miConfigName   = "langChainApiMiClientId"
+        ingressEnabled = $false
+    }
     managementapi            = @{
         miName         = "mi-management-api-$svcResourceSuffix"
         miConfigName   = "managementApiMiClientId"
@@ -167,11 +171,6 @@ $services = @{
         miConfigName   = "managementUiMiClientId"
         ingressEnabled = $true
         hostname       = "management.internal.foundationallm.ai"
-    }
-    langchainapi             = @{
-        miName         = "mi-langchain-api-$svcResourceSuffix"
-        miConfigName   = "langChainApiMiClientId"
-        ingressEnabled = $false
     }
     prompthubapi             = @{
         miName         = "mi-prompt-hub-api-$svcResourceSuffix"
@@ -411,16 +410,22 @@ PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Prompt,Founda
 
 $($ingress.apiIngress).PSObject.Properties | ForEach-Object {
     $tokens.serviceHostname = $_.Value.host
+    $tokens.serviceName = $_.Value.serviceName
+    $tokens.serviceNamespaceName = $serviceNamespaceName
     $tokens.servicePath = $_.Value.path
     $tokens.servicePathType = $_.Value.pathType
     $tokens.serviceSecretName = $_.Value.sslCert
     PopulateTemplate $tokens "..,config,helm,exposed-service.template.yml" "..,config,helm,$($_.Name)-values.yml"
+    PopulateTemplate $tokens "..,config,helm,service-ingress.template.yml" "..,config,helm,$($_.Name)-ingress.yml"
 }
 
 $($ingress.frontendIngress).PSObject.Properties | ForEach-Object {
     $tokens.serviceHostname = $_.Value.host
+    $tokens.serviceName = $_.Value.serviceName
+    $tokens.serviceNamespaceName = $serviceNamespaceName
     $tokens.servicePath = $_.Value.path
     $tokens.servicePathType = $_.Value.pathType
     $tokens.serviceSecretName = $_.Value.sslCert
     PopulateTemplate $tokens "..,config,helm,frontend-service.template.yml" "..,config,helm,$($_.Name)-values.yml"
+    PopulateTemplate $tokens "..,config,helm,service-ingress.template.yml" "..,config,helm,$($_.Name)-ingress.yml"
 }

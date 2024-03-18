@@ -41,11 +41,12 @@ try {
 
     Invoke-AndRequireSuccess "Generate Configuration" {
         ./deploy/Generate-Config.ps1 `
-            -instanceId $manifest.instanceId `
             -entraClientIds $manifest.entraClientIds `
+            -instanceId $manifest.instanceId `
             -resourceGroups $resourceGroup `
-            -subscriptionId $manifest.subscription `
             -resourceSuffix $resourceSuffix `
+            -serviceNamespaceName $manifest.k8sNamespace `
+            -subscriptionId $manifest.subscription `
             -ingress $manifest.ingress
     }
 
