@@ -4189,12 +4189,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.EnvironmentVariables.FoundationaLLM_Version
   fullName: FoundationaLLM.Common.Constants.EnvironmentVariables.FoundationaLLM_Version
   nameWithType: EnvironmentVariables.FoundationaLLM_Version
-- uid: FoundationaLLM.Common.Constants.EnvironmentVariables.Hostname
-  name: Hostname
-  href: api/dotnet/FoundationaLLM.Common.Constants.EnvironmentVariables.html#FoundationaLLM_Common_Constants_EnvironmentVariables_Hostname
-  commentId: F:FoundationaLLM.Common.Constants.EnvironmentVariables.Hostname
-  fullName: FoundationaLLM.Common.Constants.EnvironmentVariables.Hostname
-  nameWithType: EnvironmentVariables.Hostname
 - uid: FoundationaLLM.Common.Constants.EventGridEventTypes
   name: EventGridEventTypes
   href: api/dotnet/FoundationaLLM.Common.Constants.EventGridEventTypes.html
@@ -22500,6 +22494,25 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync
   nameWithType: SemanticKernelTextEmbeddingService.GetEmbeddingsAsync
+- uid: FoundationaLLM.ValidatedEnvironment
+  name: ValidatedEnvironment
+  href: api/dotnet/FoundationaLLM.ValidatedEnvironment.html
+  commentId: T:FoundationaLLM.ValidatedEnvironment
+  fullName: FoundationaLLM.ValidatedEnvironment
+  nameWithType: ValidatedEnvironment
+- uid: FoundationaLLM.ValidatedEnvironment.MachineName
+  name: MachineName
+  href: api/dotnet/FoundationaLLM.ValidatedEnvironment.html#FoundationaLLM_ValidatedEnvironment_MachineName
+  commentId: P:FoundationaLLM.ValidatedEnvironment.MachineName
+  fullName: FoundationaLLM.ValidatedEnvironment.MachineName
+  nameWithType: ValidatedEnvironment.MachineName
+- uid: FoundationaLLM.ValidatedEnvironment.MachineName*
+  name: MachineName
+  href: api/dotnet/FoundationaLLM.ValidatedEnvironment.html#FoundationaLLM_ValidatedEnvironment_MachineName_
+  commentId: Overload:FoundationaLLM.ValidatedEnvironment.MachineName
+  isSpec: "True"
+  fullName: FoundationaLLM.ValidatedEnvironment.MachineName
+  nameWithType: ValidatedEnvironment.MachineName
 - uid: FoundationaLLM.Vectorization
   name: FoundationaLLM.Vectorization
   href: api/dotnet/FoundationaLLM.Vectorization.html
