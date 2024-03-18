@@ -415,6 +415,7 @@ $($ingress.apiIngress).PSObject.Properties | ForEach-Object {
     $tokens.servicePath = $_.Value.path
     $tokens.servicePathType = $_.Value.pathType
     $tokens.serviceSecretName = $_.Value.sslCert
+    $tokens.authKeyvaultUri = "PLACEHOLDER"
     PopulateTemplate $tokens "..,config,helm,exposed-service.template.yml" "..,config,helm,$($_.Name)-values.yml"
     PopulateTemplate $tokens "..,config,helm,service-ingress.template.yml" "..,config,helm,$($_.Name)-ingress.yml"
 }

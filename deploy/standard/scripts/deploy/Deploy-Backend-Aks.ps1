@@ -1,15 +1,14 @@
 #! /usr/bin/pwsh
 
 Param(
-    # [parameter(Mandatory=$false)][string]$name = "foundationallm",
     [parameter(Mandatory = $false)][string]$aksName,
+    [parameter(Mandatory = $false)][string]$charts = "*",
+    [parameter(Mandatory = $false)][string]$ingressNginxValues,
+    [parameter(Mandatory = $false)][string]$releasePrefix = "foundationallm",
     [parameter(Mandatory = $false)][string]$resourceGroup,
     [parameter(Mandatory = $false)][string]$secretProviderClassManifest,
-    [parameter(Mandatory = $false)][string]$ingressNginxValues
-    # [parameter(Mandatory=$false)][string]$charts = "*",
-    # [parameter(Mandatory=$false)][string]$namespace = "fllm",
-    # [parameter(Mandatory=$false)][bool]$autoscale=$false,
-    # [parameter(Mandatory=$false)][string]$version="0.4.1"
+    [parameter(Mandatory = $false)][string]$serviceNamespace = "fllm",
+    [parameter(Mandatory = $false)][string]$version = "0.4.1"
 )
 
 Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enable verbose)
@@ -39,6 +38,47 @@ Invoke-AndRequireSuccess "Retrieving credentials for AKS cluster ${aksName}" {
     az aks get-credentials --name $aksName --resource-group $resourceGroup
 }
 
+# **** Service Namespace ****
+$serviceNamespaceYaml = @"
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${serviceNamespace}
+"@
+Invoke-AndRequireSuccess "Create ${serviceNamespace} namespace" {
+    $serviceNamespaceYaml | kubectl apply --filename -
+}
+
+$chartNames = @{
+    "agent-factory-api"          = "../config/helm/microservice-values.yml"
+    "agent-hub-api"              = "../config/helm/microservice-values.yml"
+    "core-api"                   = "../config/helm/coreapi-values.yml"
+    "core-job"                   = "../config/helm/microservice-values.yml"
+    "data-source-hub-api"        = "../config/helm/microservice-values.yml"
+    "gatekeeper-api"             = "../config/helm/microservice-values.yml"
+    "gatekeeper-integration-api" = "../config/helm/microservice-values.yml"
+    "langchain-api"              = "../config/helm/microservice-values.yml"
+    "management-api"             = "../config/helm/managementapi-values.yml"
+    "prompt-hub-api"             = "../config/helm/microservice-values.yml"
+    "semantic-kernel-api"        = "../config/helm/microservice-values.yml"
+    "vectorization-api"          = "../config/helm/vectorizationapi-values.yml"
+    "vectorization-job"          = "../config/helm/microservice-values.yml"
+}
+$chartsToInstall = $chartNames | Where-Object { $charts.Contains("*") -or $charts.Contains($_) }
+foreach ($chart in $chartsToInstall.GetEnumerator()) {
+    Invoke-AndRequireSuccess "Deploying chart $($chart.Key)" {
+        $releaseName = @($releasePrefix, $chart.Key) | Join-String -Separator "-"
+        $valuesFile = Resolve-Path $chart.Value
+
+        helm upgrade `
+            --version $version `
+            --install $releaseName oci://ghcr.io/solliancenet/foundationallm/helm/$($chart.Key) `
+            --namespace ${serviceNamespace} `
+            --values $valuesFile `
+    }
+}
+
+# **** Gateway Namespace ****
 $gatewayNamespace = "gateway-system"
 $gatewayNamespaceYaml = @"
 apiVersion: v1
