@@ -88,18 +88,29 @@ export default {
 	},
 
 	async getDataSource(dataSourceId: string): Promise<DataSource> {
-		// await wait(this.mockLoadTime);
-		// return mockAzureDataLakeDataSource1;
 		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/${dataSourceId}?api-version=${this.apiVersion}`);
 		let dataSource = data[0] as DataSource;
 		dataSource.resolved_configuration_references = {};
-		for (const [configName, configValue] of Object.entries(dataSource.configuration_references)) {
-			const resolvedValue = await this.getAppConfig(dataSource.configuration_references[configName as keyof typeof dataSource.configuration_references]);
-			if (resolvedValue) {
-				dataSource.resolved_configuration_references[configName] = String(resolvedValue.value);
+		// Retrieve all the app config values for the data source.
+		const appConfigFilter = `FoundationaLLM:DataSources:${dataSource.name}:*`;
+		const appConfigs = await this.getAppConfigs(appConfigFilter);
+
+		// If set the resolved_configuration_references property on the data source with the app config values.
+		if (appConfigs) {
+			for (const appConfig of appConfigs) {
+				const propertyName = appConfig.name.split(':').pop();
+				dataSource.resolved_configuration_references[propertyName as string] = String(appConfig.value);
 			}
-			else {
-				dataSource.resolved_configuration_references[configName] = '';
+		}
+		else {
+			for (const [configName, configValue] of Object.entries(dataSource.configuration_references)) {
+				const resolvedValue = await this.getAppConfig(dataSource.configuration_references[configName as keyof typeof dataSource.configuration_references]);
+				if (resolvedValue) {
+					dataSource.resolved_configuration_references[configName] = String(resolvedValue.value);
+				}
+				else {
+					dataSource.resolved_configuration_references[configName] = '';
+				}
 			}
 		}
 		dataSource = convertToDataSource(dataSource);
@@ -171,6 +182,10 @@ export default {
     	// return mockAzureDataLakeDataSource1;
 		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${key}?api-version=${this.apiVersion}`);
 		return data[0] as AppConfigUnion;
+	},
+
+	async getAppConfigs(filter?: string): Promise<AppConfigUnion[]> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${filter}?api-version=${this.apiVersion}`);
 	},
 
 	async upsertAppConfig(request): Promise<any> {
