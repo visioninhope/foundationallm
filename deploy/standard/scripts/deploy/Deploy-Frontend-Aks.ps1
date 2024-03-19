@@ -93,3 +93,14 @@ Invoke-AndRequireSuccess "Deploy ingress-nginx" {
         --namespace ${gatewayNamespace} `
         --values ${ingressNginxValues}
 }
+
+$ingressNames = @{
+    "chat-ui"       = "../config/helm/chatui-ingress.yml"
+    "management-ui" = "../config/helm/managementui-ingress.yml"
+}
+foreach ($ingress in $ingressNames.GetEnumerator()) {
+    Invoke-AndRequireSuccess "Deploying ingress for $($ingress.Key)" {
+        $ingressFile = Resolve-Path $ingress.Value
+        kubectl apply --filename $ingressFile --namespace ${gatewayNamespace}
+    }
+}
