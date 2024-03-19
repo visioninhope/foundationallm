@@ -1,6 +1,5 @@
 Param(
-    [parameter(Mandatory=$true)][string]$principalId,
-    [parameter(Mandatory=$true)][string]$resourceGroup
+    [parameter(Mandatory=$true)][string]$principalId
 )
 
 function Invoke-AndRequireSuccess {
