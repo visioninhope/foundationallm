@@ -1128,13 +1128,6 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/search-key\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-        "tags": {}
-      },
-      {
         "key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
         "value": "APIKey",
         "label": null,
@@ -1146,13 +1139,6 @@
         "value": "{{cognitiveSearchEndpointUri}}",
         "label": null,
         "content_type": "",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/search-key\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
         "tags": {}
       },
       {
