@@ -1,6 +1,5 @@
 Param(
-    [parameter(Mandatory=$true)][string]$appName,
-    [parameter(Mandatory=$true)][string]$msiName,
+    [parameter(Mandatory=$true)][string]$principalId,
     [parameter(Mandatory=$true)][string]$resourceGroup
 )
 
@@ -22,14 +21,6 @@ function Invoke-AndRequireSuccess {
 
     return $result
 }
-
-$principalId = $(
-    az identity show `
-        --name $msiName `
-        --resource-group $resourceGroup `
-        --query 'principalId' `
-        --output tsv
-)
 
 $msGraphId = (az ad sp show --id '00000003-0000-0000-c000-000000000000' --output tsv --query 'id') 
 
