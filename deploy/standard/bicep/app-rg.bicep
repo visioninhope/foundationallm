@@ -352,3 +352,34 @@ module vectorizationApiServiceResources 'modules/service.bicep' = [for service i
   }
 }
 ]
+
+resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2024-02-15-preview' existing = {
+  name: 'cdb-${project}-${environmentName}-${location}-storage'
+  scope: resourceGroup(storageResourceGroupName)
+}
+
+var backendServiceNames = [for service in items(backendServices): service.key]
+
+module coreApiosmosRoles './modules/sqlRoleAssignments.bicep' = {
+  scope: resourceGroup(storageResourceGroupName)
+  name: 'core-api-cosmos-role'
+  params: {
+    accountName: cosmosDb.name
+    principalId: coreApiServiceResources[0].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
+  }
+}
+
+module cosmosRoles './modules/sqlRoleAssignments.bicep' = {
+  scope: resourceGroup(storageResourceGroupName)
+  name: 'core-job-cosmos-role'
+  params: {
+    accountName: cosmosDb.name
+    principalId: backendServiceResources[indexOf(backendServiceNames, 'core-job')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
+  }
+}
