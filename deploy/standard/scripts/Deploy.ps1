@@ -96,28 +96,11 @@ finally {
 }
 
 
-# $instanceId = $manifest.instanceId
-# $ingress = $manifest.ingress
-# $entraClientIds = $manifest.entraClientIds
-# $environment = $manifest.environment
-# $location = $manifest.location
-# $project = $manifest.project
-# $resourceGroups = $manifest.resourceGroups
 
 
 
 
 
-# if ($stepDeployCerts) {
-#     # TODO Deploy Certs to AGWs
-# }
-
-# if ($stepDeployImages) {
-#     # Deploy images in AKS
-#     $chartsToDeploy = "*"
-
-#     #& ./Deploy-Images-Aks-Standard.ps1 -aksName $aksName -resourceGroup $resourceGroup -charts $chartsToDeploy
-# }
 
 # # Write-Host "===========================================================" -ForegroundColor Yellow
 # # Write-Host "The frontend is hosted at https://$webappHostname" -ForegroundColor Yellow
