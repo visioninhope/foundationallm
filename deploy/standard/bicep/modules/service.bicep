@@ -40,6 +40,9 @@ param timestamp string = utcNow()
 @description('Flag enabling OIDC support.')
 param useOidc bool = false
 
+@description('Vectorization Resource Group name')
+param vectorizationResourceGroupName string
+
 /** Locals **/
 @description('Formatted untruncated resource name')
 var kvFormattedName = toLower('${kvServiceType}-${substring(opsResourceSuffix, 0, length(opsResourceSuffix) - 4)}')
@@ -117,6 +120,17 @@ module storageRoleAssignments 'utility/roleAssignments.bicep' = {
     roleDefinitionIds: {
       Contributor: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
     }
+  }
+}
+
+resource searchIndexDataReaderRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: resourceGroup(vectorizationResourceGroupName)
+  name: guid(subscription().id, resourceGroup().id, managedIdentity.id, 'searchIndexDataReaderRole')
+  properties: {
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions', '1407120a-92aa-4202-b7e9-c0e197c71c8f')
+    principalType: 'ServicePrincipal'
+    principalId: managedIdentity.properties.principalId
   }
 }
 

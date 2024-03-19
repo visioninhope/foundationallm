@@ -125,6 +125,7 @@ task App -depends Agw, ResourceGroups, Ops, Networking, DNS {
                                     project=$project `
                                     storageResourceGroupName=$($resourceGroups.storage) `
                                     vectorizationApiClientSecret=$script:vectorizationApiClientSecret `
+                                    vectorizationResourceGroupName=$($resourceGroups.vec)
                                     vnetId=$script:vnetId
 
     if ($LASTEXITCODE -ne 0) {

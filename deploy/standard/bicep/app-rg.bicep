@@ -61,6 +61,9 @@ param timestamp string = utcNow()
 @secure()
 param vectorizationApiClientSecret string
 
+@description('Vectorization Resource Group name')
+param vectorizationResourceGroupName string
+
 @description('Virtual Network ID, used to find the subnet IDs.')
 param vnetId string
 
@@ -349,6 +352,7 @@ module vectorizationApiServiceResources 'modules/service.bicep' = [for service i
     storageResourceGroupName: storageResourceGroupName
     tags: tags
     useOidc: false
+    vectorizationResourceGroupName: vectorizationResourceGroupName
   }
 }
 ]
