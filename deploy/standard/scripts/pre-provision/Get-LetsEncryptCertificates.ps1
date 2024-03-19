@@ -1,5 +1,43 @@
 #! /usr/bin/env pwsh
 
+<#
+.SYNOPSIS
+    This script generates Let's Encrypt certificates for a given base domain and a list of subdomains.
+
+.DESCRIPTION
+    The script generates Let's Encrypt certificates for a given base domain and a list of subdomains.
+    It uses Certbot and the dns-azure plugin for DNS authentication.
+
+.PARAMETER baseDomain
+    The base domain for which the certificates will be generated.
+
+.PARAMETER email
+    The email address to be used for Let's Encrypt registration and notifications.
+
+.PARAMETER subdomainPrefix
+    An optional prefix to be added to each subdomain.
+
+.NOTES
+    - This script requires Certbot and the dns-azure plugin to be installed.
+    - The script assumes the existence of the following directories:
+        - ../config/certbot/config
+        - ../config/certbot/work
+        - ../config/certbot/log
+        - ../config/certbot/certs
+    - The script generates certificates for the following subdomains:
+        - api
+        - management
+        - management-api
+        - vectorization-api
+        - www
+    - Certbot DNS Azure documentation: https://docs.certbot-dns-azure.co.uk/en/latest/
+    - Certbot DNS Azure GitHub repository: https://github.com/terrycain/certbot-dns-azure
+
+.EXAMPLE
+    Get-LetsEncryptCertificates.ps1 -baseDomain example.com -email admin@example.com
+
+#>
+
 param(
     [parameter(Mandatory = $true)][string]$baseDomain,
     [parameter(Mandatory = $true)][string]$email,

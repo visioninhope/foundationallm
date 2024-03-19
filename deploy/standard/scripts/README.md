@@ -14,7 +14,9 @@
       1. To put the certificates into the ops key vault
 4. Deploy: Deploy.ps1
    1. Generates the configurations for each cluster
-   2. Backend Cluster
+   2. Loads the config into app configuration
+   3. Loads default system files
+   4. Backend Cluster
       1. FllM namespace
          1. Create the FLLM namespace in the backend cluster
          2. Deploy the backend services to the cluster
@@ -23,7 +25,7 @@
          2. Deploys the secret class provider to gateway-system
          3. Deploy ingress-nginx
          4. Deploy Ingress Configurations and External Services
-   3. Frontend Cluster
+   5. Frontend Cluster
       1. FllM namespace
          1. Create the FLLM namespace in the frontend cluster
          2. Deploy the frontend services to the cluster

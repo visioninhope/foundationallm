@@ -50,6 +50,31 @@ try {
             -ingress $manifest.ingress
     }
 
+    $appConfigName = Invoke-AndRequireSuccess "Get AppConfig" {
+        az appconfig list `
+            --resource-group $($resourceGroup.ops) `
+            --query "[0].name" `
+            --output tsv
+    }
+
+    $configurationFile = Resolve-Path "../config/appconfig.json"
+    Invoke-AndRequireSuccess "Loading AppConfig Values" {
+        az appconfig kv import `
+            --profile appconfig/kvset `
+            --name $appConfigName `
+            --source file `
+            --path $configurationFile `
+            --format json `
+            --yes `
+            --output none
+    }
+
+    Invoke-AndRequireSuccess "Uploading System Prompts" {
+        ./deploy/UploadSystemPrompts.ps1 `
+            -resourceGroup $resourceGroup["storage"] `
+            -location $manifest.location
+    }
+
     $backendAks = Invoke-AndRequireSuccess "Get Backend AKS" {
         az aks list `
             --resource-group $($resourceGroup.app) `
@@ -82,12 +107,6 @@ try {
             -resourceGroup $resourceGroup.app `
             -secretProviderClassManifest $secretProviderClassManifestFrontend `
             -ingressNginxValues $ingressNginxValuesFrontend
-    }
-
-    Invoke-AndRequireSuccess "Uploading System Prompts" {
-        ./UploadSystemPrompts.ps1 `
-            -resourceGroup $resourceGroup["storage"] `
-            -location $manifest.location
     }
 }
 finally {
