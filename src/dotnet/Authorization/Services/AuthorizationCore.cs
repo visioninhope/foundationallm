@@ -117,6 +117,9 @@ namespace FoundationaLLM.Authorization.Services
         {
             try
             {
+                _logger.LogDebug("Authorization request: {AuthorizationRequest}",
+                    JsonSerializer.Serialize(authorizationRequest));
+
                 if (!_initialized)
                 {
                     _logger.LogError("The authorization core is not initialized.");
