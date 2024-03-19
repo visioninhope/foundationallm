@@ -4,7 +4,6 @@ Param(
     [parameter(Mandatory = $false)][string]$aksName,
     [parameter(Mandatory = $false)][string]$charts = "*",
     [parameter(Mandatory = $false)][string]$ingressNginxValues,
-    [parameter(Mandatory = $false)][string]$releasePrefix = "foundationallm",
     [parameter(Mandatory = $false)][string]$resourceGroup,
     [parameter(Mandatory = $false)][string]$secretProviderClassManifest,
     [parameter(Mandatory = $false)][string]$serviceNamespace = "fllm",
@@ -67,7 +66,7 @@ $chartNames = @{
 $chartsToInstall = $chartNames | Where-Object { $charts.Contains("*") -or $charts.Contains($_) }
 foreach ($chart in $chartsToInstall.GetEnumerator()) {
     Invoke-AndRequireSuccess "Deploying chart $($chart.Key)" {
-        $releaseName = @($releasePrefix, $chart.Key) | Join-String -Separator "-"
+        $releaseName = $chart.Key
         $valuesFile = Resolve-Path $chart.Value
 
         helm upgrade `
