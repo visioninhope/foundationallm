@@ -13,8 +13,22 @@
    3. Run `Post-Provision.2.ps1` after connecting to VPN and updating host files.
       1. To put the certificates into the ops key vault
 4. Deploy: Deploy.ps1
-   1. Generates the secret class provider for each cluster
-   2. Creates the gateway-system namespace
-   3. Deploys the secret class provider to gateway-system
-   4. Generate values file for ingress-nginx
-   5. Deploy ingress-nginx
+   1. Generates the configurations for each cluster
+   2. Backend Cluster
+      1. FllM namespace
+         1. Create the FLLM namespace in the backend cluster
+         2. Deploy the backend services to the cluster
+      2. Gateway-system namespace
+         1. Creates the gateway-system namespace
+         2. Deploys the secret class provider to gateway-system
+         3. Deploy ingress-nginx
+         4. Deploy Ingress Configurations and External Services
+   3. Frontend Cluster
+      1. FllM namespace
+         1. Create the FLLM namespace in the frontend cluster
+         2. Deploy the frontend services to the cluster
+      2. Gateway-system namespace
+         1. Creates the gateway-system namespace
+         2. Deploys the secret class provider to gateway-system
+         3. Deploy ingress-nginx
+         4. Deploy Ingress Configurations and External Services
