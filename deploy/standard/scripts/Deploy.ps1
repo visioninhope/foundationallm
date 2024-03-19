@@ -72,7 +72,18 @@ try {
             --resource-group $($resourceGroup.app) `
             --query "[?contains(name, 'frontend')].name | [0]" `
             --output tsv
-    }''
+    }
+
+    $secretProviderClassManifestFrontend = Resolve-Path "../config/kubernetes/spc.foundationallm-certificates.frontend.yml"
+    $ingressNginxValuesFrontend = Resolve-Path "../config/helm/ingress-nginx.values.frontend.yml"
+    Invoke-AndRequireSuccess "Deploy Frontend" {
+        ./deploy/Deploy-Frontend-Aks.ps1 `
+            -aksName $frontendAks `
+            -resourceGroup $resourceGroup.app `
+            -secretProviderClassManifest $secretProviderClassManifestFrontend `
+            -ingressNginxValues $ingressNginxValuesFrontend
+    }
+
     Invoke-AndRequireSuccess "Uploading System Prompts" {
         ./UploadSystemPrompts.ps1 `
             -resourceGroup $resourceGroup["storage"] `
