@@ -7,6 +7,7 @@ param eventgridName string
 param cogsearchName string
 param identityName string
 param keyvaultName string
+param storageAccountName string
 param containerAppsEnvironmentName string
 param applicationInsightsName string
 param exists bool
@@ -108,6 +109,34 @@ resource eventGridContributorRole 'Microsoft.Authorization/roleAssignments@2022-
       'Microsoft.Authorization/roleDefinitions', '1e241071-0855-49ea-94dc-649edcd759de')
       principalType: 'ServicePrincipal'
       principalId: identity.properties.principalId
+  }
+}
+
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' existing = {
+  name: storageAccountName
+}
+
+resource blobContribRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: storageAccount
+  name: guid(subscription().id, resourceGroup().id, identity.id, storageAccount.id, 'Storage Blob Data Contributor')
+  properties: {
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    )
+    principalType: 'ServicePrincipal'
+    principalId: identity.properties.principalId
+  }
+}
+
+resource queueContribRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: storageAccount
+  name: guid(subscription().id, resourceGroup().id, identity.id, storageAccount.id, 'Storage Queue Data Contributor')
+  properties: {
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions', '974c5e8b-45b9-4653-ba55-5f855dd0fb88'
+    )
+    principalType: 'ServicePrincipal'
+    principalId: identity.properties.principalId
   }
 }
 
