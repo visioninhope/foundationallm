@@ -20,7 +20,7 @@ azureWorkloadIdentity:
   tenantId: {{tenantId}}
 apihost: {{serviceHostname}}
 authKeyvaultUri: {{authKeyvaultUri}}
-baseUrl: {{servicePath}}
+baseUrl: {{serviceBaseUrl}}
 
 ingress:
   enabled: false

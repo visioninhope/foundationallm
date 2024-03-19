@@ -409,22 +409,24 @@ PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Agent,Foundat
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.json"
 
 $($ingress.apiIngress).PSObject.Properties | ForEach-Object {
+    $tokens.authKeyvaultUri = "PLACEHOLDER"
+    $tokens.serviceBaseUrl = $_.Value.path
     $tokens.serviceHostname = $_.Value.host
     $tokens.serviceName = $_.Value.serviceName
     $tokens.serviceNamespaceName = $serviceNamespaceName
-    $tokens.servicePath = $_.Value.path
+    $tokens.servicePath = $_.Value.path + "(.*)"
     $tokens.servicePathType = $_.Value.pathType
     $tokens.serviceSecretName = $_.Value.sslCert
-    $tokens.authKeyvaultUri = "PLACEHOLDER"
     PopulateTemplate $tokens "..,config,helm,exposed-service.template.yml" "..,config,helm,$($_.Name)-values.yml"
     PopulateTemplate $tokens "..,config,helm,service-ingress.template.yml" "..,config,helm,$($_.Name)-ingress.yml"
 }
 
 $($ingress.frontendIngress).PSObject.Properties | ForEach-Object {
+    $tokens.serviceBaseUrl = $_.Value.path
     $tokens.serviceHostname = $_.Value.host
     $tokens.serviceName = $_.Value.serviceName
     $tokens.serviceNamespaceName = $serviceNamespaceName
-    $tokens.servicePath = $_.Value.path
+    $tokens.servicePath = $_.Value.path + "(.*)"
     $tokens.servicePathType = $_.Value.pathType
     $tokens.serviceSecretName = $_.Value.sslCert
     PopulateTemplate $tokens "..,config,helm,frontend-service.template.yml" "..,config,helm,$($_.Name)-values.yml"
