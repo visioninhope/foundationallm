@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using System.Security.Claims;
 
 namespace FoundationaLLM
 {
