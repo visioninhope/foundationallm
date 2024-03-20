@@ -9,7 +9,7 @@ namespace FoundationaLLM.Vectorization.Services
     public class NullAuthorizationService : IAuthorizationService
     {
         /// <inheritdoc/>
-        public async Task<ActionAuthorizationResult> ProcessAuthorizationRequest(ActionAuthorizationRequest authorizationRequest)
+        public async Task<ActionAuthorizationResult> ProcessAuthorizationRequest(string instanceId, ActionAuthorizationRequest authorizationRequest)
         {
             await Task.CompletedTask;
             return new ActionAuthorizationResult

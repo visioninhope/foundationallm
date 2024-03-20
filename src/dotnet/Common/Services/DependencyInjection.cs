@@ -74,11 +74,17 @@ namespace FoundationaLLM
         /// <param name="entraTenantIdConfigurationKey">The configuration key for the Entra ID tenant id.</param>
         /// <param name="entraClientIdConfigurationkey">The configuration key for the Entra ID client id.</param>
         /// <param name="entraScopesConfigurationKey">The configuration key for the Entra ID scopes.</param>
+        /// <param name="policyName">The name of the authorization policy.</param>
+        /// <param name="requireScopes">Indicates whether a scope claim (scp) is required for authorization.</param>
+        /// <param name="requireAppId">Indicates whether an application id (azp) claim is required for authorization.</param>
         public static void AddAuthenticationConfiguration(this IHostApplicationBuilder builder,
             string entraInstanceConfigurationKey,
             string entraTenantIdConfigurationKey,
             string entraClientIdConfigurationkey,
-            string entraScopesConfigurationKey)
+            string? entraScopesConfigurationKey,
+            string policyName = "RequiredScope",
+            bool requireScopes = true,
+            bool requireAppId = false)
         {
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(jwtOptions => { },
@@ -91,15 +97,23 @@ namespace FoundationaLLM
 
             builder.Services.AddScoped<IUserClaimsProviderService, EntraUserClaimsProviderService>();
 
-            // Configure the scope used by the API controllers:
-            var requiredScope = builder.Configuration[entraScopesConfigurationKey] ?? "";
+            // Configure the policy used by the API controllers:
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy("RequiredScope", policyBuilder =>
+                options.AddPolicy(policyName, policyBuilder =>
                 {
                     policyBuilder.RequireAuthenticatedUser();
-                    policyBuilder.RequireClaim("http://schemas.microsoft.com/identity/claims/scope",
-                        requiredScope.Split(' '));
+                    if (requireScopes)
+                    {
+                        var requiredScope = builder.Configuration[entraScopesConfigurationKey!] ?? "";
+                        policyBuilder.RequireClaim(ClaimConstants.Scope,
+                            requiredScope.Split(' '));
+                    }
+
+                    if (requireAppId)
+                    {
+                        policyBuilder.RequireClaim(AuthorizationClaims.ApplicationId);
+                    }
                 });
             });
         }
