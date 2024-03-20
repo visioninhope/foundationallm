@@ -14,8 +14,7 @@ namespace FoundationaLLM.Management.API.Controllers
     /// </remarks>
     /// <param name="configurationManagementService">The Configuration Management service
     /// provides methods for managing configurations for FoundationaLLM.</param>
-    [Authorize]
-    [Authorize(Policy = "RequiredScope")]
+    [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
     [Consumes("application/json")]
     [Produces("application/json")]

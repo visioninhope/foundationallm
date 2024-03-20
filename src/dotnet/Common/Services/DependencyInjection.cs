@@ -4,7 +4,9 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Security;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using System.Security.Claims;
 
 namespace FoundationaLLM
 {
@@ -74,11 +77,15 @@ namespace FoundationaLLM
         /// <param name="entraTenantIdConfigurationKey">The configuration key for the Entra ID tenant id.</param>
         /// <param name="entraClientIdConfigurationkey">The configuration key for the Entra ID client id.</param>
         /// <param name="entraScopesConfigurationKey">The configuration key for the Entra ID scopes.</param>
+        /// <param name="policyName">The name of the authorization policy.</param>
+        /// <param name="requireScopes">Indicates whether a scope claim (scp) is required for authorization.</param>
         public static void AddAuthenticationConfiguration(this IHostApplicationBuilder builder,
             string entraInstanceConfigurationKey,
             string entraTenantIdConfigurationKey,
             string entraClientIdConfigurationkey,
-            string entraScopesConfigurationKey)
+            string? entraScopesConfigurationKey,
+            string policyName = "DefaultPolicy",
+            bool requireScopes = true)
         {
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(jwtOptions => { },
@@ -87,19 +94,23 @@ namespace FoundationaLLM
                         identityOptions.Instance = builder.Configuration[entraInstanceConfigurationKey] ?? "";
                         identityOptions.TenantId = builder.Configuration[entraTenantIdConfigurationKey];
                         identityOptions.ClientId = builder.Configuration[entraClientIdConfigurationkey];
+                        identityOptions.AllowWebApiToBeAuthorizedByACL = true;
                     });
 
             builder.Services.AddScoped<IUserClaimsProviderService, EntraUserClaimsProviderService>();
 
-            // Configure the scope used by the API controllers:
-            var requiredScope = builder.Configuration[entraScopesConfigurationKey] ?? "";
+            // Configure the policy used by the API controllers:
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy("RequiredScope", policyBuilder =>
+                options.AddPolicy(policyName, policyBuilder =>
                 {
                     policyBuilder.RequireAuthenticatedUser();
-                    policyBuilder.RequireClaim("http://schemas.microsoft.com/identity/claims/scope",
-                        requiredScope.Split(' '));
+                    if (requireScopes)
+                    {
+                        var requiredScope = builder.Configuration[entraScopesConfigurationKey!] ?? "";
+                        policyBuilder.RequireClaim(ClaimConstants.Scope,
+                            requiredScope.Split(' '));
+                    }
                 });
             });
         }
