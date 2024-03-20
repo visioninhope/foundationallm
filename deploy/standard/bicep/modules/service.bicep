@@ -40,9 +40,6 @@ param timestamp string = utcNow()
 @description('Flag enabling OIDC support.')
 param useOidc bool = false
 
-@description('Vectorization Resource Group name')
-param vectorizationResourceGroupName string
-
 /** Locals **/
 @description('Formatted untruncated resource name')
 var kvFormattedName = toLower('${kvServiceType}-${substring(opsResourceSuffix, 0, length(opsResourceSuffix) - 4)}')
