@@ -37,20 +37,22 @@ function Invoke-AndRequireSuccess {
 Invoke-AndRequireSuccess "Retrieving credentials for AKS cluster ${aksName}" {
     az aks get-credentials --name $aksName --resource-group $resourceGroup
 }
-# docker pull cropseastus2svinternal.azurecr.io/chat-ui:prerelease-050
+
 $chartsToInstall = $chartNames | Where-Object { $charts.Contains("*") -or $charts.Contains($_) }
 foreach ($chart in $chartsToInstall.GetEnumerator()) {
     Invoke-AndRequireSuccess "Updating chart $($chart.Key)" {
         $releaseName = $chart.Key
-        $valuesFile = Resolve-Path $chart.Value
+        $valuesFile = Resolve-Path $chart.Value.values
+        $chartPath = Resolve-Path "../../common/helm/$($chart.Key)"
+        # oci://ghcr.io/solliancenet/foundationallm/helm/$($chart.Key)
 
         helm upgrade `
             --reuse-values `
             --version $version `
-            --install $releaseName oci://ghcr.io/solliancenet/foundationallm/helm/$($chart.Key) `
+            --install $releaseName $chartPath `
             --namespace ${serviceNamespace} `
             --values $valuesFile `
-            --set image.repository=$($loginServer)/$($chart.Key) `
+            --set image.repository=$($loginServer)/$($chart.Value.image) `
             --set image.tag=$updateVersion
     }
 }

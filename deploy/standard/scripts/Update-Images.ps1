@@ -32,20 +32,60 @@ try {
     }
 
     $chartNames = @{
-        "agent-factory-api"          = "../config/helm/microservice-values.yml"
-        "agent-hub-api"              = "../config/helm/microservice-values.yml"
-        "core-api"                   = "../config/helm/coreapi-values.yml"
-        "core-job"                   = "../config/helm/microservice-values.yml"
-        "data-source-hub-api"        = "../config/helm/microservice-values.yml"
-        "gatekeeper-api"             = "../config/helm/microservice-values.yml"
-        "gatekeeper-integration-api" = "../config/helm/microservice-values.yml"
-        "langchain-api"              = "../config/helm/microservice-values.yml"
-        "management-api"             = "../config/helm/managementapi-values.yml"
-        "prompt-hub-api"             = "../config/helm/microservice-values.yml"
-        "semantic-kernel-api"        = "../config/helm/microservice-values.yml"
-        "vectorization-api"          = "../config/helm/vectorizationapi-values.yml"
-        "vectorization-job"          = "../config/helm/microservice-values.yml"
+        "agent-factory-api"          = @{
+            image  = "agentfactory-api"
+            values = "../config/helm/microservice-values.yml"
+        }
+        "agent-hub-api"              = @{
+            image  = "agenthub-api"
+            values = "../config/helm/microservice-values.yml"
+        }
+        "core-api"                   = @{
+            image  = "core-api"
+            values = "../config/helm/coreapi-values.yml"
+        }
+        "core-job"                   = @{
+            image  = "core-job"
+            values = "../config/helm/microservice-values.yml"
+        }
+        "data-source-hub-api"        = @{
+            image  = "datasourcehub-api"
+            values = "../config/helm/microservice-values.yml"
+        }
+        "gatekeeper-api"             = @{
+            image  = "gatekeeper-api"
+            values = "../config/helm/microservice-values.yml"
+        }
+        "gatekeeper-integration-api" = @{
+            image  = "gatekeeperintegration-api"
+            values = "../config/helm/microservice-values.yml"
+        }
+        "langchain-api"              = @{
+            image  = "langchain-api"
+            values = "../config/helm/microservice-values.yml"
+        }
+        "management-api"             = @{
+            image  = "management-api"
+            values = "../config/helm/managementapi-values.yml"
+        }
+        "prompt-hub-api"             = @{
+            image  = "prompthub-api"
+            values = "../config/helm/microservice-values.yml"
+        }
+        "semantic-kernel-api"        = @{
+            image  = "semantickernel-api"
+            values = "../config/helm/microservice-values.yml"
+        }
+        "vectorization-api"          = @{
+            image  = "vectorization-api"
+            values = "../config/helm/vectorizationapi-values.yml"
+        }
+        "vectorization-job"          = @{
+            image  = "vectorization-job"
+            values = "../config/helm/microservice-values.yml"
+        }
     }
+
     Invoke-AndRequireSuccess "Update Backend" {
         ./deploy/Update-Aks.ps1 `
             -aksName $backendAks `
@@ -63,8 +103,14 @@ try {
     }
 
     $chartNames = @{
-        "chat-ui"       = "../config/helm/chatui-values.yml"
-        "management-ui" = "../config/helm/managementui-values.yml"
+        "chat-ui"       = @{
+            image  = "chat-ui"
+            values = "../config/helm/chatui-values.yml"
+        }
+        "management-ui" = @{
+            image  = "management-ui"
+            values = "../config/helm/managementui-values.yml"
+        }
     }
     Invoke-AndRequireSuccess "Update Frontend" {
         ./deploy/Update-Aks.ps1 `
