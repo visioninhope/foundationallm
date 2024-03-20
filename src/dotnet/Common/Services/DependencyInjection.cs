@@ -4,7 +4,9 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Security;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -76,15 +78,13 @@ namespace FoundationaLLM
         /// <param name="entraScopesConfigurationKey">The configuration key for the Entra ID scopes.</param>
         /// <param name="policyName">The name of the authorization policy.</param>
         /// <param name="requireScopes">Indicates whether a scope claim (scp) is required for authorization.</param>
-        /// <param name="requireAppId">Indicates whether an application id (azp) claim is required for authorization.</param>
         public static void AddAuthenticationConfiguration(this IHostApplicationBuilder builder,
             string entraInstanceConfigurationKey,
             string entraTenantIdConfigurationKey,
             string entraClientIdConfigurationkey,
             string? entraScopesConfigurationKey,
-            string policyName = "RequiredScope",
-            bool requireScopes = true,
-            bool requireAppId = false)
+            string policyName = "DefaultPolicy",
+            bool requireScopes = true)
         {
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(jwtOptions => { },
@@ -108,11 +108,6 @@ namespace FoundationaLLM
                         var requiredScope = builder.Configuration[entraScopesConfigurationKey!] ?? "";
                         policyBuilder.RequireClaim(ClaimConstants.Scope,
                             requiredScope.Split(' '));
-                    }
-
-                    if (requireAppId)
-                    {
-                        policyBuilder.RequireClaim(AuthorizationClaims.ApplicationId);
                     }
                 });
             });
