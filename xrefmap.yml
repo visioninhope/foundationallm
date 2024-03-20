@@ -32,12 +32,15 @@ references:
   fullName.vb: AuthorizationAPI.Controllers.AuthorizeController.New
   nameWithType: AuthorizeController.AuthorizeController
   nameWithType.vb: AuthorizeController.New
-- uid: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name: ProcessAuthorizationRequest(ActionAuthorizationRequest)
-  href: api/dotnet/AuthorizationAPI.Controllers.AuthorizeController.html#AuthorizationAPI_Controllers_AuthorizeController_ProcessAuthorizationRequest_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
-  commentId: M:AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  fullName: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  nameWithType: AuthorizeController.ProcessAuthorizationRequest(ActionAuthorizationRequest)
+- uid: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  href: api/dotnet/AuthorizationAPI.Controllers.AuthorizeController.html#AuthorizationAPI_Controllers_AuthorizeController_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
+  commentId: M:AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+  fullName: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  fullName.vb: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  nameWithType: AuthorizeController.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  nameWithType.vb: AuthorizeController.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
 - uid: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest*
   name: ProcessAuthorizationRequest
   href: api/dotnet/AuthorizationAPI.Controllers.AuthorizeController.html#AuthorizationAPI_Controllers_AuthorizeController_ProcessAuthorizationRequest_
@@ -1594,12 +1597,31 @@ references:
   commentId: T:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore
   fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore
   nameWithType: IAuthorizationCore
-- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name: ProcessAuthorizationRequest(ActionAuthorizationRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_ProcessAuthorizationRequest_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
-  commentId: M:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  nameWithType: IAuthorizationCore.ProcessAuthorizationRequest(ActionAuthorizationRequest)
+- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AllowAuthorizationRequestsProcessing(System.String,System.String)
+  name: AllowAuthorizationRequestsProcessing(string, string)
+  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_AllowAuthorizationRequestsProcessing_System_String_System_String_
+  commentId: M:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AllowAuthorizationRequestsProcessing(System.String,System.String)
+  name.vb: AllowAuthorizationRequestsProcessing(String, String)
+  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AllowAuthorizationRequestsProcessing(string, string)
+  fullName.vb: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AllowAuthorizationRequestsProcessing(String, String)
+  nameWithType: IAuthorizationCore.AllowAuthorizationRequestsProcessing(string, string)
+  nameWithType.vb: IAuthorizationCore.AllowAuthorizationRequestsProcessing(String, String)
+- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AllowAuthorizationRequestsProcessing*
+  name: AllowAuthorizationRequestsProcessing
+  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_AllowAuthorizationRequestsProcessing_
+  commentId: Overload:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AllowAuthorizationRequestsProcessing
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AllowAuthorizationRequestsProcessing
+  nameWithType: IAuthorizationCore.AllowAuthorizationRequestsProcessing
+- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
+  commentId: M:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  fullName.vb: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  nameWithType: IAuthorizationCore.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  nameWithType.vb: IAuthorizationCore.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
 - uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessAuthorizationRequest*
   name: ProcessAuthorizationRequest
   href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_ProcessAuthorizationRequest_
@@ -1607,6 +1629,50 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessAuthorizationRequest
   nameWithType: IAuthorizationCore.ProcessAuthorizationRequest
+- uid: FoundationaLLM.Authorization.Middleware
+  name: FoundationaLLM.Authorization.Middleware
+  href: api/dotnet/FoundationaLLM.Authorization.Middleware.html
+  commentId: N:FoundationaLLM.Authorization.Middleware
+  fullName: FoundationaLLM.Authorization.Middleware
+  nameWithType: FoundationaLLM.Authorization.Middleware
+- uid: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware
+  name: AuthorizationAPIMiddleware
+  href: api/dotnet/FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.html
+  commentId: T:FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware
+  fullName: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware
+  nameWithType: AuthorizationAPIMiddleware
+- uid: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)
+  name: AuthorizationAPIMiddleware(RequestDelegate)
+  href: api/dotnet/FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.html#FoundationaLLM_Authorization_Middleware_AuthorizationAPIMiddleware__ctor_Microsoft_AspNetCore_Http_RequestDelegate_
+  commentId: M:FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)
+  name.vb: New(RequestDelegate)
+  fullName: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.AuthorizationAPIMiddleware(Microsoft.AspNetCore.Http.RequestDelegate)
+  fullName.vb: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.New(Microsoft.AspNetCore.Http.RequestDelegate)
+  nameWithType: AuthorizationAPIMiddleware.AuthorizationAPIMiddleware(RequestDelegate)
+  nameWithType.vb: AuthorizationAPIMiddleware.New(RequestDelegate)
+- uid: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.#ctor*
+  name: AuthorizationAPIMiddleware
+  href: api/dotnet/FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.html#FoundationaLLM_Authorization_Middleware_AuthorizationAPIMiddleware__ctor_
+  commentId: Overload:FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.AuthorizationAPIMiddleware
+  fullName.vb: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.New
+  nameWithType: AuthorizationAPIMiddleware.AuthorizationAPIMiddleware
+  nameWithType.vb: AuthorizationAPIMiddleware.New
+- uid: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
+  name: InvokeAsync(HttpContext, IAuthorizationCore)
+  href: api/dotnet/FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.html#FoundationaLLM_Authorization_Middleware_AuthorizationAPIMiddleware_InvokeAsync_Microsoft_AspNetCore_Http_HttpContext_FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_
+  commentId: M:FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
+  fullName: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext, FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
+  nameWithType: AuthorizationAPIMiddleware.InvokeAsync(HttpContext, IAuthorizationCore)
+- uid: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.InvokeAsync*
+  name: InvokeAsync
+  href: api/dotnet/FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.html#FoundationaLLM_Authorization_Middleware_AuthorizationAPIMiddleware_InvokeAsync_
+  commentId: Overload:FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.InvokeAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.Middleware.AuthorizationAPIMiddleware.InvokeAsync
+  nameWithType: AuthorizationAPIMiddleware.InvokeAsync
 - uid: FoundationaLLM.Authorization.Models
   name: FoundationaLLM.Authorization.Models
   href: api/dotnet/FoundationaLLM.Authorization.Models.html
@@ -2181,12 +2247,31 @@ references:
   fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationCore.New
   nameWithType: AuthorizationCore.AuthorizationCore
   nameWithType.vb: AuthorizationCore.New
-- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name: ProcessAuthorizationRequest(ActionAuthorizationRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_ProcessAuthorizationRequest_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
-  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationCore.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  nameWithType: AuthorizationCore.ProcessAuthorizationRequest(ActionAuthorizationRequest)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.AllowAuthorizationRequestsProcessing(System.String,System.String)
+  name: AllowAuthorizationRequestsProcessing(string, string)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_AllowAuthorizationRequestsProcessing_System_String_System_String_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationCore.AllowAuthorizationRequestsProcessing(System.String,System.String)
+  name.vb: AllowAuthorizationRequestsProcessing(String, String)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.AllowAuthorizationRequestsProcessing(string, string)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationCore.AllowAuthorizationRequestsProcessing(String, String)
+  nameWithType: AuthorizationCore.AllowAuthorizationRequestsProcessing(string, string)
+  nameWithType.vb: AuthorizationCore.AllowAuthorizationRequestsProcessing(String, String)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.AllowAuthorizationRequestsProcessing*
+  name: AllowAuthorizationRequestsProcessing
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_AllowAuthorizationRequestsProcessing_
+  commentId: Overload:FoundationaLLM.Authorization.Services.AuthorizationCore.AllowAuthorizationRequestsProcessing
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.AllowAuthorizationRequestsProcessing
+  nameWithType: AuthorizationCore.AllowAuthorizationRequestsProcessing
+- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationCore.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationCore.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  nameWithType: AuthorizationCore.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  nameWithType.vb: AuthorizationCore.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
 - uid: FoundationaLLM.Authorization.Services.AuthorizationCore.ProcessAuthorizationRequest*
   name: ProcessAuthorizationRequest
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_ProcessAuthorizationRequest_
@@ -2219,12 +2304,15 @@ references:
   fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.New
   nameWithType: AuthorizationService.AuthorizationService
   nameWithType.vb: AuthorizationService.New
-- uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name: ProcessAuthorizationRequest(ActionAuthorizationRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessAuthorizationRequest_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
-  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  nameWithType: AuthorizationService.ProcessAuthorizationRequest(ActionAuthorizationRequest)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  nameWithType: AuthorizationService.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  nameWithType.vb: AuthorizationService.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
 - uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest*
   name: ProcessAuthorizationRequest
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessAuthorizationRequest_
@@ -3973,6 +4061,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker
   nameWithType: AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker
+- uid: FoundationaLLM.Common.Constants.AuthorizationClaims
+  name: AuthorizationClaims
+  href: api/dotnet/FoundationaLLM.Common.Constants.AuthorizationClaims.html
+  commentId: T:FoundationaLLM.Common.Constants.AuthorizationClaims
+  fullName: FoundationaLLM.Common.Constants.AuthorizationClaims
+  nameWithType: AuthorizationClaims
+- uid: FoundationaLLM.Common.Constants.AuthorizationClaims.ApplicationId
+  name: ApplicationId
+  href: api/dotnet/FoundationaLLM.Common.Constants.AuthorizationClaims.html#FoundationaLLM_Common_Constants_AuthorizationClaims_ApplicationId
+  commentId: F:FoundationaLLM.Common.Constants.AuthorizationClaims.ApplicationId
+  fullName: FoundationaLLM.Common.Constants.AuthorizationClaims.ApplicationId
+  nameWithType: AuthorizationClaims.ApplicationId
 - uid: FoundationaLLM.Common.Constants.CacheCategories
   name: CacheCategories
   href: api/dotnet/FoundationaLLM.Common.Constants.CacheCategories.html
@@ -5725,12 +5825,15 @@ references:
   commentId: T:FoundationaLLM.Common.Interfaces.IAuthorizationService
   fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService
   nameWithType: IAuthorizationService
-- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name: ProcessAuthorizationRequest(ActionAuthorizationRequest)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessAuthorizationRequest_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
-  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  nameWithType: IAuthorizationService.ProcessAuthorizationRequest(ActionAuthorizationRequest)
+- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
+  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  nameWithType: IAuthorizationService.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  nameWithType.vb: IAuthorizationService.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
 - uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest*
   name: ProcessAuthorizationRequest
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessAuthorizationRequest_
@@ -20081,15 +20184,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAgentResourceProvider
   nameWithType: DependencyInjection.AddAgentResourceProvider
-- uid: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String)
-  name: AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string)
-  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAuthenticationConfiguration_Microsoft_Extensions_Hosting_IHostApplicationBuilder_System_String_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String)
-  name.vb: AddAuthenticationConfiguration(IHostApplicationBuilder, String, String, String, String)
-  fullName: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder, string, string, string, string)
-  fullName.vb: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder, String, String, String, String)
-  nameWithType: DependencyInjection.AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string)
-  nameWithType.vb: DependencyInjection.AddAuthenticationConfiguration(IHostApplicationBuilder, String, String, String, String)
+- uid: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String,System.String,System.Boolean)
+  name: AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string?, string, bool)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAuthenticationConfiguration_Microsoft_Extensions_Hosting_IHostApplicationBuilder_System_String_System_String_System_String_System_String_System_String_System_Boolean_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String,System.String,System.Boolean)
+  name.vb: AddAuthenticationConfiguration(IHostApplicationBuilder, String, String, String, String, String, Boolean)
+  fullName: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder, string, string, string, string?, string, bool)
+  fullName.vb: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder, String, String, String, String, String, Boolean)
+  nameWithType: DependencyInjection.AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string?, string, bool)
+  nameWithType.vb: DependencyInjection.AddAuthenticationConfiguration(IHostApplicationBuilder, String, String, String, String, String, Boolean)
 - uid: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration*
   name: AddAuthenticationConfiguration
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAuthenticationConfiguration_
@@ -25106,12 +25209,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Services.NullAuthorizationService
   fullName: FoundationaLLM.Vectorization.Services.NullAuthorizationService
   nameWithType: NullAuthorizationService
-- uid: FoundationaLLM.Vectorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name: ProcessAuthorizationRequest(ActionAuthorizationRequest)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.NullAuthorizationService.html#FoundationaLLM_Vectorization_Services_NullAuthorizationService_ProcessAuthorizationRequest_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
-  commentId: M:FoundationaLLM.Vectorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  fullName: FoundationaLLM.Vectorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  nameWithType: NullAuthorizationService.ProcessAuthorizationRequest(ActionAuthorizationRequest)
+- uid: FoundationaLLM.Vectorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.NullAuthorizationService.html#FoundationaLLM_Vectorization_Services_NullAuthorizationService_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
+  commentId: M:FoundationaLLM.Vectorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+  fullName: FoundationaLLM.Vectorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  fullName.vb: FoundationaLLM.Vectorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  nameWithType: NullAuthorizationService.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  nameWithType.vb: NullAuthorizationService.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
 - uid: FoundationaLLM.Vectorization.Services.NullAuthorizationService.ProcessAuthorizationRequest*
   name: ProcessAuthorizationRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Services.NullAuthorizationService.html#FoundationaLLM_Vectorization_Services_NullAuthorizationService_ProcessAuthorizationRequest_
