@@ -103,6 +103,7 @@ var backendServices = {
 var chatUiService = { 'chat-ui': { displayName: 'Chat' } }
 var coreApiService = { 'core-api': { displayName: 'CoreAPI' } }
 var vectorizationApiService = { 'vectorization-api': { displayName: 'VectorizationAPI' } }
+var vecServiceNames = [for service in items(vectorizationApiService): service.key]
 
 var managementUiService = { 'management-ui': { displayName: 'ManagementUI' } }
 var managementApiService = { 'management-api': { displayName: 'ManagementAPI' } }
@@ -261,6 +262,7 @@ module backendServiceResources 'modules/service.bicep' = [for service in items(b
       resourceSuffix: resourceSuffix
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
+      vectorizationResourceGroupName: vectorizationResourceGroupName
       tags: tags
     }
   }
@@ -278,6 +280,7 @@ module chatUiServiceResources 'modules/service.bicep' = [for service in items(ch
       resourceSuffix: resourceSuffix
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
+      vectorizationResourceGroupName: vectorizationResourceGroupName
       tags: tags
       useOidc: true
     }
@@ -296,6 +299,7 @@ module managementUiServiceResources 'modules/service.bicep' = [for service in it
       resourceSuffix: resourceSuffix
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
+      vectorizationResourceGroupName: vectorizationResourceGroupName
       tags: tags
       useOidc: true
     }
@@ -314,6 +318,7 @@ module coreApiServiceResources 'modules/service.bicep' = [for service in items(c
       resourceSuffix: resourceSuffix
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
+      vectorizationResourceGroupName: vectorizationResourceGroupName
       tags: tags
       useOidc: true
     }
@@ -332,6 +337,7 @@ module managementApiServiceResources 'modules/service.bicep' = [for service in i
       resourceSuffix: resourceSuffix
       serviceName: service.key
       storageResourceGroupName: storageResourceGroupName
+      vectorizationResourceGroupName: vectorizationResourceGroupName
       tags: tags
       useOidc: true
     }
@@ -356,3 +362,16 @@ module vectorizationApiServiceResources 'modules/service.bicep' = [for service i
   }
 }
 ]
+
+module searchIndexDataReaderRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'searchIAM-Vec-${timestamp}'
+  scope: resourceGroup(vectorizationResourceGroupName)
+  params: {
+    principalId: vectorizationApiServiceResources[indexOf(vecServiceNames, 'vectorization-api')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+    }
+  }
+}
+
+

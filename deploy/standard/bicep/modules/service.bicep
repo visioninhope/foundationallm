@@ -57,6 +57,8 @@ var kvServiceType = 'kv'
 /** Outputs **/
 @description('Service Managed Identity Client Id.')
 output serviceClientId string = managedIdentity.properties.clientId
+output servicePrincipalId string = managedIdentity.properties.principalId
+output serviceMiName string = managedIdentity.name
 
 @description('Service Api Key Secret KeyVault Uri.')
 #disable-next-line outputs-should-not-contain-secrets
@@ -120,17 +122,6 @@ module storageRoleAssignments 'utility/roleAssignments.bicep' = {
     roleDefinitionIds: {
       Contributor: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
     }
-  }
-}
-
-resource searchIndexDataReaderRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  scope: resourceGroup(vectorizationResourceGroupName)
-  name: guid(subscription().id, resourceGroup().id, managedIdentity.id, 'searchIndexDataReaderRole')
-  properties: {
-    roleDefinitionId: subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions', '1407120a-92aa-4202-b7e9-c0e197c71c8f')
-    principalType: 'ServicePrincipal'
-    principalId: managedIdentity.properties.principalId
   }
 }
 
