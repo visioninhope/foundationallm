@@ -39,8 +39,7 @@ builder.AddAuthenticationConfiguration(
     KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_ClientId,
     null,
     policyName: "RequiredClaims",
-    requireScopes: false,
-    requireAppId: true);
+    requireScopes: false);
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(

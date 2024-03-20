@@ -9,8 +9,7 @@ namespace FoundationaLLM.Core.API.Controllers
     /// <summary>
     /// Provides methods for checking the status of the service.
     /// </summary>
-    [Authorize]
-    [Authorize(Policy = "RequiredScope")]
+    [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
     [Route("[controller]")]
     public class StatusController : ControllerBase

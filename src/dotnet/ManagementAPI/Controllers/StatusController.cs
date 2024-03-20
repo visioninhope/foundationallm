@@ -8,8 +8,7 @@ namespace FoundationaLLM.Management.API.Controllers
     /// <summary>
     /// Provides methods for checking the status of the service.
     /// </summary>
-    [Authorize]
-    [Authorize(Policy = "RequiredScope")]
+    [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
     [Route("status")]
     [Consumes("application/json")]
