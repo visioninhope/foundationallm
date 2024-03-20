@@ -93,6 +93,7 @@ namespace FoundationaLLM
                         identityOptions.Instance = builder.Configuration[entraInstanceConfigurationKey] ?? "";
                         identityOptions.TenantId = builder.Configuration[entraTenantIdConfigurationKey];
                         identityOptions.ClientId = builder.Configuration[entraClientIdConfigurationkey];
+                        identityOptions.AllowWebApiToBeAuthorizedByACL = true;
                     });
 
             builder.Services.AddScoped<IUserClaimsProviderService, EntraUserClaimsProviderService>();

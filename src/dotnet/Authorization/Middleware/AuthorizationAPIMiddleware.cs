@@ -39,6 +39,8 @@ namespace FoundationaLLM.Authorization.Middleware
                 {
                     context.Response.StatusCode = StatusCodes.Status403Forbidden;
                     await context.Response.WriteAsync("Authorization requests processing is not allowed.");
+
+                    return;
                 }
             }
 
