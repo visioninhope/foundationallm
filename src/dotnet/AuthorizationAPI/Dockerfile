@@ -40,9 +40,9 @@ FROM build AS publish
 RUN dotnet publish "dotnet/Common/Common.csproj" -c Release -o /app/publish /p:UseAppHost=false
 RUN dotnet publish "dotnet/Agent/Agent.csproj" -c Release -o /app/publish /p:UseAppHost=false
 RUN dotnet publish "dotnet/Prompt/Prompt.csproj" -c Release -o /app/publish /p:UseAppHost=false
-RUN dotnet publish "dotnet/Prompt/Configuration.csproj" -c Release -o /app/publish /p:UseAppHost=false
-RUN dotnet publish "dotnet/Prompt/DataSource.csproj" -c Release -o /app/publish /p:UseAppHost=false
-RUN dotnet publish "dotnet/Prompt/Vectorization.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/Configuration/Configuration.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/DataSource/DataSource.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/Vectorization/Vectorization.csproj" -c Release -o /app/publish /p:UseAppHost=false
 RUN dotnet publish "dotnet/Authorization/Authorization.csproj" -c Release -o /app/publish /p:UseAppHost=false
 RUN dotnet publish "dotnet/AuthorizationAPI/AuthorizationAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
