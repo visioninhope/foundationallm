@@ -149,14 +149,6 @@ module authKeyvault './shared/keyvault.bicep' = {
         value: authAppRegistration.clientId
       }
       {
-        name: 'foundationallm-authorizationapi-entra-clientsecret'
-        value: authClientSecret
-      }
-      {
-        name: 'foundationallm-authorizationapi-entra-scopes'
-        value: authAppRegistration.scopes
-      }
-      {
         name: 'foundationallm-authorizationapi-storage-accountname'
         value: authStore.outputs.name
       }
