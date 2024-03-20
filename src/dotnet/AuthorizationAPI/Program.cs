@@ -54,21 +54,20 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-// Register the middleware to authorize the processing of authorization requests.
-app.UseMiddleware<AuthorizationAPIMiddleware>();
-
 // Set the CORS policy before other middleware.
 app.UseCors(CorsPolicyNames.AllowAllOrigins);
 
-app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Register the middleware to authorize the processing of authorization requests.
+app.UseMiddleware<AuthorizationAPIMiddleware>();
 
 app.UseExceptionHandler(exceptionHandlerApp
     => exceptionHandlerApp.Run(async context
         => await Results.Problem().ExecuteAsync(context)));
 
+app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
