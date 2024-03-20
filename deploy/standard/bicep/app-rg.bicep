@@ -316,62 +316,36 @@ module srVectorizationApi 'modules/service.bicep' = [for service in items(vector
     tags: tags
     useOidc: false
   }
-}]
-
-module systemTopicAppConfig 'modules/config-system-topic.bicep' = {
-  name: 'systemTopicAppConfig-${timestamp}'
-  scope: resourceGroup(opsResourceGroupName)
-  params: {
-    actionGroupId: actionGroupId
-    location: location
-    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    resourceSuffix: resourceSuffix
-    opsResourceSuffix: opsResourceSuffix
-    tags: tags
-  }
 }
+]
 
-module systemTopicStorage 'modules/storage-system-topic.bicep' = {
-  name: 'systemTopicStorage-${timestamp}'
+resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2024-02-15-preview' existing = {
+  name: 'cdb-${project}-${environmentName}-${location}-storage'
   scope: resourceGroup(storageResourceGroupName)
-  params: {
-    actionGroupId: actionGroupId
-    location: location
-    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    resourceSuffix: resourceSuffix
-    storageResourceSuffix: storageResourceSuffix
-    tags: tags
-  }
 }
 
-module systemTopicSubscriptionAppConfig 'modules/system-topic-subscription.bicep' = {
-  name: 'systemTopicSubscriptionAppConfig-${timestamp}'
-  scope: resourceGroup(opsResourceGroupName)
-  params: {
-    name: 'app-config'
-    topicName: systemTopicAppConfig.outputs.name
-    destinationTopicName: 'configuration'
-    eventGridName: eventgrid.outputs.name
-    appResourceGroup: resourceGroup().name
-    includedEventTypes: [
-      'Microsoft.AppConfiguration.KeyValueModified'
-    ]
-  }
-}
+var backendServiceNames = [for service in items(backendServices): service.key]
 
-module systemTopicSubscriptionStorage 'modules/system-topic-subscription.bicep' = {
-  name: 'systemTopicSubscriptionStorage-${timestamp}'
+module coreApiosmosRoles './modules/sqlRoleAssignments.bicep' = {
   scope: resourceGroup(storageResourceGroupName)
+  name: 'core-api-cosmos-role'
   params: {
-    name: 'resource-provider'
-    topicName: systemTopicStorage.outputs.name
-    destinationTopicName: 'storage'
-    eventGridName: eventgrid.outputs.name
-    appResourceGroup: resourceGroup().name
-    filterPrefix: '/blobServices/default/containers/resource-provider/blobs'
-    includedEventTypes: [
-      'Microsoft.Storage.BlobCreated'
-      'Microsoft.Storage.BlobDeleted'
-    ]
+    accountName: cosmosDb.name
+    principalId: coreApiServiceResources[0].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
+  }
+}
+
+module cosmosRoles './modules/sqlRoleAssignments.bicep' = {
+  scope: resourceGroup(storageResourceGroupName)
+  name: 'core-job-cosmos-role'
+  params: {
+    accountName: cosmosDb.name
+    principalId: backendServiceResources[indexOf(backendServiceNames, 'core-job')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
   }
 }
