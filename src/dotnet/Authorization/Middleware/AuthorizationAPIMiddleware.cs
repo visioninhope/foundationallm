@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.Authorization.Interfaces;
 using FoundationaLLM.Common.Constants;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Identity.Web;
 using System.Security.Claims;
 
 namespace FoundationaLLM.Authorization.Middleware
@@ -31,11 +32,12 @@ namespace FoundationaLLM.Authorization.Middleware
         {
             if (context.User is { Identity.IsAuthenticated: true })
             {
-                var appId = context.User.FindFirstValue(AuthorizationClaims.ApplicationId);
-                if (string.IsNullOrWhiteSpace(appId)
+                var userId = context.User.FindFirstValue(ClaimConstants.Oid)
+                    ?? context.User.FindFirstValue(ClaimConstants.NameIdentifierId);
+                if (string.IsNullOrWhiteSpace(userId)
                     || !authorizationCore.AllowAuthorizationRequestsProcessing(
                         (context.Request.RouteValues["instanceId"] as string)!,
-                        appId))
+                        userId))
                 {
                     context.Response.StatusCode = StatusCodes.Status403Forbidden;
                     await context.Response.WriteAsync("Authorization requests processing is not allowed.");
