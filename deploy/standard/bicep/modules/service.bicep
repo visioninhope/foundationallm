@@ -117,6 +117,8 @@ module storageRoleAssignments 'utility/roleAssignments.bicep' = {
     principalId: managedIdentity.properties.principalId
     roleDefinitionIds: {
       Contributor: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
+      'Storage Blob Data Contributor': 'b24988ac-6180-42a0-ab88-20f7382dd24c'
+      'Storage Queue Data Contributor': '974c5e8b-45b9-4653-ba55-5f855dd0fb88'
     }
   }
 }
