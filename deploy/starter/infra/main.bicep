@@ -480,7 +480,7 @@ module authAcaService './app/authAcaService.bicep' = {
     imageName: authService.image
     envSettings: [
       {
-        name: 'FoundationaLLM__AuthorizationAPI__KeyVaultUri'
+        name: 'FoundationaLLM_AuthorizationAPI_KeyVaultURI'
         value: authKeyvault.outputs.endpoint
       }
     ]
