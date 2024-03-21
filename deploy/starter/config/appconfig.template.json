@@ -1136,7 +1136,7 @@
     },
     {
       "key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
-      "value": "APIKey",
+      "value": "AzureIdentity",
       "label": null,
       "content_type": "",
       "tags": {}
