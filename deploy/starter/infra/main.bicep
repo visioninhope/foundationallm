@@ -500,6 +500,7 @@ module acaServices './app/acaService.bicep' = [for service in services: {
     appConfigName: appConfig.outputs.name
     eventgridName: eventgrid.outputs.name
     cogsearchName: cogSearch.outputs.name
+    storageAccountName: storage.outputs.name
     identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
     keyvaultName: keyVault.outputs.name
     applicationInsightsName: monitoring.outputs.applicationInsightsName
@@ -585,3 +586,7 @@ output SERVICE_PROMPT_HUB_API_ENDPOINT_URL string = acaServices[indexOf(serviceN
 output SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'semantic-kernel-api')].outputs.uri
 output SERVICE_VECTORIZATION_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'vectorization-api')].outputs.uri
 output SERVICE_VECTORIZATION_JOB_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'vectorization-job')].outputs.uri
+
+output SERVICE_CORE_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'core-api')].outputs.miPrincipalId
+output SERVICE_MANAGEMENT_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'management-api')].outputs.miPrincipalId
+output SERVICE_VECTORIZATION_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'vectorization-api')].outputs.miPrincipalId
