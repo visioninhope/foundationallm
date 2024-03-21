@@ -6,6 +6,12 @@
     public static class EndpointConfigurationKeys
     {
         /// <summary>
+        /// The LLM provider.
+        /// Can be microsoft or openai.
+        /// </summary>
+        public const string Provider = "provider";
+
+        /// <summary>
         /// The API Endpoint configuration setting.
         /// This value should be a URI representing the endpoint of the API.
         /// </summary>

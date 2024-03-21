@@ -86,23 +86,11 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 throw new ConfigurationValueException("The Azure AI Search endpoint is invalid.");
             }
         }
-        private void ValidateAPIKey(string? value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                _logger.LogCritical("The Azure AI Search API key is invalid.");
-                throw new ConfigurationValueException("The Azure AI Search API key is invalid.");
-            }
-        }
 
         private AzureAISearchMemoryStore CreateMemoryStore()
         {
             switch (_settings.AuthenticationType)
             {
-                case AzureAISearchAuthenticationTypes.APIKey:
-                    ValidateEndpoint(_settings.Endpoint);
-                    ValidateAPIKey(_settings.APIKey);
-                    return CreateMemoryStoreFromAPIKey(_settings.Endpoint, _settings.APIKey!);
                 case AzureAISearchAuthenticationTypes.AzureIdentity:
                     ValidateEndpoint(_settings.Endpoint);
                     return CreateMemoryStoreFromIdentity(_settings.Endpoint);

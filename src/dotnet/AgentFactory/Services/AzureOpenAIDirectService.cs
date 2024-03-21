@@ -43,13 +43,8 @@ namespace FoundationaLLM.AgentFactory.Core.Services
         /// <inheritdoc/>
         public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
         {
-            AgentBase? agent = request switch
-            {
-                KnowledgeManagementCompletionRequest kmcr => kmcr.Agent,
-                InternalContextCompletionRequest icr => icr.Agent,
-                _ => null
-            };
-            if (agent == null) throw new Exception("Agent cannot be null.");
+            var agent = request.Agent
+                ?? throw new Exception("Agent cannot be null.");
 
             var endpointConfiguration = (agent.OrchestrationSettings?.EndpointConfiguration)
                 ?? throw new Exception("Endpoint Configuration must be provided.");

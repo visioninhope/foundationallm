@@ -3,7 +3,7 @@
     /// <summary>
     /// Langauge Model provider constants.
     /// </summary>
-    public class LanguageModelProviders
+    public static class LanguageModelProviders
     {
         /// <summary>
         /// Microsoft
@@ -14,5 +14,10 @@
         /// OpenAI
         /// </summary>
         public const string OPENAI = "openai";
+
+        /// <summary>
+        /// All providers.
+        /// </summary>
+        public readonly static string[] All = [MICROSOFT, OPENAI];
     }
 }
