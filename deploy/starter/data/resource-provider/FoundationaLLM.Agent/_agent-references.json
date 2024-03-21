@@ -3,7 +3,8 @@
 		{
 			"Name": "FoundationaLLM",
 			"Filename": "/FoundationaLLM.Agent/FoundationaLLM.json",
-			"Type": "internal-context"
+			"Type": "internal-context",
+			"Deleted": false
 		}
 	]
 }
