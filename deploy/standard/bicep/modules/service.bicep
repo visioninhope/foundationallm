@@ -55,6 +55,7 @@ var kvServiceType = 'kv'
 @description('Service Managed Identity Client Id.')
 output serviceClientId string = managedIdentity.properties.clientId
 output servicePrincipalId string = managedIdentity.properties.principalId
+output serviceMiName string = managedIdentity.name
 
 @description('Service Api Key Secret KeyVault Uri.')
 #disable-next-line outputs-should-not-contain-secrets
