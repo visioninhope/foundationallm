@@ -56,6 +56,9 @@ Invoke-AndRequireSuccess "Loading storage-preview extension" {
 $env:DEPLOY_TIME = $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ'))
 $env:GUID01 = $($(New-Guid).Guid)
 $env:GUID02 = $($(New-Guid).Guid)
+$env:GUID03 = $($(New-Guid).Guid)
+$env:GUID04 = $($(New-Guid).Guid)
+$env:GUID05 = $($(New-Guid).Guid)
 
 $env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE = Get-Content ./config/management-api-event-profile.json
 $env:VECTORIZATION_WORKER_CONFIG = Get-Content ./config/vectorization.json
