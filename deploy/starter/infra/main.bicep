@@ -239,6 +239,42 @@ module cogSearch './shared/search.bicep' = {
   scope: rg
 }
 
+var searchReaderRoleTargets = [
+  'langchain-api'
+  'semantic-kernel-api'
+]
+
+var searchWriterRoleTargets = [
+  'vectorization-api'
+  'vectorization-job'
+]
+
+module searchReaderRoles './shared/roleAssignments.bicep' = [
+  for target in searchReaderRoleTargets: {
+    scope: rg
+    name: '${target}-search-reader-role'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionIds: {
+        'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+      }
+    }
+  }
+]
+
+module searchWriterRoles './shared/roleAssignments.bicep' = [
+  for target in searchWriterRoleTargets: {
+    scope: rg
+    name: '${target}-search-contrib-role'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionIds: {
+        'Search Index Data Contributor': '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
+      }
+    }
+  }
+]
+
 module dashboard './shared/dashboard-web.bicep' = {
   name: 'dashboard'
   params: {
@@ -499,12 +535,11 @@ module acaServices './app/acaService.bicep' = [for service in services: {
     tags: tags
     appConfigName: appConfig.outputs.name
     eventgridName: eventgrid.outputs.name
-    cogsearchName: cogSearch.outputs.name
-    storageAccountName: storage.outputs.name
     identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
     keyvaultName: keyVault.outputs.name
     applicationInsightsName: monitoring.outputs.applicationInsightsName
     containerAppsEnvironmentName: appsEnv.outputs.name
+    storageAccountName: storage.outputs.name
     exists: servicesExist['${service.name}'] == 'true'
     appDefinition: serviceDefinition
     hasIngress: service.hasIngress
