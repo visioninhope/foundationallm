@@ -66,9 +66,6 @@ param vnetName string
 @description('KeyVault resource suffix')
 var opsResourceSuffix = '${project}-${environmentName}-${location}-ops'
 
-@description('Storage resource suffix')
-var storageResourceSuffix = '${project}-${environmentName}-${location}-storage'
-
 @description('Resource Suffix used in naming resources.')
 var resourceSuffix = '${project}-${environmentName}-${location}-${workload}'
 
@@ -133,11 +130,6 @@ var subnets = reduce(
 )
 
 /** Resources **/
-resource identityDeployment 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
-  location: location
-  name: 'uai-deployment-${resourceSuffix}'
-  tags: tags
-}
 
 /** Nested Modules **/
 module aksBackend 'modules/aks.bicep' = {
@@ -203,17 +195,6 @@ module eventgrid 'modules/eventgrid.bicep' = {
     subnetId: subnets.FLLMServices.id
     topics: [ 'storage', 'vectorization', 'configuration' ]
     tags: tags
-  }
-}
-
-module identityDeploymentRoleAssignments 'modules/utility/roleAssignments.bicep' = {
-  name: 'identityDeploymentRoleAssignments-${timestamp}'
-  params: {
-    principalId: identityDeployment.properties.principalId
-    roleDefinitionIds: {
-      Contributor: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
-      'Azure Kubernetes Service RBAC Cluster Admin': 'b1ff04bb-8a4e-4dc4-8eb5-8693973ce19b'
-    }
   }
 }
 
@@ -328,7 +309,7 @@ module searchIndexDataReaderRole 'modules/utility/roleAssignments.bicep' = {
   name: 'searchIAM-Vec-${timestamp}'
   scope: resourceGroup(vectorizationResourceGroupName)
   params: {
-    principalId: vectorizationApiServiceResources[indexOf(vecServiceNames, 'vectorization-api')].outputs.servicePrincipalId
+    principalId: srVectorizationApi[indexOf(vecServiceNames, 'vectorization-api')].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
     }
@@ -345,7 +326,7 @@ module coreApiosmosRoles './modules/sqlRoleAssignments.bicep' = {
   name: 'core-api-cosmos-role'
   params: {
     accountName: cosmosDb.name
-    principalId: coreApiServiceResources[0].outputs.servicePrincipalId
+    principalId: srCoreApi[0].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
     }
@@ -356,7 +337,7 @@ module searchIndexDataReaderWorkerRole 'modules/utility/roleAssignments.bicep' =
   name: 'searchIAM-Vec-${timestamp}'
   scope: resourceGroup(vectorizationResourceGroupName)
   params: {
-    principalId: backendServiceResources[indexOf(backendServiceNames, 'vectorization-job')].outputs.servicePrincipalId
+    principalId: srBackend[indexOf(backendServiceNames, 'vectorization-job')].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
     }
@@ -368,7 +349,7 @@ module cosmosRoles './modules/sqlRoleAssignments.bicep' = {
   name: 'core-job-cosmos-role'
   params: {
     accountName: cosmosDb.name
-    principalId: backendServiceResources[indexOf(backendServiceNames, 'core-job')].outputs.servicePrincipalId
+    principalId: srBackend[indexOf(backendServiceNames, 'core-job')].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
     }
