@@ -2,7 +2,7 @@
 	"AgentReferences": [
 		{
 			"Name": "FoundationaLLM",
-			"Filename": "/FoundationaLLM.Agent/FoundationaLLM.template.json",
+			"Filename": "/FoundationaLLM.Agent/FoundationaLLM.json",
 			"Type": "internal-context"
 		}
 	]
