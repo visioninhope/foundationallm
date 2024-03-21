@@ -188,9 +188,9 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 
   <a id="FoundationaLLM_DependencyInjection_AddAuthenticationConfiguration_" data-uid="FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration*"></a>
 
-  <h3 id="FoundationaLLM_DependencyInjection_AddAuthenticationConfiguration_Microsoft_Extensions_Hosting_IHostApplicationBuilder_System_String_System_String_System_String_System_String_System_String_System_Boolean_" data-uid="FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
-  AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string?, string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DependencyInjection.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_DependencyInjection_AddAuthenticationConfiguration_Microsoft_Extensions_Hosting_IHostApplicationBuilder_System_String_System_String_System_String_System_String_System_String_System_Boolean_System_Boolean_" data-uid="FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+  AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string?, string, bool, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DependencyInjection.cs/#L83"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Add authentication configuration to the dependency injection container.</p>
@@ -198,7 +198,7 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void AddAuthenticationConfiguration(this IHostApplicationBuilder builder, string entraInstanceConfigurationKey, string entraTenantIdConfigurationKey, string entraClientIdConfigurationkey, string? entraScopesConfigurationKey, string policyName = &quot;DefaultPolicy&quot;, bool requireScopes = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void AddAuthenticationConfiguration(this IHostApplicationBuilder builder, string entraInstanceConfigurationKey, string entraTenantIdConfigurationKey, string entraClientIdConfigurationkey, string? entraScopesConfigurationKey, string policyName = &quot;DefaultPolicy&quot;, bool requireScopes = true, bool allowACLAuthorization = false)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -222,6 +222,9 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 </dd>
     <dt><code>requireScopes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd><p>Indicates whether a scope claim (scp) is required for authorization.</p>
+</dd>
+    <dt><code>allowACLAuthorization</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Indicates whether tokens that do not have either of the &quot;scp&quot; or &quot;roles&quot; claims are accepted (True means they are accepted).</p>
 </dd>
   </dl>
 
@@ -377,7 +380,7 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 
   <h3 id="FoundationaLLM_DependencyInjection_AddAzureKeyVaultService_Microsoft_Extensions_Hosting_IHostApplicationBuilder_System_String_" data-uid="FoundationaLLM.DependencyInjection.AddAzureKeyVaultService(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String)">
   AddAzureKeyVaultService(IHostApplicationBuilder, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DependencyInjection.cs/#L123"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/DependencyInjection.cs/#L125"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Register the <a class="xref" href="FoundationaLLM.Common.Services.AzureKeyVaultService.html">AzureKeyVaultService</a> with the dependency injection container.</p>

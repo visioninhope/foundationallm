@@ -4007,6 +4007,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_ShortSummaryPromptName
   fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_ShortSummaryPromptName
   nameWithType: AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_ShortSummaryPromptName
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService_AuthenticationType
+  name: FoundationaLLM_Vectorization_AzureAISearchIndexingService_AuthenticationType
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_Vectorization_AzureAISearchIndexingService_AuthenticationType
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService_AuthenticationType
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService_AuthenticationType
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService_AuthenticationType
+- uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService_Endpoint
+  name: FoundationaLLM_Vectorization_AzureAISearchIndexingService_Endpoint
+  href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_Vectorization_AzureAISearchIndexingService_Endpoint
+  commentId: F:FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService_Endpoint
+  fullName: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService_Endpoint
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService_Endpoint
 - uid: FoundationaLLM.Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Embed_ConnectionString
   name: FoundationaLLM_Vectorization_Queues_Embed_ConnectionString
   href: api/dotnet/FoundationaLLM.Common.Constants.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_AppConfigurationKeys_FoundationaLLM_Vectorization_Queues_Embed_ConnectionString
@@ -20184,15 +20196,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAgentResourceProvider
   nameWithType: DependencyInjection.AddAgentResourceProvider
-- uid: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String,System.String,System.Boolean)
-  name: AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string?, string, bool)
-  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAuthenticationConfiguration_Microsoft_Extensions_Hosting_IHostApplicationBuilder_System_String_System_String_System_String_System_String_System_String_System_Boolean_
-  commentId: M:FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String,System.String,System.Boolean)
-  name.vb: AddAuthenticationConfiguration(IHostApplicationBuilder, String, String, String, String, String, Boolean)
-  fullName: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder, string, string, string, string?, string, bool)
-  fullName.vb: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder, String, String, String, String, String, Boolean)
-  nameWithType: DependencyInjection.AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string?, string, bool)
-  nameWithType.vb: DependencyInjection.AddAuthenticationConfiguration(IHostApplicationBuilder, String, String, String, String, String, Boolean)
+- uid: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)
+  name: AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string?, string, bool, bool)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAuthenticationConfiguration_Microsoft_Extensions_Hosting_IHostApplicationBuilder_System_String_System_String_System_String_System_String_System_String_System_Boolean_System_Boolean_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)
+  name.vb: AddAuthenticationConfiguration(IHostApplicationBuilder, String, String, String, String, String, Boolean, Boolean)
+  fullName: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder, string, string, string, string?, string, bool, bool)
+  fullName.vb: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder, String, String, String, String, String, Boolean, Boolean)
+  nameWithType: DependencyInjection.AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string?, string, bool, bool)
+  nameWithType.vb: DependencyInjection.AddAuthenticationConfiguration(IHostApplicationBuilder, String, String, String, String, String, Boolean, Boolean)
 - uid: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration*
   name: AddAuthenticationConfiguration
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAuthenticationConfiguration_
