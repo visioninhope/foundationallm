@@ -2,6 +2,7 @@
 
 Param (
     [parameter(Mandatory = $true)][object]$entraClientIds,
+    [parameter(Mandatory = $true)][object]$entraScopes,
     [parameter(Mandatory = $true)][object]$ingress,
     [parameter(Mandatory = $true)][object]$instanceId,
     [parameter(Mandatory = $true)][object]$resourceGroups,
@@ -195,16 +196,21 @@ $services = @{
 }
 
 $tokens.chatEntraClientId = $entraClientIds.chat
+$tokens.chatEntraScopes = $entraScopes.chat
 $tokens.coreApiHostname = $ingress.apiIngress.coreapi.host
 $tokens.coreEntraClientId = $entraClientIds.core
+$tokens.coreEntraScopes = $entraScopes.core
 $tokens.instanceId = $instanceId
 $tokens.managementApiEntraClientId = $entraClientIds.managementapi
+$tokens.managementApiEntraScopes = $entraScopes.managementapi
 $tokens.managementApiHostname = $ingress.apiIngress.managementapi.host
-$tokens.managementEntraClientId = $entraClientIds.managementUi
+$tokens.managementEntraClientId = $entraClientIds.managementui
+$tokens.managementEntraScopes = $entraScopes.managementui
 $tokens.opsResourceGroup = $resourceGroups.ops
 $tokens.storageResourceGroup = $resourceGroups.storage
 $tokens.subscriptionId = $subscriptionId
 $tokens.vectorizationApiEntraClientId = $entraClientIds.vectorizationapi
+$tokens.vectorizationApiEntraScopes = $entraScopes.vectorizationapi
 $tokens.vectorizationApiHostname = $ingress.apiIngress.vectorizationapi.host
 
 $tenantId = Invoke-AndRequireSuccess "Get Tenant ID" {

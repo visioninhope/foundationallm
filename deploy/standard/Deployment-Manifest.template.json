@@ -50,6 +50,13 @@
     "managementui": "",
     "vectorizationapi": ""
   },
+  "entraScopes": {
+    "chat": "",
+    "core": "",
+    "managementapi": "",
+    "managementui": "",
+    "vectorizationapi": ""
+  },
   "resourceGroups": {
     "dns": "",
     "jbx": "",

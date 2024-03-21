@@ -42,6 +42,7 @@ try {
     Invoke-AndRequireSuccess "Generate Configuration" {
         ./deploy/Generate-Config.ps1 `
             -entraClientIds $manifest.entraClientIds `
+            -entraScopes $manifest.entraScopes `
             -instanceId $manifest.instanceId `
             -resourceGroups $resourceGroup `
             -resourceSuffix $resourceSuffix `
