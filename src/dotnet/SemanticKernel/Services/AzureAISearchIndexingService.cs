@@ -1,5 +1,4 @@
-﻿using Azure.Identity;
-using FoundationaLLM.Common.Authentication;
+﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.TextEmbedding;
@@ -9,12 +8,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AzureAISearch;
-using Microsoft.SemanticKernel.Embeddings;
 using Microsoft.SemanticKernel.Memory;
 using System.ComponentModel;
 using System.Text.Json;
 
-#pragma warning disable SKEXP0003, SKEXP0021
+#pragma warning disable SKEXP0001, SKEXP0020
 
 namespace FoundationaLLM.SemanticKernel.Core.Services
 {
