@@ -59,6 +59,7 @@ $env:GUID02 = $($(New-Guid).Guid)
 $env:GUID03 = $($(New-Guid).Guid)
 $env:GUID04 = $($(New-Guid).Guid)
 $env:GUID05 = $($(New-Guid).Guid)
+$env:GUID06 = $($(New-Guid).Guid)
 
 $env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE = Get-Content ./config/management-api-event-profile.json
 $env:VECTORIZATION_WORKER_CONFIG = Get-Content ./config/vectorization.json
