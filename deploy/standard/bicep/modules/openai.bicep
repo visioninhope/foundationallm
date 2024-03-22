@@ -83,18 +83,6 @@ var opsFormattedKvName = toLower('${kvServiceType}-${substring(opsKvResourceSuff
 var kvTruncatedName = substring(opsFormattedKvName,0,min([length(opsFormattedKvName),20]))
 var opsKvName = '${kvTruncatedName}-${substring(opsKvResourceSuffix, length(opsKvResourceSuffix) - 3, 3)}'
 
-// See: https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
-@description('Role Definition Ids')
-var roleDefinitionIds = {
-  'Key Vault Crypto User': '12338af0-0e69-4776-bea7-57ae8d297424'
-}
-
-@description('Role Assignments to create')
-var roleAssignmentsToCreate = [for roleDefinitionId in items(roleDefinitionIds): {
-  name: guid(main.id, resourceGroup().id, roleDefinitionId.value)
-  roleDefinitionId: roleDefinitionId.value
-}]
-
 @description('The Resource Service Type token')
 var serviceType = 'oai'
 
@@ -144,7 +132,6 @@ resource main 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
   sku: {
     name: 'S0'
   }
-
 }
 
 @batchSize(1)
@@ -189,18 +176,18 @@ resource secret 'Microsoft.KeyVault/vaults/secrets@2021-11-01-preview' = [for k 
   }
 }]
 
-@description('Role Assignments')
-resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = [for roleAssignmentToCreate in roleAssignmentsToCreate: {
-  name: roleAssignmentToCreate.name
-  scope: resourceGroup()
-  properties: {
-    principalId: main.identity.principalId
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleAssignmentToCreate.roleDefinitionId)
-    principalType: 'ServicePrincipal'
-  }
-}]
-
 /** Nested Modules **/
+module roleAssignment 'utility/roleAssignments.bicep' = {
+  name: 'ra-${main.name}-${timestamp}'
+  scope: resourceGroup()
+  params: {
+    principalId:  main.identity.principalId
+    roleDefinitionIds: {
+      'Key Vault Crypto User': '12338af0-0e69-4776-bea7-57ae8d297424'
+    }
+  }
+}
+
 @description('Resource for configuring the Key Vault metric alerts.')
 module metricAlerts 'utility/metricAlerts.bicep' = {
   name: 'alert-${main.name}-${timestamp}'
@@ -234,7 +221,7 @@ module privateEndpoint 'utility/privateEndpoint.bicep' = {
 @description('OpenAI API Key OPS KeyVault Secret (Currently unused but added as a placeholder).')
 module apiKeySecret 'kvSecret.bicep' = [
   for (secretName, i) in secretNames: {
-    name: 'oaiApiKey-${i}-${timestamp}'
+    name: '${main.name}-${i}-${timestamp}'
     scope: resourceGroup(opsResourceGroupName)
     params: {
       kvName: opsKvName
