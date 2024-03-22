@@ -96,13 +96,6 @@ namespace FoundationaLLM.SemanticKernel.API
                     })
                 .AddSwaggerGenNewtonsoftSupport();
 
-            //builder.Services.AddOptions<SemanticKernelServiceSettings>()
-            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI));
-            //builder.Services.AddSingleton<ISemanticKernelService, SemanticKernelService>();
-
-            builder.Services.AddScoped<IKnowledgeManagementAgentPlugin, KnowledgeManagementAgentPlugin>();
-            builder.Services.AddScoped<ILegacyAgentPlugin, LegacyAgentPlugin>();
-
             // Simple, static system prompt service
             //builder.Services.AddSingleton<ISystemPromptService, InMemorySystemPromptService>();
 

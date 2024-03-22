@@ -1,7 +1,7 @@
 ﻿namespace FoundationaLLM.Common.Constants.Agents
 {
     /// <summary>
-    /// Langauge Model provider constants.
+    /// Language Model provider constants.
     /// </summary>
     public static class LanguageModelProviders
     {
