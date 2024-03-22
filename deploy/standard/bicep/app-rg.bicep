@@ -105,6 +105,11 @@ var workload = 'svc'
 /** Outputs **/
 
 /** Data Sources **/
+resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2024-02-15-preview' existing = {
+  name: 'cdb-${project}-${environmentName}-${location}-storage'
+  scope: resourceGroup(storageResourceGroupName)
+}
+
 module network 'modules/utility/virtualNetworkData.bicep' = {
   name: 'network-${resourceSuffix}-${timestamp}'
   scope: resourceGroup(networkingResourceGroupName)
@@ -144,12 +149,10 @@ module aksBackend 'modules/aks.bicep' = {
     networkingResourceGroupName: networkingResourceGroupName
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
-    // privateIpIngress: cidrHost(subnets.FLLMBackend.addressPrefix, 250)
     resourceSuffix: '${resourceSuffix}-backend'
     subnetId: subnets.FLLMBackend.id
     subnetIdPrivateEndpoint: subnets.FLLMServices.id
     tags: tags
-    // uaiDeploymentid: identityDeployment.id
   }
 }
 
@@ -165,12 +168,10 @@ module aksFrontend 'modules/aks.bicep' = {
     networkingResourceGroupName: networkingResourceGroupName
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
-    // privateIpIngress: cidrHost(subnets.FLLMFrontend.addressPrefix, 250)
     resourceSuffix: '${resourceSuffix}-frontend'
     subnetId: subnets.FLLMFrontend.id
     subnetIdPrivateEndpoint: subnets.FLLMServices.id
     tags: tags
-    // uaiDeploymentid: identityDeployment.id
   }
 }
 
@@ -302,24 +303,7 @@ module srVectorizationApi 'modules/service.bicep' = [for service in items(vector
     tags: tags
     useOidc: false
   }
-}
-]
-
-module searchIndexDataReaderRole 'modules/utility/roleAssignments.bicep' = {
-  name: 'searchIAM-Vec-${timestamp}'
-  scope: resourceGroup(vectorizationResourceGroupName)
-  params: {
-    principalId: srVectorizationApi[indexOf(vecServiceNames, 'vectorization-api')].outputs.servicePrincipalId
-    roleDefinitionIds: {
-      'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
-    }
-  }
-}
-
-resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2024-02-15-preview' existing = {
-  name: 'cdb-${project}-${environmentName}-${location}-storage'
-  scope: resourceGroup(storageResourceGroupName)
-}
+}]
 
 module coreApiosmosRoles './modules/sqlRoleAssignments.bicep' = {
   scope: resourceGroup(storageResourceGroupName)
@@ -333,17 +317,6 @@ module coreApiosmosRoles './modules/sqlRoleAssignments.bicep' = {
   }
 }
 
-module searchIndexDataReaderWorkerRole 'modules/utility/roleAssignments.bicep' = {
-  name: 'searchIAM-Vec-${timestamp}'
-  scope: resourceGroup(vectorizationResourceGroupName)
-  params: {
-    principalId: srBackend[indexOf(backendServiceNames, 'vectorization-job')].outputs.servicePrincipalId
-    roleDefinitionIds: {
-      'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
-    }
-  }
-}
-
 module cosmosRoles './modules/sqlRoleAssignments.bicep' = {
   scope: resourceGroup(storageResourceGroupName)
   name: 'core-job-cosmos-role'
@@ -352,6 +325,28 @@ module cosmosRoles './modules/sqlRoleAssignments.bicep' = {
     principalId: srBackend[indexOf(backendServiceNames, 'core-job')].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
+  }
+}
+
+module searchIndexDataReaderRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'searchIndexDataReaderRole-${timestamp}'
+  scope: resourceGroup(vectorizationResourceGroupName)
+  params: {
+    principalId: srVectorizationApi[indexOf(vecServiceNames, 'vectorization-api')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+    }
+  }
+}
+
+module searchIndexDataReaderWorkerRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'searchIndexDataReaderWorkerRole-${timestamp}'
+  scope: resourceGroup(vectorizationResourceGroupName)
+  params: {
+    principalId: srBackend[indexOf(backendServiceNames, 'vectorization-job')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
     }
   }
 }
