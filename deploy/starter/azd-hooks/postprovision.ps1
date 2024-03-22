@@ -112,7 +112,7 @@ $configurations = @{
     }
     "role-assignments" = @{
         template = './data/role-assignments/DefaultRoleAssignments.template.json'
-        render   = './data/role-assignments/DefaultRoleAssignments.json'
+        render   = "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json"
     }
 }
 
