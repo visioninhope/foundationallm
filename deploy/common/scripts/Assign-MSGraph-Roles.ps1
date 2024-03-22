@@ -23,7 +23,7 @@ function Invoke-AndRequireSuccess {
 
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 
-$msGraphId = (az ad sp show --id '00000003-0000-0000-c000-000000000000' --output tsv --query 'id') 
+$msGraphId = (az ad sp show --id '00000003-0000-0000-c000-000000000000' --output tsv --query 'id')
 
 $msGraphRoleIds = New-Object -TypeName psobject -Property @{
     'Group.Read.All'='5b567255-7703-4780-807c-7be8301ae99b';
@@ -31,13 +31,14 @@ $msGraphRoleIds = New-Object -TypeName psobject -Property @{
 }
 
 $existingRoleData = (az rest --method GET --uri "https://graph.microsoft.com/v1.0/servicePrincipals/$($principalId)/appRoleAssignments")
-$existingRoles = $($($existingRoleData | ConvertFrom-Json).value | Select -ExpandProperty appRoleId)
+
+$existingRoles = $($($existingRoleData | ConvertFrom-Json).value | Select-Object -ExpandProperty appRoleId)
 
 $msGraphRoleIds.PSObject.Properties | ForEach-Object {
 
     Invoke-AndRequireSuccess "Assigning Microsoft Graph Role [$($_.Name) | $($_.Value)] to Principal [$($principalId)]" {
 
-        if ($existingRoles.Contains($_.Value)) {
+        if ($null -ne $existingRoles -and $existingRoles.Contains($_.Value)) {
             Write-Host "Role is already assigned!" -ForegroundColor Yellow
             return
         }
