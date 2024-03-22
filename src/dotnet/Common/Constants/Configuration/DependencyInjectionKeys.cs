@@ -1,11 +1,4 @@
-﻿using Microsoft.Extensions.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Common.Constants
+﻿namespace FoundationaLLM.Common.Constants.Configuration
 {
     /// <summary>
     /// Contains constants of the keys for all keyed dependency injections.

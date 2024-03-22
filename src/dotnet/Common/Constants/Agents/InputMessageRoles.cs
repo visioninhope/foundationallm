@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Common.Constants
+﻿namespace FoundationaLLM.Common.Constants.Agents
 {
     /// <summary>
     /// Constants for input message roles.

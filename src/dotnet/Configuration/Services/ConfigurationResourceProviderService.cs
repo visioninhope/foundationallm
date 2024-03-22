@@ -2,6 +2,7 @@
 using Azure.Messaging;
 using Azure.Security.KeyVault.Secrets;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.AppConfiguration;

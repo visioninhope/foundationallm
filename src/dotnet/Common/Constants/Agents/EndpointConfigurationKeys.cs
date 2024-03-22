@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Common.Constants
+﻿namespace FoundationaLLM.Common.Constants.Agents
 {
     /// <summary>
     /// Contains constants of the keys for endpoint configuration settings.
@@ -35,7 +35,7 @@
 
         /// <summary>
         /// The type of operation the endpoint is performing.
-        /// This value should be completion, chat-completion, or embedding.
+        /// This value should be completion or chat.
         /// </summary>
         public const string OperationType = "operation_type";
     }

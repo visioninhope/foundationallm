@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Common.Constants
+﻿namespace FoundationaLLM.Common.Constants.Agents
 {
     /// <summary>
     /// Contains constants of the keys for all overridable model settings.

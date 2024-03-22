@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Common.Constants
+﻿namespace FoundationaLLM.Common.Constants.Agents
 {
     /// <summary>
     /// Contains constants of the keys for all overridable Agent settings.
@@ -15,6 +15,6 @@
         /// Controls the number of search results to return from an index for prompt augmentation.
         /// </summary>
         public const string IndexTopN = "index_top_n";
-        
+
     }
 }

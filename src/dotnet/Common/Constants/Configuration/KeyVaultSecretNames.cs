@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoundationaLLM.Common.Constants
+namespace FoundationaLLM.Common.Constants.Configuration
 {
     /// <summary>
     /// Contains constants for the names of all Azure Key Vault secrets.
@@ -201,7 +201,7 @@ namespace FoundationaLLM.Common.Constants
         /// The foundationallm-authorizationapi-entra- Key Vault secret name.
         /// The comma separated list of the identifiers of FoundationaLLM instances managed by the authorization core.
         /// </summary>
-        public const string FoundationaLLM_AuthorizationAPI_InstanceIds= "foundationallm-authorizationapi-instanceids";
+        public const string FoundationaLLM_AuthorizationAPI_InstanceIds = "foundationallm-authorizationapi-instanceids";
 
         #endregion
     }

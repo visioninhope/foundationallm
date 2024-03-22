@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Configuration.AppConfiguration;
 
 namespace FoundationaLLM.Configuration.Catalog
@@ -19,7 +19,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> Instance =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Instance_Id,
+                key: AppConfigurationKeys.FoundationaLLM_Instance_Id,
                 minimumVersion: "0.3.0",
                 defaultValue: "Generated GUID",
                 description: "The value should be a GUID represents a unique instance of the FoundationaLLM instance.",
@@ -35,7 +35,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> Configuration =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Configuration_KeyVaultURI,
+                key: AppConfigurationKeys.FoundationaLLM_Configuration_KeyVaultURI,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "The value URI for the deployed Key Vault instance.",
@@ -44,7 +44,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
             new (
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Configuration_ResourceProviderService_Storage_AuthenticationType,
+                key: AppConfigurationKeys.FoundationaLLM_Configuration_ResourceProviderService_Storage_AuthenticationType,
                 minimumVersion: "0.4.0",
                 defaultValue: "",
                 description:
@@ -61,7 +61,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> AgentHub =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AgentHub_AgentMetadata_StorageContainer,
+                key: AppConfigurationKeys.FoundationaLLM_AgentHub_AgentMetadata_StorageContainer,
                 minimumVersion: "0.3.0",
                 defaultValue: "agents",
                 description: "",
@@ -71,13 +71,13 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_AgentHub_StorageManager_BlobStorage_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue:
                 "Key Vault secret name: `foundationallm-agenthub-storagemanager-blobstorage-connectionstring`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_AgentHub_StorageManager_BlobStorage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
@@ -90,7 +90,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> Agent =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_Agent_ResourceProviderService_Storage_AuthenticationType,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
@@ -102,12 +102,12 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_Agent_ResourceProviderService_Storage_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-agent-resourceprovider-storage-connectionstring`",
                 description: "The connection string to the Azure Storage account used for the agent resource provider.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_Agent_ResourceProvider_Storage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
@@ -120,17 +120,17 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> APIs =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-agentfactoryapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_AgentFactoryAPI_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_AgentFactoryAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -140,28 +140,28 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-agenthubapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_AgentHubAPI_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_AgentHubAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -171,17 +171,17 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_AppInsightsConnectionString,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -191,17 +191,17 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_AppInsightsConnectionString,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_BypassGatekeeper,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_BypassGatekeeper,
                 minimumVersion: "0.3.0",
                 defaultValue: "false",
                 description:
@@ -212,17 +212,17 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-datasourcehubapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_DataSourceHubAPI_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_DataSourceHubAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -232,28 +232,28 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_DataSourceHubAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-gatekeeperapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_GatekeeperAPI_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_GatekeeperAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -263,18 +263,18 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_GatekeeperAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafety,
                 minimumVersion: "0.3.0",
                 defaultValue: "true",
@@ -286,7 +286,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableMicrosoftPresidio,
                 minimumVersion: "0.3.0",
                 defaultValue: "true",
@@ -298,18 +298,18 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-gatekeeperintegrationapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -319,17 +319,17 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-langchainapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_LangChainAPI_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_LangChainAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -339,17 +339,17 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_AppInsightsConnectionString,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -359,28 +359,28 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-prompthubapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_PromptHubAPI_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_PromptHubAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -390,27 +390,27 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_AppInsightsConnectionString,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-semantickernelapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_SemanticKernelAPI_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_SemanticKernelAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -420,18 +420,18 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "The URL of the vectorization API.",
@@ -441,29 +441,29 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-vectorizationapi-apikey`",
                 description: "The API key of the vectorization API.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_VectorizationAPI_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_VectorizationAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description:
                 "The connection string to the Application Insights instance used by the vectorization API.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "The URL of the vectorization worker API.",
@@ -473,23 +473,23 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-vectorizationworker-apikey`",
                 description: "The API key of the vectorization worker API.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_VectorizationWorker_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_VectorizationWorker_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description:
                 "The connection string to the Application Insights instance used by the vectorization worker API.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
@@ -511,7 +511,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> Prompt =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_Prompt_ResourceProviderService_Storage_AuthenticationType,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
@@ -523,14 +523,14 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_Prompt_ResourceProviderService_Storage_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue:
                 "Key Vault secret name: `foundationallm-prompt-resourceprovider-storage-connectionstring`",
                 description:
                 "The connection string to the Azure Storage account used for the prompt resource provider.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_Prompt_ResourceProvider_Storage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
@@ -543,17 +543,17 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> AzureContentSafety =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureContentSafety_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_APIKey,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-azurecontentsafety-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureContentSafety_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -563,7 +563,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureContentSafety_HateSeverity,
+                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_HateSeverity,
                 minimumVersion: "0.3.0",
                 defaultValue: "2",
                 description: "",
@@ -573,7 +573,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureContentSafety_SelfHarmSeverity,
+                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_SelfHarmSeverity,
                 minimumVersion: "0.3.0",
                 defaultValue: "2",
                 description: "",
@@ -583,7 +583,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureContentSafety_SexualSeverity,
+                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_SexualSeverity,
                 minimumVersion: "0.3.0",
                 defaultValue: "2",
                 description: "",
@@ -593,7 +593,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureContentSafety_ViolenceSeverity,
+                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_ViolenceSeverity,
                 minimumVersion: "0.3.0",
                 defaultValue: "2",
                 description: "",
@@ -609,7 +609,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> AzureOpenAI =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_DeploymentName,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_DeploymentName,
                 minimumVersion: "0.3.0",
                 defaultValue: "completions",
                 description: "",
@@ -619,7 +619,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_MaxTokens,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_MaxTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "8096",
                 description: "",
@@ -629,7 +629,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_ModelName,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_ModelName,
                 minimumVersion: "0.3.0",
                 defaultValue: "gpt-35-turbo",
                 description: "",
@@ -639,7 +639,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_ModelVersion,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_ModelVersion,
                 minimumVersion: "0.3.0",
                 defaultValue: "0301",
                 description: "",
@@ -649,7 +649,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_Temperature,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_Temperature,
                 minimumVersion: "0.3.0",
                 defaultValue: "0",
                 description: "",
@@ -659,7 +659,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Embeddings_DeploymentName,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Embeddings_DeploymentName,
                 minimumVersion: "0.3.0",
                 defaultValue: "embeddings",
                 description: "",
@@ -669,7 +669,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Embeddings_MaxTokens,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Embeddings_MaxTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "8191",
                 description: "",
@@ -679,7 +679,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Embeddings_ModelName,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Embeddings_ModelName,
                 minimumVersion: "0.3.0",
                 defaultValue: "text-embedding-ada-002",
                 description: "",
@@ -689,7 +689,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Embeddings_Temperature,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Embeddings_Temperature,
                 minimumVersion: "0.3.0",
                 defaultValue: "0",
                 description: "",
@@ -699,7 +699,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Endpoint,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Endpoint,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -709,17 +709,17 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Key,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Key,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-azureopenai-api-key`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_AzureOpenAI_Api_Key,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureOpenAI_Api_Key,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Version,
+                key: AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Version,
                 minimumVersion: "0.3.0",
                 defaultValue: "2023-05-15",
                 description: "",
@@ -735,18 +735,18 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> BlobStorageMemorySource =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_BlobStorageMemorySource_BlobStorageConnection,
+                key: AppConfigurationKeys.FoundationaLLM_BlobStorageMemorySource_BlobStorageConnection,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-blobstoragememorysource-blobstorageconnection`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_BlobStorageMemorySource_Blobstorageconnection,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_BlobStorageMemorySource_BlobStorageContainer,
+                key: AppConfigurationKeys.FoundationaLLM_BlobStorageMemorySource_BlobStorageContainer,
                 minimumVersion: "0.3.0",
                 defaultValue: "memory-source",
                 description: "",
@@ -756,7 +756,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_BlobStorageMemorySource_ConfigFilePath,
+                key: AppConfigurationKeys.FoundationaLLM_BlobStorageMemorySource_ConfigFilePath,
                 minimumVersion: "0.3.0",
                 defaultValue: "BlobMemorySourceConfig.json",
                 description: "",
@@ -772,7 +772,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> Branding =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_AccentColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_AccentColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#fff",
                 description: "",
@@ -782,7 +782,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_AccentTextColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_AccentTextColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#131833",
                 description: "",
@@ -792,7 +792,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_BackgroundColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_BackgroundColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#fff",
                 description: "",
@@ -802,7 +802,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_CompanyName,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_CompanyName,
                 minimumVersion: "0.3.0",
                 defaultValue: "FoundationaLLM",
                 description: "",
@@ -812,7 +812,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_FavIconUrl,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_FavIconUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "favicon.ico",
                 description: "",
@@ -822,7 +822,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_KioskMode,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_KioskMode,
                 minimumVersion: "0.3.0",
                 defaultValue: "false",
                 description: "",
@@ -832,7 +832,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_LogoText,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_LogoText,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "",
@@ -843,7 +843,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_LogoUrl,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_LogoUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "foundationallm-logo-white.svg",
                 description: "",
@@ -853,7 +853,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_PageTitle,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_PageTitle,
                 minimumVersion: "0.3.0",
                 defaultValue: "FoundationaLLM Chat Copilot",
                 description: "",
@@ -863,7 +863,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_PrimaryColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_PrimaryColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#131833",
                 description: "",
@@ -873,7 +873,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_PrimaryTextColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_PrimaryTextColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#fff",
                 description: "",
@@ -883,7 +883,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_SecondaryColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_SecondaryColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#334581",
                 description: "",
@@ -893,7 +893,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_SecondaryTextColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_SecondaryTextColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#fff",
                 description: "",
@@ -903,7 +903,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_PrimaryButtonBackgroundColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_PrimaryButtonBackgroundColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#5472d4",
                 description: "",
@@ -913,7 +913,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_PrimaryButtonTextColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_PrimaryButtonTextColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#fff",
                 description: "",
@@ -923,7 +923,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_SecondaryButtonBackgroundColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_SecondaryButtonBackgroundColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#70829a",
                 description: "",
@@ -933,7 +933,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Branding_SecondaryButtonTextColor,
+                key: AppConfigurationKeys.FoundationaLLM_Branding_SecondaryButtonTextColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#fff",
                 description: "",
@@ -949,7 +949,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> UserPortal =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Chat_Entra_CallbackPath,
+                key: AppConfigurationKeys.FoundationaLLM_Chat_Entra_CallbackPath,
                 minimumVersion: "0.3.0",
                 defaultValue: "/signin-oidc",
                 description: "",
@@ -959,7 +959,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Chat_Entra_ClientId,
+                key: AppConfigurationKeys.FoundationaLLM_Chat_Entra_ClientId,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "",
@@ -969,7 +969,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Chat_Entra_Instance,
+                key: AppConfigurationKeys.FoundationaLLM_Chat_Entra_Instance,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -979,7 +979,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes,
+                key: AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes,
                 minimumVersion: "0.3.0",
                 defaultValue: "api://FoundationaLLM-Auth/Data.Read",
                 description: "",
@@ -989,7 +989,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Chat_Entra_TenantId,
+                key: AppConfigurationKeys.FoundationaLLM_Chat_Entra_TenantId,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "",
@@ -1005,7 +1005,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> CoreAPI =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId,
+                key: AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "",
@@ -1015,7 +1015,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Instance,
+                key: AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Instance,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -1025,7 +1025,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Scopes,
+                key: AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Scopes,
                 minimumVersion: "0.3.0",
                 defaultValue: "Data.Read",
                 description: "",
@@ -1035,7 +1035,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_TenantId,
+                key: AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_TenantId,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "",
@@ -1051,11 +1051,11 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> CoreWorker =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CoreWorker_AppInsightsConnectionString,
+                key: AppConfigurationKeys.FoundationaLLM_CoreWorker_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             )
@@ -1067,7 +1067,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> CosmosDB =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CosmosDB_ChangeFeedLeaseContainer,
+                key: AppConfigurationKeys.FoundationaLLM_CosmosDB_ChangeFeedLeaseContainer,
                 minimumVersion: "0.3.0",
                 defaultValue: "leases",
                 description: "",
@@ -1077,7 +1077,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CosmosDB_Containers,
+                key: AppConfigurationKeys.FoundationaLLM_CosmosDB_Containers,
                 minimumVersion: "0.3.0",
                 defaultValue: "Sessions, UserSessions",
                 description: "",
@@ -1087,7 +1087,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CosmosDB_Database,
+                key: AppConfigurationKeys.FoundationaLLM_CosmosDB_Database,
                 minimumVersion: "0.3.0",
                 defaultValue: "database",
                 description: "",
@@ -1097,7 +1097,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CosmosDB_Endpoint,
+                key: AppConfigurationKeys.FoundationaLLM_CosmosDB_Endpoint,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -1107,17 +1107,17 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CosmosDB_Key,
+                key: AppConfigurationKeys.FoundationaLLM_CosmosDB_Key,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-cosmosdb-key`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_CosmosDB_Key,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_CosmosDB_Key,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CosmosDB_MonitoredContainers,
+                key: AppConfigurationKeys.FoundationaLLM_CosmosDB_MonitoredContainers,
                 minimumVersion: "0.3.0",
                 defaultValue: "Sessions",
                 description: "",
@@ -1133,7 +1133,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> DataSource =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_DataSource_ResourceProviderService_Storage_AuthenticationType,
                 minimumVersion: "0.5.0",
                 defaultValue: "",
@@ -1145,14 +1145,14 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_DataSource_ResourceProviderService_Storage_ConnectionString,
                 minimumVersion: "0.5.0",
                 defaultValue:
                 "Key Vault secret name: `foundationallm-datasource-resourceprovider-storage-connectionstring`",
                 description:
                 "The connection string to the Azure Storage account used for the data source resource provider.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_DataSource_ResourceProvider_Storage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
@@ -1165,7 +1165,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> DataSourceHub =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_DataSourceHub_DataSourceMetadata_StorageContainer,
                 minimumVersion: "0.3.0",
                 defaultValue: "data-sources",
@@ -1176,26 +1176,26 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_DataSourceHub_StorageManager_BlobStorage_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue:
                 "Key Vault secret name: `foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_DataSourceHub_StorageManager_BlobStorage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_DataSources_AboutFoundationaLLM_BlobStorage_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue:
                 "Key Vault secret name: `foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_DataSourceHub_StorageManager_BlobStorage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
@@ -1205,7 +1205,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> Event =
         [
             new (
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_APIKey,
                 minimumVersion: "0.4.0",
                 defaultValue: "",
                 description: "This is a Key Vault reference.",
@@ -1214,7 +1214,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_AuthenticationType,
+                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_AuthenticationType,
                 minimumVersion: "0.4.0",
                 defaultValue: "APIKey",
                 description: "",
@@ -1223,7 +1223,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Endpoint,
+                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Endpoint,
                 minimumVersion: "0.4.0",
                 defaultValue: "",
                 description: "",
@@ -1232,7 +1232,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_NamespaceId,
+                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_NamespaceId,
                 minimumVersion: "0.4.0",
                 defaultValue: "",
                 description: "",
@@ -1241,7 +1241,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_CoreAPI,
+                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_CoreAPI,
                 minimumVersion: "0.4.0",
                 defaultValue: "",
                 description: "",
@@ -1250,7 +1250,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI,
+                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI,
                 minimumVersion: "0.4.0",
                 defaultValue: "",
                 description: "",
@@ -1259,7 +1259,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI,
+                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI,
                 minimumVersion: "0.4.0",
                 defaultValue: "",
                 description: "",
@@ -1268,7 +1268,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationAPI,
+                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationAPI,
                 minimumVersion: "0.4.0",
                 defaultValue: "",
                 description: "",
@@ -1277,7 +1277,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker,
+                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker,
                 minimumVersion: "0.4.0",
                 defaultValue: "",
                 description: "",
@@ -1293,7 +1293,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> LangChain =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChain_Summary_MaxTokens,
+                key: AppConfigurationKeys.FoundationaLLM_LangChain_Summary_MaxTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "4097",
                 description: "",
@@ -1303,7 +1303,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChain_Summary_ModelName,
+                key: AppConfigurationKeys.FoundationaLLM_LangChain_Summary_ModelName,
                 minimumVersion: "0.3.0",
                 defaultValue: "gpt-35-turbo",
                 description: "",
@@ -1319,11 +1319,11 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> LangChainAPI =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_LangChainAPI_Key,
+                key: AppConfigurationKeys.FoundationaLLM_LangChainAPI_Key,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-langchainapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_APIs_LangChainAPI_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_LangChainAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             )
@@ -1335,7 +1335,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> Management =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Management_Entra_CallbackPath,
+                key: AppConfigurationKeys.FoundationaLLM_Management_Entra_CallbackPath,
                 minimumVersion: "0.3.0",
                 defaultValue: "/signin-oidc",
                 description: "",
@@ -1345,7 +1345,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId,
+                key: AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "",
@@ -1355,7 +1355,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Management_Entra_Instance,
+                key: AppConfigurationKeys.FoundationaLLM_Management_Entra_Instance,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -1365,7 +1365,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Management_Entra_Scopes,
+                key: AppConfigurationKeys.FoundationaLLM_Management_Entra_Scopes,
                 minimumVersion: "0.3.0",
                 defaultValue: "api://FoundationaLLM-Management-Auth/Data.Manage",
                 description: "",
@@ -1375,7 +1375,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Management_Entra_TenantId,
+                key: AppConfigurationKeys.FoundationaLLM_Management_Entra_TenantId,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "",
@@ -1391,7 +1391,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> ManagementAPI =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId,
+                key: AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "",
@@ -1401,7 +1401,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Instance,
+                key: AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Instance,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -1411,7 +1411,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes,
+                key: AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes,
                 minimumVersion: "0.3.0",
                 defaultValue: "Data.Manage",
                 description: "",
@@ -1421,7 +1421,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_TenantId,
+                key: AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_TenantId,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description: "",
@@ -1437,7 +1437,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> OpenAI =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_OpenAI_API_Endpoint,
+                key: AppConfigurationKeys.FoundationaLLM_OpenAI_API_Endpoint,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -1447,17 +1447,17 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_OpenAI_API_Key,
+                key: AppConfigurationKeys.FoundationaLLM_OpenAI_API_Key,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-openai-api-key`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_OpenAI_Api_Key,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_OpenAI_Api_Key,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_OpenAI_API_Temperature,
+                key: AppConfigurationKeys.FoundationaLLM_OpenAI_API_Temperature,
                 minimumVersion: "0.3.0",
                 defaultValue: "0",
                 description: "",
@@ -1473,7 +1473,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> PromptHub =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_PromptHub_PromptMetadata_StorageContainer,
+                key: AppConfigurationKeys.FoundationaLLM_PromptHub_PromptMetadata_StorageContainer,
                 minimumVersion: "0.3.0",
                 defaultValue: "system-prompt",
                 description: "",
@@ -1483,13 +1483,13 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_PromptHub_StorageManager_BlobStorage_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue:
                 "Key Vault secret name: `foundationallm-prompthub-storagemanager-blobstorage-connectionstring`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_PromptHub_StorageManager_BlobStorage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
@@ -1502,17 +1502,17 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> SemanticKernelAPI =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_Key,
+                key: AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_Key,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-semantickernelapi-openai-key`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_SemanticKernelAPI_OpenAI_Key,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_SemanticKernelAPI_OpenAI_Key,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_ChatCompletionPromptName,
                 minimumVersion: "0.3.0",
                 defaultValue: "RetailAssistant.Default",
@@ -1523,7 +1523,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_CompletionsDeployment,
                 minimumVersion: "0.3.0",
                 defaultValue: "completions",
@@ -1534,7 +1534,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_CompletionsDeploymentMaxTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "8096",
@@ -1545,7 +1545,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_EmbeddingsDeployment,
+                key: AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_EmbeddingsDeployment,
                 minimumVersion: "0.3.0",
                 defaultValue: "embeddings",
                 description: "",
@@ -1555,7 +1555,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_EmbeddingsDeploymentMaxTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "8191",
@@ -1566,7 +1566,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_Endpoint,
+                key: AppConfigurationKeys.FoundationaLLM_SemanticKernelAPI_OpenAI_Endpoint,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -1576,7 +1576,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_PromptOptimization_CompletionsMaxTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "300",
@@ -1587,7 +1587,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_PromptOptimization_CompletionsMinTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "50",
@@ -1598,7 +1598,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_PromptOptimization_MemoryMaxTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "3000",
@@ -1609,7 +1609,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_PromptOptimization_MemoryMinTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "1500",
@@ -1620,7 +1620,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_PromptOptimization_MessagesMaxTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "3000",
@@ -1631,7 +1631,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_PromptOptimization_MessagesMinTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "100",
@@ -1642,7 +1642,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_PromptOptimization_SystemMaxTokens,
                 minimumVersion: "0.3.0",
                 defaultValue: "1500",
@@ -1653,7 +1653,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_SemanticKernelAPI_OpenAI_ShortSummaryPromptName,
                 minimumVersion: "0.3.0",
                 defaultValue: "Summarizer.TwoWords",
@@ -1670,7 +1670,7 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> Vectorization =
         [
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker,
+                key: AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
                 description:
@@ -1681,56 +1681,56 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Embed_ConnectionString,
+                key: AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Embed_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-vectorization-queues-connectionstring`",
                 description:
                 "The connection string to the Azure Storage account used for the embed vectorization queue.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_Vectorization_Queues_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Extract_ConnectionString,
+                key: AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Extract_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-vectorization-queues-connectionstring`",
                 description:
                 "The connection string to the Azure Storage account used for the extract vectorization queue.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_Vectorization_Queues_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Index_ConnectionString,
+                key: AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Index_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-vectorization-queues-connectionstring`",
                 description:
                 "The connection string to the Azure Storage account used for the index vectorization queue.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_Vectorization_Queues_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_Vectorization_Queues_Partition_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-vectorization-queues-connectionstring`",
                 description:
                 "The connection string to the Azure Storage account used for the partition vectorization queue.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_Vectorization_Queues_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_Vectorization_StateService_Storage_AuthenticationType,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
@@ -1742,20 +1742,20 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_Vectorization_StateService_Storage_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-vectorization-state-connectionstring`",
                 description:
                 "The connection string to the Azure Storage account used for the vectorization state service.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_Vectorization_State_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_Vectorization_ResourceProviderService_Storage_AuthenticationType,
                 minimumVersion: "0.3.0",
                 defaultValue: "",
@@ -1767,14 +1767,14 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: AppConfigurationKeys
                     .FoundationaLLM_Vectorization_ResourceProviderService_Storage_ConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue:
                 "Key Vault secret name: `foundationallm-vectorization-resourceprovider-storage-connectionstring`",
                 description:
                 "The connection string to the Azure Storage account used for the vectorization state service.",
-                keyVaultSecretName: Common.Constants.KeyVaultSecretNames
+                keyVaultSecretName: KeyVaultSecretNames
                     .FoundationaLLM_Vectorization_ResourceProvider_Storage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
