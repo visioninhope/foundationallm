@@ -22,7 +22,7 @@ properties {
 
 task default -depends Storage, App, DNS, Networking, OpenAI, Ops, ResourceGroups, Vec, Configuration
 
-task App -depends ResourceGroups, Ops, Networking, DNS, Configuration {
+task App -depends ResourceGroups, Ops, Networking, DNS, Configuration, Vec {
     if ($skipApp -eq $true) {
         Write-Host -ForegroundColor Yellow "Skipping app creation."
         return;
@@ -47,6 +47,7 @@ task App -depends ResourceGroups, Ops, Networking, DNS, Configuration {
         managementApiClientSecret=$script:managementApiClientSecret `
         networkingResourceGroupName=$($script:resourceGroups.net) `
         opsResourceGroupName=$($script:resourceGroups.ops) `
+        vectorizationResourceGroupName=$($script:resourceGroups.vec) `
         project=$script:project `
         storageResourceGroupName=$($script:resourceGroups.storage) `
         vectorizationApiClientSecret=$script:vectorizationApiClientSecret `

@@ -16,7 +16,7 @@ param resourceSuffix string
 
 @description('Subnet Id for private endpoint')
 param subnetId string
-
+param sku string = 'standard'
 @description('Tags for all resources')
 param tags object
 
@@ -69,11 +69,12 @@ var serviceType = 'search'
 /** Resources **/
 @description('The Azure AI Search resource.')
 resource main 'Microsoft.Search/searchServices@2023-11-01' = {
-  name: name
   location: location
+  name: name
+  tags: tags
 
-  sku: {
-    name: 'standard'
+  identity: {
+    type: 'SystemAssigned'
   }
 
   properties: {
@@ -84,10 +85,6 @@ resource main 'Microsoft.Search/searchServices@2023-11-01' = {
     replicaCount: 1
     semanticSearch: 'disabled'
 
-    authOptions: {
-      apiKeyOnly: {}
-    }
-
     encryptionWithCmk: {
       enforcement: 'Disabled'
     }
@@ -95,6 +92,10 @@ resource main 'Microsoft.Search/searchServices@2023-11-01' = {
     networkRuleSet: {
       ipRules: []
     }
+  }
+
+  sku: {
+    name: sku
   }
 }
 
