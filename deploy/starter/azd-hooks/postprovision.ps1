@@ -112,7 +112,7 @@ $configurations = @{
     }
     "role-assignments" = @{
         template = './data/role-assignments/DefaultRoleAssignments.template.json'
-        render   = './data/role-assignments/DefaultRoleAssignments.json'
+        render   = "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json"
     }
 }
 
@@ -193,7 +193,7 @@ Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization St
     az storage azcopy blob upload `
         -c role-assignments `
         --account-name $env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME `
-        -s "./data/role-assignments/DefaultRoleAssignments.json" `
+        -s "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json" `
         --recursive `
         --only-show-errors `
         --output none
