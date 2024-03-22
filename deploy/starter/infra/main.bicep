@@ -269,6 +269,7 @@ module searchWriterRoles './shared/roleAssignments.bicep' = [
     params: {
       principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
       roleDefinitionIds: {
+        'Search Service Contributor': '7ca78c08-252a-4471-8644-bb5ff32d4ba0'
         'Search Index Data Contributor': '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
       }
     }
