@@ -2,8 +2,6 @@
 using FoundationaLLM.Common.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 
 namespace FoundationaLLM.Management.API.Controllers
 {
@@ -12,13 +10,13 @@ namespace FoundationaLLM.Management.API.Controllers
     /// </summary>
     /// <param name="resourceProviderServices">The list of <see cref="IResourceProviderService"/> resource providers.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
-    [Authorize]
-    [Authorize(Policy = "RequiredScope")]
+    [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
     [Consumes("application/json")]
     [Produces("application/json")]
     [Route($"instances/{{instanceId}}/providers/{{resourceProvider}}")]
     public class ResourceController(
+        ICallContext callContext,
         IEnumerable<IResourceProviderService> resourceProviderServices,
         ILogger<ResourceController> logger) : Controller
     {
@@ -26,6 +24,7 @@ namespace FoundationaLLM.Management.API.Controllers
             resourceProviderServices.ToDictionary<IResourceProviderService, string>(
                 rps => rps.Name);
         private readonly ILogger<ResourceController> _logger = logger;
+        private readonly ICallContext _callContext = callContext;
 
         /// <summary>
         /// Gets one or more resources.
@@ -41,7 +40,7 @@ namespace FoundationaLLM.Management.API.Controllers
                 resourcePath,
                 async (resourceProviderService) =>
                 {
-                    var result = await resourceProviderService.HandleGetAsync(resourcePath);
+                    var result = await resourceProviderService.HandleGetAsync(resourcePath, _callContext.CurrentUserIdentity);
                     return new OkObjectResult(result);
                 });
 
@@ -60,7 +59,7 @@ namespace FoundationaLLM.Management.API.Controllers
                 resourcePath,
                 async (resourceProviderService) =>
                 {
-                    var result = await resourceProviderService.HandlePostAsync(resourcePath, serializedResource.ToString()!);
+                    var result = await resourceProviderService.HandlePostAsync(resourcePath, serializedResource.ToString()!, _callContext.CurrentUserIdentity);
                     return new OkObjectResult(result);
                 });
 
@@ -78,7 +77,7 @@ namespace FoundationaLLM.Management.API.Controllers
                 resourcePath,
                 async (resourceProviderService) =>
                 {
-                    await resourceProviderService.HandleDeleteAsync(resourcePath);
+                    await resourceProviderService.HandleDeleteAsync(resourcePath, _callContext.CurrentUserIdentity);
                     return new OkResult();
                 });
 

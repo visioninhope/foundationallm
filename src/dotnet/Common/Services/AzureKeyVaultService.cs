@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Azure.Identity;
-using Azure;
+﻿using Azure;
 using Azure.Security.KeyVault.Secrets;
 
 namespace FoundationaLLM.Common.Services
@@ -18,9 +12,19 @@ namespace FoundationaLLM.Common.Services
         private readonly SecretClient _secretClient = secretClient;
 
         /// <inheritdoc/>
+        public string KeyVaultUri => _secretClient.VaultUri.ToString().ToLower();
+
+        /// <inheritdoc/>
         public async Task<string?> GetSecretValueAsync(string secretName)
         {
             var secret = await _secretClient.GetSecretAsync(secretName);
+            return secret.Value?.Value;
+        }
+
+        /// <inheritdoc/>
+        public string? GetSecretValue(string secretName)
+        {
+            var secret = _secretClient.GetSecret(secretName);
             return secret.Value?.Value;
         }
 

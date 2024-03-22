@@ -2,6 +2,20 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+      "adminGroupObjectId": {
+        "value": "${ADMIN_GROUP_OBJECT_ID}"
+      },
+      "authAppRegistration": {
+        "value": {
+          "instance": "${ENTRA_AUTH_API_INSTANCE}",
+          "clientId": "${ENTRA_AUTH_API_CLIENT_ID}",
+          "scopes": "${ENTRA_AUTH_API_SCOPES}",
+          "tenantId": "${ENTRA_AUTH_API_TENANT_ID}"
+        }
+      },
+      "authClientSecret": {
+        "value": "${ENTRA_AUTH_API_CLIENT_SECRET}"
+      },
       "appRegistrations": {
         "value": [
           {
@@ -52,6 +66,9 @@
           "subscriptionId": "${OPENAI_SUBSCRIPTION_ID}"
         }
       },
+      "authServiceExists": {
+        "value": "${SERVICE_AUTHAPI_RESOURCE_EXISTS=false}"
+      },
       "servicesExist": {
         "value": {
           "agent-factory-api": "${SERVICE_AGENTFACTORYAPI_RESOURCE_EXISTS=false}",
@@ -76,6 +93,12 @@
           "settings": []
         }
       },
+      "authService": {
+        "value": {
+          "name": "auth-api",
+          "image": "mcr.microsoft.com/k8se/quickstart:latest"
+        }
+      },
       "services": {
         "value": [
           {
@@ -83,7 +106,7 @@
             "useEndpoint": false,
             "hasIngress": true,
             "image": "ghcr.io/solliancenet/foundationallm/agent-factory-api:0.4.0",
-            "appConfigEnvironmentVarName": "FoundationaLLM__AppConfig__ConnectionString",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-agentfactoryapi-apikey"
           },
           {
@@ -107,7 +130,7 @@
             "useEndpoint": false,
             "hasIngress": true,
             "image": "ghcr.io/solliancenet/foundationallm/core-api:0.4.0",
-            "appConfigEnvironmentVarName": "FoundationaLLM__AppConfig__ConnectionString",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-coreapi-apikey"
           },
           {
@@ -115,7 +138,7 @@
             "useEndpoint": false,
             "hasIngress": false,
             "image": "ghcr.io/solliancenet/foundationallm/core-job:0.4.0",
-            "appConfigEnvironmentVarName": "FoundationaLLM__AppConfig__ConnectionString",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-corejob-apikey"
           },
           {
@@ -131,7 +154,7 @@
             "useEndpoint": false,
             "hasIngress": true,
             "image": "ghcr.io/solliancenet/foundationallm/gatekeeper-api:0.4.0",
-            "appConfigEnvironmentVarName": "FoundationaLLM__AppConfig__ConnectionString",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-gatekeeperapi-apikey"
           },
           {
@@ -155,7 +178,7 @@
             "useEndpoint": false,
             "hasIngress": true,
             "image": "ghcr.io/solliancenet/foundationallm/management-api:0.4.0",
-            "appConfigEnvironmentVarName": "FoundationaLLM__AppConfig__ConnectionString",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-managementapi-apikey"
           },
           {
@@ -179,7 +202,7 @@
             "useEndpoint": false,
             "hasIngress": true,
             "image": "ghcr.io/solliancenet/foundationallm/semantic-kernel-api:0.4.0",
-            "appConfigEnvironmentVarName": "FoundationaLLM__AppConfig__ConnectionString",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-semantickernelapi-apikey"
           },
           {
@@ -187,7 +210,7 @@
             "useEndpoint": false,
             "hasIngress": true,
             "image": "ghcr.io/solliancenet/foundationallm/vectorization-api:0.4.0",
-            "appConfigEnvironmentVarName": "FoundationaLLM__AppConfig__ConnectionString",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-vectorizationapi-apikey"
           },
           {
@@ -195,7 +218,7 @@
             "useEndpoint": false,
             "hasIngress": false,
             "image": "ghcr.io/solliancenet/foundationallm/vectorization-job:0.4.0",
-            "appConfigEnvironmentVarName": "FoundationaLLM__AppConfig__ConnectionString",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-vectorizationworker-apikey"
           }
         ]

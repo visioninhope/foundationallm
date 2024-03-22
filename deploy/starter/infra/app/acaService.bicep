@@ -4,10 +4,9 @@ param tags object = {}
 
 param appConfigName string
 param eventgridName string
-param cogsearchName string
 param identityName string
 param keyvaultName string
-param containerRegistryName string
+param storageAccountName string
 param containerAppsEnvironmentName string
 param applicationInsightsName string
 param exists bool
@@ -45,27 +44,12 @@ resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' 
   location: location
 }
 
-resource containerRegistry 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' existing = {
-  name: containerRegistryName
-}
-
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2023-04-01-preview' existing = {
   name: containerAppsEnvironmentName
 }
 
 resource applicationInsights 'Microsoft.Insights/components@2020-02-02' existing = {
   name: applicationInsightsName
-}
-
-resource acrPullRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  scope: containerRegistry
-  name: guid(subscription().id, resourceGroup().id, identity.id, 'acrPullRole')
-  properties: {
-    roleDefinitionId:  subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d')
-    principalType: 'ServicePrincipal'
-    principalId: identity.properties.principalId
-  }
 }
 
 resource appConfig 'Microsoft.AppConfiguration/configurationStores@2023-03-01' existing = {
@@ -127,6 +111,34 @@ resource eventGridContributorRole 'Microsoft.Authorization/roleAssignments@2022-
   }
 }
 
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' existing = {
+  name: storageAccountName
+}
+
+resource blobContribRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: storageAccount
+  name: guid(subscription().id, resourceGroup().id, identity.id, storageAccount.id, 'Storage Blob Data Contributor')
+  properties: {
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    )
+    principalType: 'ServicePrincipal'
+    principalId: identity.properties.principalId
+  }
+}
+
+resource queueContribRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: storageAccount
+  name: guid(subscription().id, resourceGroup().id, identity.id, storageAccount.id, 'Storage Queue Data Contributor')
+  properties: {
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions', '974c5e8b-45b9-4653-ba55-5f855dd0fb88'
+    )
+    principalType: 'ServicePrincipal'
+    principalId: identity.properties.principalId
+  }
+}
+
 module fetchLatestImage '../modules/fetch-container-image.bicep' = {
   name: '${name}-fetch-image'
   params: {
@@ -139,7 +151,7 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
   name: truncatedAppName
   location: location
   tags: union(tags, {'azd-service-name':  serviceName })
-  dependsOn: [ acrPullRole, secretsAccessPolicy, appConfigReaderRole ]
+  dependsOn: [ secretsAccessPolicy, appConfigReaderRole ]
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: { '${identity.id}': {} }
@@ -152,12 +164,6 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
         targetPort: 80
         transport: 'auto'
       } : null
-      registries: [
-        {
-          server: '${containerRegistryName}.azurecr.io'
-          identity: identity.id
-        }
-      ]
       secrets: union([
       ],
       map(secrets, secret => {
@@ -220,24 +226,8 @@ resource apiKey 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = [
   }
 ]
 
-resource search 'Microsoft.Search/searchServices@2022-09-01' existing = {
-  name: cogsearchName
-}
-
-resource searchIndexDataReaderRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  scope: search
-  name: guid(subscription().id, resourceGroup().id, identity.id, 'searchIndexDataReaderRole')
-  properties: {
-    roleDefinitionId: subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions', '1407120a-92aa-4202-b7e9-c0e197c71c8f')
-    principalType: 'ServicePrincipal'
-    principalId: identity.properties.principalId
-  }
-}
-
-
 output defaultDomain string = containerAppsEnvironment.properties.defaultDomain
 output name string = app.name
 output uri string = hasIngress ? 'https://${app.properties.configuration.ingress.fqdn}' : ''
 output id string = app.id
-output identityPrincipalId string = identity.properties.principalId
+output miPrincipalId string = identity.properties.principalId

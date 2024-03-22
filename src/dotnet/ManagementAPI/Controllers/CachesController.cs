@@ -14,8 +14,7 @@ namespace FoundationaLLM.Management.API.Controllers
     /// </remarks>
     /// <param name="cacheManagementService">Provides cache management methods for managing
     /// configuration and state of downstream services.</param>
-    [Authorize]
-    [Authorize(Policy = "RequiredScope")]
+    [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
     [Consumes("application/json")]
     [Produces("application/json")]

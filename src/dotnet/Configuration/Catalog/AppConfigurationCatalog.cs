@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Configuration.AppConfiguration;
 
 namespace FoundationaLLM.Configuration.Catalog
@@ -12,6 +13,8 @@ namespace FoundationaLLM.Configuration.Catalog
     /// </summary>
     public static class AppConfigurationCatalog
     {
+        #region Instance
+
         /// <summary>
         /// The Instance configuration entries for the solution.
         /// </summary>
@@ -27,6 +30,10 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             )
         ];
+
+        #endregion
+
+        #region Configuration
 
         /// <summary>
         /// The Configuration-based configuration entries for the solution.
@@ -53,6 +60,10 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
         ];
+
+        #endregion
+
+        #region AgentHub
 
         /// <summary>
         /// The Agent Hub configuration entries for the solution.
@@ -83,6 +94,10 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region Agent
+
         /// <summary>
         /// The Agent configuration entries for the solution.
         /// </summary>
@@ -112,6 +127,10 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             )
         ];
+
+        #endregion
+
+        #region APIs
 
         /// <summary>
         /// The APIs configuration entries for the solution.
@@ -491,8 +510,22 @@ namespace FoundationaLLM.Configuration.Catalog
                 keyVaultSecretName: Common.Constants.KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_AuthorizationAPI_APIUrl,
+                minimumVersion: "0.5.0",
+                defaultValue: "",
+                description: "The URL of the authorization API.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
             )
         ];
+
+        #endregion
+
+        #region Prompt
 
         /// <summary>
         /// The Prompt configuration entries for the solution.
@@ -525,6 +558,10 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             )
         ];
+
+        #endregion
+
+        #region AzureContentSafety
 
         /// <summary>
         /// The Azure Content Safety configuration entries for the solution.
@@ -591,6 +628,10 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             )
         ];
+
+        #endregion
+
+        #region AzureOpenAI
 
         /// <summary>
         /// The Azure OpenAI configuration entries for the solution.
@@ -718,6 +759,10 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region BlobStorageMemorySource
+
         /// <summary>
         /// The Blob Storage Memory Source configuration entries for the solution.
         /// </summary>
@@ -754,6 +799,10 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             )
         ];
+
+        #endregion
+
+        #region Branding
 
         /// <summary>
         /// The Branding configuration entries for the solution.
@@ -932,6 +981,10 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region UserPortal
+
         /// <summary>
         /// The User Portal configuration entries for the solution.
         /// </summary>
@@ -988,21 +1041,15 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region CoreAPI
+
         /// <summary>
         /// The Core API configuration entries for the solution.
         /// </summary>
         public static readonly List<AppConfigurationEntry> CoreAPI =
         [
-            new(
-                key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_CallbackPath,
-                minimumVersion: "0.3.0",
-                defaultValue: "/signin-oidc",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
             new(
                 key: Common.Constants.AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId,
                 minimumVersion: "0.3.0",
@@ -1044,6 +1091,10 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region CoreWorker
+
         /// <summary>
         /// The Core Worker configuration entries for the solution.
         /// </summary>
@@ -1059,6 +1110,10 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             )
         ];
+
+        #endregion
+
+        #region CosmosDB
 
         /// <summary>
         /// The CosmosDB configuration entries for the solution.
@@ -1126,6 +1181,10 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region DataSource
+
         /// <summary>
         /// The Data Source resource provider configuration entries for the solution.
         /// </summary>
@@ -1157,6 +1216,10 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             )
         ];
+
+        #endregion
+
+        #region DataSourceHub
 
         /// <summary>
         /// The Data Source Hub configuration entries for the solution.
@@ -1201,6 +1264,13 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region Event
+
+        /// <summary>
+        /// The Event configuration entries for the solution.
+        /// </summary>
         public static readonly List<AppConfigurationEntry> Event =
         [
             new (
@@ -1286,6 +1356,10 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
         ];
 
+        #endregion
+
+        #region LangChain
+
         /// <summary>
         /// The LangChain configuration entries for the solution.
         /// </summary>
@@ -1312,6 +1386,10 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region LangChainAPI
+
         /// <summary>
         /// The LangChain API configuration entries for the solution.
         /// </summary>
@@ -1327,6 +1405,10 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             )
         ];
+
+        #endregion
+
+        #region Management
 
         /// <summary>
         /// The Management configuration entries for the solution.
@@ -1384,6 +1466,10 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region Management API
+
         /// <summary>
         /// The Management API configuration entries for the solution.
         /// </summary>
@@ -1430,6 +1516,10 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region OpenAI
+
         /// <summary>
         /// The OpenAI configuration entries for the solution.
         /// </summary>
@@ -1466,6 +1556,10 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region PromptHub
+
         /// <summary>
         /// The Prompt Hub configuration entries for the solution.
         /// </summary>
@@ -1494,6 +1588,10 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             )
         ];
+
+        #endregion
+
+        #region SemanticKernelAPI
 
         /// <summary>
         /// The Semantic Kernel API configuration entries for the solution.
@@ -1663,6 +1761,10 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region Vectorization
+
         /// <summary>
         /// The Vectorization configuration entries for the solution.
         /// </summary>
@@ -1777,8 +1879,34 @@ namespace FoundationaLLM.Configuration.Catalog
                     .FoundationaLLM_Vectorization_ResourceProvider_Storage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
+            ),
+
+            new(
+                key: Common.Constants.AppConfigurationKeys
+                    .FoundationaLLM_Vectorization_AzureAISearchIndexingService_AuthenticationType,
+                minimumVersion: "0.5.0",
+                defaultValue: "",
+                description:
+                "The authentication type used to connect to the Azure AI Search service. Can be one of `AzureIdentity` or `APIKey`.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: Common.Constants.AppConfigurationKeys
+                    .FoundationaLLM_Vectorization_AzureAISearchIndexingService_Endpoint,
+                minimumVersion: "0.5.0",
+                defaultValue: "",
+                description:
+                "The endpoint of the Azure AI Search service.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
             )
         ];
+
+        #endregion
 
         /// <summary>
         /// Returns the list of all the app configuration entries for this solution.

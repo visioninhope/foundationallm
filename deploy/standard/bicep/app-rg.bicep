@@ -61,6 +61,9 @@ param timestamp string = utcNow()
 @secure()
 param vectorizationApiClientSecret string
 
+@description('Vectorization Resource Group name')
+param vectorizationResourceGroupName string
+
 @description('Virtual Network ID, used to find the subnet IDs.')
 param vnetId string
 
@@ -96,10 +99,12 @@ var backendServices = {
   'semantic-kernel-api': { displayName: 'SemanticKernelAPI' }
   'vectorization-job': { displayName: 'VectorizationWorker' }
 }
+var backendServiceNames = [for service in items(backendServices): service.key]
 
 var chatUiService = { 'chat-ui': { displayName: 'Chat' } }
 var coreApiService = { 'core-api': { displayName: 'CoreAPI' } }
 var vectorizationApiService = { 'vectorization-api': { displayName: 'VectorizationAPI' } }
+var vecServiceNames = [for service in items(vectorizationApiService): service.key]
 
 var managementUiService = { 'management-ui': { displayName: 'ManagementUI' } }
 var managementApiService = { 'management-api': { displayName: 'ManagementAPI' } }
@@ -352,3 +357,54 @@ module vectorizationApiServiceResources 'modules/service.bicep' = [for service i
   }
 }
 ]
+
+module searchIndexDataReaderRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'searchIAM-Vec-${timestamp}'
+  scope: resourceGroup(vectorizationResourceGroupName)
+  params: {
+    principalId: vectorizationApiServiceResources[indexOf(vecServiceNames, 'vectorization-api')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+    }
+  }
+}
+
+resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2024-02-15-preview' existing = {
+  name: 'cdb-${project}-${environmentName}-${location}-storage'
+  scope: resourceGroup(storageResourceGroupName)
+}
+
+module coreApiosmosRoles './modules/sqlRoleAssignments.bicep' = {
+  scope: resourceGroup(storageResourceGroupName)
+  name: 'core-api-cosmos-role'
+  params: {
+    accountName: cosmosDb.name
+    principalId: coreApiServiceResources[0].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
+  }
+}
+
+module searchIndexDataReaderWorkerRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'searchIAM-Vec-${timestamp}'
+  scope: resourceGroup(vectorizationResourceGroupName)
+  params: {
+    principalId: backendServiceResources[indexOf(backendServiceNames, 'vectorization-job')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+    }
+  }
+}
+
+module cosmosRoles './modules/sqlRoleAssignments.bicep' = {
+  scope: resourceGroup(storageResourceGroupName)
+  name: 'core-job-cosmos-role'
+  params: {
+    accountName: cosmosDb.name
+    principalId: backendServiceResources[indexOf(backendServiceNames, 'core-job')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
+  }
+}

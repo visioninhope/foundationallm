@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Vectorization.Models.Configuration
 {
@@ -23,5 +18,23 @@ namespace FoundationaLLM.Vectorization.Models.Configuration
         /// </summary>
         [JsonPropertyOrder(1)]
         public int MaxHandlerInstances { get; set; }
+
+        /// <summary>
+        /// The wait time after processing a request from the queue in seconds.
+        /// </summary>
+        [JsonPropertyOrder(3)]
+        public int QueueProcessingPace { get; set; } = 5;
+
+        /// <summary>
+        /// The interval in seconds to poll the queue for new requests, when the request queue is empty.
+        /// </summary>
+        [JsonPropertyOrder(4)]
+        public int QueuePollingInterval { get; set; } = 60;
+
+        /// <summary>
+        /// The maximum number of retries to process a request in case of a failure.
+        /// </summary>
+        [JsonPropertyOrder(5)]
+        public int QueueMaxNumberOfRetries { get; set; } = 5;
     }
 }

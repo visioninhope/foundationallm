@@ -1,19 +1,14 @@
-﻿using Asp.Versioning;
-using FoundationaLLM.Agent.Constants;
+﻿using FoundationaLLM.Agent.Constants;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Models.Configuration.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Core.Interfaces;
-using FoundationaLLM.Core.Models.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.Identity.Web;
 
 
 namespace FoundationaLLM.Core.API.Controllers
@@ -24,8 +19,7 @@ namespace FoundationaLLM.Core.API.Controllers
     /// <remarks>
     /// Constructor for the Orchestration Controller.
     /// </remarks>
-    [Authorize]
-    [Authorize(Policy = "RequiredScope")]
+    [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
     [Route("[controller]")]
     public class OrchestrationController : ControllerBase
@@ -34,6 +28,7 @@ namespace FoundationaLLM.Core.API.Controllers
         private readonly IResourceProviderService _agentResourceProvider;
 #pragma warning disable IDE0052 // Remove unread private members.
         private readonly ILogger<OrchestrationController> _logger;
+        ICallContext _callContext;
 
         /// <summary>
         /// Methods for orchestration services exposed by the Gatekeeper API service.
@@ -47,6 +42,7 @@ namespace FoundationaLLM.Core.API.Controllers
         /// <param name="logger">The logging interface used to log under the
         /// <see cref="OrchestrationController"/> type name.</param>
         public OrchestrationController(ICoreService coreService,
+            ICallContext callContext,
             IEnumerable<IResourceProviderService> resourceProviderServices,
             ILogger<OrchestrationController> logger)
         {
@@ -57,6 +53,7 @@ namespace FoundationaLLM.Core.API.Controllers
                 throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
             _agentResourceProvider = agentResourceProvider; ;
             _logger = logger;
+            _callContext = callContext;
         }
 
         /// <summary>
@@ -64,7 +61,7 @@ namespace FoundationaLLM.Core.API.Controllers
         /// </summary>
         /// <param name="directCompletionRequest">The user prompt for which to generate a completion.</param>
         [HttpPost("completion", Name = "GetCompletion")]
-        public async Task<IActionResult> GetCompletion([FromBody] DirectCompletionRequest directCompletionRequest)
+        public async Task<IActionResult> GetCompletion([FromBody] CompletionRequest directCompletionRequest)
         {
             var completionResponse = await _coreService.GetCompletionAsync(directCompletionRequest);
 
@@ -80,7 +77,7 @@ namespace FoundationaLLM.Core.API.Controllers
         {
             var agents = new List<ResourceBase>();
 
-            if (await _agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}") is List<AgentBase> globalAgentsList && globalAgentsList.Count != 0)
+            if (await _agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}", _callContext.CurrentUserIdentity) is List<AgentBase> globalAgentsList && globalAgentsList.Count != 0)
             {
                 agents.AddRange(globalAgentsList);
             }
