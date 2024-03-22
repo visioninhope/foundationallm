@@ -556,6 +556,25 @@ module acaServices './app/acaService.bicep' = [for service in services: {
   dependsOn: [ appConfig, cogSearch, contentSafety, cosmosDb, keyVault, monitoring, storage ]
 }]
 
+var cosmosRoleTargets = [
+  'core-api'
+  'core-job'
+]
+
+module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
+  for target in cosmosRoleTargets: {
+    scope: rg
+    name: '${target}-cosmos-role'
+    params: {
+      accountName: cosmosDb.outputs.name
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionIds: {
+        'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+      }
+    }
+  }
+]
+
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
 output AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME string = authStore.outputs.name
 output AZURE_COGNITIVE_SEARCH_ENDPOINT string = cogSearch.outputs.endpoint
