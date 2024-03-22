@@ -578,7 +578,7 @@ output AZURE_STORAGE_ACCOUNT_NAME string = storage.outputs.name
 
 var appRegNames = [for appRegistration in appRegistrations: appRegistration.name]
 
-output ENTRA_AUTH_API_SCOPE string = authAppRegistration.scopes
+output ENTRA_AUTH_API_SCOPES string = authAppRegistration.scopes
 
 output ENTRA_CHAT_UI_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'chat-ui')].clientId
 output ENTRA_CHAT_UI_SCOPES string = appRegistrations[indexOf(appRegNames, 'chat-ui')].scopes
