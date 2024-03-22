@@ -35,7 +35,10 @@ function Invoke-AndRequireSuccess {
 }
 
 Invoke-AndRequireSuccess "Retrieving credentials for AKS cluster ${aksName}" {
-    az aks get-credentials --name $aksName --resource-group $resourceGroup
+    az aks get-credentials `
+        --name $aksName `
+        --resource-group $resourceGroup `
+        --overwrite-existing
 }
 
 $chartsToInstall = $chartNames | Where-Object { $charts.Contains("*") -or $charts.Contains($_) }
