@@ -1,19 +1,71 @@
 #! /usr/bin/pwsh
 
 Param (
-    [parameter(Mandatory = $true)][object]$instanceId,
     [parameter(Mandatory = $true)][object]$entraClientIds,
+    [parameter(Mandatory = $true)][object]$entraScopes,
+    [parameter(Mandatory = $true)][object]$ingress,
+    [parameter(Mandatory = $true)][object]$instanceId,
     [parameter(Mandatory = $true)][object]$resourceGroups,
+    [parameter(Mandatory = $true)][object]$serviceNamespaceName,
     [parameter(Mandatory = $true)][string]$resourceSuffix,
-    [parameter(Mandatory = $true)][string]$subscriptionId,
-    [parameter(Mandatory = $true)][object]$ingress
+    [parameter(Mandatory = $true)][string]$subscriptionId
 )
 
 Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enable verbose)
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
+function Get-CIDRHost {
+    param(
+        [string]$baseCidr,
+        [int]$hostNum
+    )
+
+    $parts = $baseCidr -split '/'
+    $baseIp = $parts[0]
+    $subnetMask = [int]$parts[1]
+
+    $totalHosts = [math]::Pow(2, (32 - $subnetMask)) - 2 # Subtract 2 for network and broadcast addresses
+
+    if ($hostNum -lt 0 -or $hostNum -gt $totalHosts) {
+        throw "Host number is out of range for the given CIDR block"
+    }
+
+    $baseIpBinary = [System.Net.IPAddress]::Parse($baseIp).GetAddressBytes()
+    [Array]::Reverse($baseIpBinary)
+    $baseIpLong = [System.BitConverter]::ToUInt32($baseIpBinary, 0)
+
+    $offset = $hostNum
+    $specificIpLong = $baseIpLong + $offset
+    $specificIpBinary = [System.BitConverter]::GetBytes($specificIpLong)
+    [Array]::Reverse($specificIpBinary)
+
+    $specificIp = [System.Net.IPAddress]::new($specificIpBinary)
+    return $specificIp.ToString()
+}
+
 function Invoke-AndRequireSuccess {
+    <#
+    .SYNOPSIS
+    Invokes a script block and requires it to execute successfully.
+
+    .DESCRIPTION
+    The Invoke-AndRequireSuccess function is used to invoke a script block and ensure that it executes successfully. It takes a message and a script block as parameters. The function will display the message in blue color, execute the script block, and check the exit code. If the exit code is non-zero, an exception will be thrown.
+
+    .PARAMETER Message
+    The message to be displayed before executing the script block.
+
+    .PARAMETER ScriptBlock
+    The script block to be executed.
+
+    .EXAMPLE
+    Invoke-AndRequireSuccess -Message "Running script" -ScriptBlock {
+        # Your script code here
+    }
+
+    This example demonstrates how to use the Invoke-AndRequireSuccess function to run a script block and require it to execute successfully.
+
+    #>
     param (
         [Parameter(Mandatory = $true, Position = 0)]
         [string]$Message,
@@ -22,7 +74,6 @@ function Invoke-AndRequireSuccess {
         [ScriptBlock]$ScriptBlock
     )
 
-    $LASTEXITCODE = 0
     Write-Host "${message}..." -ForegroundColor Blue
     $result = & $ScriptBlock
 
@@ -59,24 +110,6 @@ function PopulateTemplate {
         -outputFile $outputFilePath `
         -tokens $tokens
 }
-
-# function EnsureAndReturnFirstItem($arr, $restype) {
-#     if (-not $arr -or $arr.Length -ne 1) {
-#         Write-Host "Fatal: No $restype found (or found more than one)" -ForegroundColor Red
-#         exit 1
-#     }
-
-#     return $arr[0]
-# }
-
-# function EnsureSuccess($message) {
-#     if ($LASTEXITCODE -ne 0) {
-#         Write-Host $message -ForegroundColor Red
-#         exit $LASTEXITCODE
-#     }
-# }
-
-
 
 $svcResourceSuffix = "${resourceSuffix}-svc"
 $tokens = @{}
@@ -123,6 +156,11 @@ $services = @{
         miConfigName   = "gatekeeperIntegrationApiMiClientId"
         ingressEnabled = $false
     }
+    langchainapi             = @{
+        miName         = "mi-langchain-api-$svcResourceSuffix"
+        miConfigName   = "langChainApiMiClientId"
+        ingressEnabled = $false
+    }
     managementapi            = @{
         miName         = "mi-management-api-$svcResourceSuffix"
         miConfigName   = "managementApiMiClientId"
@@ -134,11 +172,6 @@ $services = @{
         miConfigName   = "managementUiMiClientId"
         ingressEnabled = $true
         hostname       = "management.internal.foundationallm.ai"
-    }
-    langchainapi             = @{
-        miName         = "mi-langchain-api-$svcResourceSuffix"
-        miConfigName   = "langChainApiMiClientId"
-        ingressEnabled = $false
     }
     prompthubapi             = @{
         miName         = "mi-prompt-hub-api-$svcResourceSuffix"
@@ -163,16 +196,21 @@ $services = @{
 }
 
 $tokens.chatEntraClientId = $entraClientIds.chat
+$tokens.chatEntraScopes = $entraScopes.chat
 $tokens.coreApiHostname = $ingress.apiIngress.coreapi.host
 $tokens.coreEntraClientId = $entraClientIds.core
+$tokens.coreEntraScopes = $entraScopes.core
 $tokens.instanceId = $instanceId
 $tokens.managementApiEntraClientId = $entraClientIds.managementapi
+$tokens.managementApiEntraScopes = $entraScopes.managementapi
 $tokens.managementApiHostname = $ingress.apiIngress.managementapi.host
-$tokens.managementEntraClientId = $entraClientIds.managementUi
+$tokens.managementEntraClientId = $entraClientIds.managementui
+$tokens.managementEntraScopes = $entraScopes.managementui
 $tokens.opsResourceGroup = $resourceGroups.ops
 $tokens.storageResourceGroup = $resourceGroups.storage
 $tokens.subscriptionId = $subscriptionId
 $tokens.vectorizationApiEntraClientId = $entraClientIds.vectorizationapi
+$tokens.vectorizationApiEntraScopes = $entraScopes.vectorizationapi
 $tokens.vectorizationApiHostname = $ingress.apiIngress.vectorizationapi.host
 
 $tenantId = Invoke-AndRequireSuccess "Get Tenant ID" {
@@ -224,6 +262,22 @@ $cogSearchName = Invoke-AndRequireSuccess "Get Cognitive Search endpoint" {
 }
 $tokens.cognitiveSearchEndpointUri = "https://$($cogSearchName).search.windows.net"
 
+$backendAks = Invoke-AndRequireSuccess "Get Backend AKS" {
+    az aks list `
+        --resource-group $($resourceGroups.app) `
+        --query "[?contains(name, 'backend')].addonProfiles.azureKeyvaultSecretsProvider.identity.clientId | [0]" `
+        --output tsv
+}
+$tokens.aksBackendCsiIdentityClientId = $backendAks
+
+$frontendAks = Invoke-AndRequireSuccess "Get Frontend AKS" {
+    az aks list `
+        --resource-group $($resourceGroups.app) `
+        --query "[?contains(name, 'frontend')].addonProfiles.azureKeyvaultSecretsProvider.identity.clientId | [0]" `
+        --output tsv
+}
+$tokens.aksFrontendCsiIdentityClientId = $frontendAks
+
 $contentSafetyUri = Invoke-AndRequireSuccess "Get Content Safety endpoint" {
     az cognitiveservices account list `
         --resource-group $($resourceGroups.oai) `
@@ -250,13 +304,43 @@ $eventGridNamespace = Invoke-AndRequireSuccess "Get Event Grid Namespace" {
 $tokens.eventGridNamespaceEndpoint = "https://$($eventGridNamespace.hostname)/"
 $tokens.eventGridNamespaceId = $eventGridNamespace.id
 
-$keyvaultUri = Invoke-AndRequireSuccess "Get Key Vault URI" {
+$keyVault = Invoke-AndRequireSuccess "Get Key Vault URI" {
     az keyvault list `
         --resource-group $($resourceGroups.ops) `
-        --query "[0].properties.vaultUri" `
+        --query "[0].{uri:properties.vaultUri,name:name}" `
+        --output json | `
+        ConvertFrom-Json
+}
+$tokens.keyVaultName = $keyVault.name
+$tokens.keyvaultUri = $keyvault.uri
+
+$vnetName = Invoke-AndRequireSuccess "Get VNet Name" {
+    az network vnet list `
+        --output tsv `
+        --query "[0].name" `
+        --resource-group $resourceGroups.net `
         --output tsv
 }
-$tokens.keyvaultUri = $keyvaultUri
+
+$subnetBackend = Invoke-AndRequireSuccess "Get Backend Subnet CIDR" {
+    az network vnet subnet show `
+        --name "FLLMBackend" `
+        --query addressPrefix `
+        --resource-group $resourceGroups.net `
+        --vnet-name $vnetName `
+        --output tsv
+}
+$tokens.privateIpIngressBackend = Get-CIDRHost -baseCidr $subnetBackend -hostNum 250
+
+$subnetFrontend = Invoke-AndRequireSuccess "Get Frontend Subnet CIDR" {
+    az network vnet subnet show `
+        --name "FLLMFrontend" `
+        --query addressPrefix `
+        --resource-group $resourceGroups.net `
+        --vnet-name $vnetName `
+        --output tsv
+}
+$tokens.privateIpIngressFrontend = Get-CIDRHost -baseCidr $subnetFrontend -hostNum 250
 
 $storageAccountAdlsName = Invoke-AndRequireSuccess "Get ADLS Storage Account" {
     az storage account list `
@@ -322,24 +406,35 @@ $tokens.vectorizationWorkerEventGridProfile = $eventGridProfiles["vectorization-
 $tokens.managementApiEventGridProfile = $eventGridProfiles["management-api-event-profile"]
 
 PopulateTemplate $tokens "..,config,appconfig.template.json" "..,config,appconfig.json"
-PopulateTemplate $tokens "..,values,internal-service.template.yml" "..,values,microservice-values.yml"
+PopulateTemplate $tokens "..,config,kubernetes,spc.foundationallm-certificates.backend.template.yml" "..,config,kubernetes,spc.foundationallm-certificates.backend.yml"
+PopulateTemplate $tokens "..,config,kubernetes,spc.foundationallm-certificates.frontend.template.yml" "..,config,kubernetes,spc.foundationallm-certificates.frontend.yml"
+PopulateTemplate $tokens "..,config,helm,ingress-nginx.values.backend.template.yml" "..,config,helm,ingress-nginx.values.backend.yml"
+PopulateTemplate $tokens "..,config,helm,ingress-nginx.values.frontend.template.yml" "..,config,helm,ingress-nginx.values.frontend.yml"
+PopulateTemplate $tokens "..,config,helm,internal-service.template.yml" "..,config,helm,microservice-values.yml"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.json"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.json"
 
 $($ingress.apiIngress).PSObject.Properties | ForEach-Object {
+    $tokens.authKeyvaultUri = "PLACEHOLDER"
+    $tokens.serviceBaseUrl = $_.Value.path
     $tokens.serviceHostname = $_.Value.host
-    $tokens.servicePath = $_.Value.path
+    $tokens.serviceName = $_.Value.serviceName
+    $tokens.serviceNamespaceName = $serviceNamespaceName
+    $tokens.servicePath = $_.Value.path + "(.*)"
     $tokens.servicePathType = $_.Value.pathType
-    $tokens.serviceAgwSslCert = $_.Value.sslCert
-    PopulateTemplate $tokens "..,values,exposed-service.template.yml" "..,values,$($_.Name)-values.yml"
+    $tokens.serviceSecretName = $_.Value.sslCert
+    PopulateTemplate $tokens "..,config,helm,exposed-service.template.yml" "..,config,helm,$($_.Name)-values.yml"
+    PopulateTemplate $tokens "..,config,helm,service-ingress.template.yml" "..,config,helm,$($_.Name)-ingress.yml"
 }
 
 $($ingress.frontendIngress).PSObject.Properties | ForEach-Object {
+    $tokens.serviceBaseUrl = $_.Value.path
     $tokens.serviceHostname = $_.Value.host
-    $tokens.servicePath = $_.Value.path
+    $tokens.serviceName = $_.Value.serviceName
+    $tokens.serviceNamespaceName = $serviceNamespaceName
+    $tokens.servicePath = $_.Value.path + "(.*)"
     $tokens.servicePathType = $_.Value.pathType
-    $tokens.serviceAgwSslCert = $_.Value.sslCert
-    PopulateTemplate $tokens "..,values,frontend-service.template.yml" "..,values,$($_.Name)-values.yml"
+    $tokens.serviceSecretName = $_.Value.sslCert
+    PopulateTemplate $tokens "..,config,helm,frontend-service.template.yml" "..,config,helm,$($_.Name)-values.yml"
+    PopulateTemplate $tokens "..,config,helm,service-ingress.template.yml" "..,config,helm,$($_.Name)-ingress.yml"
 }
-
-exit 0
