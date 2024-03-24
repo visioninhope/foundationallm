@@ -33,7 +33,8 @@ namespace FoundationaLLM.Authorization.Middleware
             if (context.User is { Identity.IsAuthenticated: true })
             {
                 var userId = context.User.FindFirstValue(ClaimConstants.Oid)
-                    ?? context.User.FindFirstValue(ClaimConstants.NameIdentifierId);
+                             ?? context.User.FindFirstValue(ClaimConstants.ObjectId)
+                             ?? context.User.FindFirstValue(ClaimConstants.NameIdentifierId);
                 if (string.IsNullOrWhiteSpace(userId)
                     || !authorizationCore.AllowAuthorizationRequestsProcessing(
                         (context.Request.RouteValues["instanceId"] as string)!,
