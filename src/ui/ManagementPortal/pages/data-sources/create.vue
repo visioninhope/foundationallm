@@ -286,10 +286,10 @@ export default {
 			} as null | DataSource,
 
 			sourceTypeOptions: [
-				// {
-				// 	label: 'Basic',
-				// 	value: 'basic'
-				// },
+				{
+					label: 'OneLake',
+					value: 'onelake'
+				},
 				{
 					label: 'Azure Data Lake',
 					value: 'azure-data-lake',
