@@ -109,6 +109,10 @@ export default {
 
 			sourceTypeOptions: [
 				{
+					label: 'OneLake',
+					value: 'onelake'
+				},
+				{
 					label: 'Blob Storage',
 					value: 1,
 				},

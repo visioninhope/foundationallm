@@ -9,7 +9,17 @@ export type Agent = {
 	content_source_profile_object_id: string;
 
 	sessions_enabled: boolean;
-	orchestrator: string;
+	orchestration_settings: {
+		orchestrator: string;
+		endpoint_configuration: {
+			endpoint: string;
+			api_key: string;
+		};
+		model_parameters: {
+			temperature: number;
+			deployment_name: string;
+		};
+	};
 	conversation_history: {
 		enabled: boolean;
 		max_history: number;
@@ -150,7 +160,17 @@ export type CreateAgentRequest = {
 	content_source_profile_object_id: string;
 	text_partitioning_profile_object_id: string;
 	sessions_enabled: boolean;
-	orchestrator: string;
+	orchestration_settings: {
+		orchestrator: string;
+		endpoint_configuration: {
+			endpoint: string;
+			api_key: string;
+		};
+		model_parameters: {
+			temperature: number;
+			deployment_name: string;
+		};
+	};
 	conversation_history: {
 		enabled: boolean;
 		max_history: number;
