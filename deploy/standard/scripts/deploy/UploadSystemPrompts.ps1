@@ -46,7 +46,8 @@ function Invoke-AndRequireSuccess {
 }
 
 $scriptRoot = $MyInvocation.InvocationName | Split-Path
-Push-Location $(Join-Path $scriptRoot .. .. "common" "data")
+$dataPath = Join-Path $scriptRoot .. .. .. "common" "data" | Resolve-Path
+Push-Location $dataPath
 try {
     $storageAccount = Invoke-AndRequireSuccess "Getting storage account name" {
         az storage account list `
