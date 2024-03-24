@@ -197,12 +197,12 @@ export default {
 
 	// Indexes
 	async getAgentIndexes(): Promise<AgentIndex[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`);
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles?api-version=${this.apiVersion}`);
 	},
 
 	// Text embedding profiles
 	async getTextEmbeddingProfiles(): Promise<TextEmbeddingProfile[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textembeddingprofiles?api-version=${this.apiVersion}`);
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles?api-version=${this.apiVersion}`);
 	},
 
 	// Agents
@@ -271,7 +271,7 @@ export default {
 	},
 
 	async createOrUpdateTextPartitioningProfile(agentId: string, request: CreateTextPartitioningProfileRequest): Promise<any> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/${agentId}?api-version=${this.apiVersion}`, {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/${agentId}?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: request,
 		});
