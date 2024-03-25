@@ -79,13 +79,15 @@ namespace FoundationaLLM
         /// <param name="entraScopesConfigurationKey">The configuration key for the Entra ID scopes.</param>
         /// <param name="policyName">The name of the authorization policy.</param>
         /// <param name="requireScopes">Indicates whether a scope claim (scp) is required for authorization.</param>
+        /// <param name="allowACLAuthorization">Indicates whether tokens that do not have either of the "scp" or "roles" claims are accepted (True means they are accepted).</param>
         public static void AddAuthenticationConfiguration(this IHostApplicationBuilder builder,
             string entraInstanceConfigurationKey,
             string entraTenantIdConfigurationKey,
             string entraClientIdConfigurationkey,
             string? entraScopesConfigurationKey,
             string policyName = "DefaultPolicy",
-            bool requireScopes = true)
+            bool requireScopes = true,
+            bool allowACLAuthorization = false)
         {
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(jwtOptions => { },
@@ -94,7 +96,7 @@ namespace FoundationaLLM
                         identityOptions.Instance = builder.Configuration[entraInstanceConfigurationKey] ?? "";
                         identityOptions.TenantId = builder.Configuration[entraTenantIdConfigurationKey];
                         identityOptions.ClientId = builder.Configuration[entraClientIdConfigurationkey];
-                        identityOptions.AllowWebApiToBeAuthorizedByACL = true;
+                        identityOptions.AllowWebApiToBeAuthorizedByACL = allowACLAuthorization;
                     });
 
             builder.Services.AddScoped<IUserClaimsProviderService, EntraUserClaimsProviderService>();

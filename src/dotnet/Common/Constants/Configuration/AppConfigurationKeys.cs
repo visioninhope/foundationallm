@@ -688,6 +688,16 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_Vectorization_ResourceProviderService_Storage_ConnectionString = "FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType app configuration setting.
+        /// The authentication type used to connect to the Azure AI Search service.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService_AuthenticationType = "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType";
+        /// <summary>
+        /// The key for the FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint app configuration setting.
+        /// The endpoint of the Azure AI Search service.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService_Endpoint = "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint";
+        /// <summary>
         /// The key for the FoundationaLLM:Events:AzureEventGridEventService:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>

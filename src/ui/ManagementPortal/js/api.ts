@@ -7,7 +7,7 @@ import type {
 	AgentIndex,
 	AgentGatekeeper,
 	CreateAgentRequest,
-	AgentCheckNameResponse,
+	CheckNameResponse,
 	Prompt,
 	TextPartitioningProfile,
 	TextEmbeddingProfile,
@@ -83,6 +83,18 @@ export default {
 	},
 
 	// Data sources
+	async checkDataSourceName(name: string, type: string): Promise<CheckNameResponse> {
+		const payload = {
+			name,
+			type: type,
+		};
+
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/checkname?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: payload,
+		});
+	},
+	
 	async getAgentDataSources(): Promise<DataSource[]> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources?api-version=${this.apiVersion}`) as DataSource[];
 	},
@@ -197,16 +209,16 @@ export default {
 
 	// Indexes
 	async getAgentIndexes(): Promise<AgentIndex[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`);
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles?api-version=${this.apiVersion}`);
 	},
 
 	// Text embedding profiles
 	async getTextEmbeddingProfiles(): Promise<TextEmbeddingProfile[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textembeddingprofiles?api-version=${this.apiVersion}`);
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles?api-version=${this.apiVersion}`);
 	},
 
 	// Agents
-	async checkAgentName(name: string, agentType: string): Promise<AgentCheckNameResponse> {
+	async checkAgentName(name: string, agentType: string): Promise<CheckNameResponse> {
 		const payload = {
 			name,
 			type: agentType,
@@ -271,7 +283,7 @@ export default {
 	},
 
 	async createOrUpdateTextPartitioningProfile(agentId: string, request: CreateTextPartitioningProfileRequest): Promise<any> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/${agentId}?api-version=${this.apiVersion}`, {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/${agentId}?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: request,
 		});

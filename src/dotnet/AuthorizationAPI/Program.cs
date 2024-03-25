@@ -4,7 +4,6 @@ using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +39,8 @@ builder.AddAuthenticationConfiguration(
     KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_ClientId,
     null,
     policyName: "RequiredClaims",
-    requireScopes: false);
+    requireScopes: false,
+    allowACLAuthorization: true);
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
