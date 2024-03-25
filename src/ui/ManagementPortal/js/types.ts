@@ -105,7 +105,7 @@ export type TextEmbeddingProfile = {
 	};
 };
 
-export type AgentCheckNameResponse = {
+export type CheckNameResponse = {
 	type: string;
 	name: string;
 	status: string;

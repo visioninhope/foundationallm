@@ -21,7 +21,26 @@
 			<div class="span-2">
 				<div class="mb-2">Data source name:</div>
 				<div class="input-wrapper">
-					<InputText v-model="sourceName" placeholder="Enter data source name" type="text" class="w-100" @input="handleNameInput" :disabled="editDataSource" />
+					<InputText
+						v-model="dataSource.name"
+						placeholder="Enter data source name"
+						type="text"
+						class="w-100"
+						:disabled="editId"
+						@input="handleNameInput"
+					/>
+					<span v-if="nameValidationStatus === 'valid'" class="icon valid" title="Name is available">✔️</span>
+					<span v-else-if="nameValidationStatus === 'invalid'" class="icon invalid" :title="validationMessage">❌</span>
+				</div>
+
+				<div class="mb-2 mt-2">Data description:</div>
+				<div class="input-wrapper">
+					<InputText
+						v-model="dataSource.description"
+						placeholder="Enter a description for this data source"
+						type="text"
+						class="w-100"
+					/>
 				</div>
 			</div>
 
@@ -80,6 +99,7 @@
 
 <script lang="ts">
 import type { PropType } from 'vue';
+import { debounce } from 'lodash';
 import api from '@/js/api';
 
 const defaultFormValues = {
@@ -106,6 +126,37 @@ export default {
 
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
+			
+			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
+			validationMessage: '' as string,
+			
+			foldersString: '',
+			documentLibrariesString: '',
+			tablesString: '',
+
+			showSecret: {}, // Object to track visibility state of secrets.
+
+			// Create a default Azure Data Lake data source.
+			
+			dataSource: {
+				type: 'azure-data-lake',
+				name: '',
+				object_id: '',
+				description: '',
+				resolved_configuration_references: {
+					AuthenticationType: '',
+					ConnectionString: '',
+					APIKey: '',
+					Endpoint: '',
+				},
+				configuration_references: {
+					AuthenticationType: '',
+					ConnectionString: '',
+					APIKey: '',
+					Endpoint: '',
+				},
+				configuration_reference_metadata: {} as { [key: string]: ConfigurationReferenceMetadata },
+			} as null | DataSource,
 
 			sourceTypeOptions: [
 				{
@@ -146,20 +197,63 @@ export default {
 			this.mapDataSourceToForm(dataSource[0]);
 		}
 
+		this.initializeShowSecret();
+
+		this.debouncedCheckName = debounce(this.checkName, 500);
+
 		this.loading = false;
 	},
 
 	methods: {
-		mapDataSourceToForm(dataSource: any) {
-			console.log(dataSource);
-			this.sourceName = dataSource.name;
-			this.sourceType = dataSource.type;
-			this.connectionString = dataSource.configuration_references?.ConnectionString;
+		isAzureDataLakeDataSource,
+		isSharePointOnlineSiteDataSource,
+		isAzureSQLDatabaseDataSource,
+		convertToDataSource,
+
+		initializeShowSecret() {
+			const uniqueIdentifier = this.dataSource.type; // Or any other unique property
+			for (const key in this.dataSource.configuration_references) {
+				const uniqueKey = `${uniqueIdentifier}_${key}`;
+
+				// Determine the initial visibility based on whether a resolved value exists.
+				// If a resolved value exists and is not an empty string, it defaults to being hidden (false).
+				// If no resolved value exists (undefined or empty string), the field should be shown to allow input (true).
+				const resolvedValue = this.dataSource.resolved_configuration_references[key];
+				this.showSecret[uniqueKey] = !resolvedValue;
+			}
 		},
 
-		resetForm() {
-			for (const key in defaultFormValues) {
-				this[key] = defaultFormValues[key];
+		async checkName() {
+			try {
+				const response = await api.checkDataSourceName(this.dataSource.name, this.dataSource.type);
+
+				// Handle response based on the status
+				if (response.status === 'Allowed') {
+					// Name is available
+					this.nameValidationStatus = 'valid';
+					this.validationMessage = null;
+				} else if (response.status === 'Denied') {
+					// Name is taken
+					this.nameValidationStatus = 'invalid';
+					this.validationMessage = response.message;
+				}
+			} catch (error) {
+				console.error("Error checking agent name: ", error);
+				this.nameValidationStatus = 'invalid';
+				this.validationMessage = 'Error checking the agent name. Please try again.';
+			}
+		},
+		
+		toggleSecretVisibility(key) {
+			const uniqueKey = `${this.dataSource.type}_${key}`;
+			// Directly toggle the visibility.
+			if (this.showSecret[uniqueKey] === undefined) {
+				this.showSecret[uniqueKey] = !this.dataSource.resolved_configuration_references[key];
+			} else {
+				this.showSecret[uniqueKey] = !this.showSecret[uniqueKey];
+			}
+			if (this.showSecret[uniqueKey] && !this.dataSource.resolved_configuration_references[key]) {
+				this.showSecret[uniqueKey] = true;
 			}
 		},
 
@@ -182,6 +276,11 @@ export default {
 
 			element.value = sanitizedValue;
 			this.sourceName = sanitizedValue;
+
+			// Check if the name is available if we are creating a new data source.
+			if (!this.editId) {
+				this.debouncedCheckName();
+			}
 		},
 
 		async handleCreateDataSource() {
