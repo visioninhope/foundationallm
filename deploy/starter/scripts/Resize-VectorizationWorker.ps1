@@ -1,5 +1,22 @@
 #!/usr/bin/env pwsh
 
+<#
+.SYNOPSIS
+    This script resizes the vectorization worker by updating the number of replicas.
+
+.DESCRIPTION
+    The script retrieves the vectorization worker name and resource group from azd environment variables.
+    It then updates the vectorization worker by copying the container app revision with the specified number of replicas.
+
+.PARAMETER size
+    The number of replicas to set for the vectorization worker.
+
+.EXAMPLE
+    Resize-VectorizationWorker -size 3
+    This example resizes the vectorization worker to have 3 replicas.
+
+#>
+
 Param(
     [Parameter(Mandatory = $true)][int]$size
 )
@@ -7,8 +24,6 @@ Param(
 Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
-
-#!/usr/bin/env pwsh
 
 function Invoke-AndRequireSuccess {
     param (
@@ -50,8 +65,9 @@ $resourceGroup = Invoke-AndRequireSuccess "Get the resource group" {
 }
 
 Invoke-AndRequireSuccess "Update the vectorization worker" {
-    az container app update `
+    az containerapp revision copy `
         --name $serviceName `
         --resource-group $resourceGroup `
-        --replicas $size
+        --min-replicas $size `
+        --max-replicas $size
 }
