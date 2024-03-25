@@ -4,6 +4,7 @@ param destinationTopicName string
 param eventGridName string
 param filterPrefix string = ''
 param includedEventTypes array
+param advancedFilters array = []
 
 resource eventGridNamespace 'Microsoft.EventGrid/namespaces@2023-12-15-preview' existing = {
   name: eventGridName
@@ -47,6 +48,7 @@ resource resourceProviderSub 'Microsoft.EventGrid/systemTopics/eventSubscription
       subjectBeginsWith: filterPrefix
       includedEventTypes: includedEventTypes
       enableAdvancedFilteringOnArrays: true
+      advancedFilters: advancedFilters
     }
     eventDeliverySchema: 'CloudEventSchemaV1_0'
     retryPolicy: {
