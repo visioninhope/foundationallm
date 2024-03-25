@@ -7,7 +7,7 @@ import type {
 	AgentIndex,
 	AgentGatekeeper,
 	CreateAgentRequest,
-	AgentCheckNameResponse,
+	CheckNameResponse,
 	Prompt,
 	TextPartitioningProfile,
 	TextEmbeddingProfile,
@@ -83,6 +83,18 @@ export default {
 	},
 
 	// Data sources
+	async checkDataSourceName(name: string, type: string): Promise<CheckNameResponse> {
+		const payload = {
+			name,
+			type: type,
+		};
+
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/checkname?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: payload,
+		});
+	},
+	
 	async getAgentDataSources(): Promise<DataSource[]> {
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources?api-version=${this.apiVersion}`) as DataSource[];
 	},
@@ -206,7 +218,7 @@ export default {
 	},
 
 	// Agents
-	async checkAgentName(name: string, agentType: string): Promise<AgentCheckNameResponse> {
+	async checkAgentName(name: string, agentType: string): Promise<CheckNameResponse> {
 		const payload = {
 			name,
 			type: agentType,
