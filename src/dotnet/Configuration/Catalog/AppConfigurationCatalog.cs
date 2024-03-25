@@ -1882,7 +1882,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: Common.Constants.Configuration.AppConfigurationKeys
                     .FoundationaLLM_Vectorization_AzureAISearchIndexingService_AuthenticationType,
                 minimumVersion: "0.5.0",
                 defaultValue: "",
@@ -1894,7 +1894,7 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: Common.Constants.AppConfigurationKeys
+                key: Common.Constants.Configuration.AppConfigurationKeys
                     .FoundationaLLM_Vectorization_AzureAISearchIndexingService_Endpoint,
                 minimumVersion: "0.5.0",
                 defaultValue: "",
