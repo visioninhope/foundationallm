@@ -33,6 +33,8 @@
 						:disabled="editId"
 						@input="handleNameInput"
 					/>
+					<span v-if="nameValidationStatus === 'valid'" class="icon valid" title="Name is available">✔️</span>
+					<span v-else-if="nameValidationStatus === 'invalid'" class="icon invalid" :title="validationMessage">❌</span>
 				</div>
 
 				<div class="mb-2 mt-2">Data description:</div>
@@ -256,7 +258,9 @@ export default {
 		return {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
-
+			
+			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
+			validationMessage: '' as string,
 			
 			foldersString: '',
 			documentLibrariesString: '',
@@ -373,8 +377,6 @@ export default {
 
 		this.initializeShowSecret();
 
-		this.initializeShowSecret();
-
 		this.debouncedCheckName = debounce(this.checkName, 500);
 
 		this.loading = false;
@@ -396,6 +398,27 @@ export default {
 				// If no resolved value exists (undefined or empty string), the field should be shown to allow input (true).
 				const resolvedValue = this.dataSource.resolved_configuration_references[key];
 				this.showSecret[uniqueKey] = !resolvedValue;
+			}
+		},
+
+		async checkName() {
+			try {
+				const response = await api.checkDataSourceName(this.dataSource.name, this.dataSource.type);
+
+				// Handle response based on the status
+				if (response.status === 'Allowed') {
+					// Name is available
+					this.nameValidationStatus = 'valid';
+					this.validationMessage = null;
+				} else if (response.status === 'Denied') {
+					// Name is taken
+					this.nameValidationStatus = 'invalid';
+					this.validationMessage = response.message;
+				}
+			} catch (error) {
+				console.error("Error checking agent name: ", error);
+				this.nameValidationStatus = 'invalid';
+				this.validationMessage = 'Error checking the agent name. Please try again.';
 			}
 		},
 		
