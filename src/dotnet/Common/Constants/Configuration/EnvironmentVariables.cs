@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Common.Constants
+﻿namespace FoundationaLLM.Common.Constants.Configuration
 {
     /// <summary>
     /// Contains constants for environment variables used by the application.

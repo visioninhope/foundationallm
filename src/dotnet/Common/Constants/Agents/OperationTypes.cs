@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Common.Constants
+﻿namespace FoundationaLLM.Common.Constants.Agents
 {
     /// <summary>
     /// Type of endpoint operations.
