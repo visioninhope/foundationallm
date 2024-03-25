@@ -225,7 +225,7 @@ BODY
 <pre><code class="lang-json">{
     &quot;type&quot;: &quot;text-partitioning-profile&quot;,
     &quot;name&quot;: &quot;&lt;name&gt;&quot;,
-    &quot;object_id&quot;: &quot;/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/&lt;name&gt;&quot;,
+    &quot;object_id&quot;: &quot;/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/&lt;name&gt;&quot;,
     &quot;description&quot;: &quot;&lt;description&gt;&quot;,
     &quot;deleted&quot;: false,
     &quot;text_splitter&quot;: &quot;&lt;text_splitter&gt;&quot;,
@@ -282,10 +282,10 @@ BODY
 <p>This section describes how to manage text partitioning profiles using the Management API.
 <code>{{baseUrl}}</code> is the base URL of the Management API. <code>{{instanceId}}</code> is the unique identifier of the FLLM instance.</p>
 <p><strong>Retrieve</strong></p>
-<pre><code>HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles
+<pre><code>HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textPartitioningProfiles
 </code></pre>
 <p><strong>Create or update</strong></p>
-<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/&lt;name&gt;
+<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/&lt;name&gt;
 Content-Type: application/json
 
 BODY
@@ -293,7 +293,7 @@ BODY
 </code></pre>
 <p>where <code>&lt;text partitioning profile&gt;</code> is a JSON object with the structure described above.</p>
 <p><strong>Delete</strong></p>
-<pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/&lt;name&gt;
+<pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/&lt;name&gt;
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
