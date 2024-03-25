@@ -113,6 +113,15 @@ function PopulateTemplate {
 
 $svcResourceSuffix = "${resourceSuffix}-svc"
 $tokens = @{}
+
+$authServices = @{
+    authorizationapi              = @{
+        miName         = "mi-authorization-api-$svcResourceSuffix"
+        miConfigName   = "authorizationApiMiClientId"
+        ingressEnabled = $false
+    }
+}
+
 $services = @{
     agentfactoryapi          = @{
         miName         = "mi-agent-factory-api-$svcResourceSuffix"
@@ -194,6 +203,18 @@ $services = @{
         ingressEnabled = $false
     }
 }
+
+$tokens.deployTime = $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ'))
+$tokens.contributorRoleAssignmentGuid = $(New-Guid).Guid
+$tokens.userAccessAdminRoleAssignmentGuid = $(New-Guid).Guid
+$tokens.managementApiRoleAssignmentGuid = $(New-Guid).Guid
+$tokens.coreApiRoleAssignmentGuid = $(New-Guid).Guid
+$tokens.vectorizationApiRoleAssignmentGuid = $(New-Guid).Guid
+$tokens.subscriptionId = $subscriptionId
+$tokens.storageResourceGroup = $resourceGroups.storage
+$tokens.opsResourceGroup = $resourceGroups.ops
+
+$tokens.adminGroupObjectId = $adminGroupObjectId
 
 $tokens.chatEntraClientId = $entraClientIds.chat
 $tokens.chatEntraScopes = $entraScopes.chat
@@ -359,22 +380,48 @@ foreach ($service in $services.GetEnumerator()) {
             --output tsv
     }
 
+    $miObjectId = Invoke-AndRequireSuccess "Get $($service.Key) managed identity object ID" {
+        az identity show `
+            --resource-group $($resourceGroups.app) `
+            --name $($service.Value.miName) `
+            --query "principalId" `
+            --output tsv
+    }
+
+    $service.Value.miClientId = $miClientId
+    $service.Value.miObjectId = $miObjectId
+}
+
+foreach ($service in $authServices.GetEnumerator()) {
+    $miClientId = Invoke-AndRequireSuccess "Get $($service.Key) managed identity" {
+        az identity show `
+            --resource-group $($resourceGroups.auth) `
+            --name $($service.Value.miName) `
+            --query "clientId" `
+            --output tsv
+    }
+
     $service.Value.miClientId = $miClientId
 }
+
 $tokens.agentFactoryApiMiClientId = $services["agentfactoryapi"].miClientId
 $tokens.agentHubApiMiClientId = $services["agenthubapi"].miClientId
+$tokens.authorizationApiMiClientId = $authServices["authorizationapi"].miClientId
 $tokens.chatUiMiClientId = $services["chatui"].miClientId
 $tokens.coreApiMiClientId = $services["coreapi"].miClientId
+$tokens.coreApiMiObjectId = $services["coreapi"].miObjectId
 $tokens.coreJobMiClientId = $services["corejob"].miClientId
 $tokens.dataSourceHubApiMiClientId = $services["datasourcehubapi"].miClientId
 $tokens.gatekeeperApiMiClientId = $services["gatekeeperapi"].miClientId
 $tokens.gatekeeperIntegrationApiMiClientId = $services["gatekeeperintegrationapi"].miClientId
 $tokens.langChainApiMiClientId = $services["langchainapi"].miClientId
 $tokens.managementApiMiClientId = $services["managementapi"].miClientId
+$tokens.managementApiMiObjectId = $services["managementapi"].miObjectId
 $tokens.managementUiMiClientId = $services["managementui"].miClientId
 $tokens.promptHubApiMiClientId = $services["prompthubapi"].miClientId
 $tokens.semanticKernelApiMiClientId = $services["semantickernelapi"].miClientId
 $tokens.vectorizationApiMiClientId = $services["vectorizationapi"].miClientId
+$tokens.vectorizationApiMiObjectId = $services["vectorizationapi"].miObjectId
 $tokens.vectorizationJobMiClientId = $services["vectorizationjob"].miClientId
 
 $eventGridProfiles = @{}
@@ -438,3 +485,7 @@ $($ingress.frontendIngress).PSObject.Properties | ForEach-Object {
     PopulateTemplate $tokens "..,config,helm,frontend-service.template.yml" "..,config,helm,$($_.Name)-values.yml"
     PopulateTemplate $tokens "..,config,helm,service-ingress.template.yml" "..,config,helm,$($_.Name)-ingress.yml"
 }
+
+PopulateTemplate $tokens "..,data,role-assignments,DefaultRoleAssignments.template.json" "..,data,role-assignments,DefaultRoleAssignments.json"
+
+exit 0

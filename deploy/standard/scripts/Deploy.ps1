@@ -70,6 +70,11 @@ try {
             --output none
     }
 
+    Invoke-AndRequireSuccess "Uploading Auth Store Data" {
+        ./Upload-AuthStoreData.ps1 `
+            -resourceGroup $resourceGroup["auth"]
+    }
+
     Invoke-AndRequireSuccess "Uploading System Prompts" {
         ./deploy/UploadSystemPrompts.ps1 `
             -resourceGroup $resourceGroup["storage"] `
