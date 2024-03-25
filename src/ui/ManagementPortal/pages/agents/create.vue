@@ -72,7 +72,7 @@
 			<!-- Data source -->
 			<CreateAgentStepItem v-model="editDataSource">
 				<template v-if="selectedDataSource">
-					<div class="step-container__header">{{ selectedDataSource.content_source }}</div>
+					<div class="step-container__header">{{ selectedDataSource.type }}</div>
 					<div>
 						<span class="step-option__header">Name:</span>
 						<span>{{ selectedDataSource.name }}</span>
