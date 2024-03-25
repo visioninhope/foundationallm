@@ -450,7 +450,7 @@ module storageTopic 'shared/storage-system-topic.bicep' = {
 module storageSub 'shared/system-topic-subscription.bicep' = {
   name: 'storageSub'
   params: {
-    name: 'resource-provider'
+    name: 'foundationallm-storage'
     eventGridName: eventgrid.outputs.name
     topicName: storageTopic.outputs.name
     destinationTopicName: 'storage'
@@ -458,6 +458,13 @@ module storageSub 'shared/system-topic-subscription.bicep' = {
     includedEventTypes: [
       'Microsoft.Storage.BlobCreated'
       'Microsoft.Storage.BlobDeleted'
+    ]
+    advancedFilters: [
+      {
+        key: 'subject'
+        operatorType: 'StringNotEndsWith'
+        values: [ '_agent-reference.json' ]
+      }
     ]
   }
   scope: rg
