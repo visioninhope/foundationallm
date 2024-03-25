@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class LLMCompletionRequest | FoundationaLLM ">
       
-      <meta name="description" content="Base LLM orchestration request">
+      <meta name="description" content="LLM orchestration request">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest" class="text-break">
-Class LLMCompletionRequest  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L9"><i class="bi bi-code-slash"></i></a>
+Class LLMCompletionRequest  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L10"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,16 +97,12 @@ Class LLMCompletionRequest  <a class="header-action link-secondary" title="View 
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Base LLM orchestration request</p>
+  <div class="markdown summary"><p>LLM orchestration request</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonDerivedType(typeof(KnowledgeManagementCompletionRequest), &quot;knowledge-management&quot;)]
-[JsonDerivedType(typeof(InternalContextCompletionRequest), &quot;internal-context&quot;)]
-[JsonDerivedType(typeof(LegacyCompletionRequest), &quot;legacy&quot;)]
-[JsonDerivedType(typeof(LLMCompletionRequest), &quot;llm&quot;)]
-public class LLMCompletionRequest</code></pre>
+    <pre><code class="lang-csharp hljs">public class LLMCompletionRequest</code></pre>
   </div>
 
 
@@ -121,14 +117,6 @@ public class LLMCompletionRequest</code></pre>
   </dl>
 
 
-  <dl class="typelist derived">
-    <dt>Derived</dt>
-    <dd>
-      <div><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.InternalContextCompletionRequest.html">InternalContextCompletionRequest</a></div>
-      <div><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.KnowledgeManagementCompletionRequest.html">KnowledgeManagementCompletionRequest</a></div>
-      <div><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LegacyCompletionRequest.html">LegacyCompletionRequest</a></div>
-    </dd>
-  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
@@ -172,11 +160,43 @@ public class LLMCompletionRequest</code></pre>
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_Agent_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.Agent*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_Agent" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.Agent">
+  Agent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The agent that will process the completion request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public required AgentBase Agent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="FoundationaLLM.Common.Models.Agents.AgentBase.html">AgentBase</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_MessageHistory_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.MessageHistory*"></a>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_MessageHistory" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.MessageHistory">
   MessageHistory
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The message history associated with the completion request.</p>
@@ -209,7 +229,7 @@ public List&lt;MessageHistoryItem&gt;? MessageHistory { get; init; }</code></pre
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_SessionId" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.SessionId">
   SessionId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The session ID.</p>
@@ -242,7 +262,7 @@ public string? SessionId { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_Settings" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.Settings">
   Settings
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Collection of model settings to override with the orchestration request.</p>
@@ -275,7 +295,7 @@ public OrchestrationSettings? Settings { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_UserPrompt" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.UserPrompt">
   UserPrompt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Prompt entered by the user.</p>
@@ -308,7 +328,7 @@ public string? UserPrompt { get; set; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L10" class="edit-link">Edit this page</a>
         </div>
 
 

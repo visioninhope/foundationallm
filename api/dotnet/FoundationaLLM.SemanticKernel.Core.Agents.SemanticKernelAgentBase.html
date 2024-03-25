@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class LanguageModelProviders | FoundationaLLM </title>
+      <title>Class SemanticKernelAgentBase | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class LanguageModelProviders | FoundationaLLM ">
+      <meta name="title" content="Class SemanticKernelAgentBase | FoundationaLLM ">
       
-      <meta name="description" content="Langauge Model provider constants.">
+      <meta name="description" content="Implements the base functionality for a Semantic Kernel agent.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Constants_LanguageModelProviders.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Constants.LanguageModelProviders%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelAgentBase.md&amp;value=---%0Auid%3A%20FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelAgentBase%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,25 +84,25 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Common.Constants.LanguageModelProviders">
+        <article data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelAgentBase">
 
 
 
-  <h1 id="FoundationaLLM_Common_Constants_LanguageModelProviders" data-uid="FoundationaLLM.Common.Constants.LanguageModelProviders" class="text-break">
-Class LanguageModelProviders  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/LanguageModelProviders.cs/#L6"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelAgentBase" data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelAgentBase" class="text-break">
+Class SemanticKernelAgentBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Agents/SemanticKernelAgentBase.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Constants.html">Constants</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.SemanticKernel.html">SemanticKernel</a>.<a class="xref" href="FoundationaLLM.SemanticKernel.Core.html">Core</a>.<a class="xref" href="FoundationaLLM.SemanticKernel.Core.Agents.html">Agents</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>FoundationaLLM.SemanticKernel.Core.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Langauge Model provider constants.</p>
+  <div class="markdown summary"><p>Implements the base functionality for a Semantic Kernel agent.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LanguageModelProviders</code></pre>
+    <pre><code class="lang-csharp hljs">public class SemanticKernelAgentBase</code></pre>
   </div>
 
 
@@ -112,11 +112,17 @@ Class LanguageModelProviders  <a class="header-action link-secondary" title="Vie
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">LanguageModelProviders</span></div>
+      <div><span class="xref">SemanticKernelAgentBase</span></div>
     </dd>
   </dl>
 
 
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.html">SemanticKernelKnowledgeManagementAgent</a></div>
+    </dd>
+  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
@@ -156,31 +162,30 @@ Class LanguageModelProviders  <a class="header-action link-secondary" title="Vie
 
 
 
-  <h2 class="section" id="fields">Fields
+  <h2 class="section" id="constructors">Constructors
 </h2>
 
 
+  <a id="FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelAgentBase__ctor_" data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelAgentBase.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Common_Constants_LanguageModelProviders_MICROSOFT" data-uid="FoundationaLLM.Common.Constants.LanguageModelProviders.MICROSOFT">
-  MICROSOFT
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/LanguageModelProviders.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelAgentBase__ctor_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelAgentBase.#ctor(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
+  SemanticKernelAgentBase(LLMCompletionRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Agents/SemanticKernelAgentBase.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Microsoft</p>
+  <div class="markdown level1 summary"><p>Implements the base functionality for a Semantic Kernel agent.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string MICROSOFT = &quot;microsoft&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public SemanticKernelAgentBase(LLMCompletionRequest request)</code></pre>
   </div>
 
-
-
-
-  <h4 class="section">Field Value</h4>
+  <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a> being processed by the agent.</p>
+</dd>
   </dl>
 
 
@@ -192,27 +197,34 @@ Class LanguageModelProviders  <a class="header-action link-secondary" title="Vie
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_LanguageModelProviders_OPENAI" data-uid="FoundationaLLM.Common.Constants.LanguageModelProviders.OPENAI">
-  OPENAI
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/LanguageModelProviders.cs/#L16"><i class="bi bi-code-slash"></i></a>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelAgentBase_GetCompletion_" data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelAgentBase.GetCompletion*"></a>
+
+  <h3 id="FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelAgentBase_GetCompletion" data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelAgentBase.GetCompletion">
+  GetCompletion()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Agents/SemanticKernelAgentBase.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>OpenAI</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string OPENAI = &quot;openai&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LLMCompletionResponse&gt; GetCompletion()</code></pre>
   </div>
 
 
-
-
-  <h4 class="section">Field Value</h4>
+  <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.html">LLMCompletionResponse</a>&gt;</dt>
     <dd></dd>
   </dl>
+
+
 
 
 
@@ -226,7 +238,7 @@ Class LanguageModelProviders  <a class="header-action link-secondary" title="Vie
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/LanguageModelProviders.cs/#L6" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Agents/SemanticKernelAgentBase.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 

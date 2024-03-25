@@ -685,25 +685,24 @@ public class OrchestrationController : ControllerBase</code></pre>
 
   <a id="FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController__ctor_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController__ctor_FoundationaLLM_SemanticKernel_Core_Interfaces_IKnowledgeManagementAgentPlugin_FoundationaLLM_SemanticKernel_Core_Interfaces_ILegacyAgentPlugin_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.SemanticKernel.Core.Interfaces.IKnowledgeManagementAgentPlugin,FoundationaLLM.SemanticKernel.Core.Interfaces.ILegacyAgentPlugin)">
-  OrchestrationController(IKnowledgeManagementAgentPlugin, ILegacyAgentPlugin)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/OrchestrationController.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController__ctor_FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)">
+  OrchestrationController(ISemanticKernelService)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/OrchestrationController.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Constructor for the Semantic Kernel API orchestration controller.</p>
+  <div class="markdown level1 summary"><p>Wrapper for the Semantic Kernel service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public OrchestrationController(IKnowledgeManagementAgentPlugin knowledgeManagementAgentPlugin, ILegacyAgentPlugin legacyAgentPlugin)</code></pre>
+    <pre><code class="lang-csharp hljs">public OrchestrationController(ISemanticKernelService semanticKernelService)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>knowledgeManagementAgentPlugin</code> <a class="xref" href="FoundationaLLM.SemanticKernel.Core.Interfaces.IKnowledgeManagementAgentPlugin.html">IKnowledgeManagementAgentPlugin</a></dt>
-    <dd></dd>
-    <dt><code>legacyAgentPlugin</code> <a class="xref" href="FoundationaLLM.SemanticKernel.Core.Interfaces.ILegacyAgentPlugin.html">ILegacyAgentPlugin</a></dt>
-    <dd></dd>
+    <dt><code>semanticKernelService</code> <a class="xref" href="FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.html">ISemanticKernelService</a></dt>
+    <dd><p>The Semantic Kernel service handling requests.</p>
+</dd>
   </dl>
 
 
@@ -725,7 +724,7 @@ public class OrchestrationController : ControllerBase</code></pre>
 
   <h3 id="FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
   GetCompletion(LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/OrchestrationController.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/OrchestrationController.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a completion from the Semantic Kernel service.</p>
@@ -740,14 +739,14 @@ public Task&lt;LLMCompletionResponse&gt; GetCompletion(LLMCompletionRequest requ
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a></dt>
-    <dd><p>The completion request containing the user prompt and message history.</p>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a> completion request.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.html">LLMCompletionResponse</a>&gt;</dt>
-    <dd><p>The completion response.</p>
+    <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.html">LLMCompletionResponse</a> containing the response to the completion request.</p>
 </dd>
   </dl>
 
