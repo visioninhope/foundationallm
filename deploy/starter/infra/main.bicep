@@ -471,7 +471,11 @@ module storageSub 'shared/system-topic-subscription.bicep' = {
       {
         key: 'subject'
         operatorType: 'StringNotEndsWith'
-        values: [ '_agent-reference.json' ]
+        values: [ 
+          '_agent-references.json'
+          '_data-source-references.json'
+          '_prompt-references.json'
+        ]
       }
     ]
   }
