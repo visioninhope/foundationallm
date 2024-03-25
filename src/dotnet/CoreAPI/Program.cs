@@ -45,6 +45,7 @@ namespace FoundationaLLM.Core.API
                 {
                     options.SetCredential(DefaultAuthentication.GetAzureCredential());
                 });
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Branding);
@@ -61,6 +62,8 @@ namespace FoundationaLLM.Core.API
 
             // CORS policies
             builder.AddCorsPolicies();
+
+            builder.Services.AddInstanceProperties(builder.Configuration);
 
             builder.Services.AddOptions<CosmosDbSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
