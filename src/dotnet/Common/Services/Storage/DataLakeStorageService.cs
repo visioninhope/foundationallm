@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using System.Net;
 using Azure.Storage.Files.DataLake.Models;
 using System.Text;
+using FoundationaLLM.Common.Constants;
 
 namespace FoundationaLLM.Common.Services.Storage
 {
@@ -174,7 +175,7 @@ namespace FoundationaLLM.Common.Services.Storage
         /// <inheritdoc/>
         protected override void CreateClientFromAccountKey(string accountName, string accountKey) =>
             _dataLakeClient = new DataLakeServiceClient(
-                new Uri($"https://{accountName}.dfs.core.windows.net"),
+                BuildStorageEndpointUri(accountName),
                 new StorageSharedKeyCredential(accountName, accountKey));
 
         /// <inheritdoc/>
@@ -184,7 +185,23 @@ namespace FoundationaLLM.Common.Services.Storage
         /// <inheritdoc/>
         protected override void CreateClientFromIdentity(string accountName) =>
             _dataLakeClient = new DataLakeServiceClient(
-                new Uri($"https://{accountName}.dfs.core.windows.net"),
+                BuildStorageEndpointUri(accountName),
                 DefaultAuthentication.GetAzureCredential());
+
+        /// <summary>
+        /// Builds the endpoint for the Azure Data Lake service.
+        /// </summary>
+        /// <param name="accountName">Name of the storage account</param>
+        /// <returns>Uri of the storage account</returns>
+        private Uri BuildStorageEndpointUri(string accountName)
+        {
+            // The account name "onelake" is used when using Microft Fabric
+            // ref: https://learn.microsoft.com/en-us/fabric/onelake/onelake-access-api#uri-syntax
+            if (accountName.ToLower().Equals(StorageNames.OneLake_Storage_Account))
+            {
+                return new Uri($"https://{accountName}.dfs.fabric.microsoft.com");
+            }
+            return new Uri($"https://{accountName}.dfs.core.windows.net");
+        }
     }
 }
