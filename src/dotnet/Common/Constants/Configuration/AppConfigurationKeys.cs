@@ -75,6 +75,15 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIs_AgentHubAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:AgentHubAPI:AppInsightsConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:APIs:AuthorizationAPI:APIScope app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_AuthorizationAPI_APIScope = "FoundationaLLM:APIs:AuthorizationAPI:APIScope";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:AuthorizationAPI:APIUrl app configuration setting.
+        /// The URL of the authorization API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_AuthorizationAPI_APIUrl = "FoundationaLLM:APIs:AuthorizationAPI:APIUrl";
+        /// <summary>
         /// The key for the FoundationaLLM:APIs:CoreAPI:APIUrl app configuration setting.
         /// </summary>
         public const string FoundationaLLM_APIs_CoreAPI_APIUrl = "FoundationaLLM:APIs:CoreAPI:APIUrl";
@@ -88,6 +97,36 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// By default, the Core API does not bypass the Gatekeeper API. To override this behavior and allow it to bypass the Gatekeeper API, set this value to true. Beware that bypassing the Gatekeeper means that you bypass content protection and filtering in favor of improved performance. Make sure you understand the risks before setting this value to true.
         /// </summary>
         public const string FoundationaLLM_APIs_CoreAPI_BypassGatekeeper = "FoundationaLLM:APIs:CoreAPI:BypassGatekeeper";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationAPI:APIUrl app configuration setting.
+        /// The URL of the vectorization API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationAPI_APIUrl = "FoundationaLLM:APIs:VectorizationAPI:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationAPI:APIKey app configuration setting.
+        /// The API key of the vectorization API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationAPI_APIKey = "FoundationaLLM:APIs:VectorizationAPI:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString app configuration setting.
+        /// The connection string to the Application Insights instance used by the vectorization API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationWorker:APIUrl app configuration setting.
+        /// The URL of the vectorization worker API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationWorker_APIUrl = "FoundationaLLM:APIs:VectorizationWorker:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationWorker:APIKey app configuration setting.
+        /// The API key of the vectorization worker API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationWorker_APIKey = "FoundationaLLM:APIs:VectorizationWorker:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString app configuration setting.
+        /// The connection string to the Application Insights instance used by the vectorization worker API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString";
         /// <summary>
         /// The key for the FoundationaLLM:DataSource:ResourceProviderService:Storage:AuthenticationType app configuration setting.
         /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
@@ -607,41 +646,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The key for the FoundationaLLM:SemanticKernelAPI:OpenAI.ShortSummaryPromptName app configuration setting.
         /// </summary>
         public const string FoundationaLLM_SemanticKernelAPI_OpenAI_ShortSummaryPromptName = "FoundationaLLM:SemanticKernelAPI:OpenAI.ShortSummaryPromptName";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:VectorizationAPI:APIUrl app configuration setting.
-        /// The URL of the vectorization API.
-        /// </summary>
-        public const string FoundationaLLM_APIs_VectorizationAPI_APIUrl = "FoundationaLLM:APIs:VectorizationAPI:APIUrl";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:VectorizationAPI:APIKey app configuration setting.
-        /// The API key of the vectorization API.
-        /// </summary>
-        public const string FoundationaLLM_APIs_VectorizationAPI_APIKey = "FoundationaLLM:APIs:VectorizationAPI:APIKey";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString app configuration setting.
-        /// The connection string to the Application Insights instance used by the vectorization API.
-        /// </summary>
-        public const string FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationAPI:AppInsightsConnectionString";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:VectorizationWorker:APIUrl app configuration setting.
-        /// The URL of the vectorization worker API.
-        /// </summary>
-        public const string FoundationaLLM_APIs_VectorizationWorker_APIUrl = "FoundationaLLM:APIs:VectorizationWorker:APIUrl";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:VectorizationWorker:APIKey app configuration setting.
-        /// The API key of the vectorization worker API.
-        /// </summary>
-        public const string FoundationaLLM_APIs_VectorizationWorker_APIKey = "FoundationaLLM:APIs:VectorizationWorker:APIKey";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString app configuration setting.
-        /// The connection string to the Application Insights instance used by the vectorization worker API.
-        /// </summary>
-        public const string FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:AuthorizationAPI:APIUrl app configuration setting.
-        /// The URL of the authorization API.
-        /// </summary>
-        public const string FoundationaLLM_APIs_AuthorizationAPI_APIUrl = "FoundationaLLM:APIs:AuthorizationAPI:APIUrl";
         /// <summary>
         /// The key for the FoundationaLLM:Vectorization:VectorizationWorker app configuration setting.
         /// The settings used by each instance of the vectorization worker service. For more details, see [default vectorization worker settings](../setup-guides/vectorization/vectorization-worker.md#default-vectorization-worker-settings)

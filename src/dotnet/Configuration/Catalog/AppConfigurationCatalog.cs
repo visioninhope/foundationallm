@@ -513,10 +513,20 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_AuthorizationAPI_APIScope,
+                minimumVersion: "0.5.0",
+                defaultValue: "api://FoundationaLLM-Authorization-Auth",
+                description: "The Entra ID.scope for the Authorization API.",
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
                 key: AppConfigurationKeys.FoundationaLLM_APIs_AuthorizationAPI_APIUrl,
                 minimumVersion: "0.5.0",
                 defaultValue: "",
-                description: "The URL of the authorization API.",
+                description: "The URL of the Authorization API.",
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
