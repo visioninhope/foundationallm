@@ -5048,6 +5048,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ServiceStatuses.Warning
   fullName: FoundationaLLM.Common.Constants.ServiceStatuses.Warning
   nameWithType: ServiceStatuses.Warning
+- uid: FoundationaLLM.Common.Constants.StorageNames
+  name: StorageNames
+  href: api/dotnet/FoundationaLLM.Common.Constants.StorageNames.html
+  commentId: T:FoundationaLLM.Common.Constants.StorageNames
+  fullName: FoundationaLLM.Common.Constants.StorageNames
+  nameWithType: StorageNames
+- uid: FoundationaLLM.Common.Constants.StorageNames.OneLake_Storage_Account
+  name: OneLake_Storage_Account
+  href: api/dotnet/FoundationaLLM.Common.Constants.StorageNames.html#FoundationaLLM_Common_Constants_StorageNames_OneLake_Storage_Account
+  commentId: F:FoundationaLLM.Common.Constants.StorageNames.OneLake_Storage_Account
+  fullName: FoundationaLLM.Common.Constants.StorageNames.OneLake_Storage_Account
+  nameWithType: StorageNames.OneLake_Storage_Account
 - uid: FoundationaLLM.Common.Constants.Swagger
   name: Swagger
   href: api/dotnet/FoundationaLLM.Common.Constants.Swagger.html
