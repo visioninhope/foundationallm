@@ -36,7 +36,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Plugins
 
             var kmAgent = request.Agent as KnowledgeManagementAgent;
 
-            if (kmAgent.IndexingProfileObjectId != null && kmAgent.TextEmbeddingProfileObjectId != null)
+            if (kmAgent.Vectorization.IndexingProfileObjectId != null && kmAgent.Vectorization.TextEmbeddingProfileObjectId != null)
             {
                 internalContext = false;
             }
