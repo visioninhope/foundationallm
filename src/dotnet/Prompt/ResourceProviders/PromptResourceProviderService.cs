@@ -151,33 +151,32 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         private async Task<ResourceProviderUpsertResult> UpdatePrompt(ResourcePath resourcePath, string serializedPrompt)
         {
-            var promptBase = JsonSerializer.Deserialize<PromptBase>(serializedPrompt)
+            var prompt = JsonSerializer.Deserialize<PromptBase>(serializedPrompt)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
 
-            if (_promptReferences.TryGetValue(promptBase.Name!, out var existingPromptReference)
+            if (_promptReferences.TryGetValue(prompt.Name!, out var existingPromptReference)
                 && existingPromptReference!.Deleted)
                 throw new ResourceProviderException($"The prompt resource {existingPromptReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            if (resourcePath.ResourceTypeInstances[0].ResourceId != promptBase.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != prompt.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
             var promptReference = new PromptReference
             {
-                Name = promptBase.Name!,
-                Type = promptBase.Type!,
-                Filename = $"/{_name}/{promptBase.Name}.json",
+                Name = prompt.Name!,
+                Type = prompt.Type!,
+                Filename = $"/{_name}/{prompt.Name}.json",
                 Deleted = false
             };
 
-            var prompt = JsonSerializer.Deserialize(serializedPrompt, promptReference.PromptType, _serializerSettings);
-            (prompt as PromptBase)!.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+            prompt.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 promptReference.Filename,
-                JsonSerializer.Serialize(prompt, promptReference.PromptType, _serializerSettings),
+                JsonSerializer.Serialize<PromptBase>(prompt, _serializerSettings),
                 default,
                 default);
 
