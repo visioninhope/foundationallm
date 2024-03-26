@@ -247,7 +247,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         private ResourceNameCheckResult CheckAgentName(string serializedAction)
         {
             var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
-            return _agentReferences.Values.Any(ar => ar.Name == resourceName!.Name)
+            return _agentReferences.Values.Any(ar => ar.Name.Equals(resourceName!.Name, StringComparison.OrdinalIgnoreCase))
                 ? new ResourceNameCheckResult
                 {
                     Name = resourceName!.Name,
