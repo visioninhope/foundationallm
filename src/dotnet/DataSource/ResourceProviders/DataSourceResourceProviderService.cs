@@ -235,7 +235,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         private ResourceNameCheckResult CheckDataSourceName(string serializedAction)
         {
             var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
-            return _dataSourceReferences.Values.Any(ar => ar.Name == resourceName!.Name)
+            return _dataSourceReferences.Values.Any(ar => ar.Name.Equals(resourceName!.Name, StringComparison.OrdinalIgnoreCase))
                 ? new ResourceNameCheckResult
                 {
                     Name = resourceName!.Name,
