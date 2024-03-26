@@ -435,6 +435,7 @@ const defaultFormValues = {
 	text_partitioning_profile_object_id: '',
 	text_embedding_profile_object_id: '',
 	prompt_object_id: '',
+	dedicated_pipeline: true,
 	agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 	editDataSource: false as boolean,
@@ -616,14 +617,15 @@ export default {
 			this.agentType = agent.type || this.agentType;
 			this.object_id = agent.object_id || this.object_id;
 			this.orchestrator = agent.orchestration_settings?.orchestrator || this.orchestrator;
-			this.text_embedding_profile_object_id = agent.text_embedding_profile_object_id || this.text_embedding_profile_object_id;
+			this.dedicated_pipeline = agent.vectorization.dedicated_pipeline || this.dedicated_pipeline;
+			this.text_embedding_profile_object_id = agent.vectorization.text_embedding_profile_object_id || this.text_embedding_profile_object_id;
 
 			this.selectedIndexSource =
-				this.indexSources.find((indexSource) => indexSource.object_id === agent.indexing_profile_object_id) ||
+				this.indexSources.find((indexSource) => indexSource.object_id === agent.vectorization.indexing_profile_object_id) ||
 				null;
 
 			this.selectedDataSource =
-				this.dataSources.find((dataSource) => dataSource.object_id === agent.content_source_profile_object_id) ||
+				this.dataSources.find((dataSource) => dataSource.object_id === agent.vectorization.data_source_object_id) ||
 				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
@@ -777,10 +779,14 @@ export default {
 					description: this.agentDescription,
 					object_id: this.object_id,
 
-					text_embedding_profile_object_id: this.text_embedding_profile_object_id,
-					indexing_profile_object_id: this.selectedIndexSource?.object_id ?? '',
-					text_partitioning_profile_object_id: textPartitioningProfileObjectId,
-					content_source_profile_object_id: this.selectedDataSource?.object_id ?? '',
+					vectorization: {
+						dedicated_pipeline: this.dedicated_pipeline,
+						text_embedding_profile_object_id: this.text_embedding_profile_object_id,
+						indexing_profile_object_id: this.selectedIndexSource?.object_id ?? '',
+						text_partitioning_profile_object_id: textPartitioningProfileObjectId,
+						data_source_object_id: this.selectedDataSource?.object_id ?? '',
+						vectorization_data_pipeline_object_id: this.
+					},
 
 					conversation_history: {
 						enabled: this.conversationHistory,
