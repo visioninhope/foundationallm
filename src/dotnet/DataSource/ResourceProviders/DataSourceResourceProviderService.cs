@@ -156,29 +156,28 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
         private async Task<ResourceProviderUpsertResult> UpdateDataSource(ResourcePath resourcePath, string serializedDataSource)
         {
-            var dataSourceBase = JsonSerializer.Deserialize<DataSourceBase>(serializedDataSource)
+            var dataSource = JsonSerializer.Deserialize<DataSourceBase>(serializedDataSource)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
 
-            if (_dataSourceReferences.TryGetValue(dataSourceBase.Name!, out var existingDataSourceReference)
+            if (_dataSourceReferences.TryGetValue(dataSource.Name!, out var existingDataSourceReference)
                 && existingDataSourceReference!.Deleted)
                 throw new ResourceProviderException($"The data source resource {existingDataSourceReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            if (resourcePath.ResourceTypeInstances[0].ResourceId != dataSourceBase.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != dataSource.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
             var dataSourceReference = new DataSourceReference
             {
-                Name = dataSourceBase.Name!,
-                Type = dataSourceBase.Type!,
-                Filename = $"/{_name}/{dataSourceBase.Name}.json",
+                Name = dataSource.Name!,
+                Type = dataSource.Type!,
+                Filename = $"/{_name}/{dataSource.Name}.json",
                 Deleted = false
             };
 
-            var dataSource = JsonSerializer.Deserialize(serializedDataSource, dataSourceReference.DataSourceType, _serializerSettings);
-            (dataSource as DataSourceBase)!.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+            dataSource.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
             var validator = _resourceValidatorFactory.GetValidator(dataSourceReference.DataSourceType);
             if (validator is IValidator dataSourceValidator)
@@ -195,7 +194,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 dataSourceReference.Filename,
-                JsonSerializer.Serialize(dataSource, dataSourceReference.DataSourceType, _serializerSettings),
+                JsonSerializer.Serialize<DataSourceBase>(dataSource, _serializerSettings),
                 default,
                 default);
 

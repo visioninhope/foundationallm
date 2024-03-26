@@ -166,29 +166,28 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
         private async Task<ResourceProviderUpsertResult> UpdateAgent(ResourcePath resourcePath, string serializedAgent)
         {
-            var agentBase = JsonSerializer.Deserialize<AgentBase>(serializedAgent)
+            var agent = JsonSerializer.Deserialize<AgentBase>(serializedAgent)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
 
-            if (_agentReferences.TryGetValue(agentBase.Name!, out var existingAgentReference)
+            if (_agentReferences.TryGetValue(agent.Name!, out var existingAgentReference)
                 && existingAgentReference!.Deleted)
                 throw new ResourceProviderException($"The agent resource {existingAgentReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            if (resourcePath.ResourceTypeInstances[0].ResourceId != agentBase.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != agent.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
             var agentReference = new AgentReference
             {
-                Name = agentBase.Name!,
-                Type = agentBase.Type!,
-                Filename = $"/{_name}/{agentBase.Name}.json",
+                Name = agent.Name!,
+                Type = agent.Type!,
+                Filename = $"/{_name}/{agent.Name}.json",
                 Deleted = false
             };
 
-            var agent = JsonSerializer.Deserialize(serializedAgent, agentReference.AgentType, _serializerSettings);
-            (agent as AgentBase)!.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+            agent.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
             var validator = _resourceValidatorFactory.GetValidator(agentReference.AgentType);
             if (validator is IValidator agentValidator)
@@ -205,7 +204,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 agentReference.Filename,
-                JsonSerializer.Serialize(agent, agentReference.AgentType, _serializerSettings),
+                JsonSerializer.Serialize<AgentBase>(agent, _serializerSettings),
                 default,
                 default);
 
