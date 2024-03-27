@@ -252,19 +252,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourceTypes
   nameWithType: AgentResourceProviderService.GetResourceTypes
-- uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  name: GetResourcesAsyncInternal(ResourcePath)
-  href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService_GetResourcesAsyncInternal_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
-  commentId: M:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  nameWithType: AgentResourceProviderService.GetResourcesAsyncInternal(ResourcePath)
-- uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsyncInternal*
-  name: GetResourcesAsyncInternal
-  href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService_GetResourcesAsyncInternal_
-  commentId: Overload:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsyncInternal
+- uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  name: GetResourcesAsync(ResourcePath)
+  href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
+  commentId: M:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  nameWithType: AgentResourceProviderService.GetResourcesAsync(ResourcePath)
+- uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsync*
+  name: GetResourcesAsync
+  href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService_GetResourcesAsync_
+  commentId: Overload:FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsync
   isSpec: "True"
-  fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsyncInternal
-  nameWithType: AgentResourceProviderService.GetResourcesAsyncInternal
+  fullName: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.GetResourcesAsync
+  nameWithType: AgentResourceProviderService.GetResourcesAsync
 - uid: FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
   name: HandleEvents(EventSetEventArgs)
   href: api/dotnet/FoundationaLLM.Agent.ResourceProviders.AgentResourceProviderService.html#FoundationaLLM_Agent_ResourceProviders_AgentResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_
@@ -1452,6 +1452,24 @@ references:
   commentId: F:FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_TextPartitioningProfiles_Write
   fullName: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_TextPartitioningProfiles_Write
   nameWithType: AuthorizableActionNames.FoundationaLLM_Vectorization_TextPartitioningProfiles_Write
+- uid: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Delete
+  name: FoundationaLLM_Vectorization_VectorizationPipelines_Delete
+  href: api/dotnet/FoundationaLLM.Authorization.Constants.AuthorizableActionNames.html#FoundationaLLM_Authorization_Constants_AuthorizableActionNames_FoundationaLLM_Vectorization_VectorizationPipelines_Delete
+  commentId: F:FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Delete
+  fullName: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Delete
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Delete
+- uid: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Read
+  name: FoundationaLLM_Vectorization_VectorizationPipelines_Read
+  href: api/dotnet/FoundationaLLM.Authorization.Constants.AuthorizableActionNames.html#FoundationaLLM_Authorization_Constants_AuthorizableActionNames_FoundationaLLM_Vectorization_VectorizationPipelines_Read
+  commentId: F:FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Read
+  fullName: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Read
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Read
+- uid: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Write
+  name: FoundationaLLM_Vectorization_VectorizationPipelines_Write
+  href: api/dotnet/FoundationaLLM.Authorization.Constants.AuthorizableActionNames.html#FoundationaLLM_Authorization_Constants_AuthorizableActionNames_FoundationaLLM_Vectorization_VectorizationPipelines_Write
+  commentId: F:FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Write
+  fullName: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Write
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Write
 - uid: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationRequests_Delete
   name: FoundationaLLM_Vectorization_VectorizationRequests_Delete
   href: api/dotnet/FoundationaLLM.Authorization.Constants.AuthorizableActionNames.html#FoundationaLLM_Authorization_Constants_AuthorizableActionNames_FoundationaLLM_Vectorization_VectorizationRequests_Delete
@@ -15661,19 +15679,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource(Of T)(String)
   nameWithType: ResourceProviderServiceBase.GetResource<T>(string)
   nameWithType.vb: ResourceProviderServiceBase.GetResource(Of T)(String)
-- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  name: GetResourcesAsyncInternal(ResourcePath)
-  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsyncInternal_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
-  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  nameWithType: ResourceProviderServiceBase.GetResourcesAsyncInternal(ResourcePath)
-- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal*
-  name: GetResourcesAsyncInternal
-  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsyncInternal_
-  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  name: GetResourcesAsync(ResourcePath)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  nameWithType: ResourceProviderServiceBase.GetResourcesAsync(ResourcePath)
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync*
+  name: GetResourcesAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsyncInternal
-  nameWithType: ResourceProviderServiceBase.GetResourcesAsyncInternal
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync
+  nameWithType: ResourceProviderServiceBase.GetResourcesAsync
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.HandleDeleteAsync(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   name: HandleDeleteAsync(string, UnifiedUserIdentity?)
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleDeleteAsync_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
@@ -17497,19 +17515,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourceTypes
   nameWithType: ConfigurationResourceProviderService.GetResourceTypes
-- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  name: GetResourcesAsyncInternal(ResourcePath)
-  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_GetResourcesAsyncInternal_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
-  commentId: M:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  nameWithType: ConfigurationResourceProviderService.GetResourcesAsyncInternal(ResourcePath)
-- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal*
-  name: GetResourcesAsyncInternal
-  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_GetResourcesAsyncInternal_
-  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  name: GetResourcesAsync(ResourcePath)
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
+  commentId: M:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  nameWithType: ConfigurationResourceProviderService.GetResourcesAsync(ResourcePath)
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsync*
+  name: GetResourcesAsync
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_GetResourcesAsync_
+  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsync
   isSpec: "True"
-  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsyncInternal
-  nameWithType: ConfigurationResourceProviderService.GetResourcesAsyncInternal
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourcesAsync
+  nameWithType: ConfigurationResourceProviderService.GetResourcesAsync
 - uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
   name: HandleEvents(EventSetEventArgs)
   href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_
@@ -19873,19 +19891,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceTypes
   nameWithType: DataSourceResourceProviderService.GetResourceTypes
-- uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  name: GetResourcesAsyncInternal(ResourcePath)
-  href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourcesAsyncInternal_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
-  commentId: M:FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  nameWithType: DataSourceResourceProviderService.GetResourcesAsyncInternal(ResourcePath)
-- uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsyncInternal*
-  name: GetResourcesAsyncInternal
-  href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourcesAsyncInternal_
-  commentId: Overload:FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsyncInternal
+- uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  name: GetResourcesAsync(ResourcePath)
+  href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
+  commentId: M:FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  nameWithType: DataSourceResourceProviderService.GetResourcesAsync(ResourcePath)
+- uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsync*
+  name: GetResourcesAsync
+  href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourcesAsync_
+  commentId: Overload:FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsync
   isSpec: "True"
-  fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsyncInternal
-  nameWithType: DataSourceResourceProviderService.GetResourcesAsyncInternal
+  fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourcesAsync
+  nameWithType: DataSourceResourceProviderService.GetResourcesAsync
 - uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
   name: HandleEvents(EventSetEventArgs)
   href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_
@@ -21703,19 +21721,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourceTypes
   nameWithType: PromptResourceProviderService.GetResourceTypes
-- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  name: GetResourcesAsyncInternal(ResourcePath)
-  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourcesAsyncInternal_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
-  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  nameWithType: PromptResourceProviderService.GetResourcesAsyncInternal(ResourcePath)
-- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal*
-  name: GetResourcesAsyncInternal
-  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourcesAsyncInternal_
-  commentId: Overload:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  name: GetResourcesAsync(ResourcePath)
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
+  commentId: M:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  nameWithType: PromptResourceProviderService.GetResourcesAsync(ResourcePath)
+- uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsync*
+  name: GetResourcesAsync
+  href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_GetResourcesAsync_
+  commentId: Overload:FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsync
   isSpec: "True"
-  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsyncInternal
-  nameWithType: PromptResourceProviderService.GetResourcesAsyncInternal
+  fullName: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.GetResourcesAsync
+  nameWithType: PromptResourceProviderService.GetResourcesAsync
 - uid: FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.InitializeInternal
   name: InitializeInternal()
   href: api/dotnet/FoundationaLLM.Prompt.ResourceProviders.PromptResourceProviderService.html#FoundationaLLM_Prompt_ResourceProviders_PromptResourceProviderService_InitializeInternal
@@ -22387,12 +22405,24 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions
   fullName: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions
   nameWithType: VectorizationResourceProviderActions
+- uid: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.Activate
+  name: Activate
+  href: api/dotnet/FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.html#FoundationaLLM_Vectorization_Constants_VectorizationResourceProviderActions_Activate
+  commentId: F:FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.Activate
+  fullName: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.Activate
+  nameWithType: VectorizationResourceProviderActions.Activate
 - uid: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.CheckName
   name: CheckName
   href: api/dotnet/FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.html#FoundationaLLM_Vectorization_Constants_VectorizationResourceProviderActions_CheckName
   commentId: F:FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.CheckName
   fullName: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.CheckName
   nameWithType: VectorizationResourceProviderActions.CheckName
+- uid: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.Deactivate
+  name: Deactivate
+  href: api/dotnet/FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.html#FoundationaLLM_Vectorization_Constants_VectorizationResourceProviderActions_Deactivate
+  commentId: F:FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.Deactivate
+  fullName: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.Deactivate
+  nameWithType: VectorizationResourceProviderActions.Deactivate
 - uid: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.Filter
   name: Filter
   href: api/dotnet/FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.html#FoundationaLLM_Vectorization_Constants_VectorizationResourceProviderActions_Filter
@@ -22429,6 +22459,12 @@ references:
   commentId: F:FoundationaLLM.Vectorization.Constants.VectorizationResourceTypeNames.TextPartitioningProfiles
   fullName: FoundationaLLM.Vectorization.Constants.VectorizationResourceTypeNames.TextPartitioningProfiles
   nameWithType: VectorizationResourceTypeNames.TextPartitioningProfiles
+- uid: FoundationaLLM.Vectorization.Constants.VectorizationResourceTypeNames.VectorizationPipelines
+  name: VectorizationPipelines
+  href: api/dotnet/FoundationaLLM.Vectorization.Constants.VectorizationResourceTypeNames.html#FoundationaLLM_Vectorization_Constants_VectorizationResourceTypeNames_VectorizationPipelines
+  commentId: F:FoundationaLLM.Vectorization.Constants.VectorizationResourceTypeNames.VectorizationPipelines
+  fullName: FoundationaLLM.Vectorization.Constants.VectorizationResourceTypeNames.VectorizationPipelines
+  nameWithType: VectorizationResourceTypeNames.VectorizationPipelines
 - uid: FoundationaLLM.Vectorization.Constants.VectorizationResourceTypeNames.VectorizationRequests
   name: VectorizationRequests
   href: api/dotnet/FoundationaLLM.Vectorization.Constants.VectorizationResourceTypeNames.html#FoundationaLLM_Vectorization_Constants_VectorizationResourceTypeNames_VectorizationRequests
@@ -23570,84 +23606,84 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.Indexer
   nameWithType: IndexingProfile.Indexer
-- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1
-  name: ProfileStore<T>
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html
-  commentId: T:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1
-  name.vb: ProfileStore(Of T)
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>
-  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T)
-  nameWithType: ProfileStore<T>
-  nameWithType.vb: ProfileStore(Of T)
-- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.DefaultProfileName
-  name: DefaultProfileName
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_DefaultProfileName
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.DefaultProfileName
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>.DefaultProfileName
-  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T).DefaultProfileName
-  nameWithType: ProfileStore<T>.DefaultProfileName
-  nameWithType.vb: ProfileStore(Of T).DefaultProfileName
-- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.DefaultProfileName*
-  name: DefaultProfileName
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_DefaultProfileName_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.DefaultProfileName
+- uid: FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1
+  name: ResourceStore<T>
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ResourceStore-1.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1
+  name.vb: ResourceStore(Of T)
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ResourceStore<T>
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ResourceStore(Of T)
+  nameWithType: ResourceStore<T>
+  nameWithType.vb: ResourceStore(Of T)
+- uid: FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.DefaultResourceName
+  name: DefaultResourceName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ResourceStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ResourceStore_1_DefaultResourceName
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.DefaultResourceName
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ResourceStore<T>.DefaultResourceName
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ResourceStore(Of T).DefaultResourceName
+  nameWithType: ResourceStore<T>.DefaultResourceName
+  nameWithType.vb: ResourceStore(Of T).DefaultResourceName
+- uid: FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.DefaultResourceName*
+  name: DefaultResourceName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ResourceStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ResourceStore_1_DefaultResourceName_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.DefaultResourceName
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>.DefaultProfileName
-  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T).DefaultProfileName
-  nameWithType: ProfileStore<T>.DefaultProfileName
-  nameWithType.vb: ProfileStore(Of T).DefaultProfileName
-- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.FromDictionary(System.Collections.Generic.Dictionary{System.String,`0})
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ResourceStore<T>.DefaultResourceName
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ResourceStore(Of T).DefaultResourceName
+  nameWithType: ResourceStore<T>.DefaultResourceName
+  nameWithType.vb: ResourceStore(Of T).DefaultResourceName
+- uid: FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.FromDictionary(System.Collections.Generic.Dictionary{System.String,`0})
   name: FromDictionary(Dictionary<string, T>)
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_FromDictionary_System_Collections_Generic_Dictionary_System_String__0__
-  commentId: M:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.FromDictionary(System.Collections.Generic.Dictionary{System.String,`0})
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ResourceStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ResourceStore_1_FromDictionary_System_Collections_Generic_Dictionary_System_String__0__
+  commentId: M:FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.FromDictionary(System.Collections.Generic.Dictionary{System.String,`0})
   name.vb: FromDictionary(Dictionary(Of String, T))
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>.FromDictionary(System.Collections.Generic.Dictionary<string, T>)
-  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T).FromDictionary(System.Collections.Generic.Dictionary(Of String, T))
-  nameWithType: ProfileStore<T>.FromDictionary(Dictionary<string, T>)
-  nameWithType.vb: ProfileStore(Of T).FromDictionary(Dictionary(Of String, T))
-- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.FromDictionary*
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ResourceStore<T>.FromDictionary(System.Collections.Generic.Dictionary<string, T>)
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ResourceStore(Of T).FromDictionary(System.Collections.Generic.Dictionary(Of String, T))
+  nameWithType: ResourceStore<T>.FromDictionary(Dictionary<string, T>)
+  nameWithType.vb: ResourceStore(Of T).FromDictionary(Dictionary(Of String, T))
+- uid: FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.FromDictionary*
   name: FromDictionary
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_FromDictionary_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.FromDictionary
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ResourceStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ResourceStore_1_FromDictionary_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.FromDictionary
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>.FromDictionary
-  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T).FromDictionary
-  nameWithType: ProfileStore<T>.FromDictionary
-  nameWithType.vb: ProfileStore(Of T).FromDictionary
-- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.Profiles
-  name: Profiles
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_Profiles
-  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.Profiles
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>.Profiles
-  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T).Profiles
-  nameWithType: ProfileStore<T>.Profiles
-  nameWithType.vb: ProfileStore(Of T).Profiles
-- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.Profiles*
-  name: Profiles
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_Profiles_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.Profiles
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ResourceStore<T>.FromDictionary
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ResourceStore(Of T).FromDictionary
+  nameWithType: ResourceStore<T>.FromDictionary
+  nameWithType.vb: ResourceStore(Of T).FromDictionary
+- uid: FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.Resources
+  name: Resources
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ResourceStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ResourceStore_1_Resources
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.Resources
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ResourceStore<T>.Resources
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ResourceStore(Of T).Resources
+  nameWithType: ResourceStore<T>.Resources
+  nameWithType.vb: ResourceStore(Of T).Resources
+- uid: FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.Resources*
+  name: Resources
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ResourceStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ResourceStore_1_Resources_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.Resources
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>.Profiles
-  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T).Profiles
-  nameWithType: ProfileStore<T>.Profiles
-  nameWithType.vb: ProfileStore(Of T).Profiles
-- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.ToDictionary
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ResourceStore<T>.Resources
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ResourceStore(Of T).Resources
+  nameWithType: ResourceStore<T>.Resources
+  nameWithType.vb: ResourceStore(Of T).Resources
+- uid: FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.ToDictionary
   name: ToDictionary()
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_ToDictionary
-  commentId: M:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.ToDictionary
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>.ToDictionary()
-  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T).ToDictionary()
-  nameWithType: ProfileStore<T>.ToDictionary()
-  nameWithType.vb: ProfileStore(Of T).ToDictionary()
-- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.ToDictionary*
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ResourceStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ResourceStore_1_ToDictionary
+  commentId: M:FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.ToDictionary
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ResourceStore<T>.ToDictionary()
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ResourceStore(Of T).ToDictionary()
+  nameWithType: ResourceStore<T>.ToDictionary()
+  nameWithType.vb: ResourceStore(Of T).ToDictionary()
+- uid: FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.ToDictionary*
   name: ToDictionary
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_ToDictionary_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.ToDictionary
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ResourceStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ResourceStore_1_ToDictionary_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ResourceStore`1.ToDictionary
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>.ToDictionary
-  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T).ToDictionary
-  nameWithType: ProfileStore<T>.ToDictionary
-  nameWithType.vb: ProfileStore(Of T).ToDictionary
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ResourceStore<T>.ToDictionary
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ResourceStore(Of T).ToDictionary
+  nameWithType: ResourceStore<T>.ToDictionary
+  nameWithType.vb: ResourceStore(Of T).ToDictionary
 - uid: FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile
   name: TextEmbeddingProfile
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.html
@@ -23710,6 +23746,127 @@ references:
   commentId: F:FoundationaLLM.Vectorization.Models.Resources.TextSplitterType.TokenTextSplitter
   fullName: FoundationaLLM.Vectorization.Models.Resources.TextSplitterType.TokenTextSplitter
   nameWithType: TextSplitterType.TokenTextSplitter
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline
+  name: VectorizationPipeline
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline
+  nameWithType: VectorizationPipeline
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.Active
+  name: Active
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_Active
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.Active
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.Active
+  nameWithType: VectorizationPipeline.Active
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.Active*
+  name: Active
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_Active_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.Active
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.Active
+  nameWithType: VectorizationPipeline.Active
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.DataSourceObjectId
+  name: DataSourceObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_DataSourceObjectId
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.DataSourceObjectId
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.DataSourceObjectId
+  nameWithType: VectorizationPipeline.DataSourceObjectId
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.DataSourceObjectId*
+  name: DataSourceObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_DataSourceObjectId_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.DataSourceObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.DataSourceObjectId
+  nameWithType: VectorizationPipeline.DataSourceObjectId
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.IndexingProfileObjectId
+  name: IndexingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_IndexingProfileObjectId
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.IndexingProfileObjectId
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.IndexingProfileObjectId
+  nameWithType: VectorizationPipeline.IndexingProfileObjectId
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.IndexingProfileObjectId*
+  name: IndexingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_IndexingProfileObjectId_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.IndexingProfileObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.IndexingProfileObjectId
+  nameWithType: VectorizationPipeline.IndexingProfileObjectId
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextEmbeddingProfileObjectId
+  name: TextEmbeddingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_TextEmbeddingProfileObjectId
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextEmbeddingProfileObjectId
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextEmbeddingProfileObjectId
+  nameWithType: VectorizationPipeline.TextEmbeddingProfileObjectId
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextEmbeddingProfileObjectId*
+  name: TextEmbeddingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_TextEmbeddingProfileObjectId_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextEmbeddingProfileObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextEmbeddingProfileObjectId
+  nameWithType: VectorizationPipeline.TextEmbeddingProfileObjectId
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextPartitioningProfileObjectId
+  name: TextPartitioningProfileObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_TextPartitioningProfileObjectId
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextPartitioningProfileObjectId
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextPartitioningProfileObjectId
+  nameWithType: VectorizationPipeline.TextPartitioningProfileObjectId
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextPartitioningProfileObjectId*
+  name: TextPartitioningProfileObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_TextPartitioningProfileObjectId_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextPartitioningProfileObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TextPartitioningProfileObjectId
+  nameWithType: VectorizationPipeline.TextPartitioningProfileObjectId
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerCronSchedule
+  name: TriggerCronSchedule
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_TriggerCronSchedule
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerCronSchedule
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerCronSchedule
+  nameWithType: VectorizationPipeline.TriggerCronSchedule
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerCronSchedule*
+  name: TriggerCronSchedule
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_TriggerCronSchedule_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerCronSchedule
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerCronSchedule
+  nameWithType: VectorizationPipeline.TriggerCronSchedule
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerType
+  name: TriggerType
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_TriggerType
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerType
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerType
+  nameWithType: VectorizationPipeline.TriggerType
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerType*
+  name: TriggerType
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipeline_TriggerType_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerType
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.TriggerType
+  nameWithType: VectorizationPipeline.TriggerType
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType
+  name: VectorizationPipelineTriggerType
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.html
+  commentId: T:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType
+  nameWithType: VectorizationPipelineTriggerType
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.Event
+  name: Event
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipelineTriggerType_Event
+  commentId: F:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.Event
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.Event
+  nameWithType: VectorizationPipelineTriggerType.Event
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.Manual
+  name: Manual
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipelineTriggerType_Manual
+  commentId: F:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.Manual
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.Manual
+  nameWithType: VectorizationPipelineTriggerType.Manual
+- uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.Schedule
+  name: Schedule
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.html#FoundationaLLM_Vectorization_Models_Resources_VectorizationPipelineTriggerType_Schedule
+  commentId: F:FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.Schedule
+  fullName: FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.Schedule
+  nameWithType: VectorizationPipelineTriggerType.Schedule
 - uid: FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase
   name: VectorizationProfileBase
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html
@@ -23972,70 +24129,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.VectorizationLogEntry.Time
   nameWithType: VectorizationLogEntry.Time
-- uid: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult
-  name: VectorizationProcessingResult
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.html
-  commentId: T:FoundationaLLM.Vectorization.Models.VectorizationProcessingResult
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult
-  nameWithType: VectorizationProcessingResult
-- uid: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.#ctor(System.String,System.Boolean,System.String)
-  name: VectorizationProcessingResult(string, bool, string?)
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.html#FoundationaLLM_Vectorization_Models_VectorizationProcessingResult__ctor_System_String_System_Boolean_System_String_
-  commentId: M:FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.#ctor(System.String,System.Boolean,System.String)
-  name.vb: New(String, Boolean, String)
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.VectorizationProcessingResult(string, bool, string?)
-  fullName.vb: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.New(String, Boolean, String)
-  nameWithType: VectorizationProcessingResult.VectorizationProcessingResult(string, bool, string?)
-  nameWithType.vb: VectorizationProcessingResult.New(String, Boolean, String)
-- uid: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.#ctor*
-  name: VectorizationProcessingResult
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.html#FoundationaLLM_Vectorization_Models_VectorizationProcessingResult__ctor_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.VectorizationProcessingResult
-  fullName.vb: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.New
-  nameWithType: VectorizationProcessingResult.VectorizationProcessingResult
-  nameWithType.vb: VectorizationProcessingResult.New
-- uid: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ErrorMessage
-  name: ErrorMessage
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.html#FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_ErrorMessage
-  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ErrorMessage
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ErrorMessage
-  nameWithType: VectorizationProcessingResult.ErrorMessage
-- uid: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ErrorMessage*
-  name: ErrorMessage
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.html#FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_ErrorMessage_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ErrorMessage
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ErrorMessage
-  nameWithType: VectorizationProcessingResult.ErrorMessage
-- uid: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.IsSuccess
-  name: IsSuccess
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.html#FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_IsSuccess
-  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.IsSuccess
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.IsSuccess
-  nameWithType: VectorizationProcessingResult.IsSuccess
-- uid: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.IsSuccess*
-  name: IsSuccess
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.html#FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_IsSuccess_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.IsSuccess
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.IsSuccess
-  nameWithType: VectorizationProcessingResult.IsSuccess
-- uid: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ObjectId
-  name: ObjectId
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.html#FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_ObjectId
-  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ObjectId
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ObjectId
-  nameWithType: VectorizationProcessingResult.ObjectId
-- uid: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ObjectId*
-  name: ObjectId
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.html#FoundationaLLM_Vectorization_Models_VectorizationProcessingResult_ObjectId_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ObjectId
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.VectorizationProcessingResult.ObjectId
-  nameWithType: VectorizationProcessingResult.ObjectId
 - uid: FoundationaLLM.Vectorization.Models.VectorizationProcessingType
   name: VectorizationProcessingType
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationProcessingType.html
@@ -24240,6 +24333,70 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.VectorizationRequest.Steps
   nameWithType: VectorizationRequest.Steps
+- uid: FoundationaLLM.Vectorization.Models.VectorizationResult
+  name: VectorizationResult
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationResult.html
+  commentId: T:FoundationaLLM.Vectorization.Models.VectorizationResult
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationResult
+  nameWithType: VectorizationResult
+- uid: FoundationaLLM.Vectorization.Models.VectorizationResult.#ctor(System.String,System.Boolean,System.String)
+  name: VectorizationResult(string, bool, string?)
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationResult.html#FoundationaLLM_Vectorization_Models_VectorizationResult__ctor_System_String_System_Boolean_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Models.VectorizationResult.#ctor(System.String,System.Boolean,System.String)
+  name.vb: New(String, Boolean, String)
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationResult.VectorizationResult(string, bool, string?)
+  fullName.vb: FoundationaLLM.Vectorization.Models.VectorizationResult.New(String, Boolean, String)
+  nameWithType: VectorizationResult.VectorizationResult(string, bool, string?)
+  nameWithType.vb: VectorizationResult.New(String, Boolean, String)
+- uid: FoundationaLLM.Vectorization.Models.VectorizationResult.#ctor*
+  name: VectorizationResult
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationResult.html#FoundationaLLM_Vectorization_Models_VectorizationResult__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationResult.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationResult.VectorizationResult
+  fullName.vb: FoundationaLLM.Vectorization.Models.VectorizationResult.New
+  nameWithType: VectorizationResult.VectorizationResult
+  nameWithType.vb: VectorizationResult.New
+- uid: FoundationaLLM.Vectorization.Models.VectorizationResult.ErrorMessage
+  name: ErrorMessage
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationResult.html#FoundationaLLM_Vectorization_Models_VectorizationResult_ErrorMessage
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationResult.ErrorMessage
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationResult.ErrorMessage
+  nameWithType: VectorizationResult.ErrorMessage
+- uid: FoundationaLLM.Vectorization.Models.VectorizationResult.ErrorMessage*
+  name: ErrorMessage
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationResult.html#FoundationaLLM_Vectorization_Models_VectorizationResult_ErrorMessage_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationResult.ErrorMessage
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationResult.ErrorMessage
+  nameWithType: VectorizationResult.ErrorMessage
+- uid: FoundationaLLM.Vectorization.Models.VectorizationResult.IsSuccess
+  name: IsSuccess
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationResult.html#FoundationaLLM_Vectorization_Models_VectorizationResult_IsSuccess
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationResult.IsSuccess
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationResult.IsSuccess
+  nameWithType: VectorizationResult.IsSuccess
+- uid: FoundationaLLM.Vectorization.Models.VectorizationResult.IsSuccess*
+  name: IsSuccess
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationResult.html#FoundationaLLM_Vectorization_Models_VectorizationResult_IsSuccess_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationResult.IsSuccess
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationResult.IsSuccess
+  nameWithType: VectorizationResult.IsSuccess
+- uid: FoundationaLLM.Vectorization.Models.VectorizationResult.ObjectId
+  name: ObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationResult.html#FoundationaLLM_Vectorization_Models_VectorizationResult_ObjectId
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationResult.ObjectId
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationResult.ObjectId
+  nameWithType: VectorizationResult.ObjectId
+- uid: FoundationaLLM.Vectorization.Models.VectorizationResult.ObjectId*
+  name: ObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationResult.html#FoundationaLLM_Vectorization_Models_VectorizationResult_ObjectId_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationResult.ObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationResult.ObjectId
+  nameWithType: VectorizationResult.ObjectId
 - uid: FoundationaLLM.Vectorization.Models.VectorizationState
   name: VectorizationState
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html
@@ -24583,19 +24740,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceTypes
   nameWithType: VectorizationResourceProviderService.GetResourceTypes
-- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  name: GetResourcesAsyncInternal(ResourcePath)
-  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourcesAsyncInternal_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
-  commentId: M:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsyncInternal(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
-  nameWithType: VectorizationResourceProviderService.GetResourcesAsyncInternal(ResourcePath)
-- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsyncInternal*
-  name: GetResourcesAsyncInternal
-  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourcesAsyncInternal_
-  commentId: Overload:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsyncInternal
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  name: GetResourcesAsync(ResourcePath)
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
+  commentId: M:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  nameWithType: VectorizationResourceProviderService.GetResourcesAsync(ResourcePath)
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsync*
+  name: GetResourcesAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourcesAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsync
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsyncInternal
-  nameWithType: VectorizationResourceProviderService.GetResourcesAsyncInternal
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsync
+  nameWithType: VectorizationResourceProviderService.GetResourcesAsync
 - uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
   name: HandleEvents(EventSetEventArgs)
   href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_

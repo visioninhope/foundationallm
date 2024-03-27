@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Namespace FoundationaLLM.Vectorization.Models.Resources | FoundationaLLM </title>
+      <title>Enum VectorizationPipelineTriggerType | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Namespace FoundationaLLM.Vectorization.Models.Resources | FoundationaLLM ">
+      <meta name="title" content="Enum VectorizationPipelineTriggerType | FoundationaLLM ">
       
-      
+      <meta name="description" content="Types of vectorization pipeline triggers.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Vectorization_Models_Resources_VectorizationPipelineTriggerType.md&amp;value=---%0Auid%3A%20FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,84 +84,63 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Vectorization.Models.Resources">
+        <article data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType">
 
-  <h1 id="FoundationaLLM_Vectorization_Models_Resources" data-uid="FoundationaLLM.Vectorization.Models.Resources" class="text-break">Namespace FoundationaLLM.Vectorization.Models.Resources</h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
 
-    <h3 id="classes">
-Classes
-</h3>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.ContentSourceProfile.html">ContentSourceProfile</a></dt>
-      <dd><p>Provides details about a content source.</p>
+
+
+  <h1 id="FoundationaLLM_Vectorization_Models_Resources_VectorizationPipelineTriggerType" data-uid="FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType" class="text-break">
+Enum VectorizationPipelineTriggerType  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationPipelineTriggerType.cs/#L6"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Vectorization.html">Vectorization</a>.<a class="xref" href="FoundationaLLM.Vectorization.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.html">Resources</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>FoundationaLLM.Vectorization.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Types of vectorization pipeline triggers.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum VectorizationPipelineTriggerType</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="FoundationaLLM.Core.Utils.ObjectExtensions.html#FoundationaLLM_Core_Utils_ObjectExtensions_GetPropertyValues_System_Object_System_Collections_Generic_List_System_String__">ObjectExtensions.GetPropertyValues(object, List&lt;string&gt;)</a>
+  </div>
+  </dd></dl>
+
+  <h2 id="fields">Fields
+</h2>
+  <dl class="parameters">
+    <dt id="FoundationaLLM_Vectorization_Models_Resources_VectorizationPipelineTriggerType_Event"><code>Event = 2</code></dt>
+    <dd><p>The vectorization pipeline is triggered based on content change events (e.g., an existing file is updated or a new file is added).</p>
 </dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.IndexingProfile.html">IndexingProfile</a></dt>
-      <dd><p>Provides details about an indexing profile.</p>
+    <dt id="FoundationaLLM_Vectorization_Models_Resources_VectorizationPipelineTriggerType_Manual"><code>Manual = 0</code></dt>
+    <dd><p>The vectorization pipeline is triggered manually.</p>
 </dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.ResourceStore-1.html">ResourceStore&lt;T&gt;</a></dt>
-      <dd><p>Models the content of a resource store managed by the FoundationaLLM.Vectorization resource provider.</p>
+    <dt id="FoundationaLLM_Vectorization_Models_Resources_VectorizationPipelineTriggerType_Schedule"><code>Schedule = 1</code></dt>
+    <dd><p>The vectorization pipeline is triggered based on a regular schedule.</p>
 </dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingProfile.html">TextEmbeddingProfile</a></dt>
-      <dd><p>Provides details about a text embedding profile.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.TextPartitioningProfile.html">TextPartitioningProfile</a></dt>
-      <dd><p>Provides details about a text partitioning profile.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.VectorizationPipeline.html">VectorizationPipeline</a></dt>
-      <dd><p>Defines a vectorization pipeline.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html">VectorizationProfileBase</a></dt>
-      <dd><p>Basic properties for vectorization profiles.</p>
-</dd>
-    </dl>
-    <h3 id="enums">
-Enums
-</h3>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.ContentSourceType.html">ContentSourceType</a></dt>
-      <dd><p>Types of content sources from which documents can be retrieved.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.IndexerType.html">IndexerType</a></dt>
-      <dd><p>Types of vectori indexes available to store embeddings.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.TextEmbeddingType.html">TextEmbeddingType</a></dt>
-      <dd><p>Types of text embeddings available for text embedding.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.TextSplitterType.html">TextSplitterType</a></dt>
-      <dd><p>Types of text splitters available for text partitioning.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.VectorizationPipelineTriggerType.html">VectorizationPipelineTriggerType</a></dt>
-      <dd><p>Types of vectorization pipeline triggers.</p>
-</dd>
-    </dl>
+  </dl>
+
 
 
 </article>
 
         <div class="contribution d-print-none">
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/Resources/VectorizationPipelineTriggerType.cs/#L6" class="edit-link">Edit this page</a>
         </div>
 
 
