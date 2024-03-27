@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Vectorization.Models.Resources;
+﻿using FoundationaLLM.Common.Models.ResourceProvider;
 
 namespace FoundationaLLM.Vectorization.Interfaces
 {
@@ -20,6 +20,6 @@ namespace FoundationaLLM.Vectorization.Interfaces
         /// </summary>
         /// <param name="serviceName">The name of the service instance to create.</param>
         /// <returns>The service instance and its associated vectorization profile.</returns>
-        (T Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName);
+        (T Service, ResourceBase Resource) GetServiceWithResource(string serviceName);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Vectorization.Constants;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -42,7 +43,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         }
 
         /// <inheritdoc/>
-        public (ITextEmbeddingService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (ITextEmbeddingService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             var textEmbeddingProfile = _vectorizationResourceProviderService.GetResource<TextEmbeddingProfile>(
                 $"/{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{serviceName}");

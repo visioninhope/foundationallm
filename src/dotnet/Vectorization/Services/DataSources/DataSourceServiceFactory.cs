@@ -1,11 +1,12 @@
 ﻿using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Storage;
-using FoundationaLLM.Vectorization.Constants;
+using FoundationaLLM.Common.Models.ResourceProvider;
+using FoundationaLLM.DataSource.Constants;
+using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
-using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -33,32 +34,25 @@ namespace FoundationaLLM.Vectorization.Services.DataSources
         /// <inheritdoc/>
         public IDataSourceService GetService(string serviceName)
         {
-            var contentSourceProfile = _dataSourceResourceProviderService.GetResource<ContentSourceProfile>(
-                $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{serviceName}");
-
-            return contentSourceProfile.ContentSource switch
-            {
-                ContentSourceType.AzureDataLake => CreateAzureDataLakeDataSourceService(serviceName),
-                ContentSourceType.SharePointOnline => CreateSharePointOnlineDataSourceService(serviceName),
-                ContentSourceType.AzureSQLDatabase => CreateAzureSQLDatabaseDataSourceService(serviceName),
-                ContentSourceType.Web => CreateWebPageDataSourceService(serviceName),
-                _ => throw new VectorizationException($"The content source type {contentSourceProfile.ContentSource} is not supported."),
-            };
+            var (service, _) = this.GetServiceWithResource(serviceName);
+            return service;
         }
 
         /// <inheritdoc/>
-        public (IDataSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (IDataSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
-            var contentSourceProfile = _dataSourceResourceProviderService.GetResource<ContentSourceProfile>(
-                $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{serviceName}");
+            // serviceName is the data_source_object_id of the request
+            var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(serviceName);
+            if (dataSource == null)
+                throw new VectorizationException($"The data source {serviceName} was not found.");
 
-            return contentSourceProfile.ContentSource switch
+            return dataSource.Type switch
             {
-                ContentSourceType.AzureDataLake => (CreateAzureDataLakeDataSourceService(serviceName), contentSourceProfile),
-                ContentSourceType.SharePointOnline => (CreateSharePointOnlineDataSourceService(serviceName), contentSourceProfile),
-                ContentSourceType.AzureSQLDatabase => (CreateAzureSQLDatabaseDataSourceService(serviceName), contentSourceProfile),
-                ContentSourceType.Web => (CreateWebPageDataSourceService(serviceName), contentSourceProfile),
-                _ => throw new VectorizationException($"The content source type {contentSourceProfile.ContentSource} is not supported."),
+                DataSourceTypes.AzureDataLake => (CreateAzureDataLakeDataSourceService(serviceName), dataSource),
+                DataSourceTypes.SharePointOnlineSite => (CreateSharePointOnlineDataSourceService(serviceName), dataSource),
+                DataSourceTypes.AzureSQLDatabase => (CreateAzureSQLDatabaseDataSourceService(serviceName), dataSource),
+                // DataSourceTypes.Web => (CreateWebPageDataSourceService(serviceName), dataSource),
+                _ => throw new VectorizationException($"The data source type {dataSource.Type} is not supported."),
             };
         }
 

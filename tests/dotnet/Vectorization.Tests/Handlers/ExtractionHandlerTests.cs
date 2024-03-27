@@ -1,4 +1,5 @@
 using FakeItEasy;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -26,7 +27,7 @@ namespace Vectorization.Tests.Handlers
             return new MockContentSourceService();
         }
 
-        public (IDataSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (IDataSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             throw new NotImplementedException();
         }

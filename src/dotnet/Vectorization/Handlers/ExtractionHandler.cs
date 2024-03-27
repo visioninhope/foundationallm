@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
@@ -41,10 +40,10 @@ namespace FoundationaLLM.Vectorization.Handlers
             CancellationToken cancellationToken)
         {
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IDataSourceService>>()
-                ?? throw new VectorizationException($"Could not retrieve the content source service factory instance.");
-            var contentSource = serviceFactory.GetService(request.ContentIdentifier.DataSourceObjectId);
+                ?? throw new VectorizationException($"Could not retrieve the data source service factory instance.");
+            var dataSourceService = serviceFactory.GetService(request.ContentIdentifier.DataSourceObjectId);
 
-            var textContent = await contentSource.ExtractTextAsync(request.ContentIdentifier, cancellationToken);
+            var textContent = await dataSourceService.ExtractTextAsync(request.ContentIdentifier, cancellationToken);
 
             state.AddOrReplaceArtifact(new VectorizationArtifact
             {

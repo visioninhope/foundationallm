@@ -1,5 +1,6 @@
 ﻿using FakeItEasy;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -29,7 +30,7 @@ namespace Vectorization.Tests.Handlers
             return mockTextEmbeddingService;
         }
 
-        (ITextEmbeddingService Service, VectorizationProfileBase VectorizationProfile) IVectorizationServiceFactory<ITextEmbeddingService>.GetServiceWithProfile(string serviceName)
+        (ITextEmbeddingService Service, ResourceBase Resource) IVectorizationServiceFactory<ITextEmbeddingService>.GetServiceWithResource(string serviceName)
         {
             throw new NotImplementedException();
         }

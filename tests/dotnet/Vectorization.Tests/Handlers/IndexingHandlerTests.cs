@@ -1,5 +1,6 @@
 ﻿using FakeItEasy;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -32,7 +33,7 @@ namespace Vectorization.Tests.Handlers
             throw new NotImplementedException();
         }
 
-        (IIndexingService Service, VectorizationProfileBase VectorizationProfile) IVectorizationServiceFactory<IIndexingService>.GetServiceWithProfile(string serviceName)
+        (IIndexingService Service, ResourceBase Resource) IVectorizationServiceFactory<IIndexingService>.GetServiceWithResource(string serviceName)
         {
             return (
                 new IndexingMockService(),
