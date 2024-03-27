@@ -1,13 +1,13 @@
-﻿using DocumentFormat.OpenXml.Office.Word;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.DataSource.Constants;
+using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.Vectorization.Constants;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
-using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -22,21 +22,23 @@ namespace FoundationaLLM.Vectorization.Services
     /// </remarks>
     /// <param name="requestSourcesCache">The <see cref="IRequestSourcesCache"/> cache of request sources.</param>
     /// <param name="vectorizationStateService">The service providing vectorization state management.</param>
-    /// <param name="vectorizationResourceProvider">The <see cref="IResourceProviderService"/> implementing the vectorization resource provider.</param>
+    /// <param name="resourceProviderServices">Retrieves all registered resource provider services <see cref="IResourceProviderService"/>.</param>    
     /// <param name="stepsConfiguration">The <see cref="IConfigurationSection"/> object providing access to the settings.</param>
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> implemented by the dependency injection container.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public class VectorizationService(
         IRequestSourcesCache requestSourcesCache,
         IVectorizationStateService vectorizationStateService,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IResourceProviderService vectorizationResourceProvider,
+        IEnumerable<IResourceProviderService> resourceProviderServices,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps)] IConfigurationSection stepsConfiguration,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory) : IVectorizationService
     {
         private readonly Dictionary<string, IRequestSourceService> _requestSources = requestSourcesCache.RequestSources;
         private readonly IVectorizationStateService _vectorizationStateService = vectorizationStateService;
-        private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProvider;
+        private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices =
+            resourceProviderServices.ToDictionary<IResourceProviderService, string>(
+                rps => rps.Name);       
         private readonly IConfigurationSection? _stepsConfiguration = stepsConfiguration;
         private readonly IServiceProvider _serviceProvider = serviceProvider;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
@@ -46,7 +48,11 @@ namespace FoundationaLLM.Vectorization.Services
         public async Task<VectorizationProcessingResult> ProcessRequest(VectorizationRequest vectorizationRequest)
         {
             try
-            {
+            {                
+                _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
+                if (vectorizationResourceProviderService == null)
+                    throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
+
                 // Pre-process the vectorization request
                 vectorizationRequest.Id = Guid.NewGuid().ToString();
                 vectorizationRequest.CompletedSteps = [];
@@ -54,7 +60,7 @@ namespace FoundationaLLM.Vectorization.Services
 
                 ValidateRequest(vectorizationRequest);
 
-                await _vectorizationResourceProviderService.UpsertResourceAsync<VectorizationRequest>(
+                await vectorizationResourceProviderService.UpsertResourceAsync<VectorizationRequest>(
                     $"/{VectorizationResourceTypeNames.VectorizationRequests}/{vectorizationRequest.Id}",
                     vectorizationRequest);
 
@@ -102,16 +108,19 @@ namespace FoundationaLLM.Vectorization.Services
             if (vectorizationRequest.RemainingSteps == null || vectorizationRequest.RemainingSteps.Count == 0)
                 throw new VectorizationException("The list of the remaining steps of the vectorization request should not be empty.");
 
-            // check request content source profile -> content_source type for multi-part validation
-            var contentSourceProfile = _vectorizationResourceProviderService.GetResource<ContentSourceProfile>(
-                $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{vectorizationRequest.ContentIdentifier.ContentSourceProfileName}");
+            _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_DataSource, out var dataSourceResourceProviderService);
+            if (dataSourceResourceProviderService == null)
+                throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
 
-            switch (contentSourceProfile.ContentSource)
+            var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(vectorizationRequest.ContentIdentifier.DataSourceObjectId);
+            if (dataSource == null)
+                throw new VectorizationException($"The data source {vectorizationRequest.ContentIdentifier.DataSourceObjectId} was not found.");
+
+            switch(dataSource.Type)
             {
-                // file-based content sources
-                case ContentSourceType.AzureDataLake:
-                case ContentSourceType.SharePointOnline:
-                case ContentSourceType.AzureSQLDatabase:
+                case DataSourceTypes.AzureDataLake:
+                case DataSourceTypes.SharePointOnlineSite:
+                case DataSourceTypes.AzureSQLDatabase:
                     // Validate the file extension is supported by vectorization
                     string fileNameExtension = Path.GetExtension(vectorizationRequest.ContentIdentifier!.FileName);
                     if (string.IsNullOrWhiteSpace(fileNameExtension))
@@ -122,15 +131,19 @@ namespace FoundationaLLM.Vectorization.Services
                         .Contains(fileNameExtension.ToLower()))
                         throw new VectorizationException($"The file extension {fileNameExtension} is not supported.");
                     break;
-                case ContentSourceType.Web:
+                // Needs to be brought into the data source provider
+                /*
+                case DataSourceType.Web:
                     // Validate the protocol passed in is http or https
                     string protocol = vectorizationRequest.ContentIdentifier[0];
                     if (!new[] { "http", "https" }.Contains(protocol.ToLower()))
                         throw new VectorizationException($"The protocol {protocol} is not supported.");
                     break;
+                */
                 default:
-                    throw new VectorizationException($"The content source type {contentSourceProfile.ContentSource} is not supported.");
-            } 
+                    throw new VectorizationException($"The data source type {dataSource.Type} is not supported.");
+
+            }
         }
 
         private async Task<VectorizationProcessingResult> ProcessRequestInternal(VectorizationRequest request)

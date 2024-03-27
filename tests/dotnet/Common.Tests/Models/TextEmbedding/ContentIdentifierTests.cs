@@ -7,7 +7,7 @@ namespace FoundationaLLM.Common.Tests.Models.TextEmbedding
     {
         private ContentIdentifier _identifier = new ContentIdentifier
         {
-            ContentSourceProfileName = "ProfileName",
+            DataSourceObjectId = "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
             MultipartId = new List<string> { "part1", "part2" },
             CanonicalId = "CanonicalId"
         };
@@ -19,7 +19,7 @@ namespace FoundationaLLM.Common.Tests.Models.TextEmbedding
             List<string> multipartId = new List<string> { "part1", "part2" };
 
             // Assert
-            Assert.Equal("ProfileName", _identifier.ContentSourceProfileName);
+            Assert.Equal("ProfileName", _identifier.DataSourceObjectId);
             Assert.Equal("CanonicalId", _identifier.CanonicalId);
             Assert.Equal(string.Join("/", multipartId), _identifier.UniqueId);
             Assert.Equal(multipartId.Last(), _identifier.FileName);

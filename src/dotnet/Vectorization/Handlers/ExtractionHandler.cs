@@ -42,7 +42,7 @@ namespace FoundationaLLM.Vectorization.Handlers
         {
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IDataSourceService>>()
                 ?? throw new VectorizationException($"Could not retrieve the content source service factory instance.");
-            var contentSource = serviceFactory.GetService(request.ContentIdentifier.ContentSourceProfileName);
+            var contentSource = serviceFactory.GetService(request.ContentIdentifier.DataSourceObjectId);
 
             var textContent = await contentSource.ExtractTextAsync(request.ContentIdentifier, cancellationToken);
 

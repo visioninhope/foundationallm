@@ -10,7 +10,7 @@ namespace FoundationaLLM.Common.Tests.Models.TextEmbedding
             // Arrange
             var contentId = new ContentIdentifier
             {
-                ContentSourceProfileName = "ProfileName",
+                DataSourceObjectId = "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
                 MultipartId = new List<string> { "part1", "part2" },
                 CanonicalId = "CanonicalId"
             };

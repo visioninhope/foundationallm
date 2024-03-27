@@ -29,7 +29,7 @@ namespace Vectorization.Tests.Services.DataSources
                     new ContentIdentifier
                     {
                         CanonicalId = "vectorization-content-test.txt",
-                        ContentSourceProfileName = "DataLakeTestFiles",
+                        DataSourceObjectId = "DataLakeTestFiles",
                         MultipartId = new List<string> {
                             Environment.GetEnvironmentVariable("DataLakeContentServiceTestsContainerUrl"),
                             "testing",
@@ -47,7 +47,7 @@ namespace Vectorization.Tests.Services.DataSources
                     new ContentIdentifier
                     {
                         CanonicalId = "vectorization-content-test.docx",
-                        ContentSourceProfileName = "DataLakeTestFiles",
+                        DataSourceObjectId = "DataLakeTestFiles",
                         MultipartId = new List<string> {
                             Environment.GetEnvironmentVariable("DataLakeContentServiceTestsContainerUrl"),
                             "testing",

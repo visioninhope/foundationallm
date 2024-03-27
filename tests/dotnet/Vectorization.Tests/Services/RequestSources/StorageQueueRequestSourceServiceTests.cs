@@ -45,7 +45,7 @@ namespace Vectorization.Tests.Services.RequestSources
                             "vectorization-input",
                             "somedata.pdf"
                         },
-                        ContentSourceProfileName = "SomePDFData",
+                        DataSourceObjectId = "SomePDFData",
                         CanonicalId = "SomeBusinessUnit/SomePDFData"
                     },
                     ProcessingType = VectorizationProcessingType.Synchronous,
