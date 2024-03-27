@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Constants.Configuration;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Models.ResourceProvider;
@@ -23,11 +24,13 @@ namespace FoundationaLLM.Vectorization.Services.DataSources
     /// <param name="configuration">The global configuration provider.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public class DataSourceServiceFactory(
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource)] IResourceProviderService dataSourceResourceProviderService,
+        IEnumerable<IResourceProviderService> resourceProviderServices,
         IConfiguration configuration,
         ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IDataSourceService>
     {
-        private readonly IResourceProviderService _dataSourceResourceProviderService = dataSourceResourceProviderService;
+        private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices =
+            resourceProviderServices.ToDictionary<IResourceProviderService, string>(
+                rps => rps.Name);
         private readonly IConfiguration _configuration = configuration;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
@@ -42,16 +45,20 @@ namespace FoundationaLLM.Vectorization.Services.DataSources
         public (IDataSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             // serviceName is the data_source_object_id of the request
+            _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_DataSource, out var dataSourceResourceProviderService);
+            if (dataSourceResourceProviderService == null)
+                throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
+
             var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(serviceName);
             if (dataSource == null)
                 throw new VectorizationException($"The data source {serviceName} was not found.");
 
             return dataSource.Type switch
             {
-                DataSourceTypes.AzureDataLake => (CreateAzureDataLakeDataSourceService(serviceName), dataSource),
-                DataSourceTypes.SharePointOnlineSite => (CreateSharePointOnlineDataSourceService(serviceName), dataSource),
-                DataSourceTypes.AzureSQLDatabase => (CreateAzureSQLDatabaseDataSourceService(serviceName), dataSource),
-                // DataSourceTypes.Web => (CreateWebPageDataSourceService(serviceName), dataSource),
+                DataSourceTypes.AzureDataLake => (CreateAzureDataLakeDataSourceService(dataSource.Name), dataSource),
+                DataSourceTypes.SharePointOnlineSite => (CreateSharePointOnlineDataSourceService(dataSource.Name), dataSource),
+                DataSourceTypes.AzureSQLDatabase => (CreateAzureSQLDatabaseDataSourceService(dataSource.Name), dataSource),
+                // DataSourceTypes.Web => (CreateWebPageDataSourceService(dataSource.Name), dataSource),
                 _ => throw new VectorizationException($"The data source type {dataSource.Type} is not supported."),
             };
         }
@@ -61,7 +68,7 @@ namespace FoundationaLLM.Vectorization.Services.DataSources
         {
             var blobStorageServiceSettings = new BlobStorageServiceSettings { AuthenticationType = BlobStorageAuthenticationTypes.Unknown };
             _configuration.Bind(
-                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
+                $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{serviceName}",
                 blobStorageServiceSettings);
 
             return new DataLakeDataSourceService(
@@ -73,7 +80,7 @@ namespace FoundationaLLM.Vectorization.Services.DataSources
         {
             var sharePointOnlineContentSourceServiceSettings = new SharePointOnlineContentSourceServiceSettings();
             _configuration.Bind(
-                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
+                $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{serviceName}",
                 sharePointOnlineContentSourceServiceSettings);
 
             return new SharePointOnlineDataSourceService(
@@ -85,7 +92,7 @@ namespace FoundationaLLM.Vectorization.Services.DataSources
         {
             var azureSQLDatabaseContentSourceServiceSettings = new AzureSQLDatabaseContentSourceServiceSettings();
             _configuration.Bind(
-                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
+                $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{serviceName}",
                 azureSQLDatabaseContentSourceServiceSettings);
 
             return new AzureSQLDatabaseDataSourceService(
