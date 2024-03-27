@@ -22393,6 +22393,12 @@ references:
   commentId: F:FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.CheckName
   fullName: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.CheckName
   nameWithType: VectorizationResourceProviderActions.CheckName
+- uid: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.Filter
+  name: Filter
+  href: api/dotnet/FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.html#FoundationaLLM_Vectorization_Constants_VectorizationResourceProviderActions_Filter
+  commentId: F:FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.Filter
+  fullName: FoundationaLLM.Vectorization.Constants.VectorizationResourceProviderActions.Filter
+  nameWithType: VectorizationResourceProviderActions.Filter
 - uid: FoundationaLLM.Vectorization.Constants.VectorizationResourceTypeNames
   name: VectorizationResourceTypeNames
   href: api/dotnet/FoundationaLLM.Vectorization.Constants.VectorizationResourceTypeNames.html
@@ -23573,6 +23579,23 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T)
   nameWithType: ProfileStore<T>
   nameWithType.vb: ProfileStore(Of T)
+- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.DefaultProfileName
+  name: DefaultProfileName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_DefaultProfileName
+  commentId: P:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.DefaultProfileName
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>.DefaultProfileName
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T).DefaultProfileName
+  nameWithType: ProfileStore<T>.DefaultProfileName
+  nameWithType.vb: ProfileStore(Of T).DefaultProfileName
+- uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.DefaultProfileName*
+  name: DefaultProfileName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_DefaultProfileName_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.DefaultProfileName
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Resources.ProfileStore<T>.DefaultProfileName
+  fullName.vb: FoundationaLLM.Vectorization.Models.Resources.ProfileStore(Of T).DefaultProfileName
+  nameWithType: ProfileStore<T>.DefaultProfileName
+  nameWithType.vb: ProfileStore(Of T).DefaultProfileName
 - uid: FoundationaLLM.Vectorization.Models.Resources.ProfileStore`1.FromDictionary(System.Collections.Generic.Dictionary{System.String,`0})
   name: FromDictionary(Dictionary<string, T>)
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Resources.ProfileStore-1.html#FoundationaLLM_Vectorization_Models_Resources_ProfileStore_1_FromDictionary_System_Collections_Generic_Dictionary_System_String__0__
