@@ -9,5 +9,9 @@
         /// Check the validity of a resource name.
         /// </summary>
         public const string CheckName = "checkname";
+        /// <summary>
+        /// Apply a filter for data source retrieval.
+        /// </summary>
+        public const string Filter = "filter";
     }
 }

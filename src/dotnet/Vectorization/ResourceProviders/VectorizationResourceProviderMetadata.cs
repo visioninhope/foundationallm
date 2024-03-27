@@ -92,6 +92,9 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     Actions = [
                             new ResourceTypeAction(VectorizationResourceProviderActions.CheckName, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
+                            ]),
+                            new ResourceTypeAction(VectorizationResourceProviderActions.Filter, false, true, [
+                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(IndexingProfile)])
                             ])
                         ]
                 }

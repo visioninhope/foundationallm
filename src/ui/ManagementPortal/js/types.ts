@@ -3,10 +3,15 @@ export type Agent = {
 	object_id: string;
 	description: string;
 	type: 'knowledge-management' | 'analytics';
-	indexing_profile_object_id: string;
-	text_embedding_profile_object_id: string;
-	text_partitioning_profile_object_id: string;
-	content_source_profile_object_id: string;
+	
+	vectorization: {
+		dedicated_pipeline: boolean;
+		indexing_profile_object_id: string;
+		text_embedding_profile_object_id: string;
+		text_partitioning_profile_object_id: string;
+		data_source_object_id: string;
+		vectorization_data_pipeline_object_id: string;
+	};
 
 	sessions_enabled: boolean;
 	orchestration_settings: {
@@ -236,10 +241,16 @@ export type CreateAgentRequest = {
 		version: string;
 		deployment: string;
 	};
-	indexing_profile_object_id: string;
-	text_embedding_profile_object_id: string;
-	content_source_profile_object_id: string;
-	text_partitioning_profile_object_id: string;
+	
+	vectorization: {
+		dedicated_pipeline: boolean;
+		indexing_profile_object_id: string;
+		text_embedding_profile_object_id: string;
+		text_partitioning_profile_object_id: string;
+		data_source_object_id: string;
+		vectorization_data_pipeline_object_id: string;
+	};
+
 	sessions_enabled: boolean;
 	orchestration_settings: {
 		orchestrator: string;
