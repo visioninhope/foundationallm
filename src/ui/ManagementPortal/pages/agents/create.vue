@@ -66,67 +66,90 @@
 			<!-- Knowledge source -->
 			<div class="step-section-header span-2">Knowledge Source</div>
 
-			<div class="step-header">Where is the data?</div>
+			<div class="step-header span-2">Do you want this agent to have a dedicated pipeline?</div>
+
+			<div class="span-2">
+				<div class="d-flex align-center mt-2">
+					<span>
+						<ToggleButton
+							v-model="dedicated_pipeline"
+							onLabel="Yes"
+							onIcon="pi pi-check-circle"
+							offLabel="No"
+							offIcon="pi pi-times-circle"
+						/>
+					</span>
+				</div>
+			</div>
+
+			<div v-if="dedicated_pipeline">
+				<div class="step-header">Where is the data?</div>
+			</div>
 			<div class="step-header">Where should the data be indexed?</div>
+			<div v-if="!dedicated_pipeline">
+				<div class="step-header">How should the data be processed for indexing?</div>
+			</div>
 
 			<!-- Data source -->
-			<CreateAgentStepItem v-model="editDataSource">
-				<template v-if="selectedDataSource">
-					<div class="step-container__header">{{ selectedDataSource.type }}</div>
-					<div>
-						<span class="step-option__header">Name:</span>
-						<span>{{ selectedDataSource.name }}</span>
-					</div>
-					<!-- <div>
-						<span class="step-option__header">Container name:</span>
-						<span>{{ selectedDataSource.Container.Name }}</span>
-					</div> -->
-
-					<!-- <div>
-						<span class="step-option__header">Data Format(s):</span>
-						<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
-							{{ format }}
-						</span>
-					</div> -->
-				</template>
-				<template v-else>Please select a data source.</template>
-
-				<template #edit>
-					<div class="step-container__edit__header">Please select a data source.</div>
-
-					<div v-for="(group, type) in groupedDataSources" :key="type">
-
-						<div class="step-container__edit__group-header">{{ type }}</div>
-
-						<div
-							v-for="dataSource in group"
-							:key="dataSource.name"
-							class="step-container__edit__option"
-							:class="{
-								'step-container__edit__option--selected':
-									dataSource.name === selectedDataSource?.name,
-							}"
-							@click.stop="handleDataSourceSelected(dataSource)"
-						>
-							<div>
-								<span class="step-option__header">Name:</span>
-								<span>{{ dataSource.name }}</span>
-							</div>
-							<!-- <div>
-								<span class="step-option__header">Container name:</span>
-								<span>{{ dataSource.Container.Name }}</span>
-							</div> -->
-
-							<!-- <div>
-								<span class="step-option__header">Data Format(s):</span>
-								<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
-									{{ format }}
-								</span>
-							</div> -->
+			<div v-if="dedicated_pipeline">
+				<CreateAgentStepItem v-model="editDataSource">
+					<template v-if="selectedDataSource">
+						<div class="step-container__header">{{ selectedDataSource.type }}</div>
+						<div>
+							<span class="step-option__header">Name:</span>
+							<span>{{ selectedDataSource.name }}</span>
 						</div>
-					</div>
-				</template>
-			</CreateAgentStepItem>
+						<!-- <div>
+							<span class="step-option__header">Container name:</span>
+							<span>{{ selectedDataSource.Container.Name }}</span>
+						</div> -->
+
+						<!-- <div>
+							<span class="step-option__header">Data Format(s):</span>
+							<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
+								{{ format }}
+							</span>
+						</div> -->
+					</template>
+					<template v-else>Please select a data source.</template>
+
+					<template #edit>
+						<div class="step-container__edit__header">Please select a data source.</div>
+
+						<div v-for="(group, type) in groupedDataSources" :key="type">
+
+							<div class="step-container__edit__group-header">{{ type }}</div>
+
+							<div
+								v-for="dataSource in group"
+								:key="dataSource.name"
+								class="step-container__edit__option"
+								:class="{
+									'step-container__edit__option--selected':
+										dataSource.name === selectedDataSource?.name,
+								}"
+								@click.stop="handleDataSourceSelected(dataSource)"
+							>
+								<div>
+									<span class="step-option__header">Name:</span>
+									<span>{{ dataSource.name }}</span>
+								</div>
+								<!-- <div>
+									<span class="step-option__header">Container name:</span>
+									<span>{{ dataSource.Container.Name }}</span>
+								</div> -->
+
+								<!-- <div>
+									<span class="step-option__header">Data Format(s):</span>
+									<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
+										{{ format }}
+									</span>
+								</div> -->
+							</div>
+						</div>
+					</template>
+				</CreateAgentStepItem>
+			</div>
 
 			<!-- Index source -->
 			<CreateAgentStepItem v-model="editIndexSource">
@@ -168,8 +191,12 @@
 				</template>
 			</CreateAgentStepItem>
 
-			<div class="step-header">How should the data be processed for indexing?</div>
-			<div class="step-header">When should the data be indexed?</div>
+			<div v-if="dedicated_pipeline">
+				<div class="step-header">How should the data be processed for indexing?</div>
+			</div>
+			<div v-if="dedicated_pipeline">
+				<div class="step-header">When should the data be indexed?</div>
+			</div>
 
 			<!-- Process indexing -->
 			<CreateAgentStepItem>
@@ -201,47 +228,49 @@
 			</CreateAgentStepItem>
 
 			<!-- Trigger -->
-			<CreateAgentStepItem>
-				<div class="step-container__header">Trigger</div>
-				<div>Runs every time a new tile is added to the data source.</div>
-
-				<div class="mt-2">
-					<span class="step-option__header">Frequency:</span>
-					<span>{{ triggerFrequency.label }}</span>
-				</div>
-
-				<div v-if="triggerFrequency.value == 2 && triggerFrequencyScheduled">
-					<span class="step-option__header">Schedule:</span>
-					<span>{{ triggerFrequencyScheduled.label }}</span>
-				</div>
-
-				<template #edit>
+			<div v-if="dedicated_pipeline">
+				<CreateAgentStepItem>
 					<div class="step-container__header">Trigger</div>
 					<div>Runs every time a new tile is added to the data source.</div>
 
 					<div class="mt-2">
 						<span class="step-option__header">Frequency:</span>
-						<Dropdown
-							v-model="triggerFrequency"
-							class="dropdown--agent"
-							:options="triggerFrequencyOptions"
-							option-label="label"
-							placeholder="--Select--"
-						/>
+						<span>{{ triggerFrequency.label }}</span>
 					</div>
 
-					<div v-if="triggerFrequency.value === 2" class="mt-2">
-						<span class="step-option__header">Select schedule:</span>
-						<Dropdown
-							v-model="triggerFrequencyScheduled"
-							class="dropdown--agent"
-							:options="triggerFrequencyScheduledOptions"
-							option-label="label"
-							placeholder="--Select--"
-						/>
+					<div v-if="triggerFrequency.value == 2 && triggerFrequencyScheduled">
+						<span class="step-option__header">Schedule:</span>
+						<span>{{ triggerFrequencyScheduled.label }}</span>
 					</div>
-				</template>
-			</CreateAgentStepItem>
+
+					<template #edit>
+						<div class="step-container__header">Trigger</div>
+						<div>Runs every time a new tile is added to the data source.</div>
+
+						<div class="mt-2">
+							<span class="step-option__header">Frequency:</span>
+							<Dropdown
+								v-model="triggerFrequency"
+								class="dropdown--agent"
+								:options="triggerFrequencyOptions"
+								option-label="label"
+								placeholder="--Select--"
+							/>
+						</div>
+
+						<div v-if="triggerFrequency.value === 2" class="mt-2">
+							<span class="step-option__header">Select schedule:</span>
+							<Dropdown
+								v-model="triggerFrequencyScheduled"
+								class="dropdown--agent"
+								:options="triggerFrequencyScheduledOptions"
+								option-label="label"
+								placeholder="--Select--"
+							/>
+						</div>
+					</template>
+				</CreateAgentStepItem>
+			</div>
 
 			<!-- Agent configuration -->
 			<div class="step-section-header span-2">Agent Configuration</div>
@@ -434,6 +463,7 @@ const defaultFormValues = {
 	object_id: '',
 	text_partitioning_profile_object_id: '',
 	text_embedding_profile_object_id: '',
+	vectorization_data_pipeline_object_id: '',
 	prompt_object_id: '',
 	dedicated_pipeline: true,
 	agentType: 'knowledge-management' as CreateAgentRequest['type'],
@@ -590,11 +620,13 @@ export default {
 		if (this.editAgent) {
 			this.loadingStatusText = `Retrieving agent "${this.editAgent}"...`;
 			const agent = await api.getAgent(this.editAgent);
-			this.loadingStatusText = `Retrieving text partitioning profile...`;
-			const textPartitioningProfile = await api.getTextPartitioningProfile(agent.text_partitioning_profile_object_id);
-			if (textPartitioningProfile) {
-				this.chunkSize = Number(textPartitioningProfile.settings.ChunkSizeTokens);
-				this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
+			if (agent.vectorization && agent.vectorization.text_partitioning_profile_object_id) {
+				this.loadingStatusText = `Retrieving text partitioning profile...`;
+				const textPartitioningProfile = await api.getTextPartitioningProfile(agent.vectorization.text_partitioning_profile_object_id);
+				if (textPartitioningProfile) {
+					this.chunkSize = Number(textPartitioningProfile.settings.ChunkSizeTokens);
+					this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
+				}
 			}
 			this.loadingStatusText = `Retrieving prompt...`;
 			const prompt = await api.getPrompt(agent.prompt_object_id);
@@ -617,15 +649,17 @@ export default {
 			this.agentType = agent.type || this.agentType;
 			this.object_id = agent.object_id || this.object_id;
 			this.orchestrator = agent.orchestration_settings?.orchestrator || this.orchestrator;
-			this.dedicated_pipeline = agent.vectorization.dedicated_pipeline || this.dedicated_pipeline;
-			this.text_embedding_profile_object_id = agent.vectorization.text_embedding_profile_object_id || this.text_embedding_profile_object_id;
+			if (agent.vectorization) {
+				this.dedicated_pipeline = agent.vectorization.dedicated_pipeline;
+			}
+			this.text_embedding_profile_object_id = agent.vectorization?.text_embedding_profile_object_id || this.text_embedding_profile_object_id;
 
 			this.selectedIndexSource =
-				this.indexSources.find((indexSource) => indexSource.object_id === agent.vectorization.indexing_profile_object_id) ||
+				this.indexSources.find((indexSource) => indexSource.object_id === agent.vectorization?.indexing_profile_object_id) ||
 				null;
 
 			this.selectedDataSource =
-				this.dataSources.find((dataSource) => dataSource.object_id === agent.vectorization.data_source_object_id) ||
+				this.dataSources.find((dataSource) => dataSource.object_id === agent.vectorization?.data_source_object_id) ||
 				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
@@ -785,7 +819,7 @@ export default {
 						indexing_profile_object_id: this.selectedIndexSource?.object_id ?? '',
 						text_partitioning_profile_object_id: textPartitioningProfileObjectId,
 						data_source_object_id: this.selectedDataSource?.object_id ?? '',
-						vectorization_data_pipeline_object_id: this.
+						vectorization_data_pipeline_object_id: this.vectorization_data_pipeline_object_id,
 					},
 
 					conversation_history: {

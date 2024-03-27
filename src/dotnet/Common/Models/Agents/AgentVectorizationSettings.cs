@@ -15,6 +15,7 @@ namespace FoundationaLLM.Common.Models.Agents
         /// <summary>
         /// Determines if the agent uses a dedicated pipeline.
         /// </summary>
+        [JsonPropertyName("dedicated_pipeline")]
         public bool DedicatedPipeline { get; set; }
         /// <summary>
         /// The data source resource path.
