@@ -92,7 +92,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 DataSourceResourceTypeNames.DataSources => await LoadDataSources(resourcePath.ResourceTypeInstances[0]),

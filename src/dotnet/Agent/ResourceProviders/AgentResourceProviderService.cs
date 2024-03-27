@@ -91,7 +91,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 AgentResourceTypeNames.Agents => await LoadAgents(resourcePath.ResourceTypeInstances[0]),

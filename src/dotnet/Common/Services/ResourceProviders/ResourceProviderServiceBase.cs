@@ -183,7 +183,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "read");
 
-            return await GetResourcesAsyncInternal(parsedResourcePath);
+            return await GetResourcesAsync(parsedResourcePath);
         }
 
         /// <inheritdoc/>
@@ -229,7 +229,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
         /// <returns></returns>
-        protected virtual async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath)
+        protected virtual async Task<object> GetResourcesAsync(ResourcePath resourcePath)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();

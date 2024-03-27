@@ -15,7 +15,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Graph.Applications.Delta;
+using OpenTelemetry.Resources;
 using System.Collections.Concurrent;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Text.Json;
 
@@ -56,6 +59,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         private ConcurrentDictionary<string, VectorizationProfileBase> _textPartitioningProfiles = [];
         private ConcurrentDictionary<string, VectorizationProfileBase> _textEmbeddingProfiles = [];
         private ConcurrentDictionary<string, VectorizationProfileBase> _indexingProfiles = [];
+        private ConcurrentDictionary<string, VectorizationPipeline> _pipelines = [];
 
         private string _defaultContentSourceProfileName = string.Empty;
         private string _defaultTextPartitioningProfileName = string.Empty;
@@ -66,58 +70,81 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         private const string TEXT_PARTITIONING_PROFILES_FILE_NAME = "vectorization-text-partitioning-profiles.json";
         private const string TEXT_EMBEDDING_PROFILES_FILE_NAME = "vectorization-text-embedding-profiles.json";
         private const string INDEXING_PROFILES_FILE_NAME = "vectorization-indexing-profiles.json";
+        private const string PIPELINES_FILE_NAME = "vectorization-pipelines.json";
 
         private const string CONTENT_SOURCE_PROFILES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Vectorization}/{CONTENT_SOURCE_PROFILES_FILE_NAME}";
         private const string TEXT_PARTITIONING_PROFILES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Vectorization}/{TEXT_PARTITIONING_PROFILES_FILE_NAME}";
         private const string TEXT_EMBEDDING_PROFILES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Vectorization}/{TEXT_EMBEDDING_PROFILES_FILE_NAME}";
         private const string INDEXING_PROFILES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Vectorization}/{INDEXING_PROFILES_FILE_NAME}";
+        private const string PIPELINES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Vectorization}/{PIPELINES_FILE_NAME}";
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Vectorization;
+
+        #region Initialization
 
         /// <inheritdoc/>
         protected override async Task InitializeInternal()
         {
             _logger.LogInformation("Starting to initialize the {ResourceProvider} resource provider...", _name);
 
-            _defaultContentSourceProfileName = await LoadProfileStore<ContentSourceProfile>(CONTENT_SOURCE_PROFILES_FILE_PATH, _contentSourceProfiles);
-            _defaultTextPartitioningProfileName = await LoadProfileStore<TextPartitioningProfile>(TEXT_PARTITIONING_PROFILES_FILE_PATH, _textPartitioningProfiles);
-            _defaultTextEmbeddingProfileName = await LoadProfileStore<TextEmbeddingProfile>(TEXT_EMBEDDING_PROFILES_FILE_PATH, _textEmbeddingProfiles);
-            _defaultIndexingProfileName = await LoadProfileStore<IndexingProfile>(INDEXING_PROFILES_FILE_PATH, _indexingProfiles);
+            _defaultContentSourceProfileName =
+                await LoadResourceStore<ContentSourceProfile, VectorizationProfileBase>(CONTENT_SOURCE_PROFILES_FILE_PATH, _contentSourceProfiles);
+            _defaultTextPartitioningProfileName =
+                await LoadResourceStore<TextPartitioningProfile, VectorizationProfileBase>(TEXT_PARTITIONING_PROFILES_FILE_PATH, _textPartitioningProfiles);
+            _defaultTextEmbeddingProfileName =
+                await LoadResourceStore<TextEmbeddingProfile, VectorizationProfileBase>(TEXT_EMBEDDING_PROFILES_FILE_PATH, _textEmbeddingProfiles);
+            _defaultIndexingProfileName =
+                await LoadResourceStore<IndexingProfile, VectorizationProfileBase>(INDEXING_PROFILES_FILE_PATH, _indexingProfiles);
+            _ = await LoadResourceStore<VectorizationPipeline, VectorizationPipeline>(PIPELINES_FILE_PATH, _pipelines);
 
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
 
-        private async Task<string> LoadProfileStore<T>(string profileStoreFilePath, ConcurrentDictionary<string,
-            VectorizationProfileBase> profiles) where T: VectorizationProfileBase
+        #region Helpers for initialization
+
+        private async Task<string> LoadResourceStore<T, TBase>(string resourceStoreFilePath, ConcurrentDictionary<string,
+            TBase> resources)
+            where T: TBase
+            where TBase: ResourceBase
         {
-            var defaultProfileName = string.Empty;
-            if (await _storageService.FileExistsAsync(_storageContainerName, profileStoreFilePath, default))
+            var defaultResourceName = string.Empty;
+            if (await _storageService.FileExistsAsync(_storageContainerName, resourceStoreFilePath, default))
             {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, profileStoreFilePath, default);
-                var profileStore = JsonSerializer.Deserialize<ProfileStore<T>>(
+                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, resourceStoreFilePath, default);
+                var resourceStore = JsonSerializer.Deserialize<ResourceStore<T>>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
-                if (profileStore != null)
+                if (resourceStore != null)
                 {
-                    foreach (var profile in profileStore.Profiles)
-                        profiles.AddOrUpdate(profile.Name, profile, (k, v) => v);
-                    defaultProfileName = profileStore.DefaultProfileName ?? string.Empty;
+                    foreach (var resource in resourceStore.Resources)
+                        resources.AddOrUpdate(resource.Name, resource, (k, v) => v);
+                    defaultResourceName = resourceStore.DefaultResourceName ?? string.Empty;
                 }
             }
-            return defaultProfileName;
+            return defaultResourceName;
         }
+
+        #endregion
+
+        #endregion
 
         #region Support for Management API
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                VectorizationResourceTypeNames.ContentSourceProfiles => LoadProfiles<ContentSourceProfile>(resourcePath.ResourceTypeInstances[0], _contentSourceProfiles),
-                VectorizationResourceTypeNames.TextPartitioningProfiles => LoadProfiles<TextPartitioningProfile>(resourcePath.ResourceTypeInstances[0], _textPartitioningProfiles),
-                VectorizationResourceTypeNames.TextEmbeddingProfiles => LoadProfiles<TextEmbeddingProfile>(resourcePath.ResourceTypeInstances[0], _textEmbeddingProfiles),
-                VectorizationResourceTypeNames.IndexingProfiles => LoadProfiles<IndexingProfile>(resourcePath.ResourceTypeInstances[0], _indexingProfiles),
+                VectorizationResourceTypeNames.ContentSourceProfiles =>
+                    LoadResources<ContentSourceProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _contentSourceProfiles),
+                VectorizationResourceTypeNames.TextPartitioningProfiles =>
+                    LoadResources<TextPartitioningProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _textPartitioningProfiles),
+                VectorizationResourceTypeNames.TextEmbeddingProfiles =>
+                    LoadResources<TextEmbeddingProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _textEmbeddingProfiles),
+                VectorizationResourceTypeNames.IndexingProfiles =>
+                    LoadResources<IndexingProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _indexingProfiles),
+                VectorizationResourceTypeNames.VectorizationPipelines =>
+                    LoadResources<VectorizationPipeline, VectorizationPipeline>(resourcePath.ResourceTypeInstances[0], _pipelines),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
@@ -125,23 +152,25 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private List<VectorizationProfileBase> LoadProfiles<T>(ResourceTypeInstance instance, ConcurrentDictionary<string, VectorizationProfileBase> profileStore) where T : VectorizationProfileBase
+        private List<TBase> LoadResources<T, TBase>(ResourceTypeInstance instance, ConcurrentDictionary<string, TBase> resourceStore)
+            where T : TBase
+            where TBase: ResourceBase
         {
             if (instance.ResourceId == null)
             {
                 return
-                    [.. profileStore.Values
+                    [.. resourceStore.Values
                             .Where(p => !p.Deleted)
                     ];
             }
             else
             {
-                if (!profileStore.TryGetValue(instance.ResourceId, out var profile)
-                    || profile.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} vectorization profile resource.",
+                if (!resourceStore.TryGetValue(instance.ResourceId, out var resource)
+                    || resource.Deleted)
+                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} vectorization resource.",
                         StatusCodes.Status404NotFound);
 
-                return [profile];
+                return [resource];
             }
         }
 
@@ -151,34 +180,41 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                VectorizationResourceTypeNames.ContentSourceProfiles => await UpdateProfile<ContentSourceProfile>(resourcePath, serializedResource, _contentSourceProfiles, CONTENT_SOURCE_PROFILES_FILE_PATH),
-                VectorizationResourceTypeNames.TextPartitioningProfiles => await UpdateProfile<TextPartitioningProfile>(resourcePath, serializedResource, _textPartitioningProfiles, TEXT_PARTITIONING_PROFILES_FILE_PATH),
-                VectorizationResourceTypeNames.TextEmbeddingProfiles => await UpdateProfile<TextEmbeddingProfile>(resourcePath, serializedResource, _textEmbeddingProfiles, TEXT_EMBEDDING_PROFILES_FILE_PATH),
-                VectorizationResourceTypeNames.IndexingProfiles => await UpdateProfile<IndexingProfile>(resourcePath, serializedResource, _indexingProfiles, INDEXING_PROFILES_FILE_PATH),
+                VectorizationResourceTypeNames.ContentSourceProfiles =>
+                    await UpdateResource<ContentSourceProfile, VectorizationProfileBase>(resourcePath, serializedResource, _contentSourceProfiles, CONTENT_SOURCE_PROFILES_FILE_PATH),
+                VectorizationResourceTypeNames.TextPartitioningProfiles =>
+                    await UpdateResource<TextPartitioningProfile, VectorizationProfileBase>(resourcePath, serializedResource, _textPartitioningProfiles, TEXT_PARTITIONING_PROFILES_FILE_PATH),
+                VectorizationResourceTypeNames.TextEmbeddingProfiles =>
+                    await UpdateResource<TextEmbeddingProfile, VectorizationProfileBase>(resourcePath, serializedResource, _textEmbeddingProfiles, TEXT_EMBEDDING_PROFILES_FILE_PATH),
+                VectorizationResourceTypeNames.IndexingProfiles =>
+                    await UpdateResource<IndexingProfile, VectorizationProfileBase>(resourcePath, serializedResource, _indexingProfiles, INDEXING_PROFILES_FILE_PATH),
+                VectorizationResourceTypeNames.VectorizationPipelines =>
+                    await UpdateResource<VectorizationPipeline, VectorizationPipeline>(resourcePath, serializedResource, _pipelines, PIPELINES_FILE_PATH),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateProfile<T>(ResourcePath resourcePath, string serializedProfile, ConcurrentDictionary<string, VectorizationProfileBase> profileStore, string storagePath)
-            where T : VectorizationProfileBase
+        private async Task<ResourceProviderUpsertResult> UpdateResource<T, TBase>(ResourcePath resourcePath, string serializedResource, ConcurrentDictionary<string, TBase> resourceStore, string storagePath)
+            where T : TBase
+            where TBase: ResourceBase
         {
-            var profile = JsonSerializer.Deserialize<T>(serializedProfile)
+            var resource = JsonSerializer.Deserialize<T>(serializedResource)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
 
-            if (profileStore.TryGetValue(profile.Name, out var existingProfile)
-                && existingProfile!.Deleted)
-                throw new ResourceProviderException($"The agent resource {existingProfile.Name} cannot be added or updated.",
+            if (resourceStore.TryGetValue(resource.Name, out var existingResource)
+                && existingResource!.Deleted)
+                throw new ResourceProviderException($"The resource {existingResource.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            profile.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+            resource.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
             var validator = _resourceValidatorFactory.GetValidator<T>();
             if (validator != null)
             {
-                var validationResult = await validator.ValidateAsync(profile);
+                var validationResult = await validator.ValidateAsync(resource);
                 if (!validationResult.IsValid)
                 {
                     throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}",
@@ -186,22 +222,22 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 }
             }
 
-            if (resourcePath.ResourceTypeInstances[0].ResourceId != profile.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != resource.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
-            profileStore.AddOrUpdate(profile.Name, profile, (k,v) => profile);
+            resourceStore.AddOrUpdate(resource.Name, resource, (k,v) => resource);
 
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     storagePath,
-                    JsonSerializer.Serialize(ProfileStore<VectorizationProfileBase>.FromDictionary(profileStore.ToDictionary())),
+                    JsonSerializer.Serialize(ResourceStore<TBase>.FromDictionary(resourceStore.ToDictionary())),
                     default,
                     default);
 
             return new ResourceProviderUpsertResult
             {
-                ObjectId = profile.ObjectId
+                ObjectId = resource.ObjectId
             };
         }
 
@@ -225,12 +261,46 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
+                VectorizationResourceTypeNames.VectorizationPipelines => resourcePath.ResourceTypeInstances.Last().Action switch
+                {
+                    VectorizationResourceProviderActions.Activate => await SetPipelineActivation(resourcePath.ResourceTypeInstances.Last().ResourceId!, true),
+                    VectorizationResourceProviderActions.Deactivate => await SetPipelineActivation(resourcePath.ResourceTypeInstances.Last().ResourceId!, false),
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
+                        StatusCodes.Status400BadRequest)
+                },
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} does not support actions in the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
         #region Helpers for ExecuteActionAsync
+
+        private async Task<VectorizationResult> SetPipelineActivation(string pipelineName, bool active)
+        {
+            if (!_pipelines.TryGetValue(pipelineName, out var existingPipeline))
+                throw new ResourceProviderException($"The resource {pipelineName} was not found.",
+                    StatusCodes.Status404NotFound);
+
+            if (existingPipeline.Deleted)
+                throw new ResourceProviderException($"The resource {existingPipeline.Name} cannot be added or updated.",
+                        StatusCodes.Status400BadRequest);
+
+            existingPipeline.Active = active;
+
+            // TODO: add the logic to activate the pipeline.
+
+            await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    PIPELINES_FILE_PATH,
+                    JsonSerializer.Serialize(ResourceStore<VectorizationPipeline>.FromDictionary(_pipelines.ToDictionary())),
+                    default,
+                    default);
+
+            return new VectorizationResult(
+                existingPipeline.ObjectId!,
+                true,
+                null);
+        }
 
         private ResourceNameCheckResult CheckProfileName<T>(string serializedAction, ConcurrentDictionary<string, VectorizationProfileBase> profileStore)
             where T : VectorizationProfileBase
@@ -304,16 +374,19 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
             {
                 case VectorizationResourceTypeNames.ContentSourceProfiles:
-                    await DeleteProfile<ContentSourceProfile>(resourcePath, _contentSourceProfiles, CONTENT_SOURCE_PROFILES_FILE_PATH);
+                    await DeleteResource<ContentSourceProfile, VectorizationProfileBase>(resourcePath, _contentSourceProfiles, CONTENT_SOURCE_PROFILES_FILE_PATH);
                     break;
                 case VectorizationResourceTypeNames.TextPartitioningProfiles:
-                    await DeleteProfile<TextPartitioningProfile>(resourcePath, _textPartitioningProfiles, TEXT_PARTITIONING_PROFILES_FILE_PATH);
+                    await DeleteResource<TextPartitioningProfile, VectorizationProfileBase>(resourcePath, _textPartitioningProfiles, TEXT_PARTITIONING_PROFILES_FILE_PATH);
                     break;
                 case VectorizationResourceTypeNames.TextEmbeddingProfiles:
-                    await DeleteProfile<TextEmbeddingProfile>(resourcePath, _textEmbeddingProfiles, TEXT_EMBEDDING_PROFILES_FILE_PATH);
+                    await DeleteResource<TextEmbeddingProfile, VectorizationProfileBase>(resourcePath, _textEmbeddingProfiles, TEXT_EMBEDDING_PROFILES_FILE_PATH);
                     break;
                 case VectorizationResourceTypeNames.IndexingProfiles:
-                    await DeleteProfile<IndexingProfile>(resourcePath, _indexingProfiles, INDEXING_PROFILES_FILE_PATH);
+                    await DeleteResource<IndexingProfile, VectorizationProfileBase>(resourcePath, _indexingProfiles, INDEXING_PROFILES_FILE_PATH);
+                    break;
+                case VectorizationResourceTypeNames.VectorizationPipelines:
+                    await DeleteResource<VectorizationPipeline, VectorizationPipeline>(resourcePath, _pipelines, PIPELINES_FILE_PATH);
                     break;
                 default:
                     throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
@@ -323,23 +396,24 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for DeleteResourceAsync
 
-        private async Task DeleteProfile<T>(ResourcePath resourcePath, ConcurrentDictionary<string, VectorizationProfileBase> profileStore, string storagePath)
-            where T : VectorizationProfileBase
+        private async Task DeleteResource<T, TBase>(ResourcePath resourcePath, ConcurrentDictionary<string, TBase> resourceStore, string storagePath)
+            where T : TBase
+            where TBase : ResourceBase
         {
-            if (profileStore.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var profile)
-                || profile!.Deleted)
+            if (resourceStore.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var resource)
+                || resource!.Deleted)
             {
-                profile.Deleted = true;
+                resource.Deleted = true;
 
                 await _storageService.WriteFileAsync(
                         _storageContainerName,
                         storagePath,
-                        JsonSerializer.Serialize(ProfileStore<VectorizationProfileBase>.FromDictionary(profileStore.ToDictionary())),
+                        JsonSerializer.Serialize(ResourceStore<TBase>.FromDictionary(resourceStore.ToDictionary())),
                         default,
                         default);
             }
             else
-                throw new ResourceProviderException($"Could not locate the {resourcePath.ResourceTypeInstances[0].ResourceId} vectorization profile resource.",
+                throw new ResourceProviderException($"Could not locate the {resourcePath.ResourceTypeInstances[0].ResourceId} vectorization resource.",
                             StatusCodes.Status404NotFound);
         }
 
@@ -476,16 +550,16 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             switch (fileName)
             {
                 case CONTENT_SOURCE_PROFILES_FILE_NAME:
-                    _defaultContentSourceProfileName = await LoadProfileStore<ContentSourceProfile>(CONTENT_SOURCE_PROFILES_FILE_PATH, _contentSourceProfiles);
+                    _defaultContentSourceProfileName = await LoadResourceStore<ContentSourceProfile, VectorizationProfileBase>(CONTENT_SOURCE_PROFILES_FILE_PATH, _contentSourceProfiles);
                     break;
                 case TEXT_PARTITIONING_PROFILES_FILE_NAME:
-                    _defaultTextPartitioningProfileName = await LoadProfileStore<TextPartitioningProfile>(TEXT_PARTITIONING_PROFILES_FILE_PATH, _textPartitioningProfiles);
+                    _defaultTextPartitioningProfileName = await LoadResourceStore<TextPartitioningProfile, VectorizationProfileBase>(TEXT_PARTITIONING_PROFILES_FILE_PATH, _textPartitioningProfiles);
                     break;
                 case TEXT_EMBEDDING_PROFILES_FILE_NAME:
-                    _defaultTextEmbeddingProfileName = await LoadProfileStore<TextEmbeddingProfile>(TEXT_EMBEDDING_PROFILES_FILE_PATH, _textEmbeddingProfiles);
+                    _defaultTextEmbeddingProfileName = await LoadResourceStore<TextEmbeddingProfile, VectorizationProfileBase>(TEXT_EMBEDDING_PROFILES_FILE_PATH, _textEmbeddingProfiles);
                     break;
                 case INDEXING_PROFILES_FILE_NAME:
-                    _defaultIndexingProfileName = await LoadProfileStore<IndexingProfile>(INDEXING_PROFILES_FILE_PATH, _indexingProfiles);
+                    _defaultIndexingProfileName = await LoadResourceStore<IndexingProfile, VectorizationProfileBase>(INDEXING_PROFILES_FILE_PATH, _indexingProfiles);
                     break;
                 default:
                     _logger.LogWarning("The file {FileName} is not managed by the FoundationaLLM.Vectorization resource provider.", fileName);

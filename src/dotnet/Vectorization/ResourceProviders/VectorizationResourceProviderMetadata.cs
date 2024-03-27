@@ -17,13 +17,33 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         public static Dictionary<string, ResourceTypeDescriptor> AllowedResourceTypes => new()
         {
             {
+                VectorizationResourceTypeNames.VectorizationPipelines,
+                new ResourceTypeDescriptor(
+                    VectorizationResourceTypeNames.VectorizationPipelines)
+                {
+                    AllowedTypes = [
+                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(VectorizationPipeline)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(VectorizationPipeline)], [typeof(ResourceProviderUpsertResult)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
+                    ],
+                    Actions = [
+                        new ResourceTypeAction(VectorizationResourceProviderActions.Activate, true, false, [
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(VectorizationResult)])
+                        ]),
+                        new ResourceTypeAction(VectorizationResourceProviderActions.Deactivate, true, false, [
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(VectorizationResult)])
+                        ])
+                    ]
+                }
+            },
+            {
                 VectorizationResourceTypeNames.VectorizationRequests,
                 new ResourceTypeDescriptor(
                         VectorizationResourceTypeNames.VectorizationRequests)
                 {
                     AllowedTypes = [
                         new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(VectorizationRequest)]),
-                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(VectorizationRequest)], [typeof(VectorizationProcessingResult)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(VectorizationRequest)], [typeof(VectorizationResult)]),
                         new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ]
                 }

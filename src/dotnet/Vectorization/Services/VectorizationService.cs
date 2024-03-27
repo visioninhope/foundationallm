@@ -43,7 +43,7 @@ namespace FoundationaLLM.Vectorization.Services
         private readonly ILogger<VectorizationService> _logger = loggerFactory.CreateLogger<VectorizationService>();
 
         /// <inheritdoc/>
-        public async Task<VectorizationProcessingResult> ProcessRequest(VectorizationRequest vectorizationRequest)
+        public async Task<VectorizationResult> ProcessRequest(VectorizationRequest vectorizationRequest)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace FoundationaLLM.Vectorization.Services
                     case VectorizationProcessingType.Asynchronous:
                         var firstRequestSource = _requestSources[vectorizationRequest.Steps.First().Id];
                         await firstRequestSource.SubmitRequest(vectorizationRequest);
-                        return new VectorizationProcessingResult(vectorizationRequest.ObjectId!, true, null);
+                        return new VectorizationResult(vectorizationRequest.ObjectId!, true, null);
                     case VectorizationProcessingType.Synchronous:
                         return await ProcessRequestInternal(vectorizationRequest);
                     default:
@@ -73,7 +73,7 @@ namespace FoundationaLLM.Vectorization.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return new VectorizationProcessingResult(vectorizationRequest.ObjectId!, false, ex.Message);
+                return new VectorizationResult(vectorizationRequest.ObjectId!, false, ex.Message);
             }
         }
 
@@ -133,7 +133,7 @@ namespace FoundationaLLM.Vectorization.Services
             } 
         }
 
-        private async Task<VectorizationProcessingResult> ProcessRequestInternal(VectorizationRequest request)
+        private async Task<VectorizationResult> ProcessRequestInternal(VectorizationRequest request)
         {
             _logger.LogInformation("Starting synchronous processing for request {RequestId}.", request.Id);
 
@@ -170,14 +170,14 @@ namespace FoundationaLLM.Vectorization.Services
             if (request.Complete)
             {
                 _logger.LogInformation("Finished synchronous processing for request {RequestId}. All steps were processed successfully.", request.Id);
-                return new VectorizationProcessingResult(request.ObjectId!, true, null);
+                return new VectorizationResult(request.ObjectId!, true, null);
             }
             else
             {
                 var errorMessage =
                     $"Execution stopped at step [{request.CurrentStep}] due to an error.";
                 _logger.LogInformation("Finished synchronous processing for request {RequestId}. {ErrorMessage}", request.Id, errorMessage);
-                return new VectorizationProcessingResult(request.ObjectId!, false, errorMessage);
+                return new VectorizationResult(request.ObjectId!, false, errorMessage);
             }
         }
     }
