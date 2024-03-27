@@ -118,6 +118,21 @@
     "category": "Vectorization",
     "actions": [
       {
+        "name": "FoundationaLLM.Vectorization/vectorizationPipelines/read",
+        "description": "Read vectorization pipelines.",
+        "field_name": "FoundationaLLM_Vectorization_VectorizationPipelines_Read"
+      },
+      {
+        "name": "FoundationaLLM.Vectorization/vectorizationPipelines/write",
+        "description": "Create or update vectorization pipelines.",
+        "field_name": "FoundationaLLM_Vectorization_VectorizationPipelines_Write"
+      },
+      {
+        "name": "FoundationaLLM.Vectorization/vectorizationPipelines/delete",
+        "description": "Delete vectorization pipelines.",
+        "field_name": "FoundationaLLM_Vectorization_VectorizationPipelines_Delete"
+      },
+      {
         "name": "FoundationaLLM.Vectorization/vectorizationRequests/read",
         "description": "Read vectorization requests.",
         "field_name": "FoundationaLLM_Vectorization_VectorizationRequests_Read"

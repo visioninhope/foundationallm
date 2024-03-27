@@ -6,6 +6,11 @@
     public static class VectorizationResourceTypeNames
     {
         /// <summary>
+        /// Vectorization pipelines.
+        /// </summary>
+        public const string VectorizationPipelines = "vectorizationPipelines";
+
+        /// <summary>
         /// Vectorization requests.
         /// </summary>
         public const string VectorizationRequests = "vectorizationRequests";

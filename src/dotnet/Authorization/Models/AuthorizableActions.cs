@@ -139,6 +139,27 @@ namespace FoundationaLLM.Authorization.Models
                         "Prompt")
                 },
                 {
+                    AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Read,
+                        "Read vectorization pipelines.",
+                        "Vectorization")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Write,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Write,
+                        "Create or update vectorization pipelines.",
+                        "Vectorization")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Delete,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationPipelines_Delete,
+                        "Delete vectorization pipelines.",
+                        "Vectorization")
+                },
+                {
                     AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationRequests_Read,
                     new AuthorizableAction(
                         AuthorizableActionNames.FoundationaLLM_Vectorization_VectorizationRequests_Read,
