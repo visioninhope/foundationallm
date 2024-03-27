@@ -28,6 +28,9 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                     Actions = [
                             new ResourceTypeAction(DataSourceResourceProviderActions.CheckName, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
+                            ]),
+                            new ResourceTypeAction(DataSourceResourceProviderActions.Filter, false, true, [
+                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(DataSourceBase)])
                             ])
                         ]
                 }

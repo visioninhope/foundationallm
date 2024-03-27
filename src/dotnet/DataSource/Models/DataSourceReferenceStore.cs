@@ -9,6 +9,10 @@
         /// The list of all data sources registered in the system.
         /// </summary>
         public required List<DataSourceReference> DataSourceReferences { get; set; }
+        /// <summary>
+        /// The name of the default data source.
+        /// </summary>
+        public string? DefaultDataSourceName { get; set; }
 
         /// <summary>
         /// Creates a string-based dictionary of <see cref="DataSourceReference"/> values from the current object.

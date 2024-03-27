@@ -9,5 +9,6 @@
         /// Check the validity of a resource name.
         /// </summary>
         public const string CheckName = "checkname";
+        public const string Filter = "filter";
     }
 }
