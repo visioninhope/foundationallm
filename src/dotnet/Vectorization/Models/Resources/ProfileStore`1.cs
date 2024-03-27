@@ -11,6 +11,11 @@
         public required List<T> Profiles { get; set; }
 
         /// <summary>
+        /// The name of the default profile.
+        /// </summary>
+        public string? DefaultProfileName { get; set; }
+
+        /// <summary>
         /// Creates a new profile store from a dictionary.
         /// </summary>
         /// <param name="dictionary">The dictionary containing the profiles.</param>
