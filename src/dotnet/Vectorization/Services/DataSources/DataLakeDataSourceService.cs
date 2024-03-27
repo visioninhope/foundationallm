@@ -4,26 +4,26 @@ using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Vectorization.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace FoundationaLLM.Vectorization.Services.ContentSources
+namespace FoundationaLLM.Vectorization.Services.DataSources
 {
     /// <summary>
-    /// Implements a vectorization content source for content residing in blob storage.
+    /// Implements a vectorization data source for content residing in blob storage.
     /// </summary>
-    public class DataLakeContentSourceService : ContentSourceServiceBase, IContentSourceService
+    public class DataLakeDataSourceService : DataSourceServiceBase, IDataSourceService
     {
         private readonly BlobStorageServiceSettings _storageSettings;
-        private readonly ILogger<DataLakeContentSourceService> _logger;
+        private readonly ILogger<DataLakeDataSourceService> _logger;
         private readonly DataLakeStorageService _dataLakeStorageService;
 
         /// <summary>
-        /// Creates a new instance of the vectorization content source.
+        /// Creates a new instance of the vectorization data source service.
         /// </summary>
-        public DataLakeContentSourceService(
+        public DataLakeDataSourceService(
             BlobStorageServiceSettings storageSettings,
             ILoggerFactory loggerFactory)
         {
             _storageSettings = storageSettings;
-            _logger = loggerFactory.CreateLogger<DataLakeContentSourceService>();
+            _logger = loggerFactory.CreateLogger<DataLakeDataSourceService>();
             _dataLakeStorageService = new DataLakeStorageService(
                 _storageSettings,
                 loggerFactory.CreateLogger<DataLakeStorageService>());

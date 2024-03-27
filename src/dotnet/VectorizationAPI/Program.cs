@@ -13,7 +13,7 @@ using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services;
-using FoundationaLLM.Vectorization.Services.ContentSources;
+using FoundationaLLM.Vectorization.Services.DataSources;
 using FoundationaLLM.Vectorization.Services.RequestSources;
 using FoundationaLLM.Vectorization.Services.Text;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
@@ -99,7 +99,7 @@ builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactor
 builder.AddVectorizationResourceProvider();
 
 // Service factories
-builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
+builder.Services.AddSingleton<IVectorizationServiceFactory<IDataSourceService>, DataSourceServiceFactory>();
 builder.Services.AddSingleton<IVectorizationServiceFactory<ITextSplitterService>, TextSplitterServiceFactory>();
 builder.Services.AddSingleton<IVectorizationServiceFactory<ITextEmbeddingService>, TextEmbeddingServiceFactory>();
 builder.Services.AddSingleton<IVectorizationServiceFactory<IIndexingService>, IndexingServiceFactory>();

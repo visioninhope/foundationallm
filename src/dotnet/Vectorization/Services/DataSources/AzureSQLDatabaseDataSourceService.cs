@@ -5,25 +5,25 @@ using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 
-namespace FoundationaLLM.Vectorization.Services.ContentSources
+namespace FoundationaLLM.Vectorization.Services.DataSources
 {
     /// <summary>
     /// Implements a vectorization content source for content residing in Azure SQL.
     /// </summary>
-    public class AzureSQLDatabaseContentSourceService : ContentSourceServiceBase, IContentSourceService
+    public class AzureSQLDatabaseDataSourceService : DataSourceServiceBase, IDataSourceService
     {
-        private readonly ILogger<AzureSQLDatabaseContentSourceService> _logger;
+        private readonly ILogger<AzureSQLDatabaseDataSourceService> _logger;
         private readonly AzureSQLDatabaseContentSourceServiceSettings _settings;
 
         /// <summary>
-        /// Creates a new instance of the vectorization content source.
+        /// Creates a new instance of the vectorization data source service.
         /// </summary>
-        public AzureSQLDatabaseContentSourceService(
+        public AzureSQLDatabaseDataSourceService(
             AzureSQLDatabaseContentSourceServiceSettings settings,
             ILoggerFactory loggerFactory)
         {
             _settings = settings;
-            _logger = loggerFactory.CreateLogger<AzureSQLDatabaseContentSourceService>();
+            _logger = loggerFactory.CreateLogger<AzureSQLDatabaseDataSourceService>();
         }
 
         /// <inheritdoc/>

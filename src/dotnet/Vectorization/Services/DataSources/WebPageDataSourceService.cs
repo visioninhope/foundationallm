@@ -4,21 +4,21 @@ using Microsoft.Extensions.Logging;
 using HtmlAgilityPack;
 using FoundationaLLM.Vectorization.Exceptions;
 
-namespace FoundationaLLM.Vectorization.Services.ContentSources
+namespace FoundationaLLM.Vectorization.Services.DataSources
 {
     /// <summary>
     /// Extracts text from a web page.
     /// </summary>
-    public class WebPageContentSourceService : IContentSourceService
+    public class WebPageDataSourceService : IDataSourceService
     {
-        private readonly ILogger<WebPageContentSourceService> _logger;
+        private readonly ILogger<WebPageDataSourceService> _logger;
 
         /// <summary>
-        /// Creates a new instance of the vectorization content source that scrapes web pages.
+        /// Creates a new instance of the vectorization data source service that scrapes web pages.
         /// </summary>
         /// <param name="loggerFactory">Logger factory that generates loggers for the class.</param>
-        public WebPageContentSourceService(ILoggerFactory loggerFactory) =>
-            _logger = loggerFactory.CreateLogger<WebPageContentSourceService>();
+        public WebPageDataSourceService(ILoggerFactory loggerFactory) =>
+            _logger = loggerFactory.CreateLogger<WebPageDataSourceService>();
 
         /// <inheritdoc/>
         /// <remarks>

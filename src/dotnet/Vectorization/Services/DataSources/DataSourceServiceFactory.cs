@@ -8,99 +8,98 @@ using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace FoundationaLLM.Vectorization.Services.ContentSources
+namespace FoundationaLLM.Vectorization.Services.DataSources
 {
     /// <summary>
-    /// Manages content sources registered for use in the vectorization pipelines.
+    /// Manages data sources registered for use in the vectorization pipelines.
     /// </summary>
     /// <remarks>
-    /// Creates a new instance of the content source manager service.
+    /// Creates a new instance of the data source manager service.
     /// </remarks>
-    /// <param name="vectorizationResourceProviderService">The vectorization resource provider service.</param>
+    /// <param name="dataSourceResourceProviderService">The vectorization resource provider service.</param>
     /// <param name="configuration">The global configuration provider.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
-    public class ContentSourceServiceFactory(
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IResourceProviderService vectorizationResourceProviderService,
+    public class DataSourceServiceFactory(
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource)] IResourceProviderService dataSourceResourceProviderService,
         IConfiguration configuration,
-        ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IContentSourceService>
+        ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IDataSourceService>
     {
-        private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
+        private readonly IResourceProviderService _dataSourceResourceProviderService = dataSourceResourceProviderService;
         private readonly IConfiguration _configuration = configuration;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
-        public IContentSourceService GetService(string serviceName)
+        public IDataSourceService GetService(string serviceName)
         {
-            var contentSourceProfile = _vectorizationResourceProviderService.GetResource<ContentSourceProfile>(
+            var contentSourceProfile = _dataSourceResourceProviderService.GetResource<ContentSourceProfile>(
                 $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{serviceName}");
 
             return contentSourceProfile.ContentSource switch
             {
-                ContentSourceType.AzureDataLake => CreateAzureDataLakeContentSourceService(serviceName),
-                ContentSourceType.SharePointOnline => CreateSharePointOnlineContentSourceService(serviceName),
-                ContentSourceType.AzureSQLDatabase => CreateAzureSQLDatabaseContentSourceService(serviceName),
-                ContentSourceType.Web => CreateWebPageContentSourceService(serviceName),
+                ContentSourceType.AzureDataLake => CreateAzureDataLakeDataSourceService(serviceName),
+                ContentSourceType.SharePointOnline => CreateSharePointOnlineDataSourceService(serviceName),
+                ContentSourceType.AzureSQLDatabase => CreateAzureSQLDatabaseDataSourceService(serviceName),
+                ContentSourceType.Web => CreateWebPageDataSourceService(serviceName),
                 _ => throw new VectorizationException($"The content source type {contentSourceProfile.ContentSource} is not supported."),
             };
         }
 
         /// <inheritdoc/>
-        public (IContentSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (IDataSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
         {
-            var contentSourceProfile = _vectorizationResourceProviderService.GetResource<ContentSourceProfile>(
+            var contentSourceProfile = _dataSourceResourceProviderService.GetResource<ContentSourceProfile>(
                 $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{serviceName}");
 
             return contentSourceProfile.ContentSource switch
             {
-                ContentSourceType.AzureDataLake => (CreateAzureDataLakeContentSourceService(serviceName), contentSourceProfile),
-                ContentSourceType.SharePointOnline => (CreateSharePointOnlineContentSourceService(serviceName), contentSourceProfile),
-                ContentSourceType.AzureSQLDatabase => (CreateAzureSQLDatabaseContentSourceService(serviceName), contentSourceProfile),
-                ContentSourceType.Web => (CreateWebPageContentSourceService(serviceName), contentSourceProfile),
+                ContentSourceType.AzureDataLake => (CreateAzureDataLakeDataSourceService(serviceName), contentSourceProfile),
+                ContentSourceType.SharePointOnline => (CreateSharePointOnlineDataSourceService(serviceName), contentSourceProfile),
+                ContentSourceType.AzureSQLDatabase => (CreateAzureSQLDatabaseDataSourceService(serviceName), contentSourceProfile),
+                ContentSourceType.Web => (CreateWebPageDataSourceService(serviceName), contentSourceProfile),
                 _ => throw new VectorizationException($"The content source type {contentSourceProfile.ContentSource} is not supported."),
             };
         }
 
 
-        private DataLakeContentSourceService CreateAzureDataLakeContentSourceService(string serviceName)
+        private DataLakeDataSourceService CreateAzureDataLakeDataSourceService(string serviceName)
         {
             var blobStorageServiceSettings = new BlobStorageServiceSettings { AuthenticationType = BlobStorageAuthenticationTypes.Unknown };
             _configuration.Bind(
                 $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
                 blobStorageServiceSettings);
 
-            return new DataLakeContentSourceService(
+            return new DataLakeDataSourceService(
                 blobStorageServiceSettings,
                 _loggerFactory);
         }
 
-        private SharePointOnlineContentSourceService CreateSharePointOnlineContentSourceService(string serviceName)
+        private SharePointOnlineDataSourceService CreateSharePointOnlineDataSourceService(string serviceName)
         {
             var sharePointOnlineContentSourceServiceSettings = new SharePointOnlineContentSourceServiceSettings();
             _configuration.Bind(
                 $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
                 sharePointOnlineContentSourceServiceSettings);
 
-            return new SharePointOnlineContentSourceService(
+            return new SharePointOnlineDataSourceService(
                 sharePointOnlineContentSourceServiceSettings,
                 _loggerFactory);
         }
 
-        private AzureSQLDatabaseContentSourceService CreateAzureSQLDatabaseContentSourceService(string serviceName)
+        private AzureSQLDatabaseDataSourceService CreateAzureSQLDatabaseDataSourceService(string serviceName)
         {
             var azureSQLDatabaseContentSourceServiceSettings = new AzureSQLDatabaseContentSourceServiceSettings();
             _configuration.Bind(
                 $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
                 azureSQLDatabaseContentSourceServiceSettings);
 
-            return new AzureSQLDatabaseContentSourceService(
+            return new AzureSQLDatabaseDataSourceService(
                 azureSQLDatabaseContentSourceServiceSettings,
                 _loggerFactory);
         }
 
-        private WebPageContentSourceService CreateWebPageContentSourceService(string serviceName)
-            => new WebPageContentSourceService(_loggerFactory);
+        private WebPageDataSourceService CreateWebPageDataSourceService(string serviceName)
+            => new WebPageDataSourceService(_loggerFactory);
     }
 }

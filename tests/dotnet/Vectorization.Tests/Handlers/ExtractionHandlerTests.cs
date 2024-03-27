@@ -4,14 +4,14 @@ using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Resources;
-using FoundationaLLM.Vectorization.Services.ContentSources;
+using FoundationaLLM.Vectorization.Services.DataSources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Vectorization.Tests.Handlers
 {
-    internal class MockContentSourceService : ContentSourceServiceBase, IContentSourceService
+    internal class MockContentSourceService : DataSourceServiceBase, IDataSourceService
     {
         public Task<string> ExtractTextAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
         {
@@ -19,14 +19,14 @@ namespace Vectorization.Tests.Handlers
         }
     }
 
-    internal class MockServiceFactory : IVectorizationServiceFactory<IContentSourceService>
+    internal class MockServiceFactory : IVectorizationServiceFactory<IDataSourceService>
     {
-        public IContentSourceService GetService(string serviceName)
+        public IDataSourceService GetService(string serviceName)
         {
             return new MockContentSourceService();
         }
 
-        public (IContentSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (IDataSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
         {
             throw new NotImplementedException();
         }
@@ -49,7 +49,7 @@ namespace Vectorization.Tests.Handlers
             // DI container configuration
             IVectorizationStateService stateService = A.Fake<IVectorizationStateService>();
             IServiceCollection serviceCollection = new ServiceCollection();
-            serviceCollection.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, MockServiceFactory>();
+            serviceCollection.AddSingleton<IVectorizationServiceFactory<IDataSourceService>, MockServiceFactory>();
 
             ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
 

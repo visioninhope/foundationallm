@@ -40,7 +40,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             IConfigurationSection? stepConfiguration,
             CancellationToken cancellationToken)
         {
-            var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IContentSourceService>>()
+            var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IDataSourceService>>()
                 ?? throw new VectorizationException($"Could not retrieve the content source service factory instance.");
             var contentSource = serviceFactory.GetService(request.ContentIdentifier.ContentSourceProfileName);
 
