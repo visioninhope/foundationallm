@@ -12309,6 +12309,25 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.UpdatedOn
   nameWithType: ResourceBase.UpdatedOn
+- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter
+  name: ResourceFilter
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter
+  nameWithType: ResourceFilter
+- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter.Default
+  name: Default
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceFilter_Default
+  commentId: P:FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter.Default
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter.Default
+  nameWithType: ResourceFilter.Default
+- uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter.Default*
+  name: Default
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter.html#FoundationaLLM_Common_Models_ResourceProvider_ResourceFilter_Default_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter.Default
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProvider.ResourceFilter.Default
+  nameWithType: ResourceFilter.Default
 - uid: FoundationaLLM.Common.Models.ResourceProvider.ResourceName
   name: ResourceName
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProvider.ResourceName.html
@@ -19436,6 +19455,12 @@ references:
   commentId: F:FoundationaLLM.DataSource.Constants.DataSourceResourceProviderActions.CheckName
   fullName: FoundationaLLM.DataSource.Constants.DataSourceResourceProviderActions.CheckName
   nameWithType: DataSourceResourceProviderActions.CheckName
+- uid: FoundationaLLM.DataSource.Constants.DataSourceResourceProviderActions.Filter
+  name: Filter
+  href: api/dotnet/FoundationaLLM.DataSource.Constants.DataSourceResourceProviderActions.html#FoundationaLLM_DataSource_Constants_DataSourceResourceProviderActions_Filter
+  commentId: F:FoundationaLLM.DataSource.Constants.DataSourceResourceProviderActions.Filter
+  fullName: FoundationaLLM.DataSource.Constants.DataSourceResourceProviderActions.Filter
+  nameWithType: DataSourceResourceProviderActions.Filter
 - uid: FoundationaLLM.DataSource.Constants.DataSourceTypes
   name: DataSourceTypes
   href: api/dotnet/FoundationaLLM.DataSource.Constants.DataSourceTypes.html
@@ -19618,6 +19643,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DataSource.Models.DataSourceReferenceStore.DataSourceReferences
   nameWithType: DataSourceReferenceStore.DataSourceReferences
+- uid: FoundationaLLM.DataSource.Models.DataSourceReferenceStore.DefaultDataSourceName
+  name: DefaultDataSourceName
+  href: api/dotnet/FoundationaLLM.DataSource.Models.DataSourceReferenceStore.html#FoundationaLLM_DataSource_Models_DataSourceReferenceStore_DefaultDataSourceName
+  commentId: P:FoundationaLLM.DataSource.Models.DataSourceReferenceStore.DefaultDataSourceName
+  fullName: FoundationaLLM.DataSource.Models.DataSourceReferenceStore.DefaultDataSourceName
+  nameWithType: DataSourceReferenceStore.DefaultDataSourceName
+- uid: FoundationaLLM.DataSource.Models.DataSourceReferenceStore.DefaultDataSourceName*
+  name: DefaultDataSourceName
+  href: api/dotnet/FoundationaLLM.DataSource.Models.DataSourceReferenceStore.html#FoundationaLLM_DataSource_Models_DataSourceReferenceStore_DefaultDataSourceName_
+  commentId: Overload:FoundationaLLM.DataSource.Models.DataSourceReferenceStore.DefaultDataSourceName
+  isSpec: "True"
+  fullName: FoundationaLLM.DataSource.Models.DataSourceReferenceStore.DefaultDataSourceName
+  nameWithType: DataSourceReferenceStore.DefaultDataSourceName
 - uid: FoundationaLLM.DataSource.Models.DataSourceReferenceStore.FromDictionary(System.Collections.Generic.Dictionary{System.String,FoundationaLLM.DataSource.Models.DataSourceReference})
   name: FromDictionary(Dictionary<string, DataSourceReference>)
   href: api/dotnet/FoundationaLLM.DataSource.Models.DataSourceReferenceStore.html#FoundationaLLM_DataSource_Models_DataSourceReferenceStore_FromDictionary_System_Collections_Generic_Dictionary_System_String_FoundationaLLM_DataSource_Models_DataSourceReference__
