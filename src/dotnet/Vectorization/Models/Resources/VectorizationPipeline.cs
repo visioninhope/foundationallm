@@ -42,7 +42,7 @@ namespace FoundationaLLM.Vectorization.Models.Resources
         /// <summary>
         /// The type of trigger that initiates the execution of the pipeline.
         /// </summary>
-        [JsonPropertyName("trigger_type"]
+        [JsonPropertyName("trigger_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public required VectorizationPipelineTriggerType TriggerType { get; set; }
 

@@ -118,6 +118,21 @@ namespace FoundationaLLM.Authorization.Constants
         #region Vectorization
 
         /// <summary>
+        /// Read vectorization pipelines.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_VectorizationPipelines_Read = "FoundationaLLM.Vectorization/vectorizationPipelines/read";
+
+        /// <summary>
+        /// Create or update vectorization pipelines.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_VectorizationPipelines_Write = "FoundationaLLM.Vectorization/vectorizationPipelines/write";
+
+        /// <summary>
+        /// Delete vectorization pipelines.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_VectorizationPipelines_Delete = "FoundationaLLM.Vectorization/vectorizationPipelines/delete";
+
+        /// <summary>
         /// Read vectorization requests.
         /// </summary>
         public const string FoundationaLLM_Vectorization_VectorizationRequests_Read = "FoundationaLLM.Vectorization/vectorizationRequests/read";
