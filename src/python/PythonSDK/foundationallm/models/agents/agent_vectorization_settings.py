@@ -2,8 +2,9 @@
 Encapsulates properties agent vectorization settings.
 """
 from typing import Optional
+from pydantic import BaseModel
 
-class AgentVectorizationSettings:
+class AgentVectorizationSettings(BaseModel):
     """
     Encapsulates properties for agent vectorization settings.
     """
