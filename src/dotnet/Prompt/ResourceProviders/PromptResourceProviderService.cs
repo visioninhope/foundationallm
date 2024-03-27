@@ -85,7 +85,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 PromptResourceTypeNames.Prompts => await LoadPrompts(resourcePath.ResourceTypeInstances[0]),

@@ -56,16 +56,19 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         private ConcurrentDictionary<string, VectorizationProfileBase> _textPartitioningProfiles = [];
         private ConcurrentDictionary<string, VectorizationProfileBase> _textEmbeddingProfiles = [];
         private ConcurrentDictionary<string, VectorizationProfileBase> _indexingProfiles = [];
+        private ConcurrentDictionary<string, VectorizationPipeline> _vectorizationPipelines = [];
 
         private const string CONTENT_SOURCE_PROFILES_FILE_NAME = "vectorization-content-source-profiles.json";
         private const string TEXT_PARTITIONING_PROFILES_FILE_NAME = "vectorization-text-partitioning-profiles.json";
         private const string TEXT_EMBEDDING_PROFILES_FILE_NAME = "vectorization-text-embedding-profiles.json";
         private const string INDEXING_PROFILES_FILE_NAME = "vectorization-indexing-profiles.json";
+        private const string VECTORIZATION_PIPELINES_FILE_NAME = "vectorization-pipelines.json";
 
         private const string CONTENT_SOURCE_PROFILES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Vectorization}/{CONTENT_SOURCE_PROFILES_FILE_NAME}";
         private const string TEXT_PARTITIONING_PROFILES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Vectorization}/{TEXT_PARTITIONING_PROFILES_FILE_NAME}";
         private const string TEXT_EMBEDDING_PROFILES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Vectorization}/{TEXT_EMBEDDING_PROFILES_FILE_NAME}";
         private const string INDEXING_PROFILES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Vectorization}/{INDEXING_PROFILES_FILE_NAME}";
+        private const string VECTORIZATION_PIPELINES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Vectorization}/{VECTORIZATION_PIPELINES_FILE_NAME}";
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Vectorization;
@@ -100,7 +103,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 VectorizationResourceTypeNames.ContentSourceProfiles => LoadProfiles<ContentSourceProfile>(resourcePath.ResourceTypeInstances[0], _contentSourceProfiles),

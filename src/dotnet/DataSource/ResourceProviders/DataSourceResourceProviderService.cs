@@ -53,7 +53,6 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             DataSourceResourceProviderMetadata.AllowedResourceTypes;
 
         private ConcurrentDictionary<string, DataSourceReference> _dataSourceReferences = [];
-        private string _defaultDataSourceName = string.Empty;
 
         private const string DATA_SOURCE_REFERENCES_FILE_NAME = "_data-source-references.json";
         private const string DATA_SOURCE_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_DataSource}/_data-source-references.json";
@@ -74,7 +73,6 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
                 _dataSourceReferences = new ConcurrentDictionary<string, DataSourceReference>(
                     dataSourceReferenceStore!.ToDictionary());
-                _defaultDataSourceName = dataSourceReferenceStore.DefaultDataSourceName ?? string.Empty;
             }
             else
             {
@@ -92,7 +90,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 DataSourceResourceTypeNames.DataSources => await LoadDataSources(resourcePath.ResourceTypeInstances[0]),
@@ -226,7 +224,6 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 DataSourceResourceTypeNames.DataSources => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     DataSourceResourceProviderActions.CheckName => CheckDataSourceName(serializedAction),
-                    DataSourceResourceProviderActions.Filter => await Filter(serializedAction),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -253,53 +250,6 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                     Type = resourceName.Type,
                     Status = NameCheckResultType.Allowed
                 };
-        }
-
-        private async Task<List<DataSourceBase>> Filter(string serializedAction)
-        {
-            var resourceFilter = JsonSerializer.Deserialize<ResourceFilter>(serializedAction) ??
-                                 throw new ResourceProviderException("The object definition is invalid. Please provide a resource filter.",
-                                       StatusCodes.Status400BadRequest);
-            if (resourceFilter.Default.HasValue)
-            {
-                if (resourceFilter.Default.Value)
-                {
-                    if (string.IsNullOrWhiteSpace(_defaultDataSourceName))
-                        throw new ResourceProviderException("The default data source is not set.",
-                            StatusCodes.Status404NotFound);
-
-                    if (!_dataSourceReferences.TryGetValue(_defaultDataSourceName, out var dataSourceReference)
-                        || dataSourceReference.Deleted)
-                        throw new ResourceProviderException(
-                            $"Could not locate the {_defaultDataSourceName} data source resource.",
-                            StatusCodes.Status404NotFound);
-
-                    return [await LoadDataSource(dataSourceReference)];
-                }
-                else
-                {
-                    return
-                    [
-                        .. (await Task.WhenAll(
-                                _dataSourceReferences.Values
-                                          .Where(dsr => !dsr.Deleted && (
-                                              string.IsNullOrWhiteSpace(_defaultDataSourceName) ||
-                                              !dsr.Name.Equals(_defaultDataSourceName, StringComparison.OrdinalIgnoreCase)))
-                                          .Select(dsr => LoadDataSource(dsr))))
-                    ];
-                }
-            }
-            else
-            {
-                // TODO: Apply other filters.
-                return
-                [
-                    .. (await Task.WhenAll(
-                        _dataSourceReferences.Values
-                            .Where(dsr => !dsr.Deleted)
-                            .Select(dsr => LoadDataSource(dsr))))
-                ];
-            }
         }
 
         #endregion
