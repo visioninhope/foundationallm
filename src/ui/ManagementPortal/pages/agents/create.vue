@@ -417,9 +417,16 @@
 import type { PropType } from 'vue';
 import { debounce } from 'lodash';
 import api from '@/js/api';
-import type { Agent, AgentIndex, AgentDataSource, CreateAgentRequest, AgentCheckNameResponse } from '@/js/types';
+import type {
+	Agent,
+	AgentIndex,
+	AgentDataSource,
+	CreateAgentRequest,
+	// AgentCheckNameResponse,
+} from '@/js/types';
 
-const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
+const defaultSystemPrompt: string =
+	'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
 
 const defaultFormValues = {
 	agentName: '',
@@ -674,15 +681,7 @@ export default {
 		},
 
 		handleNameInput(event) {
-			const element = event.target;
-
-			// Remove spaces.
-			let sanitizedValue = element.value.replace(/\s/g, '');
-
-			// Remove any characters that are not lowercase letters, digits, dashes, or underscores.
-			sanitizedValue = sanitizedValue.replace(/[^a-z0-9-_]/g, '');
-
-			element.value = sanitizedValue;
+			const sanitizedValue = this.$filters.sanitizeNameInput(event);
 			this.agentName = sanitizedValue;
 
 			// Check if the name is available if we are creating a new agent.
@@ -826,10 +825,10 @@ export default {
 
 				if (this.editAgent) {
 					await api.updateAgent(this.editAgent, agentRequest);
-					successMessage = `Agent "${this.agentName}" was succesfully updated!`;
+					successMessage = `Agent "${this.agentName}" was successfully updated!`;
 				} else {
 					await api.createAgent(agentRequest);
-					successMessage = `Agent "${this.agentName}" was succesfully created!`;
+					successMessage = `Agent "${this.agentName}" was successfully created!`;
 					this.resetForm();
 				}
 			} catch (error) {

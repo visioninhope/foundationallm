@@ -2,7 +2,8 @@
 
 import type {
 	Agent,
-	AgentDataSource,
+	DataSource,
+	AppConfigUnion,
 	AgentIndex,
 	AgentGatekeeper,
 	CreateAgentRequest,
@@ -13,7 +14,20 @@ import type {
 	CreatePromptRequest,
 	CreateTextPartitioningProfileRequest
 } from './types';
+import {
+	isAzureDataLakeDataSource,
+	isSharePointOnlineSiteDataSource,
+	isAzureSQLDatabaseDataSource,
+	convertDataSourceToAzureDataLake,
+	convertDataSourceToSharePointOnlineSite,
+	convertDataSourceToAzureSQLDatabase,
+	convertToDataSource,
+	convertToAppConfigKeyVault,
+	convertToAppConfig
+} from '@/js/types';
+// import { mockAzureDataLakeDataSource1 } from './mock';
 import { getMsalInstance } from '@/js/auth';
+
 
 async function wait(milliseconds: number = 1000): Promise<void> {
 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
@@ -160,13 +174,36 @@ export default {
 	
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/${dataSource.name}?api-version=${this.apiVersion}`, {
 			method: 'POST',
-			body: request,
+			body: JSON.stringify(dataSource),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+	},
+	
+
+	async deleteDataSource(dataSourceId: string): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/${dataSourceId}?api-version=${this.apiVersion}`, {
+			method: 'DELETE',
 		});
 	},
 
-	async deleteDataSource(dataSourceId: string): Promise<any> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/${dataSourceId}?api-version=${this.apiVersion}`, {
-			method: 'DELETE',
+	// App Configuration
+	async getAppConfig(key: string): Promise<AppConfigUnion> {
+		// await wait(this.mockLoadTime);
+    	// return mockAzureDataLakeDataSource1;
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${key}?api-version=${this.apiVersion}`);
+		return data[0] as AppConfigUnion;
+	},
+
+	async getAppConfigs(filter?: string): Promise<AppConfigUnion[]> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${filter}?api-version=${this.apiVersion}`);
+	},
+
+	async upsertAppConfig(request): Promise<any> {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${request.key}?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: request,
 		});
 	},
 
@@ -183,11 +220,12 @@ export default {
 	// Agents
 	async checkAgentName(name: string, agentType: string): Promise<CheckNameResponse> {
 		const payload = {
-			name: name,
+			name,
 			type: agentType,
 		};
+
 		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/checkname?api-version=${this.apiVersion}`, {
-			method: 'POST',	
+			method: 'POST',
 			body: payload,
 		});
 	},
