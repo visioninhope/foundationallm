@@ -5,11 +5,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Vectorization.Tests.Services.DataSources
 {
-    public class DataLakeContentSourceServiceTests
+    public class DataLakeDataSourceServiceTests
     {
         private DataLakeDataSourceService _dataLakeContentSourceService;
         
-        public DataLakeContentSourceServiceTests() {
+        public DataLakeDataSourceServiceTests() {
             _dataLakeContentSourceService = new DataLakeDataSourceService(
                 new BlobStorageServiceSettings { 
                     AuthenticationType = BlobStorageAuthenticationTypes.ConnectionString,
@@ -29,7 +29,7 @@ namespace Vectorization.Tests.Services.DataSources
                     new ContentIdentifier
                     {
                         CanonicalId = "vectorization-content-test.txt",
-                        DataSourceObjectId = "DataLakeTestFiles",
+                        DataSourceObjectId = "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
                         MultipartId = new List<string> {
                             Environment.GetEnvironmentVariable("DataLakeContentServiceTestsContainerUrl"),
                             "testing",
@@ -47,7 +47,7 @@ namespace Vectorization.Tests.Services.DataSources
                     new ContentIdentifier
                     {
                         CanonicalId = "vectorization-content-test.docx",
-                        DataSourceObjectId = "DataLakeTestFiles",
+                        DataSourceObjectId = "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
                         MultipartId = new List<string> {
                             Environment.GetEnvironmentVariable("DataLakeContentServiceTestsContainerUrl"),
                             "testing",
