@@ -11,6 +11,8 @@ export type Agent = {
 		text_partitioning_profile_object_id: string;
 		data_source_object_id: string;
 		vectorization_data_pipeline_object_id: string;
+		trigger_type: string;
+		trigger_cron_schedule: string;
 	};
 
 	sessions_enabled: boolean;
@@ -253,6 +255,8 @@ export type CreateAgentRequest = {
 		text_partitioning_profile_object_id: string;
 		data_source_object_id: string;
 		vectorization_data_pipeline_object_id: string;
+		trigger_type: string;
+		trigger_cron_schedule: string;
 	};
 
 	sessions_enabled: boolean;
