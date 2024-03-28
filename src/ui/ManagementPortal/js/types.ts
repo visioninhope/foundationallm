@@ -198,6 +198,10 @@ export type CheckNameResponse = {
 	message: string;
 };
 
+export type FilterRequest = {
+	default?: boolean
+};
+
 export type AgentGatekeeper = {};
 
 export type MockCreateAgentRequest = {
