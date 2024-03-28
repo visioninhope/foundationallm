@@ -40,7 +40,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
-        IResourceProviderService vectorizationResourceProviderService,
+        IResourceProviderService? vectorizationResourceProviderService,
         ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -53,7 +53,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
             ])
     {
-        private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
+        private readonly IResourceProviderService? _vectorizationResourceProviderService = vectorizationResourceProviderService;
 
         /// <inheritdoc/>
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
@@ -199,7 +199,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             if ((agent is KnowledgeManagementAgent kmAgent)
                 && kmAgent.Vectorization.DedicatedPipeline)
             {
-                var result = await _vectorizationResourceProviderService.HandlePostAsync(
+                var result = await _vectorizationResourceProviderService!.HandlePostAsync(
                     $"/{VectorizationResourceTypeNames.VectorizationPipelines}/{kmAgent.Name}",
                     JsonSerializer.Serialize<VectorizationPipeline>(new VectorizationPipeline
                     {

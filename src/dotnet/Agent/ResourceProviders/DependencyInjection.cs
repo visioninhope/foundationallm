@@ -59,7 +59,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
                     sp.GetRequiredService<IEnumerable<IResourceProviderService>>()
-                        .Single(rp => rp.Name == ResourceProviderNames.FoundationaLLM_Vectorization),
+                        .SingleOrDefault(rp => rp.Name == ResourceProviderNames.FoundationaLLM_Vectorization),
                     sp.GetRequiredService<ILoggerFactory>()));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
