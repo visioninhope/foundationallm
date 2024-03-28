@@ -172,19 +172,19 @@ Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-se
 
 
 
-  <a id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithProfile_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithProfile*"></a>
+  <a id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithResource_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithResource*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithProfile_System_String_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithProfile(System.String)">
-  GetServiceWithProfile(string)
+  <h3 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithResource_System_String_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithResource(System.String)">
+  GetServiceWithResource(string)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationServiceFactory`1.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name and its associated vectorizaiton profile.</p>
+  <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name and its associated resource object (if any).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">(T Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)</code></pre>
+    <pre><code class="lang-csharp hljs">(T Service, ResourceBase Resource) GetServiceWithResource(string serviceName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -196,8 +196,8 @@ Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-se
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt>(T <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple--0,foundationallm.vectorization.models.resources.vectorizationprofilebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html">VectorizationProfileBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple--0,foundationallm.vectorization.models.resources.vectorizationprofilebase-.vectorizationprofile">VectorizationProfile</a>)</dt>
-    <dd><p>The service instance and its associated vectorization profile.</p>
+    <dt>(T <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple--0,foundationallm.common.models.resourceprovider.resourcebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html">ResourceBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple--0,foundationallm.common.models.resourceprovider.resourcebase-.resource">Resource</a>)</dt>
+    <dd><p>The service instance and its associated resource object (if any).</p>
 </dd>
   </dl>
 

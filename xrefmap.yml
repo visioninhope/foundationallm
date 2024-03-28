@@ -14206,19 +14206,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
   nameWithType: ContentIdentifier.CanonicalId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName
-  name: ContentSourceProfileName
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_ContentSourceProfileName
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName
-  nameWithType: ContentIdentifier.ContentSourceProfileName
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName*
-  name: ContentSourceProfileName
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_ContentSourceProfileName_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId
+  name: DataSourceObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_DataSourceObjectId
+  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId
+  nameWithType: ContentIdentifier.DataSourceObjectId
+- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId*
+  name: DataSourceObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_DataSourceObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ContentSourceProfileName
-  nameWithType: ContentIdentifier.ContentSourceProfileName
+  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId
+  nameWithType: ContentIdentifier.DataSourceObjectId
 - uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.FileName
   name: FileName
   href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_FileName
@@ -20161,6 +20161,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.ExecuteActionAsync
   nameWithType: DataSourceResourceProviderService.ExecuteActionAsync
+- uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal*
+  name: GetResourceInternal
+  href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceInternal_
+  commentId: Overload:FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal
+  isSpec: "True"
+  fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal
+  nameWithType: DataSourceResourceProviderService.GetResourceInternal
+- uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  name: GetResourceInternal<T>(ResourcePath)
+  href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_
+  commentId: M:FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  name.vb: GetResourceInternal(Of T)(ResourcePath)
+  fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  fullName.vb: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)
+  nameWithType: DataSourceResourceProviderService.GetResourceInternal<T>(ResourcePath)
+  nameWithType.vb: DataSourceResourceProviderService.GetResourceInternal(Of T)(ResourcePath)
 - uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceTypes
   name: GetResourceTypes()
   href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceTypes
@@ -23274,24 +23290,24 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory(Of T).GetService
   nameWithType: IVectorizationServiceFactory<T>.GetService
   nameWithType.vb: IVectorizationServiceFactory(Of T).GetService
-- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithProfile(System.String)
-  name: GetServiceWithProfile(string)
-  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory-1.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithProfile_System_String_
-  commentId: M:FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithProfile(System.String)
-  name.vb: GetServiceWithProfile(String)
-  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory<T>.GetServiceWithProfile(string)
-  fullName.vb: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory(Of T).GetServiceWithProfile(String)
-  nameWithType: IVectorizationServiceFactory<T>.GetServiceWithProfile(string)
-  nameWithType.vb: IVectorizationServiceFactory(Of T).GetServiceWithProfile(String)
-- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithProfile*
-  name: GetServiceWithProfile
-  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory-1.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithProfile_
-  commentId: Overload:FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithProfile
+- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithResource(System.String)
+  name: GetServiceWithResource(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory-1.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithResource_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithResource(System.String)
+  name.vb: GetServiceWithResource(String)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory<T>.GetServiceWithResource(string)
+  fullName.vb: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory(Of T).GetServiceWithResource(String)
+  nameWithType: IVectorizationServiceFactory<T>.GetServiceWithResource(string)
+  nameWithType.vb: IVectorizationServiceFactory(Of T).GetServiceWithResource(String)
+- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithResource*
+  name: GetServiceWithResource
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory-1.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithResource_
+  commentId: Overload:FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithResource
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory<T>.GetServiceWithProfile
-  fullName.vb: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory(Of T).GetServiceWithProfile
-  nameWithType: IVectorizationServiceFactory<T>.GetServiceWithProfile
-  nameWithType.vb: IVectorizationServiceFactory(Of T).GetServiceWithProfile
+  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory<T>.GetServiceWithResource
+  fullName.vb: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory(Of T).GetServiceWithResource
+  nameWithType: IVectorizationServiceFactory<T>.GetServiceWithResource
+  nameWithType.vb: IVectorizationServiceFactory(Of T).GetServiceWithResource
 - uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService
   name: IVectorizationStateService
   href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.html
@@ -24931,15 +24947,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory
   fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory
   nameWithType: ContentSourceServiceFactory
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)
-  name: ContentSourceServiceFactory(IResourceProviderService, IConfiguration, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory__ctor_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: New(IResourceProviderService, IConfiguration, ILoggerFactory)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.ContentSourceServiceFactory(FoundationaLLM.Common.Interfaces.IResourceProviderService, Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.New(FoundationaLLM.Common.Interfaces.IResourceProviderService, Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: ContentSourceServiceFactory.ContentSourceServiceFactory(IResourceProviderService, IConfiguration, ILoggerFactory)
-  nameWithType.vb: ContentSourceServiceFactory.New(IResourceProviderService, IConfiguration, ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: ContentSourceServiceFactory(IEnumerable<IResourceProviderService>, IConfiguration, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IEnumerable(Of IResourceProviderService), IConfiguration, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.ContentSourceServiceFactory(System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.New(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: ContentSourceServiceFactory.ContentSourceServiceFactory(IEnumerable<IResourceProviderService>, IConfiguration, ILoggerFactory)
+  nameWithType.vb: ContentSourceServiceFactory.New(IEnumerable(Of IResourceProviderService), IConfiguration, ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.#ctor*
   name: ContentSourceServiceFactory
   href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory__ctor_
@@ -24966,22 +24982,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetService
   nameWithType: ContentSourceServiceFactory.GetService
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile(System.String)
-  name: GetServiceWithProfile(string)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetServiceWithProfile_System_String_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile(System.String)
-  name.vb: GetServiceWithProfile(String)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile(string)
-  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile(String)
-  nameWithType: ContentSourceServiceFactory.GetServiceWithProfile(string)
-  nameWithType.vb: ContentSourceServiceFactory.GetServiceWithProfile(String)
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile*
-  name: GetServiceWithProfile
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetServiceWithProfile_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithResource(System.String)
+  name: GetServiceWithResource(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetServiceWithResource_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithResource(System.String)
+  name.vb: GetServiceWithResource(String)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithResource(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithResource(String)
+  nameWithType: ContentSourceServiceFactory.GetServiceWithResource(string)
+  nameWithType.vb: ContentSourceServiceFactory.GetServiceWithResource(String)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithResource*
+  name: GetServiceWithResource
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.html#FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetServiceWithResource_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithResource
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile
-  nameWithType: ContentSourceServiceFactory.GetServiceWithProfile
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithResource
+  nameWithType: ContentSourceServiceFactory.GetServiceWithResource
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService
   name: DataLakeContentSourceService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html
@@ -25532,22 +25548,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService
   nameWithType: IndexingServiceFactory.GetService
-- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile(System.String)
-  name: GetServiceWithProfile(string)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetServiceWithProfile_System_String_
-  commentId: M:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile(System.String)
-  name.vb: GetServiceWithProfile(String)
-  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile(string)
-  fullName.vb: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile(String)
-  nameWithType: IndexingServiceFactory.GetServiceWithProfile(string)
-  nameWithType.vb: IndexingServiceFactory.GetServiceWithProfile(String)
-- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile*
-  name: GetServiceWithProfile
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetServiceWithProfile_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile
+- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithResource(System.String)
+  name: GetServiceWithResource(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetServiceWithResource_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithResource(System.String)
+  name.vb: GetServiceWithResource(String)
+  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithResource(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithResource(String)
+  nameWithType: IndexingServiceFactory.GetServiceWithResource(string)
+  nameWithType.vb: IndexingServiceFactory.GetServiceWithResource(String)
+- uid: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithResource*
+  name: GetServiceWithResource
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetServiceWithResource_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithResource
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithProfile
-  nameWithType: IndexingServiceFactory.GetServiceWithProfile
+  fullName: FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithResource
+  nameWithType: IndexingServiceFactory.GetServiceWithResource
 - uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory
   name: TextEmbeddingServiceFactory
   href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html
@@ -25589,22 +25605,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService
   nameWithType: TextEmbeddingServiceFactory.GetService
-- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile(System.String)
-  name: GetServiceWithProfile(string)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetServiceWithProfile_System_String_
-  commentId: M:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile(System.String)
-  name.vb: GetServiceWithProfile(String)
-  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile(string)
-  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile(String)
-  nameWithType: TextEmbeddingServiceFactory.GetServiceWithProfile(string)
-  nameWithType.vb: TextEmbeddingServiceFactory.GetServiceWithProfile(String)
-- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile*
-  name: GetServiceWithProfile
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetServiceWithProfile_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile
+- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource(System.String)
+  name: GetServiceWithResource(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetServiceWithResource_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource(System.String)
+  name.vb: GetServiceWithResource(String)
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource(String)
+  nameWithType: TextEmbeddingServiceFactory.GetServiceWithResource(string)
+  nameWithType.vb: TextEmbeddingServiceFactory.GetServiceWithResource(String)
+- uid: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource*
+  name: GetServiceWithResource
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetServiceWithResource_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithProfile
-  nameWithType: TextEmbeddingServiceFactory.GetServiceWithProfile
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource
+  nameWithType: TextEmbeddingServiceFactory.GetServiceWithResource
 - uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory
   name: TextSplitterServiceFactory
   href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html
@@ -25646,37 +25662,37 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetService
   nameWithType: TextSplitterServiceFactory.GetService
-- uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile(System.String)
-  name: GetServiceWithProfile(string)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetServiceWithProfile_System_String_
-  commentId: M:FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile(System.String)
-  name.vb: GetServiceWithProfile(String)
-  fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile(string)
-  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile(String)
-  nameWithType: TextSplitterServiceFactory.GetServiceWithProfile(string)
-  nameWithType.vb: TextSplitterServiceFactory.GetServiceWithProfile(String)
-- uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile*
-  name: GetServiceWithProfile
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetServiceWithProfile_
-  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile
+- uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithResource(System.String)
+  name: GetServiceWithResource(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetServiceWithResource_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithResource(System.String)
+  name.vb: GetServiceWithResource(String)
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithResource(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithResource(String)
+  nameWithType: TextSplitterServiceFactory.GetServiceWithResource(string)
+  nameWithType.vb: TextSplitterServiceFactory.GetServiceWithResource(String)
+- uid: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithResource*
+  name: GetServiceWithResource
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.html#FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetServiceWithResource_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithResource
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile
-  nameWithType: TextSplitterServiceFactory.GetServiceWithProfile
+  fullName: FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithResource
+  nameWithType: TextSplitterServiceFactory.GetServiceWithResource
 - uid: FoundationaLLM.Vectorization.Services.VectorizationService
   name: VectorizationService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationService.html
   commentId: T:FoundationaLLM.Vectorization.Services.VectorizationService
   fullName: FoundationaLLM.Vectorization.Services.VectorizationService
   nameWithType: VectorizationService
-- uid: FoundationaLLM.Vectorization.Services.VectorizationService.#ctor(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfigurationSection,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
-  name: VectorizationService(IRequestSourcesCache, IVectorizationStateService, IResourceProviderService, IConfigurationSection, IServiceProvider, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationService.html#FoundationaLLM_Vectorization_Services_VectorizationService__ctor_FoundationaLLM_Vectorization_Interfaces_IRequestSourcesCache_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfigurationSection_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationService.#ctor(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfigurationSection,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: New(IRequestSourcesCache, IVectorizationStateService, IResourceProviderService, IConfigurationSection, IServiceProvider, ILoggerFactory)
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationService.VectorizationService(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, FoundationaLLM.Common.Interfaces.IResourceProviderService, Microsoft.Extensions.Configuration.IConfigurationSection, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.Vectorization.Services.VectorizationService.New(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, FoundationaLLM.Common.Interfaces.IResourceProviderService, Microsoft.Extensions.Configuration.IConfigurationSection, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: VectorizationService.VectorizationService(IRequestSourcesCache, IVectorizationStateService, IResourceProviderService, IConfigurationSection, IServiceProvider, ILoggerFactory)
-  nameWithType.vb: VectorizationService.New(IRequestSourcesCache, IVectorizationStateService, IResourceProviderService, IConfigurationSection, IServiceProvider, ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationService.#ctor(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfigurationSection,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: VectorizationService(IRequestSourcesCache, IVectorizationStateService, IEnumerable<IResourceProviderService>, IConfigurationSection, IServiceProvider, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationService.html#FoundationaLLM_Vectorization_Services_VectorizationService__ctor_FoundationaLLM_Vectorization_Interfaces_IRequestSourcesCache_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfigurationSection_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationService.#ctor(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfigurationSection,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IRequestSourcesCache, IVectorizationStateService, IEnumerable(Of IResourceProviderService), IConfigurationSection, IServiceProvider, ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationService.VectorizationService(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Configuration.IConfigurationSection, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.VectorizationService.New(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache, FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Configuration.IConfigurationSection, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: VectorizationService.VectorizationService(IRequestSourcesCache, IVectorizationStateService, IEnumerable<IResourceProviderService>, IConfigurationSection, IServiceProvider, ILoggerFactory)
+  nameWithType.vb: VectorizationService.New(IRequestSourcesCache, IVectorizationStateService, IEnumerable(Of IResourceProviderService), IConfigurationSection, IServiceProvider, ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Services.VectorizationService.#ctor*
   name: VectorizationService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationService.html#FoundationaLLM_Vectorization_Services_VectorizationService__ctor_

@@ -175,9 +175,6 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__1_System_String___0_">ResourceProviderServiceBase.UpsertResourceAsync&lt;T&gt;(string, T)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_">ResourceProviderServiceBase.GetResourceInternal&lt;T&gt;(ResourcePath)</a>
-    </div>
-    <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__1_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath___0_">ResourceProviderServiceBase.UpsertResourceAsync&lt;T&gt;(ResourcePath, T)</a>
     </div>
     <div>
@@ -403,6 +400,49 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
 
 
+  <a id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceInternal_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal*"></a>
+
+  <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProvider_ResourcePath_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProvider.ResourcePath)">
+  GetResourceInternal&lt;T&gt;(ResourcePath)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L355"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The internal implementation of GetResource. Must be overridden in derived classes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override T GetResourceInternal&lt;T&gt;(ResourcePath resourcePath) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourcePath</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html">ResourcePath</a></dt>
+    <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourcePath.html">ResourcePath</a> containing information about the resource path.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceTypes_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceTypes*"></a>
 
   <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceTypes" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceTypes">
@@ -481,7 +521,7 @@ Class DataSourceResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_" data-uid="FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)">
   HandleEvents(EventSetEventArgs)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L357"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/DataSource/ResourceProviders/DataSourceResourceProviderService.cs/#L375"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Handles events received from the <a class="xref" href="FoundationaLLM.Common.Interfaces.IEventService.html">IEventService</a> when they are dequeued locally.</p>

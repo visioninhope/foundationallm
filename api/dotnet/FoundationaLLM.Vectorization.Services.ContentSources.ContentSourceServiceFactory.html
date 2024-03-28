@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory" class="text-break">
-Class ContentSourceServiceFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceFactory.cs/#L24"><i class="bi bi-code-slash"></i></a>
+Class ContentSourceServiceFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceFactory.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -160,9 +160,6 @@ Class ContentSourceServiceFactory  <a class="header-action link-secondary" title
 
 
 
-  <h2 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>Creates a new instance of the content source manager service.</p>
-</div>
 
 
   <h2 class="section" id="constructors">Constructors
@@ -171,9 +168,9 @@ Class ContentSourceServiceFactory  <a class="header-action link-secondary" title
 
   <a id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory__ctor_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory__ctor_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)">
-  ContentSourceServiceFactory(IResourceProviderService, IConfiguration, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceFactory.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)">
+  ContentSourceServiceFactory(IEnumerable&lt;IResourceProviderService&gt;, IConfiguration, ILoggerFactory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceFactory.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Manages content sources registered for use in the vectorization pipelines.</p>
@@ -181,13 +178,13 @@ Class ContentSourceServiceFactory  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ContentSourceServiceFactory(IResourceProviderService vectorizationResourceProviderService, IConfiguration configuration, ILoggerFactory loggerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public ContentSourceServiceFactory(IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices, IConfiguration configuration, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>vectorizationResourceProviderService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a></dt>
-    <dd><p>The vectorization resource provider service.</p>
+    <dt><code>resourceProviderServices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a>&gt;</dt>
+    <dd><p>The resource provider services registered with the dependency injection container.</p>
 </dd>
     <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
     <dd><p>The global configuration provider.</p>
@@ -204,9 +201,6 @@ Class ContentSourceServiceFactory  <a class="header-action link-secondary" title
 
 
 
-  <h4 class="section" id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory__ctor_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Creates a new instance of the content source manager service.</p>
-</div>
 
 
 
@@ -254,19 +248,19 @@ Class ContentSourceServiceFactory  <a class="header-action link-secondary" title
 
 
 
-  <a id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetServiceWithProfile_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile*"></a>
+  <a id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetServiceWithResource_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithResource*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetServiceWithProfile_System_String_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithProfile(System.String)">
-  GetServiceWithProfile(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceFactory.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_ContentSourceServiceFactory_GetServiceWithResource_System_String_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.ContentSourceServiceFactory.GetServiceWithResource(System.String)">
+  GetServiceWithResource(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceFactory.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name and its associated vectorizaiton profile.</p>
+  <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name and its associated resource object (if any).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public (IContentSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)</code></pre>
+    <pre><code class="lang-csharp hljs">public (IContentSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -278,8 +272,8 @@ Class ContentSourceServiceFactory  <a class="header-action link-secondary" title
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt>(<a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html">IContentSourceService</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.interfaces.icontentsourceservice,foundationallm.vectorization.models.resources.vectorizationprofilebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html">VectorizationProfileBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.interfaces.icontentsourceservice,foundationallm.vectorization.models.resources.vectorizationprofilebase-.vectorizationprofile">VectorizationProfile</a>)</dt>
-    <dd><p>The service instance and its associated vectorization profile.</p>
+    <dt>(<a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html">IContentSourceService</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.interfaces.icontentsourceservice,foundationallm.common.models.resourceprovider.resourcebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html">ResourceBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.vectorization.interfaces.icontentsourceservice,foundationallm.common.models.resourceprovider.resourcebase-.resource">Resource</a>)</dt>
+    <dd><p>The service instance and its associated resource object (if any).</p>
 </dd>
   </dl>
 
@@ -297,7 +291,7 @@ Class ContentSourceServiceFactory  <a class="header-action link-secondary" title
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceFactory.cs/#L24" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/ContentSourceServiceFactory.cs/#L22" class="edit-link">Edit this page</a>
         </div>
 
 

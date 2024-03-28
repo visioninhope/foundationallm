@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory" class="text-break">
-Class TextSplitterServiceFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L23"><i class="bi bi-code-slash"></i></a>
+Class TextSplitterServiceFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -170,7 +170,7 @@ Class TextSplitterServiceFactory  <a class="header-action link-secondary" title=
 
   <h3 id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory__ctor_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
   TextSplitterServiceFactory(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates text splitter service instances.</p>
@@ -216,7 +216,7 @@ Class TextSplitterServiceFactory  <a class="header-action link-secondary" title=
 
   <h3 id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetService_System_String_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetService(System.String)">
   GetService(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L36"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name.</p>
@@ -251,19 +251,19 @@ Class TextSplitterServiceFactory  <a class="header-action link-secondary" title=
 
 
 
-  <a id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetServiceWithProfile_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile*"></a>
+  <a id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetServiceWithResource_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithResource*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetServiceWithProfile_System_String_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithProfile(System.String)">
-  GetServiceWithProfile(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_Text_TextSplitterServiceFactory_GetServiceWithResource_System_String_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextSplitterServiceFactory.GetServiceWithResource(System.String)">
+  GetServiceWithResource(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name and its associated vectorizaiton profile.</p>
+  <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name and its associated resource object (if any).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public (ITextSplitterService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)</code></pre>
+    <pre><code class="lang-csharp hljs">public (ITextSplitterService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -275,8 +275,8 @@ Class TextSplitterServiceFactory  <a class="header-action link-secondary" title=
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt>(<a class="xref" href="FoundationaLLM.Common.Interfaces.ITextSplitterService.html">ITextSplitterService</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.itextsplitterservice,foundationallm.vectorization.models.resources.vectorizationprofilebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Vectorization.Models.Resources.VectorizationProfileBase.html">VectorizationProfileBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.itextsplitterservice,foundationallm.vectorization.models.resources.vectorizationprofilebase-.vectorizationprofile">VectorizationProfile</a>)</dt>
-    <dd><p>The service instance and its associated vectorization profile.</p>
+    <dt>(<a class="xref" href="FoundationaLLM.Common.Interfaces.ITextSplitterService.html">ITextSplitterService</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.itextsplitterservice,foundationallm.common.models.resourceprovider.resourcebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProvider.ResourceBase.html">ResourceBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.itextsplitterservice,foundationallm.common.models.resourceprovider.resourcebase-.resource">Resource</a>)</dt>
+    <dd><p>The service instance and its associated resource object (if any).</p>
 </dd>
   </dl>
 
@@ -294,7 +294,7 @@ Class TextSplitterServiceFactory  <a class="header-action link-secondary" title=
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L23" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextSplitterServiceFactory.cs/#L24" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -171,8 +171,8 @@ Class VectorizationService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_Vectorization_Services_VectorizationService__ctor_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationService__ctor_FoundationaLLM_Vectorization_Interfaces_IRequestSourcesCache_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfigurationSection_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationService.#ctor(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfigurationSection,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
-  VectorizationService(IRequestSourcesCache, IVectorizationStateService, IResourceProviderService, IConfigurationSection, IServiceProvider, ILoggerFactory)
+  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationService__ctor_FoundationaLLM_Vectorization_Interfaces_IRequestSourcesCache_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfigurationSection_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationService.#ctor(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfigurationSection,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
+  VectorizationService(IRequestSourcesCache, IVectorizationStateService, IEnumerable&lt;IResourceProviderService&gt;, IConfigurationSection, IServiceProvider, ILoggerFactory)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -181,7 +181,7 @@ Class VectorizationService  <a class="header-action link-secondary" title="View 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public VectorizationService(IRequestSourcesCache requestSourcesCache, IVectorizationStateService vectorizationStateService, IResourceProviderService vectorizationResourceProvider, IConfigurationSection stepsConfiguration, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public VectorizationService(IRequestSourcesCache requestSourcesCache, IVectorizationStateService vectorizationStateService, IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices, IConfigurationSection stepsConfiguration, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -192,8 +192,8 @@ Class VectorizationService  <a class="header-action link-secondary" title="View 
     <dt><code>vectorizationStateService</code> <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService.html">IVectorizationStateService</a></dt>
     <dd><p>The service providing vectorization state management.</p>
 </dd>
-    <dt><code>vectorizationResourceProvider</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a></dt>
-    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a> implementing the vectorization resource provider.</p>
+    <dt><code>resourceProviderServices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a>&gt;</dt>
+    <dd><p>Retrieves all registered resource provider services <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a>.</p>
 </dd>
     <dt><code>stepsConfiguration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationsection">IConfigurationSection</a></dt>
     <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationsection">IConfigurationSection</a> object providing access to the settings.</p>
@@ -213,7 +213,7 @@ Class VectorizationService  <a class="header-action link-secondary" title="View 
 
 
 
-  <h4 class="section" id="FoundationaLLM_Vectorization_Services_VectorizationService__ctor_FoundationaLLM_Vectorization_Interfaces_IRequestSourcesCache_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfigurationSection_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory__remarks">Remarks</h4>
+  <h4 class="section" id="FoundationaLLM_Vectorization_Services_VectorizationService__ctor_FoundationaLLM_Vectorization_Interfaces_IRequestSourcesCache_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfigurationSection_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory__remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>Creates a new instance of the <a class="xref" href="FoundationaLLM.Vectorization.Services.VectorizationService.html">VectorizationService</a> service.</p>
 </div>
 
@@ -228,7 +228,7 @@ Class VectorizationService  <a class="header-action link-secondary" title="View 
 
   <h3 id="FoundationaLLM_Vectorization_Services_VectorizationService_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationService.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest)">
   ProcessRequest(VectorizationRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Processes an incoming vectorization request.</p>
