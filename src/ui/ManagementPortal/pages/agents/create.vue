@@ -432,7 +432,13 @@
 			<div class="step-header">What is the persona of the agent?</div>
 
 			<div class="span-2">
-				<Textarea v-model="systemPrompt" class="w-100" auto-resize rows="5" type="text" />
+				<Textarea
+					v-model="systemPrompt"
+					class="w-100"
+					auto-resize rows="5"
+					type="text"
+					placeholder="You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional."
+				/>
 			</div>
 
 			<div class="button-container column-2 justify-self-end">
@@ -468,8 +474,7 @@ import type {
 	// AgentCheckNameResponse,
 } from '@/js/types';
 
-const defaultSystemPrompt: string =
-	'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
+const defaultSystemPrompt: string = '';
 
 const defaultFormValues = {
 	agentName: '',
@@ -608,10 +613,12 @@ export default {
 					this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
 				}
 			}
-			this.loadingStatusText = `Retrieving prompt...`;
-			const prompt = await api.getPrompt(agent.prompt_object_id);
-			if (prompt) {
-				this.systemPrompt = prompt.prefix;
+			if (agent.prompt_object_id !== '') {
+				this.loadingStatusText = `Retrieving prompt...`;
+				const prompt = await api.getPrompt(agent.prompt_object_id);
+				if (prompt) {
+					this.systemPrompt = prompt.prefix;
+				}
 			}
 			this.loadingStatusText = `Mapping agent values to form...`;
 			this.mapAgentToForm(agent);
@@ -783,8 +790,11 @@ export default {
 			let successMessage = null;
 			try {
 				// Handle Prompt creation/update.
-				const promptResponse = await api.createOrUpdatePrompt(this.agentName, promptRequest);
-				const promptObjectId = promptResponse.objectId;
+				let promptObjectId = '';
+				if (promptRequest.prefix !== '' && promptRequest.suffix !== '') {
+					const promptResponse = await api.createOrUpdatePrompt(this.agentName, promptRequest);
+					promptObjectId = promptResponse.objectId;
+				}
 
 				// Handle TextPartitioningProfile creation/update.
 				const tokenTextPartitionResponse = await api.createOrUpdateTextPartitioningProfile(this.agentName, tokenTextPartitionRequest);
@@ -911,7 +921,7 @@ export default {
 }
 
 .steps__loading-overlay {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
