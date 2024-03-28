@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Vectorization.Constants
+﻿namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// Contains constants of the names of the resource types managed by the FoundationaLLM.Vectorization resource provider.

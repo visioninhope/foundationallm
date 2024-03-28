@@ -1,7 +1,6 @@
-﻿using FoundationaLLM.Agent.Constants;
-using FoundationaLLM.AgentFactory.Core.Orchestration;
+﻿using FoundationaLLM.AgentFactory.Core.Orchestration;
 using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Hubs;

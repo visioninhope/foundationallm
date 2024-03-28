@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Vectorization.Constants
+﻿namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// The names of the actions implemented by the Agent resource provider.

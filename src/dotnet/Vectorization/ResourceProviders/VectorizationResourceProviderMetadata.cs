@@ -1,8 +1,9 @@
 ﻿using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.Vectorization.Constants;
 using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.Models;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Models.Vectorization;
 
 namespace FoundationaLLM.Vectorization.ResourceProviders
 {

@@ -1,10 +1,8 @@
-﻿using FoundationaLLM.Agent.Constants;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;

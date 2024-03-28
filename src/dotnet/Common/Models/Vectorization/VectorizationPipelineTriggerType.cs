@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Vectorization.Models.Resources
+﻿namespace FoundationaLLM.Common.Models.Vectorization
 {
     /// <summary>
     /// Types of vectorization pipeline triggers.

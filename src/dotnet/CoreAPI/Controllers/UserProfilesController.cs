@@ -1,18 +1,6 @@
-﻿using Asp.Versioning;
-using FoundationaLLM.Agent.Constants;
-using FoundationaLLM.Agent.Models.Resources;
-using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.Configuration.Branding;
-using FoundationaLLM.Common.Models.Configuration.Users;
-using FoundationaLLM.Common.Models.ResourceProvider;
-using FoundationaLLM.Core.Interfaces;
+﻿using FoundationaLLM.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Options;
 
 
 namespace FoundationaLLM.Core.API.Controllers
