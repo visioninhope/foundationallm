@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoundationaLLM.Common.Models.Vectorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,5 +47,19 @@ namespace FoundationaLLM.Common.Models.Agents
         /// </summary>
         [JsonPropertyName("vectorization_data_pipeline_object_id")]
         public string? VectorizationDataPipelineObjectId { get; set; }
+
+        /// <summary>
+        /// The type of trigger that initiates the execution of the pipeline.
+        /// </summary>
+        [JsonPropertyName("trigger_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public VectorizationPipelineTriggerType? TriggerType { get; set; }
+
+        /// <summary>
+        /// The schedule of the trigger in Cron format.
+        /// This propoerty is valid only when TriggerType = Schedule.
+        /// </summary>
+        [JsonPropertyName("trigger_cron_schedule")]
+        public string? TriggerCronSchedule { get; set; }
     }
 }
