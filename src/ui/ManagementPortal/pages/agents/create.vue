@@ -591,10 +591,10 @@ export default {
 
 		try {
 			this.loadingStatusText = 'Retrieving indexes...';
-			this.indexSources = await api.getAgentIndexes();
+			this.indexSources = await api.getAgentIndexes(true);
 
 			this.loadingStatusText = 'Retrieving data sources...';
-			this.dataSources = await api.getAgentDataSources();
+			this.dataSources = await api.getAgentDataSources(true);
 		} catch (error) {
 			this.$toast.add({
 				severity: 'error',
@@ -744,7 +744,9 @@ export default {
 				if (textEmbeddingProfiles.length === 0) {
 					errors.push('No vectorization text embedding profiles found.');
 				}
-				this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+				else {
+					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+				}
 			}
 
 			// if (!this.selectedDataSource) {
@@ -791,7 +793,7 @@ export default {
 			try {
 				// Handle Prompt creation/update.
 				let promptObjectId = '';
-				if (promptRequest.prefix !== '' && promptRequest.suffix !== '') {
+				if (promptRequest.prefix !== '') {
 					const promptResponse = await api.createOrUpdatePrompt(this.agentName, promptRequest);
 					promptObjectId = promptResponse.objectId;
 				}

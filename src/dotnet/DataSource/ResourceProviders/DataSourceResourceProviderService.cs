@@ -351,6 +351,24 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
         #endregion
 
+        /// <inheritdoc/>
+        protected override T GetResourceInternal<T>(ResourcePath resourcePath) where T : class {
+            if (resourcePath.ResourceTypeInstances.Count != 1)
+                throw new ResourceProviderException($"Invalid resource path");
+
+            if (typeof(T) != typeof(DataSourceBase))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
+
+            _dataSourceReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var dataSourceReference);
+            if (dataSourceReference == null || dataSourceReference.Deleted)
+                throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+
+            var dataSource = LoadDataSource(dataSourceReference).Result;
+            return dataSource as T
+                ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+        }
+        
+
         #region Event handling
 
         /// <inheritdoc/>

@@ -40,6 +40,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -47,9 +48,6 @@ if (builder.Environment.IsDevelopment())
 // NOTE: This is required while the service uses API key authentication.
 // Once the service is moved over to Entra ID authentication, this must be replaced with the proper implementation.
 builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>();
-
-// Add the Configuration resource provider
-builder.AddConfigurationResourceProvider();
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
@@ -95,8 +93,13 @@ builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationSta
 // Resource validation
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
-// Vectorization resource provider
+// Resource providers
+builder.AddConfigurationResourceProvider();
+builder.AddDataSourceResourceProvider();
 builder.AddVectorizationResourceProvider();
+
+// Pipeline execution
+builder.AddPipelineExecution();
 
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();

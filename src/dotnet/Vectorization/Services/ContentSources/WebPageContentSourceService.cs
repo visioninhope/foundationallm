@@ -14,7 +14,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         private readonly ILogger<WebPageContentSourceService> _logger;
 
         /// <summary>
-        /// Creates a new instance of the vectorization content source that scrapes web pages.
+        /// Creates a new instance of the vectorization content source service that scrapes web pages.
         /// </summary>
         /// <param name="loggerFactory">Logger factory that generates loggers for the class.</param>
         public WebPageContentSourceService(ILoggerFactory loggerFactory) =>

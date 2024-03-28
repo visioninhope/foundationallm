@@ -1,11 +1,12 @@
-﻿using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Models.ResourceProvider;
+using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
-using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -15,51 +16,46 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
     /// <summary>
     /// Manages content sources registered for use in the vectorization pipelines.
     /// </summary>
-    /// <remarks>
-    /// Creates a new instance of the content source manager service.
-    /// </remarks>
-    /// <param name="vectorizationResourceProviderService">The vectorization resource provider service.</param>
+    /// <param name="resourceProviderServices">The resource provider services registered with the dependency injection container.</param>
     /// <param name="configuration">The global configuration provider.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public class ContentSourceServiceFactory(
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IResourceProviderService vectorizationResourceProviderService,
+        IEnumerable<IResourceProviderService> resourceProviderServices,
         IConfiguration configuration,
         ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IContentSourceService>
     {
-        private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
+        private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices =
+            resourceProviderServices.ToDictionary<IResourceProviderService, string>(
+                rps => rps.Name);
         private readonly IConfiguration _configuration = configuration;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
         public IContentSourceService GetService(string serviceName)
         {
-            var contentSourceProfile = _vectorizationResourceProviderService.GetResource<ContentSourceProfile>(
-                $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{serviceName}");
-
-            return contentSourceProfile.ContentSource switch
-            {
-                ContentSourceType.AzureDataLake => CreateAzureDataLakeContentSourceService(serviceName),
-                ContentSourceType.SharePointOnline => CreateSharePointOnlineContentSourceService(serviceName),
-                ContentSourceType.AzureSQLDatabase => CreateAzureSQLDatabaseContentSourceService(serviceName),
-                ContentSourceType.Web => CreateWebPageContentSourceService(serviceName),
-                _ => throw new VectorizationException($"The content source type {contentSourceProfile.ContentSource} is not supported."),
-            };
+            var (service, _) = this.GetServiceWithResource(serviceName);
+            return service;
         }
 
         /// <inheritdoc/>
-        public (IContentSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (IContentSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
-            var contentSourceProfile = _vectorizationResourceProviderService.GetResource<ContentSourceProfile>(
-                $"/{VectorizationResourceTypeNames.ContentSourceProfiles}/{serviceName}");
+            // serviceName is the data_source_object_id of the request
+            _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_DataSource, out var dataSourceResourceProviderService);
+            if (dataSourceResourceProviderService == null)
+                throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
 
-            return contentSourceProfile.ContentSource switch
-            {
-                ContentSourceType.AzureDataLake => (CreateAzureDataLakeContentSourceService(serviceName), contentSourceProfile),
-                ContentSourceType.SharePointOnline => (CreateSharePointOnlineContentSourceService(serviceName), contentSourceProfile),
-                ContentSourceType.AzureSQLDatabase => (CreateAzureSQLDatabaseContentSourceService(serviceName), contentSourceProfile),
-                ContentSourceType.Web => (CreateWebPageContentSourceService(serviceName), contentSourceProfile),
-                _ => throw new VectorizationException($"The content source type {contentSourceProfile.ContentSource} is not supported."),
-            };
+            var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(serviceName);
+            return dataSource == null
+                ? throw new VectorizationException($"The data source {serviceName} was not found.")
+                : dataSource.Type switch
+                    {
+                        DataSourceTypes.AzureDataLake => (CreateAzureDataLakeContentSourceService(dataSource.Name), dataSource),
+                        DataSourceTypes.SharePointOnlineSite => (CreateSharePointOnlineContentSourceService(dataSource.Name), dataSource),
+                        DataSourceTypes.AzureSQLDatabase => (CreateAzureSQLDatabaseContentSourceService(dataSource.Name), dataSource),
+                        // DataSourceTypes.Web => (CreateWebPageDataSourceService(dataSource.Name), dataSource),
+                        _ => throw new VectorizationException($"The data source type {dataSource.Type} is not supported."),
+                    };
         }
 
 
