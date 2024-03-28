@@ -591,10 +591,10 @@ export default {
 
 		try {
 			this.loadingStatusText = 'Retrieving indexes...';
-			this.indexSources = await api.getAgentIndexes();
+			this.indexSources = await api.getAgentIndexes(true);
 
 			this.loadingStatusText = 'Retrieving data sources...';
-			this.dataSources = await api.getAgentDataSources();
+			this.dataSources = await api.getAgentDataSources(true);
 		} catch (error) {
 			this.$toast.add({
 				severity: 'error',

@@ -113,16 +113,18 @@ export default {
 		}
 	},
 	
-	async getAgentDataSources(): Promise<DataSource[]> {
+	async getAgentDataSources(addDefaultOption: boolean = false): Promise<DataSource[]> {
 		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources?api-version=${this.apiVersion}`) as DataSource[];
-		const defaultDataSource: DataSource = {
-			name: "Select default data source",
-			type: "DEFAULT",
-			object_id: "",
-			resolved_configuration_references: {},
-			configuration_references: {},
-		};
-		data.unshift(defaultDataSource);
+		if (addDefaultOption) {
+			const defaultDataSource: DataSource = {
+				name: "Select default data source",
+				type: "DEFAULT",
+				object_id: "",
+				resolved_configuration_references: {},
+				configuration_references: {},
+			};
+			data.unshift(defaultDataSource);
+		}
 		return data;
 	},
 
@@ -235,15 +237,17 @@ export default {
 	},
 
 	// Indexes
-	async getAgentIndexes(): Promise<AgentIndex[]> {
+	async getAgentIndexes(addDefaultOption: boolean = false): Promise<AgentIndex[]> {
 		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles?api-version=${this.apiVersion}`);
-		const defaultAgentIndex: AgentIndex = {
-			name: "Select default index source",
-			object_id: "",
-			settings: {},
-			configuration_references: {},
-		};
-		data.unshift(defaultAgentIndex);
+		if (addDefaultOption) {
+			const defaultAgentIndex: AgentIndex = {
+				name: "Select default index source",
+				object_id: "",
+				settings: {},
+				configuration_references: {},
+			};
+			data.unshift(defaultAgentIndex);
+		}
 		return data;
 	},
 
