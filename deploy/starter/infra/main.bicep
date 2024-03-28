@@ -4,6 +4,8 @@ param adminGroupObjectId string
 
 param authAppRegistration object
 param timestamp string = utcNow()
+
+@secure()
 param authClientSecret string
 
 param appRegistrations array
@@ -549,9 +551,11 @@ module acaServices './app/acaService.bicep' = [
     scope: rg
     params: {
       apiKeySecretName: service.apiKeySecretName
+      appConfigName: appConfig.outputs.name
       appDefinition: serviceDefinition
       applicationInsightsName: monitoring.outputs.applicationInsightsName
       containerAppsEnvironmentName: appsEnv.outputs.name
+      eventgridName: eventgrid.outputs.name
       exists: servicesExist['${service.name}'] == 'true'
       hasIngress: service.hasIngress
       identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
@@ -562,21 +566,7 @@ module acaServices './app/acaService.bicep' = [
       serviceName: service.name
       storageAccountName: storage.outputs.name
       tags: tags
-      name: '${abbrs.appContainerApps}${service.name}${resourceToken}'
-      location: location
-      tags: tags
-      appConfigName: appConfig.outputs.name
-      eventgridName: eventgrid.outputs.name
-      identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
-      keyvaultName: keyVault.outputs.name
-      applicationInsightsName: monitoring.outputs.applicationInsightsName
-      containerAppsEnvironmentName: appsEnv.outputs.name
-      storageAccountName: storage.outputs.name
-      exists: servicesExist['${service.name}'] == 'true'
-      appDefinition: serviceDefinition
-      hasIngress: service.hasIngress
-      imageName: service.image
-      
+
       envSettings: service.useEndpoint
         ? [
             {
