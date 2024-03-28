@@ -3,6 +3,7 @@ targetScope = 'subscription'
 param adminGroupObjectId string
 
 param authAppRegistration object
+param timestamp string = utcNow()
 param authClientSecret string
 
 param appRegistrations array
@@ -112,11 +113,12 @@ resource customerOpenAi 'Microsoft.CognitiveServices/accounts@2023-05-01' existi
 
 /********** Nested Modules **********/
 module appConfig './shared/app-config.bicep' = {
-  name: 'app-config'
+  name: 'app-config-${timestamp}'
   params: {
     keyvaultName: keyVault.outputs.name
     location: location
     name: '${abbrs.appConfigurationConfigurationStores}${resourceToken}'
+    services: services
     sku: 'standard'
     tags: tags
   }
@@ -125,7 +127,7 @@ module appConfig './shared/app-config.bicep' = {
 }
 
 module authKeyvault './shared/keyvault.bicep' = {
-  name: 'auth-kv'
+  name: 'auth-kv-${timestamp}'
   params: {
     location: location
     name: '${abbrs.keyVaultVaults}auth${resourceToken}'
@@ -170,7 +172,7 @@ module authKeyvault './shared/keyvault.bicep' = {
 }
 
 module authStore './shared/authorization-store.bicep' = {
-  name: 'auth-store'
+  name: 'auth-store-${timestamp}'
   params: {
     adminGroupObjectId: adminGroupObjectId
     location: location
@@ -181,7 +183,7 @@ module authStore './shared/authorization-store.bicep' = {
 }
 
 module contentSafety './shared/content-safety.bicep' = {
-  name: 'content-safety'
+  name: 'content-safety-${timestamp}'
   params: {
     keyvaultName: keyVault.outputs.name
     location: location
@@ -194,7 +196,7 @@ module contentSafety './shared/content-safety.bicep' = {
 }
 
 module cosmosDb './shared/cosmosdb.bicep' = {
-  name: 'cosmos'
+  name: 'cosmos-${timestamp}'
   params: {
     containers: [
       {
@@ -229,7 +231,7 @@ module cosmosDb './shared/cosmosdb.bicep' = {
 }
 
 module cogSearch './shared/search.bicep' = {
-  name: 'cogsearch'
+  name: 'cogsearch-${timestamp}'
   params: {
     location: location
     name: '${abbrs.searchSearchServices}${resourceToken}'
@@ -252,7 +254,7 @@ var searchWriterRoleTargets = [
 module searchReaderRoles './shared/roleAssignments.bicep' = [
   for target in searchReaderRoleTargets: {
     scope: rg
-    name: '${target}-search-reader-role'
+    name: '${target}-search-reader-role-${timestamp}'
     params: {
       principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
       roleDefinitionIds: {
@@ -265,7 +267,7 @@ module searchReaderRoles './shared/roleAssignments.bicep' = [
 module searchWriterRoles './shared/roleAssignments.bicep' = [
   for target in searchWriterRoleTargets: {
     scope: rg
-    name: '${target}-search-contrib-role'
+    name: '${target}-search-contrib-role-${timestamp}'
     params: {
       principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
       roleDefinitionIds: {
@@ -277,7 +279,7 @@ module searchWriterRoles './shared/roleAssignments.bicep' = [
 ]
 
 module dashboard './shared/dashboard-web.bicep' = {
-  name: 'dashboard'
+  name: 'dashboard-${timestamp}'
   params: {
     name: '${abbrs.portalDashboards}${resourceToken}'
     applicationInsightsName: monitoring.outputs.applicationInsightsName
@@ -288,7 +290,7 @@ module dashboard './shared/dashboard-web.bicep' = {
 }
 
 module eventgrid './shared/eventgrid.bicep' = {
-  name: 'eventgrid'
+  name: 'eventgrid-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomains}${resourceToken}'
     location: location
@@ -310,7 +312,7 @@ module eventgrid './shared/eventgrid.bicep' = {
 }
 
 module keyVault './shared/keyvault.bicep' = {
-  name: 'keyvault'
+  name: 'keyvault-${timestamp}'
   params: {
     location: location
     tags: tags
@@ -322,7 +324,7 @@ module keyVault './shared/keyvault.bicep' = {
 }
 
 module monitoring './shared/monitoring.bicep' = {
-  name: 'monitoring'
+  name: 'monitoring-${timestamp}'
   params: {
     keyvaultName: keyVault.outputs.name
     location: location
@@ -334,10 +336,11 @@ module monitoring './shared/monitoring.bicep' = {
   dependsOn: [ keyVault ]
 }
 
-module openAi './shared/openai.bicep' = if (deployOpenAi) {
-  dependsOn: [ keyVault ]
-  name: 'openai'
-  scope: rg
+module openAi './shared/openai.bicep' =
+  if (deployOpenAi) {
+    dependsOn: [keyVault]
+    name: 'openai-${timestamp}'
+    scope: rg
 
   params: {
     location: location
@@ -373,7 +376,7 @@ module openAi './shared/openai.bicep' = if (deployOpenAi) {
 }
 
 module openAiSecrets './shared/openai-secrets.bicep' = {
-  name: 'openaiSecrets'
+  name: 'openaiSecrets-${timestamp}'
   scope: rg
 
   params: {
@@ -384,7 +387,7 @@ module openAiSecrets './shared/openai-secrets.bicep' = {
 }
 
 module storage './shared/storage.bicep' = {
-  name: 'storage'
+  name: 'storage-${timestamp}'
   params: {
     containers: [
       {
@@ -434,7 +437,7 @@ module storage './shared/storage.bicep' = {
 }
 
 module configTopic 'shared/config-system-topic.bicep' = {
-  name: 'configTopic'
+  name: 'configTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}config${resourceToken}'
     location: location
@@ -445,7 +448,7 @@ module configTopic 'shared/config-system-topic.bicep' = {
 }
 
 module storageTopic 'shared/storage-system-topic.bicep' = {
-  name: 'storageTopic'
+  name: 'storageTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}storage${resourceToken}'
     location: location
@@ -456,7 +459,7 @@ module storageTopic 'shared/storage-system-topic.bicep' = {
 }
 
 module storageSub 'shared/system-topic-subscription.bicep' = {
-  name: 'storageSub'
+  name: 'storageSub-${timestamp}'
   params: {
     name: 'foundationallm-storage'
     eventGridName: eventgrid.outputs.name
@@ -471,7 +474,7 @@ module storageSub 'shared/system-topic-subscription.bicep' = {
       {
         key: 'subject'
         operatorType: 'StringNotEndsWith'
-        values: [ 
+        values: [
           '_agent-references.json'
           '_data-source-references.json'
           '_prompt-references.json'
@@ -484,7 +487,7 @@ module storageSub 'shared/system-topic-subscription.bicep' = {
 }
 
 module configSub 'shared/system-topic-subscription.bicep' = {
-  name: 'configSub'
+  name: 'configSub-${timestamp}'
   params: {
     name: 'app-config'
     eventGridName: eventgrid.outputs.name
@@ -499,7 +502,7 @@ module configSub 'shared/system-topic-subscription.bicep' = {
 }
 
 module appsEnv './shared/apps-env.bicep' = {
-  name: 'apps-env'
+  name: 'apps-env-${timestamp}'
   params: {
     name: '${abbrs.appManagedEnvironments}${resourceToken}'
     location: location
@@ -511,7 +514,7 @@ module appsEnv './shared/apps-env.bicep' = {
 }
 
 module authAcaService './app/authAcaService.bicep' = {
-  name: authService.name
+  name: '${authService.name}-${timestamp}'
   params: {
     name: '${abbrs.appContainerApps}authapi${resourceToken}'
     location: location
@@ -539,42 +542,81 @@ module authAcaService './app/authAcaService.bicep' = {
 }
 
 @batchSize(3)
-module acaServices './app/acaService.bicep' = [for service in services: {
-  name: service.name
-  params: {
-    name: '${abbrs.appContainerApps}${service.name}${resourceToken}'
-    location: location
-    tags: tags
-    appConfigName: appConfig.outputs.name
-    eventgridName: eventgrid.outputs.name
-    identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
-    keyvaultName: keyVault.outputs.name
-    applicationInsightsName: monitoring.outputs.applicationInsightsName
-    containerAppsEnvironmentName: appsEnv.outputs.name
-    storageAccountName: storage.outputs.name
-    exists: servicesExist['${service.name}'] == 'true'
-    appDefinition: serviceDefinition
-    hasIngress: service.hasIngress
-    imageName: service.image
-    envSettings: service.useEndpoint ? [
-      {
-        name: service.appConfigEnvironmentVarName
-        value: appConfig.outputs.endpoint
-      }
-    ] : []
-    secretSettings: service.useEndpoint ? [] : [
-      {
-        name: service.appConfigEnvironmentVarName
-        value: appConfig.outputs.connectionStringSecretRef
-        secretRef: 'appconfig-connection-string'
-      }
-    ]
-    apiKeySecretName: service.apiKeySecretName
-    serviceName: service.name
+module acaServices './app/acaService.bicep' = [
+  for service in services: {
+    dependsOn: [appConfig, cogSearch, contentSafety, cosmosDb, keyVault, monitoring, storage]
+    name: '${service.name}-${timestamp}'
+    scope: rg
+    params: {
+      apiKeySecretName: service.apiKeySecretName
+      appDefinition: serviceDefinition
+      applicationInsightsName: monitoring.outputs.applicationInsightsName
+      containerAppsEnvironmentName: appsEnv.outputs.name
+      exists: servicesExist['${service.name}'] == 'true'
+      hasIngress: service.hasIngress
+      identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
+      imageName: service.image
+      keyvaultName: keyVault.outputs.name
+      location: location
+      name: '${abbrs.appContainerApps}${service.name}${resourceToken}'
+      serviceName: service.name
+      storageAccountName: storage.outputs.name
+      tags: tags
+      name: '${abbrs.appContainerApps}${service.name}${resourceToken}'
+      location: location
+      tags: tags
+      appConfigName: appConfig.outputs.name
+      eventgridName: eventgrid.outputs.name
+      identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
+      keyvaultName: keyVault.outputs.name
+      applicationInsightsName: monitoring.outputs.applicationInsightsName
+      containerAppsEnvironmentName: appsEnv.outputs.name
+      storageAccountName: storage.outputs.name
+      exists: servicesExist['${service.name}'] == 'true'
+      appDefinition: serviceDefinition
+      hasIngress: service.hasIngress
+      imageName: service.image
+      
+      envSettings: service.useEndpoint
+        ? [
+            {
+              name: service.appConfigEnvironmentVarName
+              value: appConfig.outputs.endpoint
+            }
+          ]
+        : []
+
+      secretSettings: service.useEndpoint
+        ? []
+        : [
+            {
+              name: service.appConfigEnvironmentVarName
+              value: filter(appConfig.outputs.connectionStringSecret, item => item.name == service.name)[0].uri
+              secretRef: 'appconfig-connection-string'
+            }
+          ]
+    }
   }
-  scope: rg
-  dependsOn: [ appConfig, cogSearch, contentSafety, cosmosDb, keyVault, monitoring, storage ]
-}]
+]
+
+var cosmosRoleTargets = [
+  'core-api'
+  'core-job'
+]
+
+module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
+  for target in cosmosRoleTargets: {
+    scope: rg
+    name: '${target}-cosmos-role-${timestamp}'
+    params: {
+      accountName: cosmosDb.outputs.name
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionIds: {
+        'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+      }
+    }
+  }
+]
 
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
 output AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME string = authStore.outputs.name
