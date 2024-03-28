@@ -96,7 +96,9 @@
 					<template v-if="selectedDataSource">
 						<div class="step-container__header">{{ selectedDataSource.type }}</div>
 						<div>
-							<span class="step-option__header">Name:</span>
+							<div v-if="selectedDataSource.object_id !== ''">
+								<span class="step-option__header">Name:</span>
+							</div>
 							<span>{{ selectedDataSource.name }}</span>
 						</div>
 						<!-- <div>
@@ -131,7 +133,9 @@
 								@click.stop="handleDataSourceSelected(dataSource)"
 							>
 								<div>
-									<span class="step-option__header">Name:</span>
+									<div v-if="dataSource.object_id !== ''">
+										<span  class="step-option__header">Name:</span>
+									</div>
 									<span>{{ dataSource.name }}</span>
 								</div>
 								<!-- <div>
@@ -154,14 +158,20 @@
 			<!-- Index source -->
 			<CreateAgentStepItem v-model="editIndexSource">
 				<template v-if="selectedIndexSource">
-					<div class="step-container__header">{{ selectedIndexSource.name }}</div>
-					<div>
-						<span class="step-option__header">URL:</span>
-						<span>{{ selectedIndexSource.configuration_references.Endpoint }}</span>
+					<div v-if="selectedIndexSource.object_id !== ''">
+						<div class="step-container__header">{{ selectedIndexSource.name }}</div>
+						<div>
+							<span class="step-option__header">URL:</span>
+							<span>{{ selectedIndexSource.configuration_references.Endpoint }}</span>
+						</div>
+						<div>
+							<span class="step-option__header">Index Name:</span>
+							<span>{{ selectedIndexSource.settings.IndexName }}</span>
+						</div>
 					</div>
-					<div>
-						<span class="step-option__header">Index Name:</span>
-						<span>{{ selectedIndexSource.settings.IndexName }}</span>
+					<div v-else>
+						<div class="step-container__header">DEFAULT</div>
+						{{ selectedIndexSource.name }}
 					</div>
 				</template>
 				<template v-else>Please select an index source.</template>
@@ -178,14 +188,20 @@
 						}"
 						@click.stop="handleIndexSourceSelected(indexSource)"
 					>
-						<div class="step-container__header">{{ indexSource.name }}</div>
-						<div>
-							<span class="step-option__header">URL:</span>
-							<span>{{ indexSource.configuration_references.Endpoint }}</span>
+						<div v-if="indexSource.object_id !== ''">
+							<div class="step-container__header">{{ indexSource.name }}</div>
+							<div v-if="indexSource.configuration_references.Endpoint">
+								<span class="step-option__header">URL:</span>
+								<span>{{ indexSource.configuration_references.Endpoint }}</span>
+							</div>
+							<div v-if="indexSource.settings.IndexName">
+								<span class="step-option__header">Index Name:</span>
+								<span>{{ indexSource.settings.IndexName }}</span>
+							</div>
 						</div>
-						<div>
-							<span class="step-option__header">Index Name:</span>
-							<span>{{ indexSource.settings.IndexName }}</span>
+						<div v-else>
+							<div class="step-container__header">DEFAULT</div>
+							{{ indexSource.name }}
 						</div>
 					</div>
 				</template>
@@ -231,7 +247,7 @@
 			<div v-if="dedicated_pipeline">
 				<CreateAgentStepItem>
 					<div class="step-container__header">Trigger</div>
-					<div>Runs every time a new tile is added to the data source.</div>
+					<div>Runs every time a new item is added to the data source.</div>
 
 					<div class="mt-2">
 						<span class="step-option__header">Frequency:</span>
@@ -807,6 +823,24 @@ export default {
 				const tokenTextPartitionResponse = await api.createOrUpdateTextPartitioningProfile(this.agentName, tokenTextPartitionRequest);
 				const textPartitioningProfileObjectId = tokenTextPartitionResponse.objectId;
 
+				// Select the default data source, if any.
+				let data_source_object_id = this.selectedDataSource?.object_id ?? '';
+				if (data_source_object_id === '') {
+					const defaultDataSource = await api.getDefaultDataSource();
+					if (defaultDataSource !== null) {
+						data_source_object_id = defaultDataSource.object_id;
+					}
+				}
+
+				// Select the default indexing profile, if any.
+				let indexing_profile_object_id = this.selectedIndexSource?.object_id ?? '';
+				if (indexing_profile_object_id === '') {
+					const defaultAgentIndex = await api.getDefaultAgentIndex();
+					if (defaultAgentIndex !== null) {
+						indexing_profile_object_id = defaultAgentIndex.object_id;
+					}
+				}
+
 				const agentRequest: CreateAgentRequest = {
 					type: this.agentType,
 					name: this.agentName,
@@ -816,9 +850,9 @@ export default {
 					vectorization: {
 						dedicated_pipeline: this.dedicated_pipeline,
 						text_embedding_profile_object_id: this.text_embedding_profile_object_id,
-						indexing_profile_object_id: this.selectedIndexSource?.object_id ?? '',
+						indexing_profile_object_id: indexing_profile_object_id,
 						text_partitioning_profile_object_id: textPartitioningProfileObjectId,
-						data_source_object_id: this.selectedDataSource?.object_id ?? '',
+						data_source_object_id: data_source_object_id,
 						vectorization_data_pipeline_object_id: this.vectorization_data_pipeline_object_id,
 					},
 
