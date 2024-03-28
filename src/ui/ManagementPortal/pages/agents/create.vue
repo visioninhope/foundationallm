@@ -744,7 +744,9 @@ export default {
 				if (textEmbeddingProfiles.length === 0) {
 					errors.push('No vectorization text embedding profiles found.');
 				}
-				this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+				else {
+					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+				}
 			}
 
 			// if (!this.selectedDataSource) {
@@ -791,7 +793,7 @@ export default {
 			try {
 				// Handle Prompt creation/update.
 				let promptObjectId = '';
-				if (promptRequest.prefix !== '' && promptRequest.suffix !== '') {
+				if (promptRequest.prefix !== '') {
 					const promptResponse = await api.createOrUpdatePrompt(this.agentName, promptRequest);
 					promptObjectId = promptResponse.objectId;
 				}
