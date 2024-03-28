@@ -15,26 +15,26 @@ using PnP.Core.Model.SharePoint;
 using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Common.Authentication;
 
-namespace FoundationaLLM.Vectorization.Services.DataSources
+namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
     /// <summary>
     /// Implements a vectorization content source for content residing in SharePoint Online.
     /// </summary>
-    public class SharePointOnlineDataSourceService : DataSourceServiceBase, IDataSourceService
+    public class SharePointOnlineContentSourceService : ContentSourceServiceBase, IContentSourceService
     {
         private readonly SharePointOnlineContentSourceServiceSettings _settings;
-        private readonly ILogger<SharePointOnlineDataSourceService> _logger;
+        private readonly ILogger<SharePointOnlineContentSourceService> _logger;
         private ServiceProvider? _serviceProvider;
 
         /// <summary>
         /// Creates a new instance of the vectorization content source.
         /// </summary>
-        public SharePointOnlineDataSourceService(
+        public SharePointOnlineContentSourceService(
             SharePointOnlineContentSourceServiceSettings settings,
             ILoggerFactory loggerFactory)
         {
             _settings = settings;
-            _logger = loggerFactory.CreateLogger<SharePointOnlineDataSourceService>();
+            _logger = loggerFactory.CreateLogger<SharePointOnlineContentSourceService>();
         }
 
         /// <inheritdoc/>
@@ -105,19 +105,19 @@ namespace FoundationaLLM.Vectorization.Services.DataSources
         private void ValidateSettings()
         {
             if (_settings == null)
-                throw new VectorizationException("Missing configuration settings for the SharePointOnlineDataSourceService.");
+                throw new VectorizationException("Missing configuration settings for the SharePointOnlineContentSourceService.");
 
             if (string.IsNullOrWhiteSpace(_settings.ClientId))
-                throw new VectorizationException("Missing ClientId in the SharePointOnlineDataSourceService configuration settings.");
+                throw new VectorizationException("Missing ClientId in the SharePointOnlineContentSourceService configuration settings.");
 
             if (string.IsNullOrWhiteSpace(_settings.TenantId))
-                throw new VectorizationException("Missing TenantId in the SharePointOnlineDataSourceService configuration settings.");
+                throw new VectorizationException("Missing TenantId in the SharePointOnlineContentSourceService configuration settings.");
 
             if (string.IsNullOrWhiteSpace(_settings.KeyVaultURL))
-                throw new VectorizationException("Missing KeyVaultURL in the SharePointOnlineDataSourceService configuration settings.");
+                throw new VectorizationException("Missing KeyVaultURL in the SharePointOnlineContentSourceService configuration settings.");
 
             if (string.IsNullOrWhiteSpace(_settings.CertificateName))
-                throw new VectorizationException("Missing CertificateName in the SharePointOnlineDataSourceService configuration settings.");
+                throw new VectorizationException("Missing CertificateName in the SharePointOnlineContentSourceService configuration settings.");
         }
 
         private async Task EnsureServiceProvider(string siteUrl)

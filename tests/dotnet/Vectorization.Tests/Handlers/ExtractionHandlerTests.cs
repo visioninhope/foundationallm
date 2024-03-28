@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Vectorization.Tests.Handlers
 {
-    internal class MockContentSourceService : DataSourceServiceBase, IDataSourceService
+    internal class MockContentSourceService : DataSourceServiceBase, IContentSourceService
     {
         public Task<string> ExtractTextAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
         {
@@ -20,14 +20,14 @@ namespace Vectorization.Tests.Handlers
         }
     }
 
-    internal class MockServiceFactory : IVectorizationServiceFactory<IDataSourceService>
+    internal class MockServiceFactory : IVectorizationServiceFactory<IContentSourceService>
     {
-        public IDataSourceService GetService(string serviceName)
+        public IContentSourceService GetService(string serviceName)
         {
             return new MockContentSourceService();
         }
 
-        public (IDataSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
+        public (IContentSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             throw new NotImplementedException();
         }
@@ -50,7 +50,7 @@ namespace Vectorization.Tests.Handlers
             // DI container configuration
             IVectorizationStateService stateService = A.Fake<IVectorizationStateService>();
             IServiceCollection serviceCollection = new ServiceCollection();
-            serviceCollection.AddSingleton<IVectorizationServiceFactory<IDataSourceService>, MockServiceFactory>();
+            serviceCollection.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, MockServiceFactory>();
 
             ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
 

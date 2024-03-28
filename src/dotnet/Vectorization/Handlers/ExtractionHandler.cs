@@ -39,11 +39,11 @@ namespace FoundationaLLM.Vectorization.Handlers
             IConfigurationSection? stepConfiguration,
             CancellationToken cancellationToken)
         {
-            var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IDataSourceService>>()
+            var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IContentSourceService>>()
                 ?? throw new VectorizationException($"Could not retrieve the data source service factory instance.");
-            var dataSourceService = serviceFactory.GetService(request.ContentIdentifier.DataSourceObjectId);
+            var contentSourceService = serviceFactory.GetService(request.ContentIdentifier.DataSourceObjectId);
 
-            var textContent = await dataSourceService.ExtractTextAsync(request.ContentIdentifier, cancellationToken);
+            var textContent = await contentSourceService.ExtractTextAsync(request.ContentIdentifier, cancellationToken);
 
             state.AddOrReplaceArtifact(new VectorizationArtifact
             {

@@ -3,12 +3,12 @@ using FoundationaLLM.Vectorization.DataFormats.Office;
 using FoundationaLLM.Vectorization.DataFormats.PDF;
 using FoundationaLLM.Vectorization.Exceptions;
 
-namespace FoundationaLLM.Vectorization.Services.DataSources
+namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
     /// <summary>
-    /// Provides common functionalities for all data sources.
+    /// Provides common functionalities for all content sources.
     /// </summary>
-    public class DataSourceServiceBase
+    public class ContentSourceServiceBase
     {
         /// <summary>
         /// Extracts text from the binary content of a file.

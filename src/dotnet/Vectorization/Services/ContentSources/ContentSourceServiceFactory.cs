@@ -12,21 +12,18 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace FoundationaLLM.Vectorization.Services.DataSources
+namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
     /// <summary>
-    /// Manages data sources registered for use in the vectorization pipelines.
+    /// Manages content sources registered for use in the vectorization pipelines.
     /// </summary>
-    /// <remarks>
-    /// Creates a new instance of the data source manager service.
-    /// </remarks>
-    /// <param name="dataSourceResourceProviderService">The vectorization resource provider service.</param>
+    /// <param name="resourceProviderServices">The resource provider services registered with the dependency injection container.</param>
     /// <param name="configuration">The global configuration provider.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
-    public class DataSourceServiceFactory(
+    public class ContentSourceServiceFactory(
         IEnumerable<IResourceProviderService> resourceProviderServices,
         IConfiguration configuration,
-        ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IDataSourceService>
+        ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IContentSourceService>
     {
         private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices =
             resourceProviderServices.ToDictionary<IResourceProviderService, string>(
@@ -35,14 +32,14 @@ namespace FoundationaLLM.Vectorization.Services.DataSources
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
-        public IDataSourceService GetService(string serviceName)
+        public IContentSourceService GetService(string serviceName)
         {
             var (service, _) = this.GetServiceWithResource(serviceName);
             return service;
         }
 
         /// <inheritdoc/>
-        public (IDataSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
+        public (IContentSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             // serviceName is the data_source_object_id of the request
             _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_DataSource, out var dataSourceResourceProviderService);
@@ -50,57 +47,56 @@ namespace FoundationaLLM.Vectorization.Services.DataSources
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
 
             var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(serviceName);
-            if (dataSource == null)
-                throw new VectorizationException($"The data source {serviceName} was not found.");
-
-            return dataSource.Type switch
-            {
-                DataSourceTypes.AzureDataLake => (CreateAzureDataLakeDataSourceService(dataSource.Name), dataSource),
-                DataSourceTypes.SharePointOnlineSite => (CreateSharePointOnlineDataSourceService(dataSource.Name), dataSource),
-                DataSourceTypes.AzureSQLDatabase => (CreateAzureSQLDatabaseDataSourceService(dataSource.Name), dataSource),
-                // DataSourceTypes.Web => (CreateWebPageDataSourceService(dataSource.Name), dataSource),
-                _ => throw new VectorizationException($"The data source type {dataSource.Type} is not supported."),
-            };
+            return dataSource == null
+                ? throw new VectorizationException($"The data source {serviceName} was not found.")
+                : dataSource.Type switch
+                    {
+                        DataSourceTypes.AzureDataLake => (CreateAzureDataLakeContentSourceService(dataSource.Name), dataSource),
+                        DataSourceTypes.SharePointOnlineSite => (CreateSharePointOnlineContentSourceService(dataSource.Name), dataSource),
+                        DataSourceTypes.AzureSQLDatabase => (CreateAzureSQLDatabaseContentSourceService(dataSource.Name), dataSource),
+                        // DataSourceTypes.Web => (CreateWebPageDataSourceService(dataSource.Name), dataSource),
+                        _ => throw new VectorizationException($"The data source type {dataSource.Type} is not supported."),
+                    };
         }
 
 
-        private DataLakeDataSourceService CreateAzureDataLakeDataSourceService(string serviceName)
+        private DataLakeContentSourceService CreateAzureDataLakeContentSourceService(string serviceName)
         {
             var blobStorageServiceSettings = new BlobStorageServiceSettings { AuthenticationType = BlobStorageAuthenticationTypes.Unknown };
             _configuration.Bind(
                 $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{serviceName}",
                 blobStorageServiceSettings);
 
-            return new DataLakeDataSourceService(
+            return new DataLakeContentSourceService(
                 blobStorageServiceSettings,
                 _loggerFactory);
         }
 
-        private SharePointOnlineDataSourceService CreateSharePointOnlineDataSourceService(string serviceName)
+        private SharePointOnlineContentSourceService CreateSharePointOnlineContentSourceService(string serviceName)
         {
             var sharePointOnlineContentSourceServiceSettings = new SharePointOnlineContentSourceServiceSettings();
             _configuration.Bind(
                 $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{serviceName}",
                 sharePointOnlineContentSourceServiceSettings);
 
-            return new SharePointOnlineDataSourceService(
+            return new SharePointOnlineContentSourceService(
                 sharePointOnlineContentSourceServiceSettings,
                 _loggerFactory);
         }
 
-        private AzureSQLDatabaseDataSourceService CreateAzureSQLDatabaseDataSourceService(string serviceName)
+        private AzureSQLDatabaseContentSourceService CreateAzureSQLDatabaseContentSourceService(string serviceName)
         {
             var azureSQLDatabaseContentSourceServiceSettings = new AzureSQLDatabaseContentSourceServiceSettings();
             _configuration.Bind(
                 $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{serviceName}",
                 azureSQLDatabaseContentSourceServiceSettings);
 
-            return new AzureSQLDatabaseDataSourceService(
+            return new AzureSQLDatabaseContentSourceService(
                 azureSQLDatabaseContentSourceServiceSettings,
                 _loggerFactory);
         }
 
-        private WebPageDataSourceService CreateWebPageDataSourceService(string serviceName)
-            => new WebPageDataSourceService(_loggerFactory);
+        private WebPageContentSourceService CreateWebPageContentSourceService(string serviceName)
+            => new WebPageContentSourceService(_loggerFactory);
     }
 }

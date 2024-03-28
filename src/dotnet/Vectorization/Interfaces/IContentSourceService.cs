@@ -3,9 +3,9 @@
 namespace FoundationaLLM.Vectorization.Interfaces
 {
     /// <summary>
-    /// Provides access to items in a data source source.
+    /// Provides access to items in a data source.
     /// </summary>
-    public interface IDataSourceService
+    public interface IContentSourceService
     {
         /// <summary>
         /// Reads the content of a data source item.

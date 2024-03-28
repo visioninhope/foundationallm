@@ -16,7 +16,7 @@ namespace FoundationaLLM.Vectorization.Interfaces
         T GetService(string serviceName);
 
         /// <summary>
-        /// Retrieves a service instance of type T specified by name and its associated vectorizaiton profile.
+        /// Retrieves a service instance of type T specified by name and its associated vectorization profile.
         /// </summary>
         /// <param name="serviceName">The name of the service instance to create.</param>
         /// <returns>The service instance and its associated vectorization profile.</returns>
