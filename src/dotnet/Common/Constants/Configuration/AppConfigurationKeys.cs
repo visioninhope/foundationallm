@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Common.Constants.Configuration
+﻿namespace FoundationaLLM.Common.Constants.Configuration
 {
     /// <summary>
     /// Contains constants of the keys for all app configuration settings.
@@ -820,6 +813,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         public const string FoundationaLLM_Events = "FoundationaLLM:Events:*";
         /// <summary>
         /// The key filter for the FoundationaLLM:DataSource:* app configuration settings.
+        /// This supports the DataSource resource provider settings.
         /// </summary>
         public const string FoundationaLLM_DataSource = "FoundationaLLM:DataSource:*";
         /// <summary>
@@ -926,10 +920,12 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The key section for the FoundationaLLM:Vectorization:StateService:Storage app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_StateService = "FoundationaLLM:Vectorization:StateService:Storage";
+        
         /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:ContentSources app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_ContentSources = "FoundationaLLM:Vectorization:ContentSources";
+
         /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService app configuration settings.
         /// </summary>

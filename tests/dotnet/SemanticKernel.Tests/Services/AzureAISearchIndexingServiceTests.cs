@@ -75,7 +75,7 @@ namespace FoundationaLLM.SemanticKernel.Tests.Services
                         "vectorization-input",
                         "somedata.pdf"
                     },
-                    ContentSourceProfileName = "SomePDFData",
+                    DataSourceObjectId = "SomePDFData",
                     CanonicalId = "SomeBusinessUnit/SomePDFData"
                 },
                 ContentParts = new List<EmbeddedContentPart>

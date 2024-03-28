@@ -11,7 +11,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
     public class ContentSourceServiceBase
     {
         /// <summary>
-        /// Reads the binary content of a specified file from the storage.
+        /// Extracts text from the binary content of a file.
         /// </summary>
         /// <param name="fileName">The file name of the file being extracted.</param>
         /// <param name="binaryContent">The binary data of the file being extracted.</param>

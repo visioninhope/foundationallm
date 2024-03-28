@@ -1,6 +1,7 @@
-﻿using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Resources;
@@ -42,7 +43,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         }
 
         /// <inheritdoc/>
-        public (IIndexingService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (IIndexingService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             var indexingProfile = _vectorizationResourceProviderService.GetResource<IndexingProfile>(
                 $"/{VectorizationResourceTypeNames.IndexingProfiles}/{serviceName}");

@@ -16,7 +16,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         private readonly AzureSQLDatabaseContentSourceServiceSettings _settings;
 
         /// <summary>
-        /// Creates a new instance of the vectorization content source.
+        /// Creates a new instance of the vectorization content source service.
         /// </summary>
         public AzureSQLDatabaseContentSourceService(
             AzureSQLDatabaseContentSourceServiceSettings settings,
