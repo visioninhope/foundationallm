@@ -230,4 +230,5 @@ output defaultDomain string = containerAppsEnvironment.properties.defaultDomain
 output name string = app.name
 output uri string = hasIngress ? 'https://${app.properties.configuration.ingress.fqdn}' : ''
 output id string = app.id
+output identityPrincipalId string = identity.properties.principalId
 output miPrincipalId string = identity.properties.principalId
