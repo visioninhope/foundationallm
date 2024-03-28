@@ -15,7 +15,7 @@ using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services;
-using FoundationaLLM.Vectorization.Services.DataSources;
+using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.Text;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using FoundationaLLM.Vectorization.Worker;

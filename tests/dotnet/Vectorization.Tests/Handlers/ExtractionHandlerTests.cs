@@ -4,15 +4,14 @@ using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
-using FoundationaLLM.Vectorization.Models.Resources;
-using FoundationaLLM.Vectorization.Services.DataSources;
+using FoundationaLLM.Vectorization.Services.ContentSources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Vectorization.Tests.Handlers
 {
-    internal class MockContentSourceService : DataSourceServiceBase, IContentSourceService
+    internal class MockContentSourceService : ContentSourceServiceBase, IContentSourceService
     {
         public Task<string> ExtractTextAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
         {
