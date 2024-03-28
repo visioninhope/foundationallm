@@ -493,7 +493,7 @@ const defaultFormValues = {
 	chunkSize: 500,
 	overlapSize: 50,
 
-	triggerFrequency: { label: 'Manual', value: 1 },
+	triggerFrequency: { label: 'Event', value: 1 },
 	triggerFrequencyScheduled: null,
 
 	conversationHistory: false as boolean,
@@ -540,15 +540,15 @@ export default {
 			
 			triggerFrequencyOptions: [
 				{
-					label: 'Manual',
+					label: 'Event',
 					value: 1,
 				},
+				{
+					label: 'Manual',
+					value: 2,
+				},
 				// {
-				// 	label: 'Auto',
-				// 	value: null,
-				// },
-				// {
-				// 	label: 'Scheduled',
+				// 	label: 'Schedule',
 				// 	value: 2,
 				// },
 			],
@@ -854,6 +854,8 @@ export default {
 						text_partitioning_profile_object_id: textPartitioningProfileObjectId,
 						data_source_object_id: data_source_object_id,
 						vectorization_data_pipeline_object_id: this.vectorization_data_pipeline_object_id,
+						trigger_type: this.triggerFrequency.label,
+						trigger_cron_schedule: '',
 					},
 
 					conversation_history: {
