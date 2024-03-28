@@ -49,9 +49,6 @@ if (builder.Environment.IsDevelopment())
 // Once the service is moved over to Entra ID authentication, this must be replaced with the proper implementation.
 builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>();
 
-// Add the Configuration resource provider
-builder.AddConfigurationResourceProvider();
-
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
     AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString,
@@ -97,8 +94,12 @@ builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationSta
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
 // Resource providers
+builder.AddConfigurationResourceProvider();
 builder.AddDataSourceResourceProvider();
 builder.AddVectorizationResourceProvider();
+
+// Pipeline execution
+builder.AddPipelineExecution();
 
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
