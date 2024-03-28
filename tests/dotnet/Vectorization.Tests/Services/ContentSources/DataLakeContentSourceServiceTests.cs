@@ -3,13 +3,13 @@ using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using Microsoft.Extensions.Logging;
 
-namespace Vectorization.Tests.Services.DataSources
+namespace Vectorization.Tests.Services.ContentSources
 {
-    public class DataLakeDataSourceServiceTests
+    public class DataLakeContentSourceServiceTests
     {
         private DataLakeContentSourceService _dataLakeContentSourceService;
         
-        public DataLakeDataSourceServiceTests() {
+        public DataLakeContentSourceServiceTests() {
             _dataLakeContentSourceService = new DataLakeContentSourceService(
                 new BlobStorageServiceSettings { 
                     AuthenticationType = BlobStorageAuthenticationTypes.ConnectionString,
