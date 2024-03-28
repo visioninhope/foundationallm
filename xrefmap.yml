@@ -7104,6 +7104,32 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextPartitioningProfileObjectId
   nameWithType: AgentVectorizationSettings.TextPartitioningProfileObjectId
+- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule
+  name: TriggerCronSchedule
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TriggerCronSchedule
+  commentId: P:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule
+  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule
+  nameWithType: AgentVectorizationSettings.TriggerCronSchedule
+- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule*
+  name: TriggerCronSchedule
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TriggerCronSchedule_
+  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule
+  nameWithType: AgentVectorizationSettings.TriggerCronSchedule
+- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType
+  name: TriggerType
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TriggerType
+  commentId: P:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType
+  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType
+  nameWithType: AgentVectorizationSettings.TriggerType
+- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType*
+  name: TriggerType
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TriggerType_
+  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType
+  nameWithType: AgentVectorizationSettings.TriggerType
 - uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.VectorizationDataPipelineObjectId
   name: VectorizationDataPipelineObjectId
   href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_VectorizationDataPipelineObjectId
