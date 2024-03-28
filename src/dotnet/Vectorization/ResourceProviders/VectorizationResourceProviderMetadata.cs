@@ -1,8 +1,9 @@
 ﻿using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.Vectorization.Constants;
 using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.Models;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Models.Vectorization;
 
 namespace FoundationaLLM.Vectorization.ResourceProviders
 {
@@ -17,13 +18,33 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         public static Dictionary<string, ResourceTypeDescriptor> AllowedResourceTypes => new()
         {
             {
+                VectorizationResourceTypeNames.VectorizationPipelines,
+                new ResourceTypeDescriptor(
+                    VectorizationResourceTypeNames.VectorizationPipelines)
+                {
+                    AllowedTypes = [
+                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(VectorizationPipeline)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(VectorizationPipeline)], [typeof(ResourceProviderUpsertResult)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
+                    ],
+                    Actions = [
+                        new ResourceTypeAction(VectorizationResourceProviderActions.Activate, true, false, [
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(VectorizationResult)])
+                        ]),
+                        new ResourceTypeAction(VectorizationResourceProviderActions.Deactivate, true, false, [
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(VectorizationResult)])
+                        ])
+                    ]
+                }
+            },
+            {
                 VectorizationResourceTypeNames.VectorizationRequests,
                 new ResourceTypeDescriptor(
                         VectorizationResourceTypeNames.VectorizationRequests)
                 {
                     AllowedTypes = [
                         new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(VectorizationRequest)]),
-                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(VectorizationRequest)], [typeof(VectorizationProcessingResult)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(VectorizationRequest)], [typeof(VectorizationResult)]),
                         new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ]
                 }

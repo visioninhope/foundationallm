@@ -13,6 +13,7 @@ using System.Text.Json;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 
 namespace FoundationaLLM.AgentFactory.Core.Services
 {

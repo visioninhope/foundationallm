@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Agent.Constants;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;

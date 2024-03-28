@@ -1,10 +1,15 @@
-﻿namespace FoundationaLLM.Vectorization.Constants
+﻿namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// Contains constants of the names of the resource types managed by the FoundationaLLM.Vectorization resource provider.
     /// </summary>
     public static class VectorizationResourceTypeNames
     {
+        /// <summary>
+        /// Vectorization pipelines.
+        /// </summary>
+        public const string VectorizationPipelines = "vectorizationPipelines";
+
         /// <summary>
         /// Vectorization requests.
         /// </summary>

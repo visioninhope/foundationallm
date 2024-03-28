@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.DataSource.Constants
+﻿namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// String constants for the types of data sources.

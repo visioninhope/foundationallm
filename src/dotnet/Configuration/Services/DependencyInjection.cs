@@ -68,6 +68,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IAzureAppConfigurationService>(),
                     sp.GetRequiredService<IAzureKeyVaultService>(),
                     builder.Configuration,
+                    sp,
                     sp.GetRequiredService<ILogger<ConfigurationResourceProviderService>>()));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }

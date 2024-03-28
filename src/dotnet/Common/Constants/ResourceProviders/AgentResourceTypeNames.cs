@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Agent.Constants
+﻿namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// Contains constants of the names of the resource types managed by the FoundationaLLM.Agent resource provider.

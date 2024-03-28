@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using FoundationaLLM.DataSource.Constants;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.DataSource.Models
 {

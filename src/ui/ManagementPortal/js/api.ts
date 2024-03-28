@@ -6,6 +6,7 @@ import type {
 	AppConfigUnion,
 	AgentIndex,
 	AgentGatekeeper,
+	FilterRequest,
 	CreateAgentRequest,
 	CheckNameResponse,
 	Prompt,
@@ -94,9 +95,35 @@ export default {
 			body: payload,
 		});
 	},
+
+	async getDefaultDataSource(): Promise<DataSource | null> {
+		const payload: FilterRequest = {
+			default: true
+		};
+
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/filter?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: payload,
+		});
+
+		if (data && data.length > 0) {
+			return data[0] as DataSource;
+		} else {
+			return null;
+		}
+	},
 	
 	async getAgentDataSources(): Promise<DataSource[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources?api-version=${this.apiVersion}`) as DataSource[];
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources?api-version=${this.apiVersion}`) as DataSource[];
+		const defaultDataSource: DataSource = {
+			name: "Select default data source",
+			type: "DEFAULT",
+			object_id: "",
+			resolved_configuration_references: {},
+			configuration_references: {},
+		};
+		data.unshift(defaultDataSource);
+		return data;
 	},
 
 	async getDataSource(dataSourceId: string): Promise<DataSource> {
@@ -209,7 +236,32 @@ export default {
 
 	// Indexes
 	async getAgentIndexes(): Promise<AgentIndex[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles?api-version=${this.apiVersion}`);
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles?api-version=${this.apiVersion}`);
+		const defaultAgentIndex: AgentIndex = {
+			name: "Select default index source",
+			object_id: "",
+			settings: {},
+			configuration_references: {},
+		};
+		data.unshift(defaultAgentIndex);
+		return data;
+	},
+
+	async getDefaultAgentIndex(): Promise<AgentIndex | null> {
+		const payload: FilterRequest = {
+			default: true
+		};
+
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles/filter?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: payload,
+		});
+
+		if (data && data.length > 0) {
+			return data[0] as AgentIndex;
+		} else {
+			return null;
+		}
 	},
 
 	// Text embedding profiles

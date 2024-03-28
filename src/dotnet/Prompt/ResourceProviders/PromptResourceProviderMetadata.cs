@@ -1,6 +1,6 @@
-﻿using FoundationaLLM.Common.Models.ResourceProvider;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.Prompt.Constants;
 using FoundationaLLM.Prompt.Models.Metadata;
 
 namespace FoundationaLLM.Prompt.ResourceProviders
