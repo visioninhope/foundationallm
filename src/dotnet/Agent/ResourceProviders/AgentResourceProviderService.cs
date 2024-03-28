@@ -210,7 +210,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                             TextPartitioningProfileObjectId = kmAgent.Vectorization.TextPartitioningProfileObjectId!,
                             TextEmbeddingProfileObjectId = kmAgent.Vectorization.TextEmbeddingProfileObjectId!,
                             IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectId!,
-                            TriggerType = VectorizationPipelineTriggerType.Event
+                            TriggerType = (VectorizationPipelineTriggerType) kmAgent.Vectorization.TriggerType!
                         }),
                         userIdentity);
 

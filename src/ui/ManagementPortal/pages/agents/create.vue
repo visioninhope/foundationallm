@@ -251,17 +251,17 @@
 
 					<div class="mt-2">
 						<span class="step-option__header">Frequency:</span>
-						<span>{{ triggerFrequency.label }}</span>
+						<span>{{ triggerFrequency }}</span>
 					</div>
 
-					<div v-if="triggerFrequency.value == 2 && triggerFrequencyScheduled">
+					<div v-if="triggerFrequency === 'Schedule' && triggerFrequencyScheduled">
 						<span class="step-option__header">Schedule:</span>
-						<span>{{ triggerFrequencyScheduled.label }}</span>
+						<span>{{ triggerFrequencyScheduled }}</span>
 					</div>
 
 					<template #edit>
 						<div class="step-container__header">Trigger</div>
-						<div>Runs every time a new tile is added to the data source.</div>
+						<div>Runs every time a new item is added to the data source.</div>
 
 						<div class="mt-2">
 							<span class="step-option__header">Frequency:</span>
@@ -269,18 +269,16 @@
 								v-model="triggerFrequency"
 								class="dropdown--agent"
 								:options="triggerFrequencyOptions"
-								option-label="label"
 								placeholder="--Select--"
 							/>
 						</div>
 
-						<div v-if="triggerFrequency.value === 2" class="mt-2">
+						<div v-if="triggerFrequency === 'Schedule'" class="mt-2">
 							<span class="step-option__header">Select schedule:</span>
 							<Dropdown
 								v-model="triggerFrequencyScheduled"
 								class="dropdown--agent"
 								:options="triggerFrequencyScheduledOptions"
-								option-label="label"
 								placeholder="--Select--"
 							/>
 						</div>
@@ -493,8 +491,8 @@ const defaultFormValues = {
 	chunkSize: 500,
 	overlapSize: 50,
 
-	triggerFrequency: { label: 'Event', value: 1 },
-	triggerFrequencyScheduled: null,
+	triggerFrequency: 'Event' as string,
+	triggerFrequencyScheduled: '' as string,
 
 	conversationHistory: false as boolean,
 	conversationMaxMessages: 5 as number,
@@ -538,43 +536,9 @@ export default {
 				},
 			],
 			
-			triggerFrequencyOptions: [
-				{
-					label: 'Event',
-					value: 1,
-				},
-				{
-					label: 'Manual',
-					value: 2,
-				},
-				// {
-				// 	label: 'Schedule',
-				// 	value: 2,
-				// },
-			],
+			triggerFrequencyOptions: ['Event', 'Manual'],
 
-			triggerFrequencyScheduledOptions: [
-				{
-					label: 'Never',
-					value: null,
-				},
-				{
-					label: 'Every 30 minutes',
-					value: 1,
-				},
-				{
-					label: 'Hourly',
-					value: 2,
-				},
-				{
-					label: 'Every 12 hours',
-					value: 2,
-				},
-				{
-					label: 'Daily',
-					value: 2,
-				},
-			],
+			triggerFrequencyScheduledOptions: ['Never', 'Every 30 minutes', 'Hourly', 'Every 12 hours', 'Daily'],
 
 			gatekeeperContentSafetyOptions: [
 				{
@@ -669,6 +633,9 @@ export default {
 				this.dedicated_pipeline = agent.vectorization.dedicated_pipeline;
 			}
 			this.text_embedding_profile_object_id = agent.vectorization?.text_embedding_profile_object_id || this.text_embedding_profile_object_id;
+
+			this.triggerFrequency = agent.vectorization?.trigger_type || this.triggerFrequency;
+			this.triggerFrequencyScheduled = agent.vectorization?.trigger_cron_schedule || this.triggerFrequencyScheduled;
 
 			this.selectedIndexSource =
 				this.indexSources.find((indexSource) => indexSource.object_id === agent.vectorization?.indexing_profile_object_id) ||
@@ -854,7 +821,7 @@ export default {
 						text_partitioning_profile_object_id: textPartitioningProfileObjectId,
 						data_source_object_id: data_source_object_id,
 						vectorization_data_pipeline_object_id: this.vectorization_data_pipeline_object_id,
-						trigger_type: this.triggerFrequency.label,
+						trigger_type: this.triggerFrequency,
 						trigger_cron_schedule: '',
 					},
 
