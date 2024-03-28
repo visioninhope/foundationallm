@@ -41,7 +41,6 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources);
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);

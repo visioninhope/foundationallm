@@ -817,11 +817,6 @@
         /// </summary>
         public const string FoundationaLLM_DataSource = "FoundationaLLM:DataSource:*";
         /// <summary>
-        /// The key filter for the FoundationaLLM:DataSources:* app configuration settings.
-        /// This supports the settings convention for data sources.
-        /// </summary>
-        public const string FoundationaLLM_DataSources = "FoundationaLLM:DataSources:*";
-        /// <summary>
         /// The key filter for the FoundationaLLM:AzureOpenAI:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AzureOpenAI = "FoundationaLLM:AzureOpenAI:*";
@@ -897,10 +892,6 @@
         /// </summary>
         public const string FoundationaLLM_AgentFactory = "FoundationaLLM:AgentFactory";
         /// <summary>
-        /// The key section for FoundationaLLM:DataSources app configuration settings.
-        /// </summary>
-        public const string FoundationaLLM_DataSources = "FoundationaLLM:DataSources";
-        /// <summary>
         /// The key section for the FoundationaLLM:SemanticKernelAPI app configuration settings.
         /// </summary>
         public const string FoundationaLLM_SemanticKernelAPI = "FoundationaLLM:SemanticKernelAPI";
@@ -933,7 +924,7 @@
         /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:ContentSources app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_DataSources = "FoundationaLLM:Vectorization:DataSources";
+        public const string FoundationaLLM_Vectorization_ContentSources = "FoundationaLLM:Vectorization:ContentSources";
 
         /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService app configuration settings.
