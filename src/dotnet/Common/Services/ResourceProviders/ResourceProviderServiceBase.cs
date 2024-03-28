@@ -27,6 +27,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private readonly List<string>? _eventNamespacesToSubscribe;
         private readonly ImmutableList<string> _allowedResourceProviders;
         private readonly Dictionary<string, ResourceTypeDescriptor> _allowedResourceTypes;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly Dictionary<string, IResourceProviderService> _resourceProviders = [];
 
         /// <summary>
         /// The <see cref="IAuthorizationService"/> providing authorization services to the resource provider.
@@ -91,6 +93,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <param name="eventService">The <see cref="IEventService"/> providing event services to the resource provider.</param>
         /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing services to instantiate resource validators.</param>
         /// <param name="logger">The logger used for logging.</param>
+        /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
         /// <param name="eventNamespacesToSubscribe">The list of Event Service event namespaces to subscribe to for local event processing.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
@@ -98,6 +101,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             IStorageService storageService,
             IEventService eventService,
             IResourceValidatorFactory resourceValidatorFactory,
+            IServiceProvider serviceProvider,
             ILogger logger,
             List<string>? eventNamespacesToSubscribe = default)
         {
@@ -106,6 +110,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             _eventService = eventService;
             _resourceValidatorFactory = resourceValidatorFactory;
             _logger = logger;
+            _serviceProvider = serviceProvider;
             _instanceSettings = instanceSettings;
             _eventNamespacesToSubscribe = eventNamespacesToSubscribe;
 
@@ -385,5 +390,20 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             await Task.CompletedTask;
 
         #endregion
+
+        /// <summary>
+        /// Gets a resource provider service by name.
+        /// </summary>
+        /// <param name="name">The name of the resource provider.</param>
+        /// <returns>The <see cref="IResourceProviderService"/> used to interact with the resource provider.</returns>
+        protected IResourceProviderService GetResourceProviderService(string name)
+        {
+            if (!_resourceProviders.ContainsKey(name))
+                _resourceProviders.Add(
+                    name,
+                    _serviceProvider.GetRequiredService<IEnumerable<IResourceProviderService>>()
+                        .Single(rp => rp.Name == name));
+            return _resourceProviders[name];
+        }
     }
 }

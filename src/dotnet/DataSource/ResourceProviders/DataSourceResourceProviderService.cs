@@ -30,6 +30,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
     /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
     public class DataSourceResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
@@ -37,6 +38,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
+        IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -44,6 +46,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             storageService,
             eventService,
             resourceValidatorFactory,
+            serviceProvider,
             loggerFactory.CreateLogger<DataSourceResourceProviderService>(),
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_DataSource

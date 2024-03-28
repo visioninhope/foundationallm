@@ -32,7 +32,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
     /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
-    /// <param name="vectorizationResourceProviderService">The vectorization <see cref="IResourceProviderService"/>.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
     public class AgentResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
@@ -40,7 +40,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
-        IResourceProviderService? vectorizationResourceProviderService,
+        IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -48,13 +48,12 @@ namespace FoundationaLLM.Agent.ResourceProviders
             storageService,
             eventService,
             resourceValidatorFactory,
+            serviceProvider,
             loggerFactory.CreateLogger<AgentResourceProviderService>(),
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
             ])
     {
-        private readonly IResourceProviderService? _vectorizationResourceProviderService = vectorizationResourceProviderService;
-
         /// <inheritdoc/>
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             AgentResourceProviderMetadata.AllowedResourceTypes;
@@ -199,20 +198,21 @@ namespace FoundationaLLM.Agent.ResourceProviders
             if ((agent is KnowledgeManagementAgent kmAgent)
                 && kmAgent.Vectorization.DedicatedPipeline)
             {
-                var result = await _vectorizationResourceProviderService!.HandlePostAsync(
-                    $"/{VectorizationResourceTypeNames.VectorizationPipelines}/{kmAgent.Name}",
-                    JsonSerializer.Serialize<VectorizationPipeline>(new VectorizationPipeline
-                    {
-                        Name = kmAgent.Name,
-                        Active = true,
-                        Description = $"Vectorization data pipeline dedicated to the {kmAgent.Name} agent.",
-                        DataSourceObjectId = kmAgent.Vectorization.DataSourceObjectId!,
-                        TextPartitioningProfileObjectId = kmAgent.Vectorization.TextPartitioningProfileObjectId!,
-                        TextEmbeddingProfileObjectId = kmAgent.Vectorization.TextEmbeddingProfileObjectId!,
-                        IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectId!,
-                        TriggerType = VectorizationPipelineTriggerType.Event
-                    }),
-                    userIdentity);
+                var result = await GetResourceProviderService(ResourceProviderNames.FoundationaLLM_Vectorization)
+                    .HandlePostAsync(
+                        $"/{VectorizationResourceTypeNames.VectorizationPipelines}/{kmAgent.Name}",
+                        JsonSerializer.Serialize<VectorizationPipeline>(new VectorizationPipeline
+                        {
+                            Name = kmAgent.Name,
+                            Active = true,
+                            Description = $"Vectorization data pipeline dedicated to the {kmAgent.Name} agent.",
+                            DataSourceObjectId = kmAgent.Vectorization.DataSourceObjectId!,
+                            TextPartitioningProfileObjectId = kmAgent.Vectorization.TextPartitioningProfileObjectId!,
+                            TextEmbeddingProfileObjectId = kmAgent.Vectorization.TextEmbeddingProfileObjectId!,
+                            IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectId!,
+                            TriggerType = VectorizationPipelineTriggerType.Event
+                        }),
+                        userIdentity);
 
                 if ((result is ResourceProviderUpsertResult resourceProviderResult)
                     && !string.IsNullOrWhiteSpace(resourceProviderResult.ObjectId))
