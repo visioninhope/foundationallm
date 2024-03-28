@@ -20578,6 +20578,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddOpenTelemetry
   nameWithType: DependencyInjection.AddOpenTelemetry
+- uid: FoundationaLLM.DependencyInjection.AddPipelineExecution(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  name: AddPipelineExecution(IHostApplicationBuilder)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddPipelineExecution_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
+  commentId: M:FoundationaLLM.DependencyInjection.AddPipelineExecution(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  fullName: FoundationaLLM.DependencyInjection.AddPipelineExecution(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  nameWithType: DependencyInjection.AddPipelineExecution(IHostApplicationBuilder)
+- uid: FoundationaLLM.DependencyInjection.AddPipelineExecution*
+  name: AddPipelineExecution
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddPipelineExecution_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddPipelineExecution
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddPipelineExecution
+  nameWithType: DependencyInjection.AddPipelineExecution
 - uid: FoundationaLLM.DependencyInjection.AddPromptResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddPromptResourceProvider(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddPromptResourceProvider_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -23129,6 +23142,38 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync
   nameWithType: IContentSourceService.ExtractTextAsync
+- uid: FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService
+  name: IPipelineExecutionService
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.html
+  commentId: T:FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService
+  fullName: FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService
+  nameWithType: IPipelineExecutionService
+- uid: FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.ExecuteAsync(System.Threading.CancellationToken)
+  name: ExecuteAsync(CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.html#FoundationaLLM_Vectorization_Interfaces_IPipelineExecutionService_ExecuteAsync_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.ExecuteAsync(System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.ExecuteAsync(System.Threading.CancellationToken)
+  nameWithType: IPipelineExecutionService.ExecuteAsync(CancellationToken)
+- uid: FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.ExecuteAsync*
+  name: ExecuteAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.html#FoundationaLLM_Vectorization_Interfaces_IPipelineExecutionService_ExecuteAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.ExecuteAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.ExecuteAsync
+  nameWithType: IPipelineExecutionService.ExecuteAsync
+- uid: FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.StopAsync(System.Threading.CancellationToken)
+  name: StopAsync(CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.html#FoundationaLLM_Vectorization_Interfaces_IPipelineExecutionService_StopAsync_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.StopAsync(System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.StopAsync(System.Threading.CancellationToken)
+  nameWithType: IPipelineExecutionService.StopAsync(CancellationToken)
+- uid: FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.StopAsync*
+  name: StopAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.html#FoundationaLLM_Vectorization_Interfaces_IPipelineExecutionService_StopAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.StopAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService.StopAsync
+  nameWithType: IPipelineExecutionService.StopAsync
 - uid: FoundationaLLM.Vectorization.Interfaces.IRequestManagerService
   name: IRequestManagerService
   href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IRequestManagerService.html
@@ -25134,6 +25179,114 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.NullAuthorizationService.ProcessAuthorizationRequest
   nameWithType: NullAuthorizationService.ProcessAuthorizationRequest
+- uid: FoundationaLLM.Vectorization.Services.Pipelines
+  name: FoundationaLLM.Vectorization.Services.Pipelines
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.html
+  commentId: N:FoundationaLLM.Vectorization.Services.Pipelines
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines
+  nameWithType: FoundationaLLM.Vectorization.Services.Pipelines
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService
+  name: PipelineExecutionService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.html
+  commentId: T:FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService
+  nameWithType: PipelineExecutionService
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.#ctor(System.IServiceProvider,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService})
+  name: PipelineExecutionService(IServiceProvider, IEnumerable<IResourceProviderService>, ILogger<PipelineExecutionService>)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService__ctor_System_IServiceProvider_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService__
+  commentId: M:FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.#ctor(System.IServiceProvider,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService})
+  name.vb: New(IServiceProvider, IEnumerable(Of IResourceProviderService), ILogger(Of PipelineExecutionService))
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.PipelineExecutionService(System.IServiceProvider, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService>)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.New(System.IServiceProvider, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService))
+  nameWithType: PipelineExecutionService.PipelineExecutionService(IServiceProvider, IEnumerable<IResourceProviderService>, ILogger<PipelineExecutionService>)
+  nameWithType.vb: PipelineExecutionService.New(IServiceProvider, IEnumerable(Of IResourceProviderService), ILogger(Of PipelineExecutionService))
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.#ctor*
+  name: PipelineExecutionService
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.PipelineExecutionService
+  fullName.vb: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.New
+  nameWithType: PipelineExecutionService.PipelineExecutionService
+  nameWithType.vb: PipelineExecutionService.New
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.ExecuteAsync(System.Threading.CancellationToken)
+  name: ExecuteAsync(CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService_ExecuteAsync_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.ExecuteAsync(System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.ExecuteAsync(System.Threading.CancellationToken)
+  nameWithType: PipelineExecutionService.ExecuteAsync(CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.ExecuteAsync*
+  name: ExecuteAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService_ExecuteAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.ExecuteAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.ExecuteAsync
+  nameWithType: PipelineExecutionService.ExecuteAsync
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.StopAsync(System.Threading.CancellationToken)
+  name: StopAsync(CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService_StopAsync_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.StopAsync(System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.StopAsync(System.Threading.CancellationToken)
+  nameWithType: PipelineExecutionService.StopAsync(CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.StopAsync*
+  name: StopAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService_StopAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.StopAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.StopAsync
+  nameWithType: PipelineExecutionService.StopAsync
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker
+  name: PipelineWorker
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.html
+  commentId: T:FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker
+  nameWithType: PipelineWorker
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.#ctor(FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker})
+  name: PipelineWorker(IPipelineExecutionService, ILogger<PipelineWorker>)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineWorker__ctor_FoundationaLLM_Vectorization_Interfaces_IPipelineExecutionService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Services_Pipelines_PipelineWorker__
+  commentId: M:FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.#ctor(FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker})
+  name.vb: New(IPipelineExecutionService, ILogger(Of PipelineWorker))
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.PipelineWorker(FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker>)
+  fullName.vb: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.New(FoundationaLLM.Vectorization.Interfaces.IPipelineExecutionService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker))
+  nameWithType: PipelineWorker.PipelineWorker(IPipelineExecutionService, ILogger<PipelineWorker>)
+  nameWithType.vb: PipelineWorker.New(IPipelineExecutionService, ILogger(Of PipelineWorker))
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.#ctor*
+  name: PipelineWorker
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineWorker__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.PipelineWorker
+  fullName.vb: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.New
+  nameWithType: PipelineWorker.PipelineWorker
+  nameWithType.vb: PipelineWorker.New
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.ExecuteAsync(System.Threading.CancellationToken)
+  name: ExecuteAsync(CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineWorker_ExecuteAsync_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.ExecuteAsync(System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.ExecuteAsync(System.Threading.CancellationToken)
+  nameWithType: PipelineWorker.ExecuteAsync(CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.ExecuteAsync*
+  name: ExecuteAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineWorker_ExecuteAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.ExecuteAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.ExecuteAsync
+  nameWithType: PipelineWorker.ExecuteAsync
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.StopAsync(System.Threading.CancellationToken)
+  name: StopAsync(CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineWorker_StopAsync_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.StopAsync(System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.StopAsync(System.Threading.CancellationToken)
+  nameWithType: PipelineWorker.StopAsync(CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.StopAsync*
+  name: StopAsync
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.html#FoundationaLLM_Vectorization_Services_Pipelines_PipelineWorker_StopAsync_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.StopAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.Pipelines.PipelineWorker.StopAsync
+  nameWithType: PipelineWorker.StopAsync
 - uid: FoundationaLLM.Vectorization.Services.RequestManagerService
   name: RequestManagerService
   href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestManagerService.html
