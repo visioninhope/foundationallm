@@ -1,6 +1,6 @@
-﻿using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.ResourceProvider;
-using FoundationaLLM.DataSource.Constants;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.DataSource.Models

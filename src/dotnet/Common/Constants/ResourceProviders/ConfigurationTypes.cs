@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Configuration.Constants
+﻿namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// String constants for the types of configurations.

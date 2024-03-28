@@ -1,6 +1,6 @@
-﻿using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.ResourceProvider;
-using FoundationaLLM.Prompt.Constants;
 using FoundationaLLM.Prompt.Models.Metadata;
 using System.Text.Json.Serialization;
 

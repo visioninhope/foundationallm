@@ -1,9 +1,9 @@
-﻿namespace FoundationaLLM.Agent.Constants
+﻿namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// The names of the actions implemented by the Agent resource provider.
     /// </summary>
-    public static class AgentResourceProviderActions
+    public static class PromptResourceProviderActions
     {
         /// <summary>
         /// Check the validity of a resource name.

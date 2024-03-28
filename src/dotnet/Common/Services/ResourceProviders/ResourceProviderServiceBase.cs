@@ -170,7 +170,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         #region IManagementProviderService
 
         /// <inheritdoc/>
-        public async Task<object> HandleGetAsync(string resourcePath, UnifiedUserIdentity? userIdentity)
+        public async Task<object> HandleGetAsync(string resourcePath, UnifiedUserIdentity userIdentity)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
@@ -183,11 +183,11 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "read");
 
-            return await GetResourcesAsync(parsedResourcePath);
+            return await GetResourcesAsync(parsedResourcePath, userIdentity);
         }
 
         /// <inheritdoc/>
-        public async Task<object> HandlePostAsync(string resourcePath, string serializedResource, UnifiedUserIdentity? userIdentity)
+        public async Task<object> HandlePostAsync(string resourcePath, string serializedResource, UnifiedUserIdentity userIdentity)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
@@ -200,13 +200,13 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             await Authorize(parsedResourcePath, userIdentity, "write");
 
             if (parsedResourcePath.ResourceTypeInstances.Last().Action != null)
-                return await ExecuteActionAsync(parsedResourcePath, serializedResource);
+                return await ExecuteActionAsync(parsedResourcePath, serializedResource, userIdentity);
             else
-                return await UpsertResourceAsync(parsedResourcePath, serializedResource);
+                return await UpsertResourceAsync(parsedResourcePath, serializedResource, userIdentity);
         }
 
         /// <inheritdoc/>
-        public async Task HandleDeleteAsync(string resourcePath, UnifiedUserIdentity? userIdentity)
+        public async Task HandleDeleteAsync(string resourcePath, UnifiedUserIdentity userIdentity)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
@@ -219,7 +219,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "delete");
 
-            await DeleteResourceAsync(parsedResourcePath);
+            await DeleteResourceAsync(parsedResourcePath, userIdentity);
         }
 
         #region Virtuals to override in derived classes
@@ -228,8 +228,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// The internal implementation of GetResourcesAsync. Must be overridden in derived classes.
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> with details about the identity of the user.</param>
         /// <returns></returns>
-        protected virtual async Task<object> GetResourcesAsync(ResourcePath resourcePath)
+        protected virtual async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -240,8 +241,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
         /// <param name="serializedResource">The serialized resource being created or updated.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> with details about the identity of the user.</param>
         /// <returns></returns>
-        protected virtual async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource)
+        protected virtual async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -252,9 +254,10 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
         /// <param name="serializedAction">The serialized details of the action being executed.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> with details about the identity of the user.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected virtual async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction)
+        protected virtual async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -264,8 +267,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> with details about the identity of the user.</param>
         /// <returns></returns>
-        protected virtual async Task DeleteResourceAsync(ResourcePath resourcePath)
+        protected virtual async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();

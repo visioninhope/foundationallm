@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using FoundationaLLM.Prompt.Constants;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using System.Text.Json.Serialization;
 
 
 namespace FoundationaLLM.Prompt.Models.Metadata
