@@ -16,7 +16,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         private readonly DataLakeStorageService _dataLakeStorageService;
 
         /// <summary>
-        /// Creates a new instance of the vectorization data source service.
+        /// Creates a new instance of the vectorization content source service.
         /// </summary>
         public DataLakeContentSourceService(
             BlobStorageServiceSettings storageSettings,

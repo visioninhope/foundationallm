@@ -112,11 +112,9 @@ namespace FoundationaLLM.Vectorization.Services
             if (dataSourceResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
 
-            var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(vectorizationRequest.ContentIdentifier.DataSourceObjectId);
-            if (dataSource == null)
-                throw new VectorizationException($"The data source {vectorizationRequest.ContentIdentifier.DataSourceObjectId} was not found.");
-
-            switch(dataSource.Type)
+            var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(vectorizationRequest.ContentIdentifier.DataSourceObjectId)
+                ?? throw new VectorizationException($"The data source {vectorizationRequest.ContentIdentifier.DataSourceObjectId} was not found.");
+            switch (dataSource.Type)
             {
                 case DataSourceTypes.AzureDataLake:
                 case DataSourceTypes.SharePointOnlineSite:

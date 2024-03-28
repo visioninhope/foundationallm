@@ -16,10 +16,10 @@ namespace FoundationaLLM.Vectorization.Interfaces
         T GetService(string serviceName);
 
         /// <summary>
-        /// Retrieves a service instance of type T specified by name and its associated vectorization profile.
+        /// Retrieves a service instance of type T specified by name and its associated resource object (if any).
         /// </summary>
         /// <param name="serviceName">The name of the service instance to create.</param>
-        /// <returns>The service instance and its associated vectorization profile.</returns>
+        /// <returns>The service instance and its associated resource object (if any).</returns>
         (T Service, ResourceBase Resource) GetServiceWithResource(string serviceName);
     }
 }

@@ -40,7 +40,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             CancellationToken cancellationToken)
         {
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IContentSourceService>>()
-                ?? throw new VectorizationException($"Could not retrieve the data source service factory instance.");
+                ?? throw new VectorizationException($"Could not retrieve the content source service factory instance.");
             var contentSourceService = serviceFactory.GetService(request.ContentIdentifier.DataSourceObjectId);
 
             var textContent = await contentSourceService.ExtractTextAsync(request.ContentIdentifier, cancellationToken);

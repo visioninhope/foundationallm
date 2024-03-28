@@ -27,7 +27,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         private ServiceProvider? _serviceProvider;
 
         /// <summary>
-        /// Creates a new instance of the vectorization content source.
+        /// Creates a new instance of the vectorization content source service.
         /// </summary>
         public SharePointOnlineContentSourceService(
             SharePointOnlineContentSourceServiceSettings settings,
