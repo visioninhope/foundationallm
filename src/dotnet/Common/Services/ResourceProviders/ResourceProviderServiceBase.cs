@@ -27,6 +27,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private readonly List<string>? _eventNamespacesToSubscribe;
         private readonly ImmutableList<string> _allowedResourceProviders;
         private readonly Dictionary<string, ResourceTypeDescriptor> _allowedResourceTypes;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly Dictionary<string, IResourceProviderService> _resourceProviders = [];
 
         /// <summary>
         /// The <see cref="IAuthorizationService"/> providing authorization services to the resource provider.
@@ -91,6 +93,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <param name="eventService">The <see cref="IEventService"/> providing event services to the resource provider.</param>
         /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing services to instantiate resource validators.</param>
         /// <param name="logger">The logger used for logging.</param>
+        /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
         /// <param name="eventNamespacesToSubscribe">The list of Event Service event namespaces to subscribe to for local event processing.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
@@ -98,6 +101,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             IStorageService storageService,
             IEventService eventService,
             IResourceValidatorFactory resourceValidatorFactory,
+            IServiceProvider serviceProvider,
             ILogger logger,
             List<string>? eventNamespacesToSubscribe = default)
         {
@@ -106,6 +110,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             _eventService = eventService;
             _resourceValidatorFactory = resourceValidatorFactory;
             _logger = logger;
+            _serviceProvider = serviceProvider;
             _instanceSettings = instanceSettings;
             _eventNamespacesToSubscribe = eventNamespacesToSubscribe;
 
@@ -170,7 +175,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         #region IManagementProviderService
 
         /// <inheritdoc/>
-        public async Task<object> HandleGetAsync(string resourcePath, UnifiedUserIdentity? userIdentity)
+        public async Task<object> HandleGetAsync(string resourcePath, UnifiedUserIdentity userIdentity)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
@@ -183,11 +188,11 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "read");
 
-            return await GetResourcesAsync(parsedResourcePath);
+            return await GetResourcesAsync(parsedResourcePath, userIdentity);
         }
 
         /// <inheritdoc/>
-        public async Task<object> HandlePostAsync(string resourcePath, string serializedResource, UnifiedUserIdentity? userIdentity)
+        public async Task<object> HandlePostAsync(string resourcePath, string serializedResource, UnifiedUserIdentity userIdentity)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
@@ -200,13 +205,13 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             await Authorize(parsedResourcePath, userIdentity, "write");
 
             if (parsedResourcePath.ResourceTypeInstances.Last().Action != null)
-                return await ExecuteActionAsync(parsedResourcePath, serializedResource);
+                return await ExecuteActionAsync(parsedResourcePath, serializedResource, userIdentity);
             else
-                return await UpsertResourceAsync(parsedResourcePath, serializedResource);
+                return await UpsertResourceAsync(parsedResourcePath, serializedResource, userIdentity);
         }
 
         /// <inheritdoc/>
-        public async Task HandleDeleteAsync(string resourcePath, UnifiedUserIdentity? userIdentity)
+        public async Task HandleDeleteAsync(string resourcePath, UnifiedUserIdentity userIdentity)
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
@@ -219,7 +224,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "delete");
 
-            await DeleteResourceAsync(parsedResourcePath);
+            await DeleteResourceAsync(parsedResourcePath, userIdentity);
         }
 
         #region Virtuals to override in derived classes
@@ -228,8 +233,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// The internal implementation of GetResourcesAsync. Must be overridden in derived classes.
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> with details about the identity of the user.</param>
         /// <returns></returns>
-        protected virtual async Task<object> GetResourcesAsync(ResourcePath resourcePath)
+        protected virtual async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -240,8 +246,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
         /// <param name="serializedResource">The serialized resource being created or updated.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> with details about the identity of the user.</param>
         /// <returns></returns>
-        protected virtual async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource)
+        protected virtual async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -252,9 +259,10 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
         /// <param name="serializedAction">The serialized details of the action being executed.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> with details about the identity of the user.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected virtual async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction)
+        protected virtual async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -264,8 +272,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> with details about the identity of the user.</param>
         /// <returns></returns>
-        protected virtual async Task DeleteResourceAsync(ResourcePath resourcePath)
+        protected virtual async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -381,5 +390,20 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             await Task.CompletedTask;
 
         #endregion
+
+        /// <summary>
+        /// Gets a resource provider service by name.
+        /// </summary>
+        /// <param name="name">The name of the resource provider.</param>
+        /// <returns>The <see cref="IResourceProviderService"/> used to interact with the resource provider.</returns>
+        protected IResourceProviderService GetResourceProviderService(string name)
+        {
+            if (!_resourceProviders.ContainsKey(name))
+                _resourceProviders.Add(
+                    name,
+                    _serviceProvider.GetRequiredService<IEnumerable<IResourceProviderService>>()
+                        .Single(rp => rp.Name == name));
+            return _resourceProviders[name];
+        }
     }
 }

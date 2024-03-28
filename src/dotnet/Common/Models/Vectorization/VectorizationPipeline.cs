@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Common.Models.ResourceProvider;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Vectorization.Models.Resources
+namespace FoundationaLLM.Common.Models.Vectorization
 {
     /// <summary>
     /// Defines a vectorization pipeline.

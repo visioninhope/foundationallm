@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace FoundationaLLM.Common.Constants
+namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// Contains constants of the resource provider names.

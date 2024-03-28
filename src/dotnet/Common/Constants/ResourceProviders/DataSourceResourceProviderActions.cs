@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.DataSource.Constants
+﻿namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// The names of the actions implemented by the Data Source resource provider.

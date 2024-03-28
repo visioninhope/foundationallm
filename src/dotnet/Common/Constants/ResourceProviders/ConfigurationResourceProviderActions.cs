@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Configuration.Constants
+﻿namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// The names of the actions implemented by the FoundationaLLM.Configuration resource provider.
