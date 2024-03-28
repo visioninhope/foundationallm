@@ -40,6 +40,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
 });
 
 if (builder.Environment.IsDevelopment())
@@ -49,7 +50,8 @@ if (builder.Environment.IsDevelopment())
 // Once the service is moved over to Entra ID authentication, this must be replaced with the proper implementation.
 builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>();
 
-// Add the Configuration resource provider
+// Add resource providers.
+builder.AddDataSourceResourceProvider();
 builder.AddConfigurationResourceProvider();
 
 // Add OpenTelemetry.
