@@ -9,4 +9,4 @@ Foundationa**LLM** (FLLM) agents are the core of the solution. They are responsi
 
 Prompts are an important aspect for agents. A prompt defines the persona, instructions and guardrails provided to the large language model (LLM) so that it formulates accurate responses in desired formats.
 
-- [Prompt resources](prompt.md)
+- [Prompt resources](prompt-resource.md)
