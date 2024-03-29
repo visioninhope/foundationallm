@@ -94,7 +94,8 @@
   &quot;type&quot;: &quot;internal-context&quot;,
   &quot;name&quot;: &quot;&lt;name&gt;&quot;,
   &quot;object_id&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.Agent/agents/&lt;name&gt;&quot;,
-  &quot;description&quot;: &quot;&lt;description&gt;&quot;,  
+  &quot;description&quot;: &quot;&lt;description&gt;&quot;,
+  &quot;prompt_object_id&quot;: &quot;&lt;prompt_resource_objectid&gt;&quot;,
   &quot;language_model&quot;: {
     &quot;type&quot;: &quot;openai&quot;,
     &quot;provider&quot;: &quot;microsoft&quot;,
@@ -126,6 +127,7 @@
 <li><code>&lt;name&gt;</code> is the name of the agent.</li>
 <li><code>&lt;instance_id&gt;</code> is the instance ID of the deployment.</li>
 <li><code>&lt;description&gt;</code> is the description of the agent. Ensure that this description details the purpose of the agent.</li>
+<li>(Optional) <code>&lt;prompt_resource_objectid&gt;</code> is the object ID of the prompt resource, if one exists.</li>
 </ul>
 <table>
 <thead>
@@ -150,6 +152,10 @@
 <tr>
 <td><code>description</code></td>
 <td>The description of the agent, ensure this description details the purpose of the agent.</td>
+</tr>
+<tr>
+<td><code>prompt_object_id</code></td>
+<td>(Optional) The object ID of the prompt resource, if one exists.</td>
 </tr>
 <tr>
 <td><code>language_model</code></td>
