@@ -6,3 +6,4 @@ FoundationaLLM uses the [Microsoft Entra ID](https://learn.microsoft.com/entra/f
 
 - [Core API and user portal authentication setup - Microsoft Entra ID](core-authentication-setup-entra.md)
 - [Management API and portal authentication setup - Microsoft Entra ID](management-authentication-setup-entra.md)
+- [Authorization setup - Microsoft Entra ID](authorization-setup-entra.md)
