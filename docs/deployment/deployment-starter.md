@@ -42,7 +42,7 @@ Follow the steps below to deploy the solution to your Azure subscription.
 
     ```cmd
     git clone https://github.com/solliancenet/foundationallm.git
-    git checkout release/0.4.0
+    git checkout release/0.5.0
     ```
 
 3. Run the following commands to set the appropriate application registration settings for OIDC authentication.
