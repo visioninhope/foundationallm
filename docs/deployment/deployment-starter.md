@@ -35,6 +35,7 @@ PowerShell 7 is a cross-platform (Windows, macOS, and Linux) automation tool and
 ## Deployment steps
 
 Follow the steps below to deploy the solution to your Azure subscription.
+If you are upgrading from a previous version, like `0.4.0` please refer to the changes in the [release notes](changes-050.md).
 
 1. Ensure all the prerequisites are met.
 
