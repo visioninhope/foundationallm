@@ -35,7 +35,33 @@ RBAC roles `reader, Contributor and User Access Administrator` are now activated
 
 - We have improved validation of Vectorization requests so if a type of file is not supported by the system, the system will return an error message immediately.
 - After a configured amount of attempts to a vectorization request, the system will stop processing given steps.
-- The system now uses a Dynamic pace of proccessing in Vectorization workers. If the system is idle for more than 
+- The system now uses a Dynamic pace of processing in Vectorization workers. If the system is processing the vectorization queue it checks the queue every 5 seconds for new requests. but if the system is idle it checks the queue every 1 minute then goes back to 5 seconds once requests are present in the queue.  That alleviate the system from having to check every 5 seconds even when there are no requests in the queue.
+- You can now add `custom metadata` to the vectorization request.
+  
+## Zero trust - removing dependencies on API keys
+The following components have now Entra ID managed identity-based authentication support:
 
+- Vectorization content sources
+- Resource providers
+- Azure AI Search
+- Authorization store and API
+- Azure AI Content Safety
 
+>[!NOTE]
+>The following components are getting Entra ID managed dentity-based authentication support in the next release: Azure CosmosDB service, Azure OpenAI in LangChain, AzureAIDirect orchestrator, AzureOpenAIDirect orchestrator
+
+## Management Configuration Portal
+
+- Management Portal automatically configures Azure App Configuration keys and Azure Key Vault secrets for new Data Sources
+- Management API enables management of all Azure App Configuration keys and Azure Key Vault secrets
+
+## API Changes
+- Agents API
+- Core API
+    - Session-less Completion: Removal of X-AGENT-HINT header & passing agent name in the JSON body
+- Vectorization path casing has been changed as listed below for requests:  
+    - contentSourceProfiles 
+    - textEmbeddingProfiles
+    - textPartioningProfiles
+    - indexingProfiles 
 
