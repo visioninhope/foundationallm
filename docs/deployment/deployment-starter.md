@@ -62,6 +62,8 @@ Follow the steps below to deploy the solution to your Azure subscription.
     azd env set ENTRA_AUTH_API_SCOPES <Auth API Scope>
     azd env set ENTRA_AUTH_API_TENANT_ID <Auth API Tenant ID>
 
+    azd env set ADMIN_GROUP_OBJECT_ID <Admin Group Object Id>
+
     azd env set ENTRA_CHAT_UI_CLIENT_ID <Chat UI Client Id>
     azd env set ENTRA_CHAT_UI_SCOPES <Chat UI Scope>
     azd env set ENTRA_CHAT_UI_TENANT_ID <Chat UI Tenant ID>
@@ -99,6 +101,8 @@ Follow the steps below to deploy the solution to your Azure subscription.
     ```powershell
     [guid]::NewGuid().ToString()
     ```
+    >[!NOTE]
+    >The Admin_GROUP_OBJECT_ID has to be of type `security` NOT `Microsoft 365` and you need to at least add yourself to the group and other members that need to be admins.
 
 4. **Optional**: Bring Your Own Azure OpenAI Instance
 
