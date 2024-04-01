@@ -19,15 +19,15 @@ Foundationa**LLM** deploys a secure, comprehensive and highly configurable copil
 ### Misconception
 Leveraging large language models is all about prompt engineering, it’s as easy as:
 
-![LLM and ChatGPT Misconception](./docs/media/FLLM-Misconception.png)
+![LLM and ChatGPT Misconception](./media/FLLM-Misconception.png)
 
 ### Reality
 What it really takes to create a secure, well governed, scalable and extensible enterprise copilot solution:
 
-![FoundationaLLM Reality](./docs/media/FLLM-Complete-Picture.png)
+![FoundationaLLM Reality](./media/FLLM-Complete-Picture.png)
 
 #### Where does FoundationaLLM stack against the other copilot solutions?
-![FoundationaLLM Positioning](./docs/media/FLLM-Positioning.png)
+![FoundationaLLM Positioning](./media/FLLM-Positioning.png)
 
 ## What do WE mean by "copilot"
 
@@ -52,7 +52,7 @@ The core problems to deliver enterprise copilots are:
 - Delivery of a copilot solution is time consuming, expensive and frustrating.
 
 ## Where can Foundationa**LLM** fill the need?
-![Areas where FoundationaLLM can help organizations](./docs/media/FLLM-Needs.png)
+![Areas where FoundationaLLM can help organizations](./media/FLLM-Needs.png)
 
 ## Documentation
 
@@ -62,7 +62,7 @@ Get up to speed with Foundationa**LLM** by reading the [documentation](https://d
 
 FoundationalLLM provides a simple command line driven approach to getting your first deployment up and running. Basically, it's two commands. After that, you can customize the solution, run it locally on your machine and update the deployment with your customizations.
 
-Follow the [Starter Deployment instructions](./docs/deployment/deployment-starter.md) to get Foundationa**LLM** deployed in your Azure subscription.
+Follow the [Starter Deployment instructions](./deployment/deployment-starter.md) to get Foundationa**LLM** deployed in your Azure subscription.
 
 ## Contributing to FoundationaLLM
 
