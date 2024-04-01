@@ -123,7 +123,7 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
 
 ### Authentication setup
 
-Follow the instructions in the [Authentication setup document](authentication/index.md) to finalizie authentication for the solution.
+Follow the instructions in the [Authentication setup document](authentication-authorization/index.md) to finalizie authentication for the solution.
 
 ### Running script to allow MS Graph access through Role Permissions
 After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. [Role Permissions Script](/deploy/common/scripts/Assign-MSGraph-Roles.ps1)
