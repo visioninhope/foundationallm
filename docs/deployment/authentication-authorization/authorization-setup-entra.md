@@ -36,15 +36,6 @@ To enable Microsoft Entra ID authorization to the FoundationaLLM platform, you n
 
     ![The Entra app client ID and Directory ID values are highlighted in the Overview blade.](media/entra-authorization-overview.png)
 
-#### Client secret for the client application
-
-1. Under **Manage**, select **Certificates & secrets**.
-2. Under **Client secrets**, select **+ New client secret**.
-3. For **Description**, enter a description for the secret. For example, enter *FoundationaLLM-Authorization*.
-4. Select a desired expiration date.
-5. Select **Add**.
-6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
-
 #### Expose an API for the API application
 
 1. Under **Manage**, select **Expose an API** > **Add a scope**. For **Application ID URI**, accept the default or specify a custom one like `api://FoundationaLLM-Authorization-Auth`, then select **Save and continue**, and then enter the following details:
