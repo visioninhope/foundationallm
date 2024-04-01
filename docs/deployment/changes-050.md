@@ -1,16 +1,21 @@
 # Changes to the 0.5.0 release
+
 This document outlines the changes made to the FoundationaLLM project in the 0.5.0 release.
 
 ## AzureAIDirect and AzureOpenAIDirect Orchestration
+
 So far the FoundationaLLM platform offered orchestration through its solid infrastructure for `Knowledge Management Agents` and `internal Context Agents`, but some customers want to take control of their own orchestration. To address this need, we have introduced two new orchestrators: `AzureAIDirect` and `AzureOpenAIDirect`. These orchestrators allow customers to use their own AI models for orchestration while staying within the FoundationaLLM platform.
 
 ## AzureAIDirect
+
 This method in FoundationaLLM will allow customers to create their agent by creating an Azure Machine Learning Workspace in their subscription where they can deploy AI models like Llama-2, Mistral and others. The agent will then pass the prompt directly to the LLM and get the response back.  The value of this method is that the customer can use their own AI models for orchestration while staying within the FoundationaLLM platform.
 
 ## AzureOpenAIDirect
+
 This method in FoundationaLLM will allow customers to create their agent by creating an Azure Machine Learning Workspace in their subscription where they can deploy OpenAI models like gpt-3.5-turbo, gpt-4 and others. The agent will then pass the prompt directly to the LLM and get the response back.  The value of this method is that the customer can use their own OpenAI models for orchestration while staying within the FoundationaLLM platform.
 
 ## Override LLM parameters in completion requests
+
 In the 0.5.0 release, we have added the ability to override the LLM parameters in completion requests. This feature allows customers to pass the parameters to the LLM model directly from the agent. This feature is useful when the customer wants to change the parameters for a specific request.
 
 ```json
@@ -39,6 +44,7 @@ RBAC roles `reader, Contributor and User Access Administrator` are now activated
 - You can now add `custom metadata` to the vectorization request.
   
 ## Zero trust - removing dependencies on API keys
+
 The following components have now Entra ID managed identity-based authentication support:
 
 - Vectorization content sources
@@ -56,6 +62,7 @@ The following components have now Entra ID managed identity-based authentication
 - Management API enables management of all Azure App Configuration keys and Azure Key Vault secrets
 
 ## API Changes
+
 - Agents API
 - Core API
     - Session-less Completion: Removal of X-AGENT-HINT header & passing agent name in the JSON body
