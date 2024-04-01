@@ -19,15 +19,15 @@ Foundationa**LLM** deploys a secure, comprehensive and highly configurable copil
 ### Misconception
 Leveraging large language models is all about prompt engineering, it’s as easy as:
 
-![LLM and ChatGPT Misconception](./docs/media/FLLM-misconception.png)
+![LLM and ChatGPT Misconception](./docs/media/FLLM-Misconception.png)
 
 ### Reality
 What it really takes to create a secure, well governed, scalable and extensible enterprise copilot solution:
 
-![FoundationaLLM Reality](./docs/media/FLLM-complete-picture.png)
+![FoundationaLLM Reality](./docs/media/FLLM-Complete-Picture.png)
 
 #### Where does FoundationaLLM stack against the other copilot solutions?
-![FoundationaLLM Positioning](./docs/media/FLLM-positioning.png)
+![FoundationaLLM Positioning](./docs/media/FLLM-Positioning.png)
 
 ## What do WE mean by "copilot"
 
