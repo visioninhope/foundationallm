@@ -12,7 +12,7 @@ This method in FoundationaLLM will allow customers to create their agent by crea
 
 ## AzureOpenAIDirect
 
-This method in FoundationaLLM will allow customers to create their agent by creating an Azure Machine Learning Workspace in their subscription where they can deploy OpenAI models like gpt-3.5-turbo, gpt-4 and others. The agent will then pass the prompt directly to the LLM and get the response back.  The value of this method is that the customer can use their own OpenAI models for orchestration while staying within the FoundationaLLM platform.
+This method in FoundationaLLM will allow customers to create their agent by deploying specific OpenAI models with specific versions to their Azure OpenAI environment. The agent will then utilize the new deployed OpenAI model tp pass the prompt directly to the LLM and get the response back.  The value of this method is that the customer can use their own OpenAI models for orchestration while staying within the FoundationaLLM platform.
 
 ## Override LLM parameters in completion requests
 
