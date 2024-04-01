@@ -3,7 +3,9 @@
 [![License](https://img.shields.io/badge/license-evaluation%20and%20demo-green)](https://www.foundationallm.ai/license)
 [![Open Issues](https://img.shields.io/github/issues-raw/solliancenet/foundationallm)](https://github.com/solliancenet/foundationallm/issues)
 
-Foundationa**LLM** simplifies and streamlines building *knowledge management* (e.g., question/answer agents) and *analytic* (e.g., self-service business intelligence) copilots over the data sources present across your enterprise.  
+Foundationa**LLM** provides the platform for deploying, scaling, securing and governing generative AI in the enterprise.
+
+Foundationa**LLM** simplifies and streamlines building *knowledge management* (e.g., question/answer agents) and *analytic* (e.g., self-service business intelligence) copilots over the data sources present across your enterprise.  It can also get out of the way and deliver directly to your Azure Machine Learning Workspace for Orchestraion in OpenAI using AzureOpenAIDirect or in other LLMs like Llama-2 and Mistral using AzureAIDirect.
 
 Foundationa**LLM** deploys a secure, comprehensive and highly configurable copilot platform to your Azure cloud environment:
 
@@ -13,7 +15,19 @@ Foundationa**LLM** deploys a secure, comprehensive and highly configurable copil
 - Scalable solution load balances across multiple LLM endpoints.
 - Extensible to new data sources, new LLM orchestrators and LLMs.
 
-![FoundationaLLM Overview](media/foundationallm-highlevel-architecture.png)
+## The Misconception vs Reality
+### Misconception
+Leveraging large language models is all about prompt engineering, it’s as easy as:
+
+![LLM and ChatGPT Misconception](./docs/media/FLLM-Misconception.png)
+
+### Reality
+What it really takes to create a secure, well governed, scalable and extensible enterprise copilot solution:
+
+![FoundationaLLM Reality](./docs/media/FLLM-Complete-Picture.png)
+
+#### Where does FoundationaLLM stack against the other copilot solutions?
+![FoundationaLLM Positioning](./docs/media/FLLM-Positioning.png)
 
 ## What do WE mean by "copilot"
 
@@ -37,12 +51,19 @@ The core problems to deliver enterprise copilots are:
 - The top AI risks (inaccuracy, cybersecurity, compliance, explainability, privacy) are not being mitigated.
 - Delivery of a copilot solution is time consuming, expensive and frustrating.
 
+## Where can Foundationa**LLM** fill the need?
+![Areas where FoundationaLLM can help organizations](./docs/media/FLLM-Needs.png)
+
+## Documentation
+
+Get up to speed with Foundationa**LLM** by reading the [documentation](https://docs.foundationallm.ai). This includes deployment instructions, quickstarts, architecture, and API references.
+
 ## Getting Started
 
 FoundationalLLM provides a simple command line driven approach to getting your first deployment up and running. Basically, it's two commands. After that, you can customize the solution, run it locally on your machine and update the deployment with your customizations.
 
-Follow the [Starter Deployment instructions](deployment/deployment-starter.md) to get Foundationa**LLM** deployed in your Azure subscription.
+Follow the [Starter Deployment instructions](./docs/deployment/deployment-starter.md) to get Foundationa**LLM** deployed in your Azure subscription.
 
-If you want to run the solution locally, follow the [Local Development instructions](development/development-local.md).
+## Contributing to FoundationaLLM
 
-You can browse the documentation using the sidebar or visit the [API section](api/index.md) for the reference documentation.
+We are happy to accept contributions to the FoundationaLLM project in the form of feedback, bug reports, and pull requests. Please see [Contributing to FoundationaLLM](./CONTRIBUTING.md) for instructions.
