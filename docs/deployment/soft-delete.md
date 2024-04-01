@@ -1,4 +1,4 @@
-## Which resoureces in FoundationaLLM are soft-deleted?
+## Which resources in FoundationaLLM are soft-deleted?
 In FoundationaLLM, the following resources are soft-deleted:
 - Azure OpenAI Resources
 - Azure Key Vault Resources
