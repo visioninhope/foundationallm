@@ -23,8 +23,6 @@ items:
       href: deployment/authentication-authorization/core-authentication-setup-entra.md
     - name: Management Authentication
       href: deployment/authentication-authorization/management-authentication-setup-entra.md
-    - name: Vectorization Authentication
-      href: deployment/authentication-authorization/vectorization-authentication-setup-entra.md
     - name: Authorization
       href: deployment/authentication-authorization/authorization-setup-entra.md
 - name: Development

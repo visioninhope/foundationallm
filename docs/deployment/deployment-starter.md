@@ -102,7 +102,7 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
     ```
 
 > [!IMPORTANT]
-> The Admin_GROUP_OBJECT_ID has to be of type `security` NOT `Microsoft 365` and you need to at least add yourself to the group and other members that need to be admins.
+> The ADMIN_GROUP_OBJECT_ID in the Entra ID Groups has to be of type `security` NOT `Microsoft 365` and you need to at least add yourself to the group and other members that need to be admins.
 
 4. **Optional**: Bring Your Own Azure OpenAI Instance
 
