@@ -3,7 +3,9 @@
 [![License](https://img.shields.io/badge/license-evaluation%20and%20demo-green)](https://www.foundationallm.ai/license)
 [![Open Issues](https://img.shields.io/github/issues-raw/solliancenet/foundationallm)](https://github.com/solliancenet/foundationallm/issues)
 
-Foundationa**LLM** simplifies and streamlines building *knowledge management* (e.g., question/answer agents) and *analytic* (e.g., self-service business intelligence) copilots over the data sources present across your enterprise.  
+Foundationa**LLM** provides the platform for deploying, scaling, securing and governing generative AI in the enterprise.
+
+Foundationa**LLM** simplifies and streamlines building *knowledge management* (e.g., question/answer agents) and *analytic* (e.g., self-service business intelligence) copilots over the data sources present across your enterprise.  It can also get out of the way and deliver directly to your Azure Machine Learning Workspace for Orchestraion in OpenAI using AzureOpenAIDirect or in other LLMs like Llama-2 and Mistral using AzureAIDirect.
 
 Foundationa**LLM** deploys a secure, comprehensive and highly configurable copilot platform to your Azure cloud environment:
 
@@ -13,7 +15,19 @@ Foundationa**LLM** deploys a secure, comprehensive and highly configurable copil
 - Scalable solution load balances across multiple LLM endpoints.
 - Extensible to new data sources, new LLM orchestrators and LLMs.
 
-![FoundationaLLM Overview](./docs/media/foundationallm-highlevel-architecture.png)
+## The Misconception vs Reality
+### Misconception
+Leveraging large language models is all about prompt engineering, it’s as easy as:
+
+![LLM and ChatGPT Misconception](./docs/media/FLLM-misconception.png)
+
+### Reality
+What it really takes to create a secure, well governed, scalable and extensible enterprise copilot solution:
+
+![FoundationaLLM Reality](./docs/media/FLLM-complete-picture.png)
+
+#### Where does FoundationaLLM stack against the other copilot solutions?
+![FoundationaLLM Positioning](./docs/media/FLLM-positioning.png)
 
 ## What do WE mean by "copilot"
 
@@ -36,6 +50,9 @@ The core problems to deliver enterprise copilots are:
 - The industry has a skills gap when it comes to filling the roles needed to deliver these complex copilot solutions.
 - The top AI risks (inaccuracy, cybersecurity, compliance, explainability, privacy) are not being mitigated.
 - Delivery of a copilot solution is time consuming, expensive and frustrating.
+
+## Where can Foundationa**LLM** fill the need?
+![Areas where FoundationaLLM can help organizations](./docs/media/FLLM-Needs.png)
 
 ## Documentation
 
