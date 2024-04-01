@@ -13,5 +13,5 @@ class Prompt(BaseModel):
     type: Optional[str] = None
     object_id: Optional[str] = None
     description: str
-    prefix: str
+    prefix: Optional[str] = ""
     suffix: Optional[str] = "" 
