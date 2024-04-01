@@ -86,8 +86,8 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
 
     azd env set FOUNDATIONALLM_INSTANCE_ID <guid>
     ```
-    > [!NOTE]
-    > You need to manually generate a GUID for `FOUNDATIONALLM_INSTANCE_ID`.
+> [!NOTE]
+> You need to manually generate a GUID for `FOUNDATIONALLM_INSTANCE_ID`.
 
     Bash:
 
@@ -100,9 +100,9 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
     ```powershell
     [guid]::NewGuid().ToString()
     ```
-    
-    > [!IMPORTANT]
-    > The Admin_GROUP_OBJECT_ID has to be of type `security` NOT `Microsoft 365` and you need to at least add yourself to the group and other members that need to be admins.
+
+> [!IMPORTANT]
+> The Admin_GROUP_OBJECT_ID has to be of type `security` NOT `Microsoft 365` and you need to at least add yourself to the group and other members that need to be admins.
 
 4. **Optional**: Bring Your Own Azure OpenAI Instance
 
