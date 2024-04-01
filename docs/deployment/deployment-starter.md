@@ -43,14 +43,13 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
 
     ```cmd
     git clone https://github.com/solliancenet/foundationallm.git
+    cd foundationallm/deploy/starter
     git checkout release/0.5.0
     ```
 
 3. Run the following commands to set the appropriate application registration settings for OIDC authentication.
 
     ```text
-    cd foundationallm/deploy/starter
-
     az login            # Log into Azure CLI
     azd auth login      # Log into Azure Developer CLI
 
@@ -88,7 +87,7 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
     azd env set FOUNDATIONALLM_INSTANCE_ID <guid>
     ```
 
-    >[!NOTE]
+    > [!NOTE]
     > You need to manually generate a GUID for `FOUNDATIONALLM_INSTANCE_ID`.
 
     Bash:
@@ -102,8 +101,8 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
     ```powershell
     [guid]::NewGuid().ToString()
     ```
-    >[!NOTE]
-    >The Admin_GROUP_OBJECT_ID has to be of type `security` NOT `Microsoft 365` and you need to at least add yourself to the group and other members that need to be admins.
+    > [!NOTE]
+    > The Admin_GROUP_OBJECT_ID has to be of type `security` NOT `Microsoft 365` and you need to at least add yourself to the group and other members that need to be admins.
 
 4. **Optional**: Bring Your Own Azure OpenAI Instance
 
@@ -126,6 +125,11 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
 
 Follow the instructions in the [Authentication setup document](authentication/index.md) to finalizie authentication for the solution.
 
+### Running script to allow MS Graph access through Role Permissions
+After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. [Role Permissions Script](/deploy/common/scripts/Assign-MSGraph-Roles.ps1)
+
+
+
 # Teardown
 
 To tear down the environment, execute `azd down` in the same folder location.
@@ -134,4 +138,5 @@ To tear down the environment, execute `azd down` in the same folder location.
 azd down --purge
 ```
 
-> Note the `--purge` argument in the command above. This ensures that resources that would otherwise be soft-deleted are instead completely purged from your Azure subscription.
+> [!NOTE]
+> The `--purge` argument in the command above. This ensures that resources that would otherwise be soft-deleted are instead completely purged from your Azure subscription.

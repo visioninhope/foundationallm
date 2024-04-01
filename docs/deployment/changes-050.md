@@ -28,8 +28,8 @@ RBAC roles `reader, Contributor and User Access Administrator` are now activated
 - Core API
 - Agent Factory API
  
->[!NOTE]
->Upgrading from 0.4.0 to 0.5.0 requires that these are configured for the APIs listed above for system to function correctly.
+> [!NOTE]
+> Upgrading from 0.4.0 to 0.5.0 requires that these are configured for the APIs listed above for system to function correctly.
 
 ## Vectorization Changes
 
@@ -47,8 +47,8 @@ The following components have now Entra ID managed identity-based authentication
 - Authorization store and API
 - Azure AI Content Safety
 
->[!NOTE]
->The following components are getting Entra ID managed dentity-based authentication support in the next release: Azure CosmosDB service, Azure OpenAI in LangChain, AzureAIDirect orchestrator, AzureOpenAIDirect orchestrator
+> [!NOTE]
+> The following components are getting Entra ID managed dentity-based authentication support in the next release: Azure CosmosDB service, Azure OpenAI in LangChain, AzureAIDirect orchestrator, AzureOpenAIDirect orchestrator
 
 ## Management Configuration Portal
 
