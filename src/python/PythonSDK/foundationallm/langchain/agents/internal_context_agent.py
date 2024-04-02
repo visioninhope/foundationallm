@@ -46,14 +46,16 @@ class InternalContextAgent(AgentBase):
         """       
         self.llm = llm.get_completion_model(completion_request.agent.language_model)
 
-        self.agent_prompt = None
-        prompt_resource = resource_provider.get_resource(completion_request.agent.prompt_object_id)
-        if prompt_resource is not None and prompt_resource.prefix is not None:
-            self.agent_prompt = prompt_resource.prefix
+        self.prompt_prefix = None
+        self.prompt_suffix = None
+        prompt = resource_provider.get_resource(completion_request.agent.prompt_object_id)
+        if prompt is not None:
+            self.prompt_prefix = prompt.prefix
+            self.prompt_suffix = prompt.suffix
                 
         self.conversation_history = completion_request.agent.conversation_history
-        
         self.message_history = completion_request.message_history
+
         self.full_prompt = ""
     
     def __record_full_prompt(self, prompt: str) -> str:
@@ -87,22 +89,28 @@ class InternalContextAgent(AgentBase):
         -------
         CompletionResponse
             Returns a CompletionResponse with the generated response, the user_prompt,
-            generated full prompt with context
-            and token utilization and execution cost details.
+            generated full prompt with context and token utilization and execution cost details.
         """
         with get_openai_callback() as cb:
             try:
                 prompt_builder = ''
-                
-                if self.agent_prompt is not None or self.agent_prompt != '':
-                    prompt_builder = f'{self.agent_prompt}\n\n'
 
+                # Add the prefix, if it exists.
+                if self.prompt_prefix is not None:
+                    prompt_builder = f'{self.prompt_prefix}\n\n'
+
+                # Add the message history, if it exists.
                 if self.conversation_history.enabled:
                     prompt_builder += build_message_history(self.message_history, self.conversation_history.max_history)
                 
-                # The prompt is the context
+                # Insert the context into the template.
                 prompt_builder += '{context}'
-                
+
+                # Add the suffix, if it exists.
+                if self.prompt_suffix is not None:
+                    prompt_builder += f'\n\n{self.prompt_suffix}'
+
+                # Create the prompt template.
                 prompt_template = PromptTemplate.from_template(prompt_builder)
 
                 # Compose LCEL chain
