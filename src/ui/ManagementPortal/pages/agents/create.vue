@@ -540,7 +540,7 @@ export default {
 					value: 'LangChain',
 				},
 			],
-			
+
 			triggerFrequencyOptions: ['Event', 'Manual'],
 
 			triggerFrequencyScheduledOptions: ['Never', 'Every 30 minutes', 'Hourly', 'Every 12 hours', 'Daily'],

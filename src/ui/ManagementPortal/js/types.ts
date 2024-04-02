@@ -3,7 +3,7 @@ export type Agent = {
 	object_id: string;
 	description: string;
 	type: 'knowledge-management' | 'analytics';
-	
+
 	vectorization: {
 		dedicated_pipeline: boolean;
 		indexing_profile_object_id: string;
@@ -110,7 +110,7 @@ export interface SharePointOnlineSiteDataSource extends BaseDataSource {
 		KeyVaultURL: string;
 	};
 }
-  
+
 export interface ConfigurationReferenceMetadata {
 	isKeyVaultBacked: boolean;
 }
@@ -247,7 +247,7 @@ export type CreateAgentRequest = {
 		version: string;
 		deployment: string;
 	};
-	
+
 	vectorization: {
 		dedicated_pipeline: boolean;
 		indexing_profile_object_id: string;
@@ -319,11 +319,11 @@ export function isAzureSQLDatabaseDataSource(dataSource: DataSource): dataSource
 export function isAppConfig(config: AppConfigUnion): config is AppConfig {
 	return config.type === 'appconfiguration-key-value';
 }
-  
+
 export function isAppConfigKeyVault(config: AppConfigUnion): config is AppConfigKeyVault {
 	return config.type === 'appconfiguration-key-vault-reference';
 }
-  
+
 
 export function convertDataSourceToAzureDataLake(dataSource: DataSource): AzureDataLakeDataSource {
 	return {
@@ -402,23 +402,22 @@ export function convertToDataSource(dataSource: DataSource): DataSource {
 
 export function convertToAppConfig(baseConfig: AppConfigUnion): AppConfig {
 	return {
-	  ...baseConfig,
-	  type: 'appconfiguration-key-value',
-	  content_type: '',
+		...baseConfig,
+		type: 'appconfiguration-key-value',
+		content_type: '',
 	};
 }
-  
+
 export function convertToAppConfigKeyVault(baseConfig: AppConfigUnion): AppConfigKeyVault {
 	if (!('key_vault_uri' in baseConfig) || !('key_vault_secret_name' in baseConfig)) {
-	  throw new Error("Missing Key Vault properties");
+		throw new Error("Missing Key Vault properties");
 	}
-  
+
 	return {
-	  ...baseConfig,
-	  type: 'appconfiguration-key-vault-reference',
-	  key_vault_uri: baseConfig.key_vault_uri,
-	  key_vault_secret_name: baseConfig.key_vault_secret_name,
-	  content_type: 'application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8',
+		...baseConfig,
+		type: 'appconfiguration-key-vault-reference',
+		key_vault_uri: baseConfig.key_vault_uri,
+		key_vault_secret_name: baseConfig.key_vault_secret_name,
+		content_type: 'application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8',
 	};
 }
-  
