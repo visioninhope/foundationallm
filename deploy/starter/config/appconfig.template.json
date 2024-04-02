@@ -302,6 +302,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AuthenticationType",
       "value": "AzureIdentity",
       "label": null,
@@ -638,6 +645,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:AuthenticationType",
       "value": "AzureIdentity",
       "label": null,
@@ -754,6 +768,13 @@
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
+      "key": "FoundationaLLM:DataSource:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+      "label": null,
+      "content_type": "",
       "tags": {}
     },
     {
@@ -974,6 +995,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AuthenticationType",
       "value": "AzureIdentity",
       "label": null,
@@ -1149,6 +1177,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType",
       "value": "AzureIdentity",
       "label": null,
@@ -1186,6 +1221,13 @@
     {
       "key": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint",
       "value": "${env:AZURE_OPENAI_ENDPOINT}",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
+      "key": "FoundationaLLM:Vectorization:StateService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
