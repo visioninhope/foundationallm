@@ -1,45 +1,71 @@
 <template>
 	<div>
 		<h2 class="page-header">Public Agents</h2>
-		
-		<!-- Create agent -->
-		<div class="steps">
-			<div class="step">
-				<div class="page-subheader">View your publicly accessible agents.</div>
-			</div>
-			<div class="step justify-self-end">
-				<Button
-					class="primary-button"
-					label="+ New Agent"
-					severity="primary"
-					@click="handleCreateAgent"
-				/>
-			</div>
-		</div>
+		<div class="page-subheader">View your publicly accessible agents.</div>
+
 		<div :class="{ 'grid--loading': loading }">
-				<!-- Loading overlay -->
-				<template v-if="loading">
-					<div class="grid__loading-overlay">
-						<LoadingGrid />
-						<div>{{ loadingStatusText }}</div>
-					</div>
-				</template>
-		<DataTable :value="agents" stripedRows scrollable tableStyle="max-width: 100%" size="small">
-			<Column field="name" header="Name" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: '#000', color: '#fff'} }, sortIcon: { style: { color: '#fff'} } }"></Column>
-			<Column field="type" header="Type" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: '#000', color: '#fff'} }, sortIcon: { style: { color: '#fff'} } }"></Column>
-			<Column header="Edit" headerStyle="width:6rem" style="text-align: center" :pt="{ headerCell: { style: { backgroundColor: '#000', color: '#fff'} }, headerContent: { style: { justifyContent: 'center' } } }">
-				<template #body="slotProps">
-					<NuxtLink :to="'/agents/edit/' + slotProps.data.name" class="table__button"><i class="pi pi-cog" style="font-size: 1.5rem"></i></NuxtLink>
-				</template>
-			</Column>
-		</DataTable>
+			<!-- Loading overlay -->
+			<template v-if="loading">
+				<div class="grid__loading-overlay">
+					<LoadingGrid />
+					<div>{{ loadingStatusText }}</div>
+				</div>
+			</template>
+
+			<!-- Table -->
+			<DataTable :value="agents" stripedRows scrollable tableStyle="max-width: 100%" size="small">
+				<template #empty>
+          No agents found. Please use the menu on the left to create a new agent.</template
+				>
+    		<template #loading>Loading agent data. Please wait.</template>
+
+				<!-- Name -->
+				<Column field="name" header="Name" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, sortIcon: { style: { color: 'var(--primary-text)' } } }"></Column>
+
+				<!-- Type -->
+				<Column field="type" header="Type" sortable style="min-width: 200px" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, sortIcon: { style: { color: 'var(--primary-text)' } } }"></Column>
+
+				<!-- Edit -->
+				<Column header="Edit" headerStyle="width:6rem" style="text-align: center" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, headerContent: { style: { justifyContent: 'center' } } }">
+					<template #body="{ data }">
+						<NuxtLink :to="'/agents/edit/' + data.name" class="table__button">
+							<Button link>
+								<i class="pi pi-cog" style="font-size: 1.2rem"></i>
+							</Button>
+						</NuxtLink>
+					</template>
+				</Column>
+
+				<!-- Delete -->
+				<Column header="Delete" headerStyle="width:6rem" style="text-align: center" :pt="{ headerCell: { style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' } }, headerContent: { style: { justifyContent: 'center' } } }">
+					<template #body="{ data }">
+						<Button link @click="agentToDelete = data">
+							<i class="pi pi-trash" style="font-size: 1.2rem; color: var(--red-400);"></i>
+						</Button>
+					</template>
+				</Column>
+			</DataTable>
 		</div>
+
+		<!-- Delete agent dialog -->
+		<Dialog
+			:visible="agentToDelete !== null"
+			modal
+			header="Delete Agent"
+			:closable="false"
+		>
+			<p>Do you want to delete the agent "{{ agentToDelete.name }}" ?</p>
+			<template #footer>
+				<Button label="Cancel" text @click="agentToDelete = null" />
+				<Button label="Delete" severity="danger" @click="handleDeleteAgent" />
+			</template>
+		</Dialog>
 	</div>
 </template>
 
 <script lang="ts">
 import api from '@/js/api';
-import type Agent from '@/js/types';
+import type { Agent } from '@/js/types';
 
 export default {
 	name: 'PublicAgents',
@@ -49,27 +75,44 @@ export default {
 			agents: [] as Agent,
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
+			agentToDelete: null as Agent | null,
 		};
 	},
 
 	async created() {
-		this.loading = true;
-		try {
-			this.agents = await api.getAgents();
-		} catch(error) {
-			this.$toast.add({
-				severity: 'error',
-				detail: error?.response?._data || error,
-			});
-		}
-		this.loading = false;
+		await this.getAgents();
 	},
 
 	methods: {
-		handleCreateAgent() {
-			this.$router.push('/agents/create');
-		}
-	}
+		async getAgents() {
+			this.loading = true;
+			try {
+				this.agents = await api.getAgents();
+			} catch (error) {
+				this.$toast.add({
+					severity: 'error',
+					detail: error?.response?._data || error,
+					life: 5000,
+				});
+			}
+			this.loading = false;
+		},
+
+		async handleDeleteAgent() {
+			try {
+				await api.deleteAgent(this.agentToDelete!.name);
+				this.agentToDelete = null;
+			} catch (error) {
+				return this.$toast.add({
+					severity: 'error',
+					detail: error?.response?._data || error,
+					life: 5000,
+				});
+			}
+
+			await this.getAgents();
+		},
+	},
 };
 </script>
 
@@ -90,7 +133,7 @@ export default {
 }
 
 .grid__loading-overlay {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;

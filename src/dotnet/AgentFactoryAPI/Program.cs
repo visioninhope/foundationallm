@@ -1,6 +1,4 @@
 using Asp.Versioning;
-using Azure.Identity;
-using FoundationaLLM;
 using FoundationaLLM.AgentFactory.Core.Interfaces;
 using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
 using FoundationaLLM.AgentFactory.Core.Services;
@@ -9,6 +7,7 @@ using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
 using FoundationaLLM.AgentFactory.Services;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
@@ -18,8 +17,10 @@ using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
+using FoundationaLLM.Common.Services.Azure;
+using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using FoundationaLLM.Common.Validation;
 using Microsoft.Extensions.Options;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -39,34 +40,49 @@ namespace FoundationaLLM.AgentFactory.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            DefaultAuthentication.Production = builder.Environment.IsProduction();
+
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
+                options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
-                    options.SetCredential(new DefaultAzureCredential());
+                    options.SetCredential(DefaultAuthentication.GetAzureCredential());
                 });
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AgentFactory);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAI);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureOpenAI);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
             // Add services to the container.
-            builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
-            {
-                ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString],
-                DeveloperMode = builder.Environment.IsDevelopment()
-            });
+
+            // Add OpenTelemetry.
+            builder.AddOpenTelemetry(
+                AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString,
+                ServiceNames.AgentFactoryAPI);
+
+            builder.Services.AddInstanceProperties(builder.Configuration);
+
+            // Add Azure ARM services.
+            builder.Services.AddAzureResourceManager();
+
+            // Add event services.
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI);
+
             //builder.Services.AddServiceProfiler();
-            builder.Services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = Common.Settings.CommonJsonSerializerSettings.GetJsonSerializerSettings().ContractResolver;
-            });
+            builder.Services.AddControllers();
 
             // Add API Key Authorization
             builder.Services.AddHttpContextAccessor();
@@ -92,9 +108,11 @@ namespace FoundationaLLM.AgentFactory.API
 
             builder.Services.AddOptions<AgentFactorySettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AgentFactory));
-            
+
             builder.Services.AddScoped<ILLMOrchestrationService, SemanticKernelService>();
             builder.Services.AddScoped<ILLMOrchestrationService, LangChainService>();
+            builder.Services.AddScoped<ILLMOrchestrationService, AzureAIDirectService>();
+            builder.Services.AddScoped<ILLMOrchestrationService, AzureOpenAIDirectService>();
 
             builder.Services.AddScoped<IAgentFactoryService, AgentFactoryService>();
             builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
@@ -109,7 +127,18 @@ namespace FoundationaLLM.AgentFactory.API
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
-            builder.Services.AddAgentResourceProvider(builder.Configuration);
+            // Resource validation
+            builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
+
+            // Add authorization services.
+            builder.AddGroupMembership();
+            builder.AddAuthorizationService();
+
+            //----------------------------
+            // Resource providers
+            //----------------------------
+            builder.AddAgentResourceProvider();
+            builder.AddPromptResourceProvider();
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
@@ -121,15 +150,10 @@ namespace FoundationaLLM.AgentFactory.API
                     // "api-supported-versions" and "api-deprecated-versions"
                     options.ReportApiVersions = true;
                     options.AssumeDefaultVersionWhenUnspecified = true;
-                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                    options.DefaultApiVersion = new ApiVersion(new DateOnly(2024, 2, 16));
                 })
                 .AddMvc()
-                .AddApiExplorer(options =>
-                {
-                    // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-                    // note: the specified format code will format the version as "'v'major[.minor][-status]"
-                    options.GroupNameFormat = "'v'VVV";
-                });
+                .AddApiExplorer();
 
             // Add services to the container.
             builder.Services.AddAuthorization();
@@ -184,11 +208,7 @@ namespace FoundationaLLM.AgentFactory.API
                     }
                 });
 
-            bool.TryParse(builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_ForceHttpsRedirection], out var forceHttpsRedirection);
-            if (forceHttpsRedirection)
-            {
-                app.UseHttpsRedirection();
-            }
+            app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
 

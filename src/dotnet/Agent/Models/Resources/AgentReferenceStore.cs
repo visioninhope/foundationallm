@@ -29,9 +29,9 @@ namespace FoundationaLLM.Agent.Models.Resources
         /// <param name="dictionary">A string-based dictionary of <see cref="AgentReference"/> values.</param>
         /// <returns>The <see cref="AgentReferenceStore"/> object created from the dictionary.</returns>
         public static AgentReferenceStore FromDictionary(Dictionary<string, AgentReference> dictionary) =>
-            new AgentReferenceStore
+            new()
             {
-                AgentReferences = dictionary.Values.ToList()
+                AgentReferences = [.. dictionary.Values]
             };
     }
 }

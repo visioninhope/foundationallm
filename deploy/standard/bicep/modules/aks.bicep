@@ -1,3 +1,51 @@
+/**
+ * Module for deploying an AKS cluster.
+ *
+ * Inputs:
+ * - actionGroupId: Action Group Id for alerts
+ * - admnistratorObjectIds: The Managed Identity for the AKS Cluster
+ * - dnsResourceGroupName: DNS resource group name
+ * - location: Location for all resources
+ * - logAnalyticWorkspaceId: Log Analytic Workspace Id to use for diagnostics
+ * - logAnalyticWorkspaceResourceId: Log Analytic Workspace Resource Id to use for diagnostics
+ * - networkingResourceGroupName: Networking resource group name
+ * - opsResourceGroupName: Ops resource group name
+ * - privateDnsZones: Private DNS Zones for private endpoint
+ * - privateIpIngress: Private IP for ingress
+ * - resourceSuffix: Resource suffix for all resources
+ * - subnetId: Subnet Id for private endpoint
+ * - subnetIdPrivateEndpoint: Subnet Id for private endpoint
+ * - tags: Tags for all resources
+ * - timestamp: Timestamp for nested deployments
+ *
+ * Locals:
+ * - alerts: Metric alerts for the resource
+ * - logs: The Resource logs to enable
+ * - name: The Resource Name
+ * - serviceType: The Resource Service Type token
+ *
+ * Outputs:
+ * - name: The AKS Cluster Name
+ * - oidcIssuerUrl: AKS OIDC Issuer URL
+ *
+ * Resources:
+ * - main: The AKS Cluster
+ * - diagnostics: Diagnostic settings for the resource
+ * - uai: The Managed Identity for the AKS Cluster
+ * - dnsRoleAssignment: Role assignment for DNS
+ * - netRoleAssignment: Role assignment for networking
+ * - metricAlerts: Resource for configuring the Key Vault metric alerts
+ * - privateEndpoint: Private endpoint for App Configuration
+ * - subnetRoleAssignment: Role assignment for subnet
+ *
+ * Nested Modules:
+ * - dnsRoleAssignment: Role assignment for DNS
+ * - netRoleAssignment: Role assignment for networking
+ * - metricAlerts: Resource for configuring the Key Vault metric alerts
+ * - privateEndpoint: Private endpoint for App Configuration
+ * - subnetRoleAssignment: Role assignment for subnet
+ */
+
 /** Inputs **/
 @description('Action Group Id for alerts')
 param actionGroupId string
@@ -5,17 +53,8 @@ param actionGroupId string
 @description('The Managed Identity for the AKS Cluster')
 param admnistratorObjectIds array
 
-@description('Application Gateway Details')
-param agw object
-
-@description('Application Gateway resource group name')
-param agwResourceGroupName string
-
 @description('DNS resource group name')
 param dnsResourceGroupName string
-
-@description('The Kubernetes Version')
-param kubernetesVersion string = '1.26.6'
 
 @description('Location for all resources')
 param location string
@@ -26,10 +65,17 @@ param logAnalyticWorkspaceId string
 @description('Log Analytic Workspace Resource Id to use for diagnostics')
 param logAnalyticWorkspaceResourceId string
 
+@description('Networking resource group name')
 param networkingResourceGroupName string
+
+@description('Ops resource group name')
+param opsResourceGroupName string
 
 @description('Private DNS Zones for private endpoint')
 param privateDnsZones array
+
+// @description('Private IP for ingress')
+// param privateIpIngress string
 
 @description('Resource suffix for all resources')
 param resourceSuffix string
@@ -46,8 +92,17 @@ param tags object
 @description('Timestamp for nested deployments')
 param timestamp string = utcNow()
 
+// @description('Managed Identity for the AKS Cluster Helm Deployments')
+// param uaiDeploymentid string
+
+/** Outputs **/
+output name string = main.name
+output oidcIssuerUrl string = main.properties.oidcIssuerProfile.issuerURL
+
 /** Locals **/
-@description('Metric alerts for the resource.')
+var name = '${serviceType}-${resourceSuffix}'
+var serviceType = 'aks'
+
 var alerts = [
   {
     description: 'Node CPU utilization greater than 95% for 1 hour'
@@ -73,7 +128,6 @@ var alerts = [
   }
 ]
 
-@description('The Resource logs to enable')
 var logs = [
   'cloud-controller-manager'
   'cluster-autoscaler'
@@ -88,18 +142,9 @@ var logs = [
   'kube-scheduler'
 ]
 
-@description('The Resource Name')
-var name = '${serviceType}-${resourceSuffix}'
-
-@description('The Resource Service Type token')
-var serviceType = 'aks'
-
-/** Outputs **/
-@description('AKS OIDC Issuer URL')
-output oidcIssuerUrl string = main.properties.oidcIssuerProfile.issuerURL
+/** Data Sources **/
 
 /** Resources **/
-@description('The AKS Cluster')
 resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = {
   name: name
   location: location
@@ -123,7 +168,6 @@ resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = 
   properties: {
     enableRBAC: true
     fqdnSubdomain: name
-    kubernetesVersion: kubernetesVersion
     nodeResourceGroup: 'mrg-${name}'
     disableLocalAccounts: true
     workloadAutoScalerProfile: {}
@@ -150,10 +194,7 @@ resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = 
       }
 
       ingressApplicationGateway: {
-        enabled: true
-        config: {
-          applicationGatewayId: agw.id
-        }
+        enabled: false
       }
 
       omsagent: {
@@ -285,7 +326,6 @@ resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = 
   }
 }
 
-@description('Diagnostic settings for the resource')
 resource diagnostics 'Microsoft.Insights/diagnosticSettings@2017-05-01-preview' = {
   scope: main
   name: 'diag-${serviceType}'
@@ -304,7 +344,6 @@ resource diagnostics 'Microsoft.Insights/diagnosticSettings@2017-05-01-preview' 
   }
 }
 
-@description('The Managed Identity for the AKS Cluster')
 resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   location: location
   name: 'uai-${name}'
@@ -312,17 +351,6 @@ resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
 }
 
 /** Nested Modules **/
-module agwClusterRoleAssignment 'utility/roleAssignments.bicep' = {
-  name: 'agwra-${resourceSuffix}-${timestamp}'
-  scope: resourceGroup(agwResourceGroupName)
-  params: {
-    principalId: uai.properties.principalId
-    roleDefinitionIds: {
-      Contributor: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    }
-  }
-}
-
 module dnsRoleAssignment 'utility/roleAssignments.bicep' = {
   name: 'dnsra-${resourceSuffix}-${timestamp}'
   scope: resourceGroup(dnsResourceGroupName)
@@ -334,6 +362,30 @@ module dnsRoleAssignment 'utility/roleAssignments.bicep' = {
   }
 }
 
+// module helmIngressNginx 'utility/aksRunHelm.bicep' = {
+//   name: 'helmIngressNginx-${resourceSuffix}-${timestamp}'
+//   params: {
+//     aksName: main.name
+//     helmApp: 'ingress-nginx/ingress-nginx'
+//     helmAppName: 'gateway'
+//     helmAppParams: '--namespace gateway-system --create-namespace'
+//     helmRepo: 'ingress-nginx'
+//     helmRepoURL: 'https://kubernetes.github.io/ingress-nginx'
+//     location: location
+//     uaiId: uaiDeploymentid
+//     helmAppSettings: {
+//       'controller.kind': 'DaemonSet'
+//       'controller.service.annotations."service\\.beta\\.kubernetes\\.io/azure-load-balancer-internal"': 'true'
+//       'controller.service.annotations."service\\.beta\\.kubernetes\\.io/azure-load-balancer-ipv4"': privateIpIngress
+//       'controller.service.enableHttp': 'true'
+//       'controller.service.externalTrafficPolicy': 'Local'
+//       'controller.service.loadBalancerIP': privateIpIngress
+//       'controller.service.ports.https': '443'
+//       // 'controller.extraArgs.default-ssl-certificate': '${kubernetes_secret.tls.metadata.0.namespace}/${kubernetes_secret.tls.metadata.0.name}'
+//     }
+//   }
+// }
+
 module netRoleAssignment 'utility/roleAssignments.bicep' = {
   name: 'netra-${resourceSuffix}-${timestamp}'
   scope: resourceGroup(networkingResourceGroupName)
@@ -341,6 +393,17 @@ module netRoleAssignment 'utility/roleAssignments.bicep' = {
     principalId: uai.properties.principalId
     roleDefinitionIds: {
       'Network Contributor': '4d97b98b-1d4f-4787-a291-c67834d212e7'
+    }
+  }
+}
+
+module opsRoleAssignment 'utility/roleAssignments.bicep' = {
+  name: 'opsra-${resourceSuffix}-${timestamp}'
+  scope: resourceGroup(opsResourceGroupName)
+  params: {
+    principalId: main.properties.addonProfiles.azureKeyvaultSecretsProvider.identity.objectId
+    roleDefinitionIds: {
+      'Key Vault Secrets User': '4633458b-17de-408a-b874-0445c86b69e6'
     }
   }
 }
@@ -374,26 +437,3 @@ module privateEndpoint 'utility/privateEndpoint.bicep' = {
     }
   }
 }
-
-module agwAgicRoleAssignment 'utility/roleAssignments.bicep' = {
-  name: 'agicra-${resourceSuffix}-${timestamp}'
-  scope: resourceGroup(agwResourceGroupName)
-  params: {
-    principalId: main.properties.addonProfiles.ingressApplicationGateway.identity.objectId
-    roleDefinitionIds: {
-      Contributor: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    }
-  }
-}
-
-module subnetRoleAssignment 'utility/roleAssignments.bicep' = {
-  name: 'sra-${resourceSuffix}-${timestamp}'
-  scope: resourceGroup(networkingResourceGroupName)
-  params: {
-    principalId: main.properties.addonProfiles.ingressApplicationGateway.identity.objectId
-    roleDefinitionIds: {
-      'Network Contributor': '4d97b98b-1d4f-4787-a291-c67834d212e7'
-    }
-  }
-}
-

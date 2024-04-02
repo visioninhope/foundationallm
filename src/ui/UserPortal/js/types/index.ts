@@ -30,6 +30,22 @@ export interface CompletionPrompt {
 }
 
 export interface Agent {
+	type: string;
 	name: string;
-	private: boolean;
+	object_id: string;
+	description: string;
+	orchestration_settings?: OrchestrationSettings;
+}
+
+export interface OrchestrationRequest {
+    session_id?: string;
+    user_prompt: string;
+	agent_name?: string;
+    settings?: OrchestrationSettings;
+}
+
+export interface OrchestrationSettings {
+    orchestrator?: string;
+	endpoint_configuration?: { [key: string]: any } | null;
+	model_parameters?: { [key: string]: any } | null;
 }

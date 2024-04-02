@@ -9,9 +9,7 @@ namespace FoundationaLLM.Core.API.Controllers
     /// <summary>
     /// Provides branding information for the client.
     /// </summary>
-    [Authorize]
-    [Authorize(Policy = "RequiredScope")]
-    [ApiVersion(1.0)]
+    [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
     [Route("[controller]")]
     public class BrandingController : ControllerBase

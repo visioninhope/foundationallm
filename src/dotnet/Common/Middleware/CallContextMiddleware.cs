@@ -2,9 +2,8 @@
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using FoundationaLLM.Common.Models.Metadata;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
 
 namespace FoundationaLLM.Common.Middleware
 {
@@ -28,6 +27,7 @@ namespace FoundationaLLM.Common.Middleware
         /// </summary>
         /// <param name="context">The current HTTP request context.</param>
         /// <param name="claimsProviderService">Resolves user claims to a <see cref="UnifiedUserIdentity"/> object.</param>
+        /// <param name="groupMembershipService">Provides group membership services for user principals.</param>
         /// <param name="callContext">Stores context information extracted from the current HTTP request. This information
         /// is primarily used to inject HTTP headers into downstream HTTP calls.</param>
         /// <param name="instanceSettings">Contains the FoundationaLLM instance configuration settings.</param>
@@ -35,6 +35,7 @@ namespace FoundationaLLM.Common.Middleware
         public async Task InvokeAsync(
             HttpContext context,
             IUserClaimsProviderService claimsProviderService,
+            IGroupMembershipService groupMembershipService,
             ICallContext callContext,
             IOptions<InstanceSettings> instanceSettings)
         {
@@ -42,6 +43,12 @@ namespace FoundationaLLM.Common.Middleware
             {
                 // Extract from ClaimsPrincipal if available:
                 callContext.CurrentUserIdentity = claimsProviderService.GetUserIdentity(context.User);
+
+                if (callContext.CurrentUserIdentity != null)
+                {
+                    callContext.CurrentUserIdentity.GroupIds = await groupMembershipService.GetGroupsForPrincipal(
+                        callContext.CurrentUserIdentity.UPN!);
+                }
             }
             else
             {
@@ -49,14 +56,8 @@ namespace FoundationaLLM.Common.Middleware
                 var serializedIdentity = context.Request.Headers[Constants.HttpHeaders.UserIdentity].ToString();
                 if (!string.IsNullOrWhiteSpace(serializedIdentity))
                 {
-                    callContext.CurrentUserIdentity = JsonConvert.DeserializeObject<UnifiedUserIdentity>(serializedIdentity)!;
+                    callContext.CurrentUserIdentity = JsonSerializer.Deserialize<UnifiedUserIdentity>(serializedIdentity)!;
                 }
-            }
-
-            var agentHint = context.Request.Headers[Constants.HttpHeaders.AgentHint].FirstOrDefault();
-            if (!string.IsNullOrWhiteSpace(agentHint))
-            {
-                callContext.AgentHint = JsonConvert.DeserializeObject<Agent>(agentHint);
             }
 
             callContext.InstanceId = context.Request.RouteValues["instanceId"] as string;

@@ -57,18 +57,6 @@ var zonesAmpls = filter(
   (zone) => contains([ 'monitor', 'blob', 'ods', 'oms', 'agentsvc' ], zone.key)
 )
 
-@description('Private DNS Zones for Container Registry')
-var zonesRegistry = filter(
-  dnsZones.outputs.ids,
-  (zone) => contains([ 'cr', 'cr_region' ], zone.key)
-)
-
-@description('Private DNS Zones for Storage Accounts')
-var zonesStorage = filter(
-  dnsZones.outputs.ids,
-  (zone) => contains([ 'blob', 'dfs', 'file', 'queue', 'table', 'web' ], zone.key)
-)
-
 /** Outputs **/
 @description('Azure Monitor Action Group')
 output actionGroupId string = actionGroup.outputs.id
@@ -151,33 +139,6 @@ module applicationInights 'modules/applicationInsights.bicep' = {
   dependsOn: [ keyVault ]
 }
 
-@description('Azure Container Registry')
-module containerRegistry 'modules/containerRegistry.bicep' = {
-  name: 'containerRegistry-${timestamp}'
-  params: {
-    agentPoolSubnetId: '${vnetId}/subnets/ops'
-    location: location
-    logAnalyticWorkspaceId: logAnalytics.outputs.id
-    privateDnsZones: zonesRegistry
-    resourceSuffix: resourceSuffix
-    subnetId: '${vnetId}/subnets/ops'
-    tags: tags
-  }
-}
-
-// @description('Azure Managed Grafana')
-// module grafana 'modules/grafana.bicep' = {
-//   name: 'grafana-${timestamp}'
-//   params: {
-//     azureMonitorWorkspaceResourceId: monitorWorkspace.outputs.id
-//     location: location
-//     privateDnsZones: filter(privateDnsZones, (zone) => zone.key == 'grafana')
-//     resourceSuffix: resourceSuffix
-//     subnetId: '${vnetId}/subnets/ops'
-//     tags: tags
-//   }
-// }
-
 @description('Key Vault')
 module keyVault 'modules/keyVault.bicep' = {
   name: 'keyVault-${timestamp}'
@@ -185,7 +146,7 @@ module keyVault 'modules/keyVault.bicep' = {
     actionGroupId: actionGroup.outputs.id
     administratorObjectId: administratorObjectId
     administratorPrincipalType: administratorPrincipalType
-    allowAzureServices: false
+    allowAzureServices: true
     location: location
     logAnalyticWorkspaceId: logAnalytics.outputs.id
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => zone.key == 'vault')
@@ -212,18 +173,6 @@ module logAnalytics 'modules/logAnalytics.bicep' = {
   }
 }
 
-@description('Azure Monitor Workspace')
-module monitorWorkspace 'modules/monitorWorksapce.bicep' = {
-  name: 'monitorWorkspace-${timestamp}'
-  params: {
-    location: location
-    privateDnsZones: filter(dnsZones.outputs.ids, (zone) => zone.key == 'prometheusMetrics')
-    resourceSuffix: resourceSuffix
-    subnetId: '${vnetId}/subnets/ops'
-    tags: tags
-  }
-}
-
 // See: https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
 module uaiAppConfigRoleAssignments 'modules/utility/roleAssignments.bicep' = {
   name: 'uaiAppConfigRoleAssignments-${timestamp}'
@@ -233,21 +182,6 @@ module uaiAppConfigRoleAssignments 'modules/utility/roleAssignments.bicep' = {
       'Key Vault Crypto Service Encryption User': 'e147488a-f6f5-4113-8e2d-b22465e65bf6'
     }
   }
-}
-
-@description('Storage Account')
-module storage 'modules/storageAccount.bicep' = {
-  name: 'storage-${timestamp}'
-  params: {
-    actionGroupId: actionGroup.outputs.id
-    location: location
-    logAnalyticWorkspaceId: logAnalytics.outputs.id
-    privateDnsZones: zonesStorage
-    resourceSuffix: resourceSuffix
-    subnetId: '${vnetId}/subnets/ops'
-    tags: tags
-  }
-  dependsOn: [ keyVault ]
 }
 
 @description('Placeholder configuration setting for CSV file')

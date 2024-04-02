@@ -1,11 +1,12 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Text;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Services.TextSplitters;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Resources;
-using FoundationaLLM.Vectorization.ResourceProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,7 +22,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> providing dependency injection services.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public class TextSplitterServiceFactory(
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)] IResourceProviderService vectorizationResourceProviderService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IResourceProviderService vectorizationResourceProviderService,
         IConfiguration configuration,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory) : IVectorizationServiceFactory<ITextSplitterService>
@@ -46,7 +47,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         }
 
         /// <inheritdoc/>
-        public (ITextSplitterService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (ITextSplitterService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             var textPartitionProfile = _vectorizationResourceProviderService.GetResource<TextPartitioningProfile>(
                 $"/{VectorizationResourceTypeNames.TextPartitioningProfiles}/{serviceName}");

@@ -1,10 +1,6 @@
-﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
-using FoundationaLLM.AgentFactory.Core.Services;
-using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Cache;
-using System.Runtime.CompilerServices;
-using FoundationaLLM.Common.Models.Messages;
+using FoundationaLLM.Common.Models.Hubs;
 
 namespace FoundationaLLM.AgentFactory.API
 {
@@ -80,7 +76,7 @@ namespace FoundationaLLM.AgentFactory.API
                     new CacheKey(agent.Name!, "agent"),
                     async () =>
                     {
-                        var resolvedAgent = await _agentHubAPIService!.ResolveRequest(string.Empty, string.Empty, agent.Name);
+                        var resolvedAgent = await _agentHubAPIService!.ResolveRequest(string.Empty, string.Empty);
                         
                         if (resolvedAgent is {Agent: not null})
                             resolvedAgents.Add(resolvedAgent.Agent);

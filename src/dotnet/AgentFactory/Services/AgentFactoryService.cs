@@ -1,16 +1,11 @@
-﻿using FoundationaLLM.AgentFactory.Core.Agents;
-using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration;
+﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
+using FoundationaLLM.AgentFactory.Core.Orchestration;
 using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
-using FoundationaLLM.AgentFactory.Models.Orchestration;
-using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.Metadata;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using FoundationaLLM.AgentFactory.Core.Models.Orchestration.DataSourceConfigurations;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Orchestration;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.AgentFactory.Core.Services;
 
@@ -22,6 +17,7 @@ public class AgentFactoryService : IAgentFactoryService
     private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices;
     private readonly ICacheService _cacheService;
     private readonly ICallContext _callContext;
+    private readonly IConfiguration _configuration;
     private readonly IAgentHubAPIService _agentHubAPIService;
     private readonly IPromptHubAPIService _promptHubAPIService;
     private readonly IDataSourceHubAPIService _dataSourceHubAPIService;
@@ -36,8 +32,8 @@ public class AgentFactoryService : IAgentFactoryService
     /// </summary>
     /// <param name="resourceProviderServices">A list of <see cref="IResourceProviderService"/> resource providers.</param>
     /// <param name="orchestrationServices"></param>
-    /// <param name="cacheService">The <see cref="ICacheService"/> used to cache agent-related artifacts.</param>
     /// <param name="callContext">The call context of the request being handled.</param>
+    /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
     /// <param name="agentHubService"></param>    
     /// <param name="promptHubService"></param>    
     /// <param name="dataSourceHubService"></param>    
@@ -45,8 +41,8 @@ public class AgentFactoryService : IAgentFactoryService
     public AgentFactoryService(
         IEnumerable<IResourceProviderService> resourceProviderServices,
         IEnumerable<ILLMOrchestrationService> orchestrationServices,
-        ICacheService cacheService,
         ICallContext callContext,
+        IConfiguration configuration,
         IAgentHubAPIService agentHubService,
         IPromptHubAPIService promptHubService,
         IDataSourceHubAPIService dataSourceHubService,
@@ -56,8 +52,8 @@ public class AgentFactoryService : IAgentFactoryService
                 rps => rps.Name);
 
         _orchestrationServices = orchestrationServices;
-        _cacheService = cacheService;
         _callContext = callContext;
+        _configuration = configuration;
         _agentHubAPIService = agentHubService;
         _promptHubAPIService = promptHubService;
         _dataSourceHubAPIService = dataSourceHubService;
@@ -90,11 +86,10 @@ public class AgentFactoryService : IAgentFactoryService
     {
         try
         {
-            var agent = await AgentBuilder.Build(
-                completionRequest.UserPrompt ?? string.Empty,
-                completionRequest.SessionId ?? string.Empty,
-                _cacheService,
+            var orchestration = await OrchestrationBuilder.Build(
+                completionRequest,
                 _callContext,
+                _configuration,
                 _resourceProviderServices,
                 _agentHubAPIService,
                 _orchestrationServices,
@@ -102,49 +97,21 @@ public class AgentFactoryService : IAgentFactoryService
                 _dataSourceHubAPIService,
                 _loggerFactory);
 
-            return await agent.GetCompletion(completionRequest);
+            return orchestration == null
+                ? throw new OrchestrationException($"The orchestration builder was not able to create an orchestration for agent [{completionRequest.AgentName ?? string.Empty }].")
+                : await orchestration.GetCompletion(completionRequest);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error retrieving completion from the orchestration service for {completionRequest.UserPrompt}.");
+            _logger.LogError(ex, "Error retrieving completion from the orchestration service for {UserPrompt}.",
+                completionRequest.UserPrompt);
             return new CompletionResponse
             {
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = completionRequest.UserPrompt ?? string.Empty,
                 PromptTokens = 0,
                 CompletionTokens = 0,
-                UserPromptEmbedding = new float[] { 0 }
-            };
-        }
-    }
-
-    /// <summary>
-    /// Retrieve a summarization for the passed in prompt from the orchestration service.
-    /// </summary>
-    public async Task<SummaryResponse> GetSummary(SummaryRequest summaryRequest)
-    {
-        try
-        {
-            var agent = await AgentBuilder.Build(
-                summaryRequest.UserPrompt ?? string.Empty,
-                summaryRequest.SessionId ?? string.Empty,
-                _cacheService,
-                _callContext,
-                _resourceProviderServices,
-                _agentHubAPIService,
-                _orchestrationServices,
-                _promptHubAPIService,
-                _dataSourceHubAPIService,
-                _loggerFactory);
-
-            return await agent.GetSummary(summaryRequest);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Error retrieving summarization for {summaryRequest.UserPrompt}.");
-            return new SummaryResponse
-            {
-                Summary = "[No Summary]"
+                UserPromptEmbedding = [0f]
             };
         }
     }

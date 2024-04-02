@@ -1,65 +1,77 @@
 using Asp.Versioning;
-using Azure.Identity;
 using FoundationaLLM;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services;
+using FoundationaLLM.Common.Services.Azure;
+using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Services.Tokenizers;
-using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Common.Validation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
-using FoundationaLLM.Vectorization.ResourceProviders;
+using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.Text;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using FoundationaLLM.Vectorization.Worker;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+
+DefaultAuthentication.Production = builder.Environment.IsProduction();
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
 builder.Configuration.AddEnvironmentVariables();
 builder.Configuration.AddAzureAppConfiguration(options =>
 {
-    options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
+    options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(new DefaultAzureCredential());
+        options.SetCredential(DefaultAuthentication.GetAzureCredential());
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
 });
 
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
-{
-    ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString],
-    DeveloperMode = builder.Environment.IsDevelopment()
-});
+// NOTE: This is required while the service uses API key authentication.
+// Once the service is moved over to Entra ID authentication, this must be replaced with the proper implementation.
+builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>();
 
-var allowAllCorsOrigins = "AllowAllOrigins";
-builder.Services.AddCors(policyBuilder =>
-{
-    policyBuilder.AddPolicy(allowAllCorsOrigins,
-        policy =>
-        {
-            policy.AllowAnyOrigin();
-            policy.WithHeaders("DNT", "Keep-Alive", "User-Agent", "X-Requested-With", "If-Modified-Since", "Cache-Control", "Content-Type", "Range", "Authorization", "X-AGENT-HINT");
-            policy.AllowAnyMethod();
-        });
-});
+// Add resource providers.
+builder.AddDataSourceResourceProvider();
+builder.AddConfigurationResourceProvider();
+
+// Add OpenTelemetry.
+builder.AddOpenTelemetry(
+    AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString,
+    ServiceNames.VectorizationWorker);
+
+// CORS policies
+builder.AddCorsPolicies();
 
 // Add configurations to the container
 builder.Services.AddInstanceProperties(builder.Configuration);
+
+// Add Azure ARM services
+builder.Services.AddAzureResourceManager();
+
+// Add event services
+builder.Services.AddAzureEventGridEvents(
+    builder.Configuration,
+    AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker);
 
 builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker));
@@ -67,9 +79,6 @@ builder.Services.AddOptions<VectorizationWorkerSettings>()
 builder.Services.AddOptions<BlobStorageServiceSettings>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService)
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService));
-builder.Services.AddOptions<BlobStorageServiceSettings>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService)
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
 
 builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService));
@@ -100,26 +109,15 @@ builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
             Options.Create<BlobStorageServiceSettings>(settings),
             logger);
     });
-builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService, (sp, obj) =>
-    {
-        var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-            .Get(DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
-        var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
-
-        return new BlobStorageService(
-            Options.Create<BlobStorageServiceSettings>(settings),
-            logger);
-    });
 
 // Vectorization state
 builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>();
 
+// Resource validation
+builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
+
 // Vectorization resource provider
-builder.Services.AddKeyedSingleton<IResourceProviderService, VectorizationResourceProviderService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
-builder.Services.ActivateKeyedSingleton<IResourceProviderService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_ResourceProviderService);
+builder.AddVectorizationResourceProvider();
 
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
@@ -158,14 +156,10 @@ builder.Services
         // "api-supported-versions" and "api-deprecated-versions"
         options.ReportApiVersions = true;
         options.AssumeDefaultVersionWhenUnspecified = true;
-        options.DefaultApiVersion = new ApiVersion(1, 0);
+        options.DefaultApiVersion = new ApiVersion(new DateOnly(2024, 2, 16));
     })
-    .AddApiExplorer(options =>
-    {
-        // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-        // note: the specified format code will format the version as "'v'major[.minor][-status]"
-        options.GroupNameFormat = "'v'VVV";
-    });
+    .AddMvc()
+    .AddApiExplorer();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

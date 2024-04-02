@@ -70,6 +70,9 @@ interface AgentDropdownOption {
 	value: any;
 	disabled?: boolean;
 	private?: boolean;
+	type: string;
+	object_id: string;
+	description: string;
 }
 
 interface AgentDropdownOptionsGroup {
@@ -110,7 +113,10 @@ export default {
 
 		this.agentOptions = this.$appStore.agents.map((agent) => ({
 			label: agent.name,
-			private: agent.private,
+			type: agent.type,
+			object_id: agent.object_id,
+			description: agent.description,
+			private: false,
 			value: agent,
 		}));
 

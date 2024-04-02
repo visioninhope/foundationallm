@@ -1,27 +1,21 @@
 using Asp.Versioning;
-using Azure.Identity;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
-using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Settings;
-using FoundationaLLM.Management.Interfaces;
+using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Management.Models.Configuration;
-using FoundationaLLM.Management.Services;
-using FoundationaLLM.Management.Services.APIServices;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-using Microsoft.Identity.Web;
-using Polly;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FoundationaLLM.Management.API
@@ -34,17 +28,19 @@ namespace FoundationaLLM.Management.API
         /// <summary>
         /// Management API service configuration.
         /// </summary>
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            DefaultAuthentication.Production = builder.Environment.IsProduction();
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]);
-                options.ConfigureKeyVault(options => { options.SetCredential(new DefaultAzureCredential()); });
+                options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
+                options.ConfigureKeyVault(options => { options.SetCredential(DefaultAuthentication.GetAzureCredential()); });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
@@ -53,23 +49,19 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
             });
 
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-            var allowAllCorsOrigins = "AllowAllOrigins";
-            builder.Services.AddCors(policyBuilder =>
-            {
-                policyBuilder.AddPolicy(allowAllCorsOrigins,
-                    policy =>
-                    {
-                        policy.AllowAnyOrigin();
-                        policy.WithHeaders("DNT", "Keep-Alive", "User-Agent", "X-Requested-With", "If-Modified-Since",
-                            "Cache-Control", "Content-Type", "Range", "Authorization", "X-AGENT-HINT");
-                        policy.AllowAnyMethod();
-                    });
-            });
+            builder.AddGroupMembership();
+            builder.AddAuthorizationService();
+
+            // CORS policies
+            builder.AddCorsPolicies();
 
             builder.Services.AddOptions<CosmosDbSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
@@ -77,51 +69,60 @@ namespace FoundationaLLM.Management.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Branding));
             builder.Services.AddOptions<AppConfigurationSettings>()
                 .Configure(o =>
-                    o.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_AppConfig_ConnectionString]!);
+                    o.ConnectionString = builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]!);
 
             builder.Services.AddInstanceProperties(builder.Configuration);
 
-            builder.Services.AddScoped<IAgentFactoryAPIService, AgentFactoryAPIService>();
+            // Add Azure ARM services
+            builder.Services.AddAzureResourceManager();
+
+            // Add event services
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI);
+
             builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
             builder.Services.AddScoped<IDataSourceHubAPIService, DataSourceHubAPIService>();
             builder.Services.AddScoped<IPromptHubAPIService, PromptHubAPIService>();
-            builder.Services.AddScoped<IConfigurationManagementService, ConfigurationManagementService>();
-            builder.Services.AddScoped<ICacheManagementService, CacheManagementService>();
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
+            // Add event services.
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService);
+
+            // Resource validation.
+            builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
+
             //----------------------------
             // Resource providers
             //----------------------------
+            builder.AddAuthorizationResourceProvider();
+            builder.AddConfigurationResourceProvider();
+            builder.AddVectorizationResourceProvider();
+            builder.AddAgentResourceProvider();
+            builder.AddPromptResourceProvider();
+            builder.AddDataSourceResourceProvider();
 
-            builder.Services.AddVectorizationResourceProvider(builder.Configuration);
-            builder.Services.AddAgentResourceProvider(builder.Configuration);
-            builder.Services.AddPromptResourceProvider(builder.Configuration);
+            // Add authentication configuration.
+            builder.AddAuthenticationConfiguration(
+                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Instance,
+                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_TenantId,
+                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId,
+                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes);
 
-            // Activate all resource providers (give them a chance to initialize).
-            builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();
-
-            // Register the authentication services:
-            RegisterAuthConfiguration(builder);
-
-            builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions
-            {
-                ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString],
-                DeveloperMode = builder.Environment.IsDevelopment()
-            });
-            //builder.Services.AddServiceProfiler();
+            // Add OpenTelemetry.
+            builder.AddOpenTelemetry(
+                AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString,
+                ServiceNames.ManagementAPI);
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
 
-            builder.Services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = FoundationaLLM.Common.Settings
-                    .CommonJsonSerializerSettings
-                    .GetJsonSerializerSettings().ContractResolver;
-            });
+            builder.Services.AddControllers();
             builder.Services.AddProblemDetails();
             builder.Services
                 .AddApiVersioning(options =>
@@ -130,15 +131,10 @@ namespace FoundationaLLM.Management.API
                     // "api-supported-versions" and "api-deprecated-versions"
                     options.ReportApiVersions = true;
                     options.AssumeDefaultVersionWhenUnspecified = true;
-                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                    options.DefaultApiVersion = new ApiVersion(new DateOnly(2024, 2, 16));
                 })
                 .AddMvc()
-                .AddApiExplorer(options =>
-                {
-                    // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-                    // note: the specified format code will format the version as "'v'major[.minor][-status]"
-                    options.GroupNameFormat = "'v'VVV";
-                });
+                .AddApiExplorer();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -199,7 +195,7 @@ namespace FoundationaLLM.Management.API
             var app = builder.Build();
 
             // Set the CORS policy before other middleware.
-            app.UseCors(allowAllCorsOrigins);
+            app.UseCors(CorsPolicyNames.AllowAllOrigins);
 
             // For the CoreAPI, we need to make sure that UseAuthentication is called before the UserIdentityMiddleware.
             app.UseAuthentication();
@@ -246,7 +242,7 @@ namespace FoundationaLLM.Management.API
         {
             var downstreamAPISettings = new DownstreamAPISettings
             {
-                DownstreamAPIs = new Dictionary<string, DownstreamAPIKeySettings>()
+                DownstreamAPIs = []
             };
             var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
 
@@ -359,41 +355,6 @@ namespace FoundationaLLM.Management.API
                         });
 
             builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
-        }
-
-        /// <summary>
-        /// Register the authentication services.
-        /// </summary>
-        /// <param name="builder"></param>
-        public static void RegisterAuthConfiguration(WebApplicationBuilder builder)
-        {
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(jwtOptions => { },
-                    identityOptions =>
-                    {
-                        identityOptions.ClientSecret =
-                            builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientSecret];
-                        identityOptions.Instance = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Instance] ?? "";
-                        identityOptions.TenantId = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_TenantId];
-                        identityOptions.ClientId = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId];
-                    });
-            //.EnableTokenAcquisitionToCallDownstreamApi()
-            //.AddInMemoryTokenCaches();
-
-            //builder.Services.AddScoped<IAuthenticatedHttpClientFactory, EntraAuthenticatedHttpClientFactory>();
-            builder.Services.AddScoped<IUserClaimsProviderService, EntraUserClaimsProviderService>();
-
-            // Configure the scope used by the API controllers:
-            var requiredScope = builder.Configuration[AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes] ?? "";
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("RequiredScope", policyBuilder =>
-                {
-                    policyBuilder.RequireAuthenticatedUser();
-                    policyBuilder.RequireClaim("http://schemas.microsoft.com/identity/claims/scope",
-                        requiredScope.Split(' '));
-                });
-            });
         }
     }
 }

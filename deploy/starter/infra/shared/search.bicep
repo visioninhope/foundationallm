@@ -1,48 +1,38 @@
-param keyvaultName string
 param location string = resourceGroup().location
 param name string
-param sku string
+param sku string = 'standard'
 param tags object = {}
 
-resource search 'Microsoft.Search/searchServices@2022-09-01' = {
-  name: name
+resource main 'Microsoft.Search/searchServices@2023-11-01' = {
   location: location
-  sku: {
-    name: sku
+  name: name
+  tags: tags
+
+  identity: {
+    type: 'SystemAssigned'
   }
+
   properties: {
-    replicaCount: 1
-    partitionCount: 1
+    disableLocalAuth: true
     hostingMode: 'default'
+    partitionCount: 1
     publicNetworkAccess: 'enabled'
+    replicaCount: 1
+    semanticSearch: 'disabled'
+
+    encryptionWithCmk: {
+      enforcement: 'Disabled'
+    }
+
     networkRuleSet: {
       ipRules: []
     }
-    encryptionWithCmk: {
-      enforcement: 'Unspecified'
-    }
-    disableLocalAuth: false
-    authOptions: {
-      apiKeyOnly: {}
-    }
   }
-  tags: tags
-}
 
-resource keyvault 'Microsoft.KeyVault/vaults@2023-02-01' existing = {
-  name: keyvaultName
-}
-
-resource searchKey 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
-  name: 'search-key'
-  parent: keyvault
-  tags: tags
-  properties: {
-    value: search.listAdminKeys().primaryKey
+  sku: {
+    name: sku
   }
 }
 
-output endpoint string = 'https://${search.name}.search.windows.net'
-output keySecretName string = searchKey.name
-output keySecretRef string = searchKey.properties.secretUri
-output name string = search.name
+output endpoint string = 'https://${main.name}.search.windows.net'
+output name string = main.name

@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Models.Search;
 
 namespace FoundationaLLM.Core.Interfaces;
@@ -39,12 +40,12 @@ public interface ICoreService
     /// Receive a prompt from a user, retrieve the message history from the related session,
     /// generate a completion response, and log full completion results.
     /// </summary>
-    Task<Completion> GetChatCompletionAsync(string? sessionId, string userPrompt);
+    Task<Completion> GetChatCompletionAsync(OrchestrationRequest orchestrationRequest);
 
     /// <summary>
     /// Provides a completion for a user prompt, without a session.
     /// </summary>
-    Task<Completion> GetCompletionAsync(DirectCompletionRequest directCompletionRequest);
+    Task<Completion> GetCompletionAsync(CompletionRequest directCompletionRequest);
 
     /// <summary>
     /// Generate a name for a chat message, based on the passed in prompt.

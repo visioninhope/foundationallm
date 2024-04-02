@@ -1,11 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Authentication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Common.Interfaces
+﻿namespace FoundationaLLM.Common.Interfaces
 {
     /// <summary>
     /// Service that provides a common interface for creating <see cref="HttpClient"/>
@@ -21,7 +14,6 @@ namespace FoundationaLLM.Common.Interfaces
         /// The headers added to the request are:
         /// - X-API-KEY: The API key for the target API.
         /// - X-USER-IDENTITY: The user identity information for the current user.
-        /// - X-AGENT-HINT: The agent hint provided in an incoming HTTP request, if any.
         /// </summary>
         /// <param name="clientName">The named <see cref="HttpClient"/> client configuration.</param>
         /// <returns></returns>

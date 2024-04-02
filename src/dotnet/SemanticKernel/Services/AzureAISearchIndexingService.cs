@@ -1,4 +1,4 @@
-﻿using Azure.Identity;
+﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.TextEmbedding;
@@ -8,12 +8,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AzureAISearch;
-using Microsoft.SemanticKernel.Embeddings;
 using Microsoft.SemanticKernel.Memory;
 using System.ComponentModel;
 using System.Text.Json;
 
-#pragma warning disable SKEXP0003, SKEXP0021
+#pragma warning disable SKEXP0001, SKEXP0020
 
 namespace FoundationaLLM.SemanticKernel.Core.Services
 {
@@ -77,7 +76,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         /// <param name="endpoint">The endpoint of the Azure AI Search deployment.</param>
         /// <returns>The <see cref="Kernel"/> instance.</returns>
         private AzureAISearchMemoryStore CreateMemoryStoreFromIdentity(string endpoint) =>
-            new(endpoint, new DefaultAzureCredential());
+            new(endpoint, DefaultAuthentication.GetAzureCredential());
 
         private void ValidateEndpoint(string? value)
         {
@@ -87,23 +86,11 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 throw new ConfigurationValueException("The Azure AI Search endpoint is invalid.");
             }
         }
-        private void ValidateAPIKey(string? value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                _logger.LogCritical("The Azure AI Search API key is invalid.");
-                throw new ConfigurationValueException("The Azure AI Search API key is invalid.");
-            }
-        }
 
         private AzureAISearchMemoryStore CreateMemoryStore()
         {
             switch (_settings.AuthenticationType)
             {
-                case AzureAISearchAuthenticationTypes.APIKey:
-                    ValidateEndpoint(_settings.Endpoint);
-                    ValidateAPIKey(_settings.APIKey);
-                    return CreateMemoryStoreFromAPIKey(_settings.Endpoint, _settings.APIKey!);
                 case AzureAISearchAuthenticationTypes.AzureIdentity:
                     ValidateEndpoint(_settings.Endpoint);
                     return CreateMemoryStoreFromIdentity(_settings.Endpoint);

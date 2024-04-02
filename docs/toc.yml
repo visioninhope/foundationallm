@@ -4,7 +4,7 @@ items:
   items:
   - name: Deployment options
     href: deployment/index.md
-  - name: Deployment - Starter
+  - name: Deployment - Quick Start
     href: deployment/deployment-starter.md
   - name: Azure App Configuration values
     href: deployment/app-configuration-values.md
@@ -41,6 +41,8 @@ items:
       href: development/calling-apis/directly-calling-management-api.md
     - name: Calling the Vectorization APIs
       href: development/calling-apis/directly-calling-vectorization-api.md
+    - name: Local API Access for Standard Deployments
+      href: development/calling-apis/standard-deployment-local-api-access.md
   - name: Contributing
     href: development/contributing/index.md
     items:
@@ -66,6 +68,8 @@ items:
       href: setup-guides/agents/index.md
     - name: Knowledge management agents
       href: setup-guides/agents/knowledge-management-agent.md
+    - name: Internal context agents
+      href: setup-guides/agents/internal-context-agent.md
     - name: Prompt resources
       href: setup-guides/agents/prompt-resource.md
   - name: Exposed APIs
@@ -79,8 +83,8 @@ items:
       href: setup-guides/exposed-apis/management-api.md  
     - name: Resource management
       href: setup-guides/exposed-apis/resource-management/resource-management.md
-    - name: Management UI
-      href: setup-guides/exposed-apis/management-ui/management-ui.md
+  - name: Management UI
+    href: setup-guides/management-ui/management-ui.md
   - name: Vectorization
     href: setup-guides/vectorization/index.md
     items:

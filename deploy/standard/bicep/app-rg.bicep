@@ -5,9 +5,6 @@ param actionGroupId string
 @description('Administrator Object Id')
 param administratorObjectId string
 
-@description('Application Gateway resource group name')
-param agwResourceGroupName string
-
 @description('Chat UI OIDC Client Secret')
 @secure()
 param chatUiClientSecret string
@@ -61,8 +58,9 @@ param timestamp string = utcNow()
 @secure()
 param vectorizationApiClientSecret string
 
-@description('Virtual Network ID, used to find the subnet IDs.')
-param vnetId string
+@description('Vectorization Resource Group name')
+param vectorizationResourceGroupName string
+param vnetName string
 
 /** Locals **/
 @description('KeyVault resource suffix')
@@ -80,7 +78,7 @@ var tags = {
 }
 
 var backendServices = {
-  'agent-factory-api': { displayName: 'AgentFactoryAPI'}
+  'agent-factory-api': { displayName: 'AgentFactoryAPI' }
   'agent-hub-api': { displayName: 'AgentHubAPI' }
   'core-job': { displayName: 'CoreWorker' }
   'data-source-hub-api': { displayName: 'DataSourceHubAPI' }
@@ -91,10 +89,12 @@ var backendServices = {
   'semantic-kernel-api': { displayName: 'SemanticKernelAPI' }
   'vectorization-job': { displayName: 'VectorizationWorker' }
 }
+var backendServiceNames = [for service in items(backendServices): service.key]
 
 var chatUiService = { 'chat-ui': { displayName: 'Chat' } }
 var coreApiService = { 'core-api': { displayName: 'CoreAPI' } }
 var vectorizationApiService = { 'vectorization-api': { displayName: 'VectorizationAPI' } }
+var vecServiceNames = [for service in items(vectorizationApiService): service.key]
 
 var managementUiService = { 'management-ui': { displayName: 'ManagementUI' } }
 var managementApiService = { 'management-api': { displayName: 'ManagementAPI' } }
@@ -104,42 +104,54 @@ var workload = 'svc'
 
 /** Outputs **/
 
+/** Data Sources **/
+resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2024-02-15-preview' existing = {
+  name: 'cdb-${project}-${environmentName}-${location}-storage'
+  scope: resourceGroup(storageResourceGroupName)
+}
+
+module network 'modules/utility/virtualNetworkData.bicep' = {
+  name: 'network-${resourceSuffix}-${timestamp}'
+  scope: resourceGroup(networkingResourceGroupName)
+  params: {
+    vnetName: vnetName
+    subnetNames: [
+      'FLLMBackend'
+      'FLLMFrontend'
+      'FLLMServices'
+    ]
+  }
+}
+
+var subnets = reduce(
+  map(network.outputs.subnets, subnet => {
+      '${subnet.name}': {
+        id: subnet.id
+        addressPrefix: subnet.addressPrefix
+      }
+    }),
+  {},
+  (cur, acc) => union(cur, acc)
+)
+
+/** Resources **/
+
 /** Nested Modules **/
-module agws 'modules/utility/agwData.bicep' = {
-  name: 'agws-${timestamp}'
-  scope: resourceGroup(agwResourceGroupName)
-  params: {
-    location: location
-    environmentName: environmentName
-    project: project
-  }
-}
-
-@description('Read DNS Zones')
-module dnsZones 'modules/utility/dnsZoneData.bicep' = {
-  name: 'dnsZones-${timestamp}'
-  scope: resourceGroup(dnsResourceGroupName)
-  params: {
-    location: location
-  }
-}
-
 module aksBackend 'modules/aks.bicep' = {
   name: 'aksBackend-${timestamp}'
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
-    agw: first(filter(agws.outputs.applicationGateways, (agw) => agw.key == 'api'))
-    agwResourceGroupName: agwResourceGroupName
     dnsResourceGroupName: dnsResourceGroupName
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
     networkingResourceGroupName: networkingResourceGroupName
+    opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
     resourceSuffix: '${resourceSuffix}-backend'
-    subnetId: '${vnetId}/subnets/FLLMBackend'
-    subnetIdPrivateEndpoint: '${vnetId}/subnets/FLLMServices'
+    subnetId: subnets.FLLMBackend.id
+    subnetIdPrivateEndpoint: subnets.FLLMServices.id
     tags: tags
   }
 }
@@ -149,114 +161,65 @@ module aksFrontend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
-    agw: first(filter(agws.outputs.applicationGateways, (agw) => agw.key == 'www'))
-    agwResourceGroupName: agwResourceGroupName
     dnsResourceGroupName: dnsResourceGroupName
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
     networkingResourceGroupName: networkingResourceGroupName
+    opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
     resourceSuffix: '${resourceSuffix}-frontend'
-    subnetId: '${vnetId}/subnets/FLLMFrontend'
-    subnetIdPrivateEndpoint: '${vnetId}/subnets/FLLMServices'
+    subnetId: subnets.FLLMFrontend.id
+    subnetIdPrivateEndpoint: subnets.FLLMServices.id
+    tags: tags
+  }
+}
+
+module dnsZones 'modules/utility/dnsZoneData.bicep' = {
+  name: 'dnsZones-${timestamp}'
+  scope: resourceGroup(dnsResourceGroupName)
+  params: {
+    location: location
+  }
+}
+
+module eventgrid 'modules/eventgrid.bicep' = {
+  name: 'eventgrid-${timestamp}'
+  params: {
+    actionGroupId: actionGroupId
+    kvResourceSuffix: opsResourceSuffix
+    location: location
+    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
+    opsResourceGroupName: opsResourceGroupName
+    privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'eventgrid' ], zone.key))
+    resourceSuffix: resourceSuffix
+    subnetId: subnets.FLLMServices.id
+    topics: [ 'storage', 'vectorization', 'configuration' ]
     tags: tags
   }
 }
 
 @batchSize(3)
-module backendServiceResources 'modules/service.bicep' = [for service in items(backendServices): {
-    name: 'beSvc-${service.key}'
-    params: {
-      location: location
-      namespace: k8sNamespace
-      oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
-      opsResourceGroupName: opsResourceGroupName
-      opsResourceSuffix: opsResourceSuffix
-      resourceSuffix: resourceSuffix
-      serviceName: service.key
-      storageResourceGroupName: storageResourceGroupName
-      tags: tags
-    }
-  }
-]
-
-module chatUiServiceResources 'modules/service.bicep' = [for service in items(chatUiService): {
-    name: 'feSvc-${service.key}'
-    params: {
-      clientSecret: chatUiClientSecret
-      location: location
-      namespace: k8sNamespace
-      oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
-      opsResourceGroupName: opsResourceGroupName
-      opsResourceSuffix: opsResourceSuffix
-      resourceSuffix: resourceSuffix
-      serviceName: service.key
-      storageResourceGroupName: storageResourceGroupName
-      tags: tags
-      useOidc: true
-    }
-  }
-]
-
-module managementUiServiceResources 'modules/service.bicep' = [for service in items(managementUiService): {
-    name: 'feSvc-${service.key}'
-    params: {
-      clientSecret: managementUiClientSecret
-      location: location
-      namespace: k8sNamespace
-      oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
-      opsResourceGroupName: opsResourceGroupName
-      opsResourceSuffix: opsResourceSuffix
-      resourceSuffix: resourceSuffix
-      serviceName: service.key
-      storageResourceGroupName: storageResourceGroupName
-      tags: tags
-      useOidc: true
-    }
-  }
-]
-
-module coreApiServiceResources 'modules/service.bicep' = [for service in items(coreApiService): {
-    name: 'feSvc-${service.key}'
-    params: {
-      clientSecret: coreApiClientSecret
-      location: location
-      namespace: k8sNamespace
-      oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
-      opsResourceGroupName: opsResourceGroupName
-      opsResourceSuffix: opsResourceSuffix
-      resourceSuffix: resourceSuffix
-      serviceName: service.key
-      storageResourceGroupName: storageResourceGroupName
-      tags: tags
-      useOidc: true
-    }
-  }
-]
-
-module managementApiServiceResources 'modules/service.bicep' = [for service in items(managementApiService): {
-    name: 'feSvc-${service.key}'
-    params: {
-      clientSecret: managementApiClientSecret
-      location: location
-      namespace: k8sNamespace
-      oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
-      opsResourceGroupName: opsResourceGroupName
-      opsResourceSuffix: opsResourceSuffix
-      resourceSuffix: resourceSuffix
-      serviceName: service.key
-      storageResourceGroupName: storageResourceGroupName
-      tags: tags
-      useOidc: true
-    }
-  }
-]
-
-module vectorizationApiServiceResources 'modules/service.bicep' = [for service in items(vectorizationApiService): {
-  name: 'feSvc-${service.key}'
+module srBackend 'modules/service.bicep' = [for service in items(backendServices): {
+  name: 'srBackend-${service.key}-${timestamp}'
   params: {
-    clientSecret: vectorizationApiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+  }
+}]
+
+@batchSize(3)
+module srCoreApi 'modules/service.bicep' = [for service in items(coreApiService): {
+  name: 'srCoreApi-${service.key}-${timestamp}'
+  params: {
+    clientSecret: coreApiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
@@ -268,5 +231,122 @@ module vectorizationApiServiceResources 'modules/service.bicep' = [for service i
     tags: tags
     useOidc: true
   }
+}]
+
+@batchSize(3)
+module srChatUi 'modules/service.bicep' = [for service in items(chatUiService): {
+  name: 'srChatUi-${service.key}-${timestamp}'
+  params: {
+    clientSecret: chatUiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+    useOidc: true
+  }
+}]
+
+@batchSize(3)
+module srManagementApi 'modules/service.bicep' = [for service in items(managementApiService): {
+  name: 'srManagementApi-${service.key}-${timestamp}'
+  params: {
+    clientSecret: managementApiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+    useOidc: true
+  }
+}]
+
+@batchSize(3)
+module srManagementUi 'modules/service.bicep' = [for service in items(managementUiService): {
+  name: 'srManagementUi-${service.key}-${timestamp}'
+  params: {
+    clientSecret: managementUiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+    useOidc: true
+  }
+}]
+
+@batchSize(3)
+module srVectorizationApi 'modules/service.bicep' = [for service in items(vectorizationApiService): {
+  name: 'srVectorizationApi-${service.key}-${timestamp}'
+  params: {
+    clientSecret: vectorizationApiClientSecret
+    location: location
+    namespace: k8sNamespace
+    oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
+    opsResourceGroupName: opsResourceGroupName
+    opsResourceSuffix: opsResourceSuffix
+    resourceSuffix: resourceSuffix
+    serviceName: service.key
+    storageResourceGroupName: storageResourceGroupName
+    tags: tags
+    useOidc: false
+  }
+}]
+
+module coreApiosmosRoles './modules/sqlRoleAssignments.bicep' = {
+  scope: resourceGroup(storageResourceGroupName)
+  name: 'core-api-cosmos-role'
+  params: {
+    accountName: cosmosDb.name
+    principalId: srCoreApi[0].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
+  }
 }
-]
+
+module cosmosRoles './modules/sqlRoleAssignments.bicep' = {
+  scope: resourceGroup(storageResourceGroupName)
+  name: 'core-job-cosmos-role'
+  params: {
+    accountName: cosmosDb.name
+    principalId: srBackend[indexOf(backendServiceNames, 'core-job')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
+  }
+}
+
+module searchIndexDataReaderRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'searchIndexDataReaderRole-${timestamp}'
+  scope: resourceGroup(vectorizationResourceGroupName)
+  params: {
+    principalId: srVectorizationApi[indexOf(vecServiceNames, 'vectorization-api')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+    }
+  }
+}
+
+module searchIndexDataReaderWorkerRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'searchIndexDataReaderWorkerRole-${timestamp}'
+  scope: resourceGroup(vectorizationResourceGroupName)
+  params: {
+    principalId: srBackend[indexOf(backendServiceNames, 'vectorization-job')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+    }
+  }
+}

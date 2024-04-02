@@ -13,8 +13,8 @@ public class ContentIdentifier
     /// The name of the vectorization content source profile that provides settings to connect to the content source.
     /// </summary>
     [JsonPropertyOrder(0)]
-    [JsonPropertyName("content_source_profile_name")]
-    public required string ContentSourceProfileName { get; set; }
+    [JsonPropertyName("data_source_object_id")]
+    public required string DataSourceObjectId { get; set; }
 
     /// <summary>
     /// The multipart unique identifier of the the content (i.e. document) being vectorized.
@@ -31,6 +31,13 @@ public class ContentIdentifier
     [JsonPropertyOrder(2)]
     [JsonPropertyName("canonical_id")]
     public required string CanonicalId { get; set; }
+
+    /// <summary>
+    /// Additional metadata associated with the content being vectorized.
+    /// </summary>
+    [JsonPropertyOrder(3)]
+    [JsonPropertyName("metadata")]
+    public Dictionary<string, object>? Metadata { get; set; }
 
     /// <summary>
     /// The unique identifier of the content (i.e., document) being vectorized.

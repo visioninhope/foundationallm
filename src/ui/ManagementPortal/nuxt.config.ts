@@ -25,7 +25,7 @@ export default defineNuxtConfig({
 				{
 					rel: 'icon',
 					type: 'image/x-icon',
-					href: process.env.NUXT_APP_BASE_URL + (process.env.BRANDING_FAV_ICON_URL ?? 'favicon.ico'),
+					href: process.env.NUXT_APP_BASE_URL !== undefined ? process.env.NUXT_APP_BASE_URL : '' + (process.env.BRANDING_FAV_ICON_URL ?? 'favicon.ico'),
 				},
 			],
 		},
@@ -52,5 +52,8 @@ export default defineNuxtConfig({
 	},
 	runtimeConfig: {
 		APP_CONFIG_ENDPOINT: process.env.APP_CONFIG_ENDPOINT,
+		public: {
+			LOCAL_API_URL: process.env.LOCAL_API_URL,
+		},
 	},
 });

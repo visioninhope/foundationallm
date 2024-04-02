@@ -1,33 +1,33 @@
-import type { AgentIndex, AgentDataSource } from './types';
+import type { AgentIndex, AzureDataLakeDataSource } from './types';
 
 export const mockGetAgentIndexesResponse: AgentIndex[] = [
 	{
-		Name: 'AzureAISearch_Test_001',
-		ObjectId: '47893247',
-		Description: 'Azure AI Search index for vectorization testing.',
-		Indexer: 'AzureAISearchIndexer',
-		Settings: {
+		name: 'AzureAISearch_Test_001',
+		object_id: '47893247',
+		description: 'Azure AI Search index for vectorization testing.',
+		indexer: 'AzureAISearchIndexer',
+		settings: {
 			IndexName: 'fllm-test-001',
 		},
-		ConfigurationReferences: {
+		configuration_references: {
 			APIKey: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey',
 			AuthenticationType: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType',
 			Endpoint: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint',
 		},
 	},
 	{
-		Name: 'sotu-index',
-		ObjectId: '25637942',
-		Description: 'Azure AI Search index for the State of the Union agent.',
-		Indexer: 'AzureAISearchIndexer',
-		Settings: {
+		name: 'sotu-index',
+		object_id: '25637942',
+		description: 'Azure AI Search index for the State of the Union agent.',
+		indexer: 'AzureAISearchIndexer',
+		settings: {
 			IndexName: 'sotu',
 			TopN: '3',
 			Filters: '[]',
 			EmbeddingFieldName: 'Embedding',
 			TextFieldName: 'Text',
 		},
-		ConfigurationReferences: {
+		configuration_references: {
 			APIKey: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey',
 			AuthenticationType: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType',
 			Endpoint: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint',
@@ -35,60 +35,90 @@ export const mockGetAgentIndexesResponse: AgentIndex[] = [
 	},
 ];
 
-export const mockGetAgentDataSourcesResponse: AgentDataSource[] = [
+export const mockGetAgentDataSourcesResponse: AgentIndex[] = [
 	{
-		Name: 'AzureBlob_DataSource_1',
-		ObjectId: '90871234981',
+		name: 'AzureBlob_DataSource_1',
+		object_id: '90871234981',
 		Type: 'AzureDataLake',
-		Formats: ['pdf'],
-		// Container: {
-		// 	Name: 'documents',
-		// 	Formats: ['pdf'],
-		// },
-		// Description: 'Azure AI Search index for vectorization testing.',
-		// Indexer: 'AzureAISearchIndexer',
-		Settings: {
+		Container: {
+			Name: 'documents',
+			Formats: [
+				'pdf',
+			],
+		},
+		description: 'Azure AI Search index for vectorization testing.',
+		indexer: 'AzureAISearchIndexer',
+		settings: {
 			IndexName: 'fllm-test-001',
 		},
-		ConfigurationReferences: {
+		configuration_references: {
 			APIKey: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey',
 			AuthenticationType: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType',
 			Endpoint: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint',
 		},
 	},
 	{
-		Name: 'AzureBlob_DataSource_2',
-		ObjectId: '8931729038',
+		name: 'AzureBlob_DataSource_2',
+		object_id: '8931729038',
 		Type: 'SharePointOnline',
-		Formats: ['pdf', 'txt', 'doc'],
-		// Container: {
-		// 	Name: 'census_data',
-		// 	Formats: ['pdf', 'txt', 'doc'],
-		// },
-		// Description: 'Azure AI Search index for the State of the Union agent.',
-		// Indexer: 'AzureAISearchIndexer',
-		Settings: {
+		Container: {
+			Name: 'census_data',
+			Formats: [
+				'pdf',
+				'txt',
+				'doc',
+			],
+		},
+		description: 'Azure AI Search index for the State of the Union agent.',
+		indexer: 'AzureAISearchIndexer',
+		settings: {
 			IndexName: 'sotu',
 			TopN: '3',
 			Filters: '[]',
 			EmbeddingFieldName: 'Embedding',
 			TextFieldName: 'Text',
 		},
-		ConfigurationReferences: {
+		configuration_references: {
 			APIKey: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey',
 			AuthenticationType: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType',
 			Endpoint: 'FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint',
 		},
 	},
 	{
-		Name: 'AzureBlob_DataSource_3',
-		ObjectId: '12873989',
+		name: 'AzureBlob_DataSource_3',
+		object_id: '12873989',
 		Type: 'AzureDataLake',
-		Formats: ['txt'],
-		// Description: 'Azure AI Search Search index for vectorization testing.',
-		// Container: {
-		// 	Name: 'data',
-		// 	Formats: ['txt'],
-		// },
+		Container: {
+			Name: 'data',
+			Formats: [
+				'txt',
+			],
+		},
 	}
 ];
+
+export const mockAzureDataLakeDataSource1: AzureDataLakeDataSource = {
+	type: 'azure-data-lake',
+	name: 'mock-azure-data-lakehouse-source-1',
+	object_id: 'FHIERKHFKJER-FBREHBFJKER-FGIHREFKVJLK',
+	description: 'A mock azure data lake data source with a ConnectionString.',
+	configuration_references: {
+		AuthenticationType: 'ConnectionString',
+		ConnectionString: 'connection-string',
+		APIKey: '',
+		Endpoint: '',
+	},
+};
+
+export const mockAzureDataLakeDataSource2: AzureDataLakeDataSource = {
+	type: 'azure-data-lake',
+	name: 'mock-azure-data-lakehouse-source-2',
+	object_id: 'FULHFILERF-FERHJLKFER-BFEIRUFBLKHER',
+	description: 'A mock azure data lake data source with an AccountKey.',
+	configuration_references: {
+		AuthenticationType: 'AccountKey',
+		ConnectionString: '',
+		APIKey: 'this-is-not-a-real-key',
+		Endpoint: 'https://solliance.com',
+	},
+};

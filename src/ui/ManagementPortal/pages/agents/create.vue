@@ -17,7 +17,11 @@
 			<div class="span-2">
 				<div class="step-header mb-2">Agent name:</div>
 				<div class="mb-2">No special characters or spaces, lowercase letters with dashes and underscores only.</div>
-				<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" />
+				<div class="input-wrapper">
+					<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" :disabled="editAgent" />
+					<span v-if="nameValidationStatus === 'valid'" class="icon valid" title="Name is available">✔️</span>
+					<span v-else-if="nameValidationStatus === 'invalid'" class="icon invalid" :title="validationMessage">❌</span>
+				</div>
 			</div>
 			<div class="span-2">
 				<div class="step-header mb-2">Description:</div>
@@ -62,79 +66,112 @@
 			<!-- Knowledge source -->
 			<div class="step-section-header span-2">Knowledge Source</div>
 
-			<div class="step-header">Where is the data?</div>
+			<div class="step-header span-2">Do you want this agent to have a dedicated pipeline?</div>
+
+			<div class="span-2">
+				<div class="d-flex align-center mt-2">
+					<span>
+						<ToggleButton
+							v-model="dedicated_pipeline"
+							onLabel="Yes"
+							onIcon="pi pi-check-circle"
+							offLabel="No"
+							offIcon="pi pi-times-circle"
+						/>
+					</span>
+				</div>
+			</div>
+
+			<div v-if="dedicated_pipeline">
+				<div class="step-header">Where is the data?</div>
+			</div>
 			<div class="step-header">Where should the data be indexed?</div>
+			<div v-if="!dedicated_pipeline">
+				<div class="step-header">How should the data be processed for indexing?</div>
+			</div>
 
 			<!-- Data source -->
-			<CreateAgentStepItem v-model="editDataSource">
-				<template v-if="selectedDataSource">
-					<div class="step-container__header">{{ selectedDataSource.Type }}</div>
-					<div>
-						<span class="step-option__header">Name:</span>
-						<span>{{ selectedDataSource.Name }}</span>
-					</div>
-					<!-- <div>
-						<span class="step-option__header">Container name:</span>
-						<span>{{ selectedDataSource.Container.Name }}</span>
-					</div> -->
-
-					<!-- <div>
-						<span class="step-option__header">Data Format(s):</span>
-						<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
-							{{ format }}
-						</span>
-					</div> -->
-				</template>
-				<template v-else>Please select a data source.</template>
-
-				<template #edit>
-					<div class="step-container__edit__header">Please select a data source.</div>
-
-					<div v-for="(group, type) in groupedDataSources" :key="type">
-
-						<div class="step-container__edit__group-header">{{ type }}</div>
-
-						<div
-							v-for="dataSource in group"
-							:key="dataSource.Name"
-							class="step-container__edit__option"
-							:class="{
-								'step-container__edit__option--selected':
-									dataSource.Name === selectedDataSource?.Name,
-							}"
-							@click.stop="handleDataSourceSelected(dataSource)"
-						>
-							<div>
+			<div v-if="dedicated_pipeline">
+				<CreateAgentStepItem v-model="editDataSource">
+					<template v-if="selectedDataSource">
+						<div class="step-container__header">{{ selectedDataSource.type }}</div>
+						<div>
+							<div v-if="selectedDataSource.object_id !== ''">
 								<span class="step-option__header">Name:</span>
-								<span>{{ dataSource.Name }}</span>
 							</div>
-							<!-- <div>
-								<span class="step-option__header">Container name:</span>
-								<span>{{ dataSource.Container.Name }}</span>
-							</div> -->
-
-							<!-- <div>
-								<span class="step-option__header">Data Format(s):</span>
-								<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
-									{{ format }}
-								</span>
-							</div> -->
+							<span>{{ selectedDataSource.name }}</span>
 						</div>
-					</div>
-				</template>
-			</CreateAgentStepItem>
+						<!-- <div>
+							<span class="step-option__header">Container name:</span>
+							<span>{{ selectedDataSource.Container.Name }}</span>
+						</div> -->
+
+						<!-- <div>
+							<span class="step-option__header">Data Format(s):</span>
+							<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
+								{{ format }}
+							</span>
+						</div> -->
+					</template>
+					<template v-else>Please select a data source.</template>
+
+					<template #edit>
+						<div class="step-container__edit__header">Please select a data source.</div>
+
+						<div v-for="(group, type) in groupedDataSources" :key="type">
+
+							<div class="step-container__edit__group-header">{{ type }}</div>
+
+							<div
+								v-for="dataSource in group"
+								:key="dataSource.name"
+								class="step-container__edit__option"
+								:class="{
+									'step-container__edit__option--selected':
+										dataSource.name === selectedDataSource?.name,
+								}"
+								@click.stop="handleDataSourceSelected(dataSource)"
+							>
+								<div>
+									<div v-if="dataSource.object_id !== ''">
+										<span  class="step-option__header">Name:</span>
+									</div>
+									<span>{{ dataSource.name }}</span>
+								</div>
+								<!-- <div>
+									<span class="step-option__header">Container name:</span>
+									<span>{{ dataSource.Container.Name }}</span>
+								</div> -->
+
+								<!-- <div>
+									<span class="step-option__header">Data Format(s):</span>
+									<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
+										{{ format }}
+									</span>
+								</div> -->
+							</div>
+						</div>
+					</template>
+				</CreateAgentStepItem>
+			</div>
 
 			<!-- Index source -->
 			<CreateAgentStepItem v-model="editIndexSource">
 				<template v-if="selectedIndexSource">
-					<div class="step-container__header">{{ selectedIndexSource.Name }}</div>
-					<div>
-						<span class="step-option__header">URL:</span>
-						<span>{{ selectedIndexSource.ConfigurationReferences.Endpoint }}</span>
+					<div v-if="selectedIndexSource.object_id !== ''">
+						<div class="step-container__header">{{ selectedIndexSource.name }}</div>
+						<div>
+							<span class="step-option__header">URL:</span>
+							<span>{{ selectedIndexSource.configuration_references.Endpoint }}</span>
+						</div>
+						<div>
+							<span class="step-option__header">Index Name:</span>
+							<span>{{ selectedIndexSource.settings.IndexName }}</span>
+						</div>
 					</div>
-					<div>
-						<span class="step-option__header">Index Name:</span>
-						<span>{{ selectedIndexSource.Settings.IndexName }}</span>
+					<div v-else>
+						<div class="step-container__header">DEFAULT</div>
+						{{ selectedIndexSource.name }}
 					</div>
 				</template>
 				<template v-else>Please select an index source.</template>
@@ -143,29 +180,39 @@
 					<div class="step-container__edit__header">Please select an index source.</div>
 					<div
 						v-for="indexSource in indexSources"
-						:key="indexSource.Name"
+						:key="indexSource.name"
 						class="step-container__edit__option"
 						:class="{
 							'step-container__edit__option--selected':
-								indexSource.Name === selectedIndexSource?.Name,
+								indexSource.name === selectedIndexSource?.name,
 						}"
 						@click.stop="handleIndexSourceSelected(indexSource)"
 					>
-						<div class="step-container__header">{{ indexSource.Name }}</div>
-						<div>
-							<span class="step-option__header">URL:</span>
-							<span>{{ indexSource.ConfigurationReferences.Endpoint }}</span>
+						<div v-if="indexSource.object_id !== ''">
+							<div class="step-container__header">{{ indexSource.name }}</div>
+							<div v-if="indexSource.configuration_references.Endpoint">
+								<span class="step-option__header">URL:</span>
+								<span>{{ indexSource.configuration_references.Endpoint }}</span>
+							</div>
+							<div v-if="indexSource.settings.IndexName">
+								<span class="step-option__header">Index Name:</span>
+								<span>{{ indexSource.settings.IndexName }}</span>
+							</div>
 						</div>
-						<div>
-							<span class="step-option__header">Index Name:</span>
-							<span>{{ indexSource.Settings.IndexName }}</span>
+						<div v-else>
+							<div class="step-container__header">DEFAULT</div>
+							{{ indexSource.name }}
 						</div>
 					</div>
 				</template>
 			</CreateAgentStepItem>
 
-			<div class="step-header">How should the data be processed for indexing?</div>
-			<div class="step-header">When should the data be indexed?</div>
+			<div v-if="dedicated_pipeline">
+				<div class="step-header">How should the data be processed for indexing?</div>
+			</div>
+			<div v-if="dedicated_pipeline">
+				<div class="step-header">When should the data be indexed?</div>
+			</div>
 
 			<!-- Process indexing -->
 			<CreateAgentStepItem>
@@ -197,47 +244,47 @@
 			</CreateAgentStepItem>
 
 			<!-- Trigger -->
-			<CreateAgentStepItem>
-				<div class="step-container__header">Trigger</div>
-				<div>Runs every time a new tile is added to the data source.</div>
-
-				<div class="mt-2">
-					<span class="step-option__header">Frequency:</span>
-					<span>{{ triggerFrequency.label }}</span>
-				</div>
-
-				<div v-if="triggerFrequency.value == 2 && triggerFrequencyScheduled">
-					<span class="step-option__header">Schedule:</span>
-					<span>{{ triggerFrequencyScheduled.label }}</span>
-				</div>
-
-				<template #edit>
+			<div v-if="dedicated_pipeline">
+				<CreateAgentStepItem>
 					<div class="step-container__header">Trigger</div>
-					<div>Runs every time a new tile is added to the data source.</div>
+					<div>Runs every time a new item is added to the data source.</div>
 
 					<div class="mt-2">
 						<span class="step-option__header">Frequency:</span>
-						<Dropdown
-							v-model="triggerFrequency"
-							class="dropdown--agent"
-							:options="triggerFrequencyOptions"
-							option-label="label"
-							placeholder="--Select--"
-						/>
+						<span>{{ triggerFrequency }}</span>
 					</div>
 
-					<div v-if="triggerFrequency.value === 2" class="mt-2">
-						<span class="step-option__header">Select schedule:</span>
-						<Dropdown
-							v-model="triggerFrequencyScheduled"
-							class="dropdown--agent"
-							:options="triggerFrequencyScheduledOptions"
-							option-label="label"
-							placeholder="--Select--"
-						/>
+					<div v-if="triggerFrequency === 'Schedule' && triggerFrequencyScheduled">
+						<span class="step-option__header">Schedule:</span>
+						<span>{{ triggerFrequencyScheduled }}</span>
 					</div>
-				</template>
-			</CreateAgentStepItem>
+
+					<template #edit>
+						<div class="step-container__header">Trigger</div>
+						<div>Runs every time a new item is added to the data source.</div>
+
+						<div class="mt-2">
+							<span class="step-option__header">Frequency:</span>
+							<Dropdown
+								v-model="triggerFrequency"
+								class="dropdown--agent"
+								:options="triggerFrequencyOptions"
+								placeholder="--Select--"
+							/>
+						</div>
+
+						<div v-if="triggerFrequency === 'Schedule'" class="mt-2">
+							<span class="step-option__header">Select schedule:</span>
+							<Dropdown
+								v-model="triggerFrequencyScheduled"
+								class="dropdown--agent"
+								:options="triggerFrequencyScheduledOptions"
+								placeholder="--Select--"
+							/>
+						</div>
+					</template>
+				</CreateAgentStepItem>
+			</div>
 
 			<!-- Agent configuration -->
 			<div class="step-section-header span-2">Agent Configuration</div>
@@ -366,31 +413,49 @@
 				</template>
 			</CreateAgentStepItem>
 
+			<!-- Orchestrator -->
+			<div class="step-header span-2">Which orchestrator should the agent use?</div>
+			<div class="span-2">
+				<Dropdown
+					v-model="orchestrator"
+					:options="orchestratorOptions"
+					option-label="label"
+					option-value="value"
+					placeholder="--Select--"
+					class="dropdown--agent"
+				/>
+			</div>
+
 			<!-- System prompt -->
 			<div class="step-section-header span-2">System Prompt</div>
 
 			<div class="step-header">What is the persona of the agent?</div>
 
 			<div class="span-2">
-				<Textarea v-model="systemPrompt" class="w-100" auto-resize rows="5" type="text" />
+				<Textarea
+					v-model="systemPrompt"
+					class="w-100"
+					auto-resize rows="5"
+					type="text"
+					placeholder="You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional."
+				/>
 			</div>
 
 			<div class="button-container column-2 justify-self-end">
+				<!-- Create agent -->
 				<Button
-					class="secondary-button"
-					style="margin-right: 20px;"
+					:label="editAgent ? 'Save Changes' : 'Create Agent'"
+					severity="primary"
+					@click="handleCreateAgent"
+				/>
+
+				<!-- Cancel -->
+				<Button
+					v-if="editAgent"
+					style="margin-left: 16px;"
 					label="Cancel"
 					severity="secondary"
 					@click="handleCancel"
-				/>
-
-				<!-- Create agent -->
-				<Button
-					class="primary-button"
-					style="width: 200px"
-					:label="editAgent ? 'Update Agent' : 'Create Agent'"
-					severity="primary"
-					@click="handleCreateAgent"
 				/>
 			</div>
 		</div>
@@ -399,27 +464,40 @@
 
 <script lang="ts">
 import type { PropType } from 'vue';
+import { debounce } from 'lodash';
 import api from '@/js/api';
-import type { CreateAgentRequest, AgentIndex, AgentType } from '@/js/types';
+import type {
+	Agent,
+	AgentIndex,
+	AgentDataSource,
+	CreateAgentRequest,
+	// AgentCheckNameResponse,
+} from '@/js/types';
 
-const defaultSystemPrompt: string = 'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
+const defaultSystemPrompt: string = '';
 
 const defaultFormValues = {
 	agentName: '',
 	agentDescription: '',
+	object_id: '',
+	text_partitioning_profile_object_id: '',
+	text_embedding_profile_object_id: '',
+	vectorization_data_pipeline_object_id: '',
+	prompt_object_id: '',
+	dedicated_pipeline: true,
 	agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 	editDataSource: false as boolean,
-	selectedDataSource: null as null | Object,
+	selectedDataSource: null as null | AgentDataSource,
 
 	editIndexSource: false as boolean,
 	selectedIndexSource: null as null | AgentIndex,
 
-	chunkSize: 2000,
-	overlapSize: 100,
+	chunkSize: 500,
+	overlapSize: 50,
 
-	triggerFrequency: { label: 'Manual', value: 1 },
-	triggerFrequencyScheduled: null,
+	triggerFrequency: 'Event' as string,
+	triggerFrequencyScheduled: '' as string,
 
 	conversationHistory: false as boolean,
 	conversationMaxMessages: 5 as number,
@@ -429,6 +507,7 @@ const defaultFormValues = {
 	gatekeeperDataProtection: { label: 'None', value: null },
 
 	systemPrompt: defaultSystemPrompt as string,
+	orchestrator: 'LangChain' as string,
 };
 
 export default {
@@ -449,46 +528,22 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
-			dataSources: [],
+			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
+			validationMessage: '' as string,
+
+			dataSources: [] as AgentDataSource[],
 			indexSources: [] as AgentIndex[],
 
-			triggerFrequencyOptions: [
+			orchestratorOptions: [
 				{
-					label: 'Manual',
-					value: 1,
+					label: 'LangChain',
+					value: 'LangChain',
 				},
-				// {
-				// 	label: 'Auto',
-				// 	value: null,
-				// },
-				// {
-				// 	label: 'Scheduled',
-				// 	value: 2,
-				// },
 			],
+			
+			triggerFrequencyOptions: ['Event', 'Manual'],
 
-			triggerFrequencyScheduledOptions: [
-				{
-					label: 'Never',
-					value: null,
-				},
-				{
-					label: 'Every 30 minutes',
-					value: 1,
-				},
-				{
-					label: 'Hourly',
-					value: 2,
-				},
-				{
-					label: 'Every 12 hours',
-					value: 2,
-				},
-				{
-					label: 'Daily',
-					value: 2,
-				},
-			],
+			triggerFrequencyScheduledOptions: ['Never', 'Every 30 minutes', 'Hourly', 'Every 12 hours', 'Daily'],
 
 			gatekeeperContentSafetyOptions: [
 				{
@@ -497,7 +552,7 @@ export default {
 				},
 				{
 					label: 'Azure Content Safety',
-					value: "ContentSafety"
+					value: 'ContentSafety',
 				},
 			],
 
@@ -508,7 +563,7 @@ export default {
 				},
 				{
 					label: 'Microsoft Presidio',
-					value: "Presidio"
+					value: 'Presidio',
 				},
 			],
 		};
@@ -518,11 +573,11 @@ export default {
 		groupedDataSources() {
 			const grouped = {};
 			this.dataSources.forEach((dataSource) => {
-				if (!grouped[dataSource.Type]) {
-					grouped[dataSource.Type] = [];
+				if (!grouped[dataSource.type]) {
+					grouped[dataSource.type] = [];
 				}
 
-				grouped[dataSource.Type].push(dataSource);
+				grouped[dataSource.type].push(dataSource);
 			});
 
 			return grouped;
@@ -536,10 +591,10 @@ export default {
 
 		try {
 			this.loadingStatusText = 'Retrieving indexes...';
-			this.indexSources = await api.getAgentIndexes();
+			this.indexSources = await api.getAgentIndexes(true);
 
 			this.loadingStatusText = 'Retrieving data sources...';
-			this.dataSources = await api.getAgentDataSources();
+			this.dataSources = await api.getAgentDataSources(true);
 		} catch (error) {
 			this.$toast.add({
 				severity: 'error',
@@ -550,29 +605,55 @@ export default {
 		if (this.editAgent) {
 			this.loadingStatusText = `Retrieving agent "${this.editAgent}"...`;
 			const agent = await api.getAgent(this.editAgent);
+			if (agent.vectorization && agent.vectorization.text_partitioning_profile_object_id) {
+				this.loadingStatusText = `Retrieving text partitioning profile...`;
+				const textPartitioningProfile = await api.getTextPartitioningProfile(agent.vectorization.text_partitioning_profile_object_id);
+				if (textPartitioningProfile) {
+					this.chunkSize = Number(textPartitioningProfile.settings.ChunkSizeTokens);
+					this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
+				}
+			}
+			if (agent.prompt_object_id !== '') {
+				this.loadingStatusText = `Retrieving prompt...`;
+				const prompt = await api.getPrompt(agent.prompt_object_id);
+				if (prompt) {
+					this.systemPrompt = prompt.prefix;
+				}
+			}
 			this.loadingStatusText = `Mapping agent values to form...`;
 			this.mapAgentToForm(agent);
 		}
+
+		this.debouncedCheckName = debounce(this.checkName, 500);
 
 		this.loading = false;
 	},
 
 	methods: {
-		mapAgentToForm(agent) {
+		mapAgentToForm(agent: Agent) {
 			this.agentName = agent.name || this.agentName;
 			this.agentDescription = agent.description || this.agentDescription;
 			this.agentType = agent.type || this.agentType;
+			this.object_id = agent.object_id || this.object_id;
+			this.orchestrator = agent.orchestration_settings?.orchestrator || this.orchestrator;
+			if (agent.vectorization) {
+				this.dedicated_pipeline = agent.vectorization.dedicated_pipeline;
+			}
+			this.text_embedding_profile_object_id = agent.vectorization?.text_embedding_profile_object_id || this.text_embedding_profile_object_id;
+
+			this.triggerFrequency = agent.vectorization?.trigger_type || this.triggerFrequency;
+			this.triggerFrequencyScheduled = agent.vectorization?.trigger_cron_schedule || this.triggerFrequencyScheduled;
 
 			this.selectedIndexSource =
-				this.indexSources.find((indexSource) => indexSource.ObjectId === agent.indexing_profile) ||
+				this.indexSources.find((indexSource) => indexSource.object_id === agent.vectorization?.indexing_profile_object_id) ||
 				null;
 
 			this.selectedDataSource =
-				this.dataSources.find((dataSource) => dataSource.ObjectId === agent.embedding_profile) ||
+				this.dataSources.find((dataSource) => dataSource.object_id === agent.vectorization?.data_source_object_id) ||
 				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
-			this.conversationMaxMessages = agent.conversation_history?.max_history || his.conversationMaxMessages;
+			this.conversationMaxMessages = agent.conversation_history?.max_history || this.conversationMaxMessages;
 
 			this.gatekeeperEnabled = Boolean(agent.gatekeeper?.use_system_setting);
 
@@ -585,8 +666,31 @@ export default {
 				this.gatekeeperDataProtectionOptions.find((localOption) =>
 					agent.gatekeeper.options.find((option) => option === localOption.value),
 				) || this.gatekeeperDataProtection;
+		},
 
-			this.systemPrompt = agent.prompt || '';
+		async checkName() {
+			try {
+				const response = await api.checkAgentName(this.agentName, this.agentType);
+
+				// Handle response based on the status
+				if (response.status === 'Allowed') {
+					// Name is available
+					this.nameValidationStatus = 'valid';
+					this.validationMessage = null;
+				} else if (response.status === 'Denied') {
+					// Name is taken
+					this.nameValidationStatus = 'invalid';
+					this.validationMessage = response.message;
+					// this.$toast.add({
+					// 	severity: 'warn',
+					// 	detail: `Agent name "${this.agentName}" is already taken for the selected ${response.type} agent type. Please choose another name.`,
+					// });
+				}
+			} catch (error) {
+				console.error("Error checking agent name: ", error);
+				this.nameValidationStatus = 'invalid';
+				this.validationMessage = 'Error checking the agent name. Please try again.';
+			}
 		},
 
 		resetForm() {
@@ -603,28 +707,25 @@ export default {
 		},
 
 		handleNameInput(event) {
-			const element = event.target;
-
-			// Remove spaces
-			let sanitizedValue = element.value.replace(/\s/g, '');
-
-			// Remove any characters that are not lowercase letters, digits, dashes, or underscores
-			sanitizedValue = sanitizedValue.replace(/[^a-z0-9-_]/g, '');
-
-			element.value = sanitizedValue;
+			const sanitizedValue = this.$filters.sanitizeNameInput(event);
 			this.agentName = sanitizedValue;
+
+			// Check if the name is available if we are creating a new agent.
+			if (!this.editAgent) {
+				this.debouncedCheckName();
+			}
 		},
 
-		handleAgentTypeSelect(type: AgentType) {
+		handleAgentTypeSelect(type: Agent['type']) {
 			this.agentType = type;
 		},
 
-		handleDataSourceSelected(dataSource) {
+		handleDataSourceSelected(dataSource: AgentDataSource) {
 			this.selectedDataSource = dataSource;
 			this.editDataSource = false;
 		},
 
-		handleIndexSourceSelected(indexSource) {
+		handleIndexSourceSelected(indexSource: AgentIndex) {
 			this.selectedIndexSource = indexSource;
 			this.editIndexSource = false;
 		},
@@ -633,6 +734,19 @@ export default {
 			const errors: Array<string> = [];
 			if (!this.agentName) {
 				errors.push('Please give the agent a name.');
+			}
+			if (this.nameValidationStatus === 'invalid') {
+				errors.push(this.validationMessage);
+			}
+
+			if (this.text_embedding_profile_object_id === '') {
+				const textEmbeddingProfiles = await api.getTextEmbeddingProfiles();
+				if (textEmbeddingProfiles.length === 0) {
+					errors.push('No vectorization text embedding profiles found.');
+				}
+				else {
+					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+				}
 			}
 
 			// if (!this.selectedDataSource) {
@@ -656,41 +770,123 @@ export default {
 			this.loading = true;
 			this.loadingStatusText = 'Creating agent...';
 
-			const agentRequest = {
+			const promptRequest = {
+				type: 'multipart',
 				name: this.agentName,
-				description: this.agentDescription,
-				type: this.agentType,
+				description: `System prompt for the ${this.agentName} agent`,
+				prefix: this.systemPrompt,
+				suffix: '',
+			};
 
-				embedding_profile: this.selectedDataSource?.ObjectId,
-				indexing_profile: this.selectedIndexSource?.ObjectId,
-
-				conversation_history: {
-					enabled: this.conversationHistory,
-					max_history: this.conversationMaxMessages,
-				},
-
-				gatekeeper: {
-					use_system_setting: this.gatekeeperEnabled,
-					options: [
-						this.gatekeeperContentSafety.value,
-						this.gatekeeperDataProtection.value,
-					].filter(option => option !== null),
-				},
-
-				prompt: this.systemPrompt,
+			const tokenTextPartitionRequest = {
+				text_splitter: "TokenTextSplitter",
+				name: this.agentName,
+				settings: {
+					Tokenizer: "MicrosoftBPETokenizer",
+					TokenizerEncoder: "cl100k_base",
+					ChunkSizeTokens: this.chunkSize.toString(),
+					OverlapSizeTokens: this.overlapSize.toString()
+				}
 			};
 
 			let successMessage = null;
 			try {
+				// Handle Prompt creation/update.
+				let promptObjectId = '';
+				if (promptRequest.prefix !== '') {
+					const promptResponse = await api.createOrUpdatePrompt(this.agentName, promptRequest);
+					promptObjectId = promptResponse.objectId;
+				}
+
+				// Handle TextPartitioningProfile creation/update.
+				const tokenTextPartitionResponse = await api.createOrUpdateTextPartitioningProfile(this.agentName, tokenTextPartitionRequest);
+				const textPartitioningProfileObjectId = tokenTextPartitionResponse.objectId;
+
+				// Select the default data source, if any.
+				let data_source_object_id = this.selectedDataSource?.object_id ?? '';
+				if (data_source_object_id === '') {
+					const defaultDataSource = await api.getDefaultDataSource();
+					if (defaultDataSource !== null) {
+						data_source_object_id = defaultDataSource.object_id;
+					}
+				}
+
+				// Select the default indexing profile, if any.
+				let indexing_profile_object_id = this.selectedIndexSource?.object_id ?? '';
+				if (indexing_profile_object_id === '') {
+					const defaultAgentIndex = await api.getDefaultAgentIndex();
+					if (defaultAgentIndex !== null) {
+						indexing_profile_object_id = defaultAgentIndex.object_id;
+					}
+				}
+
+				const agentRequest: CreateAgentRequest = {
+					type: this.agentType,
+					name: this.agentName,
+					description: this.agentDescription,
+					object_id: this.object_id,
+
+					vectorization: {
+						dedicated_pipeline: this.dedicated_pipeline,
+						text_embedding_profile_object_id: this.text_embedding_profile_object_id,
+						indexing_profile_object_id: indexing_profile_object_id,
+						text_partitioning_profile_object_id: textPartitioningProfileObjectId,
+						data_source_object_id: data_source_object_id,
+						vectorization_data_pipeline_object_id: this.vectorization_data_pipeline_object_id,
+						trigger_type: this.triggerFrequency,
+						trigger_cron_schedule: '',
+					},
+
+					conversation_history: {
+						enabled: this.conversationHistory,
+						max_history: Number(this.conversationMaxMessages),
+					},
+
+					gatekeeper: {
+						use_system_setting: this.gatekeeperEnabled,
+						options: [
+							this.gatekeeperContentSafety.value as unknown as string,
+							this.gatekeeperDataProtection.value as unknown as string,
+						].filter(option => option !== null),
+					},
+
+					language_model: {
+						type: 'openai',
+						provider: 'microsoft',
+						temperature: 0,
+						use_chat: true,
+						api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
+						api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
+						api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
+						version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
+						deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
+					},
+
+					sessions_enabled: true,
+
+					prompt_object_id: promptObjectId,
+					orchestration_settings: {
+						orchestrator: this.orchestrator,
+						endpoint_configuration: {
+							endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
+							api_key: 'FoundationaLLM:AzureOpenAI:API:Key'
+						},
+						model_parameters: {
+							temperature: 0,
+							deployment_name: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
+						},
+					},
+				};
+
 				if (this.editAgent) {
 					await api.updateAgent(this.editAgent, agentRequest);
-					successMessage = `Agent "${this.agentName}" was succesfully updated!`;
+					successMessage = `Agent "${this.agentName}" was successfully updated!`;
 				} else {
 					await api.createAgent(agentRequest);
-					successMessage = `Agent "${this.agentName}" was succesfully created!`;
+					successMessage = `Agent "${this.agentName}" was successfully created!`;
 					this.resetForm();
 				}
-			} catch(error) {
+			} catch (error) {
 				this.loading = false;
 				return this.$toast.add({
 					severity: 'error',
@@ -727,7 +923,7 @@ export default {
 }
 
 .steps__loading-overlay {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -899,5 +1095,30 @@ $editStepPadding: 16px;
 	background-color: var(--primary-button-bg)!important;
 	border-color: var(--primary-button-bg)!important;
 	color: var(--primary-button-text)!important;
+}
+
+.input-wrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+input {
+	width: 100%;
+	padding-right: 30px;
+}
+
+.icon {
+	position: absolute;
+	right: 10px;
+	cursor: default;
+}
+
+.valid {
+	color: green;
+}
+
+.invalid {
+	color: red;
 }
 </style>

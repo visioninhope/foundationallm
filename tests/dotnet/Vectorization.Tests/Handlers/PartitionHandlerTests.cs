@@ -1,5 +1,6 @@
 ﻿using FakeItEasy;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -26,7 +27,7 @@ namespace Vectorization.Tests.Handlers
             return new Partition();
         }
 
-        public (ITextSplitterService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (ITextSplitterService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             throw new NotImplementedException();
         }
@@ -63,7 +64,7 @@ namespace Vectorization.Tests.Handlers
                     "vectorization-input",
                     "somedata.pdf"
                 },
-                ContentSourceProfileName = "SomePDFData",
+                DataSourceObjectId = "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
                 CanonicalId = "SomeBusinessUnit/SomePDFData"
             };
             VectorizationRequest request = new VectorizationRequest

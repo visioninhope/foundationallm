@@ -1,4 +1,7 @@
 ﻿using Asp.Versioning;
+using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Models.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoundationaLLM.Vectorization.API.Controllers
@@ -6,7 +9,6 @@ namespace FoundationaLLM.Vectorization.API.Controllers
     /// <summary>
     /// Provides methods for checking the status of the service.
     /// </summary>
-    [ApiVersion(1.0)]
     [ApiController]
     [Route("[controller]")]
     public class StatusController : ControllerBase
@@ -15,7 +17,13 @@ namespace FoundationaLLM.Vectorization.API.Controllers
         /// Returns the status of the Vectorization API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
-        public IActionResult Get() => Ok("VectorizationAPI - ready");
+        public IActionResult Get() => new OkObjectResult(new ServiceStatusInfo
+        {
+            Name = ServiceNames.VectorizationAPI,
+            Instance = ValidatedEnvironment.MachineName,
+            Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
+            Status = ServiceStatuses.Ready
+        });
 
         private static readonly string[] MethodNames = ["GET", "POST", "OPTIONS", "DELETE"];
 

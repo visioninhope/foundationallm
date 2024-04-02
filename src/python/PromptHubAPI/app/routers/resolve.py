@@ -4,9 +4,12 @@ The API endpoint for returning the appropriate agent prompt for the specified us
 from typing import Optional
 from fastapi import APIRouter, Depends, Header, Request
 from foundationallm.config import Context
-from foundationallm.models import AgentHint
+from foundationallm.telemetry import Telemetry
 from foundationallm.hubs.prompt import PromptHubRequest, PromptHubResponse, PromptHub
 from app.dependencies import handle_exception, validate_api_key_header
+
+logger = Telemetry.get_logger(__name__)
+tracer = Telemetry.get_tracer(__name__)
 
 router = APIRouter(
     prefix='/resolve',
@@ -19,8 +22,7 @@ router = APIRouter(
 async def resolve(
     prompt_request: PromptHubRequest,
     request : Request,
-    x_user_identity: Optional[str] = Header(None),
-    x_agent_hint: str = Header(None)) -> PromptHubResponse:
+    x_user_identity: Optional[str] = Header(None)) -> PromptHubResponse:
     """
     Retrieves the prompt to use for a specified agent and prompt name.
 
@@ -33,19 +35,18 @@ async def resolve(
         The underlying HTTP request.
     x_user_identity : str
         The optional X-USER-IDENTITY header value.
-    x_agent_hint : str
-        The optional X-AGENT-HINT header value.
         
     Returns
     -------
     PromptHubResponse
         Object containing the metadata for the resolved prompt.
     """
-    try:
-        context = Context(user_identity=x_user_identity)
-        if x_agent_hint is not None and len(x_agent_hint.strip()) > 0:
-            agent_hint = AgentHint.model_validate_json(x_agent_hint)
-            return PromptHub(config=request.app.extra['config']).resolve(request=prompt_request, user_context=context, hint=agent_hint)
-        return PromptHub(config=request.app.extra['config']).resolve(prompt_request, user_context=context)
-    except Exception as e:
-        handle_exception(e)
+    with tracer.start_as_current_span('resolve') as span:
+        try:
+            return PromptHub(config = request.app.extra['config']).resolve(
+                request = prompt_request,
+                user_context = Context(user_identity=x_user_identity)
+            )
+        except Exception as e:
+            Telemetry.record_exception(span, e)
+            handle_exception(e)

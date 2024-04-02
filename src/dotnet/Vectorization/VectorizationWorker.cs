@@ -1,6 +1,4 @@
 ﻿using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.Services;
-using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.Vectorization
 {
