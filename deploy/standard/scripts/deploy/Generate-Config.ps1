@@ -210,6 +210,7 @@ $tokens.userAccessAdminRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.managementApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.coreApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.vectorizationApiRoleAssignmentGuid = $(New-Guid).Guid
+$tokens.agentFactoryApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.subscriptionId = $subscriptionId
 $tokens.storageResourceGroup = $resourceGroups.storage
 $tokens.opsResourceGroup = $resourceGroups.ops
@@ -405,6 +406,7 @@ foreach ($service in $authServices.GetEnumerator()) {
 }
 
 $tokens.agentFactoryApiMiClientId = $services["agentfactoryapi"].miClientId
+$tokens.agentFactoryApiMiObjectId = $services["agentfactoryapi"].miObjectId
 $tokens.agentHubApiMiClientId = $services["agenthubapi"].miClientId
 $tokens.authorizationApiMiClientId = $authServices["authorizationapi"].miClientId
 $tokens.chatUiMiClientId = $services["chatui"].miClientId
@@ -486,6 +488,6 @@ $($ingress.frontendIngress).PSObject.Properties | ForEach-Object {
     PopulateTemplate $tokens "..,config,helm,service-ingress.template.yml" "..,config,helm,$($_.Name)-ingress.yml"
 }
 
-PopulateTemplate $tokens "..,data,role-assignments,DefaultRoleAssignments.template.json" "..,data,role-assignments,DefaultRoleAssignments.json"
+PopulateTemplate $tokens "..,data,role-assignments,DefaultRoleAssignments.template.json" "..,data,role-assignments,$($instanceId).json"
 
 exit 0
