@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.ResourceProviders;
@@ -49,6 +50,7 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<IValidator<TextPartitioningProfile>, TextPartitioningProfileValidator>();
             builder.Services.AddSingleton<IValidator<TextEmbeddingProfile>, TextEmbeddingProfileValidator>();
             builder.Services.AddSingleton<IValidator<IndexingProfile>, IndexingProfileValidator>();
+            builder.Services.AddSingleton<IValidator<VectorizationPipeline>, VectorizationPipelineValidator>();
 
             // Register the resource provider services (cannot use Keyed singletons due to the Microsoft Identity package being incompatible):
             builder.Services.AddSingleton<IResourceProviderService, VectorizationResourceProviderService>(sp =>
