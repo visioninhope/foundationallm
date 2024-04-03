@@ -2,7 +2,7 @@
 using FoundationaLLM.Common.Extensions;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.TextEmbedding;
+namespace FoundationaLLM.Common.Models.Vectorization;
 
 /// <summary>
 /// Represents the content associated with a vectorization request.
@@ -22,7 +22,7 @@ public class ContentIdentifier
     [JsonInclude]
     [JsonPropertyOrder(1)]
     [JsonPropertyName("multipart_id")]
-    public required List<string> MultipartId { private get; set; }
+    public required List<string> MultipartId { get; set; }
 
     /// <summary>
     /// The canonical identifier of the content being vectorized.
