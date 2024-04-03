@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.TextEmbedding
+namespace FoundationaLLM.Common.Models.Vectorization
 {
     /// <summary>
     /// Stores a vector embedding.
@@ -22,35 +22,35 @@ namespace FoundationaLLM.Common.Models.TextEmbedding
         /// This property is only serialized when Embedding.JsonConverter is used.
         /// </summary>
         [JsonIgnore]
-        public readonly int Length => this.Vector.Length;
+        public readonly int Length => Vector.Length;
 
         /// <summary>
         /// Creates an embedding from a vector represented as an array of real numbers.
         /// </summary>
         /// <param name="vector">The array containing the vector values.</param>
-        public Embedding(float[] vector) => this.Vector = vector;
+        public Embedding(float[] vector) => Vector = vector;
 
         /// <summary>
         /// Creates an embedding from a vector represents as a <see cref="ReadOnlyMemory{T}"/> object.
         /// </summary>
         /// <param name="vector"></param>
-        public Embedding(ReadOnlyMemory<float> vector) => this.Vector = vector;
+        public Embedding(ReadOnlyMemory<float> vector) => Vector = vector;
 
         /// <summary>
         /// Creates an embedding with a zero-initialzed vector of a specified size.
         /// </summary>
         /// <param name="size">The size of the vector representing the embedding.</param>
-        public Embedding(int size) => this.Vector = new ReadOnlyMemory<float>(new float[size]);
+        public Embedding(int size) => Vector = new ReadOnlyMemory<float>(new float[size]);
 
         /// <inheritdoc/>
-        public readonly bool Equals(Embedding other) => this.Vector.Equals(other.Vector);
+        public readonly bool Equals(Embedding other) => Vector.Equals(other.Vector);
 
         /// <summary>
         /// Inidicates whether the current object is equal to another object.
         /// </summary>
         /// <param name="obj">An object to compare with this object.</param>
         /// <returns>True if the object is equal to the obj param and False otherwise.</returns>
-        public override readonly bool Equals(object? obj) => (obj is Embedding other && this.Equals(other));
+        public override readonly bool Equals(object? obj) => obj is Embedding other && Equals(other);
 
         /// <summary>
         /// Checks if two <see cref="Embedding"/> values are equal.
@@ -72,7 +72,7 @@ namespace FoundationaLLM.Common.Models.TextEmbedding
         /// Calculated the hashcode for this <see cref="Embedding"/>.
         /// </summary>
         /// <returns>The hash value represented by an integer.</returns>
-        public override readonly int GetHashCode() => this.Vector.GetHashCode();
+        public override readonly int GetHashCode() => Vector.GetHashCode();
 
         /// <summary>
         /// Serializes the content of an <see cref="Embedding"/> value.

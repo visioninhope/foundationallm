@@ -1,5 +1,5 @@
 ﻿using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Common.Models.Vectorization;
 
 namespace FoundationaLLM.Common.Tests.Models.TextEmbedding
 {
