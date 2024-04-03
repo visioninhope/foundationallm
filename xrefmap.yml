@@ -26148,6 +26148,31 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.TextPartitioningProfileValidator.New
   nameWithType: TextPartitioningProfileValidator.TextPartitioningProfileValidator
   nameWithType.vb: TextPartitioningProfileValidator.New
+- uid: FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator
+  name: VectorizationPipelineValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.html
+  commentId: T:FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator
+  nameWithType: VectorizationPipelineValidator
+- uid: FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.#ctor
+  name: VectorizationPipelineValidator()
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.html#FoundationaLLM_Vectorization_Validation_Resources_VectorizationPipelineValidator__ctor
+  commentId: M:FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.VectorizationPipelineValidator()
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.New()
+  nameWithType: VectorizationPipelineValidator.VectorizationPipelineValidator()
+  nameWithType.vb: VectorizationPipelineValidator.New()
+- uid: FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.#ctor*
+  name: VectorizationPipelineValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.html#FoundationaLLM_Vectorization_Validation_Resources_VectorizationPipelineValidator__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.VectorizationPipelineValidator
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.VectorizationPipelineValidator.New
+  nameWithType: VectorizationPipelineValidator.VectorizationPipelineValidator
+  nameWithType.vb: VectorizationPipelineValidator.New
 - uid: FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator
   name: VectorizationProfileBaseValidator
   href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.html
