@@ -27,6 +27,7 @@ $ErrorActionPreference = "Stop"
 $workflows =
 'agent-factory-api-release.yml',
 'agent-hub-api-release.yml',
+'authorization-api-release.yml',
 'chat-ui-release.yml',
 'core-api-release.yml',
 'core-job-release.yml',
