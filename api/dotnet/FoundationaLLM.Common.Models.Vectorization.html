@@ -95,8 +95,42 @@
 Classes
 </h3>
     <dl class="jumplist">
+      <dt><a class="xref" href="FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html">ContentIdentifier</a></dt>
+      <dd><p>Represents the content associated with a vectorization request.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.html">EmbeddedContent</a></dt>
+      <dd><p>Provides information about embedded content.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.html">EmbeddedContentPart</a></dt>
+      <dd><p>Provides information about an embedded content part.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.html">Embedding.JsonConverter</a></dt>
+      <dd><p>Serializes the content of an <a class="xref" href="FoundationaLLM.Common.Models.Vectorization.Embedding.html">Embedding</a> value.
+Note: use Embedding.JsonConverter to serialize objects using
+the Embedding type, for example:
+[JsonPropertyName(&quot;vector&quot;)]
+[JsonConverter(typeof(Embedding.JsonConverter))]
+public Embedding Vector { get; set; }</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.html">VectorizationPipeline</a></dt>
       <dd><p>Defines a vectorization pipeline.</p>
+</dd>
+    </dl>
+    <h3 id="structs">
+Structs
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="FoundationaLLM.Common.Models.Vectorization.Embedding.html">Embedding</a></dt>
+      <dd><p>Stores a vector embedding.
+This type should be serialized using Emedding.JsonConverter.</p>
 </dd>
     </dl>
     <h3 id="enums">

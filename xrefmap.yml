@@ -6454,13 +6454,13 @@ references:
   commentId: T:FoundationaLLM.Common.Interfaces.IIndexingService
   fullName: FoundationaLLM.Common.Interfaces.IIndexingService
   nameWithType: IIndexingService
-- uid: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent,System.String)
+- uid: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
   name: IndexEmbeddingsAsync(EmbeddedContent, string)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIndexingService.html#FoundationaLLM_Common_Interfaces_IIndexingService_IndexEmbeddingsAsync_FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_System_String_
-  commentId: M:FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent,System.String)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIndexingService.html#FoundationaLLM_Common_Interfaces_IIndexingService_IndexEmbeddingsAsync_FoundationaLLM_Common_Models_Vectorization_EmbeddedContent_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
   name.vb: IndexEmbeddingsAsync(EmbeddedContent, String)
-  fullName: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent, string)
-  fullName.vb: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent, String)
+  fullName: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, String)
   nameWithType: IIndexingService.IndexEmbeddingsAsync(EmbeddedContent, string)
   nameWithType.vb: IIndexingService.IndexEmbeddingsAsync(EmbeddedContent, String)
 - uid: FoundationaLLM.Common.Interfaces.IIndexingService.IndexEmbeddingsAsync*
@@ -6884,9 +6884,6 @@ references:
 - uid: FoundationaLLM.Common.Models
   name: FoundationaLLM.Common.Models
   href: api/dotnet/FoundationaLLM.Common.Models.html
-  commentId: N:FoundationaLLM.Common.Models
-  fullName: FoundationaLLM.Common.Models
-  nameWithType: FoundationaLLM.Common.Models
 - uid: FoundationaLLM.Common.Models.Agents
   name: FoundationaLLM.Common.Models.Agents
   href: api/dotnet/FoundationaLLM.Common.Models.Agents.html
@@ -10507,76 +10504,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Metadata.MetadataBase.Type
   nameWithType: MetadataBase.Type
-- uid: FoundationaLLM.Common.Models.ModelRegistry
-  name: ModelRegistry
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistry.html
-  commentId: T:FoundationaLLM.Common.Models.ModelRegistry
-  fullName: FoundationaLLM.Common.Models.ModelRegistry
-  nameWithType: ModelRegistry
-- uid: FoundationaLLM.Common.Models.ModelRegistry.IdentifyType(Newtonsoft.Json.Linq.JObject)
-  name: IdentifyType(JObject)
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistry.html#FoundationaLLM_Common_Models_ModelRegistry_IdentifyType_Newtonsoft_Json_Linq_JObject_
-  commentId: M:FoundationaLLM.Common.Models.ModelRegistry.IdentifyType(Newtonsoft.Json.Linq.JObject)
-  fullName: FoundationaLLM.Common.Models.ModelRegistry.IdentifyType(Newtonsoft.Json.Linq.JObject)
-  nameWithType: ModelRegistry.IdentifyType(JObject)
-- uid: FoundationaLLM.Common.Models.ModelRegistry.IdentifyType*
-  name: IdentifyType
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistry.html#FoundationaLLM_Common_Models_ModelRegistry_IdentifyType_
-  commentId: Overload:FoundationaLLM.Common.Models.ModelRegistry.IdentifyType
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ModelRegistry.IdentifyType
-  nameWithType: ModelRegistry.IdentifyType
-- uid: FoundationaLLM.Common.Models.ModelRegistry.Models
-  name: Models
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistry.html#FoundationaLLM_Common_Models_ModelRegistry_Models
-  commentId: F:FoundationaLLM.Common.Models.ModelRegistry.Models
-  fullName: FoundationaLLM.Common.Models.ModelRegistry.Models
-  nameWithType: ModelRegistry.Models
-- uid: FoundationaLLM.Common.Models.ModelRegistryEntry
-  name: ModelRegistryEntry
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistryEntry.html
-  commentId: T:FoundationaLLM.Common.Models.ModelRegistryEntry
-  fullName: FoundationaLLM.Common.Models.ModelRegistryEntry
-  nameWithType: ModelRegistryEntry
-- uid: FoundationaLLM.Common.Models.ModelRegistryEntry.NamingProperties
-  name: NamingProperties
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistryEntry.html#FoundationaLLM_Common_Models_ModelRegistryEntry_NamingProperties
-  commentId: P:FoundationaLLM.Common.Models.ModelRegistryEntry.NamingProperties
-  fullName: FoundationaLLM.Common.Models.ModelRegistryEntry.NamingProperties
-  nameWithType: ModelRegistryEntry.NamingProperties
-- uid: FoundationaLLM.Common.Models.ModelRegistryEntry.NamingProperties*
-  name: NamingProperties
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistryEntry.html#FoundationaLLM_Common_Models_ModelRegistryEntry_NamingProperties_
-  commentId: Overload:FoundationaLLM.Common.Models.ModelRegistryEntry.NamingProperties
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ModelRegistryEntry.NamingProperties
-  nameWithType: ModelRegistryEntry.NamingProperties
-- uid: FoundationaLLM.Common.Models.ModelRegistryEntry.Type
-  name: Type
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistryEntry.html#FoundationaLLM_Common_Models_ModelRegistryEntry_Type
-  commentId: P:FoundationaLLM.Common.Models.ModelRegistryEntry.Type
-  fullName: FoundationaLLM.Common.Models.ModelRegistryEntry.Type
-  nameWithType: ModelRegistryEntry.Type
-- uid: FoundationaLLM.Common.Models.ModelRegistryEntry.Type*
-  name: Type
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistryEntry.html#FoundationaLLM_Common_Models_ModelRegistryEntry_Type_
-  commentId: Overload:FoundationaLLM.Common.Models.ModelRegistryEntry.Type
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ModelRegistryEntry.Type
-  nameWithType: ModelRegistryEntry.Type
-- uid: FoundationaLLM.Common.Models.ModelRegistryEntry.TypeMatchingProperties
-  name: TypeMatchingProperties
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistryEntry.html#FoundationaLLM_Common_Models_ModelRegistryEntry_TypeMatchingProperties
-  commentId: P:FoundationaLLM.Common.Models.ModelRegistryEntry.TypeMatchingProperties
-  fullName: FoundationaLLM.Common.Models.ModelRegistryEntry.TypeMatchingProperties
-  nameWithType: ModelRegistryEntry.TypeMatchingProperties
-- uid: FoundationaLLM.Common.Models.ModelRegistryEntry.TypeMatchingProperties*
-  name: TypeMatchingProperties
-  href: api/dotnet/FoundationaLLM.Common.Models.ModelRegistryEntry.html#FoundationaLLM_Common_Models_ModelRegistryEntry_TypeMatchingProperties_
-  commentId: Overload:FoundationaLLM.Common.Models.ModelRegistryEntry.TypeMatchingProperties
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ModelRegistryEntry.TypeMatchingProperties
-  nameWithType: ModelRegistryEntry.TypeMatchingProperties
 - uid: FoundationaLLM.Common.Models.Orchestration
   name: FoundationaLLM.Common.Models.Orchestration
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.html
@@ -13301,1290 +13228,385 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.ResourceType
   nameWithType: ResourceTypeInstance.ResourceType
-- uid: FoundationaLLM.Common.Models.Search
-  name: FoundationaLLM.Common.Models.Search
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.html
-  commentId: N:FoundationaLLM.Common.Models.Search
-  fullName: FoundationaLLM.Common.Models.Search
-  nameWithType: FoundationaLLM.Common.Models.Search
-- uid: FoundationaLLM.Common.Models.Search.Customer
-  name: Customer
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html
-  commentId: T:FoundationaLLM.Common.Models.Search.Customer
-  fullName: FoundationaLLM.Common.Models.Search.Customer
-  nameWithType: Customer
-- uid: FoundationaLLM.Common.Models.Search.Customer.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Search.CustomerAddress},FoundationaLLM.Common.Models.Search.Password,System.Double,System.Single[])
-  name: Customer(string, string, string, string, string, string, string, string, string, List<CustomerAddress>, Password, double, float[]?)
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer__ctor_System_String_System_String_System_String_System_String_System_String_System_String_System_String_System_String_System_String_System_Collections_Generic_List_FoundationaLLM_Common_Models_Search_CustomerAddress__FoundationaLLM_Common_Models_Search_Password_System_Double_System_Single___
-  commentId: M:FoundationaLLM.Common.Models.Search.Customer.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Search.CustomerAddress},FoundationaLLM.Common.Models.Search.Password,System.Double,System.Single[])
-  name.vb: New(String, String, String, String, String, String, String, String, String, List(Of CustomerAddress), Password, Double, Single())
-  fullName: FoundationaLLM.Common.Models.Search.Customer.Customer(string, string, string, string, string, string, string, string, string, System.Collections.Generic.List<FoundationaLLM.Common.Models.Search.CustomerAddress>, FoundationaLLM.Common.Models.Search.Password, double, float[]?)
-  fullName.vb: FoundationaLLM.Common.Models.Search.Customer.New(String, String, String, String, String, String, String, String, String, System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Search.CustomerAddress), FoundationaLLM.Common.Models.Search.Password, Double, Single())
-  nameWithType: Customer.Customer(string, string, string, string, string, string, string, string, string, List<CustomerAddress>, Password, double, float[]?)
-  nameWithType.vb: Customer.New(String, String, String, String, String, String, String, String, String, List(Of CustomerAddress), Password, Double, Single())
-- uid: FoundationaLLM.Common.Models.Search.Customer.#ctor*
-  name: Customer
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Search.Customer.Customer
-  fullName.vb: FoundationaLLM.Common.Models.Search.Customer.New
-  nameWithType: Customer.Customer
-  nameWithType.vb: Customer.New
-- uid: FoundationaLLM.Common.Models.Search.Customer.addresses
-  name: addresses
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_addresses
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.addresses
-  fullName: FoundationaLLM.Common.Models.Search.Customer.addresses
-  nameWithType: Customer.addresses
-- uid: FoundationaLLM.Common.Models.Search.Customer.addresses*
-  name: addresses
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_addresses_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.addresses
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.addresses
-  nameWithType: Customer.addresses
-- uid: FoundationaLLM.Common.Models.Search.Customer.creationDate
-  name: creationDate
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_creationDate
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.creationDate
-  fullName: FoundationaLLM.Common.Models.Search.Customer.creationDate
-  nameWithType: Customer.creationDate
-- uid: FoundationaLLM.Common.Models.Search.Customer.creationDate*
-  name: creationDate
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_creationDate_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.creationDate
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.creationDate
-  nameWithType: Customer.creationDate
-- uid: FoundationaLLM.Common.Models.Search.Customer.customerId
-  name: customerId
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_customerId
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.customerId
-  fullName: FoundationaLLM.Common.Models.Search.Customer.customerId
-  nameWithType: Customer.customerId
-- uid: FoundationaLLM.Common.Models.Search.Customer.customerId*
-  name: customerId
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_customerId_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.customerId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.customerId
-  nameWithType: Customer.customerId
-- uid: FoundationaLLM.Common.Models.Search.Customer.emailAddress
-  name: emailAddress
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_emailAddress
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.emailAddress
-  fullName: FoundationaLLM.Common.Models.Search.Customer.emailAddress
-  nameWithType: Customer.emailAddress
-- uid: FoundationaLLM.Common.Models.Search.Customer.emailAddress*
-  name: emailAddress
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_emailAddress_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.emailAddress
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.emailAddress
-  nameWithType: Customer.emailAddress
-- uid: FoundationaLLM.Common.Models.Search.Customer.firstName
-  name: firstName
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_firstName
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.firstName
-  fullName: FoundationaLLM.Common.Models.Search.Customer.firstName
-  nameWithType: Customer.firstName
-- uid: FoundationaLLM.Common.Models.Search.Customer.firstName*
-  name: firstName
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_firstName_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.firstName
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.firstName
-  nameWithType: Customer.firstName
-- uid: FoundationaLLM.Common.Models.Search.Customer.id
-  name: id
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_id
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.id
-  fullName: FoundationaLLM.Common.Models.Search.Customer.id
-  nameWithType: Customer.id
-- uid: FoundationaLLM.Common.Models.Search.Customer.id*
-  name: id
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_id_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.id
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.id
-  nameWithType: Customer.id
-- uid: FoundationaLLM.Common.Models.Search.Customer.lastName
-  name: lastName
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_lastName
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.lastName
-  fullName: FoundationaLLM.Common.Models.Search.Customer.lastName
-  nameWithType: Customer.lastName
-- uid: FoundationaLLM.Common.Models.Search.Customer.lastName*
-  name: lastName
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_lastName_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.lastName
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.lastName
-  nameWithType: Customer.lastName
-- uid: FoundationaLLM.Common.Models.Search.Customer.password
-  name: password
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_password
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.password
-  fullName: FoundationaLLM.Common.Models.Search.Customer.password
-  nameWithType: Customer.password
-- uid: FoundationaLLM.Common.Models.Search.Customer.password*
-  name: password
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_password_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.password
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.password
-  nameWithType: Customer.password
-- uid: FoundationaLLM.Common.Models.Search.Customer.phoneNumber
-  name: phoneNumber
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_phoneNumber
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.phoneNumber
-  fullName: FoundationaLLM.Common.Models.Search.Customer.phoneNumber
-  nameWithType: Customer.phoneNumber
-- uid: FoundationaLLM.Common.Models.Search.Customer.phoneNumber*
-  name: phoneNumber
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_phoneNumber_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.phoneNumber
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.phoneNumber
-  nameWithType: Customer.phoneNumber
-- uid: FoundationaLLM.Common.Models.Search.Customer.salesOrderCount
-  name: salesOrderCount
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_salesOrderCount
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.salesOrderCount
-  fullName: FoundationaLLM.Common.Models.Search.Customer.salesOrderCount
-  nameWithType: Customer.salesOrderCount
-- uid: FoundationaLLM.Common.Models.Search.Customer.salesOrderCount*
-  name: salesOrderCount
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_salesOrderCount_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.salesOrderCount
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.salesOrderCount
-  nameWithType: Customer.salesOrderCount
-- uid: FoundationaLLM.Common.Models.Search.Customer.title
-  name: title
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_title
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.title
-  fullName: FoundationaLLM.Common.Models.Search.Customer.title
-  nameWithType: Customer.title
-- uid: FoundationaLLM.Common.Models.Search.Customer.title*
-  name: title
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_title_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.title
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.title
-  nameWithType: Customer.title
-- uid: FoundationaLLM.Common.Models.Search.Customer.type
-  name: type
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_type
-  commentId: P:FoundationaLLM.Common.Models.Search.Customer.type
-  fullName: FoundationaLLM.Common.Models.Search.Customer.type
-  nameWithType: Customer.type
-- uid: FoundationaLLM.Common.Models.Search.Customer.type*
-  name: type
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Customer.html#FoundationaLLM_Common_Models_Search_Customer_type_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Customer.type
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Customer.type
-  nameWithType: Customer.type
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress
-  name: CustomerAddress
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html
-  commentId: T:FoundationaLLM.Common.Models.Search.CustomerAddress
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress
-  nameWithType: CustomerAddress
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,FoundationaLLM.Common.Models.Search.Location)
-  name: CustomerAddress(string, string, string, string, string, string, Location)
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress__ctor_System_String_System_String_System_String_System_String_System_String_System_String_FoundationaLLM_Common_Models_Search_Location_
-  commentId: M:FoundationaLLM.Common.Models.Search.CustomerAddress.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,FoundationaLLM.Common.Models.Search.Location)
-  name.vb: New(String, String, String, String, String, String, Location)
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.CustomerAddress(string, string, string, string, string, string, FoundationaLLM.Common.Models.Search.Location)
-  fullName.vb: FoundationaLLM.Common.Models.Search.CustomerAddress.New(String, String, String, String, String, String, FoundationaLLM.Common.Models.Search.Location)
-  nameWithType: CustomerAddress.CustomerAddress(string, string, string, string, string, string, Location)
-  nameWithType.vb: CustomerAddress.New(String, String, String, String, String, String, Location)
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.#ctor*
-  name: CustomerAddress
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.CustomerAddress.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.CustomerAddress
-  fullName.vb: FoundationaLLM.Common.Models.Search.CustomerAddress.New
-  nameWithType: CustomerAddress.CustomerAddress
-  nameWithType.vb: CustomerAddress.New
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine1
-  name: addressLine1
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_addressLine1
-  commentId: P:FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine1
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine1
-  nameWithType: CustomerAddress.addressLine1
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine1*
-  name: addressLine1
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_addressLine1_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine1
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine1
-  nameWithType: CustomerAddress.addressLine1
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine2
-  name: addressLine2
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_addressLine2
-  commentId: P:FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine2
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine2
-  nameWithType: CustomerAddress.addressLine2
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine2*
-  name: addressLine2
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_addressLine2_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine2
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.addressLine2
-  nameWithType: CustomerAddress.addressLine2
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.city
-  name: city
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_city
-  commentId: P:FoundationaLLM.Common.Models.Search.CustomerAddress.city
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.city
-  nameWithType: CustomerAddress.city
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.city*
-  name: city
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_city_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.CustomerAddress.city
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.city
-  nameWithType: CustomerAddress.city
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.country
-  name: country
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_country
-  commentId: P:FoundationaLLM.Common.Models.Search.CustomerAddress.country
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.country
-  nameWithType: CustomerAddress.country
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.country*
-  name: country
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_country_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.CustomerAddress.country
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.country
-  nameWithType: CustomerAddress.country
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.location
-  name: location
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_location
-  commentId: P:FoundationaLLM.Common.Models.Search.CustomerAddress.location
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.location
-  nameWithType: CustomerAddress.location
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.location*
-  name: location
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_location_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.CustomerAddress.location
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.location
-  nameWithType: CustomerAddress.location
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.state
-  name: state
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_state
-  commentId: P:FoundationaLLM.Common.Models.Search.CustomerAddress.state
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.state
-  nameWithType: CustomerAddress.state
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.state*
-  name: state
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_state_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.CustomerAddress.state
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.state
-  nameWithType: CustomerAddress.state
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.zipCode
-  name: zipCode
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_zipCode
-  commentId: P:FoundationaLLM.Common.Models.Search.CustomerAddress.zipCode
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.zipCode
-  nameWithType: CustomerAddress.zipCode
-- uid: FoundationaLLM.Common.Models.Search.CustomerAddress.zipCode*
-  name: zipCode
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.CustomerAddress.html#FoundationaLLM_Common_Models_Search_CustomerAddress_zipCode_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.CustomerAddress.zipCode
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.CustomerAddress.zipCode
-  nameWithType: CustomerAddress.zipCode
-- uid: FoundationaLLM.Common.Models.Search.EmbeddedEntity
-  name: EmbeddedEntity
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.EmbeddedEntity.html
-  commentId: T:FoundationaLLM.Common.Models.Search.EmbeddedEntity
-  fullName: FoundationaLLM.Common.Models.Search.EmbeddedEntity
-  nameWithType: EmbeddedEntity
-- uid: FoundationaLLM.Common.Models.Search.EmbeddedEntity.entityType__
-  name: entityType__
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.EmbeddedEntity.html#FoundationaLLM_Common_Models_Search_EmbeddedEntity_entityType__
-  commentId: P:FoundationaLLM.Common.Models.Search.EmbeddedEntity.entityType__
-  fullName: FoundationaLLM.Common.Models.Search.EmbeddedEntity.entityType__
-  nameWithType: EmbeddedEntity.entityType__
-- uid: FoundationaLLM.Common.Models.Search.EmbeddedEntity.entityType__*
-  name: entityType__
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.EmbeddedEntity.html#FoundationaLLM_Common_Models_Search_EmbeddedEntity_entityType___
-  commentId: Overload:FoundationaLLM.Common.Models.Search.EmbeddedEntity.entityType__
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.EmbeddedEntity.entityType__
-  nameWithType: EmbeddedEntity.entityType__
-- uid: FoundationaLLM.Common.Models.Search.EmbeddedEntity.vector
-  name: vector
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.EmbeddedEntity.html#FoundationaLLM_Common_Models_Search_EmbeddedEntity_vector
-  commentId: P:FoundationaLLM.Common.Models.Search.EmbeddedEntity.vector
-  fullName: FoundationaLLM.Common.Models.Search.EmbeddedEntity.vector
-  nameWithType: EmbeddedEntity.vector
-- uid: FoundationaLLM.Common.Models.Search.EmbeddedEntity.vector*
-  name: vector
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.EmbeddedEntity.html#FoundationaLLM_Common_Models_Search_EmbeddedEntity_vector_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.EmbeddedEntity.vector
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.EmbeddedEntity.vector
-  nameWithType: EmbeddedEntity.vector
-- uid: FoundationaLLM.Common.Models.Search.Location
-  name: Location
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Location.html
-  commentId: T:FoundationaLLM.Common.Models.Search.Location
-  fullName: FoundationaLLM.Common.Models.Search.Location
-  nameWithType: Location
-- uid: FoundationaLLM.Common.Models.Search.Location.#ctor(System.String,System.Collections.Generic.List{System.Single})
-  name: Location(string, List<float>)
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Location.html#FoundationaLLM_Common_Models_Search_Location__ctor_System_String_System_Collections_Generic_List_System_Single__
-  commentId: M:FoundationaLLM.Common.Models.Search.Location.#ctor(System.String,System.Collections.Generic.List{System.Single})
-  name.vb: New(String, List(Of Single))
-  fullName: FoundationaLLM.Common.Models.Search.Location.Location(string, System.Collections.Generic.List<float>)
-  fullName.vb: FoundationaLLM.Common.Models.Search.Location.New(String, System.Collections.Generic.List(Of Single))
-  nameWithType: Location.Location(string, List<float>)
-  nameWithType.vb: Location.New(String, List(Of Single))
-- uid: FoundationaLLM.Common.Models.Search.Location.#ctor*
-  name: Location
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Location.html#FoundationaLLM_Common_Models_Search_Location__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Location.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Search.Location.Location
-  fullName.vb: FoundationaLLM.Common.Models.Search.Location.New
-  nameWithType: Location.Location
-  nameWithType.vb: Location.New
-- uid: FoundationaLLM.Common.Models.Search.Location.coordinates
-  name: coordinates
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Location.html#FoundationaLLM_Common_Models_Search_Location_coordinates
-  commentId: P:FoundationaLLM.Common.Models.Search.Location.coordinates
-  fullName: FoundationaLLM.Common.Models.Search.Location.coordinates
-  nameWithType: Location.coordinates
-- uid: FoundationaLLM.Common.Models.Search.Location.coordinates*
-  name: coordinates
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Location.html#FoundationaLLM_Common_Models_Search_Location_coordinates_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Location.coordinates
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Location.coordinates
-  nameWithType: Location.coordinates
-- uid: FoundationaLLM.Common.Models.Search.Location.type
-  name: type
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Location.html#FoundationaLLM_Common_Models_Search_Location_type
-  commentId: P:FoundationaLLM.Common.Models.Search.Location.type
-  fullName: FoundationaLLM.Common.Models.Search.Location.type
-  nameWithType: Location.type
-- uid: FoundationaLLM.Common.Models.Search.Location.type*
-  name: type
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Location.html#FoundationaLLM_Common_Models_Search_Location_type_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Location.type
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Location.type
-  nameWithType: Location.type
-- uid: FoundationaLLM.Common.Models.Search.Password
-  name: Password
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Password.html
-  commentId: T:FoundationaLLM.Common.Models.Search.Password
-  fullName: FoundationaLLM.Common.Models.Search.Password
-  nameWithType: Password
-- uid: FoundationaLLM.Common.Models.Search.Password.#ctor(System.String,System.String)
-  name: Password(string, string)
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Password.html#FoundationaLLM_Common_Models_Search_Password__ctor_System_String_System_String_
-  commentId: M:FoundationaLLM.Common.Models.Search.Password.#ctor(System.String,System.String)
-  name.vb: New(String, String)
-  fullName: FoundationaLLM.Common.Models.Search.Password.Password(string, string)
-  fullName.vb: FoundationaLLM.Common.Models.Search.Password.New(String, String)
-  nameWithType: Password.Password(string, string)
-  nameWithType.vb: Password.New(String, String)
-- uid: FoundationaLLM.Common.Models.Search.Password.#ctor*
-  name: Password
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Password.html#FoundationaLLM_Common_Models_Search_Password__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Password.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Search.Password.Password
-  fullName.vb: FoundationaLLM.Common.Models.Search.Password.New
-  nameWithType: Password.Password
-  nameWithType.vb: Password.New
-- uid: FoundationaLLM.Common.Models.Search.Password.hash
-  name: hash
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Password.html#FoundationaLLM_Common_Models_Search_Password_hash
-  commentId: P:FoundationaLLM.Common.Models.Search.Password.hash
-  fullName: FoundationaLLM.Common.Models.Search.Password.hash
-  nameWithType: Password.hash
-- uid: FoundationaLLM.Common.Models.Search.Password.hash*
-  name: hash
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Password.html#FoundationaLLM_Common_Models_Search_Password_hash_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Password.hash
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Password.hash
-  nameWithType: Password.hash
-- uid: FoundationaLLM.Common.Models.Search.Password.salt
-  name: salt
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Password.html#FoundationaLLM_Common_Models_Search_Password_salt
-  commentId: P:FoundationaLLM.Common.Models.Search.Password.salt
-  fullName: FoundationaLLM.Common.Models.Search.Password.salt
-  nameWithType: Password.salt
-- uid: FoundationaLLM.Common.Models.Search.Password.salt*
-  name: salt
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Password.html#FoundationaLLM_Common_Models_Search_Password_salt_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Password.salt
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Password.salt
-  nameWithType: Password.salt
-- uid: FoundationaLLM.Common.Models.Search.Product
-  name: Product
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html
-  commentId: T:FoundationaLLM.Common.Models.Search.Product
-  fullName: FoundationaLLM.Common.Models.Search.Product
-  nameWithType: Product
-- uid: FoundationaLLM.Common.Models.Search.Product.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.Double,System.Collections.Generic.List{FoundationaLLM.Common.Models.Search.Tag},System.Single[])
-  name: Product(string, string, string, string, string, string, double, List<Tag>, float[]?)
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product__ctor_System_String_System_String_System_String_System_String_System_String_System_String_System_Double_System_Collections_Generic_List_FoundationaLLM_Common_Models_Search_Tag__System_Single___
-  commentId: M:FoundationaLLM.Common.Models.Search.Product.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.Double,System.Collections.Generic.List{FoundationaLLM.Common.Models.Search.Tag},System.Single[])
-  name.vb: New(String, String, String, String, String, String, Double, List(Of Tag), Single())
-  fullName: FoundationaLLM.Common.Models.Search.Product.Product(string, string, string, string, string, string, double, System.Collections.Generic.List<FoundationaLLM.Common.Models.Search.Tag>, float[]?)
-  fullName.vb: FoundationaLLM.Common.Models.Search.Product.New(String, String, String, String, String, String, Double, System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Search.Tag), Single())
-  nameWithType: Product.Product(string, string, string, string, string, string, double, List<Tag>, float[]?)
-  nameWithType.vb: Product.New(String, String, String, String, String, String, Double, List(Of Tag), Single())
-- uid: FoundationaLLM.Common.Models.Search.Product.#ctor*
-  name: Product
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Product.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Search.Product.Product
-  fullName.vb: FoundationaLLM.Common.Models.Search.Product.New
-  nameWithType: Product.Product
-  nameWithType.vb: Product.New
-- uid: FoundationaLLM.Common.Models.Search.Product.categoryId
-  name: categoryId
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_categoryId
-  commentId: P:FoundationaLLM.Common.Models.Search.Product.categoryId
-  fullName: FoundationaLLM.Common.Models.Search.Product.categoryId
-  nameWithType: Product.categoryId
-- uid: FoundationaLLM.Common.Models.Search.Product.categoryId*
-  name: categoryId
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_categoryId_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Product.categoryId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Product.categoryId
-  nameWithType: Product.categoryId
-- uid: FoundationaLLM.Common.Models.Search.Product.categoryName
-  name: categoryName
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_categoryName
-  commentId: P:FoundationaLLM.Common.Models.Search.Product.categoryName
-  fullName: FoundationaLLM.Common.Models.Search.Product.categoryName
-  nameWithType: Product.categoryName
-- uid: FoundationaLLM.Common.Models.Search.Product.categoryName*
-  name: categoryName
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_categoryName_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Product.categoryName
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Product.categoryName
-  nameWithType: Product.categoryName
-- uid: FoundationaLLM.Common.Models.Search.Product.description
-  name: description
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_description
-  commentId: P:FoundationaLLM.Common.Models.Search.Product.description
-  fullName: FoundationaLLM.Common.Models.Search.Product.description
-  nameWithType: Product.description
-- uid: FoundationaLLM.Common.Models.Search.Product.description*
-  name: description
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_description_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Product.description
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Product.description
-  nameWithType: Product.description
-- uid: FoundationaLLM.Common.Models.Search.Product.id
-  name: id
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_id
-  commentId: P:FoundationaLLM.Common.Models.Search.Product.id
-  fullName: FoundationaLLM.Common.Models.Search.Product.id
-  nameWithType: Product.id
-- uid: FoundationaLLM.Common.Models.Search.Product.id*
-  name: id
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_id_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Product.id
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Product.id
-  nameWithType: Product.id
-- uid: FoundationaLLM.Common.Models.Search.Product.name
-  name: name
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_name
-  commentId: P:FoundationaLLM.Common.Models.Search.Product.name
-  fullName: FoundationaLLM.Common.Models.Search.Product.name
-  nameWithType: Product.name
-- uid: FoundationaLLM.Common.Models.Search.Product.name*
-  name: name
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_name_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Product.name
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Product.name
-  nameWithType: Product.name
-- uid: FoundationaLLM.Common.Models.Search.Product.price
-  name: price
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_price
-  commentId: P:FoundationaLLM.Common.Models.Search.Product.price
-  fullName: FoundationaLLM.Common.Models.Search.Product.price
-  nameWithType: Product.price
-- uid: FoundationaLLM.Common.Models.Search.Product.price*
-  name: price
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_price_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Product.price
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Product.price
-  nameWithType: Product.price
-- uid: FoundationaLLM.Common.Models.Search.Product.sku
-  name: sku
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_sku
-  commentId: P:FoundationaLLM.Common.Models.Search.Product.sku
-  fullName: FoundationaLLM.Common.Models.Search.Product.sku
-  nameWithType: Product.sku
-- uid: FoundationaLLM.Common.Models.Search.Product.sku*
-  name: sku
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_sku_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Product.sku
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Product.sku
-  nameWithType: Product.sku
-- uid: FoundationaLLM.Common.Models.Search.Product.tags
-  name: tags
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_tags
-  commentId: P:FoundationaLLM.Common.Models.Search.Product.tags
-  fullName: FoundationaLLM.Common.Models.Search.Product.tags
-  nameWithType: Product.tags
-- uid: FoundationaLLM.Common.Models.Search.Product.tags*
-  name: tags
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Product.html#FoundationaLLM_Common_Models_Search_Product_tags_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Product.tags
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Product.tags
-  nameWithType: Product.tags
-- uid: FoundationaLLM.Common.Models.Search.ProductCategory
-  name: ProductCategory
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ProductCategory.html
-  commentId: T:FoundationaLLM.Common.Models.Search.ProductCategory
-  fullName: FoundationaLLM.Common.Models.Search.ProductCategory
-  nameWithType: ProductCategory
-- uid: FoundationaLLM.Common.Models.Search.ProductCategory.#ctor(System.String,System.String,System.String)
-  name: ProductCategory(string, string, string)
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ProductCategory.html#FoundationaLLM_Common_Models_Search_ProductCategory__ctor_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Common.Models.Search.ProductCategory.#ctor(System.String,System.String,System.String)
-  name.vb: New(String, String, String)
-  fullName: FoundationaLLM.Common.Models.Search.ProductCategory.ProductCategory(string, string, string)
-  fullName.vb: FoundationaLLM.Common.Models.Search.ProductCategory.New(String, String, String)
-  nameWithType: ProductCategory.ProductCategory(string, string, string)
-  nameWithType.vb: ProductCategory.New(String, String, String)
-- uid: FoundationaLLM.Common.Models.Search.ProductCategory.#ctor*
-  name: ProductCategory
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ProductCategory.html#FoundationaLLM_Common_Models_Search_ProductCategory__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.ProductCategory.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Search.ProductCategory.ProductCategory
-  fullName.vb: FoundationaLLM.Common.Models.Search.ProductCategory.New
-  nameWithType: ProductCategory.ProductCategory
-  nameWithType.vb: ProductCategory.New
-- uid: FoundationaLLM.Common.Models.Search.ProductCategory.id
-  name: id
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ProductCategory.html#FoundationaLLM_Common_Models_Search_ProductCategory_id
-  commentId: P:FoundationaLLM.Common.Models.Search.ProductCategory.id
-  fullName: FoundationaLLM.Common.Models.Search.ProductCategory.id
-  nameWithType: ProductCategory.id
-- uid: FoundationaLLM.Common.Models.Search.ProductCategory.id*
-  name: id
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ProductCategory.html#FoundationaLLM_Common_Models_Search_ProductCategory_id_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.ProductCategory.id
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.ProductCategory.id
-  nameWithType: ProductCategory.id
-- uid: FoundationaLLM.Common.Models.Search.ProductCategory.name
-  name: name
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ProductCategory.html#FoundationaLLM_Common_Models_Search_ProductCategory_name
-  commentId: P:FoundationaLLM.Common.Models.Search.ProductCategory.name
-  fullName: FoundationaLLM.Common.Models.Search.ProductCategory.name
-  nameWithType: ProductCategory.name
-- uid: FoundationaLLM.Common.Models.Search.ProductCategory.name*
-  name: name
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ProductCategory.html#FoundationaLLM_Common_Models_Search_ProductCategory_name_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.ProductCategory.name
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.ProductCategory.name
-  nameWithType: ProductCategory.name
-- uid: FoundationaLLM.Common.Models.Search.ProductCategory.type
-  name: type
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ProductCategory.html#FoundationaLLM_Common_Models_Search_ProductCategory_type
-  commentId: P:FoundationaLLM.Common.Models.Search.ProductCategory.type
-  fullName: FoundationaLLM.Common.Models.Search.ProductCategory.type
-  nameWithType: ProductCategory.type
-- uid: FoundationaLLM.Common.Models.Search.ProductCategory.type*
-  name: type
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ProductCategory.html#FoundationaLLM_Common_Models_Search_ProductCategory_type_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.ProductCategory.type
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.ProductCategory.type
-  nameWithType: ProductCategory.type
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder
-  name: SalesOrder
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html
-  commentId: T:FoundationaLLM.Common.Models.Search.SalesOrder
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder
-  nameWithType: SalesOrder
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.#ctor(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Search.SalesOrderDetails},System.Single[])
-  name: SalesOrder(string, string, string, string, string, List<SalesOrderDetails>, float[]?)
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder__ctor_System_String_System_String_System_String_System_String_System_String_System_Collections_Generic_List_FoundationaLLM_Common_Models_Search_SalesOrderDetails__System_Single___
-  commentId: M:FoundationaLLM.Common.Models.Search.SalesOrder.#ctor(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Search.SalesOrderDetails},System.Single[])
-  name.vb: New(String, String, String, String, String, List(Of SalesOrderDetails), Single())
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.SalesOrder(string, string, string, string, string, System.Collections.Generic.List<FoundationaLLM.Common.Models.Search.SalesOrderDetails>, float[]?)
-  fullName.vb: FoundationaLLM.Common.Models.Search.SalesOrder.New(String, String, String, String, String, System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Search.SalesOrderDetails), Single())
-  nameWithType: SalesOrder.SalesOrder(string, string, string, string, string, List<SalesOrderDetails>, float[]?)
-  nameWithType.vb: SalesOrder.New(String, String, String, String, String, List(Of SalesOrderDetails), Single())
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.#ctor*
-  name: SalesOrder
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrder.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.SalesOrder
-  fullName.vb: FoundationaLLM.Common.Models.Search.SalesOrder.New
-  nameWithType: SalesOrder.SalesOrder
-  nameWithType.vb: SalesOrder.New
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.customerId
-  name: customerId
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_customerId
-  commentId: P:FoundationaLLM.Common.Models.Search.SalesOrder.customerId
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.customerId
-  nameWithType: SalesOrder.customerId
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.customerId*
-  name: customerId
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_customerId_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrder.customerId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.customerId
-  nameWithType: SalesOrder.customerId
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.details
-  name: details
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_details
-  commentId: P:FoundationaLLM.Common.Models.Search.SalesOrder.details
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.details
-  nameWithType: SalesOrder.details
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.details*
-  name: details
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_details_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrder.details
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.details
-  nameWithType: SalesOrder.details
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.id
-  name: id
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_id
-  commentId: P:FoundationaLLM.Common.Models.Search.SalesOrder.id
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.id
-  nameWithType: SalesOrder.id
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.id*
-  name: id
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_id_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrder.id
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.id
-  nameWithType: SalesOrder.id
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.orderDate
-  name: orderDate
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_orderDate
-  commentId: P:FoundationaLLM.Common.Models.Search.SalesOrder.orderDate
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.orderDate
-  nameWithType: SalesOrder.orderDate
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.orderDate*
-  name: orderDate
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_orderDate_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrder.orderDate
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.orderDate
-  nameWithType: SalesOrder.orderDate
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.shipDate
-  name: shipDate
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_shipDate
-  commentId: P:FoundationaLLM.Common.Models.Search.SalesOrder.shipDate
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.shipDate
-  nameWithType: SalesOrder.shipDate
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.shipDate*
-  name: shipDate
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_shipDate_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrder.shipDate
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.shipDate
-  nameWithType: SalesOrder.shipDate
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.type
-  name: type
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_type
-  commentId: P:FoundationaLLM.Common.Models.Search.SalesOrder.type
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.type
-  nameWithType: SalesOrder.type
-- uid: FoundationaLLM.Common.Models.Search.SalesOrder.type*
-  name: type
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrder.html#FoundationaLLM_Common_Models_Search_SalesOrder_type_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrder.type
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrder.type
-  nameWithType: SalesOrder.type
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails
-  name: SalesOrderDetails
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html
-  commentId: T:FoundationaLLM.Common.Models.Search.SalesOrderDetails
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails
-  nameWithType: SalesOrderDetails
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails.#ctor(System.String,System.String,System.Double,System.Double)
-  name: SalesOrderDetails(string, string, double, double)
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html#FoundationaLLM_Common_Models_Search_SalesOrderDetails__ctor_System_String_System_String_System_Double_System_Double_
-  commentId: M:FoundationaLLM.Common.Models.Search.SalesOrderDetails.#ctor(System.String,System.String,System.Double,System.Double)
-  name.vb: New(String, String, Double, Double)
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails.SalesOrderDetails(string, string, double, double)
-  fullName.vb: FoundationaLLM.Common.Models.Search.SalesOrderDetails.New(String, String, Double, Double)
-  nameWithType: SalesOrderDetails.SalesOrderDetails(string, string, double, double)
-  nameWithType.vb: SalesOrderDetails.New(String, String, Double, Double)
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails.#ctor*
-  name: SalesOrderDetails
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html#FoundationaLLM_Common_Models_Search_SalesOrderDetails__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrderDetails.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails.SalesOrderDetails
-  fullName.vb: FoundationaLLM.Common.Models.Search.SalesOrderDetails.New
-  nameWithType: SalesOrderDetails.SalesOrderDetails
-  nameWithType.vb: SalesOrderDetails.New
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails.name
-  name: name
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html#FoundationaLLM_Common_Models_Search_SalesOrderDetails_name
-  commentId: P:FoundationaLLM.Common.Models.Search.SalesOrderDetails.name
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails.name
-  nameWithType: SalesOrderDetails.name
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails.name*
-  name: name
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html#FoundationaLLM_Common_Models_Search_SalesOrderDetails_name_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrderDetails.name
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails.name
-  nameWithType: SalesOrderDetails.name
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails.price
-  name: price
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html#FoundationaLLM_Common_Models_Search_SalesOrderDetails_price
-  commentId: P:FoundationaLLM.Common.Models.Search.SalesOrderDetails.price
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails.price
-  nameWithType: SalesOrderDetails.price
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails.price*
-  name: price
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html#FoundationaLLM_Common_Models_Search_SalesOrderDetails_price_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrderDetails.price
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails.price
-  nameWithType: SalesOrderDetails.price
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails.quantity
-  name: quantity
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html#FoundationaLLM_Common_Models_Search_SalesOrderDetails_quantity
-  commentId: P:FoundationaLLM.Common.Models.Search.SalesOrderDetails.quantity
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails.quantity
-  nameWithType: SalesOrderDetails.quantity
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails.quantity*
-  name: quantity
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html#FoundationaLLM_Common_Models_Search_SalesOrderDetails_quantity_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrderDetails.quantity
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails.quantity
-  nameWithType: SalesOrderDetails.quantity
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails.sku
-  name: sku
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html#FoundationaLLM_Common_Models_Search_SalesOrderDetails_sku
-  commentId: P:FoundationaLLM.Common.Models.Search.SalesOrderDetails.sku
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails.sku
-  nameWithType: SalesOrderDetails.sku
-- uid: FoundationaLLM.Common.Models.Search.SalesOrderDetails.sku*
-  name: sku
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.SalesOrderDetails.html#FoundationaLLM_Common_Models_Search_SalesOrderDetails_sku_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.SalesOrderDetails.sku
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.SalesOrderDetails.sku
-  nameWithType: SalesOrderDetails.sku
-- uid: FoundationaLLM.Common.Models.Search.ShortTermMemory
-  name: ShortTermMemory
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ShortTermMemory.html
-  commentId: T:FoundationaLLM.Common.Models.Search.ShortTermMemory
-  fullName: FoundationaLLM.Common.Models.Search.ShortTermMemory
-  nameWithType: ShortTermMemory
-- uid: FoundationaLLM.Common.Models.Search.ShortTermMemory.memory__
-  name: memory__
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ShortTermMemory.html#FoundationaLLM_Common_Models_Search_ShortTermMemory_memory__
-  commentId: P:FoundationaLLM.Common.Models.Search.ShortTermMemory.memory__
-  fullName: FoundationaLLM.Common.Models.Search.ShortTermMemory.memory__
-  nameWithType: ShortTermMemory.memory__
-- uid: FoundationaLLM.Common.Models.Search.ShortTermMemory.memory__*
-  name: memory__
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.ShortTermMemory.html#FoundationaLLM_Common_Models_Search_ShortTermMemory_memory___
-  commentId: Overload:FoundationaLLM.Common.Models.Search.ShortTermMemory.memory__
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.ShortTermMemory.memory__
-  nameWithType: ShortTermMemory.memory__
-- uid: FoundationaLLM.Common.Models.Search.Tag
-  name: Tag
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Tag.html
-  commentId: T:FoundationaLLM.Common.Models.Search.Tag
-  fullName: FoundationaLLM.Common.Models.Search.Tag
-  nameWithType: Tag
-- uid: FoundationaLLM.Common.Models.Search.Tag.#ctor(System.String,System.String)
-  name: Tag(string, string)
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Tag.html#FoundationaLLM_Common_Models_Search_Tag__ctor_System_String_System_String_
-  commentId: M:FoundationaLLM.Common.Models.Search.Tag.#ctor(System.String,System.String)
-  name.vb: New(String, String)
-  fullName: FoundationaLLM.Common.Models.Search.Tag.Tag(string, string)
-  fullName.vb: FoundationaLLM.Common.Models.Search.Tag.New(String, String)
-  nameWithType: Tag.Tag(string, string)
-  nameWithType.vb: Tag.New(String, String)
-- uid: FoundationaLLM.Common.Models.Search.Tag.#ctor*
-  name: Tag
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Tag.html#FoundationaLLM_Common_Models_Search_Tag__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Tag.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Search.Tag.Tag
-  fullName.vb: FoundationaLLM.Common.Models.Search.Tag.New
-  nameWithType: Tag.Tag
-  nameWithType.vb: Tag.New
-- uid: FoundationaLLM.Common.Models.Search.Tag.id
-  name: id
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Tag.html#FoundationaLLM_Common_Models_Search_Tag_id
-  commentId: P:FoundationaLLM.Common.Models.Search.Tag.id
-  fullName: FoundationaLLM.Common.Models.Search.Tag.id
-  nameWithType: Tag.id
-- uid: FoundationaLLM.Common.Models.Search.Tag.id*
-  name: id
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Tag.html#FoundationaLLM_Common_Models_Search_Tag_id_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Tag.id
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Tag.id
-  nameWithType: Tag.id
-- uid: FoundationaLLM.Common.Models.Search.Tag.name
-  name: name
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Tag.html#FoundationaLLM_Common_Models_Search_Tag_name
-  commentId: P:FoundationaLLM.Common.Models.Search.Tag.name
-  fullName: FoundationaLLM.Common.Models.Search.Tag.name
-  nameWithType: Tag.name
-- uid: FoundationaLLM.Common.Models.Search.Tag.name*
-  name: name
-  href: api/dotnet/FoundationaLLM.Common.Models.Search.Tag.html#FoundationaLLM_Common_Models_Search_Tag_name_
-  commentId: Overload:FoundationaLLM.Common.Models.Search.Tag.name
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Search.Tag.name
-  nameWithType: Tag.name
-- uid: FoundationaLLM.Common.Models.TextEmbedding
-  name: FoundationaLLM.Common.Models.TextEmbedding
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.html
-  commentId: N:FoundationaLLM.Common.Models.TextEmbedding
-  fullName: FoundationaLLM.Common.Models.TextEmbedding
-  nameWithType: FoundationaLLM.Common.Models.TextEmbedding
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier
-  name: ContentIdentifier
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html
-  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier
-  nameWithType: ContentIdentifier
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
-  name: CanonicalId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_CanonicalId
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
-  nameWithType: ContentIdentifier.CanonicalId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId*
-  name: CanonicalId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_CanonicalId_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.CanonicalId
-  nameWithType: ContentIdentifier.CanonicalId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId
-  name: DataSourceObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_DataSourceObjectId
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId
-  nameWithType: ContentIdentifier.DataSourceObjectId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId*
-  name: DataSourceObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_DataSourceObjectId_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.DataSourceObjectId
-  nameWithType: ContentIdentifier.DataSourceObjectId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.FileName
-  name: FileName
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_FileName
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.FileName
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.FileName
-  nameWithType: ContentIdentifier.FileName
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.FileName*
-  name: FileName
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_FileName_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.FileName
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.FileName
-  nameWithType: ContentIdentifier.FileName
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Item(System.Int32)
-  name: this[int]
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_Item_System_Int32_
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Item(System.Int32)
-  name.vb: this[](Integer)
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.this[int]
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.this[](Integer)
-  nameWithType: ContentIdentifier.this[int]
-  nameWithType.vb: ContentIdentifier.this[](Integer)
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Item*
-  name: this
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_Item_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Item
-  isSpec: "True"
-  name.vb: this[]
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.this
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.this[]
-  nameWithType: ContentIdentifier.this
-  nameWithType.vb: ContentIdentifier.this[]
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata
-  name: Metadata
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_Metadata
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata
-  nameWithType: ContentIdentifier.Metadata
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata*
-  name: Metadata
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_Metadata_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.Metadata
-  nameWithType: ContentIdentifier.Metadata
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
-  name: MultipartId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_MultipartId
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
-  nameWithType: ContentIdentifier.MultipartId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId*
-  name: MultipartId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_MultipartId_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.MultipartId
-  nameWithType: ContentIdentifier.MultipartId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId
-  name: UniqueId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_UniqueId
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId
-  nameWithType: ContentIdentifier.UniqueId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId*
-  name: UniqueId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_UniqueId_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.UniqueId
-  nameWithType: ContentIdentifier.UniqueId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ValidateMultipartId(System.Int32)
-  name: ValidateMultipartId(int)
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_ValidateMultipartId_System_Int32_
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ValidateMultipartId(System.Int32)
-  name.vb: ValidateMultipartId(Integer)
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ValidateMultipartId(int)
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ValidateMultipartId(Integer)
-  nameWithType: ContentIdentifier.ValidateMultipartId(int)
-  nameWithType.vb: ContentIdentifier.ValidateMultipartId(Integer)
-- uid: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ValidateMultipartId*
-  name: ValidateMultipartId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.html#FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_ValidateMultipartId_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ValidateMultipartId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier.ValidateMultipartId
-  nameWithType: ContentIdentifier.ValidateMultipartId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent
-  name: EmbeddedContent
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html
-  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent
-  nameWithType: EmbeddedContent
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId
-  name: ContentId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentId
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId
-  nameWithType: EmbeddedContent.ContentId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId*
-  name: ContentId
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentId_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentId
-  nameWithType: EmbeddedContent.ContentId
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
-  name: ContentParts
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentParts
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
-  nameWithType: EmbeddedContent.ContentParts
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts*
-  name: ContentParts
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_ContentParts_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent.ContentParts
-  nameWithType: EmbeddedContent.ContentParts
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart
-  name: EmbeddedContentPart
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html
-  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart
-  nameWithType: EmbeddedContentPart
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content
-  name: Content
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Content
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content
-  nameWithType: EmbeddedContentPart.Content
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content*
-  name: Content
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Content_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Content
-  nameWithType: EmbeddedContentPart.Content
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
-  name: Embedding
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Embedding
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
-  nameWithType: EmbeddedContentPart.Embedding
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding*
-  name: Embedding
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Embedding_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Embedding
-  nameWithType: EmbeddedContentPart.Embedding
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id
-  name: Id
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Id
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id
-  nameWithType: EmbeddedContentPart.Id
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id*
-  name: Id
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContentPart_Id_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContentPart.Id
-  nameWithType: EmbeddedContentPart.Id
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding
-  name: Embedding
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html
-  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.Embedding
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding
-  nameWithType: Embedding
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.Int32)
-  name: Embedding(int)
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding__ctor_System_Int32_
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.Int32)
-  name.vb: New(Integer)
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Embedding(int)
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.New(Integer)
-  nameWithType: Embedding.Embedding(int)
-  nameWithType.vb: Embedding.New(Integer)
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.ReadOnlyMemory{System.Single})
-  name: Embedding(ReadOnlyMemory<float>)
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding__ctor_System_ReadOnlyMemory_System_Single__
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.ReadOnlyMemory{System.Single})
-  name.vb: New(ReadOnlyMemory(Of Single))
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Embedding(System.ReadOnlyMemory<float>)
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.New(System.ReadOnlyMemory(Of Single))
-  nameWithType: Embedding.Embedding(ReadOnlyMemory<float>)
-  nameWithType.vb: Embedding.New(ReadOnlyMemory(Of Single))
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.Single[])
-  name: Embedding(float[])
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding__ctor_System_Single___
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor(System.Single[])
-  name.vb: New(Single())
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Embedding(float[])
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.New(Single())
-  nameWithType: Embedding.Embedding(float[])
-  nameWithType.vb: Embedding.New(Single())
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor*
-  name: Embedding
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Embedding
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.New
-  nameWithType: Embedding.Embedding
-  nameWithType.vb: Embedding.New
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  name: Equals(Embedding)
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Equals_FoundationaLLM_Common_Models_TextEmbedding_Embedding_
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  nameWithType: Embedding.Equals(Embedding)
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(System.Object)
-  name: Equals(object?)
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Equals_System_Object_
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(System.Object)
-  name.vb: Equals(Object)
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(object?)
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals(Object)
-  nameWithType: Embedding.Equals(object?)
-  nameWithType.vb: Embedding.Equals(Object)
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals*
-  name: Equals
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Equals_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Equals
-  nameWithType: Embedding.Equals
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode
-  name: GetHashCode()
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_GetHashCode
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode()
-  nameWithType: Embedding.GetHashCode()
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode*
-  name: GetHashCode
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_GetHashCode_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.GetHashCode
-  nameWithType: Embedding.GetHashCode
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter
-  name: Embedding.JsonConverter
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html
-  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter
-  nameWithType: Embedding.JsonConverter
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)
-  name: Read(ref Utf8JsonReader, Type, JsonSerializerOptions)
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_JsonConverter_Read_System_Text_Json_Utf8JsonReader__System_Type_System_Text_Json_JsonSerializerOptions_
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)
-  name.vb: Read(Utf8JsonReader, Type, JsonSerializerOptions)
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read(ref System.Text.Json.Utf8JsonReader, System.Type, System.Text.Json.JsonSerializerOptions)
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read(System.Text.Json.Utf8JsonReader, System.Type, System.Text.Json.JsonSerializerOptions)
-  nameWithType: Embedding.JsonConverter.Read(ref Utf8JsonReader, Type, JsonSerializerOptions)
-  nameWithType.vb: Embedding.JsonConverter.Read(Utf8JsonReader, Type, JsonSerializerOptions)
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read*
-  name: Read
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_JsonConverter_Read_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Read
-  nameWithType: Embedding.JsonConverter.Read
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write(System.Text.Json.Utf8JsonWriter,FoundationaLLM.Common.Models.TextEmbedding.Embedding,System.Text.Json.JsonSerializerOptions)
-  name: Write(Utf8JsonWriter, Embedding, JsonSerializerOptions)
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_JsonConverter_Write_System_Text_Json_Utf8JsonWriter_FoundationaLLM_Common_Models_TextEmbedding_Embedding_System_Text_Json_JsonSerializerOptions_
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write(System.Text.Json.Utf8JsonWriter,FoundationaLLM.Common.Models.TextEmbedding.Embedding,System.Text.Json.JsonSerializerOptions)
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write(System.Text.Json.Utf8JsonWriter, FoundationaLLM.Common.Models.TextEmbedding.Embedding, System.Text.Json.JsonSerializerOptions)
-  nameWithType: Embedding.JsonConverter.Write(Utf8JsonWriter, Embedding, JsonSerializerOptions)
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write*
-  name: Write
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_JsonConverter_Write_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.JsonConverter.Write
-  nameWithType: Embedding.JsonConverter.Write
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length
-  name: Length
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Length
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length
-  nameWithType: Embedding.Length
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length*
-  name: Length
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Length_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Length
-  nameWithType: Embedding.Length
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector
-  name: Vector
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Vector
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector
-  nameWithType: Embedding.Vector
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector*
-  name: Vector
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_Vector_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.Vector
-  nameWithType: Embedding.Vector
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Equality(FoundationaLLM.Common.Models.TextEmbedding.Embedding,FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  name: operator ==(Embedding, Embedding)
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_op_Equality_FoundationaLLM_Common_Models_TextEmbedding_Embedding_FoundationaLLM_Common_Models_TextEmbedding_Embedding_
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Equality(FoundationaLLM.Common.Models.TextEmbedding.Embedding,FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  name.vb: =(Embedding, Embedding)
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.operator ==(FoundationaLLM.Common.Models.TextEmbedding.Embedding, FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.=(FoundationaLLM.Common.Models.TextEmbedding.Embedding, FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  nameWithType: Embedding.operator ==(Embedding, Embedding)
-  nameWithType.vb: Embedding.=(Embedding, Embedding)
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Equality*
-  name: operator ==
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_op_Equality_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Equality
-  isSpec: "True"
-  name.vb: =
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.operator ==
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.=
-  nameWithType: Embedding.operator ==
-  nameWithType.vb: Embedding.=
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Inequality(FoundationaLLM.Common.Models.TextEmbedding.Embedding,FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  name: operator !=(Embedding, Embedding)
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_op_Inequality_FoundationaLLM_Common_Models_TextEmbedding_Embedding_FoundationaLLM_Common_Models_TextEmbedding_Embedding_
-  commentId: M:FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Inequality(FoundationaLLM.Common.Models.TextEmbedding.Embedding,FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  name.vb: <>(Embedding, Embedding)
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.operator !=(FoundationaLLM.Common.Models.TextEmbedding.Embedding, FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.<>(FoundationaLLM.Common.Models.TextEmbedding.Embedding, FoundationaLLM.Common.Models.TextEmbedding.Embedding)
-  nameWithType: Embedding.operator !=(Embedding, Embedding)
-  nameWithType.vb: Embedding.<>(Embedding, Embedding)
-- uid: FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Inequality*
-  name: operator !=
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.Embedding.html#FoundationaLLM_Common_Models_TextEmbedding_Embedding_op_Inequality_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.Embedding.op_Inequality
-  isSpec: "True"
-  name.vb: <>
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.Embedding.operator !=
-  fullName.vb: FoundationaLLM.Common.Models.TextEmbedding.Embedding.<>
-  nameWithType: Embedding.operator !=
-  nameWithType.vb: Embedding.<>
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute
-  name: EmbeddingFieldAttribute
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.html
-  commentId: T:FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute
-  nameWithType: EmbeddingFieldAttribute
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.Label
-  name: Label
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddingFieldAttribute_Label
-  commentId: P:FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.Label
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.Label
-  nameWithType: EmbeddingFieldAttribute.Label
-- uid: FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.Label*
-  name: Label
-  href: api/dotnet/FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.html#FoundationaLLM_Common_Models_TextEmbedding_EmbeddingFieldAttribute_Label_
-  commentId: Overload:FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.Label
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.TextEmbedding.EmbeddingFieldAttribute.Label
-  nameWithType: EmbeddingFieldAttribute.Label
 - uid: FoundationaLLM.Common.Models.Vectorization
   name: FoundationaLLM.Common.Models.Vectorization
   href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.html
   commentId: N:FoundationaLLM.Common.Models.Vectorization
   fullName: FoundationaLLM.Common.Models.Vectorization
   nameWithType: FoundationaLLM.Common.Models.Vectorization
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier
+  name: ContentIdentifier
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html
+  commentId: T:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier
+  nameWithType: ContentIdentifier
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.CanonicalId
+  name: CanonicalId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_CanonicalId
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.CanonicalId
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.CanonicalId
+  nameWithType: ContentIdentifier.CanonicalId
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.CanonicalId*
+  name: CanonicalId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_CanonicalId_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.CanonicalId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.CanonicalId
+  nameWithType: ContentIdentifier.CanonicalId
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.DataSourceObjectId
+  name: DataSourceObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_DataSourceObjectId
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.DataSourceObjectId
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.DataSourceObjectId
+  nameWithType: ContentIdentifier.DataSourceObjectId
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.DataSourceObjectId*
+  name: DataSourceObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_DataSourceObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.DataSourceObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.DataSourceObjectId
+  nameWithType: ContentIdentifier.DataSourceObjectId
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.FileName
+  name: FileName
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_FileName
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.FileName
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.FileName
+  nameWithType: ContentIdentifier.FileName
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.FileName*
+  name: FileName
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_FileName_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.FileName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.FileName
+  nameWithType: ContentIdentifier.FileName
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.Item(System.Int32)
+  name: this[int]
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_Item_System_Int32_
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.Item(System.Int32)
+  name.vb: this[](Integer)
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.this[int]
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.this[](Integer)
+  nameWithType: ContentIdentifier.this[int]
+  nameWithType.vb: ContentIdentifier.this[](Integer)
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.Item*
+  name: this
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_Item_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.Item
+  isSpec: "True"
+  name.vb: this[]
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.this
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.this[]
+  nameWithType: ContentIdentifier.this
+  nameWithType.vb: ContentIdentifier.this[]
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.Metadata
+  name: Metadata
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_Metadata
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.Metadata
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.Metadata
+  nameWithType: ContentIdentifier.Metadata
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.Metadata*
+  name: Metadata
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_Metadata_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.Metadata
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.Metadata
+  nameWithType: ContentIdentifier.Metadata
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.MultipartId
+  name: MultipartId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_MultipartId
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.MultipartId
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.MultipartId
+  nameWithType: ContentIdentifier.MultipartId
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.MultipartId*
+  name: MultipartId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_MultipartId_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.MultipartId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.MultipartId
+  nameWithType: ContentIdentifier.MultipartId
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.UniqueId
+  name: UniqueId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_UniqueId
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.UniqueId
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.UniqueId
+  nameWithType: ContentIdentifier.UniqueId
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.UniqueId*
+  name: UniqueId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_UniqueId_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.UniqueId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.UniqueId
+  nameWithType: ContentIdentifier.UniqueId
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.ValidateMultipartId(System.Int32)
+  name: ValidateMultipartId(int)
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_ValidateMultipartId_System_Int32_
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.ValidateMultipartId(System.Int32)
+  name.vb: ValidateMultipartId(Integer)
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.ValidateMultipartId(int)
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.ValidateMultipartId(Integer)
+  nameWithType: ContentIdentifier.ValidateMultipartId(int)
+  nameWithType.vb: ContentIdentifier.ValidateMultipartId(Integer)
+- uid: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.ValidateMultipartId*
+  name: ValidateMultipartId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html#FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_ValidateMultipartId_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.ValidateMultipartId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.ValidateMultipartId
+  nameWithType: ContentIdentifier.ValidateMultipartId
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContent
+  name: EmbeddedContent
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.html
+  commentId: T:FoundationaLLM.Common.Models.Vectorization.EmbeddedContent
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContent
+  nameWithType: EmbeddedContent
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentId
+  name: ContentId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.html#FoundationaLLM_Common_Models_Vectorization_EmbeddedContent_ContentId
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentId
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentId
+  nameWithType: EmbeddedContent.ContentId
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentId*
+  name: ContentId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.html#FoundationaLLM_Common_Models_Vectorization_EmbeddedContent_ContentId_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentId
+  nameWithType: EmbeddedContent.ContentId
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentParts
+  name: ContentParts
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.html#FoundationaLLM_Common_Models_Vectorization_EmbeddedContent_ContentParts
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentParts
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentParts
+  nameWithType: EmbeddedContent.ContentParts
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentParts*
+  name: ContentParts
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.html#FoundationaLLM_Common_Models_Vectorization_EmbeddedContent_ContentParts_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentParts
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContent.ContentParts
+  nameWithType: EmbeddedContent.ContentParts
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart
+  name: EmbeddedContentPart
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.html
+  commentId: T:FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart
+  nameWithType: EmbeddedContentPart
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Content
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.html#FoundationaLLM_Common_Models_Vectorization_EmbeddedContentPart_Content
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Content
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Content
+  nameWithType: EmbeddedContentPart.Content
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Content*
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.html#FoundationaLLM_Common_Models_Vectorization_EmbeddedContentPart_Content_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Content
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Content
+  nameWithType: EmbeddedContentPart.Content
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Embedding
+  name: Embedding
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.html#FoundationaLLM_Common_Models_Vectorization_EmbeddedContentPart_Embedding
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Embedding
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Embedding
+  nameWithType: EmbeddedContentPart.Embedding
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Embedding*
+  name: Embedding
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.html#FoundationaLLM_Common_Models_Vectorization_EmbeddedContentPart_Embedding_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Embedding
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Embedding
+  nameWithType: EmbeddedContentPart.Embedding
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Id
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.html#FoundationaLLM_Common_Models_Vectorization_EmbeddedContentPart_Id
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Id
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Id
+  nameWithType: EmbeddedContentPart.Id
+- uid: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Id*
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.html#FoundationaLLM_Common_Models_Vectorization_EmbeddedContentPart_Id_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Id
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.EmbeddedContentPart.Id
+  nameWithType: EmbeddedContentPart.Id
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding
+  name: Embedding
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html
+  commentId: T:FoundationaLLM.Common.Models.Vectorization.Embedding
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding
+  nameWithType: Embedding
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.#ctor(System.Int32)
+  name: Embedding(int)
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding__ctor_System_Int32_
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.Embedding.#ctor(System.Int32)
+  name.vb: New(Integer)
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Embedding(int)
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.Embedding.New(Integer)
+  nameWithType: Embedding.Embedding(int)
+  nameWithType.vb: Embedding.New(Integer)
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.#ctor(System.ReadOnlyMemory{System.Single})
+  name: Embedding(ReadOnlyMemory<float>)
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding__ctor_System_ReadOnlyMemory_System_Single__
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.Embedding.#ctor(System.ReadOnlyMemory{System.Single})
+  name.vb: New(ReadOnlyMemory(Of Single))
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Embedding(System.ReadOnlyMemory<float>)
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.Embedding.New(System.ReadOnlyMemory(Of Single))
+  nameWithType: Embedding.Embedding(ReadOnlyMemory<float>)
+  nameWithType.vb: Embedding.New(ReadOnlyMemory(Of Single))
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.#ctor(System.Single[])
+  name: Embedding(float[])
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding__ctor_System_Single___
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.Embedding.#ctor(System.Single[])
+  name.vb: New(Single())
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Embedding(float[])
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.Embedding.New(Single())
+  nameWithType: Embedding.Embedding(float[])
+  nameWithType.vb: Embedding.New(Single())
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.#ctor*
+  name: Embedding
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.Embedding.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Embedding
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.Embedding.New
+  nameWithType: Embedding.Embedding
+  nameWithType.vb: Embedding.New
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.Equals(FoundationaLLM.Common.Models.Vectorization.Embedding)
+  name: Equals(Embedding)
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_Equals_FoundationaLLM_Common_Models_Vectorization_Embedding_
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.Embedding.Equals(FoundationaLLM.Common.Models.Vectorization.Embedding)
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Equals(FoundationaLLM.Common.Models.Vectorization.Embedding)
+  nameWithType: Embedding.Equals(Embedding)
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.Equals(System.Object)
+  name: Equals(object?)
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_Equals_System_Object_
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.Embedding.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Equals(object?)
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.Embedding.Equals(Object)
+  nameWithType: Embedding.Equals(object?)
+  nameWithType.vb: Embedding.Equals(Object)
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.Equals*
+  name: Equals
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_Equals_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.Embedding.Equals
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Equals
+  nameWithType: Embedding.Equals
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.GetHashCode
+  name: GetHashCode()
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_GetHashCode
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.Embedding.GetHashCode
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.GetHashCode()
+  nameWithType: Embedding.GetHashCode()
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.GetHashCode*
+  name: GetHashCode
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_GetHashCode_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.Embedding.GetHashCode
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.GetHashCode
+  nameWithType: Embedding.GetHashCode
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter
+  name: Embedding.JsonConverter
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.html
+  commentId: T:FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter
+  nameWithType: Embedding.JsonConverter
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)
+  name: Read(ref Utf8JsonReader, Type, JsonSerializerOptions)
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_Vectorization_Embedding_JsonConverter_Read_System_Text_Json_Utf8JsonReader__System_Type_System_Text_Json_JsonSerializerOptions_
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)
+  name.vb: Read(Utf8JsonReader, Type, JsonSerializerOptions)
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Read(ref System.Text.Json.Utf8JsonReader, System.Type, System.Text.Json.JsonSerializerOptions)
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Read(System.Text.Json.Utf8JsonReader, System.Type, System.Text.Json.JsonSerializerOptions)
+  nameWithType: Embedding.JsonConverter.Read(ref Utf8JsonReader, Type, JsonSerializerOptions)
+  nameWithType.vb: Embedding.JsonConverter.Read(Utf8JsonReader, Type, JsonSerializerOptions)
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Read*
+  name: Read
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_Vectorization_Embedding_JsonConverter_Read_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Read
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Read
+  nameWithType: Embedding.JsonConverter.Read
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Write(System.Text.Json.Utf8JsonWriter,FoundationaLLM.Common.Models.Vectorization.Embedding,System.Text.Json.JsonSerializerOptions)
+  name: Write(Utf8JsonWriter, Embedding, JsonSerializerOptions)
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_Vectorization_Embedding_JsonConverter_Write_System_Text_Json_Utf8JsonWriter_FoundationaLLM_Common_Models_Vectorization_Embedding_System_Text_Json_JsonSerializerOptions_
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Write(System.Text.Json.Utf8JsonWriter,FoundationaLLM.Common.Models.Vectorization.Embedding,System.Text.Json.JsonSerializerOptions)
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Write(System.Text.Json.Utf8JsonWriter, FoundationaLLM.Common.Models.Vectorization.Embedding, System.Text.Json.JsonSerializerOptions)
+  nameWithType: Embedding.JsonConverter.Write(Utf8JsonWriter, Embedding, JsonSerializerOptions)
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Write*
+  name: Write
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.html#FoundationaLLM_Common_Models_Vectorization_Embedding_JsonConverter_Write_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Write
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.JsonConverter.Write
+  nameWithType: Embedding.JsonConverter.Write
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.Length
+  name: Length
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_Length
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.Embedding.Length
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Length
+  nameWithType: Embedding.Length
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.Length*
+  name: Length
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_Length_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.Embedding.Length
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Length
+  nameWithType: Embedding.Length
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.Vector
+  name: Vector
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_Vector
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.Embedding.Vector
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Vector
+  nameWithType: Embedding.Vector
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.Vector*
+  name: Vector
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_Vector_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.Embedding.Vector
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.Vector
+  nameWithType: Embedding.Vector
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.op_Equality(FoundationaLLM.Common.Models.Vectorization.Embedding,FoundationaLLM.Common.Models.Vectorization.Embedding)
+  name: operator ==(Embedding, Embedding)
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_op_Equality_FoundationaLLM_Common_Models_Vectorization_Embedding_FoundationaLLM_Common_Models_Vectorization_Embedding_
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.Embedding.op_Equality(FoundationaLLM.Common.Models.Vectorization.Embedding,FoundationaLLM.Common.Models.Vectorization.Embedding)
+  name.vb: =(Embedding, Embedding)
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.operator ==(FoundationaLLM.Common.Models.Vectorization.Embedding, FoundationaLLM.Common.Models.Vectorization.Embedding)
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.Embedding.=(FoundationaLLM.Common.Models.Vectorization.Embedding, FoundationaLLM.Common.Models.Vectorization.Embedding)
+  nameWithType: Embedding.operator ==(Embedding, Embedding)
+  nameWithType.vb: Embedding.=(Embedding, Embedding)
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.op_Equality*
+  name: operator ==
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_op_Equality_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.Embedding.op_Equality
+  isSpec: "True"
+  name.vb: =
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.operator ==
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.Embedding.=
+  nameWithType: Embedding.operator ==
+  nameWithType.vb: Embedding.=
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.op_Inequality(FoundationaLLM.Common.Models.Vectorization.Embedding,FoundationaLLM.Common.Models.Vectorization.Embedding)
+  name: operator !=(Embedding, Embedding)
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_op_Inequality_FoundationaLLM_Common_Models_Vectorization_Embedding_FoundationaLLM_Common_Models_Vectorization_Embedding_
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.Embedding.op_Inequality(FoundationaLLM.Common.Models.Vectorization.Embedding,FoundationaLLM.Common.Models.Vectorization.Embedding)
+  name.vb: <>(Embedding, Embedding)
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.operator !=(FoundationaLLM.Common.Models.Vectorization.Embedding, FoundationaLLM.Common.Models.Vectorization.Embedding)
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.Embedding.<>(FoundationaLLM.Common.Models.Vectorization.Embedding, FoundationaLLM.Common.Models.Vectorization.Embedding)
+  nameWithType: Embedding.operator !=(Embedding, Embedding)
+  nameWithType.vb: Embedding.<>(Embedding, Embedding)
+- uid: FoundationaLLM.Common.Models.Vectorization.Embedding.op_Inequality*
+  name: operator !=
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.Embedding.html#FoundationaLLM_Common_Models_Vectorization_Embedding_op_Inequality_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.Embedding.op_Inequality
+  isSpec: "True"
+  name.vb: <>
+  fullName: FoundationaLLM.Common.Models.Vectorization.Embedding.operator !=
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.Embedding.<>
+  nameWithType: Embedding.operator !=
+  nameWithType.vb: Embedding.<>
 - uid: FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline
   name: VectorizationPipeline
   href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.html
@@ -22464,13 +21486,13 @@ references:
   fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.New
   nameWithType: AzureAISearchIndexingService.AzureAISearchIndexingService
   nameWithType.vb: AzureAISearchIndexingService.New
-- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent,System.String)
+- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
   name: IndexEmbeddingsAsync(EmbeddedContent, string)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService_IndexEmbeddingsAsync_FoundationaLLM_Common_Models_TextEmbedding_EmbeddedContent_System_String_
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent,System.String)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService_IndexEmbeddingsAsync_FoundationaLLM_Common_Models_Vectorization_EmbeddedContent_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
   name.vb: IndexEmbeddingsAsync(EmbeddedContent, String)
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent, string)
-  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.TextEmbedding.EmbeddedContent, String)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, String)
   nameWithType: AzureAISearchIndexingService.IndexEmbeddingsAsync(EmbeddedContent, string)
   nameWithType.vb: AzureAISearchIndexingService.IndexEmbeddingsAsync(EmbeddedContent, String)
 - uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync*
@@ -23129,11 +22151,11 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Interfaces.IContentSourceService
   fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService
   nameWithType: IContentSourceService
-- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+- uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)
   name: ExtractTextAsync(ContentIdentifier, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IContentSourceService.html#FoundationaLLM_Vectorization_Interfaces_IContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier, System.Threading.CancellationToken)
   nameWithType: IContentSourceService.ExtractTextAsync(ContentIdentifier, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Interfaces.IContentSourceService.ExtractTextAsync*
   name: ExtractTextAsync
@@ -24951,11 +23973,11 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.New
   nameWithType: AzureSQLDatabaseContentSourceService.AzureSQLDatabaseContentSourceService
   nameWithType.vb: AzureSQLDatabaseContentSourceService.New
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)
   name: ExtractTextAsync(ContentIdentifier, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier, System.Threading.CancellationToken)
   nameWithType: AzureSQLDatabaseContentSourceService.ExtractTextAsync(ContentIdentifier, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync*
   name: ExtractTextAsync
@@ -25068,11 +24090,11 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.New
   nameWithType: DataLakeContentSourceService.DataLakeContentSourceService
   nameWithType.vb: DataLakeContentSourceService.New
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)
   name: ExtractTextAsync(ContentIdentifier, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_DataLakeContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_DataLakeContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier, System.Threading.CancellationToken)
   nameWithType: DataLakeContentSourceService.ExtractTextAsync(ContentIdentifier, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.DataLakeContentSourceService.ExtractTextAsync*
   name: ExtractTextAsync
@@ -25106,11 +24128,11 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.New
   nameWithType: SharePointOnlineContentSourceService.SharePointOnlineContentSourceService
   nameWithType.vb: SharePointOnlineContentSourceService.New
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)
   name: ExtractTextAsync(ContentIdentifier, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_SharePointOnlineContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_SharePointOnlineContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier, System.Threading.CancellationToken)
   nameWithType: SharePointOnlineContentSourceService.ExtractTextAsync(ContentIdentifier, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.SharePointOnlineContentSourceService.ExtractTextAsync*
   name: ExtractTextAsync
@@ -25144,11 +24166,11 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.New
   nameWithType: WebPageContentSourceService.WebPageContentSourceService
   nameWithType.vb: WebPageContentSourceService.New
-- uid: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
+- uid: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)
   name: ExtractTextAsync(ContentIdentifier, CancellationToken)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_System_Threading_CancellationToken_
-  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier,System.Threading.CancellationToken)
-  fullName: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier, System.Threading.CancellationToken)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.html#FoundationaLLM_Vectorization_Services_ContentSources_WebPageContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier, System.Threading.CancellationToken)
   nameWithType: WebPageContentSourceService.ExtractTextAsync(ContentIdentifier, CancellationToken)
 - uid: FoundationaLLM.Vectorization.Services.ContentSources.WebPageContentSourceService.ExtractTextAsync*
   name: ExtractTextAsync
@@ -26016,11 +25038,11 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase
   nameWithType: VectorizationStateServiceBase
-- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)
   name: GetPersistenceIdentifier(ContentIdentifier)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)
   nameWithType: VectorizationStateServiceBase.GetPersistenceIdentifier(ContentIdentifier)
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier*
   name: GetPersistenceIdentifier
@@ -26029,11 +25051,11 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier
   nameWithType: VectorizationStateServiceBase.GetPersistenceIdentifier
-- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)
   name: HashContentIdentifier(ContentIdentifier)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashContentIdentifier_FoundationaLLM_Common_Models_TextEmbedding_ContentIdentifier_
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Common.Models.TextEmbedding.ContentIdentifier)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashContentIdentifier_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)
   nameWithType: VectorizationStateServiceBase.HashContentIdentifier(ContentIdentifier)
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier*
   name: HashContentIdentifier
@@ -26042,6 +25064,9 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier
   nameWithType: VectorizationStateServiceBase.HashContentIdentifier
+- uid: FoundationaLLM.Vectorization.Validation
+  name: FoundationaLLM.Vectorization.Validation
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.html
 - uid: FoundationaLLM.Vectorization.Validation.Resources
   name: FoundationaLLM.Vectorization.Validation.Resources
   href: api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.html
@@ -26198,6 +25223,37 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.New
   nameWithType: VectorizationProfileBaseValidator.VectorizationProfileBaseValidator
   nameWithType.vb: VectorizationProfileBaseValidator.New
+- uid: FoundationaLLM.Vectorization.Validation.Vectorization
+  name: FoundationaLLM.Vectorization.Validation.Vectorization
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Vectorization.html
+  commentId: N:FoundationaLLM.Vectorization.Validation.Vectorization
+  fullName: FoundationaLLM.Vectorization.Validation.Vectorization
+  nameWithType: FoundationaLLM.Vectorization.Validation.Vectorization
+- uid: FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator
+  name: ContentIdentifierValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.html
+  commentId: T:FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator
+  fullName: FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator
+  nameWithType: ContentIdentifierValidator
+- uid: FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.#ctor
+  name: ContentIdentifierValidator()
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.html#FoundationaLLM_Vectorization_Validation_Vectorization_ContentIdentifierValidator__ctor
+  commentId: M:FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.ContentIdentifierValidator()
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.New()
+  nameWithType: ContentIdentifierValidator.ContentIdentifierValidator()
+  nameWithType.vb: ContentIdentifierValidator.New()
+- uid: FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.#ctor*
+  name: ContentIdentifierValidator
+  href: api/dotnet/FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.html#FoundationaLLM_Vectorization_Validation_Vectorization_ContentIdentifierValidator__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.ContentIdentifierValidator
+  fullName.vb: FoundationaLLM.Vectorization.Validation.Vectorization.ContentIdentifierValidator.New
+  nameWithType: ContentIdentifierValidator.ContentIdentifierValidator
+  nameWithType.vb: ContentIdentifierValidator.New
 - uid: FoundationaLLM.Vectorization.VectorizationWorker
   name: VectorizationWorker
   href: api/dotnet/FoundationaLLM.Vectorization.VectorizationWorker.html
