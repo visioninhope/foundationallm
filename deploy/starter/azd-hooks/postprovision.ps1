@@ -197,5 +197,6 @@ Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization St
         -s "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json" `
         --recursive `
         --only-show-errors `
+        --auth-mode key `
         --output none
 }
