@@ -6965,10 +6965,10 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "deployment/deployment-starter.md",
+      "source_relative_path": "deployment/deployment-quick-start.md",
       "output": {
         ".html": {
-          "relative_path": "deployment/deployment-starter.html"
+          "relative_path": "deployment/deployment-quick-start.html"
         }
       },
       "version": ""
