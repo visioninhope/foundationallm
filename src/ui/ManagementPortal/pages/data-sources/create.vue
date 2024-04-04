@@ -100,22 +100,22 @@
 						<div class="mb-2 mt-2">Connection string:</div>
 						<div class="flex-container">
 							<Textarea
-								:model-value="
-									showSecret[`${dataSource.type}_ConnectionString`]
-										? dataSource.resolved_configuration_references.ConnectionString
-										: '••••••••••••••••••••••••••••••••••••••••••••••••••'
-								"
-								:disabled="
-									!showSecret[`${dataSource.type}_ConnectionString`] &&
-									dataSource.resolved_configuration_references.ConnectionString
-								"
+								v-if="showSecret[`${dataSource.type}_ConnectionString`]"
+								:model-value="dataSource.resolved_configuration_references.ConnectionString"
 								class="w-100"
 								auto-resize
 								rows="5"
 								type="text"
-								@update:model-value="
-									(val) => (dataSource.resolved_configuration_references.ConnectionString = val)
-								"
+								@update:model-value="handleConnectionStringUpdate"
+							/>
+							<Textarea
+								v-else
+								model-value="••••••••••••••••••••••••••••••••••••••••••••••••••"
+								:disabled="dataSource.resolved_configuration_references.ConnectionString"
+								class="w-100"
+								auto-resize
+								rows="5"
+								type="text"
 							/>
 							<Button
 								:icon="
@@ -138,20 +138,18 @@
 						<div class="mb-2 mt-2">API Key:</div>
 						<div class="flex-container">
 							<InputText
-								:model-value="
-									showSecret[`${dataSource.type}_APIKey`]
-										? dataSource.resolved_configuration_references.APIKey
-										: '••••••••••••••••••••••••••••••••••••••••••••••••••'
-								"
-								:disabled="
-									!showSecret[`${dataSource.type}_APIKey`] &&
-									dataSource.resolved_configuration_references.APIKey
-								"
+								v-if="showSecret[`${dataSource.type}_APIKey`]"
+								:model-value="dataSource.resolved_configuration_references.APIKey"
 								class="w-100"
 								type="text"
-								@update:model-value="
-									(val) => (dataSource.resolved_configuration_references.APIKey = val)
-								"
+								@update:model-value="handleAPIKeyUpdate"
+							/>
+							<InputText
+								v-else
+								model-value="••••••••••••••••••••••••••••••••••••••••••••••••••"
+								:disabled="dataSource.resolved_configuration_references.APIKey"
+								class="w-100"
+								type="text"
 							/>
 							<Button
 								:icon="showSecret[`${dataSource.type}_APIKey`] ? 'pi pi-eye' : 'pi pi-eye-slash'"
@@ -179,22 +177,22 @@
 						<div class="mb-2">Connection string:</div>
 						<div class="flex-container">
 							<Textarea
-								:model-value="
-									showSecret[`${dataSource.type}_ConnectionString`]
-										? dataSource.resolved_configuration_references.ConnectionString
-										: '••••••••••••••••••••••••••••••••••••••••••••••••••'
-								"
-								:disabled="
-									!showSecret[`${dataSource.type}_ConnectionString`] &&
-									dataSource.resolved_configuration_references.ConnectionString
-								"
+								v-if="showSecret[`${dataSource.type}_ConnectionString`]"
+								:model-value="dataSource.resolved_configuration_references.ConnectionString"
 								class="w-100"
 								auto-resize
 								rows="5"
 								type="text"
-								@update:model-value="
-									(val) => (dataSource.resolved_configuration_references.ConnectionString = val)
-								"
+								@update:model-value="handleConnectionStringUpdate"
+							/>
+							<Textarea
+								v-else
+								model-value="••••••••••••••••••••••••••••••••••••••••••••••••••"
+								:disabled="dataSource.resolved_configuration_references.ConnectionString"
+								class="w-100"
+								auto-resize
+								rows="5"
+								type="text"
 							/>
 							<Button
 								:icon="
@@ -452,6 +450,14 @@ export default {
 				const resolvedValue = this.dataSource.resolved_configuration_references[key];
 				this.showSecret[uniqueKey] = !resolvedValue;
 			}
+		},
+
+		handleConnectionStringUpdate(value) {
+			this.dataSource.resolved_configuration_references.ConnectionString = value;
+		},
+
+		handleAPIKeyUpdate(value) {
+			this.dataSource.resolved_configuration_references.APIKey = value;
 		},
 
 		async checkName() {
