@@ -37,7 +37,8 @@ export default {
 	props: {
 		modelValue: {
 			type: Boolean,
-			required: true,
+			required: false,
+			default: false,
 		},
 	},
 
