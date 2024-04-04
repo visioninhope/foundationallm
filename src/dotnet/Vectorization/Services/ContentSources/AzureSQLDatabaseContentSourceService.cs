@@ -31,7 +31,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         /// contentId[0] = the schema.
         /// contentId[1] = the table.
         /// contentId[2] = the column containing the contents of the files.
-        /// contentId[3] = the column providing the unique identifier for the row of the file.
+        /// contentId[3] = the column name of the unique identifier for the row of the file.
         /// contentId[4] = the value of the unique identifier of the file.
         /// contentId[5] = the file name.
         /// </remarks>
