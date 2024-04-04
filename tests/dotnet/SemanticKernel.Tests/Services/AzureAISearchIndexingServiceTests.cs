@@ -1,15 +1,14 @@
-﻿using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.SemanticKernel.Core.Services;
-using Microsoft.Extensions.Options;
-using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using FoundationaLLM.Common.Settings;
-using Microsoft.Extensions.Logging;
-using Azure.Identity;
-using Azure.Search.Documents.Indexes;
+﻿using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
-using SemanticKernel.Tests.Models;
-using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Vectorization;
+using FoundationaLLM.Common.Settings;
+using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
+using FoundationaLLM.SemanticKernel.Core.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using SemanticKernel.Tests.Models;
 
 namespace FoundationaLLM.SemanticKernel.Tests.Services
 {

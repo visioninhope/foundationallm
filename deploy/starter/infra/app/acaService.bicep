@@ -152,7 +152,7 @@ resource blobContribRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = 
   name: guid(subscription().id, resourceGroup().id, identity.id, storageAccount.id, 'Storage Blob Data Contributor')
   properties: {
     roleDefinitionId: subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c'
+      'Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
     )
     principalType: 'ServicePrincipal'
     principalId: identity.properties.principalId

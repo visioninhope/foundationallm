@@ -302,17 +302,17 @@
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AuthenticationType",
-      "value": "ConnectionString",
+      "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AuthenticationType",
+      "value": "AzureIdentity",
       "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "content_type": "",
       "tags": {}
     },
     {
@@ -645,17 +645,17 @@
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:AuthenticationType",
-      "value": "ConnectionString",
+      "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-configuration-resourceprovider-storage-connectionstring\"}",
+      "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:AuthenticationType",
+      "value": "AzureIdentity",
       "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "content_type": "",
       "tags": {}
     },
     {
@@ -771,17 +771,17 @@
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:DataSource:ResourceProviderService:Storage:AuthenticationType",
-      "value": "ConnectionString",
+      "key": "FoundationaLLM:DataSource:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:DataSource:ResourceProviderService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-datasource-resourceprovider-storage-connectionstring\"}",
+      "key": "FoundationaLLM:DataSource:ResourceProviderService:Storage:AuthenticationType",
+      "value": "AzureIdentity",
       "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "content_type": "",
       "tags": {}
     },
     {
@@ -995,17 +995,17 @@
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AuthenticationType",
-      "value": "ConnectionString",
+      "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AuthenticationType",
+      "value": "AzureIdentity",
       "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "content_type": "",
       "tags": {}
     },
     {
@@ -1177,17 +1177,17 @@
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType",
-      "value": "ConnectionString",
+      "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType",
+      "value": "AzureIdentity",
       "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "content_type": "",
       "tags": {}
     },
     {
@@ -1226,17 +1226,17 @@
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType",
-      "value": "ConnectionString",
+      "key": "FoundationaLLM:Vectorization:StateService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Vectorization:StateService:Storage:ConnectionString",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "key": "FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType",
+      "value": "AzureIdentity",
       "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "content_type": "",
       "tags": {}
     },
     {

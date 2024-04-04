@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Models.TextEmbedding;
+﻿using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Exceptions;
 using System.Text.Json.Serialization;
 

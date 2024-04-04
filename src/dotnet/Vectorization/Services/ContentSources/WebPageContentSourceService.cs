@@ -1,8 +1,8 @@
 ﻿using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Common.Models.TextEmbedding;
 using Microsoft.Extensions.Logging;
 using HtmlAgilityPack;
 using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Common.Models.Vectorization;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
