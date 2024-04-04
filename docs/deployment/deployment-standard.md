@@ -36,18 +36,37 @@ PowerShell 7 is a cross-platform (Windows, macOS, and Linux) automation tool and
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/): Docker Desktop is an application for MacOS and Windows machines for the building and sharing of containerized applications and microservices. It provides an integrated environment to use Docker containers, simplifying the process of building, testing, and deploying applications in a consistent and isolated environment. Docker Desktop includes Docker Engine, Docker CLI client, Docker Compose, and other Docker tools, making it a key tool for developers working with container-based applications.
 
+## Deployment steps
+
+Follow the steps below to deploy the solution to your Azure subscription.
+
+1. Ensure all the prerequisites are met.
+
+2. From a PowerShell prompt, execute the following to clone the repository:
+
+    ```powershell
+    git clone https://github.com/solliancenet/foundationallm.git
+    cd foundationallm
+    git checkout release/0.5.0
+    ```
+3. Create your deployment manifest:
+
+    ```powershell
+    cd deploy/standard
+    cp Deployment-Manifest.template.json Deployment-Manifest.json
+    ```
+
+4. Fill out all required fields in the `Deployment-Manifest.json` file. Refer to this guide for more information on the manifest contents.
 
 
 
 
-
-## Deployment Steps
 
 Follow the steps below to deploy the solution to your Azure subscription.
 
 1. Create a new `Deployment-Manifest.json` file from the `Deployment-Manifest.template.json` template. Refer to the documentation of the manifest contents below for guidance.
 
-1. **Login to your Azure account**
+2. **Login to your Azure account**
 
    - Open a PowerShell prompt and execute the following command to login to your Azure account:
      ```powershell
@@ -60,25 +79,25 @@ Follow the steps below to deploy the solution to your Azure subscription.
      az account set --subscription <subscription_id>
      ```
 
-1. **Clone the Repository:**
+3. **Clone the Repository:**
    - Execute the following command to clone the repository:
      ```powershell
      git clone https://github.com/solliancenet/foundationallm.git
      ```
 
-2. **Navigate to the bicep deployment directory:**
+4. **Navigate to the bicep deployment directory:**
    - Execute the following command to navigate:
      ```powershell
      cd foundationallm/deploy/standard/bicep
      ```
 
-3. **Load psake into your PowerShell session:**
+5. **Load psake into your PowerShell session:**
    - Execute the following command:
      ```powershell
      ./bootstrap.ps1
      ```
 
-4. **Execute the deployment:**
+6. **Execute the deployment:**
    - Execute the following command to deploy the solution:
      ```powershell
      Invoke-psake
