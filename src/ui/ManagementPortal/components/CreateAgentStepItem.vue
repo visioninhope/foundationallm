@@ -34,7 +34,12 @@
 export default {
 	name: 'CreateAgentStepItem',
 
-	props: ['modelValue'],
+	props: {
+		modelValue: {
+			type: Boolean,
+			required: true,
+		},
+	},
 
 	emits: ['update:modelValue'],
 

@@ -15,17 +15,7 @@ import type {
 	CreatePromptRequest,
 	CreateTextPartitioningProfileRequest,
 } from './types';
-import {
-	isAzureDataLakeDataSource,
-	isSharePointOnlineSiteDataSource,
-	isAzureSQLDatabaseDataSource,
-	convertDataSourceToAzureDataLake,
-	convertDataSourceToSharePointOnlineSite,
-	convertDataSourceToAzureSQLDatabase,
-	convertToDataSource,
-	convertToAppConfigKeyVault,
-	convertToAppConfig,
-} from '@/js/types';
+import { convertToDataSource, convertToAppConfigKeyVault, convertToAppConfig } from '@/js/types';
 // import { mockAzureDataLakeDataSource1 } from './mock';
 import { getMsalInstance } from '@/js/auth';
 
@@ -69,7 +59,7 @@ export default {
 		// }
 
 		const bearerToken = await this.getBearerToken();
-		options.headers['Authorization'] = `Bearer ${bearerToken}`;
+		options.headers.Authorization = `Bearer ${bearerToken}`;
 
 		return await $fetch(`${this.apiUrl}${url}`, options);
 	},
@@ -86,7 +76,7 @@ export default {
 	async checkDataSourceName(name: string, type: string): Promise<CheckNameResponse> {
 		const payload = {
 			name,
-			type: type,
+			type,
 		};
 
 		return await this.fetch(
@@ -154,7 +144,9 @@ export default {
 				);
 			}
 		} else {
-			for (const [configName, configValue] of Object.entries(dataSource.configuration_references)) {
+			for (const [configName /* configValue */] of Object.entries(
+				dataSource.configuration_references,
+			)) {
 				const resolvedValue = await this.getAppConfig(
 					dataSource.configuration_references[
 						configName as keyof typeof dataSource.configuration_references
@@ -185,7 +177,7 @@ export default {
 				`foundationallm-datasources-${dataSource.name}-${propertyName}`.toLowerCase();
 			const metadata = dataSource.configuration_reference_metadata?.[propertyName];
 
-			let keyVaultUri = await this.getAppConfig('FoundationaLLM:Configuration:KeyVaultURI');
+			const keyVaultUri = await this.getAppConfig('FoundationaLLM:Configuration:KeyVaultURI');
 
 			let appConfig: AppConfigUnion = {
 				name: appConfigKey,

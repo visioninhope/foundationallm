@@ -26,21 +26,26 @@
 				<div class="input-wrapper">
 					<InputText
 						v-model="agentName"
+						:disabled="editAgent"
 						placeholder="Enter agent name"
 						type="text"
 						class="w-100"
 						@input="handleNameInput"
-						:disabled="editAgent"
 					/>
-					<span v-if="nameValidationStatus === 'valid'" class="icon valid" title="Name is available"
-						>✔️</span
+					<span
+						v-if="nameValidationStatus === 'valid'"
+						class="icon valid"
+						title="Name is available"
 					>
+						✔️
+					</span>
 					<span
 						v-else-if="nameValidationStatus === 'invalid'"
 						class="icon invalid"
 						:title="validationMessage"
-						>❌</span
 					>
+						❌
+					</span>
 				</div>
 			</div>
 			<div class="span-2">
@@ -98,10 +103,10 @@
 					<span>
 						<ToggleButton
 							v-model="dedicated_pipeline"
-							onLabel="Yes"
-							onIcon="pi pi-check-circle"
-							offLabel="No"
-							offIcon="pi pi-times-circle"
+							on-label="Yes"
+							on-icon="pi pi-check-circle"
+							off-label="No"
+							off-icon="pi pi-times-circle"
 						/>
 					</span>
 				</div>
@@ -350,10 +355,10 @@
 						<span>
 							<ToggleButton
 								v-model="conversationHistory"
-								onLabel="Yes"
-								onIcon="pi pi-check-circle"
-								offLabel="No"
-								offIcon="pi pi-times-circle"
+								on-label="Yes"
+								on-icon="pi pi-check-circle"
+								off-label="No"
+								off-icon="pi pi-times-circle"
 							/>
 						</span>
 					</div>
@@ -404,10 +409,10 @@
 						<span>
 							<ToggleButton
 								v-model="gatekeeperEnabled"
-								onLabel="Yes"
-								onIcon="pi pi-check-circle"
-								offLabel="No"
-								offIcon="pi pi-times-circle"
+								on-label="Yes"
+								on-icon="pi pi-check-circle"
+								off-label="No"
+								off-icon="pi pi-times-circle"
 							/>
 						</span>
 					</div>
@@ -845,20 +850,20 @@ export default {
 				const textPartitioningProfileObjectId = tokenTextPartitionResponse.objectId;
 
 				// Select the default data source, if any.
-				let data_source_object_id = this.selectedDataSource?.object_id ?? '';
-				if (data_source_object_id === '') {
+				let dataSourceObjectId = this.selectedDataSource?.object_id ?? '';
+				if (dataSourceObjectId === '') {
 					const defaultDataSource = await api.getDefaultDataSource();
 					if (defaultDataSource !== null) {
-						data_source_object_id = defaultDataSource.object_id;
+						dataSourceObjectId = defaultDataSource.object_id;
 					}
 				}
 
 				// Select the default indexing profile, if any.
-				let indexing_profile_object_id = this.selectedIndexSource?.object_id ?? '';
-				if (indexing_profile_object_id === '') {
+				let indexingProfileObjectId = this.selectedIndexSource?.object_id ?? '';
+				if (indexingProfileObjectId === '') {
 					const defaultAgentIndex = await api.getDefaultAgentIndex();
 					if (defaultAgentIndex !== null) {
-						indexing_profile_object_id = defaultAgentIndex.object_id;
+						indexingProfileObjectId = defaultAgentIndex.object_id;
 					}
 				}
 
@@ -871,9 +876,9 @@ export default {
 					vectorization: {
 						dedicated_pipeline: this.dedicated_pipeline,
 						text_embedding_profile_object_id: this.text_embedding_profile_object_id,
-						indexing_profile_object_id: indexing_profile_object_id,
+						indexing_profile_object_id: indexingProfileObjectId,
 						text_partitioning_profile_object_id: textPartitioningProfileObjectId,
-						data_source_object_id: data_source_object_id,
+						data_source_object_id: dataSourceObjectId,
 						vectorization_data_pipeline_object_id: this.vectorization_data_pipeline_object_id,
 						trigger_type: this.triggerFrequency,
 						trigger_cron_schedule: '',

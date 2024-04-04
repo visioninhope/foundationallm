@@ -67,6 +67,10 @@ export type AgentDataSource = {
 	object_id: string;
 };
 
+export interface ConfigurationReferenceMetadata {
+	isKeyVaultBacked: boolean;
+}
+
 // Data sources
 interface BaseDataSource {
 	type: string;
@@ -109,10 +113,6 @@ export interface SharePointOnlineSiteDataSource extends BaseDataSource {
 		CertificateName: string;
 		KeyVaultURL: string;
 	};
-}
-
-export interface ConfigurationReferenceMetadata {
-	isKeyVaultBacked: boolean;
 }
 
 export type DataSource =

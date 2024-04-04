@@ -28,9 +28,9 @@
 			<!-- Table -->
 			<DataTable
 				:value="dataSources"
-				stripedRows
+				striped-rows
 				scrollable
-				tableStyle="max-width: 100%"
+				table-style="max-width: 100%"
 				size="small"
 			>
 				<template #empty>
@@ -70,7 +70,7 @@
 				<!-- Edit -->
 				<Column
 					header="Edit"
-					headerStyle="width:6rem"
+					header-style="width:6rem"
 					style="text-align: center"
 					:pt="{
 						headerCell: {
@@ -91,7 +91,7 @@
 				<!-- Delete -->
 				<Column
 					header="Delete"
-					headerStyle="width:6rem"
+					header-style="width:6rem"
 					style="text-align: center"
 					:pt="{
 						headerCell: {

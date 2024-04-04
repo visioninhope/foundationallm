@@ -13,7 +13,7 @@
 			</template>
 
 			<!-- Table -->
-			<DataTable :value="agents" stripedRows scrollable tableStyle="max-width: 100%" size="small">
+			<DataTable :value="agents" striped-rows scrollable table-style="max-width: 100%" size="small">
 				<template #empty>
 					No agents found. Please use the menu on the left to create a new agent.</template
 				>
@@ -50,7 +50,7 @@
 				<!-- Edit -->
 				<Column
 					header="Edit"
-					headerStyle="width:6rem"
+					header-style="width:6rem"
 					style="text-align: center"
 					:pt="{
 						headerCell: {
@@ -71,7 +71,7 @@
 				<!-- Delete -->
 				<Column
 					header="Delete"
-					headerStyle="width:6rem"
+					header-style="width:6rem"
 					style="text-align: center"
 					:pt="{
 						headerCell: {

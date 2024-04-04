@@ -1,9 +1,9 @@
 // Node may try dns resolution with IPv6 first which breaks the azure app
 // configuration service requests, so we need to force it use IPv4 instead.
 import dns from 'node:dns';
-dns.setDefaultResultOrder('ipv4first');
-
 import { AppConfigurationClient } from '@azure/app-configuration';
+
+dns.setDefaultResultOrder('ipv4first');
 
 const allowedKeys = [
 	'FoundationaLLM:APIs:ManagementAPI:APIUrl',

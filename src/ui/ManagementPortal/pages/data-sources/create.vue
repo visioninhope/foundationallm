@@ -33,15 +33,20 @@
 						:disabled="editId"
 						@input="handleNameInput"
 					/>
-					<span v-if="nameValidationStatus === 'valid'" class="icon valid" title="Name is available"
-						>✔️</span
+					<span
+						v-if="nameValidationStatus === 'valid'"
+						class="icon valid"
+						title="Name is available"
 					>
+						✔️
+					</span>
 					<span
 						v-else-if="nameValidationStatus === 'invalid'"
 						class="icon invalid"
 						:title="validationMessage"
-						>❌</span
 					>
+						❌
+					</span>
 				</div>
 
 				<div class="mb-2 mt-2">Data description:</div>
@@ -100,16 +105,16 @@
 										? dataSource.resolved_configuration_references.ConnectionString
 										: '••••••••••••••••••••••••••••••••••••••••••••••••••'
 								"
-								@update:model-value="
-									(val) => (dataSource.resolved_configuration_references.ConnectionString = val)
+								:disabled="
+									!showSecret[`${dataSource.type}_ConnectionString`] &&
+									dataSource.resolved_configuration_references.ConnectionString
 								"
 								class="w-100"
 								auto-resize
 								rows="5"
 								type="text"
-								:disabled="
-									!showSecret[`${dataSource.type}_ConnectionString`] &&
-									dataSource.resolved_configuration_references.ConnectionString
+								@update:model-value="
+									(val) => (dataSource.resolved_configuration_references.ConnectionString = val)
 								"
 							/>
 							<Button
@@ -118,9 +123,9 @@
 										? 'pi pi-eye'
 										: 'pi pi-eye-slash'
 								"
-								@click="toggleSecretVisibility('ConnectionString')"
-								class="p-button-text"
 								:label="showSecret[`${dataSource.type}_ConnectionString`] ? 'Hide' : 'Show'"
+								class="p-button-text"
+								@click="toggleSecretVisibility('ConnectionString')"
 							></Button>
 						</div>
 					</div>
@@ -138,21 +143,21 @@
 										? dataSource.resolved_configuration_references.APIKey
 										: '••••••••••••••••••••••••••••••••••••••••••••••••••'
 								"
-								@update:model-value="
-									(val) => (dataSource.resolved_configuration_references.APIKey = val)
-								"
-								class="w-100"
-								type="text"
 								:disabled="
 									!showSecret[`${dataSource.type}_APIKey`] &&
 									dataSource.resolved_configuration_references.APIKey
 								"
+								class="w-100"
+								type="text"
+								@update:model-value="
+									(val) => (dataSource.resolved_configuration_references.APIKey = val)
+								"
 							/>
 							<Button
 								:icon="showSecret[`${dataSource.type}_APIKey`] ? 'pi pi-eye' : 'pi pi-eye-slash'"
-								@click="toggleSecretVisibility('APIKey')"
-								class="p-button-text"
 								:label="showSecret[`${dataSource.type}_APIKey`] ? 'Hide' : 'Show'"
+								class="p-button-text"
+								@click="toggleSecretVisibility('APIKey')"
 							></Button>
 						</div>
 						<div class="mb-2 mt-2">Endpoint:</div>
@@ -179,16 +184,16 @@
 										? dataSource.resolved_configuration_references.ConnectionString
 										: '••••••••••••••••••••••••••••••••••••••••••••••••••'
 								"
-								@update:model-value="
-									(val) => (dataSource.resolved_configuration_references.ConnectionString = val)
+								:disabled="
+									!showSecret[`${dataSource.type}_ConnectionString`] &&
+									dataSource.resolved_configuration_references.ConnectionString
 								"
 								class="w-100"
 								auto-resize
 								rows="5"
 								type="text"
-								:disabled="
-									!showSecret[`${dataSource.type}_ConnectionString`] &&
-									dataSource.resolved_configuration_references.ConnectionString
+								@update:model-value="
+									(val) => (dataSource.resolved_configuration_references.ConnectionString = val)
 								"
 							/>
 							<Button
@@ -197,9 +202,9 @@
 										? 'pi pi-eye'
 										: 'pi pi-eye-slash'
 								"
-								@click="toggleSecretVisibility('ConnectionString')"
-								class="p-button-text"
 								:label="showSecret[`${dataSource.type}_ConnectionString`] ? 'Hide' : 'Show'"
+								class="p-button-text"
+								@click="toggleSecretVisibility('ConnectionString')"
 							></Button>
 						</div>
 
@@ -289,9 +294,6 @@ import {
 	isAzureDataLakeDataSource,
 	isAzureSQLDatabaseDataSource,
 	isSharePointOnlineSiteDataSource,
-	convertDataSourceToAzureDataLake,
-	convertDataSourceToSharePointOnlineSite,
-	convertDataSourceToAzureSQLDatabase,
 	convertToDataSource,
 } from '@/js/types';
 
