@@ -221,6 +221,6 @@ export const useAppStore = defineStore('app', {
 		async getAgents() {
 			this.agents = await api.getAllowedAgents();
 			return this.agents;
-		}
+		},
 	},
 });

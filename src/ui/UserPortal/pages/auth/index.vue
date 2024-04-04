@@ -10,7 +10,7 @@
 <script setup lang="ts">
 definePageMeta({
 	name: 'auth/login',
-	path: '/signin-oidc'
+	path: '/signin-oidc',
 });
 </script>
 

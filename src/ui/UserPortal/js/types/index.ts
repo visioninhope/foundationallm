@@ -38,14 +38,14 @@ export interface Agent {
 }
 
 export interface OrchestrationRequest {
-    session_id?: string;
-    user_prompt: string;
+	session_id?: string;
+	user_prompt: string;
 	agent_name?: string;
-    settings?: OrchestrationSettings;
+	settings?: OrchestrationSettings;
 }
 
 export interface OrchestrationSettings {
-    orchestrator?: string;
+	orchestrator?: string;
 	endpoint_configuration?: { [key: string]: any } | null;
 	model_parameters?: { [key: string]: any } | null;
 }

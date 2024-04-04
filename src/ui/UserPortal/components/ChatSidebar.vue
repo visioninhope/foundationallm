@@ -2,7 +2,10 @@
 	<div class="chat-sidebar">
 		<!-- Sidebar section header -->
 		<div class="chat-sidebar__section-header--mobile">
-			<img v-if="appConfigStore.logoUrl !== ''" :src="$filters.enforceLeadingSlash(appConfigStore.logoUrl)" />
+			<img
+				v-if="appConfigStore.logoUrl !== ''"
+				:src="$filters.enforceLeadingSlash(appConfigStore.logoUrl)"
+			/>
 			<span v-else>{{ appConfigStore.logoText }}</span>
 			<Button
 				:icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
@@ -340,9 +343,9 @@ export default {
 }
 
 .secondary-button {
-	background-color: var(--secondary-button-bg)!important;
-	border-color: var(--secondary-button-bg)!important;
-	color: var(--secondary-button-text)!important;
+	background-color: var(--secondary-button-bg) !important;
+	border-color: var(--secondary-button-bg) !important;
+	color: var(--secondary-button-text) !important;
 }
 
 .chat-sidebar__username {
