@@ -8,7 +8,7 @@ import { AppConfigurationClient } from '@azure/app-configuration';
 const allowedKeys = [
 	'FoundationaLLM:APIs:ManagementAPI:APIUrl',
 	'FoundationaLLM:Instance:Id',
-	
+
 	'FoundationaLLM:Management:Entra:ClientId',
 	'FoundationaLLM:Management:Entra:Instance',
 	'FoundationaLLM:Management:Entra:TenantId',
@@ -43,7 +43,9 @@ export default defineEventHandler(async (event) => {
 
 	// Respond with a 403 (Forbidden) if the key is not in the allowed keys list.
 	if (!allowedKeys.includes(key)) {
-		console.error(`Config value "${key}" is not allowed to be accessed, please add it to the list of allowed keys if required.`);
+		console.error(
+			`Config value "${key}" is not allowed to be accessed, please add it to the list of allowed keys if required.`,
+		);
 		setResponseStatus(event, 403, `Config value "${key}" is not an accessible key.`);
 		return '403';
 	}
@@ -64,7 +66,9 @@ export default defineEventHandler(async (event) => {
 		return setting.value;
 	} catch (error) {
 		// Respond with a 404 (Not Found) if the key does not exist in the Azure config service.
-		console.error(`Failed to load config value for "${key}", please ensure it exists and is the correct format.`);
+		console.error(
+			`Failed to load config value for "${key}", please ensure it exists and is the correct format.`,
+		);
 		setResponseStatus(event, 404, `Config value "${key}" not found.`);
 		return '404';
 	}
