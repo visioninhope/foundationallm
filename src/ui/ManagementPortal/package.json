@@ -17,6 +17,7 @@
 		"@nuxt/devtools": "latest",
 		"@nuxt/eslint-config": "^0.2.0",
 		"@nuxtjs/eslint-config-typescript": "^12.1.0",
+		"@nuxtjs/eslint-module": "^4.1.0",
 		"eslint": "^8.50.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-prettier": "^5.0.0",
@@ -31,9 +32,9 @@
 		"@azure/msal-browser": "^3.2.0",
 		"@pinia/nuxt": "^0.5.1",
 		"javascript-time-ago": "^2.5.9",
+		"lodash": "^4.17.21",
 		"pinia": "^2.1.7",
 		"primeicons": "^6.0.1",
-		"primevue": "^3.35.0",
-		"lodash": "^4.17.21"
+		"primevue": "^3.35.0"
 	}
 }

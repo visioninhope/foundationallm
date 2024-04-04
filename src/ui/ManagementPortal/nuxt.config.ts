@@ -16,7 +16,7 @@ const buildLoadingTemplate = (() => {
 export default defineNuxtConfig({
 	ssr: false,
 	devtools: { enabled: true },
-	modules: ['@pinia/nuxt'],
+	modules: ['@pinia/nuxt', '@nuxtjs/eslint-module'],
 	components: true,
 	app: {
 		head: {
