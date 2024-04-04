@@ -336,6 +336,7 @@ module searchIndexDataReaderRole 'modules/utility/roleAssignments.bicep' = {
     principalId: srVectorizationApi[indexOf(vecServiceNames, 'vectorization-api')].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+      'Search Index Data Contributor': '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
     }
   }
 }
@@ -347,6 +348,7 @@ module searchIndexDataReaderWorkerRole 'modules/utility/roleAssignments.bicep' =
     principalId: srBackend[indexOf(backendServiceNames, 'vectorization-job')].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+      'Search Index Data Contributor': '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
     }
   }
 }
