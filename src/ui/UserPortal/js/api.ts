@@ -1,11 +1,4 @@
-/* eslint-disable prettier/prettier */
-import type {
-	Message,
-	Session,
-	CompletionPrompt,
-	Agent,
-	OrchestrationRequest,
-} from '@/js/types';
+import type { Message, Session, CompletionPrompt, Agent, OrchestrationRequest } from '@/js/types';
 import { getMsalInstance } from '@/js/auth';
 
 export default {
