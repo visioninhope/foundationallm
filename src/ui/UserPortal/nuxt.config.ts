@@ -41,11 +41,7 @@ export default defineNuxtConfig({
 		transpile: ['primevue'],
 	},
 	devServer: {
-		...(buildLoadingTemplate
-			? {
-					loadingTemplate: () => buildLoadingTemplate,
-			  }
-			: {}),
+		...(buildLoadingTemplate ? { loadingTemplate: () => buildLoadingTemplate } : {}),
 	},
 	runtimeConfig: {
 		APP_CONFIG_ENDPOINT: process.env.APP_CONFIG_ENDPOINT,

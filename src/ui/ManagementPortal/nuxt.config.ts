@@ -46,11 +46,7 @@ export default defineNuxtConfig({
 		transpile: ['primevue'],
 	},
 	devServer: {
-		...(buildLoadingTemplate
-			? {
-					loadingTemplate: () => buildLoadingTemplate,
-			  }
-			: {}),
+		...(buildLoadingTemplate ? { loadingTemplate: () => buildLoadingTemplate } : {}),
 		port: 3001,
 	},
 	runtimeConfig: {
