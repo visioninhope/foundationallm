@@ -19,16 +19,20 @@
 <script lang="ts">
 import { mapStores } from 'pinia';
 import { useAppStore } from '@/stores/appStore';
+
 export default {
 	name: 'Index',
+
 	data() {
 		return {
 			sidebarWidth: 305,
 		};
 	},
+
 	computed: {
 		...mapStores(useAppStore),
 	},
+
 	methods: {
 		startResizing(event) {
 			// Prevent default action and bubbling
