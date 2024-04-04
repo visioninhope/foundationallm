@@ -44,9 +44,9 @@
 				<template v-if="currentSession">
 					<span class="header__dropdown">
 						<img
+							v-tooltip.bottom="'Select an agent'"
 							alt="Select an agent"
 							class="avatar"
-							v-tooltip.bottom="'Select an agent'"
 							src="~/assets/FLLM-Agent-Light.svg"
 						/>
 						<Dropdown
@@ -55,7 +55,7 @@
 							:options="agentOptionsGroup"
 							option-group-label="label"
 							option-group-children="items"
-							optionDisabled="disabled"
+							option-disabled="disabled"
 							option-label="label"
 							placeholder="--Select--"
 							@change="handleAgentChange"

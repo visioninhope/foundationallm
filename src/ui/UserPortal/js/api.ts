@@ -5,7 +5,6 @@ import type {
 	CompletionPrompt,
 	Agent,
 	OrchestrationRequest,
-	OrchestrationSettings,
 } from '@/js/types';
 import { getMsalInstance } from '@/js/auth';
 
@@ -64,7 +63,7 @@ export default {
 		// }
 
 		const bearerToken = await this.getBearerToken();
-		options.headers['Authorization'] = `Bearer ${bearerToken}`;
+		options.headers.Authorization = `Bearer ${bearerToken}`;
 
 		return await $fetch(`${this.apiUrl}${url}`, options);
 	},

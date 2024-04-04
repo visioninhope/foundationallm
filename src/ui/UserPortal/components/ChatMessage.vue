@@ -38,7 +38,7 @@
 				<span v-else>{{ displayText }}</span>
 			</div>
 
-			<div class="message__footer" v-if="message.sender !== 'User'">
+			<div v-if="message.sender !== 'User'" class="message__footer">
 				<span class="ratings">
 					<!-- Like -->
 					<span>
