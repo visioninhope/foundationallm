@@ -2,6 +2,7 @@ import pytest
 from functools import partial
 from unittest.mock import patch
 from foundationallm.config import Configuration
+from foundationallm.models.agents import AgentVectorizationSettings
 from foundationallm.models.metadata import KnowledgeManagementAgent as KnowledgeManagementAgentMetadata
 from foundationallm.models.metadata import ConversationHistory, Gatekeeper
 from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest
@@ -32,10 +33,13 @@ def test_azure_ai_search_service_completion_request():
                 type=LanguageModelType.OPENAI,
                 provider=LanguageModelProvider.MICROSOFT,
                 temperature=0,
-                use_chat=True
+                use_chat=True,
+                deployment = "completions"
             ),
-            indexing_profile_object_id="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/indexingprofiles/sotu-index",
-            text_embedding_profile_object_id="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/textembeddingprofiles/AzureOpenAI_Embedding",
+            vectorization=AgentVectorizationSettings(
+                indexing_profile_object_id="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/indexingprofiles/sotu-index",
+                text_embedding_profile_object_id="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/textembeddingprofiles/AzureOpenAI_Embedding",
+            ),           
             prompt_object_id="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Prompt/prompts/sotu",
             sessions_enabled=True,
             conversation_history = ConversationHistory(enabled=True, max_history=5),
