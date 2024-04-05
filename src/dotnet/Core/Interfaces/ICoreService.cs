@@ -1,7 +1,5 @@
 ﻿using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Models.Orchestration.Direct;
-using FoundationaLLM.Common.Models.Search;
 
 namespace FoundationaLLM.Core.Interfaces;
 
