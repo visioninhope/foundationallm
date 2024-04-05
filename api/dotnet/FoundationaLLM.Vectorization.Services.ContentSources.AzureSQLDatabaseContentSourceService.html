@@ -212,7 +212,7 @@ Class AzureSQLDatabaseContentSourceService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_Services_ContentSources_AzureSQLDatabaseContentSourceService_ExtractTextAsync_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Vectorization.Services.ContentSources.AzureSQLDatabaseContentSourceService.ExtractTextAsync(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier,System.Threading.CancellationToken)">
   ExtractTextAsync(ContentIdentifier, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/AzureSQLDatabaseContentSourceService.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/ContentSources/AzureSQLDatabaseContentSourceService.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Reads the content of a data source item.</p>
@@ -250,8 +250,9 @@ Class AzureSQLDatabaseContentSourceService  <a class="header-action link-seconda
   <div class="markdown level1 remarks"><p>contentId[0] = the schema.
 contentId[1] = the table.
 contentId[2] = the column containing the contents of the files.
-contentId[3] = the column containing the file names.
-contentId[4] = the name of the file.</p>
+contentId[3] = the column name of the unique identifier for the row of the file.
+contentId[4] = the value of the unique identifier of the file.
+contentId[5] = the file name.</p>
 </div>
 
 
