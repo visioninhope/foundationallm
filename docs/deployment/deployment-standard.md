@@ -56,11 +56,11 @@ Follow the steps below to deploy the solution to your Azure subscription.
     cp Deployment-Manifest.template.json Deployment-Manifest.json
     ```
 
-4. Fill out all required fields in the `Deployment-Manifest.json` file. Refer to this guide for more information on the manifest contents.
+4. Fill out all required fields in the `Deployment-Manifest.json` file. Refer to [this guide](./standard/manifest.md) for more information on the manifest contents.
 
 
 
-
+----
 
 Follow the steps below to deploy the solution to your Azure subscription.
 
