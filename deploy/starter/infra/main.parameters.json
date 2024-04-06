@@ -186,7 +186,7 @@
           "name": "management-ui",
           "useEndpoint": false,
           "hasIngress": true,
-          "image": "ghcr.io/solliancenet/foundationallm/helm/management-ui:0.5.1",
+          "image": "ghcr.io/solliancenet/foundationallm/management-ui:0.5.1",
           "appConfigEnvironmentVarName": "NUXT_APP_CONFIG_ENDPOINT",
           "apiKeySecretName": "foundationallm-apis-managementui-apikey"
         },
