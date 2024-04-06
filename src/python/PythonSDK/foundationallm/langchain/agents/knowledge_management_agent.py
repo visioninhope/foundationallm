@@ -12,7 +12,7 @@ from langchain_core.output_parsers import StrOutputParser
 from foundationallm.config import Configuration
 from foundationallm.langchain.message_history import build_message_history
 from foundationallm.langchain.agents.agent_base import AgentBase
-from foundationallm.langchain.retrievers import RetrieverFactory
+from foundationallm.langchain.retrievers import RetrieverFactory, CitationRetrievalBase
 from foundationallm.models.metadata import ConversationHistory
 from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest, CompletionResponse
 from foundationallm.resources import ResourceProvider
@@ -139,8 +139,14 @@ class KnowledgeManagementAgent(AgentBase):
                     | StrOutputParser()
                 )
 
+                completion = chain.invoke(prompt)
+                citations = []                
+                if isinstance(self.retriever, CitationRetrievalBase):                    
+                    citations = self.retriever.get_document_citations()
+                    
                 return CompletionResponse(
                     completion = chain.invoke(prompt),
+                    citations = citations,
                     user_prompt = prompt,
                     full_prompt = self.full_prompt.text,
                     completion_tokens = cb.completion_tokens,
