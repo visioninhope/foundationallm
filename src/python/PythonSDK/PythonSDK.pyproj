@@ -41,6 +41,8 @@
     <Compile Include="foundationallm\langchain\retrievers\azure_ai_search_service_retriever.py" />
     <Compile Include="foundationallm\langchain\retrievers\__init__.py" />
     <Compile Include="foundationallm\langchain\language_models\openai\openai_model.py" />
+    <Compile Include="foundationallm\models\agents\agent_vectorization_settings.py" />
+    <Compile Include="foundationallm\models\agents\__init__.py" />
     <Compile Include="foundationallm\models\language_models\embedding_model.py" />
     <Compile Include="foundationallm\models\language_models\__init__.py" />
     <Compile Include="foundationallm\models\list_option.py" />
@@ -203,6 +205,7 @@
     <Folder Include="foundationallm\models\" />
     <Folder Include="foundationallm\models\metadata\" />
     <Folder Include="foundationallm\models\language_models\" />
+    <Folder Include="foundationallm\models\agents\" />
     <Folder Include="foundationallm\models\resource_providers\" />
     <Folder Include="foundationallm\models\orchestration\" />
     <Folder Include="foundationallm\hubs\" />

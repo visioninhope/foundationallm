@@ -1,9 +1,10 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
+using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -85,11 +86,11 @@ namespace FoundationaLLM.Vectorization.Handlers
 
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IIndexingService>>()
                 ?? throw new VectorizationException($"Could not retrieve the indexing service factory instance.");
-            var (Service, VectorizationProfile) = serviceFactory.GetServiceWithProfile(_parameters["indexing_profile_name"]);
+            var (Service, VectorizationProfile) = serviceFactory.GetServiceWithResource(_parameters["indexing_profile_name"]);
 
             var indexingResult = await Service.IndexEmbeddingsAsync(
                 embeddedContent,
-                VectorizationProfile.Settings!["IndexName"]);
+                ((IndexingProfile)VectorizationProfile).Settings!["IndexName"]);
 
             state.AddOrReplaceIndexReferences(indexingResult);
 

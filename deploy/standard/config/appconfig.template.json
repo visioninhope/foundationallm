@@ -15,17 +15,17 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AuthenticationType",
-        "value": "ConnectionString",
+        "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AccountName",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:ConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-storage-connectionstring\"}",
+        "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AuthenticationType",
+        "value": "AzureIdentity",
         "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "content_type": "",
         "tags": {}
       },
       {
@@ -37,7 +37,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:AgentFactoryAPI:APIUrl",
-        "value": "http://foundationallm-agent-factory-api/agentfactory",
+        "value": "http://agent-factory-api/agentfactory",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -65,13 +65,13 @@
       },
       {
         "key": "FoundationaLLM:APIs:AgentHubAPI:APIUrl",
-        "value": "http://foundationallm-agent-hub-api/agenthub",
+        "value": "http://agent-hub-api/agenthub",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:APIs:AgentHubAPI:APIScope",
+        "key": "FoundationaLLM:APIs:AuthorizationAPI:APIScope",
         "value": "{{authorizationApiScope}}",
         "label": null,
         "content_type": "",
@@ -86,7 +86,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:AuthorizationAPI:APIUrl",
-        "value": "http://foundationallm-authorization-api/authorization",
+        "value": "http://authorization-api/authorization",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -121,7 +121,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:DataSourceHubAPI:APIUrl",
-        "value": "http://foundationallm-data-source-hub-api/datasourcehub",
+        "value": "http://data-source-hub-api/datasourcehub",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -142,7 +142,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:GatekeeperAPI:APIUrl",
-        "value": "http://foundationallm-gatekeeper-api/gatekeeper",
+        "value": "http://gatekeeper-api/gatekeeper",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -184,7 +184,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIUrl",
-        "value": "http://foundationallm-gatekeeper-integration-api/gatekeeperintegration",
+        "value": "http://gatekeeper-integration-api/gatekeeperintegration",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -205,7 +205,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:LangChainAPI:APIUrl",
-        "value": "http://foundationallm-langchain-api/langchain",
+        "value": "http://langchain-api/langchain",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -232,17 +232,17 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AuthenticationType",
-        "value": "ConnectionString",
+        "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AccountName",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:ConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-storage-connectionstring\"}",
+        "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AuthenticationType",
+        "value": "AzureIdentity",
         "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "content_type": "",
         "tags": {}
       },
       {
@@ -254,7 +254,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:PromptHubAPI:APIUrl",
-        "value": "http://foundationallm-prompt-hub-api/prompthub",
+        "value": "http://prompt-hub-api/prompthub",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -275,7 +275,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:SemanticKernelAPI:APIUrl",
-        "value": "http://foundationallm-semantic-kernel-api/semantickernel",
+        "value": "http://semantic-kernel-api/semantickernel",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -331,7 +331,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:VectorizationWorker:APIUrl",
-        "value": "http://foundationallm-vectorization-job/vectorization",
+        "value": "http://vectorization-job/vectorization",
         "label": null,
         "content_type": null,
         "tags": {}
@@ -659,17 +659,17 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:AuthenticationType",
-        "value": "ConnectionString",
+        "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:AccountName",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:ConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-configuration-resourceprovider-storage-connectionstring\"}",
+        "key": "FoundationaLLM:Configuration:ResourceProviderService:Storage:AuthenticationType",
+        "value": "AzureIdentity",
         "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "content_type": "",
         "tags": {}
       },
       {
@@ -785,17 +785,17 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:DataSource:ResourceProviderService:Storage:AuthenticationType",
-        "value": "ConnectionString",
+        "key": "FoundationaLLM:DataSource:ResourceProviderService:Storage:AccountName",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:DataSource:ResourceProviderService:Storage:ConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-datasource-resourceprovider-storage-connectionstring\"}",
+        "key": "FoundationaLLM:DataSource:ResourceProviderService:Storage:AuthenticationType",
+        "value": "AzureIdentity",
         "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "content_type": "",
         "tags": {}
       },
       {
@@ -1129,7 +1129,7 @@
       },
       {
         "key": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
-        "value": "APIKey",
+        "value": "AzureIdentity",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -1170,17 +1170,17 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType",
-        "value": "ConnectionString",
+        "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:AccountName",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-storage-connectionstring\"}",
+        "key": "FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType",
+        "value": "AzureIdentity",
         "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "content_type": "",
         "tags": {}
       },
       {
@@ -1219,17 +1219,17 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType",
-        "value": "ConnectionString",
+        "key": "FoundationaLLM:Vectorization:StateService:Storage:AccountName",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Vectorization:StateService:Storage:ConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-storage-connectionstring\"}",
+        "key": "FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType",
+        "value": "AzureIdentity",
         "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "content_type": "",
         "tags": {}
       },
       {

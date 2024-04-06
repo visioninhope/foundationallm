@@ -1,7 +1,8 @@
 ﻿using FluentValidation;
 using FoundationaLLM.Agent.ResourceProviders;
 using FoundationaLLM.Agent.Validation.Metadata;
-using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Configuration.Instance;
@@ -57,6 +58,7 @@ namespace FoundationaLLM
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
+                    sp,
                     sp.GetRequiredService<ILoggerFactory>()));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }

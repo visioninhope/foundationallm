@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
@@ -49,6 +49,7 @@ namespace FoundationaLLM
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
+                    sp,
                     sp.GetRequiredService<ILogger<PromptResourceProviderService>>()));
 
             builder.Services.ActivateSingleton<IResourceProviderService>();

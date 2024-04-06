@@ -43,22 +43,28 @@ class KnowledgeManagementAgent(AgentBase):
         resource_provider : ResourceProvider
             Resource provider for retrieving embedding and indexing profiles.        
         """       
-        self.llm = llm.get_completion_model(completion_request.agent.language_model)       
-       
+        self.llm = llm.get_completion_model(completion_request.agent.language_model)
+
+        self.prompt_prefix = None
+        self.prompt_suffix = None
+        prompt = resource_provider.get_resource(completion_request.agent.prompt_object_id)
+        if prompt is not None:
+            self.prompt_prefix = prompt.prefix
+            self.prompt_suffix = prompt.suffix
+        
+        self.conversation_history = completion_request.agent.conversation_history
+        self.message_history = completion_request.message_history
+
+        self.full_prompt = ""
+
         retriever_factory = RetrieverFactory(
-                        indexing_profile_object_id = completion_request.agent.indexing_profile_object_id,
-                        text_embedding_profile_object_id= completion_request.agent.text_embedding_profile_object_id,
+                        indexing_profile_object_id = completion_request.agent.vectorization.indexing_profile_object_id,
+                        text_embedding_profile_object_id= completion_request.agent.vectorization.text_embedding_profile_object_id,
                         config = config,
                         resource_provider = resource_provider,
                         settings = completion_request.settings)
 
         self.retriever = retriever_factory.get_retriever()
-        self.agent_prompt = resource_provider.get_resource(completion_request.agent.prompt_object_id).prefix
-        conversation_history: ConversationHistory = completion_request.agent.conversation_history
-        self.message_history_enabled = conversation_history.enabled
-        self.message_history_count = conversation_history.max_history        
-        self.message_history = completion_request.message_history        
-        self.full_prompt = ""
 
     def __format_docs(self, docs:List[Document]) -> str:
         """
@@ -97,31 +103,50 @@ class KnowledgeManagementAgent(AgentBase):
         -------
         CompletionResponse
             Returns a CompletionResponse with the generated summary, the user_prompt,
-            generated full prompt with context
-            and token utilization and execution cost details.
+            generated full prompt with context and token utilization and execution cost details.
         """
-        with get_openai_callback() as cb:  
-            prompt_builder = self.agent_prompt
-            if self.message_history_enabled == True:
-                prompt_builder = prompt_builder + build_message_history(self.message_history, self.message_history_count)
-            prompt_builder = prompt_builder + "\n\nQuestion: {question}\n\nContext: {context}\n\nAnswer:"            
-            prompt_template = PromptTemplate.from_template(prompt_builder)
+        with get_openai_callback() as cb:
+            try:
+                prompt_builder = ''
 
-            # Compose LCEL chain
-            chain = (
-                { "context": self.retriever | self.__format_docs, "question": RunnablePassthrough() }
-                | prompt_template
-                | RunnableLambda(self.__record_full_prompt)
-                | self.llm
-                | StrOutputParser()
-            )
+                # Add the prefix, if it exists.
+                if self.prompt_prefix is not None:
+                    prompt_builder = f'{self.prompt_prefix}\n\n'
 
-            return CompletionResponse(
-                completion = chain.invoke(prompt),
-                user_prompt = prompt,
-                full_prompt = self.full_prompt.text,
-                completion_tokens = cb.completion_tokens,
-                prompt_tokens = cb.prompt_tokens,
-                total_tokens = cb.total_tokens,
-                total_cost = cb.total_cost
-            )
+                # Add the message history, if it exists.
+                if self.conversation_history.enabled:
+                    prompt_builder += build_message_history(self.message_history, self.conversation_history.max_history)
+
+                # Insert the context into the template.
+                prompt_builder += 'Context:\n{context}'    
+
+                # Add the suffix, if it exists.
+                if self.prompt_suffix is not None:
+                    prompt_builder += f'\n\n{self.prompt_suffix}'
+
+                # Insert the user prompt into the template.
+                prompt_builder += "\n\nQuestion: {question}"
+
+                # Create the prompt template.
+                prompt_template = PromptTemplate.from_template(prompt_builder)
+
+                # Compose LCEL chain
+                chain = (
+                    { "context": self.retriever | self.__format_docs, "question": RunnablePassthrough() }
+                    | prompt_template
+                    | RunnableLambda(self.__record_full_prompt)
+                    | self.llm
+                    | StrOutputParser()
+                )
+
+                return CompletionResponse(
+                    completion = chain.invoke(prompt),
+                    user_prompt = prompt,
+                    full_prompt = self.full_prompt.text,
+                    completion_tokens = cb.completion_tokens,
+                    prompt_tokens = cb.prompt_tokens,
+                    total_tokens = cb.total_tokens,
+                    total_cost = cb.total_cost
+                )
+            except Exception as e:
+                raise e

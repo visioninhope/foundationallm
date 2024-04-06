@@ -1,6 +1,6 @@
-﻿using FoundationaLLM.Common.Models.ResourceProvider;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.DataSource.Constants;
 using FoundationaLLM.DataSource.Models;
 
 namespace FoundationaLLM.DataSource.ResourceProviders
@@ -28,6 +28,9 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                     Actions = [
                             new ResourceTypeAction(DataSourceResourceProviderActions.CheckName, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
+                            ]),
+                            new ResourceTypeAction(DataSourceResourceProviderActions.Filter, false, true, [
+                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(DataSourceBase)])
                             ])
                         ]
                 }

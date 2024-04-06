@@ -1,14 +1,15 @@
 ﻿using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
-using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.Prompt.Constants;
 using FoundationaLLM.Prompt.Models.Metadata;
 using FoundationaLLM.Prompt.Models.Resources;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +27,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
     /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
     public class PromptResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
@@ -33,6 +35,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Prompt)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
+        IServiceProvider serviceProvider,
         ILogger<PromptResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -40,6 +43,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             storageService,
             eventService,
             resourceValidatorFactory,
+            serviceProvider,
             logger)
     {
         /// <inheritdoc/>
@@ -84,7 +88,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 PromptResourceTypeNames.Prompts => await LoadPrompts(resourcePath.ResourceTypeInstances[0]),
@@ -138,7 +142,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource) =>
+        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 PromptResourceTypeNames.Prompts => await UpdatePrompt(resourcePath, serializedResource),
@@ -150,33 +154,32 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         private async Task<ResourceProviderUpsertResult> UpdatePrompt(ResourcePath resourcePath, string serializedPrompt)
         {
-            var promptBase = JsonSerializer.Deserialize<PromptBase>(serializedPrompt)
+            var prompt = JsonSerializer.Deserialize<PromptBase>(serializedPrompt)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
 
-            if (_promptReferences.TryGetValue(promptBase.Name!, out var existingPromptReference)
+            if (_promptReferences.TryGetValue(prompt.Name!, out var existingPromptReference)
                 && existingPromptReference!.Deleted)
                 throw new ResourceProviderException($"The prompt resource {existingPromptReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            if (resourcePath.ResourceTypeInstances[0].ResourceId != promptBase.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != prompt.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
             var promptReference = new PromptReference
             {
-                Name = promptBase.Name!,
-                Type = promptBase.Type!,
-                Filename = $"/{_name}/{promptBase.Name}.json",
+                Name = prompt.Name!,
+                Type = prompt.Type!,
+                Filename = $"/{_name}/{prompt.Name}.json",
                 Deleted = false
             };
 
-            var prompt = JsonSerializer.Deserialize(serializedPrompt, promptReference.PromptType, _serializerSettings);
-            (prompt as PromptBase)!.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+            prompt.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 promptReference.Filename,
-                JsonSerializer.Serialize(prompt, promptReference.PromptType, _serializerSettings),
+                JsonSerializer.Serialize<PromptBase>(prompt, _serializerSettings),
                 default,
                 default);
 
@@ -199,7 +202,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction) =>
+        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances.Last().ResourceType switch
             {
                 PromptResourceTypeNames.Prompts => resourcePath.ResourceTypeInstances.Last().Action switch
@@ -236,7 +239,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task DeleteResourceAsync(ResourcePath resourcePath)
+        protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
             switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
             {

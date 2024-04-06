@@ -6,8 +6,9 @@ import type {
 	AppConfigUnion,
 	AgentIndex,
 	AgentGatekeeper,
+	FilterRequest,
 	CreateAgentRequest,
-	AgentCheckNameResponse,
+	CheckNameResponse,
 	Prompt,
 	TextPartitioningProfile,
 	TextEmbeddingProfile,
@@ -83,8 +84,48 @@ export default {
 	},
 
 	// Data sources
-	async getAgentDataSources(): Promise<DataSource[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources?api-version=${this.apiVersion}`) as DataSource[];
+	async checkDataSourceName(name: string, type: string): Promise<CheckNameResponse> {
+		const payload = {
+			name,
+			type: type,
+		};
+
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/checkname?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: payload,
+		});
+	},
+
+	async getDefaultDataSource(): Promise<DataSource | null> {
+		const payload: FilterRequest = {
+			default: true
+		};
+
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/filter?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: payload,
+		});
+
+		if (data && data.length > 0) {
+			return data[0] as DataSource;
+		} else {
+			return null;
+		}
+	},
+	
+	async getAgentDataSources(addDefaultOption: boolean = false): Promise<DataSource[]> {
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources?api-version=${this.apiVersion}`) as DataSource[];
+		if (addDefaultOption) {
+			const defaultDataSource: DataSource = {
+				name: "Select default data source",
+				type: "DEFAULT",
+				object_id: "",
+				resolved_configuration_references: {},
+				configuration_references: {},
+			};
+			data.unshift(defaultDataSource);
+		}
+		return data;
 	},
 
 	async getDataSource(dataSourceId: string): Promise<DataSource> {
@@ -196,17 +237,44 @@ export default {
 	},
 
 	// Indexes
-	async getAgentIndexes(): Promise<AgentIndex[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingprofiles?api-version=${this.apiVersion}`);
+	async getAgentIndexes(addDefaultOption: boolean = false): Promise<AgentIndex[]> {
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles?api-version=${this.apiVersion}`);
+		if (addDefaultOption) {
+			const defaultAgentIndex: AgentIndex = {
+				name: "Select default index source",
+				object_id: "",
+				settings: {},
+				configuration_references: {},
+			};
+			data.unshift(defaultAgentIndex);
+		}
+		return data;
+	},
+
+	async getDefaultAgentIndex(): Promise<AgentIndex | null> {
+		const payload: FilterRequest = {
+			default: true
+		};
+
+		const data = await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles/filter?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: payload,
+		});
+
+		if (data && data.length > 0) {
+			return data[0] as AgentIndex;
+		} else {
+			return null;
+		}
 	},
 
 	// Text embedding profiles
 	async getTextEmbeddingProfiles(): Promise<TextEmbeddingProfile[]> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textembeddingprofiles?api-version=${this.apiVersion}`);
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles?api-version=${this.apiVersion}`);
 	},
 
 	// Agents
-	async checkAgentName(name: string, agentType: string): Promise<AgentCheckNameResponse> {
+	async checkAgentName(name: string, agentType: string): Promise<CheckNameResponse> {
 		const payload = {
 			name,
 			type: agentType,
@@ -271,7 +339,7 @@ export default {
 	},
 
 	async createOrUpdateTextPartitioningProfile(agentId: string, request: CreateTextPartitioningProfileRequest): Promise<any> {
-		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/${agentId}?api-version=${this.apiVersion}`, {
+		return await this.fetch(`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/${agentId}?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: request,
 		});

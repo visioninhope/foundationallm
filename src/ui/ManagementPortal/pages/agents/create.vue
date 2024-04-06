@@ -20,7 +20,7 @@
 				<div class="input-wrapper">
 					<InputText v-model="agentName" placeholder="Enter agent name" type="text" class="w-100" @input="handleNameInput" :disabled="editAgent" />
 					<span v-if="nameValidationStatus === 'valid'" class="icon valid" title="Name is available">✔️</span>
-							<span v-else-if="nameValidationStatus === 'invalid'" class="icon invalid" :title="validationMessage">❌</span>
+					<span v-else-if="nameValidationStatus === 'invalid'" class="icon invalid" :title="validationMessage">❌</span>
 				</div>
 			</div>
 			<div class="span-2">
@@ -66,79 +66,112 @@
 			<!-- Knowledge source -->
 			<div class="step-section-header span-2">Knowledge Source</div>
 
-			<div class="step-header">Where is the data?</div>
+			<div class="step-header span-2">Do you want this agent to have a dedicated pipeline?</div>
+
+			<div class="span-2">
+				<div class="d-flex align-center mt-2">
+					<span>
+						<ToggleButton
+							v-model="dedicated_pipeline"
+							onLabel="Yes"
+							onIcon="pi pi-check-circle"
+							offLabel="No"
+							offIcon="pi pi-times-circle"
+						/>
+					</span>
+				</div>
+			</div>
+
+			<div v-if="dedicated_pipeline">
+				<div class="step-header">Where is the data?</div>
+			</div>
 			<div class="step-header">Where should the data be indexed?</div>
+			<div v-if="!dedicated_pipeline">
+				<div class="step-header">How should the data be processed for indexing?</div>
+			</div>
 
 			<!-- Data source -->
-			<CreateAgentStepItem v-model="editDataSource">
-				<template v-if="selectedDataSource">
-					<div class="step-container__header">{{ selectedDataSource.content_source }}</div>
-					<div>
-						<span class="step-option__header">Name:</span>
-						<span>{{ selectedDataSource.name }}</span>
-					</div>
-					<!-- <div>
-						<span class="step-option__header">Container name:</span>
-						<span>{{ selectedDataSource.Container.Name }}</span>
-					</div> -->
-
-					<!-- <div>
-						<span class="step-option__header">Data Format(s):</span>
-						<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
-							{{ format }}
-						</span>
-					</div> -->
-				</template>
-				<template v-else>Please select a data source.</template>
-
-				<template #edit>
-					<div class="step-container__edit__header">Please select a data source.</div>
-
-					<div v-for="(group, type) in groupedDataSources" :key="type">
-
-						<div class="step-container__edit__group-header">{{ type }}</div>
-
-						<div
-							v-for="dataSource in group"
-							:key="dataSource.name"
-							class="step-container__edit__option"
-							:class="{
-								'step-container__edit__option--selected':
-									dataSource.name === selectedDataSource?.name,
-							}"
-							@click.stop="handleDataSourceSelected(dataSource)"
-						>
-							<div>
+			<div v-if="dedicated_pipeline">
+				<CreateAgentStepItem v-model="editDataSource">
+					<template v-if="selectedDataSource">
+						<div class="step-container__header">{{ selectedDataSource.type }}</div>
+						<div>
+							<div v-if="selectedDataSource.object_id !== ''">
 								<span class="step-option__header">Name:</span>
-								<span>{{ dataSource.name }}</span>
 							</div>
-							<!-- <div>
-								<span class="step-option__header">Container name:</span>
-								<span>{{ dataSource.Container.Name }}</span>
-							</div> -->
-
-							<!-- <div>
-								<span class="step-option__header">Data Format(s):</span>
-								<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
-									{{ format }}
-								</span>
-							</div> -->
+							<span>{{ selectedDataSource.name }}</span>
 						</div>
-					</div>
-				</template>
-			</CreateAgentStepItem>
+						<!-- <div>
+							<span class="step-option__header">Container name:</span>
+							<span>{{ selectedDataSource.Container.Name }}</span>
+						</div> -->
+
+						<!-- <div>
+							<span class="step-option__header">Data Format(s):</span>
+							<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
+								{{ format }}
+							</span>
+						</div> -->
+					</template>
+					<template v-else>Please select a data source.</template>
+
+					<template #edit>
+						<div class="step-container__edit__header">Please select a data source.</div>
+
+						<div v-for="(group, type) in groupedDataSources" :key="type">
+
+							<div class="step-container__edit__group-header">{{ type }}</div>
+
+							<div
+								v-for="dataSource in group"
+								:key="dataSource.name"
+								class="step-container__edit__option"
+								:class="{
+									'step-container__edit__option--selected':
+										dataSource.name === selectedDataSource?.name,
+								}"
+								@click.stop="handleDataSourceSelected(dataSource)"
+							>
+								<div>
+									<div v-if="dataSource.object_id !== ''">
+										<span  class="step-option__header">Name:</span>
+									</div>
+									<span>{{ dataSource.name }}</span>
+								</div>
+								<!-- <div>
+									<span class="step-option__header">Container name:</span>
+									<span>{{ dataSource.Container.Name }}</span>
+								</div> -->
+
+								<!-- <div>
+									<span class="step-option__header">Data Format(s):</span>
+									<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
+										{{ format }}
+									</span>
+								</div> -->
+							</div>
+						</div>
+					</template>
+				</CreateAgentStepItem>
+			</div>
 
 			<!-- Index source -->
 			<CreateAgentStepItem v-model="editIndexSource">
 				<template v-if="selectedIndexSource">
-					<div class="step-container__header">{{ selectedIndexSource.name }}</div>
-					<div>
-						<span class="step-option__header">URL:</span>
-						<span>{{ selectedIndexSource.configuration_references.Endpoint }}</span>
+					<div v-if="selectedIndexSource.object_id !== ''">
+						<div class="step-container__header">{{ selectedIndexSource.name }}</div>
+						<div>
+							<span class="step-option__header">URL:</span>
+							<span>{{ selectedIndexSource.configuration_references.Endpoint }}</span>
+						</div>
+						<div>
+							<span class="step-option__header">Index Name:</span>
+							<span>{{ selectedIndexSource.settings.IndexName }}</span>
+						</div>
 					</div>
-					<div>
-						<span class="step-option__header">Index Name:</span>
-						<span>{{ selectedIndexSource.settings.IndexName }}</span>
+					<div v-else>
+						<div class="step-container__header">DEFAULT</div>
+						{{ selectedIndexSource.name }}
 					</div>
 				</template>
 				<template v-else>Please select an index source.</template>
@@ -155,21 +188,31 @@
 						}"
 						@click.stop="handleIndexSourceSelected(indexSource)"
 					>
-						<div class="step-container__header">{{ indexSource.name }}</div>
-						<div>
-							<span class="step-option__header">URL:</span>
-							<span>{{ indexSource.configuration_references.Endpoint }}</span>
+						<div v-if="indexSource.object_id !== ''">
+							<div class="step-container__header">{{ indexSource.name }}</div>
+							<div v-if="indexSource.configuration_references.Endpoint">
+								<span class="step-option__header">URL:</span>
+								<span>{{ indexSource.configuration_references.Endpoint }}</span>
+							</div>
+							<div v-if="indexSource.settings.IndexName">
+								<span class="step-option__header">Index Name:</span>
+								<span>{{ indexSource.settings.IndexName }}</span>
+							</div>
 						</div>
-						<div>
-							<span class="step-option__header">Index Name:</span>
-							<span>{{ indexSource.settings.IndexName }}</span>
+						<div v-else>
+							<div class="step-container__header">DEFAULT</div>
+							{{ indexSource.name }}
 						</div>
 					</div>
 				</template>
 			</CreateAgentStepItem>
 
-			<div class="step-header">How should the data be processed for indexing?</div>
-			<div class="step-header">When should the data be indexed?</div>
+			<div v-if="dedicated_pipeline">
+				<div class="step-header">How should the data be processed for indexing?</div>
+			</div>
+			<div v-if="dedicated_pipeline">
+				<div class="step-header">When should the data be indexed?</div>
+			</div>
 
 			<!-- Process indexing -->
 			<CreateAgentStepItem>
@@ -201,47 +244,47 @@
 			</CreateAgentStepItem>
 
 			<!-- Trigger -->
-			<CreateAgentStepItem>
-				<div class="step-container__header">Trigger</div>
-				<div>Runs every time a new tile is added to the data source.</div>
-
-				<div class="mt-2">
-					<span class="step-option__header">Frequency:</span>
-					<span>{{ triggerFrequency.label }}</span>
-				</div>
-
-				<div v-if="triggerFrequency.value == 2 && triggerFrequencyScheduled">
-					<span class="step-option__header">Schedule:</span>
-					<span>{{ triggerFrequencyScheduled.label }}</span>
-				</div>
-
-				<template #edit>
+			<div v-if="dedicated_pipeline">
+				<CreateAgentStepItem>
 					<div class="step-container__header">Trigger</div>
-					<div>Runs every time a new tile is added to the data source.</div>
+					<div>Runs every time a new item is added to the data source.</div>
 
 					<div class="mt-2">
 						<span class="step-option__header">Frequency:</span>
-						<Dropdown
-							v-model="triggerFrequency"
-							class="dropdown--agent"
-							:options="triggerFrequencyOptions"
-							option-label="label"
-							placeholder="--Select--"
-						/>
+						<span>{{ triggerFrequency }}</span>
 					</div>
 
-					<div v-if="triggerFrequency.value === 2" class="mt-2">
-						<span class="step-option__header">Select schedule:</span>
-						<Dropdown
-							v-model="triggerFrequencyScheduled"
-							class="dropdown--agent"
-							:options="triggerFrequencyScheduledOptions"
-							option-label="label"
-							placeholder="--Select--"
-						/>
+					<div v-if="triggerFrequency === 'Schedule' && triggerFrequencyScheduled">
+						<span class="step-option__header">Schedule:</span>
+						<span>{{ triggerFrequencyScheduled }}</span>
 					</div>
-				</template>
-			</CreateAgentStepItem>
+
+					<template #edit>
+						<div class="step-container__header">Trigger</div>
+						<div>Runs every time a new item is added to the data source.</div>
+
+						<div class="mt-2">
+							<span class="step-option__header">Frequency:</span>
+							<Dropdown
+								v-model="triggerFrequency"
+								class="dropdown--agent"
+								:options="triggerFrequencyOptions"
+								placeholder="--Select--"
+							/>
+						</div>
+
+						<div v-if="triggerFrequency === 'Schedule'" class="mt-2">
+							<span class="step-option__header">Select schedule:</span>
+							<Dropdown
+								v-model="triggerFrequencyScheduled"
+								class="dropdown--agent"
+								:options="triggerFrequencyScheduledOptions"
+								placeholder="--Select--"
+							/>
+						</div>
+					</template>
+				</CreateAgentStepItem>
+			</div>
 
 			<!-- Agent configuration -->
 			<div class="step-section-header span-2">Agent Configuration</div>
@@ -370,13 +413,32 @@
 				</template>
 			</CreateAgentStepItem>
 
+			<!-- Orchestrator -->
+			<div class="step-header span-2">Which orchestrator should the agent use?</div>
+			<div class="span-2">
+				<Dropdown
+					v-model="orchestrator"
+					:options="orchestratorOptions"
+					option-label="label"
+					option-value="value"
+					placeholder="--Select--"
+					class="dropdown--agent"
+				/>
+			</div>
+
 			<!-- System prompt -->
 			<div class="step-section-header span-2">System Prompt</div>
 
 			<div class="step-header">What is the persona of the agent?</div>
 
 			<div class="span-2">
-				<Textarea v-model="systemPrompt" class="w-100" auto-resize rows="5" type="text" />
+				<Textarea
+					v-model="systemPrompt"
+					class="w-100"
+					auto-resize rows="5"
+					type="text"
+					placeholder="You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional."
+				/>
 			</div>
 
 			<div class="button-container column-2 justify-self-end">
@@ -412,8 +474,7 @@ import type {
 	// AgentCheckNameResponse,
 } from '@/js/types';
 
-const defaultSystemPrompt: string =
-	'You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional.';
+const defaultSystemPrompt: string = '';
 
 const defaultFormValues = {
 	agentName: '',
@@ -421,7 +482,9 @@ const defaultFormValues = {
 	object_id: '',
 	text_partitioning_profile_object_id: '',
 	text_embedding_profile_object_id: '',
+	vectorization_data_pipeline_object_id: '',
 	prompt_object_id: '',
+	dedicated_pipeline: true,
 	agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 	editDataSource: false as boolean,
@@ -433,8 +496,8 @@ const defaultFormValues = {
 	chunkSize: 500,
 	overlapSize: 50,
 
-	triggerFrequency: { label: 'Manual', value: 1 },
-	triggerFrequencyScheduled: null,
+	triggerFrequency: 'Event' as string,
+	triggerFrequencyScheduled: '' as string,
 
 	conversationHistory: false as boolean,
 	conversationMaxMessages: 5 as number,
@@ -471,43 +534,16 @@ export default {
 			dataSources: [] as AgentDataSource[],
 			indexSources: [] as AgentIndex[],
 
-			triggerFrequencyOptions: [
+			orchestratorOptions: [
 				{
-					label: 'Manual',
-					value: 1,
+					label: 'LangChain',
+					value: 'LangChain',
 				},
-				// {
-				// 	label: 'Auto',
-				// 	value: null,
-				// },
-				// {
-				// 	label: 'Scheduled',
-				// 	value: 2,
-				// },
 			],
+			
+			triggerFrequencyOptions: ['Event', 'Manual'],
 
-			triggerFrequencyScheduledOptions: [
-				{
-					label: 'Never',
-					value: null,
-				},
-				{
-					label: 'Every 30 minutes',
-					value: 1,
-				},
-				{
-					label: 'Hourly',
-					value: 2,
-				},
-				{
-					label: 'Every 12 hours',
-					value: 2,
-				},
-				{
-					label: 'Daily',
-					value: 2,
-				},
-			],
+			triggerFrequencyScheduledOptions: ['Never', 'Every 30 minutes', 'Hourly', 'Every 12 hours', 'Daily'],
 
 			gatekeeperContentSafetyOptions: [
 				{
@@ -537,11 +573,11 @@ export default {
 		groupedDataSources() {
 			const grouped = {};
 			this.dataSources.forEach((dataSource) => {
-				if (!grouped[dataSource.content_source]) {
-					grouped[dataSource.content_source] = [];
+				if (!grouped[dataSource.type]) {
+					grouped[dataSource.type] = [];
 				}
 
-				grouped[dataSource.content_source].push(dataSource);
+				grouped[dataSource.type].push(dataSource);
 			});
 
 			return grouped;
@@ -555,10 +591,10 @@ export default {
 
 		try {
 			this.loadingStatusText = 'Retrieving indexes...';
-			this.indexSources = await api.getAgentIndexes();
+			this.indexSources = await api.getAgentIndexes(true);
 
 			this.loadingStatusText = 'Retrieving data sources...';
-			this.dataSources = await api.getAgentDataSources();
+			this.dataSources = await api.getAgentDataSources(true);
 		} catch (error) {
 			this.$toast.add({
 				severity: 'error',
@@ -569,43 +605,51 @@ export default {
 		if (this.editAgent) {
 			this.loadingStatusText = `Retrieving agent "${this.editAgent}"...`;
 			const agent = await api.getAgent(this.editAgent);
-			this.loadingStatusText = `Retrieving text partitioning profile...`;
-			const textPartitioningProfile = await api.getTextPartitioningProfile(agent.text_partitioning_profile_object_id);
-			if (textPartitioningProfile) {
-				this.chunkSize = Number(textPartitioningProfile.settings.ChunkSizeTokens);
-				this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
+			if (agent.vectorization && agent.vectorization.text_partitioning_profile_object_id) {
+				this.loadingStatusText = `Retrieving text partitioning profile...`;
+				const textPartitioningProfile = await api.getTextPartitioningProfile(agent.vectorization.text_partitioning_profile_object_id);
+				if (textPartitioningProfile) {
+					this.chunkSize = Number(textPartitioningProfile.settings.ChunkSizeTokens);
+					this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
+				}
 			}
-			this.loadingStatusText = `Retrieving prompt...`;
-			const prompt = await api.getPrompt(agent.prompt_object_id);
-			if (prompt) {
-				this.systemPrompt = prompt.prefix;
+			if (agent.prompt_object_id !== '') {
+				this.loadingStatusText = `Retrieving prompt...`;
+				const prompt = await api.getPrompt(agent.prompt_object_id);
+				if (prompt) {
+					this.systemPrompt = prompt.prefix;
+				}
 			}
 			this.loadingStatusText = `Mapping agent values to form...`;
 			this.mapAgentToForm(agent);
 		}
 
+		this.debouncedCheckName = debounce(this.checkName, 500);
+
 		this.loading = false;
 	},
 
 	methods: {
-		debouncedCheckName() {
-			return debounce(this.checkName, 500);
-		},
-
 		mapAgentToForm(agent: Agent) {
 			this.agentName = agent.name || this.agentName;
 			this.agentDescription = agent.description || this.agentDescription;
 			this.agentType = agent.type || this.agentType;
 			this.object_id = agent.object_id || this.object_id;
-			this.orchestrator = agent.orchestrator || this.orchestrator;
-			this.text_embedding_profile_object_id = agent.text_embedding_profile_object_id || this.text_embedding_profile_object_id;
+			this.orchestrator = agent.orchestration_settings?.orchestrator || this.orchestrator;
+			if (agent.vectorization) {
+				this.dedicated_pipeline = agent.vectorization.dedicated_pipeline;
+			}
+			this.text_embedding_profile_object_id = agent.vectorization?.text_embedding_profile_object_id || this.text_embedding_profile_object_id;
+
+			this.triggerFrequency = agent.vectorization?.trigger_type || this.triggerFrequency;
+			this.triggerFrequencyScheduled = agent.vectorization?.trigger_cron_schedule || this.triggerFrequencyScheduled;
 
 			this.selectedIndexSource =
-				this.indexSources.find((indexSource) => indexSource.object_id === agent.indexing_profile_object_id) ||
+				this.indexSources.find((indexSource) => indexSource.object_id === agent.vectorization?.indexing_profile_object_id) ||
 				null;
 
 			this.selectedDataSource =
-				this.dataSources.find((dataSource) => dataSource.object_id === agent.content_source_profile_object_id) ||
+				this.dataSources.find((dataSource) => dataSource.object_id === agent.vectorization?.data_source_object_id) ||
 				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
@@ -700,7 +744,9 @@ export default {
 				if (textEmbeddingProfiles.length === 0) {
 					errors.push('No vectorization text embedding profiles found.');
 				}
-				this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+				else {
+					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+				}
 			}
 
 			// if (!this.selectedDataSource) {
@@ -746,12 +792,33 @@ export default {
 			let successMessage = null;
 			try {
 				// Handle Prompt creation/update.
-				const promptResponse = await api.createOrUpdatePrompt(this.agentName, promptRequest);
-				const promptObjectId = promptResponse.objectId;
+				let promptObjectId = '';
+				if (promptRequest.prefix !== '') {
+					const promptResponse = await api.createOrUpdatePrompt(this.agentName, promptRequest);
+					promptObjectId = promptResponse.objectId;
+				}
 
 				// Handle TextPartitioningProfile creation/update.
 				const tokenTextPartitionResponse = await api.createOrUpdateTextPartitioningProfile(this.agentName, tokenTextPartitionRequest);
 				const textPartitioningProfileObjectId = tokenTextPartitionResponse.objectId;
+
+				// Select the default data source, if any.
+				let data_source_object_id = this.selectedDataSource?.object_id ?? '';
+				if (data_source_object_id === '') {
+					const defaultDataSource = await api.getDefaultDataSource();
+					if (defaultDataSource !== null) {
+						data_source_object_id = defaultDataSource.object_id;
+					}
+				}
+
+				// Select the default indexing profile, if any.
+				let indexing_profile_object_id = this.selectedIndexSource?.object_id ?? '';
+				if (indexing_profile_object_id === '') {
+					const defaultAgentIndex = await api.getDefaultAgentIndex();
+					if (defaultAgentIndex !== null) {
+						indexing_profile_object_id = defaultAgentIndex.object_id;
+					}
+				}
 
 				const agentRequest: CreateAgentRequest = {
 					type: this.agentType,
@@ -759,10 +826,16 @@ export default {
 					description: this.agentDescription,
 					object_id: this.object_id,
 
-					text_embedding_profile_object_id: this.text_embedding_profile_object_id,
-					indexing_profile_object_id: this.selectedIndexSource?.object_id ?? '',
-					text_partitioning_profile_object_id: textPartitioningProfileObjectId,
-					content_source_profile_object_id: this.selectedDataSource?.object_id ?? '',
+					vectorization: {
+						dedicated_pipeline: this.dedicated_pipeline,
+						text_embedding_profile_object_id: this.text_embedding_profile_object_id,
+						indexing_profile_object_id: indexing_profile_object_id,
+						text_partitioning_profile_object_id: textPartitioningProfileObjectId,
+						data_source_object_id: data_source_object_id,
+						vectorization_data_pipeline_object_id: this.vectorization_data_pipeline_object_id,
+						trigger_type: this.triggerFrequency,
+						trigger_cron_schedule: '',
+					},
 
 					conversation_history: {
 						enabled: this.conversationHistory,
@@ -792,7 +865,17 @@ export default {
 					sessions_enabled: true,
 
 					prompt_object_id: promptObjectId,
-					orchestrator: this.orchestrator,
+					orchestration_settings: {
+						orchestrator: this.orchestrator,
+						endpoint_configuration: {
+							endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
+							api_key: 'FoundationaLLM:AzureOpenAI:API:Key'
+						},
+						model_parameters: {
+							temperature: 0,
+							deployment_name: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
+						},
+					},
 				};
 
 				if (this.editAgent) {
@@ -840,7 +923,7 @@ export default {
 }
 
 .steps__loading-overlay {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;

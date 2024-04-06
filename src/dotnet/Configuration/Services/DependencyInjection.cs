@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
@@ -68,6 +68,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IAzureAppConfigurationService>(),
                     sp.GetRequiredService<IAzureKeyVaultService>(),
                     builder.Configuration,
+                    sp,
                     sp.GetRequiredService<ILogger<ConfigurationResourceProviderService>>()));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }

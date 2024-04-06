@@ -1,14 +1,16 @@
 ﻿using Azure.Messaging;
 using FluentValidation;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.DataSource.Constants;
 using FoundationaLLM.DataSource.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +30,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
     /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
     public class DataSourceResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
@@ -35,6 +38,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
+        IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -42,6 +46,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             storageService,
             eventService,
             resourceValidatorFactory,
+            serviceProvider,
             loggerFactory.CreateLogger<DataSourceResourceProviderService>(),
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_DataSource
@@ -52,6 +57,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             DataSourceResourceProviderMetadata.AllowedResourceTypes;
 
         private ConcurrentDictionary<string, DataSourceReference> _dataSourceReferences = [];
+        private string _defaultDataSourceName = string.Empty;
 
         private const string DATA_SOURCE_REFERENCES_FILE_NAME = "_data-source-references.json";
         private const string DATA_SOURCE_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_DataSource}/_data-source-references.json";
@@ -72,6 +78,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
                 _dataSourceReferences = new ConcurrentDictionary<string, DataSourceReference>(
                     dataSourceReferenceStore!.ToDictionary());
+                _defaultDataSourceName = dataSourceReferenceStore.DefaultDataSourceName ?? string.Empty;
             }
             else
             {
@@ -89,7 +96,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 DataSourceResourceTypeNames.DataSources => await LoadDataSources(resourcePath.ResourceTypeInstances[0]),
@@ -144,7 +151,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource) =>
+        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 DataSourceResourceTypeNames.DataSources => await UpdateDataSource(resourcePath, serializedResource),
@@ -156,29 +163,28 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
         private async Task<ResourceProviderUpsertResult> UpdateDataSource(ResourcePath resourcePath, string serializedDataSource)
         {
-            var dataSourceBase = JsonSerializer.Deserialize<DataSourceBase>(serializedDataSource)
+            var dataSource = JsonSerializer.Deserialize<DataSourceBase>(serializedDataSource)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
 
-            if (_dataSourceReferences.TryGetValue(dataSourceBase.Name!, out var existingDataSourceReference)
+            if (_dataSourceReferences.TryGetValue(dataSource.Name!, out var existingDataSourceReference)
                 && existingDataSourceReference!.Deleted)
                 throw new ResourceProviderException($"The data source resource {existingDataSourceReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            if (resourcePath.ResourceTypeInstances[0].ResourceId != dataSourceBase.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != dataSource.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
             var dataSourceReference = new DataSourceReference
             {
-                Name = dataSourceBase.Name!,
-                Type = dataSourceBase.Type!,
-                Filename = $"/{_name}/{dataSourceBase.Name}.json",
+                Name = dataSource.Name!,
+                Type = dataSource.Type!,
+                Filename = $"/{_name}/{dataSource.Name}.json",
                 Deleted = false
             };
 
-            var dataSource = JsonSerializer.Deserialize(serializedDataSource, dataSourceReference.DataSourceType, _serializerSettings);
-            (dataSource as DataSourceBase)!.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+            dataSource.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
             var validator = _resourceValidatorFactory.GetValidator(dataSourceReference.DataSourceType);
             if (validator is IValidator dataSourceValidator)
@@ -195,7 +201,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 dataSourceReference.Filename,
-                JsonSerializer.Serialize(dataSource, dataSourceReference.DataSourceType, _serializerSettings),
+                JsonSerializer.Serialize<DataSourceBase>(dataSource, _serializerSettings),
                 default,
                 default);
 
@@ -218,12 +224,13 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction) =>
+        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances.Last().ResourceType switch
             {
                 DataSourceResourceTypeNames.DataSources => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     DataSourceResourceProviderActions.CheckName => CheckDataSourceName(serializedAction),
+                    DataSourceResourceProviderActions.Filter => await Filter(serializedAction),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -236,7 +243,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         private ResourceNameCheckResult CheckDataSourceName(string serializedAction)
         {
             var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
-            return _dataSourceReferences.Values.Any(ar => ar.Name == resourceName!.Name)
+            return _dataSourceReferences.Values.Any(ar => ar.Name.Equals(resourceName!.Name, StringComparison.OrdinalIgnoreCase))
                 ? new ResourceNameCheckResult
                 {
                     Name = resourceName!.Name,
@@ -252,10 +259,57 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 };
         }
 
+        private async Task<List<DataSourceBase>> Filter(string serializedAction)
+        {
+            var resourceFilter = JsonSerializer.Deserialize<ResourceFilter>(serializedAction) ??
+                                 throw new ResourceProviderException("The object definition is invalid. Please provide a resource filter.",
+                                       StatusCodes.Status400BadRequest);
+            if (resourceFilter.Default.HasValue)
+            {
+                if (resourceFilter.Default.Value)
+                {
+                    if (string.IsNullOrWhiteSpace(_defaultDataSourceName))
+                        throw new ResourceProviderException("The default data source is not set.",
+                            StatusCodes.Status404NotFound);
+
+                    if (!_dataSourceReferences.TryGetValue(_defaultDataSourceName, out var dataSourceReference)
+                        || dataSourceReference.Deleted)
+                        throw new ResourceProviderException(
+                            $"Could not locate the {_defaultDataSourceName} data source resource.",
+                            StatusCodes.Status404NotFound);
+
+                    return [await LoadDataSource(dataSourceReference)];
+                }
+                else
+                {
+                    return
+                    [
+                        .. (await Task.WhenAll(
+                                _dataSourceReferences.Values
+                                          .Where(dsr => !dsr.Deleted && (
+                                              string.IsNullOrWhiteSpace(_defaultDataSourceName) ||
+                                              !dsr.Name.Equals(_defaultDataSourceName, StringComparison.OrdinalIgnoreCase)))
+                                          .Select(dsr => LoadDataSource(dsr))))
+                    ];
+                }
+            }
+            else
+            {
+                // TODO: Apply other filters.
+                return
+                [
+                    .. (await Task.WhenAll(
+                        _dataSourceReferences.Values
+                            .Where(dsr => !dsr.Deleted)
+                            .Select(dsr => LoadDataSource(dsr))))
+                ];
+            }
+        }
+
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task DeleteResourceAsync(ResourcePath resourcePath)
+        protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
             switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
             {
@@ -296,6 +350,24 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #endregion
 
         #endregion
+
+        /// <inheritdoc/>
+        protected override T GetResourceInternal<T>(ResourcePath resourcePath) where T : class {
+            if (resourcePath.ResourceTypeInstances.Count != 1)
+                throw new ResourceProviderException($"Invalid resource path");
+
+            if (typeof(T) != typeof(DataSourceBase))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
+
+            _dataSourceReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var dataSourceReference);
+            if (dataSourceReference == null || dataSourceReference.Deleted)
+                throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+
+            var dataSource = LoadDataSource(dataSourceReference).Result;
+            return dataSource as T
+                ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+        }
+        
 
         #region Event handling
 

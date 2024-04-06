@@ -1,15 +1,18 @@
 ﻿using Azure.Messaging;
 using FluentValidation;
-using FoundationaLLM.Agent.Constants;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +32,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
     /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
     public class AgentResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
@@ -36,6 +40,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
+        IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -43,6 +48,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             storageService,
             eventService,
             resourceValidatorFactory,
+            serviceProvider,
             loggerFactory.CreateLogger<AgentResourceProviderService>(),
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
@@ -55,7 +61,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         private ConcurrentDictionary<string, AgentReference> _agentReferences = [];
 
         private const string AGENT_REFERENCES_FILE_NAME = "_agent-references.json";
-        private const string AGENT_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Agent}/_agent-references.json";
+        private const string AGENT_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Agent}/{AGENT_REFERENCES_FILE_NAME}";
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Agent;
@@ -90,7 +96,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 AgentResourceTypeNames.Agents => await LoadAgents(resourcePath.ResourceTypeInstances[0]),
@@ -154,41 +160,67 @@ namespace FoundationaLLM.Agent.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource) =>
+        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                AgentResourceTypeNames.Agents => await UpdateAgent(resourcePath, serializedResource),
+                AgentResourceTypeNames.Agents => await UpdateAgent(resourcePath, serializedResource, userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateAgent(ResourcePath resourcePath, string serializedAgent)
+        private async Task<ResourceProviderUpsertResult> UpdateAgent(ResourcePath resourcePath, string serializedAgent, UnifiedUserIdentity userIdentity)
         {
-            var agentBase = JsonSerializer.Deserialize<AgentBase>(serializedAgent)
+            var agent = JsonSerializer.Deserialize<AgentBase>(serializedAgent)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
 
-            if (_agentReferences.TryGetValue(agentBase.Name!, out var existingAgentReference)
+            if (_agentReferences.TryGetValue(agent.Name!, out var existingAgentReference)
                 && existingAgentReference!.Deleted)
                 throw new ResourceProviderException($"The agent resource {existingAgentReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            if (resourcePath.ResourceTypeInstances[0].ResourceId != agentBase.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != agent.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
             var agentReference = new AgentReference
             {
-                Name = agentBase.Name!,
-                Type = agentBase.Type!,
-                Filename = $"/{_name}/{agentBase.Name}.json",
+                Name = agent.Name!,
+                Type = agent.Type!,
+                Filename = $"/{_name}/{agent.Name}.json",
                 Deleted = false
             };
 
-            var agent = JsonSerializer.Deserialize(serializedAgent, agentReference.AgentType, _serializerSettings);
-            (agent as AgentBase)!.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+            agent.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+
+            if ((agent is KnowledgeManagementAgent kmAgent)
+                && kmAgent.Vectorization.DedicatedPipeline)
+            {
+                var result = await GetResourceProviderService(ResourceProviderNames.FoundationaLLM_Vectorization)
+                    .HandlePostAsync(
+                        $"/{VectorizationResourceTypeNames.VectorizationPipelines}/{kmAgent.Name}",
+                        JsonSerializer.Serialize<VectorizationPipeline>(new VectorizationPipeline
+                        {
+                            Name = kmAgent.Name,
+                            Active = true,
+                            Description = $"Vectorization data pipeline dedicated to the {kmAgent.Name} agent.",
+                            DataSourceObjectId = kmAgent.Vectorization.DataSourceObjectId!,
+                            TextPartitioningProfileObjectId = kmAgent.Vectorization.TextPartitioningProfileObjectId!,
+                            TextEmbeddingProfileObjectId = kmAgent.Vectorization.TextEmbeddingProfileObjectId!,
+                            IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectId!,
+                            TriggerType = (VectorizationPipelineTriggerType) kmAgent.Vectorization.TriggerType!
+                        }),
+                        userIdentity);
+
+                if ((result is ResourceProviderUpsertResult resourceProviderResult)
+                    && !string.IsNullOrWhiteSpace(resourceProviderResult.ObjectId))
+                    kmAgent.Vectorization.VectorizationDataPipelineObjectId = resourceProviderResult.ObjectId;
+                else
+                    throw new ResourceProviderException("There was an error attempting to create the associated vectorization pipeline for the agent.",
+                        StatusCodes.Status500InternalServerError);
+            }
 
             var validator = _resourceValidatorFactory.GetValidator(agentReference.AgentType);
             if (validator is IValidator agentValidator)
@@ -205,7 +237,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 agentReference.Filename,
-                JsonSerializer.Serialize(agent, agentReference.AgentType, _serializerSettings),
+                JsonSerializer.Serialize<AgentBase>(agent, _serializerSettings),
                 default,
                 default);
 
@@ -228,7 +260,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction) =>
+        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances.Last().ResourceType switch
             {
                 AgentResourceTypeNames.Agents => resourcePath.ResourceTypeInstances.Last().Action switch
@@ -246,7 +278,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         private ResourceNameCheckResult CheckAgentName(string serializedAction)
         {
             var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
-            return _agentReferences.Values.Any(ar => ar.Name == resourceName!.Name)
+            return _agentReferences.Values.Any(ar => ar.Name.Equals(resourceName!.Name, StringComparison.OrdinalIgnoreCase))
                 ? new ResourceNameCheckResult
                 {
                     Name = resourceName!.Name,
@@ -265,7 +297,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task DeleteResourceAsync(ResourcePath resourcePath)
+        protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
             switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
             {

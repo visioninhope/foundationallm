@@ -3,13 +3,30 @@ export type Agent = {
 	object_id: string;
 	description: string;
 	type: 'knowledge-management' | 'analytics';
-	indexing_profile_object_id: string;
-	text_embedding_profile_object_id: string;
-	text_partitioning_profile_object_id: string;
-	content_source_profile_object_id: string;
+	
+	vectorization: {
+		dedicated_pipeline: boolean;
+		indexing_profile_object_id: string;
+		text_embedding_profile_object_id: string;
+		text_partitioning_profile_object_id: string;
+		data_source_object_id: string;
+		vectorization_data_pipeline_object_id: string;
+		trigger_type: string;
+		trigger_cron_schedule: string;
+	};
 
 	sessions_enabled: boolean;
-	orchestrator: string;
+	orchestration_settings: {
+		orchestrator: string;
+		endpoint_configuration: {
+			endpoint: string;
+			api_key: string;
+		};
+		model_parameters: {
+			temperature: number;
+			deployment_name: string;
+		};
+	};
 	conversation_history: {
 		enabled: boolean;
 		max_history: number;
@@ -176,11 +193,15 @@ export type TextEmbeddingProfile = {
 	};
 };
 
-export type AgentCheckNameResponse = {
+export type CheckNameResponse = {
 	type: string;
 	name: string;
 	status: string;
 	message: string;
+};
+
+export type FilterRequest = {
+	default?: boolean
 };
 
 export type AgentGatekeeper = {};
@@ -226,12 +247,30 @@ export type CreateAgentRequest = {
 		version: string;
 		deployment: string;
 	};
-	indexing_profile_object_id: string;
-	text_embedding_profile_object_id: string;
-	content_source_profile_object_id: string;
-	text_partitioning_profile_object_id: string;
+	
+	vectorization: {
+		dedicated_pipeline: boolean;
+		indexing_profile_object_id: string;
+		text_embedding_profile_object_id: string;
+		text_partitioning_profile_object_id: string;
+		data_source_object_id: string;
+		vectorization_data_pipeline_object_id: string;
+		trigger_type: string;
+		trigger_cron_schedule: string;
+	};
+
 	sessions_enabled: boolean;
-	orchestrator: string;
+	orchestration_settings: {
+		orchestrator: string;
+		endpoint_configuration: {
+			endpoint: string;
+			api_key: string;
+		};
+		model_parameters: {
+			temperature: number;
+			deployment_name: string;
+		};
+	};
 	conversation_history: {
 		enabled: boolean;
 		max_history: number;

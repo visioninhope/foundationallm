@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 

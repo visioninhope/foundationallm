@@ -1,9 +1,10 @@
-﻿using Azure;
-using Azure.Messaging;
-using Azure.Security.KeyVault.Secrets;
+﻿using Azure.Messaging;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.AppConfiguration;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
@@ -11,7 +12,6 @@ using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.Configuration.Constants;
 using FoundationaLLM.Configuration.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -34,6 +34,7 @@ namespace FoundationaLLM.Configuration.Services
     /// <param name="appConfigurationService">The <see cref="IAzureAppConfigurationService"/> provding access to the app configuration service.</param>
     /// <param name="keyVaultService">The <see cref="IAzureKeyVaultService"/> providing access to the key vault service.</param>
     /// <param name="configurationManager">The <see cref="IConfigurationManager"/> providing configuration services.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
     public class ConfigurationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
@@ -44,6 +45,7 @@ namespace FoundationaLLM.Configuration.Services
         IAzureAppConfigurationService appConfigurationService,
         IAzureKeyVaultService keyVaultService,
         IConfigurationManager configurationManager,
+        IServiceProvider serviceProvider,
         ILogger<ConfigurationResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -51,6 +53,7 @@ namespace FoundationaLLM.Configuration.Services
             storageService,
             eventService,
             resourceValidatorFactory,
+            serviceProvider,
             logger,
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration
@@ -76,7 +79,7 @@ namespace FoundationaLLM.Configuration.Services
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(ResourcePath resourcePath) =>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 ConfigurationResourceTypeNames.AppConfigurations => await LoadAppConfigurationKeys(resourcePath.ResourceTypeInstances[0]),
@@ -128,7 +131,7 @@ namespace FoundationaLLM.Configuration.Services
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource) =>
+        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 ConfigurationResourceTypeNames.AppConfigurations => await UpdateAppConfigurationKey(resourcePath, serializedResource),
