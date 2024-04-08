@@ -18078,19 +18078,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.Endpoint
   nameWithType: CosmosDbSettings.Endpoint
-- uid: FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.Key
-  name: Key
-  href: api/dotnet/FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.html#FoundationaLLM_Core_Models_Configuration_CosmosDbSettings_Key
-  commentId: P:FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.Key
-  fullName: FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.Key
-  nameWithType: CosmosDbSettings.Key
-- uid: FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.Key*
-  name: Key
-  href: api/dotnet/FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.html#FoundationaLLM_Core_Models_Configuration_CosmosDbSettings_Key_
-  commentId: Overload:FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.Key
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.Key
-  nameWithType: CosmosDbSettings.Key
 - uid: FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.MonitoredContainers
   name: MonitoredContainers
   href: api/dotnet/FoundationaLLM.Core.Models.Configuration.CosmosDbSettings.html#FoundationaLLM_Core_Models_Configuration_CosmosDbSettings_MonitoredContainers
