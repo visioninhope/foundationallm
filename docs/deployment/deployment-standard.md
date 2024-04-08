@@ -36,7 +36,7 @@ PowerShell 7 is a cross-platform (Windows, macOS, and Linux) automation tool and
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/): Docker Desktop is an application for MacOS and Windows machines for the building and sharing of containerized applications and microservices. It provides an integrated environment to use Docker containers, simplifying the process of building, testing, and deploying applications in a consistent and isolated environment. Docker Desktop includes Docker Engine, Docker CLI client, Docker Compose, and other Docker tools, making it a key tool for developers working with container-based applications.
 
-## Deployment steps
+## Pre-Deployment steps
 
 Follow the steps below to deploy the solution to your Azure subscription.
 
@@ -56,34 +56,41 @@ Follow the steps below to deploy the solution to your Azure subscription.
     cp Deployment-Manifest.template.json Deployment-Manifest.json
     ```
 
-4. Fill out all required fields in the `Deployment-Manifest.json` file. Refer to [this guide](./standard/manifest.md) for more information on the manifest contents.
+4. Fill out all required fields in the `Deployment-Manifest.json` file. Please look at [this guide](./standard/manifest.md) for more information on the manifest contents.
 
+5. Login to your Azure account and set the deployment subscription:
 
+    ```powershell
+    az login
+    az account set --subscription <Azure Subscription ID>
+    ```
 
+6. **Optional** Execute the pre-deployment script:
+
+    ```powershell
+    cd scripts
+    ./Pre-Deploy.ps1
+    ```
+
+    > [!NOTE]
+    > The pre-deployment script will acquire certificates from LetsEncrypt and place them in `foundationallm/deploy/standard/config/certbot/certs`.  If you plan to provide certificates another way, you can skip this script, but you must place the certificates in the specified location.  See step 7.
+
+7. **Optional** Provide certificates (manual method):
+
+    > [!NOTE]
+    > Skip this step if you created certificates using LetsEncrypt in step 6.
+
+    Create certificates for the appropriate domains and package them in PFX format.  Place the PFX files in `foundationallm/deploy/standard/config/certbot/certs` following the naming convention below.  The values for `Host Name` and `Domain Name` should match the values you provided in your deployment manifest:
+
+    | Service Name | Host Name | Domain Name | File Name |
+    | -- | -- | -- | -- |
+    | core-api | api | example.com | api.example.com.pfx | 
+    | management-api | management-api | example.com | management-api.example.com.pfx |
+    | vectorization-api | vectorization-api | example.com | vectorization-api.example.com.pfx |
+    | chat-ui | chat | example.com | chat.example.com.pfx |
+    | management-ui | management | example.com | management.example.com.pfx |
 ----
 
-Follow the steps below to deploy the solution to your Azure subscription.
-
-1. Create a new `Deployment-Manifest.json` file from the `Deployment-Manifest.template.json` template. Refer to the documentation of the manifest contents below for guidance.
-
-2. **Login to your Azure account**
-
-   - Open a PowerShell prompt and execute the following command to login to your Azure account:
-     ```powershell
-     az login
-     ```
-
-     Select your subscription
-
-     ```powershell
-     az account set --subscription <subscription_id>
-     ```
-
-3. **Clone the Repository:**
-   - Execute the following command to clone the repository:
-     ```powershell
-     git clone https://github.com/solliancenet/foundationallm.git
-     ```
 
 4. **Navigate to the bicep deployment directory:**
    - Execute the following command to navigate:
