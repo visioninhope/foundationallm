@@ -29,7 +29,7 @@ class KnowledgeManagementAgent(AgentBase):
             config: Configuration,
             resource_provider: ResourceProvider):
         """
-        Initializes a generic knowledge management agent.
+        Initializes a knowledge management agent.
 
         Parameters
         ----------
@@ -139,7 +139,6 @@ class KnowledgeManagementAgent(AgentBase):
                     | StrOutputParser()
                 )
 
-                completion = chain.invoke(prompt)
                 citations = []                
                 if isinstance(self.retriever, CitationRetrievalBase):                    
                     citations = self.retriever.get_document_citations()
