@@ -128,3 +128,8 @@ The `resourceGroups` section of the Deployment Manifest defines the names of the
 | `ops`     | The resource group for the operations resources.                | `rg-ai-dev-eastus2-ops`     |
 | `storage` | The resource group for the FLLM internal storage resources.     | `rg-ai-dev-eastus2-storage` |
 | `vec`     | The resource group for the vectorization resources.             | `rg-ai-dev-eastus2-vec`     |
+
+
+## Next
+
+Return to the [standard deployment steps](../deployment-standard.md#deployment-steps).
