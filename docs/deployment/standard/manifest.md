@@ -51,27 +51,27 @@ The root section of the Deployment Manifest defines the general properties of th
 
 ## Entra Client IDs
 
-The `entraClientIds` section of the Deployment Manifest defines the client IDs for the different parts of the Foundationa**LLM** system.  These client IDs are used by the authentication system to determine access to resources.  The client IDs are unique to each deployment and should be kept secure. See the [Authentication setup document](authentication/index.md) for more information on the authentication system.
+The `entraClientIds` section of the Deployment Manifest defines the client IDs for the different parts of the Foundationa**LLM** system.  These client IDs are used by the authentication system to determine access to resources.  The client IDs are unique to each deployment and should be kept secure. See the [Authentication setup document](../authentication/index.md) for more information on the authentication system.
 
 | Name               | Description                              | Value | See Also                                                                                                                                               |
 | ------------------ | ---------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `chat`             | The client ID for the chat service.      | GUID  | [Client Application Setup](authentication/core-authentication-setup-entra.html#register-the-client-application-in-the-microsoft-entra-id-admin-center) |
-| `core`             | The client ID for the core API.          | GUID  | [API Application Setup](authentication/core-authentication-setup-entra.html#register-the-api-application-in-the-microsoft-entra-id-admin-center)       |
-| `managementapi`    | The client ID for the management API.    | GUID  | [Managemetn API Application Setup](authentication/management-authentication-setup-entra.html#create-the-api-application)                               |
-| `managementui`     | The client ID for the management UI.     | GUID  | [Management UI Application Setup](authentication/management-authentication-setup-entra.html#create-the-client-application)                             |
-| `vectorizationapi` | The client ID for the vectorization API. | GUID  | [Vectorization API Application Setup](authentication/vectorization-authentication-setup-entra.html#create-the-client-application)                      |
+| `chat`             | The client ID for the chat service.      | GUID  | [Client Application Setup](../authentication/core-authentication-setup-entra.md#create-the-client-application) |
+| `core`             | The client ID for the core API.          | GUID  | [API Application Setup](../authentication/core-authentication-setup-entra.md#create-the-api-application)       |
+| `managementapi`    | The client ID for the management API.    | GUID  | [Management API Application Setup](../authentication/management-authentication-setup-entra.md#create-the-api-application)                               |
+| `managementui`     | The client ID for the management UI.     | GUID  | [Management UI Application Setup](../authentication/management-authentication-setup-entra.md#create-the-client-application)                             |
+| `vectorizationapi` | The client ID for the vectorization API. | GUID  | [Vectorization API Application Setup](../authentication/vectorization-authentication-setup-entra.md#create-the-client-application)                      |
 
 ## Entra Scopes
 
-The `entraScopes` section of the Deployment Manifest defines the scopes for the different parts of the Foundationa**LLM** system.  These scopes are used by the authentication system to determine access to resources. See the [Authentication setup document](authentication/index.md) for more information on the authentication system.
+The `entraScopes` section of the Deployment Manifest defines the scopes for the different parts of the Foundationa**LLM** system.  These scopes are used by the authentication system to determine access to resources. See the [Authentication setup document](../authentication/index.md) for more information on the authentication system.
 
 | Name               | Description                         | Example                                            | See Also                                                                                                                                               |
 | ------------------ | ----------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `chat`             | The scope for the chat service      | `api://FoundationaLLM-Auth/Data.Read`              | [Client Application Setup](authentication/core-authentication-setup-entra.html#register-the-client-application-in-the-microsoft-entra-id-admin-center) |
-| `core`             | The scope for the core API          | `Data.Read`                                        | [API Application Setup](authentication/core-authentication-setup-entra.html#register-the-api-application-in-the-microsoft-entra-id-admin-center)       |
-| `managementapi`    | The scope for the management API    | `Data.Manage`                                      | [Managemetn API Application Setup](authentication/management-authentication-setup-entra.html#create-the-api-application)                               |
-| `managementui`     | The scope for the management UI     | `api://FoundationaLLM-Management-Auth/Data.Manage` | [Management UI Application Setup](authentication/management-authentication-setup-entra.html#create-the-client-application)                             |
-| `vectorizationapi` | The scope for the vectorization API | `Data.Manage`                                      | [Vectorization API Application Setup](authentication/vectorization-authentication-setup-entra.html#create-the-client-application)                      |
+| `chat`             | The scope for the chat service      | `api://FoundationaLLM-Auth/Data.Read`              | [Client Application Setup](../authentication/core-authentication-setup-entra.md#register-the-client-application-in-the-microsoft-entra-id-admin-center) |
+| `core`             | The scope for the core API          | `Data.Read`                                        | [API Application Setup](../authentication/core-authentication-setup-entra.md#register-the-api-application-in-the-microsoft-entra-id-admin-center)       |
+| `managementapi`    | The scope for the management API    | `Data.Manage`                                      | [Management API Application Setup](../authentication/management-authentication-setup-entra.md#create-the-api-application)                               |
+| `managementui`     | The scope for the management UI     | `api://FoundationaLLM-Management-Auth/Data.Manage` | [Management UI Application Setup](../authentication/management-authentication-setup-entra.md#create-the-client-application)                             |
+| `vectorizationapi` | The scope for the vectorization API | `Data.Manage`                                      | [Vectorization API Application Setup](../authentication/vectorization-authentication-setup-entra.md#create-the-client-application)                      |
 
 ## Ingress Configuration
 
