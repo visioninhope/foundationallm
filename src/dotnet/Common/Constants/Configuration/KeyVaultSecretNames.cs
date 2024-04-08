@@ -82,10 +82,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_Coreapi_Entra_ClientSecret = "foundationallm-coreapi-entra-clientsecret";
         /// <summary>
-        /// The foundationallm-cosmosdb-key Key Vault secret name.
-        /// </summary>
-        public const string FoundationaLLM_CosmosDB_Key = "foundationallm-cosmosdb-key";
-        /// <summary>
         /// The foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring Key Vault secret name.
         /// </summary>
         public const string FoundationaLLM_DataSourceHub_StorageManager_BlobStorage_ConnectionString = "foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring";
