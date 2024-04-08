@@ -139,12 +139,13 @@ class KnowledgeManagementAgent(AgentBase):
                     | StrOutputParser()
                 )
 
-                citations = []                
-                if isinstance(self.retriever, CitationRetrievalBase):                    
+                completion = chain.invoke(prompt)
+                citations = []
+                if isinstance(self.retriever, CitationRetrievalBase):
                     citations = self.retriever.get_document_citations()
                     
                 return CompletionResponse(
-                    completion = chain.invoke(prompt),
+                    completion = completion,
                     citations = citations,
                     user_prompt = prompt,
                     full_prompt = self.full_prompt.text,
