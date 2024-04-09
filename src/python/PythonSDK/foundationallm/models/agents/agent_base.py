@@ -6,9 +6,7 @@ fulfilling the orchestration request.
 """
 from typing import Optional
 from foundationallm.models.language_models import LanguageModel
-from .metadata_base import MetadataBase
-from .conversation_history import ConversationHistory
-from .gatekeeper import Gatekeeper
+from foundationallm.models.metadata import ConversationHistory, Gatekeeper, MetadataBase
 
 class AgentBase(MetadataBase):
     """ Agent Base metadata model."""
@@ -17,5 +15,3 @@ class AgentBase(MetadataBase):
     sessions_enabled: Optional[bool] = False
     conversation_history: Optional[ConversationHistory] = ConversationHistory()
     gatekeeper: Optional[Gatekeeper] = Gatekeeper()
-    orchestrator: Optional[str] = "LangChain" # used only for agent hub
-    

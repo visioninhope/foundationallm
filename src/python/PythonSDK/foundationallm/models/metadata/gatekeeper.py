@@ -1,8 +1,5 @@
 """
-Class Name: Gatekeeper
-
-Description: Encapsulates the metadata for the
-gatekeeper metadata of an agent.
+Encapsulates the metadata for the gatekeeper metadata of an agent.
 """
 from typing import Optional, List
 from pydantic import BaseModel
