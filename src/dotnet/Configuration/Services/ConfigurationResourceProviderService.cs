@@ -73,7 +73,7 @@ namespace FoundationaLLM.Configuration.Services
             await Task.CompletedTask;
 
         /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+        public override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             ConfigurationResourceProviderMetadata.AllowedResourceTypes;
 
         #region Support for Management API

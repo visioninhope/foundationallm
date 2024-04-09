@@ -166,7 +166,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// Gets the details about the resource types managed by the resource provider.
         /// </summary>
         /// <returns>A dictionary of <see cref="ResourceTypeDescriptor"/> objects with details about the resource types.</returns>
-        protected virtual Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => [];
+        public virtual Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => [];
 
         #endregion
 
@@ -179,7 +179,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         {
             if (!_isInitialized)
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-             var parsedResourcePath = new ResourcePath(
+
+            var parsedResourcePath = new ResourcePath(
                 resourcePath,
                 _allowedResourceProviders,
                 _allowedResourceTypes,

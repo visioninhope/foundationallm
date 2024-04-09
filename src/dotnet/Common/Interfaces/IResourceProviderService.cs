@@ -18,6 +18,11 @@ namespace FoundationaLLM.Common.Interfaces
         bool IsInitialized { get; }
 
         /// <summary>
+        /// Gets the resource types supported
+        /// </summary>
+        Dictionary<string, ResourceTypeDescriptor> GetResourceTypes();
+
+        /// <summary>
         /// Gets a resource based on its logical path.
         /// </summary>
         /// <typeparam name="T">The type of the resource.</typeparam>

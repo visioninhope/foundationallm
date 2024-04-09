@@ -55,7 +55,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             ])
     {
         /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+        public override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             AgentResourceProviderMetadata.AllowedResourceTypes;
 
         private ConcurrentDictionary<string, AgentReference> _agentReferences = [];
