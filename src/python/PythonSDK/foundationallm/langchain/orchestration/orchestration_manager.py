@@ -36,11 +36,8 @@ class OrchestrationManager:
             self.llm = self.__get_llm(language_model=completion_request.agent.language_model)
         else:
             self.llm = self.__get_llm(language_model=completion_request.language_model)
-            
-        if resource_provider is None:
-            resource_provider = ResourceProvider(config=configuration)
 
-        self.resource_provider = resource_provider
+        self.resource_provider = resource_provider or ResourceProvider(config=configuration)
         self.agent = self.__create_agent(completion_request=completion_request, context=context)
 
     def __create_agent(self, completion_request: CompletionRequestBase, context: Context) -> AgentBase:
