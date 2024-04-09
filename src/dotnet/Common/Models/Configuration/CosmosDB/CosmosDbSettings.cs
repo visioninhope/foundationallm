@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Core.Models.Configuration
+﻿namespace FoundationaLLM.Common.Models.Configuration.CosmosDB
 {
     /// <summary>
     /// Stores the Azure Cosmos DB settings from the app configuration.
