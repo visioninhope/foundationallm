@@ -10,7 +10,7 @@ def build_message_history(messages:List[MessageHistoryItem]=None, message_count:
         return ""
     if message_count is not None:
         messages = messages[-message_count:]
-    chat_history = "\n\nChat History:\n"
+    chat_history = "Chat History:\n"
     for msg in messages:
         chat_history += msg.sender + ": " + msg.text + "\n"
     chat_history += "\n\n"
