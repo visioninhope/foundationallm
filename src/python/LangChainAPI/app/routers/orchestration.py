@@ -8,7 +8,6 @@ from foundationallm.config import Context
 from foundationallm.models.orchestration import (
     CompletionRequestBase,
     CompletionRequest,
-    InternalContextCompletionRequest,
     KnowledgeManagementCompletionRequest,
     CompletionResponse
 )
@@ -35,14 +34,10 @@ async def resolve_completion_request(request_body: dict = Body(...)) -> Completi
         agent_type = request_body.get("agent", {}).get("type", None)    
     
     match agent_type:
-        case "knowledge-management":
+        case "knowledge-management" | "internal-context":
             kma = KnowledgeManagementCompletionRequest(**request_body)
             kma.agent.type = "knowledge-management"
             return kma
-        case "internal-context":
-            ica = InternalContextCompletionRequest(**request_body)
-            ica.agent.type = "internal-context"
-            return ica
         case _:
             return CompletionRequest(**request_body)
 

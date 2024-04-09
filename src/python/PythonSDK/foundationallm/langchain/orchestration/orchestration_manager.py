@@ -7,7 +7,6 @@ from foundationallm.models.language_models import LanguageModel
 from foundationallm.models.orchestration import (
     CompletionRequestBase,
     KnowledgeManagementCompletionRequest,
-    InternalContextCompletionRequest,
     CompletionResponse
 )
 from foundationallm.resources import ResourceProvider
@@ -31,12 +30,13 @@ class OrchestrationManager:
             The user context under which to execution completion requests.
         """
         self.completion_request = completion_request
-        self.config = configuration        
-        if type(completion_request)==KnowledgeManagementCompletionRequest or \
-            type(completion_request)==InternalContextCompletionRequest:
+        self.config = configuration
+
+        if type(completion_request)==KnowledgeManagementCompletionRequest:
             self.llm = self.__get_llm(language_model=completion_request.agent.language_model)
         else:
             self.llm = self.__get_llm(language_model=completion_request.language_model)
+            
         if resource_provider is None:
             resource_provider = ResourceProvider(config=configuration)
 
