@@ -21,7 +21,6 @@ class KnowledgeManagementAgent(AgentBase):
     """
     Agent for pass-through user_prompt or RAG pattern over a vector store.
     """
-
     def __init__(
             self,
             completion_request: KnowledgeManagementCompletionRequest,
@@ -29,7 +28,7 @@ class KnowledgeManagementAgent(AgentBase):
             config: Configuration,
             resource_provider: ResourceProvider):
         """
-        Initializes a generic knowledge management agent.
+        Initializes a knowledge management agent.
 
         Parameters
         ----------
@@ -57,14 +56,16 @@ class KnowledgeManagementAgent(AgentBase):
 
         self.full_prompt = ""
 
-        retriever_factory = RetrieverFactory(
-                        indexing_profile_object_id = completion_request.agent.vectorization.indexing_profile_object_id,
-                        text_embedding_profile_object_id= completion_request.agent.vectorization.text_embedding_profile_object_id,
-                        config = config,
-                        resource_provider = resource_provider,
-                        settings = completion_request.settings)
+        self.retriever = None
+        if completion_request.agent.vectorization is not None:
+            retriever_factory = RetrieverFactory(
+                            indexing_profile_object_id = completion_request.agent.vectorization.indexing_profile_object_id,
+                            text_embedding_profile_object_id= completion_request.agent.vectorization.text_embedding_profile_object_id,
+                            config = config,
+                            resource_provider = resource_provider,
+                            settings = completion_request.settings)
 
-        self.retriever = retriever_factory.get_retriever()
+            self.retriever = retriever_factory.get_retriever()
 
     def __format_docs(self, docs:List[Document]) -> str:
         """
@@ -118,21 +119,27 @@ class KnowledgeManagementAgent(AgentBase):
                     prompt_builder += build_message_history(self.message_history, self.conversation_history.max_history)
 
                 # Insert the context into the template.
-                prompt_builder += 'Context:\n{context}'    
+                prompt_builder += '{context}'   
 
                 # Add the suffix, if it exists.
                 if self.prompt_suffix is not None:
                     prompt_builder += f'\n\n{self.prompt_suffix}'
 
                 # Insert the user prompt into the template.
-                prompt_builder += "\n\nQuestion: {question}"
+                if self.retriever is not None:    
+                    prompt_builder += "\n\nQuestion: {question}"
 
                 # Create the prompt template.
                 prompt_template = PromptTemplate.from_template(prompt_builder)
 
+                if self.retriever is not None:
+                    chain_context = { "context": self.retriever | self.__format_docs, "question": RunnablePassthrough() }
+                else:
+                    chain_context = { "context": RunnablePassthrough() }
+
                 # Compose LCEL chain
                 chain = (
-                    { "context": self.retriever | self.__format_docs, "question": RunnablePassthrough() }
+                    chain_context
                     | prompt_template
                     | RunnableLambda(self.__record_full_prompt)
                     | self.llm
