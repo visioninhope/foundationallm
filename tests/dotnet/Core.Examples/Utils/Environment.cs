@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoundationaLLM.Core.Examples.Exceptions;
 
 namespace FoundationaLLM.Core.Examples.Utils
 {

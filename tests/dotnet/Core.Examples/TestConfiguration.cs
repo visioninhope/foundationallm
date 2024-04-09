@@ -21,11 +21,12 @@ namespace FoundationaLLM.Core.Examples
 		private static TestConfiguration? _instance;
 		private static ConfigurationClient client;
 		private readonly ChainedTokenCredential tokenCredential;
-		public CosmosDbSettings CosmosDbSettings;
+		public static CosmosDbSettings CosmosDbSettings;
 
 		private TestConfiguration(IConfigurationRoot configRoot)
 		{
 			this._configRoot = configRoot;
+
 			this.tokenCredential = new(
 				new AzureCliCredential(),
 				new DefaultAzureCredential());
@@ -34,10 +35,11 @@ namespace FoundationaLLM.Core.Examples
 		public static void Initialize(IConfigurationRoot configRoot)
 		{
 			_instance = new TestConfiguration(configRoot);
+
 			var connectionString =
 				_instance._configRoot.GetValue<string>(EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString);
 			client = new ConfigurationClient(connectionString);
-			_instance.CosmosDbSettings = GetAppConfigSectionAsync<CosmosDbSettings>(AppConfigurationKeySections.FoundationaLLM_CosmosDB).GetAwaiter().GetResult();
+			CosmosDbSettings = GetAppConfigSectionAsync<CosmosDbSettings>(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB).GetAwaiter().GetResult();
 		}
 
 		private static T LoadSection<T>([CallerMemberName] string? caller = null)
@@ -107,7 +109,9 @@ namespace FoundationaLLM.Core.Examples
 					value = setting.Value;
 				}
 
-				var property = typeof(T).GetProperty(setting.Key);
+				var propertyKey = setting.Key.Split(':').Last();
+
+				var property = typeof(T).GetProperty(propertyKey);
 				if (property != null && property.CanWrite)
 				{
 					var convertedValue = Convert.ChangeType(value, property.PropertyType);
