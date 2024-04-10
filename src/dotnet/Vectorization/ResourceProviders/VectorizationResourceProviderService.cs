@@ -254,6 +254,12 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
+                VectorizationResourceTypeNames.VectorizationRequests => resourcePath.ResourceTypeInstances.Last().Action switch
+                {
+                    VectorizationResourceProviderActions.Process => await ProcessVectorizationRequest(serializedAction),
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
+                                               StatusCodes.Status400BadRequest)
+                },
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} does not support actions in the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
@@ -286,6 +292,15 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 existingPipeline.ObjectId!,
                 true,
                 null);
+        }
+
+        private async Task<VectorizationResult> ProcessVectorizationRequest(string serializedAction)
+        {
+            await Task.CompletedTask;
+            var request = JsonSerializer.Deserialize<VectorizationRequest>(serializedAction)
+                ?? throw new ResourceProviderException("The object definition is invalid.",
+                                   StatusCodes.Status400BadRequest);
+            throw new NotImplementedException("The vectorization request processing is not implemented yet.");
         }
 
         private ResourceNameCheckResult CheckProfileName<T>(string serializedAction, ConcurrentDictionary<string, VectorizationProfileBase> profileStore)
