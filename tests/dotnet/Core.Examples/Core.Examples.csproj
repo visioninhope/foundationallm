@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\dotnet\Common\Common.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet\Core\Core.csproj" />
     <ProjectReference Include="..\TestUtils\TestUtils.csproj" />
   </ItemGroup>
 

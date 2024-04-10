@@ -20,18 +20,22 @@ using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Graph.Models;
 using Azure.Identity;
 using FoundationaLLM.Core.Examples.Models;
+using FoundationaLLM.Core.Interfaces;
+using FoundationaLLM.Core.Services;
 
 namespace FoundationaLLM.Core.Examples
 {
     public class Example01_AgentCompletions : BaseTest, IClassFixture<TestFixture>
 	{
 		private readonly IHttpClientFactory _httpClientFactory;
+		private readonly ICosmosDbService _cosmosDbService;
 		private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
 		public Example01_AgentCompletions(ITestOutputHelper output, TestFixture fixture)
 			: base(output, fixture.ServiceProvider)
 		{
 			_httpClientFactory = GetService<IHttpClientFactory>();
+			_cosmosDbService = GetService<ICosmosDbService>();
 		}
 
 		[Fact]
@@ -104,7 +108,16 @@ namespace FoundationaLLM.Core.Examples
 				var responseContent = await responseMessage.Content.ReadAsStringAsync();
 				var completionResponse = JsonSerializer.Deserialize<Completion>(responseContent, _jsonSerializerOptions);
 
-				// TODO: Retrieve the expected completion value from Cosmos DB and compare to the completion response.
+				var session = await _cosmosDbService.GetSessionAsync(agentPrompt.SessionConfiguration.SessionId);
+				var messages = await _cosmosDbService.GetSessionMessagesAsync(session.SessionId, session.UPN);
+				// Get the last message where the agent is the sender.
+				var lastAgentMessage = messages.LastOrDefault(m => m.Sender == nameof(Participants.Assistant));
+				if (lastAgentMessage != null && !string.IsNullOrWhiteSpace(lastAgentMessage.CompletionPromptId))
+				{
+					// Get the completion prompt from the last agent message.
+					var completionPrompt = await _cosmosDbService.GetCompletionPrompt(session.SessionId, lastAgentMessage.CompletionPromptId);
+					// Create a new Azure AI evaluation from the data.
+				}
 
 				WriteLine($"User prompt -> '{agentPrompt.UserPrompt}'");
 				WriteLine($"Agent completion -> '{completionResponse.Text}'");

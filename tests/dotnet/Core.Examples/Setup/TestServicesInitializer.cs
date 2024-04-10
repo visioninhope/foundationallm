@@ -10,6 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using System.Runtime;
+using FoundationaLLM.Common.Models.Configuration.CosmosDB;
+using FoundationaLLM.Core.Interfaces;
+using FoundationaLLM.Core.Services;
+using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
+using FoundationaLLM.Core.Examples.Utils;
 
 namespace FoundationaLLM.Core.Examples.Setup
 {
@@ -20,11 +26,15 @@ namespace FoundationaLLM.Core.Examples.Setup
 		/// </summary>
 		/// <param name="services"></param>
 		/// <param name="configRoot"></param>
-		public static void InitializeServices(IServiceCollection services, IConfigurationRoot configRoot)
+		public static void InitializeServices(
+			IServiceCollection services,
+			IConfigurationRoot configRoot)
 		{
 			TestConfiguration.Initialize(configRoot, services);
 
 			RegisterHttpClients(services);
+			RegisterCosmosDb(services);
+			RegisterLogging(services);
 		}
 
 		private static void RegisterHttpClients(IServiceCollection services)
@@ -44,6 +54,35 @@ namespace FoundationaLLM.Core.Examples.Setup
 					{
 						CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
 					});
+		}
+
+		private static void RegisterCosmosDb(IServiceCollection services)
+		{
+			var cosmosDbSettings = TestConfiguration.CosmosDbSettings;
+			if (cosmosDbSettings == null)
+			{
+				throw new InvalidOperationException("CosmosDB settings not found. TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
+			}
+
+			services.Configure<CosmosDbSettings>(options =>
+			{
+				options.Endpoint = cosmosDbSettings.Endpoint;
+				options.Database = cosmosDbSettings.Database;
+				options.Containers = cosmosDbSettings.Containers;
+				options.MonitoredContainers = cosmosDbSettings.MonitoredContainers;
+				options.ChangeFeedLeaseContainer = cosmosDbSettings.ChangeFeedLeaseContainer;
+				options.EnableTracing = cosmosDbSettings.EnableTracing;
+			});
+
+			services.AddScoped<ICosmosDbService, CosmosDbService>();
+		}
+
+		private static void RegisterLogging(IServiceCollection services)
+		{
+			services.AddLogging(builder =>
+			{
+				builder.AddConsole();
+			});
 		}
 	}
 
