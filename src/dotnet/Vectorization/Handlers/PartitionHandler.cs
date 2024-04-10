@@ -57,12 +57,11 @@ namespace FoundationaLLM.Vectorization.Handlers
 
             var splitResult = textSplitter.SplitPlainText(extractedTextArtifact.Content!);
 
-            var position = 0;
             foreach (var textChunk in splitResult)
                 state.AddOrReplaceArtifact(new VectorizationArtifact
                 {
                     Type = VectorizationArtifactType.TextPartition,
-                    Position = ++position,
+                    Position = textChunk.Position,
                     Content = textChunk.Content,
                     Size = textChunk.TokensCount
                 });

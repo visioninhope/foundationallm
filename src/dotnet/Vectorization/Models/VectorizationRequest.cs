@@ -71,6 +71,14 @@ namespace FoundationaLLM.Vectorization.Models
         public int ErrorCount { get; set; }
 
         /// <summary>
+        /// A dictionary of running operation identifiers indexed by step name.
+        /// Some steps can be executed via long-running operations that required the persistence of operation identifiers.
+        /// </summary>
+        [JsonPropertyOrder(14)]
+        [JsonPropertyName("running_operations")]
+        public Dictionary<string, VectorizationLongRunningOperation> RunningOperations { get; set; } = [];
+
+        /// <summary>
         /// The time of the last successful processing of a step.
         /// </summary>
         [JsonPropertyOrder(14)]

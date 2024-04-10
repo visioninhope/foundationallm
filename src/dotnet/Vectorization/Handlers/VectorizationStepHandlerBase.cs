@@ -98,7 +98,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             }
             finally
             {
-                state.AddRequestIfMissing(request);
+                state.UpdateRequest(request);
 
                 state.LogHandlerEnd(this, request.Id!, _messageId);
                 _logger.LogInformation("Finished handler [{HandlerId}] for request {RequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);

@@ -6,9 +6,19 @@
     public class TextChunk
     {
         /// <summary>
+        /// The position of the text chunk in the content it belongs to.
+        /// </summary>
+        public int Position { get; set; }
+
+        /// <summary>
         /// The text content of the chunk.
         /// </summary>
-        public required string Content { get; set; }
+        public string? Content { get; set; }
+
+        /// <summary>
+        /// The embedding of the text content.
+        /// </summary>
+        public Embedding? Embedding { get; set; }
 
         /// <summary>
         /// The size of the chunk in tokens.

@@ -38,8 +38,15 @@ namespace FoundationaLLM.Common.Services.TextSplitters
                     return new List<TextChunk> { new() { Content = text, TokensCount = tokens.Count } };
 
                 var chunks = Enumerable.Range(0, chunksCount - 1)
-                    .Select(i => tokens.Skip(i * (_settings.ChunkSizeTokens - _settings.OverlapSizeTokens)).Take(_settings.ChunkSizeTokens).ToArray())
-                    .Select(t => new TextChunk { Content = _tokenizerService.Decode(t, _settings.TokenizerEncoder), TokensCount = t.Length })
+                    .Select(i => new
+                        {
+                            Position = i + 1,
+                            Tokens = tokens.Skip(i * (_settings.ChunkSizeTokens - _settings.OverlapSizeTokens)).Take(_settings.ChunkSizeTokens).ToArray()
+                        })
+                    .Select(x => new TextChunk {
+                        Position = x.Position,
+                        Content = _tokenizerService.Decode(x.Tokens, _settings.TokenizerEncoder),
+                        TokensCount = x.Tokens.Length })
                     .ToList();
 
                 var lastChunkStart = (chunksCount - 1) * (_settings.ChunkSizeTokens - _settings.OverlapSizeTokens);
@@ -57,7 +64,11 @@ namespace FoundationaLLM.Common.Services.TextSplitters
                             .ToArray(),
                         _settings.TokenizerEncoder);
                     chunks.RemoveAt(chunks.Count - 1);
-                    chunks.Add(new TextChunk { Content = newLastChunk, TokensCount = newLastChunkSize });
+                    chunks.Add(new TextChunk {
+                        Position = chunks.Count + 1,
+                        Content = newLastChunk,
+                        TokensCount = newLastChunkSize
+                    });
                 }
                 else
                 {
@@ -67,7 +78,11 @@ namespace FoundationaLLM.Common.Services.TextSplitters
                             .Take(lastChunkSize)
                             .ToArray(),
                         _settings.TokenizerEncoder);
-                    chunks.Add(new TextChunk { Content = lastChunk, TokensCount = lastChunkSize });
+                    chunks.Add(new TextChunk {
+                        Position = chunks.Count + 1,
+                        Content = lastChunk,
+                        TokensCount = lastChunkSize
+                    });
                 }
 
                 return chunks;

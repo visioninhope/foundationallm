@@ -171,20 +171,27 @@ namespace FoundationaLLM.Vectorization.Services
                     await _incomingRequestSourceService.DeleteRequest(messageId, popReceipt).ConfigureAwait(false);
                     await AdvanceRequest(request).ConfigureAwait(false);
                 }
+                else
+                    await UpdateRequest(request, messageId, popReceipt);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error processing request with id {RequestId}.", request.Id);
 
                 request.ErrorCount++;
-                try
-                {
-                    await _incomingRequestSourceService.UpdateRequest(messageId, popReceipt, request);
-                }
-                catch (Exception ex2)
-                {
-                    _logger.LogError(ex2, "Error updating error count for request with id {RequestId}.", request.Id);
-                }
+                await UpdateRequest(request, messageId, popReceipt);
+            }
+        }
+
+        private async Task UpdateRequest(VectorizationRequest request, string messageId, string popReceipt)
+        {
+            try
+            {
+                await _incomingRequestSourceService.UpdateRequest(messageId, popReceipt, request);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating the request with id {RequestId}.", request.Id);
             }
         }
 

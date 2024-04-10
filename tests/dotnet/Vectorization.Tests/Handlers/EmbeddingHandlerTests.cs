@@ -18,14 +18,15 @@ namespace Vectorization.Tests.Handlers
         {
             ITextEmbeddingService mockTextEmbeddingService = A.Fake<ITextEmbeddingService>();
 
-            A.CallTo(() => mockTextEmbeddingService.GetEmbeddingsAsync(A<IList<string>>._))
-                .Returns((
-                    Embeddings: new List<Embedding> {
-                        new Embedding(new float[5]),
-                        new Embedding(new float[5])
-                    },
-                    TokenCount: 10
-                ));
+            A.CallTo(() => mockTextEmbeddingService.GetEmbeddingsAsync(A<IList<TextChunk>>._))
+                .Returns(new TextEmbeddingResult
+                {
+                    TextChunks = [
+                        new TextChunk { Position = 1, Embedding = new Embedding(new float[5]) },
+                        new TextChunk { Position = 2, Embedding = new Embedding(new float[5]) }
+                    ],
+                    TokenCount = 10
+                });
 
             return mockTextEmbeddingService;
         }

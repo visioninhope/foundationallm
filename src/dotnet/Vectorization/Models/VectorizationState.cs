@@ -139,10 +139,11 @@ namespace FoundationaLLM.Vectorization.Models
         /// Adds a vectorization request to the list of requests if it is not already there.
         /// </summary>
         /// <param name="request">The <see cref="VectorizationRequest"/> being added.</param>
-        public void AddRequestIfMissing(VectorizationRequest request)
+        public void UpdateRequest(VectorizationRequest request)
         {
-            if (Requests.Any(r => r.ObjectId == request.ObjectId))
-                return;
+            var existingRequest = Requests.SingleOrDefault(r => r.ObjectId == request.ObjectId);
+            if (existingRequest != null)
+                Requests.Remove(existingRequest);
 
             Requests.Add(request);
         }
