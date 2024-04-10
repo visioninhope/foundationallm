@@ -152,6 +152,11 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The connection string to the Azure Storage account used for the data source resource provider.
         /// </summary>
         public const string FoundationaLLM_DataSource_ResourceProvider_Storage_ConnectionString = "foundationallm-datasource-resourceprovider-storage-connectionstring";
+        /// <summary>
+        /// The foundationallm-apis-gatewayapi-apikey Key Vault secret name.
+        /// The API key of the Gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAPI_APIKey = "foundationallm-apis-gatewayapi-apikey";
 
         #region Authorization API
 

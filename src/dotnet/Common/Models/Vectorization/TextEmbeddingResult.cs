@@ -17,7 +17,7 @@
         public string? OperationId { get; set; }
 
         /// <summary>
-        /// The text embeddings.
+        /// The list of <see cref="TextChunk"/> objects containing the embeddings.
         /// </summary>
         public IList<TextChunk> TextChunks { get; set; } = [];
 

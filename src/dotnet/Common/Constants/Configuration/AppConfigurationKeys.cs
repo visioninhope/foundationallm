@@ -121,6 +121,21 @@
         /// </summary>
         public const string FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString = "FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatewayAPI:APIUrl app configuration setting.
+        /// The URL of the gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAPI_APIUrl = "FoundationaLLM:APIs:GatewayAPI:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatewayAPI:APIKey app configuration setting.
+        /// The API key of the gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAPI_APIKey = "FoundationaLLM:APIs:GatewayAPI:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatewayAPI:AppInsightsConnectionString app configuration setting.
+        /// The connection string to the Application Insights instance used by the gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:GatewayAPI:AppInsightsConnectionString";
+        /// <summary>
         /// The key for the FoundationaLLM:DataSource:ResourceProviderService:Storage:AuthenticationType app configuration setting.
         /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
         /// </summary>
@@ -764,6 +779,10 @@
         /// </summary>
         public const string FoundationaLLM_APIs_VectorizationWorker = "FoundationaLLM:APIs:VectorizationWorker:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:APIs:GatewayAPI:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAPI = "FoundationaLLM:APIs:GatewayAPI:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:CosmosDB:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_CosmosDB = "FoundationaLLM:CosmosDB:*";
@@ -824,6 +843,10 @@
         /// The key filter for the FoundationaLLM:AzureAI:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AzureAI = "FoundationaLLM:AzureAI:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Gateway:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Gateway = "FoundationaLLM:Gateway:*";
     }
 
     /// <summary>
@@ -888,6 +911,10 @@
         /// </summary>
         public const string FoundationaLLM_APIs_AuthorizationAPI = "FoundationaLLM:APIs:AuthorizationAPI";
         /// <summary>
+        /// The key section for the FoundationaLLM:APIs:GatewayAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAPI = "FoundationaLLM:APIs:GatewayAPI";
+        /// <summary>
         /// The key section for the FoundationaLLM:AgentFactory app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AgentFactory = "FoundationaLLM:AgentFactory";
@@ -935,6 +962,11 @@
         /// The key section for the FoundationaLLM:Vectorization:AzureAISearchIndexingService app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Gateway app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Gateway = "FoundationaLLM:Gateway";
 
         #region Resource providers
 

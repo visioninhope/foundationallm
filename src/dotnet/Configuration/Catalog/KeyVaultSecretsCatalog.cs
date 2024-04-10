@@ -185,6 +185,11 @@ namespace FoundationaLLM.Configuration.Catalog
                 minimumVersion: "0.5.0",
                 description: "The connection string to the Azure Storage account used for the data source resource provider."
             ),
+            new (
+                secretName: KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAPI_APIKey,
+                minimumVersion: "0.6.0",
+                description: "The API key of the Gateway API"
+            )
         ];
 
         /// <summary>
