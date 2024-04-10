@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Azure;
+using Azure.Core;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
@@ -43,41 +44,38 @@ namespace FoundationaLLM.Core.Examples.Setup
                 _instance._configRoot.GetValue<string>(EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString);
             client = new ConfigurationClient(connectionString);
             CosmosDbSettings = GetAppConfigSectionAsync<CosmosDbSettings>(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB).GetAwaiter().GetResult();
+        }
 
+        public static TokenCredential GetTokenCredential()
+        {
+	        ValidateInstance();
 
+	        return _instance!.tokenCredential;
         }
 
         private static T LoadSection<T>([CallerMemberName] string? caller = null)
         {
-            if (_instance == null)
-            {
-                throw new InvalidOperationException(
-                    "TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
-            }
+			ValidateInstance();
 
-            if (string.IsNullOrEmpty(caller))
+			if (string.IsNullOrEmpty(caller))
             {
                 throw new ArgumentNullException(nameof(caller));
             }
 
-            return _instance._configRoot.GetSection(caller).Get<T>() ??
+            return _instance!._configRoot.GetSection(caller).Get<T>() ??
                    throw new ConfigurationNotFoundException(section: caller);
         }
 
         public static async Task<string> GetAppConfigValueAsync(string key)
         {
-            if (_instance == null)
-            {
-                throw new InvalidOperationException(
-                    "TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
-            }
+			ValidateInstance();
 
-            var response = await client.GetConfigurationSettingAsync(key);
+			var response = await client.GetConfigurationSettingAsync(key);
 
             if (response.Value is SecretReferenceConfigurationSetting secretReference)
             {
                 var identifier = new KeyVaultSecretIdentifier(secretReference.SecretId);
-                var secretClient = new SecretClient(identifier.VaultUri, _instance.tokenCredential);
+                var secretClient = new SecretClient(identifier.VaultUri, _instance!.tokenCredential);
                 var secret = await secretClient.GetSecretAsync(identifier.Name, identifier.Version);
 
                 return secret.Value.Value;
@@ -88,13 +86,9 @@ namespace FoundationaLLM.Core.Examples.Setup
 
         public static async Task<T> GetAppConfigSectionAsync<T>(string keyFilter)
         {
-            if (_instance == null)
-            {
-                throw new InvalidOperationException(
-                    "TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
-            }
+			ValidateInstance();
 
-            var selector = new SettingSelector { KeyFilter = keyFilter };
+			var selector = new SettingSelector { KeyFilter = keyFilter };
 
             T instance = Activator.CreateInstance<T>();
 
@@ -104,7 +98,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                 if (setting is SecretReferenceConfigurationSetting secretReference)
                 {
                     var identifier = new KeyVaultSecretIdentifier(secretReference.SecretId);
-                    var secretClient = new SecretClient(identifier.VaultUri, _instance.tokenCredential);
+                    var secretClient = new SecretClient(identifier.VaultUri, _instance!.tokenCredential);
                     var secret = await secretClient.GetSecretAsync(identifier.Name, identifier.Version);
 
                     value = secret.Value.Value;
@@ -127,5 +121,14 @@ namespace FoundationaLLM.Core.Examples.Setup
             return instance;
         }
 
-    }
+        private static void ValidateInstance()
+        {
+	        if (_instance == null)
+	        {
+		        throw new InvalidOperationException(
+			        "TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
+	        }
+        }
+
+	}
 }

@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using System.Runtime;
 
 namespace FoundationaLLM.Core.Examples.Setup
 {
@@ -28,9 +30,14 @@ namespace FoundationaLLM.Core.Examples.Setup
 		private static void RegisterHttpClients(IServiceCollection services)
 		{
 			var coreApiUri = TestConfiguration.GetAppConfigValueAsync(AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl).GetAwaiter().GetResult();
+			
 			services
-				.AddHttpClient(HttpClients.CoreAPI,
-					client => { client.BaseAddress = new Uri(coreApiUri); })
+				.AddHttpClient(
+					HttpClients.CoreAPI,
+					client => { 
+						client.BaseAddress = new Uri(coreApiUri);
+						client.Timeout = TimeSpan.FromSeconds(120);
+					})
 				.AddResilienceHandler(
 					"DownstreamPipeline",
 					static strategyBuilder =>
