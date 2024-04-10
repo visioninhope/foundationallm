@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Models_Chat_Message" data-uid="FoundationaLLM.Common.Models.Chat.Message" class="text-break">
-Class Message  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L8"><i class="bi bi-code-slash"></i></a>
+Class Message  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -168,9 +168,9 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
 
   <a id="FoundationaLLM_Common_Models_Chat_Message__ctor_" data-uid="FoundationaLLM.Common.Models.Chat.Message.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_" data-uid="FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String)">
-  Message(string, string, int?, string, float[]?, bool?, string, string?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Citation___" data-uid="FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[])">
+  Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L82"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Constructor for Message.</p>
@@ -178,7 +178,7 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Message(string sessionId, string sender, int? tokens, string text, float[]? vector, bool? rating, string upn, string? senderDisplayName = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Message(string sessionId, string sender, int? tokens, string text, float[]? vector, bool? rating, string upn, string? senderDisplayName = null, Citation[]? citations = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -199,6 +199,8 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
     <dd></dd>
     <dt><code>senderDisplayName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
+    <dt><code>citations</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Citation.html">Citation</a>[]</dt>
+    <dd></dd>
   </dl>
 
 
@@ -216,11 +218,43 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Models_Chat_Message_Citations_" data-uid="FoundationaLLM.Common.Models.Chat.Message.Citations*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Chat_Message_Citations" data-uid="FoundationaLLM.Common.Models.Chat.Message.Citations">
+  Citations
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The sources associated with the completion prompt.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Citation[]? Citations { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Citation.html">Citation</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Models_Chat_Message_CompletionPromptId_" data-uid="FoundationaLLM.Common.Models.Chat.Message.CompletionPromptId*"></a>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_CompletionPromptId" data-uid="FoundationaLLM.Common.Models.Chat.Message.CompletionPromptId">
   CompletionPromptId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The identifier for the completion prompt associated with the message.</p>
@@ -252,7 +286,7 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Deleted" data-uid="FoundationaLLM.Common.Models.Chat.Message.Deleted">
   Deleted
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Deleted flag used for soft delete.</p>
@@ -284,7 +318,7 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Id" data-uid="FoundationaLLM.Common.Models.Chat.Message.Id">
   Id
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The unique identifier.</p>
@@ -317,7 +351,7 @@ public string Id { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Rating" data-uid="FoundationaLLM.Common.Models.Chat.Message.Rating">
   Rating
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L54"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The rating associated with the message, if any.</p>
@@ -350,7 +384,7 @@ public bool? Rating { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Sender" data-uid="FoundationaLLM.Common.Models.Chat.Message.Sender">
   Sender
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The sender of the message.</p>
@@ -383,7 +417,7 @@ public string Sender { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_SenderDisplayName" data-uid="FoundationaLLM.Common.Models.Chat.Message.SenderDisplayName">
   SenderDisplayName
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The display name of the message sender. This could be the name of the signed in user or the name of the agent.</p>
@@ -416,7 +450,7 @@ public string? SenderDisplayName { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_SessionId" data-uid="FoundationaLLM.Common.Models.Chat.Message.SessionId">
   SessionId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The Partition key.</p>
@@ -449,7 +483,7 @@ public string SessionId { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Text" data-uid="FoundationaLLM.Common.Models.Chat.Message.Text">
   Text
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The text content of the message.</p>
@@ -482,7 +516,7 @@ public string Text { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_TimeStamp" data-uid="FoundationaLLM.Common.Models.Chat.Message.TimeStamp">
   TimeStamp
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The timestamp when the message was created.</p>
@@ -515,7 +549,7 @@ public DateTime TimeStamp { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Tokens" data-uid="FoundationaLLM.Common.Models.Chat.Message.Tokens">
   Tokens
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L44"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of tokens associated with the message, if any.</p>
@@ -548,7 +582,7 @@ public int? Tokens { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Type" data-uid="FoundationaLLM.Common.Models.Chat.Message.Type">
   Type
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The type of the message.</p>
@@ -581,7 +615,7 @@ public string Type { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_UPN" data-uid="FoundationaLLM.Common.Models.Chat.Message.UPN">
   UPN
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The UPN of the user who created the chat session.</p>
@@ -613,7 +647,7 @@ public string Type { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Vector" data-uid="FoundationaLLM.Common.Models.Chat.Message.Vector">
   Vector
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L67"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The vector associated with the message.</p>
@@ -646,7 +680,7 @@ public float[]? Vector { get; set; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

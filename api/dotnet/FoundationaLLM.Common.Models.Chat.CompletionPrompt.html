@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Models_Chat_CompletionPrompt" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt" class="text-break">
-Class CompletionPrompt  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L6"><i class="bi bi-code-slash"></i></a>
+Class CompletionPrompt  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L8"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -162,9 +162,9 @@ Class CompletionPrompt  <a class="header-action link-secondary" title="View sour
 
   <a id="FoundationaLLM_Common_Models_Chat_CompletionPrompt__ctor_" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Chat_CompletionPrompt__ctor_System_String_System_String_System_String_" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.#ctor(System.String,System.String,System.String)">
-  CompletionPrompt(string, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Chat_CompletionPrompt__ctor_System_String_System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Citation___" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.#ctor(System.String,System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[])">
+  CompletionPrompt(string, string, string, Citation[]?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L43"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Constructor for Completion Prompt.</p>
@@ -172,7 +172,7 @@ Class CompletionPrompt  <a class="header-action link-secondary" title="View sour
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CompletionPrompt(string sessionId, string messageId, string prompt)</code></pre>
+    <pre><code class="lang-csharp hljs">public CompletionPrompt(string sessionId, string messageId, string prompt, Citation[]? citations = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -182,6 +182,8 @@ Class CompletionPrompt  <a class="header-action link-secondary" title="View sour
     <dt><code>messageId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
     <dt><code>prompt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>citations</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Citation.html">Citation</a>[]</dt>
     <dd></dd>
   </dl>
 
@@ -200,11 +202,43 @@ Class CompletionPrompt  <a class="header-action link-secondary" title="View sour
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Models_Chat_CompletionPrompt_Citations_" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.Citations*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Chat_CompletionPrompt_Citations" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.Citations">
+  Citations
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The sources used in the creation of the completion response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Citation[]? Citations { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Citation.html">Citation</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Models_Chat_CompletionPrompt_Deleted_" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.Deleted*"></a>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_CompletionPrompt_Deleted" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.Deleted">
   Deleted
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Deleted flag used for soft delete.</p>
@@ -236,7 +270,7 @@ Class CompletionPrompt  <a class="header-action link-secondary" title="View sour
 
   <h3 id="FoundationaLLM_Common_Models_Chat_CompletionPrompt_Id" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.Id">
   Id
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The unique identifier.</p>
@@ -268,7 +302,7 @@ Class CompletionPrompt  <a class="header-action link-secondary" title="View sour
 
   <h3 id="FoundationaLLM_Common_Models_Chat_CompletionPrompt_MessageId" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.MessageId">
   MessageId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The messageId of the completion.</p>
@@ -300,7 +334,7 @@ Class CompletionPrompt  <a class="header-action link-secondary" title="View sour
 
   <h3 id="FoundationaLLM_Common_Models_Chat_CompletionPrompt_Prompt" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.Prompt">
   Prompt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The completion prompt.</p>
@@ -332,7 +366,7 @@ Class CompletionPrompt  <a class="header-action link-secondary" title="View sour
 
   <h3 id="FoundationaLLM_Common_Models_Chat_CompletionPrompt_SessionId" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.SessionId">
   SessionId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The sessionId associated with the completion.</p>
@@ -364,7 +398,7 @@ Class CompletionPrompt  <a class="header-action link-secondary" title="View sour
 
   <h3 id="FoundationaLLM_Common_Models_Chat_CompletionPrompt_Type" data-uid="FoundationaLLM.Common.Models.Chat.CompletionPrompt.Type">
   Type
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The type of the completion.</p>
@@ -396,7 +430,7 @@ Class CompletionPrompt  <a class="header-action link-secondary" title="View sour
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L6" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/CompletionPrompt.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -7595,15 +7595,15 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Chat.CompletionPrompt
   fullName: FoundationaLLM.Common.Models.Chat.CompletionPrompt
   nameWithType: CompletionPrompt
-- uid: FoundationaLLM.Common.Models.Chat.CompletionPrompt.#ctor(System.String,System.String,System.String)
-  name: CompletionPrompt(string, string, string)
-  href: api/dotnet/FoundationaLLM.Common.Models.Chat.CompletionPrompt.html#FoundationaLLM_Common_Models_Chat_CompletionPrompt__ctor_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Common.Models.Chat.CompletionPrompt.#ctor(System.String,System.String,System.String)
-  name.vb: New(String, String, String)
-  fullName: FoundationaLLM.Common.Models.Chat.CompletionPrompt.CompletionPrompt(string, string, string)
-  fullName.vb: FoundationaLLM.Common.Models.Chat.CompletionPrompt.New(String, String, String)
-  nameWithType: CompletionPrompt.CompletionPrompt(string, string, string)
-  nameWithType.vb: CompletionPrompt.New(String, String, String)
+- uid: FoundationaLLM.Common.Models.Chat.CompletionPrompt.#ctor(System.String,System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[])
+  name: CompletionPrompt(string, string, string, Citation[]?)
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.CompletionPrompt.html#FoundationaLLM_Common_Models_Chat_CompletionPrompt__ctor_System_String_System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Citation___
+  commentId: M:FoundationaLLM.Common.Models.Chat.CompletionPrompt.#ctor(System.String,System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[])
+  name.vb: New(String, String, String, Citation())
+  fullName: FoundationaLLM.Common.Models.Chat.CompletionPrompt.CompletionPrompt(string, string, string, FoundationaLLM.Common.Models.Orchestration.Citation[]?)
+  fullName.vb: FoundationaLLM.Common.Models.Chat.CompletionPrompt.New(String, String, String, FoundationaLLM.Common.Models.Orchestration.Citation())
+  nameWithType: CompletionPrompt.CompletionPrompt(string, string, string, Citation[]?)
+  nameWithType.vb: CompletionPrompt.New(String, String, String, Citation())
 - uid: FoundationaLLM.Common.Models.Chat.CompletionPrompt.#ctor*
   name: CompletionPrompt
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.CompletionPrompt.html#FoundationaLLM_Common_Models_Chat_CompletionPrompt__ctor_
@@ -7614,6 +7614,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.Chat.CompletionPrompt.New
   nameWithType: CompletionPrompt.CompletionPrompt
   nameWithType.vb: CompletionPrompt.New
+- uid: FoundationaLLM.Common.Models.Chat.CompletionPrompt.Citations
+  name: Citations
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.CompletionPrompt.html#FoundationaLLM_Common_Models_Chat_CompletionPrompt_Citations
+  commentId: P:FoundationaLLM.Common.Models.Chat.CompletionPrompt.Citations
+  fullName: FoundationaLLM.Common.Models.Chat.CompletionPrompt.Citations
+  nameWithType: CompletionPrompt.Citations
+- uid: FoundationaLLM.Common.Models.Chat.CompletionPrompt.Citations*
+  name: Citations
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.CompletionPrompt.html#FoundationaLLM_Common_Models_Chat_CompletionPrompt_Citations_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.CompletionPrompt.Citations
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.CompletionPrompt.Citations
+  nameWithType: CompletionPrompt.Citations
 - uid: FoundationaLLM.Common.Models.Chat.CompletionPrompt.Deleted
   name: Deleted
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.CompletionPrompt.html#FoundationaLLM_Common_Models_Chat_CompletionPrompt_Deleted
@@ -7788,15 +7801,15 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Chat.Message
   fullName: FoundationaLLM.Common.Models.Chat.Message
   nameWithType: Message
-- uid: FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String)
-  name: Message(string, string, int?, string, float[]?, bool?, string, string?)
-  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_
-  commentId: M:FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String)
-  name.vb: New(String, String, Integer?, String, Single(), Boolean?, String, String)
-  fullName: FoundationaLLM.Common.Models.Chat.Message.Message(string, string, int?, string, float[]?, bool?, string, string?)
-  fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New(String, String, Integer?, String, Single(), Boolean?, String, String)
-  nameWithType: Message.Message(string, string, int?, string, float[]?, bool?, string, string?)
-  nameWithType.vb: Message.New(String, String, Integer?, String, Single(), Boolean?, String, String)
+- uid: FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[])
+  name: Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?)
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Citation___
+  commentId: M:FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[])
+  name.vb: New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation())
+  fullName: FoundationaLLM.Common.Models.Chat.Message.Message(string, string, int?, string, float[]?, bool?, string, string?, FoundationaLLM.Common.Models.Orchestration.Citation[]?)
+  fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, FoundationaLLM.Common.Models.Orchestration.Citation())
+  nameWithType: Message.Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?)
+  nameWithType.vb: Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation())
 - uid: FoundationaLLM.Common.Models.Chat.Message.#ctor*
   name: Message
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_
@@ -7807,6 +7820,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New
   nameWithType: Message.Message
   nameWithType.vb: Message.New
+- uid: FoundationaLLM.Common.Models.Chat.Message.Citations
+  name: Citations
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_Citations
+  commentId: P:FoundationaLLM.Common.Models.Chat.Message.Citations
+  fullName: FoundationaLLM.Common.Models.Chat.Message.Citations
+  nameWithType: Message.Citations
+- uid: FoundationaLLM.Common.Models.Chat.Message.Citations*
+  name: Citations
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_Citations_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.Message.Citations
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.Message.Citations
+  nameWithType: Message.Citations
 - uid: FoundationaLLM.Common.Models.Chat.Message.CompletionPromptId
   name: CompletionPromptId
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_CompletionPromptId
@@ -10498,6 +10524,51 @@ references:
   commentId: N:FoundationaLLM.Common.Models.Orchestration
   fullName: FoundationaLLM.Common.Models.Orchestration
   nameWithType: FoundationaLLM.Common.Models.Orchestration
+- uid: FoundationaLLM.Common.Models.Orchestration.Citation
+  name: Citation
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Citation.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Citation
+  fullName: FoundationaLLM.Common.Models.Orchestration.Citation
+  nameWithType: Citation
+- uid: FoundationaLLM.Common.Models.Orchestration.Citation.Filepath
+  name: Filepath
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Citation.html#FoundationaLLM_Common_Models_Orchestration_Citation_Filepath
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Citation.Filepath
+  fullName: FoundationaLLM.Common.Models.Orchestration.Citation.Filepath
+  nameWithType: Citation.Filepath
+- uid: FoundationaLLM.Common.Models.Orchestration.Citation.Filepath*
+  name: Filepath
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Citation.html#FoundationaLLM_Common_Models_Orchestration_Citation_Filepath_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Citation.Filepath
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Citation.Filepath
+  nameWithType: Citation.Filepath
+- uid: FoundationaLLM.Common.Models.Orchestration.Citation.Id
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Citation.html#FoundationaLLM_Common_Models_Orchestration_Citation_Id
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Citation.Id
+  fullName: FoundationaLLM.Common.Models.Orchestration.Citation.Id
+  nameWithType: Citation.Id
+- uid: FoundationaLLM.Common.Models.Orchestration.Citation.Id*
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Citation.html#FoundationaLLM_Common_Models_Orchestration_Citation_Id_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Citation.Id
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Citation.Id
+  nameWithType: Citation.Id
+- uid: FoundationaLLM.Common.Models.Orchestration.Citation.Title
+  name: Title
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Citation.html#FoundationaLLM_Common_Models_Orchestration_Citation_Title
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Citation.Title
+  fullName: FoundationaLLM.Common.Models.Orchestration.Citation.Title
+  nameWithType: Citation.Title
+- uid: FoundationaLLM.Common.Models.Orchestration.Citation.Title*
+  name: Title
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Citation.html#FoundationaLLM_Common_Models_Orchestration_Citation_Title_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Citation.Title
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Citation.Title
+  nameWithType: Citation.Title
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest
   name: CompletionRequest
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html
@@ -10564,6 +10635,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.AgentName
   nameWithType: CompletionResponse.AgentName
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.Citations
+  name: Citations
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponse_Citations
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionResponse.Citations
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.Citations
+  nameWithType: CompletionResponse.Citations
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.Citations*
+  name: Citations
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponse_Citations_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionResponse.Citations
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.Citations
+  nameWithType: CompletionResponse.Citations
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.Completion
   name: Completion
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponse_Completion
@@ -12126,6 +12210,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.AgentName
   nameWithType: LLMCompletionResponse.AgentName
+- uid: FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Citations
+  name: Citations
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_Citations
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Citations
+  fullName: FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Citations
+  nameWithType: LLMCompletionResponse.Citations
+- uid: FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Citations*
+  name: Citations
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_Citations_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Citations
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Citations
+  nameWithType: LLMCompletionResponse.Citations
 - uid: FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Completion
   name: Completion
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_Completion
