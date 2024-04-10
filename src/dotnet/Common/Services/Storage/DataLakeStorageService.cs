@@ -48,15 +48,7 @@ namespace FoundationaLLM.Common.Services.Storage
         {
         }
 
-        /// <summary>
-        /// Retrieves a list file paths in the specific directory.
-        /// </summary>
-        /// <param name="containerName">Name of the container, file system or Workspace name.</param>
-        /// <param name="directoryPath">Directory to list file contents</param>
-        /// <param name="recursive">Recurse through child folders</param>
-        /// <param name="cancellationToken">Determines if a request should be cancelled.</param>
-        /// <returns>List of individual file paths located in the container.</returns>
-        /// <exception cref="ContentException"></exception>
+        /// <inheritdoc/>
         public async Task<List<string>> GetFilePathsAsync(
                        string containerName,
                        string? directoryPath = null,

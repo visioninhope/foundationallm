@@ -5,7 +5,6 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Models.ResourceProvider;
-using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.Vectorization.Interfaces;

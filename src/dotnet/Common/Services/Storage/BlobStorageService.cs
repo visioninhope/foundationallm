@@ -171,5 +171,8 @@ namespace FoundationaLLM.Common.Services.Storage
             _blobServiceClient = new BlobServiceClient(
                 new Uri($"https://{accountName}.dfs.core.windows.net"),
                 DefaultAuthentication.GetAzureCredential());
+
+        /// <inheritdoc/>
+        public Task<List<string>> GetFilePathsAsync(string containerName, string? directoryPath = null, bool recursive = true, CancellationToken cancellationToken = default) => throw new NotImplementedException();
     }
 }
