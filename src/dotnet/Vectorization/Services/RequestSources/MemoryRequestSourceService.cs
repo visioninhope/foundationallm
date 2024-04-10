@@ -56,5 +56,12 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             _requests.Enqueue(request);
             return Task.CompletedTask;
         }
+
+        /// <inheritdoc/>
+        public Task UpdateRequest(string requestId, string popReceipt, VectorizationRequest request)
+        {
+            _requests.Single(r => r.Id == request.Id).ErrorCount = request.ErrorCount;
+            return Task.CompletedTask;
+        }
     }
 }

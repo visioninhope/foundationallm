@@ -64,6 +64,20 @@ namespace FoundationaLLM.Vectorization.Models
         public List<string> RemainingSteps { get; set; } = [];
 
         /// <summary>
+        /// The number of times the processing of the current step resulted in an error.
+        /// </summary>
+        [JsonPropertyOrder(13)]
+        [JsonPropertyName("error_count")]
+        public int ErrorCount { get; set; }
+
+        /// <summary>
+        /// The time of the last successful processing of a step.
+        /// </summary>
+        [JsonPropertyOrder(14)]
+        [JsonPropertyName("last_successful_step_time")]
+        public DateTime LastSuccessfulStepTime { get; set; } = DateTime.UtcNow;
+
+        /// <summary>
         /// Indicates whether the vectorization process is complete or not.
         /// </summary>
         [JsonIgnore]
@@ -96,24 +110,9 @@ namespace FoundationaLLM.Vectorization.Models
                 ? null
                 : RemainingSteps[0];
 
+            LastSuccessfulStepTime = DateTime.UtcNow;
+
             return (previousStepName, nextStepName);
-        }
-
-        /// <summary>
-        /// Reverts the vectorization pipeline to the previous step, returning the name of the step to execute
-        /// </summary>
-        public string RollbackToPreviousStep()
-        {
-            if (CompletedSteps.Count == 0)
-            {
-                throw new VectorizationException("The list of completed steps is empty");
-            }
-
-            var stepName = CompletedSteps.Last();
-            CompletedSteps.RemoveAt(this.CompletedSteps.Count - 1);
-            RemainingSteps.Insert(0, stepName);
-
-            return stepName;
         }
 
         /// <summary>
@@ -123,5 +122,12 @@ namespace FoundationaLLM.Vectorization.Models
         /// <returns>An instances of the <see cref="VectorizationStep"/> class with the details required by the step handler.</returns>
         public VectorizationStep? this[string step] =>
             Steps.SingleOrDefault(s => s.Id == step);
+
+        /// <summary>
+        /// Identifies whether the request is expired or not.
+        /// Vectorization requests that had no successful step executions in the last 10 days are considered expired.
+        /// </summary>
+        public bool Expired =>
+            (DateTime.UtcNow - LastSuccessfulStepTime).TotalHours > 240;
     }
 }

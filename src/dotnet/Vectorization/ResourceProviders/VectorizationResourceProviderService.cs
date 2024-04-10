@@ -57,10 +57,10 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             VectorizationResourceProviderMetadata.AllowedResourceTypes;
 
-        private ConcurrentDictionary<string, VectorizationProfileBase> _textPartitioningProfiles = [];
-        private ConcurrentDictionary<string, VectorizationProfileBase> _textEmbeddingProfiles = [];
-        private ConcurrentDictionary<string, VectorizationProfileBase> _indexingProfiles = [];
-        private ConcurrentDictionary<string, VectorizationPipeline> _pipelines = [];
+        private readonly ConcurrentDictionary<string, VectorizationProfileBase> _textPartitioningProfiles = [];
+        private readonly ConcurrentDictionary<string, VectorizationProfileBase> _textEmbeddingProfiles = [];
+        private readonly ConcurrentDictionary<string, VectorizationProfileBase> _indexingProfiles = [];
+        private readonly ConcurrentDictionary<string, VectorizationPipeline> _pipelines = [];
 
         private string _defaultTextPartitioningProfileName = string.Empty;
         private string _defaultTextEmbeddingProfileName = string.Empty;

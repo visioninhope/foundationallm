@@ -14,7 +14,11 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
     {
         private readonly LLMCompletionRequest _request = request;
 
-        public async Task<LLMCompletionResponse> GetCompletion() => throw new NotImplementedException();
+        public async Task<LLMCompletionResponse> GetCompletion()
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
 
         private void ValidateRequest()
         {
