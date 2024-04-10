@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoundationaLLM.Common.Models.Vectorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace FoundationaLLM.Common.Interfaces
         /// Splits plain text into multiple chunks.
         /// </summary>
         /// <param name="text">The plain text to split.</param>
-        /// <returns>A list of strings containing the result of the split and a message with optional details about the split result.</returns>
-        (List<string> TextChunks, string Message) SplitPlainText(string text);
+        /// <returns>A list of <see cref="TextChunk"/> items containing the text chunks and their sizes in tokens.</returns>
+        List<TextChunk> SplitPlainText(string text);
     }
 }

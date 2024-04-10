@@ -82,7 +82,7 @@ namespace FoundationaLLM.Vectorization.Handlers
                         Content = textPartitioningArtifacts[i].Content!,
                         Embedding = JsonSerializer.Deserialize<Embedding>(textEmbeddingArtifacts[i].Content!, serializerOptions)
                     }).ToList()
-        };
+            };
 
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IIndexingService>>()
                 ?? throw new VectorizationException($"Could not retrieve the indexing service factory instance.");

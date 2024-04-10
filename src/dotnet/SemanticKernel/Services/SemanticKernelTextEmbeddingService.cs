@@ -41,16 +41,16 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<(Embedding Embedding, int TokenCount)> GetEmbeddingAsync(string text)
+        public async Task<(Embedding Embedding, int TokenCount)> GetEmbeddingAsync(TextChunk textChunk)
         {
-            var embedding = await _textEmbeddingService.GenerateEmbeddingAsync(text);
+            var embedding = await _textEmbeddingService.GenerateEmbeddingAsync(textChunk.Content);
             return new(new(embedding), 0);
         }
 
         /// <inheritdoc/>
-        public async Task<(IList<Embedding> Embeddings, int TokenCount)> GetEmbeddingsAsync(IList<string> texts)
+        public async Task<(IList<Embedding> Embeddings, int TokenCount)> GetEmbeddingsAsync(IList<TextChunk> textChunks)
         {
-            var embeddings = await _textEmbeddingService.GenerateEmbeddingsAsync(texts);
+            var embeddings = await _textEmbeddingService.GenerateEmbeddingsAsync(textChunks.Select(tc => tc.Content).ToList());
             return new(embeddings.Select(e => new Embedding(e)).ToList(), 0);
         }
 

@@ -49,7 +49,8 @@ namespace FoundationaLLM.Vectorization.Handlers
             {
                 Type = VectorizationArtifactType.ExtractedText,
                 Position = 1,
-                Content = textContent
+                Content = textContent,
+                Size = textContent.Length
             });
 
             return true;

@@ -58,7 +58,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             var textEmbedding = serviceFactory.GetService(_parameters["text_embedding_profile_name"]);
 
             var embeddingResult = await textEmbedding.GetEmbeddingsAsync(
-                textPartitioningArtifacts.Select(tpa => tpa.Content!).ToList());
+                textPartitioningArtifacts.Select(tpa => new TextChunk { Content = tpa.Content!, TokensCount = tpa.Size }).ToList());
 
             var position = 0;
             var serializerOptions = new JsonSerializerOptions
@@ -74,7 +74,8 @@ namespace FoundationaLLM.Vectorization.Handlers
                 {
                     Type = VectorizationArtifactType.TextEmbeddingVector,
                     Position = ++position,
-                    Content = JsonSerializer.Serialize(embedding, serializerOptions)
+                    Content = JsonSerializer.Serialize(embedding, serializerOptions),
+                    Size = embedding.Length
                 });
 
             return true;

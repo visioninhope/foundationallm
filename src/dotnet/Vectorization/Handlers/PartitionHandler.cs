@@ -58,15 +58,14 @@ namespace FoundationaLLM.Vectorization.Handlers
             var splitResult = textSplitter.SplitPlainText(extractedTextArtifact.Content!);
 
             var position = 0;
-            foreach (var textChunk in splitResult.TextChunks)
+            foreach (var textChunk in splitResult)
                 state.AddOrReplaceArtifact(new VectorizationArtifact
                 {
                     Type = VectorizationArtifactType.TextPartition,
                     Position = ++position,
-                    Content = textChunk
+                    Content = textChunk.Content,
+                    Size = textChunk.TokensCount
                 });
-            if (!string.IsNullOrWhiteSpace(splitResult.Message))
-                state.Log(this, request.Id!, _messageId, splitResult.Message);
 
             return true;
         }
