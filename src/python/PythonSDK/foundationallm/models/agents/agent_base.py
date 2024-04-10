@@ -11,7 +11,6 @@ from foundationallm.models.metadata import ConversationHistory, Gatekeeper, Meta
 class AgentBase(MetadataBase):
     """ Agent Base metadata model."""
     prompt_object_id: Optional[str] = None
-    language_model: Optional[LanguageModel] = LanguageModel()
     sessions_enabled: Optional[bool] = False
     conversation_history: Optional[ConversationHistory] = ConversationHistory()
     gatekeeper: Optional[Gatekeeper] = Gatekeeper()
