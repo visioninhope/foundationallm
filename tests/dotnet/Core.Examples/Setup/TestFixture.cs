@@ -16,7 +16,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 			var serviceCollection = new ServiceCollection();
 
 			var configRoot = new ConfigurationBuilder()
-				.AddJsonFile("appsettings.Development.json", true)
+				.AddJsonFile("testsettings.json", true)
 				.AddEnvironmentVariables()
 				.AddUserSecrets<Environment>()
 				.Build();

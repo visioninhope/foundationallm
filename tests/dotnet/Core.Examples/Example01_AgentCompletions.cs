@@ -19,6 +19,7 @@ using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Graph.Models;
 using Azure.Identity;
+using FoundationaLLM.Core.Examples.Models;
 
 namespace FoundationaLLM.Core.Examples
 {
@@ -42,12 +43,25 @@ namespace FoundationaLLM.Core.Examples
 
 		public async Task RunExampleAsync()
 		{
-			// Arrange
-			var createNewSession = true;
+			var agentPrompts = TestConfiguration.AgentPromptConfiguration.AgentPrompts;
+			if (agentPrompts == null || agentPrompts.Length == 0)
+			{
+				WriteLine("No agent prompts found. Make sure you enter them in testsettings.json.");
+				return;
+			}
+			foreach (var agentPrompt in agentPrompts)
+			{
+				await RunAgentCompletionAsync(agentPrompt);
+			}
+		}
+
+		private async Task RunAgentCompletionAsync(AgentPrompt agentPrompt)
+		{
+			WriteLine($"Agent: {agentPrompt.AgentName}");
+
 			var cosmosDbSettings = TestConfiguration.CosmosDbSettings;
 			var client = await GetHttpClient();
-			var sessionId = ""; // If you are not creating a new chat session, enter the existing session ID here.
-			if (createNewSession)
+			if (agentPrompt.SessionConfiguration.CreateNewSession)
 			{
 				var responseSession = await client.PostAsync("sessions", null);
 
@@ -55,10 +69,10 @@ namespace FoundationaLLM.Core.Examples
 				{
 					var responseContent = await responseSession.Content.ReadAsStringAsync();
 					var sessionResponse = JsonSerializer.Deserialize<Session>(responseContent, _jsonSerializerOptions);
-					sessionId = sessionResponse.SessionId;
+					agentPrompt.SessionConfiguration.SessionId = sessionResponse.SessionId;
 
 					var sessionName = "Test: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-					var responseUpdate = await client.PostAsync($"sessions/{sessionId}/rename?newChatSessionName={UrlEncoder.Default.Encode(sessionName)}", null);
+					var responseUpdate = await client.PostAsync($"sessions/{agentPrompt.SessionConfiguration.SessionId}/rename?newChatSessionName={UrlEncoder.Default.Encode(sessionName)}", null);
 
 					if (!responseUpdate.IsSuccessStatusCode)
 					{
@@ -66,23 +80,20 @@ namespace FoundationaLLM.Core.Examples
 					}
 				}
 			}
-			var agentName = "FoundationaLLM";
-			var userPrompt = "Hello, who are you?";
-			var expectedCompletion = "I am an analytic agent named Khalil. How may I assist you?";
 			var orchestrationSettings = new OrchestrationSettings();
 
 			var orchestrationRequest = new OrchestrationRequest
 			{
-				SessionId = sessionId,
-				AgentName = agentName,
-				UserPrompt = userPrompt,
+				SessionId = agentPrompt.SessionConfiguration.SessionId,
+				AgentName = agentPrompt.AgentName,
+				UserPrompt = agentPrompt.UserPrompt,
 				Settings = orchestrationSettings
 			};
 
 			var serializedRequest = JsonSerializer.Serialize(orchestrationRequest, _jsonSerializerOptions);
-			
+
 			var orchestrationUrl = "orchestration/completion"; // Sessionless - no message history and data is not retained in Cosmos DB.
-			var sessionUrl = $"sessions/{sessionId}/completion"; // Session-based - message history and data is retained in Cosmos DB. Must create a session if it does not exist.
+			var sessionUrl = $"sessions/{agentPrompt.SessionConfiguration.SessionId}/completion"; // Session-based - message history and data is retained in Cosmos DB. Must create a session if it does not exist.
 			var responseMessage = await client.PostAsync(sessionUrl,
 				new StringContent(
 					serializedRequest,
@@ -95,12 +106,11 @@ namespace FoundationaLLM.Core.Examples
 
 				// TODO: Retrieve the expected completion value from Cosmos DB and compare to the completion response.
 
-				WriteLine($"User prompt -> '{userPrompt}'");
+				WriteLine($"User prompt -> '{agentPrompt.UserPrompt}'");
 				WriteLine($"Agent completion -> '{completionResponse.Text}'");
-				WriteLine($"Expected completion -> '{expectedCompletion}'");
-				WriteLine($"Completions match -> {completionResponse.Text.Equals(expectedCompletion)}");
+				WriteLine($"Expected completion -> '{agentPrompt.ExpectedCompletion}'");
+				WriteLine($"Completions match -> {completionResponse.Text.Equals(agentPrompt.ExpectedCompletion)}");
 			}
-			
 		}
 
 		private async Task<HttpClient> GetHttpClient()

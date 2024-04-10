@@ -15,6 +15,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Core.Examples.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FoundationaLLM.Core.Examples.Setup
@@ -26,6 +27,7 @@ namespace FoundationaLLM.Core.Examples.Setup
         private static ConfigurationClient client;
         private readonly ChainedTokenCredential tokenCredential;
         public static CosmosDbSettings CosmosDbSettings;
+        public static AgentPromptConfiguration AgentPromptConfiguration => LoadSection<AgentPromptConfiguration>();
 
         private TestConfiguration(IConfigurationRoot configRoot)
         {
