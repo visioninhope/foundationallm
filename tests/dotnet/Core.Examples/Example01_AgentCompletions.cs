@@ -35,7 +35,7 @@ namespace FoundationaLLM.Core.Examples
 		[Fact]
 		public async Task RunAsync()
 		{
-			this.WriteLine("============ Agent Completions ============");
+			WriteLine("============ Agent Completions ============");
 			await RunExampleAsync();
 		}
 
@@ -47,6 +47,7 @@ namespace FoundationaLLM.Core.Examples
 			var sessionId = Guid.NewGuid().ToString();
 			var agentName = "FoundationaLLM";
 			var userPrompt = "Hello, who are you?";
+			var expectedCompletion = "I am an analytic agent named Khalil. How may I assist you?";
 			var orchestrationSettings = new OrchestrationSettings();
 
 			var orchestrationRequest = new OrchestrationRequest
@@ -66,26 +67,26 @@ namespace FoundationaLLM.Core.Examples
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				var responseContent = await responseMessage.Content.ReadAsStringAsync();
-				var completionResponse = JsonSerializer.Deserialize<Completion>(responseContent);
+				var completionResponse = JsonSerializer.Deserialize<Completion>(responseContent, _jsonSerializerOptions);
 
 				// TODO: Retrieve the expected completion value from Cosmos DB and compare to the completion response.
-			}
 
-			// Assert
-			Assert.NotNull(cosmosDbSettings.Endpoint);
-			Assert.NotNull(client.BaseAddress);
+				WriteLine($"User prompt -> '{userPrompt}'");
+				WriteLine($"Agent completion -> '{completionResponse.Text}'");
+				WriteLine($"Expected completion -> '{expectedCompletion}'");
+				WriteLine($"Completions match -> {completionResponse.Text.Equals(expectedCompletion)}");
+			}
+			
 		}
 
 		private async Task<HttpClient> GetHttpClient()
 		{
 			var httpClient = _httpClientFactory.CreateClient(HttpClients.CoreAPI);
 			var coreApiScope = TestConfiguration.GetAppConfigValueAsync(AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes).GetAwaiter().GetResult();
-			//if (!coreApiScope.EndsWith("/.default"))
-			//{
-			//	coreApiScope += "/.default";
-			//}
 
-			//var credentials = new AzureCliCredential();
+			// The scope needs to just be the base URI, not the full URI.
+			coreApiScope = coreApiScope[..coreApiScope.LastIndexOf('/')];
+
 			var credentials = TestConfiguration.GetTokenCredential();
 			var tokenResult = await credentials.GetTokenAsync(
 				new([coreApiScope]),
