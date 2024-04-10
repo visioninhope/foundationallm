@@ -18,3 +18,4 @@ class OrchestrationSettings(BaseModel):
     agent_parameters: Optional[dict] = None
     endpoint_configuration: Optional[dict] = None
     model_parameters: Optional[dict] = None
+    orchestrator: Optional[str] = 'LangChain'
