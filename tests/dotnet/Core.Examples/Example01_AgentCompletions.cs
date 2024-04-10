@@ -110,6 +110,7 @@ namespace FoundationaLLM.Core.Examples
 				WriteLine($"Agent completion -> '{completionResponse.Text}'");
 				WriteLine($"Expected completion -> '{agentPrompt.ExpectedCompletion}'");
 				WriteLine($"Completions match -> {completionResponse.Text.Equals(agentPrompt.ExpectedCompletion)}");
+				WriteLine("-------------------------------");
 			}
 		}
 
