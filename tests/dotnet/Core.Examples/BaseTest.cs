@@ -8,32 +8,32 @@ using System.Threading.Tasks;
 using FoundationaLLM.Core.Examples.Utils;
 using Xunit.Abstractions;
 using Environment = FoundationaLLM.Core.Examples.Utils.Environment;
+using FoundationaLLM.Core.Examples.Setup;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FoundationaLLM.Core.Examples
 {
-	public abstract class BaseTest
+    public abstract class BaseTest
 	{
 		protected ITestOutputHelper Output { get; }
-
+		protected IServiceProvider ServiceProvider { get; }
 		protected ILoggerFactory LoggerFactory { get; }
 
-		protected BaseTest(ITestOutputHelper output)
+		protected BaseTest(ITestOutputHelper output, IServiceProvider serviceProvider)
 		{
 			this.Output = output;
 			this.LoggerFactory = new XunitLogger(output);
-
-			LoadUserSecrets();
+			this.ServiceProvider = serviceProvider;
 		}
 
-		private static void LoadUserSecrets()
+		/// <summary>
+		/// Service locator to get services from the ServiceProvider.
+		/// </summary>
+		/// <typeparam name="T">The type of service to retrieve.</typeparam>
+		/// <returns></returns>
+		protected T GetService<T>()
 		{
-			IConfigurationRoot configRoot = new ConfigurationBuilder()
-				.AddJsonFile("appsettings.Development.json", true)
-				.AddEnvironmentVariables()
-				.AddUserSecrets<Environment>()
-				.Build();
-
-			TestConfiguration.Initialize(configRoot);
+			return ServiceProvider.GetRequiredService<T>();
 		}
 
 		/// <summary>
