@@ -13,7 +13,7 @@ namespace FoundationaLLM.Vectorization.Models
         /// The unique identifier of the vectorization request.
         /// The responsibility to create this identifier belongs to the initiator of the vectorization request.
         /// </summary>
-        [JsonPropertyOrder(-1)]
+        [JsonPropertyOrder(-2)]
         [JsonPropertyName("id")]
         public string? Id { get; set; }
 
@@ -27,16 +27,23 @@ namespace FoundationaLLM.Vectorization.Models
         public string? ObjectId { get; set; }
 
         /// <summary>
-        /// The <see cref="ContentIdentifier"/> object identifying the content being vectorized.
+        /// Path to the vectorization request resource file.
         /// </summary>
         [JsonPropertyOrder(1)]
+        [JsonPropertyName("resource_filepath")]
+        public string? ResourceFilePath { get; set; }
+
+        /// <summary>
+        /// The <see cref="ContentIdentifier"/> object identifying the content being vectorized.
+        /// </summary>
+        [JsonPropertyOrder(2)]
         [JsonPropertyName("content_identifier")]
         public required ContentIdentifier ContentIdentifier { get; set; }
 
         /// <summary>
         /// The <see cref="VectorizationProcessingType"/> indicating how should the request be processed.
         /// </summary>
-        [JsonPropertyOrder(2)]
+        [JsonPropertyOrder(3)]
         [JsonPropertyName("processing_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public required VectorizationProcessingType ProcessingType { get; set; }
