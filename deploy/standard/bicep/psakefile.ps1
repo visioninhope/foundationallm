@@ -4,6 +4,32 @@ Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enabl
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
+function New-Bicepparams {
+    param(
+        [string] $templateFile,
+        [hashtable] $parameters
+    )
+
+    $templateName = [System.IO.Path]::GetFileNameWithoutExtension($templateFile)
+    $paramsFile = "$($templateName).parameters.bicepparam"
+    $bicepParams = @()
+    $bicepParams += "using '$templateFile'"
+    foreach ($p in $parameters.GetEnumerator()) {
+        switch ($p.Value.type) {
+            bool {
+                $bicepParams += "param $($p.Name) = $($p.Value.value.ToString().ToLower())"
+            }
+            Default {
+                $bicepParams += "param $($p.Name) = '$($p.Value.value)'"
+            }
+        }
+    }
+
+    Write-Host -ForegroundColor Blue "Write ${paramsFile}"
+    $bicepParams | Out-File -FilePath $paramsFile -Encoding ascii -Force
+    return $paramsFile
+}
+
 $skipApp = $false
 $skipAuth = $true
 $skipDns = $false
@@ -29,30 +55,95 @@ task App -depends ResourceGroups, Ops, Networking, DNS, Configuration, Vec, Stor
         return;
     }
 
-    Write-Host -ForegroundColor Blue "Ensure app resources exist"
+    Write-Host -ForegroundColor Blue "App Deployment"
+    Write-Host -ForegroundColor Green "Deployment Name: $($script:deployments["app"])"
+    Write-Host -ForegroundColor Green "Resource Group: $($script:resourceGroups.app)"
 
-    az deployment group create --name  $script:deployments["app"] `
+    $templateFile = "app-rg.bicep"
+    $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
+        actionGroupId                = @{
+            type  = "string"
+            value = $script:actionGroupId
+        }
+        administratorObjectId         = @{
+            type  = "string"
+            value = $script:administratorObjectId
+        }
+        chatUiClientSecret            = @{
+            type  = "string"
+            value = $script:chatUiClientSecret
+        }
+        coreApiClientSecret           = @{
+            type  = "string"
+            value = $script:coreApiClientSecret
+        }
+        dnsResourceGroupName          = @{
+            type  = "string"
+            value = $script:resourceGroups.dns
+        }
+        environmentName               = @{
+            type  = "string"
+            value = $script:environment
+        }
+        k8sNamespace                  = @{
+            type  = "string"
+            value = $script:k8sNamespace
+        }
+        location                      = @{
+            type  = "string"
+            value = $script:location
+        }
+        logAnalyticsWorkspaceId       = @{
+            type  = "string"
+            value = $script:logAnalyticsWorkspaceId
+        }
+        logAnalyticsWorkspaceResourceId = @{
+            type  = "string"
+            value = $script:logAnalyticsWorkspaceId
+        }
+        managementUiClientSecret      = @{
+            type  = "string"
+            value = $script:managementUiClientSecret
+        }
+        managementApiClientSecret     = @{
+            type  = "string"
+            value = $script:managementApiClientSecret
+        }
+        networkingResourceGroupName   = @{
+            type  = "string"
+            value = $script:resourceGroups.net
+        }
+        opsResourceGroupName          = @{
+            type  = "string"
+            value = $script:resourceGroups.ops
+        }
+        project                       = @{
+            type  = "string"
+            value = $script:project
+        }
+        storageResourceGroupName      = @{
+            type  = "string"
+            value = $script:resourceGroups.storage
+        }
+        vectorizationResourceGroupName = @{
+            type  = "string"
+            value = $script:resourceGroups.vec
+        }
+        vectorizationApiClientSecret  = @{
+            type  = "string"
+            value = $script:vectorizationApiClientSecret
+        }
+        vnetName                     = @{
+            type  = "string"
+            value = $script:vnetName
+        }
+    }
+
+    az deployment group create `
+        --name  $script:deployments["app"] `
+        --parameters $paramsFile `
         --resource-group $resourceGroups.app `
-        --template-file ./app-rg.bicep `
-        --parameters actionGroupId=$script:actionGroupId `
-        administratorObjectId=$script:administratorObjectId `
-        chatUiClientSecret=$script:chatUiClientSecret `
-        coreApiClientSecret=$script:coreApiClientSecret `
-        dnsResourceGroupName=$($resourceGroups.dns) `
-        environmentName=$script:environment `
-        k8sNamespace=$script:k8sNamespace `
-        location=$script:location `
-        logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-        logAnalyticsWorkspaceResourceId=$script:logAnalyticsWorkspaceId `
-        managementUiClientSecret=$script:managementUiClientSecret `
-        managementApiClientSecret=$script:managementApiClientSecret `
-        networkingResourceGroupName=$($script:resourceGroups.net) `
-        opsResourceGroupName=$($script:resourceGroups.ops) `
-        vectorizationResourceGroupName=$($script:resourceGroups.vec) `
-        project=$script:project `
-        storageResourceGroupName=$($script:resourceGroups.storage) `
-        vectorizationApiClientSecret=$script:vectorizationApiClientSecret `
-        vnetName=$script:vnetName
+        --template-file ./$templateFile
 
     if ($LASTEXITCODE -ne 0) {
         throw "The app deployment failed."
@@ -65,28 +156,87 @@ task Auth -depends App, ResourceGroups, Networking, DNS {
         return;
     }
 
-    Write-Host -ForegroundColor Blue "Ensure Auth resources exist"
+    Write-Host -ForegroundColor Blue "Auth Deployment"
+    Write-Host -ForegroundColor Green "Deployment Name: $($script:deployments["auth"])"
+    Write-Host -ForegroundColor Green "Resource Group: $($script:resourceGroups.auth)"
 
-    az deployment group create --name  $script:deployments["auth"] `
-                        --resource-group $resourceGroups.auth `
-                        --template-file ./auth-rg.bicep `
-                        --parameters actionGroupId=$script:actionGroupId `
-                                    administratorObjectId=$script:administratorObjectId `
-                                    appResourceGroupName=$($resourceGroups.app) `
-                                    dnsResourceGroupName=$($resourceGroups.dns) `
-                                    opsResourceGroupName=$($resourceGroups.ops) `
-                                    authAppRegistrationInstance=$($manifest.entraInstances.authorization) `
-                                    authAppRegistrationTenantId=$($manifest.tenantId) `
-                                    authAppRegistrationClientId=$($manifest.entraClientIds.authorization) `
-                                    authClientSecret=$($manifest.entraClientSecrets.authorization) `
-                                    authAppRegistrationScopes=$($manifest.entraClientScopes.authorization) `
-                                    instanceId=$($manifest.instanceId) `
-                                    environmentName=$environment `
-                                    k8sNamespace=$script:k8sNamespace `
-                                    location=$script:location `
-                                    logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-                                    project=$script:project `
-                                    vnetId=$script:vnetId
+    $templateFile = "auth-rg.bicep"
+    $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
+        actionGroupId                = @{
+            type  = "string"
+            value = $script:actionGroupId
+        }
+        administratorObjectId         = @{
+            type  = "string"
+            value = $script:administratorObjectId
+        }
+        appResourceGroupName         = @{
+            type  = "string"
+            value = $script:resourceGroups.app
+        }
+        authAppRegistrationClientId  = @{
+            type  = "string"
+            value = $script:manifest.entraClientIds.authorization
+        }
+        authAppRegistrationInstance   = @{
+            type  = "string"
+            value = $script:manifest.entraInstances.authorization
+        }
+        authAppRegistrationScopes     = @{
+            type  = "string"
+            value = $script:manifest.entraClientScopes.authorization
+        }
+        authAppRegistrationTenantId   = @{
+            type  = "string"
+            value = $script:manifest.tenantId
+        }
+        authClientSecret              = @{
+            type  = "string"
+            value = $script:manifest.entraClientSecrets.authorization
+        }
+        dnsResourceGroupName          = @{
+            type  = "string"
+            value = $script:resourceGroups.dns
+        }
+        environmentName               = @{
+            type  = "string"
+            value = $script:environment
+        }
+        instanceId                    = @{
+            type  = "string"
+            value = $script:manifest.instanceId
+        }
+        k8sNamespace                  = @{
+            type  = "string"
+            value = $script:k8sNamespace
+        }
+        location                      = @{
+            type  = "string"
+            value = $script:location
+        }
+        logAnalyticsWorkspaceId       = @{
+            type  = "string"
+            value = $script:logAnalyticsWorkspaceId
+        }
+        opsResourceGroupName          = @{
+            type  = "string"
+            value = $script:resourceGroups.ops
+        }
+        project                       = @{
+            type  = "string"
+            value = $script:project
+        }
+        vnetId                        = @{
+            type  = "string"
+            value = $script:vnetId
+        }
+    }
+
+    az deployment group create `
+        --name $script:deployments["auth"] `
+        --parameters $paramsFile `
+        --resource-group $resourceGroups.auth `
+        --template-file ./$templateFile
 
     if ($LASTEXITCODE -ne 0) {
         throw "The auth deployment failed."
@@ -171,24 +321,45 @@ task Configuration {
     Write-Host -ForegroundColor Blue "Configuration complete."
 }
 
-task DNS -depends ResourceGroups, Networking {
+task DNS -depends ResourceGroups, Networking, Configuration {
     if ($skipDns -eq $true) {
         Write-Host -ForegroundColor Yellow "Skipping DNS Creation."
         return;
     }
 
-    Write-Host -ForegroundColor Blue "Ensure DNS resources exist"
+    Write-Host -ForegroundColor Blue "DNS Deployment"
+    Write-Host -ForegroundColor Green "Deployment Name: $($script:deployments["dns"])"
+    Write-Host -ForegroundColor Green "Resource Group: $($script:resourceGroups.dns)"
+
+    $templateFile = "dns-rg.bicep"
+    $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
+        environmentName          = @{
+            type  = "string"
+            value = $script:environment
+        }
+        location                 = @{
+            type  = "string"
+            value = $script:location
+        }
+        project                  = @{
+            type  = "string"
+            value = $script:project
+        }
+        networkResourceGroupName = @{
+            type  = "string"
+            value = $script:resourceGroups.net
+        }
+        vnetName                 = @{
+            type  = "string"
+            value = $script:vnetName
+        }
+    }
 
     az deployment group create `
         --name $script:deployments["dns"] `
-        --parameters `
-        environmentName=$script:environment `
-        location=$script:location `
-        project=$script:project `
-        networkResourceGroupName=$($script:resourceGroups.net) `
-        vnetName=$script:vnetName `
+        --parameters $paramsFile `
         --resource-group $script:resourceGroups.dns `
-        --template-file ./dns-rg.bicep
+        --template-file ./$templateFile
 
     if ($LASTEXITCODE -ne 0) {
         throw "The DNS deployment failed."
@@ -201,17 +372,36 @@ task Networking -depends ResourceGroups, Configuration {
         return;
     }
 
-    Write-Host -ForegroundColor Blue "Ensure networking resources exist"
+    Write-Host -ForegroundColor Blue "Networking Deployment"
+    Write-Host -ForegroundColor Green "Deployment Name: $($script:deployments["net"])"
+    Write-Host -ForegroundColor Green "Resource Group: $($script:resourceGroups.net)"
+
+    $templateFile = "networking-rg.bicep"
+    $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
+        createVpnGateway = @{
+            type  = "bool"
+            value = $script:createVpnGateway
+        }
+        environmentName  = @{
+            type  = "string"
+            value = $script:environment
+        }
+        location         = @{
+            type  = "string"
+            value = $script:location
+        }
+        project          = @{
+            type  = "string"
+            value = $script:project
+        }
+    }
 
     az deployment group create `
         --name $script:deployments["net"] `
-        --parameters `
-        environmentName=$script:environment `
-        location=$script:location `
-        project=$script:project `
-        createVpnGateway=$script:createVpnGateway `
         --resource-group $script:resourceGroups.net `
-        --template-file ./networking-rg.bicep
+        --template-file ./$templateFile `
+        --parameters $paramsFile
+
 
     if ($LASTEXITCODE -ne 0) {
         throw "The networking deployment failed."
@@ -240,20 +430,55 @@ task OpenAI -depends ResourceGroups, Ops, Networking, DNS, Configuration {
         return;
     }
 
-    Write-Host -ForegroundColor Blue "Ensure OpenAI accounts exist"
+    Write-Host -ForegroundColor Blue "OpenAI Deployment"
+    Write-Host -ForegroundColor Green "Deployment Name: $($script:deployments.oai)"
+    Write-Host -ForegroundColor Green "Resource Group: $($script:resourceGroups.oai)"
 
-    az deployment group create --name $script:deployments.oai `
+    $templateFile = "openai-rg.bicep"
+    $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
+        actionGroupId           = @{
+            type  = "string"
+            value = $script:actionGroupId
+        }
+        administratorObjectId    = @{
+            type  = "string"
+            value = $script:administratorObjectId
+        }
+        dnsResourceGroupName     = @{
+            type  = "string"
+            value = $script:resourceGroups.dns
+        }
+        environmentName          = @{
+            type  = "string"
+            value = $script:environment
+        }
+        location                 = @{
+            type  = "string"
+            value = $script:location
+        }
+        logAnalyticsWorkspaceId  = @{
+            type  = "string"
+            value = $script:logAnalyticsWorkspaceId
+        }
+        opsResourceGroupName     = @{
+            type  = "string"
+            value = $script:resourceGroups.ops
+        }
+        project                  = @{
+            type  = "string"
+            value = $script:project
+        }
+        vnetId                   = @{
+            type  = "string"
+            value = $script:vnetId
+        }
+    }
+
+    az deployment group create `
+        --name $script:deployments.oai `
+        --parameters $paramsFile `
         --resource-group  $script:resourceGroups.oai `
-        --template-file ./openai-rg.bicep `
-        --parameters actionGroupId=$script:actionGroupId `
-        administratorObjectId=$script:administratorObjectId `
-        dnsResourceGroupName=$($script:resourceGroups.dns) `
-        environmentName=$script:environment `
-        location=$script:location `
-        logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-        opsResourceGroupName=$($script:resourceGroups.ops) `
-        project=$script:project `
-        vnetId=$script:vnetId
+        --template-file ./$templateFile
 
     if ($LASTEXITCODE -ne 0) {
         throw "The OpenAI deployment failed."
@@ -266,19 +491,43 @@ task Ops -depends ResourceGroups, Networking, DNS, Configuration {
         return;
     }
 
-    Write-Host -ForegroundColor Blue "Ensure ops resources exist"
+    Write-Host -ForegroundColor Blue "Ops Deployment"
+    Write-Host -ForegroundColor Green "Deployment Name: $($script:deployments["ops"])"
+    Write-Host -ForegroundColor Green "Resource Group: $($script:resourceGroups.ops)"
+
+    $templateFile = "ops-rg.bicep"
+    $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
+        administratorObjectId = @{
+            type  = "string"
+            value = $script:administratorObjectId
+        }
+        dnsResourceGroupName  = @{
+            type  = "string"
+            value = $script:resourceGroups.dns
+        }
+        environmentName       = @{
+            type  = "string"
+            value = $script:environment
+        }
+        location              = @{
+            type  = "string"
+            value = $script:location
+        }
+        project               = @{
+            type  = "string"
+            value = $script:project
+        }
+        vnetId                = @{
+            type  = "string"
+            value = $script:vnetId
+        }
+    }
 
     az deployment group create `
         --name $script:deployments["ops"] `
+        --parameters $paramsFile `
         --resource-group $script:resourceGroups.ops `
-        --template-file ./ops-rg.bicep `
-        --parameters `
-        administratorObjectId=$script:administratorObjectId `
-        dnsResourceGroupName=$($script:resourceGroups.dns) `
-        environmentName=$script:environment `
-        location=$script:location `
-        project=$script:project `
-        vnetId=$script:vnetId
+        --template-file ./$templateFile
 
     if ($LASTEXITCODE -ne 0) {
         throw "The ops deployment failed."
@@ -338,21 +587,51 @@ task Storage -depends ResourceGroups, Ops, Networking, DNS, Configuration {
         return;
     }
 
-    Write-Host -ForegroundColor Blue "Ensure Storage resources exist"
+    Write-Host -ForegroundColor Blue "Storage Deployment"
+    Write-Host -ForegroundColor Green "Deployment Name: $($script:deployments["storage"])"
+    Write-Host -ForegroundColor Green "Resource Group: $($script:resourceGroups.storage)"
+
+    $templateFile = "storage-rg.bicep"
+    $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
+        actionGroupId           = @{
+            type  = "string"
+            value = $script:actionGroupId
+        }
+        dnsResourceGroupName    = @{
+            type  = "string"
+            value = $script:resourceGroups.dns
+        }
+        environmentName         = @{
+            type  = "string"
+            value = $script:environment
+        }
+        location                = @{
+            type  = "string"
+            value = $script:location
+        }
+        logAnalyticsWorkspaceId = @{
+            type  = "string"
+            value = $script:logAnalyticsWorkspaceId
+        }
+        opsResourceGroupName    = @{
+            type  = "string"
+            value = $script:resourceGroups.ops
+        }
+        project                 = @{
+            type  = "string"
+            value = $script:project
+        }
+        vnetId                  = @{
+            type  = "string"
+            value = $script:vnetId
+        }
+    }
 
     az deployment group create `
         --name $script:deployments["storage"] `
+        --parameters $paramsFile `
         --resource-group $script:resourceGroups.storage `
-        --template-file ./storage-rg.bicep `
-        --parameters `
-        actionGroupId=$script:actionGroupId `
-        environmentName=$script:environment `
-        location=$script:location `
-        logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-        dnsResourceGroupName=$($script:resourceGroups.dns) `
-        opsResourceGroupName=$($script:resourceGroups.ops) `
-        project=$script:project `
-        vnetId=$script:vnetId
+        --template-file ./$templateFile
 
     if ($LASTEXITCODE -ne 0) {
         throw "The storage deployment failed."
@@ -365,20 +644,47 @@ task Vec -depends ResourceGroups, Ops, Networking, DNS, Configuration {
         return;
     }
 
-    Write-Host -ForegroundColor Blue "Ensure vec resources exist"
+    Write-Host -ForegroundColor Blue "Vec Deployment"
+    Write-Host -ForegroundColor Green "Deployment Name: $($script:deployments.vec)"
+    Write-Host -ForegroundColor Green "Resource Group: $($script:resourceGroups.vec)"
+
+    $templateFile = "vec-rg.bicep"
+    $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
+        actionGroupId           = @{
+            type  = "string"
+            value = $script:actionGroupId
+        }
+        dnsResourceGroupName    = @{
+            type  = "string"
+            value = $script:resourceGroups.dns
+        }
+        environmentName         = @{
+            type  = "string"
+            value = $script:environment
+        }
+        location                = @{
+            type  = "string"
+            value = $script:location
+        }
+        logAnalyticsWorkspaceId = @{
+            type  = "string"
+            value = $script:logAnalyticsWorkspaceId
+        }
+        project                 = @{
+            type  = "string"
+            value = $script:project
+        }
+        vnetId                  = @{
+            type  = "string"
+            value = $script:vnetId
+        }
+    }
 
     az deployment group create `
         --name $script:deployments.vec `
+        --parameters $paramsFile `
         --resource-group $script:resourceGroups.vec `
-        --template-file ./vec-rg.bicep `
-        --parameters `
-        actionGroupId=$script:actionGroupId `
-        dnsResourceGroupName=$($script:resourceGroups.dns) `
-        environmentName=$script:environment `
-        location=$script:location `
-        logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-        project=$script:project `
-        vnetId=$script:vnetId
+        --template-file ./$templateFile
 
     if ($LASTEXITCODE -ne 0) {
         throw "The vec deployment failed."
