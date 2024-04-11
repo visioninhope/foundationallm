@@ -1,5 +1,4 @@
 from abc import abstractmethod
-from sys import api_version
 from typing import List, Optional 
 
 from langchain_core.language_models import BaseLanguageModel
@@ -31,6 +30,13 @@ class AgentBase():
         """
         Builds a chat history string from a list of MessageHistoryItem objects to
         be added to the prompt for the completion request.
+
+        Parameters
+        ----------
+        messages : List[MessageHistoryItem]
+            The list of messages from which to build the chat history.
+        message_count : int
+            The number of messages to include in the chat history.
         """
         if messages is None or len(messages)==0:
             return ""
@@ -75,6 +81,7 @@ class AgentBase():
             The settings for the completion request configured on the agent.
         override_settings : Optional[OrchestrationSettings]
             The settings to override the agent's settings.
+
         Returns
         -------
         BaseLanguageModel
@@ -99,7 +106,7 @@ class AgentBase():
         provider = LanguageModelProvider.MICROSOFT
         if agent_orchestration_settings.endpoint_configuration.get('provider') is not None:
             try:
-                provider = config.get_value(agent_orchestration_settings.endpoint_configuration.get('provider')).lower()
+                provider = config.get_value(agent_orchestration_settings.endpoint_configuration.get('provider'))
             except:
                 provider = LanguageModelProvider.MICROSOFT
 
@@ -121,15 +128,15 @@ class AgentBase():
                 raise ValueError("Deployment name is required for Azure OpenAI completion requests.")
 
             api = (
-                AzureChatOpenAI(azure_endpoint = endpoint, api_key = api_key, api_version = api_version, azure_deployment = deployment_name)
+                AzureChatOpenAI(azure_endpoint=endpoint, api_key=api_key, api_version=api_version, azure_deployment=deployment_name)
                 if operation_type == 'chat'
-                else AzureOpenAI(azure_endpoint = endpoint, api_key = api_key, api_version = api_version, azure_deployment = deployment_name)
+                else AzureOpenAI(azure_endpoint=endpoint, api_key=api_key, api_version=api_version, azure_deployment=deployment_name)
             )
         else:
             api = (
-                ChatOpenAI(base_url = endpoint, api_key = api_key)
+                ChatOpenAI(base_url=endpoint, api_key=api_key)
                 if operation_type == 'chat'
-                else OpenAI(base_url = endpoint, api_key = api_key)
+                else OpenAI(base_url=endpoint, api_key=api_key)
             )
 
         # Set model parameters from agent orchestration settings.    
