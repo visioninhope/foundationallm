@@ -7,16 +7,16 @@ using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
 
-namespace FoundationaLLM.Gateway.Services
+namespace FoundationaLLM.Gateway.Client
 {
     /// <summary>
     /// Provides methods to call the Gateway API service.
     /// </summary>
-    public class GatewayService : IGatewayService
+    public class GatewayServiceClient : IGatewayServiceClient
     {
         private readonly GatewayServiceSettings _settings;
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogger<GatewayService> _logger;
+        private readonly ILogger<GatewayServiceClient> _logger;
 
         /// <summary>
         /// Creates a new instance of the Gateway API service.
@@ -24,10 +24,10 @@ namespace FoundationaLLM.Gateway.Services
         /// <param name="httpClientFactory">The <see cref="IHttpClientFactory"/> used to create the HTTP client.</param>
         /// <param name="options">The options object containing the <see cref="GatewayServiceSettings"/> object with the setting.</param>
         /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
-        public GatewayService(
+        public GatewayServiceClient(
             IHttpClientFactory httpClientFactory,
             IOptions<GatewayServiceSettings> options,
-            ILogger<GatewayService> logger)
+            ILogger<GatewayServiceClient> logger)
         {
             _httpClientFactory = httpClientFactory;
             _settings = options.Value;

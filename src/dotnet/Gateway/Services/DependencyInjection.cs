@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Gateway.Client;
 using FoundationaLLM.Gateway.Interfaces;
 using FoundationaLLM.Gateway.Models.Configuration;
 using FoundationaLLM.Gateway.Services;
@@ -34,7 +35,7 @@ namespace FoundationaLLM
             builder.Services.AddOptions<GatewayServiceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_GatewayAPI));
 
-            builder.Services.AddScoped<IGatewayService, GatewayService>();
+            builder.Services.AddScoped<IGatewayServiceClient, GatewayServiceClient>();
         }
     }
 }

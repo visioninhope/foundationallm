@@ -5,7 +5,7 @@ namespace FoundationaLLM.Gateway.Interfaces
     /// <summary>
     /// Defines the interface of the FoundationaLLM Gateway service.
     /// </summary>
-    public interface IGatewayService
+    public interface IGatewayServiceClient
     {
         /// <summary>
         /// Starts an embedding operation.

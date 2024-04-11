@@ -7,11 +7,11 @@ namespace FoundationaLLM.Vectorization.Services.Text
     /// <summary>
     /// Generates text embeddings by routing requests through the FoundationaLLM Gateway API.
     /// </summary>
-    /// <param name="gatewayService">The <see cref="IGatewayService"/> used to call the Gateway API.</param>
+    /// <param name="gatewayService">The <see cref="IGatewayServiceClient"/> used to call the Gateway API.</param>
     public class GatewayTextEmbeddingService(
-        IGatewayService gatewayService) : ITextEmbeddingService
+        IGatewayServiceClient gatewayService) : ITextEmbeddingService
     {
-        private readonly IGatewayService _gatewayService = gatewayService;
+        private readonly IGatewayServiceClient _gatewayService = gatewayService;
 
         /// <inheritdoc/>
         public async Task<TextEmbeddingResult> GetEmbeddingsAsync(IList<TextChunk> textChunks, string modelName) =>

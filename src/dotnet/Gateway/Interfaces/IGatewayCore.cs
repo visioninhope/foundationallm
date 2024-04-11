@@ -5,7 +5,7 @@ namespace FoundationaLLM.Gateway.Interfaces
     /// <summary>
     /// Defines the interface of the FoundationaLLM Gateway core.
     /// </summary>
-    public interface IGatewayCore : IGatewayService
+    public interface IGatewayCore : IGatewayServiceClient
     {
         /// <summary>
         /// Starts the Gateway service, allowing it to initialize.
