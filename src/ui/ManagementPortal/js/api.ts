@@ -327,8 +327,6 @@ export default {
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`,
 		);
 
-		const endPointConfigurationValues = {};
-
 		const orchestratorTypeToKeyMap = {
 			LangChain: 'AzureOpenAI',
 			AzureOpenAIDirect: 'AzureOpenAI',
@@ -381,7 +379,7 @@ export default {
 
 	async upsertAgent(agentId: string, agentData: CreateAgentRequest): Promise<any> {
 		// Deep copy the agent object to prevent modifiying its references
-		let agent = JSON.parse(JSON.stringify(agentData));
+		const agent = JSON.parse(JSON.stringify(agentData));
 
 		const orchestratorTypeToKeyMap = {
 			LangChain: 'AzureOpenAI',
