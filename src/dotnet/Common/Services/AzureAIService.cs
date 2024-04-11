@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Models.AzureAIService;
 using FoundationaLLM.Common.Models.Configuration.AzureAI;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services.Storage;
+using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
@@ -21,6 +22,7 @@ namespace FoundationaLLM.Common.Services
         private readonly IStorageService _blobStorageService;
         private readonly AzureAISettings _settings;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
         public AzureAIService(
                        IOptions<AzureAISettings> azureAISettings,
@@ -36,14 +38,14 @@ namespace FoundationaLLM.Common.Services
         }
 
         /// <inheritdoc/>
-        public async Task<string> CreateDataSet(byte[] data, string blobName)
+        public async Task<string> CreateDataSet(InputsMapping data, string blobName)
         {
             var now = DateTime.UtcNow;
 
             var path = $"UI/{now.ToString("yyyy-MM-dd_ffffff_UTC")}";
 
-            //turn the byte to a stream
-            Stream stream = new MemoryStream(data);
+            var dataSetBytes = JsonSerializer.SerializeToUtf8Bytes(data, _jsonSerializerOptions);
+            Stream stream = new MemoryStream(dataSetBytes);
 
             await _blobStorageService.WriteFileAsync(_settings.ContainerName, path + $"/{blobName}.jsonl", stream, null, default);
 
@@ -51,7 +53,7 @@ namespace FoundationaLLM.Common.Services
         }
 
         /// <inheritdoc/>
-        public async Task<string> CreateDataSetVersion(string dataSetName, string dataSetPath, int version=1)
+        public async Task<DataVersionResponse> CreateDataSetVersion(string dataSetName, string dataSetPath, int version=1)
         {
             var req = new DatasetVersionRequest
             {
@@ -72,7 +74,7 @@ namespace FoundationaLLM.Common.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    return responseContent;
+                    return JsonSerializer.Deserialize<DataVersionResponse>(responseContent, _jsonSerializerOptions) ?? new DataVersionResponse();
                 }
             }
             catch (Exception ex)
@@ -86,6 +88,10 @@ namespace FoundationaLLM.Common.Services
         /// <inheritdoc/>
         public async Task<Guid> SubmitJob(string displayName, string dataSetName, int dataSetVersion, string metrics)
         {
+            if (string.IsNullOrWhiteSpace(metrics) && _settings is {Metrics: not null})
+            {
+                metrics = _settings.Metrics;
+            }
             var job = new AzureAIJobRequest
             {
                 FlowDefinitionResourceId = _settings.FlowDefinitionResourceId,

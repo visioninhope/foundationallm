@@ -2,6 +2,9 @@
 
 namespace FoundationaLLM.Common.Models.AzureAIService
 {
+    /// <summary>
+    /// How each of the input fields map to the testing fields.
+    /// </summary>
     public class InputsMapping
     {
         /// <summary>

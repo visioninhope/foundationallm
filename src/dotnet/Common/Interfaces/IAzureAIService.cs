@@ -1,4 +1,6 @@
-﻿namespace FoundationaLLM.Common.Interfaces
+﻿using FoundationaLLM.Common.Models.AzureAIService;
+
+namespace FoundationaLLM.Common.Interfaces
 {
     /// <summary>
     /// Interface for the Azure AI service.
@@ -11,7 +13,7 @@
         /// <param name="data"></param>
         /// <param name="blobName"></param>
         /// <returns></returns>
-        Task<string> CreateDataSet(byte[] data, string blobName);
+        Task<string> CreateDataSet(InputsMapping data, string blobName);
         /// <summary>
         /// Creates a data set version request.
         /// </summary>
@@ -19,7 +21,7 @@
         /// <param name="dataSetPath"></param>
         /// <param name="version"></param>
         /// <returns></returns>
-        Task<string> CreateDataSetVersion(string dataSetName, string dataSetPath, int version = 1);
+        Task<DataVersionResponse> CreateDataSetVersion(string dataSetName, string dataSetPath, int version = 1);
         /// <summary>
         /// Submits a job to the Azure AI service.
         /// </summary>
