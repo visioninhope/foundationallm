@@ -5,6 +5,7 @@ Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
 $skipApp = $false
+$skipAuth = $false
 $skipDns = $false
 $skipNetworking = $false
 $skipOai = $false
@@ -20,7 +21,7 @@ properties {
     $manifestName = "Deployment-Manifest.json"
 }
 
-task default -depends Storage, App, DNS, Networking, OpenAI, Ops, ResourceGroups, Vec, Configuration
+task default -depends App, Auth, Configuration, DNS, Networking, OpenAI, Ops, ResourceGroups, Storage, Vec
 
 task App -depends ResourceGroups, Ops, Networking, DNS, Configuration, Vec {
     if ($skipApp -eq $true) {
@@ -66,11 +67,11 @@ task Auth -depends App, ResourceGroups, Networking, DNS {
 
     Write-Host -ForegroundColor Blue "Ensure Auth resources exist"
 
-    az deployment group create --name  $deployments["auth"] `
+    az deployment group create --name  $script:deployments["auth"] `
                         --resource-group $resourceGroups.auth `
                         --template-file ./auth-rg.bicep `
                         --parameters actionGroupId=$script:actionGroupId `
-                                    administratorObjectId=$administratorObjectId `
+                                    administratorObjectId=$script:administratorObjectId `
                                     appResourceGroupName=$($resourceGroups.app) `
                                     dnsResourceGroupName=$($resourceGroups.dns) `
                                     opsResourceGroupName=$($resourceGroups.ops) `
@@ -82,9 +83,9 @@ task Auth -depends App, ResourceGroups, Networking, DNS {
                                     instanceId=$($manifest.instanceId) `
                                     environmentName=$environment `
                                     k8sNamespace=$script:k8sNamespace `
-                                    location=$location `
+                                    location=$script:location `
                                     logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-                                    project=$project `
+                                    project=$script:project `
                                     vnetId=$script:vnetId
 
     if ($LASTEXITCODE -ne 0) {
@@ -164,7 +165,7 @@ task Configuration {
     $script:deployments = @{}
     $script:resourceGroups = @{}
     foreach ($property in $resourceGroups.PSObject.Properties) {
-        $deployments.Add($property.Name, "$($property.Value)-${timestamp}")
+        $script:deployments.Add($property.Name, "$($property.Value)-${timestamp}")
         $script:resourceGroups.Add($property.Name, $property.Value)
     }
     Write-Host -ForegroundColor Blue "Configuration complete."
