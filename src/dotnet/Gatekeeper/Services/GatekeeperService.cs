@@ -1,12 +1,8 @@
 ﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Gatekeeper.Core.Interfaces;
 using FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM.Gatekeeper.Core.Services
@@ -23,8 +19,6 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
     /// <param name="guardrailsService">The Enkrypt Guardrails service.</param>
     /// <param name="gatekeeperIntegrationAPIService">The Gatekeeper Integration API client.</param>
     /// <param name="gatekeeperServiceSettings">The configuration options for the Gatekeeper service.</param>
-    /// <param name="resourceProviderServices">The list of resurce providers registered with the main dependency injection container.</param>
-    /// <param name="callContext">The call context of the request being handled.</param>
     /// <param name="logger">The logger used for logging.</param>
     public class GatekeeperService(
         IDownstreamAPIService orchestrationAPIService,
@@ -32,10 +26,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         ILakeraGuardService lakeraGuardService,
         IEnkryptGuardrailsService guardrailsService,
         IGatekeeperIntegrationAPIService gatekeeperIntegrationAPIService,
-        IOptions<GatekeeperServiceSettings> gatekeeperServiceSettings,
-        IEnumerable<IResourceProviderService> resourceProviderServices,
-        ICallContext callContext,
-        ILogger<GatekeeperService> logger) : IGatekeeperService
+        IOptions<GatekeeperServiceSettings> gatekeeperServiceSettings) : IGatekeeperService
     {
         private readonly IDownstreamAPIService _orchestrationAPIService = orchestrationAPIService;
         private readonly IContentSafetyService _contentSafetyService = contentSafetyService;
@@ -43,11 +34,6 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         private readonly IEnkryptGuardrailsService _guardrailsService = guardrailsService;
         private readonly IGatekeeperIntegrationAPIService _gatekeeperIntegrationAPIService = gatekeeperIntegrationAPIService;
         private readonly GatekeeperServiceSettings _gatekeeperServiceSettings = gatekeeperServiceSettings.Value;
-        private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices =
-            resourceProviderServices.ToDictionary<IResourceProviderService, string>(
-                rps => rps.Name);
-        private readonly ICallContext _callContext = callContext;
-        private readonly ILogger<GatekeeperService> _logger = logger;
 
         /// <summary>
         /// Gets a completion from the Gatekeeper service.
@@ -59,6 +45,11 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             //TODO: Call the Refinement Service with the userPrompt
             //await _refinementService.RefineUserPrompt(completionRequest.Prompt);
 
+            if (completionRequest.GatekeeperOptions != null && completionRequest.GatekeeperOptions.Length > 0)
+            {
+                _gatekeeperServiceSettings.EnableAzureContentSafety = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.AzureContentSafety);
+                _gatekeeperServiceSettings.EnableMicrosoftPresidio = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.MicrosoftPresidio);
+            }
             if (_gatekeeperServiceSettings.EnableLakeraGuard)
             {
                 var promptInjectionResult = await _lakeraGuardService.DetectPromptInjection(completionRequest.UserPrompt!);
@@ -85,7 +76,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
 
             var completionResponse = await _orchestrationAPIService.GetCompletion(completionRequest);
 
-            if (settings.EnableMicrosoftPresidio)
+            if (_gatekeeperServiceSettings.EnableMicrosoftPresidio)
                 completionResponse.Completion = await _gatekeeperIntegrationAPIService.AnonymizeText(completionResponse.Completion);
 
             return completionResponse;
