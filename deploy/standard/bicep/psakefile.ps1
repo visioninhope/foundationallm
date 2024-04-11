@@ -23,7 +23,7 @@ properties {
 
 task default -depends App, Auth, Configuration, DNS, Networking, OpenAI, Ops, ResourceGroups, Storage, Vec
 
-task App -depends ResourceGroups, Ops, Networking, DNS, Configuration, Vec {
+task App -depends ResourceGroups, Ops, Networking, DNS, Configuration, Vec, Storage {
     if ($skipApp -eq $true) {
         Write-Host -ForegroundColor Yellow "Skipping app creation."
         return;
