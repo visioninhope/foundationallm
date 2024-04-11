@@ -29,6 +29,16 @@
     - Run nvm list (to see the versions of NPM/node.js available)
     - Run nvm use latest (to use the latest available version)
 
+### Setup RBAC permissions when running locally
+
+When you run the solution locally, you will need to set role-based access control (RBAC) permissions on the Azure Cosmos DB account. You can do this by running the following command in the Azure Cloud Shell or Azure CLI:
+
+Assign yourself to the "Cosmos DB Built-in Data Contributor" role:
+
+```bash
+az cosmosdb sql role assignment create --account-name YOUR_COSMOS_DB_ACCOUNT_NAME --resource-group YOUR_RESOURCE_GROUP_NAME --scope "/" --principal-id YOUR_AZURE_AD_PRINCIPAL_ID --role-definition-id 00000000-0000-0000-0000-000000000002
+```
+
 ## UI
 
 ### User Portal
