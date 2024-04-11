@@ -8,9 +8,29 @@
           "CreateNewSession": true,
           "SessionId": ""
         },
-        "UserPrompt": "Hello, who are you?",
-        "ExpectedCompletion": "I am an analytic agent named Khalil. How may I assist you?"
+        "UserPrompt": "What are the top three features that FoundationaLLM provides when it comes to asking questions about private data sources?",
+        "ExpectedCompletion": "FoundationaLLM simplifies integration with enterprise data sources used by agents for in-context learning, provides fine-grain security controls over data used by agents, and offers pre/post completion filters that guard against attack."
       }
     ]
+  },
+  "AzureAISettings": {
+    "BaseUrl": "https://ai.azure.com",
+    "ContainerName": "",
+    "BlobName": "",
+    "EvaluationData": "",
+    "SubscriptionId": "",
+    "Region": "",
+    "ResourceGroup": "",
+    "ProjectName": "",
+    "DataSetName": "",
+    "DataSetVersion": "1",
+    "Deployment": "gpt-35-turbo-16k",
+    "Metrics": "gpt_groundedness,gpt_relevance,gpt_coherence,gpt_fluency,gpt_similarity",
+    "BlobStorageServiceSettings": {
+      "AuthenticationType": "ConnectionString",
+      "AccountName": "",
+      "AccountKey": "",
+      "ConnectionString": ""
+    }
   }
 }
