@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.OpenAPI;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Gateway.Services;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -39,8 +40,11 @@ builder.AddCorsPolicies();
 // Generic exception handling
 builder.AddGatewayGenericExceptionHandling();
 
+// Add Azure ARM services
+builder.Services.AddAzureResourceManager();
+
 // Core Gateway service
-builder.AddGatewayService();
+builder.AddGatewayCore();
 
 // Open API (Swagger)
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();

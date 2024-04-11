@@ -8,5 +8,5 @@
    - `FoundationaLLM:APIs:GatewayAPI:APIUrl`
    - `FoundationaLLM:APIs:GatewayAPI:APIKey` (with secret `foundationallm-apis-gatewayapi-apikey`)
    - `FoundationaLLM:APIs:GatewayAPI:AppInsightsConnectionString` (with secret `foundationallm-app-insights-connection-string`)
-   - `FoundationaLLM:Gateway:AzureOpenAIEndpoints`
+   - `FoundationaLLM:Gateway:AzureOpenAIAccounts`
 4. 

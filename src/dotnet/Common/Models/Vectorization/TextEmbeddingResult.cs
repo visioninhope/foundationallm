@@ -1,4 +1,6 @@
-﻿namespace FoundationaLLM.Common.Models.Vectorization
+﻿using System.Text.Json.Serialization;
+
+namespace FoundationaLLM.Common.Models.Vectorization
 {
     /// <summary>
     /// The result of a text embedding request.
@@ -9,21 +11,25 @@
         /// Indicates whether the text embedding operation is still in progress.
         /// When true, the <see cref="OperationId"/> property contains an operation identifier.
         /// </summary>
+        [JsonPropertyName("in_progress")]
         public bool InProgress { get; set; }
 
         /// <summary>
         /// Optional operation identifier that can be used to retrieve the final result.
         /// </summary>
+        [JsonPropertyName("operation_id")]
         public string? OperationId { get; set; }
 
         /// <summary>
         /// The list of <see cref="TextChunk"/> objects containing the embeddings.
         /// </summary>
+        [JsonPropertyName("text_chunks")]
         public IList<TextChunk> TextChunks { get; set; } = [];
 
         /// <summary>
         /// The number of tokens used during the embedding operation.
         /// </summary>
+        [JsonPropertyName("token_count")]
         public int TokenCount { get; set; }
     }
 }

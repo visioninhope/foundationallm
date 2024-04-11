@@ -8,14 +8,14 @@ namespace FoundationaLLM.Gateway.API.Controllers
     /// <summary>
     /// Methods for managing embedding requests.
     /// </summary>
-    /// <param name="gatewayService">The <see cref="IGatewayService"/> that provides LLM gateway services.</param>
+    /// <param name="gatewayCore">The <see cref="IGatewayCore"/> that provides LLM gateway services.</param>
     [ApiController]
     [APIKeyAuthentication]
     [Route("[controller]")]
     public class EmbeddingsController(
-        IGatewayService gatewayService)
+        IGatewayCore gatewayCore)
     {
-        readonly IGatewayService _gatewayService = gatewayService;
+        readonly IGatewayCore _gatewayCore = gatewayCore;
 
         /// <summary>
         /// Handles an incoming text embedding request by starting a new embedding operation.
@@ -25,7 +25,7 @@ namespace FoundationaLLM.Gateway.API.Controllers
         [HttpPost]
         public async Task<IActionResult> StartEmbeddingOperation(
             [FromBody] TextEmbeddingRequest embeddingRequest) =>
-            new OkObjectResult(await _gatewayService.StartEmbeddingOperation(embeddingRequest));
+            new OkObjectResult(await _gatewayCore.StartEmbeddingOperation(embeddingRequest));
 
         /// <summary>
         /// Retrieves the outcome of a text embedding operation.
@@ -34,6 +34,6 @@ namespace FoundationaLLM.Gateway.API.Controllers
         /// <returns>A <see cref="TextEmbeddingResult"/> object with the outcome of the operation.</returns>
         [HttpGet]
         public async Task<IActionResult> GetEmbeddingOperationResult(string operationId) =>
-            new OkObjectResult(await _gatewayService.GetEmbeddingOperationResult(operationId));
+            new OkObjectResult(await _gatewayCore.GetEmbeddingOperationResult(operationId));
     }
 }

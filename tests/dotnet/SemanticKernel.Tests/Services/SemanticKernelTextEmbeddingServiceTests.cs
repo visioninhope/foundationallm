@@ -28,7 +28,8 @@ namespace SemanticKernel.Tests.Services
         [Fact]
         public async void TestGetEmbedding()
         {
-            var embeddingResult = await _semanticKernelTextEmbeddingService.GetEmbeddingAsync(new TextChunk { Position = 1, Content = "Some Test Text" });
+            var embeddingResult = await _semanticKernelTextEmbeddingService.GetEmbeddingsAsync(
+                [new TextChunk { Position = 1, Content = "Some Test Text" }]);
             Assert.True(embeddingResult.TextChunks.Count > 0);
             Assert.IsType<int>(embeddingResult.TokenCount);
         }

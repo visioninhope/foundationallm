@@ -1,13 +1,18 @@
 ﻿namespace FoundationaLLM.Gateway.Models.Configuration
 {
     /// <summary>
-    /// Provides settings for the Gateway core service.
+    /// The configuration for the Gateway API service.
     /// </summary>
     public class GatewayServiceSettings
     {
         /// <summary>
-        /// The semicolon separated list of Azure Open AI endpoints used by the Gateway service.
+        /// The URL of the Gateway API.
         /// </summary>
-        public required string AzureOpenAIEndpoints { get; set; }
+        public required string APIUrl { get; set; }
+
+        /// <summary>
+        /// The API key of the Gateway API.
+        /// </summary>
+        public required string APIKey { get; set; }
     }
 }

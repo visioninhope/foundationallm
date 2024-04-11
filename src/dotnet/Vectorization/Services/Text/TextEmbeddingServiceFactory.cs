@@ -38,6 +38,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
             return textEmbeddingProfile.TextEmbedding switch
             {
                 TextEmbeddingType.SemanticKernelTextEmbedding => CreateSemanticKernelTextEmbeddingService(),
+                TextEmbeddingType.GatewayTextEmbedding => CreateGatewayTextEmbeddingService(),
                 _ => throw new VectorizationException($"The text embedding type {textEmbeddingProfile.TextEmbedding} is not supported."),
             };
         }
@@ -51,6 +52,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
             return textEmbeddingProfile.TextEmbedding switch
             {
                 TextEmbeddingType.SemanticKernelTextEmbedding => (CreateSemanticKernelTextEmbeddingService(), textEmbeddingProfile),
+                TextEmbeddingType.GatewayTextEmbedding => (CreateGatewayTextEmbeddingService(), textEmbeddingProfile),
                 _ => throw new VectorizationException($"The text embedding type {textEmbeddingProfile.TextEmbedding} is not supported."),
             };
         }
@@ -60,6 +62,16 @@ namespace FoundationaLLM.Vectorization.Services.Text
             var textEmbeddingService = _serviceProvider.GetKeyedService<ITextEmbeddingService>(
                 DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService)
                 ?? throw new VectorizationException($"Could not retrieve the Semantic Kernel text embedding service instance.");
+
+            return textEmbeddingService!;
+        }
+
+        private ITextEmbeddingService CreateGatewayTextEmbeddingService()
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var textEmbeddingService = scope.ServiceProvider.GetKeyedService<ITextEmbeddingService>(
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService)
+                ?? throw new VectorizationException($"Could not retrieve the Gateway text embedding service instance.");
 
             return textEmbeddingService!;
         }

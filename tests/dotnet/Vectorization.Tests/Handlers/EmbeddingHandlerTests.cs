@@ -18,7 +18,7 @@ namespace Vectorization.Tests.Handlers
         {
             ITextEmbeddingService mockTextEmbeddingService = A.Fake<ITextEmbeddingService>();
 
-            A.CallTo(() => mockTextEmbeddingService.GetEmbeddingsAsync(A<IList<TextChunk>>._))
+            A.CallTo(() => mockTextEmbeddingService.GetEmbeddingsAsync(A<IList<TextChunk>>._, string.Empty))
                 .Returns(new TextEmbeddingResult
                 {
                     TextChunks = [

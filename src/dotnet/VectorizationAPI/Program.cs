@@ -38,6 +38,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
@@ -114,6 +115,10 @@ builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames
 // Text embedding
 builder.Services.AddKeyedSingleton<ITextEmbeddingService, SemanticKernelTextEmbeddingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService);
+builder.Services.AddKeyedScoped<ITextEmbeddingService, GatewayTextEmbeddingService>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService);
+builder.AddGatewayService();
+builder.Services.AddHttpClient();
 
 // Indexing
 builder.Services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
