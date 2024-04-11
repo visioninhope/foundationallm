@@ -121,7 +121,6 @@
     <Compile Include="foundationallm\models\agents\knowledge_management_agent.py" />
     <Compile Include="foundationallm\langchain\data_sources\data_source_configuration.py" />
     <Compile Include="foundationallm\models\orchestration\citation.py" />
-    <Compile Include="foundationallm\models\orchestration\completion_request.py" />
     <Compile Include="foundationallm\models\orchestration\completion_request_base.py" />
     <Compile Include="foundationallm\models\orchestration\completion_response.py" />
     <Compile Include="foundationallm\models\orchestration\knowledge_management_completion_request.py" />
