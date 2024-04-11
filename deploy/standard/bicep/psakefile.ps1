@@ -58,6 +58,40 @@ task App -depends ResourceGroups, Ops, Networking, DNS, Configuration, Vec {
     }
 }
 
+task Auth -depends App, ResourceGroups, Networking, DNS {
+    if ($skipAuth -eq $true) {
+        Write-Host -ForegroundColor Yellow "Skipping Auth creation."
+        return;
+    }
+
+    Write-Host -ForegroundColor Blue "Ensure Auth resources exist"
+
+    az deployment group create --name  $deployments["auth"] `
+                        --resource-group $resourceGroups.auth `
+                        --template-file ./auth-rg.bicep `
+                        --parameters actionGroupId=$script:actionGroupId `
+                                    administratorObjectId=$administratorObjectId `
+                                    appResourceGroupName=$($resourceGroups.app) `
+                                    dnsResourceGroupName=$($resourceGroups.dns) `
+                                    opsResourceGroupName=$($resourceGroups.ops) `
+                                    authAppRegistrationInstance=$($manifest.entraInstances.authorization) `
+                                    authAppRegistrationTenantId=$($manifest.tenantId) `
+                                    authAppRegistrationClientId=$($manifest.entraClientIds.authorization) `
+                                    authClientSecret=$($manifest.entraClientSecrets.authorization) `
+                                    authAppRegistrationScopes=$($manifest.entraClientScopes.authorization) `
+                                    instanceId=$($manifest.instanceId) `
+                                    environmentName=$environment `
+                                    k8sNamespace=$script:k8sNamespace `
+                                    location=$location `
+                                    logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
+                                    project=$project `
+                                    vnetId=$script:vnetId
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "The auth deployment failed."
+    }
+}
+
 task Clean -depends Configuration {
     Write-Host -ForegroundColor Blue "Removing OpenAI model deployments..."
 
@@ -134,76 +168,6 @@ task Configuration {
         $script:resourceGroups.Add($property.Name, $property.Value)
     }
     Write-Host -ForegroundColor Blue "Configuration complete."
-}
-
-task App -depends Agw, ResourceGroups, Ops, Networking, DNS {
-    if ($skipApp -eq $true) {
-        Write-Host -ForegroundColor Yellow "Skipping app creation."
-        return;
-    }
-
-    Write-Host -ForegroundColor Blue "Ensure app resources exist"
-
-    az deployment group create --name  $deployments["app"] `
-                        --resource-group $resourceGroups.app `
-                        --template-file ./app-rg.bicep `
-                        --parameters actionGroupId=$script:actionGroupId `
-                                    administratorObjectId=$administratorObjectId `
-                                    agwResourceGroupName=$($resourceGroups.agw) `
-                                    chatUiClientSecret=$script:chatUiClientSecret `
-                                    coreApiClientSecret=$script:coreApiClientSecret `
-                                    dnsResourceGroupName=$($resourceGroups.dns) `
-                                    environmentName=$environment `
-                                    k8sNamespace=$script:k8sNamespace `
-                                    location=$location `
-                                    logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-                                    logAnalyticsWorkspaceResourceId=$script:logAnalyticsWorkspaceId `
-                                    managementUiClientSecret=$script:managementUiClientSecret `
-                                    managementApiClientSecret=$script:managementApiClientSecret `
-                                    networkingResourceGroupName=$($resourceGroups.net) `
-                                    opsResourceGroupName=$($resourceGroups.ops) `
-                                    project=$project `
-                                    storageResourceGroupName=$($resourceGroups.storage) `
-                                    vectorizationApiClientSecret=$script:vectorizationApiClientSecret `
-                                    vnetId=$script:vnetId
-
-    if ($LASTEXITCODE -ne 0) {
-        throw "The app deployment failed."
-    }
-}
-
-task Auth -depends App, ResourceGroups, Networking, DNS {
-    if ($skipAuth -eq $true) {
-        Write-Host -ForegroundColor Yellow "Skipping Auth creation."
-        return;
-    }
-
-    Write-Host -ForegroundColor Blue "Ensure Auth resources exist"
-
-    az deployment group create --name  $deployments["auth"] `
-                        --resource-group $resourceGroups.auth `
-                        --template-file ./auth-rg.bicep `
-                        --parameters actionGroupId=$script:actionGroupId `
-                                    administratorObjectId=$administratorObjectId `
-                                    appResourceGroupName=$($resourceGroups.app) `
-                                    dnsResourceGroupName=$($resourceGroups.dns) `
-                                    opsResourceGroupName=$($resourceGroups.ops) `
-                                    authAppRegistrationInstance=$($manifest.entraInstances.authorization) `
-                                    authAppRegistrationTenantId=$($manifest.tenantId) `
-                                    authAppRegistrationClientId=$($manifest.entraClientIds.authorization) `
-                                    authClientSecret=$($manifest.entraClientSecrets.authorization) `
-                                    authAppRegistrationScopes=$($manifest.entraClientScopes.authorization) `
-                                    instanceId=$($manifest.instanceId) `
-                                    environmentName=$environment `
-                                    k8sNamespace=$script:k8sNamespace `
-                                    location=$location `
-                                    logAnalyticsWorkspaceId=$script:logAnalyticsWorkspaceId `
-                                    project=$project `
-                                    vnetId=$script:vnetId
-
-    if ($LASTEXITCODE -ne 0) {
-        throw "The auth deployment failed."
-    }
 }
 
 task DNS -depends ResourceGroups, Networking {
