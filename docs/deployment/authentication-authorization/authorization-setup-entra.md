@@ -9,7 +9,7 @@ To enable Microsoft Entra ID authorization to the FoundationaLLM platform, you n
 ### Pre-requisites
 
 > [!NOTE]
-> Make sure you create this App Registration before you run the [deployment scripts](../../deployment/index.md) using `azd up` as you will need some of the generated information during your `azd env set ` calls
+> Make sure you create this App Registration before you run the [deployment scripts](../../deployment/index.md) using `azd up` as you will need some of the generated information during your `azd env set` calls
 
 #### Setup App Configuration access
 
