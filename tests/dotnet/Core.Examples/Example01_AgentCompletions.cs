@@ -19,6 +19,7 @@ using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Graph.Models;
 using Azure.Identity;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Services;
@@ -29,6 +30,7 @@ namespace FoundationaLLM.Core.Examples
 	{
 		private readonly IHttpClientFactory _httpClientFactory;
 		private readonly ICosmosDbService _cosmosDbService;
+		private readonly IAzureAIService _azureAIService;
 		private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
 		public Example01_AgentCompletions(ITestOutputHelper output, TestFixture fixture)
@@ -36,6 +38,7 @@ namespace FoundationaLLM.Core.Examples
 		{
 			_httpClientFactory = GetService<IHttpClientFactory>();
 			_cosmosDbService = GetService<ICosmosDbService>();
+			_azureAIService = GetService<IAzureAIService>();
 		}
 
 		[Fact]

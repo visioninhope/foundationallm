@@ -13,6 +13,7 @@ using Azure;
 using Azure.Core;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Models.Configuration.AzureAI;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Core.Examples.Models;
@@ -28,8 +29,9 @@ namespace FoundationaLLM.Core.Examples.Setup
         private readonly ChainedTokenCredential tokenCredential;
         public static CosmosDbSettings CosmosDbSettings;
         public static AgentPromptConfiguration AgentPromptConfiguration => LoadSection<AgentPromptConfiguration>();
+        public static AzureAISettings AzureAISettings => LoadSection<AzureAISettings>();
 
-        private TestConfiguration(IConfigurationRoot configRoot)
+		private TestConfiguration(IConfigurationRoot configRoot)
         {
             _configRoot = configRoot;
 

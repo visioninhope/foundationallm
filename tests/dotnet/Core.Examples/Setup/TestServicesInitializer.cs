@@ -10,16 +10,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using System.Runtime;
+using FoundationaLLM.Common.Models.Configuration.AzureAI;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
+using FoundationaLLM.Common.Services;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Services;
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 using FoundationaLLM.Core.Examples.Utils;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Services.Storage;
+using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM.Core.Examples.Setup
 {
-	public static class TestServicesInitializer
+    public static class TestServicesInitializer
 	{
 		/// <summary>
 		/// Configure base services and dependencies for the tests.
@@ -32,9 +38,12 @@ namespace FoundationaLLM.Core.Examples.Setup
 		{
 			TestConfiguration.Initialize(configRoot, services);
 
+			services.Configure<AzureAISettings>(configRoot.GetSection(nameof(AzureAISettings)));
+
 			RegisterHttpClients(services);
 			RegisterCosmosDb(services);
 			RegisterLogging(services);
+			RegisterAzureAIService(services);
 		}
 
 		private static void RegisterHttpClients(IServiceCollection services)
@@ -64,17 +73,43 @@ namespace FoundationaLLM.Core.Examples.Setup
 				throw new InvalidOperationException("CosmosDB settings not found. TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
 			}
 
-			services.Configure<CosmosDbSettings>(options =>
+			//services.Configure<CosmosDbSettings>(options =>
+			//{
+			//	options.Endpoint = cosmosDbSettings.Endpoint;
+			//	options.Database = cosmosDbSettings.Database;
+			//	options.Containers = cosmosDbSettings.Containers;
+			//	options.MonitoredContainers = cosmosDbSettings.MonitoredContainers;
+			//	options.ChangeFeedLeaseContainer = cosmosDbSettings.ChangeFeedLeaseContainer;
+			//	options.EnableTracing = cosmosDbSettings.EnableTracing;
+			//});
+
+			services.AddScoped<ICosmosDbService, CosmosDbService>(sp => new CosmosDbService(
+				Options.Create<CosmosDbSettings>(cosmosDbSettings),
+				sp.GetRequiredService<ILogger<CosmosDbService>>()));
+		}
+
+		private static void RegisterAzureAIService(IServiceCollection services)
+		{
+			var azureAISettings = TestConfiguration.AzureAISettings;
+			if (azureAISettings == null)
 			{
-				options.Endpoint = cosmosDbSettings.Endpoint;
-				options.Database = cosmosDbSettings.Database;
-				options.Containers = cosmosDbSettings.Containers;
-				options.MonitoredContainers = cosmosDbSettings.MonitoredContainers;
-				options.ChangeFeedLeaseContainer = cosmosDbSettings.ChangeFeedLeaseContainer;
-				options.EnableTracing = cosmosDbSettings.EnableTracing;
+				throw new InvalidOperationException("Azure AI settings not found. TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
+			}
+
+			services.AddSingleton<IStorageService, BlobStorageService>(sp =>
+			{
+				var settings = sp.GetRequiredService<IOptionsMonitor<AzureAISettings>>();
+				var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
+
+				return new BlobStorageService(
+					Options.Create<BlobStorageServiceSettings>(settings.CurrentValue.BlobStorageServiceSettings),
+					logger)
+				{
+					InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent
+				};
 			});
 
-			services.AddScoped<ICosmosDbService, CosmosDbService>();
+			services.AddScoped<IAzureAIService, AzureAIService>();
 		}
 
 		private static void RegisterLogging(IServiceCollection services)
