@@ -44,11 +44,6 @@
     <Compile Include="foundationallm\models\language_models\embedding_model.py" />
     <Compile Include="foundationallm\models\language_models\__init__.py" />
     <Compile Include="foundationallm\models\list_option.py" />
-    <Compile Include="foundationallm\hubs\hub_base.py" />
-    <Compile Include="foundationallm\hubs\metadata.py" />
-    <Compile Include="foundationallm\hubs\repository.py" />
-    <Compile Include="foundationallm\hubs\resolver.py" />
-    <Compile Include="foundationallm\hubs\__init__.py" />
     <Compile Include="foundationallm\langchain\agents\agent_base.py" />
     <Compile Include="foundationallm\langchain\data_sources\blob\blob_storage_configuration.py" />
     <Compile Include="foundationallm\langchain\data_sources\blob\__init__.py" />
@@ -140,7 +135,6 @@
     <Folder Include="foundationallm\models\agents\" />
     <Folder Include="foundationallm\models\resource_providers\" />
     <Folder Include="foundationallm\models\orchestration\" />
-    <Folder Include="foundationallm\hubs\" />
     <Folder Include="foundationallm\models\resource_providers\prompts\" />
     <Folder Include="foundationallm\models\resource_providers\vectorization\" />
     <Folder Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\azure_openai\" />
