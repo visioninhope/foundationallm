@@ -23,6 +23,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Services;
+using FoundationaLLM.Common.Models.AzureAIService;
 
 namespace FoundationaLLM.Core.Examples
 {
@@ -119,13 +120,32 @@ namespace FoundationaLLM.Core.Examples
 				{
 					// Get the completion prompt from the last agent message.
 					var completionPrompt = await _cosmosDbService.GetCompletionPrompt(session.SessionId, lastAgentMessage.CompletionPromptId);
+					// For the context, take everything in the prompt that comes after `\\n\\nContext:\\n`. If it doesn't exist, take the whole prompt.
+					var contextIndex = completionPrompt.Prompt.IndexOf(@"\n\nContext:\n", StringComparison.Ordinal);
+					if (contextIndex != -1)
+					{
+						completionPrompt.Prompt = completionPrompt.Prompt[(contextIndex + 14)..];
+					}
+					var dataSet = new InputsMapping
+					{
+						Question = agentPrompt.UserPrompt,
+						Answer = completionResponse.Text,
+						Context = completionPrompt.Prompt,
+						GroundTruth = agentPrompt.ExpectedCompletion,
+					};
 					// Create a new Azure AI evaluation from the data.
+					var dataSetName = $"{agentPrompt.AgentName}_{session.SessionId}";
+					var dataSetPath = await _azureAIService.CreateDataSet(dataSet, dataSetName);
+					var dataSetVersion = await _azureAIService.CreateDataSetVersion(dataSetName, dataSetPath);
+					_ = int.TryParse(dataSetVersion.DataVersion.VersionId, out var dataSetVersionNumber);
+					var jobId = await _azureAIService.SubmitJob(dataSetName, dataSetName, dataSetVersionNumber,
+						string.Empty);
+					WriteLine($"Azure AI evaluation Job ID -> {jobId}");
 				}
 
 				WriteLine($"User prompt -> '{agentPrompt.UserPrompt}'");
 				WriteLine($"Agent completion -> '{completionResponse.Text}'");
 				WriteLine($"Expected completion -> '{agentPrompt.ExpectedCompletion}'");
-				WriteLine($"Completions match -> {completionResponse.Text.Equals(agentPrompt.ExpectedCompletion)}");
 				WriteLine("-------------------------------");
 			}
 		}
