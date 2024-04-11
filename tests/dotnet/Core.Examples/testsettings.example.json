@@ -26,6 +26,7 @@
     "DataSetVersion": "1",
     "Deployment": "gpt-35-turbo-16k",
     "Metrics": "gpt_groundedness,gpt_relevance,gpt_coherence,gpt_fluency,gpt_similarity",
+    "FlowDefinitionResourceId": "azureml://registries/azureml/models/qna-non-rag-metrics-eval/versions/2",
     "BlobStorageServiceSettings": {
       "AuthenticationType": "ConnectionString",
       "AccountName": "",
