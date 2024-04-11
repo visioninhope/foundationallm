@@ -138,7 +138,7 @@ namespace FoundationaLLM.Core.Examples
 					var dataSetPath = await _azureAIService.CreateDataSet(dataSet, dataSetName);
 					var dataSetVersion = await _azureAIService.CreateDataSetVersion(dataSetName, dataSetPath);
 					_ = int.TryParse(dataSetVersion.DataVersion.VersionId, out var dataSetVersionNumber);
-					var jobId = await _azureAIService.SubmitJob(dataSetName, dataSetName, dataSetVersionNumber,
+					var jobId = await _azureAIService.SubmitJob(dataSetName, dataSetName, dataSetVersionNumber == 0 ? 1 : dataSetVersionNumber,
 						string.Empty);
 					WriteLine($"Azure AI evaluation Job ID -> {jobId}");
 				}
