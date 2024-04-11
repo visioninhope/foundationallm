@@ -15,7 +15,7 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace FoundationaLLM.Common.Services
 {
-    public class AzureAIService
+    public class AzureAIService : IAzureAIService
     {
         private readonly ILogger<AzureAIService> _logger;
         private readonly IStorageService _blobStorageService;
@@ -35,11 +35,12 @@ namespace FoundationaLLM.Common.Services
             //_blobStorageService = new BlobStorageService(_settings.BlobStorageServiceSettings, logger); 
         }
 
+        /// <inheritdoc/>
         public async Task<string> CreateDataSet(byte[] data, string blobName)
         {
-            DateTime now = DateTime.UtcNow;
+            var now = DateTime.UtcNow;
 
-            string path = $"UI/{now.ToString("yyyy-MM-dd_ffffff_UTC")}";
+            var path = $"UI/{now.ToString("yyyy-MM-dd_ffffff_UTC")}";
 
             //turn the byte to a stream
             Stream stream = new MemoryStream(data);
@@ -49,14 +50,17 @@ namespace FoundationaLLM.Common.Services
             return $"azureml://subscriptions/{_settings.SubscriptionId}/resourcegroups/{_settings.ResourceGroup}/workspaces/{_settings.ProjectName}/datastores/workspaceblobstore/paths/{path}/{blobName}.jsonl";
         }
 
+        /// <inheritdoc/>
         public async Task<string> CreateDataSetVersion(string dataSetName, string dataSetPath, int version=1)
         {
-            DatasetVersionRequest req = new DatasetVersionRequest();
-            req.DataContainerName = dataSetName;
-            req.DataType = "UriFile";
-            req.DataUri = dataSetPath;
-            req.MutableProps = new Dictionary<string, string> { { "isArchived", "false" } };
-            req.IsRegistered = true;
+            var req = new DatasetVersionRequest
+            {
+                DataContainerName = dataSetName,
+                DataType = "UriFile",
+                DataUri = dataSetPath,
+                MutableProps = new Dictionary<string, string> { { "isArchived", "false" } },
+                IsRegistered = true
+            };
 
             try
             {
@@ -73,17 +77,20 @@ namespace FoundationaLLM.Common.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "There was an error creating data set version");
+                _logger.LogError(ex, "There was an error creating data set version.");
             }
 
             return null;
         }
 
+        /// <inheritdoc/>
         public async Task<Guid> SubmitJob(string displayName, string dataSetName, int dataSetVersion, string metrics)
         {
-            AzureAIJobRequest job = new AzureAIJobRequest();
-            job.FlowDefinitionResourceId = _settings.FlowDefinitionResourceId;
-            job.RunId = Guid.NewGuid().ToString();
+            var job = new AzureAIJobRequest
+            {
+                FlowDefinitionResourceId = _settings.FlowDefinitionResourceId,
+                RunId = Guid.NewGuid().ToString()
+            };
             job.BatchDataInput = new BatchDataInput { DataUri = $"azureml://locations/{_settings.Region}/workspaces/{job.RunId}/data/{dataSetName}/versions/{dataSetVersion}" };
             job.Connections = new GptConnections
             {
@@ -131,6 +138,7 @@ namespace FoundationaLLM.Common.Services
             return Guid.Empty;
         }
 
+        /// <inheritdoc/>
         public async Task<string> GetJobStatus(Guid jobId)
         {
             try
@@ -159,6 +167,7 @@ namespace FoundationaLLM.Common.Services
             return null;
         }
 
+        /// <inheritdoc/>
         public async Task<string> GetResultsByIndex(Guid jobId, int startIndex=0, int endIndex=149)
         {
             try
@@ -187,6 +196,7 @@ namespace FoundationaLLM.Common.Services
             return null;
         }
 
+        /// <inheritdoc/>
         public async Task<string> DownloadResults(Guid jobId)
         {
             try
@@ -214,7 +224,7 @@ namespace FoundationaLLM.Common.Services
 
             return null;
         }
-
+        
         private async Task<HttpClient> CreateHttpClient()
         {
             var httpClient = _httpClientFactory.CreateClient();
