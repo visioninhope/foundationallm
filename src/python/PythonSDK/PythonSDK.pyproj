@@ -25,8 +25,6 @@
     <Compile Include="foundationallm\config\context.py" />
     <Compile Include="foundationallm\config\environment_variables.py" />
     <Compile Include="foundationallm\config\user_identity.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\cxo\cxo_data_source_metadata.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\cxo\__init__.py" />
     <Compile Include="foundationallm\langchain\agents\knowledge_management_agent.py" />
     <Compile Include="foundationallm\langchain\data_sources\cxo\cxo_configuration.py" />
     <Compile Include="foundationallm\langchain\data_sources\cxo\__init__.py" />
@@ -46,27 +44,7 @@
     <Compile Include="foundationallm\models\language_models\embedding_model.py" />
     <Compile Include="foundationallm\models\language_models\__init__.py" />
     <Compile Include="foundationallm\models\list_option.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\blob_storage_authentication_metadata.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\blob_storage_data_source_metadata.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\blob_storage\__init__.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\search_service\search_service_authentication_metadata.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\search_service\search_service_data_source_metadata.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\search_service\__init__.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\sql\sql_authentication_metadata.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\sql\sql_authentication_type.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\sql\sql_data_source_metadata.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\sql\sql_database_dialects.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_sources\sql\__init__.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_source_hub_request.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_source_hub_response.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_source_hub_storage_manager.py" />
     <Compile Include="foundationallm\hubs\hub_base.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_source_hub.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_source_metadata.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_source_repository.py" />
-    <Compile Include="foundationallm\hubs\data_source\data_source_resolver.py" />
-    <Compile Include="foundationallm\hubs\data_source\underlying_implementation.py" />
-    <Compile Include="foundationallm\hubs\data_source\__init__.py" />
     <Compile Include="foundationallm\hubs\metadata.py" />
     <Compile Include="foundationallm\hubs\prompt\prompt_hub.py" />
     <Compile Include="foundationallm\hubs\prompt\prompt_hub_storage_manager.py" />
@@ -152,12 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="foundationallm\" />
-    <Folder Include="foundationallm\hubs\data_source\data_sources\" />
-    <Folder Include="foundationallm\hubs\data_source\data_sources\blob_storage\" />
-    <Folder Include="foundationallm\hubs\data_source\data_sources\cxo\" />
-    <Folder Include="foundationallm\hubs\data_source\data_sources\search_service\" />
-    <Folder Include="foundationallm\hubs\data_source\data_sources\sql\" />
-    <Folder Include="foundationallm\hubs\data_source\" />
     <Folder Include="foundationallm\hubs\prompt\" />
     <Folder Include="foundationallm\langchain\" />
     <Folder Include="foundationallm\langchain\agents\" />
