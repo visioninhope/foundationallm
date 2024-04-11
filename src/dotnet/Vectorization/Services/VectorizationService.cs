@@ -57,12 +57,13 @@ namespace FoundationaLLM.Vectorization.Services
                 vectorizationRequest.CompletedSteps = [];
                 vectorizationRequest.RemainingSteps = vectorizationRequest.Steps.Select(s => s.Id).ToList();
 
-                ValidateRequest(vectorizationRequest);
+                ValidateRequestDependencies(vectorizationRequest);
 
-                await vectorizationResourceProviderService.UpsertResourceAsync<VectorizationRequest>(
+                await vectorizationResourceProviderService.UpsertResourceAsync(
                     $"/{VectorizationResourceTypeNames.VectorizationRequests}/{vectorizationRequest.Id}",
                     vectorizationRequest);
 
+                // CHANGE THIS TO TRIGGER AN ACTION WITH THE REQUEST RESOURCE
                 switch (vectorizationRequest.ProcessingType)
                 {
                     case VectorizationProcessingType.Asynchronous:
@@ -82,23 +83,16 @@ namespace FoundationaLLM.Vectorization.Services
             }
         }
 
-        private void ValidateRequest(VectorizationRequest vectorizationRequest)
+        private void ValidateRequestDependencies(VectorizationRequest vectorizationRequest)
         {
+            // creation-time validation
             if (vectorizationRequest == null)
-                throw new VectorizationException("The vectorization request should not be null.");
-
-            if (String.IsNullOrWhiteSpace(vectorizationRequest!.Id))
-                throw new VectorizationException("The vectorization request id should not be null.");
-
-            if (vectorizationRequest.ContentIdentifier == null
-                || String.IsNullOrWhiteSpace(vectorizationRequest.ContentIdentifier.UniqueId)
-                || String.IsNullOrWhiteSpace(vectorizationRequest.ContentIdentifier.CanonicalId))
-                throw new VectorizationException("The vectorization request content identifier is invalid.");
+                throw new VectorizationException("The vectorization request should not be null.");                     
 
             if (vectorizationRequest.Steps == null || vectorizationRequest.Steps.Count == 0)
                 throw new VectorizationException("The list of the vectorization steps should not be empty.");
 
-            if (vectorizationRequest.Steps!.Select(x=>x.Id).Distinct().Count() != vectorizationRequest.Steps!.Count)
+            if (vectorizationRequest.Steps!.Select(x => x.Id).Distinct().Count() != vectorizationRequest.Steps!.Count)
                 throw new VectorizationException("The list of vectorization steps must contain unique names.");
 
             if (vectorizationRequest.CompletedSteps != null && vectorizationRequest.CompletedSteps!.Count > 0)
@@ -107,6 +101,7 @@ namespace FoundationaLLM.Vectorization.Services
             if (vectorizationRequest.RemainingSteps == null || vectorizationRequest.RemainingSteps.Count == 0)
                 throw new VectorizationException("The list of the remaining steps of the vectorization request should not be empty.");
 
+            // validate data source dependency
             _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_DataSource, out var dataSourceResourceProviderService);
             if (dataSourceResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");

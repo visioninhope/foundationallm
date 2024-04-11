@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Vectorization;
+﻿using FoundationaLLM.Common.Models.ResourceProvider;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Exceptions;
 using System.Text.Json.Serialization;
 
@@ -69,7 +70,7 @@ namespace FoundationaLLM.Vectorization.Models
         [JsonPropertyOrder(12)]
         [JsonPropertyName("remaining_steps")]
         public List<string> RemainingSteps { get; set; } = [];
-
+              
         /// <summary>
         /// Indicates whether the vectorization process is complete or not.
         /// </summary>

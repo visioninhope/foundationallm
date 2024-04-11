@@ -1,4 +1,5 @@
 ﻿using Azure.Messaging;
+using FluentValidation;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
@@ -286,6 +287,16 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 throw new ResourceProviderException("The resource path does not match the object definition (Id mismatch).",
                     StatusCodes.Status400BadRequest);
 
+            var validator = _resourceValidatorFactory.GetValidator<VectorizationRequest>();
+            if (validator != null)
+            {
+                var validationResult = await validator.ValidateAsync(resource);
+                if (!validationResult.IsValid)
+                {
+                    throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}",
+                        StatusCodes.Status400BadRequest);
+                }
+            }
             await UpdateVectorizationRequest(resourcePath, resource);
             return new ResourceProviderUpsertResult
             {
@@ -648,7 +659,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                         await HandleVectorizationResourceProviderEvent(@event);
                     break;
                 default:
-                    // Ignore sliently any event namespace that's of no interest.
+                    // Ignore silently any event namespace that's of no interest.
                     break;
             }
 

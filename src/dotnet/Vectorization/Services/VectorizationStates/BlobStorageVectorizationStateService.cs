@@ -1,14 +1,9 @@
-﻿using Azure.Core;
-using Azure.Storage.Blobs;
-using FoundationaLLM.Common.Constants.Configuration;
+﻿using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Services;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
-using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
 
@@ -30,12 +25,13 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         private const string BLOB_STORAGE_CONTAINER_NAME = "vectorization-state";
+        private const string EXECUTION_STATE_DIRECTORY = "execution-state";
 
         /// <inheritdoc/>
         public async Task<bool> HasState(VectorizationRequest request) =>
             await _storageService.FileExistsAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
-                $"{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
+                $"{EXECUTION_STATE_DIRECTORY}/{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
                 default);
 
 
@@ -44,7 +40,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         {
             var content = await _storageService.ReadFileAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
-                $"{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
+                $"{EXECUTION_STATE_DIRECTORY}/{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
                 default);
 
             return JsonSerializer.Deserialize<VectorizationState>(content)!;
@@ -58,7 +54,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                     artifact.Content = Encoding.UTF8.GetString(
                         await _storageService.ReadFileAsync(
                             BLOB_STORAGE_CONTAINER_NAME,
-                            artifact.CanonicalId,
+                            $"{ EXECUTION_STATE_DIRECTORY}/{artifact.CanonicalId}",
                             default));
         }
 
@@ -71,7 +67,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                 if (artifact.IsDirty)
                 {
                     var artifactPath =
-                        $"{persistenceIdentifier}_{artifact.Type.ToString().ToLower()}_{artifact.Position:D6}.txt";
+                        $"{EXECUTION_STATE_DIRECTORY}/{persistenceIdentifier}_{artifact.Type.ToString().ToLower()}_{artifact.Position:D6}.txt";
 
                     await _storageService.WriteFileAsync(
                         BLOB_STORAGE_CONTAINER_NAME,
@@ -85,7 +81,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
             var content = JsonSerializer.Serialize(state);
             await _storageService.WriteFileAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
-                $"{persistenceIdentifier}.json",
+                $"{EXECUTION_STATE_DIRECTORY}/{persistenceIdentifier}.json",
                 content,
                 default,
                 default);
