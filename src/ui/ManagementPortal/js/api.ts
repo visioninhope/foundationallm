@@ -336,7 +336,7 @@ export default {
 		};
 
 		const orchestratorTypeKey = orchestratorTypeToKeyMap[agent.orchestration_settings.orchestrator];
-		
+
 		// Retrieve all the app config values for the agent
 		const appConfigFilter = `FoundationaLLM:${orchestratorTypeKey}:${agent.name}:API:*`;
 		const appConfigs = await this.getAppConfigs(appConfigFilter);
@@ -345,15 +345,21 @@ export default {
 		if (appConfigs) {
 			for (const appConfig of appConfigs) {
 				const propertyName = appConfig.name.split(':').pop();
-				agent.orchestration_settings.endpoint_configuration[propertyName as string] = String(appConfig.value);
+				agent.orchestration_settings.endpoint_configuration[propertyName as string] = String(
+					appConfig.value,
+				);
 			}
 		} else {
 			for (const [configName /* configValue */] of Object.entries(agent.orchestration_settings)) {
 				const resolvedValue = await this.getAppConfig(
-					agent.orchestration_settings.endpoint_configuration[configName as keyof typeof agent.orchestration_settings.endpoint_configuration],
+					agent.orchestration_settings.endpoint_configuration[
+						configName as keyof typeof agent.orchestration_settings.endpoint_configuration
+					],
 				);
 				if (resolvedValue) {
-					agent.orchestration_settings.endpoint_configuration[configName] = String(resolvedValue.value);
+					agent.orchestration_settings.endpoint_configuration[configName] = String(
+						resolvedValue.value,
+					);
 				} else {
 					agent.orchestration_settings.endpoint_configuration[configName] = '';
 				}
@@ -386,7 +392,9 @@ export default {
 		const orchestratorTypeKey = orchestratorTypeToKeyMap[agent.orchestration_settings.orchestrator];
 		const keyVaultUri = await this.getAppConfig('FoundationaLLM:Configuration:KeyVaultURI');
 
-		for (const [propertyName, propertyValue] of Object.entries(agent.orchestration_settings.endpoint_configuration)) {
+		for (const [propertyName, propertyValue] of Object.entries(
+			agent.orchestration_settings.endpoint_configuration,
+		)) {
 			if (!propertyValue) {
 				continue;
 			}
@@ -400,7 +408,8 @@ export default {
 				value: propertyValue,
 			};
 
-			const keyVaultSecretName = `foundationallm-agents-${agent.name}-${propertyName}`.toLowerCase();
+			const keyVaultSecretName =
+				`foundationallm-agents-${agent.name}-${propertyName}`.toLowerCase();
 			const metadata = agent.orchestration_settings_metadata?.[propertyName];
 
 			if (metadata && metadata.isKeyVaultBacked) {
