@@ -553,60 +553,62 @@ import type {
 
 const defaultSystemPrompt: string = '';
 
-const defaultFormValues = {
-	agentName: '',
-	agentDescription: '',
-	object_id: '',
-	text_partitioning_profile_object_id: '',
-	text_embedding_profile_object_id: '',
-	vectorization_data_pipeline_object_id: '',
-	prompt_object_id: '',
-	dedicated_pipeline: true,
-	agentType: 'knowledge-management' as CreateAgentRequest['type'],
+const getDefaultFormValues = () => {
+	return {
+		agentName: '',
+		agentDescription: '',
+		object_id: '',
+		text_partitioning_profile_object_id: '',
+		text_embedding_profile_object_id: '',
+		vectorization_data_pipeline_object_id: '',
+		prompt_object_id: '',
+		dedicated_pipeline: true,
+		agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
-	editDataSource: false as boolean,
-	selectedDataSource: null as null | AgentDataSource,
+		editDataSource: false as boolean,
+		selectedDataSource: null as null | AgentDataSource,
 
-	editIndexSource: false as boolean,
-	selectedIndexSource: null as null | AgentIndex,
+		editIndexSource: false as boolean,
+		selectedIndexSource: null as null | AgentIndex,
 
-	chunkSize: 500,
-	overlapSize: 50,
+		chunkSize: 500,
+		overlapSize: 50,
 
-	triggerFrequency: 'Event' as string,
-	triggerFrequencyScheduled: '' as string,
+		triggerFrequency: 'Event' as string,
+		triggerFrequencyScheduled: '' as string,
 
-	conversationHistory: false as boolean,
-	conversationMaxMessages: 5 as number,
+		conversationHistory: false as boolean,
+		conversationMaxMessages: 5 as number,
 
-	gatekeeperEnabled: false as boolean,
-	gatekeeperContentSafety: { label: 'None', value: null },
-	gatekeeperDataProtection: { label: 'None', value: null },
+		gatekeeperEnabled: false as boolean,
+		gatekeeperContentSafety: { label: 'None', value: null },
+		gatekeeperDataProtection: { label: 'None', value: null },
 
-	systemPrompt: defaultSystemPrompt as string,
+		systemPrompt: defaultSystemPrompt as string,
 
-	orchestration_settings: {
-		orchestrator: 'LangChain' as string,
-		endpoint_configuration: {
-			endpoint: '' as string,
-			api_key: '' as string,
-			version: '' as string,
-			operation_type: 'chat' as string,
-		} as object,
-		model_parameters: {
-			deployment_name: '' as string,
-			temperature: 0 as number,
-		} as object,
-	},
+		orchestration_settings: {
+			orchestrator: 'LangChain' as string,
+			endpoint_configuration: {
+				endpoint: '' as string,
+				api_key: '' as string,
+				version: '' as string,
+				operation_type: 'chat' as string,
+			} as object,
+			model_parameters: {
+				deployment_name: '' as string,
+				temperature: 0 as number,
+			} as object,
+		},
 
-	// resolved_orchestration_settings: {
-	// 	endpoint_configuration: {
-	// 		endpoint: '' as string,
-	// 		api_key: '' as string,
-	// 		version: '' as string,
-	// 		operation_type: 'chat' as string,
-	// 	} as object,
-	// },
+		// resolved_orchestration_settings: {
+		// 	endpoint_configuration: {
+		// 		endpoint: '' as string,
+		// 		api_key: '' as string,
+		// 		version: '' as string,
+		// 		operation_type: 'chat' as string,
+		// 	} as object,
+		// },
+	};
 };
 
 export default {
@@ -622,7 +624,7 @@ export default {
 
 	data() {
 		return {
-			...defaultFormValues,
+			...getDefaultFormValues(),
 
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
@@ -840,6 +842,7 @@ export default {
 		},
 
 		resetForm() {
+			const defaultFormValues = getDefaultFormValues();
 			for (const key in defaultFormValues) {
 				this[key] = defaultFormValues[key];
 			}
