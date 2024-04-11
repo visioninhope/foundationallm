@@ -24,6 +24,7 @@
     <PackageReference Include="PdfPig" Version="0.1.8" />
     <PackageReference Include="PnP.Core" Version="1.11.0" />
     <PackageReference Include="PnP.Core.Auth" Version="1.11.0" />
+    <PackageReference Include="Quartz" Version="3.8.1" />
     <PackageReference Include="System.Memory.Data" Version="8.0.0" />
   </ItemGroup>
 

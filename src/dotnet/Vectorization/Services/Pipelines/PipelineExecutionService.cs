@@ -8,6 +8,7 @@ using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Quartz;
 
 namespace FoundationaLLM.Vectorization.Services.Pipelines
 {
@@ -54,7 +55,10 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                             UserId = "VectorizationAPI",
                             Username = "VectorizationAPI"
                         });
-                    var activePipelines = (pipelines as List<VectorizationPipeline>)!.Where(p => p.Active).ToList();
+                    var activePipelines = (pipelines as List<VectorizationPipeline>)!.Where(p => p.Active &&
+                                (p.TriggerType == VectorizationPipelineTriggerType.Event ||
+                                (p.TriggerType == VectorizationPipelineTriggerType.Schedule &&
+                                CheckNextExecution(p.TriggerCronSchedule)))).ToList();
 
                     foreach (var activePipeline in activePipelines)
                     {
@@ -91,7 +95,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                     _logger.LogError(ex, "An error was encountered while running the pipeline execution cycle.");
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                await Task.Delay(TimeSpan.FromSeconds(60));
             }
         }
 
@@ -106,6 +110,18 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                     Username = "VectorizationAPI"
                 });
             return (result as List<T>)!.First();
+        }
+
+        private static bool CheckNextExecution(string? cronExpression)
+        {
+            if (string.IsNullOrWhiteSpace(cronExpression))
+                return false;
+
+            var cronSchedule = new CronExpression(cronExpression);
+            cronSchedule.TimeZone = TimeZoneInfo.Utc;
+
+            var currentDate = DateTime.UtcNow;
+            return cronSchedule.IsSatisfiedBy(new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, currentDate.Hour, currentDate.Minute, 0));
         }
 
         /// <inheritdoc/>
