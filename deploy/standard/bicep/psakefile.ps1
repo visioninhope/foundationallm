@@ -5,7 +5,7 @@ Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
 $skipApp = $false
-$skipAuth = $false
+$skipAuth = $true
 $skipDns = $false
 $skipNetworking = $false
 $skipOai = $false
