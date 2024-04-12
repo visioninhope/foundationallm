@@ -61,39 +61,39 @@ task App -depends ResourceGroups, Ops, Networking, DNS, Configuration, Vec, Stor
 
     $templateFile = "app-rg.bicep"
     $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
-        actionGroupId                = @{
+        actionGroupId                   = @{
             type  = "string"
             value = $script:actionGroupId
         }
-        administratorObjectId         = @{
+        administratorObjectId           = @{
             type  = "string"
             value = $script:administratorObjectId
         }
-        chatUiClientSecret            = @{
+        chatUiClientSecret              = @{
             type  = "string"
             value = $script:chatUiClientSecret
         }
-        coreApiClientSecret           = @{
+        coreApiClientSecret             = @{
             type  = "string"
             value = $script:coreApiClientSecret
         }
-        dnsResourceGroupName          = @{
+        dnsResourceGroupName            = @{
             type  = "string"
             value = $script:resourceGroups.dns
         }
-        environmentName               = @{
+        environmentName                 = @{
             type  = "string"
             value = $script:environment
         }
-        k8sNamespace                  = @{
+        k8sNamespace                    = @{
             type  = "string"
             value = $script:k8sNamespace
         }
-        location                      = @{
+        location                        = @{
             type  = "string"
             value = $script:location
         }
-        logAnalyticsWorkspaceId       = @{
+        logAnalyticsWorkspaceId         = @{
             type  = "string"
             value = $script:logAnalyticsWorkspaceId
         }
@@ -101,39 +101,39 @@ task App -depends ResourceGroups, Ops, Networking, DNS, Configuration, Vec, Stor
             type  = "string"
             value = $script:logAnalyticsWorkspaceId
         }
-        managementUiClientSecret      = @{
+        managementUiClientSecret        = @{
             type  = "string"
             value = $script:managementUiClientSecret
         }
-        managementApiClientSecret     = @{
+        managementApiClientSecret       = @{
             type  = "string"
             value = $script:managementApiClientSecret
         }
-        networkingResourceGroupName   = @{
+        networkingResourceGroupName     = @{
             type  = "string"
             value = $script:resourceGroups.net
         }
-        opsResourceGroupName          = @{
+        opsResourceGroupName            = @{
             type  = "string"
             value = $script:resourceGroups.ops
         }
-        project                       = @{
+        project                         = @{
             type  = "string"
             value = $script:project
         }
-        storageResourceGroupName      = @{
+        storageResourceGroupName        = @{
             type  = "string"
             value = $script:resourceGroups.storage
         }
-        vectorizationResourceGroupName = @{
+        vectorizationResourceGroupName  = @{
             type  = "string"
             value = $script:resourceGroups.vec
         }
-        vectorizationApiClientSecret  = @{
+        vectorizationApiClientSecret    = @{
             type  = "string"
             value = $script:vectorizationApiClientSecret
         }
-        vnetName                     = @{
+        vnetName                        = @{
             type  = "string"
             value = $script:vnetName
         }
@@ -162,71 +162,71 @@ task Auth -depends App, ResourceGroups, Networking, Ops, DNS, Configuration {
 
     $templateFile = "auth-rg.bicep"
     $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
-        actionGroupId                = @{
+        actionGroupId               = @{
             type  = "string"
             value = $script:actionGroupId
         }
-        administratorObjectId         = @{
+        administratorObjectId       = @{
             type  = "string"
             value = $script:administratorObjectId
         }
-        appResourceGroupName         = @{
+        appResourceGroupName        = @{
             type  = "string"
             value = $script:resourceGroups.app
         }
-        authAppRegistrationClientId  = @{
+        authAppRegistrationClientId = @{
             type  = "string"
             value = $script:entraClientIds.authorization
         }
-        authAppRegistrationInstance   = @{
+        authAppRegistrationInstance = @{
             type  = "string"
             value = $script:entraInstances.authorization
         }
-        authAppRegistrationScopes     = @{
+        authAppRegistrationScopes   = @{
             type  = "string"
             value = $script:entraClientScopes.authorization
         }
-        authAppRegistrationTenantId   = @{
+        authAppRegistrationTenantId = @{
             type  = "string"
             value = $script:tenantId
         }
-        authClientSecret              = @{
+        authClientSecret            = @{
             type  = "string"
             value = $script:entraClientSecrets.authorization
         }
-        dnsResourceGroupName          = @{
+        dnsResourceGroupName        = @{
             type  = "string"
             value = $script:resourceGroups.dns
         }
-        environmentName               = @{
+        environmentName             = @{
             type  = "string"
             value = $script:environment
         }
-        instanceId                    = @{
+        instanceId                  = @{
             type  = "string"
             value = $script:instanceId
         }
-        k8sNamespace                  = @{
+        k8sNamespace                = @{
             type  = "string"
             value = $script:k8sNamespace
         }
-        location                      = @{
+        location                    = @{
             type  = "string"
             value = $script:location
         }
-        logAnalyticsWorkspaceId       = @{
+        logAnalyticsWorkspaceId     = @{
             type  = "string"
             value = $script:logAnalyticsWorkspaceId
         }
-        opsResourceGroupName          = @{
+        opsResourceGroupName        = @{
             type  = "string"
             value = $script:resourceGroups.ops
         }
-        project                       = @{
+        project                     = @{
             type  = "string"
             value = $script:project
         }
-        vnetId                        = @{
+        vnetId                      = @{
             type  = "string"
             value = $script:vnetId
         }
@@ -269,28 +269,39 @@ task Clean -depends Configuration {
         }
     }
 
-    Write-Host -ForegroundColor Blue "Deleting all resource groups..."
+    while ($true) {
+        Write-Host -ForegroundColor Blue "Deleting all resource groups..."
 
-    foreach ($property in $script:resourceGroups.GetEnumerator()) {
-        if (-Not ($(az group list --query '[].name' -o json | ConvertFrom-Json) -Contains $property.Value)) {
-            Write-Host -ForegroundColor Blue "The resource group $($property.Value) was not found."
+        $count = 0
+        foreach ($property in $script:resourceGroups.GetEnumerator()) {
+            if (-Not ($(az group list --query '[].name' -o json | ConvertFrom-Json) -Contains $property.Value)) {
+                Write-Host -ForegroundColor Blue "The resource group $($property.Value) was not found."
+            }
+            else {
+                Write-Host -ForegroundColor Magenta "Deleting $($property.Value)..."
+                az group delete `
+                    --name $property.Value `
+                    --yes `
+                    --no-wait
+                $count++
+            }
         }
-        else {
-            Write-Host -ForegroundColor Magenta "Deleting $($property.Value)..."
-            az group delete `
-                --name $property.Value `
-                --yes `
-                --no-wait
-        }
-    }
 
-    $deleteMessage = @"
+        $deleteMessage = @"
 Sent delete requests for all resource groups.  Deletion can take up to an hour.
 Some resources are only soft-deleted and may need to be purged to completely remove them.
 Check the Azure Portal for status.
 "@
+        Write-Host -ForegroundColor Blue $deleteMessage
 
-    Write-Host -ForegroundColor Blue $deleteMessage
+        if($count -eq 0) {
+            Write-Host -ForegroundColor Green "All resource groups have been deleted."
+            break
+        }
+
+        Write-Host -ForegroundColor Blue "Waiting 10 seconds for ${count} resource groups to delete..."
+        Start-Sleep -Seconds 10
+    }
 }
 
 task Configuration {
@@ -326,22 +337,22 @@ task Configuration {
         $script:resourceGroups.Add($property.Name, $property.Value)
     }
 
-    $script:entraClientIds =@{}
+    $script:entraClientIds = @{}
     foreach ($property in $manifest.entraClientIds.PSObject.Properties) {
         $script:entraClientIds.Add($property.Name, $property.Value)
     }
 
-    $script:entraInstances =@{}
+    $script:entraInstances = @{}
     foreach ($property in $manifest.entraInstances.PSObject.Properties) {
         $script:entraInstances.Add($property.Name, $property.Value)
     }
 
-    $script:entraClientScopes =@{}
+    $script:entraClientScopes = @{}
     foreach ($property in $manifest.entraScopes.PSObject.Properties) {
         $script:entraClientScopes.Add($property.Name, $property.Value)
     }
 
-    $script:entraClientSecrets =@{}
+    $script:entraClientSecrets = @{}
     foreach ($property in $manifest.entraClientSecrets.PSObject.Properties) {
         $script:entraClientSecrets.Add($property.Name, $property.Value)
     }
@@ -469,35 +480,35 @@ task OpenAI -depends ResourceGroups, Ops, Networking, DNS, Configuration {
             type  = "string"
             value = $script:actionGroupId
         }
-        administratorObjectId    = @{
+        administratorObjectId   = @{
             type  = "string"
             value = $script:administratorObjectId
         }
-        dnsResourceGroupName     = @{
+        dnsResourceGroupName    = @{
             type  = "string"
             value = $script:resourceGroups.dns
         }
-        environmentName          = @{
+        environmentName         = @{
             type  = "string"
             value = $script:environment
         }
-        location                 = @{
+        location                = @{
             type  = "string"
             value = $script:location
         }
-        logAnalyticsWorkspaceId  = @{
+        logAnalyticsWorkspaceId = @{
             type  = "string"
             value = $script:logAnalyticsWorkspaceId
         }
-        opsResourceGroupName     = @{
+        opsResourceGroupName    = @{
             type  = "string"
             value = $script:resourceGroups.ops
         }
-        project                  = @{
+        project                 = @{
             type  = "string"
             value = $script:project
         }
-        vnetId                   = @{
+        vnetId                  = @{
             type  = "string"
             value = $script:vnetId
         }
