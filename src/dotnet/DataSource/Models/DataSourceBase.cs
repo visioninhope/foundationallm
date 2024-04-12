@@ -11,6 +11,7 @@ namespace FoundationaLLM.DataSource.Models
     [JsonDerivedType(typeof(AzureDataLakeDataSource), DataSourceTypes.AzureDataLake)]
     [JsonDerivedType(typeof(AzureSQLDatabaseDataSource), DataSourceTypes.AzureSQLDatabase)]
     [JsonDerivedType(typeof(SharePointOnlineSiteDataSource), DataSourceTypes.SharePointOnlineSite)]
+    [JsonDerivedType(typeof(WebSiteDataSource), DataSourceTypes.WebSite)]
     public class DataSourceBase : ResourceBase
     {
         /// <inheritdoc/>

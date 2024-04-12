@@ -53,7 +53,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
                         DataSourceTypes.AzureDataLake => (CreateAzureDataLakeContentSourceService(dataSource.Name), dataSource),
                         DataSourceTypes.SharePointOnlineSite => (CreateSharePointOnlineContentSourceService(dataSource.Name), dataSource),
                         DataSourceTypes.AzureSQLDatabase => (CreateAzureSQLDatabaseContentSourceService(dataSource.Name), dataSource),
-                        // DataSourceTypes.Web => (CreateWebPageDataSourceService(dataSource.Name), dataSource),
+                        DataSourceTypes.WebSite => (CreatePageContentSourceService(dataSource.Name), dataSource),
                         _ => throw new VectorizationException($"The data source type {dataSource.Type} is not supported."),
                     };
         }
@@ -95,7 +95,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
                 _loggerFactory);
         }
 
-        private WebPageContentSourceService CreateWebPageContentSourceService(string serviceName)
-            => new WebPageContentSourceService(_loggerFactory);
+        private WebContentSourceService CreatePageContentSourceService(string serviceName)
+            => new WebContentSourceService(_loggerFactory);
     }
 }

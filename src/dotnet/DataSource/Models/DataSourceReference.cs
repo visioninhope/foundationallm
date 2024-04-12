@@ -21,6 +21,7 @@ namespace FoundationaLLM.DataSource.Models
                 DataSourceTypes.AzureDataLake => typeof(AzureDataLakeDataSource),
                 DataSourceTypes.AzureSQLDatabase => typeof(AzureSQLDatabaseDataSource),
                 DataSourceTypes.SharePointOnlineSite => typeof(SharePointOnlineSiteDataSource),
+                DataSourceTypes.WebSite => typeof(WebSiteDataSource),
                 _ => throw new ResourceProviderException($"The data source type {Type} is not supported.")
             };
     }

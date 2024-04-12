@@ -9,16 +9,16 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
     /// <summary>
     /// Extracts text from a web page.
     /// </summary>
-    public class WebPageContentSourceService : IContentSourceService
+    public class WebContentSourceService : IContentSourceService
     {
-        private readonly ILogger<WebPageContentSourceService> _logger;
+        private readonly ILogger<WebContentSourceService> _logger;
 
         /// <summary>
         /// Creates a new instance of the vectorization content source service that scrapes web pages.
         /// </summary>
         /// <param name="loggerFactory">Logger factory that generates loggers for the class.</param>
-        public WebPageContentSourceService(ILoggerFactory loggerFactory) =>
-            _logger = loggerFactory.CreateLogger<WebPageContentSourceService>();
+        public WebContentSourceService(ILoggerFactory loggerFactory) =>
+            _logger = loggerFactory.CreateLogger<WebContentSourceService>();
 
         /// <inheritdoc/>
         /// <remarks>
