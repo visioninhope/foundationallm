@@ -37,7 +37,7 @@ Follow the steps below to deploy the solution to your Azure subscription.
 If you are upgrading from a previous version, like `0.4.0` please refer to the changes in the [release notes](changes-050.md).
 
 > [!IMPORTANT]
-> Follow the instructions in the [Authentication and Authorization setup document](authentication-authorization/index.md) to finalizie authentication and authorization for the solution. Bare in mind that creating the app registrations in the Entra ID tenant is a **prerequisite** for the deployment, but you will have to revisit some of these settings after the deployment is complete later to fill in some missing values that are generated during the deployment.
+> Follow the instructions in the [Authentication and Authorization setup document](authentication-authorization/index.md) to finalize authentication and authorization for the solution. Bear in mind that creating the app registrations in the Entra ID tenant is a **prerequisite** for the deployment, but you will have to revisit some of these settings after the deployment is complete later to fill in some missing values that are generated during the deployment.
 
 1. Ensure all the prerequisites are met and you have installed the tools required to complete the deployment.
 
