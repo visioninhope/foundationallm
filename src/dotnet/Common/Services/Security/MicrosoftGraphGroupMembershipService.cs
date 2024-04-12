@@ -26,7 +26,6 @@ namespace FoundationaLLM.Common.Services.Security
             {
                 foreach (var group in groups.Value)
                 {
-                    Console.WriteLine(group.DisplayName);
                     groupMembership.Add(group);
                 }
 
