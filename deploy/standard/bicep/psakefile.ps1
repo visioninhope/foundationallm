@@ -31,7 +31,7 @@ function New-Bicepparams {
 }
 
 $skipApp = $false
-$skipAuth = $true
+$skipAuth = $false
 $skipDns = $false
 $skipNetworking = $false
 $skipOai = $false
@@ -150,7 +150,7 @@ task App -depends ResourceGroups, Ops, Networking, DNS, Configuration, Vec, Stor
     }
 }
 
-task Auth -depends App, ResourceGroups, Networking, DNS {
+task Auth -depends App, ResourceGroups, Networking, Ops, DNS, Configuration {
     if ($skipAuth -eq $true) {
         Write-Host -ForegroundColor Yellow "Skipping Auth creation."
         return;
@@ -176,23 +176,23 @@ task Auth -depends App, ResourceGroups, Networking, DNS {
         }
         authAppRegistrationClientId  = @{
             type  = "string"
-            value = $script:manifest.entraClientIds.authorization
+            value = $script:entraClientIds.authorization
         }
         authAppRegistrationInstance   = @{
             type  = "string"
-            value = $script:manifest.entraInstances.authorization
+            value = $script:entraInstances.authorization
         }
         authAppRegistrationScopes     = @{
             type  = "string"
-            value = $script:manifest.entraClientScopes.authorization
+            value = $script:entraClientScopes.authorization
         }
         authAppRegistrationTenantId   = @{
             type  = "string"
-            value = $script:manifest.tenantId
+            value = $script:tenantId
         }
         authClientSecret              = @{
             type  = "string"
-            value = $script:manifest.entraClientSecrets.authorization
+            value = $script:entraClientSecrets.authorization
         }
         dnsResourceGroupName          = @{
             type  = "string"
@@ -204,7 +204,7 @@ task Auth -depends App, ResourceGroups, Networking, DNS {
         }
         instanceId                    = @{
             type  = "string"
-            value = $script:manifest.instanceId
+            value = $script:instanceId
         }
         k8sNamespace                  = @{
             type  = "string"
@@ -311,6 +311,13 @@ task Configuration {
     $script:project = $manifest.project
     $script:subscription = $manifest.subscription
     $script:vectorizationApiClientSecret = "VEC-API-CLIENT-SECRET"
+    $script:instanceId = $manifest.instanceId
+
+    $script:tenantId = $(
+        az account show `
+            --query tenantId `
+            --output tsv
+    )
 
     $script:deployments = @{}
     $script:resourceGroups = @{}
@@ -318,6 +325,28 @@ task Configuration {
         $script:deployments.Add($property.Name, "$($property.Value)-${timestamp}")
         $script:resourceGroups.Add($property.Name, $property.Value)
     }
+
+    $script:entraClientIds =@{}
+    foreach ($property in $manifest.entraClientIds.PSObject.Properties) {
+        $script:entraClientIds.Add($property.Name, $property.Value)
+    }
+
+    $script:entraInstances =@{}
+    foreach ($property in $manifest.entraInstances.PSObject.Properties) {
+        $script:entraInstances.Add($property.Name, $property.Value)
+    }
+
+    $script:entraClientScopes =@{}
+    foreach ($property in $manifest.entraScopes.PSObject.Properties) {
+        $script:entraClientScopes.Add($property.Name, $property.Value)
+    }
+
+    $script:entraClientSecrets =@{}
+    foreach ($property in $manifest.entraClientSecrets.PSObject.Properties) {
+        $script:entraClientSecrets.Add($property.Name, $property.Value)
+    }
+
+
     Write-Host -ForegroundColor Blue "Configuration complete."
 }
 
