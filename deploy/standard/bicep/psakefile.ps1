@@ -585,6 +585,18 @@ task Ops -depends ResourceGroups, Networking, DNS, Configuration {
     if ($LASTEXITCODE -ne 0) {
         throw "The Log Analytics Workspace ID could not be retrieved."
     }
+
+    $script:opsKeyVaultName = $(
+        az deployment group show `
+            --name $script:deployments["ops"] `
+            --output tsv `
+            --query properties.outputs.keyVaultName.value `
+            --resource-group $script:resourceGroups.ops
+    )
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "The Log Analytics Workspace ID could not be retrieved."
+    }
 }
 
 task ResourceGroups -depends Configuration {
@@ -641,6 +653,10 @@ task Storage -depends ResourceGroups, Ops, Networking, DNS, Configuration {
         logAnalyticsWorkspaceId = @{
             type  = "string"
             value = $script:logAnalyticsWorkspaceId
+        }
+        opsKeyVaultName         = @{
+            type  = "string"
+            value = $script:opsKeyVaultName
         }
         opsResourceGroupName    = @{
             type  = "string"
