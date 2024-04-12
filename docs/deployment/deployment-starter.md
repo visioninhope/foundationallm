@@ -19,7 +19,7 @@ You will need the following resources and access to deploy the solution:
 You will use the following tools during deployment:
 - **Azure Developer CLI ([v1.6.1 or greater](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd))**
 - **Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/cli/azure/install-azure-cli)):**
-- **[git](https://git-scm.com/downloads)**
+- **Latest Git [git](https://git-scm.com/downloads)**
 - **PowerShell 7 ([7.4.1 or greater](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4))**
 
 **Optional** To run or debug the solution locally, you will need to install the following dependencies:
