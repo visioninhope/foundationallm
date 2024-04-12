@@ -98,23 +98,21 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
     ```
 > [!NOTE]
 > You need to manually generate a GUID for `FOUNDATIONALLM_INSTANCE_ID`.
+### In Bash:
+```bash
+  uuidgen
+```
 
-    Bash:
+### In PowerShell:
 
-    ```bash
-    uuidgen
-    ```
-
-    PowerShell:
-
-    ```powershell
-    [guid]::NewGuid().ToString()
-    ```
+```powershell
+  [guid]::NewGuid().ToString()
+```
 
 > [!IMPORTANT]
 > The ADMIN_GROUP_OBJECT_ID in the Entra ID Groups has to be of type `security` NOT `Microsoft 365` and you need to at least add yourself to the group and other members that need to be admins.
 
-6. **Optional**: Bring Your Own Azure OpenAI Instance
+1. **Optional**: Bring Your Own Azure OpenAI Instance
 
     If you have an existing Azure OpenAI instance, you can use it by setting the following environment variables:
 
@@ -123,7 +121,7 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
     azd env set OPENAI_RESOURCE_GROUP <OpenAI Resource Group>
     azd env set OPENAI_SUBSCRIPTION_ID <OpenAI Subscription ID>
     ```
-7. Deploy the solution
+2. Deploy the solution
 
     After setting the OIDC-specific settings in the AZD environment above, run `azd up` in the same folder location to provision the infrastructure, update the App Configuration entries, deploy the API and web app services, and import files into the storage account.
 
