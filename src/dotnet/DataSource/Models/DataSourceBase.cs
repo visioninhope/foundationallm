@@ -8,6 +8,7 @@ namespace FoundationaLLM.DataSource.Models
     /// Basic data source.
     /// </summary>
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+    [JsonDerivedType(typeof(OneLakeDataSource), DataSourceTypes.OneLake)]
     [JsonDerivedType(typeof(AzureDataLakeDataSource), DataSourceTypes.AzureDataLake)]
     [JsonDerivedType(typeof(AzureSQLDatabaseDataSource), DataSourceTypes.AzureSQLDatabase)]
     [JsonDerivedType(typeof(SharePointOnlineSiteDataSource), DataSourceTypes.SharePointOnlineSite)]
