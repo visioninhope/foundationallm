@@ -17,20 +17,19 @@ You will need the following resources and access to deploy the solution:
     - Owner on the app registrations described in the Authentication setup document
 
 You will use the following tools during deployment:
-- **Azure Developer CLI ([v1.6.1 or greater](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd))**: The Azure Developer CLI (azd) is a command-line tool designed to streamline the development and deployment of applications on Microsoft's Azure cloud platform. It simplifies various tasks such as setting up development environments, managing resources, and deploying applications by providing a more developer-friendly interface. The Azure Dev CLI aims to enhance productivity by abstracting complex cloud management tasks into simpler, more intuitive commands, making it easier for developers to integrate Azure services into their workflows.
-- **Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/cli/azure/install-azure-cli)):** The Azure Command Line Interface (CLI) is a set of commands used to manage Azure resources directly from the command line. It provides a simple and efficient way to automate tasks and manage Azure services, supporting both Windows, macOS, and Linux platforms. Azure CLI is particularly useful for scripting and executing batch operations, offering a comprehensive set of commands that cover almost all aspects of Azure resource management.
-- **[git](https://git-scm.com/downloads)**: Git is a distributed version control system designed to handle everything from small to very large projects with speed and efficiency. It allows multiple developers to work on the same codebase simultaneously, tracking and merging changes, and maintaining a complete history of all file revisions. Git is essential for modern software development, supporting branching and merging strategies, and is widely used for its robustness, flexibility, and remote collaboration capabilities.
-- **PowerShell 7 ([7.4.1 or greater](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4))**:
-PowerShell 7 is a cross-platform (Windows, macOS, and Linux) automation tool and scripting language, an evolution of PowerShell that works with the .NET Core framework. It offers enhanced features and performance improvements over its predecessors and is designed for heterogeneous environments and the hybrid cloud. In PowerShell 7, the command-line executable is referred to as pwsh, an alias that is essential for integration with Azure Developer CLI (AZD) hooks and other modern automation scenarios.
+- **Azure Developer CLI ([v1.6.1 or greater](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd))**
+- **Azure CLI ([v2.51.0 or greater](https://docs.microsoft.com/cli/azure/install-azure-cli)):**
+- **[git](https://git-scm.com/downloads)**
+- **PowerShell 7 ([7.4.1 or greater](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4))**
 
 **Optional** To run or debug the solution locally, you will need to install the following dependencies:
 
-- **[.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)**: The .NET 8 SDK is the latest iteration of Microsoft's .NET software development kit, offering enhanced features and improvements for building applications across various platforms, including web, mobile, desktop, cloud, and IoT. It provides a comprehensive set of libraries, runtime features, and APIs, supporting multiple programming languages like C#, F#, and Visual Basic. This SDK is designed for high performance and efficiency, catering to modern development needs with support for cloud-native applications, microservices, and machine learning.
-- **Visual Studio 2022**: Visual Studio 2022 is an advanced integrated development environment (IDE) from Microsoft, offering robust tools for developing applications on the .NET platform and other technologies. It brings improved performance, better usability, and enhanced collaboration features, supporting a wide range of programming languages and frameworks. Visual Studio 2022 is tailored for both individual developers and teams, integrating seamlessly with modern workflows and cloud services, and providing powerful debugging, code navigation, and refactoring capabilities.
+- **[.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)**
+- **Visual Studio 2022**
 
 **Optional** To build or test container images, you will need to install the following dependencies:
 
-- **[Docker Desktop](https://www.docker.com/products/docker-desktop/)**: Docker Desktop is an application for MacOS and Windows machines for the building and sharing of containerized applications and microservices. It provides an integrated environment to use Docker containers, simplifying the process of building, testing, and deploying applications in a consistent and isolated environment. Docker Desktop includes Docker Engine, Docker CLI client, Docker Compose, and other Docker tools, making it a key tool for developers working with container-based applications.
+- **[Docker Desktop](https://www.docker.com/products/docker-desktop/)**
 
 ## Deployment steps
 
