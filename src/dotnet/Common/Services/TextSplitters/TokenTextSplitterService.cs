@@ -35,7 +35,12 @@ namespace FoundationaLLM.Common.Services.TextSplitters
                 var chunksCount = (int)Math.Ceiling((1f * tokens!.Count - _settings.OverlapSizeTokens) / (_settings.ChunkSizeTokens - _settings.OverlapSizeTokens));
 
                 if (chunksCount <= 1)
-                    return new List<TextChunk> { new() { Content = text, TokensCount = tokens.Count } };
+                    return new List<TextChunk> { new()
+                    {
+                        Position = 1,
+                        Content = text,
+                        TokensCount = tokens.Count
+                    } };
 
                 var chunks = Enumerable.Range(0, chunksCount - 1)
                     .Select(i => new
