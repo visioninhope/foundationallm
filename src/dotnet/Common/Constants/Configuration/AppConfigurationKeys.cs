@@ -1015,6 +1015,11 @@
         public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI";
 
         /// <summary>
+        /// The key section for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:SemanticKernelAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_SemanticKernelAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:SemanticKernelAPI";
+
+        /// <summary>
         /// The key section for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI";

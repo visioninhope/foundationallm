@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Gateway.Exceptions;
+﻿using FoundationaLLM.SemanticKernel.Core.Interfaces;
+using FoundationaLLM.SemanticKernel.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -10,13 +11,10 @@ namespace FoundationaLLM
     public static partial class DependencyInjection
     {
         /// <summary>
-        /// Adds the Gateway general exception handler to the dependency injection container.
+        /// Add the Semantic Kernel service to the dependency injection container.
         /// </summary>
         /// <param name="builder">The host application builder.</param>
-        public static void AddGatewayGenericExceptionHandling(this IHostApplicationBuilder builder)
-        {
-            builder.Services.AddExceptionHandler<GatewayExceptionHandler>();
-            builder.Services.AddProblemDetails();
-        }
+        public static void AddSemanticKernelService(this IHostApplicationBuilder builder) =>
+            builder.Services.AddScoped<ISemanticKernelService, SemanticKernelService>();
     }
 }
