@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.AgentFactory.Interfaces
+﻿namespace FoundationaLLM.Orchestration.Core.Interfaces
 {
     /// <summary>
     /// Interface for the LangChain Orchestration Service

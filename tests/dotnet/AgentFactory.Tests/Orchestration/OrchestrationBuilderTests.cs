@@ -1,12 +1,12 @@
-﻿using FoundationaLLM.AgentFactory.Core.Orchestration;
-using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
+using FoundationaLLM.Orchestration.Core.Interfaces;
+using FoundationaLLM.Orchestration.Core.Orchestration;
 
 namespace FoundationaLLM.AgentFactory.Tests.Orchestration
 {

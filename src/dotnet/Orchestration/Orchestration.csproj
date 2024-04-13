@@ -4,8 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>FoundationaLLM.AgentFactory.Core</AssemblyName>
-    <RootNamespace>FoundationaLLM.AgentFactory.Core</RootNamespace>
+    <AssemblyName>FoundationaLLM.Orchestration.Core</AssemblyName>
+    <RootNamespace>FoundationaLLM.Orchestration.Core</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 

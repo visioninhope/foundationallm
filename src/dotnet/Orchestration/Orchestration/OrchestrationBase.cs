@@ -1,9 +1,9 @@
-﻿using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Orchestration.Core.Interfaces;
 
-namespace FoundationaLLM.AgentFactory.Core.Orchestration
+namespace FoundationaLLM.Orchestration.Core.Orchestration
 {
     /// <summary>
     /// Base class for an orchestration involving a FoundationaLLM agent.

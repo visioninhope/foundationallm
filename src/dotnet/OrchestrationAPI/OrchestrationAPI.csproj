@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>7c9a8485-ea86-4bfc-950e-53a32cba9839</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <AssemblyName>FoundationaLLM.AgentFactory.API</AssemblyName>
-    <RootNamespace>FoundationaLLM.AgentFactory.API</RootNamespace>
+    <AssemblyName>FoundationaLLM.Orchestration.API</AssemblyName>
+    <RootNamespace>FoundationaLLM.Orchestration.API</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AgentFactory\AgentFactory.csproj" />
+    <ProjectReference Include="..\Orchestration\Orchestration.csproj" />
     <ProjectReference Include="..\Agent\Agent.csproj" />
     <ProjectReference Include="..\Authorization\Authorization.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />

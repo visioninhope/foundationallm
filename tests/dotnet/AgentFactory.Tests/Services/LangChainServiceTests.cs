@@ -1,8 +1,8 @@
-﻿using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
-using FoundationaLLM.AgentFactory.Services;
-using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
+using FoundationaLLM.Orchestration.Core.Services;
 
 namespace FoundationaLLM.AgentFactory.Tests.Services
 {

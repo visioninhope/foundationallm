@@ -1,6 +1,4 @@
-﻿using FoundationaLLM.AgentFactory.Interfaces;
-
-namespace FoundationaLLM.AgentFactory.Core.Interfaces
+﻿namespace FoundationaLLM.Orchestration.Core.Interfaces
 {
     /// <summary>
     /// Interface for going directly to Azure AI for orchestration.

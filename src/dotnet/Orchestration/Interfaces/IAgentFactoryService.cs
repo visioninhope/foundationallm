@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Models.Orchestration;
 
-namespace FoundationaLLM.AgentFactory.Core.Interfaces;
+namespace FoundationaLLM.Orchestration.Core.Interfaces;
 
 /// <summary>
 /// Interface for the Agent Factory Service

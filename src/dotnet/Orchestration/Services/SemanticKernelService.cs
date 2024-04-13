@@ -1,14 +1,14 @@
-﻿using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
+﻿using System.Text;
+using System.Text.Json;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Orchestration.Core.Interfaces;
+using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Text;
-using System.Text.Json;
 
-namespace FoundationaLLM.AgentFactory.Services
+namespace FoundationaLLM.Orchestration.Core.Services
 {
     /// <summary>
     /// The FoundationaLLM Semantic Kernal Service

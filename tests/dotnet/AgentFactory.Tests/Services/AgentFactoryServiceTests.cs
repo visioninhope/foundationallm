@@ -1,7 +1,7 @@
-﻿using FoundationaLLM.AgentFactory.Core.Services;
-using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Orchestration.Core.Interfaces;
+using FoundationaLLM.Orchestration.Core.Services;
 using Microsoft.Extensions.Configuration;
 
 namespace FoundationaLLM.AgentFactory.Tests.Services

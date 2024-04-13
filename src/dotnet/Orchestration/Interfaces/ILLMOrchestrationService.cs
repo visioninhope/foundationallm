@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Models.Orchestration;
 
-namespace FoundationaLLM.AgentFactory.Interfaces
+namespace FoundationaLLM.Orchestration.Core.Interfaces
 {
     /// <summary>
     /// LLM Orchestration Service interface

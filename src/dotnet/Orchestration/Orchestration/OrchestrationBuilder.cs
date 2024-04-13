@@ -1,15 +1,14 @@
-﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.Common.Constants.Agents;
+﻿using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace FoundationaLLM.AgentFactory.Core.Orchestration
+namespace FoundationaLLM.Orchestration.Core.Orchestration
 {
     /// <summary>
     /// Builds an orchestration for a FoundationaLLM agent.

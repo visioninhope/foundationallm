@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions
+namespace FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions
 {
     /// <summary>
     /// Settings for an Agent Factory.  Currenlty only sets the default orchestration (Semantickernal, LangChain)

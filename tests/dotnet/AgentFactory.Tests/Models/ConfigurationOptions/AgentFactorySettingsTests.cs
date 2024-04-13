@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
+﻿using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
 
 namespace FoundationaLLM.AgentFactory.Tests.Models.ConfigurationOptions
 {

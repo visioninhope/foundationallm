@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.AgentFactory.Interfaces
+﻿namespace FoundationaLLM.Orchestration.Core.Interfaces
 {
     /// <summary>
     /// Interface to define the core methods of a Semantic Kernal Service

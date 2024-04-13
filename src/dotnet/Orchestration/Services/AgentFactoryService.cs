@@ -1,13 +1,12 @@
-﻿using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Orchestration;
-using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Orchestration.Core.Interfaces;
+using FoundationaLLM.Orchestration.Core.Orchestration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace FoundationaLLM.AgentFactory.Core.Services;
+namespace FoundationaLLM.Orchestration.Core.Services;
 
 /// <summary>
 /// AgentFactoryService class.
