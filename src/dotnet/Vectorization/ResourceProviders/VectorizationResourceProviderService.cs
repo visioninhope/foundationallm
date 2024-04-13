@@ -330,7 +330,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 },
                 VectorizationResourceTypeNames.VectorizationRequests => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    VectorizationResourceProviderActions.Process => await ProcessVectorizationRequest(serializedAction),
+                    VectorizationResourceProviderActions.Process => await ProcessVectorizationRequest(resourcePath.ResourceTypeInstances.Last().ResourceId!),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                                                StatusCodes.Status400BadRequest)
                 },
@@ -368,11 +368,13 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 null);
         }
 
-        private async Task<VectorizationResult> ProcessVectorizationRequest(string serializedAction)
-        {            
-            var request = JsonSerializer.Deserialize<VectorizationRequest>(serializedAction)
-                ?? throw new ResourceProviderException("The object definition is invalid.",
-                                   StatusCodes.Status400BadRequest);
+        private async Task<VectorizationResult> ProcessVectorizationRequest(string vectorizationRequestId)
+        {
+            // retrieve the vectorization request from the in-memory collection
+            if (!_vectorizationRequests.TryGetValue(vectorizationRequestId, out var request))
+                throw new ResourceProviderException($"The resource {vectorizationRequestId} was not found.",
+                                       StatusCodes.Status404NotFound);
+            
             return await vectorizationServiceClient.ProcessRequest(request);            
         }
 

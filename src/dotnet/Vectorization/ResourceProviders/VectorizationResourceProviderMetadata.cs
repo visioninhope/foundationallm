@@ -49,7 +49,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     ],
                     Actions = [
                         new ResourceTypeAction(VectorizationResourceProviderActions.Process, true, false, [
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(VectorizationRequest)], [typeof(VectorizationResult)])
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(VectorizationResult)])
                         ])
                     ]
                 }
