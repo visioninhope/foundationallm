@@ -15,6 +15,7 @@ using FoundationaLLM.Common.Services.ResourceProviders;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Resources;
+using FoundationaLLM.Vectorization.Validation.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -285,7 +286,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             var resource = JsonSerializer.Deserialize<VectorizationRequest>(serializedResource)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
-
+            
             if (resourcePath.ResourceTypeInstances[0].ResourceId != resource.Id)
                 throw new ResourceProviderException("The resource path does not match the object definition (Id mismatch).",
                     StatusCodes.Status400BadRequest);
@@ -588,7 +589,15 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
             // if the vectorization request resource file path doesn't exist, create the resource file path using date slugs (UTC).
             if (string.IsNullOrWhiteSpace(request.ResourceFilePath))
-            {                
+            {
+                // Validate creation time rules
+                var validator = new VectorizationRequestCreationTimeValidator();
+                var validationResult = await validator.ValidateAsync(request);
+                if (!validationResult.IsValid)
+                {
+                    throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}",
+                                               StatusCodes.Status400BadRequest);
+                }
                 request.ResourceFilePath = $"{REQUEST_RESOURCES_DIRECTORY_NAME}/{DateTime.UtcNow:yyyyMMdd}/{DateTime.UtcNow:yyyyMMdd}-{request.Id}.json"; ;                
             }
 
