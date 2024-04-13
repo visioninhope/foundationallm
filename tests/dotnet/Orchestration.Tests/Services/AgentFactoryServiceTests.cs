@@ -3,8 +3,11 @@ using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
+using Xunit;
 
-namespace FoundationaLLM.AgentFactory.Tests.Services
+namespace FoundationaLLM.Orchestration.Tests.Services
 {
     public class AgentFactoryServiceTests
     {

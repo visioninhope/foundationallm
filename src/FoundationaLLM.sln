@@ -81,7 +81,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agent", "dotnet\Agent\Agent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prompt", "dotnet\Prompt\Prompt.csproj", "{E04B4AA1-2C79-4153-87A0-2BAC1256E4DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentFactory.Tests", "..\tests\dotnet\AgentFactory.Tests\AgentFactory.Tests.csproj", "{D2257807-4A0A-4324-A10B-D160550C9E1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestration.Tests", "..\tests\dotnet\Orchestration.Tests\Orchestration.Tests.csproj", "{D2257807-4A0A-4324-A10B-D160550C9E1E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vectorization.Tests", "..\tests\dotnet\Vectorization.Tests\Vectorization.Tests.csproj", "{7DD70AFD-69C4-4C82-9B67-5EE4A671D741}"
 EndProject

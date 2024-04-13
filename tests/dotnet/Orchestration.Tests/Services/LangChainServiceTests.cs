@@ -3,8 +3,11 @@ using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
 using FoundationaLLM.Orchestration.Core.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using NSubstitute;
 
-namespace FoundationaLLM.AgentFactory.Tests.Services
+namespace FoundationaLLM.Orchestration.Tests.Services
 {
     public class LangChainServiceTests
     {

@@ -1,10 +1,15 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using System.Net;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
 using FoundationaLLM.Orchestration.Core.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using NSubstitute;
+using Xunit;
 
-namespace FoundationaLLM.AgentFactory.Tests.Services
+namespace FoundationaLLM.Orchestration.Tests.Services
 {
     public class SemanticKernelServiceTests
     {

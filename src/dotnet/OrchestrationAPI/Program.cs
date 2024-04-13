@@ -1,10 +1,8 @@
 using Asp.Versioning;
-using FoundationaLLM.AgentFactory.Core.Interfaces;
-using FoundationaLLM.AgentFactory.Core.Models.ConfigurationOptions;
-using FoundationaLLM.AgentFactory.Core.Services;
-using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.AgentFactory.Models.ConfigurationOptions;
-using FoundationaLLM.AgentFactory.Services;
+using FoundationaLLM.Orchestration.API;
+using FoundationaLLM.Orchestration.Core.Interfaces;
+using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
+using FoundationaLLM.Orchestration.Core.Services;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
@@ -25,7 +23,7 @@ using Microsoft.Extensions.Options;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace FoundationaLLM.AgentFactory.API
+namespace FoundationaLLM.Orchestration.API
 {
     /// <summary>
     /// Program class for the Agent Factory API

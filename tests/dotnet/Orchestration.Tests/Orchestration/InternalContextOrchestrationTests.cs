@@ -3,22 +3,25 @@ using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Orchestration;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
+using Xunit;
 
-namespace FoundationaLLM.AgentFactory.Tests.Orchestration
+namespace FoundationaLLM.Orchestration.Tests.Orchestration
 {
-    public class KnowledgeManagementOrchestrationTests
+    public class InternalContextOrchestrationTests
     {
-        private KnowledgeManagementOrchestration _knowledgeManagementOrchestration;
-        private KnowledgeManagementAgent _agent = new KnowledgeManagementAgent() { Name = "Test_agent", ObjectId="Test_objctid", Type = AgentTypes.KnowledgeManagement };
+        private InternalContextOrchestration _internalContextOrchestration;
+        private InternalContextAgent _agent = new InternalContextAgent() { Name = "Test_agent", ObjectId = "Test_objctid", Type = AgentTypes.InternalContext };
         private ICallContext _callContext = Substitute.For<ICallContext>();
         private ILLMOrchestrationService _orchestrationService = Substitute.For<ILLMOrchestrationService>();
         private IPromptHubAPIService _promptHubService = Substitute.For<IPromptHubAPIService>();
         private IDataSourceHubAPIService _dataSourceHubService = Substitute.For<IDataSourceHubAPIService>();
         private ILogger<OrchestrationBase> _logger = Substitute.For<ILogger<OrchestrationBase>>();
 
-        public KnowledgeManagementOrchestrationTests()
+        public InternalContextOrchestrationTests()
         {
-            _knowledgeManagementOrchestration = new KnowledgeManagementOrchestration(
+            _internalContextOrchestration = new InternalContextOrchestration(
                 _agent,
                 _callContext,
                 _orchestrationService,
@@ -31,13 +34,13 @@ namespace FoundationaLLM.AgentFactory.Tests.Orchestration
         public async Task GetCompletion_ReturnsCompletionResponse()
         {
             // Arrange
-            var completionRequest = new CompletionRequest() { UserPrompt = "Test_userprompt"};
+            var completionRequest = new CompletionRequest() { UserPrompt = "Test_userpromt"};
             var orchestrationResult = new LLMCompletionResponse { Completion = "Completion" };
             _orchestrationService.GetCompletion(Arg.Any<LLMCompletionRequest>())
                 .Returns(Task.FromResult(orchestrationResult));
 
             // Act
-            var completionResponse = await _knowledgeManagementOrchestration.GetCompletion(completionRequest);
+            var completionResponse = await _internalContextOrchestration.GetCompletion(completionRequest);
 
             // Assert
             Assert.Equal(orchestrationResult.Completion, completionResponse.Completion);

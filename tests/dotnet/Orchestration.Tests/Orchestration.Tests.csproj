@@ -7,8 +7,8 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <AssemblyName>FoundationaLLM.AgentFactory.Tests</AssemblyName>
-    <RootNamespace>FoundationaLLM.AgentFactory.Tests</RootNamespace>
+    <AssemblyName>FoundationaLLM.Orchestration.Tests</AssemblyName>
+    <RootNamespace>FoundationaLLM.Orchestration.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\dotnet\Orchestration\Orchestration.csproj" />
     <ProjectReference Include="..\TestUtils\TestUtils.csproj" />
-    <ProjectReference Include="..\..\..\src\dotnet\AgentFactory\Orchestration.csproj" />
   </ItemGroup>
 
 </Project>

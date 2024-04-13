@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
+using Xunit;
 
-namespace FoundationaLLM.AgentFactory.Tests.Models.ConfigurationOptions
+namespace FoundationaLLM.Orchestration.Tests.Models.ConfigurationOptions
 {
     public class SemanticKernelServiceSettingsTests
     {

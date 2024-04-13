@@ -2,7 +2,7 @@
 using FoundationaLLM.Common.Models.Cache;
 using FoundationaLLM.Common.Models.Hubs;
 
-namespace FoundationaLLM.AgentFactory.API
+namespace FoundationaLLM.Orchestration.API
 {
     /// <summary>
     /// Warms up the cache containing agent-related artifacts
