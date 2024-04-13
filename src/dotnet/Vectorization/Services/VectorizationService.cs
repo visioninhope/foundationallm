@@ -45,25 +45,15 @@ namespace FoundationaLLM.Vectorization.Services
 
         /// <inheritdoc/>
         public async Task<VectorizationResult> ProcessRequest(VectorizationRequest vectorizationRequest)
-        {
+        {            
             try
-            {                
+            {
+                /*
                 _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
                 if (vectorizationResourceProviderService == null)
-                    throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
-
-                // Pre-process the vectorization request
-                vectorizationRequest.Id = Guid.NewGuid().ToString();
-                vectorizationRequest.CompletedSteps = [];
-                vectorizationRequest.RemainingSteps = vectorizationRequest.Steps.Select(s => s.Id).ToList();
-
-                ValidateRequestDependencies(vectorizationRequest);
-
-                await vectorizationResourceProviderService.UpsertResourceAsync(
-                    $"/{VectorizationResourceTypeNames.VectorizationRequests}/{vectorizationRequest.Id}",
-                    vectorizationRequest);
-
-                // CHANGE THIS TO TRIGGER AN ACTION WITH THE REQUEST RESOURCE
+                    throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");                               
+                */
+                
                 switch (vectorizationRequest.ProcessingType)
                 {
                     case VectorizationProcessingType.Asynchronous:
@@ -80,61 +70,6 @@ namespace FoundationaLLM.Vectorization.Services
             {
                 _logger.LogError(ex, ex.Message);
                 return new VectorizationResult(vectorizationRequest.ObjectId!, false, ex.Message);
-            }
-        }
-
-        private void ValidateRequestDependencies(VectorizationRequest vectorizationRequest)
-        {
-            // creation-time validation
-            if (vectorizationRequest == null)
-                throw new VectorizationException("The vectorization request should not be null.");                     
-
-            if (vectorizationRequest.Steps == null || vectorizationRequest.Steps.Count == 0)
-                throw new VectorizationException("The list of the vectorization steps should not be empty.");
-
-            if (vectorizationRequest.Steps!.Select(x => x.Id).Distinct().Count() != vectorizationRequest.Steps!.Count)
-                throw new VectorizationException("The list of vectorization steps must contain unique names.");
-
-            if (vectorizationRequest.CompletedSteps != null && vectorizationRequest.CompletedSteps!.Count > 0)
-                throw new VectorizationException("The completed steps of the vectorization request must be empty.");
-
-            if (vectorizationRequest.RemainingSteps == null || vectorizationRequest.RemainingSteps.Count == 0)
-                throw new VectorizationException("The list of the remaining steps of the vectorization request should not be empty.");
-
-            // validate data source dependency
-            _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_DataSource, out var dataSourceResourceProviderService);
-            if (dataSourceResourceProviderService == null)
-                throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
-
-            var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(vectorizationRequest.ContentIdentifier.DataSourceObjectId)
-                ?? throw new VectorizationException($"The data source {vectorizationRequest.ContentIdentifier.DataSourceObjectId} was not found.");
-            switch (dataSource.Type)
-            {
-                case DataSourceTypes.AzureDataLake:
-                case DataSourceTypes.SharePointOnlineSite:
-                case DataSourceTypes.AzureSQLDatabase:
-                    // Validate the file extension is supported by vectorization
-                    string fileNameExtension = Path.GetExtension(vectorizationRequest.ContentIdentifier!.FileName);
-                    if (string.IsNullOrWhiteSpace(fileNameExtension))
-                        throw new VectorizationException("The file does not have an extension.");
-
-                    if (!FileExtensions.AllowedFileExtensions
-                        .Select(ext => ext.ToLower())
-                        .Contains(fileNameExtension.ToLower()))
-                        throw new VectorizationException($"The file extension {fileNameExtension} is not supported.");
-                    break;
-                // Needs to be brought into the data source provider
-                /*
-                case DataSourceType.Web:
-                    // Validate the protocol passed in is http or https
-                    string protocol = vectorizationRequest.ContentIdentifier[0];
-                    if (!new[] { "http", "https" }.Contains(protocol.ToLower()))
-                        throw new VectorizationException($"The protocol {protocol} is not supported.");
-                    break;
-                */
-                default:
-                    throw new VectorizationException($"The data source type {dataSource.Type} is not supported.");
-
             }
         }
 

@@ -12,6 +12,7 @@ using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
+using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +34,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
+    /// <param name="vectorizationServiceClient">The service client to call the Vectorization API.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
     public class VectorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
@@ -41,6 +43,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
+        IVectorizationServiceClient vectorizationServiceClient,
         ILogger<VectorizationResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -366,12 +369,11 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         }
 
         private async Task<VectorizationResult> ProcessVectorizationRequest(string serializedAction)
-        {
-            await Task.CompletedTask;
+        {            
             var request = JsonSerializer.Deserialize<VectorizationRequest>(serializedAction)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                                    StatusCodes.Status400BadRequest);
-            throw new NotImplementedException("The vectorization request processing is not implemented yet.");
+            return await vectorizationServiceClient.ProcessRequest(request);            
         }
 
         private ResourceNameCheckResult CheckProfileName<T>(string serializedAction, ConcurrentDictionary<string, VectorizationProfileBase> profileStore)

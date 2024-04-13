@@ -54,7 +54,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                     artifact.Content = Encoding.UTF8.GetString(
                         await _storageService.ReadFileAsync(
                             BLOB_STORAGE_CONTAINER_NAME,
-                            $"{ EXECUTION_STATE_DIRECTORY}/{artifact.CanonicalId}",
+                            artifact.CanonicalId, //artifact canonical id contains the execution-state directory in path
                             default));
         }
 
