@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Orchestration;
 
@@ -13,13 +12,9 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
     /// </remarks>
     /// <param name="agentMetadata"></param>
     /// <param name="orchestrationService"></param>
-    /// <param name="promptHubService"></param>
-    /// <param name="dataSourceHubService"></param>
     public class OrchestrationBase(
         AgentMetadata? agentMetadata,
-        ILLMOrchestrationService orchestrationService,
-        IPromptHubAPIService promptHubService,
-        IDataSourceHubAPIService dataSourceHubService)
+        ILLMOrchestrationService orchestrationService)
     {
         /// <summary>
         /// The agent metadata.
@@ -30,16 +25,6 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
         /// The orchestration service for the agent.
         /// </summary>
         protected readonly ILLMOrchestrationService _orchestrationService = orchestrationService;
-
-        /// <summary>
-        /// The prompt hub for the agent.
-        /// </summary>
-        protected readonly IPromptHubAPIService _promptHubService = promptHubService;
-
-        /// <summary>
-        /// The data source hub for the agent.
-        /// </summary>
-        protected readonly IDataSourceHubAPIService _dataSourceHubService = dataSourceHubService;
 
         /// <summary>
         /// This will setup the agent based on its metadata.

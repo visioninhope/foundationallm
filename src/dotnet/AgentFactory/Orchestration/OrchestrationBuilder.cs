@@ -23,10 +23,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
         /// <param name="callContext">The call context of the request being handled.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
         /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
-        /// <param name="agentHubAPIService"></param>
         /// <param name="orchestrationServices"></param>
-        /// <param name="promptHubAPIService"></param>
-        /// <param name="dataSourceHubAPIService"></param>
         /// <param name="loggerFactory">The logger factory used to create new loggers.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
@@ -35,10 +32,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
             ICallContext callContext,
             IConfiguration configuration,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
-            IAgentHubAPIService agentHubAPIService,
             IEnumerable<ILLMOrchestrationService> orchestrationServices,
-            IPromptHubAPIService promptHubAPIService,
-            IDataSourceHubAPIService dataSourceHubAPIService,
             ILoggerFactory loggerFactory)
         {
             var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
@@ -108,32 +102,14 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                     }
                 }
                 
-                if(agentBase.AgentType == typeof(KnowledgeManagementAgent))
-                {
-                    var kmOrchestration = new KnowledgeManagementOrchestration(
-                        (KnowledgeManagementAgent)agentBase,
-                        callContext,
-                        orchestrationService,
-                        promptHubAPIService,
-                        dataSourceHubAPIService,
-                        loggerFactory.CreateLogger<OrchestrationBase>());
-                    await kmOrchestration.Configure(completionRequest);
+                var kmOrchestration = new KnowledgeManagementOrchestration(
+                    (KnowledgeManagementAgent)agentBase,
+                    callContext,
+                    orchestrationService,
+                    loggerFactory.CreateLogger<OrchestrationBase>());
+                await kmOrchestration.Configure(completionRequest);
 
-                    return kmOrchestration;
-                }
-                else
-                {
-                    var icOrchestration = new InternalContextOrchestration(
-                        (InternalContextAgent)agentBase,
-                        callContext,
-                        orchestrationService,
-                        promptHubAPIService,
-                        dataSourceHubAPIService,
-                        loggerFactory.CreateLogger<OrchestrationBase>());
-                    await icOrchestration.Configure(completionRequest);
-
-                    return icOrchestration;
-                }
+                return kmOrchestration;
             }
 
             return null;
