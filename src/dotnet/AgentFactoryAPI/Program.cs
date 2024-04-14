@@ -11,12 +11,10 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
-using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
-using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
@@ -100,12 +98,6 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Services.AddOptions<LangChainServiceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_LangChainAPI));
 
-            builder.Services.AddOptions<AgentHubSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_AgentHubAPI));
-
-            builder.Services.AddOptions<PromptHubSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_PromptHubAPI));
-
             builder.Services.AddOptions<AgentFactorySettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AgentFactory));
 
@@ -115,15 +107,11 @@ namespace FoundationaLLM.AgentFactory.API
             builder.Services.AddScoped<ILLMOrchestrationService, AzureOpenAIDirectService>();
 
             builder.Services.AddScoped<IAgentFactoryService, AgentFactoryService>();
-            builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
-            builder.Services.AddScoped<IDataSourceHubAPIService, DataSourceHubAPIService>();
-            builder.Services.AddScoped<IPromptHubAPIService, PromptHubAPIService>();
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 
             builder.Services.AddSingleton<ICacheService, MemoryCacheService>();
-            builder.Services.AddHostedService<Warmup>();
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
@@ -223,63 +211,12 @@ namespace FoundationaLLM.AgentFactory.API
         /// <param name="builder"></param>
         private static void RegisterDownstreamServices(WebApplicationBuilder builder)
         {
+            var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+
             var downstreamAPISettings = new DownstreamAPISettings
             {
                 DownstreamAPIs = new Dictionary<string, DownstreamAPIKeySettings>()
             };
-
-            var agentHubAPISettings = new DownstreamAPIKeySettings
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIKey]!
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.AgentHubAPI] = agentHubAPISettings;
-
-            var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
-
-            builder.Services
-                    .AddHttpClient(HttpClients.AgentHubAPI,
-                        client => { client.BaseAddress = new Uri(agentHubAPISettings.APIUrl); })
-                    .AddResilienceHandler(
-                        "DownstreamPipeline",
-                        strategyBuilder =>
-                        {
-                            strategyBuilder.AddRetry(retryOptions);
-                        });
-
-            var dataSourceHubAPISettings = new DownstreamAPIKeySettings
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIKey]!
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.DataSourceHubAPI] = dataSourceHubAPISettings;
-
-            builder.Services
-                .AddHttpClient(HttpClients.DataSourceHubAPI,
-                    client => { client.BaseAddress = new Uri(dataSourceHubAPISettings.APIUrl); })
-                .AddResilienceHandler(
-                    "DownstreamPipeline",
-                    strategyBuilder =>
-                    {
-                        strategyBuilder.AddRetry(retryOptions);
-                    });
-
-            var promptHubAPISettings = new DownstreamAPIKeySettings
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIKey]!
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.PromptHubAPI] = promptHubAPISettings;
-
-            builder.Services
-                    .AddHttpClient(HttpClients.PromptHubAPI,
-                        client => { client.BaseAddress = new Uri(promptHubAPISettings.APIUrl); })
-                    .AddResilienceHandler(
-                        "DownstreamPipeline",
-                        strategyBuilder =>
-                        {
-                            strategyBuilder.AddRetry(retryOptions);
-                        });
 
             var langChainAPISettings = new DownstreamAPIKeySettings
             {
