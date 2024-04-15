@@ -118,7 +118,7 @@
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Notice that there is an alternate path that bypasses the Gatekeeper API. This path is used when the <code>FoundationaLLM:APIs:CoreAPI:BypassGatekeeper</code> configuration value is set to <code>true</code>. By default, the Core API does not bypass the Gatekeeper API. Beware that bypassing the Gatekeeper means that you bypass content protection and filtering in favor of improved performance. Make sure you understand the risks before setting this value to <code>true</code>.</p>
+<p>Notice that there is an alternate path that bypasses the Gatekeeper API. This path is used when the <code>FoundationaLLM:APIs:CoreAPI:BypassGatekeeper</code> configuration value is set to <code>true</code>. By default, the Core API bypasses the Gatekeeper API. To override this behavior and enable the Gatekeeper API, set this value to true. Bypassing the Gatekeeper means that you bypass content protection and filtering in favor of improved performance.</p>
 </div>
 <h2 id="postman-collection">Postman collection</h2>
 <p>The ability to test the API endpoints of FoundationaLLM is a critical part of the development process. Postman is a tool that allows you to do just that. This document will walk you through the process of setting up Postman to work with FoundationaLLM.</p>
