@@ -107,7 +107,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:CoreAPI:BypassGatekeeper",
-        "value": "false",
+        "value": "true",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -747,13 +747,6 @@
         "value": "{{cosmosEndpoint}}",
         "label": null,
         "content_type": "",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:CosmosDB:Key",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-cosmosdb-key\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
         "tags": {}
       },
       {

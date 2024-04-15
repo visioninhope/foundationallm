@@ -11,6 +11,11 @@
         public const string Basic = "basic";
 
         /// <summary>
+        /// Fabric OneLake data source.
+        /// </summary>
+        public const string OneLake = "onelake";
+
+        /// <summary>
         /// Azure Data Lake data source.
         /// </summary>
         public const string AzureDataLake = "azure-data-lake";

@@ -19,6 +19,7 @@ namespace FoundationaLLM.DataSource.Models
             Type switch
             {
                 DataSourceTypes.Basic => typeof(DataSourceBase),
+                DataSourceTypes.OneLake => typeof(OneLakeDataSource),
                 DataSourceTypes.AzureDataLake => typeof(AzureDataLakeDataSource),
                 DataSourceTypes.AzureSQLDatabase => typeof(AzureSQLDatabaseDataSource),
                 DataSourceTypes.SharePointOnlineSite => typeof(SharePointOnlineSiteDataSource),

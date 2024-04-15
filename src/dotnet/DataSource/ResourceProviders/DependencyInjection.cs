@@ -47,6 +47,7 @@ namespace FoundationaLLM
 
             // Register validators.
             builder.Services.AddSingleton<IValidator<DataSourceBase>, DataSourceBaseValidator>();
+            builder.Services.AddSingleton<IValidator<OneLakeDataSource>, OneLakeDataSourceValidator>();
             builder.Services.AddSingleton<IValidator<AzureDataLakeDataSource>, AzureDataLakeDataSourceValidator>();
             builder.Services.AddSingleton<IValidator<AzureSQLDatabaseDataSource>, AzureSQLDatabaseDataSourceValidator>();
             builder.Services.AddSingleton<IValidator<SharePointOnlineSiteDataSource>, SharePointOnlineSiteDataSourceValidator>();
