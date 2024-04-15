@@ -75,7 +75,6 @@ module storage 'modules/storageAccount.bicep' = {
   name: 'storage-${timestamp}'
   params: {
     actionGroupId: actionGroupId
-    containers: [ 'agents', 'data-sources', 'foundationallm-source', 'prompts', 'resource-provider', 'vectorization-state' ]
     enableHns: true
     isDataLake: true
     kvResourceSuffix: kvResourceSuffix
@@ -83,9 +82,23 @@ module storage 'modules/storageAccount.bicep' = {
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: dnsZones.outputs.idsStorage
-    queues: [ 'embed', 'extract', 'index', 'partition' ]
     resourceSuffix: resourceSuffix
     subnetId: '${vnetId}/subnets/FLLMStorage'
     tags: tags
+    containers: [
+      'agents'
+      'data-sources'
+      'foundationallm-source'
+      'prompts'
+      'resource-provider'
+      'vectorization-input'
+      'vectorization-state'
+    ]
+    queues: [
+      'embed'
+      'extract'
+      'index'
+      'partition'
+    ]
   }
 }
