@@ -20,7 +20,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
         KnowledgeManagementAgent agent,
         ICallContext callContext,
         ILLMOrchestrationService orchestrationService,
-        ILogger<OrchestrationBase> logger) : OrchestrationBase(null, orchestrationService)
+        ILogger<OrchestrationBase> logger) : OrchestrationBase(orchestrationService)
     {
         private readonly ICallContext _callContext = callContext;
         private readonly ILogger<OrchestrationBase> _logger = logger;

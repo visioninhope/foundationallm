@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.AgentFactory.Interfaces;
-using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Orchestration;
 
 namespace FoundationaLLM.AgentFactory.Core.Orchestration
@@ -10,17 +9,9 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
     /// <remarks>
     /// Constructor for the AgentBase class.
     /// </remarks>
-    /// <param name="agentMetadata"></param>
     /// <param name="orchestrationService"></param>
-    public class OrchestrationBase(
-        AgentMetadata? agentMetadata,
-        ILLMOrchestrationService orchestrationService)
+    public class OrchestrationBase(ILLMOrchestrationService orchestrationService)
     {
-        /// <summary>
-        /// The agent metadata.
-        /// </summary>
-        protected readonly AgentMetadata? _agentMetadata = agentMetadata;
-
         /// <summary>
         /// The orchestration service for the agent.
         /// </summary>
