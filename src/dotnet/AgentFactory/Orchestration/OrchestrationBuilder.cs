@@ -80,27 +80,6 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
                     throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
 
                 var orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
-
-                // Hydrate overridable values from config and assign them back to the agent's LanguageModel.
-                var deploymentName = configuration.GetValue<string>(agentBase.LanguageModel?.Deployment!);
-                agentBase.LanguageModel!.Deployment = deploymentName;
-
-                // Extract any override settings and apply them to the agent's LanguageModel.
-                if (completionRequest.Settings?.ModelParameters != null && agentBase.LanguageModel != null)
-                {
-                    foreach (var key in completionRequest.Settings?.ModelParameters?.Keys!)
-                    {
-                        switch (key)
-                        {
-                            case ModelParameterKeys.DeploymentName:
-                                agentBase.LanguageModel!.Deployment = completionRequest.Settings?.ModelParameters?.GetValueOrDefault(key)!.ToString();
-                                break;
-                            case ModelParameterKeys.Temperature:
-                                agentBase.LanguageModel!.Temperature = Convert.ToSingle(completionRequest.Settings?.ModelParameters?.GetValueOrDefault(key, 0f)!.ToString());
-                                break;
-                        }
-                    }
-                }
                 
                 var kmOrchestration = new KnowledgeManagementOrchestration(
                     (KnowledgeManagementAgent)agentBase,
