@@ -5000,6 +5000,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.DataSourceTypes.Basic
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.DataSourceTypes.Basic
   nameWithType: DataSourceTypes.Basic
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.DataSourceTypes.OneLake
+  name: OneLake
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.DataSourceTypes.html#FoundationaLLM_Common_Constants_ResourceProviders_DataSourceTypes_OneLake
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.DataSourceTypes.OneLake
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.DataSourceTypes.OneLake
+  nameWithType: DataSourceTypes.OneLake
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.DataSourceTypes.SharePointOnlineSite
   name: SharePointOnlineSite
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.DataSourceTypes.html#FoundationaLLM_Common_Constants_ResourceProviders_DataSourceTypes_SharePointOnlineSite
@@ -19125,6 +19131,44 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DataSource.Models.DataSourceReferenceStore.ToDictionary
   nameWithType: DataSourceReferenceStore.ToDictionary
+- uid: FoundationaLLM.DataSource.Models.OneLakeDataSource
+  name: OneLakeDataSource
+  href: api/dotnet/FoundationaLLM.DataSource.Models.OneLakeDataSource.html
+  commentId: T:FoundationaLLM.DataSource.Models.OneLakeDataSource
+  fullName: FoundationaLLM.DataSource.Models.OneLakeDataSource
+  nameWithType: OneLakeDataSource
+- uid: FoundationaLLM.DataSource.Models.OneLakeDataSource.#ctor
+  name: OneLakeDataSource()
+  href: api/dotnet/FoundationaLLM.DataSource.Models.OneLakeDataSource.html#FoundationaLLM_DataSource_Models_OneLakeDataSource__ctor
+  commentId: M:FoundationaLLM.DataSource.Models.OneLakeDataSource.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.DataSource.Models.OneLakeDataSource.OneLakeDataSource()
+  fullName.vb: FoundationaLLM.DataSource.Models.OneLakeDataSource.New()
+  nameWithType: OneLakeDataSource.OneLakeDataSource()
+  nameWithType.vb: OneLakeDataSource.New()
+- uid: FoundationaLLM.DataSource.Models.OneLakeDataSource.#ctor*
+  name: OneLakeDataSource
+  href: api/dotnet/FoundationaLLM.DataSource.Models.OneLakeDataSource.html#FoundationaLLM_DataSource_Models_OneLakeDataSource__ctor_
+  commentId: Overload:FoundationaLLM.DataSource.Models.OneLakeDataSource.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.DataSource.Models.OneLakeDataSource.OneLakeDataSource
+  fullName.vb: FoundationaLLM.DataSource.Models.OneLakeDataSource.New
+  nameWithType: OneLakeDataSource.OneLakeDataSource
+  nameWithType.vb: OneLakeDataSource.New
+- uid: FoundationaLLM.DataSource.Models.OneLakeDataSource.Workspaces
+  name: Workspaces
+  href: api/dotnet/FoundationaLLM.DataSource.Models.OneLakeDataSource.html#FoundationaLLM_DataSource_Models_OneLakeDataSource_Workspaces
+  commentId: P:FoundationaLLM.DataSource.Models.OneLakeDataSource.Workspaces
+  fullName: FoundationaLLM.DataSource.Models.OneLakeDataSource.Workspaces
+  nameWithType: OneLakeDataSource.Workspaces
+- uid: FoundationaLLM.DataSource.Models.OneLakeDataSource.Workspaces*
+  name: Workspaces
+  href: api/dotnet/FoundationaLLM.DataSource.Models.OneLakeDataSource.html#FoundationaLLM_DataSource_Models_OneLakeDataSource_Workspaces_
+  commentId: Overload:FoundationaLLM.DataSource.Models.OneLakeDataSource.Workspaces
+  isSpec: "True"
+  fullName: FoundationaLLM.DataSource.Models.OneLakeDataSource.Workspaces
+  nameWithType: OneLakeDataSource.Workspaces
 - uid: FoundationaLLM.DataSource.Models.SharePointOnlineSiteDataSource
   name: SharePointOnlineSiteDataSource
   href: api/dotnet/FoundationaLLM.DataSource.Models.SharePointOnlineSiteDataSource.html
@@ -19460,6 +19504,31 @@ references:
   fullName.vb: FoundationaLLM.DataSource.Validation.DataSourceValidator(Of T).ValidConfigurationReference
   nameWithType: DataSourceValidator<T>.ValidConfigurationReference
   nameWithType.vb: DataSourceValidator(Of T).ValidConfigurationReference
+- uid: FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator
+  name: OneLakeDataSourceValidator
+  href: api/dotnet/FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.html
+  commentId: T:FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator
+  fullName: FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator
+  nameWithType: OneLakeDataSourceValidator
+- uid: FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.#ctor
+  name: OneLakeDataSourceValidator()
+  href: api/dotnet/FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.html#FoundationaLLM_DataSource_Validation_OneLakeDataSourceValidator__ctor
+  commentId: M:FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.OneLakeDataSourceValidator()
+  fullName.vb: FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.New()
+  nameWithType: OneLakeDataSourceValidator.OneLakeDataSourceValidator()
+  nameWithType.vb: OneLakeDataSourceValidator.New()
+- uid: FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.#ctor*
+  name: OneLakeDataSourceValidator
+  href: api/dotnet/FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.html#FoundationaLLM_DataSource_Validation_OneLakeDataSourceValidator__ctor_
+  commentId: Overload:FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.OneLakeDataSourceValidator
+  fullName.vb: FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.New
+  nameWithType: OneLakeDataSourceValidator.OneLakeDataSourceValidator
+  nameWithType.vb: OneLakeDataSourceValidator.New
 - uid: FoundationaLLM.DataSource.Validation.SharePointOnlineSiteDataSourceValidator
   name: SharePointOnlineSiteDataSourceValidator
   href: api/dotnet/FoundationaLLM.DataSource.Validation.SharePointOnlineSiteDataSourceValidator.html

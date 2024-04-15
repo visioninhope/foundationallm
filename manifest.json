@@ -4392,6 +4392,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.DataSource.Models.OneLakeDataSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.DataSource.Models.OneLakeDataSource.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.DataSource.Models.SharePointOnlineSiteDataSource.yml",
       "output": {
         ".html": {
@@ -4476,6 +4486,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.DataSource.Validation.DataSourceValidator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.DataSource.Validation.OneLakeDataSourceValidator.html"
         }
       },
       "version": ""
