@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.DataSource.Models
+namespace FoundationaLLM.Common.Models.ResourceProviders.DataSource
 {
     /// <summary>
     /// Azure Data Lake data source.
