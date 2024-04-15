@@ -123,7 +123,7 @@ $authServices = @{
 }
 
 $services = @{
-    agentfactoryapi          = @{
+    orchestrationapi          = @{
         miName         = "mi-agent-factory-api-$svcResourceSuffix"
         miConfigName   = "agentFactoryApiMiClientId"
         ingressEnabled = $false
@@ -404,7 +404,7 @@ foreach ($service in $authServices.GetEnumerator()) {
     $service.Value.miClientId = $miClientId
 }
 
-$tokens.agentFactoryApiMiClientId = $services["agentfactoryapi"].miClientId
+$tokens.agentFactoryApiMiClientId = $services["orchestrationapi"].miClientId
 $tokens.agentHubApiMiClientId = $services["agenthubapi"].miClientId
 $tokens.authorizationApiMiClientId = $authServices["authorizationapi"].miClientId
 $tokens.chatUiMiClientId = $services["chatui"].miClientId

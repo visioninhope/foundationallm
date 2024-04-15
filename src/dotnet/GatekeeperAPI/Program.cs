@@ -184,14 +184,14 @@ namespace FoundationaLLM.Gatekeeper.API
 
             var agentFactoryAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIKey]!
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!
             };
 
-            downstreamAPISettings.DownstreamAPIs[HttpClients.AgentFactoryAPI] = agentFactoryAPISettings;
+            downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = agentFactoryAPISettings;
 
             builder.Services
-                    .AddHttpClient(HttpClients.AgentFactoryAPI,
+                    .AddHttpClient(HttpClients.OrchestrationAPI,
                         client => { client.BaseAddress = new Uri(agentFactoryAPISettings.APIUrl); })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
@@ -226,7 +226,7 @@ namespace FoundationaLLM.Gatekeeper.API
 
             builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
             builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(HttpClients.AgentFactoryAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
+                => new DownstreamAPIService(HttpClients.OrchestrationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
         }
     }
 }

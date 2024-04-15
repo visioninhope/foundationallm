@@ -107,7 +107,7 @@
             "hasIngress": true,
             "image": "ghcr.io/solliancenet/foundationallm/agent-factory-api:0.5.0",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-agentfactoryapi-apikey"
+            "apiKeySecretName": "foundationallm-apis-orchestrationapi-apikey"
           },
           {
             "name": "agent-hub-api",

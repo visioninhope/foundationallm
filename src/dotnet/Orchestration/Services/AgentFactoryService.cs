@@ -9,9 +9,9 @@ using Microsoft.Extensions.Logging;
 namespace FoundationaLLM.Orchestration.Core.Services;
 
 /// <summary>
-/// AgentFactoryService class.
+/// OrchestrationService class.
 /// </summary>
-public class AgentFactoryService : IAgentFactoryService
+public class OrchestrationService : IOrchestrationService
 {
     private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices;
     private readonly ICacheService _cacheService;
@@ -21,7 +21,7 @@ public class AgentFactoryService : IAgentFactoryService
     private readonly IPromptHubAPIService _promptHubAPIService;
     private readonly IDataSourceHubAPIService _dataSourceHubAPIService;
 
-    private readonly ILogger<AgentFactoryService> _logger;
+    private readonly ILogger<OrchestrationService> _logger;
     private readonly ILoggerFactory _loggerFactory;
 
     private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices;
@@ -37,7 +37,7 @@ public class AgentFactoryService : IAgentFactoryService
     /// <param name="promptHubService"></param>    
     /// <param name="dataSourceHubService"></param>    
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
-    public AgentFactoryService(
+    public OrchestrationService(
         IEnumerable<IResourceProviderService> resourceProviderServices,
         IEnumerable<ILLMOrchestrationService> orchestrationServices,
         ICallContext callContext,
@@ -58,7 +58,7 @@ public class AgentFactoryService : IAgentFactoryService
         _dataSourceHubAPIService = dataSourceHubService;
 
         _loggerFactory = loggerFactory;
-        _logger = _loggerFactory.CreateLogger<AgentFactoryService>();
+        _logger = _loggerFactory.CreateLogger<OrchestrationService>();
     }
 
     /// <summary>

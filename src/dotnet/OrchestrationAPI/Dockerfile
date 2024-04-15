@@ -15,20 +15,20 @@ COPY . .
 RUN dotnet restore "dotnet/Common/Common.csproj"
 RUN dotnet build "dotnet/Common/Common.csproj" -c Release -o /app/build
 
-RUN dotnet restore "dotnet/AgentFactory/AgentFactory.csproj"
-RUN dotnet build "dotnet/AgentFactory/AgentFactory.csproj" -c Release -o /app/build
+RUN dotnet restore "dotnet/Orchestration/Orchestration.csproj"
+RUN dotnet build "dotnet/Orchestration/Orchestration.csproj" -c Release -o /app/build
 
-RUN dotnet restore "dotnet/AgentFactoryAPI/AgentFactoryAPI.csproj"
-RUN dotnet build "dotnet/AgentFactoryAPI/AgentFactoryAPI.csproj" -c Release -o /app/build
+RUN dotnet restore "dotnet/OrchestrationAPI/OrchestrationAPI.csproj"
+RUN dotnet build "dotnet/OrchestrationAPI/OrchestrationAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "dotnet/Common/Common.csproj" -c Release -o /app/publish /p:UseAppHost=false
-RUN dotnet publish "dotnet/AgentFactory/AgentFactory.csproj" -c Release -o /app/publish /p:UseAppHost=false
-RUN dotnet publish "dotnet/AgentFactoryAPI/AgentFactoryAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/Orchestration/Orchestration.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "dotnet/OrchestrationAPI/OrchestrationAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "FoundationaLLM.AgentFactory.API.dll"]
+ENTRYPOINT ["dotnet", "FoundationaLLM.Orchestration.API.dll"]
 LABEL org.opencontainers.image.source=https://github.com/solliancenet/foundationallm
 LABEL ai.foundationallm.version=${FOUNDATIONALLM_VERSION:-0.0.0}

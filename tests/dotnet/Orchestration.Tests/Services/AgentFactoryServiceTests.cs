@@ -9,7 +9,7 @@ using Xunit;
 
 namespace FoundationaLLM.Orchestration.Tests.Services
 {
-    public class AgentFactoryServiceTests
+    public class OrchestrationServiceTests
     {
         private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices = new List<ILLMOrchestrationService>
         {
@@ -19,8 +19,8 @@ namespace FoundationaLLM.Orchestration.Tests.Services
         private readonly IAgentHubAPIService _agentHubAPIService = Substitute.For<IAgentHubAPIService>();
         private readonly IPromptHubAPIService _promptHubAPIService = Substitute.For<IPromptHubAPIService>();
         private readonly IDataSourceHubAPIService _dataSourceHubAPIService = Substitute.For<IDataSourceHubAPIService>();
-        private readonly ILogger<AgentFactoryService> _logger = Substitute.For<ILogger<AgentFactoryService>>();
-        private readonly AgentFactoryService _agentFactoryService;
+        private readonly ILogger<OrchestrationService> _logger = Substitute.For<ILogger<OrchestrationService>>();
+        private readonly OrchestrationService _agentFactoryService;
         private IEnumerable<IResourceProviderService> _resourceProviderServices = new List<IResourceProviderService>
         {
             Substitute.For<IResourceProviderService>()
@@ -30,9 +30,9 @@ namespace FoundationaLLM.Orchestration.Tests.Services
         private IConfiguration _configuration = Substitute.For<IConfiguration>();
 
 
-        public AgentFactoryServiceTests()
+        public OrchestrationServiceTests()
         {
-            _agentFactoryService = new AgentFactoryService(
+            _agentFactoryService = new OrchestrationService(
                 _resourceProviderServices,
                 _orchestrationServices,
                 _callContext,

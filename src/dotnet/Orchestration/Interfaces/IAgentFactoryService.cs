@@ -5,7 +5,7 @@ namespace FoundationaLLM.Orchestration.Core.Interfaces;
 /// <summary>
 /// Interface for the Agent Factory Service
 /// </summary>
-public interface IAgentFactoryService
+public interface IOrchestrationService
 {
     /// <summary>
     /// Status value to return when the APIs status endpoint is called.

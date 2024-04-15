@@ -3,26 +3,26 @@ using Xunit;
 
 namespace FoundationaLLM.Orchestration.Tests.Models.ConfigurationOptions
 {
-    public class AgentFactorySettingsTests
+    public class OrchestrationSettingsTests
     {
         [Fact]
-        public void AgentFactorySettings_WhenInitialized_ShouldSetDefaultOrchestrationService()
+        public void OrchestrationSettings_WhenInitialized_ShouldSetDefaultOrchestrationService()
         {
             // Arrange
             string defaultOrchestrationService = "TestOrchestrationService";
 
             // Act
-            var settings = new AgentFactorySettings { DefaultOrchestrationService = defaultOrchestrationService };
+            var settings = new OrchestrationSettings { DefaultOrchestrationService = defaultOrchestrationService };
 
             // Assert
             Assert.Equal(defaultOrchestrationService, settings.DefaultOrchestrationService);
         }
 
         [Fact]
-        public void AgentFactorySettings_DefaultOrchestrationService_ShouldBeNullWhenNotSet()
+        public void OrchestrationSettings_DefaultOrchestrationService_ShouldBeNullWhenNotSet()
         {
             // Arrange
-            var settings = new AgentFactorySettings();
+            var settings = new OrchestrationSettings();
 
             // Assert
             Assert.Null(settings.DefaultOrchestrationService);

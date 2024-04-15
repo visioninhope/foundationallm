@@ -11,4 +11,4 @@ jobs:
     with:
       image: agent-factory-api
       context: ./src
-      dockerfile: ./src/dotnet/AgentFactoryAPI/Dockerfile
+      dockerfile: ./src/dotnet/OrchestrationAPI/Dockerfile

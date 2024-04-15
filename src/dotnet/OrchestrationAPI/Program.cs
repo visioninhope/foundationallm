@@ -52,7 +52,7 @@ namespace FoundationaLLM.Orchestration.API
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_AgentFactory);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Orchestration);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAI);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureOpenAI);
@@ -66,8 +66,8 @@ namespace FoundationaLLM.Orchestration.API
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
-                AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString,
-                ServiceNames.AgentFactoryAPI);
+                AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_AppInsightsConnectionString,
+                ServiceNames.OrchestrationAPI);
 
             builder.Services.AddInstanceProperties(builder.Configuration);
 
@@ -77,7 +77,7 @@ namespace FoundationaLLM.Orchestration.API
             // Add event services.
             builder.Services.AddAzureEventGridEvents(
                 builder.Configuration,
-                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI);
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_OrchestrationAPI);
 
             //builder.Services.AddServiceProfiler();
             builder.Services.AddControllers();
@@ -87,7 +87,7 @@ namespace FoundationaLLM.Orchestration.API
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
             builder.Services.AddScoped<APIKeyAuthenticationFilter>();
             builder.Services.AddOptions<APIKeyValidationSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_AgentFactoryAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_OrchestrationAPI));
             builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
             builder.Services.AddOptions<InstanceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
@@ -104,15 +104,15 @@ namespace FoundationaLLM.Orchestration.API
             builder.Services.AddOptions<PromptHubSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_PromptHubAPI));
 
-            builder.Services.AddOptions<AgentFactorySettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AgentFactory));
+            builder.Services.AddOptions<OrchestrationSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Orchestration));
 
             builder.Services.AddScoped<ILLMOrchestrationService, SemanticKernelService>();
             builder.Services.AddScoped<ILLMOrchestrationService, LangChainService>();
             builder.Services.AddScoped<ILLMOrchestrationService, AzureAIDirectService>();
             builder.Services.AddScoped<ILLMOrchestrationService, AzureOpenAIDirectService>();
 
-            builder.Services.AddScoped<IAgentFactoryService, AgentFactoryService>();
+            builder.Services.AddScoped<IOrchestrationService, OrchestrationService>();
             builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
             builder.Services.AddScoped<IDataSourceHubAPIService, DataSourceHubAPIService>();
             builder.Services.AddScoped<IPromptHubAPIService, PromptHubAPIService>();

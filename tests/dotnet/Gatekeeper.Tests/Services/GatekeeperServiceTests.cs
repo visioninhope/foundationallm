@@ -36,7 +36,7 @@ namespace Gatekeeper.Tests.Services
         }
 
         [Fact]
-        public async Task GetCompletion_CallsAgentFactoryAPIServiceWithCompletionRequest()
+        public async Task GetCompletion_CallsOrchestrationAPIServiceWithCompletionRequest()
         {
             // Arrange
             var completionRequest = new CompletionRequest
@@ -58,7 +58,7 @@ namespace Gatekeeper.Tests.Services
         }
 
         [Fact]
-        public async Task GetSummary_CallsAgentFactoryAPIServiceWithSummaryRequest()
+        public async Task GetSummary_CallsOrchestrationAPIServiceWithSummaryRequest()
         {
             // Arrange
             var summaryRequest = new SummaryRequest

@@ -5,7 +5,7 @@ using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FoundationaLLM.AgentFactory.API.Controllers
+namespace FoundationaLLM.Orchestration.API.Controllers
 {
     /// <summary>
     /// OrchestrationController class
@@ -19,10 +19,10 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
     [APIKeyAuthentication]
     [Route("[controller]")]
     public class OrchestrationController(
-        IAgentFactoryService agentFactoryService,
+        IOrchestrationService agentFactoryService,
         ILogger<OrchestrationController> logger) : ControllerBase
     {
-        private readonly IAgentFactoryService _agentFactoryService = agentFactoryService;
+        private readonly IOrchestrationService _agentFactoryService = agentFactoryService;
         private readonly ILogger<OrchestrationController> _logger = logger;
 
         /// <summary>

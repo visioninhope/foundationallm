@@ -41,7 +41,7 @@ services:
     image: ${REGISTRY:-foundationallm}/agent-factory-api:${TAG:-latest}
     build:
       context: ../../../src/
-      dockerfile: ./dotnet/AgentFactoryAPI/Dockerfile
+      dockerfile: ./dotnet/OrchestrationAPI/Dockerfile
     ports:
     - "80:80"
     environment:

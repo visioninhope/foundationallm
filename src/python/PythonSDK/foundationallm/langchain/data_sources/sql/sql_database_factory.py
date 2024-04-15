@@ -11,7 +11,7 @@ class SQLDatabaseFactory():
     """
     def __init__(self, sql_db_config: SQLDatabaseConfiguration, config: Configuration):
         """
-        Initializes an AgentFactory for selecting which agent to use for completion.
+        Initializes an Orchestration for selecting which agent to use for completion.
 
         Parameters
         ----------

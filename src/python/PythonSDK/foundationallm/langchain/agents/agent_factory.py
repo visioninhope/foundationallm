@@ -17,7 +17,7 @@ from foundationallm.langchain.agents import (
     KnowledgeManagementAgent
 )
 
-class AgentFactory:
+class Orchestration:
     """
     Factory to determine which agent to use.
     """
@@ -31,7 +31,7 @@ class AgentFactory:
             resource_provider: ResourceProvider=None
         ):
         """
-        Initializes an AgentFactory for selecting which agent to use for completion.
+        Initializes an Orchestration for selecting which agent to use for completion.
 
         Parameters
         ----------

@@ -34,7 +34,7 @@ namespace FoundationaLLM.Core.Tests.Services
             gatekeeperAPIDownstream.APIName.Returns(HttpClients.GatekeeperAPI);
 
             var agentFactoryAPIDownstream = Substitute.For<IDownstreamAPIService>();
-            agentFactoryAPIDownstream.APIName.Returns(HttpClients.AgentFactoryAPI);
+            agentFactoryAPIDownstream.APIName.Returns(HttpClients.OrchestrationAPI);
 
             _downstreamAPIServices = new List<IDownstreamAPIService>
             {

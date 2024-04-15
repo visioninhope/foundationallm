@@ -3,7 +3,7 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FoundationaLLM.AgentFactory.API.Controllers
+namespace FoundationaLLM.Orchestration.API.Controllers
 {
     /// <summary>
     /// Provides methods for checking the status of the service.
@@ -19,7 +19,7 @@ namespace FoundationaLLM.AgentFactory.API.Controllers
         public IActionResult Get() =>
             new OkObjectResult(new ServiceStatusInfo
             {
-                Name = ServiceNames.AgentFactoryAPI,
+                Name = ServiceNames.OrchestrationAPI,
                 Instance = ValidatedEnvironment.MachineName,
                 Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
                 Status = ServiceStatuses.Ready
