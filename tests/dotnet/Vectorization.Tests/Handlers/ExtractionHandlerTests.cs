@@ -1,6 +1,6 @@
 using FakeItEasy;
 using FoundationaLLM.Common.Models.ResourceProvider;
-using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;

@@ -199,7 +199,7 @@ namespace FoundationaLLM.Common.Services.Storage
             // ref: https://learn.microsoft.com/en-us/fabric/onelake/onelake-access-api#uri-syntax
             if (accountName.ToLower().Equals(StorageNames.OneLake_Storage_Account))
             {
-                return new Uri($"https://{accountName}.dfs.fabric.microsoft.com");
+                return new Uri($"https://{StorageNames.OneLake_Storage_Account}.dfs.fabric.microsoft.com");
             }
             return new Uri($"https://{accountName}.dfs.core.windows.net");
         }

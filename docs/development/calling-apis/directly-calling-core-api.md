@@ -51,7 +51,7 @@ graph TD;
 ```
 
 > [!NOTE]
-> Notice that there is an alternate path that bypasses the Gatekeeper API. This path is used when the `FoundationaLLM:APIs:CoreAPI:BypassGatekeeper` configuration value is set to `true`. By default, the Core API does not bypass the Gatekeeper API. Beware that bypassing the Gatekeeper means that you bypass content protection and filtering in favor of improved performance. Make sure you understand the risks before setting this value to `true`.
+> Notice that there is an alternate path that bypasses the Gatekeeper API. This path is used when the `FoundationaLLM:APIs:CoreAPI:BypassGatekeeper` configuration value is set to `true`. By default, the Core API bypasses the Gatekeeper API. To override this behavior and enable the Gatekeeper API, set this value to true. Bypassing the Gatekeeper means that you bypass content protection and filtering in favor of improved performance.
 
 ## Postman collection
 
@@ -63,7 +63,7 @@ The ability to test the API endpoints of FoundationaLLM is a critical part of th
 To see the API endpoints available in FoundationaLLM, you can get your Core API endpoint from your App Configuration resource in the portal and add `/swagger/` to the end of it. For example, if your Core API endpoint is `https://fllmaca002coreca.graybush-c554b849.eastus.azurecontainerapps.io`, then you would navigate to `https://fllmaca002coreca.graybush-c554b849.eastus.azurecontainerapps.io/swagger/` to see the API endpoints.
 
 > [!NOTE]
-> The example link above is for a [starter deployment](../../deployment/deployment-starter.md) of FoundationaLLM, which deploys the APIs to Azure Container Apps (ACA). If you are using the standard deployment that deploys the APIs to Azure Kubernetes Service (AKS), then you cannot currently access the Swagger UI for the APIs. However, you will be able to obtain the OpenAPI swagger.json file from the Core API endpoint by navigating to `https://{{AKS URL}}/core/swagger/v1/swagger.json`.
+> The example link above is for a [Quick Start deployment](../../deployment/deployment-quick-start.md) of FoundationaLLM, which deploys the APIs to Azure Container Apps (ACA). If you are using the standard deployment that deploys the APIs to Azure Kubernetes Service (AKS), then you cannot currently access the Swagger UI for the APIs. However, you will be able to obtain the OpenAPI swagger.json file from the Core API endpoint by navigating to `https://{{AKS URL}}/core/swagger/v1/swagger.json`.
 
 ### Install Postman
 

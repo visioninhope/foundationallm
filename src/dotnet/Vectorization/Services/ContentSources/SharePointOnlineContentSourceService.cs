@@ -12,8 +12,8 @@ using PnP.Core.Services;
 using System.Security.Cryptography.X509Certificates;
 using System;
 using PnP.Core.Model.SharePoint;
-using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Models.Vectorization;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {

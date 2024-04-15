@@ -1,6 +1,7 @@
 #! /usr/bin/pwsh
 
 Param (
+    [parameter(Mandatory = $true)][object]$adminGroupObjectId,
     [parameter(Mandatory = $true)][object]$entraClientIds,
     [parameter(Mandatory = $true)][object]$entraScopes,
     [parameter(Mandatory = $true)][object]$ingress,
