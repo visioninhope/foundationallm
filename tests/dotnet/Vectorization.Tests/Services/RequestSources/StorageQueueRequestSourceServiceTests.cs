@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Queues;
 using FakeItEasy;
+using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
@@ -22,10 +23,10 @@ namespace Vectorization.Tests.Services.RequestSources
             {
                 Name = Environment.GetEnvironmentVariable("StorageQueueServiceTestsQueueName") ?? "testing",
                 ConnectionConfigurationName = "SomeConfigProperty",
-                ConnectionString = Environment.GetEnvironmentVariable("StorageQueueServiceTestsQueueConnectionString"),
+                AccountName = "Test_AccountName",
                 VisibilityTimeoutSeconds = 60
             };
-            _queueClient = new QueueServiceClient(requestManagerServiceSettings.ConnectionString).GetQueueClient(requestManagerServiceSettings.Name);
+            _queueClient = new QueueServiceClient(new Uri($"https://test.dfs.core.windows.net")).GetQueueClient(requestManagerServiceSettings.Name);
             ILogger<StorageQueueRequestSourceService> logger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<StorageQueueRequestSourceService>();
             _storageQueueRequestSourceService = new StorageQueueRequestSourceService(requestManagerServiceSettings, logger);
         }
