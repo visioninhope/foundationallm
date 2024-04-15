@@ -8,23 +8,21 @@ namespace FoundationaLLM.AgentFactory.Tests.Services
 {
     public class AgentFactoryServiceTests
     {
-        private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices = new List<ILLMOrchestrationService>
-        {
+        private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices =
+        [
             Substitute.For<ILLMOrchestrationService>(),
             Substitute.For<ILLMOrchestrationService>()
-        };
-        private readonly IAgentHubAPIService _agentHubAPIService = Substitute.For<IAgentHubAPIService>();
-        private readonly IPromptHubAPIService _promptHubAPIService = Substitute.For<IPromptHubAPIService>();
-        private readonly IDataSourceHubAPIService _dataSourceHubAPIService = Substitute.For<IDataSourceHubAPIService>();
+        ];
+
         private readonly ILogger<AgentFactoryService> _logger = Substitute.For<ILogger<AgentFactoryService>>();
         private readonly AgentFactoryService _agentFactoryService;
-        private IEnumerable<IResourceProviderService> _resourceProviderServices = new List<IResourceProviderService>
-        {
+        private IEnumerable<IResourceProviderService> _resourceProviderServices =
+        [
             Substitute.For<IResourceProviderService>()
-        };
-        private ICallContext _callContext = Substitute.For<ICallContext>();
-        private ILoggerFactory _loggerFactory =  Substitute.For<ILoggerFactory>();
-        private IConfiguration _configuration = Substitute.For<IConfiguration>();
+        ];
+        private readonly ICallContext _callContext = Substitute.For<ICallContext>();
+        private readonly ILoggerFactory _loggerFactory =  Substitute.For<ILoggerFactory>();
+        private readonly IConfiguration _configuration = Substitute.For<IConfiguration>();
 
 
         public AgentFactoryServiceTests()
@@ -34,9 +32,6 @@ namespace FoundationaLLM.AgentFactory.Tests.Services
                 _orchestrationServices,
                 _callContext,
                 _configuration,
-                _agentHubAPIService,
-                _promptHubAPIService,
-                _dataSourceHubAPIService,
                 _loggerFactory
             );
         }
