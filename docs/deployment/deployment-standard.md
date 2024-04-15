@@ -89,6 +89,12 @@ Follow the steps below to deploy the solution to your Azure subscription.
     | vectorization-api | vectorization-api | example.com | vectorization-api.example.com.pfx |
     | chat-ui | chat | example.com | chat.example.com.pfx |
     | management-ui | management | example.com | management.example.com.pfx |
+
+8. Provision infrastructure with `psake`:
+
+    ```powershell
+    cd ../bicep
+    ./bootstrap.ps1; Invoke-Psake 
 ----
 
 

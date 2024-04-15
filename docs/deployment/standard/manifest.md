@@ -61,6 +61,20 @@ The `entraClientIds` section of the Deployment Manifest defines the client IDs f
 | `managementui`     | The client ID for the management UI.     | GUID  | [Management UI Application Setup](../authentication/management-authentication-setup-entra.md#create-the-client-application)                             |
 | `vectorizationapi` | The client ID for the vectorization API. | GUID  | [Vectorization API Application Setup](../authentication/vectorization-authentication-setup-entra.md#create-the-client-application)                      |
 
+## Entra Client Secrets
+
+The `entraClientSecrets` section of the Deployment Manifest provides the secrets use for authorization.
+
+| Name | Description | Value |
+| `authorization` | The client secret (password) for the authorization Application Registration | A client secret value generated in the Entra portal |
+
+## Entra Instances
+
+The `entraInstances` section of the Deployment Manifest defines the cloud that can be used for authorization.  In most cases this value will be `https://login.microsoftonline.com/`.
+
+| Name | Description | Value |
+| `authorization` | The login URL for the Entra cloud | `https://login.microsoftonline.com/` |
+
 ## Entra Scopes
 
 The `entraScopes` section of the Deployment Manifest defines the scopes for the different parts of the Foundationa**LLM** system.  These scopes are used by the authentication system to determine access to resources. See the [Authentication setup document](../authentication/index.md) for more information on the authentication system.
