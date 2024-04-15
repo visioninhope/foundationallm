@@ -1,9 +1,6 @@
 #! /usr/bin/pwsh
 
 Param(
-    [parameter(Mandatory = $false)][bool]$stepDeployCerts = $false,
-    [parameter(Mandatory = $false)][bool]$stepDeployImages = $false,
-    [parameter(Mandatory = $false)][bool]$init = $true,
     [parameter(Mandatory = $false)][string]$manifestName = "Deployment-Manifest.json"
 )
 

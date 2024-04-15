@@ -79,7 +79,7 @@
     },
     {
       "key": "FoundationaLLM:APIs:CoreAPI:BypassGatekeeper",
-      "value": "false",
+      "value": "true",
       "label": null,
       "content_type": "",
       "tags": {}
@@ -733,13 +733,6 @@
       "value": "${env:AZURE_COSMOS_DB_ENDPOINT}",
       "label": null,
       "content_type": "",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:CosmosDB:Key",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/cosmos-key\"}",
-      "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
