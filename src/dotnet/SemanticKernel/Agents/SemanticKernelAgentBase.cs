@@ -4,11 +4,12 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Models.ResourceProvider;
-using FoundationaLLM.Configuration.Models;
-using FoundationaLLM.Prompt.Models.Metadata;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.SemanticKernel.Core.Exceptions;
-using FoundationaLLM.Vectorization.Models.Resources;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 
@@ -27,10 +28,6 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
     {
         protected readonly IResourceProviderService _configurationResourceProvider =
             resourceProviderServices.Single(rp => rp.Name == ResourceProviderNames.FoundationaLLM_Configuration);
-        protected readonly IResourceProviderService _promptResourceProvider =
-            resourceProviderServices.Single(rp => rp.Name == ResourceProviderNames.FoundationaLLM_Prompt);
-        protected readonly IResourceProviderService _vectorizationResourceProvider =
-            resourceProviderServices.Single(rp => rp.Name == ResourceProviderNames.FoundationaLLM_Vectorization);
 
         protected readonly LLMCompletionRequest _request = request;
         protected readonly ILogger _logger = logger;
@@ -39,14 +36,6 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
         protected string _endpoint = string.Empty;
         protected string _deploymentName = string.Empty;
 
-        protected string _textEmbeddingDeploymentName = string.Empty;
-        protected string _textEmbeddingEndpoint = string.Empty;
-        protected string _indexerName = string.Empty;
-        protected string _indexingEndpoint = string.Empty;
-        protected string _indexName = string.Empty;
-        protected string _prompt = string.Empty;
-
-
         /// <summary>
         /// Gets the completion for the request.
         /// </summary>
@@ -54,7 +43,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
         public async Task<LLMCompletionResponse> GetCompletion()
         {
             ValidateRequest();
-            await ExpandRequest();
+            await ExpandAndValidateAgent();
 
             return _llmProvider switch
             {
@@ -86,38 +75,17 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
             throw new NotImplementedException();
         }
 
-        private async Task ExpandRequest()
+        /// <summary>
+        /// Retrieves the agent-specific details from the agent properties payload.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual async Task ExpandAndValidateAgent()
         {
-            var textEmbeddingProfile = await GetResource<VectorizationProfileBase>(
-                (_request.Agent as KnowledgeManagementAgent)!.Vectorization.TextEmbeddingProfileObjectId!,
-                VectorizationResourceTypeNames.TextEmbeddingProfiles,
-                _vectorizationResourceProvider);
-
-            _textEmbeddingDeploymentName = await GetConfigurationValue(
-                textEmbeddingProfile.ConfigurationReferences!["DeploymentName"]);
-
-            _textEmbeddingEndpoint = await GetConfigurationValue(
-                textEmbeddingProfile.ConfigurationReferences["Endpoint"]);
-
-            var indexingProfile = await GetResource<VectorizationProfileBase>(
-                (_request.Agent as KnowledgeManagementAgent)!.Vectorization.IndexingProfileObjectId!,
-                VectorizationResourceTypeNames.IndexingProfiles,
-                _vectorizationResourceProvider);
-
-            _indexerName = (indexingProfile as IndexingProfile)!.Indexer.ToString();
-            _indexName = indexingProfile.Settings!["IndexName"];
-            _indexingEndpoint = await GetConfigurationValue(
-                indexingProfile.ConfigurationReferences!["Endpoint"]);
-
-            var prompt = await GetResource<PromptBase>(
-                _request.Agent.PromptObjectId!,
-                PromptResourceTypeNames.Prompts,
-                _promptResourceProvider);
-
-            _prompt = (prompt as MultipartPrompt)!.Prefix!;
+            await Task.CompletedTask;
+            throw new NotImplementedException();
         }
 
-        private async Task<string> GetConfigurationValue(string configName) =>
+        protected async Task<string> GetConfigurationValue(string configName) =>
             (await GetResource<AppConfigurationKeyBase>(
                 configName,
                 ConfigurationResourceTypeNames.AppConfigurations,
@@ -139,31 +107,31 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
         private void ValidateRequest()
         {
             if (_request.Agent == null)
-                throw new SemanticKernelException("The Agent property of the completion request cannot be null.");
+                throw new SemanticKernelException("The Agent property of the completion request cannot be null.", StatusCodes.Status400BadRequest);
 
             if (_request.Agent.OrchestrationSettings == null)
-                throw new SemanticKernelException("The OrchestrationSettings property of the agent cannot be null.");
+                throw new SemanticKernelException("The OrchestrationSettings property of the agent cannot be null.", StatusCodes.Status400BadRequest);
 
             if (_request.Agent.OrchestrationSettings.EndpointConfiguration == null)
-                throw new SemanticKernelException("The EndpointConfiguration property of the agent's OrchestrationSettings property cannot be null.");
+                throw new SemanticKernelException("The EndpointConfiguration property of the agent's OrchestrationSettings property cannot be null.", StatusCodes.Status400BadRequest);
 
             if (!_request.Agent.OrchestrationSettings.EndpointConfiguration.TryGetValue(EndpointConfigurationKeys.Provider, out var llmProvider)
                 || string.IsNullOrWhiteSpace(llmProvider.ToString()))
-                throw new SemanticKernelException("The Provider property of the agent's OrchestrationSettings.EndpointConfiguration property cannot be null.");
+                throw new SemanticKernelException("The Provider property of the agent's OrchestrationSettings.EndpointConfiguration property cannot be null.", StatusCodes.Status400BadRequest);
 
             if (!LanguageModelProviders.All.Contains(llmProvider.ToString()))
-                throw new SemanticKernelException($"The LLM provider '{llmProvider}' is not supported.");
+                throw new SemanticKernelException($"The LLM provider '{llmProvider}' is not supported.", StatusCodes.Status400BadRequest);
 
             if (!_request.Agent.OrchestrationSettings.EndpointConfiguration.TryGetValue(EndpointConfigurationKeys.Endpoint, out var endpoint)
                 || string.IsNullOrWhiteSpace(endpoint.ToString()))
-                throw new SemanticKernelException("The Endpoint property of the agent's OrchestrationSettings.EndpointConfiguration property cannot be null.");
+                throw new SemanticKernelException("The Endpoint property of the agent's OrchestrationSettings.EndpointConfiguration property cannot be null.", StatusCodes.Status400BadRequest);
 
             if (_request.Agent.OrchestrationSettings.ModelParameters == null)
-                throw new SemanticKernelException("The ModelParameters property of the agent's OrchestrationSettings property cannot be null.");
+                throw new SemanticKernelException("The ModelParameters property of the agent's OrchestrationSettings property cannot be null.", StatusCodes.Status400BadRequest);
 
             if (!_request.Agent.OrchestrationSettings.ModelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deploymentName)
                 || string.IsNullOrWhiteSpace(deploymentName.ToString()))
-                throw new SemanticKernelException("The DeploymentName property of the agent's OrchestrationSettings.ModelParameters property cannot be null.");
+                throw new SemanticKernelException("The DeploymentName property of the agent's OrchestrationSettings.ModelParameters property cannot be null.", StatusCodes.Status400BadRequest);
 
             _llmProvider = llmProvider.ToString()!;
             _endpoint = endpoint.ToString()!;

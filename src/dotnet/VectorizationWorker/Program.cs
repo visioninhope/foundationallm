@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using FoundationaLLM;
+using FoundationaLLM.Authorization.Services;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
@@ -14,7 +15,6 @@ using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
-using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.Text;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;

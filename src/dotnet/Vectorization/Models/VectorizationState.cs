@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Vectorization;
+﻿using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
 using System.Text.Json.Serialization;
 

@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using FoundationaLLM.Authorization.Services;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
@@ -8,11 +9,7 @@ using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Validation;
-using FoundationaLLM.SemanticKernel.Core.Interfaces;
-using FoundationaLLM.SemanticKernel.Core.Plugins;
-using FoundationaLLM.Vectorization.Services;
 using Microsoft.Extensions.Options;
-//using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FoundationaLLM.SemanticKernel.API
@@ -45,8 +42,6 @@ namespace FoundationaLLM.SemanticKernel.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_BlobStorageMemorySource);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
             });
@@ -83,8 +78,6 @@ namespace FoundationaLLM.SemanticKernel.API
 
             // Resource providers
             builder.AddConfigurationResourceProvider();
-            builder.AddVectorizationResourceProvider();
-            builder.AddPromptResourceProvider();
 
             #endregion
 

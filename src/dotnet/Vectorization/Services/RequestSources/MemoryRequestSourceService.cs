@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using FoundationaLLM.Vectorization.Models.Configuration;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 
 namespace FoundationaLLM.Vectorization.Services.RequestSources
 {

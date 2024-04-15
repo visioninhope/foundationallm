@@ -2,10 +2,8 @@
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
-using FoundationaLLM.Prompt.Models.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text;
@@ -14,6 +12,7 @@ using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 
 namespace FoundationaLLM.AgentFactory.Core.Services
 {

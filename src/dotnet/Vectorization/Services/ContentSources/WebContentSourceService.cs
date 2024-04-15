@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Vectorization.Interfaces;
 using Microsoft.Extensions.Logging;
 using HtmlAgilityPack;
-using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.Vectorization;
 using System.Text;
 using System.Web;
