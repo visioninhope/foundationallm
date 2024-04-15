@@ -166,7 +166,7 @@
 <li><p>Update the <code>baseUrl</code> variable <code>Current value</code> with the Core API URL for your deployment.</p>
 <p><img src="media/postman-core-api-url-variable.png" alt="The Core API URL variable is highlighted."></p>
 </li>
-<li><p>Fill out the <code>tenantId</code>, <code>appClientId</code>, and <code>appScope</code> <strong>Current value</strong> settings for your <strong>Core Client</strong> Entra ID app registration (<a href="../../deployment/authentication/core-authentication-setup-entra.html#register-the-client-application-in-the-microsoft-entra-id-admin-center">setup instructions</a>). Use the list below the screenshot to find the values.</p>
+<li><p>Fill out the <code>tenantId</code>, <code>appClientId</code>, and <code>appScope</code> <strong>Current value</strong> settings for your <strong>Core Client</strong> Entra ID app registration (<a href="../../deployment/authentication/core-authentication-setup-entra.md#register-the-client-application-in-the-microsoft-entra-id-admin-center">setup instructions</a>). Use the list below the screenshot to find the values.</p>
 <p><img src="media/postman-core-api-variables.png" alt="The additional variables are highlighted."></p>
 <ul>
 <li><strong>tenantId</strong>: The tenant ID of your Core Client (Chat UI) Entra ID app. You can find this value in the <strong>Overview</strong> tab of your Entra ID app in the portal.</li>
@@ -184,7 +184,7 @@
 <p>Though this method takes a few more steps, it is the recommended method because it allows you to use the same token for all of the API calls in the collection.</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>If you previously configured the Microsoft Entra ID app registration for the Chat UI application (Core Client), you will need to update the <strong>Redirect URI</strong> to <code>https://oauth.pstmn.io/v1/callback</code> in order to use the Postman mobile app to get the token. You can do this by following the steps in the <a href="../../deployment/authentication/core-authentication-setup-entra.html#add-a-redirect-uri-to-the-client-application">Add a redirect URI to the client application</a> section of the authentication setup guide.</p>
+<p>If you previously configured the Microsoft Entra ID app registration for the Chat UI application (Core Client), you will need to update the <strong>Redirect URI</strong> to <code>https://oauth.pstmn.io/v1/callback</code> in order to use the Postman mobile app to get the token. You can do this by following the steps in the <a href="../../deployment/authentication/core-authentication-setup-entra.md#add-a-redirect-uri-to-the-client-application">Add a redirect URI to the client application</a> section of the authentication setup guide.</p>
 </div>
 <ol>
 <li><p>Select the <strong>Authorization</strong> tab within the <strong>FoundationaLLM.Core.API</strong> collection. You will see the <strong>Authorization</strong> tab at the collection level. This means that you can configure the token at the collection level and use it for all of the requests in the collection. Notice that the <strong>Token Name</strong> is <strong>FLLM CoreAPI Token</strong>. This will automatically be used by the requests in the collection.</p>

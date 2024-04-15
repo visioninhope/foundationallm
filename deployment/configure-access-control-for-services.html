@@ -107,19 +107,18 @@
 <h3 id="grant-access-to-the-app-configuration-service">Grant access to the App Configuration service</h3>
 <p>Use the steps below to grant access to the App Configuration service:</p>
 <ol>
-<li><p>Sign in to the <a href="https://portal.azure.com/">Azure portal</a> as at least a Contributor.</p>
-</li>
-<li><p>Navigate to the resource group where the solution is deployed.</p>
+<li>Sign in to the <a href="https://portal.azure.com/">Azure portal</a> as at least a Contributor.</li>
+<li>Navigate to the resource group where the solution is deployed.</li>
+</ol>
 <div class="NOTE">
 <h5>Note</h5>
-<p>If you performed an Azure Container Apps (ACA) or Azure Kubernetes Service (AKS) deployment, you will see an extra Resource Group that starts with <code>ME_</code> or <code>MC_</code> in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that <strong>does not start with</strong> <code>ME_</code> or <code>MC_</code> to access the App Configuration resource.</p>
+<p>If you performed an Azure Container Apps (ACA) or Azure Kubernetes Service (AKS) deployment, you will see an extra Resource Group that starts with <code>ME_</code> or <code>MC_</code> in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that <strong>does not start with</strong> <code>ME_</code> or <code>MC_</code> to access the App Configuration resource.
+3. Select the <strong>App Configuration</strong> resource. The name should end with <code>-appconfig</code>.
+4. Select <strong>Access Control (IAM)</strong> in the left-hand menu.</p>
 </div>
-</li>
-<li><p>Select the <strong>App Configuration</strong> resource. The name should end with <code>-appconfig</code>.</p>
-</li>
-<li><p>Select <strong>Access Control (IAM)</strong> in the left-hand menu.</p>
-<p><img src="media/appconfig-access-control-link.png" alt="The Access Control (IAM) menu item is highlighted."></p>
-</li>
+<pre><code>![The Access Control (IAM) menu item is highlighted.](media/appconfig-access-control-link.png)
+</code></pre>
+<ol start="5">
 <li><p>Select <strong>+ Add</strong> and then <strong>Add role assignment</strong>.</p>
 <p><img src="media/add-role-assignment-link.png" alt="The add role assignment menu item is highlighted."></p>
 </li>
@@ -160,19 +159,18 @@
 <h3 id="grant-access-to-the-key-vault-service">Grant access to the Key Vault service</h3>
 <p>Use the steps below to grant access to the Key Vault service:</p>
 <ol>
-<li><p>Sign in to the <a href="https://portal.azure.com/">Azure portal</a> as at least a Contributor.</p>
-</li>
-<li><p>Navigate to the resource group where the solution is deployed.</p>
+<li>Sign in to the <a href="https://portal.azure.com/">Azure portal</a> as at least a Contributor.</li>
+<li>Navigate to the resource group where the solution is deployed.</li>
+</ol>
 <div class="NOTE">
 <h5>Note</h5>
-<p>If you performed an Azure Container Apps (ACA) or Azure Kubernetes Service (AKS) deployment, you will see an extra Resource Group that starts with <code>ME_</code> or <code>MC_</code> in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that <strong>does not start with</strong> <code>ME_</code> or <code>MC_</code> to access the App Configuration resource.</p>
+<p>If you performed an Azure Container Apps (ACA) or Azure Kubernetes Service (AKS) deployment, you will see an extra Resource Group that starts with <code>ME_</code> or <code>MC_</code> in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that <strong>does not start with</strong> <code>ME_</code> or <code>MC_</code> to access the App Configuration resource.
+3. Select the <strong>Key Vault</strong> resource. The name should end with <code>-kv</code>.
+4. Select <strong>Access Control (IAM)</strong> in the left-hand menu.</p>
 </div>
-</li>
-<li><p>Select the <strong>Key Vault</strong> resource. The name should end with <code>-kv</code>.</p>
-</li>
-<li><p>Select <strong>Access Control (IAM)</strong> in the left-hand menu.</p>
-<p><img src="media/keyvault-access-control-link.png" alt="The Access Control (IAM) menu item is highlighted."></p>
-</li>
+<pre><code>![The Access Control (IAM) menu item is highlighted.](media/keyvault-access-control-link.png)
+</code></pre>
+<ol start="5">
 <li><p>Select <strong>+ Add</strong> and then <strong>Add role assignment</strong>.</p>
 <p><img src="media/add-role-assignment-link.png" alt="The add role assignment menu item is highlighted."></p>
 </li>

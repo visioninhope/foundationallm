@@ -74,15 +74,15 @@
 <h1 id="deployment---quick-start">Deployment - Quick Start</h1>
 
 <p>Foundationa<strong>LLM</strong> is designed for seamless deployment within your Azure Subscription. It initially utilizes Azure Container Apps (ACA) for rapid deployment and streamlined development. For scaling up to production environments, FoundationaLLM also supports deployment on Azure Kubernetes Service (AKS), offering robust scalability and management features.</p>
-<p>Be mindful of the <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits">Azure OpenaAI regional quota limits</a> on the number of Azure OpenAI Service instances. To optimize resource usage, FoundationaLLM offers the flexibility to connect to an existing Azure OpenAI Service resource, thereby avoiding the creation of additional instances during deployment. This feature is particularly useful for managing resource allocation and ensuring efficient Azure OpenAI Service quota utilization.</p>
+<p>Be mindful of the <a href="https://learn.microsoft.com/azure/ai-services/openai/quotas-limits">Azure OpenaAI regional quota limits</a> on the number of Azure OpenAI Service instances. To optimize resource usage, FoundationaLLM offers the flexibility to connect to an existing Azure OpenAI Service resource, thereby avoiding the creation of additional instances during deployment. This feature is particularly useful for managing resource allocation and ensuring efficient Azure OpenAI Service quota utilization.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <p>You will need the following resources and access to deploy the solution:</p>
 <ul>
-<li>Azure Subscription: An Azure Subscription is a logical container in Microsoft Azure that links to an Azure account and is the basis for billing, resource management, and allocation. It allows users to create and manage Azure resources like virtual machines, databases, and more, providing a way to organize access and costs associated with these resources.</li>
-<li>Subscription access to Azure OpenAI service: Access to Azure OpenAI Service provides users with the ability to integrate OpenAI's advanced AI models and capabilities within Azure. This service combines OpenAI's powerful models with Azure's robust cloud infrastructure and security, offering scalable AI solutions for a variety of applications like natural language processing and generative tasks. <strong>Start here to <a href="https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUNTZBNzRKNlVQSFhZMU9aV09EVzYxWFdORCQlQCN0PWcu">Request Access to Azure OpenAI Service</a></strong></li>
-<li>Minimum quota of 65 CPUs across all VM family types: Azure CPU quotas refer to the limits set on the number and type of virtual CPUs that can be used in an Azure Subscription. These quotas are in place to manage resource allocation and ensure fair usage across different users and services. Users can request quota increases if their application or workload requires more CPU resources. <strong>Start here to <a href="https://learn.microsoft.com/azure/quotas/per-vm-quota-requests">Manage VM Quotas</a></strong></li>
-<li>App Registrations created in the Entra ID tenant (formerly Azure Active Directory): Azure App Registrations is a feature in Entra ID that allows developers to register their applications for identity and access management. This registration process enables applications to authenticate users, request and receive tokens, and access Azure resources that are secured by Entra ID. <strong>Follow the instructions in the <a href="authentication/index.html">Authentication setup document</a> to configure authentication for the solution.</strong></li>
-<li>User with the proper role assignments: Azure Role-Based Access Control (RBAC) roles are a set of permissions in Azure that control access to Azure resource management. These roles can be assigned to users, groups, and services in Azure, allowing granular control over who can perform what actions within a specific scope, such as a subscription, resource group, or individual resource.
+<li><strong>Azure Subscription</strong>: An Azure Subscription is a logical container in Microsoft Azure that links to an Azure account and is the basis for billing, resource management, and allocation. It allows users to create and manage Azure resources like virtual machines, databases, and more, providing a way to organize access and costs associated with these resources.</li>
+<li><strong>Subscription access to Azure OpenAI service</strong>: Access to Azure OpenAI Service provides users with the ability to integrate OpenAI's advanced AI models and capabilities within Azure. This service combines OpenAI's powerful models with Azure's robust cloud infrastructure and security, offering scalable AI solutions for a variety of applications like natural language processing and generative tasks. <strong>Start here to <a href="https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUNTZBNzRKNlVQSFhZMU9aV09EVzYxWFdORCQlQCN0PWcu">Request Access to Azure OpenAI Service</a></strong></li>
+<li><strong>Minimum quota of 65 CPUs across all VM family types</strong>: Azure CPU quotas refer to the limits set on the number and type of virtual CPUs that can be used in an Azure Subscription. These quotas are in place to manage resource allocation and ensure fair usage across different users and services. Users can request quota increases if their application or workload requires more CPU resources. <strong>Start here to <a href="https://learn.microsoft.com/azure/quotas/per-vm-quota-requests">Manage VM Quotas</a></strong></li>
+<li><strong>App Registrations created in the Entra ID tenant (formerly Azure Active Directory)</strong>: Azure App Registrations is a feature in Entra ID that allows developers to register their applications for identity and access management. This registration process enables applications to authenticate users, request and receive tokens, and access Azure resources that are secured by Entra ID. <strong>Follow the instructions in the <a href="authentication/index.md">Authentication setup document</a> to configure authentication for the solution.</strong></li>
+<li><strong>User with the proper role assignments</strong>: Azure Role-Based Access Control (RBAC) roles are a set of permissions in Azure that control access to Azure resource management. These roles can be assigned to users, groups, and services in Azure, allowing granular control over who can perform what actions within a specific scope, such as a subscription, resource group, or individual resource.
 <ul>
 <li>Owner on the target subscription</li>
 <li>Owner on the app registrations described in the Authentication setup document</li>
@@ -91,45 +91,57 @@
 </ul>
 <p>You will use the following tools during deployment:</p>
 <ul>
-<li>Azure Developer CLI (<a href="https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd">v1.6.1 or greater</a>): The Azure Developer CLI (azd) is a command-line tool designed to streamline the development and deployment of applications on Microsoft's Azure cloud platform. It simplifies various tasks such as setting up development environments, managing resources, and deploying applications by providing a more developer-friendly interface. The Azure Dev CLI aims to enhance productivity by abstracting complex cloud management tasks into simpler, more intuitive commands, making it easier for developers to integrate Azure services into their workflows.</li>
-<li>Azure CLI (<a href="https://docs.microsoft.com/cli/azure/install-azure-cli">v2.51.0 or greater</a>): The Azure Command Line Interface (CLI) is a set of commands used to manage Azure resources directly from the command line. It provides a simple and efficient way to automate tasks and manage Azure services, supporting both Windows, macOS, and Linux platforms. Azure CLI is particularly useful for scripting and executing batch operations, offering a comprehensive set of commands that cover almost all aspects of Azure resource management.</li>
-<li><a href="https://git-scm.com/downloads">git</a>: Git is a distributed version control system designed to handle everything from small to very large projects with speed and efficiency. It allows multiple developers to work on the same codebase simultaneously, tracking and merging changes, and maintaining a complete history of all file revisions. Git is essential for modern software development, supporting branching and merging strategies, and is widely used for its robustness, flexibility, and remote collaboration capabilities.</li>
-<li>PowerShell 7 (<a href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4">7.4.1 or greater</a>):
-PowerShell 7 is a cross-platform (Windows, macOS, and Linux) automation tool and scripting language, an evolution of PowerShell that works with the .NET Core framework. It offers enhanced features and performance improvements over its predecessors and is designed for heterogeneous environments and the hybrid cloud. In PowerShell 7, the command-line executable is referred to as pwsh, an alias that is essential for integration with Azure Developer CLI (AZD) hooks and other modern automation scenarios.</li>
+<li><strong>Azure Developer CLI (<a href="https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd">v1.6.1 or greater</a>)</strong></li>
+<li><strong>Azure CLI (<a href="https://docs.microsoft.com/cli/azure/install-azure-cli">v2.51.0 or greater</a>):</strong></li>
+<li><strong>Latest <a href="https://git-scm.com/downloads">Git</a></strong></li>
+<li><strong>PowerShell 7 (<a href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4">7.4.1 or greater</a>)</strong></li>
 </ul>
 <p><strong>Optional</strong> To run or debug the solution locally, you will need to install the following dependencies:</p>
 <ul>
-<li><a href="https://dotnet.microsoft.com/download/dotnet/8.0">.NET 8 SDK</a>: The .NET 8 SDK is the latest iteration of Microsoft's .NET software development kit, offering enhanced features and improvements for building applications across various platforms, including web, mobile, desktop, cloud, and IoT. It provides a comprehensive set of libraries, runtime features, and APIs, supporting multiple programming languages like C#, F#, and Visual Basic. This SDK is designed for high performance and efficiency, catering to modern development needs with support for cloud-native applications, microservices, and machine learning.</li>
-<li>Visual Studio 2022: Visual Studio 2022 is an advanced integrated development environment (IDE) from Microsoft, offering robust tools for developing applications on the .NET platform and other technologies. It brings improved performance, better usability, and enhanced collaboration features, supporting a wide range of programming languages and frameworks. Visual Studio 2022 is tailored for both individual developers and teams, integrating seamlessly with modern workflows and cloud services, and providing powerful debugging, code navigation, and refactoring capabilities.</li>
+<li><strong><a href="https://dotnet.microsoft.com/download/dotnet/8.0">.NET 8 SDK</a></strong></li>
+<li><strong>Visual Studio 2022</strong></li>
 </ul>
 <p><strong>Optional</strong> To build or test container images, you will need to install the following dependencies:</p>
 <ul>
-<li><a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>: Docker Desktop is an application for MacOS and Windows machines for the building and sharing of containerized applications and microservices. It provides an integrated environment to use Docker containers, simplifying the process of building, testing, and deploying applications in a consistent and isolated environment. Docker Desktop includes Docker Engine, Docker CLI client, Docker Compose, and other Docker tools, making it a key tool for developers working with container-based applications.</li>
+<li><strong><a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a></strong></li>
 </ul>
 <h2 id="deployment-steps">Deployment steps</h2>
-<p>Follow the steps below to deploy the solution to your Azure subscription.</p>
+<p>Follow the steps below to deploy the solution to your Azure subscription.
+If you are upgrading from a previous version, like <code>0.4.0</code> please refer to the changes in the <a href="changes-050.html">release notes</a>.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Follow the instructions in the <a href="authentication-authorization/index.html">Authentication and Authorization setup document</a> to finalize authentication and authorization for the solution. Bear in mind that creating the app registrations in the Entra ID tenant is a <strong>prerequisite</strong> for the deployment, but you will have to revisit some of these settings after the deployment is complete later to fill in some missing values that are generated during the deployment.</p>
+</div>
 <ol>
-<li><p>Ensure all the prerequisites are met.</p>
+<li><p>Ensure all the prerequisites are met and you have installed the tools required to complete the deployment.</p>
 </li>
 <li><p>From a PowerShell prompt, execute the following to clone the repository:</p>
 <pre><code class="lang-cmd">git clone https://github.com/solliancenet/foundationallm.git
-git checkout release/0.4.0
+cd foundationallm/deploy/starter
+git checkout release/0.5.0
 </code></pre>
 </li>
-<li><p>Run the following commands to set the appropriate application registration settings for OIDC authentication.</p>
-<pre><code class="lang-text">cd foundationallm/deploy/quick-start
-
-az login            # Log into Azure CLI
+<li><p>Run the following commands to log into the Azure and Azure Developer CLIs:</p>
+<pre><code class="lang-azurecli">az login            # Log into Azure CLI
 azd auth login      # Log into Azure Developer CLI
 
 # Set your target Subscription and Location
 azd env new --location &lt;Supported Azure Region&gt; --subscription &lt;Azure Subscription ID&gt;
-
-azd env set ENTRA_AUTH_API_INSTANCE &lt;Auth API Instance&gt;
+</code></pre>
+</li>
+<li><p>Set up an <code>azd</code> environment targeting your Azure subscription and desired deployment region:</p>
+<pre><code class="lang-azurecli"># Set your target Subscription and Location
+azd env new --location &lt;Supported Azure Region&gt; --subscription &lt;Azure Subscription ID&gt;
+</code></pre>
+</li>
+<li><p>Run the following commands to set the appropriate application registration settings for OIDC authentication.</p>
+<pre><code class="lang-text">azd env set ENTRA_AUTH_API_INSTANCE &lt;Auth API Instance&gt;
 azd env set ENTRA_AUTH_API_CLIENT_ID &lt;Auth API Client Id&gt;
 azd env set ENTRA_AUTH_API_CLIENT_SECRET &lt;Auth API Client Secret&gt;
 azd env set ENTRA_AUTH_API_SCOPES &lt;Auth API Scope&gt;
 azd env set ENTRA_AUTH_API_TENANT_ID &lt;Auth API Tenant ID&gt;
+
+azd env set ADMIN_GROUP_OBJECT_ID &lt;Admin Group Object Id&gt;
 
 azd env set ENTRA_CHAT_UI_CLIENT_ID &lt;Chat UI Client Id&gt;
 azd env set ENTRA_CHAT_UI_SCOPES &lt;Chat UI Scope&gt;
@@ -153,17 +165,23 @@ azd env set ENTRA_VECTORIZATION_API_TENANT_ID &lt;Vectorization API Tenant ID&gt
 
 azd env set FOUNDATIONALLM_INSTANCE_ID &lt;guid&gt;
 </code></pre>
+</li>
+</ol>
 <div class="NOTE">
 <h5>Note</h5>
 <p>You need to manually generate a GUID for <code>FOUNDATIONALLM_INSTANCE_ID</code>.</p>
 </div>
-<p>Bash:</p>
-<pre><code class="lang-bash">uuidgen
+<h3 id="in-bash">In Bash:</h3>
+<pre><code class="lang-bash">  uuidgen
 </code></pre>
-<p>PowerShell:</p>
-<pre><code class="lang-powershell">[guid]::NewGuid().ToString()
+<h3 id="in-powershell">In PowerShell:</h3>
+<pre><code class="lang-powershell">  [guid]::NewGuid().ToString()
 </code></pre>
-</li>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The ADMIN_GROUP_OBJECT_ID in the Entra ID Groups has to be of type <code>security</code> NOT <code>Microsoft 365</code> and you need to at least add yourself to the group and other members that need to be admins.</p>
+</div>
+<ol>
 <li><p><strong>Optional</strong>: Bring Your Own Azure OpenAI Instance</p>
 <p>If you have an existing Azure OpenAI instance, you can use it by setting the following environment variables:</p>
 <pre><code class="lang-text">azd env set OPENAI_NAME &lt;OpenAI Name&gt;
@@ -177,15 +195,16 @@ azd env set OPENAI_SUBSCRIPTION_ID &lt;OpenAI Subscription ID&gt;
 </code></pre>
 </li>
 </ol>
-<h3 id="authentication-setup">Authentication setup</h3>
-<p>Follow the instructions in the <a href="authentication/index.html">Authentication setup document</a> to finalizie authentication for the solution.</p>
+<h3 id="running-script-to-allow-ms-graph-access-through-role-permissions">Running script to allow MS Graph access through Role Permissions</h3>
+<p>After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. <a href="/deploy/common/scripts/Assign-MSGraph-Roles.ps1">Role Permissions Script</a></p>
 <h1 id="teardown">Teardown</h1>
 <p>To tear down the environment, execute <code>azd down</code> in the same folder location.</p>
 <pre><code class="lang-pwsh">azd down --purge
 </code></pre>
-<blockquote>
-<p>Note the <code>--purge</code> argument in the command above. This ensures that resources that would otherwise be soft-deleted are instead completely purged from your Azure subscription.</p>
-</blockquote>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The <code>--purge</code> argument in the command above. This ensures that resources that would otherwise be soft-deleted are instead completely purged from your Azure subscription.</p>
+</div>
 
 </article>
 

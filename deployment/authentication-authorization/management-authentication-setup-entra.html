@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Core API and User Portal authentication setup: Microsoft Entra ID | FoundationaLLM </title>
+      <title>Management API and portal authentication setup: Microsoft Entra ID | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Core API and User Portal authentication setup: Microsoft Entra ID | FoundationaLLM ">
+      <meta name="title" content="Management API and portal authentication setup: Microsoft Entra ID | FoundationaLLM ">
       
       
       <link rel="icon" href="../../media/favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/authentication/core-authentication-setup-entra.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/authentication-authorization/management-authentication-setup-entra.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -71,19 +71,19 @@
         </div>
 
         <article data-uid="">
-<h1 id="core-api-and-user-portal-authentication-setup-microsoft-entra-id">Core API and User Portal authentication setup: Microsoft Entra ID</h1>
+<h1 id="management-api-and-portal-authentication-setup-microsoft-entra-id">Management API and portal authentication setup: Microsoft Entra ID</h1>
 
-<p>FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authentication. This means that you can use your Microsoft Entra ID account to log in to the chat interface.</p>
+<p>FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authentication. This means that you can use your Microsoft Entra ID account to log in to the management portal.</p>
 <h2 id="create-the-microsoft-entra-id-applications">Create the Microsoft Entra ID applications</h2>
-<p>To enable Microsoft Entra ID authentication for the Core API and user portal, you need to create two applications in the Microsoft Azure portal:</p>
+<p>To enable Microsoft Entra ID authentication for the Management API and portal, you need to create two applications in the Microsoft Azure portal:</p>
 <ul>
-<li>A client application that will be used by the user portal chat interface to authenticate users.</li>
-<li>An API application that will be used by the Core API to authenticate users.</li>
+<li>A client application that will be used by the management portal to authenticate users.</li>
+<li>An API application that will be used by the Management API to authenticate users.</li>
 </ul>
 <h3 id="pre-requisites">Pre-requisites</h3>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Make sure that you have <a href="../index.html">deployed the solution</a> before proceeding with the steps below.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Be aware that after completing this registration and the other app registrations in Entra ID as instructed in the <a href="docs/deployment/authentication-authorization/index.md">docs</a> you will complete the deployment steps outlined at <a href="../../deployment/deployment-starter.md">deploy the solution</a> then you will be revisiting your app registrations to complete some of the settings that require the solution to be deployed before the entire app registration is completed successfully.</p>
 </div>
 <h4 id="setup-app-configuration-access">Setup App Configuration access</h4>
 <ol>
@@ -96,26 +96,6 @@
 </li>
 <li>Select the <strong>App Configuration</strong> resource and select <strong>Configuration explorer</strong> to view the values. If you cannot access the configurations, add your user account as an <strong>App Configuration Data Owner</strong> through Access Control (IAM). You need this role in order to update the configurations as a required part of the authentication setup. To add your user account to the appropriate role, follow the instructions in the <a href="../configure-access-control-for-services.html#azure-app-configuration-service">Configure access control for services</a> document.</li>
 </ol>
-<h4 id="obtain-the-url-for-the-chat-ui-application">Obtain the URL for the chat UI application</h4>
-<p>You need this URL to assign the redirect URI for the client application.</p>
-<p>If you performed an <strong>Azure Container Apps (ACA)</strong> deployment, follow these steps to obtain the URL for the chat UI application:</p>
-<ol>
-<li><p>Within the Resource Group that was created as part of the deployment, select the <strong>Container App</strong> resource whose name ends with <code>chatuica</code>.</p>
-<p><img src="media/resource-group-aca.png" alt="The Chat UI container app is selected in the deployed resource group."></p>
-</li>
-<li><p>Within the Overview pane, copy the <strong>Application Url</strong> value. This is the URL for the chat application.</p>
-<p><img src="media/aca-application-url.png" alt="The container app's Application Url is highlighted."></p>
-</li>
-</ol>
-<p>If you performed an <strong>Azure Kubernetes Service (AKS)</strong> deployment, follow these steps to obtain the URL for the chat UI application:</p>
-<ol>
-<li><p>Within the Resource Group that was created as part of the deployment, select the <strong>Kubernetes Service</strong> resource.</p>
-<p><img src="media/resource-group-aks.png" alt="The Kubernetes service is selected in the deployed resource group."></p>
-</li>
-<li><p>Select <strong>Properties</strong> in the left-hand menu and copy the <strong>HTTP application routing domain</strong> value. This is the URL for the chat application.</p>
-<p><img src="media/aks-http-app-routing-domain.png" alt="The HTTP application routing domain property is highlighted."></p>
-</li>
-</ol>
 <h3 id="create-the-client-application">Create the client application</h3>
 <h4 id="register-the-client-application-in-the-microsoft-entra-id-admin-center">Register the client application in the Microsoft Entra ID admin center</h4>
 <ol>
@@ -126,27 +106,27 @@
 </li>
 <li><p>On the page that appears, select <strong>+ New registration</strong>.</p>
 </li>
-<li><p>When the <strong>Register an application</strong> page appears, enter a name for your application, such as <em>FoundationaLLM-Client</em>. You should indicate that this is for the chat client (User Portal) application by appending <em>-Client</em> to the name.</p>
+<li><p>When the <strong>Register an application</strong> page appears, enter a name for your application, such as <em>FoundationaLLM-ManagementClient</em>. You should indicate that this is for the management client application by appending <em>-ManagementClient</em> to the name.</p>
 </li>
 <li><p>Under <strong>Supported account types</strong>, select <em>Accounts in this organizational directory only</em>.</p>
 </li>
 <li><p>Select <strong>Register</strong>.</p>
-<p><img src="media/entra-register-client-app.png" alt="The new client app registration form is displayed."></p>
+<p><img src="media/entra-register-management-client-app.png" alt="The new client app registration form is displayed."></p>
 </li>
 <li><p>The application's <strong>Overview</strong> pane displays upon successful registration. Record the <strong>Application (client) ID</strong> and <strong>Directory (tenant) ID</strong> to add to your App Configuration settings later.</p>
-<p><img src="media/entra-client-app-overview.png" alt="The Entra app client ID and Directory ID values are highlighted in the Overview blade."></p>
+<p><img src="media/entra-management-client-app-overview.png" alt="The Entra app client ID and Directory ID values are highlighted in the Overview blade."></p>
 </li>
 </ol>
 <h4 id="add-a-redirect-uri-to-the-client-application">Add a redirect URI to the client application</h4>
 <ol>
 <li><p>Under <strong>Manage</strong>, select <strong>Authentication</strong>.</p>
 </li>
-<li><p>Under <strong>Platform configurations</strong>, select <strong>Add a platform</strong>. In the pane that opens, select <strong>Single-page application</strong>. This is for the Vue.js chat application.</p>
+<li><p>Under <strong>Platform configurations</strong>, select <strong>Add a platform</strong>. In the pane that opens, select <strong>Single-page application</strong>. This is for the Vue.js management application.</p>
 </li>
-<li><p>Add a <strong>Redirect URI</strong> under Single-page application for your deployed Vue.js application. Enter <code>&lt;YOUR_CHAT_APP_URL&gt;/signin-oidc</code>, replacing <code>&lt;YOUR_CHAT_APP_URL&gt;</code> with the chat UI application URL obtained in the <a href="#pre-requisites">Pre-requisites</a> section above. For example, it should look something like <code>https://d85a09ce067141d5807a.eastus.aksapp.io/signin-oidc</code> for an AKS deployment, or <code>https://fllmaca002chatuica.graybush-c554b849.eastus.azurecontainerapps.io/signin-oidc</code> for an ACA deployment.</p>
+<li><p>Add a <strong>Redirect URI</strong> under Single-page application for your deployed Vue.js management application. Enter <code>&lt;YOUR_MANAGEMENT_APP_URL&gt;/signin-oidc</code>, replacing <code>&lt;YOUR_MANAGEMENT_APP_URL&gt;</code> with the management UI application URL. For example, it should look something like <code>https://d85a09ce067141d5807a.eastus.aksapp.io/signin-oidc</code> for an AKS deployment, or <code>https://fllmaca002managementuica.graybush-c554b849.eastus.azurecontainerapps.io/signin-oidc</code> for an ACA deployment.</p>
 </li>
-<li><p>Add a <strong>Redirect URI</strong> under Single-page application for local development of the Vue.js application: <code>http://localhost:3000/signin-oidc</code>.</p>
-<p><img src="media/entra-app-client-authentication-uris.png" alt="The Authentication left-hand menu item and redirect URIs are highlighted."></p>
+<li><p>Add a <strong>Redirect URI</strong> under Single-page application for local development of the management portal Vue.js application: <code>http://localhost:3001/signin-oidc</code>.</p>
+<p><img src="media/entra-app-management-client-authentication-uris.png" alt="The Authentication left-hand menu item and redirect URIs are highlighted."></p>
 </li>
 </ol>
 <!-- 8. Under **Front-channel logout URL**, enter `<YOUR_CHAT_APP_URL>/signout-oidc`. -->
@@ -174,12 +154,12 @@
 
 1. Under **Manage**, select **Certificates & secrets**.
 2. Under **Client secrets**, select **+ New client secret**.
-3. For **Description**, enter a description for the secret. For example, enter *FoundationaLLM-Client*.
+3. For **Description**, enter a description for the secret. For example, enter *FoundationaLLM-ManagementClient*.
 4. Select a desired expiration date.
 5. Select **Add**.
 6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
 
-    ![The steps to create a client secret are highlighted.](media/entra-client-app-secret.png) -->
+    ![The steps to create a client secret are highlighted.](media/entra-management-client-app-secret.png) -->
 <h4 id="update-the-client-application-manifest">Update the client application manifest</h4>
 <ol>
 <li><p>Under <strong>Manage</strong>, select <strong>Manifest</strong>.</p>
@@ -198,15 +178,15 @@
 <li><p>Browse to <strong>Identity</strong> &gt; <strong>Applications</strong> &gt; <strong>App registrations</strong> and select <strong>+ New registration</strong>.</p>
 <p><img src="media/entra-app-registrations.png" alt="The app registrations menu item in the left-hand menu is highlighted."></p>
 </li>
-<li><p>For <strong>Name</strong>, enter a name for the application. For example, enter <em>FoundationaLLM</em>. Users of the app will see this name, and can be changed later.</p>
+<li><p>For <strong>Name</strong>, enter a name for the application. For example, enter <em>FoundationaLLM-Management</em>. Users of the app will see this name, and can be changed later.</p>
 </li>
 <li><p>Under <strong>Supported account types</strong>, select <em>Accounts in this organizational directory only</em>.</p>
 </li>
 <li><p>Select <strong>Register</strong>.</p>
-<p><img src="media/entra-register-api-app.png" alt="The new API app registration form is displayed."></p>
+<p><img src="media/entra-register-management-api-app.png" alt="The new API app registration form is displayed."></p>
 </li>
 <li><p>The application's <strong>Overview</strong> pane displays upon successful registration. Record the <strong>Application (client) ID</strong> and <strong>Directory (tenant) ID</strong> to add to your App Configuration settings later.</p>
-<p><img src="media/entra-api-app-overview.png" alt="The Entra app client ID and Directory ID values are highlighted in the Overview blade."></p>
+<p><img src="media/entra-management-api-app-overview.png" alt="The Entra app client ID and Directory ID values are highlighted in the Overview blade."></p>
 </li>
 </ol>
 <h4 id="implicit-grant-and-hybrid-flows-for-the-api-application">Implicit grant and hybrid flows for the API application</h4>
@@ -235,25 +215,25 @@
 5. Select **Add**.
 6. **Record the secret value** to add to your App Configuration settings later. Do this by selecting the **Copy to clipboard** icon next to the secret value.
 
-    ![The steps to create a client secret are highlighted.](media/entra-api-app-secret.png) -->
+    ![The steps to create a client secret are highlighted.](media/entra-management-api-app-secret.png) -->
 <h4 id="expose-an-api-for-the-api-application">Expose an API for the API application</h4>
 <ol>
 <li><p>Under <strong>Manage</strong>, select <strong>Expose an API</strong> &gt; <strong>Add a scope</strong>. For <strong>Application ID URI</strong>, accept the default or specify a custom one, then select <strong>Save and continue</strong>, and then enter the following details:</p>
 <ul>
-<li><strong>Scope name</strong>: <code>Data.Read</code></li>
+<li><strong>Scope name</strong>: <code>Data.Manage</code></li>
 <li><strong>Who can consent?</strong>: <strong>Admins and users</strong></li>
-<li><strong>Admin consent display name</strong>: <code>Read data on behalf of users</code></li>
-<li><strong>Admin consent description</strong>: <code>Allows the app to read data on behalf of the signed-in user.</code></li>
-<li><strong>User consent display name</strong>: <code>Read data on behalf of the user</code></li>
-<li><strong>User consent description</strong>: <code>Allows the app to read data on behalf of the signed-in user.</code></li>
+<li><strong>Admin consent display name</strong>: <code>Manage data on behalf of users</code></li>
+<li><strong>Admin consent description</strong>: <code>Allows the app to manage data on behalf of the signed-in user.</code></li>
+<li><strong>User consent display name</strong>: <code>Manage data on behalf of the user</code></li>
+<li><strong>User consent description</strong>: <code>Allows the app to manage data on behalf of the signed-in user.</code></li>
 <li><strong>State</strong>: <strong>Enabled</strong></li>
 </ul>
 </li>
 <li><p>Select <strong>Add scope</strong> to complete the scope addition.</p>
-<p><img src="media/entra-api-app-add-scope.png" alt="The Add a scope form is displayed as described in the bulleted list above."></p>
+<p><img src="media/entra-management-management-api-app-add-scope.png" alt="The Add a scope form is displayed as described in the bulleted list above."></p>
 </li>
-<li><p>Copy the <strong>Scope name</strong> value to add to your App Configuration settings later. For example, it should look something like <code>api://d85a09ce067141d5807a/Data.Read</code>.</p>
-<p><img src="media/entra-api-app-scope-copy-name.png" alt="The new scope name is displayed with the Copy button highlighted."></p>
+<li><p>Copy the <strong>Scope name</strong> value to add to your App Configuration settings later. For example, it should look something like <code>api://c79a09ce067141d5832b/Data.Manage</code>.</p>
+<p><img src="media/entra-management-api-app-scope-copy-name.png" alt="The new scope name is displayed with the Copy button highlighted."></p>
 </li>
 </ol>
 <h4 id="add-authorized-client-application">Add authorized client application</h4>
@@ -262,10 +242,10 @@
 </li>
 <li><p>Paste the <strong>Application (client) ID</strong> of the client application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</p>
 </li>
-<li><p>Check the <code>Data.Read</code> authorized scope that you created.</p>
+<li><p>Check the <code>Data.Manage</code> authorized scope that you created.</p>
 </li>
 <li><p>Select <strong>Add application</strong> to complete the client application addition.</p>
-<p><img src="media/entra-api-app-add-client-app.png" alt="The add a client application form is displayed as described."></p>
+<p><img src="media/entra-management-api-app-add-client-app.png" alt="The add a client application form is displayed as described."></p>
 </li>
 </ol>
 <h4 id="update-the-api-application-manifest">Update the API application manifest</h4>
@@ -283,21 +263,21 @@
 <li><p>Browse to <strong>Identity</strong> &gt; <strong>Applications</strong> &gt; <strong>App registrations</strong>.</p>
 <p><img src="media/entra-app-registrations.png" alt="The app registrations menu item in the left-hand menu is highlighted."></p>
 </li>
-<li><p>Select the <code>FoundationaLLM-Client</code> application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</p>
+<li><p>Select the <code>FoundationaLLM-ManagementClient</code> application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</p>
 </li>
 <li><p>Select <strong>API permissions</strong>.</p>
 </li>
 <li><p>Select <strong>+ Add a permission</strong> under the &quot;Configured permissions&quot; section.</p>
 </li>
-<li><p>In the &quot;Request API permissions&quot; pan, select the <strong>My APIs</strong> tab, then select the <code>FoundationaLLM</code> API application.</p>
-<p><img src="media/entra-app-add-api-permission.png" alt="The FoundationaLLM API is selected under My APIs."></p>
+<li><p>In the &quot;Request API permissions&quot; pan, select the <strong>My APIs</strong> tab, then select the <code>FoundationaLLM-Management</code> API application.</p>
+<p><img src="media/entra-app-add-management-api-permission.png" alt="The FoundationaLLM API is selected under My APIs."></p>
 </li>
-<li><p>Select the <code>Data.Read</code> scope that you created earlier, then select <strong>Add permissions</strong>.</p>
-<p><img src="media/entra-app-add-api-permission-scope.png" alt="The Data.Read scope is selected."></p>
+<li><p>Select the <code>Data.Manage</code> scope that you created earlier, then select <strong>Add permissions</strong>.</p>
+<p><img src="media/entra-app-add-management-api-permission-scope.png" alt="The Data.Manage scope is selected."></p>
 </li>
 </ol>
 <p>The client application's configured permissions should now look like the following:</p>
-<p><img src="media/entra-app-configured-permissions.png" alt="The client application's configured permissions are displayed."></p>
+<p><img src="media/entra-management-app-configured-permissions.png" alt="The client application's configured permissions are displayed."></p>
 <h3 id="update-app-configuration-settings">Update App Configuration settings</h3>
 <ol>
 <li><p>Sign in to the <a href="https://portal.azure.com/">Azure portal</a> as at least a Contributor.</p>
@@ -315,20 +295,19 @@
 </li>
 <li><p>Replace the values for the following settings with the values that you recorded earlier:</p>
 <ul>
-<li><code>FoundationaLLM:Chat:Entra:ClientId</code>: The <strong>Application (client) ID</strong> of the client application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
-<li><code>FoundationaLLM:Chat:Entra:Scopes</code>: The fully-qualified scopes path for the API application that you <a href="#expose-an-api-for-the-api-application">created earlier</a>. For example, it should look something like <code>api://d85a09ce067141d5807a/Data.Read</code>.</li>
-<li><code>FoundationaLLM:Chat:Entra:TenantId</code>: The <strong>Directory (tenant) ID</strong> of the client application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
-<li><code>FoundationaLLM:CoreAPI:Entra:ClientId</code>: The <strong>Application (client) ID</strong> of the API application that you <a href="#register-the-api-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
-<li><code>FoundationaLLM:CoreAPI:Entra:TenantId</code>: The <strong>Directory (tenant) ID</strong> of the API application that you <a href="#register-the-api-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
+<li><code>FoundationaLLM:Management:Entra:ClientId</code>: The <strong>Application (client) ID</strong> of the client application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
+<li><code>FoundationaLLM:Management:Entra:Scopes</code>: The fully-qualified scopes path for the API application that you <a href="#expose-an-api-for-the-api-application">created earlier</a>. For example, it should look something like <code>api://d85a09ce067141d5807a/Data.Manage</code>.</li>
+<li><code>FoundationaLLM:Management:Entra:TenantId</code>: The <strong>Directory (tenant) ID</strong> of the client application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
+<li><code>FoundationaLLM:ManagementAPI:Entra:ClientId</code>: The <strong>Application (client) ID</strong> of the API application that you <a href="#register-the-api-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
+<li><code>FoundationaLLM:ManagementAPI:Entra:TenantId</code>: The <strong>Directory (tenant) ID</strong> of the API application that you <a href="#register-the-api-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
 </ul>
 </li>
 <li><p>Validate the following values while reviewing the settings:</p>
 <ul>
-<li><code>FoundationaLLM:Chat:Entra:CallbackPath</code>: Should be <code>/signin-oidc</code>.</li>
-<li><code>FoundationaLLM:Chat:Entra:Instance</code>: Should be <code>https://login.microsoftonline.com/</code>.</li>
-<li><code>FoundationaLLM:CoreAPI:Entra:CallbackPath</code>: Should be <code>/signin-oidc</code>.</li>
-<li><code>FoundationaLLM:CoreAPI:Entra:Instance</code>: Should be <code>https://login.microsoftonline.com/</code>.</li>
-<li><code>FoundationaLLM:CoreAPI:Entra:Scopes</code>: Should be <code>Data.Read</code>.</li>
+<li><code>FoundationaLLM:Management:Entra:CallbackPath</code>: Should be <code>/signin-oidc</code>.</li>
+<li><code>FoundationaLLM:Management:Entra:Instance</code>: Should be <code>https://login.microsoftonline.com/</code>.</li>
+<li><code>FoundationaLLM:ManagementAPI:Entra:Instance</code>: Should be <code>https://login.microsoftonline.com/</code>.</li>
+<li><code>FoundationaLLM:ManagementAPI:Entra:Scopes</code>: Should be <code>Data.Manage</code>.</li>
 </ul>
 </li>
 <li><p>Select <strong>Apply</strong> to save the changes.</p>
@@ -341,34 +320,38 @@ Key Vault stores the secrets for the client and API applications. You need to up
 1. Return to the [Azure portal](https://portal.azure.com/).
 2. Navigate to the resource group that was created as part of the deployment.
 3. Select the **Key Vault** resource and select **Secrets**. If you cannot see the secrets, add your user account as a **Key Vault Secrets Officer** through Access Control (IAM). You need this role in order to access the secrets and update them as a required part of the authentication setup.
-4. Open the `foundationallm-chat-entra-clientsecret` secret, then select **+ New Version**.
+4. Open the `foundationallm-management-entra-clientsecret` secret, then select **+ New Version**.
 5. Within the **Secret value** field, enter the **Client secret** of the client application that you [created earlier](#client-secret-for-the-client-application), then select **Create**.
-6. Open the `foundationallm-coreapi-entra-clientsecret` secret, then select **+ New Version**.
+6. Open the `foundationallm-managementapi-entra-clientsecret` secret, then select **+ New Version**.
 7. Within the **Secret value** field, enter the **Client secret** of the API application that you [created earlier](#client-secret-for-the-api-application), then select **Create**. -->
 <h2 id="next-steps">Next steps</h2>
-<p>Now that Entra authentication is fully configured, restart the Core API and chat applications to apply the changes. Navigate to your chat application or refresh the page if it is already open. It should automatically prompt you to sign in with your Microsoft Entra ID account.</p>
-<h3 id="restart-core-api-and-chat-ui-applications-in-an-aca-deployment">Restart Core API and Chat UI applications in an ACA Deployment</h3>
-<p>To restart the Core API and Chat applications in an Azure Container Apps (ACA) deployment, you will need to navigate to the Core API and Chat applications and restart their container revisions, as indicated in the following Azure Portal screenshot:</p>
-<p><img src="media/restart-coreapi-aca.png" alt="Restarting the Core API Azure Container App." title="Restarting the Container App in Azure Portal."></p>
-<ol>
-<li>From the <code>Revisions</code> blade in the left navigation panel of the Core API or Chat UI container app detail page in Azure Portal, select the name of the running revision.</li>
-<li>A dialog panel titled <code>Revision details</code> should appear on the right side of the browser with a <code>Restart</code> button at the top.  Select the <code>Restart</code> button to restart the running container.</li>
-</ol>
-<p>Restarting in this manner will need to be performed for both the Core API container app and the Chat UI container app.</p>
-<h3 id="restart-core-api-and-chat-ui-applications-in-an-aks-deployment">Restart Core API and Chat UI applications in an AKS Deployment</h3>
-<p>To restart the Core API and Chat applications in an Azure Kubernetes Service (AKS) deployment, you will need to navigate to the AKS detail page in Azure Portal and perform the following:</p>
-<ol>
-<li>Select the <code>Workloads</code> blade from the left navigation panel.</li>
-<li>Select the <code>Pods</code> tab from the <code>Workloads</code> detail page.</li>
-<li>Select the Core API and Chat UI pods from the list (it helps if you select <code>default</code> in the <code>Filter by namespace</code> dropdown first).</li>
-<li>Select the <code>Delete</code> button to terminate the currently running pods.  New pods will be instantiated to take their place.</li>
-</ol>
-<p><img src="media/restart-containers-aks.png" alt="Restarting containers in AKS." title="Restarting the Core API and Chat UI services in an AKS deployment."></p>
+<p>Now that Entra authentication is fully configured, restart the Management API and management portal applications to apply the changes. Navigate to your management portal application or refresh the page if it is already open. It should automatically prompt you to sign in with your Microsoft Entra ID account.</p>
+<!-- ### Restart Management API and Management Portal UI applications in an ACA Deployment
+
+To restart the Management API and management portal applications in an Azure Container Apps (ACA) deployment, you will need to navigate to the Management API and management portal applications and restart their container revisions, as indicated in the following Azure Portal screenshot:
+
+   ![Restarting the Core API Azure Container App.](media/restart-coreapi-aca.png "Restarting the Container App in Azure Portal.")
+
+   1. From the `Revisions` blade in the left navigation panel of the Core API or Chat UI container app detail page in Azure Portal, select the name of the running revision.
+   2. A dialog panel titled `Revision details` should appear on the right side of the browser with a `Restart` button at the top.  Select the `Restart` button to restart the running container.
+
+Restarting in this manner will need to be performed for both the Management API container app and the management portal container app.
+
+### Restart Management API and Management Portal UI applications in an AKS Deployment
+
+To restart the Management API and management portal applications in an Azure Kubernetes Service (AKS) deployment, you will need to navigate to the AKS detail page in Azure Portal and perform the following:
+
+   1. Select the `Workloads` blade from the left navigation panel.
+   2. Select the `Pods` tab from the `Workloads` detail page.
+   3. Select the Core API and Chat UI pods from the list (it helps if you select `default` in the `Filter by namespace` dropdown first).
+   4. Select the `Delete` button to terminate the currently running pods.  New pods will be instantiated to take their place.
+
+   ![Restarting containers in AKS.](media/restart-containers-aks.png "Restarting the Core API and Chat UI services in an AKS deployment.") -->
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/authentication/core-authentication-setup-entra.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/authentication-authorization/management-authentication-setup-entra.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

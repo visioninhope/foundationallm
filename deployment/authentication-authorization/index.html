@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/authentication/index.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/authentication-authorization/index.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,15 +75,20 @@
 
 <p>FoundationaLLM uses the <a href="https://learn.microsoft.com/entra/fundamentals/whatis">Microsoft Entra ID</a> service to authenticate users and applications. Check back for additional authentication providers in the future.</p>
 <h2 id="microsoft-entra-id">Microsoft Entra ID</h2>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The following steps are required to set up authentication and authorization for the solution. You will need to create app registrations in the Entra ID tenant in the Azure portal.  There are currently <strong>five</strong> app registrations required for the solution as listed below.  After you complete the 5 app registrations, you will need to finish the deployment process of the solution and revisit these app registrations to fill in some missing values that are generated during the deployment itself.</p>
+</div>
 <ul>
 <li><a href="core-authentication-setup-entra.html">Core API and user portal authentication setup - Microsoft Entra ID</a></li>
 <li><a href="management-authentication-setup-entra.html">Management API and portal authentication setup - Microsoft Entra ID</a></li>
+<li><a href="authorization-setup-entra.html">Authorization setup - Microsoft Entra ID</a></li>
 </ul>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/authentication/index.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/deployment/authentication-authorization/index.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
