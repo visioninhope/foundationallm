@@ -11,8 +11,8 @@ To enable Microsoft Entra ID authentication for the Management API and portal, y
 
 ### Pre-requisites
 
-> [!NOTE]
-> Make sure that you have [deployed the solution](../../deployment/index.md) before proceeding with the steps below.
+> [!IMPORTANT]
+> Be aware that after completing this registration and the other app registrations in Entra ID as instructed in the [docs](docs/deployment/authentication-authorization/index.md) you will complete the deployment steps outlined at [deploy the solution](../../deployment/deployment-starter.md) then you will be revisiting your app registrations to complete some of the settings that require the solution to be deployed before the entire app registration is completed successfully.
 
 #### Setup App Configuration access
 
