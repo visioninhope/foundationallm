@@ -15,13 +15,13 @@ namespace FoundationaLLM.Orchestration.Tests.Services
         [
             Substitute.For<ILLMOrchestrationService>(),
             Substitute.For<ILLMOrchestrationService>()
-        };
+        ];
         private readonly ILogger<OrchestrationService> _logger = Substitute.For<ILogger<OrchestrationService>>();
         private readonly OrchestrationService _orchestrationService;
         private IEnumerable<IResourceProviderService> _resourceProviderServices = new List<IResourceProviderService>
         {
             Substitute.For<IResourceProviderService>()
-        ];
+        };
         private readonly ICallContext _callContext = Substitute.For<ICallContext>();
         private readonly ILoggerFactory _loggerFactory =  Substitute.For<ILoggerFactory>();
         private readonly IConfiguration _configuration = Substitute.For<IConfiguration>();

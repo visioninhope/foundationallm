@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Orchestration;
