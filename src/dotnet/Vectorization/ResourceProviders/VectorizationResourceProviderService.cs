@@ -65,6 +65,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         private readonly ConcurrentDictionary<string, VectorizationProfileBase> _textPartitioningProfiles = [];
         private readonly ConcurrentDictionary<string, VectorizationProfileBase> _textEmbeddingProfiles = [];
         private readonly ConcurrentDictionary<string, VectorizationProfileBase> _indexingProfiles = [];
+        private readonly ConcurrentDictionary<string, VectorizationRequest> _vectorizationRequests = [];
         private readonly ConcurrentDictionary<string, VectorizationPipeline> _pipelines = [];
 
         private string _defaultTextPartitioningProfileName = string.Empty;
