@@ -12,6 +12,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="appsettings.development.json" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="Asp.Versioning.Http" Version="7.1.0" />
 	  <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.1.0" />
 	  <PackageReference Include="Azure.Identity" Version="1.10.4" />

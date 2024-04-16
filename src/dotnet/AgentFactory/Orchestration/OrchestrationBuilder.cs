@@ -69,7 +69,7 @@ namespace FoundationaLLM.AgentFactory.Core.Orchestration
 
             if (agentBase == null) return null;
             
-            if (agentBase.AgentType == typeof(KnowledgeManagementAgent) || agentBase.AgentType == typeof(InternalContextAgent))
+            if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
             {
                 var orchestrationType = string.IsNullOrWhiteSpace(agentBase.OrchestrationSettings?.Orchestrator)
                     ? LLMOrchestrationService.LangChain.ToString()
