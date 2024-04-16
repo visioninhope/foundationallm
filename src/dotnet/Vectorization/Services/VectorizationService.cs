@@ -3,13 +3,15 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.DataSource.Models;
-using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 
 namespace FoundationaLLM.Vectorization.Services
 {
@@ -42,6 +44,7 @@ namespace FoundationaLLM.Vectorization.Services
         private readonly IServiceProvider _serviceProvider = serviceProvider;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
         private readonly ILogger<VectorizationService> _logger = loggerFactory.CreateLogger<VectorizationService>();
+        private readonly string[] _httpProtocols = ["http", "https"];
 
         /// <inheritdoc/>
         public async Task<VectorizationResult> ProcessRequest(VectorizationRequest vectorizationRequest)

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using FoundationaLLM.Vectorization.Models;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 
 namespace FoundationaLLM.Vectorization.Validation.Resources
 {

@@ -87,6 +87,7 @@ namespace FoundationaLLM.Management.API
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
+            builder.Services.AddHttpClient();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
             // Add event services.

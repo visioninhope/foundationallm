@@ -1,15 +1,14 @@
-﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Storage;
-using FoundationaLLM.Common.Models.ResourceProvider;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
-using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.Models;
-using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.Services.DataSources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -105,7 +104,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         blobStorageServiceSettings);
                                     
                                     AzureDataLakeDataSourceService svc = new AzureDataLakeDataSourceService(
-                                                                       (AzureDataLakeDataSource)dataSource,
+                                                                       (AzureDataLakeDataSource)dataSource!,
                                                                        blobStorageServiceSettings,                                                                       
                                                                        _loggerFactory);
                                                                         

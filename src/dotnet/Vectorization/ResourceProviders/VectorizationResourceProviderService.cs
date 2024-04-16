@@ -1,4 +1,4 @@
-﻿using Azure.Messaging;
+using Azure.Messaging;
 using FluentValidation;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
@@ -8,8 +8,8 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
-using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -62,11 +62,11 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             VectorizationResourceProviderMetadata.AllowedResourceTypes;
 
-        private ConcurrentDictionary<string, VectorizationProfileBase> _textPartitioningProfiles = [];
-        private ConcurrentDictionary<string, VectorizationProfileBase> _textEmbeddingProfiles = [];
-        private ConcurrentDictionary<string, VectorizationProfileBase> _indexingProfiles = [];
-        private ConcurrentDictionary<string, VectorizationRequest> _vectorizationRequests = [];
-        private ConcurrentDictionary<string, VectorizationPipeline> _pipelines = [];
+        private readonly ConcurrentDictionary<string, VectorizationProfileBase> _textPartitioningProfiles = [];
+        private readonly ConcurrentDictionary<string, VectorizationProfileBase> _textEmbeddingProfiles = [];
+        private readonly ConcurrentDictionary<string, VectorizationProfileBase> _indexingProfiles = [];
+        private readonly ConcurrentDictionary<string, VectorizationRequest> _vectorizationRequests = [];
+        private readonly ConcurrentDictionary<string, VectorizationPipeline> _pipelines = [];
 
         private string _defaultTextPartitioningProfileName = string.Empty;
         private string _defaultTextEmbeddingProfileName = string.Empty;
