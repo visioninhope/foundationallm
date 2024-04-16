@@ -109,7 +109,7 @@ namespace FoundationaLLM
             downstreamAPISettings.DownstreamAPIs[HttpClients.VectorizationAPI] = vectorizationAPISettings;
             var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
             builder.Services
-                .AddHttpClient(HttpClients.AgentFactoryAPI,
+                .AddHttpClient(HttpClients.VectorizationAPI,
                     client => { client.BaseAddress = new Uri(vectorizationAPISettings.APIUrl); })
                 .AddResilienceHandler(
                     "DownstreamPipeline",
