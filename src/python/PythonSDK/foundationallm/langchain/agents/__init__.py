@@ -11,4 +11,4 @@ from .cxo_agent import CXOAgent
 from .search_service_agent import SearchServiceAgent
 from .internal_context_agent import InternalContextAgent
 from .knowledge_management_agent import KnowledgeManagementAgent
-from .agent_factory import AgentFactory
+from .agent_factory import Orchestration
