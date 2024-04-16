@@ -85,8 +85,25 @@
 <li><code>FoundationaLLM:Gateway:AzureOpenAIAccounts</code></li>
 </ul>
 </li>
-<li></li>
 </ol>
+<h2 id="release-070">Release 0.7.0</h2>
+<ol>
+<li><p>The <code>AgentFactory</code> and <code>AgentFactoryAPI</code> classes have been renamed to <code>Orchestration</code> and <code>OrchestrationAPI</code>, respectively. The following App Config settings need to be replaced in existing environments:</p>
+<ul>
+<li><code>FoundationaLLM:APIs:AgentFactoryAPI:APIKey</code> -&gt; <code>FoundationaLLM:APIs:OrchestrationAPI:APIKey</code></li>
+<li><code>FoundationaLLM:APIs:AgentFactoryAPI:APIUrl</code> -&gt; <code>FoundationaLLM:APIs:OrchestrationAPI:APIUrl</code></li>
+<li><code>FoundationaLLM:APIs:AgentFactoryAPI:AppInsightsConnectionString</code> -&gt; <code>FoundationaLLM:APIs:OrchestrationAPI:AppInsightsConnectionString</code></li>
+<li><code>FoundationaLLM:Events:AzureEventGridEventService:Profiles:AgentFactoryAPI</code> -&gt; <code>FoundationaLLM:Events:AzureEventGridEventService:Profiles:OrchestrationAPI</code></li>
+<li><code>FoundationaLLM:APIs:AgentFactoryAPI:ForceHttpsRedirection</code> -? <code>FoundationaLLM:APIs:OrchestrationAPI:ForceHttpsRedirection</code></li>
+</ul>
+</li>
+<li><p>The following Key Vault secrets need to be replaced in existing environments:</p>
+<ul>
+<li><code>foundationallm-apis-agentfactoryapi-apikey</code> -&gt; <code>foundationallm-apis-orchestrationapi-apikey</code></li>
+</ul>
+</li>
+</ol>
+<p>* There is an upgrade script available that migrates these settings and secrets to their new names.</p>
 
 </article>
 

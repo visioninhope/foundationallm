@@ -79,7 +79,7 @@
 <pre><code class="lang-mermaid">sequenceDiagram
     actor U as Caller
     participant C as CoreAPI
-    participant A as AgentFactoryAPI
+    participant A as OrchestrationAPI
     participant O as OrchestrationWrapperAPI
 
     U-&gt;&gt;C: Calls Orchestration endpoint
@@ -94,13 +94,13 @@
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>The AgentFactoryAPI contains a caching layer for the full agent metadata, including the agent, its datasource(s), and prompts. This caching layer is used to improve performance by reducing the number of calls to the underlying hubs. The AgentFactoryAPI also includes endpoints to clear the cache across different categories. In the more detailed diagram below, you can see that the AgentFactoryAPI calls the AgentHubAPI, PromptHubAPI, and DataSourceHubAPI to retrieve the agent metadata.</p>
+<p>The OrchestrationAPI contains a caching layer for the full agent metadata, including the agent, its datasource(s), and prompts. This caching layer is used to improve performance by reducing the number of calls to the underlying hubs. The OrchestrationAPI also includes endpoints to clear the cache across different categories. In the more detailed diagram below, you can see that the OrchestrationAPI calls the AgentHubAPI, PromptHubAPI, and DataSourceHubAPI to retrieve the agent metadata.</p>
 </div>
 <p>When we look a level deeper, we see that there are several interactions between the APIs that occur during the call chain. The following diagram shows a more detailed flow of the API architecture:</p>
 <pre><code class="lang-mermaid">graph TD;
     A[CoreAPI] --&gt;|1. User Request| B[GatekeeperAPI] --&gt;|Gatekeeper Extensions| BB[GatekeeperIntegrationAPI]
-    A -...-&gt;|&quot;1a. User Request (Bypass Gatekeeper)&quot;| C[AgentFactoryAPI]
-    B ----&gt;|2. Processed Request| C[AgentFactoryAPI]
+    A -...-&gt;|&quot;1a. User Request (Bypass Gatekeeper)&quot;| C[OrchestrationAPI]
+    B ----&gt;|2. Processed Request| C[OrchestrationAPI]
     C --&gt;|3. Request| E[(AgentHubAPI)]
     C ---&gt;|4. Instantiate Agent| D[[Agent]]
     D --&gt;|Request| F[(PromptHubAPI)]

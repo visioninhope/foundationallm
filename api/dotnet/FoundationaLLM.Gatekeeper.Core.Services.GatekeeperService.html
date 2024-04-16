@@ -181,12 +181,12 @@ Class GatekeeperService  <a class="header-action link-secondary" title="View sou
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public GatekeeperService(IDownstreamAPIService agentFactoryAPIService, IContentSafetyService contentSafetyService, IGatekeeperIntegrationAPIService gatekeeperIntegrationAPIService, IOptions&lt;GatekeeperServiceSettings&gt; gatekeeperServiceSettings)</code></pre>
+    <pre><code class="lang-csharp hljs">public GatekeeperService(IDownstreamAPIService orchestrationAPIService, IContentSafetyService contentSafetyService, IGatekeeperIntegrationAPIService gatekeeperIntegrationAPIService, IOptions&lt;GatekeeperServiceSettings&gt; gatekeeperServiceSettings)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>agentFactoryAPIService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html">IDownstreamAPIService</a></dt>
+    <dt><code>orchestrationAPIService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html">IDownstreamAPIService</a></dt>
     <dd><p>The Agent Factory API client.</p>
 </dd>
     <dt><code>contentSafetyService</code> <a class="xref" href="FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.html">IContentSafetyService</a></dt>
