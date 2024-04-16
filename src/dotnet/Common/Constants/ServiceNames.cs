@@ -67,5 +67,9 @@ namespace FoundationaLLM.Common.Constants
         /// The name of the Authorization API service.
         /// </summary>
         public const string AuthorizationAPI = "AuthorizationAPI";
+        /// <summary>
+        /// The name of the Gateway API service.
+        /// </summary>
+        public const string GatewayAPI = "GatewayAPI";
     }
 }

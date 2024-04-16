@@ -13,6 +13,13 @@ using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Prompt.Models.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Text;
+using System.Text.Json;
+using FoundationaLLM.Common.Extensions;
+using FoundationaLLM.Common.Models.Orchestration.Direct;
+using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 
 namespace FoundationaLLM.Orchestration.Core.Services
 {

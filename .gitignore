@@ -387,3 +387,6 @@ log
 deploy/quick-start/.env
 **/management-api-event-profile.json
 **/testsettings.json
+
+# SonarCube
+.sonarqube/

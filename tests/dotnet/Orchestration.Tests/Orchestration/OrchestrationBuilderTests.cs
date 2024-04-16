@@ -70,7 +70,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
         }
 
         [Fact]
-        public void Build_WithInvalidOrchestrationType_ThrowsArgumentException()
+        public async Task Build_WithInvalidOrchestrationType_ThrowsArgumentException()
         {
             // Arrange
             var agentResponse = new AgentHubResponse
@@ -82,7 +82,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
             _agentHubAPIService.ResolveRequest(userPrompt, sessionId).Returns(agentResponse);
 
             // Act & Assert
-            Assert.ThrowsAsync<ArgumentException>(async () =>
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
                 await OrchestrationBuilder.Build(
                 new CompletionRequest() { UserPrompt = userPrompt },
                 _callContext,
