@@ -1,7 +1,7 @@
 locals {
   config_key_kv = {
     "FoundationaLLM:APIs:OrchestrationAPI:APIUrl" = {
-      value = "http://foundationallm-agent-factory-api/orchestration"
+      value = "http://foundationallm-orchestration-api/orchestration"
     }
     "FoundationaLLM:APIs:AgentHubAPI:APIUrl" = {
       value = "http://foundationallm-agent-hub-api/agenthub"

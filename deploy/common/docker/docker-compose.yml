@@ -37,8 +37,8 @@ services:
       Logging__Loglevel__Default: 'Debug'
       Logging__Loglevel__Microsoft__AspNetCore: 'Debug'
 
-  agent-factory-api:
-    image: ${REGISTRY:-foundationallm}/agent-factory-api:${TAG:-latest}
+  orchestration-api:
+    image: ${REGISTRY:-foundationallm}/orchestration-api:${TAG:-latest}
     build:
       context: ../../../src/
       dockerfile: ./dotnet/OrchestrationAPI/Dockerfile

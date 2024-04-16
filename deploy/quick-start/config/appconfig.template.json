@@ -2,7 +2,7 @@
   "items": [
     {
       "key": "FoundationaLLM:APIs:OrchestrationAPI:APIKey",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/agent-factory-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/orchestration-api-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}

@@ -37,7 +37,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:OrchestrationAPI:APIUrl",
-        "value": "http://agent-factory-api/orchestration",
+        "value": "http://orchestration-api/orchestration",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -821,7 +821,7 @@
       },
       {
         "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:OrchestrationAPI",
-        "value": "{{agentFactoryApiEventGridProfile}}",
+        "value": "{{orchestrationApiEventGridProfile}}",
         "label": null,
         "content_type": "application/json",
         "tags": {}

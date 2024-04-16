@@ -32,7 +32,7 @@ try {
     }
 
     $chartNames = @{
-        "agent-factory-api"          = @{
+        "orchestration-api"          = @{
             image  = "orchestration-api"
             values = "../config/helm/microservice-values.yml"
         }
