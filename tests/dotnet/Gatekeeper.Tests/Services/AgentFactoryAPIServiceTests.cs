@@ -10,13 +10,13 @@ using FoundationaLLM.Common.Services.API;
 
 namespace Gatekeeper.Tests.Services
 {
-    public class AgentFactoryAPIServiceTests
+    public class OrchestrationAPIServiceTests
     {
         private readonly DownstreamAPIService _testedService;
 
         private readonly IHttpClientFactoryService _httpClientFactoryService = Substitute.For<IHttpClientFactoryService>();
         
-        public AgentFactoryAPIServiceTests()
+        public OrchestrationAPIServiceTests()
         {
             _testedService = new DownstreamAPIService(HttpClients.AgentHubAPI, 
                 _httpClientFactoryService);
