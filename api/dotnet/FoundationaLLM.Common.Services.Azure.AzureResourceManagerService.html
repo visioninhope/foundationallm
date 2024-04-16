@@ -298,6 +298,45 @@ Class AzureResourceManagerService  <a class="header-action link-secondary" title
 
 
 
+  <a id="FoundationaLLM_Common_Services_Azure_AzureResourceManagerService_GetOpenAIAccountProperties_" data-uid="FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.GetOpenAIAccountProperties*"></a>
+
+  <h3 id="FoundationaLLM_Common_Services_Azure_AzureResourceManagerService_GetOpenAIAccountProperties_System_String_" data-uid="FoundationaLLM.Common.Services.Azure.AzureResourceManagerService.GetOpenAIAccountProperties(System.String)">
+  GetOpenAIAccountProperties(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/Azure/AzureResourceManagerService.cs/#L80"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the properties of an Azure OpenAI account.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;AzureOpenAIAccount&gt; GetOpenAIAccountProperties(string openAIAccountResourceId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>openAIAccountResourceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The Azure resource identifier of the Azure OpenAI account.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Azure.AzureOpenAIAccount.html">AzureOpenAIAccount</a>&gt;</dt>
+    <dd><p>An <a class="xref" href="FoundationaLLM.Common.Models.Azure.AzureOpenAIAccount.html">AzureOpenAIAccount</a> object with the properties of the account, including model deployments.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 

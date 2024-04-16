@@ -76,6 +76,16 @@
 <h2 id="release-060">Release 0.6.0</h2>
 <ol>
 <li>Vectorization resource stores use a unique collection name, <code>Resources</code>. They also add a new top-level property named <code>DefaultResourceName</code>.</li>
+<li>The items in the <code>index_references</code> collection have an property incorrectly named <code>type</code> which was renamed to <code>index_entry_id</code>.</li>
+<li>New gateway API, requires the following app configurations:
+<ul>
+<li><code>FoundationaLLM:APIs:GatewayAPI:APIUrl</code></li>
+<li><code>FoundationaLLM:APIs:GatewayAPI:APIKey</code> (with secret <code>foundationallm-apis-gatewayapi-apikey</code>)</li>
+<li><code>FoundationaLLM:APIs:GatewayAPI:AppInsightsConnectionString</code> (with secret <code>foundationallm-app-insights-connection-string</code>)</li>
+<li><code>FoundationaLLM:Gateway:AzureOpenAIAccounts</code></li>
+</ul>
+</li>
+<li></li>
 </ol>
 
 </article>

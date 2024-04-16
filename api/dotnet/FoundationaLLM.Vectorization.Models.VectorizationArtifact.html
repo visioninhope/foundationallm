@@ -198,7 +198,7 @@ public string? CanonicalId { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationArtifact_Content" data-uid="FoundationaLLM.Vectorization.Models.VectorizationArtifact.Content">
   Content
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationArtifact.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationArtifact.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The content of the artifact.</p>
@@ -231,7 +231,7 @@ public string? Content { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationArtifact_IsDirty" data-uid="FoundationaLLM.Vectorization.Models.VectorizationArtifact.IsDirty">
   IsDirty
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationArtifact.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationArtifact.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Indicates the need to persist the content of the artifact.</p>
@@ -276,6 +276,41 @@ This is relevant only for artifact types that can have multiple parts.</p>
     <pre><code class="lang-csharp hljs">[JsonPropertyOrder(3)]
 [JsonPropertyName(&quot;position&quot;)]
 public int Position { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Vectorization_Models_VectorizationArtifact_Size_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationArtifact.Size*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationArtifact_Size" data-uid="FoundationaLLM.Vectorization.Models.VectorizationArtifact.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationArtifact.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The size of the vectorization artifact.
+The unit of measure is determined by the artifact type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyOrder(4)]
+[JsonPropertyName(&quot;size&quot;)]
+public int Size { get; set; }</code></pre>
   </div>
 
 

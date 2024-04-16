@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_SemanticKernel_Core_Exceptions_SemanticKernelException" data-uid="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException" class="text-break">
-Class SemanticKernelException  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Exceptions/SemanticKernelException.cs/#L6"><i class="bi bi-code-slash"></i></a>
+Class SemanticKernelException  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Exceptions/SemanticKernelException.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -102,7 +102,7 @@ Class SemanticKernelException  <a class="header-action link-secondary" title="Vi
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class SemanticKernelException : Exception, ISerializable</code></pre>
+    <pre><code class="lang-csharp hljs">public class SemanticKernelException : HttpStatusCodeException, ISerializable</code></pre>
   </div>
 
 
@@ -113,6 +113,7 @@ Class SemanticKernelException  <a class="header-action link-secondary" title="Vi
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Exceptions.HttpStatusCodeException.html">HttpStatusCodeException</a></div>
       <div><span class="xref">SemanticKernelException</span></div>
     </dd>
   </dl>
@@ -128,6 +129,9 @@ Class SemanticKernelException  <a class="header-action link-secondary" title="Vi
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Exceptions.HttpStatusCodeException.html#FoundationaLLM_Common_Exceptions_HttpStatusCodeException_StatusCode">HttpStatusCodeException.StatusCode</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception.getbaseexception">Exception.GetBaseException()</a>
     </div>
@@ -201,10 +205,10 @@ Class SemanticKernelException  <a class="header-action link-secondary" title="Vi
 
   <h3 id="FoundationaLLM_SemanticKernel_Core_Exceptions_SemanticKernelException__ctor" data-uid="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException.#ctor">
   SemanticKernelException()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Exceptions/SemanticKernelException.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Exceptions/SemanticKernelException.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException.html">SemanticKernelException</a> class with a default message.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the GatewayException class with a default message.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -226,9 +230,9 @@ Class SemanticKernelException  <a class="header-action link-secondary" title="Vi
 
   <a id="FoundationaLLM_SemanticKernel_Core_Exceptions_SemanticKernelException__ctor_" data-uid="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_SemanticKernel_Core_Exceptions_SemanticKernelException__ctor_System_String_" data-uid="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException.#ctor(System.String)">
-  SemanticKernelException(string?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Exceptions/SemanticKernelException.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_SemanticKernel_Core_Exceptions_SemanticKernelException__ctor_System_String_System_Exception_System_Int32_" data-uid="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException.#ctor(System.String,System.Exception,System.Int32)">
+  SemanticKernelException(string?, Exception?, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Exceptions/SemanticKernelException.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException.html">SemanticKernelException</a> class with its message set to <code class="paramref">message</code>.</p>
@@ -236,13 +240,19 @@ Class SemanticKernelException  <a class="header-action link-secondary" title="Vi
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SemanticKernelException(string? message)</code></pre>
+    <pre><code class="lang-csharp hljs">public SemanticKernelException(string? message, Exception? innerException, int statusCode = 500)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>message</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>A string that describes the error.</p>
+</dd>
+    <dt><code>innerException</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd><p>The exception that is the cause of the current exception.</p>
+</dd>
+    <dt><code>statusCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The HTTP status code associated with the exception.</p>
 </dd>
   </dl>
 
@@ -259,9 +269,9 @@ Class SemanticKernelException  <a class="header-action link-secondary" title="Vi
 
   <a id="FoundationaLLM_SemanticKernel_Core_Exceptions_SemanticKernelException__ctor_" data-uid="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_SemanticKernel_Core_Exceptions_SemanticKernelException__ctor_System_String_System_Exception_" data-uid="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException.#ctor(System.String,System.Exception)">
-  SemanticKernelException(string?, Exception?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Exceptions/SemanticKernelException.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_SemanticKernel_Core_Exceptions_SemanticKernelException__ctor_System_String_System_Int32_" data-uid="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException.#ctor(System.String,System.Int32)">
+  SemanticKernelException(string?, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Exceptions/SemanticKernelException.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.SemanticKernel.Core.Exceptions.SemanticKernelException.html">SemanticKernelException</a> class with its message set to <code class="paramref">message</code>.</p>
@@ -269,7 +279,7 @@ Class SemanticKernelException  <a class="header-action link-secondary" title="Vi
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SemanticKernelException(string? message, Exception? innerException)</code></pre>
+    <pre><code class="lang-csharp hljs">public SemanticKernelException(string? message, int statusCode = 500)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -277,8 +287,8 @@ Class SemanticKernelException  <a class="header-action link-secondary" title="Vi
     <dt><code>message</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>A string that describes the error.</p>
 </dd>
-    <dt><code>innerException</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
-    <dd><p>The exception that is the cause of the current exception.</p>
+    <dt><code>statusCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The HTTP status code associated with the exception.</p>
 </dd>
   </dl>
 
@@ -297,7 +307,7 @@ Class SemanticKernelException  <a class="header-action link-secondary" title="Vi
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Exceptions/SemanticKernelException.cs/#L6" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Exceptions/SemanticKernelException.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

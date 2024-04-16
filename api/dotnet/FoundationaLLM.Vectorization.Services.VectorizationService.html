@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Services_VectorizationService" data-uid="FoundationaLLM.Vectorization.Services.VectorizationService" class="text-break">
-Class VectorizationService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L28"><i class="bi bi-code-slash"></i></a>
+Class VectorizationService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -173,7 +173,7 @@ Class VectorizationService  <a class="header-action link-secondary" title="View 
 
   <h3 id="FoundationaLLM_Vectorization_Services_VectorizationService__ctor_FoundationaLLM_Vectorization_Interfaces_IRequestSourcesCache_FoundationaLLM_Vectorization_Interfaces_IVectorizationStateService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfigurationSection_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationService.#ctor(FoundationaLLM.Vectorization.Interfaces.IRequestSourcesCache,FoundationaLLM.Vectorization.Interfaces.IVectorizationStateService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfigurationSection,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
   VectorizationService(IRequestSourcesCache, IVectorizationStateService, IEnumerable&lt;IResourceProviderService&gt;, IConfigurationSection, IServiceProvider, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Implements the <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IVectorizationService.html">IVectorizationService</a> interface.</p>
@@ -226,9 +226,9 @@ Class VectorizationService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_Vectorization_Services_VectorizationService_ProcessRequest_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationService.ProcessRequest*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationService_ProcessRequest_FoundationaLLM_Vectorization_Models_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationService.ProcessRequest(FoundationaLLM.Vectorization.Models.VectorizationRequest)">
+  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationService_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)">
   ProcessRequest(VectorizationRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Processes an incoming vectorization request.</p>
@@ -241,14 +241,14 @@ Class VectorizationService  <a class="header-action link-secondary" title="View 
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>vectorizationRequest</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a></dt>
-    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationRequest.html">VectorizationRequest</a> object containing the details of the vectorization request.</p>
+    <dt><code>vectorizationRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html">VectorizationRequest</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html">VectorizationRequest</a> object containing the details of the vectorization request.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationResult.html">VectorizationResult</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationResult.html">VectorizationResult</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -266,7 +266,7 @@ Class VectorizationService  <a class="header-action link-secondary" title="View 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L28" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationService.cs/#L30" class="edit-link">Edit this page</a>
         </div>
 
 

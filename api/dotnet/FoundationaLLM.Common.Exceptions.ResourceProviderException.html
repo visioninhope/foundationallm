@@ -102,7 +102,7 @@ Class ResourceProviderException  <a class="header-action link-secondary" title="
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ResourceProviderException : Exception, ISerializable</code></pre>
+    <pre><code class="lang-csharp hljs">public class ResourceProviderException : HttpStatusCodeException, ISerializable</code></pre>
   </div>
 
 
@@ -113,6 +113,7 @@ Class ResourceProviderException  <a class="header-action link-secondary" title="
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Exceptions.HttpStatusCodeException.html">HttpStatusCodeException</a></div>
       <div><span class="xref">ResourceProviderException</span></div>
     </dd>
   </dl>
@@ -128,6 +129,9 @@ Class ResourceProviderException  <a class="header-action link-secondary" title="
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Exceptions.HttpStatusCodeException.html#FoundationaLLM_Common_Exceptions_HttpStatusCodeException_StatusCode">HttpStatusCodeException.StatusCode</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception.getbaseexception">Exception.GetBaseException()</a>
     </div>
@@ -201,7 +205,7 @@ Class ResourceProviderException  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Common_Exceptions_ResourceProviderException__ctor" data-uid="FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor">
   ResourceProviderException()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Exceptions/ResourceProviderException.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Exceptions/ResourceProviderException.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.Common.Exceptions.ResourceProviderException.html">ResourceProviderException</a> class with a default message.</p>
@@ -228,7 +232,7 @@ Class ResourceProviderException  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Common_Exceptions_ResourceProviderException__ctor_System_String_System_Exception_System_Int32_" data-uid="FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor(System.String,System.Exception,System.Int32)">
   ResourceProviderException(string?, Exception?, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Exceptions/ResourceProviderException.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Exceptions/ResourceProviderException.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.Common.Exceptions.ResourceProviderException.html">ResourceProviderException</a> class with its message set to <code class="paramref">message</code>.</p>
@@ -267,7 +271,7 @@ Class ResourceProviderException  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Common_Exceptions_ResourceProviderException__ctor_System_String_System_Int32_" data-uid="FoundationaLLM.Common.Exceptions.ResourceProviderException.#ctor(System.String,System.Int32)">
   ResourceProviderException(string?, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Exceptions/ResourceProviderException.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Exceptions/ResourceProviderException.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.Common.Exceptions.ResourceProviderException.html">ResourceProviderException</a> class with its message set to <code class="paramref">message</code>.</p>
@@ -291,42 +295,6 @@ Class ResourceProviderException  <a class="header-action link-secondary" title="
 
 
 
-
-
-
-
-
-
-
-
-  <h2 class="section" id="properties">Properties
-</h2>
-
-
-  <a id="FoundationaLLM_Common_Exceptions_ResourceProviderException_StatusCode_" data-uid="FoundationaLLM.Common.Exceptions.ResourceProviderException.StatusCode*"></a>
-
-  <h3 id="FoundationaLLM_Common_Exceptions_ResourceProviderException_StatusCode" data-uid="FoundationaLLM.Common.Exceptions.ResourceProviderException.StatusCode">
-  StatusCode
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Exceptions/ResourceProviderException.cs/#L13"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Provides the HTTP status code associated with the exception.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int StatusCode { get; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-  </dl>
 
 
 
