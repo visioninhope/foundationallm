@@ -13,16 +13,16 @@ namespace FoundationaLLM.Orchestration.API.Controllers
     /// <remarks>
     /// Constructor for the Agent Factory orchestration controller
     /// </remarks>
-    /// <param name="agentFactoryService"></param>
+    /// <param name="orchestrationService"></param>
     /// <param name="logger"></param>
     [ApiController]
     [APIKeyAuthentication]
     [Route("[controller]")]
     public class OrchestrationController(
-        IOrchestrationService agentFactoryService,
+        IOrchestrationService orchestrationService,
         ILogger<OrchestrationController> logger) : ControllerBase
     {
-        private readonly IOrchestrationService _agentFactoryService = agentFactoryService;
+        private readonly IOrchestrationService _orchestrationService = orchestrationService;
         private readonly ILogger<OrchestrationController> _logger = logger;
 
         /// <summary>
@@ -32,6 +32,6 @@ namespace FoundationaLLM.Orchestration.API.Controllers
         /// <returns></returns>
         [HttpPost("completion")]
         public async Task<CompletionResponse> GetCompletion([FromBody] CompletionRequest completionRequest) =>
-            await _agentFactoryService.GetCompletion(completionRequest);
+            await _orchestrationService.GetCompletion(completionRequest);
     }
 }

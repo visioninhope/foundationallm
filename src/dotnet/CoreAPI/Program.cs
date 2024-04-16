@@ -256,17 +256,17 @@ namespace FoundationaLLM.Core.API
                             CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                         });
 
-            var agentFactoryAPISettings = new DownstreamAPIKeySettings
+            var orchestrationAPISettings = new DownstreamAPIKeySettings
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
                 APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!
             };
 
-            downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = agentFactoryAPISettings;
+            downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = orchestrationAPISettings;
 
             builder.Services
                     .AddHttpClient(HttpClients.OrchestrationAPI,
-                        client => { client.BaseAddress = new Uri(agentFactoryAPISettings.APIUrl); })
+                        client => { client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl); })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>

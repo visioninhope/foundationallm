@@ -20,7 +20,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
         private readonly IPromptHubAPIService _promptHubAPIService = Substitute.For<IPromptHubAPIService>();
         private readonly IDataSourceHubAPIService _dataSourceHubAPIService = Substitute.For<IDataSourceHubAPIService>();
         private readonly ILogger<OrchestrationService> _logger = Substitute.For<ILogger<OrchestrationService>>();
-        private readonly OrchestrationService _agentFactoryService;
+        private readonly OrchestrationService _orchestrationService;
         private IEnumerable<IResourceProviderService> _resourceProviderServices = new List<IResourceProviderService>
         {
             Substitute.For<IResourceProviderService>()
@@ -32,7 +32,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
 
         public OrchestrationServiceTests()
         {
-            _agentFactoryService = new OrchestrationService(
+            _orchestrationService = new OrchestrationService(
                 _resourceProviderServices,
                 _orchestrationServices,
                 _callContext,
@@ -54,7 +54,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
             };
 
             // Act
-            var result = await _agentFactoryService.GetCompletion(completionRequest);
+            var result = await _orchestrationService.GetCompletion(completionRequest);
 
             // Assert
             Assert.NotNull(result);
@@ -65,7 +65,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
         public async Task GetCompletion_ExceptionThrown_ReturnsErrorResponse()
         {
             // Act 
-            var result = await _agentFactoryService.GetCompletion(new CompletionRequest() { UserPrompt = "Error" });
+            var result = await _orchestrationService.GetCompletion(new CompletionRequest() { UserPrompt = "Error" });
 
             // Assert
             Assert.NotNull(result);
