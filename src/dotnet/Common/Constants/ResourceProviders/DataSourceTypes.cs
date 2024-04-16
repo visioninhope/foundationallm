@@ -29,5 +29,10 @@
         /// SharePoint Online Site data source.
         /// </summary>
         public const string SharePointOnlineSite = "sharepoint-online-site";
+
+        /// <summary>
+        /// Web Site data source.
+        /// </summary>
+        public const string WebSite = "web-site";
     }
 }
