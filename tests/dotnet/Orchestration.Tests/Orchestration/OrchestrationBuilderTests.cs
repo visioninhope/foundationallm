@@ -1,7 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.Hubs;
 using FoundationaLLM.Common.Models.Orchestration;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
@@ -16,14 +15,11 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
     public class OrchestrationBuilderTests
     {
         private string userPrompt = "TestPrompt";
-        private readonly IAgentHubAPIService _agentHubAPIService = Substitute.For<IAgentHubAPIService>();
         private readonly ILangChainService _langChainService = Substitute.For<ILangChainService>();
         private readonly ICallContext _callContext = Substitute.For<ICallContext>();
         private Dictionary<string, IResourceProviderService> _resourceProviderServices = new Dictionary<string, IResourceProviderService>();
         private readonly ISemanticKernelService _semanticKernelService = Substitute.For<ISemanticKernelService>();
         private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices;
-        private readonly IPromptHubAPIService _promptHubAPIService = Substitute.For<IPromptHubAPIService>();
-        private readonly IDataSourceHubAPIService _dataSourceHubAPIService = Substitute.For<IDataSourceHubAPIService>();
         private readonly IConfiguration _configuration = Substitute.For<IConfiguration>();
         private ILoggerFactory _loggerFactory = Substitute.For<ILoggerFactory>();
 
@@ -49,51 +45,49 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
             var agentResourceProvider = Substitute.For<IResourceProviderService>();
             var knowledgeManagementAgent = new KnowledgeManagementAgent() { Name = "knowledge-management", ObjectId = "Test_objectid", Type = AgentTypes.KnowledgeManagement };
             var agentList = new List<AgentBase> { knowledgeManagementAgent };
-            agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity).Returns(agentList);
+            agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext?.CurrentUserIdentity!).Returns(agentList);
 
             _resourceProviderServices.Add(ResourceProviderNames.FoundationaLLM_Agent, agentResourceProvider);
 
             // Act
+            
             var result = await OrchestrationBuilder.Build(
                 completionRequest,
-                _callContext,
+                _callContext!,
                 _configuration,
                 _resourceProviderServices,
-                _agentHubAPIService,
                 _orchestrationServices,
-                _promptHubAPIService,
-                _dataSourceHubAPIService,
                 _loggerFactory);
 
             // Assert
             Assert.NotNull(result);
         }
 
-        [Fact]
-        public async Task Build_WithInvalidOrchestrationType_ThrowsArgumentException()
-        {
-            // Arrange
-            var agentResponse = new AgentHubResponse
-            {
-                Agent = new AgentMetadata { Orchestrator = "InvalidOrchestrator" }
-            };
-            var sessionId = "TestSessionId";
+        //[Fact]
+        //public async Task Build_WithInvalidOrchestrationType_ThrowsArgumentException()
+        //{
+        //    // Arrange
+        //    var agentResponse = new AgentHubResponse
+        //    {
+        //        Agent = new AgentMetadata { Orchestrator = "InvalidOrchestrator" }
+        //    };
+        //    var sessionId = "TestSessionId";
 
-            _agentHubAPIService.ResolveRequest(userPrompt, sessionId).Returns(agentResponse);
+        //    _agentHubAPIService.ResolveRequest(userPrompt, sessionId).Returns(agentResponse);
 
-            // Act & Assert
-            await Assert.ThrowsAsync<ArgumentException>(async () =>
-                await OrchestrationBuilder.Build(
-                new CompletionRequest() { UserPrompt = userPrompt },
-                _callContext,
-                _configuration,
-                _resourceProviderServices,
-                _agentHubAPIService,
-                _orchestrationServices,
-                _promptHubAPIService,
-                _dataSourceHubAPIService,
-                _loggerFactory));
-        }
+        //    // Act & Assert
+        //    await Assert.ThrowsAsync<ArgumentException>(async () =>
+        //        await OrchestrationBuilder.Build(
+        //        new CompletionRequest() { UserPrompt = userPrompt },
+        //        _callContext,
+        //        _configuration,
+        //        _resourceProviderServices,
+        //        _agentHubAPIService,
+        //        _orchestrationServices,
+        //        _promptHubAPIService,
+        //        _dataSourceHubAPIService,
+        //        _loggerFactory));
+        //}
 
         [Fact]
         public void SelectLangChainOrchestrationService_ValidOrchestrationType_ReturnsService()

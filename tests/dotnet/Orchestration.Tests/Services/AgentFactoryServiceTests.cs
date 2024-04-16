@@ -11,23 +11,20 @@ namespace FoundationaLLM.Orchestration.Tests.Services
 {
     public class OrchestrationServiceTests
     {
-        private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices = new List<ILLMOrchestrationService>
-        {
+        private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices =
+        [
             Substitute.For<ILLMOrchestrationService>(),
             Substitute.For<ILLMOrchestrationService>()
-        };
-        private readonly IAgentHubAPIService _agentHubAPIService = Substitute.For<IAgentHubAPIService>();
-        private readonly IPromptHubAPIService _promptHubAPIService = Substitute.For<IPromptHubAPIService>();
-        private readonly IDataSourceHubAPIService _dataSourceHubAPIService = Substitute.For<IDataSourceHubAPIService>();
+        ];
         private readonly ILogger<OrchestrationService> _logger = Substitute.For<ILogger<OrchestrationService>>();
         private readonly OrchestrationService _orchestrationService;
         private IEnumerable<IResourceProviderService> _resourceProviderServices = new List<IResourceProviderService>
         {
             Substitute.For<IResourceProviderService>()
         };
-        private ICallContext _callContext = Substitute.For<ICallContext>();
-        private ILoggerFactory _loggerFactory =  Substitute.For<ILoggerFactory>();
-        private IConfiguration _configuration = Substitute.For<IConfiguration>();
+        private readonly ICallContext _callContext = Substitute.For<ICallContext>();
+        private readonly ILoggerFactory _loggerFactory =  Substitute.For<ILoggerFactory>();
+        private readonly IConfiguration _configuration = Substitute.For<IConfiguration>();
 
 
         public OrchestrationServiceTests()
@@ -37,9 +34,6 @@ namespace FoundationaLLM.Orchestration.Tests.Services
                 _orchestrationServices,
                 _callContext,
                 _configuration,
-                _agentHubAPIService,
-                _promptHubAPIService,
-                _dataSourceHubAPIService,
                 _loggerFactory
             );
         }
