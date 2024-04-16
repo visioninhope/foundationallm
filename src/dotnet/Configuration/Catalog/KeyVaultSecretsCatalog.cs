@@ -27,7 +27,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 description: "The connection string to the Azure Storage account used for the agent resource provider."
             ),
             new(
-                secretName: KeyVaultSecretNames.FoundationaLLM_APIs_AgentFactoryAPI_APIKey,
+                secretName: KeyVaultSecretNames.FoundationaLLM_APIs_OrchestrationAPI_APIKey,
                 minimumVersion: "0.3.0",
                 description: ""
             ),

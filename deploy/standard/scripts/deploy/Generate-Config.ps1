@@ -124,9 +124,9 @@ $authServices = @{
 }
 
 $services = @{
-    agentfactoryapi          = @{
-        miName         = "mi-agent-factory-api-$svcResourceSuffix"
-        miConfigName   = "agentFactoryApiMiClientId"
+    orchestrationapi          = @{
+        miName         = "mi-orchestration-api-$svcResourceSuffix"
+        miConfigName   = "orchestrationApiMiClientId"
         ingressEnabled = $false
     }
     agenthubapi              = @{
@@ -415,8 +415,8 @@ foreach ($service in $authServices.GetEnumerator()) {
     $service.Value.miClientId = $miClientId
 }
 
-$tokens.agentFactoryApiMiClientId = $services["agentfactoryapi"].miClientId
-$tokens.agentFactoryApiMiObjectId = $services["agentfactoryapi"].miObjectId
+$tokens.orchestrationApiMiClientId = $services["orchestrationapi"].miClientId
+$tokens.orchestrationApiMiObjectId = $services["orchestrationapi"].miObjectId
 $tokens.agentHubApiMiClientId = $services["agenthubapi"].miClientId
 $tokens.authorizationApiMiClientId = $authServices["authorizationapi"].miClientId
 $tokens.chatUiMiClientId = $services["chatui"].miClientId
@@ -438,7 +438,7 @@ $tokens.vectorizationJobMiClientId = $services["vectorizationjob"].miClientId
 
 $eventGridProfiles = @{}
 $eventGridProfileNames = @(
-    "agent-factory-api-event-profile"
+    "orchestration-api-event-profile"
     "core-api-event-profile"
     "vectorization-api-event-profile"
     "vectorization-worker-event-profile"
@@ -458,7 +458,7 @@ foreach ($profileName in $eventGridProfileNames) {
     ).Replace('"', '\"')
 }
 
-$tokens.agentFactoryApiEventGridProfile = $eventGridProfiles["agent-factory-api-event-profile"]
+$tokens.orchestrationApiEventGridProfile = $eventGridProfiles["orchestration-api-event-profile"]
 $tokens.coreApiEventGridProfile = $eventGridProfiles["core-api-event-profile"]
 $tokens.vectorizationApiEventGridProfile = $eventGridProfiles["vectorization-api-event-profile"]
 $tokens.vectorizationWorkerEventGridProfile = $eventGridProfiles["vectorization-worker-event-profile"]
