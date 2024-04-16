@@ -2,7 +2,7 @@ from langchain_core.language_models import BaseLanguageModel
 
 from foundationallm.config import Configuration, Context
 from foundationallm.langchain.language_models import LanguageModelFactory
-from foundationallm.langchain.agents import AgentFactory, AgentBase
+from foundationallm.langchain.agents import Orchestration, AgentBase
 from foundationallm.models.language_models import LanguageModel
 from foundationallm.models.orchestration import (
     CompletionRequestBase,
@@ -45,7 +45,7 @@ class OrchestrationManager:
 
     def __create_agent(self, completion_request: CompletionRequestBase, context: Context) -> AgentBase:
         """Creates an agent for executing completion requests."""
-        agent = AgentFactory(
+        agent = Orchestration(
             completion_request=completion_request,
             llm=self.llm,
             config=self.config,

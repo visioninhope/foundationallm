@@ -21,9 +21,9 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_Agent_ResourceProvider_Storage_ConnectionString = "foundationallm-agent-resourceprovider-storage-connectionstring";
         /// <summary>
-        /// The foundationallm-apis-agentfactoryapi-apikey Key Vault secret name.
+        /// The foundationallm-apis-orchestrationapi-apikey Key Vault secret name.
         /// </summary>
-        public const string FoundationaLLM_APIs_AgentFactoryAPI_APIKey = "foundationallm-apis-agentfactoryapi-apikey";
+        public const string FoundationaLLM_APIs_OrchestrationAPI_APIKey = "foundationallm-apis-orchestrationapi-apikey";
         /// <summary>
         /// The foundationallm-app-insights-connection-string Key Vault secret name.
         /// </summary>

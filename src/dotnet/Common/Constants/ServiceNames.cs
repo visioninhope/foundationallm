@@ -14,7 +14,7 @@ namespace FoundationaLLM.Common.Constants
         /// <summary>
         /// The name of the Agent Factory API service.
         /// </summary>
-        public const string AgentFactoryAPI = "AgentFactoryAPI";
+        public const string OrchestrationAPI = "OrchestrationAPI";
         /// <summary>
         /// The name of the Agent Hub API service.
         /// </summary>

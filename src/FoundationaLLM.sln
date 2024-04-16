@@ -47,9 +47,9 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PromptHubAPI", "python\Prom
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "AgentHubAPI", "python\AgentHubAPI\AgentHubAPI.pyproj", "{865A944E-76C4-4DA9-B367-6D1CAB66ABCC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentFactoryAPI", "dotnet\AgentFactoryAPI\AgentFactoryAPI.csproj", "{87CBD379-8F88-4C45-B7B1-595B5BAE734D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrchestrationAPI", "dotnet\OrchestrationAPI\OrchestrationAPI.csproj", "{87CBD379-8F88-4C45-B7B1-595B5BAE734D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentFactory", "dotnet\AgentFactory\AgentFactory.csproj", "{59C6DEDC-F60D-4EB9-A2E5-793EC42F3895}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestration", "dotnet\Orchestration\Orchestration.csproj", "{59C6DEDC-F60D-4EB9-A2E5-793EC42F3895}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestUtils", "..\tests\dotnet\TestUtils\TestUtils.csproj", "{7F7CA6E9-F1F0-403D-B72D-2AC134F64CDE}"
 EndProject
@@ -81,7 +81,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agent", "dotnet\Agent\Agent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prompt", "dotnet\Prompt\Prompt.csproj", "{E04B4AA1-2C79-4153-87A0-2BAC1256E4DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentFactory.Tests", "..\tests\dotnet\AgentFactory.Tests\AgentFactory.Tests.csproj", "{D2257807-4A0A-4324-A10B-D160550C9E1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestration.Tests", "..\tests\dotnet\Orchestration.Tests\Orchestration.Tests.csproj", "{D2257807-4A0A-4324-A10B-D160550C9E1E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vectorization.Tests", "..\tests\dotnet\Vectorization.Tests\Vectorization.Tests.csproj", "{7DD70AFD-69C4-4C82-9B67-5EE4A671D741}"
 EndProject
