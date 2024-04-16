@@ -15,16 +15,12 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     /// <param name="agent">The <see cref="KnowledgeManagementAgent"/> agent.</param>
     /// <param name="callContext">The call context of the request being handled.</param>
     /// <param name="orchestrationService"></param>
-    /// <param name="promptHubService"></param>
-    /// <param name="dataSourceHubService"></param>
     /// <param name="logger">The logger used for logging.</param>
     public class KnowledgeManagementOrchestration(
         KnowledgeManagementAgent agent,
         ICallContext callContext,
         ILLMOrchestrationService orchestrationService,
-        IPromptHubAPIService promptHubService,
-        IDataSourceHubAPIService dataSourceHubService,
-        ILogger<OrchestrationBase> logger) : OrchestrationBase(null, orchestrationService, promptHubService, dataSourceHubService)
+        ILogger<OrchestrationBase> logger) : OrchestrationBase(orchestrationService)
     {
         private readonly ICallContext _callContext = callContext;
         private readonly ILogger<OrchestrationBase> _logger = logger;

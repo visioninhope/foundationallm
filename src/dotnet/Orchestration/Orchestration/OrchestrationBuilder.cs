@@ -22,10 +22,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <param name="callContext">The call context of the request being handled.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
         /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
-        /// <param name="agentHubAPIService"></param>
         /// <param name="orchestrationServices"></param>
-        /// <param name="promptHubAPIService"></param>
-        /// <param name="dataSourceHubAPIService"></param>
         /// <param name="loggerFactory">The logger factory used to create new loggers.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
@@ -34,10 +31,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             ICallContext callContext,
             IConfiguration configuration,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
-            IAgentHubAPIService agentHubAPIService,
             IEnumerable<ILLMOrchestrationService> orchestrationServices,
-            IPromptHubAPIService promptHubAPIService,
-            IDataSourceHubAPIService dataSourceHubAPIService,
             ILoggerFactory loggerFactory)
         {
             var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
@@ -74,7 +68,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             if (agentBase == null) return null;
             
-            if (agentBase.AgentType == typeof(KnowledgeManagementAgent) || agentBase.AgentType == typeof(InternalContextAgent))
+            if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
             {
                 var orchestrationType = string.IsNullOrWhiteSpace(agentBase.OrchestrationSettings?.Orchestrator)
                     ? LLMOrchestrationService.LangChain.ToString()
@@ -85,54 +79,15 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     throw new ArgumentException($"The agent factory does not support the {orchestrationType} orchestration type.");
 
                 var orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
-
-                // Hydrate overridable values from config and assign them back to the agent's LanguageModel.
-                var deploymentName = configuration.GetValue<string>(agentBase.LanguageModel?.Deployment!);
-                agentBase.LanguageModel!.Deployment = deploymentName;
-
-                // Extract any override settings and apply them to the agent's LanguageModel.
-                if (completionRequest.Settings?.ModelParameters != null && agentBase.LanguageModel != null)
-                {
-                    foreach (var key in completionRequest.Settings?.ModelParameters?.Keys!)
-                    {
-                        switch (key)
-                        {
-                            case ModelParameterKeys.DeploymentName:
-                                agentBase.LanguageModel!.Deployment = completionRequest.Settings?.ModelParameters?.GetValueOrDefault(key)!.ToString();
-                                break;
-                            case ModelParameterKeys.Temperature:
-                                agentBase.LanguageModel!.Temperature = Convert.ToSingle(completionRequest.Settings?.ModelParameters?.GetValueOrDefault(key, 0f)!.ToString());
-                                break;
-                        }
-                    }
-                }
                 
-                if(agentBase.AgentType == typeof(KnowledgeManagementAgent))
-                {
-                    var kmOrchestration = new KnowledgeManagementOrchestration(
-                        (KnowledgeManagementAgent)agentBase,
-                        callContext,
-                        orchestrationService,
-                        promptHubAPIService,
-                        dataSourceHubAPIService,
-                        loggerFactory.CreateLogger<OrchestrationBase>());
-                    await kmOrchestration.Configure(completionRequest);
+                var kmOrchestration = new KnowledgeManagementOrchestration(
+                    (KnowledgeManagementAgent)agentBase,
+                    callContext,
+                    orchestrationService,
+                    loggerFactory.CreateLogger<OrchestrationBase>());
+                await kmOrchestration.Configure(completionRequest);
 
-                    return kmOrchestration;
-                }
-                else
-                {
-                    var icOrchestration = new InternalContextOrchestration(
-                        (InternalContextAgent)agentBase,
-                        callContext,
-                        orchestrationService,
-                        promptHubAPIService,
-                        dataSourceHubAPIService,
-                        loggerFactory.CreateLogger<OrchestrationBase>());
-                    await icOrchestration.Configure(completionRequest);
-
-                    return icOrchestration;
-                }
+                return kmOrchestration;
             }
 
             return null;

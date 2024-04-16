@@ -19,11 +19,6 @@ namespace FoundationaLLM.Common.Models.Agents
         public override string? Type { get; set; }
 
         /// <summary>
-        /// The agent's language model configuration.
-        /// </summary>
-        [JsonPropertyName("language_model")]
-        public LanguageModel? LanguageModel { get; set; }
-        /// <summary>
         /// Indicates whether sessions are enabled for the agent.
         /// </summary>
         [JsonPropertyName("sessions_enabled")]
@@ -58,7 +53,7 @@ namespace FoundationaLLM.Common.Models.Agents
             Type switch
             {
                 AgentTypes.KnowledgeManagement => typeof(KnowledgeManagementAgent),
-                AgentTypes.InternalContext => typeof(InternalContextAgent),
+                AgentTypes.InternalContext => typeof(KnowledgeManagementAgent), // Temporary until InternalContextAgent is completeyl removed.
                 _ => throw new ResourceProviderException($"The agent type {Type} is not supported.")
             };
     }

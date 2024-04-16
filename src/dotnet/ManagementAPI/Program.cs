@@ -8,7 +8,6 @@ using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
-using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
@@ -80,10 +79,6 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddAzureEventGridEvents(
                 builder.Configuration,
                 AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI);
-
-            builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
-            builder.Services.AddScoped<IDataSourceHubAPIService, DataSourceHubAPIService>();
-            builder.Services.AddScoped<IPromptHubAPIService, PromptHubAPIService>();
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();

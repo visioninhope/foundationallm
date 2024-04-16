@@ -17,10 +17,6 @@ public class OrchestrationService : IOrchestrationService
     private readonly ICacheService _cacheService;
     private readonly ICallContext _callContext;
     private readonly IConfiguration _configuration;
-    private readonly IAgentHubAPIService _agentHubAPIService;
-    private readonly IPromptHubAPIService _promptHubAPIService;
-    private readonly IDataSourceHubAPIService _dataSourceHubAPIService;
-
     private readonly ILogger<OrchestrationService> _logger;
     private readonly ILoggerFactory _loggerFactory;
 
@@ -33,18 +29,12 @@ public class OrchestrationService : IOrchestrationService
     /// <param name="orchestrationServices"></param>
     /// <param name="callContext">The call context of the request being handled.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
-    /// <param name="agentHubService"></param>    
-    /// <param name="promptHubService"></param>    
-    /// <param name="dataSourceHubService"></param>    
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public OrchestrationService(
         IEnumerable<IResourceProviderService> resourceProviderServices,
         IEnumerable<ILLMOrchestrationService> orchestrationServices,
         ICallContext callContext,
         IConfiguration configuration,
-        IAgentHubAPIService agentHubService,
-        IPromptHubAPIService promptHubService,
-        IDataSourceHubAPIService dataSourceHubService,
         ILoggerFactory loggerFactory)
     {
         _resourceProviderServices = resourceProviderServices.ToDictionary<IResourceProviderService, string>(
@@ -53,9 +43,6 @@ public class OrchestrationService : IOrchestrationService
         _orchestrationServices = orchestrationServices;
         _callContext = callContext;
         _configuration = configuration;
-        _agentHubAPIService = agentHubService;
-        _promptHubAPIService = promptHubService;
-        _dataSourceHubAPIService = dataSourceHubService;
 
         _loggerFactory = loggerFactory;
         _logger = _loggerFactory.CreateLogger<OrchestrationService>();
@@ -90,10 +77,7 @@ public class OrchestrationService : IOrchestrationService
                 _callContext,
                 _configuration,
                 _resourceProviderServices,
-                _agentHubAPIService,
                 _orchestrationServices,
-                _promptHubAPIService,
-                _dataSourceHubAPIService,
                 _loggerFactory);
 
             return orchestration == null
