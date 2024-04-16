@@ -11,7 +11,6 @@ using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
-using FoundationaLLM.Prompt.Models.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
