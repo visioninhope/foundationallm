@@ -61,6 +61,32 @@ namespace FoundationaLLM.AgentFactory.Tests.Orchestration
         }
 
         [Fact]
+        public async Task Build_WithInvalidOrchestrationType_ThrowsArgumentException()
+        {
+            // Arrange
+            var agentResponse = new AgentHubResponse
+            {
+                Agent = new AgentMetadata { Orchestrator = "InvalidOrchestrator" }
+            };
+            var sessionId = "TestSessionId";
+
+            _agentHubAPIService.ResolveRequest(userPrompt, sessionId).Returns(agentResponse);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
+                await OrchestrationBuilder.Build(
+                new CompletionRequest() { UserPrompt = userPrompt },
+                _callContext,
+                _configuration,
+                _resourceProviderServices,
+                _agentHubAPIService,
+                _orchestrationServices,
+                _promptHubAPIService,
+                _dataSourceHubAPIService,
+                _loggerFactory));
+        }
+
+        [Fact]
         public void SelectLangChainOrchestrationService_ValidOrchestrationType_ReturnsService()
         {
             // Act

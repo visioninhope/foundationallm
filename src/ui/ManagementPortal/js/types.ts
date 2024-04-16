@@ -265,6 +265,8 @@ export type CreateAgentRequest = {
 		endpoint_configuration: {
 			endpoint: string;
 			api_key: string;
+			version: string;
+			operation_type: string;
 		};
 		model_parameters: {
 			temperature: number;

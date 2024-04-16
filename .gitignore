@@ -386,3 +386,6 @@ log
 **/vectorization-worker-event-profile.json
 deploy/quick-start/.env
 **/management-api-event-profile.json
+
+# SonarCube
+.sonarqube/
