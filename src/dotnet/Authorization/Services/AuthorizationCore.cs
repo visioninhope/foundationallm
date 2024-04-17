@@ -157,6 +157,35 @@ namespace FoundationaLLM.Authorization.Services
             }
         }
 
+        /// <inheritdoc/>
+        public List<ActionAuthorizationResult> ProcessAuthorizationRequests(string instanceId, List<ActionAuthorizationRequest> authorizationRequests)
+        {
+            if (!_initialized)
+            {
+                _logger.LogError("The authorization core is not initialized.");
+                return new List<ActionAuthorizationResult>
+                {
+                    new ActionAuthorizationResult
+                    {
+                        Authorized = false
+                    }
+                };
+            }
+
+            List<ActionAuthorizationResult> result = new List<ActionAuthorizationResult>();
+            foreach (var ar in authorizationRequests)
+            {
+                _logger.LogDebug("Authorization request: {AuthorizationRequest}",
+                    JsonSerializer.Serialize(ar));
+
+                var authorized = ProcessAuthorizationRequest(instanceId, ar);
+                result.Add(authorized);
+            }
+
+            return result;
+        }
+
+        /// <inheritdoc/>
         public bool AllowAuthorizationRequestsProcessing(string instanceId, string securityPrincipalId)
         {
             var resourcePath = $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Authorization}/{AuthorizationResourceTypeNames.RoleAssignments}";

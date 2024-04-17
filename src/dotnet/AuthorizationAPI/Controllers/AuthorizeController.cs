@@ -23,5 +23,11 @@ namespace AuthorizationAPI.Controllers
         public IActionResult ProcessAuthorizationRequest(string instanceId, [FromBody] ActionAuthorizationRequest request) =>
             new OkObjectResult(
                 _authorizationCore.ProcessAuthorizationRequest(instanceId, request));
+
+        [HttpPost(Name = "ProcessAuthorizationRequests")]
+        public IActionResult ProcessAuthorizationRequests(string instanceId, [FromBody] List<ActionAuthorizationRequest> requests) =>
+            new OkObjectResult(
+                _authorizationCore.ProcessAuthorizationRequests(instanceId, requests));
+
     }
 }
