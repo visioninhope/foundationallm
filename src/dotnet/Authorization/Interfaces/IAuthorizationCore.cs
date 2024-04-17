@@ -19,9 +19,9 @@ namespace FoundationaLLM.Authorization.Interfaces
         /// Processes a batch of authorization requests.
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance id.</param>
-        /// <param name="authorizationRequests">The <see cref="List<ActionAuthorizationRequest>"/> containing the list of details for the authorization request.</param>
-        /// <returns>List of <see cref="ActionAuthorizationResult"/> indicating whether the requested authorizations was successfull or not.</returns>
-        List<ActionAuthorizationResult> ProcessAuthorizationRequests(string instanceId, List<ActionAuthorizationRequest> authorizationRequests);
+        /// <param name="authorizationRequest">The <see cref="ActionAuthorizationRequest"/> containing the details of the batch authorization request.</param>
+        /// <returns>An <see cref="BatchActionAuthorizationResult"/> indicating whether the requested authorization was successfull or not.</returns>
+        BatchActionAuthorizationResult ProcessBatchAuthorizationRequest(string instanceId, BatchActionAuthorizationRequest authorizationRequest);
 
         /// <summary>
         /// Checks if a specified security principal is allowed to process authorization requests. 

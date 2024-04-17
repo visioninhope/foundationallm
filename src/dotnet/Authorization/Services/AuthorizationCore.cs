@@ -29,6 +29,7 @@ namespace FoundationaLLM.Authorization.Services
         private readonly ConcurrentDictionary<string, RoleAssignmentStore> _roleAssignmentStores = [];
         private readonly ConcurrentDictionary<string, RoleAssignmentCache> _roleAssignmentCaches = [];
         private readonly IValidator<ActionAuthorizationRequest> _actionAuthorizationRequestValidator;
+        private readonly IValidator<BatchActionAuthorizationRequest> _batchActionAuthorizationRequestValidator;
 
         private const string ROLE_ASSIGNMENTS_CONTAINER_NAME = "role-assignments";
         private bool _initialized = false;
@@ -52,6 +53,7 @@ namespace FoundationaLLM.Authorization.Services
             _logger = logger;
 
             _actionAuthorizationRequestValidator = _resourceValidatorFactory.GetValidator<ActionAuthorizationRequest>()!;
+            _batchActionAuthorizationRequestValidator = _resourceValidatorFactory.GetValidator<BatchActionAuthorizationRequest>()!;
 
             // Kicks off the initialization on a separate thread and does not wait for it to complete.
             // The completion of the initialization process will be signaled by setting the _initialized property.
@@ -158,31 +160,53 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public List<ActionAuthorizationResult> ProcessAuthorizationRequests(string instanceId, List<ActionAuthorizationRequest> authorizationRequests)
+        public BatchActionAuthorizationResult ProcessBatchAuthorizationRequest(string instanceId, BatchActionAuthorizationRequest authorizationRequest)
         {
+            var results = authorizationRequest.ResourcePaths.ToDictionary(rp => rp, auth => false);
+
+            _logger.LogDebug("Authorization request: {AuthorizationRequest}",
+                JsonSerializer.Serialize(authorizationRequest));
+
             if (!_initialized)
             {
                 _logger.LogError("The authorization core is not initialized.");
-                return new List<ActionAuthorizationResult>
-                {
-                    new ActionAuthorizationResult
-                    {
-                        Authorized = false
-                    }
-                };
+                return new BatchActionAuthorizationResult { Authorized = results };
             }
 
-            List<ActionAuthorizationResult> result = new List<ActionAuthorizationResult>();
-            foreach (var ar in authorizationRequests)
+            // Basic validation
+            _batchActionAuthorizationRequestValidator.ValidateAndThrow(authorizationRequest);
+
+            foreach (var rp in authorizationRequest.ResourcePaths)
             {
-                _logger.LogDebug("Authorization request: {AuthorizationRequest}",
-                    JsonSerializer.Serialize(ar));
+                try
+                {
+                    var resourcePath = ResourcePathUtils.ParseForAuthorizationRequestResourcePath(rp, _settings.InstanceIds);
 
-                var authorized = ProcessAuthorizationRequest(instanceId, ar);
-                result.Add(authorized);
+                    if (string.IsNullOrWhiteSpace(resourcePath.InstanceId)
+                        || resourcePath.InstanceId.ToLower().CompareTo(instanceId.ToLower()) != 0)
+                    {
+                        _logger.LogError("The instance id from the controller route and the instance id from the authorization request do not match.");
+                        results[rp] = false;
+                    }
+
+                    results[rp] = ActionAllowed(resourcePath, new ActionAuthorizationRequest()
+                    {
+                        Action = authorizationRequest.Action,
+                        ResourcePath = rp,
+                        PrincipalId = authorizationRequest.PrincipalId,
+                        SecurityGroupIds = authorizationRequest.SecurityGroupIds
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // If anything goes wrong, we default to denying the request on that particular resource.
+
+                    _logger.LogError(ex, "The authorization core failed to process the authorization request.");
+                    results[rp] = false;
+                }
             }
 
-            return result;
+            return new BatchActionAuthorizationResult { Authorized = results };
         }
 
         /// <inheritdoc/>
@@ -191,7 +215,7 @@ namespace FoundationaLLM.Authorization.Services
             var resourcePath = $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Authorization}/{AuthorizationResourceTypeNames.RoleAssignments}";
             _ = ResourcePath.TryParse(
                 resourcePath,
-                [ ResourceProviderNames.FoundationaLLM_Authorization ],
+                [ResourceProviderNames.FoundationaLLM_Authorization],
                 AuthorizationResourceProviderMetadata.AllowedResourceTypes,
                 false,
                 out ResourcePath? parsedResourcePath);

@@ -43,6 +43,7 @@ namespace FoundationaLLM
 
             // Register validators.
             builder.Services.AddSingleton<IValidator<ActionAuthorizationRequest>, ActionAuthorizationRequestValidator>();
+            builder.Services.AddSingleton<IValidator<BatchActionAuthorizationRequest>, BatchActionAuthorizationRequestValidator>();
             builder.Services.AddSingleton<IValidator<RoleAssignment>, RoleAssignmentValidator>();
 
             builder.Services.AddSingleton<IAuthorizationCore, AuthorizationCore>(sp => new AuthorizationCore(

@@ -24,10 +24,10 @@ namespace AuthorizationAPI.Controllers
             new OkObjectResult(
                 _authorizationCore.ProcessAuthorizationRequest(instanceId, request));
 
-        [HttpPost(Name = "ProcessAuthorizationRequests")]
-        public IActionResult ProcessAuthorizationRequests(string instanceId, [FromBody] List<ActionAuthorizationRequest> requests) =>
+        [HttpPost("batch", Name = "ProcessBatchAuthorizationRequest")]
+        public IActionResult ProcessBatchAuthorizationRequest(string instanceId, [FromBody] BatchActionAuthorizationRequest request) =>
             new OkObjectResult(
-                _authorizationCore.ProcessAuthorizationRequests(instanceId, requests));
+                _authorizationCore.ProcessBatchAuthorizationRequest(instanceId, request));
 
     }
 }
