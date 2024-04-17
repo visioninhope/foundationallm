@@ -21,8 +21,7 @@ namespace Vectorization.Tests.Services.RequestSources
             _stateService = A.Fake<IVectorizationStateService>();
             RequestSourceServiceSettings requestManagerServiceSettings = new RequestSourceServiceSettings()
             {
-                Name = Environment.GetEnvironmentVariable("StorageQueueServiceTestsQueueName") ?? "testing",
-                ConnectionConfigurationName = "SomeConfigProperty",
+                Name = Environment.GetEnvironmentVariable("StorageQueueServiceTestsQueueName") ?? "testing",                
                 AccountName = "Test_AccountName",
                 VisibilityTimeoutSeconds = 60
             };

@@ -11,12 +11,7 @@ namespace FoundationaLLM.Vectorization.Models.Configuration
         /// The name of the request source.
         /// </summary>
         public required string Name { get; set; }
-
-        /// <summary>
-        /// The name of the storage account.
-        /// </summary>
-        public required string AccountName { get; set; }
-
+       
         /// <summary>
         /// The name of the configuration setting holding connection information
         /// </summary>
