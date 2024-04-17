@@ -98,36 +98,10 @@
 						class="span-2"
 					>
 						<div class="mb-2 mt-2">Connection string:</div>
-						<div class="flex-container">
-							<Textarea
-								v-if="showSecret[`${dataSource.type}_ConnectionString`]"
-								:model-value="dataSource.resolved_configuration_references.ConnectionString"
-								class="w-100"
-								auto-resize
-								rows="5"
-								type="text"
-								@update:model-value="handleConnectionStringUpdate"
-							/>
-							<Textarea
-								v-else
-								model-value="••••••••••••••••••••••••••••••••••••••••••••••••••"
-								:disabled="dataSource.resolved_configuration_references.ConnectionString"
-								class="w-100"
-								auto-resize
-								rows="5"
-								type="text"
-							/>
-							<Button
-								:icon="
-									showSecret[`${dataSource.type}_ConnectionString`]
-										? 'pi pi-eye'
-										: 'pi pi-eye-slash'
-								"
-								:label="showSecret[`${dataSource.type}_ConnectionString`] ? 'Hide' : 'Show'"
-								class="p-button-text"
-								@click="toggleSecretVisibility('ConnectionString')"
-							></Button>
-						</div>
+						<SecretKeyInput
+							v-model="dataSource.resolved_configuration_references.ConnectionString"
+							textarea
+						/>
 					</div>
 
 					<!-- API Key -->
@@ -136,28 +110,8 @@
 						class="span-2"
 					>
 						<div class="mb-2 mt-2">API Key:</div>
-						<div class="flex-container">
-							<InputText
-								v-if="showSecret[`${dataSource.type}_APIKey`]"
-								:model-value="dataSource.resolved_configuration_references.APIKey"
-								class="w-100"
-								type="text"
-								@update:model-value="handleAPIKeyUpdate"
-							/>
-							<InputText
-								v-else
-								model-value="••••••••••••••••••••••••••••••••••••••••••••••••••"
-								:disabled="dataSource.resolved_configuration_references.APIKey"
-								class="w-100"
-								type="text"
-							/>
-							<Button
-								:icon="showSecret[`${dataSource.type}_APIKey`] ? 'pi pi-eye' : 'pi pi-eye-slash'"
-								:label="showSecret[`${dataSource.type}_APIKey`] ? 'Hide' : 'Show'"
-								class="p-button-text"
-								@click="toggleSecretVisibility('APIKey')"
-							></Button>
-						</div>
+						<SecretKeyInput v-model="dataSource.resolved_configuration_references.APIKey" />
+
 						<div class="mb-2 mt-2">Endpoint:</div>
 						<InputText
 							v-model="dataSource.resolved_configuration_references.Endpoint"
@@ -175,36 +129,10 @@
 					<!-- Connection string -->
 					<div class="span-2">
 						<div class="mb-2">Connection string:</div>
-						<div class="flex-container">
-							<Textarea
-								v-if="showSecret[`${dataSource.type}_ConnectionString`]"
-								:model-value="dataSource.resolved_configuration_references.ConnectionString"
-								class="w-100"
-								auto-resize
-								rows="5"
-								type="text"
-								@update:model-value="handleConnectionStringUpdate"
-							/>
-							<Textarea
-								v-else
-								model-value="••••••••••••••••••••••••••••••••••••••••••••••••••"
-								:disabled="dataSource.resolved_configuration_references.ConnectionString"
-								class="w-100"
-								auto-resize
-								rows="5"
-								type="text"
-							/>
-							<Button
-								:icon="
-									showSecret[`${dataSource.type}_ConnectionString`]
-										? 'pi pi-eye'
-										: 'pi pi-eye-slash'
-								"
-								:label="showSecret[`${dataSource.type}_ConnectionString`] ? 'Hide' : 'Show'"
-								class="p-button-text"
-								@click="toggleSecretVisibility('ConnectionString')"
-							></Button>
-						</div>
+						<SecretKeyInput
+							v-model="dataSource.resolved_configuration_references.ConnectionString"
+							textarea
+						/>
 
 						<template v-if="dataSource.tables">
 							<div class="mb-2 mt-2">Table Name(s):</div>
@@ -318,10 +246,7 @@ export default {
 			documentLibrariesString: '',
 			tablesString: '',
 
-			showSecret: {}, // Object to track visibility state of secrets.
-
 			// Create a default Azure Data Lake data source.
-
 			dataSource: {
 				type: 'azure-data-lake',
 				name: '',
@@ -381,7 +306,6 @@ export default {
 	watch: {
 		'dataSource.type'() {
 			this.dataSource = convertToDataSource(this.dataSource);
-			this.initializeShowSecret();
 		},
 	},
 
@@ -426,8 +350,6 @@ export default {
 			this.dataSource = convertToDataSource(newDataSource);
 		}
 
-		this.initializeShowSecret();
-
 		this.debouncedCheckName = debounce(this.checkName, 500);
 
 		this.loading = false;
@@ -438,27 +360,6 @@ export default {
 		isSharePointOnlineSiteDataSource,
 		isAzureSQLDatabaseDataSource,
 		convertToDataSource,
-
-		initializeShowSecret() {
-			const uniqueIdentifier = this.dataSource.type; // Or any other unique property
-			for (const key in this.dataSource.configuration_references) {
-				const uniqueKey = `${uniqueIdentifier}_${key}`;
-
-				// Determine the initial visibility based on whether a resolved value exists.
-				// If a resolved value exists and is not an empty string, it defaults to being hidden (false).
-				// If no resolved value exists (undefined or empty string), the field should be shown to allow input (true).
-				const resolvedValue = this.dataSource.resolved_configuration_references[key];
-				this.showSecret[uniqueKey] = !resolvedValue;
-			}
-		},
-
-		handleConnectionStringUpdate(value) {
-			this.dataSource.resolved_configuration_references.ConnectionString = value;
-		},
-
-		handleAPIKeyUpdate(value) {
-			this.dataSource.resolved_configuration_references.APIKey = value;
-		},
 
 		async checkName() {
 			try {
@@ -478,19 +379,6 @@ export default {
 				console.error('Error checking agent name: ', error);
 				this.nameValidationStatus = 'invalid';
 				this.validationMessage = 'Error checking the agent name. Please try again.';
-			}
-		},
-
-		toggleSecretVisibility(key) {
-			const uniqueKey = `${this.dataSource.type}_${key}`;
-			// Directly toggle the visibility.
-			if (this.showSecret[uniqueKey] === undefined) {
-				this.showSecret[uniqueKey] = !this.dataSource.resolved_configuration_references[key];
-			} else {
-				this.showSecret[uniqueKey] = !this.showSecret[uniqueKey];
-			}
-			if (this.showSecret[uniqueKey] && !this.dataSource.resolved_configuration_references[key]) {
-				this.showSecret[uniqueKey] = true;
 			}
 		},
 

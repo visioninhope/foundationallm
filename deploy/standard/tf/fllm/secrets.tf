@@ -1,6 +1,6 @@
 locals {
   api_keys = {
-    "agentfactoryapi"   = {}
+    "orchestrationapi"   = {}
     "agenthubapi"       = {}
     "datasourcehubapi"  = {}
     "gatekeeperapi"     = {}
@@ -102,12 +102,6 @@ resource "azurerm_key_vault_secret" "client_entra_clientsecret" {
   lifecycle {
     ignore_changes = [value] // TODO: gross
   }
-}
-
-resource "azurerm_key_vault_secret" "cosmosdb_key" {
-  name         = "foundationallm-cosmosdb-key"
-  key_vault_id = data.azurerm_key_vault.keyvault_ops.id
-  value        = module.cosmosdb.key
 }
 
 resource "azurerm_key_vault_secret" "langchain_csvfile_url" {
