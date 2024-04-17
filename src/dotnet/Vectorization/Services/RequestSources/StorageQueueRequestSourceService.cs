@@ -2,7 +2,6 @@
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
