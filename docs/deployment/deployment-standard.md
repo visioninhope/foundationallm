@@ -26,6 +26,7 @@ You will use the following tools during deployment:
 PowerShell 7 is a cross-platform (Windows, macOS, and Linux) automation tool and scripting language, an evolution of PowerShell that works with the .NET Core framework. It offers enhanced features and performance improvements over its predecessors and is designed for heterogeneous environments and the hybrid cloud. In PowerShell 7, the command-line executable is referred to as pwsh, an alias that is essential for integration with Azure Developer CLI (AZD) hooks and other modern automation scenarios.
 - [Helm](https://helm.sh/docs/intro/install/) is a package manager for Kubernetes, an open-source platform for automating the deployment, scaling, and operations of application containers across clusters of hosts. It simplifies the process of defining, installing, and upgrading even the most complex Kubernetes applications. Helm works by bundling related Kubernetes resources into a single unit called a chart, which can be easily shared, updated, and deployed.
 - [`kubectl`](https://kubernetes.io/docs/tasks/tools/) is a command-line tool that allows users to run commands against Kubernetes clusters, providing essential functionality to manage applications and resources within a Kubernetes environment. It enables users to deploy applications, inspect and manage cluster resources, and view logs. `kubectl` serves as the primary interface for interacting with Kubernetes, offering a wide range of capabilities for controlling and automating different aspects of the cluster and its workloads.
+- [`kubelogin`](https://azure.github.io/kubelogin/install.html) is a command-line tool designed to simplify the authentication process for Kubernetes users. It integrates with Kubernetes' kubeconfig files to enable single sign-on through OpenID Connect (OIDC) providers, making it easier for users to access Kubernetes clusters without repeatedly entering credentials. The tool automates the token retrieval and renewal process, enhancing both convenience and security for users interacting with Kubernetes environments.
 
 **Optional** To run or debug the solution locally, you will need to install the following dependencies:
 
@@ -82,35 +83,89 @@ Follow the steps below to deploy the solution to your Azure subscription.
 
     Create certificates for the appropriate domains and package them in PFX format.  Place the PFX files in `foundationallm/deploy/standard/config/certbot/certs` following the naming convention below.  The values for `Host Name` and `Domain Name` should match the values you provided in your deployment manifest:
 
-    | Service Name | Host Name | Domain Name | File Name |
-    | -- | -- | -- | -- |
-    | core-api | api | example.com | api.example.com.pfx | 
-    | management-api | management-api | example.com | management-api.example.com.pfx |
+    | Service Name      | Host Name         | Domain Name | File Name                         |
+    | ----------------- | ----------------- | ----------- | --------------------------------- |
+    | core-api          | api               | example.com | api.example.com.pfx               |
+    | management-api    | management-api    | example.com | management-api.example.com.pfx    |
     | vectorization-api | vectorization-api | example.com | vectorization-api.example.com.pfx |
-    | chat-ui | chat | example.com | chat.example.com.pfx |
-    | management-ui | management | example.com | management.example.com.pfx |
+    | chat-ui           | chat              | example.com | chat.example.com.pfx              |
+    | management-ui     | management        | example.com | management.example.com.pfx        |
 
 8. Provision infrastructure with `psake`:
 
     ```powershell
     cd ../bicep
-    ./bootstrap.ps1; Invoke-Psake 
+    ./bootstrap.ps1; Invoke-Psake
+    ```
+
+    The deployment process will take some time.
+
+9. Execute the first post-provision script:
+
+    ```powershell
+    cd ../scripts
+    ./Post-Provision.1.ps1
+    ```
+
+    The post-deployment script will generate a host file describing all the private endpoint IPs and the associated hostnames.  These values can be used to populate your computer's local `hosts` file, or may assist with configuring your organization's DNS system.  This guide will assume that you have taken the contents of the generated file and added them to your local `hosts` file.
+
+10. Connect to VPN
+
+    First visit the VPN gateway in the networking resource group and follow the following instructions to download the configuration, client and connect to VPN.
+
+    - [Windows](https://learn.microsoft.com/en-us/azure/vpn-gateway/openvpn-azure-ad-client)
+    - [MacOS](https://learn.microsoft.com/en-us/azure/vpn-gateway/openvpn-azure-ad-client-mac)
+
+11. Execute the second post-provision script:
+
+    ```powershell
+    ./Post-Provision.2.ps1
+    ```
+
+    The post-deployment script will upload the certificates to the Azure Key Vault.
+
+12. Execute the deployment script:
+
+    ```powershell
+    ./Deploy.ps1
+    ```
+
+    The deployment process will take some time.  The process will:
+    - Generate the configuration for the system.
+    - Load the configuration into App Configuration.
+    - Load default system files into Azure Storage.
+    - Configure the backend cluster.
+      - Create the FLLM namespace in the backend cluster
+        - Deploy the backend services to the cluster in the FLLM namespace
+      - Create the gateway-system namespace
+        - Deploy the secret class provider to the gateway-system namespace
+        - Deploy ingress-nginx
+        - Deploy Ingress Configurations and External Services
+    - Configure the frontend cluster.
+      - Create the FLLM namespace in the frontend cluster
+        - Deploy the frontend services to the cluster in the FLLM namespace
+      - Create the gateway-system namespace
+        - Deploy the secret class provider to the gateway-system namespace
+        - Deploy ingress-nginx
+        - Deploy Ingress Configurations and External Services
+
+
 ----
 
 
-4. **Navigate to the bicep deployment directory:**
+1. **Navigate to the bicep deployment directory:**
    - Execute the following command to navigate:
      ```powershell
      cd foundationallm/deploy/standard/bicep
      ```
 
-5. **Load psake into your PowerShell session:**
+2. **Load psake into your PowerShell session:**
    - Execute the following command:
      ```powershell
      ./bootstrap.ps1
      ```
 
-6. **Execute the deployment:**
+3. **Execute the deployment:**
    - Execute the following command to deploy the solution:
      ```powershell
      Invoke-psake
