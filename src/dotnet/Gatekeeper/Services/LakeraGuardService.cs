@@ -1,15 +1,11 @@
-﻿using Azure.AI.ContentSafety;
-using FoundationaLLM.Common.Authentication;
-using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Gatekeeper.Core.Interfaces;
+﻿using FoundationaLLM.Gatekeeper.Core.Interfaces;
 using FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions;
-using FoundationaLLM.Gatekeeper.Core.Models.ContentSafety;
 using FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace FoundationaLLM.Gatekeeper.Core.Services
 {
@@ -18,32 +14,32 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
     /// </summary>
     public class LakeraGuardService : ILakeraGuardService
     {
-        private readonly HttpClient _client;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly LakeraGuardServiceSettings _settings;
         private readonly ILogger _logger;
 
         /// <summary>
         /// Constructor for the Azure Content Safety service.
         /// </summary>
+        /// <param name="httpClientFactory">The HTTP client factory.</param>
         /// <param name="options">The configuration options for the Azure Content Safety service.</param>
         /// <param name="logger">The logger for the Azure Content Safety service.</param>
         public LakeraGuardService(
+            IHttpClientFactory httpClientFactory,
             IOptions<LakeraGuardServiceSettings> options,
             ILogger<LakeraGuardServiceSettings> logger)
         {
+            _httpClientFactory = httpClientFactory;
             _settings = options.Value;
             _logger = logger;
-
-            _client = new HttpClient();
-
-            _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_settings.APIKey}");
-            _client.BaseAddress = new Uri(_settings.APIUrl);
         }
 
         /// <inheritdoc/>
         public async Task<string?> DetectPromptInjection(string content)
         {
-            var response = await _client.PostAsync("prompt_injection",
+            var client = CreateHttpClient();
+
+            var response = await client.PostAsync("prompt_injection",
                 new StringContent(JsonSerializer.Serialize(new { input = content }), Encoding.UTF8, "application/json"));
 
             if (response.IsSuccessStatusCode)
@@ -63,6 +59,17 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             }
 
             return null;
+        }
+
+        private HttpClient CreateHttpClient()
+        {
+            var httpClient = _httpClientFactory.CreateClient();
+
+            httpClient.BaseAddress = new Uri(_settings.APIUrl);
+            httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", _settings.APIKey);
+
+            return httpClient;
         }
     }
 }
