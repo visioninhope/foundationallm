@@ -39,11 +39,16 @@
 			</div>
 
 			<div v-if="message.sender !== 'User'" class="message__footer">
-				<div class="citations" v-if="message.citations?.length">
+				<div v-if="message.citations?.length" class="citations">
 					<span><b>Citations: </b></span>
-					<span v-for="citation in message.citations" :key="citation.id" class="citation" v-tooltip.top="{ value: citation.filepath, showDelay: 500, hideDelay: 300 }">
+					<span
+						v-for="citation in message.citations"
+						:key="citation.id"
+						v-tooltip.top="{ value: citation.filepath, showDelay: 500, hideDelay: 300 }"
+						class="citation"
+					>
 						<i class="pi pi-file"></i>
-						{{ citation.title.split("/").pop() }}
+						{{ citation.title.split('/').pop() }}
 					</span>
 				</div>
 				<span class="ratings">
@@ -275,7 +280,7 @@ export default {
 	flex-basis: 100%;
 	padding: 8px 12px;
 	display: flex;
-    flex-wrap: wrap;
+	flex-wrap: wrap;
 	align-items: center;
 }
 
