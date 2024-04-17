@@ -7,7 +7,7 @@ from foundationallm.langchain.agents import (
     KnowledgeManagementAgent
 )
 
-class Orchestration:
+class AgentFactory:
     """
     Factory to determine which agent to use.
     """

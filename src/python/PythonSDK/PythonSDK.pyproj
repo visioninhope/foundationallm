@@ -30,6 +30,7 @@
     <Compile Include="foundationallm\langchain\data_sources\cxo\__init__.py" />
     <Compile Include="foundationallm\langchain\data_sources\search_service\search_service_configuration.py" />
     <Compile Include="foundationallm\langchain\data_sources\search_service\__init__.py" />
+    <Compile Include="foundationallm\langchain\data_sources\sql\sql_database_dialects.py" />
     <Compile Include="foundationallm\langchain\retrievers\agent_parameter_retriever_keys.py" />
     <Compile Include="foundationallm\langchain\retrievers\citation_retrieval_base.py" />
     <Compile Include="foundationallm\langchain\retrievers\retriever_factory.py" />
