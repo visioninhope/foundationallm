@@ -8,10 +8,12 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
+using FoundationaLLM.Common.Models.Orchestration.DataSources;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
+using FoundationaLLM.DataSource.ResourceProviders;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Resources;
@@ -590,7 +592,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             // if the vectorization request resource file path doesn't exist, create the resource file path using date slugs (UTC).
             if (string.IsNullOrWhiteSpace(request.ResourceFilePath))
             {
-                // Validate creation time rules
+                // Validate creation time rules.
                 var validator = new VectorizationRequestCreationTimeValidator();
                 var validationResult = await validator.ValidateAsync(request);
                 if (!validationResult.IsValid)
@@ -598,21 +600,74 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}",
                                                StatusCodes.Status400BadRequest);
                 }
-                request.ResourceFilePath = $"{REQUEST_RESOURCES_DIRECTORY_NAME}/{DateTime.UtcNow:yyyyMMdd}/{DateTime.UtcNow:yyyyMMdd}-{request.Id}.json"; ;                
+                request.ResourceFilePath = $"{REQUEST_RESOURCES_DIRECTORY_NAME}/{DateTime.UtcNow:yyyyMMdd}/{DateTime.UtcNow:yyyyMMdd}-{request.Id}.json";
+
+                // validate the data source at request creation time.
+                ValidateDataSource(request);
             }
 
             // create/update the vectorization request resource file
             await _storageService.WriteFileAsync(
-                    VECTORIZATON_STATE_CONTAINER_NAME,
-                    request.ResourceFilePath,
-                    JsonSerializer.Serialize(request),
-                    default,
-                    default);
+                VECTORIZATON_STATE_CONTAINER_NAME,
+                request.ResourceFilePath,
+                JsonSerializer.Serialize(request),
+                default,
+                default);
 
             // update the in-memory collection
             _vectorizationRequests.AddOrUpdate(request.Id!, request, (k, v) => request);
         }
 
+
+        /// <summary>
+        /// Validates the data source of a vectorization request.
+        /// </summary>
+        /// <param name="request">The vectorization request.</param>
+        /// <returns>true if the data source is valid.</returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        private bool ValidateDataSource(VectorizationRequest request)
+        {
+            var dataSourceResourceProviderService = GetResourceProviderService(ResourceProviderNames.FoundationaLLM_DataSource);
+
+            if (dataSourceResourceProviderService == null)
+                throw new ResourceProviderException($"The {ResourceProviderNames.FoundationaLLM_DataSource} resource provider was not loaded.",
+                                           StatusCodes.Status400BadRequest);
+
+            var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(request.ContentIdentifier.DataSourceObjectId)
+                ?? throw new ResourceProviderException($"The data source {request.ContentIdentifier.DataSourceObjectId} was not found.",
+                                           StatusCodes.Status400BadRequest);
+
+            switch (dataSource.Type)
+            {
+                case DataSourceTypes.AzureDataLake:
+                case DataSourceTypes.SharePointOnlineSite:
+                case DataSourceTypes.AzureSQLDatabase:
+                    // Validate the file extension is supported by vectorization
+                    string fileNameExtension = Path.GetExtension(request.ContentIdentifier!.FileName);
+                    if (string.IsNullOrWhiteSpace(fileNameExtension))
+                        throw new ResourceProviderException("The file does not have an extension.",
+                                           StatusCodes.Status400BadRequest);
+
+                    if (!FileExtensions.AllowedFileExtensions
+                        .Select(ext => ext.ToLower())
+                        .Contains(fileNameExtension.ToLower()))
+                        throw new ResourceProviderException($"The file extension {fileNameExtension} is not supported.",
+                                           StatusCodes.Status400BadRequest);
+                    break;
+                case DataSourceTypes.WebSite:
+                    // Validate the protocol passed in is http or https
+                    string protocol = request.ContentIdentifier[0];
+                    if (!new[] { "http", "https" }.Contains(protocol.ToLower()))
+                        throw new ResourceProviderException($"The protocol {protocol} is not supported.",
+                                           StatusCodes.Status400BadRequest);
+                    break;
+                default:
+                    throw new ResourceProviderException($"The data source type {dataSource.Type} is not supported.",
+                                           StatusCodes.Status400BadRequest);
+            }
+            return true;
+
+        }
         /// <summary>
         /// Helper method to populate the path of the resource file on a vectorization request.
         /// </summary>
