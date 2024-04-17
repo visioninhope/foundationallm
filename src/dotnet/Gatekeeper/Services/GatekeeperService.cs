@@ -14,16 +14,19 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
     /// </remarks>
     /// <param name="orchestrationAPIService">The Agent Factory API client.</param>
     /// <param name="contentSafetyService">The user prompt Content Safety service.</param>
+    /// <param name="lakeraGuardService">The Lakera Guard service.</param>
     /// <param name="gatekeeperIntegrationAPIService">The Gatekeeper Integration API client.</param>
     /// <param name="gatekeeperServiceSettings">The configuration options for the Gatekeeper service.</param>
     public class GatekeeperService(
         IDownstreamAPIService orchestrationAPIService,
         IContentSafetyService contentSafetyService,
+        ILakeraGuardService lakeraGuardService,
         IGatekeeperIntegrationAPIService gatekeeperIntegrationAPIService,
         IOptions<GatekeeperServiceSettings> gatekeeperServiceSettings) : IGatekeeperService
     {
         private readonly IDownstreamAPIService _orchestrationAPIService = orchestrationAPIService;
         private readonly IContentSafetyService _contentSafetyService = contentSafetyService;
+        private readonly ILakeraGuardService _lakeraGuardService = lakeraGuardService;
         private readonly IGatekeeperIntegrationAPIService _gatekeeperIntegrationAPIService = gatekeeperIntegrationAPIService;
         private readonly GatekeeperServiceSettings _gatekeeperServiceSettings = gatekeeperServiceSettings.Value;
 
@@ -36,6 +39,14 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         {
             //TODO: Call the Refinement Service with the userPrompt
             //await _refinementService.RefineUserPrompt(completionRequest.Prompt);
+
+            if (_gatekeeperServiceSettings.EnableLakeraGuard)
+            {
+                var promptinjectionResult = await _lakeraGuardService.DetectPromptInjection(completionRequest.UserPrompt!);
+
+                if (!string.IsNullOrWhiteSpace(promptinjectionResult))
+                    return new CompletionResponse() { Completion = promptinjectionResult };
+            }
 
             if (_gatekeeperServiceSettings.EnableAzureContentSafety)
             {
@@ -62,6 +73,14 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         {
             //TODO: Call the Refinement Service with the userPrompt
             //await _refinementService.RefineUserPrompt(summaryRequest.Prompt);
+
+            if (_gatekeeperServiceSettings.EnableLakeraGuard)
+            {
+                var promptinjectionResult = await _lakeraGuardService.DetectPromptInjection(summaryRequest.UserPrompt!);
+
+                if (!string.IsNullOrWhiteSpace(promptinjectionResult))
+                    return new SummaryResponse() { Summary = promptinjectionResult };
+            }
 
             if (_gatekeeperServiceSettings.EnableAzureContentSafety)
             {
