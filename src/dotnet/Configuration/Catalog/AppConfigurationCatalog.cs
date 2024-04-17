@@ -138,17 +138,17 @@ namespace FoundationaLLM.Configuration.Catalog
         public static readonly List<AppConfigurationEntry> APIs =
         [
             new(
-                key: AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIKey,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey,
                 minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-apis-agentfactoryapi-apikey`",
+                defaultValue: "Key Vault secret name: `foundationallm-apis-orchestrationapi-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_AgentFactoryAPI_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_OrchestrationAPI_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIUrl,
+                key: AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl,
                 minimumVersion: "0.3.0",
                 defaultValue: "Enter the URL to the service.",
                 description: "",
@@ -159,7 +159,7 @@ namespace FoundationaLLM.Configuration.Catalog
 
             new(
                 key: AppConfigurationKeys
-                    .FoundationaLLM_APIs_AgentFactoryAPI_AppInsightsConnectionString,
+                    .FoundationaLLM_APIs_OrchestrationAPI_AppInsightsConnectionString,
                 minimumVersion: "0.3.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description: "This is a Key Vault reference.",
@@ -530,7 +530,39 @@ namespace FoundationaLLM.Configuration.Catalog
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
-            )
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_APIUrl,
+                minimumVersion: "0.6.0",
+                defaultValue: "",
+                description: "The URL of the Gateway API.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_APIKey,
+                minimumVersion: "0.6.0",
+                defaultValue: "Key Vault secret name: `foundationallm-apis-gatewayapi-apikey`",
+                description: "The API key of the Gateway API.",
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAPI_APIKey,
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys
+                    .FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString,
+                minimumVersion: "0.6.0",
+                defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
+                description:
+                "The connection string to the Application Insights instance used by the vectorization API.",
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                contentType: "text/plain",
+                sampleObject: null
+            ),
         ];
 
         #endregion
@@ -1319,7 +1351,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 sampleObject: null
             ),
             new(
-                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_AgentFactoryAPI,
+                key: AppConfigurationKeys.FoundationaLLM_Events_AzureEventGridEventService_Profiles_OrchestrationAPI,
                 minimumVersion: "0.4.0",
                 defaultValue: "",
                 description: "",
