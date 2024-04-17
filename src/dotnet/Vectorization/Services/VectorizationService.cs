@@ -105,10 +105,10 @@ namespace FoundationaLLM.Vectorization.Services
                 if (!string.IsNullOrEmpty(steps.CurrentStep))
                     _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to step [{CurrentStepName}].",
                         request.Id, steps.PreviousStep, steps.CurrentStep);
-                else
+                else                
                     _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to finalized state.",
-                        request.Id, steps.PreviousStep);
-
+                       request.Id, steps.PreviousStep);                 
+               
                 // save execution state
                 await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
             }

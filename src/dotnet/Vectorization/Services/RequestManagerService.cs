@@ -7,6 +7,9 @@ using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Json.Schema;
 
 namespace FoundationaLLM.Vectorization.Services
 {
@@ -20,12 +23,12 @@ namespace FoundationaLLM.Vectorization.Services
         private readonly IRequestSourceService _incomingRequestSourceService;
         private readonly IVectorizationStateService _vectorizationStateService;
         private readonly IConfigurationSection? _stepsConfiguration;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceProvider _serviceProvider;        
         private readonly ILogger<RequestManagerService> _logger;
         private readonly ILoggerFactory _loggerFactory;
         private readonly CancellationToken _cancellationToken;
         private readonly TaskPool _taskPool;
-
+                
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestManagerService"/> class with the configuration and services
         /// required to manage vectorization requests originating from a specific request source.
@@ -69,7 +72,7 @@ namespace FoundationaLLM.Vectorization.Services
         public async Task Run()
         {
             _logger.LogInformation("The request manager service associated with source [{RequestSourceName}] started processing requests.", _settings.RequestSourceName);
-
+            var vectorizationResourceProvider = GetVectorizationResourceProvider();
             while (true)
             {
                 if (_cancellationToken.IsCancellationRequested)
@@ -98,7 +101,7 @@ namespace FoundationaLLM.Vectorization.Services
                                         MessageId,
                                         Request.Id,
                                         Request.LastSuccessfulStepTime);
-                                    errorMessage = $"The message with id {MessageId} containing the request with id {Request.Id} has expired and will be deleted (the last time a step was successfully processed was {Request.LastSuccessfulStepTime}).";
+                                    errorMessage = $"The message with id {MessageId} containing the request with id {Request.Id} has expired and will be deleted (the last time a step was successfully processed was {Request.LastSuccessfulStepTime}).";                                   
                                 }
                                 else
                                 {
@@ -125,6 +128,15 @@ namespace FoundationaLLM.Vectorization.Services
                                         errorMessage
                                     )
                                 );
+
+
+                                // Update vectorization request state if there's an error.
+                                if (!string.IsNullOrWhiteSpace(errorMessage))
+                                {
+                                    Request.ProcessingState = VectorizationProcessingState.Failed;
+                                    Request.ErrorMessages.Add(errorMessage);
+                                    await vectorizationResourceProvider.UpsertResourceAsync(Request.ObjectId!, Request);
+                                }
 
                                 // Remove the message from the queue
                                 await _incomingRequestSourceService.DeleteRequest(MessageId, PopReceipt).ConfigureAwait(false);
@@ -155,7 +167,7 @@ namespace FoundationaLLM.Vectorization.Services
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error in request processing loop (request source name: {RequestSourceName}).", _settings.RequestSourceName);
+                    _logger.LogError(ex, "Error in request processing loop (request source name: {RequestSourceName}).", _settings.RequestSourceName);                   
                 }
             }
 
@@ -163,7 +175,7 @@ namespace FoundationaLLM.Vectorization.Services
         }
 
         private async Task ProcessRequest(VectorizationRequest request, string messageId, string popReceipt, CancellationToken cancellationToken)
-        {
+        {            
             try
             {
                 if (await HandleRequest(request, messageId, cancellationToken).ConfigureAwait(false))
@@ -180,7 +192,8 @@ namespace FoundationaLLM.Vectorization.Services
                 _logger.LogError(ex, "Error processing request with id {RequestId}.", request.Id);
 
                 request.ErrorCount++;
-                await UpdateRequest(request, messageId, popReceipt);
+                await UpdateRequest(request, messageId, popReceipt);               
+                // don't need to record the error on the vectorization request state as the threshold for errors hasn't been exceeded yet.
             }
         }
 
@@ -219,22 +232,42 @@ namespace FoundationaLLM.Vectorization.Services
 
         private async Task AdvanceRequest(VectorizationRequest request)
         {
+            var vectorizationResourceProvider = GetVectorizationResourceProvider();
             var (PreviousStep, CurrentStep) = request.MoveToNextStep();
 
             if (!string.IsNullOrEmpty(CurrentStep))
             {
                 // The vectorization request still has steps to be processed
                 if (!_requestSourceServices.TryGetValue(CurrentStep, out IRequestSourceService? value) || value == null)
-                    throw new VectorizationException($"Could not find the [{CurrentStep}] request source service for request id {request.Id}.");
+                {
+                    var errorMessage = $"Could not find the [{CurrentStep}] request source service for request id {request.Id}.";
+                    request.ProcessingState = VectorizationProcessingState.Failed;
+                    request.ErrorMessages.Add(errorMessage);
+                    await vectorizationResourceProvider.UpsertResourceAsync(request.ObjectId!, request);
+                    throw new VectorizationException(errorMessage);
+                }
+
 
                 await value.SubmitRequest(request).ConfigureAwait(false);
 
                 _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to step [{CurrentStepName}].",
-                    request.Id, PreviousStep, CurrentStep);
+                    request.Id, PreviousStep, CurrentStep);               
             }
             else
+            {
                 _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to finalized state.",
                     request.Id, PreviousStep);
+                request.ProcessingState = VectorizationProcessingState.Completed;                
+            }
+            await vectorizationResourceProvider.UpsertResourceAsync(request.ObjectId!, request);
+        }
+
+        private IResourceProviderService GetVectorizationResourceProvider()
+        {
+            var vectorizationResourceProvider = _serviceProvider.GetService<IResourceProviderService>()
+                ?? throw new VectorizationException("The vectorization resource provider service is not available.");
+
+            return vectorizationResourceProvider;
         }
     }
 }
