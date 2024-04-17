@@ -340,7 +340,7 @@ $tokens.keyvaultUri = $keyvault.uri
 $authKeyvault = Invoke-AndRequireSuccess "Get Auth Key Vault URI" {
     az keyvault list `
         --resource-group $($resourceGroups.auth) `
-        --query "[0].{uri:properties.vaultUri,name:name}"
+        --query "[0].{uri:properties.vaultUri,name:name}" `
         --output json | `
         ConvertFrom-Json
 }
