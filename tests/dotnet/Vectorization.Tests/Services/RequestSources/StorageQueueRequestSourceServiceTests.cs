@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Queues;
 using FakeItEasy;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
