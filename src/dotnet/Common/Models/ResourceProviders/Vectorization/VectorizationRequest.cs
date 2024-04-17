@@ -50,6 +50,21 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         public required VectorizationProcessingType ProcessingType { get; set; }
 
         /// <summary>
+        /// The <see cref="VectorizationProcessingState"/> indicating the current state of the vectorization request.
+        /// </summary>
+        [JsonPropertyOrder(4)]
+        [JsonPropertyName("processing_state")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public VectorizationProcessingState ProcessingState { get; set; }
+
+        /// <summary>
+        /// Error messages that occurred during the processing of the vectorization request.
+        /// </summary>
+        [JsonPropertyOrder(5)]
+        [JsonPropertyName("error_messages")]
+        public List<string> ErrorMessages { get; set; } = [];
+
+        /// <summary>
         /// The list of vectorization steps requested by the vectorization request.
         /// Vectorization steps are identified by unique names like "extract", "partition", "embed", "index", etc.
         /// </summary>
@@ -70,11 +85,20 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         [JsonPropertyOrder(12)]
         [JsonPropertyName("remaining_steps")]
         public List<string> RemainingSteps { get; set; } = [];
-              
+
+        /// <summary>
+        /// The current step of the vectorization request.
+        /// </summary>
+        [JsonPropertyOrder(13)]
+        [JsonPropertyName("current_step")]
+        public string? CurrentStep => RemainingSteps.Count == 0
+            ? null
+            : RemainingSteps.First();
+
         /// <summary>
         /// The number of times the processing of the current step resulted in an error.
         /// </summary>
-        [JsonPropertyOrder(13)]
+        [JsonPropertyOrder(14)]
         [JsonPropertyName("error_count")]
         public int ErrorCount { get; set; }
 
@@ -82,14 +106,14 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         /// A dictionary of running operation identifiers indexed by step name.
         /// Some steps can be executed via long-running operations that required the persistence of operation identifiers.
         /// </summary>
-        [JsonPropertyOrder(14)]
+        [JsonPropertyOrder(15)]
         [JsonPropertyName("running_operations")]
         public Dictionary<string, VectorizationLongRunningOperation> RunningOperations { get; set; } = [];
 
         /// <summary>
         /// The time of the last successful processing of a step.
         /// </summary>
-        [JsonPropertyOrder(14)]
+        [JsonPropertyOrder(16)]
         [JsonPropertyName("last_successful_step_time")]
         public DateTime LastSuccessfulStepTime { get; set; } = DateTime.UtcNow;
 
@@ -98,14 +122,6 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         /// </summary>
         [JsonIgnore]
         public bool Complete => RemainingSteps.Count == 0;
-
-        /// <summary>
-        /// The current step of the vectorization request.
-        /// </summary>
-        [JsonIgnore]
-        public string? CurrentStep => RemainingSteps.Count == 0
-            ? null
-            : RemainingSteps.First();
 
         /// <summary>
         /// Advances the vectorization pipeline to the next step.

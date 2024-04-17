@@ -1,5 +1,6 @@
 using Azure.Messaging;
 using FluentValidation;
+using FoundationaLLM.Authorization.Utils;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
@@ -13,9 +14,7 @@ using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.DataSource.ResourceProviders;
 using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.Validation.Resources;
 using Microsoft.AspNetCore.Http;
@@ -333,7 +332,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 },
                 VectorizationResourceTypeNames.VectorizationRequests => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    VectorizationResourceProviderActions.Process => await ProcessVectorizationRequest(resourcePath.ResourceTypeInstances.Last().ResourceId!),
+                    VectorizationResourceProviderActions.Process => await ProcessVectorizationRequest(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                                                StatusCodes.Status400BadRequest)
                 },
@@ -371,13 +370,14 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 null);
         }
 
-        private async Task<VectorizationResult> ProcessVectorizationRequest(string vectorizationRequestId)
+        private async Task<VectorizationResult> ProcessVectorizationRequest(ResourcePath resourcePath)
         {
+            var vectorizationRequestId = resourcePath.ResourceTypeInstances[0].ResourceId!;
             // retrieve the vectorization request from the in-memory collection
             if (!_vectorizationRequests.TryGetValue(vectorizationRequestId, out var request))
                 throw new ResourceProviderException($"The resource {vectorizationRequestId} was not found.",
                                        StatusCodes.Status404NotFound);
-            
+           
             return await vectorizationServiceClient.ProcessRequest(request);            
         }
 
@@ -592,6 +592,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             // if the vectorization request resource file path doesn't exist, create the resource file path using date slugs (UTC).
             if (string.IsNullOrWhiteSpace(request.ResourceFilePath))
             {
+                request.ProcessingState = VectorizationProcessingState.New;
                 // Validate creation time rules.
                 var validator = new VectorizationRequestCreationTimeValidator();
                 var validationResult = await validator.ValidateAsync(request);
