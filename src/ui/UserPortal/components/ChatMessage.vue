@@ -41,7 +41,7 @@
 			<div v-if="message.sender !== 'User'" class="message__footer">
 				<div class="citations" v-if="message.citations?.length">
 					<span><b>Citations: </b></span>
-					<span v-for="citation in message.citations" :key="citation.id" class="citation" v-tooltip.top="{ value: citation.filepath, showDelay: 500, hideDelay: 300 }">
+					<span v-for="citation in uniqueCitations(message.citations)" :key="citation.id" class="citation" v-tooltip.top="{ value: citation.filepath, showDelay: 500, hideDelay: 300 }">
 						<i class="pi pi-file"></i>
 						{{ citation.title.split("/").pop() }}
 					</span>
@@ -179,6 +179,11 @@ export default {
 			this.prompt = prompt;
 			this.viewPrompt = true;
 		},
+
+		uniqueCitations(citations) {
+			const filepaths = citations.map(citation => citation.filepath);
+    		return citations.filter((citation, index) => filepaths.indexOf(citation.filepath) === index);
+		}
 	},
 };
 </script>
