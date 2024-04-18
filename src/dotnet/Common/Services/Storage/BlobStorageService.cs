@@ -118,10 +118,10 @@ namespace FoundationaLLM.Common.Services.Storage
                         "Reason: an existing lease is preventing acquiring a new lease.",
                         filePath, containerName);
                     throw new StorageException($"Could not get a lease for the blob {filePath} from container {containerName}. " +
-                        "Reason: an existing lease is preventing acquiring a new lease.");
+                        "Reason: an existing lease is preventing acquiring a new lease.", ex);
                 }
 
-                throw new StorageException($"Could not get a lease for the blob {filePath} from container {containerName}. Reason: unknown.");
+                throw new StorageException($"Could not get a lease for the blob {filePath} from container {containerName}. Reason: unknown.", ex);
             }
             finally
             {
