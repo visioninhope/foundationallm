@@ -603,7 +603,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 request.ResourceFilePath = $"{REQUEST_RESOURCES_DIRECTORY_NAME}/{DateTime.UtcNow:yyyyMMdd}/{DateTime.UtcNow:yyyyMMdd}-{request.Id}.json";
 
                 // validate the data source at request creation time.
-                ValidateDataSource(request);
+                ValidateContentIdentifierWithDataSource(request);
             }
 
             // create/update the vectorization request resource file
@@ -625,7 +625,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         /// <param name="request">The vectorization request.</param>
         /// <returns>true if the data source is valid.</returns>
         /// <exception cref="ResourceProviderException"></exception>
-        private bool ValidateDataSource(VectorizationRequest request)
+        private bool ValidateContentIdentifierWithDataSource(VectorizationRequest request)
         {
             var dataSourceResourceProviderService = GetResourceProviderService(ResourceProviderNames.FoundationaLLM_DataSource);
 
