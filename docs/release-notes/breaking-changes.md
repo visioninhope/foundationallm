@@ -22,6 +22,6 @@
 
 2. The following Key Vault secrets need to be replaced in existing environments:
 
-    - `foundationallm-apis-AgentFactoryapi-apikey` -> `foundationallm-apis-orchestrationapi-apikey`
+    - `foundationallm-apis-agentfactoryapi-apikey` -> `foundationallm-apis-orchestrationapi-apikey`
 
 \* There is an upgrade script available that migrates these settings and secrets to their new names.
