@@ -47,16 +47,29 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         /// <inheritdoc/>
         public async Task<TextEmbeddingResult> GetEmbeddingsAsync(IList<TextChunk> textChunks, string modelName = "text-embedding-ada-002")
         {
-            var embeddings = await _textEmbeddingService.GenerateEmbeddingsAsync(textChunks.Select(tc => tc.Content!).ToList());
-            return new TextEmbeddingResult
+            try
             {
-                InProgress = false,
-                TextChunks = textChunks.Select(tc =>
+                var embeddings = await _textEmbeddingService.GenerateEmbeddingsAsync(textChunks.Select(tc => tc.Content!).ToList());
+                return new TextEmbeddingResult
                 {
-                    tc.Embedding = new Embedding(embeddings[tc.Position - 1]);
-                    return tc;
-                }).ToList()
-            };
+                    InProgress = false,
+                    TextChunks = textChunks.Select(tc =>
+                    {
+                        tc.Embedding = new Embedding(embeddings[tc.Position - 1]);
+                        return tc;
+                    }).ToList()
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while generating embeddings.");
+                return new TextEmbeddingResult
+                {
+                    InProgress = false,
+                    Failed = true,
+                    ErrorMessage = ex.Message
+                };
+            }
         }
 
         /// <inheritdoc/>

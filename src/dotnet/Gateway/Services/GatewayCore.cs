@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿  using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Azure;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
@@ -57,8 +57,7 @@ namespace FoundationaLLM.Gateway.Services
 
                         foreach (var deployment in accountProperties.Deployments)
                         {
-                            if (deployment.Capabilities!.ContainsKey("embeddings")
-                                && deployment.Capabilities["embeddings"] == "true")
+                            if (deployment.CanDoEmbeddings)
                             {
                                 var embeddingModelContext = new EmbeddingModelDeploymentContext
                                 {
@@ -67,11 +66,12 @@ namespace FoundationaLLM.Gateway.Services
                                 };
 
                                 if (!_embeddingModels.ContainsKey(deployment.ModelName))
-                                    _embeddingModels[deployment.ModelName] = new EmbeddingModelContext
+                                    _embeddingModels[deployment.ModelName] = new EmbeddingModelContext(
+                                        _embeddingOperations,
+                                        _loggerFactory.CreateLogger<EmbeddingModelContext>())
                                     {
                                         ModelName = deployment.ModelName,
-                                        DeploymentContexts = [embeddingModelContext],
-                                        EmbeddingOperationIds = []
+                                        DeploymentContexts = [embeddingModelContext]
                                     };
                                 else
                                     _embeddingModels[deployment.ModelName].DeploymentContexts.Add(embeddingModelContext);
@@ -109,43 +109,10 @@ namespace FoundationaLLM.Gateway.Services
             _logger.LogInformation("The Gateway core service is executing.");
 
             var modelTasks = _embeddingModels.Values
-                .Select(em => Task.Run(() => ExecuteForModelAsync(em, cancellationToken)))
+                .Select(em => Task.Run(() => em.ProcessOperations(cancellationToken)))
                 .ToArray();
 
             await Task.WhenAll(modelTasks);
-        }
-
-        private async Task ExecuteForModelAsync(EmbeddingModelContext modelContext, CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("The Gateway core started the processor for the {ModelName} model.", modelContext.ModelName);
-
-            while (true)
-            {
-                if (cancellationToken.IsCancellationRequested) return;
-
-                var operationId  = string.Empty;
-                var operationContext = default(EmbeddingOperationContext);
-
-                try
-                {
-                    if (modelContext.EmbeddingOperationIds.TryDequeue(out operationId)
-                        && _embeddingOperations.TryGetValue(operationId, out operationContext))
-                    {
-                        var embeddingService = modelContext.SelectTextEmbeddingService();
-                        var result = await embeddingService.GetEmbeddingsAsync(operationContext.Request.TextChunks);
-
-                        operationContext.SetEmbeddings(result.TextChunks);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "The embedding operation with id {EmbeddingOperationId} encountered and error and was cancelled.",
-                        operationId);
-                    operationContext!.SetError(ex.Message);
-                }
-
-                await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
-            }
         }
 
         /// <inheritdoc/>
@@ -157,13 +124,20 @@ namespace FoundationaLLM.Gateway.Services
             if (!_embeddingModels.TryGetValue(embeddingRequest.EmbeddingModelName, out var embeddingModel))
                 throw new GatewayException("The requested embedding model is not available.", StatusCodes.Status404NotFound);
 
+            var operationId = Guid.NewGuid().ToString().ToLower();
             var embeddingOperationContext = new EmbeddingOperationContext
             {
-                Request = embeddingRequest,
+                InputTextChunks = embeddingRequest.TextChunks.Select(tc => new TextChunk
+                {
+                    OperationId = operationId,
+                    Position = tc.Position,
+                    Content = tc.Content,
+                    TokensCount = tc.TokensCount
+                }).ToList(),
                 Result = new TextEmbeddingResult
                 {
                     InProgress = true,
-                    OperationId = Guid.NewGuid().ToString().ToLower(),
+                    OperationId = operationId,
                     TextChunks = embeddingRequest.TextChunks.Select(tc => new TextChunk
                     {
                         Position = tc.Position
@@ -172,12 +146,7 @@ namespace FoundationaLLM.Gateway.Services
                 }
             };
 
-            _embeddingOperations.AddOrUpdate(
-                embeddingOperationContext.Result.OperationId,
-                embeddingOperationContext,
-                (k, v) => v);
-
-            embeddingModel.EmbeddingOperationIds.Enqueue(embeddingOperationContext.Result.OperationId);
+            embeddingModel.AddEmbeddingOperationContext(embeddingOperationContext);
 
             return await Task.FromResult(
                 new TextEmbeddingResult
@@ -196,11 +165,11 @@ namespace FoundationaLLM.Gateway.Services
             if (!_embeddingOperations.TryGetValue(operationId, out var operationContext))
                 throw new GatewayException("The operation identifier was not found.", StatusCodes.Status404NotFound);
 
-            if (operationContext.Result.Cancelled)
+            if (operationContext.Result.Failed)
                 return await Task.FromResult(new TextEmbeddingResult
                 {
                     InProgress = false,
-                    Cancelled = true,
+                    Failed = true,
                     ErrorMessage = operationContext.Result.ErrorMessage,
                     OperationId = operationId
                 });
@@ -216,7 +185,7 @@ namespace FoundationaLLM.Gateway.Services
 
         private ITextEmbeddingService CreateTextEmbeddingService(string endpoint, string deploymentName)
             =>  new SemanticKernelTextEmbeddingService(
-                Options.Create<SemanticKernelTextEmbeddingServiceSettings>(new SemanticKernelTextEmbeddingServiceSettings
+                Options.Create(new SemanticKernelTextEmbeddingServiceSettings
                 {
                     AuthenticationType = AzureOpenAIAuthenticationTypes.AzureIdentity,
                     Endpoint = endpoint,

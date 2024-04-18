@@ -11,9 +11,9 @@ namespace FoundationaLLM.Gateway.Models
         private readonly object _syncRoot = new();
 
         /// <summary>
-        /// The original <see cref="TextEmbeddingRequest"/> that triggered the embedding operation.
+        /// The list of <see cref="TextChunk"/> objects which provide the input to the embedding operation.
         /// </summary>
-        public required TextEmbeddingRequest Request { get; set; }
+        public required IList<TextChunk> InputTextChunks { get; set; } = [];
 
         /// <summary>
         /// The <see cref="TextEmbeddingResult"/> holding the result of the embedding operation.
@@ -29,7 +29,7 @@ namespace FoundationaLLM.Gateway.Models
             lock (_syncRoot)
             {
                 Result.ErrorMessage = errorMessage;
-                Result.Cancelled = true;
+                Result.Failed = true;
                 Result.InProgress = false;
             }
         }

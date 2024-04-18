@@ -8,6 +8,11 @@ namespace FoundationaLLM.Common.Models.Vectorization
     public class TextChunk
     {
         /// <summary>
+        /// The identifier of the operation the text chunk belongs to. Can be null if the chunk is not associated with an operation.
+        /// </summary>
+        public string? OperationId { get; set; }
+
+        /// <summary>
         /// The position of the text chunk in the content it belongs to.
         /// </summary>
         [JsonPropertyName("position")]
