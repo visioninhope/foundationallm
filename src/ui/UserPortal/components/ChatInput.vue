@@ -1,12 +1,13 @@
 <template>
 	<div class="chat-input p-inputgroup">
-		<InputText
+		<Textarea
 			v-model="text"
 			:disabled="disabled"
 			class="input"
 			type="text"
 			placeholder="What would you like to ask?"
-			@keydown.enter="handleSend"
+			@keydown="handleKeydown"
+			autoResize
 		/>
 		<Button
 			:disabled="disabled"
@@ -39,6 +40,13 @@ export default {
 	},
 
 	methods: {
+		handleKeydown(event: KeyboardEvent) {
+			if (event.key === 'Enter' && !event.shiftKey) {
+				event.preventDefault();
+				this.handleSend();
+			}
+		},
+		
 		handleSend() {
 			this.$emit('send', this.text);
 			this.text = '';
@@ -68,7 +76,8 @@ export default {
 .input {
 	width: 100%;
 	height: 100%;
-	height: 64px;
+	max-height: 128px;
+	overflow-y: scroll !important;
 }
 
 .input:focus {

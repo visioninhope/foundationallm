@@ -4,6 +4,7 @@ import InputText from 'primevue/inputtext';
 import Dialog from 'primevue/dialog';
 import Toast from 'primevue/toast';
 import Chip from 'primevue/chip';
+import Textarea from 'primevue/textarea';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
 import Divider from 'primevue/divider';
@@ -16,6 +17,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.component('Button', Button);
 	nuxtApp.vueApp.component('InputText', InputText);
 	nuxtApp.vueApp.component('Dialog', Dialog);
+	nuxtApp.vueApp.component('Textarea', Textarea);
 	nuxtApp.vueApp.component('Toast', Toast);
 	nuxtApp.vueApp.component('Chip', Chip);
 	nuxtApp.vueApp.component('Divider', Divider);
