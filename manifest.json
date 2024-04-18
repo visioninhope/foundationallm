@@ -7034,6 +7034,26 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication-authorization/media/set-grant-and-hybrid-flows.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication-authorization/media/set-grant-and-hybrid-flows.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/authentication-authorization/media/web-platform-selection.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/authentication-authorization/media/web-platform-selection.png"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "deployment/changes-050.md",
       "output": {
