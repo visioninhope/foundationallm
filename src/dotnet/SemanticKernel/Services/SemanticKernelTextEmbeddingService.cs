@@ -5,11 +5,15 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Http.Resilience;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Embeddings;
 using System.ComponentModel;
+using System.Net;
 
 #pragma warning disable SKEXP0001, SKEXP0010
 
@@ -58,30 +62,37 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         /// <inheritdoc/>
         public Task<TextEmbeddingResult> GetEmbeddingsAsync(string operationId) => throw new NotImplementedException();
 
-        /// <summary>
-        /// Creates a <see cref="Kernel"/> instance using the deployment name, endpoint, and API key.
-        /// </summary>
-        /// <param name="deploymentName">The name of the Azure Open AI deployment.</param>
-        /// <param name="endpoint">The endpoint of the Azure Open AI deployment.</param>
-        /// <param name="apiKey">The API key used to connect to the Azure Open AI deployment.</param>
-        /// <returns>The <see cref="Kernel"/> instance.</returns>
-        private Kernel CreateKernelFromAPIKey(string deploymentName, string endpoint, string apiKey)
+        private Kernel CreateKernel()
         {
-            var builder = Kernel.CreateBuilder();
-            builder.AddAzureOpenAITextEmbeddingGeneration(deploymentName, endpoint, apiKey);
-            return builder.Build();
-        }
+            ValidateDeploymentName(_settings.DeploymentName);
+            ValidateEndpoint(_settings.Endpoint);
 
-        /// <summary>
-        /// Creates a <see cref="Kernel"/> instance using the deployment name, endpoint, and the Azure identity.
-        /// </summary>
-        /// <param name="deploymentName">The name of the Azure Open AI deployment.</param>
-        /// <param name="endpoint">The endpoint of the Azure Open AI deployment.</param>
-        /// <returns>The <see cref="Kernel"/> instance.</returns>
-        private Kernel CreateKernelFromIdentity(string deploymentName, string endpoint)
-        {
             var builder = Kernel.CreateBuilder();
-            builder.AddAzureOpenAITextEmbeddingGeneration(deploymentName, endpoint, DefaultAuthentication.GetAzureCredential());
+            if (_settings.AuthenticationType == AzureOpenAIAuthenticationTypes.AzureIdentity)
+            {
+                builder.AddAzureOpenAITextEmbeddingGeneration(
+                    _settings.DeploymentName,
+                    _settings.Endpoint,
+                    DefaultAuthentication.GetAzureCredential());
+            }
+            else
+            {
+                ValidateAPIKey(_settings.APIKey);
+                builder.AddAzureOpenAITextEmbeddingGeneration(
+                    _settings.DeploymentName,
+                    _settings.Endpoint,
+                    _settings.APIKey!);
+            }
+
+            builder.Services.ConfigureHttpClientDefaults(c =>
+            {
+                // Use a standard resiliency policy configured to retry on 429 (too many requests).
+                c.AddStandardResilienceHandler().Configure(o =>
+                {
+                    o.Retry.ShouldHandle = args => ValueTask.FromResult(args.Outcome.Result?.StatusCode is HttpStatusCode.TooManyRequests);
+                });
+            });
+
             return builder.Build();
         }
 
@@ -108,24 +119,6 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             {
                 _logger.LogCritical("The Azure Open AI API key is invalid.");
                 throw new ConfigurationValueException("The Azure Open AI API key is invalid.");
-            }
-        }
-
-        private Kernel CreateKernel()
-        {
-            switch (_settings.AuthenticationType)
-            {
-                case AzureOpenAIAuthenticationTypes.APIKey:
-                    ValidateDeploymentName(_settings.DeploymentName);
-                    ValidateEndpoint(_settings.Endpoint);
-                    ValidateAPIKey(_settings.APIKey);
-                    return CreateKernelFromAPIKey(_settings.DeploymentName, _settings.Endpoint, _settings.APIKey!);
-                case AzureOpenAIAuthenticationTypes.AzureIdentity:
-                    ValidateDeploymentName(_settings.DeploymentName);
-                    ValidateEndpoint(_settings.Endpoint);
-                    return CreateKernelFromIdentity(_settings.DeploymentName, _settings.Endpoint);
-                default:
-                    throw new InvalidEnumArgumentException($"The authentication type {_settings.AuthenticationType} is not supported.");
             }
         }
     }

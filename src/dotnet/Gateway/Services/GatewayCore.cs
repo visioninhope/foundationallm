@@ -147,7 +147,7 @@ namespace FoundationaLLM.Gateway.Services
                     operationContext!.SetError(ex.Message);
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
             }
         }
 
