@@ -91,6 +91,8 @@ Follow the steps below to deploy the solution to your Azure subscription.
     | chat-ui           | chat              | example.com | chat.example.com.pfx              |
     | management-ui     | management        | example.com | management.example.com.pfx        |
 
+## Provision Infrastructure
+
 8. Provision infrastructure with `psake`:
 
     ```powershell
@@ -108,6 +110,8 @@ Follow the steps below to deploy the solution to your Azure subscription.
     ```
 
     The post-deployment script will generate a host file describing all the private endpoint IPs and the associated hostnames.  These values can be used to populate your computer's local `hosts` file, or may assist with configuring your organization's DNS system.  This guide will assume that you have taken the contents of the generated file and added them to your local `hosts` file.
+
+## Configure and Deploy
 
 10. Connect to VPN
 
@@ -149,52 +153,4 @@ Follow the steps below to deploy the solution to your Azure subscription.
         - Deploy ingress-nginx
         - Deploy Ingress Configurations and External Services
 
-
-----
-
-
-1. **Navigate to the bicep deployment directory:**
-   - Execute the following command to navigate:
-     ```powershell
-     cd foundationallm/deploy/standard/bicep
-     ```
-
-2. **Load psake into your PowerShell session:**
-   - Execute the following command:
-     ```powershell
-     ./bootstrap.ps1
-     ```
-
-3. **Execute the deployment:**
-   - Execute the following command to deploy the solution:
-     ```powershell
-     Invoke-psake
-     ```
-
-### Additional Notes:
-- **Azure OpenAI Service Regions:**
-  - Ensure that the `<location>` value in your deployment script corresponds to a region that supports Azure OpenAI services. Refer to Azure OpenAI service regions for more information.
-
-## Post-deployment configuration
-
-### Authentication setup
-
-Follow the instructions in the [Authentication setup document](https://docs.foundationallm.ai/deployment/authentication/index.html) to configure authentication for the solution.
-
-## References
-
-### Deployment-Manifest.json Reference
-
-| Property         | Description                                                                                      | Default Value     |
-| ---------------- | ------------------------------------------------------------------------------------------------ | ----------------- |
-| environment      | Target deployment environment                                                                    | `stg`             |
-| location         | Target deployment region in Azure                                                                | `EastUS2`         |
-| project          | Project identifier associated with this deployment                                               | `fllm01`          |
-| subscriptoin     | Target deployment subscription in Azure                                                          | N/A               |
-| k8sNamespace     | Target Kubernetes namespace for deployed services in AKS clusters                                | `default`         |
-| adminObjectId    | Object Id of the Azure AD User or Group to grant appropriate rights to administer the deployment | N/A               |
-| createVpnGateway | Flag to enable/disable creation of a VPN Gateway for private network access                      | `true`            |
-| publicEndpoints  | Flag to enable/disable exposing service endpoints on the public Internet                         | `true`            |
-| createApimUdr    | Flag to enable/disable creating UDR rule to support APIM deployment in a peered VNET environment | `false`           |
-| vnetName         | Desired VNET name for deployment.                                                                | N/A               |
-| vnetCidr         | Desired VNET CIDR Address range.                                                                 | `10.220.128.0/21` |
+## Connect and Test
