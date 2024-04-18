@@ -140,13 +140,13 @@ Interface IGroupMembershipService  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;List&lt;string&gt;&gt; GetGroupsForPrincipal(string userPrincipalName)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;List&lt;string&gt;&gt; GetGroupsForPrincipal(string userIdentifier)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>userPrincipalName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The user principal name (UPN) for which group membership is retrieved.</p>
+    <dt><code>userIdentifier</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The user identifier for which group membership is retrieved. Can be either an object id or a user principal name (UPN).</p>
 </dd>
   </dl>
 
