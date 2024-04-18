@@ -31,7 +31,7 @@ In the 0.5.0 release, we have added the ability to override the LLM parameters i
 RBAC roles `reader, Contributor and User Access Administrator` are now activated on:
 - Management API
 - Core API
-- Agent Factory API
+- Orchestration API
  
 > [!NOTE]
 > Upgrading from 0.4.0 to 0.5.0 requires that these are configured for the APIs listed above for system to function correctly.

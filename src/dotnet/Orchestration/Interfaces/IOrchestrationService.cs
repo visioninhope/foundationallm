@@ -3,7 +3,7 @@
 namespace FoundationaLLM.Orchestration.Core.Interfaces;
 
 /// <summary>
-/// Interface for the Agent Factory Service
+/// Interface for the Orchestration Service
 /// </summary>
 public interface IOrchestrationService
 {

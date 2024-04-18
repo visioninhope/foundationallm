@@ -44,7 +44,7 @@ namespace Gatekeeper.Tests.Services
                 UserPrompt = "Safe content."
             };
 
-            var expectedResult = new CompletionResponse { Completion = "Completion from Agent Factory API Service." };
+            var expectedResult = new CompletionResponse { Completion = "Completion from Orchestration API Service." };
 
             var safeContentResult = new AnalyzeTextFilterResult { Safe = true, Reason = string.Empty };
             _contentSafetyService.AnalyzeText(completionRequest.UserPrompt).Returns(safeContentResult);
@@ -66,7 +66,7 @@ namespace Gatekeeper.Tests.Services
                 UserPrompt = "Safe content for summary."
             };
 
-            var expectedResult = new SummaryResponse { Summary = "Summary from Agent Factory API Service." };
+            var expectedResult = new SummaryResponse { Summary = "Summary from Orchestration API Service." };
 
             var safeContentResult = new AnalyzeTextFilterResult { Safe = true, Reason = string.Empty };
 

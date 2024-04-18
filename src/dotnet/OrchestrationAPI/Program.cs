@@ -24,12 +24,12 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 namespace FoundationaLLM.Orchestration.API
 {
     /// <summary>
-    /// Program class for the Agent Factory API
+    /// Program class for the Orchestration API
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// Entry point for the Agent Factory API
+        /// Entry point for the Orchestration API
         /// </summary>
         /// <param name="args"></param>
         public static void Main(string[] args)

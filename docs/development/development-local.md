@@ -176,9 +176,9 @@ The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB cha
 }
 ```
 
-### Agent Factory API
+### Orchestration API
 
-#### Agent Factory API app settings
+#### Orchestration API app settings
 
 > Make sure the contents of the `appsettings.json` file has this structure and similar values:
 
