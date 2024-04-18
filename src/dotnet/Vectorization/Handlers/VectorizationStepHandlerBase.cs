@@ -1,17 +1,9 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Authentication;
+﻿using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
-using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
-using Json.Schema;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
@@ -104,8 +96,7 @@ namespace FoundationaLLM.Vectorization.Handlers
                 //update the request execution state with the error message.
                 state.LogHandlerError(this, request.Id!, _messageId, ex);
                 //update the request state with the error message.
-                request.ErrorMessages.Add($"Error in executing {_stepId} step handler for request {request.Id} (message id {_messageId}): {ex.Message}.");                
-                await UpdateResourceState(request.ObjectId!, request);
+                request.ErrorMessages.Add($"Error in executing {_stepId} step handler for request {request.Id} (message id {_messageId}): {ex.Message}.");     
                 _logger.LogError(ex, "Error in executing [{HandlerId}] step handler for request {VectorizationRequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);
             }
             finally
@@ -113,9 +104,7 @@ namespace FoundationaLLM.Vectorization.Handlers
                 //update execution state
                 state.UpdateRequest(request);
                 state.LogHandlerEnd(this, request.Id!, _messageId);
-                _logger.LogInformation("Finished handler [{HandlerId}] for request {RequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);
-                //update the request state
-                await UpdateResourceState(request.ObjectId!, request);
+                _logger.LogInformation("Finished handler [{HandlerId}] for request {RequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);                
             }
             return success;
         }
@@ -145,28 +134,5 @@ namespace FoundationaLLM.Vectorization.Handlers
             return false;
         }
 
-        /// <summary>
-        /// Updates the state of a vectorization resource.
-        /// </summary>
-        /// <exception cref="VectorizationException"></exception>
-        private async Task UpdateResourceState(string resourcePath, object request)
-        {
-            var vectorizationResourceProviderService = _serviceProvider.GetService<IResourceProviderService>();
-            if (vectorizationResourceProviderService == null)
-                throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
-            // await vectorizationResourceProviderService.UpsertResourceAsync(request.ObjectId!, request);
-
-            // use HandlePostAsync to go through Authorization layer using the managed identity of the vectorization API
-            var jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
-            jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-            var requestBody = JsonSerializer.Serialize(request, jsonSerializerOptions);
-            var unifiedIdentity = new UnifiedUserIdentity
-            {
-                Name = "VectorizationAPI",
-                UserId = "VectorizationAPI",
-                Username = "VectorizationAPI"
-            };                      
-            await vectorizationResourceProviderService.HandlePostAsync(resourcePath, requestBody, unifiedIdentity);
-        }
     }
 }

@@ -1,8 +1,6 @@
-using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -11,8 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
-using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
-using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Settings;
 using System.Text.Json.Serialization;

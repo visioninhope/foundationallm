@@ -50,9 +50,23 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         public required VectorizationProcessingType ProcessingType { get; set; }
 
         /// <summary>
-        /// The <see cref="VectorizationProcessingState"/> indicating the current state of the vectorization request.
+        /// If run in the context of a pipeline, the object id of the pipeline resource being executed.
         /// </summary>
         [JsonPropertyOrder(4)]
+        [JsonPropertyName("pipeline_object_id")]
+        public string? PipelineObjectId { get; set; }
+
+        /// <summary>
+        /// If run in the context of a pipeline, the unique identifier of the pipeline execution.
+        /// </summary>
+        [JsonPropertyOrder(5)]
+        [JsonPropertyName("pipeline_execution_id")]
+        public string? PipelineExecutionId { get; set; }
+
+        /// <summary>
+        /// The <see cref="VectorizationProcessingState"/> indicating the current state of the vectorization request.
+        /// </summary>
+        [JsonPropertyOrder(6)]
         [JsonPropertyName("processing_state")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public VectorizationProcessingState ProcessingState { get; set; }
@@ -60,7 +74,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         /// <summary>
         /// Error messages that occurred during the processing of the vectorization request.
         /// </summary>
-        [JsonPropertyOrder(5)]
+        [JsonPropertyOrder(7)]
         [JsonPropertyName("error_messages")]
         public List<string> ErrorMessages { get; set; } = [];
 
