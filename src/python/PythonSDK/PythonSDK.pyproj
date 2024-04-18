@@ -51,7 +51,7 @@
     <Compile Include="foundationallm\langchain\data_sources\sql\mariadb.py" />
     <Compile Include="foundationallm\models\language_models\language_model_type.py" />
     <Compile Include="foundationallm\langchain\agents\__init__.py" />
-    <Compile Include="foundationallm\langchain\agents\orchestration.py" />
+    <Compile Include="foundationallm\langchain\agents\agent_factory.py" />
     <Compile Include="foundationallm\langchain\data_sources\sql\mssql.py" />
     <Compile Include="foundationallm\langchain\data_sources\sql\mysql.py" />
     <Compile Include="foundationallm\langchain\data_sources\sql\postgresql.py" />
