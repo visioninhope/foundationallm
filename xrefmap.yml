@@ -13704,6 +13704,25 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline
   fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline
   nameWithType: VectorizationPipeline
+- uid: FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.#ctor
+  name: VectorizationPipeline()
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.html#FoundationaLLM_Common_Models_Vectorization_VectorizationPipeline__ctor
+  commentId: M:FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.VectorizationPipeline()
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.New()
+  nameWithType: VectorizationPipeline.VectorizationPipeline()
+  nameWithType.vb: VectorizationPipeline.New()
+- uid: FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.#ctor*
+  name: VectorizationPipeline
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.html#FoundationaLLM_Common_Models_Vectorization_VectorizationPipeline__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.VectorizationPipeline
+  fullName.vb: FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.New
+  nameWithType: VectorizationPipeline.VectorizationPipeline
+  nameWithType.vb: VectorizationPipeline.New
 - uid: FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.Active
   name: Active
   href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.VectorizationPipeline.html#FoundationaLLM_Common_Models_Vectorization_VectorizationPipeline_Active
