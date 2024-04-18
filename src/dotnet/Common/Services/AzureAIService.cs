@@ -100,11 +100,11 @@ namespace FoundationaLLM.Common.Services
             job.BatchDataInput = new BatchDataInput { DataUri = $"azureml://locations/{_settings.Region}/workspaces/{job.RunId}/data/{dataSetName}/versions/{dataSetVersion}" };
             job.Connections = new GptConnections
             {
-                GptCoherence = new GptConnection { Connection = "Default_AzureOpenAI", DeploymentName = _settings.Deployment },
-                GptFluency = new GptConnection { Connection = "Default_AzureOpenAI", DeploymentName = _settings.Deployment },
-                GptGroundedness = new GptConnection { Connection = "Default_AzureOpenAI", DeploymentName = _settings.Deployment },
-                GptRelevance = new GptConnection { Connection = "Default_AzureOpenAI", DeploymentName = _settings.Deployment },
-                GptSimilarity = new GptConnection { Connection = "Default_AzureOpenAI", DeploymentName = _settings.Deployment }
+                GptCoherence = new GptConnection { Connection = _settings.ConnectionName, DeploymentName = _settings.Deployment },
+                GptFluency = new GptConnection { Connection = _settings.ConnectionName, DeploymentName = _settings.Deployment },
+                GptGroundedness = new GptConnection { Connection = _settings.ConnectionName, DeploymentName = _settings.Deployment },
+                GptRelevance = new GptConnection { Connection = _settings.ConnectionName, DeploymentName = _settings.Deployment },
+                GptSimilarity = new GptConnection { Connection = _settings.ConnectionName, DeploymentName = _settings.Deployment }
             };
             job.InputsMapping = new InputsMapping { Question = "${data.question}", Answer = "${data.answer}", Context = "${data.context}", GroundTruth = "${data.ground_truth}", Metrics = metrics };
             job.RunExperimentName = job.RunId;

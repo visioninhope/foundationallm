@@ -41,6 +41,10 @@ namespace FoundationaLLM.Common.Models.Configuration.AzureAI
         /// </summary>
         public string? Deployment { get; init; }
         /// <summary>
+        /// Connection to the Azure OpenAI Service Model.
+        /// </summary>
+        public string? ConnectionName { get; init; }
+        /// <summary>
         /// Metrics to run on the Azure AI Studio.
         /// 
         public string? Metrics { get; init; }
