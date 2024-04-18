@@ -23,11 +23,5 @@ namespace AuthorizationAPI.Controllers
         public IActionResult ProcessAuthorizationRequest(string instanceId, [FromBody] ActionAuthorizationRequest request) =>
             new OkObjectResult(
                 _authorizationCore.ProcessAuthorizationRequest(instanceId, request));
-
-        [HttpPost("batch", Name = "ProcessBatchAuthorizationRequest")]
-        public IActionResult ProcessBatchAuthorizationRequest(string instanceId, [FromBody] BatchActionAuthorizationRequest request) =>
-            new OkObjectResult(
-                _authorizationCore.ProcessBatchAuthorizationRequest(instanceId, request));
-
     }
 }

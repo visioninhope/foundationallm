@@ -29,7 +29,6 @@ namespace FoundationaLLM.Authorization.Services
         private readonly ConcurrentDictionary<string, RoleAssignmentStore> _roleAssignmentStores = [];
         private readonly ConcurrentDictionary<string, RoleAssignmentCache> _roleAssignmentCaches = [];
         private readonly IValidator<ActionAuthorizationRequest> _actionAuthorizationRequestValidator;
-        private readonly IValidator<BatchActionAuthorizationRequest> _batchActionAuthorizationRequestValidator;
 
         private const string ROLE_ASSIGNMENTS_CONTAINER_NAME = "role-assignments";
         private bool _initialized = false;
@@ -53,7 +52,6 @@ namespace FoundationaLLM.Authorization.Services
             _logger = logger;
 
             _actionAuthorizationRequestValidator = _resourceValidatorFactory.GetValidator<ActionAuthorizationRequest>()!;
-            _batchActionAuthorizationRequestValidator = _resourceValidatorFactory.GetValidator<BatchActionAuthorizationRequest>()!;
 
             // Kicks off the initialization on a separate thread and does not wait for it to complete.
             // The completion of the initialization process will be signaled by setting the _initialized property.
@@ -121,6 +119,8 @@ namespace FoundationaLLM.Authorization.Services
         /// <inheritdoc/>
         public ActionAuthorizationResult ProcessAuthorizationRequest(string instanceId, ActionAuthorizationRequest authorizationRequest)
         {
+            var results = authorizationRequest.ResourcePaths.Distinct().ToDictionary(rp => rp, auth => false);
+
             try
             {
                 _logger.LogDebug("Authorization request: {AuthorizationRequest}",
@@ -129,84 +129,47 @@ namespace FoundationaLLM.Authorization.Services
                 if (!_initialized)
                 {
                     _logger.LogError("The authorization core is not initialized.");
-                    return new ActionAuthorizationResult { Authorized = false };
+                    return new ActionAuthorizationResult { AuthorizationResults = results };
                 }
 
                 // Basic validation
                 _actionAuthorizationRequestValidator.ValidateAndThrow(authorizationRequest);
 
-                var resourcePath = ResourcePathUtils.ParseForAuthorizationRequestResourcePath(
-                    authorizationRequest.ResourcePath, _settings.InstanceIds);
-
-                if (string.IsNullOrWhiteSpace(resourcePath.InstanceId)
-                    || resourcePath.InstanceId.ToLower().CompareTo(instanceId.ToLower()) != 0)
+                foreach (var rp in authorizationRequest.ResourcePaths)
                 {
-                    _logger.LogError("The instance id from the controller route and the instance id from the authorization request do not match.");
-                    return new ActionAuthorizationResult { Authorized = false };
+                    try
+                    {
+                        var resourcePath = ResourcePathUtils.ParseForAuthorizationRequestResourcePath(rp, _settings.InstanceIds);
+
+                        if (string.IsNullOrWhiteSpace(resourcePath.InstanceId)
+                            || resourcePath.InstanceId.ToLower().CompareTo(instanceId.ToLower()) != 0)
+                        {
+                            _logger.LogError("The instance id from the controller route and the instance id from the authorization request do not match.");
+                            results[rp] = false;
+                        }
+
+                        results[rp] = ActionAllowed(resourcePath, new ActionAuthorizationRequest()
+                        {
+                            Action = authorizationRequest.Action,
+                            ResourcePaths = [rp],
+                            PrincipalId = authorizationRequest.PrincipalId,
+                            SecurityGroupIds = authorizationRequest.SecurityGroupIds
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        // If anything goes wrong, we default to denying the request on that particular resource.
+                        _logger.LogWarning(ex, "The authorization core failed to process the authorization request for: {ResourcePath}.", rp);
+                        results[rp] = false;
+                    }
                 }
-
-                return new ActionAuthorizationResult
-                {
-                    Authorized = ActionAllowed(resourcePath, authorizationRequest)
-                };
             }
             catch (Exception ex)
             {
-                // If anything goes wrong, we default to denying the request.
-
-                _logger.LogError(ex, "The authorization core failed to process the authorization request.");
-                return new ActionAuthorizationResult { Authorized = false };
-            }
-        }
-
-        /// <inheritdoc/>
-        public BatchActionAuthorizationResult ProcessBatchAuthorizationRequest(string instanceId, BatchActionAuthorizationRequest authorizationRequest)
-        {
-            var results = authorizationRequest.ResourcePaths.ToDictionary(rp => rp, auth => false);
-
-            _logger.LogDebug("Authorization request: {AuthorizationRequest}",
-                JsonSerializer.Serialize(authorizationRequest));
-
-            if (!_initialized)
-            {
-                _logger.LogError("The authorization core is not initialized.");
-                return new BatchActionAuthorizationResult { Authorized = results };
+                _logger.LogError(ex, "he authorization core failed to process the authorization request.");
             }
 
-            // Basic validation
-            _batchActionAuthorizationRequestValidator.ValidateAndThrow(authorizationRequest);
-
-            foreach (var rp in authorizationRequest.ResourcePaths)
-            {
-                try
-                {
-                    var resourcePath = ResourcePathUtils.ParseForAuthorizationRequestResourcePath(rp, _settings.InstanceIds);
-
-                    if (string.IsNullOrWhiteSpace(resourcePath.InstanceId)
-                        || resourcePath.InstanceId.ToLower().CompareTo(instanceId.ToLower()) != 0)
-                    {
-                        _logger.LogError("The instance id from the controller route and the instance id from the authorization request do not match.");
-                        results[rp] = false;
-                    }
-
-                    results[rp] = ActionAllowed(resourcePath, new ActionAuthorizationRequest()
-                    {
-                        Action = authorizationRequest.Action,
-                        ResourcePath = rp,
-                        PrincipalId = authorizationRequest.PrincipalId,
-                        SecurityGroupIds = authorizationRequest.SecurityGroupIds
-                    });
-                }
-                catch (Exception ex)
-                {
-                    // If anything goes wrong, we default to denying the request on that particular resource.
-
-                    _logger.LogError(ex, "The authorization core failed to process the authorization request.");
-                    results[rp] = false;
-                }
-            }
-
-            return new BatchActionAuthorizationResult { Authorized = results };
+            return new ActionAuthorizationResult { AuthorizationResults = results };
         }
 
         /// <inheritdoc/>
@@ -223,7 +186,7 @@ namespace FoundationaLLM.Authorization.Services
             {
                 Action = AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Read,
                 PrincipalId = securityPrincipalId,
-                ResourcePath = resourcePath
+                ResourcePaths = [resourcePath]
             });
         }
 
