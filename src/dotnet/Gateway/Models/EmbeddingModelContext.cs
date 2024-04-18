@@ -1,7 +1,4 @@
 ﻿using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Metadata;
-using FoundationaLLM.Gateway.Exceptions;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Concurrent;
 
 namespace FoundationaLLM.Gateway.Models

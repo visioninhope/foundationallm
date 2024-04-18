@@ -20,6 +20,10 @@ namespace FoundationaLLM.Gateway.Models
         /// </summary>
         public required TextEmbeddingResult Result { get; set; }
 
+        /// <summary>
+        /// Sets a specified error message on the context of the embedding operation.
+        /// </summary>
+        /// <param name="errorMessage">The error message to be set.</param>
         public void SetError(string errorMessage)
         {
             lock (_syncRoot)
@@ -30,6 +34,9 @@ namespace FoundationaLLM.Gateway.Models
             }
         }
 
+        /// <summary>
+        /// Marks the embedding operation as complete.
+        /// </summary>
         public void SetComplete()
         {
             lock ( _syncRoot)
@@ -38,6 +45,11 @@ namespace FoundationaLLM.Gateway.Models
             }
         }
 
+        /// <summary>
+        /// Sets the embeddings for a specified set of position.
+        /// If all positions have non-null embeddings, marks the operation as complete.
+        /// </summary>
+        /// <param name="textChunks">A list of <see cref="TextChunk"/> objects containing positions and their associated embeddings.</param>
         public void SetEmbeddings(IList<TextChunk> textChunks)
         {
             lock(_syncRoot)
@@ -46,6 +58,9 @@ namespace FoundationaLLM.Gateway.Models
                 {
                     Result.TextChunks[textChunk.Position - 1].Embedding = textChunk.Embedding;
                 }
+
+                if (Result.TextChunks.All(tc => tc != null))
+                    Result.InProgress = false;
             }
         }
     }

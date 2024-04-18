@@ -128,7 +128,6 @@ namespace FoundationaLLM.Gateway.Services
 
                 try
                 {
-
                     if (modelContext.EmbeddingOperationIds.TryDequeue(out operationId)
                         && _embeddingOperations.TryGetValue(operationId, out operationContext))
                     {
@@ -136,9 +135,7 @@ namespace FoundationaLLM.Gateway.Services
                         var result = await embeddingService.GetEmbeddingsAsync(operationContext.Request.TextChunks);
 
                         operationContext.SetEmbeddings(result.TextChunks);
-                        operationContext.SetComplete();
                     }
-
                 }
                 catch (Exception ex)
                 {
