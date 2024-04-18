@@ -114,7 +114,7 @@ namespace FoundationaLLM.Common.Services.Storage
                 if (ex.Status == (int)HttpStatusCode.Conflict
                         && ex.ErrorCode == "LeaseAlreadyPresent")
                 {
-                    _logger.LogError("Could not get a lease for the blob {FilePath} from container {ContainerName}. " +
+                    _logger.LogError(ex, "Could not get a lease for the blob {FilePath} from container {ContainerName}. " +
                         "Reason: an existing lease is preventing acquiring a new lease.",
                         filePath, containerName);
                     throw new StorageException($"Could not get a lease for the blob {filePath} from container {containerName}. " +
