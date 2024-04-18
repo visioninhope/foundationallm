@@ -1,4 +1,3 @@
-using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.Vectorization;
 using System.Text.Json.Serialization;

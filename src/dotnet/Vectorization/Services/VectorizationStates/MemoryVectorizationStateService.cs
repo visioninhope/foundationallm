@@ -47,5 +47,10 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
             if (!_vectorizationStateDictionary.TryAdd(id, state))
                 _vectorizationStateDictionary[id] = state;
         }
+        /// <inheritdoc/>
+        public Task SavePipelineState(VectorizationPipelineState state) => throw new NotImplementedException();
+
+        /// <inheritdoc/>
+        public Task<VectorizationPipelineState> ReadPipelineState(string pipelineName, string pipelineExecutionId) => throw new NotImplementedException();
     }
 }

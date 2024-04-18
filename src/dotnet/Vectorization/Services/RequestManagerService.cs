@@ -9,12 +9,8 @@ using Microsoft.Extensions.Logging;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Json.Schema;
 using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.Authentication;
-using FoundationaLLM.Common.Settings;
-using System.Text.Json.Serialization;
-using System.Text.Json;
+using FoundationaLLM.Vectorization.Extensions;
 
 namespace FoundationaLLM.Vectorization.Services
 {
@@ -76,6 +72,7 @@ namespace FoundationaLLM.Vectorization.Services
         /// <inheritdoc/>
         public async Task Run()
         {
+            var vectorizationResourceProvider = GetVectorizationResourceProvider();
             _logger.LogInformation("The request manager service associated with source [{RequestSourceName}] started processing requests.", _settings.RequestSourceName);            
             while (true)
             {
@@ -138,8 +135,7 @@ namespace FoundationaLLM.Vectorization.Services
                                 if (!string.IsNullOrWhiteSpace(errorMessage))
                                 {
                                     Request.ProcessingState = VectorizationProcessingState.Failed;
-                                    Request.ErrorMessages.Add(errorMessage);
-                                    await UpdateResourceState(Request.ObjectId!, Request);
+                                    Request.ErrorMessages.Add(errorMessage);                                    
                                 }
 
                                 // Remove the message from the queue
@@ -147,6 +143,8 @@ namespace FoundationaLLM.Vectorization.Services
 
                                 // Persist the state of the vectorization request
                                 await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
+                                // Update the vectorization request resource
+                                await Request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
                             }
                             else
                             {
@@ -235,7 +233,8 @@ namespace FoundationaLLM.Vectorization.Services
         }
 
         private async Task AdvanceRequest(VectorizationRequest request)
-        {            
+        {
+            var vectorizationResourceProvider = GetVectorizationResourceProvider();
             var (PreviousStep, CurrentStep) = request.MoveToNextStep();
 
             if (!string.IsNullOrEmpty(CurrentStep))
@@ -246,7 +245,7 @@ namespace FoundationaLLM.Vectorization.Services
                     var errorMessage = $"Could not find the [{CurrentStep}] request source service for request id {request.Id}.";
                     request.ProcessingState = VectorizationProcessingState.Failed;
                     request.ErrorMessages.Add(errorMessage);
-                    await UpdateResourceState(request.ObjectId!, request);
+                    await request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);                    
                     throw new VectorizationException(errorMessage);
                 }
 
@@ -262,31 +261,18 @@ namespace FoundationaLLM.Vectorization.Services
                     request.Id, PreviousStep);
                 request.ProcessingState = VectorizationProcessingState.Completed;                
             }
-            await UpdateResourceState(request.ObjectId!, request);
+            await request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Updates the state of a vectorization resource.
-        /// </summary>
-        /// <exception cref="VectorizationException"></exception>
-        private async Task UpdateResourceState(string resourcePath, object request)
+        private IResourceProviderService GetVectorizationResourceProvider()
         {
             var vectorizationResourceProviderService = _serviceProvider.GetService<IResourceProviderService>();
             if (vectorizationResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
-            // await vectorizationResourceProviderService.UpsertResourceAsync(request.ObjectId!, request);
 
-            // use HandlePostAsync to go through Authorization layer using the managed identity of the vectorization API
-            var jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
-            jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-            var requestBody = JsonSerializer.Serialize(request, jsonSerializerOptions);
-            var unifiedIdentity = new UnifiedUserIdentity
-            {
-                Name = "VectorizationAPI",
-                UserId = "VectorizationAPI",
-                Username = "VectorizationAPI"
-            };                       
-            await vectorizationResourceProviderService.HandlePostAsync(resourcePath, requestBody, unifiedIdentity);
+            return vectorizationResourceProviderService;
         }
+
+  
     }
 }

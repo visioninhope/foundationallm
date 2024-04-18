@@ -28,6 +28,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
         private const string BLOB_STORAGE_CONTAINER_NAME = "vectorization-state";
         private const string EXECUTION_STATE_DIRECTORY = "execution-state";
+        private const string PIPELINE_STATE_DIRECTORY = "pipeline-state";
 
         /// <inheritdoc/>
         public async Task<bool> HasState(VectorizationRequest request) =>
@@ -87,6 +88,35 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                 content,
                 default,
                 default);
+        }
+
+        /// <inheritdoc/>
+        public async Task SavePipelineState(VectorizationPipelineState state)
+        {
+            //pipeline object id format: "/instances/{instanceId}/providers/FoundationaLLM.Vectorization/vectorizationPipelines/{pipeline-name}"
+            var pipelineName = state.PipelineObjectId.Split('/').Last();
+            //vectorization-state/pipeline-state/pipeline-name/pipeline-name-pipeline-execution-id.json
+            var pipelineStatePath = $"{PIPELINE_STATE_DIRECTORY}/{pipelineName}/{pipelineName}-{state.ExecutionId}.json";
+            var content = JsonSerializer.Serialize(state);
+            await _storageService.WriteFileAsync(
+                BLOB_STORAGE_CONTAINER_NAME,
+                pipelineStatePath,
+                content,
+                default,
+                default);            
+        }
+
+        /// <inheritdoc/>
+        public async Task<VectorizationPipelineState> ReadPipelineState(string pipelineName, string pipelineExecutionId)
+        {
+            var pipelineStatePath = $"{PIPELINE_STATE_DIRECTORY}/{pipelineName}/{pipelineName}-{pipelineExecutionId}.json";
+            var content = await _storageService.ReadFileAsync(
+                BLOB_STORAGE_CONTAINER_NAME,
+                pipelineStatePath,
+                default);
+
+            return JsonSerializer.Deserialize<VectorizationPipelineState>(content)!;
+
         }
     }
 }
