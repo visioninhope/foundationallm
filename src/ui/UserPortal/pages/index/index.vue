@@ -7,9 +7,9 @@
 				<div class="resize-handle" @mousedown="startResizing"></div>
 			</div>
 			<div
-				v-show="!appStore.isSidebarClosed"
+				v-show="!$appStore.isSidebarClosed"
 				class="sidebar-blur"
-				@click="appStore.toggleSidebar"
+				@click="$appStore.toggleSidebar"
 			/>
 			<ChatThread />
 		</div>
@@ -24,17 +24,16 @@ export default {
 			sidebarWidth: 305,
 		};
 	},
-	computed: {
-		...mapStores(useAppStore),
-	},
+
 	methods: {
-		startResizing(event) {
+		startResizing(event: Event) {
 			// Prevent default action and bubbling
 			event.preventDefault();
 			document.addEventListener('mousemove', this.resizeSidebar);
 			document.addEventListener('mouseup', this.stopResizing);
 		},
-		resizeSidebar(event) {
+
+		resizeSidebar(event: MouseEvent) {
 			const sidebarRect = this.$refs.sidebar.getBoundingClientRect();
 			const minWidth = 305; // Minimum sidebar width
 			const maxWidth = 600; // Maximum sidebar width, adjust as needed
@@ -53,6 +52,7 @@ export default {
 			this.sidebarWidth = newWidth;
 			this.$refs.sidebar.style.width = `${this.sidebarWidth}px`;
 		},
+
 		stopResizing() {
 			document.removeEventListener('mousemove', this.resizeSidebar);
 			document.removeEventListener('mouseup', this.stopResizing);
