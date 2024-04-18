@@ -4,7 +4,11 @@
 			<div class="message__header">
 				<!-- Sender -->
 				<span class="header__sender">
-					<img v-if="message.sender !== 'User'" class="avatar" src="~/assets/FLLM-Agent-Light.svg">
+					<img
+						v-if="message.sender !== 'User'"
+						class="avatar"
+						src="~/assets/FLLM-Agent-Light.svg"
+					/>
 					<span>{{ getDisplayName() }}</span>
 				</span>
 
@@ -34,7 +38,19 @@
 				<span v-else>{{ displayText }}</span>
 			</div>
 
-			<div class="message__footer" v-if="message.sender !== 'User'">
+			<div v-if="message.sender !== 'User'" class="message__footer">
+				<div v-if="message.citations?.length" class="citations">
+					<span><b>Citations: </b></span>
+					<span
+						v-for="citation in message.citations"
+						:key="citation.id"
+						v-tooltip.top="{ value: citation.filepath, showDelay: 500, hideDelay: 300 }"
+						class="citation"
+					>
+						<i class="pi pi-file"></i>
+						{{ citation.title.split('/').pop() }}
+					</span>
+				</div>
 				<span class="ratings">
 					<!-- Like -->
 					<span>
@@ -200,7 +216,7 @@ export default {
 	flex-direction: row-reverse;
 	.message {
 		background-color: var(--primary-color);
-		color: var(--primary-text)
+		color: var(--primary-text);
 	}
 }
 
@@ -232,6 +248,7 @@ export default {
 	margin-top: 8px;
 	display: flex;
 	justify-content: space-between;
+	flex-wrap: wrap;
 }
 
 .header__sender {
@@ -257,6 +274,23 @@ export default {
 
 .token-chip--in {
 	background-color: var(--primary-color);
+}
+
+.citations {
+	flex-basis: 100%;
+	padding: 8px 12px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.citation {
+	background-color: var(--primary-color);
+	color: var(--primary-text);
+	margin: 4px;
+	padding: 4px 8px;
+	cursor: pointer;
+	white-space: nowrap;
 }
 
 .ratings {
@@ -307,7 +341,6 @@ export default {
 	.prompt-dialog {
 		width: 90vw;
 	}
-
 }
 
 @media only screen and (max-width: 545px) {

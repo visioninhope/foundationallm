@@ -53,7 +53,7 @@ export type Agent = {
 };
 
 export type Prompt = {
-	type: string
+	type: string;
 	name: string;
 	object_id: string;
 	description: string;
@@ -66,6 +66,10 @@ export type AgentDataSource = {
 	content_source: string;
 	object_id: string;
 };
+
+export interface ConfigurationReferenceMetadata {
+	isKeyVaultBacked: boolean;
+}
 
 // Data sources
 interface BaseDataSource {
@@ -111,10 +115,6 @@ export interface SharePointOnlineSiteDataSource extends BaseDataSource {
 	};
 }
 
-export interface ConfigurationReferenceMetadata {
-	isKeyVaultBacked: boolean;
-}
-
 export type DataSource =
 	| AzureDataLakeDataSource
 	| SharePointOnlineSiteDataSource
@@ -135,14 +135,14 @@ export interface AppConfigBase {
 
 export interface AppConfig extends AppConfigBase {
 	type: 'appconfiguration-key-value';
-	content_type: ''
+	content_type: '';
 }
 
 export interface AppConfigKeyVault extends AppConfigBase {
 	type: 'appconfiguration-key-vault-reference';
 	key_vault_uri: string;
 	key_vault_secret_name: string;
-	content_type: 'application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8'
+	content_type: 'application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8';
 }
 
 export type AppConfigUnion = AppConfig | AppConfigKeyVault;
@@ -201,7 +201,7 @@ export type CheckNameResponse = {
 };
 
 export type FilterRequest = {
-	default?: boolean
+	default?: boolean;
 };
 
 export type AgentGatekeeper = {};
@@ -265,6 +265,8 @@ export type CreateAgentRequest = {
 		endpoint_configuration: {
 			endpoint: string;
 			api_key: string;
+			version: string;
+			operation_type: string;
 		};
 		model_parameters: {
 			temperature: number;
@@ -304,15 +306,21 @@ export type CreateTextPartitioningProfileRequest = {
 };
 
 // Type guards
-export function isAzureDataLakeDataSource(dataSource: DataSource): dataSource is AzureDataLakeDataSource {
+export function isAzureDataLakeDataSource(
+	dataSource: DataSource,
+): dataSource is AzureDataLakeDataSource {
 	return dataSource.type === 'azure-data-lake';
 }
 
-export function isSharePointOnlineSiteDataSource(dataSource: DataSource): dataSource is SharePointOnlineSiteDataSource {
+export function isSharePointOnlineSiteDataSource(
+	dataSource: DataSource,
+): dataSource is SharePointOnlineSiteDataSource {
 	return dataSource.type === 'sharepoint-online-site';
 }
 
-export function isAzureSQLDatabaseDataSource(dataSource: DataSource): dataSource is AzureSQLDatabaseDataSource {
+export function isAzureSQLDatabaseDataSource(
+	dataSource: DataSource,
+): dataSource is AzureSQLDatabaseDataSource {
 	return dataSource.type === 'azure-sql-database';
 }
 
@@ -323,7 +331,6 @@ export function isAppConfig(config: AppConfigUnion): config is AppConfig {
 export function isAppConfigKeyVault(config: AppConfigUnion): config is AppConfigKeyVault {
 	return config.type === 'appconfiguration-key-vault-reference';
 }
-
 
 export function convertDataSourceToAzureDataLake(dataSource: DataSource): AzureDataLakeDataSource {
 	return {
@@ -348,7 +355,9 @@ export function convertDataSourceToAzureDataLake(dataSource: DataSource): AzureD
 	};
 }
 
-export function convertDataSourceToSharePointOnlineSite(dataSource: DataSource): SharePointOnlineSiteDataSource {
+export function convertDataSourceToSharePointOnlineSite(
+	dataSource: DataSource,
+): SharePointOnlineSiteDataSource {
 	return {
 		type: 'sharepoint-online-site',
 		name: dataSource.name,
@@ -372,7 +381,9 @@ export function convertDataSourceToSharePointOnlineSite(dataSource: DataSource):
 	};
 }
 
-export function convertDataSourceToAzureSQLDatabase(dataSource: DataSource): AzureSQLDatabaseDataSource {
+export function convertDataSourceToAzureSQLDatabase(
+	dataSource: DataSource,
+): AzureSQLDatabaseDataSource {
 	return {
 		type: 'azure-sql-database',
 		name: dataSource.name,
@@ -410,7 +421,7 @@ export function convertToAppConfig(baseConfig: AppConfigUnion): AppConfig {
 
 export function convertToAppConfigKeyVault(baseConfig: AppConfigUnion): AppConfigKeyVault {
 	if (!('key_vault_uri' in baseConfig) || !('key_vault_secret_name' in baseConfig)) {
-		throw new Error("Missing Key Vault properties");
+		throw new Error('Missing Key Vault properties');
 	}
 
 	return {

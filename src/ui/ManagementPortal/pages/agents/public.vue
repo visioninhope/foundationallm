@@ -13,7 +13,7 @@
 			</template>
 
 			<!-- Table -->
-			<DataTable :value="agents" stripedRows scrollable tableStyle="max-width: 100%" size="small">
+			<DataTable :value="agents" striped-rows scrollable table-style="max-width: 100%" size="small">
 				<template #empty>
 					No agents found. Please use the menu on the left to create a new agent.</template
 				>
@@ -33,7 +33,6 @@
 					}"
 				></Column>
 
-
 				<!-- Type -->
 				<Column
 					field="type"
@@ -48,11 +47,10 @@
 					}"
 				></Column>
 
-
 				<!-- Edit -->
 				<Column
 					header="Edit"
-					headerStyle="width:6rem"
+					header-style="width:6rem"
 					style="text-align: center"
 					:pt="{
 						headerCell: {
@@ -61,7 +59,6 @@
 						headerContent: { style: { justifyContent: 'center' } },
 					}"
 				>
-
 					<template #body="{ data }">
 						<NuxtLink :to="'/agents/edit/' + data.name" class="table__button">
 							<Button link>
@@ -74,7 +71,7 @@
 				<!-- Delete -->
 				<Column
 					header="Delete"
-					headerStyle="width:6rem"
+					header-style="width:6rem"
 					style="text-align: center"
 					:pt="{
 						headerCell: {
@@ -83,22 +80,17 @@
 						headerContent: { style: { justifyContent: 'center' } },
 					}"
 				>
-
 					<template #body="{ data }">
 						<Button link @click="agentToDelete = data">
-							<i class="pi pi-trash" style="font-size: 1.2rem; color: var(--red-400);"></i>
+							<i class="pi pi-trash" style="font-size: 1.2rem; color: var(--red-400)"></i>
 						</Button>
 					</template>
 				</Column>
 			</DataTable>
 		</div>
+
 		<!-- Delete agent dialog -->
-		<Dialog
-			:visible="agentToDelete !== null"
-			modal
-			header="Delete Agent"
-			:closable="false"
-		>
+		<Dialog :visible="agentToDelete !== null" modal header="Delete Agent" :closable="false">
 			<p>Do you want to delete the agent "{{ agentToDelete.name }}" ?</p>
 			<template #footer>
 				<Button label="Cancel" text @click="agentToDelete = null" />

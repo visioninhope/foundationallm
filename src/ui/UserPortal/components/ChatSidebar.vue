@@ -2,14 +2,17 @@
 	<div class="chat-sidebar">
 		<!-- Sidebar section header -->
 		<div class="chat-sidebar__section-header--mobile">
-			<img v-if="$appConfigStore.logoUrl !== ''" :src="$filters.enforceLeadingSlash($appConfigStore.logoUrl)" />
-			<span v-else>{{ $appConfigStore.logoText }}</span>
+			<img
+				v-if="appConfigStore.logoUrl !== ''"
+				:src="$filters.enforceLeadingSlash(appConfigStore.logoUrl)"
+			/>
+			<span v-else>{{ appConfigStore.logoText }}</span>
 			<Button
-				:icon="$appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
+				:icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
 				size="small"
 				severity="secondary"
 				class="secondary-button"
-				@click="$appStore.toggleSidebar"
+				@click="appStore.toggleSidebar"
 			/>
 		</div>
 		<div class="chat-sidebar__section-header">
@@ -31,26 +34,26 @@
 			>
 				<div class="chat" :class="{ 'chat--selected': currentSession?.id === session.id }">
 					<!-- Chat name -->
-					<span class="chat__name" v-tooltip="{ value: session.name }">{{ session.name }}</span>
+					<span v-tooltip="{ value: session.name }" class="chat__name">{{ session.name }}</span>
 
 					<!-- Chat icons -->
 					<span v-if="currentSession?.id === session.id" class="chat__icons">
 						<!-- Rename session -->
 						<Button
+							v-tooltip="'Rename chat session'"
 							icon="pi pi-pencil"
 							size="small"
 							severity="secondary"
-							v-tooltip="'Rename chat session'"
 							text
 							@click.stop="openRenameModal(session)"
 						/>
 
 						<!-- Delete session -->
 						<Button
+							v-tooltip="'Delete chat session'"
 							icon="pi pi-trash"
 							size="small"
 							severity="danger"
-							v-tooltip="'Delete chat session'"
 							text
 							@click.stop="sessionToDelete = session"
 						/>
@@ -113,9 +116,11 @@
 </template>
 
 <script lang="ts">
+import { mapStores } from 'pinia';
 import type { Session } from '@/js/types';
+import { useAppConfigStore } from '@/stores/appConfigStore';
+import { useAppStore } from '@/stores/appStore';
 import { getMsalInstance } from '@/js/auth';
-import Tooltip from 'primevue/tooltip';
 declare const process: any;
 
 export default {
@@ -132,22 +137,25 @@ export default {
 	},
 
 	computed: {
+		...mapStores(useAppConfigStore),
+		...mapStores(useAppStore),
+
 		sessions() {
-			return this.$appStore.sessions;
+			return this.appStore.sessions;
 		},
 
 		currentSession() {
-			return this.$appStore.currentSession;
+			return this.appStore.currentSession;
 		},
 	},
 
 	async created() {
 		if (window.screen.width < 950) {
-			this.$appStore.isSidebarClosed = true;
+			this.appStore.isSidebarClosed = true;
 		}
 
 		if (process.client) {
-			this.$appStore.init(this.$nuxt._route.query.chat);
+			await this.appStore.init(this.$nuxt._route.query.chat);
 			const msalInstance = await getMsalInstance();
 			const accounts = await msalInstance.getAllAccounts();
 			if (accounts.length > 0) {
@@ -169,21 +177,21 @@ export default {
 		},
 
 		handleSessionSelected(session: Session) {
-			this.$appStore.changeSession(session);
+			this.appStore.changeSession(session);
 		},
 
 		async handleAddSession() {
-			const newSession = await this.$appStore.addSession();
+			const newSession = await this.appStore.addSession();
 			this.handleSessionSelected(newSession);
 		},
 
 		handleRenameSession() {
-			this.$appStore.renameSession(this.sessionToRename!, this.newSessionName);
+			this.appStore.renameSession(this.sessionToRename!, this.newSessionName);
 			this.sessionToRename = null;
 		},
 
 		async handleDeleteSession() {
-			await this.$appStore.deleteSession(this.sessionToDelete!);
+			await this.appStore.deleteSession(this.sessionToDelete!);
 			this.sessionToDelete = null;
 		},
 
@@ -334,9 +342,9 @@ export default {
 }
 
 .secondary-button {
-	background-color: var(--secondary-button-bg)!important;
-	border-color: var(--secondary-button-bg)!important;
-	color: var(--secondary-button-text)!important;
+	background-color: var(--secondary-button-bg) !important;
+	border-color: var(--secondary-button-bg) !important;
+	color: var(--secondary-button-text) !important;
 }
 
 .chat-sidebar__username {

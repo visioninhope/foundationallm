@@ -31,7 +31,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 			tenantId: null,
 			scopes: [],
 			callbackPath: null,
-		},// as AuthConfigOptions,
+		}, // as AuthConfigOptions,
 	}),
 	getters: {},
 	actions: {
@@ -61,7 +61,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 				api.getConfigValue('FoundationaLLM:APIs:ManagementAPI:APIUrl'),
 
 				api.getConfigValue('FoundationaLLM:Instance:Id'),
-				
+
 				api.getConfigValue('FoundationaLLM:Branding:LogoUrl'),
 				api.getConfigValue('FoundationaLLM:Branding:LogoText'),
 				api.getConfigValue('FoundationaLLM:Branding:BackgroundColor'),
@@ -103,7 +103,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 			this.auth.clientId = authClientId;
 			this.auth.instance = authInstance;
 			this.auth.tenantId = authTenantId;
-			this.auth.scopes = [authScopes];
+			this.auth.scopes = authScopes;
 			this.auth.callbackPath = authCallbackPath;
 		},
 	},

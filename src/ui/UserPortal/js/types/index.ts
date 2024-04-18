@@ -1,3 +1,9 @@
+export interface Citation {
+	id: string;
+	title: string;
+	filepath: string;
+}
+
 export interface Message {
 	id: string;
 	type: string;
@@ -10,6 +16,7 @@ export interface Message {
 	rating: boolean | null;
 	vector: Array<Number>;
 	completionPromptId: string | null;
+	citations: Array<Citation>;
 }
 
 export interface Session {
@@ -29,6 +36,11 @@ export interface CompletionPrompt {
 	prompt: string;
 }
 
+export interface OrchestrationSettings {
+	orchestrator?: string;
+	endpoint_configuration?: { [key: string]: any } | null;
+	model_parameters?: { [key: string]: any } | null;
+}
 export interface Agent {
 	type: string;
 	name: string;
@@ -38,14 +50,8 @@ export interface Agent {
 }
 
 export interface OrchestrationRequest {
-    session_id?: string;
-    user_prompt: string;
+	session_id?: string;
+	user_prompt: string;
 	agent_name?: string;
-    settings?: OrchestrationSettings;
-}
-
-export interface OrchestrationSettings {
-    orchestrator?: string;
-	endpoint_configuration?: { [key: string]: any } | null;
-	model_parameters?: { [key: string]: any } | null;
+	settings?: OrchestrationSettings;
 }
