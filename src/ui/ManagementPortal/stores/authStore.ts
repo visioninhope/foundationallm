@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', {
 			return this.accounts[0] || null;
 		},
 
-		isAuthenticated(state): boolean {
+		isAuthenticated(): boolean {
 			return !!this.currentAccount;
 		},
 
@@ -44,7 +44,10 @@ export const useAuthStore = defineStore('auth', {
 
 			msalInstance.addEventCallback((event) => {
 				const { eventType } = event;
-				if (eventType === EventType.ACQUIRE_TOKEN_SUCCESS || eventType === EventType.LOGIN_SUCCESS) {
+				if (
+					eventType === EventType.ACQUIRE_TOKEN_SUCCESS ||
+					eventType === EventType.LOGIN_SUCCESS
+				) {
 					this.createTokenRefreshTimer();
 				}
 			});
@@ -60,7 +63,7 @@ export const useAuthStore = defineStore('auth', {
 			const tokenExpirationTime = this.currentAccount.idTokenClaims.exp * 1000;
 			const currentTime = Date.now();
 			const timeUntilExpirationMS = tokenExpirationTime - currentTime;
-			
+
 			if (timeUntilExpirationMS <= 0) {
 				console.log(`Auth: Access token expired ${timeUntilExpirationMS / 1000} seconds ago.`);
 				return useNuxtApp().$router.push({
@@ -77,7 +80,9 @@ export const useAuthStore = defineStore('auth', {
 				this.refreshToken();
 			}, timeUntilExpirationMS);
 
-			console.log(`Auth: Set access token timer refresh in ${timeUntilExpirationMS / 1000} seconds.`);
+			console.log(
+				`Auth: Set access token timer refresh in ${timeUntilExpirationMS / 1000} seconds.`,
+			);
 		},
 
 		async refreshToken() {
@@ -88,7 +93,7 @@ export const useAuthStore = defineStore('auth', {
 				});
 				console.log('Auth: Refreshed access token.');
 				createTokenRefreshTimer();
-			} catch(error) {
+			} catch (error) {
 				console.error('Auth: Token refresh error:', error);
 				sessionStorage.clear();
 				useNuxtApp().$router.push({ name: 'auth/login' });

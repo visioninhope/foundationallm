@@ -15,7 +15,6 @@ import type {
 } from './types';
 import { convertToDataSource, convertToAppConfigKeyVault, convertToAppConfig } from '@/js/types';
 // import { mockAzureDataLakeDataSource1 } from './mock';
-import { getMsalInstance } from '@/js/auth';
 
 async function wait(milliseconds: number = 1000): Promise<void> {
 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
