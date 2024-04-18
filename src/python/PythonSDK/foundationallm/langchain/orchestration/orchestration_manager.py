@@ -1,5 +1,5 @@
 from foundationallm.config import Configuration, Context
-from foundationallm.langchain.agents import Orchestration, AgentBase
+from foundationallm.langchain.agents import AgentFactory, AgentBase
 from foundationallm.models.orchestration import (
     CompletionRequestBase,
     CompletionResponse
@@ -39,13 +39,13 @@ class OrchestrationManager:
             context: Context,
             resource_provider: ResourceProvider) -> AgentBase:
         """Creates an agent for executing completion requests."""
-        orchestration = Orchestration(
+        agent_factory = AgentFactory(
             completion_request=completion_request,
             config=config,
             context=context,
             resource_provider=resource_provider
         )
-        return orchestration.get_agent()
+        return agent_factory.get_agent()
 
     def invoke(self, prompt: str) -> CompletionResponse:
         """
