@@ -208,7 +208,10 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                     {
                                         var errorMessage = $"An error was encountered while creating the vectorization request for file {string.Join('/', vectorizationRequest.ContentIdentifier.MultipartId)}, exception: {ex.Message}";
                                         _logger.LogError(ex, errorMessage);
-                                        await vectorizationRequest.UpdateVectorizationPipelineState(stateService).ConfigureAwait(false);
+                                        //get latest state of the pipeline execution.
+                                        pipelineState = await stateService.ReadPipelineState(pipelineName, pipelineExecutionId);
+                                        pipelineState.UnsubmittedContent.Add(errorMessage);
+                                        await stateService.SavePipelineState(pipelineState);
                                     }
                                     
                                 }

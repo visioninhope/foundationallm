@@ -70,5 +70,13 @@ namespace FoundationaLLM.Vectorization.Models
                     return VectorizationProcessingState.New;               
             }
         }
+
+        /// <summary>
+        /// A list of error messages that includes content that was rejected at creation time along with the error.
+        /// </summary>
+        [JsonPropertyOrder(5)]
+        [JsonPropertyName("unsubmitted_content")]
+        public List<string> UnsubmittedContent = [];
+
     }
 }
