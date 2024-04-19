@@ -157,7 +157,7 @@ export default {
 	border-radius: 0px;
 	font-size: 1rem;
 	color: #6c6c6c;
-	padding: 0.5rem 0.75rem;
+	padding: 1.05rem 0.75rem 0.5rem 0.75rem;
 	border: 2px solid #e1e1e1;
 	transition:
 		background-color 0.3s,
