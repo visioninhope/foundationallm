@@ -1,18 +1,15 @@
-﻿using Azure.Identity;
-using FoundationaLLM.Common.Authentication;
+﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Http.Resilience;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Embeddings;
-using System.ComponentModel;
 using System.Net;
 
 #pragma warning disable SKEXP0001, SKEXP0010
@@ -25,7 +22,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
     public class SemanticKernelTextEmbeddingService : ITextEmbeddingService
     {
         private readonly SemanticKernelTextEmbeddingServiceSettings _settings;
-        private readonly ILogger _logger;
+        private readonly ILoggerFactory _loggerFactory;
+        private readonly ILogger<SemanticKernelTextEmbeddingService> _logger;
         private readonly Kernel _kernel;
         private readonly ITextEmbeddingGenerationService _textEmbeddingService;
 
@@ -33,13 +31,14 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         /// Creates a new <see cref="SemanticKernelTextEmbeddingService"/> instance.
         /// </summary>
         /// <param name="options">The <see cref="IOptions{TOptions}"/> providing configuration settings.</param>
-        /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
+        /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to create loggers for logging.</param>
         public SemanticKernelTextEmbeddingService(
             IOptions<SemanticKernelTextEmbeddingServiceSettings> options,
-            ILogger<SemanticKernelTextEmbeddingService> logger)
+            ILoggerFactory loggerFactory)
         {
             _settings = options.Value;
-            _logger = logger;
+            _loggerFactory = loggerFactory;
+            _logger = _loggerFactory.CreateLogger<SemanticKernelTextEmbeddingService>();
             _kernel = CreateKernel();
             _textEmbeddingService = _kernel.GetRequiredService<ITextEmbeddingGenerationService>();
         }
@@ -53,10 +52,11 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 return new TextEmbeddingResult
                 {
                     InProgress = false,
-                    TextChunks = textChunks.Select(tc =>
+                    TextChunks = Enumerable.Range(0, embeddings.Count).Select(i =>
                     {
-                        tc.Embedding = new Embedding(embeddings[tc.Position - 1]);
-                        return tc;
+                        var textChunk = textChunks[i];
+                        textChunk.Embedding = new Embedding(embeddings[i]);
+                        return textChunk;
                     }).ToList()
                 };
             }
@@ -97,6 +97,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                     _settings.APIKey!);
             }
 
+            builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);
             builder.Services.ConfigureHttpClientDefaults(c =>
             {
                 // Use a standard resiliency policy configured to retry on 429 (too many requests).

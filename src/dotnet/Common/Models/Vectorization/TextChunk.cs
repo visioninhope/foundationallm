@@ -10,6 +10,7 @@ namespace FoundationaLLM.Common.Models.Vectorization
         /// <summary>
         /// The identifier of the operation the text chunk belongs to. Can be null if the chunk is not associated with an operation.
         /// </summary>
+        [JsonPropertyName("operation_id")]
         public string? OperationId { get; set; }
 
         /// <summary>

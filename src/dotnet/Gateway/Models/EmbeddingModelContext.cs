@@ -46,11 +46,6 @@ namespace FoundationaLLM.Gateway.Models
             }
         }
 
-        private ITextEmbeddingService SelectTextEmbeddingService() =>
-            // For now, we are using the first model in the list, which is supposed to always be from the primary account.
-            // In the future, we will add load balancing approach to offload work to other accounts as welll.
-            DeploymentContexts.First().TextEmbeddingService;
-
         /// <summary>
         /// Processes embedding operations in a continuous loop.
         /// </summary>
@@ -68,8 +63,6 @@ namespace FoundationaLLM.Gateway.Models
                 {
                     lock (_syncRoot)
                     {
-                        foreach (var deploymentContext in DeploymentContexts)
-                            deploymentContext.ResetInput();
                         var currentDeploymentContextIndex = 0;
                         var capacityReached = false;
 
@@ -104,11 +97,12 @@ namespace FoundationaLLM.Gateway.Models
                     // Record all failed operations
                     foreach (var failedOperation in results
                         .Where(r => r.Failed)
+                        .SelectMany(r => r.TextChunks)
                         .GroupBy(x => x.OperationId)
                         .Select(g => new
                         {
                             OperationId = g.Key,
-                            Positions = g.SelectMany(r => r.TextChunks.Select(tc => tc.Position)).ToList()
+                            Positions = g.Select(tc => tc.Position).ToList()
                         }))
                     {
                         _logger.LogError($"An error occured in text embedding operation {failedOperation.OperationId}. "
@@ -118,11 +112,12 @@ namespace FoundationaLLM.Gateway.Models
                     // Set the embeddings for all successful operations.
                     foreach (var successfulOperation in results
                         .Where(r => !r.InProgress)
+                        .SelectMany(r => r.TextChunks)
                         .GroupBy(x => x.OperationId)
                         .Select(g => new
                         {
                             OperationId = g.Key,
-                            TextChunks = g.SelectMany(r => r.TextChunks).ToList()
+                            TextChunks = g.ToList()
                         }))
                     {
                         _embeddingOperations[successfulOperation.OperationId!].SetEmbeddings(successfulOperation.TextChunks);

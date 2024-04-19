@@ -59,11 +59,9 @@ namespace FoundationaLLM.Gateway.Services
                         {
                             if (deployment.CanDoEmbeddings)
                             {
-                                var embeddingModelContext = new EmbeddingModelDeploymentContext
-                                {
-                                    Deployment = deployment,
-                                    TextEmbeddingService = CreateTextEmbeddingService(deployment.AccountEndpoint, deployment.Name)
-                                };
+                                var embeddingModelContext = new EmbeddingModelDeploymentContext(
+                                    deployment,
+                                    _loggerFactory);
 
                                 if (!_embeddingModels.ContainsKey(deployment.ModelName))
                                     _embeddingModels[deployment.ModelName] = new EmbeddingModelContext(
@@ -182,15 +180,5 @@ namespace FoundationaLLM.Gateway.Services
             else
                 return await Task.FromResult(operationContext.Result);
         }
-
-        private ITextEmbeddingService CreateTextEmbeddingService(string endpoint, string deploymentName)
-            =>  new SemanticKernelTextEmbeddingService(
-                Options.Create(new SemanticKernelTextEmbeddingServiceSettings
-                {
-                    AuthenticationType = AzureOpenAIAuthenticationTypes.AzureIdentity,
-                    Endpoint = endpoint,
-                    DeploymentName = deploymentName
-                }),
-                _loggerFactory.CreateLogger<SemanticKernelTextEmbeddingService>());
     }
 }

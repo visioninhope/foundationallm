@@ -59,7 +59,7 @@ namespace FoundationaLLM.Gateway.Models
                     Result.TextChunks[textChunk.Position - 1].Embedding = textChunk.Embedding;
                 }
 
-                if (Result.TextChunks.All(tc => tc != null))
+                if (Result.TextChunks.All(tc => tc.Embedding != null))
                     Result.InProgress = false;
             }
         }
