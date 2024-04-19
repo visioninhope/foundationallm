@@ -47,13 +47,7 @@ namespace FoundationaLLM.Vectorization.Services
         public async Task<VectorizationResult> ProcessRequest(VectorizationRequest vectorizationRequest)
         {            
             try
-            {
-                var vectorizationResourceProvider = GetVectorizationResourceProvider();
-               
-                // update the vectorization request state to InProgress.
-                vectorizationRequest.ProcessingState = VectorizationProcessingState.InProgress;
-                await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
-                                
+            {                
                 switch (vectorizationRequest.ProcessingType)
                 {
                     case VectorizationProcessingType.Asynchronous:
@@ -76,6 +70,9 @@ namespace FoundationaLLM.Vectorization.Services
         private async Task<VectorizationResult> ProcessRequestInternal(VectorizationRequest request)
         {
             var vectorizationResourceProvider = GetVectorizationResourceProvider();
+            request.ProcessingState = VectorizationProcessingState.InProgress;
+            await request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
+
 
             _logger.LogInformation("Starting synchronous processing for request {RequestId}.", request.Id);
 
@@ -137,7 +134,7 @@ namespace FoundationaLLM.Vectorization.Services
         /// <summary>
         /// Obtains the vectorization resource provider from available resource providers.
         /// </summary>
-        /// <returns>The vectorization reesource provider</returns>
+        /// <returns>The vectorization resource provider</returns>
         /// <exception cref="VectorizationException"></exception>
         private IResourceProviderService GetVectorizationResourceProvider()
         {

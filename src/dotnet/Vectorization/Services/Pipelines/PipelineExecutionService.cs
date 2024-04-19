@@ -12,11 +12,10 @@ using FoundationaLLM.Vectorization.Extensions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Services.DataSources;
+using FoundationaLLM.Vectorization.ResourceProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using FoundationaLLM.Vectorization.Extensions;
-using FoundationaLLM.Vectorization.ResourceProviders;
 
 namespace FoundationaLLM.Vectorization.Services.Pipelines
 {
@@ -195,10 +194,23 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         CompletedSteps =[],
                                         RemainingSteps = ["extract", "partition", "embed", "index"]
                                     };
-                                    //create the vectorization request
-                                    await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);
-                                    //issue process action on the created vectorization request
-                                    await vectorizationRequest.ProcessVectorizationRequest(vectorizationResourceProvider);
+
+                                    // submit the vectorization request, if an error occurs on a single file, record it and continue with the next file.
+                                    // this does not result in the failure of the entire pipeline.
+                                    try
+                                    {
+                                        //create the vectorization request
+                                        await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);
+                                        //issue process action on the created vectorization request
+                                        await vectorizationRequest.ProcessVectorizationRequest(vectorizationResourceProvider);
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        var errorMessage = $"An error was encountered while creating the vectorization request for file {string.Join('/', vectorizationRequest.ContentIdentifier.MultipartId)}, exception: {ex.Message}";
+                                        _logger.LogError(ex, errorMessage);
+                                        await vectorizationRequest.UpdateVectorizationPipelineState(stateService).ConfigureAwait(false);
+                                    }
+                                    
                                 }
                                 break;
                         }                       

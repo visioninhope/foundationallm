@@ -95,6 +95,7 @@ namespace FoundationaLLM.Vectorization.Handlers
                 success = false;
                 //update the request execution state with the error message.
                 state.LogHandlerError(this, request.Id!, _messageId, ex);
+                request.ErrorCount++;
                 //update the request state with the error message.
                 request.ErrorMessages.Add($"Error in executing {_stepId} step handler for request {request.Id} (message id {_messageId}): {ex.Message}.");     
                 _logger.LogError(ex, "Error in executing [{HandlerId}] step handler for request {VectorizationRequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);

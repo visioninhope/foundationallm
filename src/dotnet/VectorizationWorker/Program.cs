@@ -38,6 +38,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
@@ -54,6 +55,9 @@ builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>()
 // Add resource providers.
 builder.AddDataSourceResourceProvider();
 builder.AddConfigurationResourceProvider();
+
+// Pipeline execution
+builder.AddPipelineExecution();
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(

@@ -1,8 +1,11 @@
-﻿namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
+﻿using System.Text.Json.Serialization;
+
+namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
 {
     /// <summary>
     /// Describes the state of a vectorization request.
     /// </summary>
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum VectorizationProcessingState
     {
         /// <summary>

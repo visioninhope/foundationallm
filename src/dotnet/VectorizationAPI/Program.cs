@@ -100,9 +100,6 @@ builder.AddConfigurationResourceProvider();
 builder.AddDataSourceResourceProvider();
 builder.AddVectorizationResourceProvider();
 
-// Pipeline execution
-builder.AddPipelineExecution();
-
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
 builder.Services.AddSingleton<IVectorizationServiceFactory<ITextSplitterService>, TextSplitterServiceFactory>();

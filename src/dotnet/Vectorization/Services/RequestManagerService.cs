@@ -89,6 +89,8 @@ namespace FoundationaLLM.Vectorization.Services
 
                         foreach (var (Request, MessageId, PopReceipt, DequeueCount) in requests)
                         {
+                            Request.ProcessingState = VectorizationProcessingState.InProgress;
+
                             //check if the dequeue count is greater than the max number of retries
                             if (Request.Expired
                                 || Request.ErrorCount > _settings.QueueMaxNumberOfRetries)
@@ -114,22 +116,19 @@ namespace FoundationaLLM.Vectorization.Services
                                     errorMessage = $"ERROR: The message with id {MessageId} containing the request with id {Request.Id} encountered {Request.ErrorCount} consecutive errors while processing and will be deleted.";
                                 }
 
-                                // Retrieve the state of the request and log the error
-                                VectorizationRequest vectorizationRequest = Request;
-
-                                var state = await _vectorizationStateService.HasState(vectorizationRequest).ConfigureAwait(false)
-                                        ? await _vectorizationStateService.ReadState(vectorizationRequest).ConfigureAwait(false)
-                                        : VectorizationState.FromRequest(vectorizationRequest);
+                                // Retrieve the execution state of the request
+                                var state = await _vectorizationStateService.HasState(Request).ConfigureAwait(false)
+                                        ? await _vectorizationStateService.ReadState(Request).ConfigureAwait(false)
+                                        : VectorizationState.FromRequest(Request);
 
                                 state.LogEntries.Add(
                                     new VectorizationLogEntry(
-                                        vectorizationRequest.Id!,
+                                        Request.Id!,
                                         MessageId,
-                                        vectorizationRequest.CurrentStep ?? "N/A",
+                                        Request.CurrentStep ?? "N/A",
                                         errorMessage
                                     )
                                 );
-
 
                                 // Update vectorization request state if there's an error.
                                 if (!string.IsNullOrWhiteSpace(errorMessage))
