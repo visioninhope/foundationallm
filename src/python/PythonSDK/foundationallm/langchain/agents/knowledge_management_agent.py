@@ -34,8 +34,8 @@ class KnowledgeManagementAgent(AgentBase):
         config : Configuration
             Application configuration class for retrieving configuration settings.
         resource_provider : ResourceProvider
-            Resource provider for retrieving embedding and indexing profiles.        
-        """       
+            Resource provider for retrieving embedding and indexing profiles.
+        """
 
         self.llm = self._get_completion_model(
             config = config,
@@ -49,7 +49,7 @@ class KnowledgeManagementAgent(AgentBase):
         if prompt is not None:
             self.prompt_prefix = prompt.prefix
             self.prompt_suffix = prompt.suffix
-        
+
         self.conversation_history = completion_request.agent.conversation_history
         self.message_history = completion_request.message_history
 
@@ -58,7 +58,8 @@ class KnowledgeManagementAgent(AgentBase):
         self.retriever = None
         if completion_request.agent.vectorization is not None:
             retriever_factory = RetrieverFactory(
-                            indexing_profile_object_id = completion_request.agent.vectorization.indexing_profile_object_id,
+                            #indexing_profile_object_id = completion_request.agent.vectorization.indexing_profile_object_id,
+                            indexing_profiles = completion_request.agent.vectorization.indexing_profiles,
                             text_embedding_profile_object_id= completion_request.agent.vectorization.text_embedding_profile_object_id,
                             config = config,
                             resource_provider = resource_provider,
@@ -72,7 +73,7 @@ class KnowledgeManagementAgent(AgentBase):
         as the context for the completion request.
         """
         return "\n\n".join(doc.page_content for doc in docs)
-    
+
     def invoke(self, prompt: str) -> CompletionResponse:
         """
         Executes a completion request by querying the vector index with the user prompt.
@@ -81,7 +82,7 @@ class KnowledgeManagementAgent(AgentBase):
         ----------
         prompt : str
             The prompt for which a summary completion is begin generated.
-        
+
         Returns
         -------
         CompletionResponse
@@ -101,14 +102,14 @@ class KnowledgeManagementAgent(AgentBase):
                     prompt_builder += self._build_conversation_history(self.message_history, self.conversation_history.max_history)
 
                 # Insert the context into the template.
-                prompt_builder += '{context}'   
+                prompt_builder += '{context}'
 
                 # Add the suffix, if it exists.
                 if self.prompt_suffix is not None:
                     prompt_builder += f'\n\n{self.prompt_suffix}'
 
                 # Insert the user prompt into the template.
-                if self.retriever is not None:    
+                if self.retriever is not None:
                     prompt_builder += "\n\nQuestion: {question}"
 
                 # Create the prompt template.
@@ -130,9 +131,11 @@ class KnowledgeManagementAgent(AgentBase):
 
                 completion = chain.invoke(prompt)
                 citations = []
-                if isinstance(self.retriever, CitationRetrievalBase):
-                    citations = self.retriever.get_document_citations()
-                    
+
+                for retriever in self.retriever.retrievers:
+                    if isinstance(retriever, CitationRetrievalBase):
+                        citations.append(retriever.get_document_citations())
+
                 return CompletionResponse(
                     completion = completion,
                     citations = citations,

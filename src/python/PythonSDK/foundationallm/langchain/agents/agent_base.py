@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import List, Optional 
+from typing import List, Optional
 
 from langchain_core.language_models import BaseLanguageModel
 from langchain_openai import AzureChatOpenAI, AzureOpenAI, ChatOpenAI, OpenAI
@@ -14,7 +14,7 @@ class AgentBase():
     def invoke(self, prompt: str) -> CompletionResponse:
         """
         Execute the agent's invoke method.
-        
+
         Parameters
         ----------
         prompt : str
@@ -26,7 +26,7 @@ class AgentBase():
             Returns a response containing the completion plus token usage and cost details.
         """
 
-    def _build_conversation_history(messages:List[MessageHistoryItem]=None, message_count:int=None) -> str:
+    def _build_conversation_history(self, messages:List[MessageHistoryItem]=None, message_count:int=None) -> str:
         """
         Builds a chat history string from a list of MessageHistoryItem objects to
         be added to the prompt for the completion request.
@@ -56,7 +56,7 @@ class AgentBase():
         ----------
         prompt : str
             The prompt that is populated with context.
-        
+
         Returns
         -------
         str
@@ -89,7 +89,7 @@ class AgentBase():
         """
         if agent_orchestration_settings is None:
             raise ValueError("Orchestration settings are required for completion requests.")
-        
+
         # Get endpoint settings (pull from Application Configuration using keys)
         endpoint = config.get_value(agent_orchestration_settings.endpoint_configuration.get('endpoint'))
         if endpoint is None:
@@ -139,13 +139,13 @@ class AgentBase():
                 else OpenAI(base_url=endpoint, api_key=api_key)
             )
 
-        # Set model parameters from agent orchestration settings.    
+        # Set model parameters from agent orchestration settings.
         for key, value in agent_orchestration_settings.model_parameters.items():
             if hasattr(api, key):
                 setattr(api, key, value)
 
         # Override model parameters from completion request settings, if any exist.
-        if override_settings is not None and override_settings.model_parameters is not None:            
+        if override_settings is not None and override_settings.model_parameters is not None:
             for key, value in override_settings.model_parameters.items():
                 if hasattr(api, key):
                     setattr(api, key, value)

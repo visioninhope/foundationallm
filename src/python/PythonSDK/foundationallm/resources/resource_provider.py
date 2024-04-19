@@ -28,7 +28,7 @@ class ResourceProvider:
         self.blob_storage_manager = BlobStorageManager(
             blob_connection_string=config.get_value(
                 "FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString"
-            ), 
+            ),
             container_name="resource-provider"
         )
 
@@ -42,7 +42,7 @@ class ResourceProvider:
         """
         if object_id is not None and object_id != '':
             obj_dict = self.get_resource_as_dict(object_id)
-        
+
             if obj_dict is not None:
                 tokens = object_id.split("/")
                 # the last token is resource
@@ -57,7 +57,7 @@ class ResourceProvider:
                     case "FoundationaLLM.Prompt":
                         prompt_resource = Prompt(**obj_dict)
                         return prompt_resource
-                    case "FoundationaLLM.Vectorization":                
+                    case "FoundationaLLM.Vectorization":
                         if resource_type.lower() == "indexingprofiles":
                             if obj_dict["indexer"]=="AzureAISearchIndexer":
                                 indexing_resource = AzureAISearchIndexingProfile(**obj_dict)
@@ -69,7 +69,7 @@ class ResourceProvider:
 
             return obj_dict
         return None
-    
+
     def get_resource_as_dict(self, object_id:str):
         """
         Retrieves the resource with the given object id.
@@ -86,7 +86,7 @@ class ResourceProvider:
         """
         if object_id is None or object_id == '':
             return None
-        
+
         tokens = object_id.split("/")
         # the last token is resource
         resource = tokens[-1]
@@ -103,7 +103,7 @@ class ResourceProvider:
                 file_content = self.blob_storage_manager.read_file_content(full_path)
                 if file_content is not None:
                     return json.loads(file_content.decode("utf-8"))
-                
+
             case "FoundationaLLM.Vectorization":
                 full_path = None
                 if resource_type.lower() == "indexingprofiles":
@@ -122,19 +122,19 @@ class ResourceProvider:
                             return filtered
         return None
 
-    def __pascal_to_snake(self, name):  
-        # Convert PascalCase or camelCase to snake_case  
-        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)  
-        return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()  
-  
-    def __translate_keys(self, obj):  
-        if isinstance(obj, dict):  
-            new_dict = {}  
-            for key, value in obj.items():  
-                new_key = self.__pascal_to_snake(key)  
-                new_dict[new_key] = self.__translate_keys(value)  # Recursively apply to values  
-            return new_dict  
-        elif isinstance(obj, list):  
-            return [self.__translate_keys(item) for item in obj]  # Apply to each item in the list  
-        else:  
-            return obj  # Return the item itself if it's not a dict or list 
+    def __pascal_to_snake(self, name):
+        # Convert PascalCase or camelCase to snake_case
+        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+        return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
+    def __translate_keys(self, obj):
+        if isinstance(obj, dict):
+            new_dict = {}
+            for key, value in obj.items():
+                new_key = self.__pascal_to_snake(key)
+                new_dict[new_key] = self.__translate_keys(value)  # Recursively apply to values
+            return new_dict
+        elif isinstance(obj, list):
+            return [self.__translate_keys(item) for item in obj]  # Apply to each item in the list
+        else:
+            return obj  # Return the item itself if it's not a dict or list
