@@ -90,6 +90,8 @@ namespace FoundationaLLM.Vectorization.Services
                         foreach (var (Request, MessageId, PopReceipt, DequeueCount) in requests)
                         {
                             Request.ProcessingState = VectorizationProcessingState.InProgress;
+                            if (Request.ExecutionStart == null)
+                                Request.ExecutionStart = DateTime.UtcNow;
 
                             //check if the dequeue count is greater than the max number of retries
                             if (Request.Expired
@@ -134,6 +136,7 @@ namespace FoundationaLLM.Vectorization.Services
                                 if (!string.IsNullOrWhiteSpace(errorMessage))
                                 {
                                     Request.ProcessingState = VectorizationProcessingState.Failed;
+                                    Request.ExecutionEnd = DateTime.UtcNow;
                                     Request.ErrorMessages.Add(errorMessage);                                    
                                 }
 
@@ -258,7 +261,8 @@ namespace FoundationaLLM.Vectorization.Services
             {
                 _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to finalized state.",
                     request.Id, PreviousStep);
-                request.ProcessingState = VectorizationProcessingState.Completed;                
+                request.ProcessingState = VectorizationProcessingState.Completed;
+                request.ExecutionEnd = DateTime.UtcNow;
             }
             await request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
         }

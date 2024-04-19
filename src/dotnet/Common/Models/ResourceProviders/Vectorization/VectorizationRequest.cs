@@ -71,9 +71,23 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         public VectorizationProcessingState ProcessingState { get; set; }
 
         /// <summary>
-        /// Error messages that occurred during the processing of the vectorization request.
+        /// The time when the vectorization request started being processed.
         /// </summary>
         [JsonPropertyOrder(7)]
+        [JsonPropertyName("execution_start")]
+        public DateTime? ExecutionStart { get; set; }
+
+        /// <summary>
+        /// The time when the vectorization request finished being processed.
+        /// </summary>
+        [JsonPropertyOrder(8)]
+        [JsonPropertyName("execution_end")]
+        public DateTime? ExecutionEnd { get; set; }
+
+        /// <summary>
+        /// Error messages that occurred during the processing of the vectorization request.
+        /// </summary>
+        [JsonPropertyOrder(9)]
         [JsonPropertyName("error_messages")]
         public List<string> ErrorMessages { get; set; } = [];
 
