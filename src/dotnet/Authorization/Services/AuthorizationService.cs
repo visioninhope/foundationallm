@@ -34,7 +34,7 @@ namespace FoundationaLLM.Authorization.Services
             string instanceId,
             ActionAuthorizationRequest authorizationRequest)
         {
-            var results = authorizationRequest.ResourcePaths.Distinct().ToDictionary(rp => rp, auth => false);
+            var authorizationResults = authorizationRequest.ResourcePaths.Distinct().ToDictionary(rp => rp, auth => false);
 
             try
             {
@@ -50,12 +50,12 @@ namespace FoundationaLLM.Authorization.Services
                 }
 
                 _logger.LogError("The call to the Authorization API returned an error: {StatusCode} - {ReasonPhrase}.", response.StatusCode, response.ReasonPhrase);
-                return new ActionAuthorizationResult { AuthorizationResults = results };
+                return new ActionAuthorizationResult { AuthorizationResults = authorizationResults };
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "There was an error calling the Authorization API");
-                return new ActionAuthorizationResult { AuthorizationResults = results };
+                return new ActionAuthorizationResult { AuthorizationResults = authorizationResults };
             }
         }
 

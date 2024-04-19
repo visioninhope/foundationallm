@@ -119,7 +119,8 @@ namespace FoundationaLLM.Authorization.Services
         /// <inheritdoc/>
         public ActionAuthorizationResult ProcessAuthorizationRequest(string instanceId, ActionAuthorizationRequest authorizationRequest)
         {
-            var results = authorizationRequest.ResourcePaths.Distinct().ToDictionary(rp => rp, auth => false);
+            var authorizationResults = authorizationRequest.ResourcePaths.Distinct().ToDictionary(rp => rp, auth => false);
+            var invalidResourcePaths = new List<string>();
 
             try
             {
@@ -129,7 +130,7 @@ namespace FoundationaLLM.Authorization.Services
                 if (!_initialized)
                 {
                     _logger.LogError("The authorization core is not initialized.");
-                    return new ActionAuthorizationResult { AuthorizationResults = results };
+                    return new ActionAuthorizationResult { AuthorizationResults = authorizationResults };
                 }
 
                 // Basic validation
@@ -145,10 +146,11 @@ namespace FoundationaLLM.Authorization.Services
                             || resourcePath.InstanceId.ToLower().CompareTo(instanceId.ToLower()) != 0)
                         {
                             _logger.LogError("The instance id from the controller route and the instance id from the authorization request do not match.");
-                            results[rp] = false;
+                            authorizationResults[rp] = false;
+                            invalidResourcePaths.Add(rp);
                         }
 
-                        results[rp] = ActionAllowed(resourcePath, new ActionAuthorizationRequest()
+                        authorizationResults[rp] = ActionAllowed(resourcePath, new ActionAuthorizationRequest()
                         {
                             Action = authorizationRequest.Action,
                             ResourcePaths = [rp],
@@ -160,7 +162,8 @@ namespace FoundationaLLM.Authorization.Services
                     {
                         // If anything goes wrong, we default to denying the request on that particular resource.
                         _logger.LogWarning(ex, "The authorization core failed to process the authorization request for: {ResourcePath}.", rp);
-                        results[rp] = false;
+                        authorizationResults[rp] = false;
+                        invalidResourcePaths.Add(rp);
                     }
                 }
             }
@@ -169,7 +172,11 @@ namespace FoundationaLLM.Authorization.Services
                 _logger.LogError(ex, "he authorization core failed to process the authorization request.");
             }
 
-            return new ActionAuthorizationResult { AuthorizationResults = results };
+            return new ActionAuthorizationResult
+            {
+                AuthorizationResults = authorizationResults,
+                InvalidResourcePaths = invalidResourcePaths
+            };
         }
 
         /// <inheritdoc/>
