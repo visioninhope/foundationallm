@@ -1,19 +1,35 @@
 <template>
-	<ContextMenu class="context-menu" ref="contextMenu" :model="items" appendTo="self" @show="handleShow" />
 	<div class="chat-input p-inputgroup">
-		<Textarea
-			v-model="text"
-			:disabled="disabled"
-			class="input"
-			ref="inputRef"
-			type="text"
-			placeholder="What would you like to ask?"
-			@input="handleInput"
-			@keydown="handleKeydown"
-			@click="handleInput"
-			@contextmenu="handleContext"
-			autoResize
-		/>
+		<Mentionable
+			:keys="['@']"
+			:items="agents"
+			offset="6"
+			insert-space
+			class="mentionable"
+			@keydown.enter.prevent
+			@open="agentListOpen = true"
+			@close="agentListOpen = false"
+		>
+			<textarea
+				ref="inputRef"
+				v-model="text"
+				class="input"
+				:disabled="disabled"
+				placeholder="What would you like to ask?"
+				@keydown="handleKeydown"
+			/>
+			<template #no-result>
+				<div class="dim">No result</div>
+			</template>
+
+			<template #item="{ item }">
+				<div class="user">
+					<span class="dim">
+						{{ item.label }}
+					</span>
+				</div>
+			</template>
+		</Mentionable>
 		<Button
 			:disabled="disabled"
 			class="primary-button submit"
@@ -26,7 +42,8 @@
 
 <script lang="ts">
 import { mapStores } from 'pinia';
-import { useAppConfigStore } from '@/stores/appConfigStore';
+import 'floating-vue/dist/style.css';
+import { useAppStore } from '@/stores/appStore';
 
 export default {
 	name: 'ChatInput',
@@ -46,10 +63,8 @@ export default {
 			text: '' as string,
 			targetRef: null as HTMLElement | null,
 			inputRef: null as HTMLElement | null,
-			items: [
-                { label: 'Copy', icon: 'pi pi-copy' },
-                { label: 'Rename', icon: 'pi pi-file-edit' }
-            ],
+			agents: [],
+			agentListOpen: false,
 		};
 	},
 
@@ -57,50 +72,43 @@ export default {
 		...mapStores(useAppStore),
 	},
 
+	watch: {
+		text: {
+			handler() {
+				this.adjustTextareaHeight();
+			},
+			immediate: true,
+		},
+	},
+
 	async created() {
 		await this.appStore.getAgents();
 
-		this.items = this.appStore.agents.map((agent) => ({
+		this.agents = this.appStore.agents.map((agent) => ({
 			label: agent.name,
-			icon: 'pi pi-user',
-			command: () => {
-				this.text = this.text.replace(/@[^ ]*$/, `@${agent.name} `);
-				this.$refs.contextMenu.hide();
-				this.$refs.inputRef.focus();
-			},
+			value: agent.name,
 		}));
+	},
+
+	mounted() {
+		this.adjustTextareaHeight();
 	},
 
 	methods: {
 		handleKeydown(event: KeyboardEvent) {
-			if (event.key === 'Enter' && !event.shiftKey) {
+			if (event.key === 'Enter' && !event.shiftKey && !this.agentListOpen) {
 				event.preventDefault();
 				this.handleSend();
 			}
 		},
 
-		handleInput(event) {
-			const atIndex = this.text.indexOf("@");
-
-			const isPrecededBySpace = atIndex === 0 || this.text.charAt(atIndex - 1) === " ";
-
-			const isFollowedBySpace = atIndex === this.text.length - 1 || this.text.charAt(atIndex + 1) === " ";
-
-			const isCursorAfterAt = this.$refs.inputRef.$el.selectionStart === atIndex + 1;
-
-			if (isPrecededBySpace && isFollowedBySpace && isCursorAfterAt) {
-				this.$refs.contextMenu.show(event);
-			}
+		adjustTextareaHeight() {
+			this.$nextTick(() => {
+				this.$refs.inputRef.style.height = 'auto';
+				this.$refs.inputRef.style.height = this.$refs.inputRef.scrollHeight + 'px';
+			});
 		},
 
-		handleShow(event) {
-			this.targetRef = event.originalEvent.target;
-		},
-
-		handleContext(event) {
-			this.$refs.contextMenu.show(event);
-		},
-		
 		handleSend() {
 			this.$emit('send', this.text);
 			this.text = '';
@@ -127,11 +135,43 @@ export default {
 	flex: 0 0 10%;
 }
 
+.mentionable {
+	width: 100%;
+	height: auto;
+	max-height: 128px;
+	display: flex;
+	flex-direction: column;
+}
+
 .input {
 	width: 100%;
-	height: 100%;
+	height: 64px;
 	max-height: 128px;
-	overflow-y: scroll !important;
+	overflow-y: scroll;
+	border-radius: 0px;
+	font-size: 1rem;
+	color: #6c6c6c;
+	padding: 0.5rem 0.75rem;
+	border: 2px solid #e1e1e1;
+	transition:
+		background-color 0.3s,
+		color 0.3s,
+		border-color 0.3s,
+		box-shadow 0.3s;
+	resize: none;
+}
+
+.input:focus-visible {
+	border-radius: 0px !important;
+	outline: none;
+}
+
+.mention-item {
+	padding: 4px 10px;
+}
+
+.mention-selected {
+	background: rgb(192, 250, 153);
 }
 
 .input:focus {
@@ -159,5 +199,14 @@ export default {
 	.submit .p-button-icon {
 		margin: 0;
 	}
+}
+
+.mention-item {
+	padding: 4px 10px;
+}
+
+.mention-selected {
+	background-color: #131833;
+	color: #fff;
 }
 </style>
