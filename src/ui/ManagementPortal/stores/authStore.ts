@@ -6,6 +6,7 @@ export const useAuthStore = defineStore('auth', {
 	state: () => ({
 		msalInstance: null,
 		tokenExpirationTimerId: null as number | null,
+		isExpired: false,
 	}),
 
 	getters: {
@@ -18,7 +19,7 @@ export const useAuthStore = defineStore('auth', {
 		},
 
 		isAuthenticated(): boolean {
-			return !!this.currentAccount;
+			return !!this.currentAccount && !this.isExpired;
 		},
 
 		authConfig() {
@@ -89,10 +90,10 @@ export const useAuthStore = defineStore('auth', {
 			try {
 				await this.msalInstance.acquireTokenSilent({
 					account: this.currentAccount,
-					scopes: [configOptions.scopes],
+					scopes: [this.authConfig.scopes],
 				});
 				console.log('Auth: Refreshed access token.');
-				createTokenRefreshTimer();
+				this.createTokenRefreshTimer();
 			} catch (error) {
 				console.error('Auth: Token refresh error:', error);
 				sessionStorage.clear();
@@ -101,15 +102,24 @@ export const useAuthStore = defineStore('auth', {
 		},
 
 		async getToken() {
-			return await this.msalInstance.acquireTokenSilent({
-				account: this.currentAccount,
-			});
+			try {
+				return await this.msalInstance.acquireTokenSilent({
+					account: this.currentAccount,
+				});
+			} catch (error) {
+				this.isExpired = true;
+				throw error;
+			}
 		},
 
 		async login() {
 			return await this.msalInstance.loginRedirect({
-				scopes: this.authConfig.scopes,
+				scopes: [this.authConfig.scopes],
 			});
+		},
+
+		async logoutSilent() {
+			await this.msalInstance.controller.browserStorage.clear();
 		},
 
 		async logout() {
