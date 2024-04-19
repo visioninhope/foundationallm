@@ -1,5 +1,7 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -23,7 +25,7 @@ namespace FoundationaLLM.Vectorization.Extensions
         public static async Task UpdateVectorizationRequestResource(
             this VectorizationRequest request,
             IResourceProviderService vectorizationResourceProvider,
-            IVectorizationStateService vectorizationStateService
+            IVectorizationStateService? vectorizationStateService = null
         )
         {            
             // use HandlePostAsync to go through Authorization layer using the managed identity of the vectorization API
@@ -36,9 +38,20 @@ namespace FoundationaLLM.Vectorization.Extensions
                 UserId = "VectorizationAPI",
                 Username = "VectorizationAPI"
             };
-            // get the property ObjectId from the request object            
-            await vectorizationResourceProvider.HandlePostAsync(request.ObjectId!, requestBody, unifiedIdentity);
-            await request.UpdateVectorizationPipelineState(vectorizationStateService);
+            
+            if (request.ObjectId == null)
+            {               
+                //build the minimal object id for new requests
+                request.ObjectId = $"/{VectorizationResourceTypeNames.VectorizationRequests}/{request.Id}";
+            }
+            
+            var response = (await vectorizationResourceProvider.HandlePostAsync(request.ObjectId, requestBody, unifiedIdentity)) as ResourceProviderUpsertResult;
+            // in the case of a new request, this updates the object id with the fully qualified object id, otherwise it remains the same.
+            request.ObjectId = response!.ObjectId;           
+            if (vectorizationStateService != null)
+            {
+                await request.UpdateVectorizationPipelineState(vectorizationStateService);
+            }            
         }
 
         /// <summary>
@@ -74,6 +87,30 @@ namespace FoundationaLLM.Vectorization.Extensions
                 // persist the updated state of the pipeline.
                 await vectorizationStateService.SavePipelineState(pipelineState);
             }
+        }
+
+        /// <summary>
+        /// Issues the "process" action on the vectorization request resource using the vectorization resource provider.        
+        /// </summary>
+        /// <param name="request">The vectorization request</param>
+        /// <param name="vectorizationResourceProvider">The vectorization resource provider</param>              
+        public static async Task<VectorizationResult> ProcessVectorizationRequest(
+            this VectorizationRequest request,
+            IResourceProviderService vectorizationResourceProvider
+        )
+        {
+            // use HandlePostAsync to go through Authorization layer using the managed identity of the vectorization API
+            var jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
+            jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            var requestBody = JsonSerializer.Serialize(request, jsonSerializerOptions);
+            var unifiedIdentity = new UnifiedUserIdentity
+            {
+                Name = "VectorizationAPI",
+                UserId = "VectorizationAPI",
+                Username = "VectorizationAPI"
+            };                        
+            var response = (await vectorizationResourceProvider.HandlePostAsync(request.ObjectId! +"/process", requestBody, unifiedIdentity)) as VectorizationResult;
+            return response!;
         }
     }
 }

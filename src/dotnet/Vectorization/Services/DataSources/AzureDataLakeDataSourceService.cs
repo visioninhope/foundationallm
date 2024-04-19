@@ -1,16 +1,7 @@
-﻿using FoundationaLLM.Common.Constants.Configuration;
-using FoundationaLLM.Common.Models.Configuration.Storage;
+﻿using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Services.Storage;
-using FoundationaLLM.DataSource.Models;
-using FoundationaLLM.Vectorization.Services.ContentSources;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Services.DataSources
 {
@@ -54,10 +45,13 @@ namespace FoundationaLLM.Vectorization.Services.DataSources
             List<string> files = new List<string>();
             foreach (var folder in _dataSource.Folders)
             {
+                //trim any preceding or trailing slashes
+                var trimmedFolder = folder.Trim('/');
+
                 //the first token is the container or workspace name
-                var container = folder.Split('/')[0];
+                var container = trimmedFolder.Split('/')[0];
                 //remove the first token from the path
-                var path = folder.Substring(folder.IndexOf('/') + 1);
+                var path = trimmedFolder.Substring(trimmedFolder.IndexOf('/') + 1);
                 var filesList = await _dataLakeStorageService!.GetFilePathsAsync(container, path);
                 //pre-pend container name to the file path for each string in filesList
                 files.AddRange(filesList.Select(f => $"{container}/{f}"));
