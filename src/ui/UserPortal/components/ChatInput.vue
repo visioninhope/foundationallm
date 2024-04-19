@@ -42,11 +42,16 @@
 
 <script lang="ts">
 import { mapStores } from 'pinia';
+import { Mentionable } from 'vue-mention';
 import 'floating-vue/dist/style.css';
 import { useAppStore } from '@/stores/appStore';
 
 export default {
 	name: 'ChatInput',
+
+	components: {
+		Mentionable,
+	},
 
 	props: {
 		disabled: {
