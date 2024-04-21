@@ -40,6 +40,7 @@ class MultiIndexRetriever(BaseRetriever, CitationRetrievalBase):
 
     top_n: int = 10
     retrievers: List[BaseRetriever] = []
+    search_results: Optional[Tuple[str, Document]] = [] # Tuple of document id and document
 
     def add_retriever(self, retriever: BaseRetriever):
         """
@@ -55,9 +56,16 @@ class MultiIndexRetriever(BaseRetriever, CitationRetrievalBase):
     def get_document_citations(self):
 
         citations = []
-
-        for retriever in self.retrievers:
-            citations.append(retriever.get_document_citations())
+        added_ids = set()  # Avoid duplicates
+        for result in self.search_results:  # Unpack the tuple
+            result_id = result.id
+            metadata = result.metadata
+            if metadata is not None and 'multipart_id' in metadata and metadata['multipart_id']:
+                if result_id not in added_ids:
+                    title = (metadata['multipart_id'][-1]).split('/')[-1]
+                    filepath = '/'.join(metadata['multipart_id'])
+                    citations.append(Citation(id=result_id, title=title, filepath=filepath))
+                    added_ids.add(result_id)
 
         return citations
 
@@ -72,25 +80,17 @@ class MultiIndexRetriever(BaseRetriever, CitationRetrievalBase):
 
         for retriever in self.retrievers:
 
-            results = retriever.search(
+            results = retriever._get_relevant_documents(
                 query=query,
                 run_manager=run_manager
             )
 
             total_results.extend(results)
 
-        for result in total_results:
-            metadata = json.loads(result[self.metadata_field_name]) if self.metadata_field_name in result else {}
-            document = Document(
-                    page_content=result[self.text_field_name],
-                    metadata=metadata
-            )
-            self.search_results.append((result[self.id_field_name], document))
-
         #sort by relevance/score/metric
-        #TODO
+        total_results.sort(key=lambda x: x.score, reverse=True)
 
         #take top n of search_results
-        self.search_results = self.search_results[:self.top_n]
+        self.search_results = total_results[:self.top_n]
 
-        return [doc for _, doc in self.search_results]
+        return self.search_results

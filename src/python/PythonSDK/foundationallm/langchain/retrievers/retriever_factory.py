@@ -17,7 +17,7 @@ class RetrieverFactory:
     """
     def __init__(
                 self,
-                indexing_profiles: List[str],
+                indexing_profile_object_ids: List[str],
                 text_embedding_profile_object_id:str,
                 config: Configuration,
                 resource_provider: ResourceProvider,
@@ -28,7 +28,7 @@ class RetrieverFactory:
 
         self.indexing_profiles = []
 
-        for indexing_profile_object_id in indexing_profiles:
+        for indexing_profile_object_id in indexing_profile_object_ids:
             self.indexing_profiles.append(resource_provider.get_resource(indexing_profile_object_id))
 
         self.text_embedding_profile = resource_provider.get_resource(text_embedding_profile_object_id)
@@ -109,4 +109,4 @@ class RetrieverFactory:
 
             multi_retiever.add_retriever(retriever)
 
-        return retriever
+        return multi_retiever

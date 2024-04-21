@@ -8,5 +8,5 @@ class AgentVectorizationSettings(BaseModel):
     """
     Encapsulates properties for agent vectorization settings.
     """
-    indexing_profiles: Optional[List[str]] = None
+    indexing_profile_object_ids: Optional[List[str]] = None
     text_embedding_profile_object_id: Optional[str] = None

@@ -59,7 +59,7 @@ class KnowledgeManagementAgent(AgentBase):
         if completion_request.agent.vectorization is not None:
             retriever_factory = RetrieverFactory(
                             #indexing_profile_object_id = completion_request.agent.vectorization.indexing_profile_object_id,
-                            indexing_profiles = completion_request.agent.vectorization.indexing_profiles,
+                            indexing_profile_object_ids = completion_request.agent.vectorization.indexing_profile_object_ids,
                             text_embedding_profile_object_id= completion_request.agent.vectorization.text_embedding_profile_object_id,
                             config = config,
                             resource_provider = resource_provider,
@@ -132,9 +132,8 @@ class KnowledgeManagementAgent(AgentBase):
                 completion = chain.invoke(prompt)
                 citations = []
 
-                for retriever in self.retriever.retrievers:
-                    if isinstance(retriever, CitationRetrievalBase):
-                        citations.append(retriever.get_document_citations())
+                if isinstance(self.retriever, CitationRetrievalBase):
+                    citations = self.retriever.get_document_citations()
 
                 return CompletionResponse(
                     completion = completion,
