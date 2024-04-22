@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Tasks_TaskPool" data-uid="FoundationaLLM.Common.Tasks.TaskPool" class="text-break">
-Class TaskPool  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L13"><i class="bi bi-code-slash"></i></a>
+Class TaskPool  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L8"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -162,9 +162,9 @@ Class TaskPool  <a class="header-action link-secondary" title="View source" href
 
   <a id="FoundationaLLM_Common_Tasks_TaskPool__ctor_" data-uid="FoundationaLLM.Common.Tasks.TaskPool.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Common_Tasks_TaskPool__ctor_System_Int32_" data-uid="FoundationaLLM.Common.Tasks.TaskPool.#ctor(System.Int32)">
-  TaskPool(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Tasks_TaskPool__ctor_System_Int32_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Tasks_TaskPool__" data-uid="FoundationaLLM.Common.Tasks.TaskPool.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Tasks.TaskPool})">
+  TaskPool(int, ILogger&lt;TaskPool&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Constructs a task pool with a specified capacity.</p>
@@ -172,13 +172,16 @@ Class TaskPool  <a class="header-action link-secondary" title="View source" href
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TaskPool(int maxConcurrentTasks)</code></pre>
+    <pre><code class="lang-csharp hljs">public TaskPool(int maxConcurrentTasks, ILogger&lt;TaskPool&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>maxConcurrentTasks</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd><p>Indicates the maximum number of tasks accepted by the task pool.</p>
+</dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Common.Tasks.TaskPool.html">TaskPool</a>&gt;</dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a> used for logging.</p>
 </dd>
   </dl>
 
@@ -201,7 +204,7 @@ Class TaskPool  <a class="header-action link-secondary" title="View source" href
 
   <h3 id="FoundationaLLM_Common_Tasks_TaskPool_AvailableCapacity" data-uid="FoundationaLLM.Common.Tasks.TaskPool.AvailableCapacity">
   AvailableCapacity
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Indicates whether the task pool is at capacity or not.</p>
@@ -235,9 +238,9 @@ Class TaskPool  <a class="header-action link-secondary" title="View source" href
 
   <a id="FoundationaLLM_Common_Tasks_TaskPool_Add_" data-uid="FoundationaLLM.Common.Tasks.TaskPool.Add*"></a>
 
-  <h3 id="FoundationaLLM_Common_Tasks_TaskPool_Add_System_Collections_Generic_IEnumerable_System_Threading_Tasks_Task__" data-uid="FoundationaLLM.Common.Tasks.TaskPool.Add(System.Collections.Generic.IEnumerable{System.Threading.Tasks.Task})">
-  Add(IEnumerable&lt;Task&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Tasks_TaskPool_Add_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Tasks_TaskInfo__" data-uid="FoundationaLLM.Common.Tasks.TaskPool.Add(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Tasks.TaskInfo})">
+  Add(IEnumerable&lt;TaskInfo&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L44"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a new batch of tasks to the task pool.</p>
@@ -245,13 +248,13 @@ Class TaskPool  <a class="header-action link-secondary" title="View source" href
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Add(IEnumerable&lt;Task&gt; tasks)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Add(IEnumerable&lt;TaskInfo&gt; tasks)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>tasks</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>&gt;</dt>
-    <dd><p>The list of tasks to be added to the pool.</p>
+    <dt><code>tasks</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Tasks.TaskInfo.html">TaskInfo</a>&gt;</dt>
+    <dd><p>The list of <a class="xref" href="FoundationaLLM.Common.Tasks.TaskInfo.html">TaskInfo</a> items to be added to the pool.</p>
 </dd>
   </dl>
 
@@ -272,11 +275,50 @@ Class TaskPool  <a class="header-action link-secondary" title="View source" href
 
 
 
+  <a id="FoundationaLLM_Common_Tasks_TaskPool_HasRunningTaskForPayload_" data-uid="FoundationaLLM.Common.Tasks.TaskPool.HasRunningTaskForPayload*"></a>
+
+  <h3 id="FoundationaLLM_Common_Tasks_TaskPool_HasRunningTaskForPayload_System_String_" data-uid="FoundationaLLM.Common.Tasks.TaskPool.HasRunningTaskForPayload(System.String)">
+  HasRunningTaskForPayload(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the task pool already has a running task for a specified payload id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasRunningTaskForPayload(string payloadId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>payloadId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The identifier of the payload.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the task pool already has a running task for the specified payload, false otherwise.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L13" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Tasks/TaskPool.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
 

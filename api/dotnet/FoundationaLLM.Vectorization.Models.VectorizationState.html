@@ -157,6 +157,42 @@ for a specified content item (i.e., document).</p>
 
 
 
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_LoadedArtifactTypes" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.LoadedArtifactTypes">
+  LoadedArtifactTypes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates which types of artifacts have already been loaded into the state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public List&lt;VectorizationArtifactType&gt; LoadedArtifactTypes</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationArtifactType.html">VectorizationArtifactType</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="properties">Properties
 </h2>
 
@@ -375,7 +411,7 @@ public List&lt;VectorizationRequest&gt; Requests { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_AddOrReplaceArtifact_FoundationaLLM_Vectorization_Models_VectorizationArtifact_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.AddOrReplaceArtifact(FoundationaLLM.Vectorization.Models.VectorizationArtifact)">
   AddOrReplaceArtifact(VectorizationArtifact)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L122"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds or replaces a vectorization artifact associated with the vectorization state.</p>
@@ -408,7 +444,7 @@ public List&lt;VectorizationRequest&gt; Requests { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_AddOrReplaceIndexReferences_System_Collections_Generic_IList_System_String__" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.AddOrReplaceIndexReferences(System.Collections.Generic.IList{System.String})">
   AddOrReplaceIndexReferences(IList&lt;string&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L136"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds or replaces the list of vector index references associated with the vectorization state.</p>
@@ -441,7 +477,7 @@ public List&lt;VectorizationRequest&gt; Requests { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_FromRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.FromRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)">
   FromRequest(VectorizationRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L111"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationState.html">VectorizationState</a> instance based on a specified vectorization request.</p>
@@ -480,7 +516,7 @@ public List&lt;VectorizationRequest&gt; Requests { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_Log_FoundationaLLM_Vectorization_Interfaces_IVectorizationStepHandler_System_String_System_String_System_String_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.Log(FoundationaLLM.Vectorization.Interfaces.IVectorizationStepHandler,System.String,System.String,System.String)">
   Log(IVectorizationStepHandler, string, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L71"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a new generic log entry.</p>
@@ -522,7 +558,7 @@ public List&lt;VectorizationRequest&gt; Requests { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_LogHandlerEnd_FoundationaLLM_Vectorization_Interfaces_IVectorizationStepHandler_System_String_System_String_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.LogHandlerEnd(FoundationaLLM.Vectorization.Interfaces.IVectorizationStepHandler,System.String,System.String)">
   LogHandlerEnd(IVectorizationStepHandler, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L91"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a log entry marking the completion of handling.</p>
@@ -561,7 +597,7 @@ public List&lt;VectorizationRequest&gt; Requests { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_LogHandlerError_FoundationaLLM_Vectorization_Interfaces_IVectorizationStepHandler_System_String_System_String_System_Exception_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.LogHandlerError(FoundationaLLM.Vectorization.Interfaces.IVectorizationStepHandler,System.String,System.String,System.Exception)">
   LogHandlerError(IVectorizationStepHandler, string, string, Exception)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L102"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a log entry for a handling exception.</p>
@@ -603,7 +639,7 @@ public List&lt;VectorizationRequest&gt; Requests { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_LogHandlerStart_FoundationaLLM_Vectorization_Interfaces_IVectorizationStepHandler_System_String_System_String_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.LogHandlerStart(FoundationaLLM.Vectorization.Interfaces.IVectorizationStepHandler,System.String,System.String)">
   LogHandlerStart(IVectorizationStepHandler, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L81"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a log entry marking the start of handling.</p>
@@ -642,7 +678,7 @@ public List&lt;VectorizationRequest&gt; Requests { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Vectorization_Models_VectorizationState_UpdateRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Models.VectorizationState.UpdateRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)">
   UpdateRequest(VectorizationRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Models/VectorizationState.cs/#L149"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a vectorization request to the list of requests if it is not already there.</p>

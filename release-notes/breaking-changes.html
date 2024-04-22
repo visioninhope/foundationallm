@@ -73,11 +73,13 @@
         <article data-uid="">
 <h1 id="history-of-breaking-changes">History of breaking changes</h1>
 
-<h2 id="release-060">Release 0.6.0</h2>
+<h2 id="release-070">Release 0.7.0</h2>
 <ol>
-<li>Vectorization resource stores use a unique collection name, <code>Resources</code>. They also add a new top-level property named <code>DefaultResourceName</code>.</li>
-<li>The items in the <code>index_references</code> collection have an property incorrectly named <code>type</code> which was renamed to <code>index_entry_id</code>.</li>
-<li>New gateway API, requires the following app configurations:
+<li><p>Vectorization resource stores use a unique collection name, <code>Resources</code>. They also add a new top-level property named <code>DefaultResourceName</code>.</p>
+</li>
+<li><p>The items in the <code>index_references</code> collection have an property incorrectly named <code>type</code> which was renamed to <code>index_entry_id</code>.</p>
+</li>
+<li><p>New gateway API, requires the following app configurations:</p>
 <ul>
 <li><code>FoundationaLLM:APIs:GatewayAPI:APIUrl</code></li>
 <li><code>FoundationaLLM:APIs:GatewayAPI:APIKey</code> (with secret <code>foundationallm-apis-gatewayapi-apikey</code>)</li>
@@ -85,9 +87,6 @@
 <li><code>FoundationaLLM:Gateway:AzureOpenAIAccounts</code></li>
 </ul>
 </li>
-</ol>
-<h2 id="release-070">Release 0.7.0</h2>
-<ol>
 <li><p>The <code>AgentFactory</code> and <code>AgentFactoryAPI</code> classes have been renamed to <code>Orchestration</code> and <code>OrchestrationAPI</code>, respectively. The following App Config settings need to be replaced in existing environments:</p>
 <ul>
 <li><code>FoundationaLLM:APIs:AgentFactoryAPI:APIKey</code> -&gt; <code>FoundationaLLM:APIs:OrchestrationAPI:APIKey</code></li>

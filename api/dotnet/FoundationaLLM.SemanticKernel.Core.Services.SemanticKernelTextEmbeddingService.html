@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService" data-uid="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService" class="text-break">
-Class SemanticKernelTextEmbeddingService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Services/SemanticKernelTextEmbeddingService.cs/#L21"><i class="bi bi-code-slash"></i></a>
+Class SemanticKernelTextEmbeddingService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Services/SemanticKernelTextEmbeddingService.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -168,9 +168,9 @@ Class SemanticKernelTextEmbeddingService  <a class="header-action link-secondary
 
   <a id="FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__ctor_" data-uid="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__" data-uid="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService})">
-  SemanticKernelTextEmbeddingService(IOptions&lt;SemanticKernelTextEmbeddingServiceSettings&gt;, ILogger&lt;SemanticKernelTextEmbeddingService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Services/SemanticKernelTextEmbeddingService.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings__Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings},Microsoft.Extensions.Logging.ILoggerFactory)">
+  SemanticKernelTextEmbeddingService(IOptions&lt;SemanticKernelTextEmbeddingServiceSettings&gt;, ILoggerFactory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Services/SemanticKernelTextEmbeddingService.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html">SemanticKernelTextEmbeddingService</a> instance.</p>
@@ -178,7 +178,7 @@ Class SemanticKernelTextEmbeddingService  <a class="header-action link-secondary
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SemanticKernelTextEmbeddingService(IOptions&lt;SemanticKernelTextEmbeddingServiceSettings&gt; options, ILogger&lt;SemanticKernelTextEmbeddingService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public SemanticKernelTextEmbeddingService(IOptions&lt;SemanticKernelTextEmbeddingServiceSettings&gt; options, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -186,8 +186,8 @@ Class SemanticKernelTextEmbeddingService  <a class="header-action link-secondary
     <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html">SemanticKernelTextEmbeddingServiceSettings</a>&gt;</dt>
     <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions&lt;TOptions&gt;</a> providing configuration settings.</p>
 </dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html">SemanticKernelTextEmbeddingService</a>&gt;</dt>
-    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a> used for logging.</p>
+    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a> used to create loggers for logging.</p>
 </dd>
   </dl>
 
@@ -210,7 +210,7 @@ Class SemanticKernelTextEmbeddingService  <a class="header-action link-secondary
 
   <h3 id="FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService_GetEmbeddingsAsync_System_Collections_Generic_IList_FoundationaLLM_Common_Models_Vectorization_TextChunk__System_String_" data-uid="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList{FoundationaLLM.Common.Models.Vectorization.TextChunk},System.String)">
   GetEmbeddingsAsync(IList&lt;TextChunk&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Services/SemanticKernelTextEmbeddingService.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Services/SemanticKernelTextEmbeddingService.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes the text embedding operation.
@@ -253,7 +253,7 @@ Depending on the implementation, this can be an atomic operation or a long-runni
 
   <h3 id="FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService_GetEmbeddingsAsync_System_String_" data-uid="FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync(System.String)">
   GetEmbeddingsAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Services/SemanticKernelTextEmbeddingService.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Services/SemanticKernelTextEmbeddingService.cs/#L76"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the result of a long-running text embedding operation.</p>
@@ -292,7 +292,7 @@ Depending on the implementation, this can be an atomic operation or a long-runni
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Services/SemanticKernelTextEmbeddingService.cs/#L21" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Services/SemanticKernelTextEmbeddingService.cs/#L22" class="edit-link">Edit this page</a>
         </div>
 
 

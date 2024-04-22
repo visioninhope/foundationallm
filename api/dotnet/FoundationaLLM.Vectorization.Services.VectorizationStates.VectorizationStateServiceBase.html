@@ -174,7 +174,7 @@ Class VectorizationStateServiceBase  <a class="header-action link-secondary" tit
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets the location of the vectorization state based on the content identifier.</p>
+  <div class="markdown level1 summary"><p>Gets the persistence identifier of the vectorization state based on the content identifier.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -192,7 +192,8 @@ Class VectorizationStateServiceBase  <a class="header-action link-secondary" tit
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The string version of the persistence identifier.</p>
+</dd>
   </dl>
 
 
@@ -230,7 +231,47 @@ Class VectorizationStateServiceBase  <a class="header-action link-secondary" tit
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The string version of the hash.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashText_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashText*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashText_System_String_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashText(System.String)">
+  HashText(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Computes the MD5 hash of a specified chunk of text.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static string HashText(string text)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The chunk of text to be hashed.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The string version of the hash.</p>
+</dd>
   </dl>
 
 

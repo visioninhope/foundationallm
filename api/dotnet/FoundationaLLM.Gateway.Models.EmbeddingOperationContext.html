@@ -160,19 +160,19 @@ Class EmbeddingOperationContext  <a class="header-action link-secondary" title="
 </h2>
 
 
-  <a id="FoundationaLLM_Gateway_Models_EmbeddingOperationContext_Request_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingOperationContext.Request*"></a>
+  <a id="FoundationaLLM_Gateway_Models_EmbeddingOperationContext_InputTextChunks_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingOperationContext.InputTextChunks*"></a>
 
-  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingOperationContext_Request" data-uid="FoundationaLLM.Gateway.Models.EmbeddingOperationContext.Request">
-  Request
+  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingOperationContext_InputTextChunks" data-uid="FoundationaLLM.Gateway.Models.EmbeddingOperationContext.InputTextChunks">
+  InputTextChunks
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingOperationContext.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The original <a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextEmbeddingRequest.html">TextEmbeddingRequest</a> that triggered the embedding operation.</p>
+  <div class="markdown level1 summary"><p>The list of <a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextChunk.html">TextChunk</a> objects which provide the input to the embedding operation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required TextEmbeddingRequest Request { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public required IList&lt;TextChunk&gt; InputTextChunks { get; set; }</code></pre>
   </div>
 
 
@@ -181,7 +181,7 @@ Class EmbeddingOperationContext  <a class="header-action link-secondary" title="
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextEmbeddingRequest.html">TextEmbeddingRequest</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextChunk.html">TextChunk</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -232,10 +232,11 @@ Class EmbeddingOperationContext  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Gateway_Models_EmbeddingOperationContext_SetComplete" data-uid="FoundationaLLM.Gateway.Models.EmbeddingOperationContext.SetComplete">
   SetComplete()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingOperationContext.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingOperationContext.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Marks the embedding operation as complete.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -258,10 +259,12 @@ Class EmbeddingOperationContext  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Gateway_Models_EmbeddingOperationContext_SetEmbeddings_System_Collections_Generic_IList_FoundationaLLM_Common_Models_Vectorization_TextChunk__" data-uid="FoundationaLLM.Gateway.Models.EmbeddingOperationContext.SetEmbeddings(System.Collections.Generic.IList{FoundationaLLM.Common.Models.Vectorization.TextChunk})">
   SetEmbeddings(IList&lt;TextChunk&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingOperationContext.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingOperationContext.cs/#L53"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Sets the embeddings for a specified set of position.
+If all positions have non-null embeddings, marks the operation as complete.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -271,7 +274,8 @@ Class EmbeddingOperationContext  <a class="header-action link-secondary" title="
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>textChunks</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextChunk.html">TextChunk</a>&gt;</dt>
-    <dd></dd>
+    <dd><p>A list of <a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextChunk.html">TextChunk</a> objects containing positions and their associated embeddings.</p>
+</dd>
   </dl>
 
 
@@ -289,10 +293,11 @@ Class EmbeddingOperationContext  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Gateway_Models_EmbeddingOperationContext_SetError_System_String_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingOperationContext.SetError(System.String)">
   SetError(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingOperationContext.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingOperationContext.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Sets a specified error message on the context of the embedding operation.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -302,7 +307,8 @@ Class EmbeddingOperationContext  <a class="header-action link-secondary" title="
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>errorMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The error message to be set.</p>
+</dd>
   </dl>
 
 

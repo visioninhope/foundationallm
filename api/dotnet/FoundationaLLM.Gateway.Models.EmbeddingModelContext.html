@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Gateway_Models_EmbeddingModelContext" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext" class="text-break">
-Class EmbeddingModelContext  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L12"><i class="bi bi-code-slash"></i></a>
+Class EmbeddingModelContext  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -156,6 +156,46 @@ Class EmbeddingModelContext  <a class="header-action link-secondary" title="View
 
 
 
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="FoundationaLLM_Gateway_Models_EmbeddingModelContext__ctor_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.#ctor*"></a>
+
+  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelContext__ctor_System_Collections_Concurrent_ConcurrentDictionary_System_String_FoundationaLLM_Gateway_Models_EmbeddingOperationContext__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gateway_Models_EmbeddingModelContext__" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.#ctor(System.Collections.Concurrent.ConcurrentDictionary{System.String,FoundationaLLM.Gateway.Models.EmbeddingOperationContext},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gateway.Models.EmbeddingModelContext})">
+  EmbeddingModelContext(ConcurrentDictionary&lt;string, EmbeddingOperationContext&gt;, ILogger&lt;EmbeddingModelContext&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Provides context associated with an embedding model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EmbeddingModelContext(ConcurrentDictionary&lt;string, EmbeddingOperationContext&gt; embeddingOperations, ILogger&lt;EmbeddingModelContext&gt; logger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>embeddingOperations</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.concurrent.concurrentdictionary-2">ConcurrentDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="FoundationaLLM.Gateway.Models.EmbeddingOperationContext.html">EmbeddingOperationContext</a>&gt;</dt>
+    <dd><p>The global dictionary of <a class="xref" href="FoundationaLLM.Gateway.Models.EmbeddingOperationContext.html">EmbeddingOperationContext</a> objects indexed by operation identifier.</p>
+</dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Gateway.Models.EmbeddingModelContext.html">EmbeddingModelContext</a>&gt;</dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a> used for logging.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="properties">Properties
 </h2>
 
@@ -164,7 +204,7 @@ Class EmbeddingModelContext  <a class="header-action link-secondary" title="View
 
   <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_DeploymentContexts" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.DeploymentContexts">
   DeploymentContexts
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>A list of <a class="xref" href="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html">EmbeddingModelDeploymentContext</a> objects providing contexts for the available deployments for the model.</p>
@@ -172,7 +212,7 @@ Class EmbeddingModelContext  <a class="header-action link-secondary" title="View
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required List&lt;EmbeddingModelDeploymentContext&gt; DeploymentContexts { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;EmbeddingModelDeploymentContext&gt; DeploymentContexts { get; set; }</code></pre>
   </div>
 
 
@@ -192,43 +232,11 @@ Class EmbeddingModelContext  <a class="header-action link-secondary" title="View
 
 
 
-  <a id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_EmbeddingOperationIds_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.EmbeddingOperationIds*"></a>
-
-  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_EmbeddingOperationIds" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.EmbeddingOperationIds">
-  EmbeddingOperationIds
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L27"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>A queue of active embedding operation identifiers.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required ConcurrentQueue&lt;string&gt; EmbeddingOperationIds { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.concurrent.concurrentqueue-1">ConcurrentQueue</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
   <a id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_ModelName_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.ModelName*"></a>
 
   <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_ModelName" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.ModelName">
   ModelName
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the embedding model.</p>
@@ -260,24 +268,62 @@ Class EmbeddingModelContext  <a class="header-action link-secondary" title="View
 </h2>
 
 
-  <a id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_SelectTextEmbeddingService_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.SelectTextEmbeddingService*"></a>
+  <a id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_AddEmbeddingOperationContext_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.AddEmbeddingOperationContext*"></a>
 
-  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_SelectTextEmbeddingService" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.SelectTextEmbeddingService">
-  SelectTextEmbeddingService()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_AddEmbeddingOperationContext_FoundationaLLM_Gateway_Models_EmbeddingOperationContext_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.AddEmbeddingOperationContext(FoundationaLLM.Gateway.Models.EmbeddingOperationContext)">
+  AddEmbeddingOperationContext(EmbeddingOperationContext)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L36"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ITextEmbeddingService SelectTextEmbeddingService()</code></pre>
+    <pre><code class="lang-csharp hljs">public void AddEmbeddingOperationContext(EmbeddingOperationContext embeddingOperationContext)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>embeddingOperationContext</code> <a class="xref" href="FoundationaLLM.Gateway.Models.EmbeddingOperationContext.html">EmbeddingOperationContext</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_ProcessOperations_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.ProcessOperations*"></a>
+
+  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelContext_ProcessOperations_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelContext.ProcessOperations(System.Threading.CancellationToken)">
+  ProcessOperations(CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Processes embedding operations in a continuous loop.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ProcessOperations(CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>Notifies that the operation must be cancelled.</p>
+</dd>
+  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html">ITextEmbeddingService</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
     <dd></dd>
   </dl>
 
@@ -295,7 +341,7 @@ Class EmbeddingModelContext  <a class="header-action link-secondary" title="View
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L12" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelContext.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
 

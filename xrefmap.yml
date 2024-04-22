@@ -6901,6 +6901,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.AccountEndpoint
   nameWithType: AzureOpenAIAccountDeployment.AccountEndpoint
+- uid: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.CanDoEmbeddings
+  name: CanDoEmbeddings
+  href: api/dotnet/FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.html#FoundationaLLM_Common_Models_Azure_AzureOpenAIAccountDeployment_CanDoEmbeddings
+  commentId: P:FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.CanDoEmbeddings
+  fullName: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.CanDoEmbeddings
+  nameWithType: AzureOpenAIAccountDeployment.CanDoEmbeddings
+- uid: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.CanDoEmbeddings*
+  name: CanDoEmbeddings
+  href: api/dotnet/FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.html#FoundationaLLM_Common_Models_Azure_AzureOpenAIAccountDeployment_CanDoEmbeddings_
+  commentId: Overload:FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.CanDoEmbeddings
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.CanDoEmbeddings
+  nameWithType: AzureOpenAIAccountDeployment.CanDoEmbeddings
 - uid: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.Capabilities
   name: Capabilities
   href: api/dotnet/FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.html#FoundationaLLM_Common_Models_Azure_AzureOpenAIAccountDeployment_Capabilities
@@ -6914,6 +6927,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.Capabilities
   nameWithType: AzureOpenAIAccountDeployment.Capabilities
+- uid: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.EmbeddingsMaxInputs
+  name: EmbeddingsMaxInputs
+  href: api/dotnet/FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.html#FoundationaLLM_Common_Models_Azure_AzureOpenAIAccountDeployment_EmbeddingsMaxInputs
+  commentId: P:FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.EmbeddingsMaxInputs
+  fullName: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.EmbeddingsMaxInputs
+  nameWithType: AzureOpenAIAccountDeployment.EmbeddingsMaxInputs
+- uid: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.EmbeddingsMaxInputs*
+  name: EmbeddingsMaxInputs
+  href: api/dotnet/FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.html#FoundationaLLM_Common_Models_Azure_AzureOpenAIAccountDeployment_EmbeddingsMaxInputs_
+  commentId: Overload:FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.EmbeddingsMaxInputs
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.EmbeddingsMaxInputs
+  nameWithType: AzureOpenAIAccountDeployment.EmbeddingsMaxInputs
 - uid: FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.ModelName
   name: ModelName
   href: api/dotnet/FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.html#FoundationaLLM_Common_Models_Azure_AzureOpenAIAccountDeployment_ModelName
@@ -9176,6 +9202,161 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Events.EventSetEventDelegate
   fullName: FoundationaLLM.Common.Models.Events.EventSetEventDelegate
   nameWithType: EventSetEventDelegate
+- uid: FoundationaLLM.Common.Models.Gateway
+  name: FoundationaLLM.Common.Models.Gateway
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.html
+  commentId: N:FoundationaLLM.Common.Models.Gateway
+  fullName: FoundationaLLM.Common.Models.Gateway
+  nameWithType: FoundationaLLM.Common.Models.Gateway
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics
+  name: GatewayTextEmbeddingRequestMetrics
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html
+  commentId: T:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics
+  nameWithType: GatewayTextEmbeddingRequestMetrics
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.AccountName
+  name: AccountName
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_AccountName
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.AccountName
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.AccountName
+  nameWithType: GatewayTextEmbeddingRequestMetrics.AccountName
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.AccountName*
+  name: AccountName
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_AccountName_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.AccountName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.AccountName
+  nameWithType: GatewayTextEmbeddingRequestMetrics.AccountName
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentRequestTokenCount
+  name: CurrentRequestTokenCount
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_CurrentRequestTokenCount
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentRequestTokenCount
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentRequestTokenCount
+  nameWithType: GatewayTextEmbeddingRequestMetrics.CurrentRequestTokenCount
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentRequestTokenCount*
+  name: CurrentRequestTokenCount
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_CurrentRequestTokenCount_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentRequestTokenCount
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentRequestTokenCount
+  nameWithType: GatewayTextEmbeddingRequestMetrics.CurrentRequestTokenCount
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentTextChunkCount
+  name: CurrentTextChunkCount
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_CurrentTextChunkCount
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentTextChunkCount
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentTextChunkCount
+  nameWithType: GatewayTextEmbeddingRequestMetrics.CurrentTextChunkCount
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentTextChunkCount*
+  name: CurrentTextChunkCount
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_CurrentTextChunkCount_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentTextChunkCount
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.CurrentTextChunkCount
+  nameWithType: GatewayTextEmbeddingRequestMetrics.CurrentTextChunkCount
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.Id
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_Id
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.Id
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.Id
+  nameWithType: GatewayTextEmbeddingRequestMetrics.Id
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.Id*
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_Id_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.Id
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.Id
+  nameWithType: GatewayTextEmbeddingRequestMetrics.Id
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelName
+  name: ModelName
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_ModelName
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelName
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelName
+  nameWithType: GatewayTextEmbeddingRequestMetrics.ModelName
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelName*
+  name: ModelName
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_ModelName_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelName
+  nameWithType: GatewayTextEmbeddingRequestMetrics.ModelName
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelVersion
+  name: ModelVersion
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_ModelVersion
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelVersion
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelVersion
+  nameWithType: GatewayTextEmbeddingRequestMetrics.ModelVersion
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelVersion*
+  name: ModelVersion
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_ModelVersion_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelVersion
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.ModelVersion
+  nameWithType: GatewayTextEmbeddingRequestMetrics.ModelVersion
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.OperationsDetails
+  name: OperationsDetails
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_OperationsDetails
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.OperationsDetails
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.OperationsDetails
+  nameWithType: GatewayTextEmbeddingRequestMetrics.OperationsDetails
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.OperationsDetails*
+  name: OperationsDetails
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_OperationsDetails_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.OperationsDetails
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.OperationsDetails
+  nameWithType: GatewayTextEmbeddingRequestMetrics.OperationsDetails
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowRequestCount
+  name: RequestRateWindowRequestCount
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_RequestRateWindowRequestCount
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowRequestCount
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowRequestCount
+  nameWithType: GatewayTextEmbeddingRequestMetrics.RequestRateWindowRequestCount
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowRequestCount*
+  name: RequestRateWindowRequestCount
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_RequestRateWindowRequestCount_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowRequestCount
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowRequestCount
+  nameWithType: GatewayTextEmbeddingRequestMetrics.RequestRateWindowRequestCount
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowStart
+  name: RequestRateWindowStart
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_RequestRateWindowStart
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowStart
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowStart
+  nameWithType: GatewayTextEmbeddingRequestMetrics.RequestRateWindowStart
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowStart*
+  name: RequestRateWindowStart
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_RequestRateWindowStart_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowStart
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.RequestRateWindowStart
+  nameWithType: GatewayTextEmbeddingRequestMetrics.RequestRateWindowStart
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowStart
+  name: TokenRateWindowStart
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_TokenRateWindowStart
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowStart
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowStart
+  nameWithType: GatewayTextEmbeddingRequestMetrics.TokenRateWindowStart
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowStart*
+  name: TokenRateWindowStart
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_TokenRateWindowStart_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowStart
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowStart
+  nameWithType: GatewayTextEmbeddingRequestMetrics.TokenRateWindowStart
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowTokenCount
+  name: TokenRateWindowTokenCount
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_TokenRateWindowTokenCount
+  commentId: P:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowTokenCount
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowTokenCount
+  nameWithType: GatewayTextEmbeddingRequestMetrics.TokenRateWindowTokenCount
+- uid: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowTokenCount*
+  name: TokenRateWindowTokenCount
+  href: api/dotnet/FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.html#FoundationaLLM_Common_Models_Gateway_GatewayTextEmbeddingRequestMetrics_TokenRateWindowTokenCount_
+  commentId: Overload:FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowTokenCount
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Gateway.GatewayTextEmbeddingRequestMetrics.TokenRateWindowTokenCount
+  nameWithType: GatewayTextEmbeddingRequestMetrics.TokenRateWindowTokenCount
 - uid: FoundationaLLM.Common.Models.Infrastructure
   name: FoundationaLLM.Common.Models.Infrastructure
   href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.html
@@ -13575,6 +13756,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Vectorization.TextChunk.Embedding
   nameWithType: TextChunk.Embedding
+- uid: FoundationaLLM.Common.Models.Vectorization.TextChunk.OperationId
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.TextChunk.html#FoundationaLLM_Common_Models_Vectorization_TextChunk_OperationId
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.TextChunk.OperationId
+  fullName: FoundationaLLM.Common.Models.Vectorization.TextChunk.OperationId
+  nameWithType: TextChunk.OperationId
+- uid: FoundationaLLM.Common.Models.Vectorization.TextChunk.OperationId*
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.TextChunk.html#FoundationaLLM_Common_Models_Vectorization_TextChunk_OperationId_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.TextChunk.OperationId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.TextChunk.OperationId
+  nameWithType: TextChunk.OperationId
 - uid: FoundationaLLM.Common.Models.Vectorization.TextChunk.Position
   name: Position
   href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.TextChunk.html#FoundationaLLM_Common_Models_Vectorization_TextChunk_Position
@@ -13639,19 +13833,6 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult
   fullName: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult
   nameWithType: TextEmbeddingResult
-- uid: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Cancelled
-  name: Cancelled
-  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html#FoundationaLLM_Common_Models_Vectorization_TextEmbeddingResult_Cancelled
-  commentId: P:FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Cancelled
-  fullName: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Cancelled
-  nameWithType: TextEmbeddingResult.Cancelled
-- uid: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Cancelled*
-  name: Cancelled
-  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html#FoundationaLLM_Common_Models_Vectorization_TextEmbeddingResult_Cancelled_
-  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Cancelled
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Cancelled
-  nameWithType: TextEmbeddingResult.Cancelled
 - uid: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.ErrorMessage
   name: ErrorMessage
   href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html#FoundationaLLM_Common_Models_Vectorization_TextEmbeddingResult_ErrorMessage
@@ -13665,6 +13846,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.ErrorMessage
   nameWithType: TextEmbeddingResult.ErrorMessage
+- uid: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Failed
+  name: Failed
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html#FoundationaLLM_Common_Models_Vectorization_TextEmbeddingResult_Failed
+  commentId: P:FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Failed
+  fullName: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Failed
+  nameWithType: TextEmbeddingResult.Failed
+- uid: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Failed*
+  name: Failed
+  href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html#FoundationaLLM_Common_Models_Vectorization_TextEmbeddingResult_Failed_
+  commentId: Overload:FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Failed
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.Failed
+  nameWithType: TextEmbeddingResult.Failed
 - uid: FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.InProgress
   name: InProgress
   href: api/dotnet/FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html#FoundationaLLM_Common_Models_Vectorization_TextEmbeddingResult_InProgress
@@ -16109,21 +16303,53 @@ references:
   commentId: N:FoundationaLLM.Common.Tasks
   fullName: FoundationaLLM.Common.Tasks
   nameWithType: FoundationaLLM.Common.Tasks
+- uid: FoundationaLLM.Common.Tasks.TaskInfo
+  name: TaskInfo
+  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskInfo.html
+  commentId: T:FoundationaLLM.Common.Tasks.TaskInfo
+  fullName: FoundationaLLM.Common.Tasks.TaskInfo
+  nameWithType: TaskInfo
+- uid: FoundationaLLM.Common.Tasks.TaskInfo.PayloadId
+  name: PayloadId
+  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskInfo.html#FoundationaLLM_Common_Tasks_TaskInfo_PayloadId
+  commentId: P:FoundationaLLM.Common.Tasks.TaskInfo.PayloadId
+  fullName: FoundationaLLM.Common.Tasks.TaskInfo.PayloadId
+  nameWithType: TaskInfo.PayloadId
+- uid: FoundationaLLM.Common.Tasks.TaskInfo.PayloadId*
+  name: PayloadId
+  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskInfo.html#FoundationaLLM_Common_Tasks_TaskInfo_PayloadId_
+  commentId: Overload:FoundationaLLM.Common.Tasks.TaskInfo.PayloadId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Tasks.TaskInfo.PayloadId
+  nameWithType: TaskInfo.PayloadId
+- uid: FoundationaLLM.Common.Tasks.TaskInfo.Task
+  name: Task
+  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskInfo.html#FoundationaLLM_Common_Tasks_TaskInfo_Task
+  commentId: P:FoundationaLLM.Common.Tasks.TaskInfo.Task
+  fullName: FoundationaLLM.Common.Tasks.TaskInfo.Task
+  nameWithType: TaskInfo.Task
+- uid: FoundationaLLM.Common.Tasks.TaskInfo.Task*
+  name: Task
+  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskInfo.html#FoundationaLLM_Common_Tasks_TaskInfo_Task_
+  commentId: Overload:FoundationaLLM.Common.Tasks.TaskInfo.Task
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Tasks.TaskInfo.Task
+  nameWithType: TaskInfo.Task
 - uid: FoundationaLLM.Common.Tasks.TaskPool
   name: TaskPool
   href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html
   commentId: T:FoundationaLLM.Common.Tasks.TaskPool
   fullName: FoundationaLLM.Common.Tasks.TaskPool
   nameWithType: TaskPool
-- uid: FoundationaLLM.Common.Tasks.TaskPool.#ctor(System.Int32)
-  name: TaskPool(int)
-  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool__ctor_System_Int32_
-  commentId: M:FoundationaLLM.Common.Tasks.TaskPool.#ctor(System.Int32)
-  name.vb: New(Integer)
-  fullName: FoundationaLLM.Common.Tasks.TaskPool.TaskPool(int)
-  fullName.vb: FoundationaLLM.Common.Tasks.TaskPool.New(Integer)
-  nameWithType: TaskPool.TaskPool(int)
-  nameWithType.vb: TaskPool.New(Integer)
+- uid: FoundationaLLM.Common.Tasks.TaskPool.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Tasks.TaskPool})
+  name: TaskPool(int, ILogger<TaskPool>)
+  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool__ctor_System_Int32_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Tasks_TaskPool__
+  commentId: M:FoundationaLLM.Common.Tasks.TaskPool.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Tasks.TaskPool})
+  name.vb: New(Integer, ILogger(Of TaskPool))
+  fullName: FoundationaLLM.Common.Tasks.TaskPool.TaskPool(int, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Tasks.TaskPool>)
+  fullName.vb: FoundationaLLM.Common.Tasks.TaskPool.New(Integer, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Tasks.TaskPool))
+  nameWithType: TaskPool.TaskPool(int, ILogger<TaskPool>)
+  nameWithType.vb: TaskPool.New(Integer, ILogger(Of TaskPool))
 - uid: FoundationaLLM.Common.Tasks.TaskPool.#ctor*
   name: TaskPool
   href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool__ctor_
@@ -16134,15 +16360,15 @@ references:
   fullName.vb: FoundationaLLM.Common.Tasks.TaskPool.New
   nameWithType: TaskPool.TaskPool
   nameWithType.vb: TaskPool.New
-- uid: FoundationaLLM.Common.Tasks.TaskPool.Add(System.Collections.Generic.IEnumerable{System.Threading.Tasks.Task})
-  name: Add(IEnumerable<Task>)
-  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool_Add_System_Collections_Generic_IEnumerable_System_Threading_Tasks_Task__
-  commentId: M:FoundationaLLM.Common.Tasks.TaskPool.Add(System.Collections.Generic.IEnumerable{System.Threading.Tasks.Task})
-  name.vb: Add(IEnumerable(Of Task))
-  fullName: FoundationaLLM.Common.Tasks.TaskPool.Add(System.Collections.Generic.IEnumerable<System.Threading.Tasks.Task>)
-  fullName.vb: FoundationaLLM.Common.Tasks.TaskPool.Add(System.Collections.Generic.IEnumerable(Of System.Threading.Tasks.Task))
-  nameWithType: TaskPool.Add(IEnumerable<Task>)
-  nameWithType.vb: TaskPool.Add(IEnumerable(Of Task))
+- uid: FoundationaLLM.Common.Tasks.TaskPool.Add(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Tasks.TaskInfo})
+  name: Add(IEnumerable<TaskInfo>)
+  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool_Add_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Tasks_TaskInfo__
+  commentId: M:FoundationaLLM.Common.Tasks.TaskPool.Add(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Tasks.TaskInfo})
+  name.vb: Add(IEnumerable(Of TaskInfo))
+  fullName: FoundationaLLM.Common.Tasks.TaskPool.Add(System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Tasks.TaskInfo>)
+  fullName.vb: FoundationaLLM.Common.Tasks.TaskPool.Add(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Tasks.TaskInfo))
+  nameWithType: TaskPool.Add(IEnumerable<TaskInfo>)
+  nameWithType.vb: TaskPool.Add(IEnumerable(Of TaskInfo))
 - uid: FoundationaLLM.Common.Tasks.TaskPool.Add*
   name: Add
   href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool_Add_
@@ -16163,6 +16389,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Tasks.TaskPool.AvailableCapacity
   nameWithType: TaskPool.AvailableCapacity
+- uid: FoundationaLLM.Common.Tasks.TaskPool.HasRunningTaskForPayload(System.String)
+  name: HasRunningTaskForPayload(string)
+  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool_HasRunningTaskForPayload_System_String_
+  commentId: M:FoundationaLLM.Common.Tasks.TaskPool.HasRunningTaskForPayload(System.String)
+  name.vb: HasRunningTaskForPayload(String)
+  fullName: FoundationaLLM.Common.Tasks.TaskPool.HasRunningTaskForPayload(string)
+  fullName.vb: FoundationaLLM.Common.Tasks.TaskPool.HasRunningTaskForPayload(String)
+  nameWithType: TaskPool.HasRunningTaskForPayload(string)
+  nameWithType.vb: TaskPool.HasRunningTaskForPayload(String)
+- uid: FoundationaLLM.Common.Tasks.TaskPool.HasRunningTaskForPayload*
+  name: HasRunningTaskForPayload
+  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool_HasRunningTaskForPayload_
+  commentId: Overload:FoundationaLLM.Common.Tasks.TaskPool.HasRunningTaskForPayload
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Tasks.TaskPool.HasRunningTaskForPayload
+  nameWithType: TaskPool.HasRunningTaskForPayload
 - uid: FoundationaLLM.Common.Tasks.TaskPoolException
   name: TaskPoolException
   href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPoolException.html
@@ -20763,6 +21005,38 @@ references:
   commentId: T:FoundationaLLM.Gateway.Models.EmbeddingModelContext
   fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext
   nameWithType: EmbeddingModelContext
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.#ctor(System.Collections.Concurrent.ConcurrentDictionary{System.String,FoundationaLLM.Gateway.Models.EmbeddingOperationContext},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gateway.Models.EmbeddingModelContext})
+  name: EmbeddingModelContext(ConcurrentDictionary<string, EmbeddingOperationContext>, ILogger<EmbeddingModelContext>)
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext__ctor_System_Collections_Concurrent_ConcurrentDictionary_System_String_FoundationaLLM_Gateway_Models_EmbeddingOperationContext__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gateway_Models_EmbeddingModelContext__
+  commentId: M:FoundationaLLM.Gateway.Models.EmbeddingModelContext.#ctor(System.Collections.Concurrent.ConcurrentDictionary{System.String,FoundationaLLM.Gateway.Models.EmbeddingOperationContext},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gateway.Models.EmbeddingModelContext})
+  name.vb: New(ConcurrentDictionary(Of String, EmbeddingOperationContext), ILogger(Of EmbeddingModelContext))
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.EmbeddingModelContext(System.Collections.Concurrent.ConcurrentDictionary<string, FoundationaLLM.Gateway.Models.EmbeddingOperationContext>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gateway.Models.EmbeddingModelContext>)
+  fullName.vb: FoundationaLLM.Gateway.Models.EmbeddingModelContext.New(System.Collections.Concurrent.ConcurrentDictionary(Of String, FoundationaLLM.Gateway.Models.EmbeddingOperationContext), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gateway.Models.EmbeddingModelContext))
+  nameWithType: EmbeddingModelContext.EmbeddingModelContext(ConcurrentDictionary<string, EmbeddingOperationContext>, ILogger<EmbeddingModelContext>)
+  nameWithType.vb: EmbeddingModelContext.New(ConcurrentDictionary(Of String, EmbeddingOperationContext), ILogger(Of EmbeddingModelContext))
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.#ctor*
+  name: EmbeddingModelContext
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext__ctor_
+  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelContext.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.EmbeddingModelContext
+  fullName.vb: FoundationaLLM.Gateway.Models.EmbeddingModelContext.New
+  nameWithType: EmbeddingModelContext.EmbeddingModelContext
+  nameWithType.vb: EmbeddingModelContext.New
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.AddEmbeddingOperationContext(FoundationaLLM.Gateway.Models.EmbeddingOperationContext)
+  name: AddEmbeddingOperationContext(EmbeddingOperationContext)
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext_AddEmbeddingOperationContext_FoundationaLLM_Gateway_Models_EmbeddingOperationContext_
+  commentId: M:FoundationaLLM.Gateway.Models.EmbeddingModelContext.AddEmbeddingOperationContext(FoundationaLLM.Gateway.Models.EmbeddingOperationContext)
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.AddEmbeddingOperationContext(FoundationaLLM.Gateway.Models.EmbeddingOperationContext)
+  nameWithType: EmbeddingModelContext.AddEmbeddingOperationContext(EmbeddingOperationContext)
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.AddEmbeddingOperationContext*
+  name: AddEmbeddingOperationContext
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext_AddEmbeddingOperationContext_
+  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelContext.AddEmbeddingOperationContext
+  isSpec: "True"
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.AddEmbeddingOperationContext
+  nameWithType: EmbeddingModelContext.AddEmbeddingOperationContext
 - uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.DeploymentContexts
   name: DeploymentContexts
   href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext_DeploymentContexts
@@ -20776,19 +21050,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.DeploymentContexts
   nameWithType: EmbeddingModelContext.DeploymentContexts
-- uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.EmbeddingOperationIds
-  name: EmbeddingOperationIds
-  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext_EmbeddingOperationIds
-  commentId: P:FoundationaLLM.Gateway.Models.EmbeddingModelContext.EmbeddingOperationIds
-  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.EmbeddingOperationIds
-  nameWithType: EmbeddingModelContext.EmbeddingOperationIds
-- uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.EmbeddingOperationIds*
-  name: EmbeddingOperationIds
-  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext_EmbeddingOperationIds_
-  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelContext.EmbeddingOperationIds
-  isSpec: "True"
-  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.EmbeddingOperationIds
-  nameWithType: EmbeddingModelContext.EmbeddingOperationIds
 - uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.ModelName
   name: ModelName
   href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext_ModelName
@@ -20802,70 +21063,102 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.ModelName
   nameWithType: EmbeddingModelContext.ModelName
-- uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.SelectTextEmbeddingService
-  name: SelectTextEmbeddingService()
-  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext_SelectTextEmbeddingService
-  commentId: M:FoundationaLLM.Gateway.Models.EmbeddingModelContext.SelectTextEmbeddingService
-  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.SelectTextEmbeddingService()
-  nameWithType: EmbeddingModelContext.SelectTextEmbeddingService()
-- uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.SelectTextEmbeddingService*
-  name: SelectTextEmbeddingService
-  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext_SelectTextEmbeddingService_
-  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelContext.SelectTextEmbeddingService
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.ProcessOperations(System.Threading.CancellationToken)
+  name: ProcessOperations(CancellationToken)
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext_ProcessOperations_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Gateway.Models.EmbeddingModelContext.ProcessOperations(System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.ProcessOperations(System.Threading.CancellationToken)
+  nameWithType: EmbeddingModelContext.ProcessOperations(CancellationToken)
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext.ProcessOperations*
+  name: ProcessOperations
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelContext_ProcessOperations_
+  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelContext.ProcessOperations
   isSpec: "True"
-  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.SelectTextEmbeddingService
-  nameWithType: EmbeddingModelContext.SelectTextEmbeddingService
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelContext.ProcessOperations
+  nameWithType: EmbeddingModelContext.ProcessOperations
 - uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext
   name: EmbeddingModelDeploymentContext
   href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html
   commentId: T:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext
   fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext
   nameWithType: EmbeddingModelDeploymentContext
-- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.Deployment
-  name: Deployment
-  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_Deployment
-  commentId: P:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.Deployment
-  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.Deployment
-  nameWithType: EmbeddingModelDeploymentContext.Deployment
-- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.Deployment*
-  name: Deployment
-  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_Deployment_
-  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.Deployment
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.#ctor(FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: EmbeddingModelDeploymentContext(AzureOpenAIAccountDeployment, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext__ctor_FoundationaLLM_Common_Models_Azure_AzureOpenAIAccountDeployment_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.#ctor(FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(AzureOpenAIAccountDeployment, ILoggerFactory)
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.EmbeddingModelDeploymentContext(FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.New(FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: EmbeddingModelDeploymentContext.EmbeddingModelDeploymentContext(AzureOpenAIAccountDeployment, ILoggerFactory)
+  nameWithType.vb: EmbeddingModelDeploymentContext.New(AzureOpenAIAccountDeployment, ILoggerFactory)
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.#ctor*
+  name: EmbeddingModelDeploymentContext
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext__ctor_
+  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.#ctor
   isSpec: "True"
-  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.Deployment
-  nameWithType: EmbeddingModelDeploymentContext.Deployment
-- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TextEmbeddingService
-  name: TextEmbeddingService
-  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_TextEmbeddingService
-  commentId: P:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TextEmbeddingService
-  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TextEmbeddingService
-  nameWithType: EmbeddingModelDeploymentContext.TextEmbeddingService
-- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TextEmbeddingService*
-  name: TextEmbeddingService
-  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_TextEmbeddingService_
-  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TextEmbeddingService
+  name.vb: New
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.EmbeddingModelDeploymentContext
+  fullName.vb: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.New
+  nameWithType: EmbeddingModelDeploymentContext.EmbeddingModelDeploymentContext
+  nameWithType.vb: EmbeddingModelDeploymentContext.New
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.GetEmbeddingsForInputTextChunks
+  name: GetEmbeddingsForInputTextChunks()
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_GetEmbeddingsForInputTextChunks
+  commentId: M:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.GetEmbeddingsForInputTextChunks
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.GetEmbeddingsForInputTextChunks()
+  nameWithType: EmbeddingModelDeploymentContext.GetEmbeddingsForInputTextChunks()
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.GetEmbeddingsForInputTextChunks*
+  name: GetEmbeddingsForInputTextChunks
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_GetEmbeddingsForInputTextChunks_
+  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.GetEmbeddingsForInputTextChunks
   isSpec: "True"
-  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TextEmbeddingService
-  nameWithType: EmbeddingModelDeploymentContext.TextEmbeddingService
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.GetEmbeddingsForInputTextChunks
+  nameWithType: EmbeddingModelDeploymentContext.GetEmbeddingsForInputTextChunks
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.HasInput
+  name: HasInput
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_HasInput
+  commentId: P:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.HasInput
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.HasInput
+  nameWithType: EmbeddingModelDeploymentContext.HasInput
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.HasInput*
+  name: HasInput
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_HasInput_
+  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.HasInput
+  isSpec: "True"
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.HasInput
+  nameWithType: EmbeddingModelDeploymentContext.HasInput
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TryAddInputTextChunk(FoundationaLLM.Common.Models.Vectorization.TextChunk)
+  name: TryAddInputTextChunk(TextChunk)
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_TryAddInputTextChunk_FoundationaLLM_Common_Models_Vectorization_TextChunk_
+  commentId: M:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TryAddInputTextChunk(FoundationaLLM.Common.Models.Vectorization.TextChunk)
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TryAddInputTextChunk(FoundationaLLM.Common.Models.Vectorization.TextChunk)
+  nameWithType: EmbeddingModelDeploymentContext.TryAddInputTextChunk(TextChunk)
+- uid: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TryAddInputTextChunk*
+  name: TryAddInputTextChunk
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.html#FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_TryAddInputTextChunk_
+  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TryAddInputTextChunk
+  isSpec: "True"
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TryAddInputTextChunk
+  nameWithType: EmbeddingModelDeploymentContext.TryAddInputTextChunk
 - uid: FoundationaLLM.Gateway.Models.EmbeddingOperationContext
   name: EmbeddingOperationContext
   href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingOperationContext.html
   commentId: T:FoundationaLLM.Gateway.Models.EmbeddingOperationContext
   fullName: FoundationaLLM.Gateway.Models.EmbeddingOperationContext
   nameWithType: EmbeddingOperationContext
-- uid: FoundationaLLM.Gateway.Models.EmbeddingOperationContext.Request
-  name: Request
-  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingOperationContext.html#FoundationaLLM_Gateway_Models_EmbeddingOperationContext_Request
-  commentId: P:FoundationaLLM.Gateway.Models.EmbeddingOperationContext.Request
-  fullName: FoundationaLLM.Gateway.Models.EmbeddingOperationContext.Request
-  nameWithType: EmbeddingOperationContext.Request
-- uid: FoundationaLLM.Gateway.Models.EmbeddingOperationContext.Request*
-  name: Request
-  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingOperationContext.html#FoundationaLLM_Gateway_Models_EmbeddingOperationContext_Request_
-  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingOperationContext.Request
+- uid: FoundationaLLM.Gateway.Models.EmbeddingOperationContext.InputTextChunks
+  name: InputTextChunks
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingOperationContext.html#FoundationaLLM_Gateway_Models_EmbeddingOperationContext_InputTextChunks
+  commentId: P:FoundationaLLM.Gateway.Models.EmbeddingOperationContext.InputTextChunks
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingOperationContext.InputTextChunks
+  nameWithType: EmbeddingOperationContext.InputTextChunks
+- uid: FoundationaLLM.Gateway.Models.EmbeddingOperationContext.InputTextChunks*
+  name: InputTextChunks
+  href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingOperationContext.html#FoundationaLLM_Gateway_Models_EmbeddingOperationContext_InputTextChunks_
+  commentId: Overload:FoundationaLLM.Gateway.Models.EmbeddingOperationContext.InputTextChunks
   isSpec: "True"
-  fullName: FoundationaLLM.Gateway.Models.EmbeddingOperationContext.Request
-  nameWithType: EmbeddingOperationContext.Request
+  fullName: FoundationaLLM.Gateway.Models.EmbeddingOperationContext.InputTextChunks
+  nameWithType: EmbeddingOperationContext.InputTextChunks
 - uid: FoundationaLLM.Gateway.Models.EmbeddingOperationContext.Result
   name: Result
   href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingOperationContext.html#FoundationaLLM_Gateway_Models_EmbeddingOperationContext_Result
@@ -22804,44 +23097,6 @@ references:
   commentId: N:FoundationaLLM.SemanticKernel.Core.Plugins
   fullName: FoundationaLLM.SemanticKernel.Core.Plugins
   nameWithType: FoundationaLLM.SemanticKernel.Core.Plugins
-- uid: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin
-  name: KnowledgeManagementAgentPlugin
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.html
-  commentId: T:FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin
-  fullName: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin
-  nameWithType: KnowledgeManagementAgentPlugin
-- uid: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin},Microsoft.Extensions.Configuration.IConfiguration)
-  name: KnowledgeManagementAgentPlugin(ILogger<KnowledgeManagementAgentPlugin>, IConfiguration)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.html#FoundationaLLM_SemanticKernel_Core_Plugins_KnowledgeManagementAgentPlugin__ctor_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_SemanticKernel_Core_Plugins_KnowledgeManagementAgentPlugin__Microsoft_Extensions_Configuration_IConfiguration_
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin},Microsoft.Extensions.Configuration.IConfiguration)
-  name.vb: New(ILogger(Of KnowledgeManagementAgentPlugin), IConfiguration)
-  fullName: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.KnowledgeManagementAgentPlugin(Microsoft.Extensions.Logging.ILogger<FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin>, Microsoft.Extensions.Configuration.IConfiguration)
-  fullName.vb: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.New(Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin), Microsoft.Extensions.Configuration.IConfiguration)
-  nameWithType: KnowledgeManagementAgentPlugin.KnowledgeManagementAgentPlugin(ILogger<KnowledgeManagementAgentPlugin>, IConfiguration)
-  nameWithType.vb: KnowledgeManagementAgentPlugin.New(ILogger(Of KnowledgeManagementAgentPlugin), IConfiguration)
-- uid: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.#ctor*
-  name: KnowledgeManagementAgentPlugin
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.html#FoundationaLLM_SemanticKernel_Core_Plugins_KnowledgeManagementAgentPlugin__ctor_
-  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.KnowledgeManagementAgentPlugin
-  fullName.vb: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.New
-  nameWithType: KnowledgeManagementAgentPlugin.KnowledgeManagementAgentPlugin
-  nameWithType.vb: KnowledgeManagementAgentPlugin.New
-- uid: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  name: GetCompletion(LLMCompletionRequest)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.html#FoundationaLLM_SemanticKernel_Core_Plugins_KnowledgeManagementAgentPlugin_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  fullName: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  nameWithType: KnowledgeManagementAgentPlugin.GetCompletion(LLMCompletionRequest)
-- uid: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.GetCompletion*
-  name: GetCompletion
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.html#FoundationaLLM_SemanticKernel_Core_Plugins_KnowledgeManagementAgentPlugin_GetCompletion_
-  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.GetCompletion
-  isSpec: "True"
-  fullName: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementAgentPlugin.GetCompletion
-  nameWithType: KnowledgeManagementAgentPlugin.GetCompletion
 - uid: FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementContextPlugin
   name: KnowledgeManagementContextPlugin
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Plugins.KnowledgeManagementContextPlugin.html
@@ -22974,15 +23229,15 @@ references:
   commentId: T:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService
   fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService
   nameWithType: SemanticKernelTextEmbeddingService
-- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService})
-  name: SemanticKernelTextEmbeddingService(IOptions<SemanticKernelTextEmbeddingServiceSettings>, ILogger<SemanticKernelTextEmbeddingService>)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService})
-  name.vb: New(IOptions(Of SemanticKernelTextEmbeddingServiceSettings), ILogger(Of SemanticKernelTextEmbeddingService))
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.SemanticKernelTextEmbeddingService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService>)
-  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService))
-  nameWithType: SemanticKernelTextEmbeddingService.SemanticKernelTextEmbeddingService(IOptions<SemanticKernelTextEmbeddingServiceSettings>, ILogger<SemanticKernelTextEmbeddingService>)
-  nameWithType.vb: SemanticKernelTextEmbeddingService.New(IOptions(Of SemanticKernelTextEmbeddingServiceSettings), ILogger(Of SemanticKernelTextEmbeddingService))
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings},Microsoft.Extensions.Logging.ILoggerFactory)
+  name: SemanticKernelTextEmbeddingService(IOptions<SemanticKernelTextEmbeddingServiceSettings>, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings__Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings},Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IOptions(Of SemanticKernelTextEmbeddingServiceSettings), ILoggerFactory)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.SemanticKernelTextEmbeddingService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings>, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings), Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: SemanticKernelTextEmbeddingService.SemanticKernelTextEmbeddingService(IOptions<SemanticKernelTextEmbeddingServiceSettings>, ILoggerFactory)
+  nameWithType.vb: SemanticKernelTextEmbeddingService.New(IOptions(Of SemanticKernelTextEmbeddingServiceSettings), ILoggerFactory)
 - uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.#ctor*
   name: SemanticKernelTextEmbeddingService
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelTextEmbeddingService__ctor_
@@ -24283,6 +24538,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.Content
   nameWithType: VectorizationArtifact.Content
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.ContentHash
+  name: ContentHash
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_ContentHash
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationArtifact.ContentHash
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.ContentHash
+  nameWithType: VectorizationArtifact.ContentHash
+- uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.ContentHash*
+  name: ContentHash
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_ContentHash_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationArtifact.ContentHash
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationArtifact.ContentHash
+  nameWithType: VectorizationArtifact.ContentHash
 - uid: FoundationaLLM.Vectorization.Models.VectorizationArtifact.IsDirty
   name: IsDirty
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationArtifact.html#FoundationaLLM_Vectorization_Models_VectorizationArtifact_IsDirty
@@ -24599,6 +24867,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.VectorizationState.IndexReferences
   nameWithType: VectorizationState.IndexReferences
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.LoadedArtifactTypes
+  name: LoadedArtifactTypes
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_LoadedArtifactTypes
+  commentId: F:FoundationaLLM.Vectorization.Models.VectorizationState.LoadedArtifactTypes
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.LoadedArtifactTypes
+  nameWithType: VectorizationState.LoadedArtifactTypes
 - uid: FoundationaLLM.Vectorization.Models.VectorizationState.Log(FoundationaLLM.Vectorization.Interfaces.IVectorizationStepHandler,System.String,System.String,System.String)
   name: Log(IVectorizationStepHandler, string, string, string)
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_Log_FoundationaLLM_Vectorization_Interfaces_IVectorizationStepHandler_System_String_System_String_System_String_
@@ -26024,6 +26298,103 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.MemoryVectorizationStateService.SaveState
   nameWithType: MemoryVectorizationStateService.SaveState
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem
+  name: VectorizationStateItem
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html
+  commentId: T:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem
+  nameWithType: VectorizationStateItem
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.Position
+  name: Position
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_Position
+  commentId: P:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.Position
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.Position
+  nameWithType: VectorizationStateItem.Position
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.Position*
+  name: Position
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_Position_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.Position
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.Position
+  nameWithType: VectorizationStateItem.Position
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVector
+  name: TextEmbeddingVector
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextEmbeddingVector
+  commentId: P:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVector
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVector
+  nameWithType: VectorizationStateItem.TextEmbeddingVector
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVector*
+  name: TextEmbeddingVector
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextEmbeddingVector_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVector
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVector
+  nameWithType: VectorizationStateItem.TextEmbeddingVector
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorHash
+  name: TextEmbeddingVectorHash
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextEmbeddingVectorHash
+  commentId: P:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorHash
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorHash
+  nameWithType: VectorizationStateItem.TextEmbeddingVectorHash
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorHash*
+  name: TextEmbeddingVectorHash
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextEmbeddingVectorHash_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorHash
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorHash
+  nameWithType: VectorizationStateItem.TextEmbeddingVectorHash
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorSize
+  name: TextEmbeddingVectorSize
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextEmbeddingVectorSize
+  commentId: P:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorSize
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorSize
+  nameWithType: VectorizationStateItem.TextEmbeddingVectorSize
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorSize*
+  name: TextEmbeddingVectorSize
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextEmbeddingVectorSize_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorSize
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextEmbeddingVectorSize
+  nameWithType: VectorizationStateItem.TextEmbeddingVectorSize
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionContent
+  name: TextPartitionContent
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextPartitionContent
+  commentId: P:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionContent
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionContent
+  nameWithType: VectorizationStateItem.TextPartitionContent
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionContent*
+  name: TextPartitionContent
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextPartitionContent_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionContent
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionContent
+  nameWithType: VectorizationStateItem.TextPartitionContent
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionHash
+  name: TextPartitionHash
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextPartitionHash
+  commentId: P:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionHash
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionHash
+  nameWithType: VectorizationStateItem.TextPartitionHash
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionHash*
+  name: TextPartitionHash
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextPartitionHash_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionHash
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionHash
+  nameWithType: VectorizationStateItem.TextPartitionHash
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionSize
+  name: TextPartitionSize
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextPartitionSize
+  commentId: P:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionSize
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionSize
+  nameWithType: VectorizationStateItem.TextPartitionSize
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionSize*
+  name: TextPartitionSize
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_TextPartitionSize_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionSize
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.TextPartitionSize
+  nameWithType: VectorizationStateItem.TextPartitionSize
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase
   name: VectorizationStateServiceBase
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html
@@ -26056,6 +26427,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier
   nameWithType: VectorizationStateServiceBase.HashContentIdentifier
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashText(System.String)
+  name: HashText(string)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashText_System_String_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashText(System.String)
+  name.vb: HashText(String)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashText(string)
+  fullName.vb: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashText(String)
+  nameWithType: VectorizationStateServiceBase.HashText(string)
+  nameWithType.vb: VectorizationStateServiceBase.HashText(String)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashText*
+  name: HashText
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashText_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashText
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashText
+  nameWithType: VectorizationStateServiceBase.HashText
 - uid: FoundationaLLM.Vectorization.Validation
   name: FoundationaLLM.Vectorization.Validation
   href: api/dotnet/FoundationaLLM.Vectorization.Validation.html
