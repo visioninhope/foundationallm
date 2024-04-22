@@ -62,10 +62,10 @@ The following table describes the required App Configuration parameters for the 
 | `FoundationaLLM:APIs:VectorizationWorker:APIKey` | Key Vault secret name: `foundationallm-apis-vectorizationworker-apikey` | The API key of the vectorization worker API. |
 | `FoundationaLLM:APIs:VectorizationWorker:AppInsightsConnectionString` | Key Vault secret name: `foundationallm-app-insights-connection-string` | The connection string to the Application Insights instance used by the vectorization worker API. |
 | `FoundationaLLM:Vectorization:VectorizationWorker` | | The settings used by each instance of the vectorization worker service. For more details, see [default vectorization worker settings](#default-vectorization-worker-settings). |
-| `FoundationaLLM:Vectorization:Queues:Embed:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the embed vectorization queue. |
-| `FoundationaLLM:Vectorization:Queues:Extract:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the extract vectorization queue. |
-| `FoundationaLLM:Vectorization:Queues:Index:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the index vectorization queue. |
-| `FoundationaLLM:Vectorization:Queues:Partition:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-queues-connectionstring` | The connection string to the Azure Storage account used for the partition vectorization queue. |
+| `FoundationaLLM:Vectorization:Queues:Embed:AccountName` | | The account name of the Azure Storage account used for the embed vectorization queue. |
+| `FoundationaLLM:Vectorization:Queues:Extract:AccountName` | | The account name of the Azure Storage account used for the extract vectorization queue. |
+| `FoundationaLLM:Vectorization:Queues:Index:AccountName` | | The account name of the Azure Storage account used for the index vectorization queue. |
+| `FoundationaLLM:Vectorization:Queues:Partition:AccountName` | | The account name of the Azure Storage account used for the partition vectorization queue. |
 | `FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
 | `FoundationaLLM:Vectorization:StateService:Storage:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-state-connectionstring` | The connection string to the Azure Storage account used for the vectorization state service. |
 | `FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
@@ -129,22 +129,22 @@ The default settings for the vectorization worker are stored in the `Foundationa
     "RequestSources": [
         {
             "Name": "extract",
-            "ConnectionConfigurationName": "Extract:ConnectionString",
+            "ConnectionConfigurationName": "Extract:AccountName",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "partition",
-            "ConnectionConfigurationName": "Partition:ConnectionString",
+            "ConnectionConfigurationName": "Partition:AccountName",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "embed",
-            "ConnectionConfigurationName": "Embed:ConnectionString",
+            "ConnectionConfigurationName": "Embed:AccountName",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "index",
-            "ConnectionConfigurationName": "Index:ConnectionString",
+            "ConnectionConfigurationName": "Index:AccountName",
             "VisibilityTimeoutSeconds": 600
         }
     ],
