@@ -48,6 +48,13 @@ export default {
 			};
 		},
 	},
+
+	methods: {
+		async handleRefreshLogin() {
+			await this.$authStore.logoutSilent();
+			this.$router.push({ name: 'auth/login' });
+		},
+	},
 };
 </script>
 
