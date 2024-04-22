@@ -6767,19 +6767,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.PrincipalId
   nameWithType: ActionAuthorizationRequest.PrincipalId
-- uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePath
-  name: ResourcePath
-  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_ResourcePath
-  commentId: P:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePath
-  fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePath
-  nameWithType: ActionAuthorizationRequest.ResourcePath
-- uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePath*
-  name: ResourcePath
-  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_ResourcePath_
-  commentId: Overload:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePath
+- uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePaths
+  name: ResourcePaths
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_ResourcePaths
+  commentId: P:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePaths
+  fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePaths
+  nameWithType: ActionAuthorizationRequest.ResourcePaths
+- uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePaths*
+  name: ResourcePaths
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_ResourcePaths_
+  commentId: Overload:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePaths
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePath
-  nameWithType: ActionAuthorizationRequest.ResourcePath
+  fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.ResourcePaths
+  nameWithType: ActionAuthorizationRequest.ResourcePaths
 - uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.SecurityGroupIds
   name: SecurityGroupIds
   href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_SecurityGroupIds
@@ -6799,19 +6799,32 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult
   fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult
   nameWithType: ActionAuthorizationResult
-- uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.Authorized
-  name: Authorized
-  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationResult_Authorized
-  commentId: P:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.Authorized
-  fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.Authorized
-  nameWithType: ActionAuthorizationResult.Authorized
-- uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.Authorized*
-  name: Authorized
-  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationResult_Authorized_
-  commentId: Overload:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.Authorized
+- uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.AuthorizationResults
+  name: AuthorizationResults
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationResult_AuthorizationResults
+  commentId: P:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.AuthorizationResults
+  fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.AuthorizationResults
+  nameWithType: ActionAuthorizationResult.AuthorizationResults
+- uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.AuthorizationResults*
+  name: AuthorizationResults
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationResult_AuthorizationResults_
+  commentId: Overload:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.AuthorizationResults
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.Authorized
-  nameWithType: ActionAuthorizationResult.Authorized
+  fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.AuthorizationResults
+  nameWithType: ActionAuthorizationResult.AuthorizationResults
+- uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.InvalidResourcePaths
+  name: InvalidResourcePaths
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationResult_InvalidResourcePaths
+  commentId: P:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.InvalidResourcePaths
+  fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.InvalidResourcePaths
+  nameWithType: ActionAuthorizationResult.InvalidResourcePaths
+- uid: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.InvalidResourcePaths*
+  name: InvalidResourcePaths
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.html#FoundationaLLM_Common_Models_Authorization_ActionAuthorizationResult_InvalidResourcePaths_
+  commentId: Overload:FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.InvalidResourcePaths
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.InvalidResourcePaths
+  nameWithType: ActionAuthorizationResult.InvalidResourcePaths
 - uid: FoundationaLLM.Common.Models.Azure
   name: FoundationaLLM.Common.Models.Azure
   href: api/dotnet/FoundationaLLM.Common.Models.Azure.html
