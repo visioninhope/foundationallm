@@ -4,7 +4,7 @@
 			:keys="['@']"
 			:items="agents"
 			offset="6"
-			limit="1000"
+			:limit="1000"
 			insert-space
 			class="mentionable"
 			@keydown.enter.prevent
@@ -42,10 +42,8 @@
 </template>
 
 <script lang="ts">
-import { mapStores } from 'pinia';
 import { Mentionable } from 'vue-mention';
 import 'floating-vue/dist/style.css';
-import { useAppStore } from '@/stores/appStore';
 
 export default {
 	name: 'ChatInput',
@@ -74,10 +72,6 @@ export default {
 		};
 	},
 
-	computed: {
-		...mapStores(useAppStore),
-	},
-
 	watch: {
 		text: {
 			handler() {
@@ -88,9 +82,9 @@ export default {
 	},
 
 	async created() {
-		await this.appStore.getAgents();
+		await this.$appStore.getAgents();
 
-		this.agents = this.appStore.agents.map((agent) => ({
+		this.agents = this.$appStore.agents.map((agent) => ({
 			label: agent.name,
 			value: agent.name,
 		}));
