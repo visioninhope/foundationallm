@@ -1,5 +1,4 @@
 import type { Message, Session, CompletionPrompt, Agent, OrchestrationRequest } from '@/js/types';
-import { getMsalInstance } from '@/js/auth';
 
 export default {
 	apiUrl: null as string | null,

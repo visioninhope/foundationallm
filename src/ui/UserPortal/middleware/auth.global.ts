@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware(async (to , from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
 	if (process.server) return false;
 
 	if (to.name === 'status') return false;
