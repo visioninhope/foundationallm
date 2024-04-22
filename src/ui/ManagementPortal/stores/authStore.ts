@@ -67,12 +67,14 @@ export const useAuthStore = defineStore('auth', {
 
 			if (timeUntilExpirationMS <= 0) {
 				console.log(`Auth: Access token expired ${timeUntilExpirationMS / 1000} seconds ago.`);
-				return useNuxtApp().$router.push({
-					name: 'auth/login',
-					query: {
-						message: 'Your login has expired. Please sign in again.',
-					},
-				});
+				this.isExpired = true;
+				return;
+				// return useNuxtApp().$router.push({
+				// 	name: 'auth/login',
+				// 	query: {
+				// 		message: 'Your login has expired. Please sign in again.',
+				// 	},
+				// });
 			}
 
 			clearTimeout(this.tokenExpirationTimerId);
@@ -96,8 +98,9 @@ export const useAuthStore = defineStore('auth', {
 				this.createTokenRefreshTimer();
 			} catch (error) {
 				console.error('Auth: Token refresh error:', error);
-				sessionStorage.clear();
-				useNuxtApp().$router.push({ name: 'auth/login' });
+				// sessionStorage.clear();
+				this.isExpired = true;
+				// useNuxtApp().$router.push({ name: 'auth/login' });
 			}
 		},
 
