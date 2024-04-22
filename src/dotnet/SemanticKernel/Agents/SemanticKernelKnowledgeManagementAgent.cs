@@ -10,11 +10,13 @@ using FoundationaLLM.SemanticKernel.Core.Filters;
 using FoundationaLLM.SemanticKernel.Core.Plugins;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Http.Resilience;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AzureAISearch;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
+using System.Net;
 
 #pragma warning disable SKEXP0001, SKEXP0010, SKEXP0020, SKEXP0050, SKEXP0060
 
@@ -149,6 +151,14 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                 _deploymentName,
                 _endpoint,
                 credential);
+            builder.Services.ConfigureHttpClientDefaults(c =>
+            {
+                // Use a standard resiliency policy configured to retry on 429 (too many requests).
+                c.AddStandardResilienceHandler().Configure(o =>
+                {
+                    o.Retry.ShouldHandle = args => ValueTask.FromResult(args.Outcome.Result?.StatusCode is HttpStatusCode.TooManyRequests);
+                });
+            });
             var kernel = builder.Build();
 
             var memory = new MemoryBuilder()

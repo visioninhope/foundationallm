@@ -12,7 +12,7 @@ namespace FoundationaLLM.Common.Constants
     public static class ServiceNames
     {
         /// <summary>
-        /// The name of the Agent Factory API service.
+        /// The name of the Orchestration API service.
         /// </summary>
         public const string OrchestrationAPI = "OrchestrationAPI";
         /// <summary>

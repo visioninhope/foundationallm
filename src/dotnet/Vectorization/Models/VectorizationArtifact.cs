@@ -40,6 +40,13 @@ namespace FoundationaLLM.Vectorization.Models
         public int Size { get; set; }
 
         /// <summary>
+        /// The string hash of the vectorization artifact's content.
+        /// </summary>
+        [JsonPropertyOrder(5)]
+        [JsonPropertyName("content_hash")]
+        public string? ContentHash { get; set; }
+
+        /// <summary>
         /// The content of the artifact.
         /// </summary>
         [JsonIgnore]

@@ -931,6 +931,10 @@
         /// </summary>
         public const string FoundationaLLM_AzureContentSafety = "FoundationaLLM:AzureContentSafety";
         /// <summary>
+        /// The key section for the FoundationaLLM:LakeraGuard app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_LakeraGuard = "FoundationaLLM:LakeraGuard";
+        /// <summary>
         /// The key section for the FoundationaLLM:BlobStorageMemorySource app configuration settings.
         /// </summary>
         public const string FoundationaLLM_BlobStorageMemorySource = "FoundationaLLM:BlobStorageMemorySource";

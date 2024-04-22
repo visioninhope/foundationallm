@@ -9,7 +9,7 @@ namespace FoundationaLLM.Orchestration.API.Controllers
     /// OrchestrationController class
     /// </summary>
     /// <remarks>
-    /// Constructor for the Agent Factory orchestration controller
+    /// Constructor for the Orchestration orchestration controller
     /// </remarks>
     /// <param name="orchestrationService"></param>
     /// <param name="logger"></param>

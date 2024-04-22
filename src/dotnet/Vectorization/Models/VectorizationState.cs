@@ -56,6 +56,12 @@ namespace FoundationaLLM.Vectorization.Models
         public List<VectorizationLogEntry> LogEntries { get; set; } = [];
 
         /// <summary>
+        /// Indicates which types of artifacts have already been loaded into the state.
+        /// </summary>
+        [JsonIgnore]
+        public List<VectorizationArtifactType> LoadedArtifactTypes = [];
+
+        /// <summary>
         /// Adds a new generic log entry.
         /// </summary>
         /// <param name="handler">The vectorization step handler executing the action.</param>
