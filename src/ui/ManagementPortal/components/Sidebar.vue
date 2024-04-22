@@ -54,10 +54,10 @@
 		<div class="sidebar__item">Identity & Access Management (IAM)</div>
 
 		<!-- Logged in user -->
-		<div v-if="$authStore.currentAccount.name" class="sidebar__account">
+		<div v-if="$authStore.currentAccount?.name" class="sidebar__account">
 			<Avatar icon="pi pi-user" class="sidebar__avatar" size="large" />
 			<div>
-				<span class="sidebar__username">{{ $authStore.currentAccount.name }}</span>
+				<span class="sidebar__username">{{ $authStore.currentAccount?.name }}</span>
 				<Button
 					class="sidebar__sign-out-button secondary-button"
 					icon="pi pi-sign-out"
