@@ -31,8 +31,6 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
         private const string BLOB_STORAGE_CONTAINER_NAME = "vectorization-state";
 
-        private readonly List<VectorizationArtifactType> _loadedArtifactTypes = [];
-
         /// <inheritdoc/>
         public async Task<bool> HasState(VectorizationRequest request) =>
             await _storageService.FileExistsAsync(
@@ -55,7 +53,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         /// <inheritdoc/>
         public async Task LoadArtifacts(VectorizationState state, VectorizationArtifactType artifactType)
         {
-            if (_loadedArtifactTypes.Contains(artifactType))
+            if (state.LoadedArtifactTypes.Contains(artifactType))
                 // This artifact type has already been loaded.
                 return;
 
@@ -73,7 +71,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                                 $"{extractedTextArtifact.CanonicalId}.txt",
                                 default));
 
-                    _loadedArtifactTypes.Add(VectorizationArtifactType.ExtractedText);
+                    state.LoadedArtifactTypes.Add(VectorizationArtifactType.ExtractedText);
                     break;
 
                 case VectorizationArtifactType.TextPartition:
@@ -81,7 +79,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
                     await AlignItems(state, persistenceIdentifier);
 
-                    _loadedArtifactTypes.AddRange(
+                    state.LoadedArtifactTypes.AddRange(
                         [
                             VectorizationArtifactType.TextPartition,
                             VectorizationArtifactType.TextEmbeddingVector
