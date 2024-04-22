@@ -41,7 +41,8 @@
 
 			<!-- Right side content -->
 			<div class="navbar__content__right">
-				<template v-if="currentSession && $appConfigStore.allowAgentHint">
+				<!-- <template v-if="currentSession && $appConfigStore.allowAgentHint"> -->
+				<template v-if="currentSession">
 					<span class="header__dropdown">
 						<img
 							v-tooltip.bottom="'Select an agent'"
