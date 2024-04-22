@@ -2,7 +2,6 @@
 	<div class="wrapper">
 		<Sidebar />
 		<div class="page">
-
 			<!-- Page to render -->
 			<slot />
 
