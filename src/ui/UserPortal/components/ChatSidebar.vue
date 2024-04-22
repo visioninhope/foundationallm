@@ -63,10 +63,10 @@
 		</div>
 
 		<!-- Logged in user -->
-		<div v-if="accountName" class="chat-sidebar__account">
+		<div v-if="$authStore.currentAccount?.name" class="chat-sidebar__account">
 			<Avatar icon="pi pi-user" class="chat-sidebar__avatar" size="large" />
 			<div>
-				<span class="chat-sidebar__username">{{ accountName }}</span>
+				<span class="chat-sidebar__username">{{ $authStore.currentAccount?.name }}</span>
 				<Button
 					class="chat-sidebar__sign-out secondary-button"
 					icon="pi pi-sign-out"
@@ -128,8 +128,6 @@ export default {
 			sessionToRename: null as Session | null,
 			newSessionName: '' as string,
 			sessionToDelete: null as Session | null,
-			accountName: '' as string,
-			userName: '' as string,
 		};
 	},
 
@@ -150,12 +148,6 @@ export default {
 
 		if (process.client) {
 			await this.$appStore.init(this.$nuxt._route.query.chat);
-			const msalInstance = await getMsalInstance();
-			const accounts = await msalInstance.getAllAccounts();
-			if (accounts.length > 0) {
-				this.accountName = accounts[0].name;
-				this.userName = accounts[0].username;
-			}
 		}
 	},
 
