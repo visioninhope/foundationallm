@@ -23770,6 +23770,19 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings
   fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings
   nameWithType: RequestSourceServiceSettings
+- uid: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.AccountName
+  name: AccountName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestSourceServiceSettings_AccountName
+  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.AccountName
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.AccountName
+  nameWithType: RequestSourceServiceSettings.AccountName
+- uid: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.AccountName*
+  name: AccountName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestSourceServiceSettings_AccountName_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.AccountName
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.AccountName
+  nameWithType: RequestSourceServiceSettings.AccountName
 - uid: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.ConnectionConfigurationName
   name: ConnectionConfigurationName
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestSourceServiceSettings_ConnectionConfigurationName
@@ -23783,19 +23796,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.ConnectionConfigurationName
   nameWithType: RequestSourceServiceSettings.ConnectionConfigurationName
-- uid: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.ConnectionString
-  name: ConnectionString
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestSourceServiceSettings_ConnectionString
-  commentId: P:FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.ConnectionString
-  fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.ConnectionString
-  nameWithType: RequestSourceServiceSettings.ConnectionString
-- uid: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.ConnectionString*
-  name: ConnectionString
-  href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestSourceServiceSettings_ConnectionString_
-  commentId: Overload:FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.ConnectionString
-  isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.ConnectionString
-  nameWithType: RequestSourceServiceSettings.ConnectionString
 - uid: FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.Name
   name: Name
   href: api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.RequestSourceServiceSettings.html#FoundationaLLM_Vectorization_Models_Configuration_RequestSourceServiceSettings_Name
