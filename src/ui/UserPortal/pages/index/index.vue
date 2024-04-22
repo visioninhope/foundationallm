@@ -26,6 +26,12 @@ export default {
 		};
 	},
 
+	mounted() {
+		if (window.innerWidth < 950) {
+			this.appStore.toggleSidebar();
+		}
+	},
+
 	methods: {
 		startResizing(event: Event) {
 			// Prevent default action and bubbling
@@ -109,9 +115,18 @@ export default {
 
 @media only screen and (max-width: 950px) {
 	.chat-sidebar {
-		// position: absolute;
+		position: relative;
 		top: 0px;
 		box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.4);
+	}
+
+	.chat-sidebar-wrapper {
+		position: absolute;
+		top: 0px;
+	}
+
+	.resize-handle {
+		display: none;
 	}
 }
 </style>
