@@ -5,7 +5,21 @@
 			<Meta name="description" :content="pageTitle" />
 		</Head>
 
+		<!-- Page to render -->
 		<NuxtPage :style="style" />
+
+		<!-- Session expired dialog -->
+		<Dialog
+			modal
+			:visible="$authStore.isExpired"
+			:closable="false"
+			header="Your session has expired."
+		>
+			Please log in again to continue using the app.
+			<template #footer>
+				<Button label="Log in" primary @click="handleRefreshLogin" />
+			</template>
+		</Dialog>
 	</main>
 </template>
 

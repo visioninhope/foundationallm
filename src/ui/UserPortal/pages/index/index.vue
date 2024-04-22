@@ -19,6 +19,7 @@
 <script lang="ts">
 export default {
 	name: 'Index',
+
 	data() {
 		return {
 			sidebarWidth: 305,

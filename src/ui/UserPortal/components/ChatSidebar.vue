@@ -73,7 +73,7 @@
 					label="Sign Out"
 					severity="secondary"
 					size="small"
-					@click="signOut()"
+					@click="$authStore.logout()"
 				/>
 			</div>
 		</div>
@@ -193,18 +193,6 @@ export default {
 		async handleDeleteSession() {
 			await this.appStore.deleteSession(this.sessionToDelete!);
 			this.sessionToDelete = null;
-		},
-
-		async signOut() {
-			const msalInstance = await getMsalInstance();
-			const accountFilter = {
-				username: this.userName,
-			};
-			const logoutRequest = {
-				account: msalInstance.getAccount(accountFilter),
-			};
-			await msalInstance.logoutRedirect(logoutRequest);
-			this.$router.push({ path: '/login' });
 		},
 	},
 };

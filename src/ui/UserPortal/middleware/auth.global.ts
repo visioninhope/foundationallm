@@ -1,27 +1,18 @@
-import { getMsalInstance, createTokenRefreshTimer } from '@/js/auth';
-import { useAuthStore } from '@/stores/authStore';
+export default defineNuxtRouteMiddleware(async (to , from) => {
+	if (process.server) return false;
 
-export default defineNuxtRouteMiddleware(async (to, from) => {
-	if (process.server) return;
+	if (to.name === 'status') return false;
 
-	if (to.name !== 'status') {
-		const msalInstance = await getMsalInstance();
-		await msalInstance.handleRedirectPromise();
-		const accounts = await msalInstance.getAllAccounts();
+	const authStore = useNuxtApp().$authStore;
+	await authStore.msalInstance.handleRedirectPromise();
 
-		if (accounts.length > 0) {
-			const authStore = useAuthStore();
-			authStore.setAccounts(accounts);
+	if (authStore.isAuthenticated) {
+		if (to.name === 'auth/login') {
+			return navigateTo({ path: '/' });
 		}
+	}
 
-		if (accounts.length > 0 && to.path !== '/') {
-			return navigateTo({ path: '/', query: from.query });
-		}
-
-		if (accounts.length === 0 && to.name !== 'auth/login') {
-			return navigateTo({ name: 'auth/login', query: from.query });
-		} else {
-			createTokenRefreshTimer();
-		}
+	if (!authStore.isAuthenticated && to.name !== 'auth/login') {
+		return navigateTo({ name: 'auth/login', query: from.query });
 	}
 });
