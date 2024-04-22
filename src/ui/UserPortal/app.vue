@@ -11,7 +11,7 @@
 		<!-- Session expired dialog -->
 		<Dialog
 			modal
-			:visible="$authStore.isExpired"
+			:visible="$authStore.isExpired && $route.name !== 'auth/login'"
 			:closable="false"
 			header="Your session has expired."
 		>
