@@ -117,7 +117,6 @@
 
 <script lang="ts">
 import type { Session } from '@/js/types';
-import { getMsalInstance } from '@/js/auth';
 declare const process: any;
 
 export default {
