@@ -168,7 +168,7 @@ FoundationaLLM uses Azure App Configuration to store configuration values, Key V
 | `FoundationaLLM:Events:AzureEventGridEventService:AuthenticationType` | | The authentication type used to connect to the underlying Event Grid namespace. Currently supports `APIKey`. |
 | `FoundationaLLM:Events:AzureEventGridEventService:Endpoint` | | The endpoint for the Azure Event Grid namespace. |
 | `FoundationaLLM:Events:AzureEventGridEventService:NamespaceId` | | The Azure resource ID of the Event Grid namespace. |
-| `FoundationaLLM:Events:AzureEventGridEventService:Profiles:OrchestrationAPI` | | FLLM eventing infrastructure configuration for the Agent Factory API. |
+| `FoundationaLLM:Events:AzureEventGridEventService:Profiles:OrchestrationAPI` | | FLLM eventing infrastructure configuration for the Orchestration API. |
 | `FoundationaLLM:Events:AzureEventGridEventService:Profiles:CoreAPI` | | FLLM eventing infrastructure configuration for the Core API. |
 | `FoundationaLLM:Events:AzureEventGridEventService:Profiles:ManagementAPI` | | FLLM eventing infrastructure configuration for the Management API. |
 | `FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationAPI` | | FLLM eventing infrastructure configuration for the Vectorization API. |

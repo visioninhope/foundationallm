@@ -12,7 +12,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
     /// <remarks>
     /// Constructor for the Gatekeeper service.
     /// </remarks>
-    /// <param name="orchestrationAPIService">The Agent Factory API client.</param>
+    /// <param name="orchestrationAPIService">The Orchestration API client.</param>
     /// <param name="contentSafetyService">The user prompt Content Safety service.</param>
     /// <param name="lakeraGuardService">The Lakera Guard service.</param>
     /// <param name="gatekeeperIntegrationAPIService">The Gatekeeper Integration API client.</param>

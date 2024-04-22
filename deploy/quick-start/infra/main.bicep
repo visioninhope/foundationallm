@@ -636,8 +636,8 @@ output FOUNDATIONALLM_INSTANCE_ID string = instanceId
 var serviceNames = [for service in services: service.name]
 
 output RESOURCE_GROUP_NAME_DEFAULT string = rg.name
-output SERVICE_AGENT_FACTORY_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'orchestration-api')].outputs.uri
-output SERVICE_AGENT_FACTORY_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'orchestration-api')].outputs.miPrincipalId
+output SERVICE_ORCHESTRATION_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'orchestration-api')].outputs.uri
+output SERVICE_ORCHESTRATION_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'orchestration-api')].outputs.miPrincipalId
 output SERVICE_AGENT_HUB_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'agent-hub-api')].outputs.uri
 output SERVICE_AUTH_API_ENDPOINT_URL string = authAcaService.outputs.uri
 output SERVICE_CHAT_UI_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'chat-ui')].outputs.uri
@@ -646,10 +646,10 @@ output SERVICE_CORE_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 
 output SERVICE_CORE_JOB_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'core-job')].outputs.uri
 output SERVICE_DATA_SOURCE_HUB_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'data-source-hub-api')].outputs.uri
 output SERVICE_GATEKEEPER_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gatekeeper-api')].outputs.uri
-output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = acaServices[indexOf(
-  serviceNames,
-  'gatekeeper-integration-api'
-)].outputs.uri
+// output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = acaServices[indexOf(
+//   serviceNames,
+//   'gatekeeper-integration-api'
+// )].outputs.uri
 output SERVICE_LANGCHAIN_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'langchain-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'management-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'management-api')].outputs.miPrincipalId

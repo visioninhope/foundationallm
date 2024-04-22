@@ -68,7 +68,7 @@ $envConfiguraitons = @{
     "orchestration-api-event-profile"    = @{
         template     = './config/orchestration-api-event-profile.template.json'
         render       = './config/orchestration-api-event-profile.json'
-        variableName = 'FOUNDATIONALLM_AGENT_FACTORY_API_EVENT_GRID_PROFILE'
+        variableName = 'FOUNDATIONALLM_ORCHESTRATION_API_EVENT_GRID_PROFILE'
     }
     "core-api-event-profile"             = @{
         template     = './config/core-api-event-profile.template.json'
