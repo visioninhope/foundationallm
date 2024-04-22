@@ -4,7 +4,7 @@
 			:keys="['@']"
 			:items="agents"
 			offset="6"
-			limit="1000"
+			:limit="1000"
 			insert-space
 			class="mentionable"
 			@keydown.enter.prevent
