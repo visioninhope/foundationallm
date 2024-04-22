@@ -128,7 +128,11 @@
 						class="span-2"
 					>
 						<div class="mb-2 mt-2">Account name:</div>
-						<InputText v-model="dataSource.resolved_configuration_references.AccountName" class="w-100" type="text" />
+						<InputText
+							v-model="dataSource.resolved_configuration_references.AccountName"
+							class="w-100"
+							type="text"
+						/>
 					</div>
 
 					<div class="mb-2 mt-2">Folder(s):</div>
