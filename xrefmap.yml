@@ -2434,6 +2434,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Instance
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Instance
   nameWithType: AppConfigurationKeySections.FoundationaLLM_Instance
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_LakeraGuard
+  name: FoundationaLLM_LakeraGuard
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_LakeraGuard
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_LakeraGuard
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_LakeraGuard
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_LakeraGuard
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Orchestration
   name: FoundationaLLM_Orchestration
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Orchestration
@@ -19590,6 +19596,28 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetSummary
   nameWithType: IGatekeeperService.GetSummary
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService
+  name: ILakeraGuardService
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService
+  nameWithType: ILakeraGuardService
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.DetectPromptInjection(System.String)
+  name: DetectPromptInjection(string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_ILakeraGuardService_DetectPromptInjection_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.DetectPromptInjection(System.String)
+  name.vb: DetectPromptInjection(String)
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.DetectPromptInjection(string)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.DetectPromptInjection(String)
+  nameWithType: ILakeraGuardService.DetectPromptInjection(string)
+  nameWithType.vb: ILakeraGuardService.DetectPromptInjection(String)
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.DetectPromptInjection*
+  name: DetectPromptInjection
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_ILakeraGuardService_DetectPromptInjection_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.DetectPromptInjection
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.DetectPromptInjection
+  nameWithType: ILakeraGuardService.DetectPromptInjection
 - uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService
   name: IRefinementService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.html
@@ -19724,6 +19752,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableAzureContentSafety
   nameWithType: GatekeeperServiceSettings.EnableAzureContentSafety
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableLakeraGuard
+  name: EnableLakeraGuard
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings_EnableLakeraGuard
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableLakeraGuard
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableLakeraGuard
+  nameWithType: GatekeeperServiceSettings.EnableLakeraGuard
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableLakeraGuard*
+  name: EnableLakeraGuard
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings_EnableLakeraGuard_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableLakeraGuard
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableLakeraGuard
+  nameWithType: GatekeeperServiceSettings.EnableLakeraGuard
 - uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableMicrosoftPresidio
   name: EnableMicrosoftPresidio
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings_EnableMicrosoftPresidio
@@ -19737,6 +19778,38 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableMicrosoftPresidio
   nameWithType: GatekeeperServiceSettings.EnableMicrosoftPresidio
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings
+  name: LakeraGuardServiceSettings
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings
+  nameWithType: LakeraGuardServiceSettings
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings_APIKey
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey
+  nameWithType: LakeraGuardServiceSettings.APIKey
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey*
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings_APIKey_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey
+  nameWithType: LakeraGuardServiceSettings.APIKey
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
+  name: APIUrl
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings_APIUrl
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
+  nameWithType: LakeraGuardServiceSettings.APIUrl
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl*
+  name: APIUrl
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings_APIUrl_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
+  nameWithType: LakeraGuardServiceSettings.APIUrl
 - uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings
   name: RefinementServiceSettings
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings.html
@@ -19973,6 +20046,89 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.Integration.PIIResultAnonymized.Operator
   nameWithType: PIIResultAnonymized.Operator
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard
+  name: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.html
+  commentId: N:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard
+  nameWithType: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult
+  name: AnalyzePromptInjectionResult
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult
+  nameWithType: AnalyzePromptInjectionResult
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Model
+  name: Model
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.html#FoundationaLLM_Gatekeeper_Core_Models_LakeraGuard_AnalyzePromptInjectionResult_Model
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Model
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Model
+  nameWithType: AnalyzePromptInjectionResult.Model
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Model*
+  name: Model
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.html#FoundationaLLM_Gatekeeper_Core_Models_LakeraGuard_AnalyzePromptInjectionResult_Model_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Model
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Model
+  nameWithType: AnalyzePromptInjectionResult.Model
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Results
+  name: Results
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.html#FoundationaLLM_Gatekeeper_Core_Models_LakeraGuard_AnalyzePromptInjectionResult_Results
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Results
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Results
+  nameWithType: AnalyzePromptInjectionResult.Results
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Results*
+  name: Results
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.html#FoundationaLLM_Gatekeeper_Core_Models_LakeraGuard_AnalyzePromptInjectionResult_Results_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Results
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.AnalyzePromptInjectionResult.Results
+  nameWithType: AnalyzePromptInjectionResult.Results
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult
+  name: PromptInjectionResult
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult
+  nameWithType: PromptInjectionResult
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Categories
+  name: Categories
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.html#FoundationaLLM_Gatekeeper_Core_Models_LakeraGuard_PromptInjectionResult_Categories
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Categories
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Categories
+  nameWithType: PromptInjectionResult.Categories
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Categories*
+  name: Categories
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.html#FoundationaLLM_Gatekeeper_Core_Models_LakeraGuard_PromptInjectionResult_Categories_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Categories
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Categories
+  nameWithType: PromptInjectionResult.Categories
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.CategoryScores
+  name: CategoryScores
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.html#FoundationaLLM_Gatekeeper_Core_Models_LakeraGuard_PromptInjectionResult_CategoryScores
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.CategoryScores
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.CategoryScores
+  nameWithType: PromptInjectionResult.CategoryScores
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.CategoryScores*
+  name: CategoryScores
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.html#FoundationaLLM_Gatekeeper_Core_Models_LakeraGuard_PromptInjectionResult_CategoryScores_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.CategoryScores
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.CategoryScores
+  nameWithType: PromptInjectionResult.CategoryScores
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Flagged
+  name: Flagged
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.html#FoundationaLLM_Gatekeeper_Core_Models_LakeraGuard_PromptInjectionResult_Flagged
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Flagged
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Flagged
+  nameWithType: PromptInjectionResult.Flagged
+- uid: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Flagged*
+  name: Flagged
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.html#FoundationaLLM_Gatekeeper_Core_Models_LakeraGuard_PromptInjectionResult_Flagged_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Flagged
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard.PromptInjectionResult.Flagged
+  nameWithType: PromptInjectionResult.Flagged
 - uid: FoundationaLLM.Gatekeeper.Core.Services
   name: FoundationaLLM.Gatekeeper.Core.Services
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.html
@@ -20083,15 +20239,15 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService
   fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService
   nameWithType: GatekeeperService
-- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Common.Interfaces.IDownstreamAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})
-  name: GatekeeperService(IDownstreamAPIService, IContentSafetyService, IGatekeeperIntegrationAPIService, IOptions<GatekeeperServiceSettings>)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_FoundationaLLM_Common_Interfaces_IDownstreamAPIService_FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings__
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Common.Interfaces.IDownstreamAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})
-  name.vb: New(IDownstreamAPIService, IContentSafetyService, IGatekeeperIntegrationAPIService, IOptions(Of GatekeeperServiceSettings))
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GatekeeperService(FoundationaLLM.Common.Interfaces.IDownstreamAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService, FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings>)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.New(FoundationaLLM.Common.Interfaces.IDownstreamAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService, FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings))
-  nameWithType: GatekeeperService.GatekeeperService(IDownstreamAPIService, IContentSafetyService, IGatekeeperIntegrationAPIService, IOptions<GatekeeperServiceSettings>)
-  nameWithType.vb: GatekeeperService.New(IDownstreamAPIService, IContentSafetyService, IGatekeeperIntegrationAPIService, IOptions(Of GatekeeperServiceSettings))
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Common.Interfaces.IDownstreamAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})
+  name: GatekeeperService(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IGatekeeperIntegrationAPIService, IOptions<GatekeeperServiceSettings>)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_FoundationaLLM_Common_Interfaces_IDownstreamAPIService_FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_FoundationaLLM_Gatekeeper_Core_Interfaces_ILakeraGuardService_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings__
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Common.Interfaces.IDownstreamAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})
+  name.vb: New(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IGatekeeperIntegrationAPIService, IOptions(Of GatekeeperServiceSettings))
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GatekeeperService(FoundationaLLM.Common.Interfaces.IDownstreamAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService, FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService, FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings>)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.New(FoundationaLLM.Common.Interfaces.IDownstreamAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService, FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService, FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings))
+  nameWithType: GatekeeperService.GatekeeperService(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IGatekeeperIntegrationAPIService, IOptions<GatekeeperServiceSettings>)
+  nameWithType.vb: GatekeeperService.New(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IGatekeeperIntegrationAPIService, IOptions(Of GatekeeperServiceSettings))
 - uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor*
   name: GatekeeperService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_
@@ -20128,6 +20284,47 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetSummary
   nameWithType: GatekeeperService.GetSummary
+- uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService
+  name: LakeraGuardService
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService
+  nameWithType: LakeraGuardService
+- uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings})
+  name: LakeraGuardService(IHttpClientFactory, IOptions<LakeraGuardServiceSettings>, ILogger<LakeraGuardServiceSettings>)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings__
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings})
+  name.vb: New(IHttpClientFactory, IOptions(Of LakeraGuardServiceSettings), ILogger(Of LakeraGuardServiceSettings))
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.LakeraGuardService(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings>)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings))
+  nameWithType: LakeraGuardService.LakeraGuardService(IHttpClientFactory, IOptions<LakeraGuardServiceSettings>, ILogger<LakeraGuardServiceSettings>)
+  nameWithType.vb: LakeraGuardService.New(IHttpClientFactory, IOptions(Of LakeraGuardServiceSettings), ILogger(Of LakeraGuardServiceSettings))
+- uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor*
+  name: LakeraGuardService
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.LakeraGuardService
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.New
+  nameWithType: LakeraGuardService.LakeraGuardService
+  nameWithType.vb: LakeraGuardService.New
+- uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.DetectPromptInjection(System.String)
+  name: DetectPromptInjection(string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService_DetectPromptInjection_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.DetectPromptInjection(System.String)
+  name.vb: DetectPromptInjection(String)
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.DetectPromptInjection(string)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.DetectPromptInjection(String)
+  nameWithType: LakeraGuardService.DetectPromptInjection(string)
+  nameWithType.vb: LakeraGuardService.DetectPromptInjection(String)
+- uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.DetectPromptInjection*
+  name: DetectPromptInjection
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService_DetectPromptInjection_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.DetectPromptInjection
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.DetectPromptInjection
+  nameWithType: LakeraGuardService.DetectPromptInjection
 - uid: FoundationaLLM.Gatekeeper.Core.Services.RefinementService
   name: RefinementService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.RefinementService.html
