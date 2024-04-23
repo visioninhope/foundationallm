@@ -113,26 +113,30 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             if (agentBase is KnowledgeManagementAgent kmAgent)
             {
-                if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.IndexingProfileObjectId))
+                // check for inline-context/internal-context agents, they are valid KM agents that do not have a vectorization section.
+                if(kmAgent.Vectorization != null)
                 {
-                    var indexingProfile = await GetResource<VectorizationProfileBase>(
-                        kmAgent.Vectorization.IndexingProfileObjectId,
-                        VectorizationResourceTypeNames.IndexingProfiles,
-                        vectorizationResourceProvider,
-                        currentUserIdentity);
+                    if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.IndexingProfileObjectId))
+                    {
+                        var indexingProfile = await GetResource<VectorizationProfileBase>(
+                            kmAgent.Vectorization.IndexingProfileObjectId,
+                            VectorizationResourceTypeNames.IndexingProfiles,
+                            vectorizationResourceProvider,
+                            currentUserIdentity);
 
-                    kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.IndexingProfileObjectId!] = indexingProfile;
-                }
+                        kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.IndexingProfileObjectId!] = indexingProfile;
+                    }
 
-                if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.TextEmbeddingProfileObjectId))
-                {
-                    var textEmbeddingProfile = await GetResource<VectorizationProfileBase>(
-                        kmAgent.Vectorization.TextEmbeddingProfileObjectId,
-                        VectorizationResourceTypeNames.TextEmbeddingProfiles,
-                        vectorizationResourceProvider,
-                        currentUserIdentity);
+                    if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.TextEmbeddingProfileObjectId))
+                    {
+                        var textEmbeddingProfile = await GetResource<VectorizationProfileBase>(
+                            kmAgent.Vectorization.TextEmbeddingProfileObjectId,
+                            VectorizationResourceTypeNames.TextEmbeddingProfiles,
+                            vectorizationResourceProvider,
+                            currentUserIdentity);
 
-                    kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfile;
+                        kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfile;
+                    }
                 }
             }
 
