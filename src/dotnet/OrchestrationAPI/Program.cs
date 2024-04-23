@@ -56,6 +56,7 @@ namespace FoundationaLLM.Orchestration.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureOpenAI);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -125,6 +126,7 @@ namespace FoundationaLLM.Orchestration.API
             //----------------------------
             builder.AddAgentResourceProvider();
             builder.AddPromptResourceProvider();
+            builder.AddVectorizationResourceProvider();
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);

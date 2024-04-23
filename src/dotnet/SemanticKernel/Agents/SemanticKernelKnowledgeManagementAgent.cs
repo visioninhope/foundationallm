@@ -17,6 +17,7 @@ using Microsoft.SemanticKernel.Connectors.AzureAISearch;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
 using System.Net;
+using System.Text.Json;
 
 #pragma warning disable SKEXP0001, SKEXP0010, SKEXP0020, SKEXP0050, SKEXP0060
 
@@ -49,43 +50,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
             if (agent!.OrchestrationSettings!.AgentParameters == null)
                 throw new SemanticKernelException("The agent parameters are missing in the orchestration settings.", StatusCodes.Status400BadRequest);
 
-            if (string.IsNullOrWhiteSpace(agent.Vectorization.TextEmbeddingProfileObjectId))
-                throw new SemanticKernelException("Invalid text embedding profile object id.", StatusCodes.Status400BadRequest);
-
-            if (!agent.OrchestrationSettings.AgentParameters.TryGetValue(
-                    agent.Vectorization.TextEmbeddingProfileObjectId, out var textEmbeddingProfileObject))
-                throw new SemanticKernelException("The text embedding profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
-
-            if (textEmbeddingProfileObject is not TextEmbeddingProfile textEmbeddingProfile
-                || textEmbeddingProfile.ConfigurationReferences == null
-                || !textEmbeddingProfile.ConfigurationReferences.TryGetValue("DeploymentName", out var deploymentNameConfigurationItem)
-                || string.IsNullOrWhiteSpace(deploymentNameConfigurationItem)
-                || !textEmbeddingProfile.ConfigurationReferences.TryGetValue("Endpoint", out var textEmbeddingEndpointConfigurationItem)
-                || string.IsNullOrWhiteSpace(textEmbeddingEndpointConfigurationItem))
-                throw new SemanticKernelException("The text embedding profile object provided in the agent parameters is invalid.", StatusCodes.Status400BadRequest);
-
-            _textEmbeddingDeploymentName = await GetConfigurationValue(deploymentNameConfigurationItem);
-            _textEmbeddingEndpoint = await GetConfigurationValue(textEmbeddingEndpointConfigurationItem);
-
-            if (string.IsNullOrWhiteSpace(agent.Vectorization.IndexingProfileObjectId))
-                throw new SemanticKernelException("Invalid indexing profile object id.", StatusCodes.Status400BadRequest);
-
-            if (!agent.OrchestrationSettings.AgentParameters.TryGetValue(
-                    agent.Vectorization.IndexingProfileObjectId, out var indexingProfileObject))
-                throw new SemanticKernelException("The indexing profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
-
-            if (indexingProfileObject is not IndexingProfile indexingProfile
-                || indexingProfile.ConfigurationReferences == null
-                || !indexingProfile.ConfigurationReferences.TryGetValue("Endpoint", out var indexingEndpointConfigurationItem)
-                || string.IsNullOrWhiteSpace(indexingEndpointConfigurationItem)
-                || indexingProfile.Settings == null
-                || !indexingProfile.Settings.TryGetValue("IndexName", out var indexName)
-                || string.IsNullOrWhiteSpace(indexName))
-                throw new SemanticKernelException("The indexing profile object provided in the agent parameters is invalid.", StatusCodes.Status400BadRequest);
-
-            _indexerName = indexingProfile.Indexer.ToString();
-            _indexName = indexName;
-            _indexingEndpoint = await GetConfigurationValue(indexingEndpointConfigurationItem);
+            #region Prompt
 
             if (string.IsNullOrWhiteSpace(agent.PromptObjectId))
                 throw new SemanticKernelException("Invalid prompt object id.", StatusCodes.Status400BadRequest);
@@ -94,11 +59,68 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     agent.PromptObjectId, out var promptObject))
                 throw new SemanticKernelException("The prompt object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
 
-            if (promptObject is not MultipartPrompt prompt
+            var prompt = promptObject is JsonElement promptJsonElement
+                ? promptJsonElement.Deserialize<MultipartPrompt>()
+                : promptObject as MultipartPrompt;
+
+            if (prompt == null
                 || string.IsNullOrWhiteSpace(prompt.Prefix))
                 throw new SemanticKernelException("The prompt object provided in the agent parameters is invalid.", StatusCodes.Status400BadRequest);
 
             _prompt = prompt.Prefix;
+
+            #endregion
+
+            #region Vectorization (text embedding and indexing) - optional
+
+            if (!string.IsNullOrWhiteSpace(agent.Vectorization.TextEmbeddingProfileObjectId))
+            {
+                if (!agent.OrchestrationSettings.AgentParameters.TryGetValue(
+                        agent.Vectorization.TextEmbeddingProfileObjectId, out var textEmbeddingProfileObject))
+                    throw new SemanticKernelException("The text embedding profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
+
+                var textEmbeddingProfile = textEmbeddingProfileObject is JsonElement textEmbeddingProfileJsonElement
+                    ? textEmbeddingProfileJsonElement.Deserialize<TextEmbeddingProfile>()
+                    : textEmbeddingProfileObject as TextEmbeddingProfile;
+
+                if (textEmbeddingProfile == null
+                    || textEmbeddingProfile.ConfigurationReferences == null
+                    || !textEmbeddingProfile.ConfigurationReferences.TryGetValue("DeploymentName", out var deploymentNameConfigurationItem)
+                    || string.IsNullOrWhiteSpace(deploymentNameConfigurationItem)
+                    || !textEmbeddingProfile.ConfigurationReferences.TryGetValue("Endpoint", out var textEmbeddingEndpointConfigurationItem)
+                    || string.IsNullOrWhiteSpace(textEmbeddingEndpointConfigurationItem))
+                    throw new SemanticKernelException("The text embedding profile object provided in the agent parameters is invalid.", StatusCodes.Status400BadRequest);
+
+                _textEmbeddingDeploymentName = await GetConfigurationValue(deploymentNameConfigurationItem);
+                _textEmbeddingEndpoint = await GetConfigurationValue(textEmbeddingEndpointConfigurationItem);
+            }
+
+            if (!string.IsNullOrWhiteSpace(agent.Vectorization.IndexingProfileObjectId))
+            {
+
+                if (!agent.OrchestrationSettings.AgentParameters.TryGetValue(
+                        agent.Vectorization.IndexingProfileObjectId, out var indexingProfileObject))
+                    throw new SemanticKernelException("The indexing profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
+
+                var indexingProfile = indexingProfileObject is JsonElement indexingProfileJsonElement
+                    ? indexingProfileJsonElement.Deserialize<IndexingProfile>()
+                    : indexingProfileObject as IndexingProfile;
+
+                if (indexingProfile == null
+                    || indexingProfile.ConfigurationReferences == null
+                    || !indexingProfile.ConfigurationReferences.TryGetValue("Endpoint", out var indexingEndpointConfigurationItem)
+                    || string.IsNullOrWhiteSpace(indexingEndpointConfigurationItem)
+                    || indexingProfile.Settings == null
+                    || !indexingProfile.Settings.TryGetValue("IndexName", out var indexName)
+                    || string.IsNullOrWhiteSpace(indexName))
+                    throw new SemanticKernelException("The indexing profile object provided in the agent parameters is invalid.", StatusCodes.Status400BadRequest);
+
+                _indexerName = indexingProfile.Indexer.ToString();
+                _indexName = indexName;
+                _indexingEndpoint = await GetConfigurationValue(indexingEndpointConfigurationItem);
+            }
+
+            #endregion
         }
 
         protected override async Task<LLMCompletionResponse> BuildResponseWithAzureOpenAI()
@@ -161,12 +183,17 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
             });
             var kernel = builder.Build();
 
-            var memory = new MemoryBuilder()
-                .WithMemoryStore(new AzureAISearchMemoryStore(_indexingEndpoint, credential))
-                .WithAzureOpenAITextEmbeddingGeneration(_textEmbeddingDeploymentName, _textEmbeddingEndpoint, credential)
-                .Build();
+            // If the vectorization properties are not set, we are not going to import the context building capabilities
 
-            kernel.ImportPluginFromObject(new KnowledgeManagementContextPlugin(memory, _indexName));
+            if (!string.IsNullOrWhiteSpace(_indexingEndpoint))
+            {
+                var memory = new MemoryBuilder()
+                    .WithMemoryStore(new AzureAISearchMemoryStore(_indexingEndpoint, credential))
+                    .WithAzureOpenAITextEmbeddingGeneration(_textEmbeddingDeploymentName, _textEmbeddingEndpoint, credential)
+                    .Build();
+
+                kernel.ImportPluginFromObject(new KnowledgeManagementContextPlugin(memory, _indexName));
+            }
 
             return kernel;
         }

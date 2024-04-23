@@ -40,3 +40,39 @@
    - `FoundationaLLM:Vectorization:Queues:Extract:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)
    - `FoundationaLLM:Vectorization:Queues:Index:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)
    - `FoundationaLLM:Vectorization:Queues:Partition:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)
+
+9. The value for the App Config setting `FoundationaLLM:Events:AzureEventGridEventService:Profiles:OrchestrationAPI` should be set in the following format:
+    
+    ```json
+    {
+        "EventProcessingCycleSeconds": 20,
+        "Topics": [
+            {
+                "Name": "storage",
+                "SubscriptionPrefix": "orch",
+                "EventTypeProfiles": [
+                    {
+                        "EventType": "Microsoft.Storage.BlobCreated",
+                        "EventSets": [
+                            {
+                                "Namespace": "ResourceProvider.FoundationaLLM.Agent",
+                                "Source": "/subscriptions/0a03d4f9-c6e4-4ee1-87fb-e2005d2c213d/resourceGroups/rg-fllm-aca-050/providers/Microsoft.Storage/storageAccounts/stejahszxcubrpi",
+                                "SubjectPrefix": "/blobServices/default/containers/resource-provider/blobs/FoundationaLLM.Agent"
+                            },
+                            {
+                                "Namespace": "ResourceProvider.FoundationaLLM.Vectorization",
+                                "Source": "/subscriptions/0a03d4f9-c6e4-4ee1-87fb-e2005d2c213d/resourceGroups/rg-fllm-aca-050/providers/Microsoft.Storage/storageAccounts/stejahszxcubrpi",
+                                "SubjectPrefix": "/blobServices/default/containers/resource-provider/blobs/FoundationaLLM.Vectorization"
+                            },
+                            {
+                                "Namespace": "ResourceProvider.FoundationaLLM.Prompt",
+                                "Source": "/subscriptions/0a03d4f9-c6e4-4ee1-87fb-e2005d2c213d/resourceGroups/rg-fllm-aca-050/providers/Microsoft.Storage/storageAccounts/stejahszxcubrpi",
+                                "SubjectPrefix": "/blobServices/default/containers/resource-provider/blobs/FoundationaLLM.Prompt"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+    ```
