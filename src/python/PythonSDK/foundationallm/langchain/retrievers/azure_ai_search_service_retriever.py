@@ -90,7 +90,11 @@ class AzureAISearchServiceRetriever(BaseRetriever, CitationRetrievalBase):
         self.search_results.clear()
 
         for result in results:
-            metadata = json.loads(result[self.metadata_field_name]) if self.metadata_field_name in result else {}
+            metadata = {}
+
+            if self.metadata_field_name in result:
+                metadata = json.loads(result[self.metadata_field_name]) if self.metadata_field_name in result else {}
+
             document = VectorDocument(
                     id=result[self.id_field_name],
                     page_content=result[self.text_field_name],
