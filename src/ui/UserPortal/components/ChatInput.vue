@@ -1,36 +1,39 @@
 <template>
 	<div class="chat-input p-inputgroup">
-		<Mentionable
-			:keys="['@']"
-			:items="agents"
-			offset="6"
-			:limit="1000"
-			insert-space
-			class="mentionable"
-			@keydown.enter.prevent
-			@open="agentListOpen = true"
-			@close="agentListOpen = false"
-		>
-			<textarea
-				ref="inputRef"
-				v-model="text"
-				class="input"
-				:disabled="disabled"
-				placeholder="What would you like to ask?"
-				@keydown="handleKeydown"
-			/>
-			<template #no-result>
-				<div class="dim">No result</div>
-			</template>
+		<div class="input-wrapper">
+			<i class="pi pi-info-circle tooltip-component" v-tooltip="'Use Shift+Enter to add a new line'"></i>
+			<Mentionable
+				:keys="['@']"
+				:items="agents"
+				offset="6"
+				:limit="1000"
+				insert-space
+				class="mentionable"
+				@keydown.enter.prevent
+				@open="agentListOpen = true"
+				@close="agentListOpen = false"
+			>
+				<textarea
+					ref="inputRef"
+					v-model="text"
+					class="input"
+					:disabled="disabled"
+					placeholder="What would you like to ask?"
+					@keydown="handleKeydown"
+				/>
+				<template #no-result>
+					<div class="dim">No result</div>
+				</template>
 
-			<template #item="{ item }">
-				<div class="user">
-					<span class="dim">
-						{{ item.label }}
-					</span>
-				</div>
-			</template>
-		</Mentionable>
+				<template #item="{ item }">
+					<div class="user">
+						<span class="dim">
+							{{ item.label }}
+						</span>
+					</div>
+				</template>
+			</Mentionable>
+		</div>
 		<Button
 			:disabled="disabled"
 			class="primary-button submit"
@@ -135,12 +138,23 @@ export default {
 	flex: 0 0 10%;
 }
 
+.chat-input .input-wrapper {
+    display: flex;
+    align-items: center;
+	width: 100%;
+}
+
+.tooltip-component {
+	margin-right: 0.5rem;
+}
+
 .mentionable {
 	width: 100%;
 	height: auto;
 	max-height: 128px;
 	display: flex;
 	flex-direction: column;
+	flex: 1;
 }
 
 .input {
