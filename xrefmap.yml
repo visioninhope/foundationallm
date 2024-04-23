@@ -18443,15 +18443,15 @@ references:
   commentId: T:FoundationaLLM.Core.Services.CosmosDbService
   fullName: FoundationaLLM.Core.Services.CosmosDbService
   nameWithType: CosmosDbService
-- uid: FoundationaLLM.Core.Services.CosmosDbService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CosmosDbSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CosmosDbService})
-  name: CosmosDbService(IOptions<CosmosDbSettings>, ILogger<CosmosDbService>)
-  href: api/dotnet/FoundationaLLM.Core.Services.CosmosDbService.html#FoundationaLLM_Core_Services_CosmosDbService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Core_Models_Configuration_CosmosDbSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_Services_CosmosDbService__
-  commentId: M:FoundationaLLM.Core.Services.CosmosDbService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CosmosDbSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CosmosDbService})
-  name.vb: New(IOptions(Of CosmosDbSettings), ILogger(Of CosmosDbService))
-  fullName: FoundationaLLM.Core.Services.CosmosDbService.CosmosDbService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Core.Models.Configuration.CosmosDbSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.Services.CosmosDbService>)
-  fullName.vb: FoundationaLLM.Core.Services.CosmosDbService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Core.Models.Configuration.CosmosDbSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.Services.CosmosDbService))
-  nameWithType: CosmosDbService.CosmosDbService(IOptions<CosmosDbSettings>, ILogger<CosmosDbService>)
-  nameWithType.vb: CosmosDbService.New(IOptions(Of CosmosDbSettings), ILogger(Of CosmosDbService))
+- uid: FoundationaLLM.Core.Services.CosmosDbService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CosmosDbSettings},Microsoft.Azure.Cosmos.CosmosClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CosmosDbService})
+  name: CosmosDbService(IOptions<CosmosDbSettings>, CosmosClient, ILogger<CosmosDbService>)
+  href: api/dotnet/FoundationaLLM.Core.Services.CosmosDbService.html#FoundationaLLM_Core_Services_CosmosDbService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Core_Models_Configuration_CosmosDbSettings__Microsoft_Azure_Cosmos_CosmosClient_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_Services_CosmosDbService__
+  commentId: M:FoundationaLLM.Core.Services.CosmosDbService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CosmosDbSettings},Microsoft.Azure.Cosmos.CosmosClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CosmosDbService})
+  name.vb: New(IOptions(Of CosmosDbSettings), CosmosClient, ILogger(Of CosmosDbService))
+  fullName: FoundationaLLM.Core.Services.CosmosDbService.CosmosDbService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Core.Models.Configuration.CosmosDbSettings>, Microsoft.Azure.Cosmos.CosmosClient, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.Services.CosmosDbService>)
+  fullName.vb: FoundationaLLM.Core.Services.CosmosDbService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Core.Models.Configuration.CosmosDbSettings), Microsoft.Azure.Cosmos.CosmosClient, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.Services.CosmosDbService))
+  nameWithType: CosmosDbService.CosmosDbService(IOptions<CosmosDbSettings>, CosmosClient, ILogger<CosmosDbService>)
+  nameWithType.vb: CosmosDbService.New(IOptions(Of CosmosDbSettings), CosmosClient, ILogger(Of CosmosDbService))
 - uid: FoundationaLLM.Core.Services.CosmosDbService.#ctor*
   name: CosmosDbService
   href: api/dotnet/FoundationaLLM.Core.Services.CosmosDbService.html#FoundationaLLM_Core_Services_CosmosDbService__ctor_
