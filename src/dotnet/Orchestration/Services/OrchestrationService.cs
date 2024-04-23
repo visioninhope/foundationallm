@@ -1,10 +1,17 @@
-﻿using FoundationaLLM.Common.Exceptions;
+﻿using AngleSharp.Text;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Orchestration.Core.Interfaces;
+using FoundationaLLM.Orchestration.Core.Models;
 using FoundationaLLM.Orchestration.Core.Orchestration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System.Text;
+using System.Text.Json;
 
 namespace FoundationaLLM.Orchestration.Core.Services;
 
@@ -14,7 +21,6 @@ namespace FoundationaLLM.Orchestration.Core.Services;
 public class OrchestrationService : IOrchestrationService
 {
     private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices;
-    private readonly ICacheService _cacheService;
     private readonly ICallContext _callContext;
     private readonly IConfiguration _configuration;
     private readonly ILogger<OrchestrationService> _logger;
@@ -72,17 +78,36 @@ public class OrchestrationService : IOrchestrationService
     {
         try
         {
-            var orchestration = await OrchestrationBuilder.Build(
-                completionRequest,
-                _callContext,
-                _configuration,
-                _resourceProviderServices,
-                _orchestrationServices,
-                _loggerFactory);
+            var conversationSteps = await GetAgentConversationSteps(completionRequest);
+            var currentCompletionResponse = default(CompletionResponse);
+            
+            foreach (var conversationStep in conversationSteps)
+            {
+                var orchestration = await OrchestrationBuilder.Build(
+                    conversationStep.AgentName,
+                    _callContext,
+                    _configuration,
+                    _resourceProviderServices,
+                    _orchestrationServices,
+                    _loggerFactory);
 
-            return orchestration == null
-                ? throw new OrchestrationException($"The orchestration builder was not able to create an orchestration for agent [{completionRequest.AgentName ?? string.Empty }].")
-                : await orchestration.GetCompletion(completionRequest);
+                var stepCompletionRequest = new CompletionRequest
+                {
+                    AgentName = conversationStep.AgentName,
+                    SessionId = completionRequest.SessionId,
+                    Settings = completionRequest.Settings,
+                    MessageHistory = completionRequest.MessageHistory,
+                    UserPrompt = currentCompletionResponse == null
+                        ? conversationStep.UserPrompt
+                        : $"{currentCompletionResponse.Completion}{Environment.NewLine}{conversationStep.UserPrompt}"
+                };
+
+                currentCompletionResponse = orchestration == null
+                    ? throw new OrchestrationException($"The orchestration builder was not able to create an orchestration for agent [{completionRequest.AgentName ?? string.Empty}].")
+                    : await orchestration.GetCompletion(stepCompletionRequest);
+            }
+
+            return currentCompletionResponse!;
         }
         catch (Exception ex)
         {
@@ -97,5 +122,67 @@ public class OrchestrationService : IOrchestrationService
                 UserPromptEmbedding = [0f]
             };
         }
+    }
+
+    private async Task<List<AgentConversationStep>> GetAgentConversationSteps(CompletionRequest completionRequest)
+    {
+        var currentPrompt = new StringBuilder();
+        var result = new List<AgentConversationStep>();
+        var currentAgentName = completionRequest.AgentName!;
+        
+        using (StringReader sr = new StringReader(completionRequest.UserPrompt))
+        {
+            string? line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                if (line.StartsWith('@'))
+                {
+                    var tokens = line.Split([' ', ',']);
+                    var candidateAgentName = tokens.First().Replace("@", string.Empty);
+                    var isValid = await ValidAgentName(candidateAgentName);
+
+                    if (isValid)
+                    {
+                        var userPrompt = currentPrompt.ToString().Trim();
+                        if (!string.IsNullOrEmpty(userPrompt))
+                            result.Add(new AgentConversationStep
+                            {
+                                AgentName = currentAgentName,
+                                UserPrompt = userPrompt
+                            });
+                        currentAgentName = candidateAgentName;
+
+                        currentPrompt = new StringBuilder();
+                        var remainingLine = line.Substring(candidateAgentName.Length + 2);
+                        if (!string.IsNullOrWhiteSpace(remainingLine))
+                            currentPrompt.AppendLine(remainingLine);
+                    }
+                }
+                else
+                    currentPrompt.AppendLine(line);
+            }
+
+            var lastUserPrompt = currentPrompt.ToString().Trim();
+            if (!string.IsNullOrEmpty(lastUserPrompt))
+                result.Add(new AgentConversationStep
+                {
+                    AgentName = currentAgentName,
+                    UserPrompt = lastUserPrompt
+                });
+        }
+
+        return result;
+    }
+
+    private async Task<bool> ValidAgentName(string agentName)
+    {
+        var agentResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Agent];
+
+        var result = await agentResourceProvider.HandlePostAsync(
+            $"/{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.CheckName}",
+            JsonSerializer.Serialize(new ResourceName { Name = agentName }),
+            _callContext.CurrentUserIdentity!);
+
+        return true;
     }
 }

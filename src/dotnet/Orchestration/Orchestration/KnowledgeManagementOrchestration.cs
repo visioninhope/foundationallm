@@ -28,10 +28,6 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         private readonly KnowledgeManagementAgent _agent = agent;
 
         /// <inheritdoc/>
-        public override Task Configure(CompletionRequest completionRequest) =>
-            base.Configure(completionRequest);
-
-        /// <inheritdoc/>
         public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
             var result = await _orchestrationService.GetCompletion(
