@@ -71,7 +71,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                         extractedTextArtifact.Content = Encoding.UTF8.GetString(
                             await _storageService.ReadFileAsync(
                             BLOB_STORAGE_CONTAINER_NAME,
-                                $"{extractedTextArtifact.CanonicalId}.txt",
+                                $"{EXECUTION_STATE_DIRECTORY}/{extractedTextArtifact.CanonicalId}.txt",
                                 default));
 
                     state.LoadedArtifactTypes.Add(VectorizationArtifactType.ExtractedText);
@@ -108,7 +108,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
                 await _storageService.WriteFileAsync(
                     BLOB_STORAGE_CONTAINER_NAME,
-                    $"{extractedTextArtifact.CanonicalId}.txt",
+                    $"{EXECUTION_STATE_DIRECTORY}/{extractedTextArtifact.CanonicalId}.txt",
                     extractedTextArtifact.Content!,
                     default,
                     default);
@@ -198,7 +198,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
             await _storageService.WriteFileAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
-                $"{persistenceIdentifier}.snappy.parquet",
+                $"{EXECUTION_STATE_DIRECTORY}/{persistenceIdentifier}.snappy.parquet",
                 serializedParquet,
                 "application/vnd.apache.parquet",
                 default);
@@ -206,7 +206,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
         private async Task<Dictionary<int, VectorizationStateItem>> LoadItems(string persistenceIdentifier)
         {
-            var filePath = $"{persistenceIdentifier}.snappy.parquet";
+            var filePath = $"{EXECUTION_STATE_DIRECTORY}/{persistenceIdentifier}.snappy.parquet";
 
             if (!await _storageService.FileExistsAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
