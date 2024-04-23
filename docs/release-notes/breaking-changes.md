@@ -22,3 +22,21 @@
     - `foundationallm-apis-agentfactoryapi-apikey` -> `foundationallm-apis-orchestrationapi-apikey`
 
 \* There is an upgrade script available that migrates these settings and secrets to their new names.
+
+6. The following App Config settings are no longer needed:
+   
+    - `FoundationaLLM:Vectorization:Queues:Embed:ConnectionString`
+    - `FoundationaLLM:Vectorization:Queues:Extract:ConnectionString`
+    - `FoundationaLLM:Vectorization:Queues:Index:ConnectionString`
+    - `FoundationaLLM:Vectorization:Queues:Partition:ConnectionString`
+
+7. The following Key Vault secret is no longer needed:
+
+    - `foundationallm-vectorization-queues-connectionstring`
+
+8. The following App Config settings need to be added as key-values:
+   
+   - `FoundationaLLM:Vectorization:Queues:Embed:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)
+   - `FoundationaLLM:Vectorization:Queues:Extract:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)
+   - `FoundationaLLM:Vectorization:Queues:Index:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)
+   - `FoundationaLLM:Vectorization:Queues:Partition:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)

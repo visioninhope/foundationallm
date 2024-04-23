@@ -34,15 +34,23 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             _settings = settings;
             _logger = logger;
 
-            var queueServiceClient = new QueueServiceClient(new Uri($"https://{_settings.AccountName}.dfs.core.windows.net"), DefaultAuthentication.GetAzureCredential());
+            var queueServiceClient = new QueueServiceClient(new Uri($"https://{_settings.AccountName}.queue.core.windows.net"), DefaultAuthentication.GetAzureCredential());
             _queueClient = queueServiceClient.GetQueueClient(_settings.Name);
         }
 
         /// <inheritdoc/>
         public async Task<bool> HasRequests()
         {
-            var message = await _queueClient.PeekMessageAsync().ConfigureAwait(false);
-            return message.Value != null;
+            try
+            {
+                var message = await _queueClient.PeekMessageAsync().ConfigureAwait(false);
+                return message.Value != null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occured while attempting to peek at messages in queue {QueueName}.", _settings.Name);
+                return false;
+            }
         }
 
         /// <inheritdoc/>
