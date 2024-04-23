@@ -78,36 +78,9 @@ public class OrchestrationService : IOrchestrationService
     {
         try
         {
-            var conversationSteps = await GetAgentConversationSteps(completionRequest);
-            var currentCompletionResponse = default(CompletionResponse);
+            var conversationSteps = await GetAgentConversationSteps(completionRequest.AgentName!, completionRequest.UserPrompt);
+            return await GetCompletionForAgentConversation(completionRequest, conversationSteps);
             
-            foreach (var conversationStep in conversationSteps)
-            {
-                var orchestration = await OrchestrationBuilder.Build(
-                    conversationStep.AgentName,
-                    _callContext,
-                    _configuration,
-                    _resourceProviderServices,
-                    _orchestrationServices,
-                    _loggerFactory);
-
-                var stepCompletionRequest = new CompletionRequest
-                {
-                    AgentName = conversationStep.AgentName,
-                    SessionId = completionRequest.SessionId,
-                    Settings = completionRequest.Settings,
-                    MessageHistory = completionRequest.MessageHistory,
-                    UserPrompt = currentCompletionResponse == null
-                        ? conversationStep.UserPrompt
-                        : $"{currentCompletionResponse.Completion}{Environment.NewLine}{conversationStep.UserPrompt}"
-                };
-
-                currentCompletionResponse = orchestration == null
-                    ? throw new OrchestrationException($"The orchestration builder was not able to create an orchestration for agent [{completionRequest.AgentName ?? string.Empty}].")
-                    : await orchestration.GetCompletion(stepCompletionRequest);
-            }
-
-            return currentCompletionResponse!;
         }
         catch (Exception ex)
         {
@@ -124,13 +97,56 @@ public class OrchestrationService : IOrchestrationService
         }
     }
 
-    private async Task<List<AgentConversationStep>> GetAgentConversationSteps(CompletionRequest completionRequest)
+    private async Task<CompletionResponse> GetCompletionForAgentConversation(
+        CompletionRequest completionRequest,
+        List<AgentConversationStep> agentConversationSteps)
+    {
+        var currentCompletionResponse = default(CompletionResponse);
+
+        foreach (var conversationStep in agentConversationSteps)
+        {
+            var orchestration = await OrchestrationBuilder.Build(
+                conversationStep.AgentName,
+                _callContext,
+                _configuration,
+                _resourceProviderServices,
+                _orchestrationServices,
+                _loggerFactory);
+
+            var stepCompletionRequest = new CompletionRequest
+            {
+                AgentName = conversationStep.AgentName,
+                SessionId = completionRequest.SessionId,
+                Settings = completionRequest.Settings,
+                MessageHistory = completionRequest.MessageHistory,
+                UserPrompt = currentCompletionResponse == null
+                    ? conversationStep.UserPrompt
+                    : $"{currentCompletionResponse.Completion}{Environment.NewLine}{conversationStep.UserPrompt}"
+            };
+
+            currentCompletionResponse = orchestration == null
+                ? throw new OrchestrationException($"The orchestration builder was not able to create an orchestration for agent [{completionRequest.AgentName ?? string.Empty}].")
+                : await orchestration.GetCompletion(stepCompletionRequest);
+
+            var newConversationSteps = await GetAgentConversationSteps(
+                currentCompletionResponse.AgentName!,
+                currentCompletionResponse.Completion);
+            if (newConversationSteps.Count > 0
+                && newConversationSteps.First().AgentName != currentCompletionResponse.AgentName)
+                currentCompletionResponse =
+                    await GetCompletionForAgentConversation(completionRequest, newConversationSteps);
+        }
+
+        return currentCompletionResponse!;
+    }
+
+    private async Task<List<AgentConversationStep>> GetAgentConversationSteps(string agentName, string userPrompt)
     {
         var currentPrompt = new StringBuilder();
         var result = new List<AgentConversationStep>();
-        var currentAgentName = completionRequest.AgentName!;
+        var currentAgentName = agentName;
         
-        using (StringReader sr = new StringReader(completionRequest.UserPrompt))
+        using (StringReader sr = new StringReader(userPrompt))
         {
             string? line;
             while ((line = sr.ReadLine()) != null)
@@ -143,12 +159,12 @@ public class OrchestrationService : IOrchestrationService
 
                     if (isValid)
                     {
-                        var userPrompt = currentPrompt.ToString().Trim();
-                        if (!string.IsNullOrEmpty(userPrompt))
+                        var newUserPrompt = currentPrompt.ToString().Trim();
+                        if (!string.IsNullOrEmpty(newUserPrompt))
                             result.Add(new AgentConversationStep
                             {
                                 AgentName = currentAgentName,
-                                UserPrompt = userPrompt
+                                UserPrompt = newUserPrompt
                             });
                         currentAgentName = candidateAgentName;
 

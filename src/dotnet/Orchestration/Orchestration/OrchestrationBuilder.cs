@@ -102,7 +102,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             var allAgents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}", currentUserIdentity);
             var allAgentsDescriptions = ((List<AgentBase>)allAgents)
-                .Where(a => !string.IsNullOrWhiteSpace(a.Description))
+                .Where(a => !string.IsNullOrWhiteSpace(a.Description) && a.Name != agentBase.Name)
                 .Select(a => new
                 {
                     a.Name,

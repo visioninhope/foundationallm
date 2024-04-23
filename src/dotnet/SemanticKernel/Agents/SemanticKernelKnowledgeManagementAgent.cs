@@ -208,6 +208,11 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                 kernel.ImportPluginFromObject(new KnowledgeManagementContextPlugin(memory, _indexName));
             }
 
+            if (_agentDescriptions != null && _agentDescriptions.Count > 0)
+            {
+                kernel.ImportPluginFromObject(new AgentConversationPlugin(_agentDescriptions));
+            }
+
             return kernel;
         }
     }
