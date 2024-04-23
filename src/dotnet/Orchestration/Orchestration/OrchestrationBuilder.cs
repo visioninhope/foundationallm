@@ -25,7 +25,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <summary>
         /// Builds the orchestration based on the user prompt, the session id, and the call context.
         /// </summary>
-        /// <param name="completionRequest">The <see cref="CompletionRequest"/> containing details about the completion request.</param>
+        /// <param name="agentName">The unique name of the agent for which the orchestration is built.</param>
         /// <param name="callContext">The call context of the request being handled.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
         /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
@@ -34,7 +34,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public static async Task<OrchestrationBase?> Build(
-            CompletionRequest completionRequest,
+            string agentName,
             ICallContext callContext,
             IConfiguration configuration,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
@@ -43,7 +43,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         {
             var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
 
-            var agentBase = await LoadAgent(completionRequest.AgentName, resourceProviderServices, callContext.CurrentUserIdentity!, logger);
+            var agentBase = await LoadAgent(agentName, resourceProviderServices, callContext.CurrentUserIdentity!, logger);
             if (agentBase == null) return null;
             
             if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
@@ -63,7 +63,6 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     callContext,
                     orchestrationService,
                     loggerFactory.CreateLogger<OrchestrationBase>());
-                await kmOrchestration.Configure(completionRequest);
 
                 return kmOrchestration;
             }
@@ -100,6 +99,17 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 currentUserIdentity);
 
             agentBase.OrchestrationSettings.AgentParameters[agentBase.PromptObjectId!] = prompt;
+
+            var allAgents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}", currentUserIdentity);
+            var allAgentsDescriptions = ((List<AgentBase>)allAgents)
+                .Where(a => !string.IsNullOrWhiteSpace(a.Description))
+                .Select(a => new
+                {
+                    a.Name,
+                    a.Description
+                })
+                .ToDictionary(x => x.Name, x => x.Description);
+            agentBase.OrchestrationSettings.AgentParameters["AllAgents"] = allAgentsDescriptions;
 
             if (agentBase is KnowledgeManagementAgent kmAgent)
             {

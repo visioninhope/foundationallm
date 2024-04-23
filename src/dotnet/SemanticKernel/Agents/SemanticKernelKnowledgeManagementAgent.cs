@@ -42,6 +42,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
         private string _indexingEndpoint = string.Empty;
         private string _indexName = string.Empty;
         private string _prompt = string.Empty;
+        private Dictionary<string, string>? _agentDescriptions = [];
 
         protected override async Task ExpandAndValidateAgent()
         {
@@ -49,6 +50,18 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
             if (agent!.OrchestrationSettings!.AgentParameters == null)
                 throw new SemanticKernelException("The agent parameters are missing in the orchestration settings.", StatusCodes.Status400BadRequest);
+
+            #region Other agent descriptions
+
+            if (agent.OrchestrationSettings.AgentParameters.TryGetValue(
+                        "AllAgents", out var allAgentDescriptions))
+            {
+                _agentDescriptions = allAgentDescriptions is JsonElement allAgentDescriptionsJsonElement
+                    ? allAgentDescriptionsJsonElement.Deserialize<Dictionary<string, string>>()
+                    : allAgentDescriptions as Dictionary<string, string>;
+            }
+
+            #endregion
 
             #region Prompt
 
