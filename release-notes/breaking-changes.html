@@ -103,6 +103,29 @@
 </li>
 </ol>
 <p>* There is an upgrade script available that migrates these settings and secrets to their new names.</p>
+<ol start="6">
+<li><p>The following App Config settings are no longer needed:</p>
+<ul>
+<li><code>FoundationaLLM:Vectorization:Queues:Embed:ConnectionString</code></li>
+<li><code>FoundationaLLM:Vectorization:Queues:Extract:ConnectionString</code></li>
+<li><code>FoundationaLLM:Vectorization:Queues:Index:ConnectionString</code></li>
+<li><code>FoundationaLLM:Vectorization:Queues:Partition:ConnectionString</code></li>
+</ul>
+</li>
+<li><p>The following Key Vault secret is no longer needed:</p>
+<ul>
+<li><code>foundationallm-vectorization-queues-connectionstring</code></li>
+</ul>
+</li>
+<li><p>The following App Config settings need to be added as key-values:</p>
+<ul>
+<li><code>FoundationaLLM:Vectorization:Queues:Embed:AccountName</code> (set to the name of the storage account that contains the vectorization queues - e.g., <code>stejahszxcubrpi</code>)</li>
+<li><code>FoundationaLLM:Vectorization:Queues:Extract:AccountName</code> (set to the name of the storage account that contains the vectorization queues - e.g., <code>stejahszxcubrpi</code>)</li>
+<li><code>FoundationaLLM:Vectorization:Queues:Index:AccountName</code> (set to the name of the storage account that contains the vectorization queues - e.g., <code>stejahszxcubrpi</code>)</li>
+<li><code>FoundationaLLM:Vectorization:Queues:Partition:AccountName</code> (set to the name of the storage account that contains the vectorization queues - e.g., <code>stejahszxcubrpi</code>)</li>
+</ul>
+</li>
+</ol>
 
 </article>
 
