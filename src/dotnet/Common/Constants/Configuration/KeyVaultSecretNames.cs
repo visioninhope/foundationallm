@@ -124,11 +124,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIs_VectorizationWorker_APIKey = "foundationallm-apis-vectorizationworker-apikey";
         /// <summary>
-        /// The foundationallm-vectorization-queues-connectionstring Key Vault secret name.
-        /// The connection string to the Azure Storage account used for the embed vectorization queue.
-        /// </summary>
-        public const string FoundationaLLM_Vectorization_Queues_ConnectionString = "foundationallm-vectorization-queues-connectionstring";
-        /// <summary>
         /// The foundationallm-vectorization-state-connectionstring Key Vault secret name.
         /// The connection string to the Azure Storage account used for the vectorization state service.
         /// </summary>

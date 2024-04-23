@@ -18,11 +18,6 @@ namespace FoundationaLLM.Vectorization.Models.Configuration
         public required string AccountName { get; set; }
 
         /// <summary>
-        /// The name of the configuration setting holding connection information
-        /// </summary>
-        public required string ConnectionConfigurationName { get; set; }
-
-        /// <summary>
         /// The timeout in seconds available for the processing of each request provided by the request source.
         /// If a request is not processed within the timeout window it will become visible again to
         /// request managers and might be picked up for processing again.
