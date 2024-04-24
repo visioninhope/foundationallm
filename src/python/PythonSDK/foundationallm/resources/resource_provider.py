@@ -48,19 +48,19 @@ class ResourceProvider:
                 container_name="resource-provider",
                 authentication_type='AzureIdentity'
             )
-        elif authentication_type == 'AccountKey':
+        elif authentication_type == 'ConnectionString':
             blob_connection_string = None
             try:
                 blob_connection_string = config.get_value(
                     "FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString"
                 )
             except:
-                raise ValueError('The authentication type is set to AccountKey. Therefore, the FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString app configuration setting must be set to a valid connection string.')
+                raise ValueError('The authentication type is set to ConnectionString. Therefore, the FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString app configuration setting must be set to a valid connection string.')
 
             self.blob_storage_manager = BlobStorageManager(
                 blob_connection_string=blob_connection_string, 
                 container_name="resource-provider",
-                authentication_type='AccountKey'
+                authentication_type='ConnectionString'
             )
         else:
             raise ValueError(f'The authentication type {authentication_type} is not supported.')

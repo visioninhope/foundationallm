@@ -9,7 +9,7 @@ class BlobStorageManager(StorageManagerBase):
     The BlobStorageManager class is responsible for managing files in Azure Blob Storage.
     """
 
-    def __init__(self, blob_connection_string=None, container_name=None, account_name=None, authentication_type='AccountKey'):
+    def __init__(self, blob_connection_string=None, container_name=None, account_name=None, authentication_type='ConnectionString'):
         """
         Initialize a blob storage manager.
 
