@@ -120,6 +120,21 @@
 						/>
 					</div>
 
+					<!-- API Key -->
+					<div
+						v-if="
+							dataSource.resolved_configuration_references.AuthenticationType === 'AzureIdentity'
+						"
+						class="span-2"
+					>
+						<div class="mb-2 mt-2">Account name:</div>
+						<InputText
+							v-model="dataSource.resolved_configuration_references.AccountName"
+							class="w-100"
+							type="text"
+						/>
+					</div>
+
 					<div class="mb-2 mt-2">Folder(s):</div>
 					<InputText v-model="foldersString" class="w-100" type="text" />
 				</div>
@@ -295,10 +310,10 @@ export default {
 					label: 'Account Key',
 					value: 'AccountKey',
 				},
-				// {
-				// 	label: 'Azure Identity',
-				// 	value: 'AzureIdentity',
-				// },
+				{
+					label: 'Azure Identity',
+					value: 'AzureIdentity',
+				},
 			],
 		};
 	},

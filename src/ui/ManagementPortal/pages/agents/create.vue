@@ -303,12 +303,19 @@
 						</div>
 
 						<div v-if="triggerFrequency === 'Schedule'" class="mt-2">
-							<span class="step-option__header">Select schedule:</span>
-							<Dropdown
+							<CronLight
 								v-model="triggerFrequencyScheduled"
-								class="dropdown--agent"
-								:options="triggerFrequencyScheduledOptions"
-								placeholder="--Select--"
+								format="quartz"
+								@error="error = $event"
+							/>
+							<!-- editable cron expression -->
+							<InputText
+								class="mt-4"
+								label="cron expression"
+								:model-value="triggerFrequencyScheduled"
+								:error-messages="error"
+								@update:model-value="triggerFrequencyNextScheduled = $event"
+								@blur="triggerFrequencyScheduled = triggerFrequencyNextScheduled"
 							/>
 						</div>
 					</template>
@@ -455,7 +462,7 @@
 				/>
 			</div>
 
-			<div class="step-header span-2">What are the orchestrator connection details?</div>
+			<!-- <div class="step-header span-2">What are the orchestrator connection details?</div>
 			<div
 				v-if="
 					['LangChain', 'AzureOpenAIDirect', 'AzureAIDirect'].includes(
@@ -475,7 +482,7 @@
 
 				<div class="mb-2 mt-2">Version:</div>
 				<InputText
-					v-model="orchestration_settings.endpoint_configuration.version"
+					v-model="orchestration_settings.endpoint_configuration.api_version"
 					class="w-100"
 					type="text"
 				/>
@@ -500,7 +507,7 @@
 					class="w-100"
 					type="number"
 				/>
-			</div>
+			</div> -->
 
 			<!-- System prompt -->
 			<div class="step-section-header span-2">System Prompt</div>
@@ -516,8 +523,7 @@
 					type="text"
 					placeholder="You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional."
 				/>
-			</div>
-
+			</div>			
 			<div class="button-container column-2 justify-self-end">
 				<!-- Create agent -->
 				<Button
@@ -540,8 +546,10 @@
 </template>
 
 <script lang="ts">
+import '@vue-js-cron/light/dist/light.css';
 import type { PropType } from 'vue';
 import { debounce } from 'lodash';
+import { CronLight } from '@vue-js-cron/light';
 import api from '@/js/api';
 import type {
 	Agent,
@@ -575,7 +583,9 @@ const getDefaultFormValues = () => {
 		overlapSize: 50,
 
 		triggerFrequency: 'Event' as string,
-		triggerFrequencyScheduled: '' as string,
+		triggerFrequencyScheduled: '* * * * *' as string,
+		triggerFrequencyNextScheduled: '' as string,
+		error: '',
 
 		conversationHistory: false as boolean,
 		conversationMaxMessages: 5 as number,
@@ -591,7 +601,7 @@ const getDefaultFormValues = () => {
 			endpoint_configuration: {
 				endpoint: '' as string,
 				api_key: '' as string,
-				version: '' as string,
+				api_version: '' as string,
 				operation_type: 'chat' as string,
 			} as object,
 			model_parameters: {
@@ -604,7 +614,7 @@ const getDefaultFormValues = () => {
 		// 	endpoint_configuration: {
 		// 		endpoint: '' as string,
 		// 		api_key: '' as string,
-		// 		version: '' as string,
+		// 		api_version: '' as string,
 		// 		operation_type: 'chat' as string,
 		// 	} as object,
 		// },
@@ -613,6 +623,10 @@ const getDefaultFormValues = () => {
 
 export default {
 	name: 'CreateAgent',
+
+	components: {
+		CronLight,
+	},
 
 	props: {
 		editAgent: {
@@ -648,9 +662,13 @@ export default {
 					label: 'AzureAIDirect',
 					value: 'AzureAIDirect',
 				},
+				{
+					label: 'SemanticKernel',
+					value: 'SemanticKernel',
+				},
 			],
 
-			triggerFrequencyOptions: ['Event', 'Manual'],
+			triggerFrequencyOptions: ['Event', 'Manual', 'Schedule'],
 
 			triggerFrequencyScheduledOptions: [
 				'Never',
@@ -761,9 +779,9 @@ export default {
 			this.orchestration_settings.endpoint_configuration.api_key =
 				agent.orchestration_settings?.endpoint_configuration.api_key ||
 				this.orchestration_settings.endpoint_configuration.api_key;
-			this.orchestration_settings.endpoint_configuration.version =
-				agent.orchestration_settings?.endpoint_configuration.version ||
-				this.orchestration_settings.endpoint_configuration.version;
+			this.orchestration_settings.endpoint_configuration.api_version =
+				agent.orchestration_settings?.endpoint_configuration.api_version ||
+				this.orchestration_settings.endpoint_configuration.api_version;
 			this.orchestration_settings.endpoint_configuration.operation_type =
 				agent.orchestration_settings?.endpoint_configuration.operation_type ||
 				this.orchestration_settings.endpoint_configuration.operation_type;
@@ -985,7 +1003,7 @@ export default {
 						data_source_object_id: dataSourceObjectId,
 						vectorization_data_pipeline_object_id: this.vectorization_data_pipeline_object_id,
 						trigger_type: this.triggerFrequency,
-						trigger_cron_schedule: '',
+						trigger_cron_schedule: this.triggerFrequencyScheduled,
 					},
 
 					conversation_history: {

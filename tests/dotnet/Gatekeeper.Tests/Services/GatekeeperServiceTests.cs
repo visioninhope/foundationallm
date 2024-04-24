@@ -14,6 +14,7 @@ namespace Gatekeeper.Tests.Services
         private readonly GatekeeperService _testedService;
 
         private readonly IContentSafetyService _contentSafetyService = Substitute.For<IContentSafetyService>();
+        private readonly ILakeraGuardService _lakeraGuardService = Substitute.For<ILakeraGuardService>();
         private readonly IDownstreamAPIService _orchestrationAPIService = Substitute.For<IDownstreamAPIService>();
         private readonly IRefinementService _refinementService = Substitute.For<IRefinementService>();
         private readonly IGatekeeperIntegrationAPIService _gatekeeperIntegrationAPIService = Substitute.For<IGatekeeperIntegrationAPIService>();
@@ -24,15 +25,16 @@ namespace Gatekeeper.Tests.Services
             _gatekeeperServiceSettings = Options.Create(new GatekeeperServiceSettings
             {
                 EnableAzureContentSafety = true,
-                EnableMicrosoftPresidio = true
+                EnableMicrosoftPresidio = true,
+                EnableLakeraGuard = true,
             });
 
             _testedService = new GatekeeperService(
                 _orchestrationAPIService,
                 _contentSafetyService,
+                _lakeraGuardService,
                 _gatekeeperIntegrationAPIService,
                 _gatekeeperServiceSettings);
-
         }
 
         [Fact]
@@ -44,7 +46,7 @@ namespace Gatekeeper.Tests.Services
                 UserPrompt = "Safe content."
             };
 
-            var expectedResult = new CompletionResponse { Completion = "Completion from Agent Factory API Service." };
+            var expectedResult = new CompletionResponse { Completion = "Completion from Orchestration API Service." };
 
             var safeContentResult = new AnalyzeTextFilterResult { Safe = true, Reason = string.Empty };
             _contentSafetyService.AnalyzeText(completionRequest.UserPrompt).Returns(safeContentResult);
@@ -66,7 +68,7 @@ namespace Gatekeeper.Tests.Services
                 UserPrompt = "Safe content for summary."
             };
 
-            var expectedResult = new SummaryResponse { Summary = "Summary from Agent Factory API Service." };
+            var expectedResult = new SummaryResponse { Summary = "Summary from Orchestration API Service." };
 
             var safeContentResult = new AnalyzeTextFilterResult { Safe = true, Reason = string.Empty };
 

@@ -15,7 +15,6 @@ import type {
 } from './types';
 import { convertToDataSource, convertToAppConfigKeyVault, convertToAppConfig } from '@/js/types';
 // import { mockAzureDataLakeDataSource1 } from './mock';
-import { getMsalInstance } from '@/js/auth';
 
 async function wait(milliseconds: number = 1000): Promise<void> {
 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
@@ -39,12 +38,8 @@ export default {
 	async getBearerToken() {
 		if (this.bearerToken) return this.bearerToken;
 
-		const msalInstance = await getMsalInstance();
-		const accounts = msalInstance.getAllAccounts();
-		const account = accounts[0];
-		const bearerToken = await msalInstance.acquireTokenSilent({ account });
-
-		this.bearerToken = bearerToken.accessToken;
+		const token = await useNuxtApp().$authStore.getToken();
+		this.bearerToken = token.accessToken;
 		return this.bearerToken;
 	},
 

@@ -9,7 +9,7 @@
     },
     {
       "key": "FoundationaLLM:APIs:OrchestrationAPI:APIUrl",
-      "value": "${env:SERVICE_AGENT_FACTORY_API_ENDPOINT_URL}",
+      "value": "${env:SERVICE_ORCHESTRATION_API_ENDPOINT_URL}",
       "label": null,
       "content_type": "",
       "tags": {}
@@ -807,7 +807,7 @@
     },
     {
       "key": "FoundationaLLM:Events:AzureEventGridEventService:Profiles:OrchestrationAPI",
-      "value": "${env:FOUNDATIONALLM_AGENT_FACTORY_API_EVENT_GRID_PROFILE}",
+      "value": "${env:FOUNDATIONALLM_ORCHESTRATION_API_EVENT_GRID_PROFILE}",
       "label": null,
       "content_type": "application/json",
       "tags": {}

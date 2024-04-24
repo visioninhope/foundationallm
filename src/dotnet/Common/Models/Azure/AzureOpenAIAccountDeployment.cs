@@ -49,5 +49,20 @@
         /// The capabilities of the model in the deployment.
         /// </summary>
         public IReadOnlyDictionary<string, string>? Capabilities { get; set; }
+
+        /// <summary>
+        /// Indicates whether the model in the deployment can perform embeddings.
+        /// </summary>
+        public bool CanDoEmbeddings =>
+            (Capabilities?.ContainsKey("embeddings") ?? false)
+            && (Capabilities["embeddings"] == "true");
+
+        /// <summary>
+        /// The maximum number of inputs that can be sent to the model for embeddings.
+        /// </summary>
+        public int EmbeddingsMaxInputs =>
+            Capabilities?.ContainsKey("embeddingsMaxInputs") ?? false
+            ? int.Parse(Capabilities["embeddingsMaxInputs"])
+            : 1000;
     }
 }
