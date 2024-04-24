@@ -418,7 +418,6 @@ module storage './shared/storage.bicep' = {
         name: 'index'
       }
     ]
-    keyvaultName: keyVault.outputs.name
     location: location
     name: '${abbrs.storageStorageAccounts}${resourceToken}'
     tags: tags

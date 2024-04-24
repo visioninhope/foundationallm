@@ -8,13 +8,6 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:AgentHub:StorageManager:BlobStorage:ConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-storage-connectionstring\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-        "tags": {}
-      },
-      {
         "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AccountName",
         "value": "{{storageAccountAdlsName}}",
         "label": null,
@@ -470,13 +463,6 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:BlobStorageMemorySource:BlobStorageConnection",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-storage-connectionstring\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-        "tags": {}
-      },
-      {
         "key": "FoundationaLLM:BlobStorageMemorySource:BlobStorageContainer",
         "value": "memory-source",
         "label": null,
@@ -764,20 +750,6 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:DataSourceHub:StorageManager:BlobStorage:ConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-storage-connectionstring\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:DataSources:AboutFoundationaLLM:BlobStorage:ConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-storage-connectionstring\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-        "tags": {}
-      },
-      {
         "key": "FoundationaLLM:DataSource:ResourceProviderService:Storage:AccountName",
         "value": "{{storageAccountAdlsName}}",
         "label": null,
@@ -1006,13 +978,6 @@
         "value": "prompts",
         "label": null,
         "content_type": "",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:PromptHub:StorageManager:BlobStorage:ConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-storage-connectionstring\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
         "tags": {}
       },
       {

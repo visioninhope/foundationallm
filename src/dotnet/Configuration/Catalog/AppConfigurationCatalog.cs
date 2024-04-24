@@ -78,19 +78,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys
-                    .FoundationaLLM_AgentHub_StorageManager_BlobStorage_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue:
-                "Key Vault secret name: `foundationallm-agenthub-storagemanager-blobstorage-connectionstring`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_AgentHub_StorageManager_BlobStorage_ConnectionString,
-                contentType: "text/plain",
-                sampleObject: null
             )
         ];
 
@@ -111,18 +98,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 description:
                 "The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.",
                 keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys
-                    .FoundationaLLM_Agent_ResourceProviderService_Storage_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-agent-resourceprovider-storage-connectionstring`",
-                description: "The connection string to the Azure Storage account used for the agent resource provider.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_Agent_ResourceProvider_Storage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
             )
@@ -552,20 +527,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys
-                    .FoundationaLLM_Prompt_ResourceProviderService_Storage_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue:
-                "Key Vault secret name: `foundationallm-prompt-resourceprovider-storage-connectionstring`",
-                description:
-                "The connection string to the Azure Storage account used for the prompt resource provider.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_Prompt_ResourceProvider_Storage_ConnectionString,
-                contentType: "text/plain",
-                sampleObject: null
             )
         ];
 
@@ -778,17 +739,6 @@ namespace FoundationaLLM.Configuration.Catalog
         /// </summary>
         public static readonly List<AppConfigurationEntry> BlobStorageMemorySource =
         [
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_BlobStorageMemorySource_BlobStorageConnection,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-blobstoragememorysource-blobstorageconnection`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_BlobStorageMemorySource_Blobstorageconnection,
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
             new(
                 key: AppConfigurationKeys.FoundationaLLM_BlobStorageMemorySource_BlobStorageContainer,
                 minimumVersion: "0.3.0",
@@ -1200,20 +1150,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys
-                    .FoundationaLLM_DataSource_ResourceProviderService_Storage_ConnectionString,
-                minimumVersion: "0.5.0",
-                defaultValue:
-                "Key Vault secret name: `foundationallm-datasource-resourceprovider-storage-connectionstring`",
-                description:
-                "The connection string to the Azure Storage account used for the data source resource provider.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_DataSource_ResourceProvider_Storage_ConnectionString,
-                contentType: "text/plain",
-                sampleObject: null
             )
         ];
 
@@ -1233,32 +1169,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 defaultValue: "data-sources",
                 description: "",
                 keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys
-                    .FoundationaLLM_DataSourceHub_StorageManager_BlobStorage_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue:
-                "Key Vault secret name: `foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_DataSourceHub_StorageManager_BlobStorage_ConnectionString,
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys
-                    .FoundationaLLM_DataSources_AboutFoundationaLLM_BlobStorage_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue:
-                "Key Vault secret name: `foundationallm-datasourcehub-storagemanager-blobstorage-connectionstring`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_DataSourceHub_StorageManager_BlobStorage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
             )
@@ -1573,19 +1483,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys
-                    .FoundationaLLM_PromptHub_StorageManager_BlobStorage_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue:
-                "Key Vault secret name: `foundationallm-prompthub-storagemanager-blobstorage-connectionstring`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_PromptHub_StorageManager_BlobStorage_ConnectionString,
-                contentType: "text/plain",
-                sampleObject: null
             )
         ];
 
@@ -1859,20 +1756,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 description:
                 "The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.",
                 keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys
-                    .FoundationaLLM_Vectorization_ResourceProviderService_Storage_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue:
-                "Key Vault secret name: `foundationallm-vectorization-resourceprovider-storage-connectionstring`",
-                description:
-                "The connection string to the Azure Storage account used for the vectorization state service.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_Vectorization_ResourceProvider_Storage_ConnectionString,
                 contentType: "text/plain",
                 sampleObject: null
             ),
