@@ -128,22 +128,22 @@ The default settings for the vectorization worker are stored in the `Foundationa
     "RequestSources": [
         {
             "Name": "extract",
-            "ConnectionConfigurationName": "Extract:AccountName",
+            "AccountName": "{{accountName}}",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "partition",
-            "ConnectionConfigurationName": "Partition:AccountName",
+            "AccountName": "{{accountName}}",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "embed",
-            "ConnectionConfigurationName": "Embed:AccountName",
+            "AccountName": "{{accountName}}",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "index",
-            "ConnectionConfigurationName": "Index:AccountName",
+            "AccountName": "{{accountName}}",
             "VisibilityTimeoutSeconds": 600
         }
     ],
