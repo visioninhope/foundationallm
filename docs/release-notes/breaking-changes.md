@@ -3,7 +3,7 @@
 > [!NOTE]
 > This section is for changes that are not yet released but will affect future releases.
 
-## Pre-release changes that will affect future releases.
+## Breaking changes that will affect future releases.
 
 1. Vectorization resource stores use a unique collection name, `Resources`. They also add a new top-level property named `DefaultResourceName`.
 2. The items in the `index_references` collection have an property incorrectly named `type` which was renamed to `index_entry_id`.
