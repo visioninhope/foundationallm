@@ -34,4 +34,4 @@ When working with vectorization in FLLM, the typical steps you have to perform a
 
 - Ensure that the Management API, Vectorization API and Vectorization Worker are configured and running. This is a one-time operation. For more details, see [Configuring vectorization](vectorization-configuration.md).
 - Create vectorization profiles. You can either reuse existing profiles or create new ones. For more details, see [Managing vectorization profiles](vectorization-profiles.md).
-- Submit vectorization requests to the Vectorization API. For more details, see [Triggering vectorization](vectorization-triggering.md).
+- Submit vectorization requests to the Management API. For more details, see [Triggering vectorization](vectorization-triggering.md).

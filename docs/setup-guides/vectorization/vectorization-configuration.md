@@ -75,7 +75,7 @@ The following table describes the required App Configuration parameters for the 
 | `FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
 | `FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-resourceprovider-storage-connectionstring` | The connection string to the Azure Storage account used for the vectorization state service. |
 | `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey` | Key Vault secret name: `foundationallm-vectorization-semantickerneltextembedding-openai-apikey` | The API key used to connect to the Azure OpenAI service.
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType` | | The authentication type used to connect to the Azure OpenAI service. Can be one of `AzureIdentity` or `APIKey`.
+| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType` | | The authentication type used to connect to the Azure OpenAI service. Can be one of `AzureIdentity` or `APIKey`. |
 | `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName` | | The name of the Azure OpenAI model deployment. The default value is `embeddings`.
 | `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint` | | The endpoint of the Azure OpenAI service.
 | `FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey` | Key Vault secret name: `foundationallm-vectorization-azureaisearch-apikey` | The API key used to connect to the Azure OpenAI service.
@@ -133,22 +133,22 @@ The default settings for the vectorization worker are stored in the `Foundationa
     "RequestSources": [
         {
             "Name": "extract",
-            "ConnectionConfigurationName": "Extract:AccountName",
+            "AccountName": "Extract:AccountName",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "partition",
-            "ConnectionConfigurationName": "Partition:AccountName",
+            "AccountName": "Partition:AccountName",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "embed",
-            "ConnectionConfigurationName": "Embed:AccountName",
+            "AccountName": "Embed:AccountName",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "index",
-            "ConnectionConfigurationName": "Index:AccountName",
+            "AccountName": "Index:AccountName",
             "VisibilityTimeoutSeconds": 600
         }
     ],
@@ -166,4 +166,6 @@ The following table provides details about the configuration parameters:
 | `RequestManagers.QueuePollingInterval` | **Optional** The polling interval in seconds, this is the amount of time to wait if the previous check on the queue had no items. The default value is 60. |
 | `RequestManagers.QueueMaxNumberOfRetries` | **Optional** The maximum number of retries to attempt to process a request before being removed from the queue. The default value is 5. |
 | `RequestSources` | The list of request sources used by the vectorization worker. Each request source is responsible for managing the requests for a specific vectorization step. The configuration must include all request sources. |
+| `RequestSources.Name` | The name of the request source. The name must match the name of the request manager. |
+| `RequestSources.AccountName` | The name of the configuration key for the Azure Storage account used for the queue (include the tokens after **FoundationaLLM:Vectorization:Queues:**). |
 | `RequestSources.VisibilityTimeoutSeconds` | In the case of queue-based request sources (the default for the vectorization worker), specifies the time in seconds until a dequeued vectorization step request must be executed. During this timeout, the message will not be visible to other handler instances within the same worker or from other worker instances. If the handler fails to process the vectorization step request successfully and remove it from the queue within the specified timeout, the message will become visibile again. The default value is 600 seconds and should not be changed.|
