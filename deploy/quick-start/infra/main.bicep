@@ -135,10 +135,6 @@ module authKeyvault './shared/keyvault.bicep' = {
     principalId: principalId
     secrets: [
       {
-        name: 'foundationallm-authorizationapi-appinsights-connectionstring'
-        value: monitoring.outputs.applicationInsightsConnectionString
-      }
-      {
         name: 'foundationallm-authorizationapi-entra-instance'
         value: authAppRegistration.instance
       }
