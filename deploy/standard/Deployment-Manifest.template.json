@@ -1,12 +1,12 @@
 {
-  "instanceId": "",
+  "adminObjectId": "",
+  "createVpnGateway": true,
   "environment": "",
+  "instanceId": "",
+  "k8sNamespace": "",
   "location": "",
   "project": "",
   "subscription": "",
-  "k8sNamespace": "",
-  "adminObjectId": "",
-  "createVpnGateway": true,
   "ingress": {
     "apiIngress": {
       "coreapi": {
