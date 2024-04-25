@@ -52,9 +52,7 @@ Follow the steps below to deploy the solution to your Azure subscription.
 
     az login            # Log into Azure CLI
     azd auth login      # Log into Azure Developer CLI
-
-    # Set your target Subscription and Location
-    azd env new --location <Supported Azure Region> --subscription <Azure Subscription ID>
+    ```
 
     azd env set ENTRA_AUTH_API_INSTANCE <Auth API Instance>
     azd env set ENTRA_AUTH_API_CLIENT_ID <Auth API Client Id>
