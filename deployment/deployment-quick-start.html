@@ -124,12 +124,6 @@ git checkout release/0.5.0
 <li><p>Run the following commands to log into the Azure and Azure Developer CLIs:</p>
 <pre><code class="lang-azurecli">az login            # Log into Azure CLI
 azd auth login      # Log into Azure Developer CLI
-
-./scripts/bootstrap.ps1     # Bootstrap environment dependencies (AzCopy)
-                            # This will prompt you for an AzCopy login to Azure
-
-# Set your target Subscription and Location
-azd env new --location &lt;Supported Azure Region&gt; --subscription &lt;Azure Subscription ID&gt;
 </code></pre>
 </li>
 <li><p>Set up an <code>azd</code> environment targeting your Azure subscription and desired deployment region:</p>
