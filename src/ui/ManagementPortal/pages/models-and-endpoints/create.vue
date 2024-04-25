@@ -167,14 +167,12 @@ export default {
 				{
 					label: 'Token',
 					value: 'token',
-				}
+				},
 			],
 		};
 	},
 
-	async created() {
-		
-	},
+	async created() {},
 
 	methods: {
 		handleCancel() {

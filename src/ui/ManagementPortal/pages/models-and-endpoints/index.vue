@@ -34,8 +34,7 @@
 				size="small"
 			>
 				<template #empty>
-					No models/endpoints found. Please use the menu on the left to create a new
-					model/endpoint.
+					No models/endpoints found. Please use the menu on the left to create a new model/endpoint.
 				</template>
 				<template #loading>Loading model & endpoints. Please wait.</template>
 
@@ -110,12 +109,7 @@
 		</div>
 
 		<!-- Delete model/endpoint dialog -->
-		<Dialog
-			:visible="itemToDelete !== null"
-			modal
-			header="Delete Data Source"
-			:closable="false"
-		>
+		<Dialog :visible="itemToDelete !== null" modal header="Delete Model/Endpoint" :closable="false">
 			<p>Do you want to delete the model/endpoint "{{ itemToDelete.name }}" ?</p>
 			<template #footer>
 				<Button label="Cancel" text @click="itemToDelete = null" />
