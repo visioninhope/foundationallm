@@ -48,7 +48,7 @@ Follow the steps below to deploy the solution to your Azure subscription.
     ```powershell
     git clone https://github.com/solliancenet/foundationallm.git
     cd foundationallm
-    git checkout release/0.5.0
+    git checkout release/0.6.0
     ```
 3. Create your deployment manifest:
 
@@ -152,5 +152,10 @@ Follow the steps below to deploy the solution to your Azure subscription.
         - Deploy the secret class provider to the gateway-system namespace
         - Deploy ingress-nginx
         - Deploy Ingress Configurations and External Services
+    - Generate host file entries for the deployed services on AKS that you can add to your host file or DNS server.
+
+13. Update your local `hosts` file with the entries from the generated host file.
 
 ## Connect and Test
+
+14. Visit the chat UI in your browser and send a message to verify the deployment.  The message can be very simple like "Who are you?".  The default agent should respond with a message explaining it's persona.
