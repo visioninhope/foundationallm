@@ -15,11 +15,11 @@ namespace FoundationaLLM.Common.Models.Vectorization
         public bool InProgress { get; set; }
 
         /// <summary>
-        /// Indicates whether the text embedding operation was cancelled due to an error.
+        /// Indicates whether the text embedding operation failed due to an error.
         /// When true, the <see cref="ErrorMessage"/> property contains a message describing the error.
         /// </summary>
         [JsonPropertyName("cancelled")]
-        public bool Cancelled { get; set; }
+        public bool Failed { get; set; }
 
         /// <summary>
         /// The message describing the error that lead to the cancellation of the operation.

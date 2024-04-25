@@ -23,7 +23,7 @@ public class OrchestrationService : IOrchestrationService
     private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices;
 
     /// <summary>
-    /// Constructor for the Agent Factory Service.
+    /// Constructor for the Orchestration Service.
     /// </summary>
     /// <param name="resourceProviderServices">A list of <see cref="IResourceProviderService"/> resource providers.</param>
     /// <param name="orchestrationServices"></param>

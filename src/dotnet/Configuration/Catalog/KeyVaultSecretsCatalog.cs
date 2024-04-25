@@ -132,36 +132,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 description: "The API key of the vectorization worker API."
             ),
             new(
-                secretName: KeyVaultSecretNames.FoundationaLLM_Vectorization_Queues_ConnectionString,
-                minimumVersion: "0.3.0",
-                description:
-                "The connection string to the Azure Storage account used for the embed vectorization queue."
-            ),
-            new(
-                secretName: KeyVaultSecretNames.FoundationaLLM_Vectorization_Queues_ConnectionString,
-                minimumVersion: "0.3.0",
-                description:
-                "The connection string to the Azure Storage account used for the extract vectorization queue."
-            ),
-            new(
-                secretName: KeyVaultSecretNames.FoundationaLLM_Vectorization_Queues_ConnectionString,
-                minimumVersion: "0.3.0",
-                description:
-                "The connection string to the Azure Storage account used for the index vectorization queue."
-            ),
-            new(
-                secretName: KeyVaultSecretNames.FoundationaLLM_Vectorization_Queues_ConnectionString,
-                minimumVersion: "0.3.0",
-                description:
-                "The connection string to the Azure Storage account used for the partition vectorization queue."
-            ),
-            new(
-                secretName: KeyVaultSecretNames.FoundationaLLM_Vectorization_State_ConnectionString,
-                minimumVersion: "0.3.0",
-                description:
-                "The connection string to the Azure Storage account used for the vectorization state service."
-            ),
-            new(
                 secretName: KeyVaultSecretNames
                     .FoundationaLLM_Vectorization_ResourceProvider_Storage_ConnectionString,
                 minimumVersion: "0.3.0",

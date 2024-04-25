@@ -21,7 +21,7 @@ namespace SemanticKernel.Tests.Services
                         Endpoint = Environment.GetEnvironmentVariable("SemanticKernelTextEmbeddingServiceTestsOpenAiEndpoint") ?? ""
                     }
                 ),
-                LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<SemanticKernelTextEmbeddingService>()
+                LoggerFactory.Create(builder => builder.AddConsole())
             );
         }
 

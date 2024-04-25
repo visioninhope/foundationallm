@@ -1,7 +1,7 @@
 namespace FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions
 {
     /// <summary>
-    /// Settings for an Agent Factory.  Currenlty only sets the default orchestration (Semantickernal, LangChain)
+    /// Settings for an Orchestration.  Currenlty only sets the default orchestration (Semantickernal, LangChain)
     /// </summary>
     public record OrchestrationSettings
     {
@@ -9,6 +9,6 @@ namespace FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions
         /// The default orchenstration service (SemanticKernal, LangChain)
         /// </summary>
         public string? DefaultOrchestrationService { init; get; }
-        // TODO: integrate the agent factory settings
+        // TODO: integrate the orchestration settings
     }
 }

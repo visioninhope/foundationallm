@@ -1,4 +1,4 @@
-name: Agent Factory API Release
+name: Orchestration API Release
 
 on:
   workflow_dispatch:

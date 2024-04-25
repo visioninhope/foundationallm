@@ -89,6 +89,9 @@ class AgentBase():
         """
         if agent_orchestration_settings is None:
             raise ValueError("Orchestration settings are required for completion requests.")
+
+        if agent_orchestration_settings.endpoint_configuration is None:
+            raise ValueError("Endpoint configuration is required for completion requests.")
         
         # Get endpoint settings (pull from Application Configuration using keys)
         endpoint = config.get_value(agent_orchestration_settings.endpoint_configuration.get('endpoint'))
@@ -122,7 +125,7 @@ class AgentBase():
         if provider == LanguageModelProvider.MICROSOFT:
             # Get Azure OpenAI Chat model settings
             deployment_name = (override_settings.model_parameters.get('deployment_name')
-                                if override_settings is not None and override_settings.model_parameters.get('deployment_name') is not None
+                                if override_settings is not None and override_settings.model_parameters is not None and override_settings.model_parameters.get('deployment_name') is not None
                                 else agent_orchestration_settings.model_parameters.get('deployment_name'))
             if deployment_name is None:
                 raise ValueError("Deployment name is required for Azure OpenAI completion requests.")
@@ -139,7 +142,7 @@ class AgentBase():
                 else OpenAI(base_url=endpoint, api_key=api_key)
             )
 
-        # Set model parameters from agent orchestration settings.    
+        # Set model parameters from agent orchestration settings.
         for key, value in agent_orchestration_settings.model_parameters.items():
             if hasattr(api, key):
                 setattr(api, key, value)

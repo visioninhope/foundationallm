@@ -169,7 +169,7 @@ namespace FoundationaLLM.Common.Services.Storage
         /// <inheritdoc/>
         protected override void CreateClientFromIdentity(string accountName) =>
             _blobServiceClient = new BlobServiceClient(
-                new Uri($"https://{accountName}.dfs.core.windows.net"),
+                new Uri($"https://{accountName}.blob.core.windows.net"),
                 DefaultAuthentication.GetAzureCredential());
     }
 }

@@ -13,7 +13,7 @@ namespace FoundationaLLM.Orchestration.API.Controllers
     public class StatusController : ControllerBase
     {
         /// <summary>
-        /// Returns the status of the Agent Factory API service.
+        /// Returns the status of the Orchestration API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
         public IActionResult Get() =>
@@ -26,7 +26,7 @@ namespace FoundationaLLM.Orchestration.API.Controllers
             });
 
         /// <summary>
-        /// Returns the allowed HTTP methods for the Agent Factory API service.
+        /// Returns the allowed HTTP methods for the Orchestration API service.
         /// </summary>
         [HttpOptions]
         public IActionResult Options()
