@@ -11,8 +11,7 @@
             "module": "uvicorn",
             "cwd" : "${workspaceFolder}/src/python/AgentHubAPI/app",
             "env": {
-                //"PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/AgentHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
-                "PYTHONPATH": "C:/github/solliancenet/foundationallm - main/src/python/AgentHubAPI;C:/github/solliancenet/foundationallm - main/src/python/PythonSDK;"
+                "PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/AgentHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
             },
             "args": ["main:app","--reload", "--port", "8742"]
         },
@@ -23,8 +22,7 @@
             "module": "uvicorn",
             "cwd" : "${workspaceFolder}/src/python/DataSourceHubAPI/app",
             "env": {
-                //"PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/DataSourceHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
-                "PYTHONPATH": "C:/github/solliancenet/foundationallm - main/src/python/DataSourceHubAPI;C:/github/solliancenet/foundationallm - main/src/python/PythonSDK;"
+                "PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/DataSourceHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
             },
             "args": ["main:app","--reload", "--port", "8842"]
         },
@@ -35,8 +33,7 @@
             "module": "uvicorn",
             "cwd" : "${workspaceFolder}/src/python/PromptHubAPI/app",
             "env": {
-                //"PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/PromptHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
-                "PYTHONPATH": "C:/github/solliancenet/foundationallm - main/src/python/PromptHubAPI;C:/github/solliancenet/foundationallm - main/src/python/PythonSDK;"
+                "PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/PromptHubAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
             },
             "args": ["main:app","--reload", "--port", "8642"]
         },
@@ -47,9 +44,7 @@
             "module": "uvicorn",
             "cwd" : "${workspaceFolder}/src/python/LangChainAPI/app",
             "env": {
-                //"PYTHONPATH": "d:/repos/solliance-foundationallm/src/python/LangChainAPI;d:/repos/solliance-foundationallm/src/python/PythonSDK"
-                "PYTHONPATH": "C:/github/solliancenet/foundationallm - main/src/python/LangChainAPI;C:/github/solliancenet/foundationallm - main/src/python/PythonSDK;",
-                "foundationallm-app-configuration-uri" : "https://appcs-63hvhar5z5zz2.azconfig.io"
+                "PYTHONPATH": "C:/github/solliancenet/foundationallm - main/src/python/LangChainAPI;C:/github/solliancenet/foundationallm - main/src/python/PythonSDK;"
             },
             "args": ["main:app","--reload", "--port", "8765"],
             "python": "${workspaceFolder}/src/python/LangChainAPI/env/Scripts/python.exe"
