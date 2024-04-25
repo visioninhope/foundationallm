@@ -7185,6 +7185,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "deployment/deployment-standard.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/deployment-standard.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "deployment/index.md",
       "output": {
         ".html": {
@@ -7279,6 +7289,16 @@
       "output": {
         ".html": {
           "relative_path": "deployment/soft-delete.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "deployment/standard/manifest.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/standard/manifest.html"
         }
       },
       "version": ""
