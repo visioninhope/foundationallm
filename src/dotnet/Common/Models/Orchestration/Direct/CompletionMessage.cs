@@ -10,6 +10,7 @@ namespace FoundationaLLM.Common.Models.Orchestration.Direct
         /// <summary>
         /// The message index when multiple message are returned
         /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("index")]
         public int? Index { get; set; }
 
@@ -29,6 +30,7 @@ namespace FoundationaLLM.Common.Models.Orchestration.Direct
         /// <summary>
         /// Is this the last message of the turn
         /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("end_turn")]
         public bool? EndTurn { get; set; }
     }
