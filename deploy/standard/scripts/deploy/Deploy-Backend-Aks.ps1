@@ -104,12 +104,6 @@ Invoke-AndRequireSuccess "Deploy ingress-nginx" {
         --values ${ingressNginxValues}
 }
 
-$ingressIp = Invoke-AndRequireSuccess "Get Ingress IP" {
-    kubectl get service gateway-ingress-nginx-controller `
-        --namespace ${gatewayNamespace} `
-        --output jsonpath='{.status.loadBalancer.ingress[0].ip}'
-}
-
 $ingressNames = @{
     "core-api"          = "../config/helm/coreapi-ingress.yml"
     "management-api"    = "../config/helm/managementapi-ingress.yml"
