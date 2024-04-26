@@ -49,8 +49,8 @@ Invoke-AndRequireSuccess "Create ${serviceNamespace} namespace" {
 }
 
 $chartNames = @{
-    "orchestration-api"          = "../config/helm/microservice-values.yml"
     "agent-hub-api"              = "../config/helm/microservice-values.yml"
+    "authorization-api"          = "../config/helm/microservice-values.yml"
     "core-api"                   = "../config/helm/coreapi-values.yml"
     "core-job"                   = "../config/helm/microservice-values.yml"
     "data-source-hub-api"        = "../config/helm/microservice-values.yml"
@@ -58,6 +58,7 @@ $chartNames = @{
     "gatekeeper-integration-api" = "../config/helm/microservice-values.yml"
     "langchain-api"              = "../config/helm/microservice-values.yml"
     "management-api"             = "../config/helm/managementapi-values.yml"
+    "orchestration-api"          = "../config/helm/microservice-values.yml"
     "prompt-hub-api"             = "../config/helm/microservice-values.yml"
     "semantic-kernel-api"        = "../config/helm/microservice-values.yml"
     "vectorization-api"          = "../config/helm/vectorizationapi-values.yml"
