@@ -188,4 +188,24 @@ Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization St
         --recursive=True
 }
 
+Invoke-AndRequireSuccess "Restarting Authorization API" {
+    # Grab suffix
+    $suffix = ($env:AZURE_KEY_VAULT_NAME).Substring(3)
+    $authApiContainerName = "caauthapi$suffix"
+    $resourceGroup = "rg-$env:AZURE_ENV_NAME"
+    $revision = $(
+        az containerapp show `
+            --name  $authApiContainerName `
+            --resource-group $resourceGroup `
+            --subscription $env:AZURE_SUBSCRIPTION_ID `
+            --query "properties.latestRevisionName" `
+            -o tsv
+    )
+    az containerapp revision restart `
+        --revision $revision `
+        --name $authApiContainerName `
+        --resource-group $resourceGroup `
+        --subscription $env:AZURE_SUBSCRIPTION_ID
+}
+
 Pop-Location
