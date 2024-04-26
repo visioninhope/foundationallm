@@ -244,6 +244,7 @@ namespace FoundationaLLM.Vectorization.Services
             var handlerSuccess = await stepHandler.Invoke(request, state, cancellationToken).ConfigureAwait(false);
 
             await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
+            await request.UpdateVectorizationRequestResource(GetVectorizationResourceProvider(), _vectorizationStateService).ConfigureAwait(false);
 
             return handlerSuccess;
         }
