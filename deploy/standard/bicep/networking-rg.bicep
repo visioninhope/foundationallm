@@ -183,16 +183,6 @@ var subnets = [
         {
           access: 'Allow'
           destinationAddressPrefix: 'VirtualNetwork'
-          destinationPortRange: '3443'
-          name: 'allow-apim'
-          priority: 128
-          protocol: 'Tcp'
-          sourceAddressPrefix: 'ApiManagement'
-          sourcePortRange: '*'
-        }
-        {
-          access: 'Allow'
-          destinationAddressPrefix: 'VirtualNetwork'
           destinationPortRange: '6390'
           name: 'allow-lb'
           priority: 192
@@ -210,18 +200,6 @@ var subnets = [
           sourcePortRange: '*'
           sourceAddressPrefixes: [
             cidrFllmBackend
-          ]
-        }
-        {
-          access: 'Allow'
-          destinationAddressPrefix: 'VirtualNetwork'
-          destinationPortRange: '443'
-          name: 'allow-apim-inbound'
-          priority: 320
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          sourceAddressPrefixes: [
-            cidrFllmOpenAi
           ]
         }
         {
