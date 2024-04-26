@@ -46,7 +46,7 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
     ```cmd
     git clone https://github.com/solliancenet/foundationallm.git
     cd foundationallm/deploy/starter
-    git checkout release/0.5.0
+    git checkout release/0.6.0
     ```
 
 3. Run the following commands to log into the Azure and Azure Developer CLIs:
@@ -133,6 +133,17 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
 ### Running script to allow MS Graph access through Role Permissions
 
 After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. [Role Permissions Script](/deploy/common/scripts/Assign-MSGraph-Roles.ps1)
+This script will need to be executed 3 times for the principalId's of the following:
+- Core API Identity Manager
+- Management API Identity Manager
+- Agent Factory Identity Manager
+These could be found in the Azure portal in the main resource groupe for the deployment
+The syntax for running the script from the `deploy\common\scripts` folder is:
+```pwsh
+.\Assign-MSGraph-Roles.ps1 -principalId <the guid for each of the 3 mentioned principal IDs>
+```
+> [!IMPORTANT]
+> For this release, you will need to restart the Auth API container in the resourse group to allow the changes to take effect.
 
 # Teardown
 
