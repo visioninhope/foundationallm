@@ -140,7 +140,9 @@ This script will need to be executed 3 times for the principalId's of the follow
 These could be found in the Azure portal in the main resource groupe for the deployment
 The syntax for running the script from the `deploy\common\scripts` folder is:
 ```pwsh
-.\Assign-MSGraph-Roles.ps1 -principalId <the guid for each of the 3 mentioned principal IDs>
+.\Assign-MSGraph-Roles.ps1 -principalId <GUID of the Core API Identity Manager Principal ID>
+.\Assign-MSGraph-Roles.ps1 -principalId <GUID of the Agent Factory API Identity Manager Principal ID>
+.\Assign-MSGraph-Roles.ps1 -principalId <GUID of the Management API Identity Manager Principal ID>
 ```
 > [!IMPORTANT]
 > For this release, you will need to restart the Auth API container in the resourse group to allow the changes to take effect.
