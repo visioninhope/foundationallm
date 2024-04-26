@@ -135,10 +135,6 @@ module authKeyvault './shared/keyvault.bicep' = {
     principalId: principalId
     secrets: [
       {
-        name: 'foundationallm-authorizationapi-appinsights-connectionstring'
-        value: monitoring.outputs.applicationInsightsConnectionString
-      }
-      {
         name: 'foundationallm-authorizationapi-entra-instance'
         value: authAppRegistration.instance
       }
@@ -418,7 +414,6 @@ module storage './shared/storage.bicep' = {
         name: 'index'
       }
     ]
-    keyvaultName: keyVault.outputs.name
     location: location
     name: '${abbrs.storageStorageAccounts}${resourceToken}'
     tags: tags
