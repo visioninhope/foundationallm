@@ -17,6 +17,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Quartz;
+using System.Configuration;
+using FoundationaLLM.Vectorization.Services.DataSources.Configuration.SQLDatabase;
 
 namespace FoundationaLLM.Vectorization.Services.Pipelines
 {
@@ -215,6 +217,97 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         await stateService.SavePipelineState(pipelineState);
                                     }
                                     
+                                }
+                                break;
+                            case DataSourceTypes.AzureSQLDatabase:                                
+                                var sqlDataSourceServiceSettings = new SQLDatabaseServiceSettings { ConnectionString = String.Empty };
+                                _configuration.Bind(
+                                    $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{dataSource.Name}",
+                                    sqlDataSourceServiceSettings);
+                                AzureSQLDatabaseDataSourceService sqlSvc = new AzureSQLDatabaseDataSourceService(
+                                    (AzureSQLDatabaseDataSource)dataSource!,
+                                    sqlDataSourceServiceSettings,
+                                    _loggerFactory);
+                                List<List<string>> multipartIds = new List<List<string>>();
+                                if(!String.IsNullOrWhiteSpace(sqlDataSourceServiceSettings.MultiPartQuery))
+                                {
+                                    var delimitedMultipartIds = await sqlSvc.ExecuteMultipartQueryAsync(cancellationToken);
+                                    foreach (var delimitedMultipartId in delimitedMultipartIds)
+                                    {
+                                        multipartIds.Add(delimitedMultipartId.Split('|').ToList());
+                                    }
+                                }
+
+                                foreach (var multipartId in multipartIds)
+                                {
+                                    var canonical = $"{dataSource.Name}/{string.Join('/', multipartId)}";
+                                    var vectorizationRequest = new VectorizationRequest()
+                                    {
+                                        Id = Guid.NewGuid().ToString(),
+                                        PipelineExecutionId = pipelineExecutionId,
+                                        PipelineObjectId = activePipeline.ObjectId!,
+                                        ContentIdentifier = new ContentIdentifier()
+                                        {
+                                            DataSourceObjectId = dataSource.ObjectId!,
+                                            MultipartId = multipartId,
+                                            CanonicalId = canonical
+                                        },
+                                        ProcessingType = VectorizationProcessingType.Asynchronous,
+                                        ProcessingState = VectorizationProcessingState.New,
+                                        Steps = new List<VectorizationStep>()
+                                        {
+                                            new VectorizationStep()
+                                            {
+                                                Id = VectorizationSteps.Extract,
+                                                Parameters = new Dictionary<string, string>()
+                                            },
+                                            new VectorizationStep()
+                                            {
+                                                Id = VectorizationSteps.Partition,
+                                                Parameters = new Dictionary<string, string>()
+                                                {
+                                                    {"text_partitioning_profile_name", textPartitioningProfile.Name }
+                                                }
+                                            },
+                                            new VectorizationStep()
+                                            {
+                                                Id = VectorizationSteps.Embed,
+                                                Parameters = new Dictionary<string, string>()
+                                                {
+                                                    {"text_embedding_profile_name", textEmbeddingProfile.Name }
+                                                }
+                                            },
+                                            new VectorizationStep()
+                                            {
+                                                Id = VectorizationSteps.Index,
+                                                Parameters = new Dictionary<string, string>()
+                                                {
+                                                    {"indexing_profile_name", indexingProfile.Name }
+                                                }
+                                            }
+                                        },
+                                        CompletedSteps = [],
+                                        RemainingSteps = ["extract", "partition", "embed", "index"]
+                                    };
+
+                                    // submit the vectorization request, if an error occurs on a single file, record it and continue with the next file.
+                                    // this does not result in the failure of the entire pipeline.
+                                    try
+                                    {
+                                        //create the vectorization request
+                                        await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);
+                                        //issue process action on the created vectorization request
+                                        await vectorizationRequest.ProcessVectorizationRequest(vectorizationResourceProvider);
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        var errorMessage = $"An error was encountered while creating the vectorization request for file {string.Join('/', vectorizationRequest.ContentIdentifier.MultipartId)}, exception: {ex.Message}";
+                                        _logger.LogError(ex, errorMessage);
+                                        //get latest state of the pipeline execution.
+                                        pipelineState = await stateService.ReadPipelineState(pipelineName, pipelineExecutionId);
+                                        pipelineState.UnsubmittedContent.Add(errorMessage);
+                                        await stateService.SavePipelineState(pipelineState);
+                                    }
                                 }
                                 break;
                         }                       
