@@ -79,7 +79,8 @@ try {
 
     Invoke-AndRequireSuccess "Uploading Auth Store Data" {
         ./Upload-AuthStoreData.ps1 `
-            -resourceGroup $resourceGroup["auth"]
+            -resourceGroup $resourceGroup["auth"] `
+            -instanceId $manifest.instanceId
     }
 
     Invoke-AndRequireSuccess "Uploading System Prompts" {
