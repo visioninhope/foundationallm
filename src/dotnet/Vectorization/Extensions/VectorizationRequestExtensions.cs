@@ -42,48 +42,10 @@ namespace FoundationaLLM.Vectorization.Extensions
             
             var response = (await vectorizationResourceProvider.HandlePostAsync(request.ObjectId, requestBody, unifiedIdentity)) as ResourceProviderUpsertResult;
             // in the case of a new request, this updates the object id with the fully qualified object id, otherwise it remains the same.
-            request.ObjectId = response!.ObjectId;           
-            if (vectorizationStateService != null)
-            {
-                await request.UpdateVectorizationPipelineState(vectorizationStateService);
-            }            
+            request.ObjectId = response!.ObjectId;                    
         }
 
-        /// <summary>
-        /// Updates the vectorization pipeline state.
-        /// </summary>
-        /// <param name="request">The vectorization request being updated in the pipeline state.</param>
-        /// <param name="vectorizationStateService">The vectorization state service that persists the state.</param>        
-        public static async Task UpdateVectorizationPipelineState(
-            this VectorizationRequest request,
-            IVectorizationStateService vectorizationStateService
-        )
-        {
-            if (!string.IsNullOrWhiteSpace(request.PipelineObjectId) && !string.IsNullOrWhiteSpace(request.PipelineExecutionId))
-            {
-                var pipelineName = request.PipelineObjectId.Split('/').Last();
-                var pipelineExecutionId = request.PipelineExecutionId;
-                // get latest state of the pipeline execution.
-                var pipelineState = await vectorizationStateService.ReadPipelineState(pipelineName, pipelineExecutionId);
-                // update the request status with the current state.
-                if (pipelineState.ProcessingState == VectorizationProcessingState.New && request.ProcessingState == VectorizationProcessingState.InProgress)
-                {
-                    pipelineState.ExecutionStart = DateTime.UtcNow;
-                }
-
-                // update the vectorization pipeline request states.
-                pipelineState.VectorizationRequestStatuses[request.ObjectId!] = request.ProcessingState;
-
-                if (pipelineState.ProcessingState == VectorizationProcessingState.Completed)
-                {
-                    pipelineState.ExecutionEnd = DateTime.UtcNow;
-                }
-
-                // persist the updated state of the pipeline.
-                await vectorizationStateService.SavePipelineState(pipelineState);
-            }
-        }
-
+      
         /// <summary>
         /// Issues the "process" action on the vectorization request resource using the vectorization resource provider.        
         /// </summary>

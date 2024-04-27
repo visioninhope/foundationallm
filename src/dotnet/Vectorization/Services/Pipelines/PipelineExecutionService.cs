@@ -87,9 +87,9 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                         {
                             ExecutionId = pipelineExecutionId,
                             PipelineObjectId = activePipeline.ObjectId!,
+                            ExecutionStart = DateTime.UtcNow,
                         };
-                        await stateService.SavePipelineState(pipelineState);
-
+                        
                         try
                         {
                             _logger.LogInformation($"Executing pipeline {pipelineName} with execution ID {pipelineExecutionId}.");
@@ -166,36 +166,36 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                             ProcessingState = VectorizationProcessingState.New,
                                             Steps = new List<VectorizationStep>()
                                             {
-                                            new VectorizationStep()
-                                            {
-                                                Id = VectorizationSteps.Extract,
-                                                Parameters = new Dictionary<string, string>()
-                                            },
-                                            new VectorizationStep()
-                                            {
-                                                Id = VectorizationSteps.Partition,
-                                                Parameters = new Dictionary<string, string>()
+                                                new VectorizationStep()
                                                 {
-                                                    {"text_partitioning_profile_name", textPartitioningProfile.Name }
+                                                    Id = VectorizationSteps.Extract,
+                                                    Parameters = new Dictionary<string, string>()
+                                                },
+                                                new VectorizationStep()
+                                                {
+                                                    Id = VectorizationSteps.Partition,
+                                                    Parameters = new Dictionary<string, string>()
+                                                    {
+                                                        {"text_partitioning_profile_name", textPartitioningProfile.Name }
+                                                    }
+                                                },
+                                                new VectorizationStep()
+                                                {
+                                                    Id = VectorizationSteps.Embed,
+                                                    Parameters = new Dictionary<string, string>()
+                                                    {
+                                                        {"text_embedding_profile_name", textEmbeddingProfile.Name }
+                                                    }
+                                                },
+                                                new VectorizationStep()
+                                                {
+                                                    Id = VectorizationSteps.Index,
+                                                    Parameters = new Dictionary<string, string>()
+                                                    {
+                                                        {"indexing_profile_name", indexingProfile.Name }
+                                                    }
                                                 }
                                             },
-                                            new VectorizationStep()
-                                            {
-                                                Id = VectorizationSteps.Embed,
-                                                Parameters = new Dictionary<string, string>()
-                                                {
-                                                    {"text_embedding_profile_name", textEmbeddingProfile.Name }
-                                                }
-                                            },
-                                            new VectorizationStep()
-                                            {
-                                                Id = VectorizationSteps.Index,
-                                                Parameters = new Dictionary<string, string>()
-                                                {
-                                                    {"indexing_profile_name", indexingProfile.Name }
-                                                }
-                                            }
-                                        },
                                             CompletedSteps = [],
                                             RemainingSteps = ["extract", "partition", "embed", "index"]
                                         };
@@ -213,7 +213,11 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         {
                                             var errorMessage = $"An error was encountered while creating the vectorization request for file: {string.Join('/', vectorizationRequest.ContentIdentifier.MultipartId)}, exception: {ex.Message}";
                                             _logger.LogError(ex, errorMessage);                                            
-                                            pipelineState.UnsubmittedContent.Add(errorMessage);
+                                            pipelineState.ErrorMessages.Add(errorMessage);
+                                            
+                                        }
+                                        finally
+                                        {
                                             await stateService.SavePipelineState(pipelineState);
                                         }
 
@@ -255,37 +259,37 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                             ProcessingType = VectorizationProcessingType.Asynchronous,
                                             ProcessingState = VectorizationProcessingState.New,
                                             Steps = new List<VectorizationStep>()
-                                        {
-                                            new VectorizationStep()
                                             {
-                                                Id = VectorizationSteps.Extract,
-                                                Parameters = new Dictionary<string, string>()
-                                            },
-                                            new VectorizationStep()
-                                            {
-                                                Id = VectorizationSteps.Partition,
-                                                Parameters = new Dictionary<string, string>()
+                                                new VectorizationStep()
                                                 {
-                                                    {"text_partitioning_profile_name", textPartitioningProfile.Name }
+                                                    Id = VectorizationSteps.Extract,
+                                                    Parameters = new Dictionary<string, string>()
+                                                },
+                                                new VectorizationStep()
+                                                {
+                                                    Id = VectorizationSteps.Partition,
+                                                    Parameters = new Dictionary<string, string>()
+                                                    {
+                                                        {"text_partitioning_profile_name", textPartitioningProfile.Name }
+                                                    }
+                                                },
+                                                new VectorizationStep()
+                                                {
+                                                    Id = VectorizationSteps.Embed,
+                                                    Parameters = new Dictionary<string, string>()
+                                                    {
+                                                        {"text_embedding_profile_name", textEmbeddingProfile.Name }
+                                                    }
+                                                },
+                                                new VectorizationStep()
+                                                {
+                                                    Id = VectorizationSteps.Index,
+                                                    Parameters = new Dictionary<string, string>()
+                                                    {
+                                                        {"indexing_profile_name", indexingProfile.Name }
+                                                    }
                                                 }
                                             },
-                                            new VectorizationStep()
-                                            {
-                                                Id = VectorizationSteps.Embed,
-                                                Parameters = new Dictionary<string, string>()
-                                                {
-                                                    {"text_embedding_profile_name", textEmbeddingProfile.Name }
-                                                }
-                                            },
-                                            new VectorizationStep()
-                                            {
-                                                Id = VectorizationSteps.Index,
-                                                Parameters = new Dictionary<string, string>()
-                                                {
-                                                    {"indexing_profile_name", indexingProfile.Name }
-                                                }
-                                            }
-                                        },
                                             CompletedSteps = [],
                                             RemainingSteps = ["extract", "partition", "embed", "index"]
                                         };
@@ -295,14 +299,15 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         try
                                         {
                                             //create the vectorization request
-                                            await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);                                           
+                                            await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);
+                                            pipelineState.VectorizationRequestObjectIds.Add(vectorizationRequest.ObjectId!);
 
                                             //issue process action on the created vectorization request
                                             var processResult = await vectorizationRequest.ProcessVectorizationRequest(vectorizationResourceProvider);
                                             if(processResult.IsSuccess==false)
                                             {
                                                 vectorizationRequest.ProcessingState = VectorizationProcessingState.Failed;
-                                                vectorizationRequest.ErrorMessages.Add($"Error while submitting process action on vectorization request {vectorizationRequest.Id} in pipeline {pipelineName}: {processResult.ErrorMessage!}");
+                                                pipelineState.ErrorMessages.Add($"Error while submitting process action on vectorization request {vectorizationRequest.Id} in pipeline {pipelineName}: {processResult.ErrorMessage!}");
                                             }
                                             await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);
                                         }
@@ -310,8 +315,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         {
                                             var errorMessage = $"An error was encountered while creating the vectorization request for file {string.Join('/', vectorizationRequest.ContentIdentifier.MultipartId)}, exception: {ex.Message}";
                                             _logger.LogError(ex, errorMessage);                                           
-                                            pipelineState.UnsubmittedContent.Add(errorMessage);
-                                            await stateService.SavePipelineState(pipelineState);
+                                            pipelineState.ErrorMessages.Add(errorMessage);                                           
                                         }
                                     }
                                     break;
@@ -322,10 +326,13 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                             _logger.LogError(ex, $"An error was encountered while activating or executing pipeline {activePipeline.Name}.");
                             //get latest state of the pipeline execution.
                             pipelineState = await stateService.ReadPipelineState(pipelineName, pipelineExecutionId);
-                            pipelineState.UnsubmittedContent.Add($"An error was encountered while activating or executing pipeline {activePipeline.Name}: {ex.Message}.");
+                            pipelineState.ErrorMessages.Add($"An error was encountered while activating or executing pipeline {activePipeline.Name}: {ex.Message}.");                           
+                        }
+                        finally
+                        {
                             await stateService.SavePipelineState(pipelineState);
                         }
-                      
+
                     }
                 }
                 catch (Exception ex)
@@ -341,12 +348,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
             where T : ResourceBase
         {
             var result = await resourceProviderService.HandleGetAsync(
-                $"/{resourceTypeName}/{objectId.Split("/").Last()}", new UnifiedUserIdentity
-                {
-                    Name = "VectorizationAPI",
-                    UserId = "VectorizationAPI",
-                    Username = "VectorizationAPI"
-                });
+                $"/{resourceTypeName}/{objectId.Split("/").Last()}", new VectorizationServiceUnifiedUserIdentity());
             return (result as List<T>)!.First();
         }
 

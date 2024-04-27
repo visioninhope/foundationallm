@@ -42,8 +42,8 @@ namespace FoundationaLLM.Vectorization.Models
         /// Value: the processing state of the request
         /// </summary>
         [JsonPropertyOrder(4)]
-        [JsonPropertyName("vectorization_request_statuses")]
-        public Dictionary<string, VectorizationProcessingState> VectorizationRequestStatuses { get; set; }
+        [JsonPropertyName("vectorization_request_object_ids")]
+        public List<string> VectorizationRequestObjectIds { get; set; }
             = [];
 
         /// <summary>
@@ -56,27 +56,15 @@ namespace FoundationaLLM.Vectorization.Models
         [JsonPropertyOrder(5)]
         [JsonPropertyName("processing_state")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public VectorizationProcessingState ProcessingState
-        {
-            get
-            {
-                if (VectorizationRequestStatuses.Values.Any(s => s == VectorizationProcessingState.Failed))
-                    return VectorizationProcessingState.Failed;
-                else if (VectorizationRequestStatuses.Values.Any(s => s == VectorizationProcessingState.InProgress))
-                    return VectorizationProcessingState.InProgress;
-                else if (VectorizationRequestStatuses.Values.All(s => s == VectorizationProcessingState.Completed))
-                    return VectorizationProcessingState.Completed;
-                else
-                    return VectorizationProcessingState.New;               
-            }
-        }
+        public VectorizationProcessingState ProcessingState { get; set; } = VectorizationProcessingState.New;
+        
 
         /// <summary>
         /// A list of error messages that includes content that was rejected at creation time along with the error.
         /// </summary>
         [JsonPropertyOrder(5)]
-        [JsonPropertyName("unsubmitted_content")]
-        public List<string> UnsubmittedContent = [];
+        [JsonPropertyName("error_messages")]
+        public List<string> ErrorMessages = [];
 
     }
 }
