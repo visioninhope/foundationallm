@@ -1,9 +1,13 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.ResourceProviders;
 using FoundationaLLM.Vectorization.Services;
+using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -55,8 +59,8 @@ namespace FoundationaLLM.Vectorization.Extensions
             var jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
             jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             var requestBody = JsonSerializer.Serialize(pipeline, jsonSerializerOptions);
-            await vectorizationResourceProvider.HandlePostAsync(pipelineObjectId, requestBody, unifiedIdentity);
-            
+            await vectorizationResourceProvider.HandlePostAsync(pipelineObjectId, requestBody, unifiedIdentity);            
         }
+        
     }
 }

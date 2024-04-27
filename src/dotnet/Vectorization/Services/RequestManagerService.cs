@@ -146,7 +146,9 @@ namespace FoundationaLLM.Vectorization.Services
                                 // Persist the state of the vectorization request
                                 await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
                                 // Update the vectorization request resource
-                                await Request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
+                                await Request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService);
+                                // Verify if the pipeline state needs to be updated
+                                await UpdatePipelineState(Request).ConfigureAwait(false);
                             }
                             else
                             {
@@ -259,8 +261,7 @@ namespace FoundationaLLM.Vectorization.Services
 
             var vectorizationResourceProvider = GetVectorizationResourceProvider();
             var (PreviousStep, CurrentStep) = request.MoveToNextStep();
-            state.UpdateRequest(request);
-            
+            state.UpdateRequest(request);            
 
             if (!string.IsNullOrEmpty(CurrentStep))
             {
@@ -284,11 +285,44 @@ namespace FoundationaLLM.Vectorization.Services
                 _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to finalized state.",
                     request.Id, PreviousStep);
                 request.ProcessingState = VectorizationProcessingState.Completed;
-                request.ExecutionEnd = DateTime.UtcNow;
+                request.ExecutionEnd = DateTime.UtcNow;               
             }
             state.UpdateRequest(request);
             await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
-            await request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
+            await request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService);
+            await UpdatePipelineState(request).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Updates the state of the pipeline if the request is part of a pipeline.
+        /// Expects the state of the request to already be persisted.
+        /// </summary>
+        /// <param name="request">The vectorization request</param>        
+        private async Task UpdatePipelineState(VectorizationRequest request)
+        {
+            // check if the request is part of a pipeline and update the pipeline state if necessary
+            if (
+                request.ProcessingState != VectorizationProcessingState.InProgress
+                && request.ProcessingState != VectorizationProcessingState.New
+                && request.PipelineObjectId is not null
+                && request.PipelineExecutionId is not null)
+            {
+                // obtain the current state of the pipeline based on child vectorization requests
+                var currentPipelineState = await _vectorizationStateService.GetPipelineExecutionProcessingState(
+                        GetVectorizationResourceProvider(),
+                        request.PipelineObjectId,
+                        request.PipelineExecutionId);
+
+                // pipelines are automatically set to InProgress when executed, update if the current status is different
+                if (currentPipelineState != VectorizationProcessingState.InProgress)
+                {
+                    //retrieve pipeline state file
+                    var pipelineState = await _vectorizationStateService.ReadPipelineState(request.PipelineObjectId, request.PipelineExecutionId);
+                    pipelineState.ProcessingState = currentPipelineState;
+                    await _vectorizationStateService.SavePipelineState(pipelineState);
+                }
+
+            }
         }
 
         private IResourceProviderService GetVectorizationResourceProvider()
@@ -299,5 +333,7 @@ namespace FoundationaLLM.Vectorization.Services
 
             return vectorizationResourceProviderService;
         }
+
+ 
     }
 }

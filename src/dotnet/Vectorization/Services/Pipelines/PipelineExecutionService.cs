@@ -88,6 +88,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                             ExecutionId = pipelineExecutionId,
                             PipelineObjectId = activePipeline.ObjectId!,
                             ExecutionStart = DateTime.UtcNow,
+                            ProcessingState = VectorizationProcessingState.InProgress
                         };
                         
                         try
@@ -330,9 +331,13 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                         }
                         finally
                         {
+                            if(pipelineState.VectorizationRequestObjectIds.Count == 0)
+                            {
+                                pipelineState.ProcessingState = VectorizationProcessingState.Completed;
+                                pipelineState.ExecutionEnd = DateTime.UtcNow;
+                            }                           
                             await stateService.SavePipelineState(pipelineState);
                         }
-
                     }
                 }
                 catch (Exception ex)

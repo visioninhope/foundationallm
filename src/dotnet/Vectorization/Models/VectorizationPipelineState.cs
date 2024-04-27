@@ -62,9 +62,9 @@ namespace FoundationaLLM.Vectorization.Models
         /// <summary>
         /// A list of error messages that includes content that was rejected at creation time along with the error.
         /// </summary>
-        [JsonPropertyOrder(5)]
+        [JsonPropertyOrder(6)]
         [JsonPropertyName("error_messages")]
-        public List<string> ErrorMessages = [];
+        public List<string> ErrorMessages { get; set; } = [];
 
     }
 }
