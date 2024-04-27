@@ -1,15 +1,44 @@
 ﻿using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using FoundationaLLM.Common.Models.Vectorization;
+using FoundationaLLM.Vectorization.Models.Resources;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Vectorization.Tests.Handlers
 {
     public class DeserializationTests
     {
+        [Fact]
+        public async void TestDeserializeVectorizationStore()
+        {
+            string json = @"
+			{
+				""Resources"": [					
+					{
+						""type"": ""vectorization-pipeline"",
+						""name"": ""MSDFGM"",
+						""object_id"": ""/instances/a6221c30-0bf2-4003-adb8-d3086bb2ad49/providers/FoundationaLLM.Vectorization/vectorizationPipelines/MSDFGM"",
+						""display_name"": null,
+						""description"": ""Vectorization data pipeline dedicated to the MSDFGM agent."",
+						""active"": true,
+						""data_source_object_id"": ""/instances/a6221c30-0bf2-4003-adb8-d3086bb2ad49/providers/FoundationaLLM.DataSource/dataSources/msdfgm"",
+						""text_partitioning_profile_object_id"": ""/instances/a6221c30-0bf2-4003-adb8-d3086bb2ad49/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/DefaultTokenTextPartition_Small"",
+						""text_embedding_profile_object_id"": ""/instances/a6221c30-0bf2-4003-adb8-d3086bb2ad49/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/AzureOpenAI_Embedding_Gateway"",
+						""indexing_profile_object_id"": ""/instances/a6221c30-0bf2-4003-adb8-d3086bb2ad49/providers/FoundationaLLM.Vectorization/indexingProfiles/AzureAISearch_MSDFGM"",
+						""trigger_type"": ""Event"",
+						""trigger_cron_schedule"": null,
+						""created_on"": ""0001-01-01T00:00:00+00:00"",
+						""updated_on"": ""0001-01-01T00:00:00+00:00"",
+						""created_by"": null,
+						""updated_by"": null,
+						""deleted"": false
+					}
+				],
+				""DefaultResourceName"": null
+			}
+            ";
+			ResourceStore<VectorizationPipeline> store = JsonSerializer.Deserialize<ResourceStore<VectorizationPipeline>>(json);
+            Assert.Equal(1, store.Resources.Count);
+        }
         [Fact]
         public async void TestDeserializeVectorizationRequest()
         {

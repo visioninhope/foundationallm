@@ -165,7 +165,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                             ProcessingType = VectorizationProcessingType.Asynchronous,
                                             ProcessingState = VectorizationProcessingState.New,
                                             Steps = new List<VectorizationStep>()
-                                        {
+                                            {
                                             new VectorizationStep()
                                             {
                                                 Id = VectorizationSteps.Extract,
@@ -212,9 +212,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         catch (Exception ex)
                                         {
                                             var errorMessage = $"An error was encountered while creating the vectorization request for file {string.Join('/', vectorizationRequest.ContentIdentifier.MultipartId)}, exception: {ex.Message}";
-                                            _logger.LogError(ex, errorMessage);
-                                            //get latest state of the pipeline execution.
-                                            pipelineState = await stateService.ReadPipelineState(pipelineName, pipelineExecutionId);
+                                            _logger.LogError(ex, errorMessage);                                            
                                             pipelineState.UnsubmittedContent.Add(errorMessage);
                                             await stateService.SavePipelineState(pipelineState);
                                         }
@@ -305,16 +303,13 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                             {
                                                 vectorizationRequest.ProcessingState = VectorizationProcessingState.Failed;
                                                 vectorizationRequest.ErrorMessages.Add($"Error while submitting process action on vectorization request {vectorizationRequest.Id} in pipeline {pipelineName}: {processResult.ErrorMessage!}");
-                                                await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);
-
                                             }
+                                            await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);
                                         }
                                         catch (Exception ex)
                                         {
                                             var errorMessage = $"An error was encountered while creating the vectorization request for file {string.Join('/', vectorizationRequest.ContentIdentifier.MultipartId)}, exception: {ex.Message}";
-                                            _logger.LogError(ex, errorMessage);
-                                            //get latest state of the pipeline execution.
-                                            pipelineState = await stateService.ReadPipelineState(pipelineName, pipelineExecutionId);
+                                            _logger.LogError(ex, errorMessage);                                           
                                             pipelineState.UnsubmittedContent.Add(errorMessage);
                                             await stateService.SavePipelineState(pipelineState);
                                         }

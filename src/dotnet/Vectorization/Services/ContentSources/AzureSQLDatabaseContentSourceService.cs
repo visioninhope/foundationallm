@@ -46,7 +46,10 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
                 contentId[3],
                 contentId[4],
                 cancellationToken);
-
+           
+            //var debugPath = @"c:\debug\" + contentId.FileName;
+            //await File.WriteAllBytesAsync(debugPath, binaryContent.ToArray());
+          
             return await ExtractTextFromFileAsync(contentId.FileName, binaryContent);
         }
 

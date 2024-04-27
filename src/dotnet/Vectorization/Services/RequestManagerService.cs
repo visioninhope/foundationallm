@@ -88,53 +88,46 @@ namespace FoundationaLLM.Vectorization.Services
                         var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity).ConfigureAwait(false);
 
                         foreach (var (Request, MessageId, PopReceipt, DequeueCount) in requests)
-                        {
-                            //get latest version of the vectorization request resource
-                            var vectorizationRequestList = await GetVectorizationResourceProvider().HandleGetAsync(Request.ObjectId!, new VectorizationServiceUnifiedUserIdentity()) as List<VectorizationRequest>;
-                            if (vectorizationRequestList is null || vectorizationRequestList.Count==0)
-                            {
-                                throw new VectorizationException($"Vectorization Resource: {Request.Id} not found.");
-                            }
-                            var vectorizationRequest = vectorizationRequestList[0];
-                            vectorizationRequest.ProcessingState = VectorizationProcessingState.InProgress;
-                            if (vectorizationRequest.ExecutionStart == null)
-                                vectorizationRequest.ExecutionStart = DateTime.UtcNow;
+                        {   
+                            Request.ProcessingState = VectorizationProcessingState.InProgress;
+                            if (Request.ExecutionStart == null)
+                                Request.ExecutionStart = DateTime.UtcNow;
 
                             //check if the dequeue count is greater than the max number of retries
-                            if (vectorizationRequest.Expired
-                                || vectorizationRequest.ErrorCount > _settings.QueueMaxNumberOfRetries)
+                            if (Request.Expired
+                                || Request.ErrorCount > _settings.QueueMaxNumberOfRetries)
                             {
                                 var errorMessage = string.Empty;
 
-                                if (vectorizationRequest.Expired)
+                                if (Request.Expired)
                                 {
                                     _logger.LogWarning(
                                         "The message with id {MessageId} containing the request with id {RequestId} has expired and will be deleted (the last time a step was successfully processed was {LastSuccessfulStepTime}).",
                                         MessageId,
-                                        vectorizationRequest.Id,
-                                        vectorizationRequest.LastSuccessfulStepTime);
-                                    errorMessage = $"The message with id {MessageId} containing the request with id {vectorizationRequest.Id} has expired and will be deleted (the last time a step was successfully processed was {vectorizationRequest.LastSuccessfulStepTime}).";                                   
+                                        Request.Id,
+                                        Request.LastSuccessfulStepTime);
+                                    errorMessage = $"The message with id {MessageId} containing the request with id {Request.Id} has expired and will be deleted (the last time a step was successfully processed was {Request.LastSuccessfulStepTime}).";                                   
                                 }
                                 else
                                 {
                                     _logger.LogWarning(
                                         "The message with id {MessageId} containing the request with id {RequestId} encountered {ErrorCount} consecutive errors while processing and will be deleted.",
                                         MessageId,
-                                        vectorizationRequest.Id,
-                                        vectorizationRequest.ErrorCount);
-                                    errorMessage = $"ERROR: The message with id {MessageId} containing the request with id {vectorizationRequest.Id} encountered {vectorizationRequest.ErrorCount} consecutive errors while processing and will be deleted.";
+                                        Request.Id,
+                                        Request.ErrorCount);
+                                    errorMessage = $"ERROR: The message with id {MessageId} containing the request with id {Request.Id} encountered {Request.ErrorCount} consecutive errors while processing and will be deleted.";
                                 }
 
                                 // Retrieve the execution state of the request
-                                var state = await _vectorizationStateService.HasState(vectorizationRequest).ConfigureAwait(false)
-                                        ? await _vectorizationStateService.ReadState(vectorizationRequest).ConfigureAwait(false)
-                                        : VectorizationState.FromRequest(vectorizationRequest);
+                                var state = await _vectorizationStateService.HasState(Request).ConfigureAwait(false)
+                                        ? await _vectorizationStateService.ReadState(Request).ConfigureAwait(false)
+                                        : VectorizationState.FromRequest(Request);
 
                                 state.LogEntries.Add(
                                     new VectorizationLogEntry(
-                                        vectorizationRequest.Id!,
+                                        Request.Id!,
                                         MessageId,
-                                        vectorizationRequest.CurrentStep ?? "N/A",
+                                        Request.CurrentStep ?? "N/A",
                                         errorMessage
                                     )
                                 );
@@ -142,9 +135,9 @@ namespace FoundationaLLM.Vectorization.Services
                                 // Update vectorization request state if there's an error.
                                 if (!string.IsNullOrWhiteSpace(errorMessage))
                                 {
-                                    vectorizationRequest.ProcessingState = VectorizationProcessingState.Failed;
-                                    vectorizationRequest.ExecutionEnd = DateTime.UtcNow;
-                                    vectorizationRequest.ErrorMessages.Add(errorMessage);                                    
+                                    Request.ProcessingState = VectorizationProcessingState.Failed;
+                                    Request.ExecutionEnd = DateTime.UtcNow;
+                                    Request.ErrorMessages.Add(errorMessage);                                    
                                 }
 
                                 // Remove the message from the queue
@@ -153,7 +146,7 @@ namespace FoundationaLLM.Vectorization.Services
                                 // Persist the state of the vectorization request
                                 await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
                                 // Update the vectorization request resource
-                                await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
+                                await Request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
                             }
                             else
                             {
@@ -211,6 +204,8 @@ namespace FoundationaLLM.Vectorization.Services
                 }
                 else
                     await UpdateRequest(request, messageId, popReceipt);
+
+               
             }
             catch (Exception ex)
             {
@@ -258,8 +253,14 @@ namespace FoundationaLLM.Vectorization.Services
 
         private async Task AdvanceRequest(VectorizationRequest request)
         {
+            var state = await _vectorizationStateService.HasState(request).ConfigureAwait(false)
+                ? await _vectorizationStateService.ReadState(request).ConfigureAwait(false)
+                : VectorizationState.FromRequest(request);
+
             var vectorizationResourceProvider = GetVectorizationResourceProvider();
             var (PreviousStep, CurrentStep) = request.MoveToNextStep();
+            state.UpdateRequest(request);
+            
 
             if (!string.IsNullOrEmpty(CurrentStep))
             {
@@ -273,7 +274,6 @@ namespace FoundationaLLM.Vectorization.Services
                     throw new VectorizationException(errorMessage);
                 }
 
-
                 await value.SubmitRequest(request).ConfigureAwait(false);
 
                 _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to step [{CurrentStepName}].",
@@ -286,6 +286,8 @@ namespace FoundationaLLM.Vectorization.Services
                 request.ProcessingState = VectorizationProcessingState.Completed;
                 request.ExecutionEnd = DateTime.UtcNow;
             }
+            state.UpdateRequest(request);
+            await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
             await request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
         }
 
@@ -297,7 +299,5 @@ namespace FoundationaLLM.Vectorization.Services
 
             return vectorizationResourceProviderService;
         }
-
-  
     }
 }
