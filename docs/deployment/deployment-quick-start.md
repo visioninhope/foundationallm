@@ -54,9 +54,6 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
     ```azurecli
     az login            # Log into Azure CLI
     azd auth login      # Log into Azure Developer CLI
-
-    # Set your target Subscription and Location
-    azd env new --location <Supported Azure Region> --subscription <Azure Subscription ID>
     ```
 
 4. Set up an `azd` environment targeting your Azure subscription and desired deployment region:

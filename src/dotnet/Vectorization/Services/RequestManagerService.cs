@@ -88,7 +88,7 @@ namespace FoundationaLLM.Vectorization.Services
                         var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity).ConfigureAwait(false);
 
                         foreach (var (Request, MessageId, PopReceipt, DequeueCount) in requests)
-                        {
+                        {   
                             Request.ProcessingState = VectorizationProcessingState.InProgress;
                             if (Request.ExecutionStart == null)
                                 Request.ExecutionStart = DateTime.UtcNow;
@@ -204,6 +204,8 @@ namespace FoundationaLLM.Vectorization.Services
                 }
                 else
                     await UpdateRequest(request, messageId, popReceipt);
+
+               
             }
             catch (Exception ex)
             {
@@ -244,14 +246,21 @@ namespace FoundationaLLM.Vectorization.Services
             var handlerSuccess = await stepHandler.Invoke(request, state, cancellationToken).ConfigureAwait(false);
 
             await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
+            await request.UpdateVectorizationRequestResource(GetVectorizationResourceProvider(), _vectorizationStateService).ConfigureAwait(false);
 
             return handlerSuccess;
         }
 
         private async Task AdvanceRequest(VectorizationRequest request)
         {
+            var state = await _vectorizationStateService.HasState(request).ConfigureAwait(false)
+                ? await _vectorizationStateService.ReadState(request).ConfigureAwait(false)
+                : VectorizationState.FromRequest(request);
+
             var vectorizationResourceProvider = GetVectorizationResourceProvider();
             var (PreviousStep, CurrentStep) = request.MoveToNextStep();
+            state.UpdateRequest(request);
+            
 
             if (!string.IsNullOrEmpty(CurrentStep))
             {
@@ -265,7 +274,6 @@ namespace FoundationaLLM.Vectorization.Services
                     throw new VectorizationException(errorMessage);
                 }
 
-
                 await value.SubmitRequest(request).ConfigureAwait(false);
 
                 _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to step [{CurrentStepName}].",
@@ -278,6 +286,8 @@ namespace FoundationaLLM.Vectorization.Services
                 request.ProcessingState = VectorizationProcessingState.Completed;
                 request.ExecutionEnd = DateTime.UtcNow;
             }
+            state.UpdateRequest(request);
+            await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
             await request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);
         }
 
@@ -289,7 +299,5 @@ namespace FoundationaLLM.Vectorization.Services
 
             return vectorizationResourceProviderService;
         }
-
-  
     }
 }

@@ -206,10 +206,15 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             else
             {
                 if (!resourceStore.TryGetValue(instance.ResourceId, out var resource))
-                    //|| resource.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} vectorization resource.",
-                        StatusCodes.Status404NotFound);
-
+                {
+                    //in-memory doesn't have a record, attempt with refreshed values from storage
+                    LoadRequests().GetAwaiter().GetResult();
+                    if (!_vectorizationRequests.TryGetValue(instance.ResourceId, out resource))
+                    {
+                        throw new ResourceProviderException($"Could not locate the {instance.ResourceId} vectorization resource.",
+                                                       StatusCodes.Status404NotFound);
+                    }
+                }
                 return [resource];
             }
         }

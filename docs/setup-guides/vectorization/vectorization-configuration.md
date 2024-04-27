@@ -71,9 +71,7 @@ The following table describes the required App Configuration parameters for the 
 | `FoundationaLLM:Vectorization:Queues:Index:AccountName` | | The account name of the Azure Storage account used for the index vectorization queue. |
 | `FoundationaLLM:Vectorization:Queues:Partition:AccountName` | | The account name of the Azure Storage account used for the partition vectorization queue. |
 | `FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
-| `FoundationaLLM:Vectorization:StateService:Storage:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-state-connectionstring` | The connection string to the Azure Storage account used for the vectorization state service. |
 | `FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType` | | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
-| `FoundationaLLM:Vectorization:ResourceProviderService:Storage:ConnectionString` | Key Vault secret name: `foundationallm-vectorization-resourceprovider-storage-connectionstring` | The connection string to the Azure Storage account used for the vectorization state service. |
 | `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey` | Key Vault secret name: `foundationallm-vectorization-semantickerneltextembedding-openai-apikey` | The API key used to connect to the Azure OpenAI service.
 | `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType` | | The authentication type used to connect to the Azure OpenAI service. Can be one of `AzureIdentity` or `APIKey`. |
 | `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName` | | The name of the Azure OpenAI model deployment. The default value is `embeddings`.
@@ -133,22 +131,22 @@ The default settings for the vectorization worker are stored in the `Foundationa
     "RequestSources": [
         {
             "Name": "extract",
-            "AccountName": "Extract:AccountName",
+            "AccountName": "{{accountName}}",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "partition",
-            "AccountName": "Partition:AccountName",
+            "AccountName": "{{accountName}}",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "embed",
-            "AccountName": "Embed:AccountName",
+            "AccountName": "{{accountName}}",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "index",
-            "AccountName": "Index:AccountName",
+            "AccountName": "{{accountName}}",
             "VisibilityTimeoutSeconds": 600
         }
     ],

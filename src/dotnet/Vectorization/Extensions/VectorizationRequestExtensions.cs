@@ -1,10 +1,10 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Interfaces;
+using FoundationaLLM.Vectorization.Services;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -32,12 +32,7 @@ namespace FoundationaLLM.Vectorization.Extensions
             var jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
             jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             var requestBody = JsonSerializer.Serialize(request, jsonSerializerOptions);
-            var unifiedIdentity = new UnifiedUserIdentity
-            {
-                Name = "VectorizationAPI",
-                UserId = "VectorizationAPI",
-                Username = "VectorizationAPI"
-            };
+            var unifiedIdentity = new VectorizationServiceUnifiedUserIdentity();
             
             if (request.ObjectId == null)
             {               
@@ -103,12 +98,7 @@ namespace FoundationaLLM.Vectorization.Extensions
             var jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
             jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             var requestBody = JsonSerializer.Serialize(request, jsonSerializerOptions);
-            var unifiedIdentity = new UnifiedUserIdentity
-            {
-                Name = "VectorizationAPI",
-                UserId = "VectorizationAPI",
-                Username = "VectorizationAPI"
-            };                        
+            var unifiedIdentity = new VectorizationServiceUnifiedUserIdentity();
             var response = (await vectorizationResourceProvider.HandlePostAsync(request.ObjectId! +"/process", requestBody, unifiedIdentity)) as VectorizationResult;
             return response!;
         }

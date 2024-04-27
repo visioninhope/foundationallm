@@ -39,6 +39,12 @@ try {
     $manifest.resourceGroups.PSObject.Properties | ForEach-Object { $resourceGroup[$_.Name] = $_.Value }
     $resourceSuffix = "$($manifest.project)-$($manifest.environment)-$($manifest.location)"
 
+    # Get frontend and backend hostnames
+    $frontEndHosts = @()
+    $manifest.ingress.frontendIngress.PSObject.Properties | ForEach-Object { $frontEndHosts += $_.Value.host }
+    $backendHosts = @()
+    $manifest.ingress.apiIngress.PSObject.Properties | ForEach-Object { $backendHosts += $_.Value.host }
+
     Invoke-AndRequireSuccess "Generate Configuration" {
         ./deploy/Generate-Config.ps1 `
             -adminGroupObjectId $manifest.adminObjectId `
@@ -73,7 +79,8 @@ try {
 
     Invoke-AndRequireSuccess "Uploading Auth Store Data" {
         ./Upload-AuthStoreData.ps1 `
-            -resourceGroup $resourceGroup["auth"]
+            -resourceGroup $resourceGroup["auth"] `
+            -instanceId $manifest.instanceId
     }
 
     Invoke-AndRequireSuccess "Uploading System Prompts" {
@@ -115,20 +122,24 @@ try {
             -secretProviderClassManifest $secretProviderClassManifestFrontend `
             -ingressNginxValues $ingressNginxValuesFrontend
     }
+
+    $clusters = @(
+        @{
+            cluster = $frontendAks
+            hosts   = $frontEndHosts
+        }
+        @{
+            cluster = $backendAks
+            hosts   = $backendHosts
+        }
+    )
+    Invoke-AndRequireSuccess "Generate AKS Ingress Host Entires" {
+        ./deploy/Generate-Ingress-Hosts.ps1 `
+            -resourceGroup $resourceGroup.app `
+            -clusters $clusters
+    }
 }
 finally {
     Pop-Location
     Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 }
-
-
-
-
-
-
-
-
-# # Write-Host "===========================================================" -ForegroundColor Yellow
-# # Write-Host "The frontend is hosted at https://$webappHostname" -ForegroundColor Yellow
-# # Write-Host "The Core API is hosted at $coreApiUri" -ForegroundColor Yellow
-# # Write-Host "===========================================================" -ForegroundColor Yellow
