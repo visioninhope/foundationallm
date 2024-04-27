@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.ResourceProviders;
+using FoundationaLLM.Vectorization.Services;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -22,7 +23,7 @@ namespace FoundationaLLM.Vectorization.Extensions
         {
             var pipelines = await vectorizationResourceProvider.HandleGetAsync(
                 $"/{VectorizationResourceTypeNames.VectorizationPipelines}",
-                GetUnifiedIdentity());
+                new VectorizationServiceUnifiedUserIdentity());
             return (pipelines as List<VectorizationPipeline>)!.Where(p => p.Active).ToList();
         }
 
@@ -35,7 +36,7 @@ namespace FoundationaLLM.Vectorization.Extensions
         /// <returns></returns>
         public static async Task TogglePipelineActivation(this VectorizationResourceProviderService vectorizationResourceProvider, string pipelineObjectId, bool activate)
         {
-            var unifiedIdentity = GetUnifiedIdentity();
+            var unifiedIdentity = new VectorizationServiceUnifiedUserIdentity();
             var results = await vectorizationResourceProvider.HandleGetAsync(
                                pipelineObjectId,
                                unifiedIdentity) as List<VectorizationPipeline>;
@@ -57,12 +58,5 @@ namespace FoundationaLLM.Vectorization.Extensions
             await vectorizationResourceProvider.HandlePostAsync(pipelineObjectId, requestBody, unifiedIdentity);
             
         }
-
-        private static UnifiedUserIdentity GetUnifiedIdentity() => new UnifiedUserIdentity
-        {
-            Name = "VectorizationAPI",
-            UserId = "VectorizationAPI",
-            Username = "VectorizationAPI"
-        };
     }
 }

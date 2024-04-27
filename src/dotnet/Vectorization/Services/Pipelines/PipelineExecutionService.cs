@@ -211,7 +211,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         }
                                         catch (Exception ex)
                                         {
-                                            var errorMessage = $"An error was encountered while creating the vectorization request for file {string.Join('/', vectorizationRequest.ContentIdentifier.MultipartId)}, exception: {ex.Message}";
+                                            var errorMessage = $"An error was encountered while creating the vectorization request for file: {string.Join('/', vectorizationRequest.ContentIdentifier.MultipartId)}, exception: {ex.Message}";
                                             _logger.LogError(ex, errorMessage);                                            
                                             pipelineState.UnsubmittedContent.Add(errorMessage);
                                             await stateService.SavePipelineState(pipelineState);

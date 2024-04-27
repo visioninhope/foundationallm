@@ -218,7 +218,6 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 return [resource];
             }
         }
-
         #endregion
 
         /// <inheritdoc/>
