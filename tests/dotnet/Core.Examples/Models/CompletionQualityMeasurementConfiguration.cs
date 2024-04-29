@@ -10,8 +10,11 @@ namespace FoundationaLLM.Core.Examples.Models
 	/// <summary>
 	/// Agent configurations used for agent completion samples.
 	/// </summary>
-	public class AgentPromptConfiguration
+	public class CompletionQualityMeasurementConfiguration
 	{
+		/// <summary>
+		/// The agent prompts to use for completions.
+		/// </summary>
 		public AgentPrompt[]? AgentPrompts { get; set; }
 	}
 
@@ -20,9 +23,21 @@ namespace FoundationaLLM.Core.Examples.Models
 	/// </summary>
 	public class AgentPrompt
 	{
+		/// <summary>
+		/// The name of the agent sent to the Core API completions endpoint.
+		/// </summary>
 		public string? AgentName { get; set; }
+		/// <summary>
+		/// Controls the configuration of the chat session.
+		/// </summary>
 		public SessionConfiguration? SessionConfiguration { get; set; }
+		/// <summary>
+		/// The user prompt sent to the Core API completions endpoint.
+		/// </summary>
 		public string? UserPrompt { get; set; }
+		/// <summary>
+		/// Used for quality measurements. The expected completion for the user prompt.
+		/// </summary>
 		public string? ExpectedCompletion { get; set; }
 	}
 
