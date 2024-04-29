@@ -12,23 +12,29 @@ namespace FoundationaLLM.Core.Examples.Models
 	/// </summary>
 	public class AgentPromptConfiguration
 	{
-		public AgentPrompt[] AgentPrompts { get; set; }
+		public AgentPrompt[]? AgentPrompts { get; set; }
 	}
 
+	/// <summary>
+	/// Defines the configuration for an agent prompt.
+	/// </summary>
 	public class AgentPrompt
 	{
-		public string AgentName { get; set; }
-		public SessionConfiguration SessionConfiguration { get; set; }
-		public string UserPrompt { get; set; }
-		public string ExpectedCompletion { get; set; }
+		public string? AgentName { get; set; }
+		public SessionConfiguration? SessionConfiguration { get; set; }
+		public string? UserPrompt { get; set; }
+		public string? ExpectedCompletion { get; set; }
 	}
 
+	/// <summary>
+	/// Defines the configuration for a chat session.
+	/// </summary>
 	public class SessionConfiguration
 	{
 		/// <summary>
 		/// If true, the chat session will not be stored in the database and the session ID will be ignored.
 		/// </summary>
-		public bool Sessionless { get; set; }
+		public bool? Sessionless { get; set; }
 		/// <summary>
 		/// Create a new chat session rather than using an existing one.
 		/// </summary>
@@ -36,7 +42,7 @@ namespace FoundationaLLM.Core.Examples.Models
 		/// <summary>
 		/// If you are not creating a new chat session, enter the existing session ID here.
 		/// </summary>
-		public string SessionId { get; set; }
+		public string? SessionId { get; set; }
 	}
 
 }
