@@ -15,7 +15,7 @@
         /// </summary>
         /// <returns>The string-based dictionary of <see cref="PromptReference"/> values from the current object.</returns>
         public Dictionary<string, PromptReference> ToDictionary() =>
-            PromptReferences.ToDictionary<PromptReference, string>(ar => ar.Name);
+            PromptReferences.ToDictionary<PromptReference, string>(pr => pr.Name);
 
         /// <summary>
         /// Creates a new instance of the <see cref="PromptReferenceStore"/> from a dictionary.
@@ -23,9 +23,9 @@
         /// <param name="dictionary">A string-based dictionary of <see cref="PromptReference"/> values.</param>
         /// <returns>The <see cref="PromptReferenceStore"/> object created from the dictionary.</returns>
         public static PromptReferenceStore FromDictionary(Dictionary<string, PromptReference> dictionary) =>
-            new PromptReferenceStore
+            new()
             {
-                PromptReferences = dictionary.Values.ToList()
+                PromptReferences = [.. dictionary.Values]
             };
     }
 }
