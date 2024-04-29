@@ -129,6 +129,64 @@
 <li><code>FoundationaLLM:Vectorization:Queues:Partition:AccountName</code> (set to the name of the storage account that contains the vectorization queues - e.g., <code>stejahszxcubrpi</code>)</li>
 </ul>
 </li>
+<li><p>The value for the App Config setting <code>FoundationaLLM:Events:AzureEventGridEventService:Profiles:OrchestrationAPI</code> should be set in the following format:</p>
+<pre><code class="lang-json">{
+    &quot;EventProcessingCycleSeconds&quot;: 20,
+    &quot;Topics&quot;: [
+        {
+            &quot;Name&quot;: &quot;storage&quot;,
+            &quot;SubscriptionPrefix&quot;: &quot;orch&quot;,
+            &quot;EventTypeProfiles&quot;: [
+                {
+                    &quot;EventType&quot;: &quot;Microsoft.Storage.BlobCreated&quot;,
+                    &quot;EventSets&quot;: [
+                        {
+                            &quot;Namespace&quot;: &quot;ResourceProvider.FoundationaLLM.Agent&quot;,
+                            &quot;Source&quot;: &quot;/subscriptions/0a03d4f9-c6e4-4ee1-87fb-e2005d2c213d/resourceGroups/rg-fllm-aca-050/providers/Microsoft.Storage/storageAccounts/stejahszxcubrpi&quot;,
+                            &quot;SubjectPrefix&quot;: &quot;/blobServices/default/containers/resource-provider/blobs/FoundationaLLM.Agent&quot;
+                        },
+                        {
+                            &quot;Namespace&quot;: &quot;ResourceProvider.FoundationaLLM.Vectorization&quot;,
+                            &quot;Source&quot;: &quot;/subscriptions/0a03d4f9-c6e4-4ee1-87fb-e2005d2c213d/resourceGroups/rg-fllm-aca-050/providers/Microsoft.Storage/storageAccounts/stejahszxcubrpi&quot;,
+                            &quot;SubjectPrefix&quot;: &quot;/blobServices/default/containers/resource-provider/blobs/FoundationaLLM.Vectorization&quot;
+                        },
+                        {
+                            &quot;Namespace&quot;: &quot;ResourceProvider.FoundationaLLM.Prompt&quot;,
+                            &quot;Source&quot;: &quot;/subscriptions/0a03d4f9-c6e4-4ee1-87fb-e2005d2c213d/resourceGroups/rg-fllm-aca-050/providers/Microsoft.Storage/storageAccounts/stejahszxcubrpi&quot;,
+                            &quot;SubjectPrefix&quot;: &quot;/blobServices/default/containers/resource-provider/blobs/FoundationaLLM.Prompt&quot;
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+</code></pre>
+<ol start="10">
+<li>Vectorization text embedding profiles require only two items in the <code>configuration_references</code> section: <code>DeploymentName</code> and <code>Endpoint</code>. Optionally, a <code>deployment_name</code> entry can be specified in the <code>settings</code> section to override the default value in <code>configuration_references.Endpoint</code>. Here is an example of the updated format for a text embedding profile:</li>
+</ol>
+<pre><code class="lang-json">{
+    &quot;type&quot;: &quot;text-embedding-profile&quot;,
+    &quot;name&quot;: &quot;AzureOpenAI_Embedding_BaselineGlobalMacro&quot;,
+    &quot;object_id&quot;: &quot;/instances/a6221c30-0bf2-4003-adb8-d3086bb2ad49/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/AzureOpenAI_Embedding_BaselineGlobalMacro&quot;,
+    &quot;display_name&quot;: null,
+    &quot;description&quot;: null,
+    &quot;text_embedding&quot;: &quot;SemanticKernelTextEmbedding&quot;,
+    &quot;settings&quot;: {
+        &quot;deployment_name&quot;: &quot;embeddings-3-large&quot;
+    },
+    &quot;configuration_references&quot;: {
+        &quot;DeploymentName&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName&quot;,
+        &quot;Endpoint&quot;: &quot;FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint&quot;
+    },
+    &quot;created_on&quot;: &quot;0001-01-01T00:00:00+00:00&quot;,
+    &quot;updated_on&quot;: &quot;0001-01-01T00:00:00+00:00&quot;,
+    &quot;created_by&quot;: null,
+    &quot;updated_by&quot;: null,
+    &quot;deleted&quot;: false
+}
+</code></pre>
+</li>
 </ol>
 
 </article>
