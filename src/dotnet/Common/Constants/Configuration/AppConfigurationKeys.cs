@@ -999,6 +999,11 @@
         /// </summary>
         public const string FoundationaLLM_Model_ResourceProviderService_Storage = "FoundationaLLM:Model:ResourceProviderService:Storage";
 
+        /// <summary>
+        /// The key section for the FoundationaLLM:Endpoint:ResourceProviderService:Storage app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Endpoint_ResourceProviderService_Storage = "FoundationaLLM:Endpoint:ResourceProviderService:Storage";
+
         #endregion
 
         #region Event Grid events

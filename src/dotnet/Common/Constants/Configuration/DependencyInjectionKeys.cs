@@ -77,6 +77,16 @@
         /// </summary>
         public const string FoundationaLLM_ResourceProvider_Authorization = "FoundationaLLM:ResourceProvider:Authorization";
 
+        /// <summary>
+        /// The dependency injection key for the FoundationaLLM.Model resource provider.
+        /// </summary>
+        public const string FoundationaLLM_ResourceProvider_Model = "FoundationaLLM:ResourceProvider:Model";
+
+        /// <summary>
+        /// The dependency injection key for the FoundationaLLM.Endpoint resource provider.
+        /// </summary>
+        public const string FoundationaLLM_ResourceProvider_Endpoint = "FoundationaLLM:ResourceProvider:Endpoint";
+
         #endregion
     }
 }
