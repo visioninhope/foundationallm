@@ -107,3 +107,6 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/
 ## Validating an internal context agent
 
 Once configured, the internal context agent can be validated using an API call to the [Core API](../exposed-apis/core-api.md) or via the [User Portal](../quickstart.md).
+
+> [!NOTE]
+> It can take up to 5 minutes for a new Internal Context agent to appear in the User Portal or be accessible for requests from the Core API.

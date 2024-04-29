@@ -130,6 +130,9 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/
 
 Once configured, the knowledge management agent can be validated using an API call to the [Core API](../exposed-apis/core-api.md) or via the [User Portal](../quickstart.md).
 
+> [!NOTE]
+> It can take up to 5 minutes for a new Knowledge Management agent to appear in the User Portal or be accessible for requests from the Core API.
+
 ## Overriding agent parameters
 
 The agent parameters can be overridden at the time of the API call. Refer to the [Core API](../exposed-apis/core-api.md) documentation for more information.
