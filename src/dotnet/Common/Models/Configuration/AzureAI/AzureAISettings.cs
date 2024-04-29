@@ -14,39 +14,38 @@ namespace FoundationaLLM.Common.Models.Configuration.AzureAI
         /// <summary>
         /// Base url of the Azure AI studio API.
         /// </summary>
-
         public string? BaseUrl { get; init; }
         /// <summary>
         /// Container where Azure AI Studio stores the data sets.
         /// </summary>
         public string? ContainerName { get; init; }
         /// <summary>
-        /// Subscription Id of the Azure AI Studio.
+        /// Subscription ID associated with the Azure AI Studio deployment.
         /// </summary>
         public string? SubscriptionId { get; init; }
         /// <summary>
-        /// Region of the Azure AI Studio.
+        /// Region of the Azure AI Studio deployment.
         /// </summary>
         public string? Region { get; init; }
         /// <summary>
-        /// Resource Group of the Azure AI Studio.
-        /// 
+        /// Resource Group of the Azure AI Studio deployment.
+        /// </summary>
         public string? ResourceGroup { get; init; }
         /// <summary>
-        /// Project Name of the Azure AI Studio.
+        /// Project Name of the Azure AI Studio deployment.
         /// </summary>
         public string? ProjectName { get; init; }
         /// <summary>
-        /// Deployment of the Azure AI Studio.
+        /// Azure AI Studio GPT model deployment name.
         /// </summary>
         public string? Deployment { get; init; }
         /// <summary>
         /// Metrics to run on the Azure AI Studio.
-        /// 
+        /// </summary>
         public string? Metrics { get; init; }
         /// <summary>
-        /// The Flow Definition Resource Id of the Azure AI Studio.
-        /// 
+        /// The Flow Definition Resource ID of the Azure AI Studio.
+        /// </summary>
         public string? FlowDefinitionResourceId { get; init; }
     }
 }

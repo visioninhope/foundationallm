@@ -3,7 +3,7 @@
 namespace FoundationaLLM.Common.Models.AzureAIService
 {
     /// <summary>
-    /// A connection to a Azure AI Service model.
+    /// A connection to an Azure AI Service model.
     /// </summary>
     public class GptConnection
     {
