@@ -66,7 +66,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 };
             }
 
-            _logger.LogWarning("The LangChain orchestration service returned status code {StatusCode}: {ResponseContent}",
+            _logger.LogWarning("The Semantic Kernel orchestration service returned status code {StatusCode}: {ResponseContent}",
                 responseMessage.StatusCode, responseContent);
 
             return new LLMCompletionResponse
