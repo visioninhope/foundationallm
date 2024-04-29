@@ -268,7 +268,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                     default);
             }
             else
-                throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} agent resource.",
+                throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} prompt resource.",
                             StatusCodes.Status404NotFound);
         }
 
