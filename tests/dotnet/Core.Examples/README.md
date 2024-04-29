@@ -29,19 +29,19 @@ This example requires adding Azure AI Studio and its related storage account set
 
 | Key | Default Value | Description |
 | --- | --- | --- |
-| `FoundationaLLM:AzureAI:BaseUrl` | `https://ai.azure.com` | The base URL of the Azure AI Studio API. |
-| `FoundationaLLM:AzureAI:ContainerName` | N/A | Container where Azure AI Studio stores the data sets. |
-| `FoundationaLLM:AzureAI:SubscriptionId` | N/A | Subscription ID associated with the Azure AI Studio deployment. |
-| `FoundationaLLM:AzureAI:Region` | N/A | Region of the Azure AI Studio deployment. |
-| `FoundationaLLM:AzureAI:ResourceGroup` | N/A | Resource Group of the Azure AI Studio deployment. |
-| `FoundationaLLM:AzureAI:ProjectName` | N/A | Project Name of the Azure AI Studio deployment. |
-| `FoundationaLLM:AzureAI:Deployment` | `gpt-35-turbo-16k` | Azure AI Studio GPT model deployment name. |
-| `FoundationaLLM:AzureAI:Metrics` | `gpt_groundedness,gpt_relevance,gpt_coherence,gpt_fluency,gpt_similarity` | Metrics to run on the Azure AI Studio. |
-| `FoundationaLLM:AzureAI:FlowDefinitionResourceId` | N/A | The Flow Definition Resource ID of the Azure AI Studio. |
-| `FoundationaLLM:AzureAI:BlobStorageServiceSettings:AuthenticationType` | `ConnectionString` | The method by which this example connects to the storage account associated with the Azure AI Studio deployment. Valid options are `ConnectionString`, `AccountKey`, and `AzureIdentity`. |
-| `FoundationaLLM:AzureAI:BlobStorageServiceSettings:AccountName` | N/A | The name of the storage account. |
-| `FoundationaLLM:AzureAI:BlobStorageServiceSettings:AccountKey` | N/A | The account key if you are using the `AccountKey` connection type. We strongly recommend making this a Key Vault reference. |
-| `FoundationaLLM:AzureAI:BlobStorageServiceSettings:ConnectionString` | N/A | The account connection string if you are using the `ConnectionString` connection type. We strongly recommend making this a Key Vault reference. |
+| `FoundationaLLM:AzureAIStudio:BaseUrl` | `https://ai.azure.com` | The base URL of the Azure AI Studio API. |
+| `FoundationaLLM:AzureAIStudio:ContainerName` | N/A | Container where Azure AI Studio stores the data sets. |
+| `FoundationaLLM:AzureAIStudio:SubscriptionId` | N/A | Subscription ID associated with the Azure AI Studio deployment. |
+| `FoundationaLLM:AzureAIStudio:Region` | N/A | Region of the Azure AI Studio deployment. |
+| `FoundationaLLM:AzureAIStudio:ResourceGroup` | N/A | Resource Group of the Azure AI Studio deployment. |
+| `FoundationaLLM:AzureAIStudio:ProjectName` | N/A | Project Name of the Azure AI Studio deployment. |
+| `FoundationaLLM:AzureAIStudio:Deployment` | `gpt-35-turbo-16k` | Azure AI Studio GPT model deployment name. |
+| `FoundationaLLM:AzureAIStudio:Metrics` | `gpt_groundedness,gpt_relevance,gpt_coherence,gpt_fluency,gpt_similarity` | Metrics to run on the Azure AI Studio. |
+| `FoundationaLLM:AzureAIStudio:FlowDefinitionResourceId` | N/A | The Flow Definition Resource ID of the Azure AI Studio. |
+| `FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings:AuthenticationType` | `ConnectionString` | The method by which this example connects to the storage account associated with the Azure AI Studio deployment. Valid options are `ConnectionString`, `AccountKey`, and `AzureIdentity`. |
+| `FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings:AccountName` | N/A | The name of the storage account. |
+| `FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings:AccountKey` | N/A | The account key if you are using the `AccountKey` connection type. We strongly recommend making this a Key Vault reference. |
+| `FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings:ConnectionString` | N/A | The account connection string if you are using the `ConnectionString` connection type. We strongly recommend making this a Key Vault reference. |
 
 ##### `testsettings.json` settings
 
