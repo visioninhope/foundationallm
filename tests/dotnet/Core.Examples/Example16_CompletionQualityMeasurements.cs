@@ -27,14 +27,17 @@ using FoundationaLLM.Common.Models.AzureAIService;
 
 namespace FoundationaLLM.Core.Examples
 {
-    public class Example01_AgentCompletions : BaseTest, IClassFixture<TestFixture>
+	/// <summary>
+	/// Example class for running agent completions and evaluating the quality of the completions using Azure AI Studio.
+	/// </summary>
+    public class Example16_CompletionQualityMeasurements : BaseTest, IClassFixture<TestFixture>
 	{
 		private readonly IHttpClientFactory _httpClientFactory;
 		private readonly ICosmosDbService _cosmosDbService;
 		private readonly IAzureAIService _azureAIService;
 		private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
-		public Example01_AgentCompletions(ITestOutputHelper output, TestFixture fixture)
+		public Example16_CompletionQualityMeasurements(ITestOutputHelper output, TestFixture fixture)
 			: base(output, fixture.ServiceProvider)
 		{
 			_httpClientFactory = GetService<IHttpClientFactory>();
@@ -51,7 +54,7 @@ namespace FoundationaLLM.Core.Examples
 
 		private async Task RunExampleAsync()
 		{
-			var agentPrompts = TestConfiguration.AgentPromptConfiguration.AgentPrompts;
+			var agentPrompts = TestConfiguration.CompletionQualityMeasurementConfiguration.AgentPrompts;
 			if (agentPrompts == null || agentPrompts.Length == 0)
 			{
 				WriteLine("No agent prompts found. Make sure you enter them in testsettings.json.");
