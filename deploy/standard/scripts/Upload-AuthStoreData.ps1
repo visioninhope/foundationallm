@@ -1,7 +1,8 @@
 #! /usr/bin/pwsh
 
 Param (
-    [parameter(Mandatory = $true)][string]$resourceGroup
+    [parameter(Mandatory = $true)][string]$resourceGroup,
+    [parameter(Mandatory = $true)][string]$instanceId
 )
 
 Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enable verbose)
@@ -34,11 +35,17 @@ $storageAccountAdls = Invoke-AndRequireSuccess "Get ADLS Auth Storage Account" {
         --output tsv
 }
 
+Invoke-AndRequireSuccess "Checking for default role assignments json"{ 
+    if (-not (Test-Path "../data/role-assignments/$($instanceId).json")) {
+        throw "Default role assignments json not found at ../data/role-assignments/$($instanceId).json"
+    }
+}
+
 Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization Store" {
     az storage azcopy blob upload `
         -c role-assignments `
         --account-name $storageAccountAdls `
-        -s "../data/role-assignments/DefaultRoleAssignments.json" `
+        -s "../data/role-assignments/$($instanceId).json" `
         --recursive `
         --only-show-errors `
         --output none

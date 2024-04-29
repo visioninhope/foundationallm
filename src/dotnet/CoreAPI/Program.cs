@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using Azure.Identity;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
@@ -16,6 +17,8 @@ using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
+using Microsoft.Azure.Cosmos.Fluent;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -90,6 +93,18 @@ namespace FoundationaLLM.Core.API
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
+
+            builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
+            {
+                var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
+                return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.GetAzureCredential())
+                    .WithSerializerOptions(new CosmosSerializationOptions
+                    {
+                        PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+                    })
+                    .WithConnectionModeGateway()
+                    .Build();
+            });
 
             builder.Services.AddScoped<ICosmosDbService, CosmosDbService>();
             builder.Services.AddScoped<ICoreService, CoreService>();
@@ -257,17 +272,17 @@ namespace FoundationaLLM.Core.API
                             CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                         });
 
-            var agentFactoryAPISettings = new DownstreamAPIKeySettings
+            var orchestrationAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIKey]!
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!
             };
 
-            downstreamAPISettings.DownstreamAPIs[HttpClients.AgentFactoryAPI] = agentFactoryAPISettings;
+            downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = orchestrationAPISettings;
 
             builder.Services
-                    .AddHttpClient(HttpClients.AgentFactoryAPI,
-                        client => { client.BaseAddress = new Uri(agentFactoryAPISettings.APIUrl); })
+                    .AddHttpClient(HttpClients.OrchestrationAPI,
+                        client => { client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl); })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>
@@ -280,7 +295,7 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
                 => new DownstreamAPIService(HttpClients.GatekeeperAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
             builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(HttpClients.AgentFactoryAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
+                => new DownstreamAPIService(HttpClients.OrchestrationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
         }
     }
 }

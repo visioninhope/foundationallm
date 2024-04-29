@@ -5,6 +5,9 @@ using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using FoundationaLLM.Core.Worker;
+using Microsoft.Azure.Cosmos.Fluent;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Options;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -29,6 +32,19 @@ if (builder.Environment.IsDevelopment())
 
 builder.Services.AddOptions<CosmosDbSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
+
+builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
+{
+    var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
+    return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.GetAzureCredential())
+        .WithSerializerOptions(new CosmosSerializationOptions
+        {
+            PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+        })
+        .WithConnectionModeGateway()
+        .Build();
+});
+
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>();
 builder.Services.AddSingleton<ICosmosDbChangeFeedService, CosmosDbChangeFeedService>();
 builder.Services.AddHostedService<ChangeFeedWorker>();

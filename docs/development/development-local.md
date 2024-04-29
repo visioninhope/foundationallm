@@ -95,7 +95,7 @@ The `ManagementPortal` project is a Vue.js (Nuxt) project. To configure it to ru
         "APIUrl": "<...>" // Default local value: https://localhost:7180/
       },
       ,
-      "AgentFactoryAPI": {
+      "OrchestrationAPI": {
         "APIUrl": "<...>" // Default local value: "https://localhost:7324/"
       }
     }
@@ -175,7 +175,7 @@ The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB cha
 {
   "FoundationaLLM": {
     "APIs": {
-      "AgentFactoryAPI": {
+      "OrchestrationAPI": {
         "APIUrl": "<...>"  // Default local value: https://localhost:7324/
       },
       "GatekeeperIntegrationAPI": {
@@ -186,9 +186,9 @@ The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB cha
 }
 ```
 
-### Agent Factory API
+### Orchestration API
 
-#### Agent Factory API app settings
+#### Orchestration API app settings
 
 > Make sure the contents of the `appsettings.json` file has this structure and similar values:
 
@@ -385,7 +385,7 @@ The backend components consist of the .NET projects and the Python projects. The
 
 10. Select the `Multiple startup projects` option, then set the `Action` for the following projects to `Start`. Click **OK**.
   
-      - AgentFactoryAPI
+      - OrchestrationAPI
       - AgentHubAPI
       - CoreAPI
       - DataSourceHubAPI
