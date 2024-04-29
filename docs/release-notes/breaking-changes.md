@@ -76,3 +76,28 @@
         ]
     }
     ```
+
+    10. Vectorization text embedding profiles require only two items in the `configuration_references` section: `DeploymentName` and `Endpoint`. Optionally, a `deployment_name` entry can be specified in the `settings` section to override the default value in `configuration_references.Endpoint`. Here is an example of the updated format for a text embedding profile:
+
+    ```json
+    {
+        "type": "text-embedding-profile",
+        "name": "AzureOpenAI_Embedding_BaselineGlobalMacro",
+        "object_id": "/instances/a6221c30-0bf2-4003-adb8-d3086bb2ad49/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/AzureOpenAI_Embedding_BaselineGlobalMacro",
+        "display_name": null,
+        "description": null,
+        "text_embedding": "SemanticKernelTextEmbedding",
+        "settings": {
+            "deployment_name": "embeddings-3-large"
+        },
+        "configuration_references": {
+            "DeploymentName": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName",
+            "Endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"
+        },
+        "created_on": "0001-01-01T00:00:00+00:00",
+        "updated_on": "0001-01-01T00:00:00+00:00",
+        "created_by": null,
+        "updated_by": null,
+        "deleted": false
+    }
+    ```

@@ -104,7 +104,11 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     || string.IsNullOrWhiteSpace(textEmbeddingEndpointConfigurationItem))
                     throw new SemanticKernelException("The text embedding profile object provided in the agent parameters is invalid.", StatusCodes.Status400BadRequest);
 
-                _textEmbeddingDeploymentName = await GetConfigurationValue(deploymentNameConfigurationItem);
+                _textEmbeddingDeploymentName = textEmbeddingProfile.Settings != null
+                    && textEmbeddingProfile.Settings.TryGetValue("deployment_name", out string? deploymentNameOverride)
+                    && !string.IsNullOrWhiteSpace(deploymentNameOverride)
+                    ? deploymentNameOverride
+                    : await GetConfigurationValue(deploymentNameConfigurationItem);
                 _textEmbeddingEndpoint = await GetConfigurationValue(textEmbeddingEndpointConfigurationItem);
             }
 
