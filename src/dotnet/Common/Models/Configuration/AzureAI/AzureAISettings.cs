@@ -8,9 +8,9 @@ namespace FoundationaLLM.Common.Models.Configuration.AzureAI
     public class AzureAISettings
     {
         /// <summary>
-        /// The storage backing the Azure AI Studio.
+        /// The storage backing the Azure AI Studio deployment.
         /// </summary>
-        public BlobStorageServiceSettings BlobStorageServiceSettings { get; init; }
+        public BlobStorageServiceSettings? BlobStorageServiceSettings { get; set; }
         /// <summary>
         /// Base url of the Azure AI studio API.
         /// </summary>
