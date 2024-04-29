@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Environment = FoundationaLLM.Core.Examples.Utils.Environment;
 
@@ -19,6 +21,23 @@ namespace FoundationaLLM.Core.Examples.Setup
 				.AddJsonFile("testsettings.json", true)
 				.AddEnvironmentVariables()
 				.AddUserSecrets<Environment>()
+				.AddAzureAppConfiguration(options =>
+				{
+					var connectionString = Environment.Variable(EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString);
+					if (string.IsNullOrEmpty(connectionString))
+					{
+						throw new InvalidOperationException("Azure App Configuration connection string is not set.");
+					}
+					options.Connect(connectionString)
+						.ConfigureKeyVault(kv =>
+						{
+							kv.SetCredential(DefaultAuthentication.GetAzureCredential());
+						})
+						// Select the configuration sections to load:
+						.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB)
+						.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio)
+						.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
+				})
 				.Build();
 
 			TestServicesInitializer.InitializeServices(serviceCollection, configRoot);

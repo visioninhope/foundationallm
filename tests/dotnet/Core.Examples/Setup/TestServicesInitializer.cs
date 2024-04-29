@@ -41,12 +41,10 @@ namespace FoundationaLLM.Core.Examples.Setup
 		{
 			TestConfiguration.Initialize(configRoot, services);
 
-			services.Configure<AzureAISettings>(configRoot.GetSection(nameof(AzureAISettings)));
-
 			RegisterHttpClients(services);
-			RegisterCosmosDb(services);
+			RegisterCosmosDb(services, configRoot);
 			RegisterLogging(services);
-			RegisterAzureAIService(services);
+			RegisterAzureAIService(services, configRoot);
 		}
 
 		private static void RegisterHttpClients(IServiceCollection services)
@@ -68,50 +66,35 @@ namespace FoundationaLLM.Core.Examples.Setup
 					});
 		}
 
-		private static void RegisterCosmosDb(IServiceCollection services)
+		private static void RegisterCosmosDb(IServiceCollection services, IConfiguration configuration)
 		{
-			var cosmosDbSettings = TestConfiguration.CosmosDbSettings;
-			if (cosmosDbSettings == null)
+			services.AddOptions<CosmosDbSettings>()
+				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
+
+			services.AddSingleton<CosmosClient>(serviceProvider =>
 			{
-				throw new InvalidOperationException("CosmosDB settings not found. TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
-			}
-
-			services.AddSingleton<CosmosClient>(serviceProvider => new CosmosClientBuilder(cosmosDbSettings.Endpoint, DefaultAuthentication.GetAzureCredential())
-				.WithSerializerOptions(new CosmosSerializationOptions
-				{
-					PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
-				})
-				.WithConnectionModeGateway()
-				.Build());
-
-			services.AddScoped<ICosmosDbService, CosmosDbService>(sp => new CosmosDbService(
-				Options.Create<CosmosDbSettings>(cosmosDbSettings),
-				sp.GetRequiredService<CosmosClient>(),
-				sp.GetRequiredService<ILogger<CosmosDbService>>()));
-		}
-
-		private static void RegisterAzureAIService(IServiceCollection services)
-		{
-			var azureAISettings = TestConfiguration.AzureAISettings;
-			if (azureAISettings == null)
-			{
-				throw new InvalidOperationException("Azure AI settings not found. TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
-			}
-
-			services.AddSingleton<IStorageService, BlobStorageService>(sp =>
-			{
-				var settings = sp.GetRequiredService<IOptionsMonitor<AzureAISettings>>();
-				var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
-
-				return new BlobStorageService(
-					Options.Create<BlobStorageServiceSettings>(settings.CurrentValue.BlobStorageServiceSettings),
-					logger)
-				{
-					InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent
-				};
+				var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
+				return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.GetAzureCredential())
+					.WithSerializerOptions(new CosmosSerializationOptions
+					{
+						PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+					})
+					.WithConnectionModeGateway()
+					.Build();
 			});
 
+			services.AddScoped<ICosmosDbService, CosmosDbService>();
+		}
+
+		private static void RegisterAzureAIService(IServiceCollection services, IConfiguration configuration)
+		{
+			services.AddOptions<AzureAISettings>()
+				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio));
+			services.AddOptions<BlobStorageServiceSettings>()
+				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings));
+
 			services.AddScoped<IAzureAIService, AzureAIService>();
+			services.AddSingleton<IStorageService, BlobStorageService>();
 		}
 
 		private static void RegisterLogging(IServiceCollection services)
