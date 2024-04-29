@@ -38,6 +38,16 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
         public const string FoundationaLLM_Authorization = "FoundationaLLM.Authorization";
 
         /// <summary>
+        /// The name of the FoundationaLLM.Model resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Model = "FoundationaLLM.Model";
+
+        /// <summary>
+        /// The name of the FoundationaLLM.Endpoint resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Endpoint = "FoundationaLLM.Endpoint";
+
+        /// <summary>
         /// Contains all the resource provider names.
         /// </summary>
         public readonly static ImmutableList<string> All = [
@@ -46,6 +56,9 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
             FoundationaLLM_Configuration,
             FoundationaLLM_Prompt,
             FoundationaLLM_DataSource,
-            FoundationaLLM_Authorization];
+            FoundationaLLM_Authorization,
+            FoundationaLLM_Model,
+            FoundationaLLM_Endpoint
+        ];
     }
 }
