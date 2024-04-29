@@ -14,25 +14,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FoundationaLLM.Core.Examples
 {
-    public abstract class BaseTest
-	{
-		protected ITestOutputHelper Output { get; }
-		protected IServiceProvider ServiceProvider { get; }
-		protected ILoggerFactory LoggerFactory { get; }
-
-		protected BaseTest(ITestOutputHelper output, IServiceProvider serviceProvider)
-		{
-			this.Output = output;
-			this.LoggerFactory = new XunitLogger(output);
-			this.ServiceProvider = serviceProvider;
-		}
+    public abstract class BaseTest(ITestOutputHelper output, IServiceProvider serviceProvider)
+    {
+		protected ITestOutputHelper Output { get; } = output;
+		protected IServiceProvider ServiceProvider { get; } = serviceProvider;
+		protected ILoggerFactory LoggerFactory { get; } = new XunitLogger(output);
 
 		/// <summary>
 		/// Service locator to get services from the ServiceProvider.
 		/// </summary>
 		/// <typeparam name="T">The type of service to retrieve.</typeparam>
 		/// <returns></returns>
-		protected T GetService<T>()
+		protected T GetService<T>() where T : notnull
 		{
 			return ServiceProvider.GetRequiredService<T>();
 		}
