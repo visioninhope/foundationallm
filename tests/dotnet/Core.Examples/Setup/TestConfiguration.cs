@@ -28,7 +28,7 @@ namespace FoundationaLLM.Core.Examples.Setup
         private static ConfigurationClient? _client;
         private readonly ChainedTokenCredential _tokenCredential;
         public static CosmosDbSettings? CosmosDbSettings;
-        public static AgentPromptConfiguration AgentPromptConfiguration => LoadSection<AgentPromptConfiguration>();
+        public static CompletionQualityMeasurementConfiguration CompletionQualityMeasurementConfiguration => LoadSection<CompletionQualityMeasurementConfiguration>();
         public static AzureAISettings AzureAISettings => LoadSection<AzureAISettings>();
 
 		private TestConfiguration(IConfigurationRoot configRoot)

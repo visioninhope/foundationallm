@@ -16,26 +16,27 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace FoundationaLLM.Common.Services
 {
-    public class AzureAIService : IAzureAIService
+    /// <summary>
+    /// Service to interact with Azure AI Studio.
+    /// </summary>
+    /// <remarks>
+    /// Constructor for Azure AI Service.
+    /// </remarks>
+    /// <param name="azureAISettings"></param>
+    /// <param name="logger"></param>
+    /// <param name="blobStorageService"></param>
+    /// <param name="httpClientFactory"></param>
+    public class AzureAIService(
+                   IOptions<AzureAISettings> azureAISettings,
+                   ILogger<AzureAIService> logger,
+                   IStorageService blobStorageService,
+                   IHttpClientFactory httpClientFactory) : IAzureAIService
     {
-        private readonly ILogger<AzureAIService> _logger;
-        private readonly IStorageService _blobStorageService;
-        private readonly AzureAISettings _settings;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILogger<AzureAIService> _logger = logger;
+        private readonly IStorageService _blobStorageService = blobStorageService;
+        private readonly AzureAISettings _settings = azureAISettings.Value;
+        private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
-
-        public AzureAIService(
-                       IOptions<AzureAISettings> azureAISettings,
-                       ILogger<AzureAIService> logger,
-                       IStorageService blobStorageService,
-                       IHttpClientFactory httpClientFactory)
-        {
-            _settings = azureAISettings.Value;
-            _logger = logger;
-            _httpClientFactory = httpClientFactory;
-            _blobStorageService = blobStorageService;
-            //_blobStorageService = new BlobStorageService(_settings.BlobStorageServiceSettings, logger); 
-        }
 
         /// <inheritdoc/>
         public async Task<string> CreateDataSet(InputsMapping data, string blobName)
