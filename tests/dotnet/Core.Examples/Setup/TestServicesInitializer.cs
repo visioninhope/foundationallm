@@ -76,16 +76,18 @@ namespace FoundationaLLM.Core.Examples.Setup
 				throw new InvalidOperationException("CosmosDB settings not found. TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
 			}
 
-			services.AddSingleton<CosmosClient>(serviceProvider =>
-			{
-				return new CosmosClientBuilder(cosmosDbSettings.Endpoint, DefaultAuthentication.GetAzureCredential())
-					.WithSerializerOptions(new CosmosSerializationOptions
-					{
-						PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
-					})
-					.WithConnectionModeGateway()
-					.Build();
-			});
+			services.AddSingleton<CosmosClient>(serviceProvider => new CosmosClientBuilder(cosmosDbSettings.Endpoint, DefaultAuthentication.GetAzureCredential())
+				.WithSerializerOptions(new CosmosSerializationOptions
+				{
+					PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+				})
+				.WithConnectionModeGateway()
+				.Build());
+
+			services.AddScoped<ICosmosDbService, CosmosDbService>(sp => new CosmosDbService(
+				Options.Create<CosmosDbSettings>(cosmosDbSettings),
+				sp.GetRequiredService<CosmosClient>(),
+				sp.GetRequiredService<ILogger<CosmosDbService>>()));
 		}
 
 		private static void RegisterAzureAIService(IServiceCollection services)
