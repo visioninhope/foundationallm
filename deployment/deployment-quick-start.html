@@ -118,7 +118,7 @@ If you are upgrading from a previous version, like <code>0.4.0</code> please ref
 <li><p>From a PowerShell prompt, execute the following to clone the repository:</p>
 <pre><code class="lang-cmd">git clone https://github.com/solliancenet/foundationallm.git
 cd foundationallm/deploy/starter
-git checkout release/0.5.0
+git checkout release/0.6.0
 </code></pre>
 </li>
 <li><p>Run the following commands to log into the Azure and Azure Developer CLIs:</p>
@@ -193,7 +193,23 @@ azd env set OPENAI_SUBSCRIPTION_ID &lt;OpenAI Subscription ID&gt;
 </li>
 </ol>
 <h3 id="running-script-to-allow-ms-graph-access-through-role-permissions">Running script to allow MS Graph access through Role Permissions</h3>
-<p>After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. <a href="/deploy/common/scripts/Assign-MSGraph-Roles.ps1">Role Permissions Script</a></p>
+<p>After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. <a href="/deploy/common/scripts/Assign-MSGraph-Roles.ps1">Role Permissions Script</a>
+This script will need to be executed 3 times for the principalId's of the following:</p>
+<ul>
+<li>Core API Identity Manager</li>
+<li>Management API Identity Manager</li>
+<li>Agent Factory Identity Manager
+These could be found in the Azure portal in the main resource groupe for the deployment
+The syntax for running the script from the <code>deploy\common\scripts</code> folder is:</li>
+</ul>
+<pre><code class="lang-pwsh">.\Assign-MSGraph-Roles.ps1 -principalId &lt;GUID of the Core API Identity Manager Principal ID&gt;
+.\Assign-MSGraph-Roles.ps1 -principalId &lt;GUID of the Agent Factory API Identity Manager Principal ID&gt;
+.\Assign-MSGraph-Roles.ps1 -principalId &lt;GUID of the Management API Identity Manager Principal ID&gt;
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>For this release, you will need to restart the Auth API container in the resourse group to allow the changes to take effect.</p>
+</div>
 <h1 id="teardown">Teardown</h1>
 <p>To tear down the environment, execute <code>azd down</code> in the same folder location.</p>
 <pre><code class="lang-pwsh">azd down --purge
