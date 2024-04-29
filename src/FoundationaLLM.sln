@@ -99,6 +99,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway", "dotnet\Gateway\G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayAPI", "dotnet\GatewayAPI\GatewayAPI.csproj", "{2A51F9EB-BFCB-4285-A6FC-80CCA46228FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "dotnet\Model\Model.csproj", "{590ACFD1-883E-434C-8ED2-5209A56A2403}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -248,6 +250,10 @@ Global
 		{2A51F9EB-BFCB-4285-A6FC-80CCA46228FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A51F9EB-BFCB-4285-A6FC-80CCA46228FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A51F9EB-BFCB-4285-A6FC-80CCA46228FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{590ACFD1-883E-434C-8ED2-5209A56A2403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{590ACFD1-883E-434C-8ED2-5209A56A2403}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{590ACFD1-883E-434C-8ED2-5209A56A2403}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{590ACFD1-883E-434C-8ED2-5209A56A2403}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -295,6 +301,7 @@ Global
 		{63D7285C-0C40-49E9-BB4D-8AD2E0A29E62} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
 		{35833700-B5EF-4211-91C7-E12A03DE3B82} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
 		{2A51F9EB-BFCB-4285-A6FC-80CCA46228FB} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
+		{590ACFD1-883E-434C-8ED2-5209A56A2403} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FF5DE858-4B85-4EE8-8A6D-46E8E4FBA078}
