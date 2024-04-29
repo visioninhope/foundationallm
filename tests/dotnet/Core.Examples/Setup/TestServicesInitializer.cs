@@ -22,6 +22,9 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services.Storage;
 using Microsoft.Extensions.Options;
+using FoundationaLLM.Common.Authentication;
+using Microsoft.Azure.Cosmos.Fluent;
+using Microsoft.Azure.Cosmos;
 
 namespace FoundationaLLM.Core.Examples.Setup
 {
@@ -73,19 +76,16 @@ namespace FoundationaLLM.Core.Examples.Setup
 				throw new InvalidOperationException("CosmosDB settings not found. TestConfiguration must be initialized with a call to Initialize(IConfigurationRoot) before accessing configuration values.");
 			}
 
-			//services.Configure<CosmosDbSettings>(options =>
-			//{
-			//	options.Endpoint = cosmosDbSettings.Endpoint;
-			//	options.Database = cosmosDbSettings.Database;
-			//	options.Containers = cosmosDbSettings.Containers;
-			//	options.MonitoredContainers = cosmosDbSettings.MonitoredContainers;
-			//	options.ChangeFeedLeaseContainer = cosmosDbSettings.ChangeFeedLeaseContainer;
-			//	options.EnableTracing = cosmosDbSettings.EnableTracing;
-			//});
-
-			services.AddScoped<ICosmosDbService, CosmosDbService>(sp => new CosmosDbService(
-				Options.Create<CosmosDbSettings>(cosmosDbSettings),
-				sp.GetRequiredService<ILogger<CosmosDbService>>()));
+			services.AddSingleton<CosmosClient>(serviceProvider =>
+			{
+				return new CosmosClientBuilder(cosmosDbSettings.Endpoint, DefaultAuthentication.GetAzureCredential())
+					.WithSerializerOptions(new CosmosSerializationOptions
+					{
+						PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+					})
+					.WithConnectionModeGateway()
+					.Build();
+			});
 		}
 
 		private static void RegisterAzureAIService(IServiceCollection services)
