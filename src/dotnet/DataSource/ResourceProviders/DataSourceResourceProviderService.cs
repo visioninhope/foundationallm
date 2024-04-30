@@ -367,7 +367,6 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             return dataSource as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
-        
 
         #region Event handling
 
@@ -418,7 +417,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 dataSourceReference,
                 (k, v) => v);
 
-            _logger.LogInformation("The data source reference for the [{DataSourceName}] agent or type [{DataSourceType}] was loaded.",
+            _logger.LogInformation("The data source reference for the [{DataSourceName}] data source or type [{DataSourceType}] was loaded.",
                 dataSourceReference.Name, dataSourceReference.Type);
         }
 
