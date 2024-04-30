@@ -35,7 +35,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
-    /// <param name="vectorizationServiceClient">The service client to call the Vectorization API.</param>
+    /// <param name="vectorizationServiceClientFactory">The service client factory that creates clients that call the Vectorization API.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
     public class VectorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
@@ -44,7 +44,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
-        IVectorizationServiceClient vectorizationServiceClient,
+        IVectorizationServiceClientFactory vectorizationServiceClientFactory,
         ILogger<VectorizationResourceProviderService> logger)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
@@ -381,7 +381,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 throw new ResourceProviderException($"The resource {vectorizationRequestId} was not found.",
                                        StatusCodes.Status404NotFound);
            
-            return await vectorizationServiceClient.ProcessRequest(request);            
+            return await vectorizationServiceClientFactory.CreateClient().ProcessRequest(request);            
         }
 
         private ResourceNameCheckResult CheckProfileName<T>(string serializedAction, ConcurrentDictionary<string, VectorizationProfileBase> profileStore)

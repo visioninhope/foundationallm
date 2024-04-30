@@ -70,26 +70,20 @@ namespace FoundationaLLM
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddOptions<VectorizationServiceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_VectorizationAPI));
-            builder.Services.AddScoped<IVectorizationServiceClient, VectorizationServiceClient>();          
-
+            builder.Services.AddSingleton<IVectorizationServiceClientFactory, VectorizationServiceClientFactory>();
 
             // Register the resource provider services (cannot use Keyed singletons due to the Microsoft Identity package being incompatible):
-            builder.Services.AddSingleton<IResourceProviderService, VectorizationResourceProviderService>(sp =>
-            {
-                using var scope = sp.CreateScope();
-                var scopedProvider = scope.ServiceProvider;
-
-                return new VectorizationResourceProviderService(
-                    scopedProvider.GetRequiredService<IOptions<InstanceSettings>>(),
-                    scopedProvider.GetRequiredService<IAuthorizationService>(),
-                    scopedProvider.GetRequiredService<IEnumerable<IStorageService>>()
+            builder.Services.AddSingleton<IResourceProviderService>(sp => 
+                new VectorizationResourceProviderService(
+                    sp.GetRequiredService<IOptions<InstanceSettings>>(),
+                    sp.GetRequiredService<IAuthorizationService>(),
+                    sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization),
-                    scopedProvider.GetRequiredService<IEventService>(),
-                    scopedProvider.GetRequiredService<IResourceValidatorFactory>(),
-                    sp,
-                    scopedProvider.GetRequiredService<IVectorizationServiceClient>(),
-                    scopedProvider.GetRequiredService<ILogger<VectorizationResourceProviderService>>());
-            });
+                    sp.GetRequiredService<IEventService>(),
+                    sp.GetRequiredService<IResourceValidatorFactory>(),
+                    sp,   
+                    sp.GetRequiredService<IVectorizationServiceClientFactory>(),
+                    sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>()));          
 
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
