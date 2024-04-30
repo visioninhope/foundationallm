@@ -1,24 +1,13 @@
-﻿using Azure.Data.AppConfiguration;
-using FoundationaLLM.Core.Examples.Exceptions;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Azure.Core;
+using Azure.Data.AppConfiguration;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using Azure;
-using Azure.Core;
-using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
-using FoundationaLLM.Common.Models.Configuration.AzureAI;
-using FoundationaLLM.Common.Models.Configuration.CosmosDB;
-using FoundationaLLM.Common.Models.Configuration.Storage;
-using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Core.Examples.Exceptions;
 using FoundationaLLM.Core.Examples.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Runtime.CompilerServices;
 
 namespace FoundationaLLM.Core.Examples.Setup
 {
