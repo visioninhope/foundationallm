@@ -1,16 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Azure.Core;
-using FoundationaLLM.Core.Examples.Utils;
-using Xunit.Abstractions;
-using Environment = FoundationaLLM.Core.Examples.Utils.Environment;
-using FoundationaLLM.Core.Examples.Setup;
+﻿using FoundationaLLM.Core.Examples.Utils;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
 
 namespace FoundationaLLM.Core.Examples
 {

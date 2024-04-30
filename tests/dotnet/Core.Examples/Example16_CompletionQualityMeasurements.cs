@@ -1,35 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Runtime;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using FoundationaLLM.Common.Authentication;
-using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Models.Configuration.CosmosDB;
-using FoundationaLLM.Core.Examples.Setup;
-using Xunit.Abstractions;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
-using FoundationaLLM.Common.Settings;
-using System.Text.Json;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.AzureAIService;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
-using Microsoft.Graph.Models;
-using Azure.Identity;
-using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Core.Examples.Models;
+using FoundationaLLM.Core.Examples.Setup;
 using FoundationaLLM.Core.Interfaces;
-using FoundationaLLM.Core.Services;
-using FoundationaLLM.Common.Models.AzureAIService;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using Xunit.Abstractions;
 
 namespace FoundationaLLM.Core.Examples
 {
-	/// <summary>
-	/// Example class for running agent completions and evaluating the quality of the completions using Azure AI Studio.
-	/// </summary>
+    /// <summary>
+    /// Example class for running agent completions and evaluating the quality of the completions using Azure AI Studio.
+    /// </summary>
     public class Example16_CompletionQualityMeasurements : BaseTest, IClassFixture<TestFixture>
 	{
 		private readonly IHttpClientFactory _httpClientFactory;
