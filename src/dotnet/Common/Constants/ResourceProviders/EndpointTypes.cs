@@ -24,5 +24,10 @@
         /// OpenAI endpoint.
         /// </summary>
         public const string OpenAI = "openai";
+
+        /// <summary>
+        /// External endpoint.
+        /// </summary>
+        public const string External = "external";
     }
 }
