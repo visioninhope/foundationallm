@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 namespace FoundationaLLM.DataSource.Models
 {
     /// <summary>
-    /// Contains a reference to a data source..
+    /// Contains a reference to a data source.
     /// </summary>
     public class DataSourceReference : ResourceReference
     {
