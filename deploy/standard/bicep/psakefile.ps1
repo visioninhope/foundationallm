@@ -665,14 +665,6 @@ task Storage -depends ResourceGroups, Ops, Networking, DNS, Configuration {
             type  = "string"
             value = $script:logAnalyticsWorkspaceId
         }
-        opsKeyVaultName         = @{
-            type  = "string"
-            value = $script:opsKeyVaultName
-        }
-        opsResourceGroupName    = @{
-            type  = "string"
-            value = $script:resourceGroups.ops
-        }
         project                 = @{
             type  = "string"
             value = $script:project

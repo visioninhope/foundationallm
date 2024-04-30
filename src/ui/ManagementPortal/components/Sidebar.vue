@@ -16,8 +16,8 @@
 		</div>
 
 		<NuxtLink to="/agents/create" class="sidebar__item">Create New Agent</NuxtLink>
-		<NuxtLink to="/agents/public" class="sidebar__item">Public Agents</NuxtLink>
-		<NuxtLink to="/agents/private" class="sidebar__item">Private Agents</NuxtLink>
+		<NuxtLink to="/agents/public" class="sidebar__item">All Agents</NuxtLink>
+		<NuxtLink to="/agents/private" class="sidebar__item">My Agents</NuxtLink>
 		<div class="sidebar__item">Performance</div>
 
 		<!-- Data Catalog -->

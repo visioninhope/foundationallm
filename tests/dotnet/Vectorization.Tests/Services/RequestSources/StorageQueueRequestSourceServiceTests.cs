@@ -1,4 +1,4 @@
-﻿using Azure.Storage.Queues;
+using Azure.Storage.Queues;
 using FakeItEasy;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
@@ -22,7 +22,7 @@ namespace Vectorization.Tests.Services.RequestSources
             _stateService = A.Fake<IVectorizationStateService>();
             RequestSourceServiceSettings requestManagerServiceSettings = new RequestSourceServiceSettings()
             {
-                Name = Environment.GetEnvironmentVariable("StorageQueueServiceTestsQueueName") ?? "testing",               
+                Name = Environment.GetEnvironmentVariable("StorageQueueServiceTestsQueueName") ?? "testing",
                 AccountName = "Test_AccountName",
                 VisibilityTimeoutSeconds = 60
             };

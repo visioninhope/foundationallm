@@ -11,17 +11,11 @@ param enableHns bool = false
 @description('Flag specifying if this is a datalake storage account')
 param isDataLake bool = false
 
-@description('KeyVault resource suffix for all resources')
-param keyVaultName string
-
 @description('Location for all resources')
 param location string
 
 @description('Log Analytic Workspace Id to use for diagnostics')
 param logAnalyticWorkspaceId string
-
-@description('OPS Resource Group name.')
-param opsResourceGroupName string = resourceGroup().name
 
 @description('Private DNS Zones for private endpoint')
 param privateDnsZones array
@@ -295,4 +289,3 @@ module privateEndpoint 'utility/privateEndpoint.bicep' = [for zone in privateDns
     }
   }
 }]
-

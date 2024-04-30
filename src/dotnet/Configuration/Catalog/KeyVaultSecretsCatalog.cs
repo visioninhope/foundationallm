@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Configuration.KeyVault;
 
@@ -13,8 +13,8 @@ namespace FoundationaLLM.Configuration.Catalog
         /// The list of generic Key Vault secret entries.
         /// </summary>
         public static readonly List<KeyVaultSecretEntry> GenericEntries =
-        [           
-            new(
+        [
+           new(
                 secretName: KeyVaultSecretNames.FoundationaLLM_APIs_OrchestrationAPI_APIKey,
                 minimumVersion: "0.3.0",
                 description: ""

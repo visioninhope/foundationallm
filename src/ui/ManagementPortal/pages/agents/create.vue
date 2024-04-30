@@ -523,7 +523,7 @@
 					type="text"
 					placeholder="You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional."
 				/>
-			</div>			
+			</div>
 			<div class="button-container column-2 justify-self-end">
 				<!-- Create agent -->
 				<Button

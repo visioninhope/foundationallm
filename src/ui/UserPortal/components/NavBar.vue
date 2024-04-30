@@ -136,12 +136,12 @@ export default {
 		});
 
 		this.agentOptionsGroup.push({
-			label: 'Public',
+			label: 'All Agents',
 			items: publicAgentOptions.length > 0 ? publicAgentOptions : noAgentOptions,
 		});
 
 		this.agentOptionsGroup.push({
-			label: 'Private',
+			label: 'My Agents',
 			items: privateAgentOptions.length > 0 ? privateAgentOptions : noAgentOptions,
 		});
 	},

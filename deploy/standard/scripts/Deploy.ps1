@@ -101,9 +101,10 @@ try {
     Invoke-AndRequireSuccess "Deploy Backend" {
         ./deploy/Deploy-Backend-Aks.ps1 `
             -aksName $backendAks `
+            -ingressNginxValues $ingressNginxValuesBackend `
             -resourceGroup $resourceGroup.app `
             -secretProviderClassManifest $secretProviderClassManifestBackend `
-            -ingressNginxValues $ingressNginxValuesBackend
+            -serviceNamespaceName $manifest.k8sNamespace
     }
 
     $frontendAks = Invoke-AndRequireSuccess "Get Frontend AKS" {
@@ -118,9 +119,10 @@ try {
     Invoke-AndRequireSuccess "Deploy Frontend" {
         ./deploy/Deploy-Frontend-Aks.ps1 `
             -aksName $frontendAks `
+            -ingressNginxValues $ingressNginxValuesFrontend `
             -resourceGroup $resourceGroup.app `
             -secretProviderClassManifest $secretProviderClassManifestFrontend `
-            -ingressNginxValues $ingressNginxValuesFrontend
+            -serviceNamespaceName $manifest.k8sNamespace
     }
 
     $clusters = @(

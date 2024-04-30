@@ -1,8 +1,4 @@
 using Asp.Versioning;
-using FoundationaLLM.Orchestration.API;
-using FoundationaLLM.Orchestration.Core.Interfaces;
-using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
-using FoundationaLLM.Orchestration.Core.Services;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
@@ -17,6 +13,9 @@ using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
+using FoundationaLLM.Orchestration.Core.Interfaces;
+using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
+using FoundationaLLM.Orchestration.Core.Services;
 using Microsoft.Extensions.Options;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -56,6 +55,7 @@ namespace FoundationaLLM.Orchestration.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureOpenAI);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -104,7 +104,8 @@ namespace FoundationaLLM.Orchestration.API
             builder.Services.AddScoped<ILLMOrchestrationService, AzureAIDirectService>();
             builder.Services.AddScoped<ILLMOrchestrationService, AzureOpenAIDirectService>();
 
-            builder.Services.AddScoped<IOrchestrationService, OrchestrationService>();
+            builder.AddOrchestrationService();
+
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
@@ -125,6 +126,7 @@ namespace FoundationaLLM.Orchestration.API
             //----------------------------
             builder.AddAgentResourceProvider();
             builder.AddPromptResourceProvider();
+            builder.AddVectorizationResourceProvider();
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);

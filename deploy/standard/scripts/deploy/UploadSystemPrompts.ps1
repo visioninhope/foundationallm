@@ -62,7 +62,7 @@ try {
             $container = az storage container show `
                 --account-name $storageAccount `
                 --name $container `
-                --auth-mode key `
+                --auth-mode login `
                 --query "name" `
                 --output tsv `
                 --only-show-errors
