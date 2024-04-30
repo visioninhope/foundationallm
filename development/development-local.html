@@ -118,6 +118,11 @@
 </ul>
 </li>
 </ul>
+<h3 id="setup-rbac-permissions-when-running-locally">Setup RBAC permissions when running locally</h3>
+<p>When you run the solution locally, you will need to set role-based access control (RBAC) permissions on the Azure Cosmos DB account. You can do this by running the following command in the Azure Cloud Shell or Azure CLI:</p>
+<p>Assign yourself to the &quot;Cosmos DB Built-in Data Contributor&quot; role:</p>
+<pre><code class="lang-bash">az cosmosdb sql role assignment create --account-name YOUR_COSMOS_DB_ACCOUNT_NAME --resource-group YOUR_RESOURCE_GROUP_NAME --scope &quot;/&quot; --principal-id YOUR_AZURE_AD_PRINCIPAL_ID --role-definition-id 00000000-0000-0000-0000-000000000002
+</code></pre>
 <h2 id="ui">UI</h2>
 <h3 id="user-portal">User Portal</h3>
 <p>The <code>UserPortal</code> project is a Vue.js (Nuxt) project. To configure it to run locally, follow these steps:</p>

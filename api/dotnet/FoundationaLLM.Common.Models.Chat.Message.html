@@ -168,9 +168,9 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
 
   <a id="FoundationaLLM_Common_Models_Chat_Message__ctor_" data-uid="FoundationaLLM.Common.Models.Chat.Message.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Citation___" data-uid="FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[])">
-  Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Citation___System_String_" data-uid="FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[],System.String)">
+  Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L88"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Constructor for Message.</p>
@@ -178,7 +178,7 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Message(string sessionId, string sender, int? tokens, string text, float[]? vector, bool? rating, string upn, string? senderDisplayName = null, Citation[]? citations = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Message(string sessionId, string sender, int? tokens, string text, float[]? vector, bool? rating, string upn, string? senderDisplayName = null, Citation[]? citations = null, string? expectedCompletion = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -201,6 +201,8 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
     <dd></dd>
     <dt><code>citations</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Citation.html">Citation</a>[]</dt>
     <dd></dd>
+    <dt><code>expectedCompletion</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
   </dl>
 
 
@@ -222,7 +224,7 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Citations" data-uid="FoundationaLLM.Common.Models.Chat.Message.Citations">
   Citations
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L83"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The sources associated with the completion prompt.</p>
@@ -304,6 +306,39 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_Chat_Message_ExpectedCompletion_" data-uid="FoundationaLLM.Common.Models.Chat.Message.ExpectedCompletion*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Chat_Message_ExpectedCompletion" data-uid="FoundationaLLM.Common.Models.Chat.Message.ExpectedCompletion">
+  ExpectedCompletion
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Stores the expected completion for the message and used for evaluating the actual vs. expected agent completion.
+This should be stored in the agent response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? ExpectedCompletion { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
