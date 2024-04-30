@@ -117,6 +117,9 @@
     <Content Include="foundationallm\config\LICENSE" />
     <Content Include="foundationallm\config\pyproject.toml" />
     <Content Include="foundationallm\config\README.md" />
+    <Content Include="foundationallm\models\LICENSE" />
+    <Content Include="foundationallm\models\pyproject.toml" />
+    <Content Include="foundationallm\models\README.md" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
