@@ -311,7 +311,7 @@ namespace FoundationaLLM.Vectorization.Services
                 var currentPipelineState = await _vectorizationStateService.GetPipelineExecutionProcessingState(
                         GetVectorizationResourceProvider(),
                         request.PipelineObjectId,
-                        request.PipelineExecutionId);
+                        request.PipelineExecutionId);                
 
                 // pipelines are automatically set to InProgress when executed, update if the current status is different
                 if (currentPipelineState != VectorizationProcessingState.InProgress)

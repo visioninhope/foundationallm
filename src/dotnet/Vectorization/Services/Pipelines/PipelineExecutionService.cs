@@ -90,7 +90,9 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                             ExecutionStart = DateTime.UtcNow,
                             ProcessingState = VectorizationProcessingState.InProgress
                         };
-                        
+
+                        await stateService.SavePipelineState(pipelineState);
+
                         try
                         {
                             _logger.LogInformation($"Executing pipeline {pipelineName} with execution ID {pipelineExecutionId}.");
