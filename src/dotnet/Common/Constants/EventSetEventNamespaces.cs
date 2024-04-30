@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Common.Constants
+﻿namespace FoundationaLLM.Common.Constants
 {
     /// <summary>
     /// Namespace names for event set events.
@@ -30,5 +24,15 @@ namespace FoundationaLLM.Common.Constants
         /// The namespace name for events concerning the FoundationaLLM.DataSource resource provider.
         /// </summary>
         public const string FoundationaLLM_ResourceProvider_DataSource = "ResourceProvider.FoundationaLLM.DataSource";
+
+        /// <summary>
+        /// The namespace name for events concerning the FoundationaLLM.Model resource provider.
+        /// </summary>
+        public const string FoundationaLLM_ResourceProvider_Model = "ResourceProvider.FoundationaLLM.Model";
+
+        /// <summary>
+        /// The namespace name for events concerning the FoundationaLLM.Endpoint resource provider.
+        /// </summary>
+        public const string FoundationaLLM_ResourceProvider_Endpoint = "ResourceProvider.FoundationaLLM.Endpoint";
     }
 }
