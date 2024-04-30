@@ -9,6 +9,7 @@
         /// The list of all data sources registered in the system.
         /// </summary>
         public required List<DataSourceReference> DataSourceReferences { get; set; }
+
         /// <summary>
         /// The name of the default data source.
         /// </summary>
