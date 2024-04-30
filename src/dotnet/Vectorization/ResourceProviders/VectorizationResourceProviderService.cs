@@ -13,7 +13,8 @@ using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.Vectorization.Interfaces;
+using FoundationaLLM.Vectorization.Client;
+using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.Validation.Resources;
 using Microsoft.AspNetCore.Http;
@@ -30,22 +31,24 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
     /// Implements the FoundationaLLM.Vectorization resource provider.
     /// </summary>
     /// <param name="instanceOptions">The options providing the <see cref="InstanceSettings"/> with instance settings.</param>
+    /// <param name="vectorizationServiceSettings">The options for instantiating a Vectorization API client <see cref="VectorizationServiceSettings"/></param>
     /// <param name="authorizationService">The <see cref="IAuthorizationService"/> providing authorization services.</param>
     /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
+    /// <param name="httpClientFactory">The factory responsible for creating HTTP client instances.</param>
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
-    /// <param name="vectorizationServiceClientFactory">The service client factory that creates clients that call the Vectorization API.</param>
-    /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
+    /// <param name="loggerFactory">The factory responsible for creating loggers.</param>    
     public class VectorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
+        IOptions<VectorizationServiceSettings> vectorizationServiceSettings,
         IAuthorizationService authorizationService,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
+        IHttpClientFactory httpClientFactory,
         IServiceProvider serviceProvider,
-        IVectorizationServiceClientFactory vectorizationServiceClientFactory,
-        ILogger<VectorizationResourceProviderService> logger)
+        ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             authorizationService,
@@ -53,7 +56,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             eventService,
             resourceValidatorFactory,
             serviceProvider,
-            logger,
+            loggerFactory.CreateLogger<VectorizationResourceProviderService>(),
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Vectorization
             ])
@@ -380,8 +383,13 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (!_vectorizationRequests.TryGetValue(vectorizationRequestId, out var request))
                 throw new ResourceProviderException($"The resource {vectorizationRequestId} was not found.",
                                        StatusCodes.Status404NotFound);
-           
-            return await vectorizationServiceClientFactory.CreateClient().ProcessRequest(request);            
+
+            var client = new VectorizationServiceClient(
+                httpClientFactory,
+                vectorizationServiceSettings,
+                loggerFactory.CreateLogger<VectorizationServiceClient>());
+          
+            return await client.ProcessRequest(request);            
         }
 
         private ResourceNameCheckResult CheckProfileName<T>(string serializedAction, ConcurrentDictionary<string, VectorizationProfileBase> profileStore)

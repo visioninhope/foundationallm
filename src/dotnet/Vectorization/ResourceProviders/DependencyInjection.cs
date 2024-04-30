@@ -42,13 +42,13 @@ namespace FoundationaLLM
                 DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
 
-            builder.Services.AddSingleton<IStorageService, BlobStorageService>(sp =>
+            builder.Services.AddSingleton<IStorageService, DataLakeStorageService>(sp =>
             {
                 var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
                     .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-                var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
+                var logger = sp.GetRequiredService<ILogger<DataLakeStorageService>>();
 
-                return new BlobStorageService(
+                return new DataLakeStorageService(
                     Options.Create<BlobStorageServiceSettings>(settings),
                     logger)
                 {
@@ -70,20 +70,20 @@ namespace FoundationaLLM
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddOptions<VectorizationServiceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_VectorizationAPI));
-            builder.Services.AddSingleton<IVectorizationServiceClientFactory, VectorizationServiceClientFactory>();
-
+            
             // Register the resource provider services (cannot use Keyed singletons due to the Microsoft Identity package being incompatible):
             builder.Services.AddSingleton<IResourceProviderService>(sp => 
                 new VectorizationResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
+                    sp.GetRequiredService<IOptions<VectorizationServiceSettings>>(),
                     sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp,   
-                    sp.GetRequiredService<IVectorizationServiceClientFactory>(),
-                    sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>()));          
+                    sp.GetRequiredService<IHttpClientFactory>(),
+                    sp,                    
+                    sp.GetRequiredService<ILoggerFactory>()));          
 
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
