@@ -137,8 +137,12 @@ Invoke-AndRequireSuccess "Loading AppConfig Values" {
 
 if ($IsWindows) {
     $os = "windows"
-} elseif ($IsMac) {
+}
+elseif ($IsMacOS) {
     $os = "mac"
+}
+elseif ($IsLinux) {
+    $os = "linux"
 }
 
 $AZCOPY_VERSION = "10.24.0"
@@ -146,35 +150,35 @@ $AZCOPY_VERSION = "10.24.0"
 Push-Location ./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}
 
 Invoke-AndRequireSuccess "Uploading Agents" {
-    ./azcopy.exe cp `
+    ./azcopy cp `
         ../../../common/data/agents/* `
         https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/agents/ `
         --recursive=True
 }
 
 Invoke-AndRequireSuccess "Uploading Data Sources" {
-    ./azcopy.exe cp `
+    ./azcopy cp `
         ../../../common/data/data-sources/* `
         https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/data-sources/ `
         --recursive=True
 }
 
 Invoke-AndRequireSuccess "Uploading Foundationallm Source" {
-    ./azcopy.exe cp `
+    ./azcopy cp `
         ../../../common/data/foundationallm-source/* `
         https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/foundationallm-source/ `
         --recursive=True
 }
 
 Invoke-AndRequireSuccess "Uploading Prompts" {
-    ./azcopy.exe cp `
+    ./azcopy cp `
         ../../../common/data/prompts/* `
         https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/prompts/ `
         --recursive=True
 }
 
 Invoke-AndRequireSuccess "Uploading Resource Providers" {
-    ./azcopy.exe cp `
+    ./azcopy cp `
         ../../../common/data/resource-provider/* `
         https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/ `
         --exclude-pattern .git* `
@@ -182,7 +186,7 @@ Invoke-AndRequireSuccess "Uploading Resource Providers" {
 }
 
 Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization Store" {
-    ./azcopy.exe cp `
+    ./azcopy cp `
         ../.././data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json `
         https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windows.net/role-assignments/ `
         --recursive=True

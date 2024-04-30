@@ -3,38 +3,51 @@ $ErrorActionPreference = "Stop"
 
 $AZCOPY_VERSION = "10.24.0"
 
-
-$AZCOPY = @{
-    "Windows" = @{
-        uri = "https://aka.ms/downloadazcopy-v10-windows"
-    }
-    "Mac" = @{
-        uri = "https://aka.ms/downloadazcopy-v10-mac"
-    }
-}
-
 try {
     if ($IsWindows) {
-        $url = $AZCOPY["Windows"].uri
+        $url = "https://aka.ms/downloadazcopy-v10-windows"
         $os = "windows"
-    } elseif ($IsMac) {
-        $url = $AZCOPY["Mac"].uri
-        $os = "mac"
+        $ext = "zip"
     }
-    $outputPath = "./tools/azcopy.zip"
+    elseif ($IsMacOS) {
+        $url = "https://aka.ms/downloadazcopy-v10-mac"
+        $os = "mac"
+        $ext = "zip"
+    }
+    elseif ($IsLinux) {
+        $url = "https://aka.ms/downloadazcopy-v10-linux"
+        $os = "linux"
+        $ext = "tar.gz"
+    }
+
+    $outputPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("./tools/azcopy.${ext}")
+    $destinationPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("./tools")
+    $toolPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}")
 
     if (Test-Path -Path "./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}") {
         Write-Host "azcopy_${os}_amd64_${AZCOPY_VERSION} already exists."
-    } else {
+    }
+    else {
         Invoke-WebRequest -Uri $url -OutFile $outputPath
-        Expand-Archive -Path $outputPath -DestinationPath ./tools
+        if ($IsLinux) {
+            tar -xvzf $outputPath -C $destinationPath
+        }
+        else {
+            Expand-Archive -Path $outputPath -DestinationPath $destinationPath
+        }
     }
 
-    Push-Location "./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}"
-    & ./azcopy.exe login
+    Push-Location $toolPath
+    if ($IsLinux) {
+        chmod +x ./azcopy
+        ./azcopy login
+    }
+    else {
+        & ./azcopy.exe login
+    }
 }
 catch {
-    Write-Error -Message "Unable to install azcopy"
+    Write-Error -Message $_
 }
 finally {
     Pop-Location
