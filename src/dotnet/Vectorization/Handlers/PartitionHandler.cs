@@ -50,8 +50,8 @@ namespace FoundationaLLM.Vectorization.Handlers
             {                
                 if(state.Artifacts.Count > 0)
                 {
-                    state.Log(this, request.Id!, _messageId, "The extracted text artifact does not contain any text. Verify the file contains text and not just images.");
-                    throw new VectorizationException($"The extracted text artifact did not have text content. Verify the file contains text and not just images. Request id: {request.Id} canonical id: {request.ContentIdentifier.CanonicalId}");
+                    state.Log(this, request.Id!, _messageId, "The extracted text artifact does not contain any text");
+                    throw new VectorizationException($"The extracted text artifact did not have text content. Request id: {request.Id} canonical id: {request.ContentIdentifier.CanonicalId}");
                 }
                 else
                 {

@@ -80,10 +80,9 @@ namespace FoundationaLLM.Vectorization.Handlers
                             stepConfiguration.Value == null
                             && !stepConfiguration.GetChildren().Any()
                             ))
-                    {
-                        var errorMessage = $"The configuration section {configurationSection} expected by the {_stepId} handler is not available.";                        
-                        _logger.LogError(errorMessage);
-                        throw new VectorizationException(errorMessage);
+                    {                                          
+                        _logger.LogError("The configuration section {ConfigurationSection} expected by the {StepId} handler is not available.", configurationSection, _stepId);
+                        throw new VectorizationException($"The configuration section {configurationSection} expected by the {_stepId} handler is not available.");
                     }
                 }
 

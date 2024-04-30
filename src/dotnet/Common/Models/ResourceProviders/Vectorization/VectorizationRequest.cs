@@ -135,7 +135,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         /// </summary>
         [JsonPropertyOrder(15)]
         [JsonPropertyName("running_operations")]
-        public Dictionary<string, VectorizationLongRunningOperation> RunningOperations { get; set; } = new Dictionary<string, VectorizationLongRunningOperation>();
+        public Dictionary<string, VectorizationLongRunningOperation> RunningOperations { get; set; } = [];
 
         /// <summary>
         /// The time of the last successful processing of a step.
