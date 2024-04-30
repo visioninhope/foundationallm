@@ -114,6 +114,9 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include=".pylintrc" />
+    <Content Include="foundationallm\config\LICENSE" />
+    <Content Include="foundationallm\config\pyproject.toml" />
+    <Content Include="foundationallm\config\README.md" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
