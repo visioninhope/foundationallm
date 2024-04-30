@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Common.Constants.Agents
+﻿namespace FoundationaLLM.Common.Constants.Endpoints
 {
     /// <summary>
     /// Contains constants of the keys for endpoint configuration settings.
