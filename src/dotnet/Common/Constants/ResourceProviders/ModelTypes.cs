@@ -10,6 +10,29 @@
         /// </summary>
         public const string Basic = "basic";
 
-        // TODO: Add other model types. (gpt-3.5, gpt-4, mistral, llama-2, llama-3, etc.)
+        /// <summary>
+        /// Azure OpenAI models (gpt-3-turbo, gpt-4, etc.).
+        /// </summary>
+        public const string AzureOpenAI = "azure-openai";
+
+        /// <summary>
+        /// OpenAI models (gpt-3.5-turbo, gpt-4, etc.).
+        /// </summary>
+        public const string OpenAI = "openai";
+
+        /// <summary>
+        /// MistralAI model.
+        /// </summary>
+        public const string MistralAI = "mistral-ai";
+
+        /// <summary>
+        /// Llama-2 model.
+        /// </summary>
+        public const string Llama2 = "llama-2";
+
+        /// <summary>
+        /// Llama-3 model.
+        /// </summary>
+        public const string Llama3 = "llama-3";
     }
 }
