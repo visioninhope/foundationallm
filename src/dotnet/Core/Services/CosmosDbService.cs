@@ -11,6 +11,7 @@ using FoundationaLLM.Common.Models.Configuration.Users;
 using Polly;
 using Polly.Retry;
 using Azure.Identity;
+using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Authentication;
 
 namespace FoundationaLLM.Core.Services
