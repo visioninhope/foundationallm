@@ -2,6 +2,15 @@
 
 This directory contains a collection of examples that demonstrate how to use the FoundationaLLM Core API.
 
+- [Core Examples](#core-examples)
+  - [Prerequisites](#prerequisites)
+  - [Examples](#examples)
+    - [Example 16: Completion quality measurements with Azure AI Studio](#example-16-completion-quality-measurements-with-azure-ai-studio)
+      - [Setup](#setup)
+        - [App Config settings](#app-config-settings)
+        - [`testsettings.json` settings](#testsettingsjson-settings)
+      - [Running the example](#running-the-example)
+
 ## Prerequisites
 
 > [!IMPORTANT]
