@@ -73,8 +73,22 @@ Property definitions:
 - `AgentPrompts`: An array of user prompts with their expected outcomes.
   - `AgentName`: The name of the agent sent to the Core API completions endpoint.
   - `SessionConfiguration`: Controls the configuration of the chat session  .
-	- `Sessionless`: If `true`, the chat session will not be stored in the database and the session ID will be ignored. Default value is `false`.
-	- `CreateNewSession`: Create a new chat session rather than using an existing one. Default value is `true`.
-	- `SessionId`: If you are not creating a new chat session, enter the existing session ID here. Default value is an empty string.
+    - `Sessionless`: If `true`, the chat session will not be stored in the database and the session ID will be ignored. Default value is `false`.
+    - `CreateNewSession`: Create a new chat session rather than using an existing one. Default value is `true`.
+    - `SessionId`: If you are not creating a new chat session, enter the existing session ID here. Default value is an empty string.
   - `UserPrompt`: The user prompt sent to the Core API completions endpoint.
   - `ExpectedCompletion`: Used for quality measurements. The expected completion for the user prompt.
+
+#### Running the example
+
+1. Run the example by running a test on the `Example16_CompletionQualityMeasurements.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example16_CompletionQualityMeasurements.cs` file and selecting **Run Tests**.
+
+    ![The Run Tests context menu option is displayed.](media/example-16-run-tests.png)
+
+    You will see an output similar to the following after the test is completed:
+
+    ![The completed test is displayed.](media/example-16-completed-test.png)
+
+2. The test will send the user prompt to the Core API completions endpoint and send the results and embedding information to Azure AI Studio for measuring the completion quality. To view the completion quality measurements, navigate to the [Azure AI Studio portal](https://ai.azure.com/) and select the project associated with the Azure AI Studio deployment. Select **Evaluation** in the left-hand menu and select the latest evaluation run to view the completion quality measurements.
+
+    ![The completion quality measurements are displayed in the Azure AI Studio portal.](media/example-16-azure-ai-studio.png)
