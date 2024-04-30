@@ -360,9 +360,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                         StatusCodes.Status400BadRequest);
 
             existingPipeline.Active = active;
-
-            // TODO: add the logic to activate the pipeline.
-
+            
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     PIPELINES_FILE_PATH,
@@ -376,6 +374,20 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 null);
         }
 
+        /// <summary>
+        /// Processes a vectorization request based on the vectorization request resource path.
+        /// </summary>
+        /// <param name="resourcePath">The resource path (or object id) of the vectorization request to process.</param>
+        /// <returns></returns>
+        public async Task<VectorizationResult> ProcessVectorizationRequest(string resourcePath) =>
+            await ProcessVectorizationRequest(GetResourcePath(resourcePath));
+
+        /// <summary>
+        /// Processes a vectorization request.
+        /// </summary>
+        /// <param name="resourcePath">The resource path to the vectorization request that is to be processed.</param>
+        /// <returns>Vectorization result <see cref="VectorizationResult"/></returns>
+        /// <exception cref="ResourceProviderException"></exception>
         private async Task<VectorizationResult> ProcessVectorizationRequest(ResourcePath resourcePath)
         {
             var vectorizationRequestId = resourcePath.ResourceTypeInstances[0].ResourceId!;

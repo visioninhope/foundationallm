@@ -146,7 +146,7 @@ namespace FoundationaLLM.Vectorization.Services
                                 // Persist the state of the vectorization request
                                 await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
                                 // Update the vectorization request resource
-                                await Request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService);
+                                await Request.UpdateVectorizationRequestResource(vectorizationResourceProvider);
                                 // Verify if the pipeline state needs to be updated
                                 await UpdatePipelineState(Request).ConfigureAwait(false);
                             }
@@ -248,7 +248,7 @@ namespace FoundationaLLM.Vectorization.Services
             var handlerSuccess = await stepHandler.Invoke(request, state, cancellationToken).ConfigureAwait(false);
 
             await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
-            await request.UpdateVectorizationRequestResource(GetVectorizationResourceProvider(), _vectorizationStateService).ConfigureAwait(false);
+            await request.UpdateVectorizationRequestResource(GetVectorizationResourceProvider()).ConfigureAwait(false);
 
             return handlerSuccess;
         }
@@ -271,7 +271,7 @@ namespace FoundationaLLM.Vectorization.Services
                     var errorMessage = $"Could not find the [{CurrentStep}] request source service for request id {request.Id}.";
                     request.ProcessingState = VectorizationProcessingState.Failed;
                     request.ErrorMessages.Add(errorMessage);
-                    await request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService).ConfigureAwait(false);                    
+                    await request.UpdateVectorizationRequestResource(vectorizationResourceProvider).ConfigureAwait(false);                    
                     throw new VectorizationException(errorMessage);
                 }
 
@@ -289,7 +289,7 @@ namespace FoundationaLLM.Vectorization.Services
             }
             state.UpdateRequest(request);
             await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
-            await request.UpdateVectorizationRequestResource(vectorizationResourceProvider, _vectorizationStateService);
+            await request.UpdateVectorizationRequestResource(vectorizationResourceProvider);
             await UpdatePipelineState(request).ConfigureAwait(false);
         }
 

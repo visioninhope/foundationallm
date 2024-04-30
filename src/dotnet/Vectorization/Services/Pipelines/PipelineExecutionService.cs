@@ -208,7 +208,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         try
                                         {
                                             //create the vectorization request
-                                            await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);
+                                            await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider);
                                             //issue process action on the created vectorization request
                                             await vectorizationRequest.ProcessVectorizationRequest(vectorizationResourceProvider);
                                         }
@@ -302,7 +302,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         try
                                         {
                                             //create the vectorization request
-                                            await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);
+                                            await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider);
                                             pipelineState.VectorizationRequestObjectIds.Add(vectorizationRequest.ObjectId!);
 
                                             //issue process action on the created vectorization request
@@ -312,7 +312,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                                 vectorizationRequest.ProcessingState = VectorizationProcessingState.Failed;
                                                 pipelineState.ErrorMessages.Add($"Error while submitting process action on vectorization request {vectorizationRequest.Id} in pipeline {pipelineName}: {processResult.ErrorMessage!}");
                                             }
-                                            await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider, stateService);
+                                            await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider);
                                         }
                                         catch (Exception ex)
                                         {
