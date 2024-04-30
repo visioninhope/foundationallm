@@ -551,7 +551,6 @@ module acaServices './app/acaService.bicep' = [
       location: location
       name: '${abbrs.appContainerApps}${service.name}${resourceToken}'
       serviceName: service.name
-      storageAccountName: storage.outputs.name
       tags: tags
 
       envSettings: service.useEndpoint
