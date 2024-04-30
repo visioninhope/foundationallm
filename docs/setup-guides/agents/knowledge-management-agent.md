@@ -1,16 +1,16 @@
 # Knowledge management agent
 
-The FoundationaLLM (FLLM) knowledge management agent supports retrieval augmented generation (RAG).
+The FoundationaLLM (FLLM) knowledge management agent supports retrieval augmented generation (RAG). FoundationaLLM passes retrieved content within the prompt that is sent to the LLM; this pattern is referred to as *Knowledge Management with Inline Context*.
 
 ## Retrieval Augmented Generation (RAG)
 
 The RAG flow augments the user prompt with additional context to generate a more accurate response. The RAG flow uses a retrieval model to retrieve relevant documents from a knowledge base, such as a vector store, and then uses the retrieved documents to augment the user prompt before sending it to the LLM.
 
-The creation of a RAG knowledge management agent requires an existing knowledge base, such as a vector store. If it does not exist, use the [vectorization](../vectorization/index.md) API can be used to create a vector store prior to the creation of the agent.
+The creation of a Knowledge Management with Inline Context agent requires an existing knowledge base, such as a vector store. If it does not exist, use the [vectorization](../vectorization/index.md) API can be used to create a vector store prior to the creation of the agent.
 
-## Knowledge management agent configuration
+## Knowledge Management with Inline Context Agent Configuration
 
-The knowledge management agent configuration may reference the following resources:
+The Knowledge Management with Inline Context agent configuration may reference the following resources:
 
 - [Vectorization text embedding profile](../vectorization/vectorization-profiles.md#text-embedding-profiles): The text embedding profile contains the configuration of the text embedding model used to embed the user prompt and perform a vector search in the knowledge base. This must match the text embedding profile used to index the knowledge base.
 
@@ -18,9 +18,9 @@ The knowledge management agent configuration may reference the following resourc
 
 - [Prompt](prompt-resource.md): The system prompt of the agent, describing the persona of the agent.
 
->**Note**: The knowledge management agent implementation currently supports the [`AzureAISearchIndexer`](../vectorization/vectorization-profiles.html#azureaisearchindexer) indexing profile.
+>**Note**: The Knowledge Management with Inline Context agent implementation currently supports the [`AzureAISearchIndexer`](../vectorization/vectorization-profiles.html#azureaisearchindexer) indexing profile.
 
-The structure of a knowledge management agent is the following:
+The structure of a Knowledge Management with Inline Context agent is the following:
 
 ```json
 {
@@ -95,7 +95,7 @@ where:
 | `gatekeeper.options` | Contains the list of gatekeeper options. The sample provided overrides the system setting for gatekeeper and enables Azure Content Safety and MS Presidio in the messaging pipeline. |
 | `orchestrator` | The orchestrator to be used for the agent. This can be set to `SemanticKernel` or `LangChain` |
 
-## Managing knowledge management agents
+## Managing Knowledge Management with Inline Context Agents
 
 This section describes how to manage knowledge management agents using the Management API. `{{baseUrl}}` is the base URL of the Management API. `{{instanceId}}` is the unique identifier of the FLLM instance.
 
@@ -126,12 +126,12 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/
 > [!NOTE]
 > FLLM currently implements logical deletes for Knowledge Management agents. This means that users cannot create a Knowledge Management agent with the same name as a deleted Knowledge Management agent. Support for purging Knowledge Management agents will be added in a future release.
 
-## Validating a knowledge management agent
+## Validating a Knowledge Management with Inline Context Agent
 
 Once configured, the knowledge management agent can be validated using an API call to the [Core API](../exposed-apis/core-api.md) or via the [User Portal](../quickstart.md).
 
 > [!NOTE]
-> It can take up to 5 minutes for a new Knowledge Management agent to appear in the User Portal or be accessible for requests from the Core API.
+> It can take up to 5 minutes for a new Knowledge Management with Inline Context agent to appear in the User Portal or be accessible for requests from the Core API.
 
 ## Overriding agent parameters
 
