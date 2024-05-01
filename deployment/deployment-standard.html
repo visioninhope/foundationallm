@@ -75,13 +75,14 @@
 
 <p>Compared to the quick start deployment using Azure Container Apps (ACA), the Foundationa<strong>LLM</strong> Standard Deployment with AKS is tailored for scaling up to production environments. It leverages Azure Kubernetes Service (AKS) for robust scalability and management, requiring an Azure Subscription with Azure OpenAI access.</p>
 <p>Be mindful of the <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits">Azure OpenaAI regional quota limits</a> on the number of Azure OpenAI Service instances.</p>
-<p>This deployment option for FoundationaLLM uses Azure Kubernetes Service (AKS) to host the applications.  Compared to Azure Container Apps (ACA), AKS provides more advanced orchestration and scaling capabilities suitable for larger workloads. The Standard Deployment will configure OpenAI instances to use the maximum quota available.  If existing OpenAI resources are already deployed in the subscription, the Standard Deployment will not be able to deploy.  The Standard Deployment should be deployed to a subscription with no existing OpenAI resources, or a new subscription should be created for the Standard Deployment. As a final option, the template can be updated to allocate a smaller quota.</p>
+<p>This deployment option for FoundationaLLM uses Azure Kubernetes Service (AKS) to host the applications.  Compared to <a href="deployment-quick-start.html">Azure Container Apps (ACA) deployment</a>, AKS provides more advanced orchestration and scaling capabilities suitable for larger workloads. The Standard Deployment will configure OpenAI instances to use the maximum quota available.  If existing OpenAI resources are already deployed in the subscription, the Standard Deployment will not be able to deploy.  The Standard Deployment should be deployed to a subscription with no existing OpenAI resources, or a new subscription should be created for the Standard Deployment. As a final option, the template can be updated to allocate a smaller quota.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <p>You will need the following resources and access to deploy the solution:</p>
 <ul>
 <li>Azure Subscription: An Azure Subscription is a logical container in Microsoft Azure that links to an Azure account and is the basis for billing, resource management, and allocation. It allows users to create and manage Azure resources like virtual machines, databases, and more, providing a way to organize access and costs associated with these resources.</li>
 <li>Subscription access to Azure OpenAI service: Access to Azure OpenAI Service provides users with the ability to integrate OpenAI's advanced AI models and capabilities within Azure. This service combines OpenAI's powerful models with Azure's robust cloud infrastructure and security, offering scalable AI solutions for a variety of applications like natural language processing and generative tasks. <strong>Start here to <a href="https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUNTZBNzRKNlVQSFhZMU9aV09EVzYxWFdORCQlQCN0PWcu">Request Access to Azure OpenAI Service</a></strong></li>
-<li>Minimum quota of 65 CPUs across all VM family types: Azure CPU quotas refer to the limits set on the number and type of virtual CPUs that can be used in an Azure Subscription. These quotas are in place to manage resource allocation and ensure fair usage across different users and services. Users can request quota increases if their application or workload requires more CPU resources. <strong>Start here to <a href="https://learn.microsoft.com/azure/quotas/per-vm-quota-requests">Manage VM Quotas</a></strong></li>
+<li>Minimum quota of vCPUs across all VM family types: Azure CPU quotas refer to the limits set on the number and type of virtual CPUs that can be used in an Azure Subscription. For Azure Kubernetes Service <strong>(AKS)</strong> deployment, you will need a quota of around 24 vCPUs across all VM family types to ensure that the solution can be deployed and run successfully as the system deploys 2 clusters with 2 node pools each, each pool is set to scale between 1 and 3 instances where each instance has 2 vCPUS which brings the total to 24 vCPUS.
+These quotas are in place to manage resource allocation and ensure fair usage across different users and services. Users can request quota increases if their application or workload requires more CPU resources. <strong>Start here to <a href="https://learn.microsoft.com/azure/quotas/per-vm-quota-requests">Manage VM Quotas</a></strong></li>
 <li>App Registrations created in the Entra ID tenant (formerly Azure Active Directory): Azure App Registrations is a feature in Entra ID that allows developers to register their applications for identity and access management. This registration process enables applications to authenticate users, request and receive tokens, and access Azure resources that are secured by Entra ID. <strong>Follow the instructions in the <a href="authentication/index.md">Authentication setup document</a> to configure authentication for the solution.</strong></li>
 <li>User with the proper role assignments: Azure Role-Based Access Control (RBAC) roles are a set of permissions in Azure that control access to Azure resource management. These roles can be assigned to users, groups, and services in Azure, allowing granular control over who can perform what actions within a specific scope, such as a subscription, resource group, or individual resource.
 <ul>
@@ -92,22 +93,21 @@
 </ul>
 <p>You will use the following tools during deployment:</p>
 <ul>
-<li>Azure CLI (<a href="https://docs.microsoft.com/cli/azure/install-azure-cli">v2.51.0 or greater</a>): The Azure Command Line Interface (CLI) is a set of commands used to manage Azure resources directly from the command line. It provides a simple and efficient way to automate tasks and manage Azure services, supporting both Windows, macOS, and Linux platforms. Azure CLI is particularly useful for scripting and executing batch operations, offering a comprehensive set of commands that cover almost all aspects of Azure resource management.</li>
-<li><a href="https://git-scm.com/downloads">git</a>: Git is a distributed version control system designed to handle everything from small to very large projects with speed and efficiency. It allows multiple developers to work on the same codebase simultaneously, tracking and merging changes, and maintaining a complete history of all file revisions. Git is essential for modern software development, supporting branching and merging strategies, and is widely used for its robustness, flexibility, and remote collaboration capabilities.</li>
-<li>PowerShell 7 (<a href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4">7.4.1 or greater</a>):
-PowerShell 7 is a cross-platform (Windows, macOS, and Linux) automation tool and scripting language, an evolution of PowerShell that works with the .NET Core framework. It offers enhanced features and performance improvements over its predecessors and is designed for heterogeneous environments and the hybrid cloud. In PowerShell 7, the command-line executable is referred to as pwsh, an alias that is essential for integration with Azure Developer CLI (AZD) hooks and other modern automation scenarios.</li>
-<li><a href="https://helm.sh/docs/intro/install/">Helm</a> is a package manager for Kubernetes, an open-source platform for automating the deployment, scaling, and operations of application containers across clusters of hosts. It simplifies the process of defining, installing, and upgrading even the most complex Kubernetes applications. Helm works by bundling related Kubernetes resources into a single unit called a chart, which can be easily shared, updated, and deployed.</li>
-<li><a href="https://kubernetes.io/docs/tasks/tools/"><code>kubectl</code></a> is a command-line tool that allows users to run commands against Kubernetes clusters, providing essential functionality to manage applications and resources within a Kubernetes environment. It enables users to deploy applications, inspect and manage cluster resources, and view logs. <code>kubectl</code> serves as the primary interface for interacting with Kubernetes, offering a wide range of capabilities for controlling and automating different aspects of the cluster and its workloads.</li>
-<li><a href="https://azure.github.io/kubelogin/install.html"><code>kubelogin</code></a> is a command-line tool designed to simplify the authentication process for Kubernetes users. It integrates with Kubernetes' kubeconfig files to enable single sign-on through OpenID Connect (OIDC) providers, making it easier for users to access Kubernetes clusters without repeatedly entering credentials. The tool automates the token retrieval and renewal process, enhancing both convenience and security for users interacting with Kubernetes environments.</li>
+<li>Azure CLI (<a href="https://docs.microsoft.com/cli/azure/install-azure-cli">v2.51.0 or greater</a>)</li>
+<li><a href="https://git-scm.com/downloads">git</a></li>
+<li>PowerShell 7 (<a href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4">7.4.1 or greater</a>)</li>
+<li><a href="https://helm.sh/docs/intro/install/">Helm</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/">kubectl</a></li>
+<li><a href="https://azure.github.io/kubelogin/install.html">kubelogin</a></li>
 </ul>
 <p><strong>Optional</strong> To run or debug the solution locally, you will need to install the following dependencies:</p>
 <ul>
-<li><a href="https://dotnet.microsoft.com/download/dotnet/8.0">.NET 8 SDK</a>: The .NET 8 SDK is the latest iteration of Microsoft's .NET software development kit, offering enhanced features and improvements for building applications across various platforms, including web, mobile, desktop, cloud, and IoT. It provides a comprehensive set of libraries, runtime features, and APIs, supporting multiple programming languages like C#, F#, and Visual Basic. This SDK is designed for high performance and efficiency, catering to modern development needs with support for cloud-native applications, microservices, and machine learning.</li>
-<li>Visual Studio 2022: Visual Studio 2022 is an advanced integrated development environment (IDE) from Microsoft, offering robust tools for developing applications on the .NET platform and other technologies. It brings improved performance, better usability, and enhanced collaboration features, supporting a wide range of programming languages and frameworks. Visual Studio 2022 is tailored for both individual developers and teams, integrating seamlessly with modern workflows and cloud services, and providing powerful debugging, code navigation, and refactoring capabilities.</li>
+<li><a href="https://dotnet.microsoft.com/download/dotnet/8.0">.NET 8 SDK</a></li>
+<li><a href="https://visualstudio.microsoft.com/vs/community/">Visual Studio 2022</a></li>
 </ul>
 <p><strong>Optional</strong> To build or test container images, you will need to install the following dependencies:</p>
 <ul>
-<li><a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>: Docker Desktop is an application for MacOS and Windows machines for the building and sharing of containerized applications and microservices. It provides an integrated environment to use Docker containers, simplifying the process of building, testing, and deploying applications in a consistent and isolated environment. Docker Desktop includes Docker Engine, Docker CLI client, Docker Compose, and other Docker tools, making it a key tool for developers working with container-based applications.</li>
+<li><a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a></li>
 </ul>
 <h2 id="pre-deployment-steps">Pre-Deployment steps</h2>
 <p>Follow the steps below to deploy the solution to your Azure subscription.</p>
@@ -115,16 +115,18 @@ PowerShell 7 is a cross-platform (Windows, macOS, and Linux) automation tool and
 <li><p>Ensure all the prerequisites are met.</p>
 </li>
 <li><p>From a PowerShell prompt, execute the following to clone the repository:</p>
-<pre><code class="lang-powershell">git clone https://github.com/solliancenet/foundationallm.git
-cd foundationallm
-git checkout release/0.6.0
-</code></pre>
 </li>
-<li><p>Create your deployment manifest:</p>
-<pre><code class="lang-powershell">cd deploy/standard
-cp Deployment-Manifest.template.json Deployment-Manifest.json
+</ol>
+<pre><code class="lang-powershell">  git clone https://github.com/solliancenet/foundationallm.git
+  cd foundationallm/deploy/standard
+  git checkout release/0.6.0
 </code></pre>
-</li>
+<ol start="3">
+<li>Create your deployment manifest:</li>
+</ol>
+<pre><code class="lang-powershell">  cp Deployment-Manifest.template.json Deployment-Manifest.json
+</code></pre>
+<ol start="4">
 <li><p>Fill out all required fields in the <code>Deployment-Manifest.json</code> file. Please look at <a href="standard/manifest.html">this guide</a> for more information on the manifest contents.</p>
 </li>
 <li><p>Login to your Azure account and set the deployment subscription:</p>
@@ -136,76 +138,43 @@ az account set --subscription &lt;Azure Subscription ID&gt;
 <pre><code class="lang-powershell">cd scripts
 ./Pre-Deploy.ps1
 </code></pre>
+</li>
+</ol>
 <div class="NOTE">
 <h5>Note</h5>
 <p>The pre-deployment script will acquire certificates from LetsEncrypt and place them in <code>foundationallm/deploy/standard/config/certbot/certs</code>.  If you plan to provide certificates another way, you can skip this script, but you must place the certificates in the specified location.  See step 7.</p>
 </div>
-</li>
-<li><p><strong>Optional</strong> Provide certificates (manual method):</p>
+<ol start="7">
+<li><strong>Optional</strong> Provide certificates (manual method):</li>
+</ol>
 <div class="NOTE">
 <h5>Note</h5>
 <p>Skip this step if you created certificates using LetsEncrypt in step 6.</p>
 </div>
 <p>Create certificates for the appropriate domains and package them in PFX format.  Place the PFX files in <code>foundationallm/deploy/standard/config/certbot/certs</code> following the naming convention below.  The values for <code>Host Name</code> and <code>Domain Name</code> should match the values you provided in your deployment manifest:</p>
-<table>
-<thead>
-<tr>
-<th>Service Name</th>
-<th>Host Name</th>
-<th>Domain Name</th>
-<th>File Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>core-api</td>
-<td>api</td>
-<td>example.com</td>
-<td>api.example.com.pfx</td>
-</tr>
-<tr>
-<td>management-api</td>
-<td>management-api</td>
-<td>example.com</td>
-<td>management-api.example.com.pfx</td>
-</tr>
-<tr>
-<td>vectorization-api</td>
-<td>vectorization-api</td>
-<td>example.com</td>
-<td>vectorization-api.example.com.pfx</td>
-</tr>
-<tr>
-<td>chat-ui</td>
-<td>chat</td>
-<td>example.com</td>
-<td>chat.example.com.pfx</td>
-</tr>
-<tr>
-<td>management-ui</td>
-<td>management</td>
-<td>example.com</td>
-<td>management.example.com.pfx</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ol>
+<pre><code>| Service Name      | Host Name         | Domain Name | File Name                         |
+| ----------------- | ----------------- | ----------- | --------------------------------- |
+| core-api          | api               | example.com | api.example.com.pfx               |
+| management-api    | management-api    | example.com | management-api.example.com.pfx    |
+| vectorization-api | vectorization-api | example.com | vectorization-api.example.com.pfx |
+| chat-ui           | chat              | example.com | chat.example.com.pfx              |
+| management-ui     | management        | example.com | management.example.com.pfx        |
+</code></pre>
 <h2 id="provision-infrastructure">Provision Infrastructure</h2>
 <ol start="8">
-<li><p>Provision infrastructure with <code>psake</code>:</p>
-<pre><code class="lang-powershell">cd ../bicep
-./bootstrap.ps1; Invoke-Psake
+<li>Provision infrastructure with <code>psake</code>:</li>
+</ol>
+<pre><code class="lang-powershell">  cd ../bicep
+  ./bootstrap.ps1; Invoke-Psake
 </code></pre>
 <p>The deployment process will take some time.</p>
-</li>
-<li><p>Execute the first post-provision script:</p>
-<pre><code class="lang-powershell">cd ../scripts
-./Post-Provision.1.ps1
+<ol start="9">
+<li>Execute the first post-provision script:</li>
+</ol>
+<pre><code class="lang-powershell">  cd ../scripts
+  ./Post-Provision.1.ps1
 </code></pre>
 <p>The post-deployment script will generate a host file describing all the private endpoint IPs and the associated hostnames.  These values can be used to populate your computer's local <code>hosts</code> file, or may assist with configuring your organization's DNS system.  This guide will assume that you have taken the contents of the generated file and added them to your local <code>hosts</code> file.</p>
-</li>
-</ol>
 <h2 id="configure-and-deploy">Configure and Deploy</h2>
 <ol start="10">
 <li><p>Connect to VPN</p>
@@ -216,12 +185,16 @@ az account set --subscription &lt;Azure Subscription ID&gt;
 </ul>
 </li>
 <li><p>Execute the second post-provision script:</p>
-<pre><code class="lang-powershell">./Post-Provision.2.ps1
-</code></pre>
-<p>The post-deployment script will upload the certificates to the Azure Key Vault.</p>
 </li>
-<li><p>Execute the deployment script:</p>
-<pre><code class="lang-powershell">./Deploy.ps1
+</ol>
+<pre><code class="lang-powershell">  ./Post-Provision.2.ps1
+</code></pre>
+<pre><code>The post-deployment script will upload the certificates to the Azure Key Vault.
+</code></pre>
+<ol start="12">
+<li>Execute the deployment script:</li>
+</ol>
+<pre><code class="lang-powershell">  ./Deploy.ps1
 </code></pre>
 <p>The deployment process will take some time.  The process will:</p>
 <ul>
@@ -240,8 +213,6 @@ az account set --subscription &lt;Azure Subscription ID&gt;
 <li>Deploy the secret class provider to the gateway-system namespace</li>
 <li>Deploy ingress-nginx</li>
 <li>Deploy Ingress Configurations and External Services</li>
-</ul>
-</li>
 </ul>
 </li>
 <li>Configure the frontend cluster.
@@ -263,8 +234,9 @@ az account set --subscription &lt;Azure Subscription ID&gt;
 <li>Generate host file entries for the deployed services on AKS that you can add to your host file or DNS server.</li>
 </ul>
 </li>
-<li><p>Update your local <code>hosts</code> file with the entries from the generated host file.</p>
-</li>
+</ul>
+<ol start="13">
+<li>Update your local <code>hosts</code> file with the entries from the generated host file.</li>
 </ol>
 <h2 id="connect-and-test">Connect and Test</h2>
 <ol start="14">
