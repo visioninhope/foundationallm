@@ -44,15 +44,6 @@ function Format-EnvironmentVariables {
     $result | Out-File $render -Force
 }
 
-Invoke-AndRequireSuccess "Setting Azure Subscription" {
-    az account set -s $env:AZURE_SUBSCRIPTION_ID
-}
-
-Invoke-AndRequireSuccess "Loading storage-preview extension" {
-    az extension add --name storage-preview --allow-preview true --yes
-    az extension update --name storage-preview --allow-preview true
-}
-
 $env:DEPLOY_TIME = $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ'))
 $env:GUID01 = $($(New-Guid).Guid)
 $env:GUID02 = $($(New-Guid).Guid)
@@ -124,6 +115,10 @@ foreach ($configuration in $configurations.GetEnumerator()) {
     Format-EnvironmentVariables -template $template -render $render
 }
 
+Invoke-AndRequireSuccess "Setting Azure Subscription" {
+    az account set -s $env:AZURE_SUBSCRIPTION_ID
+}
+
 Invoke-AndRequireSuccess "Loading AppConfig Values" {
     az appconfig kv import `
         --profile appconfig/kvset `
@@ -137,55 +132,36 @@ Invoke-AndRequireSuccess "Loading AppConfig Values" {
 
 if ($IsWindows) {
     $os = "windows"
-} elseif ($IsMac) {
+}
+elseif ($IsMacOS) {
     $os = "mac"
+}
+elseif ($IsLinux) {
+    $os = "linux"
 }
 
 $AZCOPY_VERSION = "10.24.0"
 
-Push-Location ./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}
+try {
+    Push-Location ./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}
 
-Invoke-AndRequireSuccess "Uploading Agents" {
-    ./azcopy.exe cp `
-        ../../../common/data/agents/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/agents/ `
-        --recursive=True
+    Invoke-AndRequireSuccess "Uploading Resource Providers" {
+        $target = "https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/"
+
+        ./azcopy cp '../../../common/data/resource-provider/*' $target `
+            --exclude-pattern .git* --recursive=True
+    }
+
+    Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization Store" {
+        $target = "https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windows.net/role-assignments/"
+
+        ./azcopy cp ../.././data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json $target `
+            --recursive=True
+    }
+
 }
-
-Invoke-AndRequireSuccess "Uploading Data Sources" {
-    ./azcopy.exe cp `
-        ../../../common/data/data-sources/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/data-sources/ `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Foundationallm Source" {
-    ./azcopy.exe cp `
-        ../../../common/data/foundationallm-source/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/foundationallm-source/ `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Prompts" {
-    ./azcopy.exe cp `
-        ../../../common/data/prompts/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/prompts/ `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Resource Providers" {
-    ./azcopy.exe cp `
-        ../../../common/data/resource-provider/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/ `
-        --exclude-pattern .git* `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization Store" {
-    ./azcopy.exe cp `
-        ../.././data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json `
-        https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windows.net/role-assignments/ `
-        --recursive=True
+finally {
+    Pop-Location
 }
 
 Invoke-AndRequireSuccess "Restarting Authorization API" {
@@ -207,5 +183,3 @@ Invoke-AndRequireSuccess "Restarting Authorization API" {
         --resource-group $resourceGroup `
         --subscription $env:AZURE_SUBSCRIPTION_ID
 }
-
-Pop-Location
