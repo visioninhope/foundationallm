@@ -15,7 +15,7 @@ All state and logging of vectorization requests are stored in the `vectorization
 
 ### Vectorization request resource files
 
-Each vectorization request resource is stored in the `vectorization-state/requests` folder. The request resources are created and managed through the Management API. The naming convention is: `vectorization-state/requests/<yyyyMMdd>/<yyyMMdd-<request_id>.json`.
+Each vectorization request resource is stored in the `vectorization-state/requests` folder. The request resources are created and managed through the Management API. The naming convention is: `vectorization-state/requests/<request_id>-<yyyMMdd>.json`.
 
 The resource file is updated as the vectorization request progresses through the processing. The resource file contains the following fields that can assist in troubleshooting:
 
@@ -35,13 +35,13 @@ The execution state of a vectorization request is stored in the `vectorization-s
 
 ### Vectorization pipeline state files
 
-The state of the vectorization pipeline is stored in the `vectorization-state/pipeline-state` folder. The naming convention is: `vectorization-state/pipeline-state/<pipeline_name>/<pipeline_name>-<pipeline_execution_id>.json`. The pipeline state records the state of multiple vectorization requests that are processed together in a single pipeline. The `vectorization_request_statuses` field contains a name-value pair of the vectorization request resource object id and the current state of the request. The overall pipeline state is calculated based on the states of the collection of vectorization requests.
+The state of the vectorization pipeline is stored in the `vectorization-state/pipeline-state` folder. The naming convention is: `vectorization-state/pipeline-state/<pipeline_name>/<pipeline_name>-<pipeline_execution_id>.json`. The pipeline state records associated vectorization requests that are processed together in a single pipeline in the `vectorization_requests` field. The overall pipeline state is calculated based on the states of the collection of vectorization requests, this state is calculated by the following table in order:
 
 | Condition | Pipeline state |
 | --- | --- |
+| At least one request is `InProgress` | `InProgress` |
 | All requests are `Completed` | `Completed` |
 | At least one request is `Failed` | `Failed` |
-| At least one request is `InProgress` | `InProgress` |
 | All requests are `New` or there are no requests being tracked. | `New` |
 
 You can use the Management API with the object id of the request to retrieve the vectorization request resource that contains a high level overview of any errors that have occurred. If more detailed information is required, then reviewing the execution state file is recommended.
