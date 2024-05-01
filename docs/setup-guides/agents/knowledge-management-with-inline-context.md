@@ -1,10 +1,10 @@
-# Internal context agent
+# Knowledge Management with Inline Context Agent
 
-The internal context  provides a pass-through mechanism that sends the user prompt directly to the large language model (LLM) without any additional processing or context. This is useful when the user prompt is already prepared and does not require any additional context.
+The Knowledge Management with Inline Context agent provides a pass-through mechanism that sends the user prompt directly to the large language model (LLM) without any additional processing or context. This is useful when the user prompt is already prepared and does not require any additional context.
 
-## Internal context agent configuration
+## Knowledge Management with Inline Context agent configuration
 
-The structure of an internal context agent is the following:
+The structure of a Knowledge Management with Inline Context agent is the following:
 
 ```json
 {
@@ -73,9 +73,9 @@ where:
 | `gatekeeper.options` | Contains the list of gatekeeper options. The sample provided overrides the system setting for gatekeeper and enables Azure Content Safety and MS Presidio in the messaging pipeline. |
 | `orchestrator` | The orchestrator to be used for the agent. This can be set to `SemanticKernel` or `LangChain` |
 
-## Managing internal context agents
+## Managing Knowledge Management with Inline Context agents
 
-This section describes how to manage internal context agents using the Management API. `{{baseUrl}}` is the base URL of the Management API. `{{instanceId}}` is the unique identifier of the FLLM instance.
+This section describes how to manage Knowledge Management with Inline Context agents using the Management API. `{{baseUrl}}` is the base URL of the Management API. `{{instanceId}}` is the unique identifier of the FLLM instance.
 
 ### Retrieve
 
@@ -102,11 +102,11 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/
 ```
 
 > [!NOTE]
-> FLLM currently implements logical deletes for Internal Context agents. This means that users cannot create an Internal Context agent with the same name as a deleted Internal Context agent. Support for purging Internal Context agents will be added in a future release.
+> FLLM currently implements logical deletes for Knowledge Management with Inline Context agents. This means that users cannot create a Knowledge Management with Inline Context agent with the same name as a deleted agent. Support for purging Knowledge Management with Inline Context agents will be added in a future release.
 
-## Validating an internal context agent
+## Validating a Knowledge Management with Inline Context agent
 
-Once configured, the internal context agent can be validated using an API call to the [Core API](../exposed-apis/core-api.md) or via the [User Portal](../quickstart.md).
+Once configured, the Knowledge Management with Inline Context agent can be validated using an API call to the [Core API](../exposed-apis/core-api.md) or via the [User Portal](../quickstart.md).
 
 > [!NOTE]
-> It can take up to 5 minutes for a new Internal Context agent to appear in the User Portal or be accessible for requests from the Core API.
+> It can take up to 5 minutes for a new Knowledge Management with Inline Context agent to appear in the User Portal or be accessible for requests from the Core API.
