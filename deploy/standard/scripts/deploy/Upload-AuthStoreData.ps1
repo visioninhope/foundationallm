@@ -28,17 +28,15 @@ function Invoke-AndRequireSuccess {
     return $result
 }
 
+if (-not (Test-Path "../data/role-assignments/$($instanceId).json")) {
+    throw "Default role assignments json not found at ../data/role-assignments/$($instanceId).json"
+}
+
 $storageAccountAdls = Invoke-AndRequireSuccess "Get ADLS Auth Storage Account" {
     az storage account list `
         --resource-group $resourceGroup `
         --query "[?kind=='StorageV2'].name | [0]" `
         --output tsv
-}
-
-Invoke-AndRequireSuccess "Checking for default role assignments json"{ 
-    if (-not (Test-Path "../data/role-assignments/$($instanceId).json")) {
-        throw "Default role assignments json not found at ../data/role-assignments/$($instanceId).json"
-    }
 }
 
 Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization Store" {
@@ -50,4 +48,3 @@ Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization St
         --only-show-errors `
         --output none
 }
-
