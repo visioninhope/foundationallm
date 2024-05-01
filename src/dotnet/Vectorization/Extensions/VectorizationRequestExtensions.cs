@@ -1,13 +1,7 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
-using FoundationaLLM.Common.Settings;
-using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.ResourceProviders;
-using FoundationaLLM.Vectorization.Services;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Vectorization.Extensions
 {
@@ -37,7 +31,7 @@ namespace FoundationaLLM.Vectorization.Extensions
             request.ObjectId = await vectorizationResourceProvider.UpsertResourceAsync(request.ObjectId, request);                      
         }
 
-      
+
         /// <summary>
         /// Issues the "process" action on the vectorization request resource using the vectorization resource provider.        
         /// </summary>
@@ -46,10 +40,6 @@ namespace FoundationaLLM.Vectorization.Extensions
         public static async Task<VectorizationResult> ProcessVectorizationRequest(
             this VectorizationRequest request,
             VectorizationResourceProviderService vectorizationResourceProvider
-        )
-        {
-            vectorizationResourceProvider.ProcessVectorizationRequest(request.ObjectId);
-            throw new NotImplementedException();
-        }
+        ) => await vectorizationResourceProvider.ProcessVectorizationRequest(request.ObjectId!);
     }
 }

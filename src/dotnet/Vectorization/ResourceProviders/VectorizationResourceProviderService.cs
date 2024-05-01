@@ -104,8 +104,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 await LoadResourceStore<TextEmbeddingProfile, VectorizationProfileBase>(TEXT_EMBEDDING_PROFILES_FILE_PATH, _textEmbeddingProfiles);
             _defaultIndexingProfileName =
                 await LoadResourceStore<IndexingProfile, VectorizationProfileBase>(INDEXING_PROFILES_FILE_PATH, _indexingProfiles);
-            _ = await LoadResourceStore<VectorizationPipeline, VectorizationPipeline>(PIPELINES_FILE_PATH, _pipelines);
-            await LoadRequests();
+            _ = await LoadResourceStore<VectorizationPipeline, VectorizationPipeline>(PIPELINES_FILE_PATH, _pipelines);            
 
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
@@ -132,22 +131,6 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             }
             return defaultResourceName;
         }
-
-        /// <summary>
-        /// Loads the vectorization requests from the storage into memory.
-        /// </summary>        
-        private async Task LoadRequests()
-        {
-            var requestResourcePaths = await GetRequestResourceFilePaths();
-            foreach (var requestFilePath in requestResourcePaths)
-            {
-                var fileContent = await _storageService.ReadFileAsync(VECTORIZATON_STATE_CONTAINER_NAME, requestFilePath, default);
-                var request = JsonSerializer.Deserialize<VectorizationRequest>(Encoding.UTF8.GetString(fileContent.ToArray()));
-                if (request != null)
-                    _vectorizationRequests.AddOrUpdate(request.Id!, request, (k, v) => v);
-            }
-        }
-
         #endregion
 
         #endregion
@@ -155,7 +138,6 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
@@ -168,11 +150,10 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 VectorizationResourceTypeNames.VectorizationPipelines =>
                     LoadResources<VectorizationPipeline, VectorizationPipeline>(resourcePath.ResourceTypeInstances[0], _pipelines),
                 VectorizationResourceTypeNames.VectorizationRequests =>
-                    LoadVectorizationRequestResources(resourcePath.ResourceTypeInstances[0], _vectorizationRequests),
+                    await LoadVectorizationRequestResources(resourcePath.ResourceTypeInstances[0], _vectorizationRequests),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
         #region Helpers for GetResourcesAsyncInternal
 
@@ -197,7 +178,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 return [resource];
             }
         }
-        private List<VectorizationRequest> LoadVectorizationRequestResources(ResourceTypeInstance instance, ConcurrentDictionary<string, VectorizationRequest> resourceStore)           
+        private async Task<List<VectorizationRequest>> LoadVectorizationRequestResources(ResourceTypeInstance instance, ConcurrentDictionary<string, VectorizationRequest> resourceStore)           
         {
             if (instance.ResourceId == null)
             {
@@ -210,15 +191,27 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             {
                 if (!resourceStore.TryGetValue(instance.ResourceId, out var resource))
                 {
-                    //in-memory doesn't have a record, attempt with refreshed values from storage
-                    LoadRequests().GetAwaiter().GetResult();
-                    if (!_vectorizationRequests.TryGetValue(instance.ResourceId, out resource))
+                    //load the resource from storage, instance.ResourceId is the request id
+                    var matchingFilePaths = await GetRequestResourceFilePaths(instance.ResourceId); //there should only be zero or one
+                    if (matchingFilePaths.Count > 0)
                     {
-                        throw new ResourceProviderException($"Could not locate the {instance.ResourceId} vectorization resource.",
-                                                       StatusCodes.Status404NotFound);
-                    }
+                        var fileContent = await _storageService.ReadFileAsync(_storageContainerName, matchingFilePaths[0], default);
+                        var request = JsonSerializer.Deserialize<VectorizationRequest>(
+                            Encoding.UTF8.GetString(fileContent.ToArray()));
+
+                        if (request != null)
+                        {
+                            resourceStore.AddOrUpdate(request.Id!, request, (k, v) => request);
+                            resource = request;
+                        }
+                        else
+                        {
+                            throw new ResourceProviderException($"Could not locate the {instance.ResourceId} vectorization resource.",
+                                                               StatusCodes.Status404NotFound);
+                        }
+                    }                    
                 }
-                return [resource];
+                return [resource!];
             }
         }
         #endregion
@@ -608,11 +601,10 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         private async Task UpdateVectorizationRequest(ResourcePath resourcePath, VectorizationRequest request)
         {
-            // request.id == resourcePath.ResourceTypeInstances[0].ResourceId
             request.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
             await PopulateRequestResourceFilePath(request);
 
-            // if the vectorization request resource file path doesn't exist, create the resource file path using date slugs (UTC).
+            // if the vectorization request resource file path doesn't exist, create the resource file path using date in file name (UTC).
             if (string.IsNullOrWhiteSpace(request.ResourceFilePath))
             {
                 request.ProcessingState = VectorizationProcessingState.New;
@@ -623,8 +615,8 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 {
                     throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}",
                                                StatusCodes.Status400BadRequest);
-                }
-                request.ResourceFilePath = $"{REQUEST_RESOURCES_DIRECTORY_NAME}/{DateTime.UtcNow:yyyyMMdd}/{DateTime.UtcNow:yyyyMMdd}-{request.Id}.json";
+                }                
+                request.ResourceFilePath = $"{REQUEST_RESOURCES_DIRECTORY_NAME}/{request.Id}-{DateTime.UtcNow:yyyyMMdd}.json";
 
                 // validate the data source at request creation time.
                 ValidateContentIdentifierWithDataSource(request);
@@ -702,25 +694,26 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (string.IsNullOrWhiteSpace(request.ResourceFilePath))
             {
                 // retrieve listing of requests
-                var resourceFilePaths = await GetRequestResourceFilePaths();
+                var resourceFilePaths = await GetRequestResourceFilePaths(request.Id);
                 request.ResourceFilePath = resourceFilePaths.Where(f => f.Contains(request!.Id!)).FirstOrDefault();               
             }
         }
 
         /// <summary>
-        /// Helper method to retrieve all the paths of the resource files for vectorization requests.
-        /// </summary>         
-        private async Task<List<string>> GetRequestResourceFilePaths()
+        /// Helper method to retrieve all the paths of the resource files for vectorization requests.        
+        /// </summary>
+        /// <param name="prefixFilter">The prefix filter to apply when searching for file names with a specific prefix.</param>
+        private async Task<List<string>> GetRequestResourceFilePaths(string? prefixFilter=null)
         {
             List<string> resourceFilePaths = new List<string>();
 
-            // File location and naming convention: vectorization-state/requests/yyyymmdd/yyyymmdd-requestid.json
+            // File location and naming convention: vectorization-state/requests/requestid-yyyymmdd.json
 
-            // retrieve listing of requests
+            // retrieve listing of requests            
             var filePaths = await _storageService.GetFilePathsAsync(
                                 VECTORIZATON_STATE_CONTAINER_NAME,
-                                REQUEST_RESOURCES_DIRECTORY_NAME,
-                                true, //recursive for date subfolders
+                                string.IsNullOrWhiteSpace(prefixFilter) ? REQUEST_RESOURCES_DIRECTORY_NAME: $"{REQUEST_RESOURCES_DIRECTORY_NAME}/{prefixFilter}",
+                                false,
                                 default);
             
             // validate only json files are included, due to the nature of blob storage (not data lake)

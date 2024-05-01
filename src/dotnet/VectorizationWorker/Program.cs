@@ -42,7 +42,8 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources); //data source settings
 });
 
 if (builder.Environment.IsDevelopment())

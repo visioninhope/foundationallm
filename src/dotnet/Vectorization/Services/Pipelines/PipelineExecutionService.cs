@@ -124,7 +124,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                     // resolve configuration references
                                     var blobStorageServiceSettings = new BlobStorageServiceSettings { AuthenticationType = BlobStorageAuthenticationTypes.Unknown };
                                     _configuration.Bind(
-                                        $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{dataSource.Name}",
+                                        $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{dataSource.Name}",
                                         blobStorageServiceSettings);
 
                                     AzureDataLakeDataSourceService svc = new AzureDataLakeDataSourceService(
@@ -229,7 +229,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                 case DataSourceTypes.AzureSQLDatabase:
                                     var sqlDataSourceServiceSettings = new SQLDatabaseServiceSettings { ConnectionString = String.Empty };
                                     _configuration.Bind(
-                                        $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{dataSource.Name}",
+                                        $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{dataSource.Name}",
                                         sqlDataSourceServiceSettings);
                                     AzureSQLDatabaseDataSourceService sqlSvc = new AzureSQLDatabaseDataSourceService(
                                         (AzureSQLDatabaseDataSource)dataSource!,

@@ -42,13 +42,13 @@ namespace FoundationaLLM
                 DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
 
-            builder.Services.AddSingleton<IStorageService, DataLakeStorageService>(sp =>
+            builder.Services.AddSingleton<IStorageService, BlobStorageService>(sp =>
             {
                 var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
                     .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-                var logger = sp.GetRequiredService<ILogger<DataLakeStorageService>>();
+                var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
 
-                return new DataLakeStorageService(
+                return new BlobStorageService(
                     Options.Create<BlobStorageServiceSettings>(settings),
                     logger)
                 {
