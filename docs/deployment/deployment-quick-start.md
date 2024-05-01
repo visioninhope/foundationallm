@@ -45,7 +45,7 @@ If you are upgrading from a previous version, like `0.4.0` please refer to the c
 
     ```cmd
     git clone https://github.com/solliancenet/foundationallm.git
-    cd foundationallm/deploy/starter
+    cd foundationallm/deploy/quick-start
     git checkout release/0.6.0
     ```
 
