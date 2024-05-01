@@ -16,6 +16,7 @@ using FoundationaLLM.Common.Services.ResourceProviders;
 using FoundationaLLM.Vectorization.Client;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Models.Resources;
+using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Validation.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -368,12 +369,23 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         }
 
         /// <summary>
-        /// Processes a vectorization request based on the vectorization request resource path.
+        /// Executes an action on a vectorization resource.
         /// </summary>
         /// <param name="resourcePath">The resource path (or object id) of the vectorization request to process.</param>
+        /// <param name="serializedAction">The JSON string payload to pass in as an action parameter.</param>
         /// <returns></returns>
-        public async Task<VectorizationResult> ProcessVectorizationRequest(string resourcePath) =>
-            await ProcessVectorizationRequest(GetResourcePath(resourcePath));
+        public async Task<object> ExecuteActionAsync(string resourcePath, string? serializedAction = null) =>
+            await ExecuteActionAsync(GetResourcePath(resourcePath), serializedAction??string.Empty, GetUnifiedUserIdentity());
+
+
+        /// <summary>
+        /// Retrieves resources from the vectorization resource provider.
+        /// </summary>
+        /// <param name="resourcePath">The resource path from which to retrieve resources.</param>
+        /// <returns>List of vectorization resources.</returns>
+        public async Task<object> GetResourcesAsync(string resourcePath) =>
+            await GetResourcesAsync(GetResourcePath(resourcePath), GetUnifiedUserIdentity());
+
 
         /// <summary>
         /// Processes a vectorization request.
@@ -385,10 +397,12 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         {
             var vectorizationRequestId = resourcePath.ResourceTypeInstances[0].ResourceId!;
             // retrieve the vectorization request from the in-memory collection
-            if (!_vectorizationRequests.TryGetValue(vectorizationRequestId, out var request))
+            var result = (List<VectorizationRequest>)(await GetResourcesAsync(resourcePath, GetUnifiedUserIdentity())); //should only return one or none
+            if (result.Count == 0)
                 throw new ResourceProviderException($"The resource {vectorizationRequestId} was not found.",
                                        StatusCodes.Status404NotFound);
-
+            var request = result.First();
+           
             var client = new VectorizationServiceClient(
                 httpClientFactory,
                 vectorizationServiceSettings,
@@ -520,10 +534,13 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 VectorizationResourceTypeNames.TextPartitioningProfiles => GetTextPartitioningProfile<T>(resourcePath),
                 VectorizationResourceTypeNames.TextEmbeddingProfiles => GetTextEmbeddingProfile<T>(resourcePath),
                 VectorizationResourceTypeNames.IndexingProfiles => GetIndexingProfile<T>(resourcePath),
+                VectorizationResourceTypeNames.VectorizationPipelines => GetVectorizationProfile<T>(resourcePath),
                 VectorizationResourceTypeNames.VectorizationRequests => GetVectorizationRequest<T>(resourcePath),
+
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
+        
 
         #region Helpers for GetResourceInternal<T>
 
@@ -563,6 +580,19 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
             _indexingProfiles.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var indexingProfile);
             return indexingProfile as T
+                ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+        }
+
+        private T GetVectorizationProfile<T>(ResourcePath resourcePath) where T : class
+        {
+            if (resourcePath.ResourceTypeInstances.Count != 1)
+                throw new ResourceProviderException($"Invalid resource path");
+
+            if (typeof(T) != typeof(VectorizationPipeline))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
+
+            _pipelines.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var pipeline);
+            return pipeline as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
 
@@ -726,7 +756,17 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             }
 
             return resourceFilePaths;  
-        }        
+        }
+
+        /// <summary>
+        /// Internal identity representing the vectorization services.
+        /// </summary>
+        /// <returns></returns>
+        private UnifiedUserIdentity GetUnifiedUserIdentity() => new UnifiedUserIdentity() {
+            Name = "VectorizationAPI",
+            UserId = "VectorizationAPI",
+            Username = "VectorizationAPI",
+        };
         #endregion
 
         #region Event handling

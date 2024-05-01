@@ -1,15 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Models.Authentication;
-using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
-using FoundationaLLM.Common.Settings;
-using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.ResourceProviders;
-using FoundationaLLM.Vectorization.Services;
-using FoundationaLLM.Vectorization.Services.VectorizationStates;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Vectorization.Extensions
 {
@@ -25,10 +16,10 @@ namespace FoundationaLLM.Vectorization.Extensions
         /// <returns>List of active pipelines.</returns>
         public static async Task<List<VectorizationPipeline>> GetActivePipelines(this VectorizationResourceProviderService vectorizationResourceProvider)
         {
-            var pipelines = await vectorizationResourceProvider.HandleGetAsync(
-                $"/{VectorizationResourceTypeNames.VectorizationPipelines}",
-                new VectorizationServiceUnifiedUserIdentity());
-            return (pipelines as List<VectorizationPipeline>)!.Where(p => p.Active).ToList();
+            var pipelinesList = await vectorizationResourceProvider.GetResourcesAsync($"/{VectorizationResourceTypeNames.VectorizationPipelines}") as List<VectorizationPipeline>;
+            if (pipelinesList == null)
+                return new List<VectorizationPipeline>();
+            return pipelinesList.Where(p => p.Active).ToList();
         }
 
         /// <summary>
@@ -40,26 +31,15 @@ namespace FoundationaLLM.Vectorization.Extensions
         /// <returns></returns>
         public static async Task TogglePipelineActivation(this VectorizationResourceProviderService vectorizationResourceProvider, string pipelineObjectId, bool activate)
         {
-            var unifiedIdentity = new VectorizationServiceUnifiedUserIdentity();
-            var results = await vectorizationResourceProvider.HandleGetAsync(
-                               pipelineObjectId,
-                               unifiedIdentity) as List<VectorizationPipeline>;
-            if (results == null || results.Count==0)
-                //nothing to update
-                return;
-
-            var pipeline = results.FirstOrDefault();
-                        
+            var pipeline =  vectorizationResourceProvider.GetResource<VectorizationPipeline>(pipelineObjectId);                        
+           
             if (pipeline == null || pipeline.Active == activate)
                 // nothing to update
                 return;
 
             // update the pipeline active state
-            pipeline.Active = activate;
-            var jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
-            jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-            var requestBody = JsonSerializer.Serialize(pipeline, jsonSerializerOptions);
-            await vectorizationResourceProvider.HandlePostAsync(pipelineObjectId, requestBody, unifiedIdentity);            
+            string slug = activate ? "activate" : "deactivate";           
+            await vectorizationResourceProvider.ExecuteActionAsync($"{pipelineObjectId}/{slug}");
         }
         
     }

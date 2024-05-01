@@ -11,6 +11,7 @@ using FoundationaLLM.Common.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Vectorization.Extensions;
+using FoundationaLLM.Vectorization.ResourceProviders;
 
 namespace FoundationaLLM.Vectorization.Services
 {
@@ -307,17 +308,18 @@ namespace FoundationaLLM.Vectorization.Services
                 && request.PipelineObjectId is not null
                 && request.PipelineExecutionId is not null)
             {
+                var pipelineName = request.PipelineObjectId.Split('/').Last();
                 // obtain the current state of the pipeline based on child vectorization requests
                 var currentPipelineState = await _vectorizationStateService.GetPipelineExecutionProcessingState(
                         GetVectorizationResourceProvider(),
-                        request.PipelineObjectId,
+                        pipelineName,
                         request.PipelineExecutionId);                
 
                 // pipelines are automatically set to InProgress when executed, update if the current status is different
                 if (currentPipelineState != VectorizationProcessingState.InProgress)
                 {
                     //retrieve pipeline state file
-                    var pipelineState = await _vectorizationStateService.ReadPipelineState(request.PipelineObjectId, request.PipelineExecutionId);
+                    var pipelineState = await _vectorizationStateService.ReadPipelineState(pipelineName, request.PipelineExecutionId);
                     pipelineState.ProcessingState = currentPipelineState;
                     await _vectorizationStateService.SavePipelineState(pipelineState);
                 }
@@ -325,13 +327,13 @@ namespace FoundationaLLM.Vectorization.Services
             }
         }
 
-        private IResourceProviderService GetVectorizationResourceProvider()
+        private VectorizationResourceProviderService GetVectorizationResourceProvider()
         {
             var vectorizationResourceProviderService = _serviceProvider.GetService<IResourceProviderService>();
             if (vectorizationResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
 
-            return vectorizationResourceProviderService;
+            return (VectorizationResourceProviderService)vectorizationResourceProviderService;
         }
 
  

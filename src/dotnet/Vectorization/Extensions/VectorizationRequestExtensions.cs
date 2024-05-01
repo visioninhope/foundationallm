@@ -26,11 +26,9 @@ namespace FoundationaLLM.Vectorization.Extensions
                 //build the minimal object id for new requests
                 request.ObjectId = $"/{VectorizationResourceTypeNames.VectorizationRequests}/{request.Id}";
             }
-
             // in the case of a new request, this updates the object id with the fully qualified object id, otherwise it remains the same.
             request.ObjectId = await vectorizationResourceProvider.UpsertResourceAsync(request.ObjectId, request);                      
         }
-
 
         /// <summary>
         /// Issues the "process" action on the vectorization request resource using the vectorization resource provider.        
@@ -40,6 +38,6 @@ namespace FoundationaLLM.Vectorization.Extensions
         public static async Task<VectorizationResult> ProcessVectorizationRequest(
             this VectorizationRequest request,
             VectorizationResourceProviderService vectorizationResourceProvider
-        ) => await vectorizationResourceProvider.ProcessVectorizationRequest(request.ObjectId!);
+        ) => (VectorizationResult)await vectorizationResourceProvider.ExecuteActionAsync($"{request.ObjectId!}/process");
     }
 }

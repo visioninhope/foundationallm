@@ -101,15 +101,15 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                 activePipeline.DataSourceObjectId,
                                 DataSourceResourceTypeNames.DataSources,
                                 dataSourceResourceProvider);
-                            var textPartitioningProfile = await GetResource<VectorizationProfileBase>(
+                            var textPartitioningProfile = await GetResource<TextPartitioningProfile>(
                                 activePipeline.TextPartitioningProfileObjectId,
                                 VectorizationResourceTypeNames.TextPartitioningProfiles,
                                 vectorizationResourceProvider);
-                            var textEmbeddingProfile = await GetResource<VectorizationProfileBase>(
+                            var textEmbeddingProfile = await GetResource<TextEmbeddingProfile>(
                                 activePipeline.TextEmbeddingProfileObjectId,
                                 VectorizationResourceTypeNames.TextEmbeddingProfiles,
                                 vectorizationResourceProvider);
-                            var indexingProfile = await GetResource<VectorizationProfileBase>(
+                            var indexingProfile = await GetResource<IndexingProfile>(
                                 activePipeline.IndexingProfileObjectId,
                                 VectorizationResourceTypeNames.IndexingProfiles,
                                 vectorizationResourceProvider);
@@ -209,6 +209,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                         {
                                             //create the vectorization request
                                             await vectorizationRequest.UpdateVectorizationRequestResource(vectorizationResourceProvider);
+                                            pipelineState.VectorizationRequestObjectIds.Add(vectorizationRequest.ObjectId!);
                                             //issue process action on the created vectorization request
                                             await vectorizationRequest.ProcessVectorizationRequest(vectorizationResourceProvider);
                                         }
@@ -351,13 +352,18 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
             }
         }
 
-        private async Task<T> GetResource<T>(string objectId, string resourceTypeName, IResourceProviderService resourceProviderService)
-            where T : ResourceBase
-        {
-            var result = await resourceProviderService.HandleGetAsync(
-                $"/{resourceTypeName}/{objectId.Split("/").Last()}", new VectorizationServiceUnifiedUserIdentity());
-            return (result as List<T>)!.First();
-        }
+        /// <summary>
+        /// Retrieves a resource of the specified type from the resource provider service.
+        /// </summary>
+        /// <typeparam name="T">Type of the resource to retrieve.</typeparam>
+        /// <param name="objectId">The object id/resource path of the resource to retrieve.</param>
+        /// <param name="resourceTypeName">The type of resource.</param>
+        /// <param name="resourceProviderService">The resource provider service.</param>
+        /// <returns>The requested resource object.</returns>
+        private static Task<T> GetResource<T>(string objectId, string resourceTypeName, IResourceProviderService resourceProviderService)
+            where T : ResourceBase =>       
+          Task.FromResult(resourceProviderService.GetResource<T>($"/{resourceTypeName}/{objectId.Split("/").Last()}"));
+        
 
         private static bool CheckNextExecution(string? cronExpression)
         {

@@ -1,11 +1,13 @@
 ﻿using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.Services;
+using FoundationaLLM.Vectorization.ResourceProviders;
 
 namespace FoundationaLLM.Vectorization.Extensions
 {
+    /// <summary>
+    /// Extension methods for the <see cref="IVectorizationStateService"/> class.
+    /// </summary>
     public static class VectorizationStateServiceExtensions
     {
         /// <summary>
@@ -19,13 +21,12 @@ namespace FoundationaLLM.Vectorization.Extensions
         /// <exception cref="VectorizationException"></exception>
         public static async Task<VectorizationProcessingState> GetPipelineExecutionProcessingState(
             this IVectorizationStateService stateService,
-            IResourceProviderService vectorizationResourceProvider,
+            VectorizationResourceProviderService vectorizationResourceProvider,
             string pipelineName,
             string pipelineExecutionId)
         {
             var pipelineProcessingState = VectorizationProcessingState.New;
-            var unifiedIdentity = new VectorizationServiceUnifiedUserIdentity();
-
+            
             // check if the pipeline execution state exists
             var pipelineState = await stateService.ReadPipelineState(pipelineName, pipelineExecutionId);
             if (pipelineState == null)
@@ -41,14 +42,13 @@ namespace FoundationaLLM.Vectorization.Extensions
 
             // calcuate the pipeline state based on its associated vectorization requests.
             var requestProcessingStates = new List<VectorizationProcessingState>();
-            foreach (var vectorizationRequestObectId in pipelineState.VectorizationRequestObjectIds)
+            foreach (var vectorizationRequestObjectId in pipelineState.VectorizationRequestObjectIds)
             {
-                var vectorizationRequest = await vectorizationResourceProvider.HandleGetAsync(
-                                       vectorizationRequestObectId,
-                                       unifiedIdentity) as VectorizationRequest;
+                var vectorizationRequest = vectorizationResourceProvider.GetResource<VectorizationRequest>(vectorizationRequestObjectId);
+
                 if (vectorizationRequest == null)
                 {
-                    throw new VectorizationException($"Vectorization request not found for object id {vectorizationRequestObectId}");
+                    throw new VectorizationException($"Vectorization request not found for object id {vectorizationRequestObjectId}");
                 }
 
                 requestProcessingStates.Add(vectorizationRequest.ProcessingState);

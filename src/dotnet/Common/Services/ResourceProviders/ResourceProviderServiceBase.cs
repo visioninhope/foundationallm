@@ -234,7 +234,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 resourcePath,
                 _allowedResourceProviders,
                 _allowedResourceTypes,
-                allowAction: false);
+                allowAction: true);
         }
 
         #region Virtuals to override in derived classes
