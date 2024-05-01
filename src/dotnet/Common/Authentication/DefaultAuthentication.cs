@@ -1,8 +1,9 @@
 ﻿using Azure.Core;
 using Azure.Identity;
 using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Models.Authentication;
+using Microsoft.Identity.Web;
 using System.IdentityModel.Tokens.Jwt;
-using System.Runtime;
 
 namespace FoundationaLLM.Common.Authentication
 {
@@ -15,18 +16,30 @@ namespace FoundationaLLM.Common.Authentication
         /// Initializes the default authentication.
         /// </summary>
         /// <param name="production">Indicates whether the environment is production or not.</param>
-        public static void Initialize(bool production)
+        public static void Initialize(bool production, string serviceName)
         {
             Production = production;
 
-            var credentials = GetAzureCredential();
-            var tokenResult = credentials.GetToken(
+            AzureCredential = Production
+                ? new ManagedIdentityCredential(Environment.GetEnvironmentVariable(EnvironmentVariables.AzureClientId))
+                : new AzureCliCredential();
+
+            var tokenResult = AzureCredential.GetToken(
                 new(["api://FoundationaLLM-Authorization-Auth/.default"]),
                 default);
 
             var handler = new JwtSecurityTokenHandler();
             var token = handler.ReadToken(tokenResult.Token) as JwtSecurityToken;
-            //var appId = token!.Claims.First(c => c.Type == "appid").Value;
+            var id = token!.Claims.First(c => c.Type == ClaimConstants.Oid)?.Value
+                ?? token.Claims.First(c => c.Type == ClaimConstants.ObjectId)?.Value
+                ?? token.Claims.First(c => c.Type == ClaimConstants.NameIdentifierId)?.Value;
+
+            ServiceIdentity = new UnifiedUserIdentity
+            {
+                Name = serviceName,
+                UserId = id,
+                GroupIds = []
+            };
         }
 
         /// <summary>
@@ -37,9 +50,11 @@ namespace FoundationaLLM.Common.Authentication
         /// <summary>
         /// The default Azure credential to use for authentication.
         /// </summary>
-        public static TokenCredential GetAzureCredential() =>
-            Production
-            ? new ManagedIdentityCredential(Environment.GetEnvironmentVariable(EnvironmentVariables.AzureClientId))
-            : new AzureCliCredential();
+        public static TokenCredential? AzureCredential { get; set; }
+
+        /// <summary>
+        /// The <see cref="UnifiedUserIdentity"/> of the service based on its managed identity."/>
+        /// </summary>
+        public static UnifiedUserIdentity? ServiceIdentity { get; set; }
     }
 }

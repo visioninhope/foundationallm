@@ -7,10 +7,13 @@ using FoundationaLLM.Core.Worker;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
+using FoundationaLLM.Common.Constants;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-DefaultAuthentication.Initialize(builder.Environment.IsProduction());
+DefaultAuthentication.Initialize(
+    builder.Environment.IsProduction(),
+    ServiceNames.CoreWorker);
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -21,7 +24,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(DefaultAuthentication.GetAzureCredential());
+        options.SetCredential(DefaultAuthentication.AzureCredential);
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_CoreWorker);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
@@ -35,7 +38,7 @@ builder.Services.AddOptions<CosmosDbSettings>()
 builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
 {
     var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
-    return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.GetAzureCredential())
+    return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.AzureCredential)
         .WithSerializerOptions(new CosmosSerializationOptions
         {
             PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase

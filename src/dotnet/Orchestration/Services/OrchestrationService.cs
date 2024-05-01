@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
@@ -20,7 +21,7 @@ namespace FoundationaLLM.Orchestration.Core.Services;
 /// </summary>
 public class OrchestrationService : IOrchestrationService
 {
-    private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices;
+    private readonly ILLMOrchestrationServiceManager _llmOrchestrationServiceManager;
     private readonly ICallContext _callContext;
     private readonly IConfiguration _configuration;
     private readonly ILogger<OrchestrationService> _logger;
@@ -28,81 +29,36 @@ public class OrchestrationService : IOrchestrationService
 
     private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices;
 
-    private bool _initialized = false;
-
     /// <summary>
     /// Constructor for the Orchestration Service.
     /// </summary>
-    /// <param name="resourceProviderServices">A list of <see cref="IResourceProviderService"/> resource providers.</param>
-    /// <param name="orchestrationServices"></param>
+    /// <param name="resourceProviderServices">A list of of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
+    /// <param name="llmOrchestrationServiceManager">The <see cref="ILLMOrchestrationServiceManager"/> managing the internal and external LLM orchestration services.</param>
     /// <param name="callContext">The call context of the request being handled.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public OrchestrationService(
         IEnumerable<IResourceProviderService> resourceProviderServices,
-        IEnumerable<ILLMOrchestrationService> orchestrationServices,
+        ILLMOrchestrationServiceManager llmOrchestrationServiceManager,
         ICallContext callContext,
         IConfiguration configuration,
         ILoggerFactory loggerFactory)
     {
         _resourceProviderServices = resourceProviderServices.ToDictionary<IResourceProviderService, string>(
                 rps => rps.Name);
-
-        _orchestrationServices = orchestrationServices;
+        _llmOrchestrationServiceManager = llmOrchestrationServiceManager;
+        
         _callContext = callContext;
         _configuration = configuration;
 
         _loggerFactory = loggerFactory;
         _logger = _loggerFactory.CreateLogger<OrchestrationService>();
-
-        // Kicks off the initialization on a separate thread and does not wait for it to complete.
-        // The completion of the initialization process will be signaled by setting the _initialized property.
-        _ = Task.Run(Initialize);
     }
-
-    #region Initialization
-
-    /// <summary>
-    /// Performs the initialization of the orchestration service.
-    /// </summary>
-    /// <returns></returns>
-    private async Task Initialize()
-    {
-        try
-        {
-            var configurationResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Configuration];
-
-            //var externalOrchestrationServices = await configurationResourceProvider.GetResources<ExternalOrchestrationService>()
-
-            _initialized = true;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error initializing the orchestration service.");
-        }
-    }
-
-    #endregion
 
     /// <summary>
     /// Returns the status of the orchestration service based on the initialization status of each subordinate orchestration services.
     /// </summary>
-    public string Status
-    {
-        get
-        {
-            if (!_initialized)
-                return "not initialized";
-
-            if (_orchestrationServices.All(os => os.IsInitialized))
-                return "ready";
-
-            return string.Join(",", _orchestrationServices
-                .Where(os => !os.IsInitialized)
-                .Select(os => $"{os.GetType().Name}: initializing"));
-        }
-    }
-
+    public string Status => _llmOrchestrationServiceManager.Status;
 
     /// <summary>
     /// Retrieve a completion from the configured orchestration service.
@@ -143,7 +99,7 @@ public class OrchestrationService : IOrchestrationService
                 _callContext,
                 _configuration,
                 _resourceProviderServices,
-                _orchestrationServices,
+                _llmOrchestrationServiceManager,
                 _loggerFactory);
 
             var stepCompletionRequest = new CompletionRequest

@@ -13,9 +13,7 @@ using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
-using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
-using FoundationaLLM.Orchestration.Core.Services;
 using Microsoft.Extensions.Options;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -35,7 +33,9 @@ namespace FoundationaLLM.Orchestration.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            DefaultAuthentication.Initialize(builder.Environment.IsProduction());
+            DefaultAuthentication.Initialize(
+                builder.Environment.IsProduction(),
+                ServiceNames.OrchestrationAPI);
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -45,10 +45,11 @@ namespace FoundationaLLM.Orchestration.API
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
-                    options.SetCredential(DefaultAuthentication.GetAzureCredential());
+                    options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ExternalAPIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Orchestration);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAI);
@@ -100,11 +101,8 @@ namespace FoundationaLLM.Orchestration.API
             builder.Services.AddOptions<OrchestrationSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Orchestration));
 
-            builder.Services.AddScoped<ILLMOrchestrationService, SemanticKernelService>();
-            builder.Services.AddScoped<ILLMOrchestrationService, LangChainService>();
-            builder.Services.AddScoped<ILLMOrchestrationService, AzureAIDirectService>();
-            builder.Services.AddScoped<ILLMOrchestrationService, AzureOpenAIDirectService>();
-
+            
+            builder.AddLLMOrchestrationServices();
             builder.AddOrchestrationService();
 
             builder.Services.AddScoped<ICallContext, CallContext>();
@@ -167,11 +165,6 @@ namespace FoundationaLLM.Orchestration.API
                     options.AddAPIKeyAuth();
                 })
                 .AddSwaggerGenNewtonsoftSupport();
-
-            builder.Services.Configure<RouteOptions>(options =>
-            {
-                options.LowercaseUrls = true;
-            });
 
             var app = builder.Build();
 

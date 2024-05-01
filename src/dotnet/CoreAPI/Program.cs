@@ -36,7 +36,9 @@ namespace FoundationaLLM.Core.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            DefaultAuthentication.Initialize(builder.Environment.IsProduction());
+            DefaultAuthentication.Initialize(
+                builder.Environment.IsProduction(),
+                ServiceNames.CoreAPI);
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -46,7 +48,7 @@ namespace FoundationaLLM.Core.API
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
-                    options.SetCredential(DefaultAuthentication.GetAzureCredential());
+                    options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
@@ -96,7 +98,7 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
             {
                 var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
-                return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.GetAzureCredential())
+                return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.AzureCredential)
                     .WithSerializerOptions(new CosmosSerializationOptions
                     {
                         PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase

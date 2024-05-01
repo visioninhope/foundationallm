@@ -336,7 +336,7 @@ namespace FoundationaLLM.Common.Services.Events
             try
             {
                 ValidateEndpoint(_settings.Endpoint);
-                client = new EventGridClient(new Uri(_settings.Endpoint!), DefaultAuthentication.GetAzureCredential());
+                client = new EventGridClient(new Uri(_settings.Endpoint!), DefaultAuthentication.AzureCredential);
             }
             catch (Exception ex)
             {

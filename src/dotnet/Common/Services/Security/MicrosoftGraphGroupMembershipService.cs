@@ -11,7 +11,7 @@ namespace FoundationaLLM.Common.Services.Security
     public class MicrosoftGraphGroupMembershipService : IGroupMembershipService
     {
         private readonly GraphServiceClient _graphClient = new GraphServiceClient(
-            DefaultAuthentication.GetAzureCredential());
+            DefaultAuthentication.AzureCredential);
 
         /// <inheritdoc/>
         public async Task<List<string>> GetGroupsForPrincipal(string userIdentifier)

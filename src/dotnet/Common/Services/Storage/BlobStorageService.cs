@@ -170,6 +170,6 @@ namespace FoundationaLLM.Common.Services.Storage
         protected override void CreateClientFromIdentity(string accountName) =>
             _blobServiceClient = new BlobServiceClient(
                 new Uri($"https://{accountName}.blob.core.windows.net"),
-                DefaultAuthentication.GetAzureCredential());
+                DefaultAuthentication.AzureCredential);
     }
 }
