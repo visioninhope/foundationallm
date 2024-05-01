@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Common.Models.Agents
+﻿namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
 {
     /// <summary>
     /// The Internal Context agent metadata model.

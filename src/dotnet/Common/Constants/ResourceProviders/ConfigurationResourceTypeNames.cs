@@ -9,5 +9,10 @@
         /// Azure App Configuration key values.
         /// </summary>
         public const string AppConfigurations = "appConfigurations";
+
+        /// <summary>
+        /// Extensibility orchestration services.
+        /// </summary>
+        public const string OrchestrationServices = "orchestrationServices";
     }
 }

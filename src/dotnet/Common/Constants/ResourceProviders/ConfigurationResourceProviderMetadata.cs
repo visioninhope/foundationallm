@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 
 namespace FoundationaLLM.Configuration.Services
