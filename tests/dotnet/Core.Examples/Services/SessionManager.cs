@@ -57,7 +57,7 @@ namespace FoundationaLLM.Core.Examples.Services
                 var responseContent = await responseMessage.Content.ReadAsStringAsync();
                 var completionResponse =
                     JsonSerializer.Deserialize<Completion>(responseContent, _jsonSerializerOptions);
-                return completionResponse;
+                return completionResponse ?? throw new InvalidOperationException("The returned completion response is invalid.");
             }
 
             throw new FoundationaLLMException($"Failed to send completion request. Status code: {responseMessage.StatusCode}. Reason: {responseMessage.ReasonPhrase}");
