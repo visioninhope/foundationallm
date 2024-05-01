@@ -149,34 +149,6 @@ $AZCOPY_VERSION = "10.24.0"
 
 Push-Location ./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}
 
-Invoke-AndRequireSuccess "Uploading Agents" {
-    ./azcopy cp `
-        ../../../common/data/agents/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/agents/ `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Data Sources" {
-    ./azcopy cp `
-        ../../../common/data/data-sources/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/data-sources/ `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Foundationallm Source" {
-    ./azcopy cp `
-        ../../../common/data/foundationallm-source/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/foundationallm-source/ `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Prompts" {
-    ./azcopy cp `
-        ../../../common/data/prompts/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/prompts/ `
-        --recursive=True
-}
-
 Invoke-AndRequireSuccess "Uploading Resource Providers" {
     ./azcopy cp `
         ../../../common/data/resource-provider/* `
