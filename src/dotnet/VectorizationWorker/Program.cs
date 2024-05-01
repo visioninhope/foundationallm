@@ -23,7 +23,7 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DefaultAuthentication.Production = builder.Environment.IsProduction();
+DefaultAuthentication.Initialize(builder.Environment.IsProduction());
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);

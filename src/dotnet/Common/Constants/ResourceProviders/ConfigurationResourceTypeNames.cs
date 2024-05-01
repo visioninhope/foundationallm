@@ -11,8 +11,8 @@
         public const string AppConfigurations = "appConfigurations";
 
         /// <summary>
-        /// Extensibility orchestration services.
+        /// External orchestration services.
         /// </summary>
-        public const string OrchestrationServices = "orchestrationServices";
+        public const string ExternalOrchestrationServices = "externalOrchestrationServices";
     }
 }

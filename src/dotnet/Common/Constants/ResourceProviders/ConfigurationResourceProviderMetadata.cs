@@ -31,6 +31,18 @@ namespace FoundationaLLM.Configuration.Services
                             ])
                         ]
                 }
+            },
+            {
+                ConfigurationResourceTypeNames.ExternalOrchestrationServices,
+                new ResourceTypeDescriptor(
+                        ConfigurationResourceTypeNames.ExternalOrchestrationServices)
+                {
+                    AllowedTypes = [
+                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ExternalOrchestrationService)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ExternalOrchestrationService)], [typeof(ResourceProviderUpsertResult)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
+                    ]
+                }
             }
         };
     }

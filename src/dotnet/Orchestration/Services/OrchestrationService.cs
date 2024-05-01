@@ -1,15 +1,15 @@
-﻿using AngleSharp.Text;
-using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Models;
 using FoundationaLLM.Orchestration.Core.Orchestration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
 
@@ -27,6 +27,8 @@ public class OrchestrationService : IOrchestrationService
     private readonly ILoggerFactory _loggerFactory;
 
     private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices;
+
+    private bool _initialized = false;
 
     /// <summary>
     /// Constructor for the Orchestration Service.
@@ -52,15 +54,46 @@ public class OrchestrationService : IOrchestrationService
 
         _loggerFactory = loggerFactory;
         _logger = _loggerFactory.CreateLogger<OrchestrationService>();
+
+        // Kicks off the initialization on a separate thread and does not wait for it to complete.
+        // The completion of the initialization process will be signaled by setting the _initialized property.
+        _ = Task.Run(Initialize);
     }
 
+    #region Initialization
+
     /// <summary>
-    /// Returns the status of the Semantic Kernel.
+    /// Performs the initialization of the orchestration service.
+    /// </summary>
+    /// <returns></returns>
+    private async Task Initialize()
+    {
+        try
+        {
+            var configurationResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Configuration];
+
+            //var externalOrchestrationServices = await configurationResourceProvider.GetResources<ExternalOrchestrationService>()
+
+            _initialized = true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error initializing the orchestration service.");
+        }
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Returns the status of the orchestration service based on the initialization status of each subordinate orchestration services.
     /// </summary>
     public string Status
     {
         get
         {
+            if (!_initialized)
+                return "not initialized";
+
             if (_orchestrationServices.All(os => os.IsInitialized))
                 return "ready";
 

@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
@@ -82,22 +83,21 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProvider))
                 throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
 
-            var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{agentName}", currentUserIdentity);
-            var agentBase = ((List<AgentBase>)agents)[0];
+            var agentBase = await agentResourceProvider.GetResource<AgentBase>(
+                $"/{AgentResourceTypeNames.Agents}/{agentName}",
+                currentUserIdentity);
 
             if (agentBase.OrchestrationSettings!.AgentParameters == null)
                 agentBase.OrchestrationSettings.AgentParameters = [];
 
-            var prompt = await GetResource<PromptBase>(
+            var prompt = await promptResourceProvider.GetResource<PromptBase>(
                 agentBase.PromptObjectId!,
-                PromptResourceTypeNames.Prompts,
-                promptResourceProvider,
                 currentUserIdentity);
 
             agentBase.OrchestrationSettings.AgentParameters[agentBase.PromptObjectId!] = prompt;
 
-            var allAgents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}", currentUserIdentity);
-            var allAgentsDescriptions = ((List<AgentBase>)allAgents)
+            var allAgents = await agentResourceProvider.GetResources<AgentBase>(currentUserIdentity);
+            var allAgentsDescriptions = allAgents
                 .Where(a => !string.IsNullOrWhiteSpace(a.Description) && a.Name != agentBase.Name)
                 .Select(a => new
                 {
@@ -114,10 +114,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 {
                     if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.IndexingProfileObjectId))
                     {
-                        var indexingProfile = await GetResource<VectorizationProfileBase>(
+                        var indexingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
                             kmAgent.Vectorization.IndexingProfileObjectId,
-                            VectorizationResourceTypeNames.IndexingProfiles,
-                            vectorizationResourceProvider,
                             currentUserIdentity);
 
                         kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.IndexingProfileObjectId!] = indexingProfile;
@@ -125,10 +123,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
                     if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.TextEmbeddingProfileObjectId))
                     {
-                        var textEmbeddingProfile = await GetResource<VectorizationProfileBase>(
+                        var textEmbeddingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
                             kmAgent.Vectorization.TextEmbeddingProfileObjectId,
-                            VectorizationResourceTypeNames.TextEmbeddingProfiles,
-                            vectorizationResourceProvider,
                             currentUserIdentity);
 
                         kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfile;
@@ -137,15 +133,6 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             }
 
             return agentBase;
-        }
-
-        private static async Task<T> GetResource<T>(string objectId, string resourceTypeName, IResourceProviderService resourceProviderService, UnifiedUserIdentity currentUserIdentity)
-            where T : ResourceBase
-        {
-            var result = await resourceProviderService.HandleGetAsync(
-                $"/{resourceTypeName}/{objectId.Split("/").Last()}",
-                currentUserIdentity);
-            return (result as List<T>)!.First();
         }
 
         /// <summary>
