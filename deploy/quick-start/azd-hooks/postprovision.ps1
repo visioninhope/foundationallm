@@ -135,20 +135,6 @@ Invoke-AndRequireSuccess "Loading AppConfig Values" {
         --output none
 }
 
-if ($IsWindows) {
-    $os = "windows"
-}
-elseif ($IsMacOS) {
-    $os = "mac"
-}
-elseif ($IsLinux) {
-    $os = "linux"
-}
-
-$AZCOPY_VERSION = "10.24.0"
-
-Push-Location ./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}
-
 Invoke-AndRequireSuccess "Uploading Agents" {
     az storage azcopy blob upload `
         -c agents `
