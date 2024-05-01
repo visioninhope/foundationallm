@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Models.AzureAIService;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Examples.Setup;
 using FoundationaLLM.Core.Interfaces;
@@ -21,7 +22,7 @@ namespace FoundationaLLM.Core.Examples
     /// </summary>
     public class Example16_CompletionQualityMeasurements : BaseTest, IClassFixture<TestFixture>
 	{
-		private readonly IHttpClientFactory _httpClientFactory;
+		private readonly ISessionManager _sessionManager;
 		private readonly ICosmosDbService _cosmosDbService;
 		private readonly IAzureAIService _azureAIService;
 		private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
@@ -29,7 +30,7 @@ namespace FoundationaLLM.Core.Examples
 		public Example16_CompletionQualityMeasurements(ITestOutputHelper output, TestFixture fixture)
 			: base(output, fixture.ServiceProvider)
 		{
-			_httpClientFactory = GetService<IHttpClientFactory>();
+            _sessionManager = GetService<ISessionManager>();
 			_cosmosDbService = GetService<ICosmosDbService>();
 			_azureAIService = GetService<IAzureAIService>();
 		}
@@ -44,6 +45,7 @@ namespace FoundationaLLM.Core.Examples
 		private async Task RunExampleAsync()
 		{
 			var agentPrompts = TestConfiguration.CompletionQualityMeasurementConfiguration.AgentPrompts;
+            var sessionsToDelete = new List<string>();
 			if (agentPrompts == null || agentPrompts.Length == 0)
 			{
 				WriteLine("No agent prompts found. Make sure you enter them in testsettings.json.");
@@ -51,36 +53,37 @@ namespace FoundationaLLM.Core.Examples
 			}
 			foreach (var agentPrompt in agentPrompts)
 			{
-				await RunAgentCompletionAsync(agentPrompt);
+				var sessionId = await RunAgentCompletionAsync(agentPrompt);
+                if (agentPrompt.SessionConfiguration is {CreateNewSession: true})
+                {
+                    sessionsToDelete.Add(sessionId);
+                }
 			}
+
+            // Delete the sessions that were created.
+            foreach (var sessionId in sessionsToDelete)
+            {
+                await _sessionManager.DeleteSessionAsync(sessionId);
+            }
 		}
 
-		private async Task RunAgentCompletionAsync(AgentPrompt agentPrompt)
-		{
-			WriteLine($"Agent: {agentPrompt.AgentName}");
+		private async Task<string> RunAgentCompletionAsync(AgentPrompt agentPrompt)
+        {
+            var sessionId = agentPrompt.SessionConfiguration?.SessionId ?? string.Empty;
+            WriteLine($"Agent: {agentPrompt.AgentName}");
 
-			var client = await GetHttpClient();
 			if (agentPrompt.SessionConfiguration is {CreateNewSession: true})
 			{
-				var responseSession = await client.PostAsync("sessions", null);
-
-				if (responseSession.IsSuccessStatusCode)
-				{
-					var responseContent = await responseSession.Content.ReadAsStringAsync();
-					var sessionResponse = JsonSerializer.Deserialize<Session>(responseContent, _jsonSerializerOptions);
-					if (sessionResponse?.SessionId != null)
-					{
-						agentPrompt.SessionConfiguration.SessionId = sessionResponse.SessionId;
-					}
-
-					var sessionName = "Test: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-					var responseUpdate = await client.PostAsync($"sessions/{agentPrompt.SessionConfiguration.SessionId}/rename?newChatSessionName={UrlEncoder.Default.Encode(sessionName)}", null);
-
-					if (!responseUpdate.IsSuccessStatusCode)
-					{
-						WriteLine("Failed to update the session name.");
-					}
-				}
+                try
+                {
+					sessionId = await _sessionManager.CreateSessionAsync();
+                    agentPrompt.SessionConfiguration.SessionId = sessionId;
+                }
+                catch (Exception e)
+                {
+                    WriteLine(e.Message);
+                    throw;
+                }
 			}
 			
 			if (agentPrompt.SessionConfiguration != null)
@@ -93,75 +96,59 @@ namespace FoundationaLLM.Core.Examples
 					Settings = null
 				};
 
-				var serializedRequest = JsonSerializer.Serialize(orchestrationRequest, _jsonSerializerOptions);
+                try
+                {
+					var completionResponse = await _sessionManager.SendCompletionRequestAsync(orchestrationRequest);
+                    
+                    var session =
+                        await _cosmosDbService.GetSessionAsync(agentPrompt.SessionConfiguration.SessionId!);
+                    var messages = await _cosmosDbService.GetSessionMessagesAsync(session.SessionId, session.UPN);
+                    // Get the last message where the agent is the sender.
+                    var lastAgentMessage = messages.LastOrDefault(m => m.Sender == nameof(Participants.Assistant));
+                    if (lastAgentMessage != null && !string.IsNullOrWhiteSpace(lastAgentMessage.CompletionPromptId))
+                    {
+                        // Get the completion prompt from the last agent message.
+                        var completionPrompt = await _cosmosDbService.GetCompletionPrompt(session.SessionId,
+                            lastAgentMessage.CompletionPromptId);
+                        // For the context, take everything in the prompt that comes after `\\n\\nContext:\\n`. If it doesn't exist, take the whole prompt.
+                        var contextIndex =
+                            completionPrompt.Prompt.IndexOf(@"\n\nContext:\n", StringComparison.Ordinal);
+                        if (contextIndex != -1)
+                        {
+                            completionPrompt.Prompt = completionPrompt.Prompt[(contextIndex + 14)..];
+                        }
 
-				var sessionUrl = $"sessions/{agentPrompt.SessionConfiguration.SessionId}/completion"; // Session-based - message history and data is retained in Cosmos DB. Must create a session if it does not exist.
-				var responseMessage = await client.PostAsync(sessionUrl,
-					new StringContent(
-						serializedRequest,
-						Encoding.UTF8, "application/json"));
+                        var dataSet = new InputsMapping
+                        {
+                            Question = agentPrompt.UserPrompt,
+                            Answer = completionResponse?.Text,
+                            Context = completionPrompt.Prompt,
+                            GroundTruth = agentPrompt.ExpectedCompletion,
+                        };
+                        // Create a new Azure AI evaluation from the data.
+                        var dataSetName = $"{agentPrompt.AgentName}_{session.SessionId}";
+                        var dataSetPath = await _azureAIService.CreateDataSet(dataSet, dataSetName);
+                        var dataSetVersion = await _azureAIService.CreateDataSetVersion(dataSetName, dataSetPath);
+                        _ = int.TryParse(dataSetVersion.DataVersion.VersionId, out var dataSetVersionNumber);
+                        var jobId = await _azureAIService.SubmitJob(dataSetName, dataSetName,
+                            dataSetVersionNumber == 0 ? 1 : dataSetVersionNumber,
+                            string.Empty);
+                        WriteLine($"Azure AI evaluation Job ID -> {jobId}");
 
-				if (responseMessage.IsSuccessStatusCode)
-				{
-					var responseContent = await responseMessage.Content.ReadAsStringAsync();
-					var completionResponse = JsonSerializer.Deserialize<Completion>(responseContent, _jsonSerializerOptions);
+                        WriteLine($"User prompt -> '{agentPrompt.UserPrompt}'");
+                        WriteLine($"Agent completion -> '{completionResponse?.Text}'");
+                        WriteLine($"Expected completion -> '{agentPrompt.ExpectedCompletion}'");
+                        WriteLine("-------------------------------");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
 
-					var session = await _cosmosDbService.GetSessionAsync(agentPrompt.SessionConfiguration.SessionId!);
-					var messages = await _cosmosDbService.GetSessionMessagesAsync(session.SessionId, session.UPN);
-					// Get the last message where the agent is the sender.
-					var lastAgentMessage = messages.LastOrDefault(m => m.Sender == nameof(Participants.Assistant));
-					if (lastAgentMessage != null && !string.IsNullOrWhiteSpace(lastAgentMessage.CompletionPromptId))
-					{
-						// Get the completion prompt from the last agent message.
-						var completionPrompt = await _cosmosDbService.GetCompletionPrompt(session.SessionId, lastAgentMessage.CompletionPromptId);
-						// For the context, take everything in the prompt that comes after `\\n\\nContext:\\n`. If it doesn't exist, take the whole prompt.
-						var contextIndex = completionPrompt.Prompt.IndexOf(@"\n\nContext:\n", StringComparison.Ordinal);
-						if (contextIndex != -1)
-						{
-							completionPrompt.Prompt = completionPrompt.Prompt[(contextIndex + 14)..];
-						}
-						var dataSet = new InputsMapping
-						{
-							Question = agentPrompt.UserPrompt,
-							Answer = completionResponse?.Text,
-							Context = completionPrompt.Prompt,
-							GroundTruth = agentPrompt.ExpectedCompletion,
-						};
-						// Create a new Azure AI evaluation from the data.
-						var dataSetName = $"{agentPrompt.AgentName}_{session.SessionId}";
-						var dataSetPath = await _azureAIService.CreateDataSet(dataSet, dataSetName);
-						var dataSetVersion = await _azureAIService.CreateDataSetVersion(dataSetName, dataSetPath);
-						_ = int.TryParse(dataSetVersion.DataVersion.VersionId, out var dataSetVersionNumber);
-						var jobId = await _azureAIService.SubmitJob(dataSetName, dataSetName, dataSetVersionNumber == 0 ? 1 : dataSetVersionNumber,
-							string.Empty);
-						WriteLine($"Azure AI evaluation Job ID -> {jobId}");
-					}
-
-					WriteLine($"User prompt -> '{agentPrompt.UserPrompt}'");
-					WriteLine($"Agent completion -> '{completionResponse?.Text}'");
-					WriteLine($"Expected completion -> '{agentPrompt.ExpectedCompletion}'");
-					WriteLine("-------------------------------");
-				}
-			}
-		}
-
-		private async Task<HttpClient> GetHttpClient()
-		{
-			var httpClient = _httpClientFactory.CreateClient(HttpClients.CoreAPI);
-			var coreApiScope = TestConfiguration.GetAppConfigValueAsync(AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes).GetAwaiter().GetResult();
-
-			// The scope needs to just be the base URI, not the full URI.
-			coreApiScope = coreApiScope[..coreApiScope.LastIndexOf('/')];
-
-			var credentials = TestConfiguration.GetTokenCredential();
-			var tokenResult = await credentials.GetTokenAsync(
-				new([coreApiScope]),
-				default);
-
-			httpClient.DefaultRequestHeaders.Authorization =
-				new AuthenticationHeaderValue("Bearer", tokenResult.Token);
-
-			return httpClient;
-		}
+            return sessionId;
+        }
 	}
 }
