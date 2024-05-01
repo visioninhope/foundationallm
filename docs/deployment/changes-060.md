@@ -12,8 +12,4 @@ The following components are now added to the list of Entra ID managed identity-
 
 ## Citations
 
-Citations (which means Explainability) is to be able to justify the responses returned by the agent and identify the source of where it based the response on.  This release include thhe API portion of this feature and in next releases we will include the UI portion of this feature.
-
-## Vectorization Changes
-
-Improved execution of Vectorization pipelines by adding event based triggers to the system. For example, adding files in a datalake account can trigger the vectorization pipeline to start processing the files.
+Citations (which means Explainability) is to be able to justify the responses returned by the agent and identify the source of where it based the response on.  This release include the API portion of this feature and in next releases we will include the UI portion of this feature.
