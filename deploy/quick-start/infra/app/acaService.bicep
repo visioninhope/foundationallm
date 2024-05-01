@@ -10,17 +10,18 @@ param imageName string
 param keyvaultName string
 param location string = resourceGroup().location
 param name string
+param resourceToken string
 param secretSettings array = []
 param serviceName string
 param tags object = {}
-param timestamp string = utcNow()
+param timestamp int = dateTimeToEpoch(utcNow())
 
 @secure()
 param appDefinition object
 
 /** Locals **/
 var appSettingsArray = filter(array(appDefinition.settings), i => i.name != '')
-var formattedAppName = replace(name, '-', '')
+var formattedAppName = replace('${name}${resourceToken}', '-', '')
 var truncatedAppName = substring(formattedAppName, 0, min(length(formattedAppName), 32))
 
 var env = union(

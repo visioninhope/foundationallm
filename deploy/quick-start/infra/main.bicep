@@ -549,7 +549,8 @@ module acaServices './app/acaService.bicep' = [
       imageName: service.image
       keyvaultName: keyVault.outputs.name
       location: location
-      name: '${abbrs.appContainerApps}${service.name}${resourceToken}'
+      name: '${abbrs.appContainerApps}${service.name}'
+      resourceToken: resourceToken
       serviceName: service.name
       tags: tags
 
