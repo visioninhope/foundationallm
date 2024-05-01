@@ -344,10 +344,6 @@ export default {
 
 			sourceTypeOptions: [
 				{
-					label: 'OneLake',
-					value: 'onelake',
-				},
-				{
 					label: 'Azure Data Lake',
 					value: 'azure-data-lake',
 				},
