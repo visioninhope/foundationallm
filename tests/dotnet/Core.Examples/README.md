@@ -13,11 +13,29 @@ This directory contains a collection of examples that demonstrate how to use the
 
 ## Examples
 
+### Example 1: FoundationaLLM agent interaction
+
+**Purpose**: Verify that the `FoundationaLLM` agent is available and can respond to user queries.
+
+**File**: [Example0001_FoundationaLLMAgentInteraction.cs](Example0001_FoundationaLLMAgentInteraction.cs)
+
+This example demonstrates how to use the FoundationaLLM Core API to send user prompts to the default `FoundationaLLM` agent and receive completions. It sends both session-based and sessionless requests to the Core API.
+
+#### Running the example
+
+Run the example by running a test on the `Example0001_FoundationaLLMAgentInteraction.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example0001_FoundationaLLMAgentInteraction.cs` file and selecting **Run Tests**.
+
+![The Run Tests context menu option is displayed.](media/example-1-run-tests.png)
+
+You will see an output similar to the following after the test is completed:
+
+![The completed test is displayed.](media/example-1-completed-test.png)
+
 ### Example 16: Completion quality measurements with Azure AI Studio
 
 **Purpose**: Verify that the completion quality measurements can be completed successfully with Azure AI Studio.
 
-**File**: [Example16_CompletionQualityMeasurements.cs](Example16_CompletionQualityMeasurements.cs)
+**File**: [Example0016_CompletionQualityMeasurements.cs](Example0016_CompletionQualityMeasurements.cs)
 
 This example demonstrates how to use the FoundationaLLM Core API to send predefined user prompts with their expected outcomes to evaluate completion quality measurements with Azure AI Studio.
 
@@ -82,8 +100,6 @@ Property definitions:
 #### Running the example
 
 1. Run the example by running a test on the `Example16_CompletionQualityMeasurements.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example16_CompletionQualityMeasurements.cs` file and selecting **Run Tests**.
-
-    ![The Run Tests context menu option is displayed.](media/example-16-run-tests.png)
 
     You will see an output similar to the following after the test is completed:
 
