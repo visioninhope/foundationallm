@@ -78,7 +78,7 @@ try {
     }
 
     Invoke-AndRequireSuccess "Uploading Auth Store Data" {
-        ./Upload-AuthStoreData.ps1 `
+        ./deploy/Upload-AuthStoreData.ps1 `
             -resourceGroup $resourceGroup["auth"] `
             -instanceId $manifest.instanceId
     }
