@@ -29,6 +29,11 @@ function envsubst {
     $ExecutionContext.InvokeCommand.ExpandString($InputObject)
 }
 
+function Format-Json {
+    param([Parameter(Mandatory = $true, ValueFromPipeline = $true)][string]$json)
+    return $json | ConvertFrom-Json -Depth 50 | ConvertTo-Json -Compress -Depth 50 | ForEach-Object { $_ -replace '"', '\"' }
+}
+
 function Format-EnvironmentVariables {
     param(
         [Parameter(Mandatory = $true)][string]$template,
@@ -52,9 +57,6 @@ $env:GUID04 = $($(New-Guid).Guid)
 $env:GUID05 = $($(New-Guid).Guid)
 $env:GUID06 = $($(New-Guid).Guid)
 
-$env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE = Get-Content ./config/management-api-event-profile.json
-$env:VECTORIZATION_WORKER_CONFIG = Get-Content ./config/vectorization.json
-
 $envConfiguraitons = @{
     "orchestration-api-event-profile"    = @{
         template     = './config/orchestration-api-event-profile.template.json'
@@ -65,6 +67,16 @@ $envConfiguraitons = @{
         template     = './config/core-api-event-profile.template.json'
         render       = './config/core-api-event-profile.json'
         variableName = 'FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE'
+    }
+    "management-api-event-profile"       = @{
+        template     = './config/management-api-event-profile.template.json'
+        render       = './config/management-api-event-profile.json'
+        variableName = 'FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE'
+    }
+    "vectorization"                      = @{
+        template     = './config/vectorization.template.json'
+        render       = './config/vectorization.json'
+        variableName = 'VECTORIZATION_WORKER_CONFIG'
     }
     "vectorization-api-event-profile"    = @{
         template     = './config/vectorization-api-event-profile.template.json'
@@ -85,7 +97,7 @@ foreach ($envConfiguraiton in $envConfiguraitons.GetEnumerator()) {
     Format-EnvironmentVariables -template $template -render $render
 
     $name = $envConfiguraiton.Value.variableName
-    $value = Get-Content $render
+    $value = Get-Content $render -Raw | Format-Json
     Set-Content env:\$name $value
 }
 

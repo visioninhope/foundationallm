@@ -38,6 +38,7 @@ try {
     }
 
     Push-Location $toolPath
+    Write-Host -ForegroundColor Blue "Please Follow the instructions below to login to Azure using AzCopy."
     if ($IsLinux) {
         chmod +x ./azcopy
         ./azcopy login
