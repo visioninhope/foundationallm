@@ -49,6 +49,18 @@ function Format-EnvironmentVariables {
     $result | Out-File $render -Force
 }
 
+if ($IsWindows) {
+    $os = "windows"
+}
+elseif ($IsMacOS) {
+    $os = "mac"
+}
+elseif ($IsLinux) {
+    $os = "linux"
+}
+
+$AZCOPY_VERSION = "10.24.0"
+
 $env:DEPLOY_TIME = $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ'))
 $env:GUID01 = $($(New-Guid).Guid)
 $env:GUID02 = $($(New-Guid).Guid)
@@ -142,20 +154,14 @@ Invoke-AndRequireSuccess "Loading AppConfig Values" {
         --output none
 }
 
-if ($IsWindows) {
-    $os = "windows"
-}
-elseif ($IsMacOS) {
-    $os = "mac"
-}
-elseif ($IsLinux) {
-    $os = "linux"
-}
-
-$AZCOPY_VERSION = "10.24.0"
-
 try {
     Push-Location ./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}
+
+    Write-Host -ForegroundColor Blue "Please Follow the instructions below to login to Azure using AzCopy."
+    $status = ./azcopy login status
+    if (-not $status.contains("Your login session is still active")) {
+        ./azcopy login
+    }
 
     Invoke-AndRequireSuccess "Uploading Resource Providers" {
         $target = "https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/"
