@@ -1,10 +1,9 @@
 from foundationallm.config import Configuration, Context
-from foundationallm.langchain.agents import AgentFactory, AgentBase
+from foundationallm.langchain.agents import AgentFactory, LangChainAgentBase
 from foundationallm.models.orchestration import (
     CompletionRequestBase,
     CompletionResponse
 )
-from foundationallm.resources import ResourceProvider
 
 class OrchestrationManager:
     """Client that acts as the entry point for interacting with the FoundationaLLM Python SDK."""
@@ -12,8 +11,7 @@ class OrchestrationManager:
     def __init__(self,
                  completion_request: CompletionRequestBase,
                  configuration: Configuration,
-                 context: Context,
-                 resource_provider: ResourceProvider=None):
+                 context: Context):
         """
         Initializes an instance of the OrchestrationManager.
         
@@ -28,26 +26,23 @@ class OrchestrationManager:
         self.agent = self.__create_agent(
             completion_request = completion_request,
             config = configuration,
-            context = context,
-            resource_provider = resource_provider
+            context = context
         )
 
     def __create_agent(
             self,
             config: Configuration,
             completion_request: CompletionRequestBase,
-            context: Context,
-            resource_provider: ResourceProvider) -> AgentBase:
+            context: Context) -> LangChainAgentBase:
         """Creates an agent for executing completion requests."""
         agent_factory = AgentFactory(
             completion_request=completion_request,
             config=config,
-            context=context,
-            resource_provider=resource_provider
+            context=context
         )
         return agent_factory.get_agent()
 
-    def invoke(self, prompt: str) -> CompletionResponse:
+    def invoke(self, request: CompletionRequestBase) -> CompletionResponse:
         """
         Executes a completion request against the LanguageModel using 
         the LangChain agent assembled by the OrchestrationManager.
@@ -62,4 +57,4 @@ class OrchestrationManager:
         CompletionResponse
             Object containing the completion response and token usage details.
         """
-        return self.agent.invoke(prompt=prompt)
+        return self.agent.invoke(request)

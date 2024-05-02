@@ -5,7 +5,7 @@ Description: Prompt model from resource provider.
 from typing import Optional
 from pydantic import BaseModel
 
-class Prompt(BaseModel):
+class MultipartPrompt(BaseModel):
     """
     Encapsulates the prompt model from resource provider.
     """
