@@ -16,10 +16,10 @@ namespace FoundationaLLM.Core.Examples.Catalogs
     /// Contains the agent definitions for use in the FoundationaLLM Core examples.
     /// These definitions are used to create the agents in the FoundationaLLM Core examples.
     /// </summary>
-    public class AgentCatalog
+    public static class AgentCatalog
     {
         #region Knowledge Management agents
-        public static readonly List<KnowledgeManagementAgent> Instance =
+        public static readonly List<KnowledgeManagementAgent> KnowledgeManagementAgents =
         [
             new KnowledgeManagementAgent()
             {
