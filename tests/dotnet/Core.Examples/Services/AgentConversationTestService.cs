@@ -29,6 +29,8 @@ namespace FoundationaLLM.Core.Examples.Services
                 sessionCreated = true;
             }
 
+            // TODO: Create a new agent if it does not exist. Use the ManagementAPITestManager to create the agent.
+
             // Send user prompts and agent responses.
             foreach (var userPrompt in userPrompts)
             {
@@ -69,6 +71,8 @@ namespace FoundationaLLM.Core.Examples.Services
                 sessionCreated = true;
             }
 
+            // TODO: Create a new agent if it does not exist. Use the ManagementAPITestManager to create the agent.
+
             // Create a new orchestration request for the user prompt and chat session.
             var orchestrationRequest = new OrchestrationRequest
             {
@@ -94,6 +98,8 @@ namespace FoundationaLLM.Core.Examples.Services
         public async Task<Completion> RunAgentCompletionWithNoSession(string agentName,
             string userPrompt)
         {
+            // TODO: Create a new agent if it does not exist. Use the ManagementAPITestManager to create the agent.
+
             // Create a new orchestration request for the user prompt and chat session.
             var completionRequest = new CompletionRequest
             {
@@ -120,6 +126,8 @@ namespace FoundationaLLM.Core.Examples.Services
                 sessionId = await coreAPITestManager.CreateSessionAsync();
                 sessionCreated = true;
             }
+
+            // TODO: Create a new agent if it does not exist. Use the ManagementAPITestManager to create the agent.
 
             // Create a new orchestration request for the user prompt and chat session.
             var orchestrationRequest = new OrchestrationRequest
