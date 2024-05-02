@@ -68,25 +68,18 @@ def test_azure_ai_search_service_completion_request_zoo():
          user_prompt=""" 
             In what year was the Zoo founded?
          """,
-         agent=KnowledgeManagementAgentMetadata(
+         agent=KnowledgeManagementAgent(
             name="sdwa",
             type="knowledge-management",
             description="Zoo Journal Index",
-            language_model=LanguageModel(
-                type=LanguageModelType.OPENAI,
-                provider=LanguageModelProvider.MICROSOFT,
-                temperature=0,
-                use_chat=True,
-                deployment = "completions"
-            ),
             vectorization=AgentVectorizationSettings(
                 indexing_profile_object_id="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/indexingprofiles/AzureAISearch_CPTEST",
                 text_embedding_profile_object_id="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/textembeddingprofiles/AzureOpenAI_Embedding",
             ),           
             prompt_object_id="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Prompt/prompts/sdzwa",
             sessions_enabled=True,
-            conversation_history = ConversationHistory(enabled=True, max_history=5),
-            gatekeeper=Gatekeeper(use_system_setting=True, options=["ContentSafety", "Presidio"])
+            conversation_history = AgentConversationHistorySettings(enabled=True, max_history=5),
+            gatekeeper=AgentGatekeeperSettings(use_system_setting=True, options=["ContentSafety", "Presidio"])
          ),
          message_history = [
             {
@@ -121,47 +114,35 @@ class KnowledgeManagementAgentTests:
                 return "AzureIdentity"  
             else:  
                 return og_config_get_value_fn(key)  
-  
-        # side effect function to override indexing profile authentication type key
-        #  to Foundationallm:Test:AuthenticationType:AzureIdentity (faux app settings key)
-        def resource_provider_get_resource_side_effect(object_id):  
-            if "indexingprofiles" in object_id:  
-                # Modify the authentication_type directly for this test  
-                resource = og_rp_get_resource_fn(object_id)  
-                resource.configuration_references.authentication_type = "Foundationallm:Test:AuthenticationType:AzureIdentity"  
-                return resource  
-            else:  
-                return og_rp_get_resource_fn(object_id)  
-  
+    
         # Patch the methods on Configuration and ResourceProvider with the side effect functions
         with patch.object(Configuration, 'get_value', side_effect=config_get_value_side_effect):              
-            with patch.object(ResourceProvider, 'get_resource', side_effect=resource_provider_get_resource_side_effect):               
-                model_factory = LanguageModelFactory(language_model=test_azure_ai_search_service_completion_request.agent.language_model, config = config)
-                llm = model_factory.get_llm()
-                agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=llm, config=config, resource_provider=resource_provider)
-                completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
-                print(completion_response.completion)
-                assert completion_response.completion is not None
+            model_factory = LanguageModelFactory(language_model=test_azure_ai_search_service_completion_request.agent.language_model, config = config)
+            llm = model_factory.get_llm()
+            agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=llm, config=config)
+            completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
+            print(completion_response.completion)
+            assert completion_response.completion is not None
                 
              
-    def test_azure_ai_search_service_agent_initializes(self, test_llm, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
-        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=test_llm, config=test_config, resource_provider=test_resource_provider)              
+    def test_azure_ai_search_service_agent_initializes(self, test_llm, test_config, test_azure_ai_search_service_completion_request):
+        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=test_llm, config=test_config)              
         assert agent is not None
 
-    def test_azure_ai_search_gets_completion(self, test_llm, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
-        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=test_llm, config=test_config, resource_provider=test_resource_provider)
+    def test_azure_ai_search_gets_completion(self, test_llm, test_config, test_azure_ai_search_service_completion_request):
+        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=test_llm, config=test_config)
         completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
         print(completion_response.completion)
         assert completion_response.completion is not None
 
-    def test_azure_ai_search_gets_correct_completion(self, test_llm, test_config, test_azure_ai_search_service_completion_request, test_resource_provider):
-        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=test_llm, config=test_config, resource_provider=test_resource_provider)
+    def test_azure_ai_search_gets_correct_completion(self, test_llm, test_config, test_azure_ai_search_service_completion_request):
+        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request, llm=test_llm, config=test_config)
         completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request.user_prompt)
         print(completion_response.completion)
         assert "february" in completion_response.completion.lower() or "2023" in completion_response.completion
     
-    def test_azure_ai_search_gets_citations(self, test_llm, test_config, test_azure_ai_search_service_completion_request_zoo, test_resource_provider):
-        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request_zoo, llm=test_llm, config=test_config, resource_provider=test_resource_provider)
+    def test_azure_ai_search_gets_citations(self, test_llm, test_config, test_azure_ai_search_service_completion_request_zoo):
+        agent = KnowledgeManagementAgent(completion_request=test_azure_ai_search_service_completion_request_zoo, llm=test_llm, config=test_config)
         completion_response = agent.run(prompt=test_azure_ai_search_service_completion_request_zoo.user_prompt)
         print(completion_response.citations)
         assert completion_response.citations is not None and len(completion_response.citations) > 0
