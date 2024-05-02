@@ -1,14 +1,16 @@
 from typing import Optional
-from azure.core.credentials import AzureKeyCredential
 from azure.identity import DefaultAzureCredential
 from langchain_core.retrievers import BaseRetriever
 from foundationallm.config import Configuration
 from foundationallm.langchain.language_models.openai import OpenAIModel
 from foundationallm.models.orchestration import OrchestrationSettings
 from foundationallm.models.language_models import EmbeddingModel, LanguageModelType, LanguageModelProvider
-from foundationallm.resources import ResourceProvider
 from .agent_parameter_retriever_keys import FILTERS, TOP_N
 from .azure_ai_search_service_retriever import AzureAISearchServiceRetriever
+from foundationallm.models.resource_providers.vectorization import (
+    AzureAISearchIndexingProfile,
+    AzureOpenAIEmbeddingProfile
+)
 
 class RetrieverFactory:
     """
@@ -16,16 +18,14 @@ class RetrieverFactory:
     """
     def __init__(
                 self,
-                indexing_profile_object_id: str,
-                text_embedding_profile_object_id:str,
+                indexing_profile: AzureAISearchIndexingProfile,
+                text_embedding_profile:AzureOpenAIEmbeddingProfile,
                 config: Configuration,
-                resource_provider: ResourceProvider,
                 settings: Optional[OrchestrationSettings] = None
                 ):
         self.config = config
-        self.resource_provider = resource_provider
-        self.indexing_profile = resource_provider.get_resource(indexing_profile_object_id)
-        self.text_embedding_profile = resource_provider.get_resource(text_embedding_profile_object_id)
+        self.indexing_profile = indexing_profile
+        self.text_embedding_profile = text_embedding_profile
         self.orchestration_settings = settings       
 
     def get_retriever(self) -> BaseRetriever:
@@ -63,7 +63,7 @@ class RetrieverFactory:
         credential_type = self.config.get_value(self.indexing_profile.configuration_references.authentication_type)
         credential = None
         if credential_type == "AzureIdentity":            
-            credential = DefaultAzureCredential()
+            credential = DefaultAzureCredential(exclude_environment_credential=True)
         # NOTE: Support for all other authentication types has been removed.
 
         # defaults for agent parameters
