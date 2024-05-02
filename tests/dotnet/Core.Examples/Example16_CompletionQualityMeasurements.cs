@@ -1,18 +1,6 @@
-﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Constants.Configuration;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.AzureAIService;
-using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Settings;
-using FoundationaLLM.Core.Examples.Interfaces;
+﻿using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Examples.Setup;
-using FoundationaLLM.Core.Interfaces;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Json;
 using Xunit.Abstractions;
 
 namespace FoundationaLLM.Core.Examples
@@ -22,17 +10,12 @@ namespace FoundationaLLM.Core.Examples
     /// </summary>
     public class Example16_CompletionQualityMeasurements : BaseTest, IClassFixture<TestFixture>
 	{
-		private readonly ISessionManager _sessionManager;
-		private readonly ICosmosDbService _cosmosDbService;
-		private readonly IAzureAIService _azureAIService;
-		private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
+		private readonly IAgentConversationTestService _agentConversationTestService;
 
 		public Example16_CompletionQualityMeasurements(ITestOutputHelper output, TestFixture fixture)
 			: base(output, fixture.ServiceProvider)
 		{
-            _sessionManager = GetService<ISessionManager>();
-			_cosmosDbService = GetService<ICosmosDbService>();
-			_azureAIService = GetService<IAzureAIService>();
+            _agentConversationTestService = GetService<IAgentConversationTestService>();
 		}
 
 		[Fact]
@@ -45,7 +28,6 @@ namespace FoundationaLLM.Core.Examples
 		private async Task RunExampleAsync()
 		{
 			var agentPrompts = TestConfiguration.CompletionQualityMeasurementConfiguration.AgentPrompts;
-            var sessionsToDelete = new List<string>();
 			if (agentPrompts == null || agentPrompts.Length == 0)
 			{
 				WriteLine("No agent prompts found. Make sure you enter them in testsettings.json.");
@@ -53,102 +35,43 @@ namespace FoundationaLLM.Core.Examples
 			}
 			foreach (var agentPrompt in agentPrompts)
 			{
-				var sessionId = await RunAgentCompletionAsync(agentPrompt);
-                if (agentPrompt.SessionConfiguration is {CreateNewSession: true})
-                {
-                    sessionsToDelete.Add(sessionId);
-                }
+				await RunAgentCompletionAsync(agentPrompt);
 			}
-
-            // Delete the sessions that were created.
-            foreach (var sessionId in sessionsToDelete)
-            {
-                await _sessionManager.DeleteSessionAsync(sessionId);
-            }
 		}
 
-		private async Task<string> RunAgentCompletionAsync(AgentPrompt agentPrompt)
+		private async Task RunAgentCompletionAsync(AgentPrompt agentPrompt)
         {
-            var sessionId = agentPrompt.SessionConfiguration?.SessionId ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(agentPrompt.AgentName))
+            {
+                throw new InvalidOperationException("The agent name is required.");
+            }
+            if (string.IsNullOrWhiteSpace(agentPrompt.UserPrompt))
+            {
+                throw new InvalidOperationException("The user prompt is required.");
+            }
+            if (string.IsNullOrWhiteSpace(agentPrompt.ExpectedCompletion))
+            {
+                throw new InvalidOperationException("The expected completion is required.");
+            }
             WriteLine($"Agent: {agentPrompt.AgentName}");
 
-			if (agentPrompt.SessionConfiguration is {CreateNewSession: true})
-			{
-                try
-                {
-					sessionId = await _sessionManager.CreateSessionAsync();
-                    agentPrompt.SessionConfiguration.SessionId = sessionId;
-                }
-                catch (Exception e)
-                {
-                    WriteLine(e.Message);
-                    throw;
-                }
-			}
-			
-			if (agentPrompt.SessionConfiguration != null)
-			{
-				var orchestrationRequest = new OrchestrationRequest
-				{
-					SessionId = agentPrompt.SessionConfiguration.SessionId,
-					AgentName = agentPrompt.AgentName,
-					UserPrompt = agentPrompt.UserPrompt ?? string.Empty,
-					Settings = null
-				};
+            try
+            {
+                var output = await _agentConversationTestService.RunAgentCompletionWithQualityMeasurements(agentPrompt.AgentName,
+                    agentPrompt.UserPrompt, agentPrompt.ExpectedCompletion, agentPrompt.SessionConfiguration?.SessionId ?? null);
 
-                try
-                {
-					var completionResponse = await _sessionManager.SendCompletionRequestAsync(orchestrationRequest);
-                    
-                    var session =
-                        await _cosmosDbService.GetSessionAsync(agentPrompt.SessionConfiguration.SessionId!);
-                    var messages = await _cosmosDbService.GetSessionMessagesAsync(session.SessionId, session.UPN);
-                    // Get the last message where the agent is the sender.
-                    var lastAgentMessage = messages.LastOrDefault(m => m.Sender == nameof(Participants.Assistant));
-                    if (lastAgentMessage != null && !string.IsNullOrWhiteSpace(lastAgentMessage.CompletionPromptId))
-                    {
-                        // Get the completion prompt from the last agent message.
-                        var completionPrompt = await _cosmosDbService.GetCompletionPrompt(session.SessionId,
-                            lastAgentMessage.CompletionPromptId);
-                        // For the context, take everything in the prompt that comes after `\\n\\nContext:\\n`. If it doesn't exist, take the whole prompt.
-                        var contextIndex =
-                            completionPrompt.Prompt.IndexOf(@"\n\nContext:\n", StringComparison.Ordinal);
-                        if (contextIndex != -1)
-                        {
-                            completionPrompt.Prompt = completionPrompt.Prompt[(contextIndex + 14)..];
-                        }
+                WriteLine($"Azure AI evaluation Job ID -> {output.JobID}");
 
-                        var dataSet = new InputsMapping
-                        {
-                            Question = agentPrompt.UserPrompt,
-                            Answer = completionResponse?.Text,
-                            Context = completionPrompt.Prompt,
-                            GroundTruth = agentPrompt.ExpectedCompletion,
-                        };
-                        // Create a new Azure AI evaluation from the data.
-                        var dataSetName = $"{agentPrompt.AgentName}_{session.SessionId}";
-                        var dataSetPath = await _azureAIService.CreateDataSet(dataSet, dataSetName);
-                        var dataSetVersion = await _azureAIService.CreateDataSetVersion(dataSetName, dataSetPath);
-                        _ = int.TryParse(dataSetVersion.DataVersion.VersionId, out var dataSetVersionNumber);
-                        var jobId = await _azureAIService.SubmitJob(dataSetName, dataSetName,
-                            dataSetVersionNumber == 0 ? 1 : dataSetVersionNumber,
-                            string.Empty);
-                        WriteLine($"Azure AI evaluation Job ID -> {jobId}");
-
-                        WriteLine($"User prompt -> '{agentPrompt.UserPrompt}'");
-                        WriteLine($"Agent completion -> '{completionResponse?.Text}'");
-                        WriteLine($"Expected completion -> '{agentPrompt.ExpectedCompletion}'");
-                        WriteLine("-------------------------------");
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                WriteLine($"User prompt -> '{output.UserPrompt}'");
+                WriteLine($"Agent completion -> '{output.AgentCompletion}'");
+                WriteLine($"Expected completion -> '{output.ExpectedCompletion}'");
+                WriteLine("-------------------------------");
             }
-
-            return sessionId;
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 	}
 }
