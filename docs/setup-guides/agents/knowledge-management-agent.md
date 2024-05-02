@@ -63,7 +63,7 @@ The structure of a knowledge management agent is the following:
     "orchestrator": "LangChain",
     "endpoint_configuration": {
       "endpoint": "",
-      "api_version": "2023-05-15",
+      "api_version": "",
       "api_key": "",
       "auth_type": "",
       "api_key": "",
@@ -120,15 +120,15 @@ where:
 | `gatekeeper.options` | Contains the list of gatekeeper options. The sample provided overrides the system setting for gatekeeper and enables Azure Content Safety and MS Presidio in the messaging pipeline. |
 | `orchestration_settings` | The settings for the agent orchestrator. FoundationaLLM currently supports the `LangChain` orchestrator. |
 | `orchestration_settings.orchestrator` | FoundationaLLM currently supports `LangChain`. `SemanticKernel` will be added in the future. |
-| `orchestration_settings.endpoint_configuration` | Azure OpenAI endpoint configuration. |
-| `orchestration_settings.endpoint_configuration.endpoint` | The endpoint URL of the hosted LLM (e.g., Azure OpenAI). |
+| `orchestration_settings.endpoint_configuration` | The endpoint configuration of the hosted LLM. FoundationaLLM currently supports Azure OpenAI and OpenAI. |
+| `orchestration_settings.endpoint_configuration.endpoint` | The endpoint URL of the hosted LLM. |
 | `orchestration_settings.endpoint_configuration.api_version` | The API version of the hosted LLM. For Azure OpenAI, this value should be set to `2023-05-15`. |
-| `orchestration_settings.endpoint_configuration.auth_type` | The authentication method for the hosted LLM. This value can either be `token` or `key`. For Azure OpenAI deployments, this value should be `token`, which configures the orchestrator to use Managed Identities for authentication. `key`-based authentication uses API keys. |
+| `orchestration_settings.endpoint_configuration.auth_type` | The authentication method of the hosted LLM. This value can either be `token` or `key`. For Azure OpenAI deployments, this value should be `token`, which configures the orchestrator to use Managed Identities for authentication. `key`-based authentication uses API keys. |
 | `orchestration_settings.endpoint_configuration.api_key` | The name of the Azure App Configuration key storing the LLM endpoint API key. If `auth_type` is set to `token`, this parameter is not required. |
-| `orchestration_settings.endpoint_configuration.provider` | The model endpoint provider. FoundationaLLM currently supports `microsoft` (Azure OpenAI) or `openai`. |
+| `orchestration_settings.endpoint_configuration.provider` | The provider of the hosted LLM. FoundationaLLM currently supports `microsoft` (Azure OpenAI) or `openai`. |
 | `orchestration_settings.endpoint_configuration.operation_type` | This field is set to `chat` by default and can be omitted. |
-| `orchestration_settings.model_parameters` | Endpoint-specific model parameters. This field must be provided if the `provider` is `microsoft`. |
-| `orchestration_settings.model_parameters.deployment_name` | Should be set to the name of the Azure OpenAI model deployment if the `provider` is `microsoft`. |
+| `orchestration_settings.model_parameters` | Endpoint-specific model parameters. This field must be non-null if the `provider` is `microsoft`. |
+| `orchestration_settings.model_parameters.deployment_name` | This field should be set to the name of the Azure OpenAI model deployment if the `provider` is `microsoft`. |
 
 ## Managing knowledge management agents
 
