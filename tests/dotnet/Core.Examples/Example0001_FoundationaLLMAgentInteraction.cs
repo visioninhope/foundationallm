@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.Core.Examples.Interfaces;
-using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Examples.Setup;
 using Xunit.Abstractions;
 
@@ -8,11 +7,11 @@ namespace FoundationaLLM.Core.Examples
     /// <summary>
     /// Example class for running the default FoundationaLLM agent completions in both session and sessionless modes.
     /// </summary>
-    public class Example0001_FoundationaLLMAgentIntegration : BaseTest, IClassFixture<TestFixture>
+    public class Example0001_FoundationaLLMAgentInteraction : BaseTest, IClassFixture<TestFixture>
 	{
 		private readonly IAgentConversationTestService _agentConversationTestService;
 
-		public Example0001_FoundationaLLMAgentIntegration(ITestOutputHelper output, TestFixture fixture)
+		public Example0001_FoundationaLLMAgentInteraction(ITestOutputHelper output, TestFixture fixture)
 			: base(output, fixture.ServiceProvider)
 		{
             _agentConversationTestService = GetService<IAgentConversationTestService>();
