@@ -53,5 +53,17 @@ namespace FoundationaLLM.Core.Examples.Catalogs
             }
         ];
         #endregion
+
+        /// <summary>
+        /// Retrieves all agents defined in the catalog.
+        /// </summary>
+        /// <returns></returns>
+        public static List<AgentBase> GetAllAgents()
+        {
+            var agents = new List<AgentBase>();
+            agents.AddRange(KnowledgeManagementAgents);
+            
+            return agents;
+        }
     }
 }
