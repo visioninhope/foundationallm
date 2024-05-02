@@ -123,9 +123,9 @@ namespace FoundationaLLM.Core.Examples.Setup
 
         private static void RegisterServiceManagers(IServiceCollection services)
         {
-            services.AddScoped<ISessionManager, SessionManager>();
-            services.AddScoped<IOrchestrationManager, OrchestrationManager>();
+            services.AddScoped<ICoreAPITestManager, CoreAPITestManager>();
             services.AddScoped<IHttpClientManager, HttpClientManager>();
+			services.AddScoped<IAgentConversationTestService, AgentConversationTestService>();
         }
     }
 }
