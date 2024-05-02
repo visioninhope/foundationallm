@@ -17,7 +17,6 @@ namespace Gatekeeper.Tests.Services
         private readonly ILakeraGuardService _lakeraGuardService = Substitute.For<ILakeraGuardService>();
         private readonly IEnkryptGuardrailsService _enkryptGuardrailsService = Substitute.For<IEnkryptGuardrailsService>();
         private readonly IDownstreamAPIService _orchestrationAPIService = Substitute.For<IDownstreamAPIService>();
-        private readonly IRefinementService _refinementService = Substitute.For<IRefinementService>();
         private readonly IGatekeeperIntegrationAPIService _gatekeeperIntegrationAPIService = Substitute.For<IGatekeeperIntegrationAPIService>();
         private IOptions<GatekeeperServiceSettings> _gatekeeperServiceSettings;
 
