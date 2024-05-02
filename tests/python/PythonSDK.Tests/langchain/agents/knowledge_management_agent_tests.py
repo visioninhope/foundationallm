@@ -2,22 +2,20 @@ import pytest
 from functools import partial
 from unittest.mock import patch
 from foundationallm.config import Configuration
-from foundationallm.models.agents import AgentVectorizationSettings
-from foundationallm.models.metadata import KnowledgeManagementAgent as KnowledgeManagementAgentMetadata
-from foundationallm.models.metadata import ConversationHistory, Gatekeeper
-from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest
-from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider, LanguageModel
+from foundationallm.models.agents import (
+    KnowledgeManagementAgent,
+    AgentVectorizationSettings,
+    AgentGatekeeperSettings,
+    AgentConversationHistorySettings
+)
+from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest, OrchestrationSettings
+from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider
 from foundationallm.langchain.language_models import LanguageModelFactory
-from foundationallm.langchain.agents import KnowledgeManagementAgent
-from foundationallm.resources import ResourceProvider
+from foundationallm.langchain.agents import LangChainKnowledgeManagementAgent
 
 @pytest.fixture
 def test_config():
     return Configuration()
-
-@pytest.fixture
-def test_resource_provider(test_config):
-    return ResourceProvider(config=test_config)
 
 @pytest.fixture
 def test_azure_ai_search_service_completion_request():
@@ -25,16 +23,22 @@ def test_azure_ai_search_service_completion_request():
          user_prompt=""" 
             When did the State of the Union Address take place?
          """,
-         agent=KnowledgeManagementAgentMetadata(
+         agent=KnowledgeManagementAgent(
             name="sotu",
             type="knowledge-management",
             description="Knowledge Management Agent that queries the State of the Union speech transcript.",
-            language_model=LanguageModel(
-                type=LanguageModelType.OPENAI,
-                provider=LanguageModelProvider.MICROSOFT,
-                temperature=0,
-                use_chat=True,
-                deployment = "completions"
+            orchestration_settings=OrchestrationSettings(
+                orchestrator = "LangChain",
+                agent_parameters={},
+                endpoint_configuration={
+                    "auth_type": "token",
+                    "provider": "microsoft",
+                    "endpoint": "https://test-openai.openai.azure.com/",
+                    "api_version": "2024-02-15-preview"
+                },
+                model_parameters={
+                    "deployment_name": "completions"
+                }
             ),
             vectorization=AgentVectorizationSettings(
                 indexing_profile_object_id="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Vectorization/indexingprofiles/sotu-index",
@@ -42,8 +46,8 @@ def test_azure_ai_search_service_completion_request():
             ),           
             prompt_object_id="/instances/11111111-1111-1111-1111-111111111111/providers/FoundationaLLM.Prompt/prompts/sotu",
             sessions_enabled=True,
-            conversation_history = ConversationHistory(enabled=True, max_history=5),
-            gatekeeper=Gatekeeper(use_system_setting=True, options=["ContentSafety", "Presidio"])
+            conversation_history = AgentConversationHistorySettings(enabled=True, max_history=5),
+            gatekeeper = AgentGatekeeperSettings(use_system_setting=True, options=["ContentSafety", "Presidio"])
          ),
          message_history = [
             {
@@ -106,11 +110,9 @@ class KnowledgeManagementAgentTests:
          
     def test_azure_ai_search_azure_authentication(self, test_azure_ai_search_service_completion_request):
         config = Configuration()
-        resource_provider = ResourceProvider(config)
   
         # Save the original methods without side effects
         og_config_get_value_fn = config.get_value
-        og_rp_get_resource_fn = resource_provider.get_resource
   
         # side effect function for when Foundationallm:Test:AuthenticationType:AzureIdentity is 
         #   requested, return AzureIdentity (this is a faux app settings key for this test)
