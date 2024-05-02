@@ -914,6 +914,10 @@
         /// </summary>
         public const string FoundationaLLM_APIs_GatewayAPI = "FoundationaLLM:APIs:GatewayAPI";
         /// <summary>
+        /// The key section for the FoundationaLLM:ExternalAPIs app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_ExternalAPIs = "FoundationaLLM:ExternalAPIs";
+        /// <summary>
         /// The key section for the FoundationaLLM:Orchestration app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Orchestration = "FoundationaLLM:Orchestration";

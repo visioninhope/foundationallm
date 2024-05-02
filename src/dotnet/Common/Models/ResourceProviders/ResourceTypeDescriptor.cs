@@ -35,7 +35,7 @@
         public bool TypeAllowedForHttpGet(Type type) =>
             AllowedTypes.Any(rtat =>
                 rtat.HttpMethod == HttpMethod.Get.Method
-                && rtat.AllowedReturnTypes.Any(art => type.IsSubclassOf(art)));
+                && rtat.AllowedReturnTypes.Any(art => art.IsAssignableFrom(type)));
     }
 
     /// <summary>

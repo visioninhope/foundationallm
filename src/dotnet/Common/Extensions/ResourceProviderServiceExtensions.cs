@@ -59,5 +59,26 @@ namespace FoundationaLLM.Common.Extensions
 
             return (result as List<T>)!;
         }
+
+        /// <summary>
+        /// Waits for the resource provider service to be initialized.
+        /// </summary>
+        /// <param name="resourceProviderService">The <see cref="IResourceProviderService"/> providing the resource provider services.</param>
+        /// <returns></returns>
+        public static async Task WaitForInitialization(
+            this IResourceProviderService resourceProviderService)
+        {
+            if (resourceProviderService.IsInitialized)
+                return;
+
+            for (int i = 0; i < 6; i++)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(10));
+                if (resourceProviderService.IsInitialized)
+                    return;
+            }
+
+            throw new ResourceProviderException($"The resource provider {resourceProviderService.Name} did not initialize within the expected time frame.");
+        }
     }
 }

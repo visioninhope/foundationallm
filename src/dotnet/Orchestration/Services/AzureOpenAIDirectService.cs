@@ -42,6 +42,9 @@ namespace FoundationaLLM.Orchestration.Core.Services
         public bool IsInitialized => true;
 
         /// <inheritdoc/>
+        public string Name => LLMOrchestrationServiceNames.AzureOpenAIDirect;
+
+        /// <inheritdoc/>
         public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
         {
             var agent = request.Agent

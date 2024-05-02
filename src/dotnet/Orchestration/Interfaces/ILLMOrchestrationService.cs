@@ -13,6 +13,11 @@ namespace FoundationaLLM.Orchestration.Core.Interfaces
         bool IsInitialized { get; }
 
         /// <summary>
+        /// The name of the LLM orchestration service.
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
         /// Method for retrieving a completion from the orchestration service.
         /// </summary>
         /// <param name="request">Hub populated request object containing agent, prompt, language model, and data source information</param>

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
@@ -29,10 +30,11 @@ namespace FoundationaLLM.Orchestration.Core.Services
         private readonly IHttpClientFactoryService _httpClientFactoryService = httpClientFactoryService;
         readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
-        /// <summary>
-        /// Checks the Semantic Service returns a call to signal it is initialized and ready for requests.
-        /// </summary>
+        /// <inheritdoc/>
         public bool IsInitialized => GetServiceStatus();
+
+        /// <inheritdoc/>
+        public string Name => LLMOrchestrationServiceNames.SemanticKernel;
 
         /// <summary>
         /// Gets a completion from the Semantic Kernel service.
@@ -41,7 +43,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <returns>Returns a completion response from the orchestration engine.</returns>
         public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.SemanticKernelAPI);
+            var client = _httpClientFactoryService.CreateClient(HttpClients.SemanticKernelAPI);
 
             var body = JsonSerializer.Serialize(request, _jsonSerializerOptions);
             var responseMessage = await client.PostAsync("orchestration/completion",

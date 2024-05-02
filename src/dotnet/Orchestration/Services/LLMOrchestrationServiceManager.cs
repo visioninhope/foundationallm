@@ -1,11 +1,16 @@
 ﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Orchestration.Core.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM.Orchestration.Core.Services
 {
@@ -15,26 +20,26 @@ namespace FoundationaLLM.Orchestration.Core.Services
     public class LLMOrchestrationServiceManager : ILLMOrchestrationServiceManager
     {
         private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices;
-        private readonly Dictionary<string, ILLMOrchestrationService> _orchestrationServices;
+        private readonly IConfiguration _configuration;
         private readonly ILogger<LLMOrchestrationServiceManager> _logger;
 
+        private Dictionary<string, APISettingsBase> _externalOrchestrationServiceSettings = [];
         private bool _initialized = false;
 
         /// <summary>
         /// Creates a new instance of the LLM Orchestration Service Manager.
         /// </summary>
         /// <param name="resourceProviderServices">A list of <see cref="IResourceProviderService"/> resource providers.</param>
-        /// <param name="orchestrationServices">A list of <see cref="ILLMOrchestrationService"/> LLM orchestration services.</param>
+        /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve configuration values.</param>
         /// <param name="logger">The logger for the orchestration service manager.</param>
         public LLMOrchestrationServiceManager(
             IEnumerable<IResourceProviderService> resourceProviderServices,
-            IEnumerable<ILLMOrchestrationService> orchestrationServices,
+            IConfiguration configuration,
             ILogger<LLMOrchestrationServiceManager> logger)
         {
             _resourceProviderServices =
                 resourceProviderServices.ToDictionary<IResourceProviderService, string>(rps => rps.Name);
-            _orchestrationServices =
-                orchestrationServices.ToDictionary<ILLMOrchestrationService, string>(os => os.GetType().Name);
+            _configuration = configuration;
             _logger = logger;
 
             // Kicks off the initialization on a separate thread and does not wait for it to complete.
@@ -55,13 +60,21 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 _logger.LogInformation("Starting to initialize the LLM Orchestration Service Manager service...");
 
                 var configurationResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Configuration];
+                await configurationResourceProvider.WaitForInitialization();
 
                 var externalOrchestrationServices = await configurationResourceProvider.GetResources<ExternalOrchestrationService>(
                     DefaultAuthentication.ServiceIdentity!);
 
-                  
-                //configurationResourceProvider.GetResource<AppConfigurationKeyValue>
-
+                _externalOrchestrationServiceSettings = externalOrchestrationServices
+                    .Where(eos => eos.APIUrlConfigurationName.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs)
+                                && eos.APIKeyConfigurationName.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
+                    .ToDictionary(
+                        eos => eos.Name,
+                        eos => new APISettingsBase
+                        {
+                            APIKey = _configuration[eos.APIKeyConfigurationName],
+                            APIUrl = _configuration[eos.APIUrlConfigurationName]
+                        });
 
                 _initialized = true;
 
@@ -76,36 +89,54 @@ namespace FoundationaLLM.Orchestration.Core.Services
         #endregion
 
         /// <inheritdoc/>
-        public string Status
+        public string GetAggregatedStatus(IServiceProvider serviceProvider)
         {
-            get
-            {
-                var aggregateStatus = _orchestrationServices
-                    .Select(x => new
-                    {
-                        Name = x.Key,
-                        Initialized = x.Value.IsInitialized
-                    })
-                    .OrderBy(x => x.Name)
-                    .ToList();
+            var aggregateStatus = GetOrchestrationServices(serviceProvider)
+                .Select(x => new
+                {
+                    x.Name,
+                    Initialized = x.IsInitialized
+                })
+                .OrderBy(x => x.Name)
+                .ToList();
 
 
-                if (aggregateStatus.All(s => s.Initialized))
-                    return "ready";
+            if (aggregateStatus.All(s => s.Initialized))
+                return "ready";
 
-                return string.Join(",", aggregateStatus
-                    .Where(s => !s.Initialized)
-                    .Select(s => $"{s.Name}: initializing"));
-            }
+            return string.Join(",", aggregateStatus
+                .Where(s => !s.Initialized)
+                .Select(s => $"{s.Name}: initializing"));
         }
 
         /// <inheritdoc/>
-        public ILLMOrchestrationService GetService(string serviceName)
+        public ILLMOrchestrationService GetService(string serviceName, IServiceProvider serviceProvider, ICallContext callContext)
         {
-            if (!_orchestrationServices.TryGetValue(serviceName, out var service))
-                throw new OrchestrationException($"The LLM orchestration service {serviceName} is not available.");
+            var internalOrchestrationService = serviceProvider.GetServices<ILLMOrchestrationService>()
+                .SingleOrDefault(srv => srv.Name == serviceName);
 
-            return service;
+            if (internalOrchestrationService != null)
+                return internalOrchestrationService;
+
+            if (_externalOrchestrationServiceSettings.TryGetValue(serviceName, out var externalOrchestrationServiceSettings))
+                return new LLMOrchestrationService(
+                    serviceName,
+                    Options.Create<APISettingsBase>(externalOrchestrationServiceSettings),
+                    serviceProvider.GetRequiredService<ILogger<LLMOrchestrationService>>(),
+                    serviceProvider.GetRequiredService<IHttpClientFactory>(),
+                    callContext);
+
+            throw new OrchestrationException($"The LLM orchestration service {serviceName} is not available.");
         }
+
+        private IEnumerable<ILLMOrchestrationService> GetOrchestrationServices(IServiceProvider serviceProvider) =>
+            serviceProvider.GetServices<ILLMOrchestrationService>().Concat(
+                _externalOrchestrationServiceSettings.Select(eos =>
+                    new LLMOrchestrationService(
+                        eos.Key,
+                        Options.Create<APISettingsBase>(eos.Value),
+                        serviceProvider.GetRequiredService<ILogger<LLMOrchestrationService>>(),
+                        serviceProvider.GetRequiredService<IHttpClientFactory>(),
+                        serviceProvider.GetRequiredService<ICallContext>())));
     }
 }

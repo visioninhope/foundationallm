@@ -24,11 +24,12 @@ namespace FoundationaLLM
         public static void AddLLMOrchestrationServices(this IHostApplicationBuilder builder)
         {
             builder.Services.AddSingleton<ILLMOrchestrationServiceManager, LLMOrchestrationServiceManager>();
+            builder.Services.ActivateSingleton<ILLMOrchestrationServiceManager>();
 
-            builder.Services.AddSingleton<ILLMOrchestrationService, SemanticKernelService>();
-            builder.Services.AddSingleton<ILLMOrchestrationService, LangChainService>();
-            builder.Services.AddSingleton<ILLMOrchestrationService, AzureAIDirectService>();
-            builder.Services.AddSingleton<ILLMOrchestrationService, AzureOpenAIDirectService>();
+            builder.Services.AddScoped<IAzureAIDirectService, AzureAIDirectService>();
+            builder.Services.AddScoped<IAzureOpenAIDirectService, AzureOpenAIDirectService>();
+            builder.Services.AddScoped<ILangChainService, LangChainService>();
+            builder.Services.AddScoped<ISemanticKernelService, SemanticKernelService>();
         }
     }
 }

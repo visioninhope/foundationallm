@@ -26,6 +26,7 @@ public class OrchestrationService : IOrchestrationService
     private readonly IConfiguration _configuration;
     private readonly ILogger<OrchestrationService> _logger;
     private readonly ILoggerFactory _loggerFactory;
+    private readonly IServiceProvider _serviceProvider;
 
     private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices;
 
@@ -36,12 +37,14 @@ public class OrchestrationService : IOrchestrationService
     /// <param name="llmOrchestrationServiceManager">The <see cref="ILLMOrchestrationServiceManager"/> managing the internal and external LLM orchestration services.</param>
     /// <param name="callContext">The call context of the request being handled.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> provding dependency injection services for the current scope.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public OrchestrationService(
         IEnumerable<IResourceProviderService> resourceProviderServices,
         ILLMOrchestrationServiceManager llmOrchestrationServiceManager,
         ICallContext callContext,
         IConfiguration configuration,
+        IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
     {
         _resourceProviderServices = resourceProviderServices.ToDictionary<IResourceProviderService, string>(
@@ -50,6 +53,7 @@ public class OrchestrationService : IOrchestrationService
         
         _callContext = callContext;
         _configuration = configuration;
+        _serviceProvider = serviceProvider;
 
         _loggerFactory = loggerFactory;
         _logger = _loggerFactory.CreateLogger<OrchestrationService>();
@@ -58,7 +62,7 @@ public class OrchestrationService : IOrchestrationService
     /// <summary>
     /// Returns the status of the orchestration service based on the initialization status of each subordinate orchestration services.
     /// </summary>
-    public string Status => _llmOrchestrationServiceManager.Status;
+    public string Status => _llmOrchestrationServiceManager.GetAggregatedStatus(_serviceProvider);
 
     /// <summary>
     /// Retrieve a completion from the configured orchestration service.
@@ -100,6 +104,7 @@ public class OrchestrationService : IOrchestrationService
                 _configuration,
                 _resourceProviderServices,
                 _llmOrchestrationServiceManager,
+                _serviceProvider,
                 _loggerFactory);
 
             var stepCompletionRequest = new CompletionRequest

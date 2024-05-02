@@ -26,6 +26,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
         /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
         /// <param name="llmOrchestrationServiceManager">The <see cref="ILLMOrchestrationServiceManager"/> that manages internal and external orchestration services.</param>
+        /// <param name="serviceProvider">The <see cref="IServiceProvider"/> provding dependency injection services for the current scope.</param>
         /// <param name="loggerFactory">The logger factory used to create new loggers.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
@@ -35,6 +36,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             IConfiguration configuration,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
             ILLMOrchestrationServiceManager llmOrchestrationServiceManager,
+            IServiceProvider serviceProvider,
             ILoggerFactory loggerFactory)
         {
             var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
@@ -48,7 +50,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     ? LLMOrchestrationServiceNames.LangChain
                     : agentBase.OrchestrationSettings?.Orchestrator;
 
-                var orchestrationService = llmOrchestrationServiceManager.GetService(orchestrationName!);
+                var orchestrationService = llmOrchestrationServiceManager.GetService(orchestrationName!, serviceProvider, callContext);
                 
                 var kmOrchestration = new KnowledgeManagementOrchestration(
                     (KnowledgeManagementAgent)agentBase,

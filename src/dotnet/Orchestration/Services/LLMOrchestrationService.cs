@@ -1,38 +1,44 @@
-﻿using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
-using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Orchestration.Core.Services
 {
     /// <summary>
-    /// The LangChain orchestration service.
+    /// Provides methods to call an external LLM orchestration service.
     /// </summary>
-    public class LangChainService : ILangChainService
+    public class LLMOrchestrationService : ILLMOrchestrationService
     {
-        readonly LangChainServiceSettings _settings;
-        readonly ILogger<LangChainService> _logger;
-        private readonly IHttpClientFactoryService _httpClientFactoryService;
-        readonly JsonSerializerOptions _jsonSerializerOptions;
+        private readonly string _serviceName;
+        private readonly APISettingsBase _settings;
+        private readonly ILogger<LLMOrchestrationService> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ICallContext _callContext;
+        private readonly JsonSerializerOptions _jsonSerializerOptions;
 
         /// <summary>
         /// LangChain Orchestration Service
         /// </summary>
-        public LangChainService(
-            IOptions<LangChainServiceSettings> options,
-            ILogger<LangChainService> logger,
-            IHttpClientFactoryService httpClientFactoryService) 
+        public LLMOrchestrationService(
+            string serviceName,
+            IOptions<APISettingsBase> options,
+            ILogger<LLMOrchestrationService> logger,
+            IHttpClientFactory httpClientFactory,
+            ICallContext callContext) 
         {
+            _serviceName = serviceName;
             _settings = options.Value;
             _logger = logger;
-            _httpClientFactoryService = httpClientFactoryService;
+            _httpClientFactory = httpClientFactory;
+            _callContext = callContext;
             _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
             _jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         }
@@ -41,7 +47,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         public bool IsInitialized => GetServiceStatus();
 
         /// <inheritdoc/>
-        public string Name => LLMOrchestrationServiceNames.LangChain;
+        public string Name => _serviceName;
 
         /// <summary>
         /// Executes a completion request against the orchestration service.
@@ -50,7 +56,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <returns>Returns a completion response from the orchestration engine.</returns>
         public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
+            var client = CreateClient();
 
             var body = JsonSerializer.Serialize(request, _jsonSerializerOptions);
             var responseMessage = await client.PostAsync("orchestration/completion",
@@ -96,11 +102,30 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <returns>True if the service is ready. Otherwise, returns false.</returns>
         private bool GetServiceStatus()
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
+            var client = CreateClient();
             var responseMessage = client.Send(
                 new HttpRequestMessage(HttpMethod.Get, "status"));
 
             return responseMessage.Content.ToString() == "ready";
+        }
+
+        private HttpClient CreateClient()
+        {
+            var httpClient = _httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(_settings.APIUrl!);
+            httpClient.Timeout = TimeSpan.FromSeconds(600);
+
+            // Add the API key header.
+            httpClient.DefaultRequestHeaders.Add(HttpHeaders.APIKey, _settings.APIKey);
+
+            // Optionally add the user identity header.
+            if (_callContext.CurrentUserIdentity != null)
+            {
+                var serializedIdentity = JsonSerializer.Serialize(_callContext.CurrentUserIdentity);
+                httpClient.DefaultRequestHeaders.Add(HttpHeaders.UserIdentity, serializedIdentity);
+            }
+
+            return httpClient;
         }
     }
 }
