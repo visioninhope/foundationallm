@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService" data-uid="FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService" class="text-break">
-Class PipelineExecutionService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Pipelines/PipelineExecutionService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+Class PipelineExecutionService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Pipelines/PipelineExecutionService.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -168,9 +168,9 @@ Class PipelineExecutionService  <a class="header-action link-secondary" title="V
 
   <a id="FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService__ctor_" data-uid="FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService__ctor_System_IServiceProvider_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService__" data-uid="FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.#ctor(System.IServiceProvider,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService})">
-  PipelineExecutionService(IServiceProvider, IEnumerable&lt;IResourceProviderService&gt;, ILogger&lt;PipelineExecutionService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Pipelines/PipelineExecutionService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService__ctor_Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILoggerFactory_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService__" data-uid="FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.#ctor(Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService})">
+  PipelineExecutionService(IConfiguration, IServiceProvider, IEnumerable&lt;IResourceProviderService&gt;, ILoggerFactory, ILogger&lt;PipelineExecutionService&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Pipelines/PipelineExecutionService.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes active vectorization data pipelines.</p>
@@ -178,16 +178,22 @@ Class PipelineExecutionService  <a class="header-action link-secondary" title="V
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public PipelineExecutionService(IServiceProvider serviceProvider, IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices, ILogger&lt;PipelineExecutionService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public PipelineExecutionService(IConfiguration configuration, IServiceProvider serviceProvider, IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices, ILoggerFactory loggerFactory, ILogger&lt;PipelineExecutionService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
+    <dd><p>The global configuration provider.</p>
+</dd>
     <dt><code>serviceProvider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></dt>
     <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a> providing dependency injection services..</p>
 </dd>
     <dt><code>resourceProviderServices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a>&gt;</dt>
     <dd><p>The list of resurce providers registered with the main dependency injection container.</p>
+</dd>
+    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
+    <dd><p>Factory responsible for creating loggers.</p>
 </dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.html">PipelineExecutionService</a>&gt;</dt>
     <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a> used for logging.</p>
@@ -213,7 +219,7 @@ Class PipelineExecutionService  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService_ExecuteAsync_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.ExecuteAsync(System.Threading.CancellationToken)">
   ExecuteAsync(CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Pipelines/PipelineExecutionService.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Pipelines/PipelineExecutionService.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the pipeline execution service until cancellation is signaled.</p>
@@ -251,7 +257,7 @@ Class PipelineExecutionService  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Vectorization_Services_Pipelines_PipelineExecutionService_StopAsync_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Vectorization.Services.Pipelines.PipelineExecutionService.StopAsync(System.Threading.CancellationToken)">
   StopAsync(CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Pipelines/PipelineExecutionService.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Pipelines/PipelineExecutionService.cs/#L381"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Stops the pipeline execution service, allowing it to cleanup.</p>
@@ -289,7 +295,7 @@ Class PipelineExecutionService  <a class="header-action link-secondary" title="V
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Pipelines/PipelineExecutionService.cs/#L22" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Pipelines/PipelineExecutionService.cs/#L33" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -73,41 +73,55 @@
         <article data-uid="">
 <h1 id="managing-vectorization-profiles">Managing vectorization profiles</h1>
 
-<p>The FoundationaLLM (FLLM) vectorization pipelines required the following types of profiles:</p>
+<p>The FoundationaLLM (FLLM) vectorization pipelines require the following types of profiles:</p>
 <ul>
-<li><a href="#content-source-profiles">Content source profiles</a></li>
+<li><a href="#data-sources">Data Sources</a></li>
 <li><a href="#text-partitioning-profiles">Text partitioning profiles</a></li>
 <li><a href="#text-embedding-profiles">Text embedding profiles</a></li>
 <li><a href="#indexing-profiles">Indexing profiles</a></li>
 </ul>
-<h2 id="content-source-profiles">Content source profiles</h2>
-<p>The structure of a content source profile is the following:</p>
+<h2 id="data-sources">Data Sources</h2>
+<p>Data sources are managed with the <code>FoundationaLLM.DataSource</code> resource provider through the Management API. The structure of a data source profile is the following:</p>
 <pre><code class="lang-json">{
-    &quot;type&quot;: &quot;content-source-profile&quot;,
-    &quot;name&quot;: &quot;&lt;name&gt;&quot;,
-    &quot;object_id&quot;: &quot;/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/contentsourceprofiles/&lt;name&gt;&quot;,
-    &quot;description&quot;: &quot;&lt;description&gt;&quot;,
-    &quot;deleted&quot;: false,
-    &quot;content_source&quot;: &quot;&lt;content_source&gt;&quot;,
-    &quot;settings&quot;: {&lt;profile_settings&gt;},
-    &quot;configuration_references&quot;: {&lt;profile_configuration_references&gt;}
+  &quot;type&quot;: &quot;&lt;data_source_type&gt;&quot;,
+  &quot;name&quot;: &quot;&lt;name&gt;&quot;,
+  &quot;object_id&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.DataSource/dataSources/&lt;name&gt;&quot;,
+  &quot;display_name&quot;: null,
+  &quot;description&quot;: &quot;&lt;description&gt;&quot;,
+  &quot;&lt;settings&gt;&quot;: [
+    &quot;&lt;value&gt;&quot;
+  ],
+  &quot;configuration_references&quot;: {
+    &quot;AuthenticationType&quot;: &quot;FoundationaLLM:DataSources:datalake01:AuthenticationType&quot;,
+    &quot;ConnectionString&quot;: &quot;FoundationaLLM:DataSources:datalake01:ConnectionString&quot;
+  },
+  &quot;created_on&quot;: &quot;0001-01-01T00:00:00+00:00&quot;,
+  &quot;updated_on&quot;: &quot;0001-01-01T00:00:00+00:00&quot;,
+  &quot;created_by&quot;: null,
+  &quot;updated_by&quot;: null,
+  &quot;deleted&quot;: false
 }
 </code></pre>
 <p>where:</p>
 <ul>
-<li><code>&lt;name&gt;</code> is the name of the content source profile.</li>
+<li><code>&lt;data_source_type&gt;</code> is the type of the data source. The supported types are <code>AzureDataLake</code>, <code>SharePointOnline</code>, <code>WebSite</code> and <code>AzureSQLDatabase</code>.</li>
+<li><code>&lt;name&gt;</code> is the name of the data source.</li>
+<li><code>&lt;instance_id&gt;</code> is the unique identifier of the FLLM instance.</li>
 <li><code>&lt;description&gt;</code> is the description of the content source profile.</li>
-<li><code>&lt;content_source&gt;</code> is the type of the content source profile. The supported types are <code>AzureDataLake</code>, <code>SharePointOnline</code>, and <code>AzureSQLDatabase</code>.</li>
-<li><code>&lt;profile_settings&gt;</code> is a JSON object containing the profile settings.</li>
-<li><code>&lt;profile_configuration_references&gt;</code> is a JSON object containing the profile configuration references.</li>
+<li><code>&lt;settings&gt;</code> is a JSON object containing the data source settings, the name of the property varies by data source type.</li>
+<li><code>&lt;configuration_references&gt;</code> is a JSON object containing the profile configuration references. The content of this object also varies by data source type.</li>
 </ul>
 <p>The reminder of this section describes the configuration parameters for each of the supported content source types.</p>
 <h3 id="azuredatalake"><code>AzureDataLake</code></h3>
-<pre><code class="lang-json">&quot;settings&quot;: {},
-&quot;configuration_references&quot;: {
-    &quot;AuthenticationType&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:&lt;content_source_name&gt;:AuthenticationType&quot;,
-    &quot;ConnectionString&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:&lt;content_source_name&gt;:ConnectionString&quot;
-}
+<pre><code class="lang-json">  &quot;folders&quot;: [
+    &quot;/vectorization-input/sdzwa/journals/2024&quot;
+  ],
+  &quot;configuration_references&quot;: {
+    &quot;AuthenticationType&quot;: &quot;FoundationaLLM:DataSources:datalake01:AuthenticationType&quot;,
+    &quot;ConnectionString&quot;: &quot;FoundationaLLM:DataSources:datalake01:ConnectionString&quot;,
+    &quot;APIKey&quot;: &quot;FoundationaLLM:DataSources:datalake01:APIKey&quot;,
+    &quot;Endpoint&quot;: &quot;FoundationaLLM:DataSources:datalake01:Endpoint&quot;
+  },
 </code></pre>
 <p>The configuration parameters for <code>AzureDataLake</code> are the following:</p>
 <table>
@@ -119,6 +133,10 @@
 </thead>
 <tbody>
 <tr>
+<td><code>folders</code></td>
+<td>The list of folders in the Azure Data Lake storage account that contain the data to be vectorized.</td>
+</tr>
+<tr>
 <td><code>configuration_references.AuthenticationType</code></td>
 <td>The authentication type used to connect to the underlying storage. Can be one of <code>AzureIdentity</code>, <code>AccountKey</code>, or <code>ConnectionString</code>.</td>
 </tr>
@@ -129,13 +147,16 @@
 </tbody>
 </table>
 <h3 id="sharepointonline"><code>SharePointOnline</code></h3>
-<pre><code class="lang-json">&quot;settings&quot;: {},
-&quot;configuration_references&quot;: {
-    &quot;CertificateName&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:&lt;content_source_name&gt;:CertificateName&quot;,
-    &quot;ClientId&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:&lt;content_source_name&gt;:ClientId&quot;,
-    &quot;KeyVaultURL&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:&lt;content_source_name&gt;:KeyVaultURL&quot;,
-    &quot;TenantId&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:&lt;content_source_name&gt;:TenantId&quot;
-}
+<pre><code class="lang-json">  &quot;site_url&quot;: &quot;https://solliance.sharepoint.com/sites/foundationallm01&quot;,
+  &quot;document_libraries&quot;: [
+    &quot;/documents01&quot;
+  ],
+  &quot;configuration_references&quot;: {
+    &quot;ClientId&quot;: &quot;FoundationaLLM:DataSources:sharepointsite01:ClientId&quot;,
+    &quot;TenantId&quot;: &quot;FoundationaLLM:DataSources:sharepointsite01:TenantId&quot;,
+    &quot;CertificateName&quot;: &quot;FoundationaLLM:DataSources:sharepointsite01:CertificateName&quot;,
+    &quot;KeyVaultURL&quot;: &quot;FoundationaLLM:DataSources:sharepointsite01:KeyVaultURL&quot;
+  },
 </code></pre>
 <p>The configuration parameters for <code>SharePointOnline</code> are the following:</p>
 <table>
@@ -146,6 +167,14 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>site_url</code></td>
+<td>The URL of the SharePoint Online site collection.</td>
+</tr>
+<tr>
+<td><code>document_libraries</code></td>
+<td>The list of document libraries in the SharePoint Online site collection that contain the data to be vectorized.</td>
+</tr>
 <tr>
 <td><code>configuration_references.CertificateName</code></td>
 <td>The name of the X.509 Certificate. The certificate must be valid and be uploaded into an Azure Key Vault certificate store.</td>
@@ -165,10 +194,13 @@
 </tbody>
 </table>
 <h3 id="azuresqldatabase"><code>AzureSQLDatabase</code></h3>
-<pre><code class="lang-json">&quot;settings&quot;: {},
-&quot;configuration_references&quot;: {
-    &quot;ConnectionString&quot;: &quot;FoundationaLLM:Vectorization:ContentSources:&lt;content_source_name&gt;:ConnectionString&quot;
-}
+<pre><code class="lang-json">  &quot;tables&quot;: [
+    &quot;Table1&quot;
+  ],
+  &quot;configuration_references&quot;: {
+    &quot;ConnectionString&quot;: &quot;FoundationaLLM:DataSources:sqldatabase01:ConnectionString&quot;,
+    &quot;AuthenticationType&quot;: &quot;FoundationaLLM:DataSources:sqldatabase01:AuthenticationType&quot;
+  },
 </code></pre>
 <p>The configuration parameters for <code>AzureSQLDatabase</code> are the following:</p>
 <table>
@@ -180,8 +212,16 @@
 </thead>
 <tbody>
 <tr>
+<td><code>tables</code></td>
+<td>The list of tables in the Azure SQL database that contain the data to be vectorized.</td>
+</tr>
+<tr>
 <td><code>configuration_references.ConnectionString</code></td>
 <td>The connection string to the Azure SQL database used for the Azure SQL Database vectorization content source.</td>
+</tr>
+<tr>
+<td><code>configuration_references.AuthenticationType</code></td>
+<td>The authentication type used to connect to the Azure SQL database. Can be one of <code>AzureIdentity</code> or <code>ConnectionString</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -189,18 +229,18 @@
 <p>This section describes how to manage content source profiles using the Management API.
 <code>{{baseUrl}}</code> is the base URL of the Management API. <code>{{instanceId}}</code> is the unique identifier of the FLLM instance.</p>
 <p><strong>Retrieve</strong></p>
-<pre><code>HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/contentsourceprofiles
+<pre><code>HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSource/dataSources
 </code></pre>
 <p><strong>Create or update</strong></p>
-<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/&lt;name&gt;
+<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSource/dataSources/&lt;name&gt;
 Content-Type: application/json
 
 BODY
-&lt;content source profile&gt;
+&lt;data source&gt;
 </code></pre>
-<p>where <code>&lt;content source profile&gt;</code> is a JSON object with the structure described above.</p>
+<p>where <code>&lt;data source&gt;</code> is a JSON object with the structure described above.</p>
 <p><strong>Delete</strong></p>
-<pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/contentsourceprofiles/&lt;name&gt;
+<pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSource/dataSources/&lt;name&gt;
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
@@ -514,7 +554,7 @@ BODY
 <p><strong>NO</strong>, all other options are blocked by SharePoint Online and will result in an <code>Access Denied</code> message.</p>
 </blockquote>
 </li>
-<li><p>Create a new <a href="#content-source-profiles">Content Source profile using the Management API.</a> Ensure that you set the necessary App Configuration settings appropriately.</p>
+<li><p>Create a new <a href="#data-sources">Data Source using the Management API.</a> Ensure that you set the necessary App Configuration settings appropriately.</p>
 </li>
 </ol>
 

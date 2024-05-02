@@ -176,8 +176,8 @@ The details presented here are provided for cases in which you need to troublesh
 <td>Azure storage container used for the internal states of the FoundationaLLM resource providers.</td>
 </tr>
 <tr>
-<td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-content-source-profiles.json</code></td>
-<td>Azure storage blob used for the content sources managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="vectorization-profiles.html#content-source-profiles">vectorization content source profiles</a>.</td>
+<td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-pipelines.json</code></td>
+<td>Azure storage blob used for the vectorization pipeline resources managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="vectorization-concepts.html#vectorization-pipelines">vectorization pipelines</a>.</td>
 </tr>
 <tr>
 <td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-text-partitioning-profiles.json</code></td>
@@ -190,6 +190,22 @@ The details presented here are provided for cases in which you need to troublesh
 <tr>
 <td><code>resource-provider/FoundationaLLM.Vectorization/vectorization-indexing-profiles.json</code></td>
 <td>Azure storage blob used for the indexing profiles managed by the <code>FoundationaLLM.Vectorization</code> resource provider. For more details, see <a href="vectorization-profiles.html#indexing-profiles">vectorization indexing profiles</a>.</td>
+</tr>
+<tr>
+<td><code>resource-provider/FoundationaLLM.DataSources</code></td>
+<td>Azure storage directory where the data sources managed by the <code>FoundationaLLM.DataSources</code> resource provider are stored.</td>
+</tr>
+<tr>
+<td><code>vectorization-state/requests/{requestid-yyyyMMdd}.json</code></td>
+<td>Azure storage directory where vectorization requests managed by the vectorization state service are stored.</td>
+</tr>
+<tr>
+<td><code>vectorization-state/execution-state/{canonical_id}</code></td>
+<td>Azure storage directory where the execution state of the vectorization requests and their resulting artifacts are stored. The canonical_id is defined in the vectorization request.</td>
+</tr>
+<tr>
+<td><code>vectorization-state/pipeline-state/{pipeline_name}/{pipeline_name}-{execution_id}.json</code></td>
+<td>Azure storage directory where the state of the vectorization pipeline execution is stored. The pipeline_name is the name of the vectorization pipeline and the execution_id is the unique identifier of the execution.</td>
 </tr>
 </tbody>
 </table>
@@ -418,6 +434,14 @@ The details presented here are provided for cases in which you need to troublesh
 <tr>
 <td><code>RequestSources</code></td>
 <td>The list of request sources used by the vectorization worker. Each request source is responsible for managing the requests for a specific vectorization step. The configuration must include all request sources.</td>
+</tr>
+<tr>
+<td><code>RequestSources.Name</code></td>
+<td>The name of the request source. The name must match the name of the request manager.</td>
+</tr>
+<tr>
+<td><code>RequestSources.AccountName</code></td>
+<td>The name of the configuration key for the Azure Storage account used for the queue (include the tokens after <strong>FoundationaLLM:Vectorization:Queues:</strong>).</td>
 </tr>
 <tr>
 <td><code>RequestSources.VisibilityTimeoutSeconds</code></td>

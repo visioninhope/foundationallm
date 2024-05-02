@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService" class="text-break">
-Class VectorizationResourceProviderService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L35"><i class="bi bi-code-slash"></i></a>
+Class VectorizationResourceProviderService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L43"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -169,6 +169,9 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleDeleteAsync_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase.HandleDeleteAsync(string, UnifiedUserIdentity)</a>
     </div>
     <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcePath_System_String_">ResourceProviderServiceBase.GetResourcePath(string)</a>
+    </div>
+    <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResource__1_System_String_">ResourceProviderServiceBase.GetResource&lt;T&gt;(string)</a>
     </div>
     <div>
@@ -204,6 +207,12 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
     <dt>Extension Methods</dt>
     <dd>
   <div>
+      <a class="xref" href="FoundationaLLM.Vectorization.Extensions.VectorizationResourceProviderServiceExtensions.html#FoundationaLLM_Vectorization_Extensions_VectorizationResourceProviderServiceExtensions_GetActivePipelines_FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_">VectorizationResourceProviderServiceExtensions.GetActivePipelines(VectorizationResourceProviderService)</a>
+  </div>
+  <div>
+      <a class="xref" href="FoundationaLLM.Vectorization.Extensions.VectorizationResourceProviderServiceExtensions.html#FoundationaLLM_Vectorization_Extensions_VectorizationResourceProviderServiceExtensions_TogglePipelineActivation_FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_System_String_System_Boolean_">VectorizationResourceProviderServiceExtensions.TogglePipelineActivation(VectorizationResourceProviderService, string, bool)</a>
+  </div>
+  <div>
       <a class="xref" href="FoundationaLLM.Core.Utils.ObjectExtensions.html#FoundationaLLM_Core_Utils_ObjectExtensions_GetPropertyValues_System_Object_System_Collections_Generic_List_System_String__">ObjectExtensions.GetPropertyValues(object, List&lt;string&gt;)</a>
   </div>
   </dd></dl>
@@ -218,9 +227,9 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <a id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__ctor_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IAuthorizationService_FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_System_IServiceProvider_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IAuthorizationService,FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService})">
-  VectorizationResourceProviderService(IOptions&lt;InstanceSettings&gt;, IAuthorizationService, IStorageService, IEventService, IResourceValidatorFactory, IServiceProvider, ILogger&lt;VectorizationResourceProviderService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationServiceSettings__FoundationaLLM_Common_Interfaces_IAuthorizationService_FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_System_Net_Http_IHttpClientFactory_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},FoundationaLLM.Common.Interfaces.IAuthorizationService,FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,System.Net.Http.IHttpClientFactory,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
+  VectorizationResourceProviderService(IOptions&lt;InstanceSettings&gt;, IOptions&lt;VectorizationServiceSettings&gt;, IAuthorizationService, IStorageService, IEventService, IResourceValidatorFactory, IHttpClientFactory, IServiceProvider, ILoggerFactory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L43"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Implements the FoundationaLLM.Vectorization resource provider.</p>
@@ -228,13 +237,16 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public VectorizationResourceProviderService(IOptions&lt;InstanceSettings&gt; instanceOptions, IAuthorizationService authorizationService, IStorageService storageService, IEventService eventService, IResourceValidatorFactory resourceValidatorFactory, IServiceProvider serviceProvider, ILogger&lt;VectorizationResourceProviderService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public VectorizationResourceProviderService(IOptions&lt;InstanceSettings&gt; instanceOptions, IOptions&lt;VectorizationServiceSettings&gt; vectorizationServiceSettings, IAuthorizationService authorizationService, IStorageService storageService, IEventService eventService, IResourceValidatorFactory resourceValidatorFactory, IHttpClientFactory httpClientFactory, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>instanceOptions</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.html">InstanceSettings</a>&gt;</dt>
     <dd><p>The options providing the <a class="xref" href="FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.html">InstanceSettings</a> with instance settings.</p>
+</dd>
+    <dt><code>vectorizationServiceSettings</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings.html">VectorizationServiceSettings</a>&gt;</dt>
+    <dd><p>The options for instantiating a Vectorization API client <a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings.html">VectorizationServiceSettings</a></p>
 </dd>
     <dt><code>authorizationService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IAuthorizationService.html">IAuthorizationService</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IAuthorizationService.html">IAuthorizationService</a> providing authorization services.</p>
@@ -248,11 +260,14 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
     <dt><code>resourceValidatorFactory</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.html">IResourceValidatorFactory</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceValidatorFactory.html">IResourceValidatorFactory</a> providing the factory to create resource validators.</p>
 </dd>
+    <dt><code>httpClientFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory">IHttpClientFactory</a></dt>
+    <dd><p>The factory responsible for creating HTTP client instances.</p>
+</dd>
     <dt><code>serviceProvider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></dt>
     <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a> of the main dependency injection container.</p>
 </dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html">VectorizationResourceProviderService</a>&gt;</dt>
-    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a> used for logging.</p>
+    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
+    <dd><p>The factory responsible for creating loggers.</p>
 </dd>
   </dl>
 
@@ -275,7 +290,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService__name" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService._name">
   _name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L93"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the resource provider. Must be overridden in derived classes.</p>
@@ -311,7 +326,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_DeleteResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L357"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L481"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.</p>
@@ -352,7 +367,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_ExecuteActionAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   ExecuteActionAsync(ResourcePath, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L239"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L316"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of ExecuteActionAsync. Must be overriden in derived classes.</p>
@@ -397,11 +412,52 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
 
 
+  <a id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_ExecuteActionAsync_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.ExecuteActionAsync*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_ExecuteActionAsync_System_String_System_String_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.ExecuteActionAsync(System.String,System.String)">
+  ExecuteActionAsync(string, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L377"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes an action on a vectorization resource.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;object&gt; ExecuteActionAsync(string resourcePath, string? serializedAction = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The resource path (or object id) of the vectorization request to process.</p>
+</dd>
+    <dt><code>serializedAction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The JSON string payload to pass in as an action parameter.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourceInternal_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal*"></a>
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath)">
   GetResourceInternal&lt;T&gt;(ResourcePath)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L407"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L531"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResource. Must be overridden in derived classes.</p>
@@ -444,7 +500,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourceTypes" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceTypes">
   GetResourceTypes()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L66"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the details about the resource types managed by the resource provider.</p>
@@ -477,7 +533,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   GetResourcesAsync(ResourcePath, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L142"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResourcesAsync. Must be overridden in derived classes.</p>
@@ -514,11 +570,50 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
 
 
+  <a id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourcesAsync_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsync*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourcesAsync_System_String_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourcesAsync(System.String)">
+  GetResourcesAsync(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L386"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves resources from the vectorization resource provider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;object&gt; GetResourcesAsync(string resourcePath)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The resource path from which to retrieve resources.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd><p>List of vectorization resources.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_HandleEvents_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.HandleEvents*"></a>
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)">
   HandleEvents(EventSetEventArgs)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L489"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L775"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Handles events received from the <a class="xref" href="FoundationaLLM.Common.Interfaces.IEventService.html">IEventService</a> when they are dequeued locally.</p>
@@ -556,7 +651,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_InitializeInternal" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.InitializeInternal">
   InitializeInternal()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L84"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L98"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of Initialize. Must be overridden in derived classes.</p>
@@ -588,7 +683,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_UpsertResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   UpsertResourceAsync(ResourcePath, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L173"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L221"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
@@ -632,7 +727,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_UpsertResourceAsync__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath___0_" data-uid="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.UpsertResourceAsync``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,``0)">
   UpsertResourceAsync&lt;T&gt;(ResourcePath, T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L461"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L615"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
@@ -678,7 +773,7 @@ Class VectorizationResourceProviderService  <a class="header-action link-seconda
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L35" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/ResourceProviders/VectorizationResourceProviderService.cs/#L43" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -3142,6 +3142,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationProcessingState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationProcessingState.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationProcessingType.yml",
       "output": {
         ".html": {
@@ -5822,6 +5832,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Client.VectorizationServiceClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Client.VectorizationServiceClient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Client.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Client.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.Office.DOCXTextExtractor.yml",
       "output": {
         ".html": {
@@ -5886,6 +5916,46 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.DataFormats.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Extensions.VectorizationRequestExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Extensions.VectorizationRequestExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Extensions.VectorizationResourceProviderServiceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Extensions.VectorizationResourceProviderServiceExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Extensions.VectorizationStateServiceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Extensions.VectorizationStateServiceExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Extensions.html"
         }
       },
       "version": ""
@@ -6022,6 +6092,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory-1.yml",
       "output": {
         ".html": {
@@ -6096,6 +6176,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.SharePointOnlineContentSourceServiceSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings.html"
         }
       },
       "version": ""
@@ -6186,6 +6276,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationLogEntry.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationPipelineState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationPipelineState.html"
         }
       },
       "version": ""
@@ -6306,6 +6406,56 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.ContentSources.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.DataSources.AzureDataLakeDataSourceService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.DataSources.AzureDataLakeDataSourceService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.DataSources.AzureSQLDatabaseDataSourceService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.DataSources.AzureSQLDatabaseDataSourceService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.DataSources.Configuration.SQLDatabase.SQLDatabaseServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.DataSources.Configuration.SQLDatabase.SQLDatabaseServiceSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.DataSources.Configuration.SQLDatabase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.DataSources.Configuration.SQLDatabase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.DataSources.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.DataSources.html"
         }
       },
       "version": ""
@@ -6566,6 +6716,26 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationProfileBaseValidator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationRequestCreationTimeValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationRequestCreationTimeValidator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationRequestValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Validation.Resources.VectorizationRequestValidator.html"
         }
       },
       "version": ""
@@ -7535,16 +7705,6 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "development/calling-apis/directly-calling-vectorization-api.md",
-      "output": {
-        ".html": {
-          "relative_path": "development/calling-apis/directly-calling-vectorization-api.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
       "source_relative_path": "development/calling-apis/index.md",
       "output": {
         ".html": {
@@ -7685,16 +7845,6 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "development/calling-apis/media/postman-fork-vectorization-collection-form.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/calling-apis/media/postman-fork-vectorization-collection-form.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
       "source_relative_path": "development/calling-apis/media/postman-import-button.png",
       "output": {
         "resource": {
@@ -7729,16 +7879,6 @@
       "output": {
         "resource": {
           "relative_path": "development/calling-apis/media/postman-imported-management-collection.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/calling-apis/media/postman-imported-vectorization-collection.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/calling-apis/media/postman-imported-vectorization-collection.png"
         }
       },
       "version": ""
@@ -7879,46 +8019,6 @@
       "output": {
         "resource": {
           "relative_path": "development/calling-apis/media/postman-variables-tab.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/calling-apis/media/postman-vectorization-api-key-variable.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/calling-apis/media/postman-vectorization-api-key-variable.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/calling-apis/media/postman-vectorization-api-url-variable.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/calling-apis/media/postman-vectorization-api-url-variable.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/calling-apis/media/postman-vectorization-save-button.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/calling-apis/media/postman-vectorization-save-button.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "development/calling-apis/media/postman-vectorization-variables-tab.png",
-      "output": {
-        "resource": {
-          "relative_path": "development/calling-apis/media/postman-vectorization-variables-tab.png"
         }
       },
       "version": ""

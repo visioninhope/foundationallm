@@ -81,7 +81,7 @@
 <ol>
 <li><p>Vectorization resource stores use a unique collection name, <code>Resources</code>. They also add a new top-level property named <code>DefaultResourceName</code>.</p>
 </li>
-<li><p>The items in the <code>index_references</code> collection have an property incorrectly named <code>type</code> which was renamed to <code>index_entry_id</code>.</p>
+<li><p>The items in the <code>index_references</code> collection have a property incorrectly named <code>type</code> which was renamed to <code>index_entry_id</code>.</p>
 </li>
 <li><p>New gateway API, requires the following app configurations:</p>
 <ul>
@@ -104,10 +104,8 @@
 <ul>
 <li><code>foundationallm-apis-agentfactoryapi-apikey</code> -&gt; <code>foundationallm-apis-orchestrationapi-apikey</code></li>
 </ul>
+<p>There is an upgrade script available that migrates these settings and secrets to their new names.</p>
 </li>
-</ol>
-<p>* There is an upgrade script available that migrates these settings and secrets to their new names.</p>
-<ol start="6">
 <li><p>The following App Config settings are no longer needed:</p>
 <ul>
 <li><code>FoundationaLLM:Vectorization:Queues:Embed:ConnectionString</code></li>
@@ -162,9 +160,8 @@
     ]
 }
 </code></pre>
-<ol start="10">
-<li>Vectorization text embedding profiles require only two items in the <code>configuration_references</code> section: <code>DeploymentName</code> and <code>Endpoint</code>. Optionally, a <code>deployment_name</code> entry can be specified in the <code>settings</code> section to override the default value in <code>configuration_references.Endpoint</code>. Here is an example of the updated format for a text embedding profile:</li>
-</ol>
+</li>
+<li><p>Vectorization text embedding profiles require only two items in the <code>configuration_references</code> section: <code>DeploymentName</code> and <code>Endpoint</code>. Optionally, a <code>deployment_name</code> entry can be specified in the <code>settings</code> section to override the default value in <code>configuration_references.Endpoint</code>. Here is an example of the updated format for a text embedding profile:</p>
 <pre><code class="lang-json">{
     &quot;type&quot;: &quot;text-embedding-profile&quot;,
     &quot;name&quot;: &quot;AzureOpenAI_Embedding_BaselineGlobalMacro&quot;,
@@ -186,6 +183,8 @@
     &quot;deleted&quot;: false
 }
 </code></pre>
+</li>
+<li><p>App Config key namespace that was previously <code>FoundationaLLM:Vectorization:ContentSources:*</code> has been moved to <code>FoundationaLLM:DataSources:*</code>. All existing keys need to be moved to the new namespace.</p>
 </li>
 </ol>
 

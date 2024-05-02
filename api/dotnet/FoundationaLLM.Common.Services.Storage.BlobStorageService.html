@@ -365,6 +365,54 @@ Class BlobStorageService  <a class="header-action link-secondary" title="View so
 
 
 
+  <a id="FoundationaLLM_Common_Services_Storage_BlobStorageService_GetFilePathsAsync_" data-uid="FoundationaLLM.Common.Services.Storage.BlobStorageService.GetFilePathsAsync*"></a>
+
+  <h3 id="FoundationaLLM_Common_Services_Storage_BlobStorageService_GetFilePathsAsync_System_String_System_String_System_Boolean_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Common.Services.Storage.BlobStorageService.GetFilePathsAsync(System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+  GetFilePathsAsync(string, string?, bool, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/Storage/BlobStorageService.cs/#L176"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves a list file paths in the specific directory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;string&gt;&gt; GetFilePathsAsync(string containerName, string? directoryPath = null, bool recursive = true, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>containerName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Name of the container, file system or Workspace name.</p>
+</dd>
+    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Directory to list file contents</p>
+</dd>
+    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Recurse through child folders</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>Determines if a request should be cancelled.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</dt>
+    <dd><p>List of individual file paths located in the container.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Services_Storage_BlobStorageService_ReadFileAsync_" data-uid="FoundationaLLM.Common.Services.Storage.BlobStorageService.ReadFileAsync*"></a>
 
   <h3 id="FoundationaLLM_Common_Services_Storage_BlobStorageService_ReadFileAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Common.Services.Storage.BlobStorageService.ReadFileAsync(System.String,System.String,System.Threading.CancellationToken)">

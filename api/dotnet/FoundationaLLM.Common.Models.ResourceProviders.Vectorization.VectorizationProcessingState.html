@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Namespace FoundationaLLM.Vectorization.Services | FoundationaLLM </title>
+      <title>Enum VectorizationProcessingState | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Namespace FoundationaLLM.Vectorization.Services | FoundationaLLM ">
+      <meta name="title" content="Enum VectorizationProcessingState | FoundationaLLM ">
       
-      
+      <meta name="description" content="Describes the state of a vectorization request.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationProcessingState.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationProcessingState%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,58 +84,67 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Vectorization.Services">
+        <article data-uid="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationProcessingState">
 
-  <h1 id="FoundationaLLM_Vectorization_Services" data-uid="FoundationaLLM.Vectorization.Services" class="text-break">Namespace FoundationaLLM.Vectorization.Services</h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
 
-    <h3 id="namespaces">
-Namespaces
-</h3>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Services.ContentSources.html">FoundationaLLM.Vectorization.Services.ContentSources</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Services.DataSources.html">FoundationaLLM.Vectorization.Services.DataSources</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Services.Pipelines.html">FoundationaLLM.Vectorization.Services.Pipelines</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Services.RequestSources.html">FoundationaLLM.Vectorization.Services.RequestSources</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Services.Text.html">FoundationaLLM.Vectorization.Services.Text</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Services.VectorizationStates.html">FoundationaLLM.Vectorization.Services.VectorizationStates</a></dt>
-      <dd></dd>
-    </dl>
-    <h3 id="classes">
-Classes
-</h3>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Services.RequestManagerService.html">RequestManagerService</a></dt>
-      <dd><p>Manages vectorization requests originating from a specific request source.</p>
+
+
+  <h1 id="FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationProcessingState" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationProcessingState" class="text-break">
+Enum VectorizationProcessingState  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Vectorization/VectorizationProcessingState.cs/#L8"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.html">ResourceProviders</a>.<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.html">Vectorization</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Describes the state of a vectorization request.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum VectorizationProcessingState</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="FoundationaLLM.Core.Utils.ObjectExtensions.html#FoundationaLLM_Core_Utils_ObjectExtensions_GetPropertyValues_System_Object_System_Collections_Generic_List_System_String__">ObjectExtensions.GetPropertyValues(object, List&lt;string&gt;)</a>
+  </div>
+  </dd></dl>
+
+  <h2 id="fields">Fields
+</h2>
+  <dl class="parameters">
+    <dt id="FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationProcessingState_Completed"><code>Completed = 2</code></dt>
+    <dd><p>All steps of the request have completed successfully.</p>
 </dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Vectorization.Services.VectorizationService.html">VectorizationService</a></dt>
-      <dd><p>Implements the <a class="xref" href="FoundationaLLM.Vectorization.Interfaces.IVectorizationService.html">IVectorizationService</a> interface.</p>
+    <dt id="FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationProcessingState_Failed"><code>Failed = 3</code></dt>
+    <dd><p>An error occurred during processing.</p>
 </dd>
-    </dl>
+    <dt id="FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationProcessingState_InProgress"><code>InProgress = 1</code></dt>
+    <dd><p>The request is being processed.</p>
+</dd>
+    <dt id="FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationProcessingState_New"><code>New = 0</code></dt>
+    <dd><p>The vectorization request is new and has not been processed.</p>
+</dd>
+  </dl>
+
 
 
 </article>
 
         <div class="contribution d-print-none">
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Vectorization/VectorizationProcessingState.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -73,7 +73,7 @@
         <article data-uid="">
 <h1 id="triggering-vectorization">Triggering vectorization</h1>
 
-<p>Vectorization pipelines are started when the Vectorization API receives a vectorization request. The following types of triggers are supported:</p>
+<p>Vectorization pipelines are started when the Management API receives a <code>process</code>vectorization request. The following types of triggers are supported:</p>
 <ul>
 <li>None (no triggering of vectorization pipelines).</li>
 <li>Manual (vectorization pipelines are triggered manually by calling the Vectorization API). The typical use cases for on-demand vectorization (either synchronous or asynchronous) are testing, manual vectorization (or re-vectorization), and application integration (where another platform component triggers vectorization).</li>
@@ -87,16 +87,19 @@
 <h2 id="vectorization-requests">Vectorization requests</h2>
 <p>The typical structure of a vectorization request is the following</p>
 <pre><code class="lang-json">{
+    &quot;id&quot;: &quot;fc4a2499-4771-4a2d-9ba0-3874c3d4586c&quot;,
+    &quot;object_id&quot;: &quot;/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/vectorizationRequests/fc4a2499-4771-4a2d-9ba0-3874c3d4586c&quot;,    
     &quot;content_identifier&quot;: {
-        &quot;content_source_profile_name&quot;: &quot;&lt;name&gt;&quot;,
+        &quot;data_source_object_id&quot;: &quot;/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01&quot;,
         &quot;multipart_id&quot;: [
-            &quot;xyz.blob.core.windows.net&quot;,
+            &quot;abcdefg.dfs.core.windows.net&quot;,
             &quot;vectorization-input&quot;,
-            &quot;The-fabulous-life-of-Jack-the-Cat.pdf&quot;
+            &quot;/journals/2024/Journal-January-2024.pdf&quot;
         ],
-        &quot;canonical_id&quot;: &quot;friends/stories/The-fabulous-life-of-Jack-the-Cat&quot;
+        &quot;canonical_id&quot;: &quot;/journals/Journal-January-2024&quot;,
+        &quot;metadata&quot;: null
     },
-    &quot;processing_type&quot;: &quot;Asynchronous&quot;,
+    &quot;processing_type&quot;: &quot;Synchronous&quot;,    
     &quot;steps&quot;: [
         {
             &quot;id&quot;: &quot;extract&quot;,
@@ -105,7 +108,7 @@
         {
             &quot;id&quot;: &quot;partition&quot;,
             &quot;parameters&quot;: {
-                &quot;text_partition_profile_name&quot;: &quot;DefaultTokenTextPartition&quot;
+                &quot;text_partitioning_profile_name&quot;: &quot;DefaultTokenTextPartition_Small&quot;
             }
         },
         {
@@ -117,9 +120,17 @@
         {
             &quot;id&quot;: &quot;index&quot;,
             &quot;parameters&quot;: {
-                &quot;indexing_profile_name&quot;: &quot;AzureAISearch_Default_001&quot;
+                &quot;indexing_profile_name&quot;: &quot;AzureAISearch_CPTEST&quot;
             }
         }
+    ],
+    &quot;completed_steps&quot;: [
+    ],
+    &quot;remaining_steps&quot;: [
+        &quot;extract&quot;,
+        &quot;partition&quot;,
+        &quot;embed&quot;,
+        &quot;index&quot;
     ]
 }
 </code></pre>
@@ -133,12 +144,20 @@
 </thead>
 <tbody>
 <tr>
+<td><code>id</code></td>
+<td>The unique identifier of the vectorization request. The system issuing the request is responsible for generating this value.</td>
+</tr>
+<tr>
+<td><code>object_id</code></td>
+<td>The object ID of the vectorization request. This can be empty when creating the request.</td>
+</tr>
+<tr>
 <td><code>content_identifier</code></td>
 <td>The content identifier of the content to be vectorized.</td>
 </tr>
 <tr>
-<td><code>content_identifier.content_source_profile_name</code></td>
-<td>The name of the content source profile to be used for loading the content.</td>
+<td><code>content_identifier.data_source_object_id</code></td>
+<td>The object id of the data source resource indicating the location of the data to be vectorized.</td>
 </tr>
 <tr>
 <td><code>content_identifier.multipart_id</code></td>
@@ -156,9 +175,17 @@
 <td><code>steps</code></td>
 <td>The vectorization steps to be executed. Most vectorization requests will contain the full set of standard steps: <code>extract</code>, <code>partition</code>, <code>embed</code>, and <code>index</code>. Each step (except for the <code>extract</code> one) will contain one parameter specifying the name of the associated vectorization profile name.</td>
 </tr>
+<tr>
+<td><code>completed_steps</code></td>
+<td>The list of steps that have been completed. This array needs to be empty when creating a vectorization request.</td>
+</tr>
+<tr>
+<td><code>remaining_steps</code></td>
+<td>The list of steps that are yet to be executed. This array can't be empty when creating a vectorization request, at least one step is needed.</td>
+</tr>
 </tbody>
 </table>
-<p>The meaning of the multipart strings depends on the specific type of the content source in the content source profile.</p>
+<p>The meaning of the <code>multipart</code> strings depends on the specific type of the data source.</p>
 <p>The following table describes the meaning of the multipart strings for the <code>AzureDataLake</code> content source.</p>
 <table>
 <thead>
@@ -240,7 +267,30 @@
 </tr>
 <tr>
 <td>5</td>
-<td>The file file name.</td>
+<td>The file name.</td>
+</tr>
+</tbody>
+</table>
+<p>The following table describes the meaning of the multipart strings for the <code>WebSite</code> content source.</p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>The protocol, either <code>http</code> or <code>https</code>.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>The web URL without the protocol.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CSS classes to filter by, space delimited.</td>
 </tr>
 </tbody>
 </table>
@@ -262,17 +312,8 @@
 <li>If the component starts with <code>FLLM:</code>, the platform will replace the <code>FLLM:</code> prefix with <code>https://</code> and replace all <code>#</code> characters with <code>.</code>. Then, it will check if the tail of the resulting URL is in the list of allowed domains. If it is, the platform will use the resulting URL. If it is not, the platform will use the original form of the component.</li>
 <li>At this point, the platform will assume that the component is a simple known neutral URL and will prepend <code>https://</code> to it. Then, if the tail of the resulting URL is in the list of allowed domains, the platform will use the resulting URL. If it is not, the platform will use the original form of the component.</li>
 </ol>
-<h3 id="submitting-vectorization-requests">Submitting vectorization requests</h3>
-<p>This section describes how to submit vectorization requests using the Vectorization API.
-<code>{{baseUrl}}</code> is the base URL of the Vectorization API.</p>
-<pre><code>POST {{baseUrl}}/vectorizationrequest
-Content-Type: application/json
-X-API-KEY: &lt;vectorization_api_key&gt;
-
-BODY
-&lt;vectorization_request&gt;
-</code></pre>
-<p>where &lt;vectorization_api_key&gt; is the API key of the Vectorization API and <code>&lt;vectorization_request&gt;</code> is the vectorization request to be submitted.</p>
+<h3 id="creating-a-vectorization-request">Creating a vectorization request</h3>
+<p>See <a href="./vectorization-request-resources.md">Vectorization Request Resources</a> for more information on creating a vectorization request.</p>
 <p>Upon completion, the API will return a response with the following structure:</p>
 <pre><code class="lang-json">{
     &quot;object_id&quot;:&quot;/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/vectorizationrequests/6041849a-d4d8-428d-97ff-c6a3443ecdae&quot;,
@@ -280,6 +321,8 @@ BODY
     &quot;error_message&quot;:null
 }
 </code></pre>
+<h3 id="processing-a-vectorization-request">Processing a vectorization request</h3>
+<p>To initiate the processing of a vectorization request, the caller must issue a <code>process</code> request to the Management API through a <code>POST</code> on the resource object id (the body is <code>{}</code>). The following is an example of a <code>process</code>, example:    <code>{baseUrl}/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/vectorizationrequests/6041849a-d4d8-428d-97ff-c6a3443ecdae/process</code>.</p>
 
 </article>
 
