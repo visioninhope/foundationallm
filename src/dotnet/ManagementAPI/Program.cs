@@ -98,7 +98,7 @@ namespace FoundationaLLM.Management.API
             //----------------------------
             builder.AddAuthorizationResourceProvider();
             builder.AddConfigurationResourceProvider();
-            builder.AddVectorizationResourceProvider();
+            builder.AddVectorizationResourceProvider();            
             builder.AddAgentResourceProvider();
             builder.AddPromptResourceProvider();
             builder.AddDataSourceResourceProvider();

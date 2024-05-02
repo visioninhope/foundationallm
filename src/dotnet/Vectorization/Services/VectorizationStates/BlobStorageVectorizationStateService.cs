@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Drawing.Charts;
+using Azure.Core;
+using Azure.Storage.Blobs;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
@@ -30,12 +31,14 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         private const string BLOB_STORAGE_CONTAINER_NAME = "vectorization-state";
+        private const string EXECUTION_STATE_DIRECTORY = "execution-state";
+        private const string PIPELINE_STATE_DIRECTORY = "pipeline-state";
 
         /// <inheritdoc/>
         public async Task<bool> HasState(VectorizationRequest request) =>
             await _storageService.FileExistsAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
-                $"{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
+                $"{EXECUTION_STATE_DIRECTORY}/{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
                 default);
 
 
@@ -44,7 +47,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         {
             var content = await _storageService.ReadFileAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
-                $"{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
+                $"{EXECUTION_STATE_DIRECTORY}/{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
                 default);
 
             return JsonSerializer.Deserialize<VectorizationState>(content)!;
@@ -68,7 +71,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                         extractedTextArtifact.Content = Encoding.UTF8.GetString(
                             await _storageService.ReadFileAsync(
                             BLOB_STORAGE_CONTAINER_NAME,
-                                $"{extractedTextArtifact.CanonicalId}.txt",
+                                $"{EXECUTION_STATE_DIRECTORY}/{extractedTextArtifact.CanonicalId}.txt",
                                 default));
 
                     state.LoadedArtifactTypes.Add(VectorizationArtifactType.ExtractedText);
@@ -105,7 +108,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
                 await _storageService.WriteFileAsync(
                     BLOB_STORAGE_CONTAINER_NAME,
-                    $"{extractedTextArtifact.CanonicalId}.txt",
+                    $"{EXECUTION_STATE_DIRECTORY}/{extractedTextArtifact.CanonicalId}.txt",
                     extractedTextArtifact.Content!,
                     default,
                     default);
@@ -131,7 +134,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
             var content = JsonSerializer.Serialize(state);
             await _storageService.WriteFileAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
-                $"{persistenceIdentifier}.json",
+                $"{EXECUTION_STATE_DIRECTORY}/{persistenceIdentifier}.json",
                 content,
                 default,
                 default);
@@ -195,7 +198,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
             await _storageService.WriteFileAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
-                $"{persistenceIdentifier}.snappy.parquet",
+                $"{EXECUTION_STATE_DIRECTORY}/{persistenceIdentifier}.snappy.parquet",
                 serializedParquet,
                 "application/vnd.apache.parquet",
                 default);
@@ -203,7 +206,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
         private async Task<Dictionary<int, VectorizationStateItem>> LoadItems(string persistenceIdentifier)
         {
-            var filePath = $"{persistenceIdentifier}.snappy.parquet";
+            var filePath = $"{EXECUTION_STATE_DIRECTORY}/{persistenceIdentifier}.snappy.parquet";
 
             if (!await _storageService.FileExistsAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
@@ -251,6 +254,35 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                     textEmbeddingArtifact.ContentHash = item.TextEmbeddingVectorHash;
                     textEmbeddingArtifact.Size = item.TextEmbeddingVectorSize;
                 }
+        }
+
+        /// <inheritdoc/>
+        public async Task SavePipelineState(VectorizationPipelineState state)
+        {
+            //pipeline object id format: "/instances/{instanceId}/providers/FoundationaLLM.Vectorization/vectorizationPipelines/{pipeline-name}"
+            var pipelineName = state.PipelineObjectId.Split('/').Last();
+            //vectorization-state/pipeline-state/pipeline-name/pipeline-name-pipeline-execution-id.json
+            var pipelineStatePath = $"{PIPELINE_STATE_DIRECTORY}/{pipelineName}/{pipelineName}-{state.ExecutionId}.json";
+            var content = JsonSerializer.Serialize(state);
+            await _storageService.WriteFileAsync(
+                BLOB_STORAGE_CONTAINER_NAME,
+                pipelineStatePath,
+                content,
+                default,
+                default);            
+        }
+
+        /// <inheritdoc/>
+        public async Task<VectorizationPipelineState> ReadPipelineState(string pipelineName, string pipelineExecutionId)
+        {
+            var pipelineStatePath = $"{PIPELINE_STATE_DIRECTORY}/{pipelineName}/{pipelineName}-{pipelineExecutionId}.json";
+            var content = await _storageService.ReadFileAsync(
+                BLOB_STORAGE_CONTAINER_NAME,
+                pipelineStatePath,
+                default);
+
+            return JsonSerializer.Deserialize<VectorizationPipelineState>(content)!;
+
         }
     }
 }
