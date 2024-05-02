@@ -16,6 +16,10 @@ namespace FoundationaLLM.Core.Examples.Constants
         /// </summary>
         public const string FoundationaLLMAgentName = "FoundationaLLM";
         /// <summary>
+        /// The name of the generic inline context agent.
+        /// </summary>
+        public const string GenericInlineContextAgentName = "FLLMGenericInlineContextTest";
+        /// <summary>
         /// Standard message returned when a completion request fails.
         /// </summary>
         public const string FailedCompletionResponse = "A problem on my side prevented me from responding.";
