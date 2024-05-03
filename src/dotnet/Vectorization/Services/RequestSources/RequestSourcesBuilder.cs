@@ -124,10 +124,10 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
 
             foreach (var rs in _settings!)
             {
-                var connectionString = _queuesConfiguration[rs.ConnectionConfigurationName];
-                if (string.IsNullOrWhiteSpace(connectionString))
+                var accountName = _queuesConfiguration[rs.ConnectionConfigurationName];
+                if (string.IsNullOrWhiteSpace(accountName))
                     throw new VectorizationException($"The configuration setting [{rs.ConnectionConfigurationName}] was not found.");
-                rs.ConnectionString = connectionString;
+                rs.AccountName = accountName;
             }
         }
 
