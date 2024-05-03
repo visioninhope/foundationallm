@@ -24,5 +24,10 @@
         /// Deactivate a vectorization pipeline.
         /// </summary>
         public const string Deactivate = "deactivate";
+
+        /// <summary>
+        /// Process a vectorization request.
+        /// </summary>
+        public const string Process = "process";
     }
 }

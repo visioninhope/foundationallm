@@ -134,108 +134,89 @@ These references point to the JSON files that contain the prompt information. Le
   "suffix": ""
 }
 ```
+
 It contains the name, type of **prompt**, the object_id reference, description and of course most importantly the **prefix** and **suffix** of the prompt. The prefix and suffix are the text that will be used to start and end the conversation with the agent.
 
-## Vectorization References
+## Data Source References
+
+A Data Source refers to the location of data that is to be leveraged by an agent. The data source could be a storage account, database, website, etc. The data source references are stored in the **FoundationaLLM.DataSource** folder.
+
+The references are stored in the **_datasource-references** JSON file that contains the following structure:
+
+```json
+{
+    "DataSourceReferences": [
+        {
+            "Name": "datalake01",
+            "Filename": "/FoundationaLLM.DataSource/datalake01.json",
+            "Type": "azure-data-lake",
+            "Deleted": false
+        },
+        {
+            "Name": "sharepointsite01",
+            "Filename": "/FoundationaLLM.DataSource/sharepointsite01.json",
+            "Type": "sharepoint-online-site",
+            "Deleted": false
+        }
+    ]
+}
+```
+
+These references point to the JSON files that contain the prompt information. Let's take a look at one of the prompts from above called **datalake01.json** for an example:
+
+```json
+{
+  "name": "datalake01",
+  "object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
+  "display_name": null,
+  "description": "Azure Data Lake data source.",
+  "folders": [
+    "/vectorization-input/journals/2024"
+  ],
+  "configuration_references": {
+    "AuthenticationType": "FoundationaLLM:DataSources:datalake01:AuthenticationType",
+    "ConnectionString": "FoundationaLLM:DataSources:datalake01:ConnectionString",
+    "APIKey": "FoundationaLLM:DataSources:datalake01:APIKey",
+    "Endpoint": "FoundationaLLM:DataSources:datalake01:Endpoint"
+  },
+  "created_on": "0001-01-01T00:00:00+00:00",
+  "updated_on": "0001-01-01T00:00:00+00:00",
+  "created_by": null,
+  "updated_by": null,
+  "deleted": false
+}
+```
+
+In this example, the data source is an Azure Data Lake data source. The **folders** array contains the paths to the folders in the data lake that contain the data to be used by the agent. The **configuration_references** section contains the references to the configuration settings that are used to connect to the data source. The **created_on**, **updated_on**, **created_by**, **updated_by** are the timestamps and the user that created and updated the data source. The **deleted** flag is used to mark the data source as deleted.
+
+## Vectorization Profile References
 
 Finally the third folder **FoundationaLLM.Vectorization** contains the Vectorization References.
 
 ![](../../../media/RS-Provider-3.png)
 
-Where you will find four important JSON files:
-- **vectorization-content-source-profiles.json**
-  - This is where all the different types of vectorization profiles are stored.  For example:
-```json
-  {
-    "Profiles": [
-        {
-            "Type": "AzureDataLake",
-            "Name": "SDZWAJournals",
-            "ObjectId": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Vectorization/contentsourceprofiles/SDZWAJournals",
-            "Settings": {},
-            "ConfigurationReferences": {
-                "AuthenticationType": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:AuthenticationType",
-                "ConnectionString": "FoundationaLLM:Vectorization:ContentSources:SDZWAJournals:ConnectionString"
-            }
-        },
-        {
-            "Type": "SharePointOnline",
-            "Name": "GSGSharePointOnline",
-            "ObjectId": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Vectorization/contentsourceprofiles/GSGSharePointOnline",
-            "Settings": {},
-            "ConfigurationReferences": {
-                "CertificateName": "FoundationaLLM:Vectorization:ContentSources:GSGSharePointOnline:CertificateName",
-                "ClientId": "FoundationaLLM:Vectorization:ContentSources:GSGSharePointOnline:ClientId",
-                "KeyVaultURL": "FoundationaLLM:Vectorization:ContentSources:GSGSharePointOnline:KeyVaultURL",
-                "TenantId": "FoundationaLLM:Vectorization:ContentSources:GSGSharePointOnline:TenantId"
-            }
-        },
-        {
-            "Type": "AzureSQLDatabase",
-            "Name": "MSDFAzureSQLDB",
-            "ObjectId": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Vectorization/contentsourceprofiles/MSDFAzureSQLDB",
-            "Settings": {},
-            "ConfigurationReferences": {
-                "ConnectionString": "FoundationaLLM:Vectorization:ContentSources:MSDFAzureSQLDB:ConnectionString"
-            }
-        }
-    ]
-}
-```
-
-This is where we identify the name and the type of the content source profiles to use for the vectorization of the content. And within the **configurationReferences** section, we identify the specific settings to use for the content source where it could be indexing PDF files, Sharepoint online content or straight from an Azure SQL Database, etc...
-
-
+Where you will find important JSON files:
 
 - **vectorization-indexing-profiles.json**
 ```json
 {
-    "Profiles": [
+    "DefaultResourceName": "AzureAISearch_Default_002",
+    "Resources": [        
         {
-            "Indexer": "AzureAISearchIndexer",
-            "Name": "AzureAISearch_Test_001",
-            "ObjectId": null,
-            "Settings": {
-                "IndexName": "fllm-test-001"
-            },
-            "ConfigurationReferences": {
-                "APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
-                "QueryAPIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
-                "AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
-                "Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
-            }
-        },
-        {
-            "Indexer": "AzureAISearchIndexer",
-            "Name": "sotu-index",
-            "ObjectId": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Vectorization/indexingprofiles/sotu-index",
-            "Settings": {
-                "IndexName": "sotu-index",
+            "type": "indexing-profile",
+            "name": "AzureAISearch_Default_002",
+            "object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/indexingprofiles/AzureAISearch_Default_002",
+            "description": null,
+            "deleted": false,
+            "indexer": "AzureAISearchIndexer",
+            "settings": {
+                "IndexName": "fllm-default-002",
                 "TopN": "3",
                 "Filters": "",
                 "EmbeddingFieldName": "Embedding",
                 "TextFieldName": "Text"
             },
-            "ConfigurationReferences": {
-                "APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
-                "QueryAPIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:QueryAPIKey",
-                "AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
-                "Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
-            }
-        },
-        {
-            "Indexer": "AzureAISearchIndexer",
-            "Name": "AzureAISearch_MSDF_001",
-            "ObjectId": null,
-            "Settings": {
-                "IndexName": "fllm-msdf-001",
-                "TopN": "3",
-                "Filters": "",
-                "EmbeddingFieldName": "Embedding",
-                "TextFieldName": "Text"
-            },
-            "ConfigurationReferences": {
-                "APIKey": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:APIKey",
+            "configuration_references": {               
                 "AuthenticationType": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType",
                 "Endpoint": "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint"
             }
@@ -244,51 +225,168 @@ This is where we identify the name and the type of the content source profiles t
 }
 ```
 
-This is where we identify the name and the Indexer to use for the indexing of the content. And within the **configurationReferences** section, we identify the APIKey, QueryAPIKey, AuthenticationType and Endpoint to use for the indexing. It could be indexing against the Azure AI Search or any other indexer that is available in the system and more will be supported in the future.
+This is where we identify the name and the Indexer to use for the indexing of the content. And within the **configuration_references** section, we identify the AuthenticationType and Endpoint to use for the indexing. It could be indexing against the Azure AI Search or any other indexer that is available in the system and more will be supported in the future. The **DefaultResourceName** is the name of the default indexing profile to use in the system if none is specified.
 
 - **vectorization-text-embedding-profiles.json**
 ```json
 {
-	"Profiles": [
-		{
-			"TextEmbedding": "SemanticKernelTextEmbedding",
-			"Name": "AzureOpenAI_Embedding",
-			"ObjectId": "/instances/1bc45134-6985-48b9-9466-c5f70ddaaa65/providers/FoundationaLLM.Vectorization/textembeddingprofiles/AzureOpenAI_Embedding",
-			"Settings": {},
-			"ConfigurationReferences": {
-				"APIKey": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
-				"APIVersion": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion",
-				"AuthenticationType": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
-				"DeploymentName": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName",
-				"Endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"
-			}
-		}
-	]
+    "DefaultResourceName": "AzureOpenAI_Embedding",
+    "Resources": [
+     {
+            "type": "text-embedding-profile",
+            "name": "AzureOpenAI_Embedding",
+            "object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/textembeddingprofiles/AzureOpenAI_Embedding",
+            "description": null,
+            "deleted": false,
+            "text_embedding": "SemanticKernelTextEmbedding",
+            "settings": {},
+            "configuration_references": {
+                "APIKey": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey",
+                "APIVersion": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion",
+                "AuthenticationType": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
+                "DeploymentName": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName",
+                "Endpoint": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint"
+            }
+        }
+    ]
 }
 ```
-This is where we identify the name and the Text Embedding to use for the vectorization of the text. And within the **configurationReferences** section, we identify the APIKey, APIVersion, AuthenticationType, DeploymentName and Endpoint to use for the text embedding.
+This is where we identify the name and the Text Embedding to use for the vectorization of the text. And within the **configuration_references** section, we identify the APIKey, APIVersion, AuthenticationType, DeploymentName and Endpoint to use for the text embedding.
 
 - **vectorization-text-partitioning-profiles.json**
 ```json
 {
-	"Profiles": [
-		{
-			"Name": "DefaultTokenTextPartition",
-			"TextSplitter": "TokenTextSplitter",
-			"Settings": {
-				"Tokenizer": "MicrosoftBPETokenizer",
-				"TokenizerEncoder": "cl100k_base",
-				"ChunkSizeTokens": "2000",
-				"OverlapSizeTokens": "200"
-			}
-		}
-	]
+    "DefaultResourceName": "DefaultTokenTextPartition_Small",
+    "Resources": [
+        {
+            "type": "text-partitioning-profile",
+            "name": "DefaultTokenTextPartition_Small",
+            "object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/textpartitioningprofiles/DefaultTokenTextPartition_Small",
+            "display_name": null,
+            "description": null,
+            "text_splitter": "TokenTextSplitter",
+            "settings": {
+                "Tokenizer": "MicrosoftBPETokenizer",
+                "TokenizerEncoder": "cl100k_base",
+                "ChunkSizeTokens": "500",
+                "OverlapSizeTokens": "50"
+            },
+            "configuration_references": {},
+            "created_on": "0001-01-01T00:00:00+00:00",
+            "updated_on": "0001-01-01T00:00:00+00:00",
+            "created_by": null,
+            "updated_by": null,
+            "deleted": false
+        }
+    ]
 }
 ```
 This is where we identify the name and the Text Splitter to use for the chunking and overlapping of the text.
 In the settings section, we identify the tokenizer and the encoder to use for the text partitioning and the chunk size and overlap size in tokens.
 
-## Synchronous Versus Asynchronous Vectorization
+- **vectorization-pipelines.json**
+
+A vectorization pipeline provides a definition for a reusable and triggerable profile that includes identifying a data source that is the source for vectorization, vectorization profiles, as well as the trigger type.
+
+```json
+{
+    "DefaultResourceName": "sdzwa",
+    "Resources": [
+        {
+            "type": "vectorization-pipeline",
+            "name": "sdzwa",
+            "object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/vectorizationPipelines/sdzwa",
+            "display_name": null,
+            "description": "Vectorization data pipeline dedicated to the sdzwa january 2024 pdf.",
+            "active": false,
+            "data_source_object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
+            "text_partitioning_profile_object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/Streamline",
+            "text_embedding_profile_object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/textembeddingprofiles/AzureOpenAI_Embedding_v2",
+            "indexing_profile_object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/indexingprofiles/AzureAISearch_Default_002",
+            "trigger_type": "Event",
+            "trigger_cron_schedule": null,
+            "created_on": "0001-01-01T00:00:00+00:00",
+            "updated_on": "0001-01-01T00:00:00+00:00",
+            "created_by": null,
+            "updated_by": null,
+            "deleted": false
+        }
+    ]
+}
+```
+
+## Vectorization Request Resources
+
+The storage of vectorization request resources are located in the `vectorization-state` container following the standard organization of `/requests/yyyyMMdd/yyyyMMdd-vectorizationrequestid.json` where `yyyyMMdd` (UTC) is the date of the request and `vectorizationrequestid` is the unique identifier of the request.
+
+When a vectorization request is received, the request gets created and is updated once the request has been processed. An example of a completed vectorization request is:
+
+```json
+{
+    "id": "f8d940a2-77c0-4b3e-8709-e26445f9743e",
+    "object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/vectorizationRequests/f8d940a2-77c0-4b3e-8709-e26445f9743e",
+    "Expired": false,
+    "resource_filepath": "requests/20240419/20240419-f8d940a2-77c0-4b3e-8709-e26445f9743e.json",
+    "content_identifier": {
+        "data_source_object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
+        "multipart_id": [
+            "fllmaks14sa.dfs.core.windows.net",
+            "vectorization-input",
+            "sdzwa/journals/2024/SDZWA-Journal-January-2024.pdf"
+        ],
+        "canonical_id": "sdzwa/journals/2024/SDZWA-Journal-January-2024",
+        "metadata": null
+    },
+    "processing_type": "Asynchronous",
+    "pipeline_object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/vectorizationPipelines/sdzwa",
+    "pipeline_execution_id": "541ae81c-08ea-4ba0-b58c-9d904260a5a2",
+    "processing_state": "Completed",
+    "execution_start": "2024-04-19T03:57:33.4571856Z",
+    "execution_end": "2024-04-19T04:00:41.8572236Z",
+    "error_messages": [],
+    "steps": [
+        {
+            "id": "extract",
+            "parameters": {}
+        },
+        {
+            "id": "partition",
+            "parameters": {
+                "text_partitioning_profile_name": "Streamline"
+            }
+        },
+        {
+            "id": "embed",
+            "parameters": {
+                "text_embedding_profile_name": "AzureOpenAI_Embedding_v2"
+            }
+        },
+        {
+            "id": "index",
+            "parameters": {
+                "indexing_profile_name": "AzureAISearch_Default_002"
+            }
+        }
+    ],
+    "completed_steps": [
+        "extract",
+        "partition",
+        "embed",
+        "index"
+    ],
+    "remaining_steps": [],
+    "current_step": null,
+    "error_count": 0,
+    "running_operations": {},
+    "last_successful_step_time": "2024-04-19T04:00:41.8554435Z"
+}
+```
+
+Valid states for the `processing_state` property are `New`, `InProgress`, `Completed`, and `Failed`. Any errors encountered during the processing of a request are stored in the `error_messages` array.
+
+>**Note**: Triggering the vectorization process is done through the Management API by issuing a `process` action on the resource. See the [Triggering Vectorization](../../vectorization/vectorization-triggering.md) section for more information.
+
+### Synchronous Versus Asynchronous Vectorization
 
 The vectorization process can be done in a synchronized or asynchronized manner.  The synchronized manner is when the vectorization process is done in real time **in memory** and the results are returned immediately.  The asynchronized manner is when the vectorization process is done in the background and the results are returned at a later time.  The asynchronized manner is useful when the vectorization process is expected to take a long time to complete and the user does not want to wait for the results.  The asynchronized manner is also useful when the vectorization process is expected to be done in batches and the user does not want to wait for the results of each batch.
 

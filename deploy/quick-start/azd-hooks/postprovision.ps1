@@ -29,6 +29,11 @@ function envsubst {
     $ExecutionContext.InvokeCommand.ExpandString($InputObject)
 }
 
+function Format-Json {
+    param([Parameter(Mandatory = $true, ValueFromPipeline = $true)][string]$json)
+    return $json | ConvertFrom-Json -Depth 50 | ConvertTo-Json -Compress -Depth 50 | ForEach-Object { $_ -replace '"', '\"' }
+}
+
 function Format-EnvironmentVariables {
     param(
         [Parameter(Mandatory = $true)][string]$template,
@@ -44,14 +49,17 @@ function Format-EnvironmentVariables {
     $result | Out-File $render -Force
 }
 
-Invoke-AndRequireSuccess "Setting Azure Subscription" {
-    az account set -s $env:AZURE_SUBSCRIPTION_ID
+if ($IsWindows) {
+    $os = "windows"
+}
+elseif ($IsMacOS) {
+    $os = "mac"
+}
+elseif ($IsLinux) {
+    $os = "linux"
 }
 
-Invoke-AndRequireSuccess "Loading storage-preview extension" {
-    az extension add --name storage-preview --allow-preview true --yes
-    az extension update --name storage-preview --allow-preview true
-}
+$AZCOPY_VERSION = "10.24.0"
 
 $env:DEPLOY_TIME = $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ'))
 $env:GUID01 = $($(New-Guid).Guid)
@@ -60,9 +68,6 @@ $env:GUID03 = $($(New-Guid).Guid)
 $env:GUID04 = $($(New-Guid).Guid)
 $env:GUID05 = $($(New-Guid).Guid)
 $env:GUID06 = $($(New-Guid).Guid)
-
-$env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE = Get-Content ./config/management-api-event-profile.json
-$env:VECTORIZATION_WORKER_CONFIG = Get-Content ./config/vectorization.json
 
 $envConfiguraitons = @{
     "orchestration-api-event-profile"    = @{
@@ -74,6 +79,16 @@ $envConfiguraitons = @{
         template     = './config/core-api-event-profile.template.json'
         render       = './config/core-api-event-profile.json'
         variableName = 'FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE'
+    }
+    "management-api-event-profile"       = @{
+        template     = './config/management-api-event-profile.template.json'
+        render       = './config/management-api-event-profile.json'
+        variableName = 'FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE'
+    }
+    "vectorization"                      = @{
+        template     = './config/vectorization.template.json'
+        render       = './config/vectorization.json'
+        variableName = 'VECTORIZATION_WORKER_CONFIG'
     }
     "vectorization-api-event-profile"    = @{
         template     = './config/vectorization-api-event-profile.template.json'
@@ -94,7 +109,7 @@ foreach ($envConfiguraiton in $envConfiguraitons.GetEnumerator()) {
     Format-EnvironmentVariables -template $template -render $render
 
     $name = $envConfiguraiton.Value.variableName
-    $value = Get-Content $render
+    $value = Get-Content $render -Raw | Format-Json
     Set-Content env:\$name $value
 }
 
@@ -124,6 +139,10 @@ foreach ($configuration in $configurations.GetEnumerator()) {
     Format-EnvironmentVariables -template $template -render $render
 }
 
+Invoke-AndRequireSuccess "Setting Azure Subscription" {
+    az account set -s $env:AZURE_SUBSCRIPTION_ID
+}
+
 Invoke-AndRequireSuccess "Loading AppConfig Values" {
     az appconfig kv import `
         --profile appconfig/kvset `
@@ -135,57 +154,32 @@ Invoke-AndRequireSuccess "Loading AppConfig Values" {
         --output none
 }
 
-if ($IsWindows) {
-    $os = "windows"
-} elseif ($IsMac) {
-    $os = "mac"
+try {
+    Push-Location ./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}
+
+    Write-Host -ForegroundColor Blue "Please Follow the instructions below to login to Azure using AzCopy."
+    $status = ./azcopy login status
+    if (-not $status.contains("Your login session is still active")) {
+        ./azcopy login
+    }
+
+    Invoke-AndRequireSuccess "Uploading Resource Providers" {
+        $target = "https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/"
+
+        ./azcopy cp '../../../common/data/resource-provider/*' $target `
+            --exclude-pattern .git* --recursive=True
+    }
+
+    Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization Store" {
+        $target = "https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windows.net/role-assignments/"
+
+        ./azcopy cp ../.././data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json $target `
+            --recursive=True
+    }
+
 }
-
-$AZCOPY_VERSION = "10.24.0"
-
-Push-Location ./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}
-
-Invoke-AndRequireSuccess "Uploading Agents" {
-    ./azcopy.exe cp `
-        ../../../common/data/agents/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/agents/ `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Data Sources" {
-    ./azcopy.exe cp `
-        ../../../common/data/data-sources/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/data-sources/ `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Foundationallm Source" {
-    ./azcopy.exe cp `
-        ../../../common/data/foundationallm-source/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/foundationallm-source/ `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Prompts" {
-    ./azcopy.exe cp `
-        ../../../common/data/prompts/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/prompts/ `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Resource Providers" {
-    ./azcopy.exe cp `
-        ../../../common/data/resource-provider/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/ `
-        --exclude-pattern .git* `
-        --recursive=True
-}
-
-Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization Store" {
-    ./azcopy.exe cp `
-        ../.././data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json `
-        https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windows.net/role-assignments/ `
-        --recursive=True
+finally {
+    Pop-Location
 }
 
 Invoke-AndRequireSuccess "Restarting Authorization API" {
@@ -207,5 +201,3 @@ Invoke-AndRequireSuccess "Restarting Authorization API" {
         --resource-group $resourceGroup `
         --subscription $env:AZURE_SUBSCRIPTION_ID
 }
-
-Pop-Location

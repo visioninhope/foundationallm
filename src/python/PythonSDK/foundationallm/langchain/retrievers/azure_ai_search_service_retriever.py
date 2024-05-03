@@ -120,3 +120,10 @@ class AzureAISearchServiceRetriever(BaseRetriever, CitationRetrievalBase):
                     citations.append(Citation(id=result_id, title=title, filepath=filepath))
                     added_ids.add(result_id)
         return citations
+
+    def format_docs(self, docs:List[Document]) -> str:
+        """
+        Generates a formatted string from a list of documents for use
+        as the context for the completion request.
+        """
+        return "\n\n".join(doc.page_content for doc in docs)

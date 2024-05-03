@@ -44,7 +44,8 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources); //data source settings
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -101,9 +102,6 @@ builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactor
 builder.AddConfigurationResourceProvider();
 builder.AddDataSourceResourceProvider();
 builder.AddVectorizationResourceProvider();
-
-// Pipeline execution
-builder.AddPipelineExecution();
 
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
@@ -209,11 +207,6 @@ builder.Services.AddSwaggerGen(
         });
     })
     .AddSwaggerGenNewtonsoftSupport();
-
-builder.Services.Configure<RouteOptions>(options =>
-{
-    options.LowercaseUrls = true;
-});
 
 var app = builder.Build();
 

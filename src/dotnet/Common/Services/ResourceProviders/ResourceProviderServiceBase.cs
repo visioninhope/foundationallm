@@ -214,19 +214,30 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
         /// <inheritdoc/>
         public async Task HandleDeleteAsync(string resourcePath, UnifiedUserIdentity userIdentity)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(
-                resourcePath,
-                _allowedResourceProviders,
-                _allowedResourceTypes,
-                allowAction: false);
+        {            
+            var parsedResourcePath = GetResourcePath(resourcePath);
 
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "delete");
 
             await DeleteResourceAsync(parsedResourcePath, userIdentity);
+        }
+
+        /// <summary>
+        /// Gets a <see cref="ResourcePath"/> object for the specified string resource path.
+        /// </summary>
+        /// <param name="resourcePath"></param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        public ResourcePath GetResourcePath(string resourcePath)
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            return new ResourcePath(
+                resourcePath,
+                _allowedResourceProviders,
+                _allowedResourceTypes,
+                allowAction: true);
         }
 
         #region Virtuals to override in derived classes

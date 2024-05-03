@@ -25,17 +25,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="config\configuration_tests.py" />
-    <Compile Include="langchain\agents\internal_context_agent_tests.py" />
     <Compile Include="langchain\agents\knowledge_management_agent_tests.py" />
-    <Compile Include="langchain\agents\search_service_agent_tests.py" />
-    <Compile Include="langchain\agents\blob_storage_agent_tests.py" />
-    <Compile Include="langchain\agents\csv_agent_tests.py" />
-    <Compile Include="langchain\agents\summary_agent_tests.py" />
     <Compile Include="langchain\message_history\message_history_tests.py" />
     <Compile Include="langchain\orchestration\orchestration_manager_tests.py" />
     <Compile Include="pytest.ini" />
-    <Compile Include="langchain\agents\generic_resolver_agent_tests.py" />
-    <Compile Include="resources\resource_provider_tests.py" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\python\PythonSDK\PythonSDK.pyproj">
@@ -54,7 +47,6 @@
     <Folder Include="config\" />
     <Folder Include="langchain\agents\" />
     <Folder Include="langchain\orchestration\" />
-    <Folder Include="resources\" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">

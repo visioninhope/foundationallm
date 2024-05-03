@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
-using Azure.AI.OpenAI;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {

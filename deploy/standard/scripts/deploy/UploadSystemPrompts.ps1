@@ -56,7 +56,7 @@ try {
             --output tsv
     }
 
-    $data = @("agents", "data-sources", "foundationallm-source", "prompts", "resource-provider")
+    $data = @("resource-provider")
     foreach ($container in $data) {
         Invoke-AndRequireSuccess "Ensuring $($container) container exists" {
             $container = az storage container show `

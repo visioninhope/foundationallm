@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Common.Constants
+namespace FoundationaLLM.Common.Constants
 {
     /// <summary>
     /// Constants for the LLM Orchestration Service Names.

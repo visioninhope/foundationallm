@@ -6,7 +6,7 @@
 ## Breaking changes that will affect future releases.
 
 1. Vectorization resource stores use a unique collection name, `Resources`. They also add a new top-level property named `DefaultResourceName`.
-2. The items in the `index_references` collection have an property incorrectly named `type` which was renamed to `index_entry_id`.
+2. The items in the `index_references` collection have a property incorrectly named `type` which was renamed to `index_entry_id`.
 3. New gateway API, requires the following app configurations:
    - `FoundationaLLM:APIs:GatewayAPI:APIUrl`
    - `FoundationaLLM:APIs:GatewayAPI:APIKey` (with secret `foundationallm-apis-gatewayapi-apikey`)
@@ -24,10 +24,10 @@
 
     - `foundationallm-apis-agentfactoryapi-apikey` -> `foundationallm-apis-orchestrationapi-apikey`
 
-\* There is an upgrade script available that migrates these settings and secrets to their new names.
+    There is an upgrade script available that migrates these settings and secrets to their new names.
 
 6. The following App Config settings are no longer needed:
-   
+
     - `FoundationaLLM:Vectorization:Queues:Embed:ConnectionString`
     - `FoundationaLLM:Vectorization:Queues:Extract:ConnectionString`
     - `FoundationaLLM:Vectorization:Queues:Index:ConnectionString`
@@ -38,14 +38,14 @@
     - `foundationallm-vectorization-queues-connectionstring`
 
 8. The following App Config settings need to be added as key-values:
-   
+
    - `FoundationaLLM:Vectorization:Queues:Embed:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)
    - `FoundationaLLM:Vectorization:Queues:Extract:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)
    - `FoundationaLLM:Vectorization:Queues:Index:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)
    - `FoundationaLLM:Vectorization:Queues:Partition:AccountName` (set to the name of the storage account that contains the vectorization queues - e.g., `stejahszxcubrpi`)
 
 9. The value for the App Config setting `FoundationaLLM:Events:AzureEventGridEventService:Profiles:OrchestrationAPI` should be set in the following format:
-    
+
     ```json
     {
         "EventProcessingCycleSeconds": 20,
@@ -80,7 +80,7 @@
     }
     ```
 
-    10. Vectorization text embedding profiles require only two items in the `configuration_references` section: `DeploymentName` and `Endpoint`. Optionally, a `deployment_name` entry can be specified in the `settings` section to override the default value in `configuration_references.Endpoint`. Here is an example of the updated format for a text embedding profile:
+10. Vectorization text embedding profiles require only two items in the `configuration_references` section: `DeploymentName` and `Endpoint`. Optionally, a `deployment_name` entry can be specified in the `settings` section to override the default value in `configuration_references.Endpoint`. Here is an example of the updated format for a text embedding profile:
 
     ```json
     {
@@ -104,9 +104,13 @@
         "deleted": false
     }
     ```
-    11. External orchestration APIs must be configured using the `FoundationaLLM:ExternalAPIs` configuration namespace. For example, the `BaselineTradingGlobalMacro` external API has the following configurations:
+
+11. External orchestration APIs must be configured using the `FoundationaLLM:ExternalAPIs` configuration namespace. For example, the `BaselineTradingGlobalMacro` external API has the following configurations:
     - `FoundationaLLM:ExternalAPIs:BaselineTradingGlobalMacro:APIUrl`
     - `FoundationaLLM:ExternalAPIs:BaselineTradingGlobalMacro:APIKey`
 
     >[!NOTE]
     >These entries do not need to be created as part of the deployment process. 
+
+
+11. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.
