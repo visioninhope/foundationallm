@@ -302,13 +302,13 @@ namespace FoundationaLLM.Agent.ResourceProviders
             {
                 if (agentReference.Deleted)
                 {
-                    // Delete the agent file from storage.
+                    // Delete the resource file from storage.
                     await _storageService.DeleteFileAsync(
                         _storageContainerName,
                         agentReference.Filename,
                         default);
 
-                    // Remove this agent reference from the store.
+                    // Remove this resource reference from the store.
                     _agentReferences.TryRemove(resourceName!.Name, out _);
 
                     await _storageService.WriteFileAsync(
