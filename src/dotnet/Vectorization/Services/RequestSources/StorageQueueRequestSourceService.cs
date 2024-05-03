@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Queues;
+using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
@@ -33,9 +34,8 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             _settings = settings;
             _logger = logger;
 
-            var queueServiceClient = new QueueServiceClient(_settings.ConnectionString);
+            var queueServiceClient = new QueueServiceClient(new Uri($"https://{_settings.AccountName}.dfs.core.windows.net"), DefaultAuthentication.GetAzureCredential());
             _queueClient = queueServiceClient.GetQueueClient(_settings.Name);
-           
         }
 
         /// <inheritdoc/>
