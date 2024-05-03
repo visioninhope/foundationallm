@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Configuration.KeyVault;
 
@@ -88,7 +88,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 secretName: KeyVaultSecretNames.FoundationaLLM_APIs_VectorizationWorker_APIKey,
                 minimumVersion: "0.3.0",
                 description: "The API key of the vectorization worker API."
-            ),
+            ),            
             new(
                 secretName: KeyVaultSecretNames.FoundationaLLM_Events_AzureEventGrid_APIKey,
                 minimumVersion: "0.4.0",

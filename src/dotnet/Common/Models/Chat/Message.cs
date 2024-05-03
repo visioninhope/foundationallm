@@ -72,6 +72,12 @@ public record Message
     public string? CompletionPromptId { get; set; }
 
     /// <summary>
+    /// Stores the expected completion for the message and used for evaluating the actual vs. expected agent completion.
+    /// This should be stored in the agent response.
+    /// </summary>
+    public string? ExpectedCompletion { get; set; }
+
+    /// <summary>
     /// The sources associated with the completion prompt.
     /// </summary>
     public Citation[]? Citations { get; set; }
@@ -81,7 +87,7 @@ public record Message
     /// </summary>
     public Message(string sessionId, string sender, int? tokens, string text,
         float[]? vector, bool? rating, string upn, string? senderDisplayName = null,
-        Citation[]? citations = null)
+        Citation[]? citations = null, string? expectedCompletion = null)
     {
         Id = Guid.NewGuid().ToString();
         Type = nameof(Message);
@@ -94,6 +100,7 @@ public record Message
         Rating = rating;
         Vector = vector;
         UPN = upn;
+        ExpectedCompletion = expectedCompletion;
         Citations = citations;
     }
 }

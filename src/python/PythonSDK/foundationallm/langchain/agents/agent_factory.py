@@ -1,10 +1,8 @@
-#from langchain_core.language_models import BaseLanguageModel
 from foundationallm.config import Configuration, Context
 from foundationallm.models.orchestration import CompletionRequestBase
-from foundationallm.resources import ResourceProvider
 from foundationallm.langchain.agents import (
-    AgentBase,
-    KnowledgeManagementAgent
+    LangChainAgentBase,
+    LangChainKnowledgeManagementAgent
 )
 
 class AgentFactory:
@@ -16,8 +14,7 @@ class AgentFactory:
             self,
             completion_request: CompletionRequestBase,
             config: Configuration,
-            context: Context,
-            resource_provider: ResourceProvider=None
+            context: Context
         ):
         """
         Initializes an Orchestration for selecting which agent to use for completion.
@@ -29,13 +26,14 @@ class AgentFactory:
             and agent and data source metadata.
         config : Configuration
             Application configuration class for retrieving configuration settings.
+        context : Context
+            The user context under which to execution completion requests.    
         """
         self.completion_request = completion_request
         self.config = config
         self.context = context
-        self.resource_provider = resource_provider or ResourceProvider(config=config)
 
-    def get_agent(self) -> AgentBase:
+    def get_agent(self) -> LangChainAgentBase:
         """
         Retrieves an agent of the the requested type.
         
@@ -50,10 +48,6 @@ class AgentFactory:
         
         match agent.type:
             case 'knowledge-management' | 'internal-context':
-                return KnowledgeManagementAgent(
-                    self.completion_request,
-                    config=self.config,
-                    resource_provider=self.resource_provider
-                )
+                return LangChainKnowledgeManagementAgent(config=self.config)
             case _:
-                raise ValueError(f'No agent found for the specified agent type: {agent.type}.')
+                raise ValueError(f'The specified agent type {agent.type} is not supported.')

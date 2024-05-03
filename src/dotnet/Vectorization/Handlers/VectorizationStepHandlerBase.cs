@@ -15,7 +15,7 @@ namespace FoundationaLLM.Vectorization.Handlers
     /// <param name="parameters">The dictionary of named parameters used to configure the handler.</param>
     /// <param name="stepsConfiguration">The app configuration section containing the configuration for vectorization pipeline steps.</param>
     /// <param name="stateService">The <see cref="IVectorizationStateService"/> that manages vectorization state.</param>
-    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> implemented by the dependency injection container.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> implemented by the dependency injection container.</param>    
     /// <param name="loggerFactory">The logger factory used to create loggers for logging.</param>
     public class VectorizationStepHandlerBase(
         string stepId,
@@ -23,7 +23,7 @@ namespace FoundationaLLM.Vectorization.Handlers
         Dictionary<string, string> parameters,
         IConfigurationSection? stepsConfiguration,
         IVectorizationStateService stateService,
-        IServiceProvider serviceProvider,
+        IServiceProvider serviceProvider,        
         ILoggerFactory loggerFactory) : IVectorizationStepHandler
     {
         /// <summary>
@@ -50,6 +50,7 @@ namespace FoundationaLLM.Vectorization.Handlers
         /// The service provider implemented by the dependency injection container.
         /// </summary>
         protected readonly IServiceProvider _serviceProvider = serviceProvider;
+       
         /// <summary>
         /// The logger used for logging.
         /// </summary>
@@ -62,8 +63,7 @@ namespace FoundationaLLM.Vectorization.Handlers
         /// <inheritdoc/>
         public async Task<bool> Invoke(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
         {
-            var success = true;
-
+            var success = true;           
             try
             {
                 state.LogHandlerStart(this, request.Id!, _messageId);
@@ -80,11 +80,9 @@ namespace FoundationaLLM.Vectorization.Handlers
                             stepConfiguration.Value == null
                             && !stepConfiguration.GetChildren().Any()
                             ))
-                    {
-                        _logger.LogError("The configuration section {ConfigurationSection} expected by the {StepId} handler is not available.",
-                            configurationSection, _stepId);
-                        throw new VectorizationException(
-                            $"The configuration section {configurationSection} expected by the {_stepId} handler is not available.");
+                    {                                          
+                        _logger.LogError("The configuration section {ConfigurationSection} expected by the {StepId} handler is not available.", configurationSection, _stepId);
+                        throw new VectorizationException($"The configuration section {configurationSection} expected by the {_stepId} handler is not available.");
                     }
                 }
 
@@ -94,17 +92,20 @@ namespace FoundationaLLM.Vectorization.Handlers
             catch (Exception ex)
             {
                 success = false;
+                //update the request execution state with the error message.
                 state.LogHandlerError(this, request.Id!, _messageId, ex);
+                request.ErrorCount++;
+                //update the request state with the error message.
+                request.ErrorMessages.Add($"Error in executing {_stepId} step handler for request {request.Id} (message id {_messageId}): {ex.Message}.");     
                 _logger.LogError(ex, "Error in executing [{HandlerId}] step handler for request {VectorizationRequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);
             }
             finally
             {
+                //update execution state
                 state.UpdateRequest(request);
-
                 state.LogHandlerEnd(this, request.Id!, _messageId);
-                _logger.LogInformation("Finished handler [{HandlerId}] for request {RequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);
+                _logger.LogInformation("Finished handler [{HandlerId}] for request {RequestId} (message id {MessageId}).", _stepId, request.Id, _messageId);                
             }
-
             return success;
         }
 
@@ -132,5 +133,6 @@ namespace FoundationaLLM.Vectorization.Handlers
             await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
             return false;
         }
+
     }
 }

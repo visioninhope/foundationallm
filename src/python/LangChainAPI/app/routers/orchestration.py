@@ -2,7 +2,6 @@
 The API endpoint for returning the completion from the LLM for the specified user prompt.
 """
 from typing import Optional
-from urllib import request
 from fastapi import APIRouter, Depends, Header, Request, Body
 from foundationallm.config import Context
 from foundationallm.models.orchestration import (
@@ -70,6 +69,6 @@ async def get_completion(
                 configuration=request.app.extra['config'],
                 context=Context(user_identity=x_user_identity)
             )
-            return orchestration_manager.invoke(completion_request.user_prompt)
+            return orchestration_manager.invoke(completion_request)
         except Exception as e:
             handle_exception(e)
