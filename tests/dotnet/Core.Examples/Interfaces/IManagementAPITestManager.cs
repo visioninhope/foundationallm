@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Agents;
+﻿using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Agents;
 
 namespace FoundationaLLM.Core.Examples.Interfaces;
 
@@ -54,4 +55,24 @@ public interface IManagementAPITestManager
     /// <returns></returns>
     /// <exception cref="FoundationaLLMException"></exception>
     Task DeleteResourceAsync(string instanceId, string resourceProvider, string resourcePath);
+
+    Task CreateDataSource(IStorageService svc, string name);
+
+    Task CreateContentSourceProfile(string name);
+
+    Task CreateTextPartitioningProfile(string name);
+
+    Task CreateTextEmbeddingProfile(string name);
+
+    Task CreateIndexingProfile(string name);
+
+    Task DeleteDataSource(string name);
+
+    Task DeleteContentSourceProfile(string name);
+
+    Task DeleteTextPartitioningProfile(string name);
+
+    Task DeleteIndexingProfile(string name);
+
+    Task DeleteTextEmbeddingProfile(string name);
 }

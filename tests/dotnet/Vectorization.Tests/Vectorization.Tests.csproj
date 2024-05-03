@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\dotnet\Vectorization\Vectorization.csproj" />
+    <ProjectReference Include="..\Core.Examples\Core.Examples.csproj" />
   </ItemGroup>
 
 </Project>

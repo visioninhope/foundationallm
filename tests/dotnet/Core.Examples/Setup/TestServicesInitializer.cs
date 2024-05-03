@@ -133,6 +133,7 @@ namespace FoundationaLLM.Core.Examples.Setup
         {
             services.AddScoped<ICoreAPITestManager, CoreAPITestManager>();
 			services.AddScoped<IManagementAPITestManager, ManagementAPITestManager>();
+            services.AddScoped<IVectorizationAPITestManager, VectorizationAPITestManager>();
             services.AddScoped<IHttpClientManager, HttpClientManager>();
 			services.AddScoped<IAgentConversationTestService, AgentConversationTestService>();
         }
