@@ -266,7 +266,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 AgentResourceTypeNames.Agents => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     AgentResourceProviderActions.CheckName => CheckAgentName(serializedAction),
-                    BaseResourceProviderActions.Purge => await PurgeResource(resourcePath.ResourceTypeInstances),
+                    BaseResourceProviderActions.Purge => await PurgeResource(serializedAction),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -295,9 +295,10 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 };
         }
 
-        private async Task<ResourceProviderActionResult> PurgeResource(List<ResourceTypeInstance> instances)
+        private async Task<ResourceProviderActionResult> PurgeResource(string serializedAction)
         {
-            if (_agentReferences.TryGetValue(instances.Last().ResourceId!, out var agentReference))
+            var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
+            if (_agentReferences.TryGetValue(resourceName!.Name, out var agentReference))
             {
                 if (agentReference.Deleted)
                 {
@@ -308,7 +309,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                         default);
 
                     // Remove this agent reference from the store.
-                    _agentReferences.TryRemove(instances.Last().ResourceId!, out _);
+                    _agentReferences.TryRemove(resourceName!.Name, out _);
 
                     await _storageService.WriteFileAsync(
                         _storageContainerName,
@@ -321,13 +322,13 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 }
                 else
                 {
-                    throw new ResourceProviderException($"The {instances.Last().ResourceId} agent resource is not soft-deleted and cannot be purged.",
+                    throw new ResourceProviderException($"The {resourceName!.Name} agent resource is not soft-deleted and cannot be purged.",
                                                StatusCodes.Status400BadRequest);
                 }
             }
             else
             {
-                throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} agent resource.",
+                throw new ResourceProviderException($"Could not locate the {resourceName!.Name} agent resource.",
                     StatusCodes.Status404NotFound);
             }
         }
