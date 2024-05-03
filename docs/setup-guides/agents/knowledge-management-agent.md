@@ -30,10 +30,14 @@ The structure of a knowledge management agent is the following:
   "description": "<description>",
   "display_name": "<display_name>",
   "vectorization": {
+    "dedicated_pipeline": "",
     "data_source_object_id": "<data_source_object_id>",
     "indexing_profile_object_id": "<indexing_profile_object_id>",
     "text_embedding_profile_object_id": "<text_embedding_profile_object_id>",
-    "text_partitioning_profile_object_id": "<text_partitioning_profile_object_id>"
+    "text_partitioning_profile_object_id": "<text_partitioning_profile_object_id>",
+    "vectorization_data_pipeline_object_id": "",
+    "trigger_type": "",
+    "trigger_cron_schedule": ""
   },
   "prompt_object_id": "<prompt_resource_objectid>",
   "language_model": {
