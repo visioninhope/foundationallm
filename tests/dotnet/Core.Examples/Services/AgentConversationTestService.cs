@@ -15,11 +15,12 @@ namespace FoundationaLLM.Core.Examples.Services
     /// <param name="azureAIService"></param>
     public class AgentConversationTestService(
         ICoreAPITestManager coreAPITestManager,
+        IManagementAPITestManager managementAPITestManager,
         IAzureAIService azureAIService) : IAgentConversationTestService
     {
         /// <inheritdoc/>
         public async Task<IEnumerable<Message>> RunAgentConversationWithSession(string agentName,
-            List<string> userPrompts, string? sessionId = null)
+            List<string> userPrompts, string? sessionId = null, bool createAgent = false)
         {
             var sessionCreated = false;
             if (string.IsNullOrWhiteSpace(sessionId))
@@ -29,7 +30,11 @@ namespace FoundationaLLM.Core.Examples.Services
                 sessionCreated = true;
             }
 
-            // TODO: Create a new agent if it does not exist. Use the ManagementAPITestManager to create the agent.
+            if (createAgent)
+            {
+                // Create a new agent and its dependencies for the test.
+                await managementAPITestManager.CreateAgent(agentName);
+            }
 
             // Send user prompts and agent responses.
             foreach (var userPrompt in userPrompts)
@@ -54,6 +59,12 @@ namespace FoundationaLLM.Core.Examples.Services
             if (sessionCreated)
             {
                 await coreAPITestManager.DeleteSessionAsync(sessionId);
+            }
+
+            if (createAgent)
+            {
+                // Delete the agent and its dependencies.
+                await managementAPITestManager.DeleteAgent(agentName);
             }
 
             return messages;

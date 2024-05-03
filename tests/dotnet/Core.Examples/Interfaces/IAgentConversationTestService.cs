@@ -16,9 +16,12 @@ public interface IAgentConversationTestService
     /// <param name="userPrompts">The user prompts to send to the agent for the conversation.</param>
     /// <param name="sessionId">Specifies an existing session ID to use for the test. If the value is null,
     /// a new session is created then deleted as part of the test run.</param>
+    /// <param name="createAgent">If true, the test run will create an agent and its dependencies before the
+    /// run and delete these resources when the run completes. This is a potentially destructive action. Do
+    /// not enable this option if you wish to use pre-existing resources, such as the default FoundationaLLM agent.</param>
     /// <returns></returns>
     Task<IEnumerable<Message>> RunAgentConversationWithSession(string agentName,
-        List<string> userPrompts, string? sessionId = null);
+        List<string> userPrompts, string? sessionId = null, bool createAgent = false);
 
     /// <summary>
     /// Runs a single completion with an agent using the Core API and a chat session.

@@ -33,7 +33,8 @@ namespace FoundationaLLM.Core.Examples.Setup
 						{
 							kv.SetCredential(DefaultAuthentication.GetAzureCredential());
 						})
-						// Select the configuration sections to load:
+                        // Select the configuration sections to load:
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_Instance)
 						.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Management_Entra)

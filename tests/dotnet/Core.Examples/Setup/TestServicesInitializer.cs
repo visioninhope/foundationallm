@@ -4,6 +4,7 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.AzureAI;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Storage;
@@ -35,6 +36,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 		{
 			TestConfiguration.Initialize(configRoot, services);
 
+			RegisterInstance(services, configRoot);
 			RegisterHttpClients(services, configRoot);
 			RegisterCosmosDb(services, configRoot);
             RegisterAzureAIService(services, configRoot);
@@ -42,7 +44,13 @@ namespace FoundationaLLM.Core.Examples.Setup
 			RegisterServiceManagers(services);
 		}
 
-		private static void RegisterHttpClients(IServiceCollection services, IConfiguration configuration)
+        private static void RegisterInstance(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddOptions<InstanceSettings>()
+                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
+        }
+        
+        private static void RegisterHttpClients(IServiceCollection services, IConfiguration configuration)
 		{
 			services.Configure<HttpClientOptions>(HttpClients.CoreAPI, options =>
             {
@@ -124,6 +132,7 @@ namespace FoundationaLLM.Core.Examples.Setup
         private static void RegisterServiceManagers(IServiceCollection services)
         {
             services.AddScoped<ICoreAPITestManager, CoreAPITestManager>();
+			services.AddScoped<IManagementAPITestManager, ManagementAPITestManager>();
             services.AddScoped<IHttpClientManager, HttpClientManager>();
 			services.AddScoped<IAgentConversationTestService, AgentConversationTestService>();
         }
