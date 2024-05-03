@@ -207,6 +207,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 PromptResourceTypeNames.Prompts => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     PromptResourceProviderActions.CheckName => CheckPromptName(serializedAction),
+                    BaseResourceProviderActions.Purge => await PurgeResource(serializedAction),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -235,9 +236,48 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 };
         }
 
+        private async Task<ResourceProviderActionResult> PurgeResource(string serializedAction)
+        {
+            var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
+            if (_promptReferences.TryGetValue(resourceName!.Name, out var agentReference))
+            {
+                if (agentReference.Deleted)
+                {
+                    // Delete the resource file from storage.
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        agentReference.Filename,
+                        default);
+
+                    // Remove this resource reference from the store.
+                    _promptReferences.TryRemove(resourceName!.Name, out _);
+
+                    await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                        PROMPT_REFERENCES_FILE_PATH,
+                        JsonSerializer.Serialize(PromptReferenceStore.FromDictionary(_promptReferences.ToDictionary())),
+                        default,
+                        default);
+
+                    return new ResourceProviderActionResult(true);
+                }
+                else
+                {
+                    throw new ResourceProviderException(
+                        $"The {resourceName!.Name} agent resource is not soft-deleted and cannot be purged.",
+                        StatusCodes.Status400BadRequest);
+                }
+            }
+            else
+            {
+                throw new ResourceProviderException($"Could not locate the {resourceName!.Name} agent resource.",
+                    StatusCodes.Status404NotFound);
+            }
+        }
+
         #endregion
 
-        /// <inheritdoc/>
+            /// <inheritdoc/>
         protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
             switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
