@@ -264,13 +264,13 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 else
                 {
                     throw new ResourceProviderException(
-                        $"The {resourceName!.Name} agent resource is not soft-deleted and cannot be purged.",
+                        $"The {resourceName!.Name} prompt resource is not soft-deleted and cannot be purged.",
                         StatusCodes.Status400BadRequest);
                 }
             }
             else
             {
-                throw new ResourceProviderException($"Could not locate the {resourceName!.Name} agent resource.",
+                throw new ResourceProviderException($"Could not locate the {resourceName!.Name} prompt resource.",
                     StatusCodes.Status404NotFound);
             }
         }
