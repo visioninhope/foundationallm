@@ -130,12 +130,16 @@ After the deployment is complete, you will need to run the following script to a
 This script will need to be executed twice for the principal IDs of the following:
 - Core API Managed Identity
 - Management API Managed Identity
-These could be found in the Azure portal in the main resource groupe for the deployment
+
+These can be found in the Azure portal in the main resource group for the deployment.
+
 The syntax for running the script from the `deploy\common\scripts` folder is:
+
 ```pwsh
 .\Assign-MSGraph-Roles.ps1 -principalId <GUID of the Core API Managed Identity Principal ID>
 .\Assign-MSGraph-Roles.ps1 -principalId <GUID of the Management API Managed Identity Principal ID>
 ```
+
 > [!IMPORTANT]
 > For this release, you will need to restart the Auth API container in the resource group to allow the changes to take effect.
 
