@@ -1,11 +1,11 @@
-﻿using FoundationaLLM.Common.Authentication;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Models;
 using FoundationaLLM.Orchestration.Core.Orchestration;
@@ -59,10 +59,21 @@ public class OrchestrationService : IOrchestrationService
         _logger = _loggerFactory.CreateLogger<OrchestrationService>();
     }
 
-    /// <summary>
-    /// Returns the status of the orchestration service based on the initialization status of each subordinate orchestration services.
-    /// </summary>
-    public string Status => _llmOrchestrationServiceManager.GetAggregatedStatus(_serviceProvider);
+    /// <inheritdoc/>
+    public async Task<ServiceStatusInfo> GetStatus()
+    {
+        var subordinateStatuses = await _llmOrchestrationServiceManager.GetAggregateStatus(_serviceProvider);
+        return new ServiceStatusInfo
+        {
+            Name = ServiceNames.OrchestrationAPI,
+            Instance = ValidatedEnvironment.MachineName,
+            Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
+            Status = subordinateStatuses.All(s => s.Status!.Equals("ready", StringComparison.CurrentCultureIgnoreCase))
+                ? "ready"
+                : "partially_unavailable",
+            SubordinateServices = subordinateStatuses
+        };
+    }
 
     /// <summary>
     /// Retrieve a completion from the configured orchestration service.

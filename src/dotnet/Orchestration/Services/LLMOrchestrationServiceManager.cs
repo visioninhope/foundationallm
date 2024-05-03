@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.API;
+using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -89,24 +90,18 @@ namespace FoundationaLLM.Orchestration.Core.Services
         #endregion
 
         /// <inheritdoc/>
-        public string GetAggregatedStatus(IServiceProvider serviceProvider)
+        public async Task<List<ServiceStatusInfo>> GetAggregateStatus(IServiceProvider serviceProvider)
         {
-            var aggregateStatus = GetOrchestrationServices(serviceProvider)
-                .Select(x => new
-                {
-                    x.Name,
-                    Initialized = x.IsInitialized
-                })
-                .OrderBy(x => x.Name)
-                .ToList();
+            var result = new List<ServiceStatusInfo>();
 
+            var serviceStatuses = GetOrchestrationServices(serviceProvider)
+                .ToAsyncEnumerable()
+                .SelectAwait(async x => await x.GetStatus());
 
-            if (aggregateStatus.All(s => s.Initialized))
-                return "ready";
+            await foreach(var serviceStatus in serviceStatuses)
+                result.Add(serviceStatus);
 
-            return string.Join(",", aggregateStatus
-                .Where(s => !s.Initialized)
-                .Select(s => $"{s.Name}: initializing"));
+            return result;
         }
 
         /// <inheritdoc/>
@@ -130,13 +125,17 @@ namespace FoundationaLLM.Orchestration.Core.Services
         }
 
         private IEnumerable<ILLMOrchestrationService> GetOrchestrationServices(IServiceProvider serviceProvider) =>
-            serviceProvider.GetServices<ILLMOrchestrationService>().Concat(
-                _externalOrchestrationServiceSettings.Select(eos =>
-                    new LLMOrchestrationService(
-                        eos.Key,
-                        Options.Create<APISettingsBase>(eos.Value),
-                        serviceProvider.GetRequiredService<ILogger<LLMOrchestrationService>>(),
-                        serviceProvider.GetRequiredService<IHttpClientFactory>(),
-                        serviceProvider.GetRequiredService<ICallContext>())));
+            serviceProvider.GetServices<ILLMOrchestrationService>()
+                .Where(llmSrv =>
+                    llmSrv.GetType() == typeof(LangChainService)
+                    || llmSrv.GetType() == typeof(SemanticKernelService))
+                .Concat(
+                    _externalOrchestrationServiceSettings.Select(eos =>
+                        new LLMOrchestrationService(
+                            eos.Key,
+                            Options.Create<APISettingsBase>(eos.Value),
+                            serviceProvider.GetRequiredService<ILogger<LLMOrchestrationService>>(),
+                            serviceProvider.GetRequiredService<IHttpClientFactory>(),
+                            serviceProvider.GetRequiredService<ICallContext>())));
     }
 }

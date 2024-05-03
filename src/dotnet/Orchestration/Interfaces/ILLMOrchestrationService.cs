@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Orchestration;
+﻿using FoundationaLLM.Common.Models.Infrastructure;
+using FoundationaLLM.Common.Models.Orchestration;
 
 namespace FoundationaLLM.Orchestration.Core.Interfaces
 {
@@ -8,14 +9,15 @@ namespace FoundationaLLM.Orchestration.Core.Interfaces
     public interface ILLMOrchestrationService
     {
         /// <summary>
-        /// Flag indicating if the orchestration service has been initialized.
-        /// </summary>
-        bool IsInitialized { get; }
-
-        /// <summary>
         /// The name of the LLM orchestration service.
         /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// Get the status of the orchestration service.
+        /// </summary>
+        /// <returns></returns>
+        Task<ServiceStatusInfo> GetStatus();
 
         /// <summary>
         /// Method for retrieving a completion from the orchestration service.

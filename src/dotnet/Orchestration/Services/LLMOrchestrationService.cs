@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.API;
+using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
@@ -44,7 +45,15 @@ namespace FoundationaLLM.Orchestration.Core.Services
         }
 
         /// <inheritdoc/>
-        public bool IsInitialized => GetServiceStatus();
+        public async Task<ServiceStatusInfo> GetStatus()
+        {
+            var client = CreateClient();
+            var responseMessage = await client.SendAsync(
+                new HttpRequestMessage(HttpMethod.Get, "status"));
+
+            var responseContent = await responseMessage.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ServiceStatusInfo>(responseContent)!;
+        }
 
         /// <inheritdoc/>
         public string Name => _serviceName;
@@ -94,19 +103,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 PromptTokens = 0,
                 CompletionTokens = 0
             };
-        }
-
-        /// <summary>
-        /// Retrieves the status of the orchestration service.
-        /// </summary>
-        /// <returns>True if the service is ready. Otherwise, returns false.</returns>
-        private bool GetServiceStatus()
-        {
-            var client = CreateClient();
-            var responseMessage = client.Send(
-                new HttpRequestMessage(HttpMethod.Get, "status"));
-
-            return responseMessage.Content.ToString() == "ready";
         }
 
         private HttpClient CreateClient()

@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Infrastructure;
 
 namespace FoundationaLLM.Orchestration.Core.Interfaces
 {
@@ -11,7 +12,7 @@ namespace FoundationaLLM.Orchestration.Core.Interfaces
         /// Gets an aggregate initialization status based on the initialization status of each subordinate orchestration service.
         /// </summary>
         /// <param name="serviceProvider">The <see cref="IServiceProvider"/> provding dependency injection services for the current scope.</param>
-        string GetAggregatedStatus(IServiceProvider serviceProvider);
+        Task<List<ServiceStatusInfo>> GetAggregateStatus(IServiceProvider serviceProvider);
 
         /// <summary>
         /// Gets an <see cref="ILLMOrchestrationService"/> instance based on the service name.

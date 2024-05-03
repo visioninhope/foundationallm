@@ -21,14 +21,8 @@ namespace FoundationaLLM.Orchestration.API.Controllers
         /// Returns the status of the Orchestration API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
-        public IActionResult Get() =>
-            new OkObjectResult(new ServiceStatusInfo
-            {
-                Name = ServiceNames.OrchestrationAPI,
-                Instance = ValidatedEnvironment.MachineName,
-                Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
-                Status = _orchestrationService.Status
-            });
+        public async Task<IActionResult> Get() =>
+            new OkObjectResult(await _orchestrationService.GetStatus());
 
         /// <summary>
         /// Returns the allowed HTTP methods for the Orchestration API service.

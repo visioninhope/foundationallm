@@ -1,7 +1,9 @@
-﻿using System.Text;
+﻿using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
@@ -31,7 +33,15 @@ namespace FoundationaLLM.Orchestration.Core.Services
         readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
         /// <inheritdoc/>
-        public bool IsInitialized => GetServiceStatus();
+        public async Task<ServiceStatusInfo> GetStatus()
+        {
+            var client = _httpClientFactoryService.CreateClient(HttpClients.SemanticKernelAPI);
+            var responseMessage = await client.SendAsync(
+                new HttpRequestMessage(HttpMethod.Get, "status"));
+
+            var responseContent = await responseMessage.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ServiceStatusInfo>(responseContent)!;
+        }
 
         /// <inheritdoc/>
         public string Name => LLMOrchestrationServiceNames.SemanticKernel;
@@ -80,19 +90,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 PromptTokens = 0,
                 CompletionTokens = 0
             };
-        }
-
-        /// <summary>
-        /// Gets the target Semantic Kernel API status.
-        /// </summary>
-        /// <returns></returns>
-        private bool GetServiceStatus()
-        {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.SemanticKernelAPI);
-            var responseMessage = client.Send(
-                new HttpRequestMessage(HttpMethod.Get, "status"));
-
-            return responseMessage.Content.ToString() == "ready";
         }
     }
 }

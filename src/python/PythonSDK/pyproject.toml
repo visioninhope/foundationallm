@@ -1,10 +1,10 @@
 [project]
-name = "foundationallm-config"
-version = "0.7.0"
+name = "foundationallm"
+version = "0.7.1"
 authors = [
   { name="FoundationaLLM", email="dev@foundationallm.ai" },
 ]
-description = "Enables integration with the FoundationaLLM configuration infrastructure."
+description = "Enables integration with the FoundationaLLM platform."
 readme = "README.md"
 requires-python = ">=3.11"
 classifiers = [
@@ -17,5 +17,5 @@ classifiers = [
 Homepage = "https://foundationallm.ai"
 Issues = "https://github.com/solliancenet/foundationallm/issues"
 
-[tool.setuptools]
-py-modules = ["configuration", "context", "environment_variables"]
+[tool.setuptools.packages.find]
+include = ['*config', '*models.orchestration']

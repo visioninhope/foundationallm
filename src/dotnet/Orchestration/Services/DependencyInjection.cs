@@ -26,10 +26,10 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<ILLMOrchestrationServiceManager, LLMOrchestrationServiceManager>();
             builder.Services.ActivateSingleton<ILLMOrchestrationServiceManager>();
 
-            builder.Services.AddScoped<IAzureAIDirectService, AzureAIDirectService>();
-            builder.Services.AddScoped<IAzureOpenAIDirectService, AzureOpenAIDirectService>();
-            builder.Services.AddScoped<ILangChainService, LangChainService>();
-            builder.Services.AddScoped<ISemanticKernelService, SemanticKernelService>();
+            builder.Services.AddScoped<ILLMOrchestrationService, AzureAIDirectService>();
+            builder.Services.AddScoped<ILLMOrchestrationService, AzureOpenAIDirectService>();
+            builder.Services.AddScoped<ILLMOrchestrationService, LangChainService>();
+            builder.Services.AddScoped<ILLMOrchestrationService, SemanticKernelService>();
         }
     }
 }
