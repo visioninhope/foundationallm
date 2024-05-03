@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoundationaLLM.Common.Constants.Agents
+namespace FoundationaLLM.Common.Constants
 {
     /// <summary>
     /// Contains constants for orchestrator names.
     /// </summary>
-    public static class Orchestrators
+    public static class LLMOrchestrationServiceNames
     {
         /// <summary>
         /// The LangChain orchestrator.

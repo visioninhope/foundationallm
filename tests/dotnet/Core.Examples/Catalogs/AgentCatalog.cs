@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants.Agents;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Core.Examples.Constants;
@@ -39,7 +39,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 },
                 OrchestrationSettings = new OrchestrationSettings
                 {
-                    Orchestrator = Orchestrators.LangChain,
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
                     EndpointConfiguration = new Dictionary<string, object>
                     {
                         { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
