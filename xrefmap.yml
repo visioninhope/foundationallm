@@ -2194,6 +2194,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Branding
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Branding
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Branding
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra
+  name: FoundationaLLM_Chat_Entra
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Chat_Entra
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Configuration
   name: FoundationaLLM_Configuration
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Configuration
@@ -2254,6 +2260,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Management_Entra
+  name: FoundationaLLM_Management_Entra
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Management_Entra
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Management_Entra
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Management_Entra
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Management_Entra
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Orchestration
   name: FoundationaLLM_Orchestration
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Orchestration
@@ -4078,6 +4090,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpClients.LangChainAPI
   fullName: FoundationaLLM.Common.Constants.HttpClients.LangChainAPI
   nameWithType: HttpClients.LangChainAPI
+- uid: FoundationaLLM.Common.Constants.HttpClients.ManagementAPI
+  name: ManagementAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_ManagementAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClients.ManagementAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClients.ManagementAPI
+  nameWithType: HttpClients.ManagementAPI
 - uid: FoundationaLLM.Common.Constants.HttpClients.OrchestrationAPI
   name: OrchestrationAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_OrchestrationAPI
@@ -4120,6 +4138,36 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpHeaders.UserIdentity
   fullName: FoundationaLLM.Common.Constants.HttpHeaders.UserIdentity
   nameWithType: HttpHeaders.UserIdentity
+- uid: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames
+  name: LLMOrchestrationServiceNames
+  href: api/dotnet/FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.html
+  commentId: T:FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames
+  fullName: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames
+  nameWithType: LLMOrchestrationServiceNames
+- uid: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.AzureAIDirect
+  name: AzureAIDirect
+  href: api/dotnet/FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.html#FoundationaLLM_Common_Constants_LLMOrchestrationServiceNames_AzureAIDirect
+  commentId: F:FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.AzureAIDirect
+  fullName: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.AzureAIDirect
+  nameWithType: LLMOrchestrationServiceNames.AzureAIDirect
+- uid: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.AzureOpenAIDirect
+  name: AzureOpenAIDirect
+  href: api/dotnet/FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.html#FoundationaLLM_Common_Constants_LLMOrchestrationServiceNames_AzureOpenAIDirect
+  commentId: F:FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.AzureOpenAIDirect
+  fullName: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.AzureOpenAIDirect
+  nameWithType: LLMOrchestrationServiceNames.AzureOpenAIDirect
+- uid: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.LangChain
+  name: LangChain
+  href: api/dotnet/FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.html#FoundationaLLM_Common_Constants_LLMOrchestrationServiceNames_LangChain
+  commentId: F:FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.LangChain
+  fullName: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.LangChain
+  nameWithType: LLMOrchestrationServiceNames.LangChain
+- uid: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.SemanticKernel
+  name: SemanticKernel
+  href: api/dotnet/FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.html#FoundationaLLM_Common_Constants_LLMOrchestrationServiceNames_SemanticKernel
+  commentId: F:FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.SemanticKernel
+  fullName: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.SemanticKernel
+  nameWithType: LLMOrchestrationServiceNames.SemanticKernel
 - uid: FoundationaLLM.Common.Constants.Participants
   name: Participants
   href: api/dotnet/FoundationaLLM.Common.Constants.Participants.html
