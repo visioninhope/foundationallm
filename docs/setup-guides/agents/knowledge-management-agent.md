@@ -97,10 +97,14 @@ where:
 | `description` | The description of the agent, ensure this description details the purpose of the agent. |
 | `display_name` | The title of the agent in the Chat UI dropdown menu. This field is optional. |
 | `vectorization` | The `vectorization` object is only required for Knowledge Management agents without an Inline Context. If the `vectorization` object is included, the `indexing_profile_object_id` and `text_embedding_profile_object_id` keys are required. |
+| `vectorization.dedicated_pipeline` | A boolean indicating whether or not the agent has a dedicated Vectorization pipeline (0.7.0). |
 | `vectorization.data_source_object_id` | The object ID of the Data Source resource. |
 | `vectorization.indexing_profile_object_id` | The object ID of the indexing profile resource. |
 | `vectorization.text_embedding_profile_object_id` | The object ID of the text embedding profile resource. |
 | `vectorization.text_partitioning_profile_object_id` | The object ID of the text partitioning profile resource. |
+| `vectorization.vectorization_data_pipeline_object_id` | The resource ID of the agent's Vectorization pipeline (0.7.0). |
+| `vectorization.trigger_type` | The trigger type of the agent's Vectorization pipeline (0.7.0). Permissible values are `Manual`, `Schedule`, and `Event`. |
+| `vectorization.trigger_cron_schedule` | The schedule of the trigger in Cron format (0.7.0). This property is valid only when `trigger_type` is `Schedule`. |
 | `prompt_object_id` | The object ID of the prompt resource. |
 | `language_model` | The language model configuration. **The `language_model` object has been deprecated as of release 0.6.0.** |
 | `language_model.type` | The type of the language model. Currently supporting OpenAI based langauge models. |
