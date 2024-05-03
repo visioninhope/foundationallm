@@ -231,7 +231,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 {
                     DataSourceResourceProviderActions.CheckName => CheckDataSourceName(serializedAction),
                     DataSourceResourceProviderActions.Filter => await Filter(serializedAction),
-                    BaseResourceProviderActions.Purge => await PurgeResource(serializedAction),
+                    DataSourceResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -307,10 +307,10 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             }
         }
 
-        private async Task<ResourceProviderActionResult> PurgeResource(string serializedAction)
+        private async Task<ResourceProviderActionResult> PurgeResource(ResourcePath resourcePath)
         {
-            var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
-            if (_dataSourceReferences.TryGetValue(resourceName!.Name, out var agentReference))
+            var resourceName = resourcePath.ResourceTypeInstances.Last().ResourceId!;
+            if (_dataSourceReferences.TryGetValue(resourceName, out var agentReference))
             {
                 if (agentReference.Deleted)
                 {
@@ -321,7 +321,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                         default);
 
                     // Remove this resource reference from the store.
-                    _dataSourceReferences.TryRemove(resourceName!.Name, out _);
+                    _dataSourceReferences.TryRemove(resourceName, out _);
 
                     await _storageService.WriteFileAsync(
                         _storageContainerName,
@@ -335,13 +335,13 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 else
                 {
                     throw new ResourceProviderException(
-                        $"The {resourceName!.Name} data source resource is not soft-deleted and cannot be purged.",
+                        $"The {resourceName} data source resource is not soft-deleted and cannot be purged.",
                         StatusCodes.Status400BadRequest);
                 }
             }
             else
             {
-                throw new ResourceProviderException($"Could not locate the {resourceName!.Name} data source resource.",
+                throw new ResourceProviderException($"Could not locate the {resourceName} data source resource.",
                     StatusCodes.Status404NotFound);
             }
         }
