@@ -2,7 +2,7 @@
 
 Foundationa**LLM** is designed for seamless deployment within your Azure Subscription. It initially utilizes Azure Container Apps (ACA) for rapid deployment and streamlined development. For scaling up to production environments, FoundationaLLM also supports deployment on Azure Kubernetes Service (AKS), offering robust scalability and management features.
 
-Be mindful of the [Azure OpenaAI regional quota limits](https://learn.microsoft.com/azure/ai-services/openai/quotas-limits) on the number of Azure OpenAI Service instances. To optimize resource usage, FoundationaLLM offers the flexibility to connect to an existing Azure OpenAI Service resource, thereby avoiding the creation of additional instances during deployment. This feature is particularly useful for managing resource allocation and ensuring efficient Azure OpenAI Service quota utilization.
+Be mindful of the [Azure OpenAI regional quota limits](https://learn.microsoft.com/azure/ai-services/openai/quotas-limits) on the number of Azure OpenAI Service instances. To optimize resource usage, FoundationaLLM offers the flexibility to connect to an existing Azure OpenAI Service resource, thereby avoiding the creation of additional instances during deployment. This feature is particularly useful for managing resource allocation and ensuring efficient Azure OpenAI Service quota utilization.
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ You will need the following resources and access to deploy the solution:
 - **App Registrations created in the Entra ID tenant (formerly Azure Active Directory)**: Azure App Registrations is a feature in Entra ID that allows developers to register their applications for identity and access management. This registration process enables applications to authenticate users, request and receive tokens, and access Azure resources that are secured by Entra ID. **Follow the instructions in the [Authentication and Authorization setup document](authentication-authorization/index.md) to configure authentication for the solution.**
 - **User with the proper role assignments**: Azure Role-Based Access Control (RBAC) roles are a set of permissions in Azure that control access to Azure resource management. These roles can be assigned to users, groups, and services in Azure, allowing granular control over who can perform what actions within a specific scope, such as a subscription, resource group, or individual resource.
     - Owner on the target subscription
-    - Owner on the app registrations described in the Authentication setup document
+    - Owner on the App Registrations described in the Authentication setup document
 
 You will use the following tools during deployment:
 - **Azure Developer CLI ([v1.6.1 or greater](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd))**
@@ -127,7 +127,7 @@ If you are upgrading from a previous version, like `0.5.0`, please refer to the 
 ### Running script to allow MS Graph access through Role Permissions
 
 After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. [Role Permissions Script](/deploy/common/scripts/Assign-MSGraph-Roles.ps1)
-This script will need to be executed 3 times for the principalId's of the following:
+This script will need to be executed twice for the principal IDs of the following:
 - Core API Managed Identity
 - Management API Managed Identity
 These could be found in the Azure portal in the main resource groupe for the deployment
