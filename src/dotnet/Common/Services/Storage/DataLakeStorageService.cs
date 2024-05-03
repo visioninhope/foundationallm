@@ -180,6 +180,26 @@ namespace FoundationaLLM.Common.Services.Storage
                 cancellationToken).ConfigureAwait(false);
 
         /// <inheritdoc/>
+        public async Task DeleteFileAsync(
+            string containerName,
+            string filePath,
+            CancellationToken cancellationToken = default)
+        {
+            var fileSystemClient = _dataLakeClient.GetFileSystemClient(containerName);
+            var fileClient = fileSystemClient.GetFileClient(filePath);
+
+            try
+            {
+                await fileClient.DeleteIfExistsAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
+            }
+            catch (RequestFailedException e) when (e.Status == 404)
+            {
+                _logger.LogWarning("File not found: {FilePath}", filePath);
+                throw new ContentException("File not found.", e);
+            }
+        }
+
+        /// <inheritdoc/>
         public async Task<bool> FileExistsAsync(
             string containerName,
             string filePath,
