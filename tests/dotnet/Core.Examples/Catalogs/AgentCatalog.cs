@@ -22,6 +22,12 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Name = Agents.GenericInlineContextAgentName,
                 Description = "A generic agent that can handle inline context completions.",
                 SessionsEnabled = true,
+                Vectorization = new AgentVectorizationSettings
+                {
+                    DedicatedPipeline = false,
+                    IndexingProfileObjectId = null,
+                    TextEmbeddingProfileObjectId = null
+                },
                 ConversationHistory = new ConversationHistory
                 {
                     Enabled = true,
