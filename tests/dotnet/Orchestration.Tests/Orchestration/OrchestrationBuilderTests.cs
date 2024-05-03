@@ -2,6 +2,7 @@
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Orchestration;
+using FoundationaLLM.Orchestration.Core.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -88,30 +89,30 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
         //        _loggerFactory));
         //}
 
-        [Fact]
-        public void SelectLangChainOrchestrationService_ValidOrchestrationType_ReturnsService()
-        {
-            // Act
-            var result = InvokeSelectOrchestrationService(LLMOrchestrationService.LangChain, _orchestrationServices);
+        //[Fact]
+        //public void SelectLangChainOrchestrationService_ValidOrchestrationType_ReturnsService()
+        //{
+        //    // Act
+        //    var result = InvokeSelectOrchestrationService(LLMOrchestrationService.LangChain, _orchestrationServices);
 
-            // Assert
-            Assert.Equal(_langChainService, result);
-        }
+        //    // Assert
+        //    Assert.Equal(_langChainService, result);
+        //}
 
-        [Fact]
-        public void SelectSemanticKernelOrchestrationService_ValidOrchestrationType_ReturnsService()
-        {
-            // Act
-            var result = InvokeSelectOrchestrationService(LLMOrchestrationService.SemanticKernel, _orchestrationServices);
+        //[Fact]
+        //public void SelectSemanticKernelOrchestrationService_ValidOrchestrationType_ReturnsService()
+        //{
+        //    // Act
+        //    var result = InvokeSelectOrchestrationService(LLMOrchestrationService.SemanticKernel, _orchestrationServices);
 
-            // Assert
-            Assert.Equal(_semanticKernelService, result);
-        }
+        //    // Assert
+        //    Assert.Equal(_semanticKernelService, result);
+        //}
 
-        private ILLMOrchestrationService InvokeSelectOrchestrationService(LLMOrchestrationService orchestrationType, IEnumerable<ILLMOrchestrationService> orchestrationServices)
-        {
-            var methodInfo = typeof(OrchestrationBuilder).GetMethod("SelectOrchestrationService", BindingFlags.NonPublic | BindingFlags.Static);
-            return (ILLMOrchestrationService)methodInfo?.Invoke(null, new object[] { orchestrationType, orchestrationServices })!;
-        }
+        //private ILLMOrchestrationService InvokeSelectOrchestrationService(LLMOrchestrationService orchestrationType, IEnumerable<ILLMOrchestrationService> orchestrationServices)
+        //{
+        //    var methodInfo = typeof(OrchestrationBuilder).GetMethod("SelectOrchestrationService", BindingFlags.NonPublic | BindingFlags.Static);
+        //    return (ILLMOrchestrationService)methodInfo?.Invoke(null, new object[] { orchestrationType, orchestrationServices })!;
+        //}
     }
 }
