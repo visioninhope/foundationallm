@@ -1,11 +1,4 @@
-﻿using FoundationaLLM.Common.Constants.Configuration;
-using FoundationaLLM.Common.Models.Configuration.AppConfiguration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FoundationaLLM.Common.Constants.Agents;
+﻿using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Core.Examples.Constants;
@@ -19,9 +12,12 @@ namespace FoundationaLLM.Core.Examples.Catalogs
     public static class AgentCatalog
     {
         #region Knowledge Management agents
+        /// <summary>
+        /// Catalog of knowledge management agents.
+        /// </summary>
         public static readonly List<KnowledgeManagementAgent> KnowledgeManagementAgents =
         [
-            new KnowledgeManagementAgent()
+            new KnowledgeManagementAgent
             {
                 Name = Agents.GenericInlineContextAgentName,
                 Description = "A generic agent that can handle inline context completions.",
