@@ -29,6 +29,11 @@ function envsubst {
     $ExecutionContext.InvokeCommand.ExpandString($InputObject)
 }
 
+function Format-Json {
+    param([Parameter(Mandatory = $true, ValueFromPipeline = $true)][string]$json)
+    return $json | ConvertFrom-Json -Depth 50 | ConvertTo-Json -Compress -Depth 50 | ForEach-Object { $_ -replace '"', '\"' }
+}
+
 function Format-EnvironmentVariables {
     param(
         [Parameter(Mandatory = $true)][string]$template,
@@ -44,6 +49,18 @@ function Format-EnvironmentVariables {
     $result | Out-File $render -Force
 }
 
+if ($IsWindows) {
+    $os = "windows"
+}
+elseif ($IsMacOS) {
+    $os = "mac"
+}
+elseif ($IsLinux) {
+    $os = "linux"
+}
+
+$AZCOPY_VERSION = "10.24.0"
+
 $env:DEPLOY_TIME = $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ'))
 $env:GUID01 = $($(New-Guid).Guid)
 $env:GUID02 = $($(New-Guid).Guid)
@@ -51,9 +68,6 @@ $env:GUID03 = $($(New-Guid).Guid)
 $env:GUID04 = $($(New-Guid).Guid)
 $env:GUID05 = $($(New-Guid).Guid)
 $env:GUID06 = $($(New-Guid).Guid)
-
-$env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE = Get-Content ./config/management-api-event-profile.json
-$env:VECTORIZATION_WORKER_CONFIG = Get-Content ./config/vectorization.json
 
 $envConfiguraitons = @{
     "orchestration-api-event-profile"    = @{
@@ -65,6 +79,16 @@ $envConfiguraitons = @{
         template     = './config/core-api-event-profile.template.json'
         render       = './config/core-api-event-profile.json'
         variableName = 'FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE'
+    }
+    "management-api-event-profile"       = @{
+        template     = './config/management-api-event-profile.template.json'
+        render       = './config/management-api-event-profile.json'
+        variableName = 'FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE'
+    }
+    "vectorization"                      = @{
+        template     = './config/vectorization.template.json'
+        render       = './config/vectorization.json'
+        variableName = 'VECTORIZATION_WORKER_CONFIG'
     }
     "vectorization-api-event-profile"    = @{
         template     = './config/vectorization-api-event-profile.template.json'
@@ -85,7 +109,7 @@ foreach ($envConfiguraiton in $envConfiguraitons.GetEnumerator()) {
     Format-EnvironmentVariables -template $template -render $render
 
     $name = $envConfiguraiton.Value.variableName
-    $value = Get-Content $render
+    $value = Get-Content $render -Raw | Format-Json
     Set-Content env:\$name $value
 }
 
@@ -130,20 +154,14 @@ Invoke-AndRequireSuccess "Loading AppConfig Values" {
         --output none
 }
 
-if ($IsWindows) {
-    $os = "windows"
-}
-elseif ($IsMacOS) {
-    $os = "mac"
-}
-elseif ($IsLinux) {
-    $os = "linux"
-}
-
-$AZCOPY_VERSION = "10.24.0"
-
 try {
     Push-Location ./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}
+
+    Write-Host -ForegroundColor Blue "Please Follow the instructions below to login to Azure using AzCopy."
+    $status = ./azcopy login status
+    if (-not $status.contains("Your login session is still active")) {
+        ./azcopy login
+    }
 
     Invoke-AndRequireSuccess "Uploading Resource Providers" {
         $target = "https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/"
