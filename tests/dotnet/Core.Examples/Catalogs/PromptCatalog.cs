@@ -17,8 +17,8 @@ namespace FoundationaLLM.Core.Examples.Catalogs
         [
             new MultipartPrompt
             {
-                Name = Agents.GenericInlineContextAgentName,
-                Description = $"Prompt template for the {Agents.GenericInlineContextAgentName} agent.",
+                Name = TestAgentNames.GenericInlineContextAgentName,
+                Description = $"Prompt template for the {TestAgentNames.GenericInlineContextAgentName} agent.",
                 Prefix = @"You are an analytic agent named Omar that helps people understand the history of the Rosetta Stone.
                     Provide concise answers that are polite and professional.
 

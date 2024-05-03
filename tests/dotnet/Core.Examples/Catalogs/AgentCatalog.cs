@@ -19,7 +19,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
         [
             new KnowledgeManagementAgent
             {
-                Name = Agents.GenericInlineContextAgentName,
+                Name = TestAgentNames.GenericInlineContextAgentName,
                 Description = "A generic agent that can handle inline context completions.",
                 SessionsEnabled = true,
                 Vectorization = new AgentVectorizationSettings

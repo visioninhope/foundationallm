@@ -27,7 +27,7 @@ namespace FoundationaLLM.Core.Examples
 
 		private async Task RunExampleAsync()
         {
-            var agentName = Constants.Agents.GenericInlineContextAgentName;
+            var agentName = Constants.TestAgentNames.GenericInlineContextAgentName;
             var userPrompts = new List<string>
             {
                 "Who are you?",
@@ -45,7 +45,7 @@ namespace FoundationaLLM.Core.Examples
             {
                 WriteLine($"- {message.Sender}: {message.Text}");
                 if (string.Equals(message.Sender, Common.Constants.Agents.InputMessageRoles.Assistant, StringComparison.CurrentCultureIgnoreCase) &&
-                    message.Text == Agents.FailedCompletionResponse)
+                    message.Text == TestResponseMessages.FailedCompletionResponse)
                 {
                     invalidAgentResponsesFound++;
                 }

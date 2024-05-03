@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace FoundationaLLM.Core.Examples.Constants
 {
     /// <summary>
-    /// Contains constants for agents and related messages and artifacts.
+    /// Contains constants for test agent names.
     /// </summary>
-    public static class Agents
+    public static class TestAgentNames
     {
         /// <summary>
         /// The name of the FoundationaLLM agent.
@@ -19,9 +19,6 @@ namespace FoundationaLLM.Core.Examples.Constants
         /// The name of the generic inline context agent.
         /// </summary>
         public const string GenericInlineContextAgentName = "FLLMGenericInlineContextTest";
-        /// <summary>
-        /// Standard message returned when a completion request fails.
-        /// </summary>
-        public const string FailedCompletionResponse = "A problem on my side prevented me from responding.";
+        
     }
 }
