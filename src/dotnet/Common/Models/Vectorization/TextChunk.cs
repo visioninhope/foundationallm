@@ -37,5 +37,17 @@ namespace FoundationaLLM.Common.Models.Vectorization
         /// </summary>
         [JsonPropertyName("tokens_count")]
         public int TokensCount { get; set; }
+
+        /// <summary>
+        /// The size of the chunk in tokens.
+        /// </summary>
+        [JsonPropertyName("has_error")]
+        public bool HasError { get; set; }
+
+        /// <summary>
+        /// The size of the chunk in tokens.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public string? Error { get; set; }
     }
 }

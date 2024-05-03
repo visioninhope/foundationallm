@@ -8,7 +8,12 @@ using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Gateway.Services;
 using Microsoft.Extensions.Options;
+using System.Diagnostics.Metrics;
+using OpenTelemetry.Metrics;
+using OpenTelemetry;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using FoundationaLLM.Common.Instrumentation;
+using FoundationaLLM.Gateway.Instrumentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +38,8 @@ if (builder.Environment.IsDevelopment())
 builder.AddOpenTelemetry(
     AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString,
     ServiceNames.GatewayAPI);
+
+builder.Services.AddSingleton<GatewayInstrumentation>();
 
 // CORS policies
 builder.AddCorsPolicies();

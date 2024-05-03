@@ -55,7 +55,7 @@ namespace FoundationaLLM.Common.Services.Storage
             catch (RequestFailedException e) when (e.Status == 404)
             {
                 _logger.LogWarning("File not found: {FilePath}", filePath);
-                throw new ContentException("File not found.", e);
+                throw new ContentException($"File not found [{filePath}].", e);
             }
         }
 

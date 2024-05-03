@@ -130,6 +130,23 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
 
             // Persist TextPartition and TextEmbeddingVector artifacts in Parquet file.
             await SaveTextPartitionsAndEmbeddings(state, persistenceIdentifier);
+            if (state.Requests[0].CurrentStep != "partition")
+            {
+                foreach (var artifact in state.Artifacts)
+                    if (artifact.IsDirty)
+                    {
+                        var artifactPath =
+                            $"{persistenceIdentifier}_{artifact.Type.ToString().ToLower()}_{artifact.Position:D6}.txt";
+
+                        await _storageService.WriteFileAsync(
+                            BLOB_STORAGE_CONTAINER_NAME,
+                            artifactPath,
+                            artifact.Content!,
+                            default,
+                            default);
+                        artifact.CanonicalId = artifactPath;
+                    }
+            }
 
             var content = JsonSerializer.Serialize(state);
             await _storageService.WriteFileAsync(
@@ -269,7 +286,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                 pipelineStatePath,
                 content,
                 default,
-                default);            
+                default);
         }
 
         /// <inheritdoc/>

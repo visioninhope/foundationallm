@@ -49,7 +49,8 @@ namespace FoundationaLLM.Vectorization.Models
         /// <summary>
         /// The content of the artifact.
         /// </summary>
-        [JsonIgnore]
+        [JsonPropertyOrder(5)]
+        [JsonPropertyName("content")]
         public string? Content { get; set; }
 
         /// <summary>

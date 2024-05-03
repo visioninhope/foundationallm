@@ -51,7 +51,8 @@ namespace FoundationaLLM.Common.Services.TextSplitters
                     .Select(x => new TextChunk {
                         Position = x.Position,
                         Content = _tokenizerService.Decode(x.Tokens, _settings.TokenizerEncoder),
-                        TokensCount = x.Tokens.Length })
+                        TokensCount = x.Tokens.Length
+                    })
                     .ToList();
 
                 var lastChunkStart = (chunksCount - 1) * (_settings.ChunkSizeTokens - _settings.OverlapSizeTokens);

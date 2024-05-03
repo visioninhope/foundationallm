@@ -1,8 +1,11 @@
-﻿  using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Instrumentation;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Azure;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Gateway.Exceptions;
+using FoundationaLLM.Gateway.Instrumentation;
 using FoundationaLLM.Gateway.Interfaces;
 using FoundationaLLM.Gateway.Models;
 using FoundationaLLM.Gateway.Models.Configuration;
@@ -24,12 +27,14 @@ namespace FoundationaLLM.Gateway.Services
     public class GatewayCore(
         IAzureResourceManagerService armService,
         IOptions<GatewayCoreSettings> options,
-        ILoggerFactory loggerFactory) : IGatewayCore
+        ILoggerFactory loggerFactory,
+        GatewayInstrumentation gatewayInstrumentation) : IGatewayCore
     {
         private readonly IAzureResourceManagerService _armService = armService;
         private readonly GatewayCoreSettings _settings = options.Value;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
         private readonly ILogger<GatewayCore> _logger = loggerFactory.CreateLogger<GatewayCore>();
+        private GatewayInstrumentation _gatewayInstrumentation = gatewayInstrumentation;
 
         private bool _initialized = false;
 
@@ -69,10 +74,17 @@ namespace FoundationaLLM.Gateway.Services
                                         _loggerFactory.CreateLogger<EmbeddingModelContext>())
                                     {
                                         ModelName = deployment.ModelName,
-                                        DeploymentContexts = [embeddingModelContext]
+                                        DeploymentContexts = [embeddingModelContext],
+                                        EmbeddingOperationIds = [],
+                                        RequestCount = new SlidingWindowRateLimiter(deployment.RequestRateLimit, deployment.RequestRateRenewalPeriod, "embeddings.request.count"),
+                                        TokenCount = new SlidingWindowRateLimiter(deployment.TokenRateLimit / 6, deployment.TokenRateRenewalPeriod / 6, "embeddings.token.count")
                                     };
                                 else
                                     _embeddingModels[deployment.ModelName].DeploymentContexts.Add(embeddingModelContext);
+
+                                _gatewayInstrumentation.EmbeddingModels.Add(deployment.ModelName, _embeddingModels[deployment.ModelName]);
+
+                                _gatewayInstrumentation.AddEmbeddingModel(_embeddingModels[deployment.ModelName]);
                             }
                         }
                     }
@@ -111,6 +123,43 @@ namespace FoundationaLLM.Gateway.Services
                 .ToArray();
 
             await Task.WhenAll(modelTasks);
+        }
+
+        private async Task ExecuteForModelAsync(EmbeddingModelContext modelContext, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("The Gateway core started the processor for the {ModelName} model.", modelContext.ModelName);
+
+            while (true)
+            {
+                if (cancellationToken.IsCancellationRequested) return;
+
+                var operationId  = string.Empty;
+                var operationContext = default(EmbeddingOperationContext);
+
+                try
+                {
+
+                    if (modelContext.EmbeddingOperationIds.TryDequeue(out operationId)
+                        && _embeddingOperations.TryGetValue(operationId, out operationContext))
+                    {
+                        var embeddingService = modelContext.SelectTextEmbeddingService();
+                        var result = await embeddingService.GetEmbeddingsAsync(operationContext.Request.TextChunks);
+
+                        operationContext.SetEmbeddings(result.TextChunks);
+                        operationContext.SetComplete();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "The embedding operation with id {EmbeddingOperationId} encountered an error and was cancelled.",
+                        operationId);
+
+                    operationContext!.SetError(ex.Message);
+                }
+
+                await Task.Delay(TimeSpan.FromSeconds(10));
+            }
         }
 
         /// <inheritdoc/>
@@ -180,5 +229,16 @@ namespace FoundationaLLM.Gateway.Services
             else
                 return await Task.FromResult(operationContext.Result);
         }
+
+        private ITextEmbeddingService CreateTextEmbeddingService(string endpoint, string deploymentName)
+            =>  new SemanticKernelTextEmbeddingService(
+                Options.Create<SemanticKernelTextEmbeddingServiceSettings>(new SemanticKernelTextEmbeddingServiceSettings
+                {
+                    AuthenticationType = AzureOpenAIAuthenticationTypes.AzureIdentity,
+                    Endpoint = endpoint,
+                    DeploymentName = deploymentName
+                }),
+                _loggerFactory.CreateLogger<SemanticKernelTextEmbeddingService>(),
+                _gatewayInstrumentation);
     }
 }
