@@ -790,6 +790,14 @@
         /// </summary>
         public const string FoundationaLLM_ManagementAPI_Entra = "FoundationaLLM:ManagementAPI:Entra:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:Chat:Entra:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Chat_Entra = "FoundationaLLM:Chat:Entra:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Management:Entra:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra = "FoundationaLLM:Management:Entra:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:Orchestration:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Orchestration = "FoundationaLLM:Orchestration:*";
