@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Internal context agent | FoundationaLLM </title>
+      <title>Knowledge Management with Inline Context Agent | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Internal context agent | FoundationaLLM ">
+      <meta name="title" content="Knowledge Management with Inline Context Agent | FoundationaLLM ">
       
       
       <link rel="icon" href="../../media/favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/agents/internal-context-agent.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/agents/knowledge-management-with-inline-context.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -71,11 +71,11 @@
         </div>
 
         <article data-uid="">
-<h1 id="internal-context-agent">Internal context agent</h1>
+<h1 id="knowledge-management-with-inline-context-agent">Knowledge Management with Inline Context Agent</h1>
 
-<p>The internal context  provides a pass-through mechanism that sends the user prompt directly to the large language model (LLM) without any additional processing or context. This is useful when the user prompt is already prepared and does not require any additional context.</p>
-<h2 id="internal-context-agent-configuration">Internal context agent configuration</h2>
-<p>The structure of an internal context agent is the following:</p>
+<p>The Knowledge Management with Inline Context agent provides a pass-through mechanism that sends the user prompt directly to the large language model (LLM) without any additional processing or context. This is useful when the user prompt is already prepared and does not require any additional context.</p>
+<h2 id="knowledge-management-with-inline-context-agent-configuration">Knowledge Management with Inline Context agent configuration</h2>
+<p>The structure of a Knowledge Management with Inline Context agent is the following:</p>
 <pre><code class="lang-json">{
   &quot;type&quot;: &quot;internal-context&quot;,
   &quot;name&quot;: &quot;&lt;name&gt;&quot;,
@@ -217,8 +217,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="managing-internal-context-agents">Managing internal context agents</h2>
-<p>This section describes how to manage internal context agents using the Management API. <code>{{baseUrl}}</code> is the base URL of the Management API. <code>{{instanceId}}</code> is the unique identifier of the FLLM instance.</p>
+<h2 id="managing-knowledge-management-with-inline-context-agents">Managing Knowledge Management with Inline Context agents</h2>
+<p>This section describes how to manage Knowledge Management with Inline Context agents using the Management API. <code>{{baseUrl}}</code> is the base URL of the Management API. <code>{{instanceId}}</code> is the unique identifier of the FLLM instance.</p>
 <h3 id="retrieve">Retrieve</h3>
 <pre><code class="lang-http">HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/agents
 </code></pre>
@@ -235,15 +235,19 @@ BODY
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>FLLM currently implements logical deletes for Internal Context agents. This means that users cannot create an Internal Context agent with the same name as a deleted Internal Context agent. Support for purging Internal Context agents will be added in a future release.</p>
+<p>FLLM currently implements logical deletes for Knowledge Management with Inline Context agents. This means that users cannot create a Knowledge Management with Inline Context agent with the same name as a deleted agent. Support for purging Knowledge Management with Inline Context agents will be added in a future release.</p>
 </div>
-<h2 id="validating-an-internal-context-agent">Validating an internal context agent</h2>
-<p>Once configured, the internal context agent can be validated using an API call to the <a href="../exposed-apis/core-api.html">Core API</a> or via the <a href="../quickstart.html">User Portal</a>.</p>
+<h2 id="validating-a-knowledge-management-with-inline-context-agent">Validating a Knowledge Management with Inline Context agent</h2>
+<p>Once configured, the Knowledge Management with Inline Context agent can be validated using an API call to the <a href="../exposed-apis/core-api.html">Core API</a> or via the <a href="../quickstart.html">User Portal</a>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>It can take up to 5 minutes for a new Knowledge Management with Inline Context agent to appear in the User Portal or be accessible for requests from the Core API.</p>
+</div>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/agents/internal-context-agent.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/docs/setup-guides/agents/knowledge-management-with-inline-context.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

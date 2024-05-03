@@ -76,9 +76,9 @@
 <p>The FoundationaLLM (FLLM) knowledge management agent supports retrieval augmented generation (RAG).</p>
 <h2 id="retrieval-augmented-generation-rag">Retrieval Augmented Generation (RAG)</h2>
 <p>The RAG flow augments the user prompt with additional context to generate a more accurate response. The RAG flow uses a retrieval model to retrieve relevant documents from a knowledge base, such as a vector store, and then uses the retrieved documents to augment the user prompt before sending it to the LLM.</p>
-<p>The creation of a RAG knowledge management agent requires an existing knowledge base, such as a vector store. If it does not exist, use the <a href="../vectorization/index.html">vectorization</a> API can be used to create a vector store prior to the creation of the agent.</p>
-<h2 id="knowledge-management-agent-configuration">Knowledge management agent configuration</h2>
-<p>The knowledge management agent configuration may reference the following resources:</p>
+<p>The creation of a Knowledge Management agent requires an existing knowledge base, such as a vector store. If it does not exist, use the <a href="../vectorization/index.html">vectorization</a> API to create a vector store prior to the creation of the agent.</p>
+<h2 id="knowledge-management-agent-configuration">Knowledge Management Agent Configuration</h2>
+<p>The Knowledge Management agent configuration may reference the following resources:</p>
 <ul>
 <li><p><a href="../vectorization/vectorization-profiles.html#text-embedding-profiles">Vectorization text embedding profile</a>: The text embedding profile contains the configuration of the text embedding model used to embed the user prompt and perform a vector search in the knowledge base. This must match the text embedding profile used to index the knowledge base.</p>
 </li>
@@ -88,9 +88,9 @@
 </li>
 </ul>
 <blockquote>
-<p><strong>Note</strong>: The knowledge management agent implementation currently supports the <a href="../vectorization/vectorization-profiles.html#azureaisearchindexer"><code>AzureAISearchIndexer</code></a> indexing profile.</p>
+<p><strong>Note</strong>: The Knowledge Management agent implementation currently supports the <a href="../vectorization/vectorization-profiles.html#azureaisearchindexer"><code>AzureAISearchIndexer</code></a> indexing profile.</p>
 </blockquote>
-<p>The structure of a knowledge management agent is the following:</p>
+<p>The structure of a Knowledge Management agent is the following:</p>
 <pre><code class="lang-json">{
   &quot;type&quot;: &quot;knowledge-management&quot;,
   &quot;name&quot;: &quot;&lt;name&gt;&quot;,
@@ -244,7 +244,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="managing-knowledge-management-agents">Managing knowledge management agents</h2>
+<h2 id="managing-knowledge-management-agents">Managing Knowledge Management Agents</h2>
 <p>This section describes how to manage knowledge management agents using the Management API. <code>{{baseUrl}}</code> is the base URL of the Management API. <code>{{instanceId}}</code> is the unique identifier of the FLLM instance.</p>
 <h3 id="retrieve">Retrieve</h3>
 <pre><code class="lang-http">HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Agent/agents
@@ -264,8 +264,12 @@ BODY
 <h5>Note</h5>
 <p>FLLM currently implements logical deletes for Knowledge Management agents. This means that users cannot create a Knowledge Management agent with the same name as a deleted Knowledge Management agent. Support for purging Knowledge Management agents will be added in a future release.</p>
 </div>
-<h2 id="validating-a-knowledge-management-agent">Validating a knowledge management agent</h2>
+<h2 id="validating-a-knowledge-management-agent">Validating a Knowledge Management Agent</h2>
 <p>Once configured, the knowledge management agent can be validated using an API call to the <a href="../exposed-apis/core-api.html">Core API</a> or via the <a href="../quickstart.html">User Portal</a>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>It can take up to 5 minutes for a new Knowledge Management agent to appear in the User Portal or be accessible for requests from the Core API.</p>
+</div>
 <h2 id="overriding-agent-parameters">Overriding agent parameters</h2>
 <p>The agent parameters can be overridden at the time of the API call. Refer to the <a href="../exposed-apis/core-api.html">Core API</a> documentation for more information.</p>
 

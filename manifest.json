@@ -8585,20 +8585,20 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "setup-guides/agents/internal-context-agent.md",
+      "source_relative_path": "setup-guides/agents/knowledge-management-agent.md",
       "output": {
         ".html": {
-          "relative_path": "setup-guides/agents/internal-context-agent.html"
+          "relative_path": "setup-guides/agents/knowledge-management-agent.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "setup-guides/agents/knowledge-management-agent.md",
+      "source_relative_path": "setup-guides/agents/knowledge-management-with-inline-context.md",
       "output": {
         ".html": {
-          "relative_path": "setup-guides/agents/knowledge-management-agent.html"
+          "relative_path": "setup-guides/agents/knowledge-management-with-inline-context.html"
         }
       },
       "version": ""
