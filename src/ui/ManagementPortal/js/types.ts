@@ -5,6 +5,7 @@ export type Agent = {
 	object_id: string;
 	description: string;
 	type: 'knowledge-management' | 'analytics';
+	inline_context: boolean;
 
 	vectorization: {
 		dedicated_pipeline: boolean;
@@ -254,6 +255,8 @@ export type CreateAgentRequest = {
 	name: string;
 	description: string;
 	object_id: string;
+	inline_context: boolean;
+
 	language_model: {
 		type: string;
 		provider: string;
