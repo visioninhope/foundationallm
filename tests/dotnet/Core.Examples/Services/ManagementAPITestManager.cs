@@ -23,19 +23,29 @@ namespace FoundationaLLM.Core.Examples.Services
 
         public async Task CreateDataSource(IStorageService svc, string dataSourceName)
         {
-            var ds = DataSourceCatalog.GetDataSources().FirstOrDefault(a => a.Name == dataSourceName);
+            var item = DataSourceCatalog.GetDataSources().FirstOrDefault(a => a.Name == dataSourceName);
+
+            if (item == null)
+            {
+                   throw new InvalidOperationException($"The data source {dataSourceName} was not found.");
+            }
 
             //upload the dune file...
             var azureDataLakeDataSourceObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_DataSource,
                 $"datasources/{dataSourceName}",
-                ds);
+                item);
         }
 
         public async Task CreateIndexingProfile(string indexingProfileName)
         {
             var indexingProfile = IndexingProfilesCatalog.GetIndexingProfiles().FirstOrDefault(a => a.Name == indexingProfileName);
+
+            if (indexingProfile == null)
+            {
+                   throw new InvalidOperationException($"The indexing profile {indexingProfileName} was not found.");
+            }
 
             var indexingProfileObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
@@ -48,6 +58,11 @@ namespace FoundationaLLM.Core.Examples.Services
         {
             var textEmbeddingProfile = TextEmbeddingProfileCatalog.GetTextEmbeddingProfiles().FirstOrDefault(a => a.Name == textEmbeddingProfileName);
 
+            if (textEmbeddingProfile == null)
+            {
+                   throw new InvalidOperationException($"The text embedding profile {textEmbeddingProfileName} was not found.");
+            }
+
             var textEmbeddingProfileObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Vectorization,
@@ -58,6 +73,11 @@ namespace FoundationaLLM.Core.Examples.Services
         public async Task CreateTextPartitioningProfile(string textPartitioningProfileName)
         {
             var textPartitioningProfile = TextPartitioningProfileCatalog.GetTextPartitioningProfiles().FirstOrDefault(a => a.Name == textPartitioningProfileName);
+
+            if (textPartitioningProfile == null)
+            {
+                   throw new InvalidOperationException($"The text partitioning profile {textPartitioningProfileName} was not found.");
+            }
 
             var textPartitioningProfileObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
@@ -70,6 +90,11 @@ namespace FoundationaLLM.Core.Examples.Services
         {
             var contentSourceProfile = DataSourceCatalog.GetDataSources().FirstOrDefault(a => a.Name == profileName);
 
+            if (contentSourceProfile == null)
+            {
+                   throw new InvalidOperationException($"The content source profile {profileName} was not found.");
+            }
+
             var textPartitioningProfileObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_DataSource,
@@ -79,7 +104,10 @@ namespace FoundationaLLM.Core.Examples.Services
 
         public async Task DeleteDataSource(string profileName)
         {
-            return;
+            await DeleteResourceAsync(
+                               instanceSettings.Value.Id,
+                                              ResourceProviderNames.FoundationaLLM_DataSource,
+                                                             $"datasource/{profileName}");
         }
 
         public async Task DeleteContentSourceProfile(string profileName)

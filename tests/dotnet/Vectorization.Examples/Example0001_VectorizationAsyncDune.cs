@@ -1,11 +1,13 @@
-﻿using FluentValidation;
-using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.Storage;
-using FoundationaLLM.Core.Examples.Setup;
 using FoundationaLLM.Vectorization.Examples.Interfaces;
+using FoundationaLLM.Vectorization.Examples.Setup;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Xunit.Abstractions;
 
 namespace FoundationaLLM.Core.Examples
@@ -26,7 +28,7 @@ namespace FoundationaLLM.Core.Examples
         private string textPartitionProfileName = "text_partition_profile";
         private string textEmbeddingProfileName = "text_embedding_profile";
         private string indexingProfileName = "indexing_profile";
-        private string contentSourceProfileName = "content_source_profile";
+        private string contentSourceProfileName = "really_big";
 
 
 		[Fact]
@@ -41,39 +43,46 @@ namespace FoundationaLLM.Core.Examples
 
         private async Task PreExecute()
         {
-            string duneArtifactPath = "https://www.dune.com/dune.pdf";
-            string containerName = "dune";
+            var settings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
+                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
+            
+            var logger = ServiceProvider.GetRequiredService<ILogger<BlobStorageService>>();
 
-            //download the file via http client
-            //HttpClientService svc = ServiceProvider.GetService<HttpClientService>();
-            //await svc.DownloadFileAsync(duneArtifactPath, "dune.pdf");
+            BlobStorageService svc = new BlobStorageService(
+                Options.Create<BlobStorageServiceSettings>(settings),
+                logger)
+            {
+                InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization
+            };
+
+            string artifactPath = "https://solliancepublicdata.blob.core.windows.net/data/data/really_big.pdf";
+            string containerName = "data";
+
             byte[] data;
 
             //upload the dune artifact to storage
             using (var client = new HttpClient())
-            using (var result = await client.GetAsync(duneArtifactPath))
+            using (var result = await client.GetAsync(artifactPath))
                 data = result.IsSuccessStatusCode ? await result.Content.ReadAsByteArrayAsync() : null;
 
             //try byte array into stream
             var stream = new MemoryStream(data);
-
-            BlobStorageService svc = ServiceProvider.GetService<BlobStorageService>();
-            await svc.WriteFileAsync(containerName, "dune.pdf", stream, null, default);
+            await svc.WriteFileAsync(containerName, "really_big.pdf", stream, null, default);
 
             //create the data source
-            _vectorizationTestService.CreateDataSource(svc, "dune");
+            await _vectorizationTestService.CreateDataSource(svc, contentSourceProfileName);
 
             //content source profile
-            _vectorizationTestService.CreateContentSourceProfile("");
+            await _vectorizationTestService.CreateContentSourceProfile(contentSourceProfileName);
 
             //text partitioning profile
-            _vectorizationTestService.CreateTextPartitioningProfile(textPartitionProfileName);
+            await _vectorizationTestService.CreateTextPartitioningProfile(textPartitionProfileName);
 
             //text embedding profile
-            _vectorizationTestService.CreateTextEmbeddingProfile(textEmbeddingProfileName);
+            await _vectorizationTestService.CreateTextEmbeddingProfile(textEmbeddingProfileName);
 
             //indexing profile
-            _vectorizationTestService.CreateIndexingProfile(indexingProfileName);
+            await _vectorizationTestService.CreateIndexingProfile(indexingProfileName);
         }
 
         private async Task RunExampleAsync()
@@ -125,24 +134,24 @@ namespace FoundationaLLM.Core.Examples
             //remove the dune artifact from storage
 
             //remove the data source
-            _vectorizationTestService.DeleteDataSource("dune");
+            await _vectorizationTestService.DeleteDataSource("dune");
 
             //remove content source profile
             //content source profile
-            _vectorizationTestService.DeleteContentSourceProfile(contentSourceProfileName);
+            await _vectorizationTestService.DeleteContentSourceProfile(contentSourceProfileName);
 
             //text partitioning profile
             //remove text partitioning profile
-            _vectorizationTestService.DeleteTextPartitioningProfile(textPartitionProfileName);
+            await _vectorizationTestService.DeleteTextPartitioningProfile(textPartitionProfileName);
 
             //text embedding profile
             //remove text embedding profile
-            _vectorizationTestService.DeleteTextEmbeddingProfile(textEmbeddingProfileName);
+            await _vectorizationTestService.DeleteTextEmbeddingProfile(textEmbeddingProfileName);
 
             //indexing profile
             //remove search index
             //remove indexing profile
-            _vectorizationTestService.DeleteIndexingProfile(indexingProfileName, true);
+            await _vectorizationTestService.DeleteIndexingProfile(indexingProfileName, true);
         }
 	}
 }

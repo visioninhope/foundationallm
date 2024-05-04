@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -34,7 +34,6 @@
   <ItemGroup>
     <Folder Include="Exceptions\" />
     <Folder Include="Models\" />
-    <Folder Include="Setup\" />
     <Folder Include="Utils\" />
   </ItemGroup>
 
