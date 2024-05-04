@@ -317,7 +317,7 @@ export type CreatePromptRequest = {
 export type CreateTextPartitioningProfileRequest = {
 	text_splitter: string;
 	name: string;
-	object_id: string;
+	object_id?: string;
 	settings: {
 		Tokenizer: string;
 		TokenizerEncoder: string;
