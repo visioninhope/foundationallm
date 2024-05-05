@@ -40,7 +40,9 @@ namespace FoundationaLLM.Core.Examples.Setup
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Management_Entra)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB)
 						.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio)
-						.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI)
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization)
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
 				})
 				.Build();
 

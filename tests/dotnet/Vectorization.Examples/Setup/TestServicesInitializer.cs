@@ -64,10 +64,17 @@ namespace FoundationaLLM.Vectorization.Examples.Setup
                 options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes]!;
                 options.Timeout = TimeSpan.FromSeconds(120);
             });
+            
             services.Configure<HttpClientOptions>(HttpClients.ManagementAPI, options =>
             {
                 options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!;
                 options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_Scopes]!;
+                options.Timeout = TimeSpan.FromSeconds(120);
+            });
+
+            services.Configure<HttpClientOptions>(HttpClients.VectorizationAPI, options =>
+            {
+                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!;
                 options.Timeout = TimeSpan.FromSeconds(120);
             });
 
@@ -88,6 +95,20 @@ namespace FoundationaLLM.Vectorization.Examples.Setup
                 {
                     var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.ManagementAPI);
                     client.BaseAddress = new Uri(options.BaseUri!);
+                    client.BaseAddress = new Uri("https://localhost:63267");
+                    if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
+                })
+                .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
+                {
+                    CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+                });
+
+            services.AddHttpClient(HttpClients.VectorizationAPI)
+                .ConfigureHttpClient((serviceProvider, client) =>
+                {
+                    var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.VectorizationAPI);
+                    client.BaseAddress = new Uri(options.BaseUri!);
+                    client.BaseAddress = new Uri("https://localhost:7047");
                     if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
                 })
                 .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>

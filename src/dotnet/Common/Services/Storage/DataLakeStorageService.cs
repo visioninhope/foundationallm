@@ -36,6 +36,7 @@ namespace FoundationaLLM.Common.Services.Storage
         {
         }
 
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DataLakeStorageService"/> with the specified options and logger.
         /// </summary>
@@ -47,6 +48,10 @@ namespace FoundationaLLM.Common.Services.Storage
             ILogger<DataLakeStorageService> logger) : base(storageSettings, logger)
         {
         }
+
+        public async Task CreateContainerAsync(
+            string containerName,
+            CancellationToken cancellationToken = default) => _dataLakeClient.CreateFileSystemAsync(containerName, cancellationToken: cancellationToken);
 
         /// <inheritdoc/>
         public async Task<List<string>> GetFilePathsAsync(

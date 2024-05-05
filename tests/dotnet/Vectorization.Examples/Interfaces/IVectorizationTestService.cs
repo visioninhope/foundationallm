@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Core.Examples.Services;
 
@@ -6,6 +7,8 @@ namespace FoundationaLLM.Vectorization.Examples.Interfaces;
 
 public interface IVectorizationTestService
 {
+    public InstanceSettings InstanceSettings { get; set; }
+
     public Task CreateDataSource(IStorageService svc, string name);
 
     public Task CreateContentSourceProfile(string name);
@@ -26,8 +29,5 @@ public interface IVectorizationTestService
     public Task DeleteTextPartitioningProfile(string name);
 
     public Task DeleteTextEmbeddingProfile(string name);
-
-    public Task DeleteIndexingProfile(string name);
-
-    public Task DeleteVectorizationRequest(string name);
+    public Task DeleteVectorizationRequest(VectorizationRequest name);
 }

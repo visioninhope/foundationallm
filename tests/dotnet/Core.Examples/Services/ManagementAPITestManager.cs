@@ -34,7 +34,7 @@ namespace FoundationaLLM.Core.Examples.Services
             var azureDataLakeDataSourceObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_DataSource,
-                $"datasources/{dataSourceName}",
+                $"dataSources/{dataSourceName}",
                 item);
         }
 
@@ -50,7 +50,7 @@ namespace FoundationaLLM.Core.Examples.Services
             var indexingProfileObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"indexingprofiles/{indexingProfileName}",
+                $"indexingProfiles/{indexingProfileName}",
                 indexingProfile);
         }
 
@@ -66,7 +66,7 @@ namespace FoundationaLLM.Core.Examples.Services
             var textEmbeddingProfileObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"textembeddingprofiles/{textEmbeddingProfileName}",
+                $"textEmbeddingProfiles/{textEmbeddingProfileName}",
                 textEmbeddingProfile);
         }
 
@@ -82,7 +82,7 @@ namespace FoundationaLLM.Core.Examples.Services
             var textPartitioningProfileObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"textpartitioningprofiles/{textPartitioningProfileName}",
+                $"textPartitioningProfiles/{textPartitioningProfileName}",
                 textPartitioningProfile);
         }
 
@@ -97,7 +97,7 @@ namespace FoundationaLLM.Core.Examples.Services
 
             var textPartitioningProfileObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
-                ResourceProviderNames.FoundationaLLM_DataSource,
+                ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"contentsource/{profileName}",
                 contentSourceProfile);
         }
@@ -114,7 +114,7 @@ namespace FoundationaLLM.Core.Examples.Services
         {
             await DeleteResourceAsync(
                                instanceSettings.Value.Id,
-                                              ResourceProviderNames.FoundationaLLM_DataSource,
+                                              ResourceProviderNames.FoundationaLLM_Vectorization,
                                                              $"contentsource/{profileName}");
         }
 

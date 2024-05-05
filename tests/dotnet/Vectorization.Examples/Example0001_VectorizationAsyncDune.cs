@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
@@ -8,6 +9,7 @@ using FoundationaLLM.Vectorization.Examples.Setup;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Graph.Models;
 using Xunit.Abstractions;
 
 namespace FoundationaLLM.Core.Examples
@@ -18,20 +20,29 @@ namespace FoundationaLLM.Core.Examples
     public class Example0001_VectorizationAsyncDune : BaseTest, IClassFixture<TestFixture>
 	{
 		private readonly IVectorizationTestService _vectorizationTestService;
+        private BlobStorageService _svc;
+        private InstanceSettings _instanceSettings;
 
-		public Example0001_VectorizationAsyncDune(ITestOutputHelper output, TestFixture fixture)
+        public Example0001_VectorizationAsyncDune(ITestOutputHelper output, TestFixture fixture)
 			: base(output, fixture.ServiceProvider)
 		{
             _vectorizationTestService = GetService<IVectorizationTestService>();
-		}
+            _instanceSettings = _vectorizationTestService.InstanceSettings;
+
+            dataSourceObjectId = $"/instances/{_instanceSettings.Id}/providers/FoundationaLLM.DataSource/dataSources/{contentSourceProfileName}";
+    }
 
         private string textPartitionProfileName = "text_partition_profile";
         private string textEmbeddingProfileName = "text_embedding_profile";
         private string indexingProfileName = "indexing_profile";
         private string contentSourceProfileName = "really_big";
+        private string containerName = "data";
+        private string blobName = "really_big.pdf";
+        private string dataSourceObjectId;
+        private string id = "15b799fc-1498-497e-a7f9-7231af56abc6";
 
 
-		[Fact]
+        [Fact]
 		public async Task RunAsync()
 		{
             await PreExecute();
@@ -45,10 +56,12 @@ namespace FoundationaLLM.Core.Examples
         {
             var settings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
                     .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
+
+            settings.AccountName = "st63hvhar5z5zz2";
             
             var logger = ServiceProvider.GetRequiredService<ILogger<BlobStorageService>>();
 
-            BlobStorageService svc = new BlobStorageService(
+            _svc = new BlobStorageService(
                 Options.Create<BlobStorageServiceSettings>(settings),
                 logger)
             {
@@ -56,7 +69,6 @@ namespace FoundationaLLM.Core.Examples
             };
 
             string artifactPath = "https://solliancepublicdata.blob.core.windows.net/data/data/really_big.pdf";
-            string containerName = "data";
 
             byte[] data;
 
@@ -65,15 +77,17 @@ namespace FoundationaLLM.Core.Examples
             using (var result = await client.GetAsync(artifactPath))
                 data = result.IsSuccessStatusCode ? await result.Content.ReadAsByteArrayAsync() : null;
 
+            await _svc.CreateContainerAsync(containerName);
+
             //try byte array into stream
             var stream = new MemoryStream(data);
-            await svc.WriteFileAsync(containerName, "really_big.pdf", stream, null, default);
+            await _svc.WriteFileAsync(containerName, blobName, stream, null, default);
 
             //create the data source
-            await _vectorizationTestService.CreateDataSource(svc, contentSourceProfileName);
+            await _vectorizationTestService.CreateDataSource(_svc, contentSourceProfileName);
 
             //content source profile
-            await _vectorizationTestService.CreateContentSourceProfile(contentSourceProfileName);
+            //await _vectorizationTestService.CreateContentSourceProfile(contentSourceProfileName);
 
             //text partitioning profile
             await _vectorizationTestService.CreateTextPartitioningProfile(textPartitionProfileName);
@@ -87,9 +101,20 @@ namespace FoundationaLLM.Core.Examples
 
         private async Task RunExampleAsync()
         {
-            ContentIdentifier ci = null;
-            string dataSourceObjectId = null;
-            string id = Guid.NewGuid().ToString();
+            string containerPath = $"https://{_svc.BlobServiceClient.AccountName}.blob.core.windows.net/{containerName}";
+
+            ContentIdentifier ci = new ContentIdentifier
+            {
+                DataSourceObjectId = dataSourceObjectId,
+                //ContentSourceProfileName = _crawlerSettings.ContentSourceProfileName,
+                MultipartId = new List<string>
+                {
+                    containerPath,
+                    containerName,
+                    blobName
+                     },
+                CanonicalId = id.ToString()
+            };
 
             //start a vectorization request...
             List<VectorizationStep> steps = new List<VectorizationStep>();
@@ -117,6 +142,7 @@ namespace FoundationaLLM.Core.Examples
             await _vectorizationTestService.CheckVectorizationRequestStatus(vectorizationRequest);
 
             //verify artifacts
+            //TODO
 
             //perform a search
             string query = "Dune";
@@ -138,7 +164,7 @@ namespace FoundationaLLM.Core.Examples
 
             //remove content source profile
             //content source profile
-            await _vectorizationTestService.DeleteContentSourceProfile(contentSourceProfileName);
+            //await _vectorizationTestService.DeleteContentSourceProfile(contentSourceProfileName);
 
             //text partitioning profile
             //remove text partitioning profile

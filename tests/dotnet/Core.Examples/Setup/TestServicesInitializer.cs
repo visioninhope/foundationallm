@@ -14,6 +14,8 @@ using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Examples.Services;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Services;
+using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
+using FoundationaLLM.SemanticKernel.Core.Services;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Configuration;
@@ -36,20 +38,31 @@ namespace FoundationaLLM.Core.Examples.Setup
 		{
 			TestConfiguration.Initialize(configRoot, services);
 
-			RegisterInstance(services, configRoot);
+            RegisterInstance(services, configRoot);
 			RegisterHttpClients(services, configRoot);
 			RegisterCosmosDb(services, configRoot);
             RegisterAzureAIService(services, configRoot);
             RegisterLogging(services);
 			RegisterServiceManagers(services);
-		}
+            RegisterSearchIndex(services, configRoot);
+        }
 
         private static void RegisterInstance(IServiceCollection services, IConfiguration configuration)
         {
             services.AddOptions<InstanceSettings>()
                 .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
         }
-        
+
+		private static void RegisterSearchIndex(IServiceCollection services, IConfiguration configuration)
+		{
+            services.AddOptions<AzureAISearchIndexingServiceSettings>()
+                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
+
+            services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
+
+        }
+
         private static void RegisterHttpClients(IServiceCollection services, IConfiguration configuration)
 		{
 			services.Configure<HttpClientOptions>(HttpClients.CoreAPI, options =>
@@ -60,7 +73,8 @@ namespace FoundationaLLM.Core.Examples.Setup
             });
             services.Configure<HttpClientOptions>(HttpClients.ManagementAPI, options =>
             {
-                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!;
+                //options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!;
+                options.BaseUri = "https://localhost:63267";
                 options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_Scopes]!;
                 options.Timeout = TimeSpan.FromSeconds(120);
             });

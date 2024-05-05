@@ -1,7 +1,11 @@
 ﻿using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Core.Examples.Interfaces;
+using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Examples.Interfaces;
+using Microsoft.Extensions.Options;
+using NSubstitute.Routing.Handlers;
 
 namespace FoundationaLLM.Vectorization.Examples.Services
 {
@@ -11,11 +15,17 @@ namespace FoundationaLLM.Vectorization.Examples.Services
     /// <param name="coreAPITestManager"></param>
     /// <param name="azureAIService"></param>
     public class VectorizationTestService(
+        //IIndexingService indexingService,
         IManagementAPITestManager managementAPITestManager,
-        IVectorizationAPITestManager vectorizationAPITestManager) : IVectorizationTestService
+        IVectorizationAPITestManager vectorizationAPITestManager,
+        IOptions<InstanceSettings> instanceSettings) : IVectorizationTestService
     {
         private IManagementAPITestManager _managementAPITestManager = managementAPITestManager;
         private IVectorizationAPITestManager _vectorizationAPITestManager = vectorizationAPITestManager;
+        //private IIndexingService _indexService = indexingService;
+        private InstanceSettings _instanceSettings = instanceSettings.Value;
+
+        InstanceSettings IVectorizationTestService.InstanceSettings { get { return _instanceSettings; } set { _instanceSettings = value; } }
 
         public Task CreateDataSource(IStorageService svc, string name)
         {
@@ -44,22 +54,18 @@ namespace FoundationaLLM.Vectorization.Examples.Services
 
         public Task CreateVectorizationRequest(VectorizationRequest request)
         {
-            return null;
+            return _vectorizationAPITestManager.CreateVectorizationRequest(request);
         }
 
         public Task CheckVectorizationRequestStatus(VectorizationRequest request)
         {
-            return null;
+            return _vectorizationAPITestManager.CheckVectorizationRequest(request);
 
         }
 
         public Task QueryIndex(string name, string query)
         {
-            return null;
-        }
-
-        public Task DeleteIndexingProfile(string name, bool deleteIndex)
-        {
+            //_indexService.QueryEmbeddings();
             return null;
         }
 
@@ -83,13 +89,15 @@ namespace FoundationaLLM.Vectorization.Examples.Services
             return managementAPITestManager.DeleteTextEmbeddingProfile(name);
         }
 
-        public Task DeleteIndexingProfile(string name)
+
+        public Task DeleteIndexingProfile(string name, bool deleteIndex = true)
         {
             return managementAPITestManager.DeleteIndexingProfile(name);
         }
 
-        public Task DeleteVectorizationRequest(string name)
+        public Task DeleteVectorizationRequest(VectorizationRequest request)
         {
+            //remove all artifacts related to the request
             return null;
         }
     }

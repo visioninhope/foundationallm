@@ -6,7 +6,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
     {
         public static readonly List<IndexingProfile> Items =
         [
-            new IndexingProfile { Name = "", Indexer = IndexerType.AzureAISearchIndexer }
+            new IndexingProfile { Name = "indexing_profile", Indexer = IndexerType.AzureAISearchIndexer, Settings = new Dictionary<string, string>{ { "IndexName", "blah" }, { "TopN", "3" }, { "Filters", "" }, { "EmbeddingFieldName", "Embedding" }, { "TextFieldName", "Text" } }, ConfigurationReferences = new Dictionary<string, string>{ { "AuthenticationType", "FoundationaLLM:Vectorization:AzureAISearchIndexingService:AuthenticationType" }, { "Endpoint", "FoundationaLLM:Vectorization:AzureAISearchIndexingService:Endpoint" } } }
         ];
 
         public static List<IndexingProfile> GetIndexingProfiles()
