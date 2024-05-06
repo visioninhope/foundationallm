@@ -4,5 +4,4 @@ from .citation import Citation
 from .orchestration_settings import OrchestrationSettings
 from .completion_request_base import CompletionRequestBase
 from .completion_response import CompletionResponse
-from .knowledge_management_completion_request import KnowledgeManagementCompletionRequest
 from .endpoint_settings import EndpointSettings

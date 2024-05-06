@@ -9,7 +9,7 @@ namespace FoundationaLLM.Common.Tests.Models.Configuration.API
         {
             // Arrange
             var apiUrl = "https://example.com/api";
-            var settingsBase = new SettingsBase { APIUrl = apiUrl };
+            var settingsBase = new APISettingsBase { APIUrl = apiUrl };
 
             // Act
             var apiUrlSet = settingsBase.APIUrl;
@@ -23,7 +23,7 @@ namespace FoundationaLLM.Common.Tests.Models.Configuration.API
         {
             // Arrange
             var apiKey = "ABC123";
-            var settingsBase = new SettingsBase { APIKey = apiKey };
+            var settingsBase = new APISettingsBase { APIKey = apiKey };
 
             // Act
             var apiKeySet = settingsBase.APIKey;
