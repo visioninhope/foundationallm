@@ -1,6 +1,8 @@
 ﻿using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.Storage;
@@ -40,6 +42,7 @@ namespace FoundationaLLM.Core.Examples
         private string blobName = "really_big.pdf";
         private string dataSourceObjectId;
         private string id = "15b799fc-1498-497e-a7f9-7231af56abc6";
+        private List<AppConfigurationKeyValue> configValues = new List<AppConfigurationKeyValue>();
 
 
         [Fact]
@@ -84,7 +87,21 @@ namespace FoundationaLLM.Core.Examples
             await _svc.WriteFileAsync(containerName, blobName, stream, null, default);
 
             //create the data source
-            await _vectorizationTestService.CreateDataSource(_svc, contentSourceProfileName);
+            AppConfigurationKeyValue appConfigurationKeyValue = new AppConfigurationKeyValue { Name = contentSourceProfileName };
+            appConfigurationKeyValue.Key = $"FoundationaLLM:DataSources:{contentSourceProfileName}:AuthenticationType";
+            appConfigurationKeyValue.Value = settings.AuthenticationType.ToString();
+            appConfigurationKeyValue.ContentType = "";
+
+            configValues.Add(appConfigurationKeyValue);
+
+            appConfigurationKeyValue = new AppConfigurationKeyValue { Name = contentSourceProfileName };
+            appConfigurationKeyValue.Key = $"FoundationaLLM:DataSources:{contentSourceProfileName}:ConnectionString";
+            appConfigurationKeyValue.Value = settings.ConnectionString;
+            appConfigurationKeyValue.ContentType = "";
+
+            configValues.Add(appConfigurationKeyValue);
+
+            await _vectorizationTestService.CreateDataSource(contentSourceProfileName, configValues);
 
             //content source profile
             //await _vectorizationTestService.CreateContentSourceProfile(contentSourceProfileName);
@@ -119,7 +136,7 @@ namespace FoundationaLLM.Core.Examples
             //start a vectorization request...
             List<VectorizationStep> steps = new List<VectorizationStep>();
             steps.Add(new VectorizationStep { Id = "extract", Parameters = new Dictionary<string, string>() });
-            steps.Add(new VectorizationStep { Id = "partition", Parameters = new Dictionary<string, string>() { { "text_partition_profile_name", textPartitionProfileName } } });
+            steps.Add(new VectorizationStep { Id = "partition", Parameters = new Dictionary<string, string>() { { "text_partitioning_profile_name", textPartitionProfileName } } });
             steps.Add(new VectorizationStep { Id = "embed", Parameters = new Dictionary<string, string>() { { "text_embedding_profile_name", textEmbeddingProfileName } } });
             steps.Add(new VectorizationStep { Id = "index", Parameters = new Dictionary<string, string>() { { "indexing_profile_name", indexingProfileName } } });
 
@@ -132,14 +149,24 @@ namespace FoundationaLLM.Core.Examples
                 ContentIdentifier = ci,
                 Id = id,
                 Steps = steps,
-                ObjectId = dataSourceObjectId
+                //ObjectId = dataSourceObjectId
+                ObjectId = $"{VectorizationResourceTypeNames.VectorizationRequests}/{id}"
             };
 
             //Add the steps to the vectorization request.
-            await _vectorizationTestService.CreateVectorizationRequest(vectorizationRequest);
+            var vectorizationResponse = await _vectorizationTestService.CreateVectorizationRequest(vectorizationRequest);
 
             //check the status of the vectorization request
-            await _vectorizationTestService.CheckVectorizationRequestStatus(vectorizationRequest);
+            object state = _vectorizationTestService.CheckVectorizationRequestStatus(vectorizationRequest).Result;
+
+            /*
+            while (state != "Completed")
+            {
+                state = await _vectorizationTestService.CheckVectorizationRequestStatus(vectorizationRequest);
+
+                Thread.Sleep(1000);
+            }
+            */
 
             //verify artifacts
             //TODO
@@ -160,7 +187,7 @@ namespace FoundationaLLM.Core.Examples
             //remove the dune artifact from storage
 
             //remove the data source
-            await _vectorizationTestService.DeleteDataSource("dune");
+            await _vectorizationTestService.DeleteDataSource(contentSourceProfileName, configValues);
 
             //remove content source profile
             //content source profile

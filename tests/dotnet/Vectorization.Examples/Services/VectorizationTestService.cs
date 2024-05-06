@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.SemanticKernel.Core.Services;
@@ -27,9 +28,12 @@ namespace FoundationaLLM.Vectorization.Examples.Services
 
         InstanceSettings IVectorizationTestService.InstanceSettings { get { return _instanceSettings; } set { _instanceSettings = value; } }
 
-        public Task CreateDataSource(IStorageService svc, string name)
+        public async Task CreateDataSource(string name, List<AppConfigurationKeyValue> configList) 
         {
-            return managementAPITestManager.CreateDataSource(svc, name);
+            foreach(var config in configList)
+                await _managementAPITestManager.CreateAppConfiguration(config);
+
+            await managementAPITestManager.CreateDataSource(name);
         }
 
         public Task CreateContentSourceProfile(string name)
@@ -52,26 +56,28 @@ namespace FoundationaLLM.Vectorization.Examples.Services
             return managementAPITestManager.CreateIndexingProfile(name);
         }
 
-        public Task CreateVectorizationRequest(VectorizationRequest request)
+        public Task<VectorizationResult> CreateVectorizationRequest(VectorizationRequest request)
         {
             return _vectorizationAPITestManager.CreateVectorizationRequest(request);
         }
 
-        public Task CheckVectorizationRequestStatus(VectorizationRequest request)
+        public Task<object> CheckVectorizationRequestStatus(VectorizationRequest request)
         {
-            return _vectorizationAPITestManager.CheckVectorizationRequest(request);
+            return managementAPITestManager.GetVectorizationRequest(request);
 
         }
 
-        public Task QueryIndex(string name, string query)
+        public Task<string> QueryIndex(string name, string query)
         {
             //_indexService.QueryEmbeddings();
-            return null;
+            return Task.FromResult("Querying index");
         }
 
-        public Task DeleteDataSource(string name)
+        public async Task DeleteDataSource(string name, List<AppConfigurationKeyValue> configList)
         {
-            return managementAPITestManager.DeleteDataSource(name);
+            await managementAPITestManager.DeleteDataSource(name, configList);
+
+            return;
         }
 
         public Task DeleteContentSourceProfile(string name)

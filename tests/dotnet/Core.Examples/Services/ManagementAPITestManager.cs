@@ -4,6 +4,8 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Core.Examples.Catalogs;
 using FoundationaLLM.Core.Examples.Exceptions;
@@ -21,7 +23,25 @@ namespace FoundationaLLM.Core.Examples.Services
     {
         private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
-        public async Task CreateDataSource(IStorageService svc, string dataSourceName)
+        public async Task CreateAppConfiguration(AppConfigurationKeyValue appConfigurationKeyValue)
+        {
+            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);
+            var serializedRequest = JsonSerializer.Serialize(appConfigurationKeyValue, _jsonSerializerOptions);
+
+            var response = await coreClient.PostAsync($"instances/{instanceSettings.Value.Id}/providers/{ResourceProviderNames.FoundationaLLM_Configuration}/appConfigurations",
+                                              new StringContent(serializedRequest, Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var resources = JsonSerializer.Deserialize<object>(responseContent, _jsonSerializerOptions);
+                return;
+            }
+
+            throw new FoundationaLLMException($"Failed to create app configuration. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
+        }
+
+        public async Task CreateDataSource(string dataSourceName)
         {
             var item = DataSourceCatalog.GetDataSources().FirstOrDefault(a => a.Name == dataSourceName);
 
@@ -102,44 +122,84 @@ namespace FoundationaLLM.Core.Examples.Services
                 contentSourceProfile);
         }
 
-        public async Task DeleteDataSource(string profileName)
+        public async Task<object> GetVectorizationRequest(VectorizationRequest vectorizationRequest)
         {
+            return await GetResourcesAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"{vectorizationRequest.ObjectId}");
+        }
+
+        public async Task<VectorizationResult> CreateVectorizationRequest(VectorizationRequest vectorizationRequest)
+        {
+            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);
+            coreClient.BaseAddress = new Uri("https://localhost:7047");
+            var serializedRequest = JsonSerializer.Serialize(vectorizationRequest, _jsonSerializerOptions);
+
+            var response = await coreClient.PostAsync($"VectorizationRequest/VectorizationRequest",
+                               new StringContent(serializedRequest, Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var resources = JsonSerializer.Deserialize<VectorizationResult>(responseContent, _jsonSerializerOptions);
+                return resources;
+            }
+
+            throw new FoundationaLLMException($"Failed to upsert resource. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
+        }
+
+        public async Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest)
+        {
+            await DeleteResourceAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"vectorizationRequests/{vectorizationRequest.ObjectId}");
+        }
+
+        public async Task DeleteAppConfiguration(string name)
+        {    
+                await DeleteResourceAsync(
+                    instanceSettings.Value.Id,
+                    ResourceProviderNames.FoundationaLLM_Configuration,
+                    $"appConfigurations/{name}");
+        }
+
+        public async Task DeleteDataSource(string profileName, List<AppConfigurationKeyValue> configurationKeyValues)
+        {
+            foreach(var config in configurationKeyValues)
+                await DeleteAppConfiguration(config.Name);
+
             await DeleteResourceAsync(
-                               instanceSettings.Value.Id,
-                                              ResourceProviderNames.FoundationaLLM_DataSource,
-                                                             $"datasource/{profileName}");
+                instanceSettings.Value.Id,
+                ResourceProviderNames.FoundationaLLM_DataSource,
+                $"dataSources/{profileName}");
         }
 
         public async Task DeleteContentSourceProfile(string profileName)
         {
             await DeleteResourceAsync(
-                               instanceSettings.Value.Id,
-                                              ResourceProviderNames.FoundationaLLM_Vectorization,
-                                                             $"contentsource/{profileName}");
+                instanceSettings.Value.Id,
+                ResourceProviderNames.FoundationaLLM_Vectorization,
+                $"contentsource/{profileName}");
         }
 
         public async Task DeleteTextPartitioningProfile(string profileName)
         {
             await DeleteResourceAsync(
-                                              instanceSettings.Value.Id,
-                                                                                           ResourceProviderNames.FoundationaLLM_Vectorization,
-                                                                                                                                                       $"textpartitioningprofiles/{profileName}");
+                instanceSettings.Value.Id,
+                ResourceProviderNames.FoundationaLLM_Vectorization,
+                $"textPartitioningProfiles/{profileName}");
         }
 
         public async Task DeleteIndexingProfile(string profileName)
         {
             await DeleteResourceAsync(
-                                                             instanceSettings.Value.Id,
-                                                                                                                                                       ResourceProviderNames.FoundationaLLM_Vectorization,
-                                                                                                                                                                                                                                                                                                             $"indexingprofiles/{profileName}");
+                instanceSettings.Value.Id,
+                ResourceProviderNames.FoundationaLLM_Vectorization,
+                $"indexingProfiles/{profileName}");
         }
 
         public async Task DeleteTextEmbeddingProfile(string profileName)
         {
             await DeleteResourceAsync(
-                                                                                                                                                                      instanceSettings.Value.Id,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ResourceProviderNames.FoundationaLLM_Vectorization,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        $"textembeddingprofiles/{profileName}");
+                instanceSettings.Value.Id,
+                ResourceProviderNames.FoundationaLLM_Vectorization,
+                $"textEmbeddingProfiles/{profileName}");
         }
 
         /// <inheritdoc/>

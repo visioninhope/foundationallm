@@ -8,7 +8,7 @@ namespace FoundationaLLM.Core.Examples.Interfaces;
 /// <param name="httpClientManager"></param>
 public interface IVectorizationAPITestManager
 {
-    Task<string> CreateVectorizationRequest(VectorizationRequest request);
+    Task<VectorizationResult> CreateVectorizationRequest(VectorizationRequest request);
     Task<string> CheckVectorizationRequest(VectorizationRequest request);
 
     Task DeleteVectorizationRequest(VectorizationRequest request);

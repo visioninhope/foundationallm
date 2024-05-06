@@ -1,5 +1,7 @@
 ﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 
 namespace FoundationaLLM.Core.Examples.Interfaces;
 
@@ -56,7 +58,9 @@ public interface IManagementAPITestManager
     /// <exception cref="FoundationaLLMException"></exception>
     Task DeleteResourceAsync(string instanceId, string resourceProvider, string resourcePath);
 
-    Task CreateDataSource(IStorageService svc, string name);
+    Task CreateAppConfiguration(AppConfigurationKeyValue appConfigurationKeyValue);
+
+    Task CreateDataSource(string name);
 
     Task CreateContentSourceProfile(string name);
 
@@ -66,7 +70,15 @@ public interface IManagementAPITestManager
 
     Task CreateIndexingProfile(string name);
 
-    Task DeleteDataSource(string name);
+    Task<object> GetVectorizationRequest(VectorizationRequest vectorizationRequest);
+
+    Task<VectorizationResult> CreateVectorizationRequest(VectorizationRequest vectorizationRequest);
+
+    Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest);
+
+    Task DeleteAppConfiguration(string name);
+
+    Task DeleteDataSource(string name, List<AppConfigurationKeyValue> configurationKeyValues);
 
     Task DeleteContentSourceProfile(string name);
 

@@ -7,6 +7,7 @@ using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services;
+using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Core.Examples.Interfaces;
@@ -78,6 +79,19 @@ namespace FoundationaLLM.Vectorization.Examples.Setup
                 options.Timeout = TimeSpan.FromSeconds(120);
             });
 
+            var vectorizationAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!,
+                APIKey = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey]!
+            };
+
+            var downstreamAPISettings = new DownstreamAPISettings
+            {
+                DownstreamAPIs = []
+            };
+
+            downstreamAPISettings.DownstreamAPIs[HttpClients.VectorizationAPI] = vectorizationAPISettings;
+
             services.AddHttpClient(HttpClients.CoreAPI)
                 .ConfigureHttpClient((serviceProvider, client) =>
                 {
@@ -107,6 +121,7 @@ namespace FoundationaLLM.Vectorization.Examples.Setup
                 .ConfigureHttpClient((serviceProvider, client) =>
                 {
                     var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.VectorizationAPI);
+                    client.DefaultRequestHeaders.Add("X-API-KEY", vectorizationAPISettings.APIKey);
                     client.BaseAddress = new Uri(options.BaseUri!);
                     client.BaseAddress = new Uri("https://localhost:7047");
                     if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
@@ -115,6 +130,13 @@ namespace FoundationaLLM.Vectorization.Examples.Setup
                 {
                     CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                 });
+
+            services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
+            
+            services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
+                => new DownstreamAPIService(HttpClients.VectorizationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
+
+            services.Configure<DownstreamAPISettings>(configuration.GetSection("DownstreamAPIs"));
         }
 
 		private static void RegisterCosmosDb(IServiceCollection services, IConfiguration configuration)
