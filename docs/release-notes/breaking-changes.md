@@ -109,8 +109,8 @@
     - `FoundationaLLM:ExternalAPIs:BaselineTradingGlobalMacro:APIUrl`
     - `FoundationaLLM:ExternalAPIs:BaselineTradingGlobalMacro:APIKey`
 
-    > [!NOTE]
-    > These entries do not need to be created as part of the deployment process. 
+> [!NOTE]
+> These entries do not need to be created as part of the deployment process. 
 
 
 11. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.
