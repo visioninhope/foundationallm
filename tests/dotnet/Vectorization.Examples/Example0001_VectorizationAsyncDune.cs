@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph.Models;
+using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions.Interfaces;
+using System.IO;
 using Xunit.Abstractions;
 
 namespace FoundationaLLM.Core.Examples
@@ -43,6 +45,7 @@ namespace FoundationaLLM.Core.Examples
         private string dataSourceObjectId;
         private string id = "15b799fc-1498-497e-a7f9-7231af56abc6";
         private List<AppConfigurationKeyValue> configValues = new List<AppConfigurationKeyValue>();
+        private VectorizationRequest request;
 
 
         [Fact]
@@ -141,7 +144,7 @@ namespace FoundationaLLM.Core.Examples
             steps.Add(new VectorizationStep { Id = "index", Parameters = new Dictionary<string, string>() { { "indexing_profile_name", indexingProfileName } } });
 
             //Create a vectorization request.
-            var vectorizationRequest = new VectorizationRequest
+            request = new VectorizationRequest
             {
                 RemainingSteps = new List<string> { "extract", "partition", "embed", "index" },
                 CompletedSteps = new List<string>(),
@@ -154,14 +157,14 @@ namespace FoundationaLLM.Core.Examples
             };
 
             //Add the steps to the vectorization request.
-            var vectorizationResponse = await _vectorizationTestService.CreateVectorizationRequest(vectorizationRequest);
+            var vectorizationResponse = await _vectorizationTestService.CreateVectorizationRequest(request);
 
             //check the status of the vectorization request
-            VectorizationRequest state = _vectorizationTestService.CheckVectorizationRequestStatus(vectorizationRequest).Result;
+            VectorizationRequest state = _vectorizationTestService.CheckVectorizationRequestStatus(request).Result;
 
             while (state.ProcessingState != VectorizationProcessingState.Completed)
             {
-                state = await _vectorizationTestService.CheckVectorizationRequestStatus(vectorizationRequest);
+                state = await _vectorizationTestService.CheckVectorizationRequestStatus(request);
 
                 Thread.Sleep(1000);
             }
@@ -171,11 +174,12 @@ namespace FoundationaLLM.Core.Examples
 
             //perform a search
             string query = "Dune";
-            
-            await _vectorizationTestService.QueryIndex(indexingProfileName, query);
 
             //verify expected results
+            await _vectorizationTestService.QueryIndex(indexingProfileName, query);
 
+            //vaidate chunks in index...
+            //TODO
         }
 
         private async Task PostExecute()
@@ -183,6 +187,7 @@ namespace FoundationaLLM.Core.Examples
             //remove vectorization artifacts
 
             //remove the dune artifact from storage
+            //TODO - await _svc.DeleteFileAsync(containerName, blobName, default);
 
             //remove the data source
             await _vectorizationTestService.DeleteDataSource(contentSourceProfileName, configValues);
@@ -203,6 +208,11 @@ namespace FoundationaLLM.Core.Examples
             //remove search index
             //remove indexing profile
             await _vectorizationTestService.DeleteIndexingProfile(indexingProfileName, true);
+
+            //indexing profile
+            //remove search index
+            //remove indexing profile
+            await _vectorizationTestService.DeleteVectorizationRequest(request);
         }
 	}
 }

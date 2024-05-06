@@ -87,4 +87,5 @@ public interface IManagementAPITestManager
     Task DeleteIndexingProfile(string name);
 
     Task DeleteTextEmbeddingProfile(string name);
+    IndexingProfile GetIndexingProfile(string name);
 }

@@ -6,7 +6,10 @@ using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Examples.Interfaces;
 using Microsoft.Extensions.Options;
+using Microsoft.SemanticKernel.Connectors.AzureAISearch;
 using NSubstitute.Routing.Handlers;
+
+#pragma warning disable SKEXP0001, SKEXP0020
 
 namespace FoundationaLLM.Vectorization.Examples.Services
 {
@@ -69,8 +72,23 @@ namespace FoundationaLLM.Vectorization.Examples.Services
 
         public Task<string> QueryIndex(string name, string query)
         {
-            //_indexService.QueryEmbeddings();
-            return Task.FromResult("Querying index");
+            //get the indexing profile
+            IndexingProfile profile = managementAPITestManager.GetIndexingProfile(name);
+
+            return QueryIndex(profile, query);
+        }
+
+        public async Task<string> QueryIndex(IndexingProfile profile, string query)
+        {
+            //TODO - embed the query...
+            ReadOnlyMemory<float> vectors = new ReadOnlyMemory<float>();
+
+            //create an azure search client
+            AzureAISearchMemoryStore memoryStore = new AzureAISearchMemoryStore(profile.ConfigurationReferences["endpoint"], profile.ConfigurationReferences["apiKey"]);
+            
+            await memoryStore.GetNearestMatchAsync(profile.ConfigurationReferences["index"], vectors);
+
+            return "Done";
         }
 
         public async Task DeleteDataSource(string name, List<AppConfigurationKeyValue> configList)

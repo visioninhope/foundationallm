@@ -305,5 +305,20 @@ namespace FoundationaLLM.Core.Examples.Services
 
             throw new FoundationaLLMException($"Failed to delete resource. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
         }
+
+        public IndexingProfile GetIndexingProfile(string name)
+        {
+            return (IndexingProfile)GetResourcesAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"indexingProfiles/{name}").Result;
+        }
+
+        public TextEmbeddingProfile GetEmbeddingProfile(string name)
+        {
+            return (TextEmbeddingProfile)GetResourcesAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textEmbeddingProfiles/{name}").Result;
+        }
+
+        public TextPartitioningProfile GetTextPartitioningProfile(string name)
+        {
+            return (TextPartitioningProfile)GetResourcesAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textPartitioningProfiles/{name}").Result;
+        }
     }
 }
