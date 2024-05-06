@@ -1108,28 +1108,28 @@
     },
     {
       "key": "FoundationaLLM:Vectorization:Queues:Embed:AccountName",
-      "value": "{{accountName}}",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:Queues:Extract:AccountName",
-      "value": "{{accountName}}",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:Queues:Index:AccountName",
-      "value": "{{accountName}}",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Vectorization:Queues:Partition:AccountName",
-      "value": "{{accountName}}",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
