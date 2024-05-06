@@ -30,9 +30,9 @@ namespace FoundationaLLM.Core.Examples.Setup
 					}
 					options.Connect(connectionString)
 						.ConfigureKeyVault(kv =>
-						{
-							kv.SetCredential(DefaultAuthentication.GetAzureCredential());
-						})
+                        {
+                            kv.SetCredential(DefaultAuthentication.AzureCredential);
+                        })
                         // Select the configuration sections to load:
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Instance)
 						.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs)

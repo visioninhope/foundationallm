@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Core.Examples.Constants;
 
 namespace FoundationaLLM.Core.Examples.Catalogs

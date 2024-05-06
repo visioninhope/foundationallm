@@ -6,10 +6,10 @@ using FoundationaLLM.Core.Examples.Interfaces;
 using System.Text;
 using System.Text.Json;
 using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using Microsoft.Extensions.Options;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 
 namespace FoundationaLLM.Core.Examples.Services
 {
