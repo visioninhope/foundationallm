@@ -13,6 +13,7 @@ using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
+using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.Vectorization.Client;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Models.Resources;
@@ -23,6 +24,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Text.Json;
 
@@ -320,6 +322,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 {
                     VectorizationResourceProviderActions.CheckName => CheckProfileName<IndexingProfile>(serializedAction, _indexingProfiles),
                     VectorizationResourceProviderActions.Filter => Filter<IndexingProfile>(serializedAction, _indexingProfiles, _defaultIndexingProfileName),
+                    VectorizationResourceProviderActions.Purge => await PurgeResource<IndexingProfile, VectorizationProfileBase>(resourcePath, _indexingProfiles, INDEXING_PROFILES_FILE_PATH),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -327,8 +330,21 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 {
                     VectorizationResourceProviderActions.Activate => await SetPipelineActivation(resourcePath.ResourceTypeInstances.Last().ResourceId!, true),
                     VectorizationResourceProviderActions.Deactivate => await SetPipelineActivation(resourcePath.ResourceTypeInstances.Last().ResourceId!, false),
+                    VectorizationResourceProviderActions.Purge => await PurgeResource<VectorizationPipeline, VectorizationPipeline>(resourcePath, _pipelines, PIPELINES_FILE_PATH),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
+                },
+                VectorizationResourceTypeNames.TextPartitioningProfiles => resourcePath.ResourceTypeInstances.Last().Action switch
+                {
+                    VectorizationResourceProviderActions.Purge => await PurgeResource<TextPartitioningProfile, VectorizationProfileBase>(resourcePath, _textPartitioningProfiles, TEXT_PARTITIONING_PROFILES_FILE_PATH),
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
+                                               StatusCodes.Status400BadRequest)
+                },
+                VectorizationResourceTypeNames.TextEmbeddingProfiles => resourcePath.ResourceTypeInstances.Last().Action switch
+                {
+                    VectorizationResourceProviderActions.Purge => await PurgeResource<TextEmbeddingProfile, VectorizationProfileBase>(resourcePath, _textEmbeddingProfiles, TEXT_EMBEDDING_PROFILES_FILE_PATH),
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
+                                                                      StatusCodes.Status400BadRequest)
                 },
                 VectorizationResourceTypeNames.VectorizationRequests => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
@@ -472,6 +488,44 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     .. profileStore.Values
                             .Where(dsr => !dsr.Deleted)
                 ];
+            }
+        }
+
+        private async Task<ResourceProviderActionResult> PurgeResource<T, TBase>(
+            ResourcePath resourcePath,
+            ConcurrentDictionary<string, TBase> resourceStore,
+            string storagePath)
+            where T : TBase
+            where TBase : ResourceBase
+        {
+            var resourceName = resourcePath.ResourceTypeInstances.Last().ResourceId!;
+            if (resourceStore.TryGetValue(resourceName, out var agentReference))
+            {
+                if (agentReference.Deleted)
+                {
+                    // Remove this resource reference from the store.
+                    resourceStore.TryRemove(resourceName, out _);
+
+                    await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                    storagePath,
+                        JsonSerializer.Serialize(ResourceStore<TBase>.FromDictionary(resourceStore.ToDictionary())),
+                        default,
+                        default);
+
+                    return new ResourceProviderActionResult(true);
+                }
+                else
+                {
+                    throw new ResourceProviderException(
+                        $"The {resourceName} vectorization resource is not soft-deleted and cannot be purged.",
+                        StatusCodes.Status400BadRequest);
+                }
+            }
+            else
+            {
+                throw new ResourceProviderException($"Could not locate the {resourceName} vectorization resource.",
+                    StatusCodes.Status404NotFound);
             }
         }
 
