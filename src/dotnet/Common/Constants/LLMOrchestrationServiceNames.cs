@@ -21,7 +21,7 @@ namespace FoundationaLLM.Common.Constants
         public const string LangChain = "LangChain";
 
         /// <summary>
-        /// Handles completion requests using the Semantic Kernel.
+        /// Handles completion requests using Semantic Kernel.
         /// </summary>
         public const string SemanticKernel = "SemanticKernel";
     }
