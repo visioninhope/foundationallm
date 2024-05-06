@@ -37,8 +37,11 @@ namespace FoundationaLLM.Core.Examples
     }
 
         private string textPartitionProfileName = "text_partition_profile";
-        private string textEmbeddingProfileName = "text_embedding_profile";
+        private string textEmbeddingProfileName = "text_embedding_profile_gateway";
         private string indexingProfileName = "indexing_profile";
+
+        private string genericTextEmbeddingProfileName = "text_embedding_profile_generic";
+
         private string contentSourceProfileName = "really_big";
         private string containerName = "data";
         private string blobName = "really_big.pdf";
@@ -112,8 +115,11 @@ namespace FoundationaLLM.Core.Examples
             //text partitioning profile
             await _vectorizationTestService.CreateTextPartitioningProfile(textPartitionProfileName);
 
-            //text embedding profile
+            //gateway text embedding profile
             await _vectorizationTestService.CreateTextEmbeddingProfile(textEmbeddingProfileName);
+            
+            //generic text embedding profile
+            await _vectorizationTestService.CreateTextEmbeddingProfile(genericTextEmbeddingProfileName);
 
             //indexing profile
             await _vectorizationTestService.CreateIndexingProfile(indexingProfileName);
@@ -152,7 +158,6 @@ namespace FoundationaLLM.Core.Examples
                 ContentIdentifier = ci,
                 Id = id,
                 Steps = steps,
-                //ObjectId = dataSourceObjectId
                 ObjectId = $"{VectorizationResourceTypeNames.VectorizationRequests}/{id}"
             };
 
@@ -176,7 +181,7 @@ namespace FoundationaLLM.Core.Examples
             string query = "Dune";
 
             //verify expected results
-            await _vectorizationTestService.QueryIndex(indexingProfileName, query);
+            await _vectorizationTestService.QueryIndex(indexingProfileName, genericTextEmbeddingProfileName, query);
 
             //vaidate chunks in index...
             //TODO
@@ -187,8 +192,8 @@ namespace FoundationaLLM.Core.Examples
             //remove vectorization artifacts
 
             //remove the dune artifact from storage
-            //TODO - await _svc.DeleteFileAsync(containerName, blobName, default);
-
+            _svc.BlobServiceClient.GetBlobContainerClient(containerName).DeleteBlobIfExists(blobName);
+            
             //remove the data source
             await _vectorizationTestService.DeleteDataSource(contentSourceProfileName, configValues);
 

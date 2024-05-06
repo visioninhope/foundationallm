@@ -1,10 +1,16 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using Azure;
+using Azure.AI.OpenAI;
+using Azure.Identity;
+using Azure.Search.Documents.Indexes;
+using Azure.Search.Documents.Models;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Examples.Interfaces;
+using FoundationaLLM.Vectorization.Examples.Setup;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel.Connectors.AzureAISearch;
 using NSubstitute.Routing.Handlers;
@@ -70,25 +76,62 @@ namespace FoundationaLLM.Vectorization.Examples.Services
 
         }
 
-        public Task<string> QueryIndex(string name, string query)
+        async public Task<string> QueryIndex(string indexProfileName, string embedProfileName, string query)
         {
             //get the indexing profile
-            IndexingProfile profile = managementAPITestManager.GetIndexingProfile(name);
+            IndexingProfile indexingProfile = await managementAPITestManager.GetIndexingProfile(indexProfileName);
 
-            return QueryIndex(profile, query);
+            TextEmbeddingProfile embeddingProfile = await managementAPITestManager.GetTextEmbeddingProfile(embedProfileName);
+
+            return await QueryIndex(indexingProfile, embeddingProfile, query);
         }
 
-        public async Task<string> QueryIndex(IndexingProfile profile, string query)
+        public async Task<string> QueryIndex(IndexingProfile indexProfile, TextEmbeddingProfile embedProfile, string query)
         {
-            //TODO - embed the query...
-            ReadOnlyMemory<float> vectors = new ReadOnlyMemory<float>();
+            string searchServiceEndPoint = await TestConfiguration.GetAppConfigValueAsync( indexProfile.ConfigurationReferences["Endpoint"]);
+            string authType = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["AuthenticationType"]);            
 
-            //create an azure search client
-            AzureAISearchMemoryStore memoryStore = new AzureAISearchMemoryStore(profile.ConfigurationReferences["endpoint"], profile.ConfigurationReferences["apiKey"]);
+            SearchIndexClient indexClient = null;
+
+            switch(authType)
+            {
+                case "AzureIdentity":
+                    indexClient = new SearchIndexClient(new Uri(searchServiceEndPoint), new DefaultAzureCredential());
+                    break;
+                case "ApiKey":
+                    string adminApiKey = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["ApiKey"]);
+                    indexClient = new SearchIndexClient(new Uri(searchServiceEndPoint), new AzureKeyCredential(adminApiKey));
+                    break;
+
+            }
             
-            await memoryStore.GetNearestMatchAsync(profile.ConfigurationReferences["index"], vectors);
+            var searchClient = indexClient.GetSearchClient(indexProfile.Settings["IndexName"]);
 
-            return "Done";
+            //Do basic search...
+            SearchResults<object> sr = searchClient.Search<object>(query);
+
+            //embed the query
+            string oaiEndpoint = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["Endpoint"]);
+            authType = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["AuthenticationType"]);
+            string apiVersion = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["APIVersion"]);
+            AzureKeyCredential credentials = new(await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["APIKey"]));
+
+            OpenAIClient openAIClient = new(new Uri(oaiEndpoint), credentials);
+
+            EmbeddingsOptions embeddingOptions = new()
+            {
+                DeploymentName = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["DeploymentName"]),
+                Input = { query },
+            };
+
+            var returnValue = openAIClient.GetEmbeddings(embeddingOptions);
+
+            var vectors = returnValue.Value.Data[0].Embedding.ToArray();
+
+            //Do Vector Search
+            //TODO
+            
+            return "TODO";
         }
 
         public async Task DeleteDataSource(string name, List<AppConfigurationKeyValue> configList)

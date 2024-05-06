@@ -23,7 +23,8 @@ public interface IVectorizationTestService
 
     public Task<VectorizationRequest> CheckVectorizationRequestStatus(VectorizationRequest request);
 
-    public Task<string> QueryIndex(string name, string query);
+    public Task<string> QueryIndex(string indexProfileName, string embedProfileName, string query);
+    public Task<string> QueryIndex(IndexingProfile indexProfile, TextEmbeddingProfile embedProfile, string query);
     public Task DeleteIndexingProfile(string name, bool deleteIndex);
     public Task DeleteDataSource(string name, List<AppConfigurationKeyValue> configValues);
     public Task DeleteContentSourceProfile(string name);

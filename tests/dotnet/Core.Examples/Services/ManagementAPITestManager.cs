@@ -124,7 +124,7 @@ namespace FoundationaLLM.Core.Examples.Services
 
         public async Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest vectorizationRequest)
         {
-            return (VectorizationRequest)GetResourcesAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"{vectorizationRequest.ObjectId}").Result;
+            return GetResourcesAsync<VectorizationRequest>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"{vectorizationRequest.ObjectId}").Result;
 
         }
 
@@ -255,7 +255,7 @@ namespace FoundationaLLM.Core.Examples.Services
         }
 
         /// <inheritdoc/>
-        public async Task<object?> GetResourcesAsync(string instanceId, string resourceProvider, string resourcePath)
+        public async Task<T?> GetResourcesAsync<T>(string instanceId, string resourceProvider, string resourcePath)
         {
             var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);
             var response = await coreClient.GetAsync($"instances/{instanceId}/providers/{resourceProvider}/{resourcePath}");
@@ -263,7 +263,8 @@ namespace FoundationaLLM.Core.Examples.Services
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var resources = JsonSerializer.Deserialize<object>(responseContent, _jsonSerializerOptions);
+                dynamic obj = JsonSerializer.Deserialize<dynamic>(responseContent, _jsonSerializerOptions);
+                var resources = JsonSerializer.Deserialize<T>(obj[0], _jsonSerializerOptions);
                 return resources;
             }
 
@@ -306,19 +307,20 @@ namespace FoundationaLLM.Core.Examples.Services
             throw new FoundationaLLMException($"Failed to delete resource. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
         }
 
-        public IndexingProfile GetIndexingProfile(string name)
+        async public Task<IndexingProfile> GetIndexingProfile(string name)
         {
-            return (IndexingProfile)GetResourcesAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"indexingProfiles/{name}").Result;
+            return await GetResourcesAsync< IndexingProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"indexingProfiles/{name}");
+
         }
 
-        public TextEmbeddingProfile GetEmbeddingProfile(string name)
+        async public Task<TextEmbeddingProfile> GetTextEmbeddingProfile(string name)
         {
-            return (TextEmbeddingProfile)GetResourcesAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textEmbeddingProfiles/{name}").Result;
+            return await GetResourcesAsync< TextEmbeddingProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textEmbeddingProfiles/{name}");
         }
 
-        public TextPartitioningProfile GetTextPartitioningProfile(string name)
+        async public Task<TextPartitioningProfile> GetTextPartitioningProfile(string name)
         {
-            return (TextPartitioningProfile)GetResourcesAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textPartitioningProfiles/{name}").Result;
+            return await GetResourcesAsync<TextPartitioningProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textPartitioningProfiles/{name}");
         }
     }
 }

@@ -33,7 +33,7 @@ public interface IManagementAPITestManager
     /// <param name="resourcePath">The logical path of the resource type.</param>
     /// <returns></returns>
     /// <exception cref="FoundationaLLMException"></exception>
-    Task<object?> GetResourcesAsync(string instanceId, string resourceProvider, string resourcePath);
+    Task<T?> GetResourcesAsync<T>(string instanceId, string resourceProvider, string resourcePath);
 
     /// <summary>
     /// Creates or updates resources.
@@ -87,5 +87,9 @@ public interface IManagementAPITestManager
     Task DeleteIndexingProfile(string name);
 
     Task DeleteTextEmbeddingProfile(string name);
-    IndexingProfile GetIndexingProfile(string name);
+    Task<IndexingProfile> GetIndexingProfile(string name);
+
+    Task<TextEmbeddingProfile> GetTextEmbeddingProfile(string name);
+
+    Task<TextPartitioningProfile> GetTextPartitioningProfile(string name);
 }
