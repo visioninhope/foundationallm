@@ -122,28 +122,19 @@ namespace FoundationaLLM.Core.Examples.Services
                 contentSourceProfile);
         }
 
-        public async Task<object> GetVectorizationRequest(VectorizationRequest vectorizationRequest)
+        public async Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest vectorizationRequest)
         {
-            return await GetResourcesAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"{vectorizationRequest.ObjectId}");
+            return (VectorizationRequest)GetResourcesAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"{vectorizationRequest.ObjectId}").Result;
+
         }
 
-        public async Task<VectorizationResult> CreateVectorizationRequest(VectorizationRequest vectorizationRequest)
+        public async Task<string> CreateVectorizationRequest(VectorizationRequest vectorizationRequest)
         {
-            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);
-            coreClient.BaseAddress = new Uri("https://localhost:7047");
-            var serializedRequest = JsonSerializer.Serialize(vectorizationRequest, _jsonSerializerOptions);
-
-            var response = await coreClient.PostAsync($"VectorizationRequest/VectorizationRequest",
-                               new StringContent(serializedRequest, Encoding.UTF8, "application/json"));
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var resources = JsonSerializer.Deserialize<VectorizationResult>(responseContent, _jsonSerializerOptions);
-                return resources;
-            }
-
-            throw new FoundationaLLMException($"Failed to upsert resource. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
+            return await UpsertResourceAsync(
+                instanceSettings.Value.Id,
+                ResourceProviderNames.FoundationaLLM_Vectorization,
+                vectorizationRequest.ObjectId,
+                vectorizationRequest.Id);
         }
 
         public async Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest)

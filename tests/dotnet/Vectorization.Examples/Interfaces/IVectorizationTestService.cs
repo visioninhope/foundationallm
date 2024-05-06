@@ -21,7 +21,7 @@ public interface IVectorizationTestService
 
     public Task<VectorizationResult> CreateVectorizationRequest(VectorizationRequest request);
 
-    public Task<object> CheckVectorizationRequestStatus(VectorizationRequest request);
+    public Task<VectorizationRequest> CheckVectorizationRequestStatus(VectorizationRequest request);
 
     public Task<string> QueryIndex(string name, string query);
     public Task DeleteIndexingProfile(string name, bool deleteIndex);

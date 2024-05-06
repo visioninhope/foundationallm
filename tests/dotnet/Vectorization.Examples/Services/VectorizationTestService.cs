@@ -61,7 +61,7 @@ namespace FoundationaLLM.Vectorization.Examples.Services
             return _vectorizationAPITestManager.CreateVectorizationRequest(request);
         }
 
-        public Task<object> CheckVectorizationRequestStatus(VectorizationRequest request)
+        public Task<VectorizationRequest> CheckVectorizationRequestStatus(VectorizationRequest request)
         {
             return managementAPITestManager.GetVectorizationRequest(request);
 

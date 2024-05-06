@@ -70,9 +70,9 @@ public interface IManagementAPITestManager
 
     Task CreateIndexingProfile(string name);
 
-    Task<object> GetVectorizationRequest(VectorizationRequest vectorizationRequest);
+    Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest vectorizationRequest);
 
-    Task<VectorizationResult> CreateVectorizationRequest(VectorizationRequest vectorizationRequest);
+    Task<string> CreateVectorizationRequest(VectorizationRequest vectorizationRequest);
 
     Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest);
 

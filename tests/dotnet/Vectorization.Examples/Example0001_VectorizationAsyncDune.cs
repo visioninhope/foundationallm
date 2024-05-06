@@ -157,16 +157,14 @@ namespace FoundationaLLM.Core.Examples
             var vectorizationResponse = await _vectorizationTestService.CreateVectorizationRequest(vectorizationRequest);
 
             //check the status of the vectorization request
-            object state = _vectorizationTestService.CheckVectorizationRequestStatus(vectorizationRequest).Result;
+            VectorizationRequest state = _vectorizationTestService.CheckVectorizationRequestStatus(vectorizationRequest).Result;
 
-            /*
-            while (state != "Completed")
+            while (state.ProcessingState != VectorizationProcessingState.Completed)
             {
                 state = await _vectorizationTestService.CheckVectorizationRequestStatus(vectorizationRequest);
 
                 Thread.Sleep(1000);
             }
-            */
 
             //verify artifacts
             //TODO
