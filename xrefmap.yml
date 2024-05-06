@@ -6815,6 +6815,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.New
   nameWithType: KnowledgeManagementAgent.KnowledgeManagementAgent
   nameWithType.vb: KnowledgeManagementAgent.New
+- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext
+  name: InlineContext
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_InlineContext
+  commentId: P:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext
+  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext
+  nameWithType: KnowledgeManagementAgent.InlineContext
+- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext*
+  name: InlineContext
+  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_InlineContext_
+  commentId: Overload:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext
+  nameWithType: KnowledgeManagementAgent.InlineContext
 - uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.Vectorization
   name: Vectorization
   href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_Vectorization
