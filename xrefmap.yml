@@ -4204,6 +4204,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.AgentResourceProviderActions.CheckName
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.AgentResourceProviderActions.CheckName
   nameWithType: AgentResourceProviderActions.CheckName
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AgentResourceProviderActions.Purge
+  name: Purge
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AgentResourceProviderActions.html#FoundationaLLM_Common_Constants_ResourceProviders_AgentResourceProviderActions_Purge
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.AgentResourceProviderActions.Purge
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AgentResourceProviderActions.Purge
+  nameWithType: AgentResourceProviderActions.Purge
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.AgentResourceProviderMetadata
   name: AgentResourceProviderMetadata
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AgentResourceProviderMetadata.html
@@ -4301,6 +4307,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderActions.Filter
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderActions.Filter
   nameWithType: DataSourceResourceProviderActions.Filter
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderActions.Purge
+  name: Purge
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderActions.html#FoundationaLLM_Common_Constants_ResourceProviders_DataSourceResourceProviderActions_Purge
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderActions.Purge
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderActions.Purge
+  nameWithType: DataSourceResourceProviderActions.Purge
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderMetadata
   name: DataSourceResourceProviderMetadata
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderMetadata.html
@@ -4386,6 +4398,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.PromptResourceProviderActions.CheckName
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.PromptResourceProviderActions.CheckName
   nameWithType: PromptResourceProviderActions.CheckName
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.PromptResourceProviderActions.Purge
+  name: Purge
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.PromptResourceProviderActions.html#FoundationaLLM_Common_Constants_ResourceProviders_PromptResourceProviderActions_Purge
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.PromptResourceProviderActions.Purge
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.PromptResourceProviderActions.Purge
+  nameWithType: PromptResourceProviderActions.Purge
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.PromptResourceProviderMetadata
   name: PromptResourceProviderMetadata
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.PromptResourceProviderMetadata.html
@@ -4519,6 +4537,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.VectorizationResourceProviderActions.Process
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.VectorizationResourceProviderActions.Process
   nameWithType: VectorizationResourceProviderActions.Process
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.VectorizationResourceProviderActions.Purge
+  name: Purge
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.VectorizationResourceProviderActions.html#FoundationaLLM_Common_Constants_ResourceProviders_VectorizationResourceProviderActions_Purge
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.VectorizationResourceProviderActions.Purge
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.VectorizationResourceProviderActions.Purge
+  nameWithType: VectorizationResourceProviderActions.Purge
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.VectorizationResourceProviderMetadata
   name: VectorizationResourceProviderMetadata
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.VectorizationResourceProviderMetadata.html
@@ -6169,6 +6193,22 @@ references:
   commentId: T:FoundationaLLM.Common.Interfaces.IStorageService
   fullName: FoundationaLLM.Common.Interfaces.IStorageService
   nameWithType: IStorageService
+- uid: FoundationaLLM.Common.Interfaces.IStorageService.DeleteFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name: DeleteFileAsync(string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html#FoundationaLLM_Common_Interfaces_IStorageService_DeleteFileAsync_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Interfaces.IStorageService.DeleteFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name.vb: DeleteFileAsync(String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Interfaces.IStorageService.DeleteFileAsync(string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IStorageService.DeleteFileAsync(String, String, System.Threading.CancellationToken)
+  nameWithType: IStorageService.DeleteFileAsync(string, string, CancellationToken)
+  nameWithType.vb: IStorageService.DeleteFileAsync(String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Interfaces.IStorageService.DeleteFileAsync*
+  name: DeleteFileAsync
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html#FoundationaLLM_Common_Interfaces_IStorageService_DeleteFileAsync_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IStorageService.DeleteFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IStorageService.DeleteFileAsync
+  nameWithType: IStorageService.DeleteFileAsync
 - uid: FoundationaLLM.Common.Interfaces.IStorageService.FileExistsAsync(System.String,System.String,System.Threading.CancellationToken)
   name: FileExistsAsync(string, string, CancellationToken)
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IStorageService.html#FoundationaLLM_Common_Interfaces_IStorageService_FileExistsAsync_System_String_System_String_System_Threading_CancellationToken_
@@ -17212,6 +17252,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.Storage.BlobStorageService.CreateClientFromIdentity
   nameWithType: BlobStorageService.CreateClientFromIdentity
+- uid: FoundationaLLM.Common.Services.Storage.BlobStorageService.DeleteFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name: DeleteFileAsync(string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Services.Storage.BlobStorageService.html#FoundationaLLM_Common_Services_Storage_BlobStorageService_DeleteFileAsync_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Services.Storage.BlobStorageService.DeleteFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name.vb: DeleteFileAsync(String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Services.Storage.BlobStorageService.DeleteFileAsync(string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Services.Storage.BlobStorageService.DeleteFileAsync(String, String, System.Threading.CancellationToken)
+  nameWithType: BlobStorageService.DeleteFileAsync(string, string, CancellationToken)
+  nameWithType.vb: BlobStorageService.DeleteFileAsync(String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Services.Storage.BlobStorageService.DeleteFileAsync*
+  name: DeleteFileAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.Storage.BlobStorageService.html#FoundationaLLM_Common_Services_Storage_BlobStorageService_DeleteFileAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.Storage.BlobStorageService.DeleteFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Storage.BlobStorageService.DeleteFileAsync
+  nameWithType: BlobStorageService.DeleteFileAsync
 - uid: FoundationaLLM.Common.Services.Storage.BlobStorageService.FileExistsAsync(System.String,System.String,System.Threading.CancellationToken)
   name: FileExistsAsync(string, string, CancellationToken)
   href: api/dotnet/FoundationaLLM.Common.Services.Storage.BlobStorageService.html#FoundationaLLM_Common_Services_Storage_BlobStorageService_FileExistsAsync_System_String_System_String_System_Threading_CancellationToken_
@@ -17367,6 +17423,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.Storage.DataLakeStorageService.CreateClientFromIdentity
   nameWithType: DataLakeStorageService.CreateClientFromIdentity
+- uid: FoundationaLLM.Common.Services.Storage.DataLakeStorageService.DeleteFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name: DeleteFileAsync(string, string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Services.Storage.DataLakeStorageService.html#FoundationaLLM_Common_Services_Storage_DataLakeStorageService_DeleteFileAsync_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Services.Storage.DataLakeStorageService.DeleteFileAsync(System.String,System.String,System.Threading.CancellationToken)
+  name.vb: DeleteFileAsync(String, String, CancellationToken)
+  fullName: FoundationaLLM.Common.Services.Storage.DataLakeStorageService.DeleteFileAsync(string, string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Services.Storage.DataLakeStorageService.DeleteFileAsync(String, String, System.Threading.CancellationToken)
+  nameWithType: DataLakeStorageService.DeleteFileAsync(string, string, CancellationToken)
+  nameWithType.vb: DataLakeStorageService.DeleteFileAsync(String, String, CancellationToken)
+- uid: FoundationaLLM.Common.Services.Storage.DataLakeStorageService.DeleteFileAsync*
+  name: DeleteFileAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.Storage.DataLakeStorageService.html#FoundationaLLM_Common_Services_Storage_DataLakeStorageService_DeleteFileAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.Storage.DataLakeStorageService.DeleteFileAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Storage.DataLakeStorageService.DeleteFileAsync
+  nameWithType: DataLakeStorageService.DeleteFileAsync
 - uid: FoundationaLLM.Common.Services.Storage.DataLakeStorageService.FileExistsAsync(System.String,System.String,System.Threading.CancellationToken)
   name: FileExistsAsync(string, string, CancellationToken)
   href: api/dotnet/FoundationaLLM.Common.Services.Storage.DataLakeStorageService.html#FoundationaLLM_Common_Services_Storage_DataLakeStorageService_FileExistsAsync_System_String_System_String_System_Threading_CancellationToken_
