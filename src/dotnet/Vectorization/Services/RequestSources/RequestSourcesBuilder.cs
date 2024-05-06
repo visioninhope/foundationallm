@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -122,11 +123,14 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
                 || !_queuesConfiguration.GetChildren().Any())
                 throw new VectorizationException("The queues configuration is empty.");
 
+            var textInfo = new CultureInfo("en-US").TextInfo;
+
             foreach (var rs in _settings!)
             {
-                var accountName = _queuesConfiguration[rs.ConnectionConfigurationName];
+                var configName = $"{textInfo.ToTitleCase(rs.Name)}:AccountName";
+                var accountName = _queuesConfiguration[configName];
                 if (string.IsNullOrWhiteSpace(accountName))
-                    throw new VectorizationException($"The configuration setting [{rs.ConnectionConfigurationName}] was not found.");
+                    throw new VectorizationException($"The configuration setting [{configName}] was not found.");
                 rs.AccountName = accountName;
             }
         }

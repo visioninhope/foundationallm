@@ -1782,50 +1782,46 @@ namespace FoundationaLLM.Configuration.Catalog
             ),
 
             new(
-                key: AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Embed_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-vectorization-queues-connectionstring`",
+                key: AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Embed_AccountName,
+                minimumVersion: "0.7.0",
+                defaultValue: "",
                 description:
-                "The connection string to the Azure Storage account used for the embed vectorization queue.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_Vectorization_Queues_ConnectionString,
+                "The name of the Azure Storage account used for the embed vectorization queue.",
+                keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Extract_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-vectorization-queues-connectionstring`",
+                key: AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Extract_AccountName,
+                minimumVersion: "0.7.0",
+                defaultValue: "",
                 description:
-                "The connection string to the Azure Storage account used for the extract vectorization queue.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_Vectorization_Queues_ConnectionString,
+                "The name of the Azure Storage account used for the extract vectorization queue.",
+                keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
-                key: AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Index_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-vectorization-queues-connectionstring`",
+                key: AppConfigurationKeys.FoundationaLLM_Vectorization_Queues_Index_AccountName,
+                minimumVersion: "0.7.0",
+                defaultValue: "",
                 description:
-                "The connection string to the Azure Storage account used for the index vectorization queue.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_Vectorization_Queues_ConnectionString,
+                "The name of the Azure Storage account used for the index vectorization queue.",
+                keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
             ),
 
             new(
                 key: AppConfigurationKeys
-                    .FoundationaLLM_Vectorization_Queues_Partition_ConnectionString,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-vectorization-queues-connectionstring`",
+                    .FoundationaLLM_Vectorization_Queues_Partition_AccountName,
+                minimumVersion: "0.7.0",
+                defaultValue: "",
                 description:
-                "The connection string to the Azure Storage account used for the partition vectorization queue.",
-                keyVaultSecretName: KeyVaultSecretNames
-                    .FoundationaLLM_Vectorization_Queues_ConnectionString,
+                "The name of the Azure Storage account used for the partition vectorization queue.",
+                keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
             ),
