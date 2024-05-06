@@ -48,6 +48,15 @@ namespace FoundationaLLM.Common.Interfaces
         Task WriteFileAsync(string containerName, string filePath, string fileContent, string? contentType, CancellationToken cancellationToken);
 
         /// <summary>
+        /// Deletes a file from storage.
+        /// </summary>
+        /// <param name="containerName">The name of the container where the file is located.</param>
+        /// <param name="filePath">The path of the file to delete.</param>
+        /// <param name="cancellationToken">The cancellation token that signals that operations should be cancelled.</param>
+        /// <returns></returns>
+        Task DeleteFileAsync(string containerName, string filePath, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Checks if a file exists on the storage.
         /// </summary>
         /// <param name="containerName">The name of the container where the file is located.</param>
