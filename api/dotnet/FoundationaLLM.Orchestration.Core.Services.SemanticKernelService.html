@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Orchestration_Core_Services_SemanticKernelService" data-uid="FoundationaLLM.Orchestration.Core.Services.SemanticKernelService" class="text-break">
-Class SemanticKernelService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+Class SemanticKernelService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -174,7 +174,7 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_SemanticKernelService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Orchestration_Core_Models_ConfigurationOptions_SemanticKernelServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_SemanticKernelService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_" data-uid="FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.SemanticKernelService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)">
   SemanticKernelService(IOptions&lt;SemanticKernelServiceSettings&gt;, ILogger&lt;SemanticKernelService&gt;, IHttpClientFactoryService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The FoundationaLLM Semantic Kernal Service</p>
@@ -213,19 +213,19 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 </h2>
 
 
-  <a id="FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_IsInitialized_" data-uid="FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.IsInitialized*"></a>
+  <a id="FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_Name_" data-uid="FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.Name*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_IsInitialized" data-uid="FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.IsInitialized">
-  IsInitialized
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_Name" data-uid="FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Checks the Semantic Service returns a call to signal it is initialized and ready for requests.</p>
+  <div class="markdown level1 summary"><p>The name of the LLM orchestration service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsInitialized { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
   </div>
 
 
@@ -234,7 +234,7 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -253,7 +253,7 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
   GetCompletion(LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L54"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a completion from the Semantic Kernel service.</p>
@@ -288,11 +288,43 @@ Class SemanticKernelService  <a class="header-action link-secondary" title="View
 
 
 
+  <a id="FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetStatus_" data-uid="FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus*"></a>
+
+  <h3 id="FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetStatus" data-uid="FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus">
+  GetStatus()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get the status of the orchestration service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ServiceStatusInfo&gt; GetStatus()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html">ServiceStatusInfo</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L22" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/SemanticKernelService.cs/#L25" class="edit-link">Edit this page</a>
         </div>
 
 

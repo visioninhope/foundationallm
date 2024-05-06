@@ -184,8 +184,19 @@
 }
 </code></pre>
 </li>
-<li><p>App Config key namespace that was previously <code>FoundationaLLM:Vectorization:ContentSources:*</code> has been moved to <code>FoundationaLLM:DataSources:*</code>. All existing keys need to be moved to the new namespace.</p>
+<li><p>External orchestration APIs must be configured using the <code>FoundationaLLM:ExternalAPIs</code> configuration namespace. For example, the <code>BaselineTradingGlobalMacro</code> external API has the following configurations:</p>
+<ul>
+<li><code>FoundationaLLM:ExternalAPIs:BaselineTradingGlobalMacro:APIUrl</code></li>
+<li><code>FoundationaLLM:ExternalAPIs:BaselineTradingGlobalMacro:APIKey</code></li>
+</ul>
 </li>
+</ol>
+<div class="NOTE">
+<h5>Note</h5>
+<p>These entries do not need to be created as part of the deployment process.</p>
+</div>
+<ol start="11">
+<li>App Config key namespace that was previously <code>FoundationaLLM:Vectorization:ContentSources:*</code> has been moved to <code>FoundationaLLM:DataSources:*</code>. All existing keys need to be moved to the new namespace.</li>
 </ol>
 
 </article>

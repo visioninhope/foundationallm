@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService" class="text-break">
-Interface ILLMOrchestrationService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/ILLMOrchestrationService.cs/#L8"><i class="bi bi-code-slash"></i></a>
+Interface ILLMOrchestrationService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/ILLMOrchestrationService.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -128,19 +128,19 @@ Interface ILLMOrchestrationService  <a class="header-action link-secondary" titl
 </h2>
 
 
-  <a id="FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_IsInitialized_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.IsInitialized*"></a>
+  <a id="FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_Name_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.Name*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_IsInitialized" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.IsInitialized">
-  IsInitialized
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/ILLMOrchestrationService.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_Name" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/ILLMOrchestrationService.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Flag indicating if the orchestration service has been initialized.</p>
+  <div class="markdown level1 summary"><p>The name of the LLM orchestration service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool IsInitialized { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">string Name { get; }</code></pre>
   </div>
 
 
@@ -149,7 +149,7 @@ Interface ILLMOrchestrationService  <a class="header-action link-secondary" titl
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -168,7 +168,7 @@ Interface ILLMOrchestrationService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
   GetCompletion(LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/ILLMOrchestrationService.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/ILLMOrchestrationService.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Method for retrieving a completion from the orchestration service.</p>
@@ -202,11 +202,43 @@ Interface ILLMOrchestrationService  <a class="header-action link-secondary" titl
 
 
 
+  <a id="FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetStatus_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus*"></a>
+
+  <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetStatus" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus">
+  GetStatus()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/ILLMOrchestrationService.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get the status of the orchestration service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ServiceStatusInfo&gt; GetStatus()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html">ServiceStatusInfo</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/ILLMOrchestrationService.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/ILLMOrchestrationService.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

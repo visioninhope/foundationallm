@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Orchestration_Core_Services_LangChainService" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService" class="text-break">
-Class LangChainService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L17"><i class="bi bi-code-slash"></i></a>
+Class LangChainService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -171,7 +171,7 @@ Class LangChainService  <a class="header-action link-secondary" title="View sour
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_LangChainService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Orchestration_Core_Models_ConfigurationOptions_LangChainServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LangChainService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LangChainService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)">
   LangChainService(IOptions&lt;LangChainServiceSettings&gt;, ILogger&lt;LangChainService&gt;, IHttpClientFactoryService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>LangChain Orchestration Service</p>
@@ -207,19 +207,19 @@ Class LangChainService  <a class="header-action link-secondary" title="View sour
 </h2>
 
 
-  <a id="FoundationaLLM_Orchestration_Core_Services_LangChainService_IsInitialized_" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.IsInitialized*"></a>
+  <a id="FoundationaLLM_Orchestration_Core_Services_LangChainService_Name_" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.Name*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Services_LangChainService_IsInitialized" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.IsInitialized">
-  IsInitialized
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Orchestration_Core_Services_LangChainService_Name" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L53"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Flag indicating whether the orchestration service has been initialized.</p>
+  <div class="markdown level1 summary"><p>The name of the LLM orchestration service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsInitialized { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
   </div>
 
 
@@ -228,7 +228,7 @@ Class LangChainService  <a class="header-action link-secondary" title="View sour
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -247,7 +247,7 @@ Class LangChainService  <a class="header-action link-secondary" title="View sour
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_LangChainService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
   GetCompletion(LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes a completion request against the orchestration service.</p>
@@ -282,11 +282,43 @@ Class LangChainService  <a class="header-action link-secondary" title="View sour
 
 
 
+  <a id="FoundationaLLM_Orchestration_Core_Services_LangChainService_GetStatus_" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus*"></a>
+
+  <h3 id="FoundationaLLM_Orchestration_Core_Services_LangChainService_GetStatus" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus">
+  GetStatus()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get the status of the orchestration service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ServiceStatusInfo&gt; GetStatus()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html">ServiceStatusInfo</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L17" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L19" class="edit-link">Edit this page</a>
         </div>
 
 

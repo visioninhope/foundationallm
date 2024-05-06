@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo" class="text-break">
-Class ServiceStatusInfo  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L12"><i class="bi bi-code-slash"></i></a>
+Class ServiceStatusInfo  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L8"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -164,7 +164,7 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Instance" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Instance">
   Instance
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The instance of the service.</p>
@@ -172,7 +172,8 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? Instance { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;instance&quot;)]
+public string? Instance { get; set; }</code></pre>
   </div>
 
 
@@ -204,7 +205,8 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? Message { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;message&quot;)]
+public string? Message { get; set; }</code></pre>
   </div>
 
 
@@ -228,7 +230,7 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Name" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Name">
   Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the service.</p>
@@ -236,7 +238,8 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? Name { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;name&quot;)]
+public string? Name { get; set; }</code></pre>
   </div>
 
 
@@ -260,7 +263,7 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Status" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Status">
   Status
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The status of the service.</p>
@@ -268,7 +271,8 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? Status { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;status&quot;)]
+public string? Status { get; set; }</code></pre>
   </div>
 
 
@@ -288,11 +292,44 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
 
 
 
+  <a id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_SubordinateServices_" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.SubordinateServices*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_SubordinateServices" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.SubordinateServices">
+  SubordinateServices
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The status of all the subordinate services.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;subordinate_services&quot;)]
+public List&lt;ServiceStatusInfo&gt;? SubordinateServices { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html">ServiceStatusInfo</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Version_" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Version*"></a>
 
   <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Version" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Version">
   Version
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The deployed FoundationaLLM version of the service.</p>
@@ -300,7 +337,8 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? Version { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;version&quot;)]
+public string? Version { get; set; }</code></pre>
   </div>
 
 
@@ -324,7 +362,7 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L12" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
 

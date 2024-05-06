@@ -508,6 +508,24 @@ references:
   commentId: F:FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Write
   fullName: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Write
   nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Write
+- uid: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
+  name: FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
+  href: api/dotnet/FoundationaLLM.Authorization.Constants.AuthorizableActionNames.html#FoundationaLLM_Authorization_Constants_AuthorizableActionNames_FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
+  commentId: F:FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
+  fullName: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
+- uid: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
+  name: FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
+  href: api/dotnet/FoundationaLLM.Authorization.Constants.AuthorizableActionNames.html#FoundationaLLM_Authorization_Constants_AuthorizableActionNames_FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
+  commentId: F:FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
+  fullName: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
+- uid: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
+  name: FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
+  href: api/dotnet/FoundationaLLM.Authorization.Constants.AuthorizableActionNames.html#FoundationaLLM_Authorization_Constants_AuthorizableActionNames_FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
+  commentId: F:FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
+  fullName: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
 - uid: FoundationaLLM.Authorization.Constants.AuthorizableActionNames.FoundationaLLM_Configuration_KeyVaultSecrets_Delete
   name: FoundationaLLM_Configuration_KeyVaultSecrets_Delete
   href: api/dotnet/FoundationaLLM.Authorization.Constants.AuthorizableActionNames.html#FoundationaLLM_Authorization_Constants_AuthorizableActionNames_FoundationaLLM_Configuration_KeyVaultSecrets_Delete
@@ -1793,19 +1811,35 @@ references:
   commentId: T:FoundationaLLM.Common.Authentication.DefaultAuthentication
   fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication
   nameWithType: DefaultAuthentication
-- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential
-  name: GetAzureCredential()
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_GetAzureCredential
-  commentId: M:FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential
-  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential()
-  nameWithType: DefaultAuthentication.GetAzureCredential()
-- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential*
-  name: GetAzureCredential
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_GetAzureCredential_
-  commentId: Overload:FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.AzureCredential
+  name: AzureCredential
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_AzureCredential
+  commentId: P:FoundationaLLM.Common.Authentication.DefaultAuthentication.AzureCredential
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.AzureCredential
+  nameWithType: DefaultAuthentication.AzureCredential
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.AzureCredential*
+  name: AzureCredential
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_AzureCredential_
+  commentId: Overload:FoundationaLLM.Common.Authentication.DefaultAuthentication.AzureCredential
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.GetAzureCredential
-  nameWithType: DefaultAuthentication.GetAzureCredential
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.AzureCredential
+  nameWithType: DefaultAuthentication.AzureCredential
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.Initialize(System.Boolean,System.String)
+  name: Initialize(bool, string)
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_Initialize_System_Boolean_System_String_
+  commentId: M:FoundationaLLM.Common.Authentication.DefaultAuthentication.Initialize(System.Boolean,System.String)
+  name.vb: Initialize(Boolean, String)
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.Initialize(bool, string)
+  fullName.vb: FoundationaLLM.Common.Authentication.DefaultAuthentication.Initialize(Boolean, String)
+  nameWithType: DefaultAuthentication.Initialize(bool, string)
+  nameWithType.vb: DefaultAuthentication.Initialize(Boolean, String)
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.Initialize*
+  name: Initialize
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_Initialize_
+  commentId: Overload:FoundationaLLM.Common.Authentication.DefaultAuthentication.Initialize
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.Initialize
+  nameWithType: DefaultAuthentication.Initialize
 - uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.Production
   name: Production
   href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_Production
@@ -1819,6 +1853,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.Production
   nameWithType: DefaultAuthentication.Production
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.ServiceIdentity
+  name: ServiceIdentity
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_ServiceIdentity
+  commentId: P:FoundationaLLM.Common.Authentication.DefaultAuthentication.ServiceIdentity
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.ServiceIdentity
+  nameWithType: DefaultAuthentication.ServiceIdentity
+- uid: FoundationaLLM.Common.Authentication.DefaultAuthentication.ServiceIdentity*
+  name: ServiceIdentity
+  href: api/dotnet/FoundationaLLM.Common.Authentication.DefaultAuthentication.html#FoundationaLLM_Common_Authentication_DefaultAuthentication_ServiceIdentity_
+  commentId: Overload:FoundationaLLM.Common.Authentication.DefaultAuthentication.ServiceIdentity
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.ServiceIdentity
+  nameWithType: DefaultAuthentication.ServiceIdentity
 - uid: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings
   name: DownstreamAPIKeySettings
   href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.html
@@ -2242,6 +2289,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Events
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ExternalAPIs
+  name: FoundationaLLM_ExternalAPIs
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_ExternalAPIs
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ExternalAPIs
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ExternalAPIs
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_ExternalAPIs
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Gateway
   name: FoundationaLLM_Gateway
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Gateway
@@ -2470,6 +2523,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker
   nameWithType: AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_ExternalAPIs
+  name: FoundationaLLM_ExternalAPIs
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_ExternalAPIs
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_ExternalAPIs
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_ExternalAPIs
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_ExternalAPIs
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Gateway
   name: FoundationaLLM_Gateway
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Gateway
@@ -4265,6 +4324,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.AppConfigurations
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.AppConfigurations
   nameWithType: ConfigurationResourceTypeNames.AppConfigurations
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.ExternalOrchestrationServices
+  name: ExternalOrchestrationServices
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.html#FoundationaLLM_Common_Constants_ResourceProviders_ConfigurationResourceTypeNames_ExternalOrchestrationServices
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.ExternalOrchestrationServices
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.ExternalOrchestrationServices
+  nameWithType: ConfigurationResourceTypeNames.ExternalOrchestrationServices
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes
   name: ConfigurationTypes
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.html
@@ -4289,6 +4354,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.Basic
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.Basic
   nameWithType: ConfigurationTypes.Basic
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.ExternalOrchestrationService
+  name: ExternalOrchestrationService
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.html#FoundationaLLM_Common_Constants_ResourceProviders_ConfigurationTypes_ExternalOrchestrationService
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.ExternalOrchestrationService
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.ExternalOrchestrationService
+  nameWithType: ConfigurationTypes.ExternalOrchestrationService
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderActions
   name: DataSourceResourceProviderActions
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderActions.html
@@ -5418,6 +5489,57 @@ references:
   fullName.vb: FoundationaLLM.Common.Extensions.DictionaryExtensions.ToObject(Of T)(System.Collections.Generic.Dictionary(Of String, Object), System.Collections.Generic.Dictionary(Of String, Object))
   nameWithType: DictionaryExtensions.ToObject<T>(Dictionary<string, object>, Dictionary<string, object>?)
   nameWithType.vb: DictionaryExtensions.ToObject(Of T)(Dictionary(Of String, Object), Dictionary(Of String, Object))
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions
+  name: ResourceProviderServiceExtensions
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html
+  commentId: T:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions
+  nameWithType: ResourceProviderServiceExtensions
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource*
+  name: GetResource
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResource_
+  commentId: Overload:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource
+  nameWithType: ResourceProviderServiceExtensions.GetResource
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: GetResource<T>(IResourceProviderService, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResource__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: GetResource(Of T)(IResourceProviderService, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource<T>(FoundationaLLM.Common.Interfaces.IResourceProviderService, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource(Of T)(FoundationaLLM.Common.Interfaces.IResourceProviderService, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: ResourceProviderServiceExtensions.GetResource<T>(IResourceProviderService, string, UnifiedUserIdentity)
+  nameWithType.vb: ResourceProviderServiceExtensions.GetResource(Of T)(IResourceProviderService, String, UnifiedUserIdentity)
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources*
+  name: GetResources
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResources_
+  commentId: Overload:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources
+  nameWithType: ResourceProviderServiceExtensions.GetResources
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: GetResources<T>(IResourceProviderService, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResources__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: GetResources(Of T)(IResourceProviderService, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources<T>(FoundationaLLM.Common.Interfaces.IResourceProviderService, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources(Of T)(FoundationaLLM.Common.Interfaces.IResourceProviderService, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: ResourceProviderServiceExtensions.GetResources<T>(IResourceProviderService, UnifiedUserIdentity)
+  nameWithType.vb: ResourceProviderServiceExtensions.GetResources(Of T)(IResourceProviderService, UnifiedUserIdentity)
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.WaitForInitialization(FoundationaLLM.Common.Interfaces.IResourceProviderService)
+  name: WaitForInitialization(IResourceProviderService)
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_WaitForInitialization_FoundationaLLM_Common_Interfaces_IResourceProviderService_
+  commentId: M:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.WaitForInitialization(FoundationaLLM.Common.Interfaces.IResourceProviderService)
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.WaitForInitialization(FoundationaLLM.Common.Interfaces.IResourceProviderService)
+  nameWithType: ResourceProviderServiceExtensions.WaitForInitialization(IResourceProviderService)
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.WaitForInitialization*
+  name: WaitForInitialization
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_WaitForInitialization_
+  commentId: Overload:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.WaitForInitialization
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.WaitForInitialization
+  nameWithType: ResourceProviderServiceExtensions.WaitForInitialization
 - uid: FoundationaLLM.Common.Extensions.SwaggerGenOptionsExtensions
   name: SwaggerGenOptionsExtensions
   href: api/dotnet/FoundationaLLM.Common.Extensions.SwaggerGenOptionsExtensions.html
@@ -6101,6 +6223,19 @@ references:
   commentId: T:FoundationaLLM.Common.Interfaces.IResourceProviderService
   fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService
   nameWithType: IResourceProviderService
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.AllowedResourceTypes
+  name: AllowedResourceTypes
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_AllowedResourceTypes
+  commentId: P:FoundationaLLM.Common.Interfaces.IResourceProviderService.AllowedResourceTypes
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.AllowedResourceTypes
+  nameWithType: IResourceProviderService.AllowedResourceTypes
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.AllowedResourceTypes*
+  name: AllowedResourceTypes
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_AllowedResourceTypes_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IResourceProviderService.AllowedResourceTypes
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.AllowedResourceTypes
+  nameWithType: IResourceProviderService.AllowedResourceTypes
 - uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource*
   name: GetResource
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResource_
@@ -6458,389 +6593,6 @@ references:
 - uid: FoundationaLLM.Common.Models
   name: FoundationaLLM.Common.Models
   href: api/dotnet/FoundationaLLM.Common.Models.html
-- uid: FoundationaLLM.Common.Models.Agents
-  name: FoundationaLLM.Common.Models.Agents
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.html
-  commentId: N:FoundationaLLM.Common.Models.Agents
-  fullName: FoundationaLLM.Common.Models.Agents
-  nameWithType: FoundationaLLM.Common.Models.Agents
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase
-  name: AgentBase
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html
-  commentId: T:FoundationaLLM.Common.Models.Agents.AgentBase
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase
-  nameWithType: AgentBase
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.AgentType
-  name: AgentType
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_AgentType
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentBase.AgentType
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.AgentType
-  nameWithType: AgentBase.AgentType
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.AgentType*
-  name: AgentType
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_AgentType_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentBase.AgentType
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.AgentType
-  nameWithType: AgentBase.AgentType
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.ConversationHistory
-  name: ConversationHistory
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_ConversationHistory
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentBase.ConversationHistory
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.ConversationHistory
-  nameWithType: AgentBase.ConversationHistory
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.ConversationHistory*
-  name: ConversationHistory
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_ConversationHistory_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentBase.ConversationHistory
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.ConversationHistory
-  nameWithType: AgentBase.ConversationHistory
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.Gatekeeper
-  name: Gatekeeper
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_Gatekeeper
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentBase.Gatekeeper
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.Gatekeeper
-  nameWithType: AgentBase.Gatekeeper
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.Gatekeeper*
-  name: Gatekeeper
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_Gatekeeper_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentBase.Gatekeeper
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.Gatekeeper
-  nameWithType: AgentBase.Gatekeeper
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.OrchestrationSettings
-  name: OrchestrationSettings
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_OrchestrationSettings
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentBase.OrchestrationSettings
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.OrchestrationSettings
-  nameWithType: AgentBase.OrchestrationSettings
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.OrchestrationSettings*
-  name: OrchestrationSettings
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_OrchestrationSettings_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentBase.OrchestrationSettings
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.OrchestrationSettings
-  nameWithType: AgentBase.OrchestrationSettings
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId
-  name: PromptObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_PromptObjectId
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId
-  nameWithType: AgentBase.PromptObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId*
-  name: PromptObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_PromptObjectId_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.PromptObjectId
-  nameWithType: AgentBase.PromptObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.SessionsEnabled
-  name: SessionsEnabled
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_SessionsEnabled
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentBase.SessionsEnabled
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.SessionsEnabled
-  nameWithType: AgentBase.SessionsEnabled
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.SessionsEnabled*
-  name: SessionsEnabled
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_SessionsEnabled_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentBase.SessionsEnabled
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.SessionsEnabled
-  nameWithType: AgentBase.SessionsEnabled
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.Type
-  name: Type
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_Type
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentBase.Type
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.Type
-  nameWithType: AgentBase.Type
-- uid: FoundationaLLM.Common.Models.Agents.AgentBase.Type*
-  name: Type
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentBase.html#FoundationaLLM_Common_Models_Agents_AgentBase_Type_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentBase.Type
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentBase.Type
-  nameWithType: AgentBase.Type
-- uid: FoundationaLLM.Common.Models.Agents.AgentTypes
-  name: AgentTypes
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentTypes.html
-  commentId: T:FoundationaLLM.Common.Models.Agents.AgentTypes
-  fullName: FoundationaLLM.Common.Models.Agents.AgentTypes
-  nameWithType: AgentTypes
-- uid: FoundationaLLM.Common.Models.Agents.AgentTypes.Analytic
-  name: Analytic
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentTypes.html#FoundationaLLM_Common_Models_Agents_AgentTypes_Analytic
-  commentId: F:FoundationaLLM.Common.Models.Agents.AgentTypes.Analytic
-  fullName: FoundationaLLM.Common.Models.Agents.AgentTypes.Analytic
-  nameWithType: AgentTypes.Analytic
-- uid: FoundationaLLM.Common.Models.Agents.AgentTypes.Basic
-  name: Basic
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentTypes.html#FoundationaLLM_Common_Models_Agents_AgentTypes_Basic
-  commentId: F:FoundationaLLM.Common.Models.Agents.AgentTypes.Basic
-  fullName: FoundationaLLM.Common.Models.Agents.AgentTypes.Basic
-  nameWithType: AgentTypes.Basic
-- uid: FoundationaLLM.Common.Models.Agents.AgentTypes.InternalContext
-  name: InternalContext
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentTypes.html#FoundationaLLM_Common_Models_Agents_AgentTypes_InternalContext
-  commentId: F:FoundationaLLM.Common.Models.Agents.AgentTypes.InternalContext
-  fullName: FoundationaLLM.Common.Models.Agents.AgentTypes.InternalContext
-  nameWithType: AgentTypes.InternalContext
-- uid: FoundationaLLM.Common.Models.Agents.AgentTypes.KnowledgeManagement
-  name: KnowledgeManagement
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentTypes.html#FoundationaLLM_Common_Models_Agents_AgentTypes_KnowledgeManagement
-  commentId: F:FoundationaLLM.Common.Models.Agents.AgentTypes.KnowledgeManagement
-  fullName: FoundationaLLM.Common.Models.Agents.AgentTypes.KnowledgeManagement
-  nameWithType: AgentTypes.KnowledgeManagement
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings
-  name: AgentVectorizationSettings
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html
-  commentId: T:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings
-  nameWithType: AgentVectorizationSettings
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DataSourceObjectId
-  name: DataSourceObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_DataSourceObjectId
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DataSourceObjectId
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DataSourceObjectId
-  nameWithType: AgentVectorizationSettings.DataSourceObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DataSourceObjectId*
-  name: DataSourceObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_DataSourceObjectId_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DataSourceObjectId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DataSourceObjectId
-  nameWithType: AgentVectorizationSettings.DataSourceObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DedicatedPipeline
-  name: DedicatedPipeline
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_DedicatedPipeline
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DedicatedPipeline
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DedicatedPipeline
-  nameWithType: AgentVectorizationSettings.DedicatedPipeline
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DedicatedPipeline*
-  name: DedicatedPipeline
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_DedicatedPipeline_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DedicatedPipeline
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.DedicatedPipeline
-  nameWithType: AgentVectorizationSettings.DedicatedPipeline
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.IndexingProfileObjectId
-  name: IndexingProfileObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_IndexingProfileObjectId
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.IndexingProfileObjectId
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.IndexingProfileObjectId
-  nameWithType: AgentVectorizationSettings.IndexingProfileObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.IndexingProfileObjectId*
-  name: IndexingProfileObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_IndexingProfileObjectId_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.IndexingProfileObjectId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.IndexingProfileObjectId
-  nameWithType: AgentVectorizationSettings.IndexingProfileObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextEmbeddingProfileObjectId
-  name: TextEmbeddingProfileObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TextEmbeddingProfileObjectId
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextEmbeddingProfileObjectId
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextEmbeddingProfileObjectId
-  nameWithType: AgentVectorizationSettings.TextEmbeddingProfileObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextEmbeddingProfileObjectId*
-  name: TextEmbeddingProfileObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TextEmbeddingProfileObjectId_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextEmbeddingProfileObjectId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextEmbeddingProfileObjectId
-  nameWithType: AgentVectorizationSettings.TextEmbeddingProfileObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextPartitioningProfileObjectId
-  name: TextPartitioningProfileObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TextPartitioningProfileObjectId
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextPartitioningProfileObjectId
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextPartitioningProfileObjectId
-  nameWithType: AgentVectorizationSettings.TextPartitioningProfileObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextPartitioningProfileObjectId*
-  name: TextPartitioningProfileObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TextPartitioningProfileObjectId_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextPartitioningProfileObjectId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TextPartitioningProfileObjectId
-  nameWithType: AgentVectorizationSettings.TextPartitioningProfileObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule
-  name: TriggerCronSchedule
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TriggerCronSchedule
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule
-  nameWithType: AgentVectorizationSettings.TriggerCronSchedule
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule*
-  name: TriggerCronSchedule
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TriggerCronSchedule_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerCronSchedule
-  nameWithType: AgentVectorizationSettings.TriggerCronSchedule
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType
-  name: TriggerType
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TriggerType
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType
-  nameWithType: AgentVectorizationSettings.TriggerType
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType*
-  name: TriggerType
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_TriggerType_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.TriggerType
-  nameWithType: AgentVectorizationSettings.TriggerType
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.VectorizationDataPipelineObjectId
-  name: VectorizationDataPipelineObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_VectorizationDataPipelineObjectId
-  commentId: P:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.VectorizationDataPipelineObjectId
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.VectorizationDataPipelineObjectId
-  nameWithType: AgentVectorizationSettings.VectorizationDataPipelineObjectId
-- uid: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.VectorizationDataPipelineObjectId*
-  name: VectorizationDataPipelineObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_Agents_AgentVectorizationSettings_VectorizationDataPipelineObjectId_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.VectorizationDataPipelineObjectId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.AgentVectorizationSettings.VectorizationDataPipelineObjectId
-  nameWithType: AgentVectorizationSettings.VectorizationDataPipelineObjectId
-- uid: FoundationaLLM.Common.Models.Agents.ConversationHistory
-  name: ConversationHistory
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.ConversationHistory.html
-  commentId: T:FoundationaLLM.Common.Models.Agents.ConversationHistory
-  fullName: FoundationaLLM.Common.Models.Agents.ConversationHistory
-  nameWithType: ConversationHistory
-- uid: FoundationaLLM.Common.Models.Agents.ConversationHistory.Enabled
-  name: Enabled
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.ConversationHistory.html#FoundationaLLM_Common_Models_Agents_ConversationHistory_Enabled
-  commentId: P:FoundationaLLM.Common.Models.Agents.ConversationHistory.Enabled
-  fullName: FoundationaLLM.Common.Models.Agents.ConversationHistory.Enabled
-  nameWithType: ConversationHistory.Enabled
-- uid: FoundationaLLM.Common.Models.Agents.ConversationHistory.Enabled*
-  name: Enabled
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.ConversationHistory.html#FoundationaLLM_Common_Models_Agents_ConversationHistory_Enabled_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.ConversationHistory.Enabled
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.ConversationHistory.Enabled
-  nameWithType: ConversationHistory.Enabled
-- uid: FoundationaLLM.Common.Models.Agents.ConversationHistory.MaxHistory
-  name: MaxHistory
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.ConversationHistory.html#FoundationaLLM_Common_Models_Agents_ConversationHistory_MaxHistory
-  commentId: P:FoundationaLLM.Common.Models.Agents.ConversationHistory.MaxHistory
-  fullName: FoundationaLLM.Common.Models.Agents.ConversationHistory.MaxHistory
-  nameWithType: ConversationHistory.MaxHistory
-- uid: FoundationaLLM.Common.Models.Agents.ConversationHistory.MaxHistory*
-  name: MaxHistory
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.ConversationHistory.html#FoundationaLLM_Common_Models_Agents_ConversationHistory_MaxHistory_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.ConversationHistory.MaxHistory
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.ConversationHistory.MaxHistory
-  nameWithType: ConversationHistory.MaxHistory
-- uid: FoundationaLLM.Common.Models.Agents.Gatekeeper
-  name: Gatekeeper
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.Gatekeeper.html
-  commentId: T:FoundationaLLM.Common.Models.Agents.Gatekeeper
-  fullName: FoundationaLLM.Common.Models.Agents.Gatekeeper
-  nameWithType: Gatekeeper
-- uid: FoundationaLLM.Common.Models.Agents.Gatekeeper.Options
-  name: Options
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.Gatekeeper.html#FoundationaLLM_Common_Models_Agents_Gatekeeper_Options
-  commentId: P:FoundationaLLM.Common.Models.Agents.Gatekeeper.Options
-  fullName: FoundationaLLM.Common.Models.Agents.Gatekeeper.Options
-  nameWithType: Gatekeeper.Options
-- uid: FoundationaLLM.Common.Models.Agents.Gatekeeper.Options*
-  name: Options
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.Gatekeeper.html#FoundationaLLM_Common_Models_Agents_Gatekeeper_Options_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.Gatekeeper.Options
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.Gatekeeper.Options
-  nameWithType: Gatekeeper.Options
-- uid: FoundationaLLM.Common.Models.Agents.Gatekeeper.UseSystemSetting
-  name: UseSystemSetting
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.Gatekeeper.html#FoundationaLLM_Common_Models_Agents_Gatekeeper_UseSystemSetting
-  commentId: P:FoundationaLLM.Common.Models.Agents.Gatekeeper.UseSystemSetting
-  fullName: FoundationaLLM.Common.Models.Agents.Gatekeeper.UseSystemSetting
-  nameWithType: Gatekeeper.UseSystemSetting
-- uid: FoundationaLLM.Common.Models.Agents.Gatekeeper.UseSystemSetting*
-  name: UseSystemSetting
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.Gatekeeper.html#FoundationaLLM_Common_Models_Agents_Gatekeeper_UseSystemSetting_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.Gatekeeper.UseSystemSetting
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.Gatekeeper.UseSystemSetting
-  nameWithType: Gatekeeper.UseSystemSetting
-- uid: FoundationaLLM.Common.Models.Agents.InternalContextAgent
-  name: InternalContextAgent
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.InternalContextAgent.html
-  commentId: T:FoundationaLLM.Common.Models.Agents.InternalContextAgent
-  fullName: FoundationaLLM.Common.Models.Agents.InternalContextAgent
-  nameWithType: InternalContextAgent
-- uid: FoundationaLLM.Common.Models.Agents.InternalContextAgent.#ctor
-  name: InternalContextAgent()
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.InternalContextAgent.html#FoundationaLLM_Common_Models_Agents_InternalContextAgent__ctor
-  commentId: M:FoundationaLLM.Common.Models.Agents.InternalContextAgent.#ctor
-  name.vb: New()
-  fullName: FoundationaLLM.Common.Models.Agents.InternalContextAgent.InternalContextAgent()
-  fullName.vb: FoundationaLLM.Common.Models.Agents.InternalContextAgent.New()
-  nameWithType: InternalContextAgent.InternalContextAgent()
-  nameWithType.vb: InternalContextAgent.New()
-- uid: FoundationaLLM.Common.Models.Agents.InternalContextAgent.#ctor*
-  name: InternalContextAgent
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.InternalContextAgent.html#FoundationaLLM_Common_Models_Agents_InternalContextAgent__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.InternalContextAgent.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Agents.InternalContextAgent.InternalContextAgent
-  fullName.vb: FoundationaLLM.Common.Models.Agents.InternalContextAgent.New
-  nameWithType: InternalContextAgent.InternalContextAgent
-  nameWithType.vb: InternalContextAgent.New
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent
-  name: KnowledgeManagementAgent
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html
-  commentId: T:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent
-  nameWithType: KnowledgeManagementAgent
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.#ctor
-  name: KnowledgeManagementAgent()
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent__ctor
-  commentId: M:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.#ctor
-  name.vb: New()
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.KnowledgeManagementAgent()
-  fullName.vb: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.New()
-  nameWithType: KnowledgeManagementAgent.KnowledgeManagementAgent()
-  nameWithType.vb: KnowledgeManagementAgent.New()
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.#ctor*
-  name: KnowledgeManagementAgent
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.KnowledgeManagementAgent
-  fullName.vb: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.New
-  nameWithType: KnowledgeManagementAgent.KnowledgeManagementAgent
-  nameWithType.vb: KnowledgeManagementAgent.New
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext
-  name: InlineContext
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_InlineContext
-  commentId: P:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext
-  nameWithType: KnowledgeManagementAgent.InlineContext
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext*
-  name: InlineContext
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_InlineContext_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.InlineContext
-  nameWithType: KnowledgeManagementAgent.InlineContext
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.Vectorization
-  name: Vectorization
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_Vectorization
-  commentId: P:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.Vectorization
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.Vectorization
-  nameWithType: KnowledgeManagementAgent.Vectorization
-- uid: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.Vectorization*
-  name: Vectorization
-  href: api/dotnet/FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_Vectorization_
-  commentId: Overload:FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.Vectorization
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent.Vectorization
-  nameWithType: KnowledgeManagementAgent.Vectorization
 - uid: FoundationaLLM.Common.Models.Authentication
   name: FoundationaLLM.Common.Models.Authentication
   href: api/dotnet/FoundationaLLM.Common.Models.Authentication.html
@@ -8985,38 +8737,38 @@ references:
   commentId: N:FoundationaLLM.Common.Models.Configuration.API
   fullName: FoundationaLLM.Common.Models.Configuration.API
   nameWithType: FoundationaLLM.Common.Models.Configuration.API
-- uid: FoundationaLLM.Common.Models.Configuration.API.SettingsBase
-  name: SettingsBase
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.SettingsBase.html
-  commentId: T:FoundationaLLM.Common.Models.Configuration.API.SettingsBase
-  fullName: FoundationaLLM.Common.Models.Configuration.API.SettingsBase
-  nameWithType: SettingsBase
-- uid: FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIKey
+- uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase
+  name: APISettingsBase
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html
+  commentId: T:FoundationaLLM.Common.Models.Configuration.API.APISettingsBase
+  fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase
+  nameWithType: APISettingsBase
+- uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey
   name: APIKey
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.SettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_SettingsBase_APIKey
-  commentId: P:FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIKey
-  fullName: FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIKey
-  nameWithType: SettingsBase.APIKey
-- uid: FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIKey*
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_APISettingsBase_APIKey
+  commentId: P:FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey
+  fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey
+  nameWithType: APISettingsBase.APIKey
+- uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey*
   name: APIKey
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.SettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_SettingsBase_APIKey_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIKey
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_APISettingsBase_APIKey_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIKey
-  nameWithType: SettingsBase.APIKey
-- uid: FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIUrl
+  fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey
+  nameWithType: APISettingsBase.APIKey
+- uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
   name: APIUrl
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.SettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_SettingsBase_APIUrl
-  commentId: P:FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIUrl
-  fullName: FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIUrl
-  nameWithType: SettingsBase.APIUrl
-- uid: FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIUrl*
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_APISettingsBase_APIUrl
+  commentId: P:FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
+  fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
+  nameWithType: APISettingsBase.APIUrl
+- uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl*
   name: APIUrl
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.SettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_SettingsBase_APIUrl_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIUrl
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_APISettingsBase_APIUrl_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.API.SettingsBase.APIUrl
-  nameWithType: SettingsBase.APIUrl
+  fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
+  nameWithType: APISettingsBase.APIUrl
 - uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration
   name: FoundationaLLM.Common.Models.Configuration.AppConfiguration
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.html
@@ -10805,6 +10557,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Status
   nameWithType: ServiceStatusInfo.Status
+- uid: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.SubordinateServices
+  name: SubordinateServices
+  href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html#FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_SubordinateServices
+  commentId: P:FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.SubordinateServices
+  fullName: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.SubordinateServices
+  nameWithType: ServiceStatusInfo.SubordinateServices
+- uid: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.SubordinateServices*
+  name: SubordinateServices
+  href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html#FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_SubordinateServices_
+  commentId: Overload:FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.SubordinateServices
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.SubordinateServices
+  nameWithType: ServiceStatusInfo.SubordinateServices
 - uid: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Version
   name: Version
   href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html#FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Version
@@ -12788,36 +12553,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.UserPrompt
   nameWithType: LLMCompletionResponse.UserPrompt
-- uid: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService
-  name: LLMOrchestrationService
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.html
-  commentId: T:FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService
-  fullName: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService
-  nameWithType: LLMOrchestrationService
-- uid: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureAIDirect
-  name: AzureAIDirect
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.html#FoundationaLLM_Common_Models_Orchestration_LLMOrchestrationService_AzureAIDirect
-  commentId: F:FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureAIDirect
-  fullName: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureAIDirect
-  nameWithType: LLMOrchestrationService.AzureAIDirect
-- uid: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureOpenAIDirect
-  name: AzureOpenAIDirect
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.html#FoundationaLLM_Common_Models_Orchestration_LLMOrchestrationService_AzureOpenAIDirect
-  commentId: F:FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureOpenAIDirect
-  fullName: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.AzureOpenAIDirect
-  nameWithType: LLMOrchestrationService.AzureOpenAIDirect
-- uid: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.LangChain
-  name: LangChain
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.html#FoundationaLLM_Common_Models_Orchestration_LLMOrchestrationService_LangChain
-  commentId: F:FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.LangChain
-  fullName: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.LangChain
-  nameWithType: LLMOrchestrationService.LangChain
-- uid: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.SemanticKernel
-  name: SemanticKernel
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.html#FoundationaLLM_Common_Models_Orchestration_LLMOrchestrationService_SemanticKernel
-  commentId: F:FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.SemanticKernel
-  fullName: FoundationaLLM.Common.Models.Orchestration.LLMOrchestrationService.SemanticKernel
-  nameWithType: LLMOrchestrationService.SemanticKernel
 - uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest
   name: OrchestrationRequest
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html
@@ -12965,6 +12700,389 @@ references:
   commentId: N:FoundationaLLM.Common.Models.ResourceProviders
   fullName: FoundationaLLM.Common.Models.ResourceProviders
   nameWithType: FoundationaLLM.Common.Models.ResourceProviders
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent
+  name: FoundationaLLM.Common.Models.ResourceProviders.Agent
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.html
+  commentId: N:FoundationaLLM.Common.Models.ResourceProviders.Agent
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent
+  nameWithType: FoundationaLLM.Common.Models.ResourceProviders.Agent
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase
+  name: AgentBase
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase
+  nameWithType: AgentBase
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AgentType
+  name: AgentType
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_AgentType
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AgentType
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AgentType
+  nameWithType: AgentBase.AgentType
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AgentType*
+  name: AgentType
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_AgentType_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AgentType
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AgentType
+  nameWithType: AgentBase.AgentType
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistory
+  name: ConversationHistory
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_ConversationHistory
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistory
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistory
+  nameWithType: AgentBase.ConversationHistory
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistory*
+  name: ConversationHistory
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_ConversationHistory_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistory
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistory
+  nameWithType: AgentBase.ConversationHistory
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Gatekeeper
+  name: Gatekeeper
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_Gatekeeper
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Gatekeeper
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Gatekeeper
+  nameWithType: AgentBase.Gatekeeper
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Gatekeeper*
+  name: Gatekeeper
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_Gatekeeper_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Gatekeeper
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Gatekeeper
+  nameWithType: AgentBase.Gatekeeper
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.OrchestrationSettings
+  name: OrchestrationSettings
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_OrchestrationSettings
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.OrchestrationSettings
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.OrchestrationSettings
+  nameWithType: AgentBase.OrchestrationSettings
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.OrchestrationSettings*
+  name: OrchestrationSettings
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_OrchestrationSettings_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.OrchestrationSettings
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.OrchestrationSettings
+  nameWithType: AgentBase.OrchestrationSettings
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.PromptObjectId
+  name: PromptObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_PromptObjectId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.PromptObjectId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.PromptObjectId
+  nameWithType: AgentBase.PromptObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.PromptObjectId*
+  name: PromptObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_PromptObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.PromptObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.PromptObjectId
+  nameWithType: AgentBase.PromptObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.SessionsEnabled
+  name: SessionsEnabled
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_SessionsEnabled
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.SessionsEnabled
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.SessionsEnabled
+  nameWithType: AgentBase.SessionsEnabled
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.SessionsEnabled*
+  name: SessionsEnabled
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_SessionsEnabled_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.SessionsEnabled
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.SessionsEnabled
+  nameWithType: AgentBase.SessionsEnabled
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_Type
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Type
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Type
+  nameWithType: AgentBase.Type
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_Type_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Type
+  nameWithType: AgentBase.Type
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes
+  name: AgentTypes
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes
+  nameWithType: AgentTypes
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Analytic
+  name: Analytic
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentTypes_Analytic
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Analytic
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Analytic
+  nameWithType: AgentTypes.Analytic
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Basic
+  name: Basic
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentTypes_Basic
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Basic
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Basic
+  nameWithType: AgentTypes.Basic
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.InternalContext
+  name: InternalContext
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentTypes_InternalContext
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.InternalContext
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.InternalContext
+  nameWithType: AgentTypes.InternalContext
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.KnowledgeManagement
+  name: KnowledgeManagement
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentTypes_KnowledgeManagement
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.KnowledgeManagement
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.KnowledgeManagement
+  nameWithType: AgentTypes.KnowledgeManagement
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings
+  name: AgentVectorizationSettings
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings
+  nameWithType: AgentVectorizationSettings
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DataSourceObjectId
+  name: DataSourceObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_DataSourceObjectId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DataSourceObjectId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DataSourceObjectId
+  nameWithType: AgentVectorizationSettings.DataSourceObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DataSourceObjectId*
+  name: DataSourceObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_DataSourceObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DataSourceObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DataSourceObjectId
+  nameWithType: AgentVectorizationSettings.DataSourceObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DedicatedPipeline
+  name: DedicatedPipeline
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_DedicatedPipeline
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DedicatedPipeline
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DedicatedPipeline
+  nameWithType: AgentVectorizationSettings.DedicatedPipeline
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DedicatedPipeline*
+  name: DedicatedPipeline
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_DedicatedPipeline_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DedicatedPipeline
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DedicatedPipeline
+  nameWithType: AgentVectorizationSettings.DedicatedPipeline
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId
+  name: IndexingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_IndexingProfileObjectId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId
+  nameWithType: AgentVectorizationSettings.IndexingProfileObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId*
+  name: IndexingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_IndexingProfileObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId
+  nameWithType: AgentVectorizationSettings.IndexingProfileObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextEmbeddingProfileObjectId
+  name: TextEmbeddingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_TextEmbeddingProfileObjectId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextEmbeddingProfileObjectId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextEmbeddingProfileObjectId
+  nameWithType: AgentVectorizationSettings.TextEmbeddingProfileObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextEmbeddingProfileObjectId*
+  name: TextEmbeddingProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_TextEmbeddingProfileObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextEmbeddingProfileObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextEmbeddingProfileObjectId
+  nameWithType: AgentVectorizationSettings.TextEmbeddingProfileObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextPartitioningProfileObjectId
+  name: TextPartitioningProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_TextPartitioningProfileObjectId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextPartitioningProfileObjectId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextPartitioningProfileObjectId
+  nameWithType: AgentVectorizationSettings.TextPartitioningProfileObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextPartitioningProfileObjectId*
+  name: TextPartitioningProfileObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_TextPartitioningProfileObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextPartitioningProfileObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextPartitioningProfileObjectId
+  nameWithType: AgentVectorizationSettings.TextPartitioningProfileObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerCronSchedule
+  name: TriggerCronSchedule
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_TriggerCronSchedule
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerCronSchedule
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerCronSchedule
+  nameWithType: AgentVectorizationSettings.TriggerCronSchedule
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerCronSchedule*
+  name: TriggerCronSchedule
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_TriggerCronSchedule_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerCronSchedule
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerCronSchedule
+  nameWithType: AgentVectorizationSettings.TriggerCronSchedule
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerType
+  name: TriggerType
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_TriggerType
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerType
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerType
+  nameWithType: AgentVectorizationSettings.TriggerType
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerType*
+  name: TriggerType
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_TriggerType_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerType
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TriggerType
+  nameWithType: AgentVectorizationSettings.TriggerType
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.VectorizationDataPipelineObjectId
+  name: VectorizationDataPipelineObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_VectorizationDataPipelineObjectId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.VectorizationDataPipelineObjectId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.VectorizationDataPipelineObjectId
+  nameWithType: AgentVectorizationSettings.VectorizationDataPipelineObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.VectorizationDataPipelineObjectId*
+  name: VectorizationDataPipelineObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_VectorizationDataPipelineObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.VectorizationDataPipelineObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.VectorizationDataPipelineObjectId
+  nameWithType: AgentVectorizationSettings.VectorizationDataPipelineObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory
+  name: ConversationHistory
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory
+  nameWithType: ConversationHistory
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.Enabled
+  name: Enabled
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_ConversationHistory_Enabled
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.Enabled
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.Enabled
+  nameWithType: ConversationHistory.Enabled
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.Enabled*
+  name: Enabled
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_ConversationHistory_Enabled_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.Enabled
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.Enabled
+  nameWithType: ConversationHistory.Enabled
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.MaxHistory
+  name: MaxHistory
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_ConversationHistory_MaxHistory
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.MaxHistory
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.MaxHistory
+  nameWithType: ConversationHistory.MaxHistory
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.MaxHistory*
+  name: MaxHistory
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_ConversationHistory_MaxHistory_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.MaxHistory
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.MaxHistory
+  nameWithType: ConversationHistory.MaxHistory
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper
+  name: Gatekeeper
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper
+  nameWithType: Gatekeeper
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.Options
+  name: Options
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_Gatekeeper_Options
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.Options
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.Options
+  nameWithType: Gatekeeper.Options
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.Options*
+  name: Options
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_Gatekeeper_Options_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.Options
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.Options
+  nameWithType: Gatekeeper.Options
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.UseSystemSetting
+  name: UseSystemSetting
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_Gatekeeper_UseSystemSetting
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.UseSystemSetting
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.UseSystemSetting
+  nameWithType: Gatekeeper.UseSystemSetting
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.UseSystemSetting*
+  name: UseSystemSetting
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_Gatekeeper_UseSystemSetting_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.UseSystemSetting
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.UseSystemSetting
+  nameWithType: Gatekeeper.UseSystemSetting
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent
+  name: InternalContextAgent
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent
+  nameWithType: InternalContextAgent
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.#ctor
+  name: InternalContextAgent()
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_InternalContextAgent__ctor
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.InternalContextAgent()
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.New()
+  nameWithType: InternalContextAgent.InternalContextAgent()
+  nameWithType.vb: InternalContextAgent.New()
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.#ctor*
+  name: InternalContextAgent
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_InternalContextAgent__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.InternalContextAgent
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.New
+  nameWithType: InternalContextAgent.InternalContextAgent
+  nameWithType.vb: InternalContextAgent.New
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent
+  name: KnowledgeManagementAgent
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent
+  nameWithType: KnowledgeManagementAgent
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.#ctor
+  name: KnowledgeManagementAgent()
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_KnowledgeManagementAgent__ctor
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.KnowledgeManagementAgent()
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.New()
+  nameWithType: KnowledgeManagementAgent.KnowledgeManagementAgent()
+  nameWithType.vb: KnowledgeManagementAgent.New()
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.#ctor*
+  name: KnowledgeManagementAgent
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_KnowledgeManagementAgent__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.KnowledgeManagementAgent
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.New
+  nameWithType: KnowledgeManagementAgent.KnowledgeManagementAgent
+  nameWithType.vb: KnowledgeManagementAgent.New
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.InlineContext
+  name: InlineContext
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_KnowledgeManagementAgent_InlineContext
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.InlineContext
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.InlineContext
+  nameWithType: KnowledgeManagementAgent.InlineContext
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.InlineContext*
+  name: InlineContext
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_KnowledgeManagementAgent_InlineContext_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.InlineContext
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.InlineContext
+  nameWithType: KnowledgeManagementAgent.InlineContext
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.Vectorization
+  name: Vectorization
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_KnowledgeManagementAgent_Vectorization
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.Vectorization
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.Vectorization
+  nameWithType: KnowledgeManagementAgent.Vectorization
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.Vectorization*
+  name: Vectorization
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_KnowledgeManagementAgent_Vectorization_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.Vectorization
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.Vectorization
+  nameWithType: KnowledgeManagementAgent.Vectorization
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration
   name: FoundationaLLM.Common.Models.ResourceProviders.Configuration
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.html
@@ -13067,6 +13185,57 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.AppConfigurationKeyVaultReference.KeyVaultUri
   nameWithType: AppConfigurationKeyVaultReference.KeyVaultUri
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService
+  name: ExternalOrchestrationService
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService
+  nameWithType: ExternalOrchestrationService
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.#ctor
+  name: ExternalOrchestrationService()
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService__ctor
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.ExternalOrchestrationService()
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.New()
+  nameWithType: ExternalOrchestrationService.ExternalOrchestrationService()
+  nameWithType.vb: ExternalOrchestrationService.New()
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.#ctor*
+  name: ExternalOrchestrationService
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.ExternalOrchestrationService
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.New
+  nameWithType: ExternalOrchestrationService.ExternalOrchestrationService
+  nameWithType.vb: ExternalOrchestrationService.New
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName
+  name: APIKeyConfigurationName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService_APIKeyConfigurationName
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName
+  nameWithType: ExternalOrchestrationService.APIKeyConfigurationName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName*
+  name: APIKeyConfigurationName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService_APIKeyConfigurationName_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName
+  nameWithType: ExternalOrchestrationService.APIKeyConfigurationName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName
+  name: APIUrlConfigurationName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService_APIUrlConfigurationName
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName
+  nameWithType: ExternalOrchestrationService.APIUrlConfigurationName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName*
+  name: APIUrlConfigurationName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService_APIUrlConfigurationName_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName
+  nameWithType: ExternalOrchestrationService.APIUrlConfigurationName
 - uid: FoundationaLLM.Common.Models.ResourceProviders.DataSource
   name: FoundationaLLM.Common.Models.ResourceProviders.DataSource
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.DataSource.html
@@ -13890,6 +14059,67 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Type
   nameWithType: ResourceReference.Type
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1
+  name: ResourceReferenceStore<T>
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore-1.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1
+  name.vb: ResourceReferenceStore(Of T)
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore<T>
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore(Of T)
+  nameWithType: ResourceReferenceStore<T>
+  nameWithType.vb: ResourceReferenceStore(Of T)
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.FromDictionary(System.Collections.Generic.Dictionary{System.String,`0})
+  name: FromDictionary(Dictionary<string, T>)
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore-1.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceReferenceStore_1_FromDictionary_System_Collections_Generic_Dictionary_System_String__0__
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.FromDictionary(System.Collections.Generic.Dictionary{System.String,`0})
+  name.vb: FromDictionary(Dictionary(Of String, T))
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore<T>.FromDictionary(System.Collections.Generic.Dictionary<string, T>)
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore(Of T).FromDictionary(System.Collections.Generic.Dictionary(Of String, T))
+  nameWithType: ResourceReferenceStore<T>.FromDictionary(Dictionary<string, T>)
+  nameWithType.vb: ResourceReferenceStore(Of T).FromDictionary(Dictionary(Of String, T))
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.FromDictionary*
+  name: FromDictionary
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore-1.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceReferenceStore_1_FromDictionary_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.FromDictionary
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore<T>.FromDictionary
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore(Of T).FromDictionary
+  nameWithType: ResourceReferenceStore<T>.FromDictionary
+  nameWithType.vb: ResourceReferenceStore(Of T).FromDictionary
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.ResourceReferences
+  name: ResourceReferences
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore-1.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceReferenceStore_1_ResourceReferences
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.ResourceReferences
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore<T>.ResourceReferences
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore(Of T).ResourceReferences
+  nameWithType: ResourceReferenceStore<T>.ResourceReferences
+  nameWithType.vb: ResourceReferenceStore(Of T).ResourceReferences
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.ResourceReferences*
+  name: ResourceReferences
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore-1.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceReferenceStore_1_ResourceReferences_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.ResourceReferences
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore<T>.ResourceReferences
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore(Of T).ResourceReferences
+  nameWithType: ResourceReferenceStore<T>.ResourceReferences
+  nameWithType.vb: ResourceReferenceStore(Of T).ResourceReferences
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.ToDictionary
+  name: ToDictionary()
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore-1.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceReferenceStore_1_ToDictionary
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.ToDictionary
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore<T>.ToDictionary()
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore(Of T).ToDictionary()
+  nameWithType: ResourceReferenceStore<T>.ToDictionary()
+  nameWithType.vb: ResourceReferenceStore(Of T).ToDictionary()
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.ToDictionary*
+  name: ToDictionary
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore-1.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceReferenceStore_1_ToDictionary_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore`1.ToDictionary
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore<T>.ToDictionary
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.ResourceReferenceStore(Of T).ToDictionary
+  nameWithType: ResourceReferenceStore<T>.ToDictionary
+  nameWithType.vb: ResourceReferenceStore(Of T).ToDictionary
 - uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeAction
   name: ResourceTypeAction
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeAction.html
@@ -14121,6 +14351,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.SubTypes
   nameWithType: ResourceTypeDescriptor.SubTypes
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.TypeAllowedForHttpGet(System.Type)
+  name: TypeAllowedForHttpGet(Type)
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeDescriptor_TypeAllowedForHttpGet_System_Type_
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.TypeAllowedForHttpGet(System.Type)
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.TypeAllowedForHttpGet(System.Type)
+  nameWithType: ResourceTypeDescriptor.TypeAllowedForHttpGet(Type)
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.TypeAllowedForHttpGet*
+  name: TypeAllowedForHttpGet
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeDescriptor_TypeAllowedForHttpGet_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.TypeAllowedForHttpGet
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.TypeAllowedForHttpGet
+  nameWithType: ResourceTypeDescriptor.TypeAllowedForHttpGet
 - uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance
   name: ResourceTypeInstance
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html
@@ -16786,6 +17029,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.New
   nameWithType: ResourceProviderServiceBase.ResourceProviderServiceBase
   nameWithType.vb: ResourceProviderServiceBase.New
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.AllowedResourceTypes
+  name: AllowedResourceTypes
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_AllowedResourceTypes
+  commentId: P:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.AllowedResourceTypes
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.AllowedResourceTypes
+  nameWithType: ResourceProviderServiceBase.AllowedResourceTypes
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.AllowedResourceTypes*
+  name: AllowedResourceTypes
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_AllowedResourceTypes_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.AllowedResourceTypes
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.AllowedResourceTypes
+  nameWithType: ResourceProviderServiceBase.AllowedResourceTypes
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   name: DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
@@ -18539,6 +18795,31 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Configuration.Interfaces.IConfigurationHealthChecks.ValidateKeyVaultSecretsAsync
   nameWithType: IConfigurationHealthChecks.ValidateKeyVaultSecretsAsync
+- uid: FoundationaLLM.Configuration.Models
+  name: FoundationaLLM.Configuration.Models
+  href: api/dotnet/FoundationaLLM.Configuration.Models.html
+  commentId: N:FoundationaLLM.Configuration.Models
+  fullName: FoundationaLLM.Configuration.Models
+  nameWithType: FoundationaLLM.Configuration.Models
+- uid: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference
+  name: ExternalOrchestrationServiceReference
+  href: api/dotnet/FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.html
+  commentId: T:FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference
+  fullName: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference
+  nameWithType: ExternalOrchestrationServiceReference
+- uid: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType
+  name: ResourceType
+  href: api/dotnet/FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.html#FoundationaLLM_Configuration_Models_ExternalOrchestrationServiceReference_ResourceType
+  commentId: P:FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType
+  fullName: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType
+  nameWithType: ExternalOrchestrationServiceReference.ResourceType
+- uid: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType*
+  name: ResourceType
+  href: api/dotnet/FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.html#FoundationaLLM_Configuration_Models_ExternalOrchestrationServiceReference_ResourceType_
+  commentId: Overload:FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType
+  nameWithType: ExternalOrchestrationServiceReference.ResourceType
 - uid: FoundationaLLM.Configuration.Services
   name: FoundationaLLM.Configuration.Services
   href: api/dotnet/FoundationaLLM.Configuration.Services.html
@@ -21152,6 +21433,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddInstanceProperties
   nameWithType: DependencyInjection.AddInstanceProperties
+- uid: FoundationaLLM.DependencyInjection.AddLLMOrchestrationServices(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  name: AddLLMOrchestrationServices(IHostApplicationBuilder)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddLLMOrchestrationServices_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
+  commentId: M:FoundationaLLM.DependencyInjection.AddLLMOrchestrationServices(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  fullName: FoundationaLLM.DependencyInjection.AddLLMOrchestrationServices(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  nameWithType: DependencyInjection.AddLLMOrchestrationServices(IHostApplicationBuilder)
+- uid: FoundationaLLM.DependencyInjection.AddLLMOrchestrationServices*
+  name: AddLLMOrchestrationServices
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddLLMOrchestrationServices_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddLLMOrchestrationServices
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddLLMOrchestrationServices
+  nameWithType: DependencyInjection.AddLLMOrchestrationServices
 - uid: FoundationaLLM.DependencyInjection.AddOpenTelemetry(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String)
   name: AddOpenTelemetry(IHostApplicationBuilder, string, string)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddOpenTelemetry_Microsoft_Extensions_Hosting_IHostApplicationBuilder_System_String_System_String_
@@ -23376,6 +23670,25 @@ references:
   commentId: T:FoundationaLLM.Orchestration.API.Controllers.StatusController
   fullName: FoundationaLLM.Orchestration.API.Controllers.StatusController
   nameWithType: StatusController
+- uid: FoundationaLLM.Orchestration.API.Controllers.StatusController.#ctor(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService)
+  name: StatusController(IOrchestrationService)
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.StatusController.html#FoundationaLLM_Orchestration_API_Controllers_StatusController__ctor_FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_
+  commentId: M:FoundationaLLM.Orchestration.API.Controllers.StatusController.#ctor(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService)
+  name.vb: New(IOrchestrationService)
+  fullName: FoundationaLLM.Orchestration.API.Controllers.StatusController.StatusController(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService)
+  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.StatusController.New(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService)
+  nameWithType: StatusController.StatusController(IOrchestrationService)
+  nameWithType.vb: StatusController.New(IOrchestrationService)
+- uid: FoundationaLLM.Orchestration.API.Controllers.StatusController.#ctor*
+  name: StatusController
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.StatusController.html#FoundationaLLM_Orchestration_API_Controllers_StatusController__ctor_
+  commentId: Overload:FoundationaLLM.Orchestration.API.Controllers.StatusController.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Orchestration.API.Controllers.StatusController.StatusController
+  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.StatusController.New
+  nameWithType: StatusController.StatusController
+  nameWithType.vb: StatusController.New
 - uid: FoundationaLLM.Orchestration.API.Controllers.StatusController.Get
   name: Get()
   href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.StatusController.html#FoundationaLLM_Orchestration_API_Controllers_StatusController_Get
@@ -23464,19 +23777,67 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion
   nameWithType: ILLMOrchestrationService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.IsInitialized
-  name: IsInitialized
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_IsInitialized
-  commentId: P:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.IsInitialized
-  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.IsInitialized
-  nameWithType: ILLMOrchestrationService.IsInitialized
-- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.IsInitialized*
-  name: IsInitialized
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_IsInitialized_
-  commentId: Overload:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.IsInitialized
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus
+  name: GetStatus()
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetStatus
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus()
+  nameWithType: ILLMOrchestrationService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus*
+  name: GetStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus
   isSpec: "True"
-  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.IsInitialized
-  nameWithType: ILLMOrchestrationService.IsInitialized
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus
+  nameWithType: ILLMOrchestrationService.GetStatus
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_Name
+  commentId: P:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.Name
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.Name
+  nameWithType: ILLMOrchestrationService.Name
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_Name_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.Name
+  nameWithType: ILLMOrchestrationService.Name
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager
+  name: ILLMOrchestrationServiceManager
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html
+  commentId: T:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager
+  nameWithType: ILLMOrchestrationServiceManager
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
+  name: GetAggregateStatus(IServiceProvider)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_GetAggregateStatus_System_IServiceProvider_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
+  nameWithType: ILLMOrchestrationServiceManager.GetAggregateStatus(IServiceProvider)
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus*
+  name: GetAggregateStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_GetAggregateStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus
+  nameWithType: ILLMOrchestrationServiceManager.GetAggregateStatus
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
+  name: GetService(string, IServiceProvider, ICallContext)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_GetService_System_String_System_IServiceProvider_FoundationaLLM_Common_Interfaces_ICallContext_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
+  name.vb: GetService(String, IServiceProvider, ICallContext)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(string, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(String, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
+  nameWithType: ILLMOrchestrationServiceManager.GetService(string, IServiceProvider, ICallContext)
+  nameWithType.vb: ILLMOrchestrationServiceManager.GetService(String, IServiceProvider, ICallContext)
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService*
+  name: GetService
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_GetService_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService
+  nameWithType: ILLMOrchestrationServiceManager.GetService
 - uid: FoundationaLLM.Orchestration.Core.Interfaces.ILangChainService
   name: ILangChainService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILangChainService.html
@@ -23502,19 +23863,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion
   nameWithType: IOrchestrationService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.Status
-  name: Status
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_Status
-  commentId: P:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.Status
-  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.Status
-  nameWithType: IOrchestrationService.Status
-- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.Status*
-  name: Status
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_Status_
-  commentId: Overload:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.Status
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus
+  name: GetStatus()
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetStatus
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus()
+  nameWithType: IOrchestrationService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus*
+  name: GetStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus
   isSpec: "True"
-  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.Status
-  nameWithType: IOrchestrationService.Status
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus
+  nameWithType: IOrchestrationService.GetStatus
 - uid: FoundationaLLM.Orchestration.Core.Interfaces.ISemanticKernelService
   name: ISemanticKernelService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ISemanticKernelService.html
@@ -23614,13 +23975,13 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration
   fullName: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration
   nameWithType: KnowledgeManagementOrchestration
-- uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase})
+- uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase})
   name: KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger<OrchestrationBase>)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration__ctor_FoundationaLLM_Common_Models_Agents_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBase__
-  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase})
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration__ctor_FoundationaLLM_Common_Models_ResourceProviders_Agent_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBase__
+  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase})
   name.vb: New(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger(Of OrchestrationBase))
-  fullName: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase>)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.New(FoundationaLLM.Common.Models.Agents.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase))
+  fullName: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase>)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.New(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase))
   nameWithType: KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger<OrchestrationBase>)
   nameWithType.vb: KnowledgeManagementOrchestration.New(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger(Of OrchestrationBase))
 - uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.#ctor*
@@ -23696,15 +24057,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder
   fullName: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder
   nameWithType: OrchestrationBuilder
-- uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(System.String,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},System.Collections.Generic.IEnumerable{FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService},Microsoft.Extensions.Logging.ILoggerFactory)
-  name: Build(string, ICallContext, IConfiguration, Dictionary<string, IResourceProviderService>, IEnumerable<ILLMOrchestrationService>, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBuilder_Build_System_String_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Configuration_IConfiguration_System_Collections_Generic_Dictionary_System_String_FoundationaLLM_Common_Interfaces_IResourceProviderService__System_Collections_Generic_IEnumerable_FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService__Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(System.String,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},System.Collections.Generic.IEnumerable{FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService},Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: Build(String, ICallContext, IConfiguration, Dictionary(Of String, IResourceProviderService), IEnumerable(Of ILLMOrchestrationService), ILoggerFactory)
-  fullName: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(string, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, System.Collections.Generic.Dictionary<string, FoundationaLLM.Common.Interfaces.IResourceProviderService>, System.Collections.Generic.IEnumerable<FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService>, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(String, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, System.Collections.Generic.Dictionary(Of String, FoundationaLLM.Common.Interfaces.IResourceProviderService), System.Collections.Generic.IEnumerable(Of FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService), Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: OrchestrationBuilder.Build(string, ICallContext, IConfiguration, Dictionary<string, IResourceProviderService>, IEnumerable<ILLMOrchestrationService>, ILoggerFactory)
-  nameWithType.vb: OrchestrationBuilder.Build(String, ICallContext, IConfiguration, Dictionary(Of String, IResourceProviderService), IEnumerable(Of ILLMOrchestrationService), ILoggerFactory)
+- uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(System.String,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: Build(string, ICallContext, IConfiguration, Dictionary<string, IResourceProviderService>, ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBuilder_Build_System_String_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Configuration_IConfiguration_System_Collections_Generic_Dictionary_System_String_FoundationaLLM_Common_Interfaces_IResourceProviderService__FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(System.String,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: Build(String, ICallContext, IConfiguration, Dictionary(Of String, IResourceProviderService), ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
+  fullName: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(string, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, System.Collections.Generic.Dictionary<string, FoundationaLLM.Common.Interfaces.IResourceProviderService>, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(String, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, System.Collections.Generic.Dictionary(Of String, FoundationaLLM.Common.Interfaces.IResourceProviderService), FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: OrchestrationBuilder.Build(string, ICallContext, IConfiguration, Dictionary<string, IResourceProviderService>, ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
+  nameWithType.vb: OrchestrationBuilder.Build(String, ICallContext, IConfiguration, Dictionary(Of String, IResourceProviderService), ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
 - uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build*
   name: Build
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBuilder_Build_
@@ -23756,19 +24117,32 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion
   nameWithType: AzureAIDirectService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.IsInitialized
-  name: IsInitialized
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_IsInitialized
-  commentId: P:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.IsInitialized
-  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.IsInitialized
-  nameWithType: AzureAIDirectService.IsInitialized
-- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.IsInitialized*
-  name: IsInitialized
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_IsInitialized_
-  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.IsInitialized
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus
+  name: GetStatus()
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetStatus
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus()
+  nameWithType: AzureAIDirectService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus*
+  name: GetStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus
   isSpec: "True"
-  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.IsInitialized
-  nameWithType: AzureAIDirectService.IsInitialized
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus
+  nameWithType: AzureAIDirectService.GetStatus
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_Name
+  commentId: P:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.Name
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.Name
+  nameWithType: AzureAIDirectService.Name
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_Name_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.Name
+  nameWithType: AzureAIDirectService.Name
 - uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService
   name: AzureOpenAIDirectService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html
@@ -23807,19 +24181,150 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion
   nameWithType: AzureOpenAIDirectService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.IsInitialized
-  name: IsInitialized
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_IsInitialized
-  commentId: P:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.IsInitialized
-  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.IsInitialized
-  nameWithType: AzureOpenAIDirectService.IsInitialized
-- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.IsInitialized*
-  name: IsInitialized
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_IsInitialized_
-  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.IsInitialized
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus
+  name: GetStatus()
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetStatus
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus()
+  nameWithType: AzureOpenAIDirectService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus*
+  name: GetStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus
   isSpec: "True"
-  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.IsInitialized
-  nameWithType: AzureOpenAIDirectService.IsInitialized
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus
+  nameWithType: AzureOpenAIDirectService.GetStatus
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_Name
+  commentId: P:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.Name
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.Name
+  nameWithType: AzureOpenAIDirectService.Name
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_Name_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.Name
+  nameWithType: AzureOpenAIDirectService.Name
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService
+  name: LLMOrchestrationService
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html
+  commentId: T:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService
+  nameWithType: LLMOrchestrationService
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.APISettingsBase},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},System.Net.Http.IHttpClientFactory,FoundationaLLM.Common.Interfaces.ICallContext)
+  name: LLMOrchestrationService(string, IOptions<APISettingsBase>, ILogger<LLMOrchestrationService>, IHttpClientFactory, ICallContext)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_System_String_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_API_APISettingsBase__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__System_Net_Http_IHttpClientFactory_FoundationaLLM_Common_Interfaces_ICallContext_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.APISettingsBase},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},System.Net.Http.IHttpClientFactory,FoundationaLLM.Common.Interfaces.ICallContext)
+  name.vb: New(String, IOptions(Of APISettingsBase), ILogger(Of LLMOrchestrationService), IHttpClientFactory, ICallContext)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.LLMOrchestrationService(string, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.API.APISettingsBase>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService>, System.Net.Http.IHttpClientFactory, FoundationaLLM.Common.Interfaces.ICallContext)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.New(String, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.API.APISettingsBase), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService), System.Net.Http.IHttpClientFactory, FoundationaLLM.Common.Interfaces.ICallContext)
+  nameWithType: LLMOrchestrationService.LLMOrchestrationService(string, IOptions<APISettingsBase>, ILogger<LLMOrchestrationService>, IHttpClientFactory, ICallContext)
+  nameWithType.vb: LLMOrchestrationService.New(String, IOptions(Of APISettingsBase), ILogger(Of LLMOrchestrationService), IHttpClientFactory, ICallContext)
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor*
+  name: LLMOrchestrationService
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.LLMOrchestrationService
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.New
+  nameWithType: LLMOrchestrationService.LLMOrchestrationService
+  nameWithType.vb: LLMOrchestrationService.New
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: GetCompletion(LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: LLMOrchestrationService.GetCompletion(LLMCompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion*
+  name: GetCompletion
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetCompletion_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion
+  nameWithType: LLMOrchestrationService.GetCompletion
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus
+  name: GetStatus()
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetStatus
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus()
+  nameWithType: LLMOrchestrationService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus*
+  name: GetStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus
+  nameWithType: LLMOrchestrationService.GetStatus
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_Name
+  commentId: P:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.Name
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.Name
+  nameWithType: LLMOrchestrationService.Name
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_Name_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.Name
+  nameWithType: LLMOrchestrationService.Name
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager
+  name: LLMOrchestrationServiceManager
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html
+  commentId: T:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager
+  nameWithType: LLMOrchestrationServiceManager
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager})
+  name: LLMOrchestrationServiceManager(IEnumerable<IResourceProviderService>, IConfiguration, ILogger<LLMOrchestrationServiceManager>)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager__
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager})
+  name.vb: New(IEnumerable(Of IResourceProviderService), IConfiguration, ILogger(Of LLMOrchestrationServiceManager))
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.LLMOrchestrationServiceManager(System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager>)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.New(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager))
+  nameWithType: LLMOrchestrationServiceManager.LLMOrchestrationServiceManager(IEnumerable<IResourceProviderService>, IConfiguration, ILogger<LLMOrchestrationServiceManager>)
+  nameWithType.vb: LLMOrchestrationServiceManager.New(IEnumerable(Of IResourceProviderService), IConfiguration, ILogger(Of LLMOrchestrationServiceManager))
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.#ctor*
+  name: LLMOrchestrationServiceManager
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager__ctor_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.LLMOrchestrationServiceManager
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.New
+  nameWithType: LLMOrchestrationServiceManager.LLMOrchestrationServiceManager
+  nameWithType.vb: LLMOrchestrationServiceManager.New
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
+  name: GetAggregateStatus(IServiceProvider)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager_GetAggregateStatus_System_IServiceProvider_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
+  nameWithType: LLMOrchestrationServiceManager.GetAggregateStatus(IServiceProvider)
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus*
+  name: GetAggregateStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager_GetAggregateStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus
+  nameWithType: LLMOrchestrationServiceManager.GetAggregateStatus
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
+  name: GetService(string, IServiceProvider, ICallContext)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager_GetService_System_String_System_IServiceProvider_FoundationaLLM_Common_Interfaces_ICallContext_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
+  name.vb: GetService(String, IServiceProvider, ICallContext)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(string, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(String, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
+  nameWithType: LLMOrchestrationServiceManager.GetService(string, IServiceProvider, ICallContext)
+  nameWithType.vb: LLMOrchestrationServiceManager.GetService(String, IServiceProvider, ICallContext)
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService*
+  name: GetService
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager_GetService_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService
+  nameWithType: LLMOrchestrationServiceManager.GetService
 - uid: FoundationaLLM.Orchestration.Core.Services.LangChainService
   name: LangChainService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html
@@ -23858,34 +24363,47 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion
   nameWithType: LangChainService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.IsInitialized
-  name: IsInitialized
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_IsInitialized
-  commentId: P:FoundationaLLM.Orchestration.Core.Services.LangChainService.IsInitialized
-  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.IsInitialized
-  nameWithType: LangChainService.IsInitialized
-- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.IsInitialized*
-  name: IsInitialized
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_IsInitialized_
-  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.LangChainService.IsInitialized
+- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus
+  name: GetStatus()
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_GetStatus
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus
+  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus()
+  nameWithType: LangChainService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus*
+  name: GetStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_GetStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus
   isSpec: "True"
-  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.IsInitialized
-  nameWithType: LangChainService.IsInitialized
+  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus
+  nameWithType: LangChainService.GetStatus
+- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_Name
+  commentId: P:FoundationaLLM.Orchestration.Core.Services.LangChainService.Name
+  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.Name
+  nameWithType: LangChainService.Name
+- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_Name_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.LangChainService.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.Name
+  nameWithType: LangChainService.Name
 - uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService
   name: OrchestrationService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html
   commentId: T:FoundationaLLM.Orchestration.Core.Services.OrchestrationService
   fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService
   nameWithType: OrchestrationService
-- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},System.Collections.Generic.IEnumerable{FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService},FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)
-  name: OrchestrationService(IEnumerable<IResourceProviderService>, IEnumerable<ILLMOrchestrationService>, ICallContext, IConfiguration, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__System_Collections_Generic_IEnumerable_FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService__FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Configuration_IConfiguration_Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},System.Collections.Generic.IEnumerable{FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService},FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: New(IEnumerable(Of IResourceProviderService), IEnumerable(Of ILLMOrchestrationService), ICallContext, IConfiguration, ILoggerFactory)
-  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.OrchestrationService(System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, System.Collections.Generic.IEnumerable<FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService>, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.New(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), System.Collections.Generic.IEnumerable(Of FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService), FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: OrchestrationService.OrchestrationService(IEnumerable<IResourceProviderService>, IEnumerable<ILLMOrchestrationService>, ICallContext, IConfiguration, ILoggerFactory)
-  nameWithType.vb: OrchestrationService.New(IEnumerable(Of IResourceProviderService), IEnumerable(Of ILLMOrchestrationService), ICallContext, IConfiguration, ILoggerFactory)
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: OrchestrationService(IEnumerable<IResourceProviderService>, ILLMOrchestrationServiceManager, ICallContext, IConfiguration, IServiceProvider, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IEnumerable(Of IResourceProviderService), ILLMOrchestrationServiceManager, ICallContext, IConfiguration, IServiceProvider, ILoggerFactory)
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.OrchestrationService(System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.New(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: OrchestrationService.OrchestrationService(IEnumerable<IResourceProviderService>, ILLMOrchestrationServiceManager, ICallContext, IConfiguration, IServiceProvider, ILoggerFactory)
+  nameWithType.vb: OrchestrationService.New(IEnumerable(Of IResourceProviderService), ILLMOrchestrationServiceManager, ICallContext, IConfiguration, IServiceProvider, ILoggerFactory)
 - uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.#ctor*
   name: OrchestrationService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService__ctor_
@@ -23909,19 +24427,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletion
   nameWithType: OrchestrationService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.Status
-  name: Status
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_Status
-  commentId: P:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.Status
-  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.Status
-  nameWithType: OrchestrationService.Status
-- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.Status*
-  name: Status
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_Status_
-  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.Status
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus
+  name: GetStatus()
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetStatus
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus()
+  nameWithType: OrchestrationService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus*
+  name: GetStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus
   isSpec: "True"
-  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.Status
-  nameWithType: OrchestrationService.Status
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus
+  nameWithType: OrchestrationService.GetStatus
 - uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService
   name: SemanticKernelService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html
@@ -23960,19 +24478,32 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion
   nameWithType: SemanticKernelService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.IsInitialized
-  name: IsInitialized
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_IsInitialized
-  commentId: P:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.IsInitialized
-  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.IsInitialized
-  nameWithType: SemanticKernelService.IsInitialized
-- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.IsInitialized*
-  name: IsInitialized
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_IsInitialized_
-  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.IsInitialized
+- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus
+  name: GetStatus()
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetStatus
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus
+  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus()
+  nameWithType: SemanticKernelService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus*
+  name: GetStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus
   isSpec: "True"
-  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.IsInitialized
-  nameWithType: SemanticKernelService.IsInitialized
+  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus
+  nameWithType: SemanticKernelService.GetStatus
+- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_Name
+  commentId: P:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.Name
+  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.Name
+  nameWithType: SemanticKernelService.Name
+- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_Name_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.Name
+  nameWithType: SemanticKernelService.Name
 - uid: FoundationaLLM.Prompt
   name: FoundationaLLM.Prompt
   href: api/dotnet/FoundationaLLM.Prompt.html

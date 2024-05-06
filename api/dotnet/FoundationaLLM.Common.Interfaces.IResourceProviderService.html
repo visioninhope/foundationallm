@@ -129,6 +129,15 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
     <dt>Extension Methods</dt>
     <dd>
   <div>
+      <a class="xref" href="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResource__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceExtensions.GetResource&lt;T&gt;(IResourceProviderService, string, UnifiedUserIdentity)</a>
+  </div>
+  <div>
+      <a class="xref" href="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResources__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceExtensions.GetResources&lt;T&gt;(IResourceProviderService, UnifiedUserIdentity)</a>
+  </div>
+  <div>
+      <a class="xref" href="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_WaitForInitialization_FoundationaLLM_Common_Interfaces_IResourceProviderService_">ResourceProviderServiceExtensions.WaitForInitialization(IResourceProviderService)</a>
+  </div>
+  <div>
       <a class="xref" href="FoundationaLLM.Core.Utils.ObjectExtensions.html#FoundationaLLM_Core_Utils_ObjectExtensions_GetPropertyValues_System_Object_System_Collections_Generic_List_System_String__">ObjectExtensions.GetPropertyValues(object, List&lt;string&gt;)</a>
   </div>
   </dd></dl>
@@ -139,6 +148,38 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h2 class="section" id="properties">Properties
 </h2>
+
+
+  <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_AllowedResourceTypes_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.AllowedResourceTypes*"></a>
+
+  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_AllowedResourceTypes" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.AllowedResourceTypes">
+  AllowedResourceTypes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The metadata describing the resource types allowed by the resource provider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Dictionary&lt;string, ResourceTypeDescriptor&gt; AllowedResourceTypes { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeDescriptor.html">ResourceTypeDescriptor</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
 
 
   <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_IsInitialized_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.IsInitialized*"></a>
@@ -213,7 +254,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResource__1_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource``1(System.String)">
   GetResource&lt;T&gt;(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a resource based on its logical path.</p>
@@ -258,7 +299,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResourceAsync__1_System_String___0_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync``1(System.String,``0)">
   UpsertResourceAsync&lt;T&gt;(string, T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates or updates a resource based on its logical path.</p>
