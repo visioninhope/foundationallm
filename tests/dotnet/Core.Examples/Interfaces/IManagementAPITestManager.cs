@@ -47,7 +47,7 @@ public interface IManagementAPITestManager
         object resource);
 
     /// <summary>
-    /// Deletes a resource.
+    /// Deletes a resource then purges it, so we can reuse the name.
     /// </summary>
     /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
     /// <param name="resourceProvider">The name of the resource provider that should handle the request.</param>

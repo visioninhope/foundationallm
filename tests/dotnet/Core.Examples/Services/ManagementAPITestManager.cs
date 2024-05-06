@@ -127,6 +127,13 @@ namespace FoundationaLLM.Core.Examples.Services
 
             if (response.IsSuccessStatusCode)
             {
+                // Resource was deleted successfully. Now purge the resource, so we can reuse the name.
+                await coreClient.PostAsync($"instances/{instanceId}/providers/{resourceProvider}/{resourcePath}/purge",
+                    new StringContent("{}", Encoding.UTF8, "application/json"));
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new FoundationaLLMException($"Successfully deleted the resource, but failed to purge it. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
+                }
                 return;
             }
 
