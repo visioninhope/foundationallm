@@ -1142,31 +1142,31 @@
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Vectorization:Queues:Embed:ConnectionString",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "key": "FoundationaLLM:Vectorization:Queues:Embed:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "content_type": "",
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Vectorization:Queues:Extract:ConnectionString",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "key": "FoundationaLLM:Vectorization:Queues:Extract:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "content_type": "",
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Vectorization:Queues:Index:ConnectionString",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "key": "FoundationaLLM:Vectorization:Queues:Index:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "content_type": "",
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Vectorization:Queues:Partition:ConnectionString",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/storage-connection\"}",
+      "key": "FoundationaLLM:Vectorization:Queues:Partition:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
-      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "content_type": "",
       "tags": {}
     },
     {
