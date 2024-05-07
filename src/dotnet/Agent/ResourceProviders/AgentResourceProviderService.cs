@@ -273,7 +273,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
             return new ResourceProviderUpsertResult
             {
-                ObjectId = (agent as AgentBase)!.ObjectId
+                ObjectId = agent!.ObjectId,
+                ResourceAlreadyExists = existingAgentReference != null
             };
         }
 
