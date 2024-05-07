@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using FoundationaLLM;
+using FoundationaLLM.Authorization.Services;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
@@ -14,7 +15,6 @@ using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
-using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.Text;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
@@ -23,7 +23,9 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DefaultAuthentication.Production = builder.Environment.IsProduction();
+DefaultAuthentication.Initialize(
+    builder.Environment.IsProduction(),
+    ServiceNames.VectorizationWorker);
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -33,14 +35,17 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(DefaultAuthentication.GetAzureCredential());
+        options.SetCredential(DefaultAuthentication.AzureCredential);
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources); //data source settings
 });
 
 if (builder.Environment.IsDevelopment())
@@ -53,6 +58,9 @@ builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>()
 // Add resource providers.
 builder.AddDataSourceResourceProvider();
 builder.AddConfigurationResourceProvider();
+
+// Pipeline execution
+builder.AddPipelineExecution();
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
@@ -129,9 +137,11 @@ builder.Services.AddSingleton<IVectorizationServiceFactory<IIndexingService>, In
 builder.Services.AddKeyedSingleton<ITokenizerService, MicrosoftBPETokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 
-// Text embedding
-builder.Services.AddKeyedSingleton<ITextEmbeddingService, SemanticKernelTextEmbeddingService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService);
+// Gateway text embedding
+builder.Services.AddKeyedScoped<ITextEmbeddingService, GatewayTextEmbeddingService>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService);
+builder.AddGatewayService();
+builder.Services.AddHttpClient();
 
 // Indexing
 builder.Services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(

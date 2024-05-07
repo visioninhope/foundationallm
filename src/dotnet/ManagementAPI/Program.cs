@@ -8,7 +8,6 @@ using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
-using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
@@ -33,7 +32,9 @@ namespace FoundationaLLM.Management.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            DefaultAuthentication.Production = builder.Environment.IsProduction();
+            DefaultAuthentication.Initialize(
+                builder.Environment.IsProduction(),
+                ServiceNames.ManagementAPI);
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -41,7 +42,7 @@ namespace FoundationaLLM.Management.API
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
-                options.ConfigureKeyVault(options => { options.SetCredential(DefaultAuthentication.GetAzureCredential()); });
+                options.ConfigureKeyVault(options => { options.SetCredential(DefaultAuthentication.AzureCredential); });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
@@ -82,12 +83,9 @@ namespace FoundationaLLM.Management.API
                 builder.Configuration,
                 AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI);
 
-            builder.Services.AddScoped<IAgentHubAPIService, AgentHubAPIService>();
-            builder.Services.AddScoped<IDataSourceHubAPIService, DataSourceHubAPIService>();
-            builder.Services.AddScoped<IPromptHubAPIService, PromptHubAPIService>();
-
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
+            builder.Services.AddHttpClient();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
             // Add event services.
@@ -103,7 +101,7 @@ namespace FoundationaLLM.Management.API
             //----------------------------
             builder.AddAuthorizationResourceProvider();
             builder.AddConfigurationResourceProvider();
-            builder.AddVectorizationResourceProvider();
+            builder.AddVectorizationResourceProvider();            
             builder.AddAgentResourceProvider();
             builder.AddPromptResourceProvider();
             builder.AddDataSourceResourceProvider();
@@ -249,17 +247,17 @@ namespace FoundationaLLM.Management.API
             };
             var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
 
-            // AgentFactoryAPI:
-            var agentFactoryAPISettings = new DownstreamAPIKeySettings
+            // OrchestrationAPI:
+            var orchestrationAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIKey]!
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!
             };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.AgentFactoryAPI] = agentFactoryAPISettings;
+            downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = orchestrationAPISettings;
 
             builder.Services
-                .AddHttpClient(HttpClients.AgentFactoryAPI,
-                    client => { client.BaseAddress = new Uri(agentFactoryAPISettings.APIUrl); })
+                .AddHttpClient(HttpClients.OrchestrationAPI,
+                    client => { client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl); })
                 .AddResilienceHandler(
                     "DownstreamPipeline",
                     strategyBuilder =>

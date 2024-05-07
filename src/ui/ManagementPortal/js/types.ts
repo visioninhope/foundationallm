@@ -1,8 +1,11 @@
+// import type { AccountEntity } from "@azure/msal-browser";
+
 export type Agent = {
 	name: string;
 	object_id: string;
 	description: string;
 	type: 'knowledge-management' | 'analytics';
+	inline_context: boolean;
 
 	vectorization: {
 		dedicated_pipeline: boolean;
@@ -21,6 +24,8 @@ export type Agent = {
 		endpoint_configuration: {
 			endpoint: string;
 			api_key: string;
+			api_version: string;
+			operation_type: string;
 		};
 		model_parameters: {
 			temperature: number;
@@ -92,6 +97,19 @@ export interface AzureDataLakeDataSource extends BaseDataSource {
 		ConnectionString: string;
 		APIKey: string;
 		Endpoint: string;
+		AccountName: string;
+	};
+}
+
+export interface OneLakeDataSource extends BaseDataSource {
+	type: 'onelake';
+	workspaces?: string[];
+	configuration_references: {
+		AuthenticationType: string;
+		ConnectionString: string;
+		APIKey: string;
+		Endpoint: string;
+		AccountName: string;
 	};
 }
 
@@ -118,6 +136,7 @@ export interface SharePointOnlineSiteDataSource extends BaseDataSource {
 export type DataSource =
 	| AzureDataLakeDataSource
 	| SharePointOnlineSiteDataSource
+	| OneLakeDataSource
 	| AzureSQLDatabaseDataSource;
 // End data sources
 
@@ -236,6 +255,8 @@ export type CreateAgentRequest = {
 	name: string;
 	description: string;
 	object_id: string;
+	inline_context: boolean;
+
 	language_model: {
 		type: string;
 		provider: string;
@@ -265,6 +286,8 @@ export type CreateAgentRequest = {
 		endpoint_configuration: {
 			endpoint: string;
 			api_key: string;
+			api_version: string;
+			operation_type: string;
 		};
 		model_parameters: {
 			temperature: number;
@@ -294,7 +317,7 @@ export type CreatePromptRequest = {
 export type CreateTextPartitioningProfileRequest = {
 	text_splitter: string;
 	name: string;
-	object_id: string;
+	object_id?: string;
 	settings: {
 		Tokenizer: string;
 		TokenizerEncoder: string;
@@ -308,6 +331,12 @@ export function isAzureDataLakeDataSource(
 	dataSource: DataSource,
 ): dataSource is AzureDataLakeDataSource {
 	return dataSource.type === 'azure-data-lake';
+}
+
+export function isOneLakeDataSource(
+	dataSource: DataSource,
+): dataSource is OneLakeDataSource {
+	return dataSource.type === 'onelake';
 }
 
 export function isSharePointOnlineSiteDataSource(
@@ -342,12 +371,39 @@ export function convertDataSourceToAzureDataLake(dataSource: DataSource): AzureD
 			ConnectionString: dataSource.configuration_references?.ConnectionString || '',
 			APIKey: dataSource.configuration_references?.APIKey || '',
 			Endpoint: dataSource.configuration_references?.Endpoint || '',
+			AccountName: dataSource.configuration_references?.AccountName || '',
 		},
 		configuration_reference_metadata: {
 			AuthenticationType: { isKeyVaultBacked: false },
 			ConnectionString: { isKeyVaultBacked: true },
 			APIKey: { isKeyVaultBacked: true },
 			Endpoint: { isKeyVaultBacked: false },
+			AccountName: { isKeyVaultBacked: false },
+		},
+		resolved_configuration_references: dataSource.resolved_configuration_references,
+	};
+}
+
+export function convertDataSourceToOneLake(dataSource: DataSource): OneLakeDataSource {
+	return {
+		type: 'onelake',
+		name: dataSource.name,
+		object_id: dataSource.object_id,
+		description: dataSource.description,
+		workspaces: dataSource.workspaces || [],
+		configuration_references: {
+			AuthenticationType: dataSource.configuration_references?.AuthenticationType || '',
+			ConnectionString: dataSource.configuration_references?.ConnectionString || '',
+			APIKey: dataSource.configuration_references?.APIKey || '',
+			Endpoint: dataSource.configuration_references?.Endpoint || '',
+			AccountName: dataSource.configuration_references?.AccountName || '',
+		},
+		configuration_reference_metadata: {
+			AuthenticationType: { isKeyVaultBacked: false },
+			ConnectionString: { isKeyVaultBacked: true },
+			APIKey: { isKeyVaultBacked: true },
+			Endpoint: { isKeyVaultBacked: false },
+			AccountName: { isKeyVaultBacked: false },
 		},
 		resolved_configuration_references: dataSource.resolved_configuration_references,
 	};
@@ -401,6 +457,8 @@ export function convertDataSourceToAzureSQLDatabase(
 export function convertToDataSource(dataSource: DataSource): DataSource {
 	if (isAzureDataLakeDataSource(dataSource)) {
 		return convertDataSourceToAzureDataLake(dataSource);
+	} else if (isOneLakeDataSource(dataSource)) {
+		return convertDataSourceToOneLake(dataSource);
 	} else if (isSharePointOnlineSiteDataSource(dataSource)) {
 		return convertDataSourceToSharePointOnlineSite(dataSource);
 	} else if (isAzureSQLDatabaseDataSource(dataSource)) {

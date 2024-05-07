@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Common.Extensions
 {
@@ -43,7 +38,7 @@ namespace FoundationaLLM.Common.Extensions
                 // Handling enums:
                 if (targetType.IsEnum)
                 {
-                    return Enum.Parse(targetType, value.ToString());
+                    return Enum.Parse(targetType, value.ToString()!);
                 }
 
                 // Handling IConvertible types:

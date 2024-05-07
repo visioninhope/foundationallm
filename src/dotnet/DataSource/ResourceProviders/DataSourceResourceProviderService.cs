@@ -8,8 +8,8 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
-using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using FoundationaLLM.DataSource.Models;
 using Microsoft.AspNetCore.Http;
@@ -60,7 +60,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         private string _defaultDataSourceName = string.Empty;
 
         private const string DATA_SOURCE_REFERENCES_FILE_NAME = "_data-source-references.json";
-        private const string DATA_SOURCE_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_DataSource}/_data-source-references.json";
+        private const string DATA_SOURCE_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_DataSource}/{DATA_SOURCE_REFERENCES_FILE_NAME}";
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_DataSource;
@@ -231,6 +231,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 {
                     DataSourceResourceProviderActions.CheckName => CheckDataSourceName(serializedAction),
                     DataSourceResourceProviderActions.Filter => await Filter(serializedAction),
+                    DataSourceResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -303,6 +304,45 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                             .Where(dsr => !dsr.Deleted)
                             .Select(dsr => LoadDataSource(dsr))))
                 ];
+            }
+        }
+
+        private async Task<ResourceProviderActionResult> PurgeResource(ResourcePath resourcePath)
+        {
+            var resourceName = resourcePath.ResourceTypeInstances.Last().ResourceId!;
+            if (_dataSourceReferences.TryGetValue(resourceName, out var agentReference))
+            {
+                if (agentReference.Deleted)
+                {
+                    // Delete the resource file from storage.
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        agentReference.Filename,
+                        default);
+
+                    // Remove this resource reference from the store.
+                    _dataSourceReferences.TryRemove(resourceName, out _);
+
+                    await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                        DATA_SOURCE_REFERENCES_FILE_PATH,
+                        JsonSerializer.Serialize(DataSourceReferenceStore.FromDictionary(_dataSourceReferences.ToDictionary())),
+                        default,
+                        default);
+
+                    return new ResourceProviderActionResult(true);
+                }
+                else
+                {
+                    throw new ResourceProviderException(
+                        $"The {resourceName} data source resource is not soft-deleted and cannot be purged.",
+                        StatusCodes.Status400BadRequest);
+                }
+            }
+            else
+            {
+                throw new ResourceProviderException($"Could not locate the {resourceName} data source resource.",
+                    StatusCodes.Status404NotFound);
             }
         }
 

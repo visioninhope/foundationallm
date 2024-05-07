@@ -1,4 +1,4 @@
 """
 Model for the Prompt Resource provider.
 """
-from .prompt import Prompt
+from .multipart_prompt import MultipartPrompt

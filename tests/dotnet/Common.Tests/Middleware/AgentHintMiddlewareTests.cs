@@ -1,18 +1,11 @@
 ﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Authentication;
-using Microsoft.AspNetCore.Http;
-
-using NSubstitute;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using FoundationaLLM.Common.Models.Agents;
+using NSubstitute;
+using System.Security.Claims;
 using System.Text.Json;
 
 namespace FoundationaLLM.Common.Tests.Middleware

@@ -3,7 +3,7 @@
 namespace FoundationaLLM.Common.Interfaces
 {
     /// <summary>
-    /// Provides the core services implemented by all resource providers. 
+    /// Provides the core services implemented by all resource providers.
     /// </summary>
     public interface IResourceProviderService : IManagementProviderService
     {
@@ -21,6 +21,9 @@ namespace FoundationaLLM.Common.Interfaces
         /// Gets the resource types supported
         /// </summary>
         Dictionary<string, ResourceTypeDescriptor> GetResourceTypes();
+        /// The metadata describing the resource types allowed by the resource provider.
+        /// </summary>
+        Dictionary<string, ResourceTypeDescriptor> AllowedResourceTypes { get; }
 
         /// <summary>
         /// Gets a resource based on its logical path.

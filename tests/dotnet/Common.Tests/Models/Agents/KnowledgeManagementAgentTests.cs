@@ -1,11 +1,16 @@
-﻿using FoundationaLLM.Common.Models.Agents;
+﻿using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 
 namespace FoundationaLLM.Common.Tests.Models.Agents
 {
     public class KnowledgeManagementAgentTests
     {
         private KnowledgeManagementAgent _knowledgeManagementAgent = new KnowledgeManagementAgent()
-            { Name = "Test_agent", ObjectId = "Test_objectid", Type = AgentTypes.KnowledgeManagement };
+        {
+            Name = "Test_agent",
+            ObjectId = "Test_objectid",
+            Type = AgentTypes.KnowledgeManagement,
+            Vectorization = new AgentVectorizationSettings()
+        };
 
         [Fact]
         public void KnowledgeManagementAgent_Type_IsKnowledgeManagement()

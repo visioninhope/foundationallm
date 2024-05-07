@@ -1,15 +1,15 @@
-using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.DataSource.Models;
-using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Vectorization.Extensions;
 
 namespace FoundationaLLM.Vectorization.Services
 {
@@ -41,28 +41,13 @@ namespace FoundationaLLM.Vectorization.Services
         private readonly IConfigurationSection? _stepsConfiguration = stepsConfiguration;
         private readonly IServiceProvider _serviceProvider = serviceProvider;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
-        private readonly ILogger<VectorizationService> _logger = loggerFactory.CreateLogger<VectorizationService>();
+        private readonly ILogger<VectorizationService> _logger = loggerFactory.CreateLogger<VectorizationService>();        
 
         /// <inheritdoc/>
         public async Task<VectorizationResult> ProcessRequest(VectorizationRequest vectorizationRequest)
-        {
+        {            
             try
             {                
-                _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
-                if (vectorizationResourceProviderService == null)
-                    throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
-
-                // Pre-process the vectorization request
-                vectorizationRequest.Id = Guid.NewGuid().ToString();
-                vectorizationRequest.CompletedSteps = [];
-                vectorizationRequest.RemainingSteps = vectorizationRequest.Steps.Select(s => s.Id).ToList();
-
-                ValidateRequest(vectorizationRequest);
-
-                await vectorizationResourceProviderService.UpsertResourceAsync<VectorizationRequest>(
-                    $"/{VectorizationResourceTypeNames.VectorizationRequests}/{vectorizationRequest.Id}",
-                    vectorizationRequest);
-
                 switch (vectorizationRequest.ProcessingType)
                 {
                     case VectorizationProcessingType.Asynchronous:
@@ -82,69 +67,14 @@ namespace FoundationaLLM.Vectorization.Services
             }
         }
 
-        private void ValidateRequest(VectorizationRequest vectorizationRequest)
-        {
-            if (vectorizationRequest == null)
-                throw new VectorizationException("The vectorization request should not be null.");
-
-            if (String.IsNullOrWhiteSpace(vectorizationRequest!.Id))
-                throw new VectorizationException("The vectorization request id should not be null.");
-
-            if (vectorizationRequest.ContentIdentifier == null
-                || String.IsNullOrWhiteSpace(vectorizationRequest.ContentIdentifier.UniqueId)
-                || String.IsNullOrWhiteSpace(vectorizationRequest.ContentIdentifier.CanonicalId))
-                throw new VectorizationException("The vectorization request content identifier is invalid.");
-
-            if (vectorizationRequest.Steps == null || vectorizationRequest.Steps.Count == 0)
-                throw new VectorizationException("The list of the vectorization steps should not be empty.");
-
-            if (vectorizationRequest.Steps!.Select(x=>x.Id).Distinct().Count() != vectorizationRequest.Steps!.Count)
-                throw new VectorizationException("The list of vectorization steps must contain unique names.");
-
-            if (vectorizationRequest.CompletedSteps != null && vectorizationRequest.CompletedSteps!.Count > 0)
-                throw new VectorizationException("The completed steps of the vectorization request must be empty.");
-
-            if (vectorizationRequest.RemainingSteps == null || vectorizationRequest.RemainingSteps.Count == 0)
-                throw new VectorizationException("The list of the remaining steps of the vectorization request should not be empty.");
-
-            _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_DataSource, out var dataSourceResourceProviderService);
-            if (dataSourceResourceProviderService == null)
-                throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
-
-            var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(vectorizationRequest.ContentIdentifier.DataSourceObjectId)
-                ?? throw new VectorizationException($"The data source {vectorizationRequest.ContentIdentifier.DataSourceObjectId} was not found.");
-            switch (dataSource.Type)
-            {
-                case DataSourceTypes.AzureDataLake:
-                case DataSourceTypes.SharePointOnlineSite:
-                case DataSourceTypes.AzureSQLDatabase:
-                    // Validate the file extension is supported by vectorization
-                    string fileNameExtension = Path.GetExtension(vectorizationRequest.ContentIdentifier!.FileName);
-                    if (string.IsNullOrWhiteSpace(fileNameExtension))
-                        throw new VectorizationException("The file does not have an extension.");
-
-                    if (!FileExtensions.AllowedFileExtensions
-                        .Select(ext => ext.ToLower())
-                        .Contains(fileNameExtension.ToLower()))
-                        throw new VectorizationException($"The file extension {fileNameExtension} is not supported.");
-                    break;
-                // Needs to be brought into the data source provider
-                /*
-                case DataSourceType.Web:
-                    // Validate the protocol passed in is http or https
-                    string protocol = vectorizationRequest.ContentIdentifier[0];
-                    if (!new[] { "http", "https" }.Contains(protocol.ToLower()))
-                        throw new VectorizationException($"The protocol {protocol} is not supported.");
-                    break;
-                */
-                default:
-                    throw new VectorizationException($"The data source type {dataSource.Type} is not supported.");
-
-            }
-        }
-
         private async Task<VectorizationResult> ProcessRequestInternal(VectorizationRequest request)
         {
+            var vectorizationResourceProvider = GetVectorizationResourceProvider();
+            request.ProcessingState = VectorizationProcessingState.InProgress;
+            request.ExecutionStart = DateTime.UtcNow;
+            await request.UpdateVectorizationRequestResource(vectorizationResourceProvider).ConfigureAwait(false);
+
+
             _logger.LogInformation("Starting synchronous processing for request {RequestId}.", request.Id);
 
             var state = VectorizationState.FromRequest(request);
@@ -161,6 +91,8 @@ namespace FoundationaLLM.Vectorization.Services
                     _vectorizationStateService,
                     _serviceProvider,
                     _loggerFactory);
+
+                // vectorization request state is persisted in the Invoke method.
                 var handlerSuccess = await stepHandler.Invoke(request, state, default).ConfigureAwait(false);
                 if (!handlerSuccess)
                     break;
@@ -170,15 +102,21 @@ namespace FoundationaLLM.Vectorization.Services
                 if (!string.IsNullOrEmpty(steps.CurrentStep))
                     _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to step [{CurrentStepName}].",
                         request.Id, steps.PreviousStep, steps.CurrentStep);
-                else
+                else                
                     _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to finalized state.",
-                        request.Id, steps.PreviousStep);
-
+                       request.Id, steps.PreviousStep);                 
+               
+                // save execution state
                 await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
             }
 
             if (request.Complete)
             {
+                // update the vectorization request state to Completed.
+                request.ProcessingState = VectorizationProcessingState.Completed;
+                request.ExecutionEnd = DateTime.UtcNow;
+                await request.UpdateVectorizationRequestResource(vectorizationResourceProvider).ConfigureAwait(false);
+
                 _logger.LogInformation("Finished synchronous processing for request {RequestId}. All steps were processed successfully.", request.Id);
                 return new VectorizationResult(request.ObjectId!, true, null);
             }
@@ -186,9 +124,29 @@ namespace FoundationaLLM.Vectorization.Services
             {
                 var errorMessage =
                     $"Execution stopped at step [{request.CurrentStep}] due to an error.";
+
+                // update the vectorization request state to Completed.
+                request.ProcessingState = VectorizationProcessingState.Failed;
+                request.ExecutionEnd = DateTime.UtcNow;
+                await request.UpdateVectorizationRequestResource(vectorizationResourceProvider).ConfigureAwait(false);
                 _logger.LogInformation("Finished synchronous processing for request {RequestId}. {ErrorMessage}", request.Id, errorMessage);
                 return new VectorizationResult(request.ObjectId!, false, errorMessage);
             }
+        }
+
+        /// <summary>
+        /// Obtains the vectorization resource provider from available resource providers.
+        /// </summary>
+        /// <returns>The vectorization resource provider</returns>
+        /// <exception cref="VectorizationException"></exception>
+        private IResourceProviderService GetVectorizationResourceProvider()
+        {
+            _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
+            if (vectorizationResourceProviderService == null)
+                throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
+
+
+            return vectorizationResourceProviderService;
         }
     }
 }

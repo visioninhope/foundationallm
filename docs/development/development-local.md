@@ -7,8 +7,8 @@
   - Create an environment variable for the Application Configuration Service URI named `foundationallm-app-configuration-uri`. This is used by the Python projects.
   - Create an environment variable named `FOUNDATIONALLM_VERSION` and set it to the version of the FoundationaLLM deployment you are working with. This is used by the .NET projects to validate your environment configuration based on the version.
 
-    > [!TIP]
-    > You can view the FoundationaLLM release versions by viewing the [branches in the FoundationaLLM repository](https://github.com/solliancenet/foundationallm/branches/all?query=release). The format is `release/n.n.n`, where `n.n.n` is the version number. The `FOUNDATIONALLM_VERSION` environment variable should be set to the version number without the `release/` prefix (example: `0.4.0`).
+> [!TIP]
+> You can view the FoundationaLLM release versions by viewing the [branches in the FoundationaLLM repository](https://github.com/solliancenet/foundationallm/branches/all?query=release). The format is `release/n.n.n`, where `n.n.n` is the version number. The `FOUNDATIONALLM_VERSION` environment variable should be set to the version number without the `release/` prefix (example: `0.4.0`).
 
 - Follow the instructions in [Configure access control for services](../deployment/configure-access-control-for-services.md) to grant your user account access to the Azure App Configuration and Key Vault services. You may need an Azure admin to perform these steps on your behalf.
 - Backend (APIs and worker services):
@@ -28,6 +28,16 @@
     - Run nvm install latest
     - Run nvm list (to see the versions of NPM/node.js available)
     - Run nvm use latest (to use the latest available version)
+
+### Setup RBAC permissions when running locally
+
+When you run the solution locally, you will need to set role-based access control (RBAC) permissions on the Azure Cosmos DB account. You can do this by running the following command in the Azure Cloud Shell or Azure CLI:
+
+Assign yourself to the "Cosmos DB Built-in Data Contributor" role:
+
+```bash
+az cosmosdb sql role assignment create --account-name YOUR_COSMOS_DB_ACCOUNT_NAME --resource-group YOUR_RESOURCE_GROUP_NAME --scope "/" --principal-id YOUR_AZURE_AD_PRINCIPAL_ID --role-definition-id 00000000-0000-0000-0000-000000000002
+```
 
 ## UI
 
@@ -85,7 +95,7 @@ The `ManagementPortal` project is a Vue.js (Nuxt) project. To configure it to ru
         "APIUrl": "<...>" // Default local value: https://localhost:7180/
       },
       ,
-      "AgentFactoryAPI": {
+      "OrchestrationAPI": {
         "APIUrl": "<...>" // Default local value: "https://localhost:7324/"
       }
     }
@@ -165,7 +175,7 @@ The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB cha
 {
   "FoundationaLLM": {
     "APIs": {
-      "AgentFactoryAPI": {
+      "OrchestrationAPI": {
         "APIUrl": "<...>"  // Default local value: https://localhost:7324/
       },
       "GatekeeperIntegrationAPI": {
@@ -176,9 +186,9 @@ The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB cha
 }
 ```
 
-### Agent Factory API
+### Orchestration API
 
-#### Agent Factory API app settings
+#### Orchestration API app settings
 
 > Make sure the contents of the `appsettings.json` file has this structure and similar values:
 
@@ -375,7 +385,7 @@ The backend components consist of the .NET projects and the Python projects. The
 
 10. Select the `Multiple startup projects` option, then set the `Action` for the following projects to `Start`. Click **OK**.
   
-      - AgentFactoryAPI
+      - OrchestrationAPI
       - AgentHubAPI
       - CoreAPI
       - DataSourceHubAPI

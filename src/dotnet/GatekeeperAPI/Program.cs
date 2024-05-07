@@ -35,7 +35,9 @@ namespace FoundationaLLM.Gatekeeper.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            DefaultAuthentication.Production = builder.Environment.IsProduction();
+            DefaultAuthentication.Initialize(
+                builder.Environment.IsProduction(),
+                ServiceNames.GatekeeperAPI);
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -45,7 +47,7 @@ namespace FoundationaLLM.Gatekeeper.API
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
-                    options.SetCredential(DefaultAuthentication.GetAzureCredential());
+                    options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Refinement);
@@ -81,6 +83,10 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services.AddOptions<RefinementServiceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Refinement));
             builder.Services.AddScoped<IRefinementService, RefinementService>();
+
+            builder.Services.AddOptions<LakeraGuardServiceSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_LakeraGuard));
+            builder.Services.AddScoped<ILakeraGuardService, LakeraGuardService>();
 
             builder.Services.AddOptions<AzureContentSafetySettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureContentSafety));
@@ -182,17 +188,17 @@ namespace FoundationaLLM.Gatekeeper.API
                 DownstreamAPIs = []
             };
 
-            var agentFactoryAPISettings = new DownstreamAPIKeySettings
+            var orchestrationAPISettings = new DownstreamAPIKeySettings
             {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIKey]!
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!
             };
 
-            downstreamAPISettings.DownstreamAPIs[HttpClients.AgentFactoryAPI] = agentFactoryAPISettings;
+            downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = orchestrationAPISettings;
 
             builder.Services
-                    .AddHttpClient(HttpClients.AgentFactoryAPI,
-                        client => { client.BaseAddress = new Uri(agentFactoryAPISettings.APIUrl); })
+                    .AddHttpClient(HttpClients.OrchestrationAPI,
+                        client => { client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl); })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>
@@ -226,7 +232,7 @@ namespace FoundationaLLM.Gatekeeper.API
 
             builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
             builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(HttpClients.AgentFactoryAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
+                => new DownstreamAPIService(HttpClients.OrchestrationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
         }
     }
 }

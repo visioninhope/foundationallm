@@ -1,21 +1,20 @@
-﻿using System.Collections.Concurrent;
-using System.Text;
-using System.Text.Json;
-using FoundationaLLM.Common.Constants.Configuration;
+﻿using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
-using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.Prompt.Models.Metadata;
 using FoundationaLLM.Prompt.Models.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Collections.Concurrent;
+using System.Text;
+using System.Text.Json;
 
 namespace FoundationaLLM.Prompt.ResourceProviders
 {
@@ -131,7 +130,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 return JsonSerializer.Deserialize(
                     Encoding.UTF8.GetString(fileContent.ToArray()),
                     promptReference.PromptType,
-                    _serializerSettings) as Models.Metadata.MultipartPrompt
+                    _serializerSettings) as MultipartPrompt
                     ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.");
             }
 
@@ -208,6 +207,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 PromptResourceTypeNames.Prompts => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     PromptResourceProviderActions.CheckName => CheckPromptName(serializedAction),
+                    PromptResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -236,9 +236,48 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 };
         }
 
+        private async Task<ResourceProviderActionResult> PurgeResource(ResourcePath resourcePath)
+        {
+            var resourceName = resourcePath.ResourceTypeInstances.Last().ResourceId!;
+            if (_promptReferences.TryGetValue(resourceName, out var agentReference))
+            {
+                if (agentReference.Deleted)
+                {
+                    // Delete the resource file from storage.
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        agentReference.Filename,
+                        default);
+
+                    // Remove this resource reference from the store.
+                    _promptReferences.TryRemove(resourceName, out _);
+
+                    await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                        PROMPT_REFERENCES_FILE_PATH,
+                        JsonSerializer.Serialize(PromptReferenceStore.FromDictionary(_promptReferences.ToDictionary())),
+                        default,
+                        default);
+
+                    return new ResourceProviderActionResult(true);
+                }
+                else
+                {
+                    throw new ResourceProviderException(
+                        $"The {resourceName} prompt resource is not soft-deleted and cannot be purged.",
+                        StatusCodes.Status400BadRequest);
+                }
+            }
+            else
+            {
+                throw new ResourceProviderException($"Could not locate the {resourceName} prompt resource.",
+                    StatusCodes.Status404NotFound);
+            }
+        }
+
         #endregion
 
-        /// <inheritdoc/>
+            /// <inheritdoc/>
         protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
             switch (resourcePath.ResourceTypeInstances.Last().ResourceType)

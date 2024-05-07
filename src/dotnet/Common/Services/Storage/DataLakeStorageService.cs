@@ -49,6 +49,25 @@ namespace FoundationaLLM.Common.Services.Storage
         }
 
         /// <inheritdoc/>
+        public async Task<List<string>> GetFilePathsAsync(
+                       string containerName,
+                       string? directoryPath = null,
+                       bool recursive = true,
+                       CancellationToken cancellationToken = default)
+        {
+            List<string> retValue = new List<string>();
+            var fileSystemClient = _dataLakeClient.GetFileSystemClient(containerName);
+            await foreach (PathItem pathItem in fileSystemClient.GetPathsAsync(path: directoryPath, recursive: recursive, cancellationToken: cancellationToken))
+            {
+                if(pathItem.IsDirectory!.Value)
+                    continue;
+                
+                retValue.Add(pathItem.Name);
+            }
+            return retValue;
+        }
+
+        /// <inheritdoc/>
         public async Task<BinaryData> ReadFileAsync(
             string containerName,
             string filePath,
@@ -130,14 +149,14 @@ namespace FoundationaLLM.Common.Services.Storage
                 if (ex.Status == (int)HttpStatusCode.Conflict
                         && ex.ErrorCode == "LeaseAlreadyPresent")
                 {
-                    _logger.LogError("Could not get a lease for the file {FilePath} from container {ContainerName}. " +
+                    _logger.LogError(ex, "Could not get a lease for the file {FilePath} from container {ContainerName}. " +
                         "Reason: an existing lease is preventing acquiring a new lease.",
                         filePath, containerName);
                     throw new StorageException($"Could not get a lease for the file {filePath} from container {containerName}. " +
-                        "Reason: an existing lease is preventing acquiring a new lease.");
+                        "Reason: an existing lease is preventing acquiring a new lease.", ex);
                 }
 
-                throw new StorageException($"Could not get a lease for the file {filePath} from container {containerName}. Reason: unknown.");
+                throw new StorageException($"Could not get a lease for the file {filePath} from container {containerName}. Reason: unknown.", ex);
             }
             finally
             {
@@ -159,6 +178,26 @@ namespace FoundationaLLM.Common.Services.Storage
                 new MemoryStream(Encoding.UTF8.GetBytes(fileContent)),
                 contentType,
                 cancellationToken).ConfigureAwait(false);
+
+        /// <inheritdoc/>
+        public async Task DeleteFileAsync(
+            string containerName,
+            string filePath,
+            CancellationToken cancellationToken = default)
+        {
+            var fileSystemClient = _dataLakeClient.GetFileSystemClient(containerName);
+            var fileClient = fileSystemClient.GetFileClient(filePath);
+
+            try
+            {
+                await fileClient.DeleteIfExistsAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
+            }
+            catch (RequestFailedException e) when (e.Status == 404)
+            {
+                _logger.LogWarning("File not found: {FilePath}", filePath);
+                throw new ContentException("File not found.", e);
+            }
+        }
 
         /// <inheritdoc/>
         public async Task<bool> FileExistsAsync(
@@ -186,7 +225,7 @@ namespace FoundationaLLM.Common.Services.Storage
         protected override void CreateClientFromIdentity(string accountName) =>
             _dataLakeClient = new DataLakeServiceClient(
                 BuildStorageEndpointUri(accountName),
-                DefaultAuthentication.GetAzureCredential());
+                DefaultAuthentication.AzureCredential);
 
         /// <summary>
         /// Builds the endpoint for the Azure Data Lake service.
@@ -199,7 +238,7 @@ namespace FoundationaLLM.Common.Services.Storage
             // ref: https://learn.microsoft.com/en-us/fabric/onelake/onelake-access-api#uri-syntax
             if (accountName.ToLower().Equals(StorageNames.OneLake_Storage_Account))
             {
-                return new Uri($"https://{accountName}.dfs.fabric.microsoft.com");
+                return new Uri($"https://{StorageNames.OneLake_Storage_Account}.dfs.fabric.microsoft.com");
             }
             return new Uri($"https://{accountName}.dfs.core.windows.net");
         }

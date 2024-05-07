@@ -5,7 +5,6 @@ using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.Configuration.Events;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
-using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services.Events;
 using Microsoft.AspNetCore.Http;
@@ -83,6 +82,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
         /// <inheritdoc/>
         public bool IsInitialized  => _isInitialized;
+
+        /// <inheritdoc/>
+        public Dictionary<string, ResourceTypeDescriptor> AllowedResourceTypes => _allowedResourceTypes;
 
         /// <summary>
         /// Creates a new instance of the resource provider.
@@ -213,19 +215,30 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
         /// <inheritdoc/>
         public async Task HandleDeleteAsync(string resourcePath, UnifiedUserIdentity userIdentity)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(
-                resourcePath,
-                _allowedResourceProviders,
-                _allowedResourceTypes,
-                allowAction: false);
+        {            
+            var parsedResourcePath = GetResourcePath(resourcePath);
 
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "delete");
 
             await DeleteResourceAsync(parsedResourcePath, userIdentity);
+        }
+
+        /// <summary>
+        /// Gets a <see cref="ResourcePath"/> object for the specified string resource path.
+        /// </summary>
+        /// <param name="resourcePath"></param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        public ResourcePath GetResourcePath(string resourcePath)
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+            return new ResourcePath(
+                resourcePath,
+                _allowedResourceProviders,
+                _allowedResourceTypes,
+                allowAction: true);
         }
 
         #region Virtuals to override in derived classes
@@ -350,17 +363,18 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                     || userIdentity.UserId == null)
                     throw new Exception("The provided user identity information cannot be used for authorization.");
 
+                var rp = resourcePath.GetObjectId(_instanceSettings.Id, _name);
                 var result = await _authorizationService.ProcessAuthorizationRequest(
                     _instanceSettings.Id,
                     new ActionAuthorizationRequest
                         {
                             Action = $"{_name}/{resourcePath.MainResourceType}/{actionType}",
-                            ResourcePath = resourcePath.GetObjectId(_instanceSettings.Id, _name),
+                            ResourcePaths = [rp],
                             PrincipalId = userIdentity.UserId,
                             SecurityGroupIds = userIdentity.GroupIds
                         });
 
-                if (!result.Authorized)
+                if (!result.AuthorizationResults[rp])
                     throw new AuthorizationException("Access is not authorized.");
             }
             catch (AuthorizationException)
