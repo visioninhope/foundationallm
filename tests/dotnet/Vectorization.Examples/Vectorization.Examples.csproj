@@ -19,13 +19,14 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="xunit" Version="2.5.3" />
+    <PackageReference Include="xunit" Version="2.7.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\dotnet\Common\Common.csproj" />
     <ProjectReference Include="..\Core.Examples\Core.Examples.csproj" />
+    <ProjectReference Include="..\Core.Tests\Core.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +35,6 @@
 
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Models\" />
     <Folder Include="Utils\" />
   </ItemGroup>
 

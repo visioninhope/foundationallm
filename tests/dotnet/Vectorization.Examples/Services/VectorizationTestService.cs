@@ -1,19 +1,17 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
 using Azure.Identity;
+using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Models;
-using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Core.Examples.Interfaces;
-using FoundationaLLM.SemanticKernel.Core.Services;
+using FoundationaLLM.Core.Tests.Models;
 using FoundationaLLM.Vectorization.Examples.Interfaces;
 using FoundationaLLM.Vectorization.Examples.Setup;
 using Microsoft.Extensions.Options;
-using Microsoft.SemanticKernel.Connectors.AzureAISearch;
-using NSubstitute.Routing.Handlers;
 
 #pragma warning disable SKEXP0001, SKEXP0020
 
@@ -76,7 +74,7 @@ namespace FoundationaLLM.Vectorization.Examples.Services
 
         }
 
-        async public Task<string> QueryIndex(string indexProfileName, string embedProfileName, string query)
+        async public Task<TestSearchResult> QueryIndex(string indexProfileName, string embedProfileName, string query)
         {
             //get the indexing profile
             IndexingProfile indexingProfile = await managementAPITestManager.GetIndexingProfile(indexProfileName);
@@ -86,33 +84,11 @@ namespace FoundationaLLM.Vectorization.Examples.Services
             return await QueryIndex(indexingProfile, embeddingProfile, query);
         }
 
-        public async Task<string> QueryIndex(IndexingProfile indexProfile, TextEmbeddingProfile embedProfile, string query)
+        public async Task<ReadOnlyMemory<float>> GetVector(TextEmbeddingProfile embedProfile, string query)
         {
-            string searchServiceEndPoint = await TestConfiguration.GetAppConfigValueAsync( indexProfile.ConfigurationReferences["Endpoint"]);
-            string authType = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["AuthenticationType"]);            
-
-            SearchIndexClient indexClient = null;
-
-            switch(authType)
-            {
-                case "AzureIdentity":
-                    indexClient = new SearchIndexClient(new Uri(searchServiceEndPoint), new DefaultAzureCredential());
-                    break;
-                case "ApiKey":
-                    string adminApiKey = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["ApiKey"]);
-                    indexClient = new SearchIndexClient(new Uri(searchServiceEndPoint), new AzureKeyCredential(adminApiKey));
-                    break;
-
-            }
-            
-            var searchClient = indexClient.GetSearchClient(indexProfile.Settings["IndexName"]);
-
-            //Do basic search...
-            SearchResults<object> sr = searchClient.Search<object>(query);
-
             //embed the query
             string oaiEndpoint = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["Endpoint"]);
-            authType = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["AuthenticationType"]);
+            string authType = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["AuthenticationType"]);
             string apiVersion = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["APIVersion"]);
             AzureKeyCredential credentials = new(await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["APIKey"]));
 
@@ -126,12 +102,92 @@ namespace FoundationaLLM.Vectorization.Examples.Services
 
             var returnValue = openAIClient.GetEmbeddings(embeddingOptions);
 
-            var vectors = returnValue.Value.Data[0].Embedding.ToArray();
+            return returnValue.Value.Data[0].Embedding.ToArray();
+        }
 
-            //Do Vector Search
-            //TODO
+        async public Task<SearchIndexClient> GetIndexClient(IndexingProfile indexProfile)
+        {
+            string searchServiceEndPoint = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["Endpoint"]);
+            string authType = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["AuthenticationType"]);
+
+            SearchIndexClient indexClient = null;
+
+            switch (authType)
+            {
+                case "AzureIdentity":
+                    indexClient = new SearchIndexClient(new Uri(searchServiceEndPoint), new DefaultAzureCredential());
+                    break;
+                case "ApiKey":
+                    string adminApiKey = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["ApiKey"]);
+                    indexClient = new SearchIndexClient(new Uri(searchServiceEndPoint), new AzureKeyCredential(adminApiKey));
+                    break;
+
+            }
+
+            return indexClient;
+        }
+
+        async public Task<SearchClient> GetSearchClient(IndexingProfile indexProfile)
+        {
+            SearchIndexClient indexClient = await GetIndexClient(indexProfile);
+
+            return indexClient.GetSearchClient(indexProfile.Settings["IndexName"]);
+        }
+
+        public async Task<SearchResults<object>> PerformQuerySearch(IndexingProfile indexProfile, string query)
+        {
+            SearchClient searchClient = await GetSearchClient(indexProfile);
+
+            SearchOptions searchOptions = new SearchOptions
+            {
+                IncludeTotalCount = true
+            };
+
+            //Do basic search...
+            SearchResults<object> sr = searchClient.Search<object>(query, searchOptions);
+
+            return sr;
+        }
+
+        public async Task<SearchResults<object>> PerformVectorSearch(IndexingProfile indexProfile, TextEmbeddingProfile textEmbeddingProfile, string query, List<string> selectFields, List<string> embeddingFields, string filter = "", int k = 3)
+        {
+            SearchClient searchClient = await GetSearchClient(indexProfile);
+
+            // Perform the vector similarity search  
+            var searchOptions = new SearchOptions
+            {
+                Filter = filter,
+                Size = k,
+                //Select = select,
+                IncludeTotalCount = true
+            };
+
+            searchOptions.VectorSearch = new VectorSearchOptions();
+            //VectorizedQuery vectorizedQuery = new VectorizedQuery { KNearestNeighborsCount = k, Fields = { "vector" }, Exhaustive = true };
             
-            return "TODO";
+            ReadOnlyMemory<float> queryVector = await GetVector(textEmbeddingProfile, query);
+
+            VectorizedQuery vectorizedQuery = new VectorizedQuery(queryVector);
+
+            foreach(var field in embeddingFields)
+                vectorizedQuery.Fields.Add(field);
+            
+            searchOptions.VectorSearch.Queries.Add(vectorizedQuery);
+
+            SearchResults<object> response = await searchClient.SearchAsync<object>(query, searchOptions);
+
+            return response;
+        }
+
+
+        public async Task<TestSearchResult> QueryIndex(IndexingProfile indexProfile, TextEmbeddingProfile embedProfile, string query)
+        {
+            TestSearchResult searchResult = new();
+
+            searchResult.VectorResults = await PerformVectorSearch(indexProfile, embedProfile, query, new List<string> { "Id", "Text"}, new List<string> { "Embedding" });
+            searchResult.QueryResult = await PerformQuerySearch(indexProfile, query);
+
+            return searchResult;
         }
 
         public async Task DeleteDataSource(string name, List<AppConfigurationKeyValue> configList)
@@ -157,9 +213,20 @@ namespace FoundationaLLM.Vectorization.Examples.Services
         }
 
 
-        public Task DeleteIndexingProfile(string name, bool deleteIndex = true)
+        async public Task DeleteIndexingProfile(string name, bool deleteIndex = true)
         {
-            return managementAPITestManager.DeleteIndexingProfile(name);
+            IndexingProfile indexingProfile = await managementAPITestManager.GetIndexingProfile(name);
+
+            if (indexingProfile != null)
+            {
+                   if (deleteIndex)
+                {
+                        SearchIndexClient indexClient = await GetIndexClient(indexingProfile);
+                        await indexClient.DeleteIndexAsync(indexingProfile.Settings["IndexName"]);
+                    }
+            }
+
+            await managementAPITestManager.DeleteIndexingProfile(name);
         }
 
         public Task DeleteVectorizationRequest(VectorizationRequest request)

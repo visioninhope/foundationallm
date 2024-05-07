@@ -212,7 +212,11 @@ namespace FoundationaLLM.Common.Services.Storage
             else
             {
                 // Hierarchical listing (non-recursive)  
-                var prefix = string.IsNullOrEmpty(directoryPath) ? null : directoryPath.TrimEnd('/') + "/";
+                var prefix = string.IsNullOrEmpty(directoryPath) ? null : directoryPath.TrimEnd('/');
+
+                if (!directoryPath.Contains("requests"))
+                    directoryPath += "/";
+
                 await foreach (var blobHierarchyItem in containerClient.GetBlobsByHierarchyAsync(delimiter: "/", prefix: prefix, cancellationToken: cancellationToken))
                 {
                     if (blobHierarchyItem.IsBlob)

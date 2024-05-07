@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.Storage;
+using FoundationaLLM.Core.Tests.Models;
 using FoundationaLLM.Vectorization.Examples.Interfaces;
 using FoundationaLLM.Vectorization.Examples.Setup;
 using Microsoft.Extensions.DependencyInjection;
@@ -178,13 +179,16 @@ namespace FoundationaLLM.Core.Examples
             //TODO
 
             //perform a search
-            string query = "Dune";
+            TestSearchResult result = await _vectorizationTestService.QueryIndex(indexingProfileName, genericTextEmbeddingProfileName, "dune");
 
             //verify expected results
-            await _vectorizationTestService.QueryIndex(indexingProfileName, genericTextEmbeddingProfileName, query);
+            if (result.VectorResults.TotalCount != 281)
+                throw new Exception("Expected 281 vector results, but got " + result.VectorResults.TotalCount);
 
             //vaidate chunks in index...
-            //TODO
+            if ( result.QueryResult.TotalCount != 2886)
+                throw new Exception("Expected 2883 search results, but got " + result.QueryResult.TotalCount);
+
         }
 
         private async Task PostExecute()
