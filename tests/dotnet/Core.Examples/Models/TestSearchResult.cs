@@ -1,6 +1,6 @@
 ﻿using Azure.Search.Documents.Models;
 
-namespace FoundationaLLM.Core.Tests.Models
+namespace FoundationaLLM.Core.Examples.Models
 {
     public class TestSearchResult
     {

@@ -8,14 +8,13 @@ using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Core.Examples.Interfaces;
-using FoundationaLLM.Core.Tests.Models;
-using FoundationaLLM.Vectorization.Examples.Interfaces;
-using FoundationaLLM.Vectorization.Examples.Setup;
+using FoundationaLLM.Core.Examples.Models;
+using FoundationaLLM.Core.Examples.Setup;
 using Microsoft.Extensions.Options;
 
 #pragma warning disable SKEXP0001, SKEXP0020
 
-namespace FoundationaLLM.Vectorization.Examples.Services
+namespace FoundationaLLM.Core.Examples.Services
 {
     /// <summary>
     /// Service for running agent conversations using the Core API.

@@ -1,11 +1,9 @@
-﻿using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Configuration.Instance;
+﻿using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
-using FoundationaLLM.Core.Examples.Services;
-using FoundationaLLM.Core.Tests.Models;
+using FoundationaLLM.Core.Examples.Models;
 
-namespace FoundationaLLM.Vectorization.Examples.Interfaces;
+namespace FoundationaLLM.Core.Examples.Interfaces;
 
 public interface IVectorizationTestService
 {

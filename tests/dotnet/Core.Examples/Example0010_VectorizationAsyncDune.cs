@@ -6,15 +6,12 @@ using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.Storage;
-using FoundationaLLM.Core.Tests.Models;
-using FoundationaLLM.Vectorization.Examples.Interfaces;
-using FoundationaLLM.Vectorization.Examples.Setup;
+using FoundationaLLM.Core.Examples.Interfaces;
+using FoundationaLLM.Core.Examples.Models;
+using FoundationaLLM.Core.Examples.Setup;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Graph.Models;
-using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions.Interfaces;
-using System.IO;
 using Xunit.Abstractions;
 
 namespace FoundationaLLM.Core.Examples
@@ -22,13 +19,13 @@ namespace FoundationaLLM.Core.Examples
     /// <summary>
     /// Example class for running the default FoundationaLLM agent completions in both session and sessionless modes.
     /// </summary>
-    public class Example0001_VectorizationAsyncDune : BaseTest, IClassFixture<TestFixture>
+    public class Example0010_VectorizationAsyncDune : BaseTest, IClassFixture<TestFixture>
 	{
 		private readonly IVectorizationTestService _vectorizationTestService;
         private BlobStorageService _svc;
         private InstanceSettings _instanceSettings;
 
-        public Example0001_VectorizationAsyncDune(ITestOutputHelper output, TestFixture fixture)
+        public Example0010_VectorizationAsyncDune(ITestOutputHelper output, TestFixture fixture)
 			: base(output, fixture.ServiceProvider)
 		{
             _vectorizationTestService = GetService<IVectorizationTestService>();

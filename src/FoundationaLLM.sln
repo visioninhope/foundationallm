@@ -101,8 +101,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayAPI", "dotnet\Gatewa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Examples", "..\tests\dotnet\Core.Examples\Core.Examples.csproj", "{6230C568-E97B-4959-8ECE-33D97D1BBD4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vectorization.Examples", "..\tests\dotnet\Vectorization.Examples\Vectorization.Examples.csproj", "{F9238E07-C622-4307-9CE3-D1B2220BBEC0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -256,10 +254,6 @@ Global
 		{6230C568-E97B-4959-8ECE-33D97D1BBD4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6230C568-E97B-4959-8ECE-33D97D1BBD4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6230C568-E97B-4959-8ECE-33D97D1BBD4C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9238E07-C622-4307-9CE3-D1B2220BBEC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9238E07-C622-4307-9CE3-D1B2220BBEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9238E07-C622-4307-9CE3-D1B2220BBEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9238E07-C622-4307-9CE3-D1B2220BBEC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -308,7 +302,6 @@ Global
 		{35833700-B5EF-4211-91C7-E12A03DE3B82} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
 		{2A51F9EB-BFCB-4285-A6FC-80CCA46228FB} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
 		{6230C568-E97B-4959-8ECE-33D97D1BBD4C} = {28E0E967-A94D-4820-8A61-0B71D3B2780F}
-		{F9238E07-C622-4307-9CE3-D1B2220BBEC0} = {28E0E967-A94D-4820-8A61-0B71D3B2780F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FF5DE858-4B85-4EE8-8A6D-46E8E4FBA078}
