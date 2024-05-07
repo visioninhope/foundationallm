@@ -6,11 +6,11 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using Microsoft.AspNetCore.Http;
@@ -194,8 +194,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
             agent.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
-            if ((agent is KnowledgeManagementAgent kmAgent)
-                && kmAgent.Vectorization.DedicatedPipeline)
+            if ((agent is KnowledgeManagementAgent {Vectorization.DedicatedPipeline: true, InlineContext: false} kmAgent))
             {
                 var result = await GetResourceProviderService(ResourceProviderNames.FoundationaLLM_Vectorization)
                     .HandlePostAsync(
@@ -266,6 +265,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 AgentResourceTypeNames.Agents => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     AgentResourceProviderActions.CheckName => CheckAgentName(serializedAction),
+                    AgentResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -292,6 +292,44 @@ namespace FoundationaLLM.Agent.ResourceProviders
                     Type = resourceName.Type,
                     Status = NameCheckResultType.Allowed
                 };
+        }
+
+        private async Task<ResourceProviderActionResult> PurgeResource(ResourcePath resourcePath)
+        {
+            var resourceName = resourcePath.ResourceTypeInstances.Last().ResourceId!;
+            if (_agentReferences.TryGetValue(resourceName, out var agentReference))
+            {
+                if (agentReference.Deleted)
+                {
+                    // Delete the resource file from storage.
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        agentReference.Filename,
+                        default);
+
+                    // Remove this resource reference from the store.
+                    _agentReferences.TryRemove(resourceName, out _);
+
+                    await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                        AGENT_REFERENCES_FILE_PATH,
+                        JsonSerializer.Serialize(AgentReferenceStore.FromDictionary(_agentReferences.ToDictionary())),
+                        default,
+                        default);
+
+                    return new ResourceProviderActionResult(true);
+                }
+                else
+                {
+                    throw new ResourceProviderException($"The {resourceName} agent resource is not soft-deleted and cannot be purged.",
+                                               StatusCodes.Status400BadRequest);
+                }
+            }
+            else
+            {
+                throw new ResourceProviderException($"Could not locate the {resourceName} agent resource.",
+                    StatusCodes.Status404NotFound);
+            }
         }
 
         #endregion

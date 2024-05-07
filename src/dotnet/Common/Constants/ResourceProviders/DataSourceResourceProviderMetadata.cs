@@ -29,6 +29,9 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                             ]),
                             new ResourceTypeAction(DataSourceResourceProviderActions.Filter, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(DataSourceBase)])
+                            ]),
+                            new ResourceTypeAction(DataSourceResourceProviderActions.Purge, true, false, [
+                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]
                 }

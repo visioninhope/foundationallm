@@ -1,31 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace FoundationaLLM.Common.Constants
 {
     /// <summary>
-    /// Contains constants for orchestrator names.
+    /// Constants for the LLM Orchestration Service Names.
     /// </summary>
     public static class LLMOrchestrationServiceNames
     {
         /// <summary>
-        /// The LangChain orchestrator.
-        /// </summary>
-        public const string LangChain = "LangChain";
-        /// <summary>
-        /// The SemanticKernel orchestrator.
-        /// </summary>
-        public const string SemanticKernel = "SemanticKernel";
-        /// <summary>
-        /// The Azure OpenAI direct orchestrator.
-        /// </summary>
-        public const string AzureOpenAIDirect = "AzureOpenAIDirect";
-        /// <summary>
-        /// The Azure AI direct orchestrator.
+        /// Handles completion requests using real-time scoring endpoint deployed in Azure AI Studio.
         /// </summary>
         public const string AzureAIDirect = "AzureAIDirect";
+
+        /// <summary>
+        /// Handles completion requests using Azure OpenAI endpoints.
+        /// </summary>
+        public const string AzureOpenAIDirect = "AzureOpenAIDirect";
+
+        /// <summary>
+        /// Handles completion requests using LangChain.
+        /// </summary>
+        public const string LangChain = "LangChain";
+
+        /// <summary>
+        /// Handles completion requests using Semantic Kernel.
+        /// </summary>
+        public const string SemanticKernel = "SemanticKernel";
     }
 }

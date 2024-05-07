@@ -41,38 +41,53 @@
   },
   {
     "category": "Configuration",
-    "actions": [
-      {
-        "name": "FoundationaLLM.Configuration/appConfigurations/read",
-        "description": "Read app configurations.",
-        "field_name": "FoundationaLLM_Configuration_AppConfigurations_Read"
-      },
-      {
-        "name": "FoundationaLLM.Configuration/appConfigurations/write",
-        "description": "Create or update app configurations.",
-        "field_name": "FoundationaLLM_Configuration_AppConfigurations_Write"
-      },
-      {
-        "name": "FoundationaLLM.Configuration/appConfigurations/delete",
-        "description": "Delete app configurations.",
-        "field_name": "FoundationaLLM_Configuration_AppConfigurations_Delete"
-      },
-      {
-        "name": "FoundationaLLM.Configuration/keyVaultSecrets/read",
-        "description": "Read key vault secrets.",
-        "field_name": "FoundationaLLM_Configuration_KeyVaultSecrets_Read"
-      },
-      {
-        "name": "FoundationaLLM.Configuration/keyVaultSecrets/write",
-        "description": "Create or update key vault secrets.",
-        "field_name": "FoundationaLLM_Configuration_KeyVaultSecrets_Write"
-      },
-      {
-        "name": "FoundationaLLM.Configuration/keyVaultSecrets/delete",
-        "description": "Delete key vault secrets.",
-        "field_name": "FoundationaLLM_Configuration_KeyVaultSecrets_Delete"
-      }
-    ]
+		"actions": [
+			{
+				"name": "FoundationaLLM.Configuration/appConfigurations/read",
+				"description": "Read app configurations.",
+				"field_name": "FoundationaLLM_Configuration_AppConfigurations_Read"
+			},
+			{
+				"name": "FoundationaLLM.Configuration/appConfigurations/write",
+				"description": "Create or update app configurations.",
+				"field_name": "FoundationaLLM_Configuration_AppConfigurations_Write"
+			},
+			{
+				"name": "FoundationaLLM.Configuration/appConfigurations/delete",
+				"description": "Delete app configurations.",
+				"field_name": "FoundationaLLM_Configuration_AppConfigurations_Delete"
+			},
+			{
+				"name": "FoundationaLLM.Configuration/keyVaultSecrets/read",
+				"description": "Read key vault secrets.",
+				"field_name": "FoundationaLLM_Configuration_KeyVaultSecrets_Read"
+			},
+			{
+				"name": "FoundationaLLM.Configuration/keyVaultSecrets/write",
+				"description": "Create or update key vault secrets.",
+				"field_name": "FoundationaLLM_Configuration_KeyVaultSecrets_Write"
+			},
+			{
+				"name": "FoundationaLLM.Configuration/keyVaultSecrets/delete",
+				"description": "Delete key vault secrets.",
+				"field_name": "FoundationaLLM_Configuration_KeyVaultSecrets_Delete"
+			},
+			{
+				"name": "FoundationaLLM.Configuration/externalOrchestrationServices/read",
+				"description": "Read external orchestration services.",
+				"field_name": "FoundationaLLM_Configuration_ExternalOrchestrationServices_Read"
+			},
+			{
+				"name": "FoundationaLLM.Configuration/externalOrchestrationServices/write",
+				"description": "Create or update external orchestration services.",
+				"field_name": "FoundationaLLM_Configuration_ExternalOrchestrationServices_Write"
+			},
+			{
+				"name": "FoundationaLLM.Configuration/externalOrchestrationServices/delete",
+				"description": "Delete external orchestration services.",
+				"field_name": "FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete"
+			}
+		]
   },
   {
     "category": "DataSource",

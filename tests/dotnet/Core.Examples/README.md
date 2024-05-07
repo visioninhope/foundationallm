@@ -73,6 +73,7 @@ Example:
     "AgentPrompts": [
       {
         "AgentName": "FoundationaLLM",
+        "CreateAgent": false,
         "SessionConfiguration": {
           "Sessionless": false,
           "CreateNewSession": true,
@@ -90,6 +91,7 @@ Property definitions:
 
 - `AgentPrompts`: An array of user prompts with their expected outcomes.
   - `AgentName`: The name of the agent sent to the Core API completions endpoint.
+  - `CreateAgent`: Indicates whether to create a new agent for the test run. If `true`, the agent will be created and deleted. If set to `true`, make sure you add the agent to the `Catalogs.AgentCatalog`. Default value is `false`.
   - `SessionConfiguration`: Controls the configuration of the chat session  .
     - `Sessionless`: If `true`, the chat session will not be stored in the database and the session ID will be ignored. Default value is `false`.
     - `CreateNewSession`: Create a new chat session rather than using an existing one. Default value is `true`.

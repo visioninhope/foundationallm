@@ -91,11 +91,11 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         {
             ValidateSettings();
 
-            var certificateClient = new CertificateClient(new Uri(_settings.KeyVaultURL!), DefaultAuthentication.GetAzureCredential());
+            var certificateClient = new CertificateClient(new Uri(_settings.KeyVaultURL!), DefaultAuthentication.AzureCredential);
             var certificateWithPolicy = await certificateClient.GetCertificateAsync(_settings.CertificateName);
             var certificateIdentifier = new KeyVaultSecretIdentifier(certificateWithPolicy.Value.SecretId);
 
-            var secretClient = new SecretClient(new Uri(_settings.KeyVaultURL!), DefaultAuthentication.GetAzureCredential());
+            var secretClient = new SecretClient(new Uri(_settings.KeyVaultURL!), DefaultAuthentication.AzureCredential);
             var secret = await secretClient.GetSecretAsync(certificateIdentifier.Name, certificateIdentifier.Version);
             var secretBytes = Convert.FromBase64String(secret.Value.Value);
 

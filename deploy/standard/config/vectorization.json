@@ -2,52 +2,40 @@
     "RequestManagers": [
         {
             "RequestSourceName": "extract",
-            "MaxHandlerInstances": 1,
-            "QueueProcessingPace": 5,
-            "QueuePollingInterval": 60,
-            "QueueMaxNumberOfRetries": 5
+            "MaxHandlerInstances": 1
         },
         {
             "RequestSourceName": "partition",
-            "MaxHandlerInstances": 1,
-            "QueueProcessingPace": 5,
-            "QueuePollingInterval": 60,
-            "QueueMaxNumberOfRetries": 5
+            "MaxHandlerInstances": 1
         },
         {
             "RequestSourceName": "embed",
-            "MaxHandlerInstances": 1,
-            "QueueProcessingPace": 5,
-            "QueuePollingInterval": 60,
-            "QueueMaxNumberOfRetries": 5
+            "MaxHandlerInstances": 1
         },
         {
             "RequestSourceName": "index",
-            "MaxHandlerInstances": 1,
-            "QueueProcessingPace": 5,
-            "QueuePollingInterval": 60,
-            "QueueMaxNumberOfRetries": 5
+            "MaxHandlerInstances": 1
         }
     ],
     "RequestSources": [
         {
             "Name": "extract",
-            "AccountName": "{{accountName}}",
+            "ConnectionConfigurationName": "Extract:AccountName",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "partition",
-            "AccountName": "{{accountName}}",
+            "ConnectionConfigurationName": "Partition:AccountName",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "embed",
-            "AccountName": "{{accountName}}",
+            "ConnectionConfigurationName": "Embed:AccountName",
             "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "index",
-            "AccountName": "{{accountName}}",
+            "ConnectionConfigurationName": "Index:AccountName",
             "VisibilityTimeoutSeconds": 600
         }
     ],

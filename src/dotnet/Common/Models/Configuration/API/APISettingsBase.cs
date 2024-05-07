@@ -3,7 +3,7 @@
     /// <summary>
     /// SettingsBase class
     /// </summary>
-    public class SettingsBase
+    public class APISettingsBase
     {
         /// <summary>
         /// The uri of the target service.

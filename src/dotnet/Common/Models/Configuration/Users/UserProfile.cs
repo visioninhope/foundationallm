@@ -1,5 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Agents;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 
 namespace FoundationaLLM.Common.Models.Configuration.Users

@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Agents;
@@ -13,6 +13,12 @@ using FoundationaLLM.Core.Examples.Interfaces;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Models.Configuration.Instance;
+using Microsoft.Extensions.Options;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Core.Examples.Setup;
 
 namespace FoundationaLLM.Core.Examples.Services
 {
@@ -210,6 +216,19 @@ namespace FoundationaLLM.Core.Examples.Services
                 throw new InvalidOperationException($"The prompt for the agent {agentName} was not found.");
             }
 
+            // Resolve App Config values for the endpoint configuration as necessary.
+            // Note: This is a temporary workaround until we have the Models and Endpoints resource provider in place.
+            if (agent.OrchestrationSettings is {EndpointConfiguration: not null})
+            {
+                foreach (var (key, value) in agent.OrchestrationSettings.EndpointConfiguration)
+                {
+                    if (key.ToLower() == "api_key") continue;
+                    if (value is not string stringValue || !stringValue.StartsWith("FoundationaLLM:")) continue;
+                    var appConfigValue = await TestConfiguration.GetAppConfigValueAsync(value.ToString()!);
+                    agent.OrchestrationSettings.EndpointConfiguration[key] = appConfigValue;
+                }
+            }
+
             // Create the prompt for the agent.
             var promptObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
@@ -301,6 +320,13 @@ namespace FoundationaLLM.Core.Examples.Services
 
             if (response.IsSuccessStatusCode)
             {
+                // Resource was deleted successfully. Now purge the resource, so we can reuse the name.
+                await coreClient.PostAsync($"instances/{instanceId}/providers/{resourceProvider}/{resourcePath}/purge",
+                    new StringContent("{}", Encoding.UTF8, "application/json"));
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new FoundationaLLMException($"Successfully deleted the resource, but failed to purge it. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
+                }
                 return;
             }
 

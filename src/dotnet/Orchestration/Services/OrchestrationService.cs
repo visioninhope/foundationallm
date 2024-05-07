@@ -1,7 +1,9 @@
-﻿using AngleSharp.Text;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Orchestration.Core.Interfaces;
@@ -9,7 +11,6 @@ using FoundationaLLM.Orchestration.Core.Models;
 using FoundationaLLM.Orchestration.Core.Orchestration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
 
@@ -20,56 +21,59 @@ namespace FoundationaLLM.Orchestration.Core.Services;
 /// </summary>
 public class OrchestrationService : IOrchestrationService
 {
-    private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices;
+    private readonly ILLMOrchestrationServiceManager _llmOrchestrationServiceManager;
     private readonly ICallContext _callContext;
     private readonly IConfiguration _configuration;
     private readonly ILogger<OrchestrationService> _logger;
     private readonly ILoggerFactory _loggerFactory;
+    private readonly IServiceProvider _serviceProvider;
 
     private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices;
 
     /// <summary>
     /// Constructor for the Orchestration Service.
     /// </summary>
-    /// <param name="resourceProviderServices">A list of <see cref="IResourceProviderService"/> resource providers.</param>
-    /// <param name="orchestrationServices"></param>
+    /// <param name="resourceProviderServices">A list of of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
+    /// <param name="llmOrchestrationServiceManager">The <see cref="ILLMOrchestrationServiceManager"/> managing the internal and external LLM orchestration services.</param>
     /// <param name="callContext">The call context of the request being handled.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> provding dependency injection services for the current scope.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public OrchestrationService(
         IEnumerable<IResourceProviderService> resourceProviderServices,
-        IEnumerable<ILLMOrchestrationService> orchestrationServices,
+        ILLMOrchestrationServiceManager llmOrchestrationServiceManager,
         ICallContext callContext,
         IConfiguration configuration,
+        IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
     {
         _resourceProviderServices = resourceProviderServices.ToDictionary<IResourceProviderService, string>(
                 rps => rps.Name);
-
-        _orchestrationServices = orchestrationServices;
+        _llmOrchestrationServiceManager = llmOrchestrationServiceManager;
+        
         _callContext = callContext;
         _configuration = configuration;
+        _serviceProvider = serviceProvider;
 
         _loggerFactory = loggerFactory;
         _logger = _loggerFactory.CreateLogger<OrchestrationService>();
     }
 
-    /// <summary>
-    /// Returns the status of the Semantic Kernel.
-    /// </summary>
-    public string Status
+    /// <inheritdoc/>
+    public async Task<ServiceStatusInfo> GetStatus()
     {
-        get
+        var subordinateStatuses = await _llmOrchestrationServiceManager.GetAggregateStatus(_serviceProvider);
+        return new ServiceStatusInfo
         {
-            if (_orchestrationServices.All(os => os.IsInitialized))
-                return "ready";
-
-            return string.Join(",", _orchestrationServices
-                .Where(os => !os.IsInitialized)
-                .Select(os => $"{os.GetType().Name}: initializing"));
-        }
+            Name = ServiceNames.OrchestrationAPI,
+            Instance = ValidatedEnvironment.MachineName,
+            Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
+            Status = subordinateStatuses.All(s => s.Status!.Equals("ready", StringComparison.CurrentCultureIgnoreCase))
+                ? "ready"
+                : "partially_unavailable",
+            SubordinateServices = subordinateStatuses
+        };
     }
-
 
     /// <summary>
     /// Retrieve a completion from the configured orchestration service.
@@ -110,7 +114,8 @@ public class OrchestrationService : IOrchestrationService
                 _callContext,
                 _configuration,
                 _resourceProviderServices,
-                _orchestrationServices,
+                _llmOrchestrationServiceManager,
+                _serviceProvider,
                 _loggerFactory);
 
             var stepCompletionRequest = new CompletionRequest

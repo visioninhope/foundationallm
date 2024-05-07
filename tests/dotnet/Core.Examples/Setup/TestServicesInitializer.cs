@@ -9,6 +9,7 @@ using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Core.Examples.Exceptions;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Examples.Services;
@@ -112,7 +113,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 			services.AddSingleton<CosmosClient>(serviceProvider =>
 			{
 				var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
-				return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.GetAzureCredential())
+				return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.AzureCredential)
 					.WithSerializerOptions(new CosmosSerializationOptions
 					{
 						PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
@@ -126,13 +127,28 @@ namespace FoundationaLLM.Core.Examples.Setup
 
 		private static void RegisterAzureAIService(IServiceCollection services, IConfiguration configuration)
 		{
-			services.AddOptions<AzureAISettings>()
-				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio));
-			services.AddOptions<BlobStorageServiceSettings>()
-				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings));
+            try
+            {
+                var completionQualityMeasurementConfiguration = TestConfiguration.CompletionQualityMeasurementConfiguration;
+                if (completionQualityMeasurementConfiguration is { AgentPrompts: not null })
+                {
+                    services.AddOptions<AzureAISettings>()
+                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio));
+                    services.AddOptions<BlobStorageServiceSettings>()
+                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings));
 
-			services.AddScoped<IAzureAIService, AzureAIService>();
-			services.AddSingleton<IStorageService, BlobStorageService>();
+                    services.AddScoped<IAzureAIService, AzureAIService>();
+                    services.AddSingleton<IStorageService, BlobStorageService>();
+                }
+                else
+                {
+                    Console.WriteLine($"Skipping Azure AI Service initialization. No agent prompts defined in the {nameof(CompletionQualityMeasurementConfiguration)} configuration section.");
+                }
+            }
+            catch (ConfigurationNotFoundException cex)
+            {
+                Console.WriteLine($"Skipping Azure AI Service initialization. {cex.Message}");
+            }
 		}
 
 		private static void RegisterLogging(IServiceCollection services)

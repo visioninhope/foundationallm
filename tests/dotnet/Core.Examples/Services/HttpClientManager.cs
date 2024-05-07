@@ -18,19 +18,18 @@ namespace FoundationaLLM.Core.Examples.Services
             var options = httpClientOptions.Get(apiType);
 
             var scope = options.Scope;
+            if (scope == null) return httpClient;
             // The scope needs to just be the base URI, not the full URI.
-            if (scope != null)
-            {
-                scope = scope[..scope.LastIndexOf('/')];
+            scope = scope[..scope.LastIndexOf('/')];
 
-                var credentials = DefaultAuthentication.GetAzureCredential();
-                var tokenResult = await credentials.GetTokenAsync(
-                    new([scope]),
-                    default);
+            var credentials = DefaultAuthentication.AzureCredential;
+            if (credentials == null) return httpClient;
+            var tokenResult = await credentials.GetTokenAsync(
+                new([scope]),
+                default);
 
-                httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", tokenResult.Token);
-            }
+            httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", tokenResult.Token);
 
             return httpClient;
         }

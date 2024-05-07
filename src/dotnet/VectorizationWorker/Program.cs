@@ -23,7 +23,9 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DefaultAuthentication.Production = builder.Environment.IsProduction();
+DefaultAuthentication.Initialize(
+    builder.Environment.IsProduction(),
+    ServiceNames.VectorizationWorker);
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -33,7 +35,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(DefaultAuthentication.GetAzureCredential());
+        options.SetCredential(DefaultAuthentication.AzureCredential);
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);

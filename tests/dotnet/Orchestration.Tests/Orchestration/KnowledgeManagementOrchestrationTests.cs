@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Orchestration;
 using Microsoft.Extensions.Logging;
