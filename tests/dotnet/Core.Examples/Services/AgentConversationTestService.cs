@@ -16,7 +16,7 @@ namespace FoundationaLLM.Core.Examples.Services
     public class AgentConversationTestService(
         ICoreAPITestManager coreAPITestManager,
         IManagementAPITestManager managementAPITestManager,
-        IAzureAIService azureAIService) : IAgentConversationTestService
+        IAzureAIService azureAIService = null) : IAgentConversationTestService
     {
         /// <inheritdoc/>
         public async Task<IEnumerable<Message>> RunAgentConversationWithSession(string agentName,
@@ -151,6 +151,12 @@ namespace FoundationaLLM.Core.Examples.Services
         {
             var sessionCreated = false;
             var completionQualityMeasurementOutput = new CompletionQualityMeasurementOutput();
+
+            if (azureAIService == null)
+            {
+                throw new InvalidOperationException("The Azure AI service is required for this operation. Please make sure you have configured your testsettings.json file with the CompletionQualityMeasurementConfiguration section and its AgentPrompts.");
+            }
+
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.

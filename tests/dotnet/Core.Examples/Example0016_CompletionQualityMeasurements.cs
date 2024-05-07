@@ -31,7 +31,7 @@ namespace FoundationaLLM.Core.Examples
 			if (agentPrompts == null || agentPrompts.Length == 0)
 			{
 				WriteLine("No agent prompts found. Make sure you enter them in testsettings.json.");
-				return;
+                Assert.True(agentPrompts is {Length: > 0}, "Failed to run the test because there are no configured agent prompts.");
 			}
 			foreach (var agentPrompt in agentPrompts)
 			{
