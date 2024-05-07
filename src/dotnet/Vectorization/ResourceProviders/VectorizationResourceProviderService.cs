@@ -198,7 +198,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     var matchingFilePaths = await GetRequestResourceFilePaths(instance.ResourceId); //there should only be zero or one
                     if (matchingFilePaths.Count > 0)
                     {
-                        var fileContent = await _storageService.ReadFileAsync(_storageContainerName, matchingFilePaths[0], default);
+                        var fileContent = await _storageService.ReadFileAsync(VECTORIZATON_STATE_CONTAINER_NAME, matchingFilePaths[0], default);
                         var request = JsonSerializer.Deserialize<VectorizationRequest>(
                             Encoding.UTF8.GetString(fileContent.ToArray()));
 
