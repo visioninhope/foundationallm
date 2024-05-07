@@ -34,9 +34,12 @@ public interface IAgentConversationTestService
     /// <param name="userPrompt">The user prompt to send to the agent.</param>
     /// <param name="sessionId">Specifies an existing session ID to use for the test. If the value is null,
     /// a new session is created then deleted as part of the test run.</param>
+    /// <param name="createAgent">If true, the test run will create an agent and its dependencies before the
+    /// run and delete these resources when the run completes. This is a potentially destructive action. Do
+    /// not enable this option if you wish to use pre-existing resources, such as the default FoundationaLLM agent.</param>
     /// <returns></returns>
     Task<Completion> RunAgentCompletionWithSession(string agentName,
-        string userPrompt, string? sessionId = null);
+        string userPrompt, string? sessionId = null, bool createAgent = false);
 
     /// <summary>
     /// Runs a single completion with an agent using the Core API without a chat session (sessionless).
@@ -44,9 +47,12 @@ public interface IAgentConversationTestService
     /// </summary>
     /// <param name="agentName">The name of the agent to use.</param>
     /// <param name="userPrompt">The user prompt to send to the agent.</param>
+    /// <param name="createAgent">If true, the test run will create an agent and its dependencies before the
+    /// run and delete these resources when the run completes. This is a potentially destructive action. Do
+    /// not enable this option if you wish to use pre-existing resources, such as the default FoundationaLLM agent.</param>
     /// <returns></returns>
     Task<Completion> RunAgentCompletionWithNoSession(string agentName,
-        string userPrompt);
+        string userPrompt, bool createAgent = false);
 
     /// <summary>
     /// Runs a single completion with an agent using the Core API and a chat session, then measures the quality
@@ -60,7 +66,10 @@ public interface IAgentConversationTestService
     /// <param name="expectedCompletion">The expected agent completion used for quality measurements.</param>
     /// <param name="sessionId">Specifies an existing session ID to use for the test. If the value is null,
     /// a new session is created then deleted as part of the test run.</param>
+    /// <param name="createAgent">If true, the test run will create an agent and its dependencies before the
+    /// run and delete these resources when the run completes. This is a potentially destructive action. Do
+    /// not enable this option if you wish to use pre-existing resources, such as the default FoundationaLLM agent.</param>
     /// <returns></returns>
     Task<CompletionQualityMeasurementOutput> RunAgentCompletionWithQualityMeasurements(string agentName,
-        string userPrompt, string expectedCompletion, string? sessionId = null);
+        string userPrompt, string expectedCompletion, string? sessionId = null, bool createAgent = false);
 }

@@ -28,6 +28,11 @@ namespace FoundationaLLM.Core.Examples.Models
 		/// </summary>
 		public string? AgentName { get; set; }
 		/// <summary>
+		/// Indicates whether to create a new agent for the test run. If true, the agent will be created and deleted.
+		/// If set to true, make sure you add the agent to the <see cref="Catalogs.AgentCatalog"/>.
+		/// </summary>
+        public bool CreateAgent { get; set; } = false;
+		/// <summary>
 		/// Controls the configuration of the chat session.
 		/// </summary>
 		public SessionConfiguration? SessionConfiguration { get; set; }

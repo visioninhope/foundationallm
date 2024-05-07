@@ -72,7 +72,7 @@ namespace FoundationaLLM.Core.Examples.Services
 
         /// <inheritdoc/>
         public async Task<Completion> RunAgentCompletionWithSession(string agentName,
-            string userPrompt, string? sessionId = null)
+            string userPrompt, string? sessionId = null, bool createAgent = false)
         {
             var sessionCreated = false;
             if (string.IsNullOrWhiteSpace(sessionId))
@@ -82,7 +82,11 @@ namespace FoundationaLLM.Core.Examples.Services
                 sessionCreated = true;
             }
 
-            // TODO: Create a new agent if it does not exist. Use the ManagementAPITestManager to create the agent.
+            if (createAgent)
+            {
+                // Create a new agent and its dependencies for the test.
+                await managementAPITestManager.CreateAgent(agentName);
+            }
 
             // Create a new orchestration request for the user prompt and chat session.
             var orchestrationRequest = new OrchestrationRequest
@@ -102,14 +106,24 @@ namespace FoundationaLLM.Core.Examples.Services
                 await coreAPITestManager.DeleteSessionAsync(sessionId);
             }
 
+            if (createAgent)
+            {
+                // Delete the agent and its dependencies.
+                await managementAPITestManager.DeleteAgent(agentName);
+            }
+
             return completion;
         }
 
         /// <inheritdoc/>
         public async Task<Completion> RunAgentCompletionWithNoSession(string agentName,
-            string userPrompt)
+            string userPrompt, bool createAgent = false)
         {
-            // TODO: Create a new agent if it does not exist. Use the ManagementAPITestManager to create the agent.
+            if (createAgent)
+            {
+                // Create a new agent and its dependencies for the test.
+                await managementAPITestManager.CreateAgent(agentName);
+            }
 
             // Create a new orchestration request for the user prompt and chat session.
             var completionRequest = new CompletionRequest
@@ -122,12 +136,18 @@ namespace FoundationaLLM.Core.Examples.Services
             // Send the orchestration request to the Core API's orchestration completion endpoint.
             var completion = await coreAPITestManager.SendOrchestrationCompletionRequestAsync(completionRequest);
 
+            if (createAgent)
+            {
+                // Delete the agent and its dependencies.
+                await managementAPITestManager.DeleteAgent(agentName);
+            }
+
             return completion;
         }
 
         /// <inheritdoc/>
         public async Task<CompletionQualityMeasurementOutput> RunAgentCompletionWithQualityMeasurements(string agentName,
-            string userPrompt, string expectedCompletion, string? sessionId = null)
+            string userPrompt, string expectedCompletion, string? sessionId = null, bool createAgent = false)
         {
             var sessionCreated = false;
             var completionQualityMeasurementOutput = new CompletionQualityMeasurementOutput();
@@ -138,7 +158,11 @@ namespace FoundationaLLM.Core.Examples.Services
                 sessionCreated = true;
             }
 
-            // TODO: Create a new agent if it does not exist. Use the ManagementAPITestManager to create the agent.
+            if (createAgent)
+            {
+                // Create a new agent and its dependencies for the test.
+                await managementAPITestManager.CreateAgent(agentName);
+            }
 
             // Create a new orchestration request for the user prompt and chat session.
             var orchestrationRequest = new OrchestrationRequest
@@ -196,6 +220,12 @@ namespace FoundationaLLM.Core.Examples.Services
             if (sessionCreated)
             {
                 await coreAPITestManager.DeleteSessionAsync(sessionId);
+            }
+
+            if (createAgent)
+            {
+                // Delete the agent and its dependencies.
+                await managementAPITestManager.DeleteAgent(agentName);
             }
 
             return completionQualityMeasurementOutput;

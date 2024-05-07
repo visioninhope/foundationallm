@@ -58,7 +58,8 @@ namespace FoundationaLLM.Core.Examples
             try
             {
                 var output = await _agentConversationTestService.RunAgentCompletionWithQualityMeasurements(agentPrompt.AgentName,
-                    agentPrompt.UserPrompt, agentPrompt.ExpectedCompletion, agentPrompt.SessionConfiguration?.SessionId ?? null);
+                    agentPrompt.UserPrompt, agentPrompt.ExpectedCompletion, agentPrompt.SessionConfiguration?.SessionId ?? null,
+                    agentPrompt.CreateAgent);
 
                 WriteLine($"Azure AI evaluation Job ID -> {output.JobID}");
 
