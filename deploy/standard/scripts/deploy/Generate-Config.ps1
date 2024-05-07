@@ -211,7 +211,7 @@ $tokens.userAccessAdminRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.managementApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.coreApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.vectorizationApiRoleAssignmentGuid = $(New-Guid).Guid
-$tokens.agentFactoryApiRoleAssignmentGuid = $(New-Guid).Guid
+$tokens.orchestrationApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.subscriptionId = $subscriptionId
 $tokens.storageResourceGroup = $resourceGroups.storage
 $tokens.opsResourceGroup = $resourceGroups.ops
@@ -249,13 +249,13 @@ $vectorizationConfig = Invoke-AndRequireSuccess "Get Vectorization Config" {
 }
 $tokens.vectorizationConfig = $vectorizationConfig
 
-$apimUri = Invoke-AndRequireSuccess "Get OpenAI APIM endpoint" {
-    az apim list `
-        --resource-group $($resourceGroups.oai) `
-        --query "[0].gatewayUrl" `
-        --output tsv
+$openAiEndpointUri = Invoke-AndRequireSuccess "Get OpenAI endpoint" {
+    az cognitiveservices account list `
+        --output tsv `
+        --query "[?contains(kind,'OpenAI')] | [0].properties.endpoint" `
+        --resource-group $($resourceGroups.oai) 
 }
-$tokens.openAiEndpointUri = $apimUri
+$tokens.openAiEndpointUri = $openAiEndpointUri
 
 $appConfig = Invoke-AndRequireSuccess "Get AppConfig Instance" {
     az appconfig list `
@@ -340,7 +340,7 @@ $tokens.keyvaultUri = $keyvault.uri
 $authKeyvault = Invoke-AndRequireSuccess "Get Auth Key Vault URI" {
     az keyvault list `
         --resource-group $($resourceGroups.auth) `
-        --query "[0].{uri:properties.vaultUri,name:name}"
+        --query "[0].{uri:properties.vaultUri,name:name}" `
         --output json | `
         ConvertFrom-Json
 }

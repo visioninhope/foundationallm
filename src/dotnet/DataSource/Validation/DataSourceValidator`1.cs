@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 
 namespace FoundationaLLM.DataSource.Validation
@@ -19,7 +20,7 @@ namespace FoundationaLLM.DataSource.Validation
             dataSource.ConfigurationReferences!.ContainsKey(configurationKey)
             && !string.IsNullOrWhiteSpace(dataSource.ConfigurationReferences[configurationKey])
             && (string.Compare(
-                $"FoundationaLLM:DataSources:{dataSource.Name}:{configurationKey}",
+                $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{dataSource.Name}:{configurationKey}",
                 dataSource.ConfigurationReferences![configurationKey]) == 0);
     }
 }

@@ -19,5 +19,10 @@
         /// Azure App Configuration key vault reference.
         /// </summary>
         public const string AppConfigurationKeyVaultReference = "appconfiguration-key-vault-reference";
+
+        /// <summary>
+        /// External orchestration service.
+        /// </summary>
+        public const string ExternalOrchestrationService = "external-orchestration-service";
     }
 }

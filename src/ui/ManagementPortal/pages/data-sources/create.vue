@@ -128,11 +128,76 @@
 						class="span-2"
 					>
 						<div class="mb-2 mt-2">Account name:</div>
-						<InputText v-model="dataSource.resolved_configuration_references.AccountName" class="w-100" type="text" />
+						<InputText
+							v-model="dataSource.resolved_configuration_references.AccountName"
+							class="w-100"
+							type="text"
+						/>
 					</div>
 
 					<div class="mb-2 mt-2">Folder(s):</div>
-					<InputText v-model="foldersString" class="w-100" type="text" />
+					<Chips v-model="folders" class="w-100" separator="," />
+				</div>
+
+				<!-- OneLake -->
+				<div v-if="isOneLakeDataSource(dataSource)">
+					<div class="mb-2">Authentication type:</div>
+					<Dropdown
+						v-model="dataSource.resolved_configuration_references.AuthenticationType"
+						:options="authenticationTypeOptions"
+						option-label="label"
+						option-value="value"
+						placeholder="--Select--"
+						class="dropdown--agent"
+					/>
+
+					<!-- Connection string -->
+					<div
+						v-if="
+							dataSource.resolved_configuration_references.AuthenticationType === 'ConnectionString'
+						"
+						class="span-2"
+					>
+						<div class="mb-2 mt-2">Connection string:</div>
+						<SecretKeyInput
+							v-model="dataSource.resolved_configuration_references.ConnectionString"
+							textarea
+						/>
+					</div>
+
+					<!-- API Key -->
+					<div
+						v-if="dataSource.resolved_configuration_references.AuthenticationType === 'AccountKey'"
+						class="span-2"
+					>
+						<div class="mb-2 mt-2">API Key:</div>
+						<SecretKeyInput v-model="dataSource.resolved_configuration_references.APIKey" />
+
+						<div class="mb-2 mt-2">Endpoint:</div>
+						<InputText
+							v-model="dataSource.resolved_configuration_references.Endpoint"
+							class="w-100"
+							type="text"
+						/>
+					</div>
+
+					<!-- API Key -->
+					<div
+						v-if="
+							dataSource.resolved_configuration_references.AuthenticationType === 'AzureIdentity'
+						"
+						class="span-2"
+					>
+						<div class="mb-2 mt-2">Account name:</div>
+						<InputText
+							v-model="dataSource.resolved_configuration_references.AccountName"
+							class="w-100"
+							type="text"
+						/>
+					</div>
+
+					<div class="mb-2 mt-2">Workspace(s):</div>
+					<Chips v-model="workspaces" class="w-100" separator="," />
 				</div>
 
 				<!-- Azure SQL database -->
@@ -147,7 +212,7 @@
 
 						<template v-if="dataSource.tables">
 							<div class="mb-2 mt-2">Table Name(s):</div>
-							<InputText v-model="tablesString" class="w-100" type="text" />
+							<Chips v-model="tables" class="w-100" separator="," />
 						</template>
 					</div>
 				</div>
@@ -188,7 +253,7 @@
 
 						<template v-if="dataSource.document_libraries">
 							<div class="mb-2 mt-2">Document Library(s):</div>
-							<InputText v-model="documentLibrariesString" class="w-100" type="text" />
+							<Chips v-model="documentLibraries" class="w-100" separator="," />
 						</template>
 					</div>
 				</div>
@@ -229,6 +294,7 @@ import type {
 } from '@/js/types';
 import {
 	isAzureDataLakeDataSource,
+	isOneLakeDataSource,
 	isAzureSQLDatabaseDataSource,
 	isSharePointOnlineSiteDataSource,
 	convertToDataSource,
@@ -251,11 +317,12 @@ export default {
 			loadingStatusText: 'Retrieving data...' as string,
 
 			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
-			validationMessage: '' as string,
+			validationMessage: null as string | null,
 
-			foldersString: '',
-			documentLibrariesString: '',
-			tablesString: '',
+			folders: [] as string[],
+			workspaces: [] as string[],
+			documentLibraries: [] as string[],
+			tables: [] as string[],
 
 			// Create a default Azure Data Lake data source.
 			dataSource: {
@@ -268,12 +335,14 @@ export default {
 					ConnectionString: '',
 					APIKey: '',
 					Endpoint: '',
+					AccountName: '',
 				},
 				configuration_references: {
 					AuthenticationType: '',
 					ConnectionString: '',
 					APIKey: '',
 					Endpoint: '',
+					AccountName: '',
 				},
 				configuration_reference_metadata: {} as { [key: string]: ConfigurationReferenceMetadata },
 			} as null | DataSource,
@@ -329,13 +398,16 @@ export default {
 			this.dataSource = dataSource;
 
 			if (this.dataSource.folders) {
-				this.foldersString = this.dataSource.folders.join(', ');
+				this.folders = this.dataSource.folders;
+			}
+			if (this.dataSource.workspaces) {
+				this.workspaces = this.dataSource.workspaces;
 			}
 			if (this.dataSource.document_libraries) {
-				this.documentLibrariesString = this.dataSource.document_libraries.join(', ');
+				this.documentLibraries = this.dataSource.document_libraries;
 			}
 			if (this.dataSource.tables) {
-				this.tablesString = this.dataSource.tables.join(', ');
+				this.tables = this.dataSource.tables;
 			}
 		} else {
 			// Create a new DataSource object of type Azure Data Lake.
@@ -349,12 +421,14 @@ export default {
 					ConnectionString: '',
 					APIKey: '',
 					Endpoint: '',
+					AccountName: '',
 				},
 				configuration_references: {
 					AuthenticationType: '',
 					ConnectionString: '',
 					APIKey: '',
 					Endpoint: '',
+					AccountName: '',
 				},
 				configuration_reference_metadata: {} as { [key: string]: ConfigurationReferenceMetadata },
 			};
@@ -368,6 +442,7 @@ export default {
 
 	methods: {
 		isAzureDataLakeDataSource,
+		isOneLakeDataSource,
 		isSharePointOnlineSiteDataSource,
 		isAzureSQLDatabaseDataSource,
 		convertToDataSource,
@@ -426,13 +501,13 @@ export default {
 
 			// Convert string representations of array fields back to arrays.
 			if (isAzureDataLakeDataSource(this.dataSource)) {
-				this.dataSource.folders = this.foldersString.split(',').map((s) => s.trim());
+				this.dataSource.folders = this.folders;
+			} else if (isOneLakeDataSource(this.dataSource)) {
+				this.dataSource.workspaces = this.workspaces;
 			} else if (isSharePointOnlineSiteDataSource(this.dataSource)) {
-				this.dataSource.document_libraries = this.documentLibrariesString
-					.split(',')
-					.map((s) => s.trim());
+				this.dataSource.document_libraries = this.documentLibraries;
 			} else if (isAzureSQLDatabaseDataSource(this.dataSource)) {
-				this.dataSource.tables = this.tablesString.split(',').map((s) => s.trim());
+				this.dataSource.tables = this.tables;
 			}
 
 			if (errors.length > 0) {
@@ -696,5 +771,16 @@ input {
 
 .flex-item-button {
 	margin-left: 8px; /* Add some space between the textarea and the button */
+}
+
+.p-chips {
+	ul {
+		width: 100%;
+		li {
+			input {
+				width: 100%!important;
+			}
+		}
+	}
 }
 </style>

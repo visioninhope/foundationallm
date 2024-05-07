@@ -1,6 +1,7 @@
-﻿using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -25,10 +26,6 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         private readonly ICallContext _callContext = callContext;
         private readonly ILogger<OrchestrationBase> _logger = logger;
         private readonly KnowledgeManagementAgent _agent = agent;
-
-        /// <inheritdoc/>
-        public override Task Configure(CompletionRequest completionRequest) =>
-            base.Configure(completionRequest);
 
         /// <inheritdoc/>
         public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)

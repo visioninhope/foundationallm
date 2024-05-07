@@ -660,35 +660,30 @@
         /// </summary>
         public const string FoundationaLLM_Vectorization_VectorizationWorker = "FoundationaLLM:Vectorization:VectorizationWorker";
         /// <summary>
-        /// The key for the FoundationaLLM:Vectorization:Queues:Embed:ConnectionString app configuration setting.
-        /// The connection string to the Azure Storage account used for the embed vectorization queue.
+        /// The key for the FoundationaLLM:Vectorization:Queues:Embed:AccountName app configuration setting.
+        /// The name of the Azure Storage account used for the embed vectorization queue.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_Queues_Embed_ConnectionString = "FoundationaLLM:Vectorization:Queues:Embed:ConnectionString";
+        public const string FoundationaLLM_Vectorization_Queues_Embed_AccountName = "FoundationaLLM:Vectorization:Queues:Embed:AccountName";
         /// <summary>
-        /// The key for the FoundationaLLM:Vectorization:Queues:Extract:ConnectionString app configuration setting.
-        /// The connection string to the Azure Storage account used for the extract vectorization queue.
+        /// The key for the FoundationaLLM:Vectorization:Queues:Extract:AccountName app configuration setting.
+        /// The name of the Azure Storage account used for the extract vectorization queue.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_Queues_Extract_ConnectionString = "FoundationaLLM:Vectorization:Queues:Extract:ConnectionString";
+        public const string FoundationaLLM_Vectorization_Queues_Extract_AccountName = "FoundationaLLM:Vectorization:Queues:Extract:AccountName";
         /// <summary>
-        /// The key for the FoundationaLLM:Vectorization:Queues:Index:ConnectionString app configuration setting.
-        /// The connection string to the Azure Storage account used for the index vectorization queue.
+        /// The key for the FoundationaLLM:Vectorization:Queues:Index:AccountName app configuration setting.
+        /// The name of the Azure Storage account used for the index vectorization queue.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_Queues_Index_ConnectionString = "FoundationaLLM:Vectorization:Queues:Index:ConnectionString";
+        public const string FoundationaLLM_Vectorization_Queues_Index_AccountName = "FoundationaLLM:Vectorization:Queues:Index:AccountName";
         /// <summary>
-        /// The key for the FoundationaLLM:Vectorization:Queues:Partition:ConnectionString app configuration setting.
-        /// The connection string to the Azure Storage account used for the partition vectorization queue.
+        /// The key for the FoundationaLLM:Vectorization:Queues:Partition:AccountName app configuration setting.
+        /// The name of the Azure Storage account used for the partition vectorization queue.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_Queues_Partition_ConnectionString = "FoundationaLLM:Vectorization:Queues:Partition:ConnectionString";
+        public const string FoundationaLLM_Vectorization_Queues_Partition_AccountName = "FoundationaLLM:Vectorization:Queues:Partition:AccountName";
         /// <summary>
         /// The key for the FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType app configuration setting.
         /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
         /// </summary>
         public const string FoundationaLLM_Vectorization_StateService_Storage_AuthenticationType = "FoundationaLLM:Vectorization:StateService:Storage:AuthenticationType";
-        /// <summary>
-        /// The key for the FoundationaLLM:Vectorization:StateService:Storage:ConnectionString app configuration setting.
-        /// The connection string to the Azure Storage account used for the vectorization state service.
-        /// </summary>
-        public const string FoundationaLLM_Vectorization_StateService_Storage_ConnectionString = "FoundationaLLM:Vectorization:StateService:Storage:ConnectionString";
         /// <summary>
         /// The key for the FoundationaLLM:Vectorization:ResourceProviderService:Storage:AuthenticationType app configuration setting.
         /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
@@ -771,6 +766,10 @@
         /// </summary>
         public const string FoundationaLLM_APIs = "FoundationaLLM:APIs:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:ExternalAPIs:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_ExternalAPIs = "FoundationaLLM:ExternalAPIs:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:APIs:VectorizationAPI:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_APIs_VectorizationAPI = "FoundationaLLM:APIs:VectorizationAPI:*";
@@ -794,6 +793,14 @@
         /// The key filter for the FoundationaLLM:ManagementAPI:Entra:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_ManagementAPI_Entra = "FoundationaLLM:ManagementAPI:Entra:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Chat:Entra:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Chat_Entra = "FoundationaLLM:Chat:Entra:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Management:Entra:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra = "FoundationaLLM:Management:Entra:*";
         /// <summary>
         /// The key filter for the FoundationaLLM:Orchestration:* app configuration settings.
         /// </summary>
@@ -836,6 +843,11 @@
         /// </summary>
         public const string FoundationaLLM_DataSource = "FoundationaLLM:DataSource:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:DataSources:* app configuration settings.
+        /// This supports data source settings created by the Management API.
+        /// </summary>
+        public const string FoundationaLLM_DataSources = "FoundationaLLM:DataSources:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:AzureOpenAI:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AzureOpenAI = "FoundationaLLM:AzureOpenAI:*";
@@ -847,6 +859,14 @@
         /// The key filter for the FoundationaLLM:Gateway:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Gateway = "FoundationaLLM:Gateway:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:AzureAIStudio:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AzureAIStudio = "FoundationaLLM:AzureAIStudio:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings = "FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings:*";
     }
 
     /// <summary>
@@ -915,6 +935,10 @@
         /// </summary>
         public const string FoundationaLLM_APIs_GatewayAPI = "FoundationaLLM:APIs:GatewayAPI";
         /// <summary>
+        /// The key section for the FoundationaLLM:ExternalAPIs app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_ExternalAPIs = "FoundationaLLM:ExternalAPIs";
+        /// <summary>
         /// The key section for the FoundationaLLM:Orchestration app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Orchestration = "FoundationaLLM:Orchestration";
@@ -931,10 +955,13 @@
         /// </summary>
         public const string FoundationaLLM_AzureContentSafety = "FoundationaLLM:AzureContentSafety";
         /// <summary>
+        /// The key section for the FoundationaLLM:LakeraGuard app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_LakeraGuard = "FoundationaLLM:LakeraGuard";
+        /// <summary>
         /// The key section for the FoundationaLLM:BlobStorageMemorySource app configuration settings.
         /// </summary>
         public const string FoundationaLLM_BlobStorageMemorySource = "FoundationaLLM:BlobStorageMemorySource";
-
         /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:Steps app configuration settings.
         /// </summary>
@@ -947,26 +974,30 @@
         /// The key section for the FoundationaLLM:Vectorization:StateService:Storage app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_StateService = "FoundationaLLM:Vectorization:StateService:Storage";
-        
         /// <summary>
-        /// The key section for the FoundationaLLM:Vectorization:ContentSources app configuration settings.
+        /// The key section for the FoundationaLLM:DataSources app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_ContentSources = "FoundationaLLM:Vectorization:ContentSources";
-
+        public const string FoundationaLLM_DataSources = "FoundationaLLM:DataSources";
         /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService";
-
         /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:AzureAISearchIndexingService app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
-
         /// <summary>
         /// The key section for the FoundationaLLM:Gateway app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Gateway = "FoundationaLLM:Gateway";
+        /// <summary>
+        /// The key section for the FoundationaLLM:AzureAIStudio app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AzureAIStudio = "FoundationaLLM:AzureAIStudio";
+        /// <summary>
+        /// The key section for the FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings = "FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings";
 
         #region Resource providers
 

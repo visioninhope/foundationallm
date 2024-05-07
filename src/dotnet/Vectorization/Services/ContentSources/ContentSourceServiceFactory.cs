@@ -64,7 +64,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         {
             var blobStorageServiceSettings = new BlobStorageServiceSettings { AuthenticationType = BlobStorageAuthenticationTypes.Unknown };
             _configuration.Bind(
-                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
+                $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{serviceName}",
                 blobStorageServiceSettings);
 
             return new DataLakeContentSourceService(
@@ -76,7 +76,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         {
             var sharePointOnlineContentSourceServiceSettings = new SharePointOnlineContentSourceServiceSettings();
             _configuration.Bind(
-                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
+                $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{serviceName}",
                 sharePointOnlineContentSourceServiceSettings);
 
             return new SharePointOnlineContentSourceService(
@@ -88,7 +88,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         {
             var azureSQLDatabaseContentSourceServiceSettings = new AzureSQLDatabaseContentSourceServiceSettings();
             _configuration.Bind(
-                $"{AppConfigurationKeySections.FoundationaLLM_Vectorization_ContentSources}:{serviceName}",
+                $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{serviceName}",
                 azureSQLDatabaseContentSourceServiceSettings);
 
             return new AzureSQLDatabaseContentSourceService(

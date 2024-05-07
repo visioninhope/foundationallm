@@ -30,6 +30,9 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                         ]),
                         new ResourceTypeAction(VectorizationResourceProviderActions.Deactivate, true, false, [
                             new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(VectorizationResult)])
+                        ]),
+                        new ResourceTypeAction(VectorizationResourceProviderActions.Purge, true, false, [
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                         ])
                     ]
                 }
@@ -41,8 +44,13 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                 {
                     AllowedTypes = [
                         new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(VectorizationRequest)]),
-                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(VectorizationRequest)], [typeof(VectorizationResult)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(VectorizationRequest)], [typeof(ResourceProviderUpsertResult)]),
                         new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
+                    ],
+                    Actions = [
+                        new ResourceTypeAction(VectorizationResourceProviderActions.Process, true, false, [
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(VectorizationResult)])
+                        ])
                     ]
                 }
             },
@@ -59,6 +67,9 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                     Actions = [
                             new ResourceTypeAction(VectorizationResourceProviderActions.CheckName, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
+                            ]),
+                            new ResourceTypeAction(VectorizationResourceProviderActions.Purge, true, false, [
+                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]
                 }
@@ -76,6 +87,9 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                     Actions = [
                             new ResourceTypeAction(VectorizationResourceProviderActions.CheckName, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
+                            ]),
+                            new ResourceTypeAction(VectorizationResourceProviderActions.Purge, true, false, [
+                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]
                 }
@@ -96,6 +110,9 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                             ]),
                             new ResourceTypeAction(VectorizationResourceProviderActions.Filter, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(IndexingProfile)])
+                            ]),
+                            new ResourceTypeAction(VectorizationResourceProviderActions.Purge, true, false, [
+                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]
                 }

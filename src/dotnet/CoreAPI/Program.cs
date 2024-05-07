@@ -1,10 +1,12 @@
 using Asp.Versioning;
+using Azure.Identity;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
+using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
@@ -15,6 +17,8 @@ using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
+using Microsoft.Azure.Cosmos.Fluent;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -33,7 +37,9 @@ namespace FoundationaLLM.Core.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            DefaultAuthentication.Production = builder.Environment.IsProduction();
+            DefaultAuthentication.Initialize(
+                builder.Environment.IsProduction(),
+                ServiceNames.CoreAPI);
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -43,7 +49,7 @@ namespace FoundationaLLM.Core.API
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
-                    options.SetCredential(DefaultAuthentication.GetAzureCredential());
+                    options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
@@ -89,6 +95,18 @@ namespace FoundationaLLM.Core.API
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
+
+            builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
+            {
+                var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
+                return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.AzureCredential)
+                    .WithSerializerOptions(new CosmosSerializationOptions
+                    {
+                        PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+                    })
+                    .WithConnectionModeGateway()
+                    .Build();
+            });
 
             builder.Services.AddScoped<ICosmosDbService, CosmosDbService>();
             builder.Services.AddScoped<ICoreService, CoreService>();

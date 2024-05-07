@@ -1,8 +1,4 @@
 using Asp.Versioning;
-using FoundationaLLM.Orchestration.API;
-using FoundationaLLM.Orchestration.Core.Interfaces;
-using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
-using FoundationaLLM.Orchestration.Core.Services;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
@@ -17,6 +13,7 @@ using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
+using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
 using Microsoft.Extensions.Options;
 using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -24,19 +21,21 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 namespace FoundationaLLM.Orchestration.API
 {
     /// <summary>
-    /// Program class for the Agent Factory API
+    /// Program class for the Orchestration API
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// Entry point for the Agent Factory API
+        /// Entry point for the Orchestration API
         /// </summary>
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            DefaultAuthentication.Production = builder.Environment.IsProduction();
+            DefaultAuthentication.Initialize(
+                builder.Environment.IsProduction(),
+                ServiceNames.OrchestrationAPI);
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -46,16 +45,19 @@ namespace FoundationaLLM.Orchestration.API
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
-                    options.SetCredential(DefaultAuthentication.GetAzureCredential());
+                    options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ExternalAPIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Orchestration);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAI);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureOpenAI);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -99,12 +101,10 @@ namespace FoundationaLLM.Orchestration.API
             builder.Services.AddOptions<OrchestrationSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Orchestration));
 
-            builder.Services.AddScoped<ILLMOrchestrationService, SemanticKernelService>();
-            builder.Services.AddScoped<ILLMOrchestrationService, LangChainService>();
-            builder.Services.AddScoped<ILLMOrchestrationService, AzureAIDirectService>();
-            builder.Services.AddScoped<ILLMOrchestrationService, AzureOpenAIDirectService>();
+            
+            builder.AddLLMOrchestrationServices();
+            builder.AddOrchestrationService();
 
-            builder.Services.AddScoped<IOrchestrationService, OrchestrationService>();
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
@@ -125,6 +125,8 @@ namespace FoundationaLLM.Orchestration.API
             //----------------------------
             builder.AddAgentResourceProvider();
             builder.AddPromptResourceProvider();
+            builder.AddVectorizationResourceProvider();
+            builder.AddConfigurationResourceProvider();
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
@@ -163,11 +165,6 @@ namespace FoundationaLLM.Orchestration.API
                     options.AddAPIKeyAuth();
                 })
                 .AddSwaggerGenNewtonsoftSupport();
-
-            builder.Services.Configure<RouteOptions>(options =>
-            {
-                options.LowercaseUrls = true;
-            });
 
             var app = builder.Build();
 

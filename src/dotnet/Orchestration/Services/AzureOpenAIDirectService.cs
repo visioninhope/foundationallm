@@ -4,6 +4,7 @@ using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
@@ -39,7 +40,15 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 rps => rps.Name);
 
         /// <inheritdoc/>
-        public bool IsInitialized => true;
+        public async Task<ServiceStatusInfo> GetStatus() =>
+            await Task.FromResult(new ServiceStatusInfo
+            {
+                Name = Name,
+                Status = "ready",
+            });
+
+        /// <inheritdoc/>
+        public string Name => LLMOrchestrationServiceNames.AzureOpenAIDirect;
 
         /// <inheritdoc/>
         public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)

@@ -16,6 +16,8 @@ items:
     href: deployment/soft-delete.md
   - name: Changes in 0.5.0
     href: deployment/changes-050.md
+  - name: Changes in 0.6.0
+    href: deployment/changes-060.md
   - name: Authentication and Authorization setup
     href: deployment/authentication-authorization/index.md
     items:
@@ -72,8 +74,8 @@ items:
       href: setup-guides/agents/index.md
     - name: Knowledge management agents
       href: setup-guides/agents/knowledge-management-agent.md
-    - name: Internal context agents
-      href: setup-guides/agents/internal-context-agent.md
+    - name: Knowledge Management with Inline Context
+      href: setup-guides/agents/knowledge-management-with-inline-context.md
     - name: Prompt resources
       href: setup-guides/agents/prompt-resource.md
   - name: Exposed APIs

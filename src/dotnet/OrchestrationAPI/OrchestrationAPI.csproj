@@ -42,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\Orchestration\Orchestration.csproj" />
     <ProjectReference Include="..\Agent\Agent.csproj" />
     <ProjectReference Include="..\Authorization\Authorization.csproj" />

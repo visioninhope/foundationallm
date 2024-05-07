@@ -24,7 +24,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DefaultAuthentication.Production = builder.Environment.IsProduction();
+DefaultAuthentication.Initialize(
+    builder.Environment.IsProduction(),
+    ServiceNames.VectorizationAPI);
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -34,7 +36,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(DefaultAuthentication.GetAzureCredential());
+        options.SetCredential(DefaultAuthentication.AzureCredential);
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
@@ -42,7 +44,8 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources); //data source settings
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -100,9 +103,6 @@ builder.AddConfigurationResourceProvider();
 builder.AddDataSourceResourceProvider();
 builder.AddVectorizationResourceProvider();
 
-// Pipeline execution
-builder.AddPipelineExecution();
-
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
 builder.Services.AddSingleton<IVectorizationServiceFactory<ITextSplitterService>, TextSplitterServiceFactory>();
@@ -113,9 +113,7 @@ builder.Services.AddSingleton<IVectorizationServiceFactory<IIndexingService>, In
 builder.Services.AddKeyedSingleton<ITokenizerService, MicrosoftBPETokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 
-// Text embedding
-builder.Services.AddKeyedSingleton<ITextEmbeddingService, SemanticKernelTextEmbeddingService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService);
+// Gateway text embedding
 builder.Services.AddKeyedScoped<ITextEmbeddingService, GatewayTextEmbeddingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService);
 builder.AddGatewayService();
@@ -209,11 +207,6 @@ builder.Services.AddSwaggerGen(
         });
     })
     .AddSwaggerGenNewtonsoftSupport();
-
-builder.Services.Configure<RouteOptions>(options =>
-{
-    options.LowercaseUrls = true;
-});
 
 var app = builder.Build();
 

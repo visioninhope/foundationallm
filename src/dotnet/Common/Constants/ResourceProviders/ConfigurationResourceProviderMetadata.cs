@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 
 namespace FoundationaLLM.Configuration.Services
@@ -30,6 +30,18 @@ namespace FoundationaLLM.Configuration.Services
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
                             ])
                         ]
+                }
+            },
+            {
+                ConfigurationResourceTypeNames.ExternalOrchestrationServices,
+                new ResourceTypeDescriptor(
+                        ConfigurationResourceTypeNames.ExternalOrchestrationServices)
+                {
+                    AllowedTypes = [
+                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ExternalOrchestrationService)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ExternalOrchestrationService)], [typeof(ResourceProviderUpsertResult)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
+                    ]
                 }
             }
         };

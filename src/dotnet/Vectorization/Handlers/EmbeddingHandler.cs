@@ -62,6 +62,9 @@ namespace FoundationaLLM.Vectorization.Handlers
                 {
                     // The operation is still in progress
                     return false;
+                } else if (embeddingResult.Failed)
+                {
+                    throw new VectorizationException($"The following error occured during the text embedding operation with id {runningOperation.OperationId}: {embeddingResult.ErrorMessage ?? "N/A"}");
                 }
                 else
                 {
@@ -107,6 +110,10 @@ namespace FoundationaLLM.Vectorization.Handlers
                         PollingCount = 0
                     };
                     return false;
+                }
+                else if (embeddingResult.Failed)
+                {
+                    throw new VectorizationException($"The following error occured during the text embedding operation with id {embeddingResult.OperationId}: {embeddingResult.ErrorMessage ?? "N/A"}");
                 }
             }
 

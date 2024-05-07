@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Infrastructure
 {
@@ -14,22 +10,32 @@ namespace FoundationaLLM.Common.Models.Infrastructure
         /// <summary>
         /// The name of the service.
         /// </summary>
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
         /// <summary>
         /// The instance of the service.
         /// </summary>
+        [JsonPropertyName("instance")]
         public string? Instance { get; set; }
         /// <summary>
         /// The deployed FoundationaLLM version of the service.
         /// </summary>
+        [JsonPropertyName("version")]
         public string? Version { get; set; }
         /// <summary>
         /// The status of the service.
         /// </summary>
+        [JsonPropertyName("status")]
         public string? Status { get; set; }
         /// <summary>
         /// The message associated with the status.
         /// </summary>
+        [JsonPropertyName("message")]
         public string? Message { get; set; }
+        /// <summary>
+        /// The status of all the subordinate services.
+        /// </summary>
+        [JsonPropertyName("subordinate_services")]
+        public List<ServiceStatusInfo>? SubordinateServices { get; set; }
     }
 }

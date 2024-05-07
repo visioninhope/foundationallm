@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Agents;
+﻿using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 
 namespace FoundationaLLM.Common.Tests.Models.Agents
 {

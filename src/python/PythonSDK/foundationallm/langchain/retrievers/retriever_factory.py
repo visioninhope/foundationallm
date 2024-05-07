@@ -6,10 +6,13 @@ from foundationallm.config import Configuration
 from foundationallm.langchain.language_models.openai import OpenAIModel
 from foundationallm.models.orchestration import OrchestrationSettings
 from foundationallm.models.language_models import EmbeddingModel, LanguageModelType, LanguageModelProvider
-from foundationallm.resources import ResourceProvider
 from .agent_parameter_retriever_keys import FILTERS, TOP_N
 from .azure_ai_search_service_retriever import AzureAISearchServiceRetriever
 from .multi_index_retriever import MultiIndexRetriever
+from foundationallm.models.resource_providers.vectorization import (
+    AzureAISearchIndexingProfile,
+    AzureOpenAIEmbeddingProfile
+)
 
 class RetrieverFactory:
     """
@@ -17,21 +20,15 @@ class RetrieverFactory:
     """
     def __init__(
                 self,
-                indexing_profile_object_ids: List[str],
-                text_embedding_profile_object_id:str,
+                indexing_profiles: List[str],
+                text_embedding_profile:str,
                 config: Configuration,
-                resource_provider: ResourceProvider,
                 settings: Optional[OrchestrationSettings] = None
                 ):
+
         self.config = config
-        self.resource_provider = resource_provider
-
-        self.indexing_profiles = []
-
-        for indexing_profile_object_id in indexing_profile_object_ids:
-            self.indexing_profiles.append(resource_provider.get_resource(indexing_profile_object_id))
-
-        self.text_embedding_profile = resource_provider.get_resource(text_embedding_profile_object_id)
+        self.indexing_profiles = indexing_profiles
+        self.text_embedding_profile = text_embedding_profile
         self.orchestration_settings = settings
 
     def get_retriever(self) -> BaseRetriever:

@@ -2,18 +2,12 @@
 
 <#
 .SYNOPSIS
-    Generates a hosts file based on the private endpoints and APIM instances in the deployment manifest.
+    Generates a hosts file based on the private endpoints.
 
 .DESCRIPTION
     This script generates a hosts file that maps fully qualified domain names (FQDNs) to private IP addresses.
-    It retrieves the private endpoints and APIM instances from the deployment manifest and uses Azure CLI commands
+    It retrieves the private endpoints and uses Azure CLI commands
     to get the necessary information. The hosts file is then written to the specified location.
-
-.PARAMETER subscription
-    The Azure subscription ID.
-
-.EXAMPLE
-    Generate-Hosts.ps1 -subscription "12345678-1234-1234-1234-1234567890ab"
 #>
 
 param (
@@ -85,14 +79,7 @@ function Get-Hosts-Default-Strategy {
     $networkInterfaceFqdns = Invoke-AndRequireSuccess "Get Network Interface FQDNs" {
         az network nic show `
             --ids $id `
-            --query 'ipConfigurations[].{
-                fqdn:privateLinkConnectionProperties.fqdns[0],
-                groupId:privateLinkConnectionProperties.groupId,
-                nicId:id,
-                nicName:name,
-                peId:privateEndpoint.id
-                privateIPAddress:privateIPAddress
-            }' `
+            --query 'ipConfigurations[].{fqdn:privateLinkConnectionProperties.fqdns[0],groupId:privateLinkConnectionProperties.groupId,nicId:id,nicName:name,peId:privateEndpoint.id,privateIPAddress:privateIPAddress}' `
             --output json | `
             ConvertFrom-Json
     }
@@ -107,12 +94,7 @@ foreach ($resourceGroup in $resourceGroup.GetEnumerator()) {
     $privateEndpoints = Invoke-AndRequireSuccess "Get Private Endpoints in Resource Group: $($resourceGroup.Name)" {
         az network private-endpoint list `
             --resource-group $resourceGroup.Value `
-            --query "[].{
-                groupId:privateLinkServiceConnections[0].groupIds[0],
-                nicId:networkInterfaces[0].id,
-                peName:name,
-                serviceId:privateLinkServiceConnections[0].privateLinkServiceId
-            }" `
+            --query "[].{groupId:privateLinkServiceConnections[0].groupIds[0],nicId:networkInterfaces[0].id,peName:name,serviceId:privateLinkServiceConnections[0].privateLinkServiceId}" `
             --subscription $subscription `
             --output json | `
             ConvertFrom-Json
@@ -142,20 +124,6 @@ foreach ($resourceGroup in $resourceGroup.GetEnumerator()) {
         foreach ($fqdn in $networkInterfaceFqdns) {
             $hosts[$fqdn.fqdn] = $fqdn.privateIPAddress
         }
-    }
-
-    Write-Host "Checking for APIM instances..." -ForegroundColor Green
-    $apimInstances = Invoke-AndRequireSuccess "Get APIM Instances" {
-        az apim list `
-            --resource-group $resourceGroup.Value `
-            --query '[].{name:name, privateIPAddress:privateIpAddresses[0], fqdn:hostnameConfigurations[0].hostName}' `
-            --output json | `
-            ConvertFrom-Json
-    }
-
-    foreach ($apimInstance in $apimInstances) {
-        Write-Host "Found APIM Instance: $($apimInstance.name)" -ForegroundColor Yellow
-        $hosts[$apimInstance.fqdn] = $apimInstance.privateIPAddress
     }
 }
 
