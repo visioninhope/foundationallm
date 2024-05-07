@@ -641,10 +641,10 @@ output SERVICE_CORE_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 
 output SERVICE_CORE_JOB_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'core-job')].outputs.uri
 output SERVICE_DATA_SOURCE_HUB_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'data-source-hub-api')].outputs.uri
 output SERVICE_GATEKEEPER_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gatekeeper-api')].outputs.uri
-// output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = acaServices[indexOf(
-//   serviceNames,
-//   'gatekeeper-integration-api'
-// )].outputs.uri
+output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = acaServices[indexOf(
+  serviceNames,
+  'gatekeeper-integration-api'
+)].outputs.uri
 output SERVICE_LANGCHAIN_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'langchain-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'management-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'management-api')].outputs.miPrincipalId
