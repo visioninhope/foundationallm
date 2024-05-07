@@ -147,7 +147,7 @@ namespace FoundationaLLM.Vectorization.Examples.Setup
 			services.AddSingleton<CosmosClient>(serviceProvider =>
 			{
 				var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
-				return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.GetAzureCredential())
+				return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.AzureCredential)
 					.WithSerializerOptions(new CosmosSerializationOptions
 					{
 						PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase

@@ -1,7 +1,5 @@
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
@@ -13,10 +11,6 @@ using FoundationaLLM.Core.Examples.Interfaces;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
-using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.Configuration.Instance;
-using Microsoft.Extensions.Options;
-using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Core.Examples.Setup;
 
