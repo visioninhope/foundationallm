@@ -126,6 +126,15 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
                         kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfile;
                     }
+
+                    foreach(var profileId in kmAgent.Vectorization.IndexingProfileObjectIds)
+                    {
+                        var profile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
+                                                       profileId,
+                                                                                  currentUserIdentity);
+
+                        kmAgent.OrchestrationSettings!.AgentParameters![profileId] = profile;
+                    }
                 }
             }
 

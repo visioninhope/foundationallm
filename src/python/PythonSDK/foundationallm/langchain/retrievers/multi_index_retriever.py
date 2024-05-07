@@ -94,3 +94,10 @@ class MultiIndexRetriever(BaseRetriever, CitationRetrievalBase):
         self.search_results = total_results[:self.top_n]
 
         return self.search_results
+
+    def format_docs(self, docs:List[Document]) -> str:
+        """
+        Generates a formatted string from a list of documents for use
+        as the context for the completion request.
+        """
+        return "\n\n".join(doc.page_content for doc in docs)
