@@ -3,7 +3,7 @@ from foundationallm.config import Configuration, Context, UserIdentity
 from foundationallm.models.metadata import KnowledgeManagementAgent as KnowledgeManagementAgentMetadata
 from foundationallm.models.metadata import ConversationHistory, Gatekeeper
 from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider, LanguageModel
-from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest
+from foundationallm.models.agents import KnowledgeManagementCompletionRequest
 from foundationallm.langchain.agents import KnowledgeManagementAgent
 from foundationallm.langchain.orchestration import OrchestrationManager
 
