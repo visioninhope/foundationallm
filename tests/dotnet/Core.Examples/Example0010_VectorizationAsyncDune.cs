@@ -44,7 +44,7 @@ namespace FoundationaLLM.Core.Examples
         private string containerName = "data";
         private string blobName = "really_big.pdf";
         private string dataSourceObjectId;
-        private string id = "15b799fc-1498-497e-a7f9-7231af56abc6";
+        private string id = String.Empty;
         private List<AppConfigurationKeyValue> configValues = new List<AppConfigurationKeyValue>();
         private VectorizationRequest request;
 
@@ -61,11 +61,11 @@ namespace FoundationaLLM.Core.Examples
 
         private async Task PreExecute()
         {
+            id = Guid.NewGuid().ToString();
+
             var settings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
                     .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-
-            settings.AccountName = "st63hvhar5z5zz2";
-            
+                       
             var logger = ServiceProvider.GetRequiredService<ILogger<BlobStorageService>>();
 
             _svc = new BlobStorageService(
@@ -99,8 +99,8 @@ namespace FoundationaLLM.Core.Examples
             configValues.Add(appConfigurationKeyValue);
 
             appConfigurationKeyValue = new AppConfigurationKeyValue { Name = contentSourceProfileName };
-            appConfigurationKeyValue.Key = $"FoundationaLLM:DataSources:{contentSourceProfileName}:ConnectionString";
-            appConfigurationKeyValue.Value = settings.ConnectionString;
+            appConfigurationKeyValue.Key = $"FoundationaLLM:DataSources:{contentSourceProfileName}:AccountName";
+            appConfigurationKeyValue.Value = settings.AccountName;
             appConfigurationKeyValue.ContentType = "";
 
             configValues.Add(appConfigurationKeyValue);
@@ -125,7 +125,7 @@ namespace FoundationaLLM.Core.Examples
 
         private async Task RunExampleAsync()
         {
-            string containerPath = $"https://{_svc.BlobServiceClient.AccountName}.blob.core.windows.net/{containerName}";
+            string containerPath = $"https://{_svc.BlobServiceClient.AccountName}.blob.core.windows.net";
 
             ContentIdentifier ci = new ContentIdentifier
             {
@@ -136,8 +136,8 @@ namespace FoundationaLLM.Core.Examples
                     containerPath,
                     containerName,
                     blobName
-                     },
-                CanonicalId = id.ToString()
+                },
+                CanonicalId = containerName + "/" + blobName.Substring(0, blobName.LastIndexOf('.'))
             };
 
             //start a vectorization request...

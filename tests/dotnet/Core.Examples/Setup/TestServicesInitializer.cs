@@ -119,8 +119,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                 .ConfigureHttpClient((serviceProvider, client) =>
                 {
                     var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.ManagementAPI);
-                    client.BaseAddress = new Uri(options.BaseUri!);
-                    client.BaseAddress = new Uri("https://localhost:63267");
+                    client.BaseAddress = new Uri(options.BaseUri!);                   
                     if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
                 })
                 .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
@@ -133,8 +132,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                  {
                      var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.VectorizationAPI);
                      client.DefaultRequestHeaders.Add("X-API-KEY", vectorizationAPISettings.APIKey);
-                     client.BaseAddress = new Uri(options.BaseUri!);
-                     client.BaseAddress = new Uri("https://localhost:7047");
+                     client.BaseAddress = new Uri(options.BaseUri!);                     
                      if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
                  })
                  .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>

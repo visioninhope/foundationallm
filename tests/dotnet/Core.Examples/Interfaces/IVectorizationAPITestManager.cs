@@ -9,7 +9,6 @@ namespace FoundationaLLM.Core.Examples.Interfaces;
 public interface IVectorizationAPITestManager
 {
     Task<VectorizationResult> CreateVectorizationRequest(VectorizationRequest request);
-    Task<string> CheckVectorizationRequest(VectorizationRequest request);
-
+   
     Task DeleteVectorizationRequest(VectorizationRequest request);
 }

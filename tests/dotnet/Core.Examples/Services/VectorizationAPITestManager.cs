@@ -21,8 +21,7 @@ namespace FoundationaLLM.Core.Examples.Services
 
         public async Task<VectorizationResult> CreateVectorizationRequest(VectorizationRequest vectorizationRequest)
         {
-            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.VectorizationAPI);
-            coreClient.BaseAddress = new Uri("https://localhost:7047");
+            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.VectorizationAPI);           
             var serializedRequest = JsonSerializer.Serialize(vectorizationRequest, _jsonSerializerOptions);
 
             var response = await coreClient.PostAsync($"VectorizationRequest",
@@ -40,8 +39,7 @@ namespace FoundationaLLM.Core.Examples.Services
 
         public async Task<string> CheckVectorizationRequest(VectorizationRequest vectorizationRequest)
         {
-            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.VectorizationAPI);
-            coreClient.BaseAddress = new Uri("https://localhost:7047");
+            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.VectorizationAPI);            
             var serializedRequest = JsonSerializer.Serialize(vectorizationRequest, _jsonSerializerOptions);
 
             var response = await coreClient.PostAsync($"requeststatus",
