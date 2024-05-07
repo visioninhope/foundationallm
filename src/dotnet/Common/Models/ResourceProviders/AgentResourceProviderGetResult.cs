@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Agents;
+﻿using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.ResourceProviders
