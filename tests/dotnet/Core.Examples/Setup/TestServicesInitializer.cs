@@ -77,11 +77,17 @@ namespace FoundationaLLM.Core.Examples.Setup
                 options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes]!;
                 options.Timeout = TimeSpan.FromSeconds(120);
             });
+            
             services.Configure<HttpClientOptions>(HttpClients.ManagementAPI, options =>
             {
-                //options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!;
-                options.BaseUri = "https://localhost:63267";
+                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!;
                 options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_Scopes]!;
+                options.Timeout = TimeSpan.FromSeconds(120);
+            });
+
+            services.Configure<HttpClientOptions>(HttpClients.VectorizationAPI, options =>
+            {
+                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!;
                 options.Timeout = TimeSpan.FromSeconds(120);
             });
 
@@ -96,6 +102,7 @@ namespace FoundationaLLM.Core.Examples.Setup
             };
 
             downstreamAPISettings.DownstreamAPIs[HttpClients.VectorizationAPI] = vectorizationAPISettings;
+            
             services.AddHttpClient(HttpClients.CoreAPI)
                 .ConfigureHttpClient((serviceProvider, client) =>
                 {
@@ -113,6 +120,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                 {
                     var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.ManagementAPI);
                     client.BaseAddress = new Uri(options.BaseUri!);
+                    client.BaseAddress = new Uri("https://localhost:63267");
                     if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
                 })
                 .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
