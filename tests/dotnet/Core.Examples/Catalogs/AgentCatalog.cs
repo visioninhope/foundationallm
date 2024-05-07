@@ -21,6 +21,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
             {
                 Name = TestAgentNames.GenericInlineContextAgentName,
                 Description = "A generic agent that can handle inline context completions.",
+                InlineContext = true,
                 SessionsEnabled = true,
                 Vectorization = new AgentVectorizationSettings
                 {
@@ -42,6 +43,8 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     Orchestrator = LLMOrchestrationServiceNames.LangChain,
                     EndpointConfiguration = new Dictionary<string, object>
                     {
+                        { "auth_type", "key" },
+                        { "provider", "microsoft" },
                         { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
                         { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
                         { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
