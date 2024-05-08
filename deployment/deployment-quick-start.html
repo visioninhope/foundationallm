@@ -195,6 +195,10 @@ This script will need to be executed twice for the principal IDs of the followin
 <li>Management API Managed Identity</li>
 </ul>
 <p>These can be found in the Azure portal in the main resource group for the deployment.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The user running the script will need to have the appropriate permissions to assign roles to the managed identities. The user will need to be a <code>Global Administrator</code> or have the <code>Privileged Role Administrator</code> role in the Entra ID tenant.</p>
+</div>
 <p>The syntax for running the script from the <code>deploy\common\scripts</code> folder is:</p>
 <pre><code class="lang-pwsh">.\Assign-MSGraph-Roles.ps1 -principalId &lt;GUID of the Core API Managed Identity Principal ID&gt;
 .\Assign-MSGraph-Roles.ps1 -principalId &lt;GUID of the Management API Managed Identity Principal ID&gt;
