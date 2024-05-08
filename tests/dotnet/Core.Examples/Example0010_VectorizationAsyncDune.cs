@@ -137,11 +137,13 @@ namespace FoundationaLLM.Core.Examples
             };
 
             //start a vectorization request...
-            List<VectorizationStep> steps = new List<VectorizationStep>();
-            steps.Add(new VectorizationStep { Id = "extract", Parameters = new Dictionary<string, string>() });
-            steps.Add(new VectorizationStep { Id = "partition", Parameters = new Dictionary<string, string>() { { "text_partitioning_profile_name", textPartitionProfileName } } });
-            steps.Add(new VectorizationStep { Id = "embed", Parameters = new Dictionary<string, string>() { { "text_embedding_profile_name", textEmbeddingProfileName } } });
-            steps.Add(new VectorizationStep { Id = "index", Parameters = new Dictionary<string, string>() { { "indexing_profile_name", indexingProfileName } } });
+            List<VectorizationStep> steps =
+            [
+                new VectorizationStep { Id = "extract", Parameters = new Dictionary<string, string>() },
+                new VectorizationStep { Id = "partition", Parameters = new Dictionary<string, string>() { { "text_partitioning_profile_name", textPartitionProfileName } } },
+                new VectorizationStep { Id = "embed", Parameters = new Dictionary<string, string>() { { "text_embedding_profile_name", textEmbeddingProfileName } } },
+                new VectorizationStep { Id = "index", Parameters = new Dictionary<string, string>() { { "indexing_profile_name", indexingProfileName } } },
+            ];
 
             //Create a vectorization request.
             request = new VectorizationRequest
@@ -155,24 +157,40 @@ namespace FoundationaLLM.Core.Examples
                 ObjectId = $"{VectorizationResourceTypeNames.VectorizationRequests}/{id}"
             };
 
-            //Create the vectorization request
-            var vectorizationResponse = await _vectorizationTestService.CreateVectorizationRequest(request);
+            //Create the vectorization request, re-assign the fully qualified object id if desired.
+            request.ObjectId = await _vectorizationTestService.CreateVectorizationRequest(request);
 
             //Issue the process action on the vectorization request
+            var vectorizationResult = await _vectorizationTestService.ProcessVectorizationRequest(request);
 
+            // Ensure the vectorization request was successful
+            if (vectorizationResult == null)
+                throw new Exception("Vectorization request failed to complete successfully. Invalid result was returned.");
+                
+            if(vectorizationResult.IsSuccess == false)
+                throw new Exception($"Vectorization request failed to complete successfully. Message: {vectorizationResult.ErrorMessage}");
 
-            /*
+            //As this is an asynchronous request, poll the status of the vectorization request until it has completed (or failed). Retrieve initial state.
+            VectorizationRequest resource = _vectorizationTestService.CheckVectorizationRequestStatus(request).Result;
 
-            //check the status of the vectorization request
-            VectorizationRequest state = _vectorizationTestService.CheckVectorizationRequestStatus(request).Result;
-
-            while (state.ProcessingState != VectorizationProcessingState.Completed)
-            {
-                state = await _vectorizationTestService.CheckVectorizationRequestStatus(request);
-
-                Thread.Sleep(1000);
+            // The finalized state of the vectorization request is either "Completed" or "Failed"
+            // Give it a max of 10 minutes to complete, then exit loop and fail the test.
+            int timeRemainingMilliseconds = 600000;
+            var pollDurationMilliseconds = 30000; //poll duration of 30 seconds
+            while (resource.ProcessingState != VectorizationProcessingState.Completed && resource.ProcessingState != VectorizationProcessingState.Failed && timeRemainingMilliseconds > 0)
+            {                
+                Thread.Sleep(pollDurationMilliseconds);                
+                timeRemainingMilliseconds -= pollDurationMilliseconds;
+                resource = await _vectorizationTestService.CheckVectorizationRequestStatus(request);
             }
 
+            if (resource.ProcessingState == VectorizationProcessingState.Failed)
+                throw new Exception($"Vectorization request failed to complete successfully. {string.Join(",",resource.ErrorMessages)}");
+
+            if (timeRemainingMilliseconds <=0)
+                throw new Exception("Vectorization request failed to complete successfully. Timeout exceeded.");           
+
+            /*
             //verify artifacts
             //TODO
 
@@ -187,6 +205,7 @@ namespace FoundationaLLM.Core.Examples
             if ( result.QueryResult.TotalCount != 2886)
                 throw new Exception("Expected 2883 search results, but got " + result.QueryResult.TotalCount);
             */
+            
 
         }
 

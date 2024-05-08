@@ -14,6 +14,7 @@ public interface IVectorizationTestService
     public Task CreateTextEmbeddingProfile(string name);
     public Task CreateIndexingProfile(string name);
     public Task<string> CreateVectorizationRequest(VectorizationRequest request);
+    Task<VectorizationResult> ProcessVectorizationRequest(VectorizationRequest request);
     public Task<VectorizationRequest> CheckVectorizationRequestStatus(VectorizationRequest request);
     public Task<TestSearchResult> QueryIndex(string indexProfileName, string embedProfileName, string query);
     public Task<TestSearchResult> QueryIndex(IndexingProfile indexProfile, TextEmbeddingProfile embedProfile, string query);

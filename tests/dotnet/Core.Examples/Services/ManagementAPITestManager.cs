@@ -116,7 +116,7 @@ namespace FoundationaLLM.Core.Examples.Services
             return await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Vectorization,
-                vectorizationRequest.ObjectId,
+                vectorizationRequest.ObjectId!,
                 vectorizationRequest);
         }
 
@@ -124,7 +124,7 @@ namespace FoundationaLLM.Core.Examples.Services
         public async Task<VectorizationResult> ProcessVectorizationRequestAsync(VectorizationRequest vectorizationRequest)
         {
             var resourceId = vectorizationRequest.ObjectId!.Split("/").Last();
-            var fullPath = $"instances/{instanceSettings.Value.Id}/providers/{ResourceProviderNames.FoundationaLLM_Vectorization}/{resourceId}/process";
+            var fullPath = $"instances/{instanceSettings.Value.Id}/providers/{ResourceProviderNames.FoundationaLLM_Vectorization}/{VectorizationResourceTypeNames.VectorizationRequests}/{resourceId}/process";
 
             var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);            
             var response = await coreClient.PostAsync(fullPath, new StringContent("{}", Encoding.UTF8, "application/json"));

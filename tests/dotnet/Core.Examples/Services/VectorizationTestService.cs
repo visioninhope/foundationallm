@@ -58,9 +58,9 @@ namespace FoundationaLLM.Core.Examples.Services
             return managementAPITestManager.CreateVectorizationRequest(request);
         }
 
-        public Task<string> ProcessVectorizationRequest(string vectorizationResourceObjectId)
+        public Task<VectorizationResult> ProcessVectorizationRequest(VectorizationRequest request)
         {
-            return managementAPITestManager.ExecuteActionAsync(vectorizationResourceObjectId);
+            return managementAPITestManager.ProcessVectorizationRequestAsync(request);
         }
 
         public Task<VectorizationRequest> CheckVectorizationRequestStatus(VectorizationRequest request)
