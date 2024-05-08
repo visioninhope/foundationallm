@@ -107,7 +107,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<AgentResourceProviderGetResult>> LoadAgents(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
+        private async Task<List<ResourceProviderGetResult<AgentBase>>> LoadAgents(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
             var agents = new List<AgentBase>();
 
@@ -139,14 +139,14 @@ namespace FoundationaLLM.Agent.ResourceProviders
                     SecurityGroupIds = userIdentity.GroupIds
                 });
 
-            var results = new List<AgentResourceProviderGetResult>();
+            var results = new List<ResourceProviderGetResult<AgentBase>>();
             foreach (var agent in agents)
             {
                 if (rolesWithActions[agent.ObjectId!].Actions.Contains($"{Name}/{AgentResourceTypeNames.Agents}/read"))
                 {
-                    results.Add(new AgentResourceProviderGetResult()
+                    results.Add(new ResourceProviderGetResult<AgentBase>()
                     {
-                        Agent = agent,
+                        Resource = agent,
                         Actions = rolesWithActions[agent.ObjectId!].Actions,
                         Roles = rolesWithActions[agent.ObjectId!].Roles
                     });

@@ -1,6 +1,5 @@
 ﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authorization;
-using FoundationaLLM.Common.Models.ResourceProviders;
 
 namespace FoundationaLLM.Authorization.Services
 {
@@ -24,9 +23,9 @@ namespace FoundationaLLM.Authorization.Services
             return new RoleAssignmentResult { Success = true };
         }
 
-        public async Task<Dictionary<string, ResourceProviderGetResult>> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request)
+        public async Task<Dictionary<string, GetRolesWithActionsResult>> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request)
         {
-            var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new ResourceProviderGetResult() { Actions = [], Roles = [] });
+            var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new GetRolesWithActionsResult() { Actions = [], Roles = [] });
 
             await Task.CompletedTask;
             return defaultResults;

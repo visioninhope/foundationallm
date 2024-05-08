@@ -1,18 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.ResourceProviders
+namespace FoundationaLLM.Common.Models.Authorization
 {
     /// <summary>
-    /// Represents the result of a fetch operation.
+    /// Represents the result of a GET roles with actions request.
     /// </summary>
-    public class ResourceProviderGetResult<T> where T : ResourceBase
+    public class GetRolesWithActionsResult
     {
-        /// <summary>
-        /// The resource resulting from the fetch operation.
-        /// </summary>
-        [JsonPropertyName("resource")]
-        public required T Resource { get; set; }
-
         /// <summary>
         /// List of authorized actions on the resource.
         /// </summary>

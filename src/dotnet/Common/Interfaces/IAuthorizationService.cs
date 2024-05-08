@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.Common.Models.Authorization;
-using FoundationaLLM.Common.Models.ResourceProviders;
 
 namespace FoundationaLLM.Common.Interfaces
 {
@@ -32,6 +31,6 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="request">The get roles with actions request.</param>
         /// <returns>The get roles and actions result.</returns>
-        Task<Dictionary<string, ResourceProviderGetResult>> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request);
+        Task<Dictionary<string, GetRolesWithActionsResult>> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request);
     }
 }

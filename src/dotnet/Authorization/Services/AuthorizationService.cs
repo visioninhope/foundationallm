@@ -2,7 +2,6 @@
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authorization;
-using FoundationaLLM.Common.Models.ResourceProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
@@ -92,9 +91,9 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Dictionary<string, ResourceProviderGetResult>> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request)
+        public async Task<Dictionary<string, GetRolesWithActionsResult>> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request)
         {
-            var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new ResourceProviderGetResult() { Actions = [], Roles = [] });
+            var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new GetRolesWithActionsResult() { Actions = [], Roles = [] });
 
             try
             {
@@ -106,7 +105,7 @@ namespace FoundationaLLM.Authorization.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<Dictionary<string, ResourceProviderGetResult>>(responseContent)!;
+                    return JsonSerializer.Deserialize<Dictionary<string, GetRolesWithActionsResult>>(responseContent)!;
                 }
 
                 _logger.LogError("The call to the Authorization API returned an error: {StatusCode} - {ReasonPhrase}.", response.StatusCode, response.ReasonPhrase);
