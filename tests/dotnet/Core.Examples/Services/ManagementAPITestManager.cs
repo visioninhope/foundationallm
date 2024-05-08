@@ -27,7 +27,7 @@ namespace FoundationaLLM.Core.Examples.Services
             // Retrieve the agent and prompt from the test catalog.
             var agent = AgentCatalog.GetAllAgents().FirstOrDefault(a => a.Name == agentName);
             var prompt = PromptCatalog.GetAllPrompts().FirstOrDefault(p => p.Name == agentName);
-            
+
             if (agent == null)
             {
                 throw new InvalidOperationException($"The agent {agentName} was not found.");
@@ -36,6 +36,19 @@ namespace FoundationaLLM.Core.Examples.Services
             {
                 throw new InvalidOperationException($"The prompt for the agent {agentName} was not found.");
             }
+
+            // Resolve App Config values for the endpoint configuration as necessary.
+            // Note: This is a temporary workaround until we have the Models and Endpoints resource provider in place.
+            //if (agent.OrchestrationSettings is { EndpointConfiguration: not null })
+            //{
+            //    foreach (var (key, value) in agent.OrchestrationSettings.EndpointConfiguration)
+            //    {
+            //        if (key.ToLower() == "api_key") continue;
+            //        if (value is not string stringValue || !stringValue.StartsWith("FoundationaLLM:")) continue;
+            //        var appConfigValue = await TestConfiguration.GetAppConfigValueAsync(value.ToString()!);
+            //        agent.OrchestrationSettings.EndpointConfiguration[key] = appConfigValue;
+            //    }
+            //}
 
             // Create the prompt for the agent.
             var promptObjectId = await UpsertResourceAsync(
@@ -127,6 +140,13 @@ namespace FoundationaLLM.Core.Examples.Services
 
             if (response.IsSuccessStatusCode)
             {
+                // Resource was deleted successfully. Now purge the resource, so we can reuse the name.
+                await coreClient.PostAsync($"instances/{instanceId}/providers/{resourceProvider}/{resourcePath}/purge",
+                    new StringContent("{}", Encoding.UTF8, "application/json"));
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new FoundationaLLMException($"Successfully deleted the resource, but failed to purge it. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
+                }
                 return;
             }
 
