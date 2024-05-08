@@ -133,6 +133,9 @@ This script will need to be executed twice for the principal IDs of the followin
 
 These can be found in the Azure portal in the main resource group for the deployment.
 
+> [!TIP]
+> The user running the script will need to have the appropriate permissions to assign roles to the managed identities. The user will need to be a `Global Administrator` or have the `Privileged Role Administrator` role in the Entra ID tenant.
+
 The syntax for running the script from the `deploy\common\scripts` folder is:
 
 ```pwsh
