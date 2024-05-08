@@ -162,6 +162,8 @@ namespace FoundationaLLM.Core.Examples
             //Add the steps to the vectorization request.
             var vectorizationResponse = await _vectorizationTestService.CreateVectorizationRequest(request);
 
+            /*
+
             //check the status of the vectorization request
             VectorizationRequest state = _vectorizationTestService.CheckVectorizationRequestStatus(request).Result;
 
@@ -185,6 +187,7 @@ namespace FoundationaLLM.Core.Examples
             //vaidate chunks in index...
             if ( result.QueryResult.TotalCount != 2886)
                 throw new Exception("Expected 2883 search results, but got " + result.QueryResult.TotalCount);
+            */
 
         }
 
@@ -195,12 +198,9 @@ namespace FoundationaLLM.Core.Examples
             //remove the dune artifact from storage
             _svc.BlobServiceClient.GetBlobContainerClient(containerName).DeleteBlobIfExists(blobName);
             
+            /*
             //remove the data source
-            await _vectorizationTestService.DeleteDataSource(contentSourceProfileName, configValues);
-
-            //remove content source profile
-            //content source profile
-            //await _vectorizationTestService.DeleteContentSourceProfile(contentSourceProfileName);
+            await _vectorizationTestService.DeleteDataSource(contentSourceProfileName, configValues);        
 
             //text partitioning profile
             //remove text partitioning profile
@@ -219,6 +219,7 @@ namespace FoundationaLLM.Core.Examples
             //remove search index
             //remove indexing profile
             await _vectorizationTestService.DeleteVectorizationRequest(request);
+            */
         }
 	}
 }

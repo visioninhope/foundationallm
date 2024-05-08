@@ -62,8 +62,6 @@ public interface IManagementAPITestManager
 
     Task CreateDataSource(string name);
 
-    Task CreateContentSourceProfile(string name);
-
     Task CreateTextPartitioningProfile(string name);
 
     Task CreateTextEmbeddingProfile(string name);
@@ -79,8 +77,6 @@ public interface IManagementAPITestManager
     Task DeleteAppConfiguration(string name);
 
     Task DeleteDataSource(string name, List<AppConfigurationKeyValue> configurationKeyValues);
-
-    Task DeleteContentSourceProfile(string name);
 
     Task DeleteTextPartitioningProfile(string name);
 

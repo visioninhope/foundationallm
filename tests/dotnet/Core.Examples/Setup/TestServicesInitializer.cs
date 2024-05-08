@@ -205,8 +205,7 @@ namespace FoundationaLLM.Core.Examples.Setup
         private static void RegisterServiceManagers(IServiceCollection services)
         {
             services.AddScoped<ICoreAPITestManager, CoreAPITestManager>();
-			services.AddScoped<IManagementAPITestManager, ManagementAPITestManager>();
-            services.AddScoped<IVectorizationAPITestManager, VectorizationAPITestManager>();
+			services.AddScoped<IManagementAPITestManager, ManagementAPITestManager>();            
             services.AddScoped<IHttpClientManager, HttpClientManager>();
 			services.AddScoped<IAgentConversationTestService, AgentConversationTestService>();
             services.AddScoped<IVectorizationTestService, VectorizationTestService>();

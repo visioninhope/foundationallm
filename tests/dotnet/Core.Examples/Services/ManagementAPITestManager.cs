@@ -106,26 +106,9 @@ namespace FoundationaLLM.Core.Examples.Services
                 textPartitioningProfile);
         }
 
-            public async Task CreateContentSourceProfile(string profileName)
-        {
-            var contentSourceProfile = DataSourceCatalog.GetDataSources().FirstOrDefault(a => a.Name == profileName);
-
-            if (contentSourceProfile == null)
-            {
-                   throw new InvalidOperationException($"The content source profile {profileName} was not found.");
-            }
-
-            var textPartitioningProfileObjectId = await UpsertResourceAsync(
-                instanceSettings.Value.Id,
-                ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"contentsource/{profileName}",
-                contentSourceProfile);
-        }
-
         public async Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest vectorizationRequest)
         {
             return GetResourcesAsync<VectorizationRequest>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"{vectorizationRequest.ObjectId}").Result;
-
         }
 
         public async Task<string> CreateVectorizationRequest(VectorizationRequest vectorizationRequest)
@@ -134,7 +117,7 @@ namespace FoundationaLLM.Core.Examples.Services
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 vectorizationRequest.ObjectId,
-                vectorizationRequest.Id);
+                vectorizationRequest);
         }
 
         public async Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest)
@@ -159,14 +142,6 @@ namespace FoundationaLLM.Core.Examples.Services
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_DataSource,
                 $"dataSources/{profileName}");
-        }
-
-        public async Task DeleteContentSourceProfile(string profileName)
-        {
-            await DeleteResourceAsync(
-                instanceSettings.Value.Id,
-                ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"contentsource/{profileName}");
         }
 
         public async Task DeleteTextPartitioningProfile(string profileName)

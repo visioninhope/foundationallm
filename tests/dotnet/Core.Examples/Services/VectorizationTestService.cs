@@ -23,12 +23,10 @@ namespace FoundationaLLM.Core.Examples.Services
     /// <param name="azureAIService"></param>
     public class VectorizationTestService(
         //IIndexingService indexingService,
-        IManagementAPITestManager managementAPITestManager,
-        IVectorizationAPITestManager vectorizationAPITestManager,
+        IManagementAPITestManager managementAPITestManager,       
         IOptions<InstanceSettings> instanceSettings) : IVectorizationTestService
     {
-        private IManagementAPITestManager _managementAPITestManager = managementAPITestManager;
-        private IVectorizationAPITestManager _vectorizationAPITestManager = vectorizationAPITestManager;
+        private IManagementAPITestManager _managementAPITestManager = managementAPITestManager;        
         //private IIndexingService _indexService = indexingService;
         private InstanceSettings _instanceSettings = instanceSettings.Value;
 
@@ -40,11 +38,6 @@ namespace FoundationaLLM.Core.Examples.Services
                 await _managementAPITestManager.CreateAppConfiguration(config);
 
             await managementAPITestManager.CreateDataSource(name);
-        }
-
-        public Task CreateContentSourceProfile(string name)
-        {
-            return managementAPITestManager.CreateContentSourceProfile(name);
         }
 
         public Task CreateTextPartitioningProfile(string name)
@@ -62,9 +55,9 @@ namespace FoundationaLLM.Core.Examples.Services
             return managementAPITestManager.CreateIndexingProfile(name);
         }
 
-        public Task<VectorizationResult> CreateVectorizationRequest(VectorizationRequest request)
+        public Task<string> CreateVectorizationRequest(VectorizationRequest request)
         {
-            return _vectorizationAPITestManager.CreateVectorizationRequest(request);
+            return managementAPITestManager.CreateVectorizationRequest(request);
         }
 
         public Task<VectorizationRequest> CheckVectorizationRequestStatus(VectorizationRequest request)
@@ -194,11 +187,6 @@ namespace FoundationaLLM.Core.Examples.Services
             await managementAPITestManager.DeleteDataSource(name, configList);
 
             return;
-        }
-
-        public Task DeleteContentSourceProfile(string name)
-        {
-            return managementAPITestManager.DeleteContentSourceProfile(name);
         }
 
         public Task DeleteTextPartitioningProfile(string name)
