@@ -120,32 +120,58 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             }
             else
             {
-                if (!_dataSourceReferences.TryGetValue(instance.ResourceId, out var dataSourceReference)
-                    || dataSourceReference.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} data source resource.",
-                        StatusCodes.Status404NotFound);
+                DataSourceBase? dataSource;
+                if (!_dataSourceReferences.TryGetValue(instance.ResourceId, out var dataSourceReference))
+                {
+                    dataSource = await LoadDataSource(null, instance.ResourceId);
+                    return [dataSource];
+                }
 
-                var dataSource = await LoadDataSource(dataSourceReference!);
+                if (dataSourceReference.Deleted)
+                {
+                    throw new ResourceProviderException(
+                        $"Could not locate the {instance.ResourceId} data source resource.",
+                        StatusCodes.Status404NotFound);
+                }
+
+                dataSource = await LoadDataSource(dataSourceReference);
 
                 return [dataSource];
             }
         }
 
-        private async Task<DataSourceBase> LoadDataSource(DataSourceReference dataSourceReference)
+        private async Task<DataSourceBase> LoadDataSource(DataSourceReference? dataSourceReference, string? resourceId = null)
         {
-            if (await _storageService.FileExistsAsync(_storageContainerName, dataSourceReference.Filename, default))
+            if (dataSourceReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, dataSourceReference.Filename, default);
-                return JsonSerializer.Deserialize(
-                    Encoding.UTF8.GetString(fileContent.ToArray()),
-                    dataSourceReference.DataSourceType,
-                    _serializerSettings) as DataSourceBase
-                    ?? throw new ResourceProviderException($"Failed to load the data source {dataSourceReference.Name}.",
-                        StatusCodes.Status400BadRequest);
+                dataSourceReference ??= new DataSourceReference
+                {
+                    Name = resourceId!,
+                    Type = DataSourceTypes.Basic,
+                    Filename = $"/{_name}/{resourceId}.json",
+                    Deleted = false
+                };
+                if (await _storageService.FileExistsAsync(_storageContainerName, dataSourceReference.Filename, default))
+                {
+                    var fileContent = await _storageService.ReadFileAsync(_storageContainerName, dataSourceReference.Filename, default);
+                    var dataSource = JsonSerializer.Deserialize(
+                               Encoding.UTF8.GetString(fileContent.ToArray()),
+                               dataSourceReference.DataSourceType,
+                               _serializerSettings) as DataSourceBase
+                           ?? throw new ResourceProviderException($"Failed to load the data source {dataSourceReference.Name}.",
+                               StatusCodes.Status400BadRequest);
+
+                    if (!string.IsNullOrWhiteSpace(resourceId))
+                    {
+                        dataSourceReference.Type = dataSource.Type!;
+                        _dataSourceReferences.AddOrUpdate(dataSourceReference.Name, dataSourceReference, (k, v) => dataSourceReference);
+                    }
+
+                    return dataSource;
+                }
             }
-            else
-                throw new ResourceProviderException($"Could not locate the {dataSourceReference.Name} data source resource.",
-                    StatusCodes.Status404NotFound);
+            throw new ResourceProviderException($"Could not locate the {dataSourceReference.Name} data source resource.",
+                StatusCodes.Status404NotFound);
         }
 
         #endregion
