@@ -158,6 +158,14 @@
             "apiKeySecretName": "foundationallm-apis-gatekeeperapi-apikey"
           },
           {
+            "name": "gatekeeper-integration-api",
+            "useEndpoint": true,
+            "hasIngress": true,
+            "image": "cropseastus2svinternal.azurecr.io/gatekeeper-integration-api:0.0.0-20240507T001932Z",
+            "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
+            "apiKeySecretName": "foundationallm-apis-gatekeeperintegrationapi-apikey"
+          },
+          {
             "name": "langchain-api",
             "useEndpoint": true,
             "hasIngress": true,
