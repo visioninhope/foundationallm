@@ -119,31 +119,54 @@ namespace FoundationaLLM.Agent.ResourceProviders
             }
             else
             {
-                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference)
-                    || agentReference.Deleted)
+                AgentBase? agent;
+                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference))
+                {
+                    agent = await LoadAgent(null, instance.ResourceId);
+                    return [agent];
+                }
+                if (agentReference.Deleted)
+                {
                     throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
                         StatusCodes.Status404NotFound);
+                }
 
-                var agent = await LoadAgent(agentReference!);
+                agent = await LoadAgent(agentReference);
 
                 return [agent];
             }
         }
 
-        private async Task<AgentBase> LoadAgent(AgentReference agentReference)
+        private async Task<AgentBase> LoadAgent(AgentReference? agentReference, string? resourceId = null)
         {
             // agentReference is null for legacy agents
-            if (agentReference != null)
+            if (agentReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
+                agentReference ??= new AgentReference
+                {
+                    Name = resourceId!,
+                    Type = AgentTypes.Basic,
+                    Filename = $"/{_name}/{resourceId}.json",
+                    Deleted = false
+                };
                 if (await _storageService.FileExistsAsync(_storageContainerName, agentReference.Filename, default))
                 {
                     var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentReference.Filename, default);
-                    return JsonSerializer.Deserialize(
+                    var agent = JsonSerializer.Deserialize(
                         Encoding.UTF8.GetString(fileContent.ToArray()),
                         agentReference.AgentType,
                         _serializerSettings) as AgentBase
                         ?? throw new ResourceProviderException($"Failed to load the agent {agentReference.Name}.",
                             StatusCodes.Status400BadRequest);
+                    
+                    if (!string.IsNullOrWhiteSpace(resourceId))
+                    {
+                        // The agent file exists, but the agent reference is not in the dictionary. Update the dictionary with the missing reference.
+                        agentReference.Type = agent.Type!;
+                        _agentReferences.AddOrUpdate(agentReference.Name, agentReference, (k, v) => agentReference);
+                    }
+
+                    return agent;
                 }
             }
 

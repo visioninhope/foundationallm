@@ -111,29 +111,56 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             }
             else
             {
-                if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference)
-                    || promptReference.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} prompt resource.",
-                        StatusCodes.Status404NotFound);
+                MultipartPrompt? prompt;
+                if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference))
+                {
+                    prompt = await LoadPrompt(null, instance.ResourceId);
+                    return [prompt];
+                }
 
-                var prompt = await LoadPrompt(promptReference!);
+                if (promptReference.Deleted)
+                {
+                    throw new ResourceProviderException(
+                        $"Could not locate the {instance.ResourceId} prompt resource.",
+                        StatusCodes.Status404NotFound);
+                }
+
+                prompt = await LoadPrompt(promptReference);
 
                 return [prompt];
             }
         }
 
-        private async Task<MultipartPrompt> LoadPrompt(PromptReference promptReference)
+        private async Task<MultipartPrompt> LoadPrompt(PromptReference? promptReference, string? resourceId = null)
         {
-            if (await _storageService.FileExistsAsync(_storageContainerName, promptReference.Filename, default))
+            if (promptReference != null || !string.IsNullOrEmpty(resourceId))
             {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, promptReference.Filename, default);
-                return JsonSerializer.Deserialize(
-                    Encoding.UTF8.GetString(fileContent.ToArray()),
-                    promptReference.PromptType,
-                    _serializerSettings) as MultipartPrompt
-                    ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.");
-            }
+                promptReference ??= new PromptReference
+                {
+                    Name = resourceId!,
+                    Type = PromptTypes.Multipart,
+                    Filename = $"/{_name}/{resourceId}.json",
+                    Deleted = false
+                };
+                if (await _storageService.FileExistsAsync(_storageContainerName, promptReference.Filename, default))
+                {
+                    var fileContent =
+                        await _storageService.ReadFileAsync(_storageContainerName, promptReference.Filename, default);
+                    var prompt = JsonSerializer.Deserialize(
+                               Encoding.UTF8.GetString(fileContent.ToArray()),
+                               promptReference.PromptType,
+                               _serializerSettings) as MultipartPrompt
+                           ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.");
 
+                    if (!string.IsNullOrWhiteSpace(resourceId))
+                    {
+                        promptReference.Type = prompt.Type!;
+                        _promptReferences.AddOrUpdate(promptReference.Name, promptReference, (k, v) => promptReference);
+                    }
+
+                    return prompt;
+                }
+            }
             throw new ResourceProviderException($"Could not locate the {promptReference.Name} prompt resource.",
                 StatusCodes.Status404NotFound);
         }
