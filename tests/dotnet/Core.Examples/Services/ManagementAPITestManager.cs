@@ -120,6 +120,23 @@ namespace FoundationaLLM.Core.Examples.Services
                 vectorizationRequest);
         }
 
+        /// <inheritdoc/>
+        public async Task<VectorizationResult> ProcessVectorizationRequestAsync(VectorizationRequest vectorizationRequest)
+        {
+            var resourceId = vectorizationRequest.ObjectId!.Split("/").Last();
+            var fullPath = $"instances/{instanceSettings.Value.Id}/providers/{ResourceProviderNames.FoundationaLLM_Vectorization}/{resourceId}/process";
+
+            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);            
+            var response = await coreClient.PostAsync(fullPath, new StringContent("{}", Encoding.UTF8, "application/json"));
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var processResult = JsonSerializer.Deserialize<VectorizationResult>(responseContent, _jsonSerializerOptions);
+                return processResult!;
+            }
+            throw new FoundationaLLMException($"Failed to upsert resource. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
+        }
+
         public async Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest)
         {
             await DeleteResourceAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"vectorizationRequests/{vectorizationRequest.ObjectId}");
@@ -281,6 +298,7 @@ namespace FoundationaLLM.Core.Examples.Services
             throw new FoundationaLLMException($"Failed to upsert resource. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
         }
 
+      
         /// <inheritdoc/>
         public async Task DeleteResourceAsync(string instanceId, string resourceProvider, string resourcePath)
         {

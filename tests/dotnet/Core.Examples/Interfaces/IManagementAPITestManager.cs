@@ -72,6 +72,8 @@ public interface IManagementAPITestManager
 
     Task<string> CreateVectorizationRequest(VectorizationRequest vectorizationRequest);
 
+    Task<VectorizationResult> ProcessVectorizationRequestAsync(VectorizationRequest vectorizationRequest);
+
     Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest);
 
     Task DeleteAppConfiguration(string name);

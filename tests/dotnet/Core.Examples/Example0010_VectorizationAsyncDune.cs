@@ -105,10 +105,7 @@ namespace FoundationaLLM.Core.Examples
 
             configValues.Add(appConfigurationKeyValue);
 
-            await _vectorizationTestService.CreateDataSource(contentSourceProfileName, configValues);
-
-            //content source profile
-            //await _vectorizationTestService.CreateContentSourceProfile(contentSourceProfileName);
+            await _vectorizationTestService.CreateDataSource(contentSourceProfileName, configValues);                      
 
             //text partitioning profile
             await _vectorizationTestService.CreateTextPartitioningProfile(textPartitionProfileName);
@@ -129,8 +126,7 @@ namespace FoundationaLLM.Core.Examples
 
             ContentIdentifier ci = new ContentIdentifier
             {
-                DataSourceObjectId = dataSourceObjectId,
-                //ContentSourceProfileName = _crawlerSettings.ContentSourceProfileName,
+                DataSourceObjectId = dataSourceObjectId,                
                 MultipartId = new List<string>
                 {
                     containerPath,
@@ -159,8 +155,11 @@ namespace FoundationaLLM.Core.Examples
                 ObjectId = $"{VectorizationResourceTypeNames.VectorizationRequests}/{id}"
             };
 
-            //Add the steps to the vectorization request.
+            //Create the vectorization request
             var vectorizationResponse = await _vectorizationTestService.CreateVectorizationRequest(request);
+
+            //Issue the process action on the vectorization request
+
 
             /*
 

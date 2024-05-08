@@ -19,15 +19,13 @@ namespace FoundationaLLM.Core.Examples.Services
     /// <summary>
     /// Service for running agent conversations using the Core API.
     /// </summary>
-    /// <param name="coreAPITestManager"></param>
-    /// <param name="azureAIService"></param>
-    public class VectorizationTestService(
-        //IIndexingService indexingService,
+    /// <param name="managementAPITestManager">Interfacing code with the Management API responsible for resource management.</param>
+    /// <param name="instanceSettings">Instance settings for the current environment.</param>
+    public class VectorizationTestService(        
         IManagementAPITestManager managementAPITestManager,       
         IOptions<InstanceSettings> instanceSettings) : IVectorizationTestService
     {
         private IManagementAPITestManager _managementAPITestManager = managementAPITestManager;        
-        //private IIndexingService _indexService = indexingService;
         private InstanceSettings _instanceSettings = instanceSettings.Value;
 
         InstanceSettings IVectorizationTestService.InstanceSettings { get { return _instanceSettings; } set { _instanceSettings = value; } }
@@ -58,6 +56,11 @@ namespace FoundationaLLM.Core.Examples.Services
         public Task<string> CreateVectorizationRequest(VectorizationRequest request)
         {
             return managementAPITestManager.CreateVectorizationRequest(request);
+        }
+
+        public Task<string> ProcessVectorizationRequest(string vectorizationResourceObjectId)
+        {
+            return managementAPITestManager.ExecuteActionAsync(vectorizationResourceObjectId);
         }
 
         public Task<VectorizationRequest> CheckVectorizationRequestStatus(VectorizationRequest request)
