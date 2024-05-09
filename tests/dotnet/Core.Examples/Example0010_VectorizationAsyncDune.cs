@@ -2,15 +2,12 @@
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
-using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
-using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Examples.Setup;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Xunit.Abstractions;
 
@@ -19,8 +16,8 @@ namespace FoundationaLLM.Core.Examples
     /// <summary>
     /// Example class for running the default FoundationaLLM agent completions in both session and sessionless modes.
     /// Expects the following configuration values:
-    ///     FoundationaLLM:DataSources:really_big:AuthenticationType
-    ///     FoundationaLLM:DataSources:really_big:AccountName
+    ///     FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType
+    ///     FoundationaLLM:DataSources:datalake_vectorization_input:AccountName
     /// Expects the following document in the storage account:
     ///     /vectorization-input/really_big.pdf
     /// </summary>
@@ -29,28 +26,29 @@ namespace FoundationaLLM.Core.Examples
 		private readonly IVectorizationTestService _vectorizationTestService;        
         private InstanceSettings _instanceSettings;
 
-        public Example0010_VectorizationAsyncDune(ITestOutputHelper output, TestFixture fixture)
-			: base(output, fixture.ServiceProvider)
-		{
-            _vectorizationTestService = GetService<IVectorizationTestService>();
-            _instanceSettings = _vectorizationTestService.InstanceSettings;
-            dataSourceObjectId = $"/instances/{_instanceSettings.Id}/providers/FoundationaLLM.DataSource/dataSources/{dataSourceName}";
-        }
-
         private string textPartitionProfileName = "text_partition_profile";
         private string textEmbeddingProfileName = "text_embedding_profile_gateway";
         private string indexingProfileName = "indexing_profile";
         private string genericTextEmbeddingProfileName = "text_embedding_profile_generic";
-
-        private string dataSourceName = "really_big";
+        private string dataSourceName = "datalake_vectorization_input";
         private string containerName = "vectorization-input";
         private string blobName = "really_big.pdf";
         private string indexName = "testindex";
         private string dataSourceObjectId;
         private string id = String.Empty;
         private BlobStorageServiceSettings? _settings;
-        private VectorizationRequest request;
 
+        public Example0010_VectorizationAsyncDune(ITestOutputHelper output, TestFixture fixture)
+			: base(output, fixture.ServiceProvider)
+		{
+            _vectorizationTestService = GetService<IVectorizationTestService>();
+            _instanceSettings = _vectorizationTestService.InstanceSettings;
+            dataSourceObjectId = $"/instances/{_instanceSettings.Id}/providers/FoundationaLLM.DataSource/dataSources/{dataSourceName}";
+            id = Guid.NewGuid().ToString();
+            _settings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
+                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
+        }
+        
         [Fact]
 		public async Task RunAsync()
 		{
@@ -62,12 +60,7 @@ namespace FoundationaLLM.Core.Examples
 		}
 
         private async Task PreExecute()
-        {
-            id = Guid.NewGuid().ToString();
-
-            _settings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-
+        { 
             WriteLine($"Setup: Create the data source: {dataSourceName} via the Management API");
             await _vectorizationTestService.CreateDataSource(dataSourceName);
 
@@ -81,20 +74,18 @@ namespace FoundationaLLM.Core.Examples
             WriteLine($"Setup: Create a generic vectorization text partitioning profile: {genericTextEmbeddingProfileName} via the Management API");
             await _vectorizationTestService.CreateTextEmbeddingProfile(genericTextEmbeddingProfileName);
            
-            WriteLine($"Create the vectorization indexing profile: {indexingProfileName} via the Management API");
+            WriteLine($"Setup: Create the vectorization indexing profile: {indexingProfileName} via the Management API");
             await _vectorizationTestService.CreateIndexingProfile(indexingProfileName);
         }
 
         private async Task RunExampleAsync()
-        {
-            string containerPath = $"https://{_settings!.AccountName}.blob.core.windows.net";
-
+        {           
             ContentIdentifier ci = new ContentIdentifier
             {
                 DataSourceObjectId = dataSourceObjectId,                
                 MultipartId = new List<string>
                 {
-                    containerPath,
+                    $"{_settings!.AccountName}.blob.core.windows.net",
                     containerName,
                     blobName
                 },
@@ -111,7 +102,7 @@ namespace FoundationaLLM.Core.Examples
             ];
 
             //Create a vectorization request.
-            request = new VectorizationRequest
+            var request = new VectorizationRequest
             {
                 RemainingSteps = new List<string> { "extract", "partition", "embed", "index" },
                 CompletedSteps = new List<string>(),

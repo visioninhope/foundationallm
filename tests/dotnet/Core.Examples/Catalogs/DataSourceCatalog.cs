@@ -6,7 +6,8 @@ namespace FoundationaLLM.Core.Examples.Catalogs
     {
         public static readonly List<DataSourceBase> Items =
         [
-            new AzureDataLakeDataSource { Name = "really_big", DisplayName = "really_big", ConfigurationReferences = new Dictionary<string, string> { { "AuthenticationType", "FoundationaLLM:DataSources:really_big:AuthenticationType" }, { "AccountName", "FoundationaLLM:DataSources:really_big:AccountName" }}, Folders = new List<string> { "vectorization-input" } },
+            new AzureDataLakeDataSource { Name = "datalake_vectorization_input", DisplayName = "datalake_vectorization_input", ConfigurationReferences = new Dictionary<string, string> { { "AuthenticationType", "FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType" }, { "AccountName", "FoundationaLLM:DataSources:datalake_vectorization_input:AccountName" } }, Folders = new List<string> { "vectorization-input" } }
+            
         ];
 
         public static List<DataSourceBase> GetDataSources()
