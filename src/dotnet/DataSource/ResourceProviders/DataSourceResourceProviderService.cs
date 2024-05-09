@@ -106,17 +106,16 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<DataSourceBase>> LoadDataSources(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<DataSourceBase>>> LoadDataSources(ResourceTypeInstance instance)
         {
             if (instance.ResourceId == null)
             {
-                return
-                [
-                    .. (await Task.WhenAll(
+                var dataSources = (await Task.WhenAll(
                         _dataSourceReferences.Values
                             .Where(dsr => !dsr.Deleted)
-                            .Select(dsr => LoadDataSource(dsr))))
-                ];
+                            .Select(dsr => LoadDataSource(dsr)))).ToList();
+
+                return dataSources.Select(dataSource => new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }).ToList();
             }
             else
             {
@@ -127,7 +126,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
                 var dataSource = await LoadDataSource(dataSourceReference!);
 
-                return [dataSource];
+                return [new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }];
             }
         }
 

@@ -87,7 +87,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             if (agentBase.OrchestrationSettings!.AgentParameters == null)
                 agentBase.OrchestrationSettings.AgentParameters = [];
 
-            var prompt = await promptResourceProvider.GetResource<PromptBase>(
+            var prompt = await promptResourceProvider.GetResource<MultipartPrompt>(
                 agentBase.PromptObjectId!,
                 currentUserIdentity);
 

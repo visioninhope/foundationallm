@@ -13,18 +13,15 @@ using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.Vectorization.Client;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Models.Resources;
-using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Validation.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
-using System.Runtime.Versioning;
 using System.Text;
 using System.Text.Json;
 
@@ -160,16 +157,15 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private List<TBase> LoadResources<T, TBase>(ResourceTypeInstance instance, ConcurrentDictionary<string, TBase> resourceStore)
+        private List<ResourceProviderGetResult<TBase>> LoadResources<T, TBase>(ResourceTypeInstance instance, ConcurrentDictionary<string, TBase> resourceStore)
             where T : TBase
             where TBase: ResourceBase
         {
             if (instance.ResourceId == null)
             {
-                return
-                    [.. resourceStore.Values
-                            .Where(p => !p.Deleted)
-                    ];
+                var resources = resourceStore.Values.Where(p => !p.Deleted).ToList();
+
+                return resources.Select(resource => new ResourceProviderGetResult<TBase>() { Resource = resource, Actions = [], Roles = [] }).ToList();
             }
             else
             {
@@ -178,7 +174,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     throw new ResourceProviderException($"Could not locate the {instance.ResourceId} vectorization resource.",
                         StatusCodes.Status404NotFound);
 
-                return [resource];
+                return [new ResourceProviderGetResult<TBase>() { Resource = resource, Actions = [], Roles = [] }];
             }
         }
         private async Task<List<VectorizationRequest>> LoadVectorizationRequestResources(ResourceTypeInstance instance, ConcurrentDictionary<string, VectorizationRequest> resourceStore)           

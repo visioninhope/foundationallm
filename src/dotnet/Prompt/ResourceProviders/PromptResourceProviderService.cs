@@ -97,17 +97,16 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<PromptBase>> LoadPrompts(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<MultipartPrompt>>> LoadPrompts(ResourceTypeInstance instance)
         {
             if (instance.ResourceId == null)
             {
-                return
-                [
-                    .. (await Task.WhenAll(
+                var prompts = (await Task.WhenAll(
                         _promptReferences.Values
                             .Where(pr => !pr.Deleted)
-                            .Select(pr => LoadPrompt(pr))))
-                ];
+                            .Select(pr => LoadPrompt(pr)))).ToList();
+
+                return prompts.Select(prompt => new ResourceProviderGetResult<MultipartPrompt>() { Resource = prompt, Actions = [], Roles = [] }).ToList();
             }
             else
             {
@@ -118,7 +117,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
                 var prompt = await LoadPrompt(promptReference!);
 
-                return [prompt];
+                return [new ResourceProviderGetResult<MultipartPrompt>() { Resource = prompt, Actions = [], Roles = [] }];
             }
         }
 
