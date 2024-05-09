@@ -14,14 +14,14 @@ using Xunit.Abstractions;
 namespace FoundationaLLM.Core.Examples
 {
     /// <summary>
-    /// Example class for running synchronous vectorization over a PDF file in the Azure Data Lake storage account.
+    /// Example class for running asynchronous vectorization over a PDF file in the Azure Data Lake storage account.
     /// Expects the following configuration values:
     ///     FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType
     ///     FoundationaLLM:DataSources:datalake_vectorization_input:AccountName
     /// Expects the following document in the storage account:
     ///     /vectorization-input/SDZWA-Journal-January-2024.pdf
     /// </summary>
-    public class Example0004_SynchronousVectorizationOfPDFFromDataLake: BaseTest, IClassFixture<TestFixture>
+    public class Example0005_AsynchronousVectorizationOfPDFFromDataLake: BaseTest, IClassFixture<TestFixture>
     {
         private readonly IVectorizationTestService _vectorizationTestService;
         private InstanceSettings _instanceSettings;
@@ -36,7 +36,7 @@ namespace FoundationaLLM.Core.Examples
         private string id = String.Empty;
         private BlobStorageServiceSettings? _settings;
 
-        public Example0004_SynchronousVectorizationOfPDFFromDataLake(ITestOutputHelper output, TestFixture fixture)
+        public Example0005_AsynchronousVectorizationOfPDFFromDataLake(ITestOutputHelper output, TestFixture fixture)
             : base(output, fixture.ServiceProvider)
         {
             _vectorizationTestService = GetService<IVectorizationTestService>();
@@ -51,7 +51,7 @@ namespace FoundationaLLM.Core.Examples
         [Fact]
         public async Task RunAsync()
         {
-            WriteLine("============ Synchronous Vectorization of a PDF from Data Lake ============");
+            WriteLine("============ Asynchronous Vectorization of a PDF from Data Lake ============");
             await RunExampleAsync();
         }
 
@@ -119,7 +119,29 @@ namespace FoundationaLLM.Core.Examples
                 //retrieve more verbose error logging from resource....
                 resource = await _vectorizationTestService.GetVectorizationRequest(request);
                 throw new Exception($"Vectorization request failed to complete successfully. Message(s):\n{string.Join("\n", resource.ErrorMessages)}");
-            }             
+            }
+
+            WriteLine($"Get the initial processing state for the vectorization request: {id} via the Management API");
+            //As this is an asynchronous request, poll the status of the vectorization request until it has completed (or failed). Retrieve initial state.
+            resource = await _vectorizationTestService.GetVectorizationRequest(request);
+
+            // The finalized state of the vectorization request is either "Completed" or "Failed"
+            // Give it a max of 10 minutes to complete, then exit loop and fail the test.
+            WriteLine($"Polling the processing state of the async vectorization request: {id} by retrieving the request from the Management API");
+            int timeRemainingMilliseconds = 600000;
+            var pollDurationMilliseconds = 30000; //poll duration of 30 seconds
+            while (resource.ProcessingState != VectorizationProcessingState.Completed && resource.ProcessingState != VectorizationProcessingState.Failed && timeRemainingMilliseconds > 0)
+            {
+                Thread.Sleep(pollDurationMilliseconds);
+                timeRemainingMilliseconds -= pollDurationMilliseconds;
+                resource = await _vectorizationTestService.GetVectorizationRequest(request);
+            }
+
+            if (resource.ProcessingState == VectorizationProcessingState.Failed)
+                throw new Exception($"Vectorization request failed to complete successfully. Error Messages:\n{string.Join("\n", resource.ErrorMessages)}");
+
+            if (timeRemainingMilliseconds <= 0)
+                throw new Exception("Vectorization request failed to complete successfully. Timeout exceeded.");
 
             WriteLine($"Vectorization request: {id} completed successfully.");
 
