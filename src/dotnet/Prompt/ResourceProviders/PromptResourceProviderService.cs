@@ -107,6 +107,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                         _promptReferences.Values
                             .Where(pr => !pr.Deleted)
                             .Select(pr => LoadPrompt(pr))))
+                    .Where(ds => ds != null)
+                    .ToList()
                 ];
             }
             else
@@ -115,7 +117,11 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference))
                 {
                     prompt = await LoadPrompt(null, instance.ResourceId);
-                    return [prompt];
+                    if (prompt != null)
+                    {
+                        return [prompt];
+                    }
+                    return [];
                 }
 
                 if (promptReference.Deleted)
@@ -127,11 +133,15 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
                 prompt = await LoadPrompt(promptReference);
 
-                return [prompt];
+                if (prompt != null)
+                {
+                    return [prompt];
+                }
+                return [];
             }
         }
 
-        private async Task<MultipartPrompt> LoadPrompt(PromptReference? promptReference, string? resourceId = null)
+        private async Task<MultipartPrompt?> LoadPrompt(PromptReference? promptReference, string? resourceId = null)
         {
             if (promptReference != null || !string.IsNullOrEmpty(resourceId))
             {
@@ -150,7 +160,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                                Encoding.UTF8.GetString(fileContent.ToArray()),
                                promptReference.PromptType,
                                _serializerSettings) as MultipartPrompt
-                           ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.");
+                           ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.",
+                               StatusCodes.Status400BadRequest);
 
                     if (!string.IsNullOrWhiteSpace(resourceId))
                     {
@@ -159,6 +170,13 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                     }
 
                     return prompt;
+                }
+
+                if (string.IsNullOrWhiteSpace(resourceId))
+                {
+                    // Remove the reference from the dictionary since the file does not exist.
+                    _promptReferences.TryRemove(promptReference.Name, out _);
+                    return null;
                 }
             }
             throw new ResourceProviderException($"Could not locate the {promptReference.Name} prompt resource.",
