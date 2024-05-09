@@ -13,6 +13,14 @@ using Xunit.Abstractions;
 
 namespace FoundationaLLM.Core.Examples
 {
+    /// <summary>
+    /// Example class for running sychronous vectorization over a PDF file in the Azure Data Lake storage account.
+    /// Expects the following configuration values:
+    ///     FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType
+    ///     FoundationaLLM:DataSources:datalake_vectorization_input:AccountName
+    /// Expects the following document in the storage account:
+    ///     /vectorization-input/SDZWA-Journal-January-2024.pdf
+    /// </summary>
     public class Example0004_SynchronousVectorizationOfPDFFromDataLake: BaseTest, IClassFixture<TestFixture>
     {
         private readonly IVectorizationTestService _vectorizationTestService;
@@ -21,9 +29,10 @@ namespace FoundationaLLM.Core.Examples
         private string blobName = "SDZWA-Journal-January-2024.pdf";
         private string dataSourceName = "datalake_vectorization_input";
         private string dataSourceObjectId = String.Empty;
-        private string textPartitionProfileName = "text_partition_profile";
+        private string textPartitioningProfileName = "text_partition_profile";
         private string textEmbeddingProfileName = "text_embedding_profile_generic";
         private string indexingProfileName = "indexing_profile_pdf_datalake";
+        private string searchString = "Kurt and Ollie";
         private string id = String.Empty;
         private BlobStorageServiceSettings? _settings;
 
@@ -51,8 +60,8 @@ namespace FoundationaLLM.Core.Examples
             WriteLine($"Create the data source: {dataSourceName} via the Management API");
             await _vectorizationTestService.CreateDataSource(dataSourceName);
 
-            WriteLine($"Create the vectorization text partitioning profile: {textPartitionProfileName} via the Management API");
-            await _vectorizationTestService.CreateTextPartitioningProfile(textPartitionProfileName);
+            WriteLine($"Create the vectorization text partitioning profile: {textPartitioningProfileName} via the Management API");
+            await _vectorizationTestService.CreateTextPartitioningProfile(textPartitioningProfileName);
                         
             WriteLine($"Create the vectorization text embedding profile: {textEmbeddingProfileName} via the Management API");
             await _vectorizationTestService.CreateTextEmbeddingProfile(textEmbeddingProfileName);
@@ -76,7 +85,7 @@ namespace FoundationaLLM.Core.Examples
             List<VectorizationStep> steps =
             [
                 new VectorizationStep { Id = "extract", Parameters = new Dictionary<string, string>() },
-                new VectorizationStep { Id = "partition", Parameters = new Dictionary<string, string>() { { "text_partitioning_profile_name", textPartitionProfileName } } },
+                new VectorizationStep { Id = "partition", Parameters = new Dictionary<string, string>() { { "text_partitioning_profile_name", textPartitioningProfileName } } },
                 new VectorizationStep { Id = "embed", Parameters = new Dictionary<string, string>() { { "text_embedding_profile_name", textEmbeddingProfileName } } },
                 new VectorizationStep { Id = "index", Parameters = new Dictionary<string, string>() { { "indexing_profile_name", indexingProfileName } } },
             ];
@@ -114,16 +123,23 @@ namespace FoundationaLLM.Core.Examples
 
             WriteLine($"Vectorization request: {id} completed successfully.");
 
+            //perform a search - this PDF yields 27 documents
+            WriteLine($"Verify a search yields 27 documents.");
+            TestSearchResult result = await _vectorizationTestService.QueryIndex(indexingProfileName, textEmbeddingProfileName, searchString);
+            if(result.QueryResult.TotalCount!=27)
+                throw new Exception($"Query did not return the expected number of query results. Expected: 27, Retrieved: {result.QueryResult.TotalCount}");
+            if(result.VectorResults.TotalCount!=27)
+                throw new Exception($"Query did not return the expected number of vector results. Expected: 27, Retrieved: {result.VectorResults.TotalCount}");
+
+
             WriteLine($"Delete the data source: {dataSourceName} via the Management API");
             await _vectorizationTestService.DeleteDataSource(dataSourceName);
 
-            WriteLine($"Delete the vectorization text partitioning profile: {textPartitionProfileName} via the Management API");
-            await _vectorizationTestService.DeleteTextPartitioningProfile(textPartitionProfileName);
+            WriteLine($"Delete the vectorization text partitioning profile: {textPartitioningProfileName} via the Management API");
+            await _vectorizationTestService.DeleteTextPartitioningProfile(textPartitioningProfileName);
 
             WriteLine($"Delete the vectorization text embedding profile: {textEmbeddingProfileName} via the Management API");
             await _vectorizationTestService.DeleteTextEmbeddingProfile(textEmbeddingProfileName);
-
-            //27 documents
 
             WriteLine($"Delete the vectorization indexing profile: {indexingProfileName} via the Management API");
             await _vectorizationTestService.DeleteIndexingProfile(indexingProfileName, true);
