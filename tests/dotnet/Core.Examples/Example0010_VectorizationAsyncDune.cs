@@ -21,11 +21,12 @@ namespace FoundationaLLM.Core.Examples
     /// Expects the following configuration values:
     ///     FoundationaLLM:DataSources:really_big:AuthenticationType
     ///     FoundationaLLM:DataSources:really_big:AccountName
+    /// Expects the following document in the storage account:
+    ///     /vectorization-input/really_big.pdf
     /// </summary>
     public class Example0010_VectorizationAsyncDune : BaseTest, IClassFixture<TestFixture>
 	{
-		private readonly IVectorizationTestService _vectorizationTestService;
-        private BlobStorageService _svc;
+		private readonly IVectorizationTestService _vectorizationTestService;        
         private InstanceSettings _instanceSettings;
 
         public Example0010_VectorizationAsyncDune(ITestOutputHelper output, TestFixture fixture)
@@ -33,25 +34,22 @@ namespace FoundationaLLM.Core.Examples
 		{
             _vectorizationTestService = GetService<IVectorizationTestService>();
             _instanceSettings = _vectorizationTestService.InstanceSettings;
-
             dataSourceObjectId = $"/instances/{_instanceSettings.Id}/providers/FoundationaLLM.DataSource/dataSources/{dataSourceName}";
-    }
+        }
 
         private string textPartitionProfileName = "text_partition_profile";
         private string textEmbeddingProfileName = "text_embedding_profile_gateway";
         private string indexingProfileName = "indexing_profile";
-
         private string genericTextEmbeddingProfileName = "text_embedding_profile_generic";
 
         private string dataSourceName = "really_big";
-        private string containerName = "data";
+        private string containerName = "vectorization-input";
         private string blobName = "really_big.pdf";
-        private string indexName = "blah";
+        private string indexName = "testindex";
         private string dataSourceObjectId;
         private string id = String.Empty;
-        private List<AppConfigurationKeyValue> configValues = new List<AppConfigurationKeyValue>();
+        private BlobStorageServiceSettings? _settings;
         private VectorizationRequest request;
-
 
         [Fact]
 		public async Task RunAsync()
@@ -67,50 +65,11 @@ namespace FoundationaLLM.Core.Examples
         {
             id = Guid.NewGuid().ToString();
 
-            var settings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
+            _settings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
                     .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-                       
-            var logger = ServiceProvider.GetRequiredService<ILogger<BlobStorageService>>();
-
-            _svc = new BlobStorageService(
-                Options.Create<BlobStorageServiceSettings>(settings),
-                logger)
-            {
-                InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization
-            };
-
-            string artifactPath = "https://solliancepublicdata.blob.core.windows.net/data/data/really_big.pdf";
-
-            byte[] data;
-
-            //upload the dune artifact to storage
-            using (var client = new HttpClient())
-            using (var result = await client.GetAsync(artifactPath))
-                data = result.IsSuccessStatusCode ? await result.Content.ReadAsByteArrayAsync() : null;
-
-            await _svc.CreateContainerAsync(containerName);
-
-            //try byte array into stream
-            var stream = new MemoryStream(data);
-            await _svc.WriteFileAsync(containerName, blobName, stream, null, default);
-
-            //create the data source
-            AppConfigurationKeyValue appConfigurationKeyValue = new AppConfigurationKeyValue { Name = dataSourceName };
-            appConfigurationKeyValue.Key = $"FoundationaLLM:DataSources:{dataSourceName}:AuthenticationType";
-            appConfigurationKeyValue.Value = settings.AuthenticationType.ToString();
-            appConfigurationKeyValue.ContentType = "";
-
-            configValues.Add(appConfigurationKeyValue);
-
-            appConfigurationKeyValue = new AppConfigurationKeyValue { Name = dataSourceName };
-            appConfigurationKeyValue.Key = $"FoundationaLLM:DataSources:{dataSourceName}:AccountName";
-            appConfigurationKeyValue.Value = settings.AccountName;
-            appConfigurationKeyValue.ContentType = "";
-            configValues.Add(appConfigurationKeyValue);
-
 
             WriteLine($"Setup: Create the data source: {dataSourceName} via the Management API");
-            await _vectorizationTestService.CreateDataSource(dataSourceName, configValues);
+            await _vectorizationTestService.CreateDataSource(dataSourceName);
 
             WriteLine($"Setup: Create the vectorization text partitioning profile: {textPartitionProfileName} via the Management API");
             await _vectorizationTestService.CreateTextPartitioningProfile(textPartitionProfileName);
@@ -128,7 +87,7 @@ namespace FoundationaLLM.Core.Examples
 
         private async Task RunExampleAsync()
         {
-            string containerPath = $"https://{_svc.BlobServiceClient.AccountName}.blob.core.windows.net";
+            string containerPath = $"https://{_settings!.AccountName}.blob.core.windows.net";
 
             ContentIdentifier ci = new ContentIdentifier
             {
@@ -218,12 +177,9 @@ namespace FoundationaLLM.Core.Examples
         }
 
         private async Task PostExecute()
-        {            
-            WriteLine("Teardown: Remove the PDF artifact from the storage account.");
-            _svc.BlobServiceClient.GetBlobContainerClient(containerName).DeleteBlobIfExists(blobName);
-
+        {
             WriteLine($"Teardown: Delete data source {dataSourceName} via the Management API");
-            await _vectorizationTestService.DeleteDataSource(dataSourceName, configValues);
+            await _vectorizationTestService.DeleteDataSource(dataSourceName);
 
             WriteLine($"Teardown: Delete text partitioning profile {textPartitionProfileName} via the Management API");
             await _vectorizationTestService.DeleteTextPartitioningProfile(textPartitionProfileName);

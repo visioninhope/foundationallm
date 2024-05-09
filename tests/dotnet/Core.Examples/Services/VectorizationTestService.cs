@@ -30,7 +30,7 @@ namespace FoundationaLLM.Core.Examples.Services
 
         InstanceSettings IVectorizationTestService.InstanceSettings { get { return _instanceSettings; } set { _instanceSettings = value; } }
 
-        public async Task CreateDataSource(string name, List<AppConfigurationKeyValue> configList) 
+        public async Task CreateDataSource(string name) 
         {
             await managementAPITestManager.CreateDataSource(name);
         }
@@ -182,9 +182,9 @@ namespace FoundationaLLM.Core.Examples.Services
             return searchResult;
         }
 
-        public async Task DeleteDataSource(string name, List<AppConfigurationKeyValue> configList)
+        public async Task DeleteDataSource(string name)
         {
-            await managementAPITestManager.DeleteDataSource(name, configList);
+            await managementAPITestManager.DeleteDataSource(name);
 
             return;
         }
