@@ -142,19 +142,8 @@ namespace FoundationaLLM.Core.Examples.Services
             await DeleteResourceAsync(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"vectorizationRequests/{vectorizationRequest.ObjectId}");
         }
 
-        public async Task DeleteAppConfiguration(string name)
-        {    
-                await DeleteResourceAsync(
-                    instanceSettings.Value.Id,
-                    ResourceProviderNames.FoundationaLLM_Configuration,
-                    $"appConfigurations/{name}");
-        }
-
         public async Task DeleteDataSource(string profileName, List<AppConfigurationKeyValue> configurationKeyValues)
         {
-            foreach(var config in configurationKeyValues)
-                await DeleteAppConfiguration(config.Name);
-
             await DeleteResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_DataSource,

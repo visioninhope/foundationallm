@@ -32,9 +32,6 @@ namespace FoundationaLLM.Core.Examples.Services
 
         public async Task CreateDataSource(string name, List<AppConfigurationKeyValue> configList) 
         {
-            foreach(var config in configList)
-                await _managementAPITestManager.CreateAppConfiguration(config);
-
             await managementAPITestManager.CreateDataSource(name);
         }
 
@@ -217,12 +214,6 @@ namespace FoundationaLLM.Core.Examples.Services
             }
 
             await managementAPITestManager.DeleteIndexingProfile(name);
-        }
-
-        public Task DeleteVectorizationRequest(VectorizationRequest request)
-        {
-            //remove all artifacts related to the request
-            return null;
         }
     }
 }

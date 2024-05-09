@@ -18,6 +18,9 @@ namespace FoundationaLLM.Core.Examples
 {
     /// <summary>
     /// Example class for running the default FoundationaLLM agent completions in both session and sessionless modes.
+    /// Expects the following configuration values:
+    ///     FoundationaLLM:DataSources:really_big:AuthenticationType
+    ///     FoundationaLLM:DataSources:really_big:AccountName
     /// </summary>
     public class Example0010_VectorizationAsyncDune : BaseTest, IClassFixture<TestFixture>
 	{
@@ -31,7 +34,7 @@ namespace FoundationaLLM.Core.Examples
             _vectorizationTestService = GetService<IVectorizationTestService>();
             _instanceSettings = _vectorizationTestService.InstanceSettings;
 
-            dataSourceObjectId = $"/instances/{_instanceSettings.Id}/providers/FoundationaLLM.DataSource/dataSources/{contentSourceProfileName}";
+            dataSourceObjectId = $"/instances/{_instanceSettings.Id}/providers/FoundationaLLM.DataSource/dataSources/{dataSourceName}";
     }
 
         private string textPartitionProfileName = "text_partition_profile";
@@ -40,9 +43,10 @@ namespace FoundationaLLM.Core.Examples
 
         private string genericTextEmbeddingProfileName = "text_embedding_profile_generic";
 
-        private string contentSourceProfileName = "really_big";
+        private string dataSourceName = "really_big";
         private string containerName = "data";
         private string blobName = "really_big.pdf";
+        private string indexName = "blah";
         private string dataSourceObjectId;
         private string id = String.Empty;
         private List<AppConfigurationKeyValue> configValues = new List<AppConfigurationKeyValue>();
@@ -91,32 +95,34 @@ namespace FoundationaLLM.Core.Examples
             await _svc.WriteFileAsync(containerName, blobName, stream, null, default);
 
             //create the data source
-            AppConfigurationKeyValue appConfigurationKeyValue = new AppConfigurationKeyValue { Name = contentSourceProfileName };
-            appConfigurationKeyValue.Key = $"FoundationaLLM:DataSources:{contentSourceProfileName}:AuthenticationType";
+            AppConfigurationKeyValue appConfigurationKeyValue = new AppConfigurationKeyValue { Name = dataSourceName };
+            appConfigurationKeyValue.Key = $"FoundationaLLM:DataSources:{dataSourceName}:AuthenticationType";
             appConfigurationKeyValue.Value = settings.AuthenticationType.ToString();
             appConfigurationKeyValue.ContentType = "";
 
             configValues.Add(appConfigurationKeyValue);
 
-            appConfigurationKeyValue = new AppConfigurationKeyValue { Name = contentSourceProfileName };
-            appConfigurationKeyValue.Key = $"FoundationaLLM:DataSources:{contentSourceProfileName}:AccountName";
+            appConfigurationKeyValue = new AppConfigurationKeyValue { Name = dataSourceName };
+            appConfigurationKeyValue.Key = $"FoundationaLLM:DataSources:{dataSourceName}:AccountName";
             appConfigurationKeyValue.Value = settings.AccountName;
             appConfigurationKeyValue.ContentType = "";
-
             configValues.Add(appConfigurationKeyValue);
 
-            await _vectorizationTestService.CreateDataSource(contentSourceProfileName, configValues);                      
 
-            //text partitioning profile
+            WriteLine($"Setup: Create the data source: {dataSourceName} via the Management API");
+            await _vectorizationTestService.CreateDataSource(dataSourceName, configValues);
+
+            WriteLine($"Setup: Create the vectorization text partitioning profile: {textPartitionProfileName} via the Management API");
             await _vectorizationTestService.CreateTextPartitioningProfile(textPartitionProfileName);
 
-            //gateway text embedding profile
+            WriteLine($"Setup: Create the vectorization text embedding profile: {textEmbeddingProfileName} via the Management API");
             await _vectorizationTestService.CreateTextEmbeddingProfile(textEmbeddingProfileName);
             
-            //generic text embedding profile
+            // The generic text embedding profile is used to embed the search text when testing the index retrieval.
+            WriteLine($"Setup: Create a generic vectorization text partitioning profile: {genericTextEmbeddingProfileName} via the Management API");
             await _vectorizationTestService.CreateTextEmbeddingProfile(genericTextEmbeddingProfileName);
-
-            //indexing profile
+           
+            WriteLine($"Create the vectorization indexing profile: {indexingProfileName} via the Management API");
             await _vectorizationTestService.CreateIndexingProfile(indexingProfileName);
         }
 
@@ -157,9 +163,11 @@ namespace FoundationaLLM.Core.Examples
                 ObjectId = $"{VectorizationResourceTypeNames.VectorizationRequests}/{id}"
             };
 
+            WriteLine($"Create the vectorization request: {id} via the Management API");
             //Create the vectorization request, re-assign the fully qualified object id if desired.
             request.ObjectId = await _vectorizationTestService.CreateVectorizationRequest(request);
 
+            WriteLine($"Issue the process action on the vectorization request: {id} via the Management API");
             //Issue the process action on the vectorization request
             var vectorizationResult = await _vectorizationTestService.ProcessVectorizationRequest(request);
 
@@ -170,11 +178,13 @@ namespace FoundationaLLM.Core.Examples
             if(vectorizationResult.IsSuccess == false)
                 throw new Exception($"Vectorization request failed to complete successfully. Message: {vectorizationResult.ErrorMessage}");
 
+            WriteLine($"Get the initial processing state for the vectorization request: {id} via the Management API");
             //As this is an asynchronous request, poll the status of the vectorization request until it has completed (or failed). Retrieve initial state.
-            VectorizationRequest resource = _vectorizationTestService.CheckVectorizationRequestStatus(request).Result;
+            VectorizationRequest resource = await _vectorizationTestService.CheckVectorizationRequestStatus(request);
 
             // The finalized state of the vectorization request is either "Completed" or "Failed"
             // Give it a max of 10 minutes to complete, then exit loop and fail the test.
+            WriteLine($"Polling the processing state of the async vectorization request: {id} by retrieving the request from the Management API");
             int timeRemainingMilliseconds = 600000;
             var pollDurationMilliseconds = 30000; //poll duration of 30 seconds
             while (resource.ProcessingState != VectorizationProcessingState.Completed && resource.ProcessingState != VectorizationProcessingState.Failed && timeRemainingMilliseconds > 0)
@@ -185,17 +195,17 @@ namespace FoundationaLLM.Core.Examples
             }
 
             if (resource.ProcessingState == VectorizationProcessingState.Failed)
-                throw new Exception($"Vectorization request failed to complete successfully. {string.Join(",",resource.ErrorMessages)}");
+                throw new Exception($"Vectorization request failed to complete successfully. Error Messages:\n{string.Join("\n",resource.ErrorMessages)}");
 
             if (timeRemainingMilliseconds <=0)
                 throw new Exception("Vectorization request failed to complete successfully. Timeout exceeded.");           
 
-            /*
+            
             //verify artifacts
             //TODO
 
             //perform a search
-            TestSearchResult result = await _vectorizationTestService.QueryIndex(indexingProfileName, genericTextEmbeddingProfileName, "dune");
+            TestSearchResult result = await _vectorizationTestService.QueryIndex(indexingProfileName, genericTextEmbeddingProfileName, indexName);
 
             //verify expected results
             if (result.VectorResults.TotalCount != 281)
@@ -204,40 +214,35 @@ namespace FoundationaLLM.Core.Examples
             //vaidate chunks in index...
             if ( result.QueryResult.TotalCount != 2886)
                 throw new Exception("Expected 2883 search results, but got " + result.QueryResult.TotalCount);
-            */
             
-
         }
 
         private async Task PostExecute()
-        {
-            //remove vectorization artifacts
-
-            //remove the dune artifact from storage
+        {            
+            WriteLine("Teardown: Remove the PDF artifact from the storage account.");
             _svc.BlobServiceClient.GetBlobContainerClient(containerName).DeleteBlobIfExists(blobName);
-            
-            /*
-            //remove the data source
-            await _vectorizationTestService.DeleteDataSource(contentSourceProfileName, configValues);        
 
-            //text partitioning profile
-            //remove text partitioning profile
+            WriteLine($"Teardown: Delete data source {dataSourceName} via the Management API");
+            await _vectorizationTestService.DeleteDataSource(dataSourceName, configValues);
+
+            WriteLine($"Teardown: Delete text partitioning profile {textPartitionProfileName} via the Management API");
             await _vectorizationTestService.DeleteTextPartitioningProfile(textPartitionProfileName);
 
-            //text embedding profile
-            //remove text embedding profile
+            WriteLine($"Teardown: Delete text embedding profile {textEmbeddingProfileName} via the Management API");
             await _vectorizationTestService.DeleteTextEmbeddingProfile(textEmbeddingProfileName);
+            WriteLine($"Teardown: Delete text embedding profile {genericTextEmbeddingProfileName} via the Management API");
+            await _vectorizationTestService.DeleteTextEmbeddingProfile(genericTextEmbeddingProfileName);
 
             //indexing profile
             //remove search index
             //remove indexing profile
+            WriteLine($"Teardown: Delete indexing profile {indexingProfileName} via the Management API");
             await _vectorizationTestService.DeleteIndexingProfile(indexingProfileName, true);
 
             //indexing profile
             //remove search index
-            //remove indexing profile
-            await _vectorizationTestService.DeleteVectorizationRequest(request);
-            */
+            //remove indexing profile           
+            
         }
 	}
 }

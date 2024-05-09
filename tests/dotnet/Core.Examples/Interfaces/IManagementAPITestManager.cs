@@ -75,9 +75,7 @@ public interface IManagementAPITestManager
     Task<VectorizationResult> ProcessVectorizationRequestAsync(VectorizationRequest vectorizationRequest);
 
     Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest);
-
-    Task DeleteAppConfiguration(string name);
-
+        
     Task DeleteDataSource(string name, List<AppConfigurationKeyValue> configurationKeyValues);
 
     Task DeleteTextPartitioningProfile(string name);
