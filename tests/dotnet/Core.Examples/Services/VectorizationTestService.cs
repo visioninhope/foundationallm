@@ -5,7 +5,6 @@ using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Models;
 using FoundationaLLM.Common.Models.Configuration.Instance;
-using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
@@ -60,7 +59,7 @@ namespace FoundationaLLM.Core.Examples.Services
             return managementAPITestManager.ProcessVectorizationRequestAsync(request);
         }
 
-        public Task<VectorizationRequest> CheckVectorizationRequestStatus(VectorizationRequest request)
+        public Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest request)
         {
             return managementAPITestManager.GetVectorizationRequest(request);
 
@@ -206,11 +205,11 @@ namespace FoundationaLLM.Core.Examples.Services
 
             if (indexingProfile != null)
             {
-                   if (deleteIndex)
+                if (deleteIndex)
                 {
-                        SearchIndexClient indexClient = await GetIndexClient(indexingProfile);
-                        await indexClient.DeleteIndexAsync(indexingProfile.Settings["IndexName"]);
-                    }
+                    SearchIndexClient indexClient = await GetIndexClient(indexingProfile);
+                    await indexClient.DeleteIndexAsync(indexingProfile.Settings["IndexName"]);
+                }
             }
 
             await managementAPITestManager.DeleteIndexingProfile(name);

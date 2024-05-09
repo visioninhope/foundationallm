@@ -28,12 +28,12 @@ namespace FoundationaLLM.Core.Examples
 
         private string textPartitionProfileName = "text_partition_profile";
         private string textEmbeddingProfileName = "text_embedding_profile_gateway";
-        private string indexingProfileName = "indexing_profile";
+        private string indexingProfileName = "indexing_profile_really_big";
         private string genericTextEmbeddingProfileName = "text_embedding_profile_generic";
         private string dataSourceName = "datalake_vectorization_input";
         private string containerName = "vectorization-input";
         private string blobName = "really_big.pdf";
-        private string indexName = "testindex";
+        private string indexName = "reallybig";
         private string dataSourceObjectId;
         private string id = String.Empty;
         private BlobStorageServiceSettings? _settings;
@@ -71,7 +71,7 @@ namespace FoundationaLLM.Core.Examples
             await _vectorizationTestService.CreateTextEmbeddingProfile(textEmbeddingProfileName);
             
             // The generic text embedding profile is used to embed the search text when testing the index retrieval.
-            WriteLine($"Setup: Create a generic vectorization text partitioning profile: {genericTextEmbeddingProfileName} via the Management API");
+            WriteLine($"Setup: Create a generic vectorization text embedding profile: {genericTextEmbeddingProfileName} via the Management API");
             await _vectorizationTestService.CreateTextEmbeddingProfile(genericTextEmbeddingProfileName);
            
             WriteLine($"Setup: Create the vectorization indexing profile: {indexingProfileName} via the Management API");
@@ -92,16 +92,14 @@ namespace FoundationaLLM.Core.Examples
                 CanonicalId = containerName + "/" + blobName.Substring(0, blobName.LastIndexOf('.'))
             };
 
-            //start a vectorization request...
+            WriteLine($"Create the vectorization request: {id} via the Management API");
             List<VectorizationStep> steps =
             [
                 new VectorizationStep { Id = "extract", Parameters = new Dictionary<string, string>() },
                 new VectorizationStep { Id = "partition", Parameters = new Dictionary<string, string>() { { "text_partitioning_profile_name", textPartitionProfileName } } },
                 new VectorizationStep { Id = "embed", Parameters = new Dictionary<string, string>() { { "text_embedding_profile_name", textEmbeddingProfileName } } },
                 new VectorizationStep { Id = "index", Parameters = new Dictionary<string, string>() { { "indexing_profile_name", indexingProfileName } } },
-            ];
-
-            //Create a vectorization request.
+            ];            
             var request = new VectorizationRequest
             {
                 RemainingSteps = new List<string> { "extract", "partition", "embed", "index" },
@@ -111,9 +109,7 @@ namespace FoundationaLLM.Core.Examples
                 Id = id,
                 Steps = steps,
                 ObjectId = $"{VectorizationResourceTypeNames.VectorizationRequests}/{id}"
-            };
-
-            WriteLine($"Create the vectorization request: {id} via the Management API");
+            };            
             //Create the vectorization request, re-assign the fully qualified object id if desired.
             request.ObjectId = await _vectorizationTestService.CreateVectorizationRequest(request);
 
@@ -130,7 +126,7 @@ namespace FoundationaLLM.Core.Examples
 
             WriteLine($"Get the initial processing state for the vectorization request: {id} via the Management API");
             //As this is an asynchronous request, poll the status of the vectorization request until it has completed (or failed). Retrieve initial state.
-            VectorizationRequest resource = await _vectorizationTestService.CheckVectorizationRequestStatus(request);
+            VectorizationRequest resource = await _vectorizationTestService.GetVectorizationRequest(request);
 
             // The finalized state of the vectorization request is either "Completed" or "Failed"
             // Give it a max of 10 minutes to complete, then exit loop and fail the test.
@@ -141,7 +137,7 @@ namespace FoundationaLLM.Core.Examples
             {                
                 Thread.Sleep(pollDurationMilliseconds);                
                 timeRemainingMilliseconds -= pollDurationMilliseconds;
-                resource = await _vectorizationTestService.CheckVectorizationRequestStatus(request);
+                resource = await _vectorizationTestService.GetVectorizationRequest(request);
             }
 
             if (resource.ProcessingState == VectorizationProcessingState.Failed)
