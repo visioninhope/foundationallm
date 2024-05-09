@@ -183,22 +183,6 @@ azcopy cp '../common/data/resource-provider/*' $target --exclude-pattern .git* -
 $target = "https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windows.net/role-assignments/"
 
 azcopy cp ./data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json $target --recursive=True
-# try 
-# {
-#     Invoke-AndRequireSuccess "Uploading Resource Providers" {
-#         $target = "https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/"
-
-#         azcopy cp '../common/data/resource-provider/*' $target --exclude-pattern .git* --recursive=True
-#     }
-
-#     Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization Store" {
-#         $target = "https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windows.net/role-assignments/"
-
-#         azcopy cp ./data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json $target --recursive=True
-#     }
-# } catch {
-#     Write-Host ($_ | ConvertTo-Json)
-# }
 
 Invoke-AndRequireSuccess "Restarting Authorization API" {
     # Grab suffix
