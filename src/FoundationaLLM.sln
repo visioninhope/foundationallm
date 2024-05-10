@@ -99,7 +99,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway", "dotnet\Gateway\G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayAPI", "dotnet\GatewayAPI\GatewayAPI.csproj", "{2A51F9EB-BFCB-4285-A6FC-80CCA46228FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Examples", "..\tests\dotnet\Core.Examples\Core.Examples.csproj", "{6230C568-E97B-4959-8ECE-33D97D1BBD4C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Examples", "..\tests\dotnet\Core.Examples\Core.Examples.csproj", "{6230C568-E97B-4959-8ECE-33D97D1BBD4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -16,10 +16,6 @@ namespace FoundationaLLM.Common.Interfaces
         /// </summary>
         string? InstanceName { get; set; }
 
-        Task CreateContainerAsync(
-            string containerName,
-            CancellationToken cancellationToken = default);
-
         /// <summary>
         /// Reads the binary content of a specified file from the storage.
         /// </summary>

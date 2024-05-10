@@ -31,23 +31,7 @@ namespace FoundationaLLM.Common.Services.Storage
         ILogger<BlobStorageService> logger) : StorageServiceBase(storageOptions, logger), IStorageService
     {
         private BlobServiceClient _blobServiceClient;
-
-        public BlobServiceClient BlobServiceClient => _blobServiceClient;
-
-        public async Task CreateContainerAsync(
-            string containerName,
-            CancellationToken cancellationToken = default)
-        {
-            try
-            {
-                await _blobServiceClient.CreateBlobContainerAsync(containerName);
-            }
-            catch(Exception ex)
-            {
-                logger.LogError(ex.Message);
-            }
-        }
-
+        
         /// <inheritdoc/>
         public async Task<BinaryData> ReadFileAsync(
             string containerName,

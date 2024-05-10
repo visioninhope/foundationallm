@@ -49,10 +49,6 @@ namespace FoundationaLLM.Common.Services.Storage
         {
         }
 
-        public async Task CreateContainerAsync(
-            string containerName,
-            CancellationToken cancellationToken = default) => _dataLakeClient.CreateFileSystemAsync(containerName, cancellationToken: cancellationToken);
-
         /// <inheritdoc/>
         public async Task<List<string>> GetFilePathsAsync(
                        string containerName,
