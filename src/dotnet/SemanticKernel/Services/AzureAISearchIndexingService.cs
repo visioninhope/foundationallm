@@ -59,7 +59,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             }
 
             return indexIds;
-        }
+        }        
 
         /// <summary>
         /// Creates an <see cref="AzureAISearchMemoryStore"/> instance using the endpoint and the API key.

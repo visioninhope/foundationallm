@@ -13,18 +13,15 @@ using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.Vectorization.Client;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Models.Resources;
-using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Validation.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
-using System.Runtime.Versioning;
 using System.Text;
 using System.Text.Json;
 
@@ -71,7 +68,6 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         private readonly ConcurrentDictionary<string, VectorizationProfileBase> _textPartitioningProfiles = [];
         private readonly ConcurrentDictionary<string, VectorizationProfileBase> _textEmbeddingProfiles = [];
         private readonly ConcurrentDictionary<string, VectorizationProfileBase> _indexingProfiles = [];
-        private readonly ConcurrentDictionary<string, VectorizationRequest> _vectorizationRequests = [];
         private readonly ConcurrentDictionary<string, VectorizationPipeline> _pipelines = [];
 
         private string _defaultTextPartitioningProfileName = string.Empty;
@@ -153,7 +149,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 VectorizationResourceTypeNames.VectorizationPipelines =>
                     await LoadResources<VectorizationPipeline, VectorizationPipeline>(resourcePath.ResourceTypeInstances[0], _pipelines),
                 VectorizationResourceTypeNames.VectorizationRequests =>
-                    await LoadVectorizationRequestResources(resourcePath.ResourceTypeInstances[0], _vectorizationRequests),
+                    await LoadVectorizationRequestResource(resourcePath.ResourceTypeInstances[0].ResourceId!),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
@@ -198,41 +194,23 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 return [resource];
             }
         }
-        private async Task<List<VectorizationRequest>> LoadVectorizationRequestResources(ResourceTypeInstance instance, ConcurrentDictionary<string, VectorizationRequest> resourceStore)           
-        {
-            if (instance.ResourceId == null)
+        private async Task<List<VectorizationRequest>> LoadVectorizationRequestResource(string resourceId)           
+        {       
+            //load the resource from storage, instance.ResourceId is the request id
+            var matchingFilePaths = await GetRequestResourceFilePaths(resourceId); //there should only be zero or one
+            if (matchingFilePaths.Count > 0)
             {
-                return
-                    [.. resourceStore.Values
-                            //.Where(p => !p.Deleted)
-                    ];
-            }
-            else
-            {
-                if (!resourceStore.TryGetValue(instance.ResourceId, out var resource))
-                {
-                    //load the resource from storage, instance.ResourceId is the request id
-                    var matchingFilePaths = await GetRequestResourceFilePaths(instance.ResourceId); //there should only be zero or one
-                    if (matchingFilePaths.Count > 0)
-                    {
-                        var fileContent = await _storageService.ReadFileAsync(VECTORIZATON_STATE_CONTAINER_NAME, matchingFilePaths[0], default);
-                        var request = JsonSerializer.Deserialize<VectorizationRequest>(
-                            Encoding.UTF8.GetString(fileContent.ToArray()));
+                var fileContent = await _storageService.ReadFileAsync(VECTORIZATON_STATE_CONTAINER_NAME, matchingFilePaths[0], default);
+                var resource = JsonSerializer.Deserialize<VectorizationRequest>(
+                    Encoding.UTF8.GetString(fileContent.ToArray()));
 
-                        if (request != null)
-                        {
-                            resourceStore.AddOrUpdate(request.Id!, request, (k, v) => request);
-                            resource = request;
-                        }
-                        else
-                        {
-                            throw new ResourceProviderException($"Could not locate the {instance.ResourceId} vectorization resource.",
-                                                               StatusCodes.Status404NotFound);
-                        }
-                    }                    
-                }
-                return [resource!];
+                if (resource is not null)
+                {
+                    return [resource];
+                }                       
             }
+            throw new ResourceProviderException($"Could not locate the {resourceId} vectorization resource.",
+                                                           StatusCodes.Status404NotFound);
         }
         #endregion
 
@@ -675,7 +653,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (typeof(T) != typeof(VectorizationRequest))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
 
-            _vectorizationRequests.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var vectorizationRequest);
+            var vectorizationRequest = LoadVectorizationRequestResource(resourcePath.ResourceTypeInstances[0].ResourceId!).Result;            
             return vectorizationRequest as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
@@ -730,9 +708,6 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 JsonSerializer.Serialize(request),
                 default,
                 default);
-
-            // update the in-memory collection
-            _vectorizationRequests.AddOrUpdate(request.Id!, request, (k, v) => request);
         }
 
 

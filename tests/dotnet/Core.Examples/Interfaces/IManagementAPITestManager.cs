@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Core.Examples.Exceptions;
 
@@ -46,7 +48,7 @@ public interface IManagementAPITestManager
     /// <param name="resourcePath">The logical path of the resource type.</param>
     /// <returns></returns>
     /// <exception cref="FoundationaLLMException"></exception>
-    Task<object?> GetResourcesAsync(string instanceId, string resourceProvider, string resourcePath);
+    Task<T?> GetResourcesAsync<T>(string instanceId, string resourceProvider, string resourcePath);
 
     /// <summary>
     /// Creates or updates resources.
@@ -70,4 +72,35 @@ public interface IManagementAPITestManager
     /// <returns></returns>
     /// <exception cref="FoundationaLLMException"></exception>
     Task DeleteResourceAsync(string instanceId, string resourceProvider, string resourcePath);
+
+    Task CreateAppConfiguration(AppConfigurationKeyValue appConfigurationKeyValue);
+
+    Task CreateDataSource(string name);
+
+    Task CreateTextPartitioningProfile(string name);
+
+    Task CreateTextEmbeddingProfile(string name);
+
+    Task CreateIndexingProfile(string name);
+
+    Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest vectorizationRequest);
+
+    Task<string> CreateVectorizationRequest(VectorizationRequest vectorizationRequest);
+
+    Task<VectorizationResult> ProcessVectorizationRequestAsync(VectorizationRequest vectorizationRequest);
+
+    Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest);
+        
+    Task DeleteDataSource(string name);
+
+    Task DeleteTextPartitioningProfile(string name);
+
+    Task DeleteIndexingProfile(string name);
+
+    Task DeleteTextEmbeddingProfile(string name);
+    Task<IndexingProfile> GetIndexingProfile(string name);
+
+    Task<TextEmbeddingProfile> GetTextEmbeddingProfile(string name);
+
+    Task<TextPartitioningProfile> GetTextPartitioningProfile(string name);
 }

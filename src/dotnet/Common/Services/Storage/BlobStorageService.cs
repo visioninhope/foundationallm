@@ -31,7 +31,7 @@ namespace FoundationaLLM.Common.Services.Storage
         ILogger<BlobStorageService> logger) : StorageServiceBase(storageOptions, logger), IStorageService
     {
         private BlobServiceClient _blobServiceClient;
-
+        
         /// <inheritdoc/>
         public async Task<BinaryData> ReadFileAsync(
             string containerName,
@@ -214,7 +214,11 @@ namespace FoundationaLLM.Common.Services.Storage
             else
             {
                 // Hierarchical listing (non-recursive)  
-                var prefix = string.IsNullOrEmpty(directoryPath) ? null : directoryPath.TrimEnd('/') + "/";
+                var prefix = string.IsNullOrEmpty(directoryPath) ? null : directoryPath.TrimEnd('/');
+
+                if (!directoryPath.Contains("requests"))
+                    directoryPath += "/";
+
                 await foreach (var blobHierarchyItem in containerClient.GetBlobsByHierarchyAsync(delimiter: "/", prefix: prefix, cancellationToken: cancellationToken))
                 {
                     if (blobHierarchyItem.IsBlob)

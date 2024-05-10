@@ -392,3 +392,5 @@ deploy/quick-start/.env
 
 # SonarCube
 .sonarqube/
+
+*.lutconfig

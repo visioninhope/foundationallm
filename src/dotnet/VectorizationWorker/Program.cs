@@ -46,6 +46,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources); //data source settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization); //vectorization settings
 });
 
 if (builder.Environment.IsDevelopment())
