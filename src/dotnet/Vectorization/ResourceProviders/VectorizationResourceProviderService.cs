@@ -141,13 +141,13 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 VectorizationResourceTypeNames.TextPartitioningProfiles =>
-                    LoadResources<TextPartitioningProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _textPartitioningProfiles),
+                    await LoadResources<TextPartitioningProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _textPartitioningProfiles),
                 VectorizationResourceTypeNames.TextEmbeddingProfiles =>
-                    LoadResources<TextEmbeddingProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _textEmbeddingProfiles),
+                    await LoadResources<TextEmbeddingProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _textEmbeddingProfiles),
                 VectorizationResourceTypeNames.IndexingProfiles =>
-                    LoadResources<IndexingProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _indexingProfiles),
+                    await LoadResources<IndexingProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _indexingProfiles),
                 VectorizationResourceTypeNames.VectorizationPipelines =>
-                    LoadResources<VectorizationPipeline, VectorizationPipeline>(resourcePath.ResourceTypeInstances[0], _pipelines),
+                    await LoadResources<VectorizationPipeline, VectorizationPipeline>(resourcePath.ResourceTypeInstances[0], _pipelines),
                 VectorizationResourceTypeNames.VectorizationRequests =>
                     await LoadVectorizationRequestResource(resourcePath.ResourceTypeInstances[0].ResourceId!),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
@@ -156,7 +156,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private List<TBase> LoadResources<T, TBase>(ResourceTypeInstance instance, ConcurrentDictionary<string, TBase> resourceStore)
+        private async Task<List<TBase>> LoadResources<T, TBase>(ResourceTypeInstance instance, ConcurrentDictionary<string, TBase> resourceStore)
             where T : TBase
             where TBase: ResourceBase
         {
@@ -171,8 +171,25 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             {
                 if (!resourceStore.TryGetValue(instance.ResourceId, out var resource)
                     || resource.Deleted)
+                {
+                    if (resource is null)
+                    {
+                        //reload resource store and check again
+                        await LoadResourceStore<T, TBase>(instance.ResourceType switch
+                        {
+                            VectorizationResourceTypeNames.TextPartitioningProfiles => TEXT_PARTITIONING_PROFILES_FILE_PATH,
+                            VectorizationResourceTypeNames.TextEmbeddingProfiles => TEXT_EMBEDDING_PROFILES_FILE_PATH,
+                            VectorizationResourceTypeNames.IndexingProfiles => INDEXING_PROFILES_FILE_PATH,
+                            VectorizationResourceTypeNames.VectorizationPipelines => PIPELINES_FILE_PATH,
+                            _ => throw new ResourceProviderException($"The resource type {instance.ResourceType} is not supported by the {_name} resource provider.",
+                                                       StatusCodes.Status400BadRequest)
+                        }, resourceStore);
+                        resourceStore.TryGetValue(instance.ResourceId, out resource);
+                    }
+                }
+                if (resource is null || resource.Deleted)
                     throw new ResourceProviderException($"Could not locate the {instance.ResourceId} vectorization resource.",
-                        StatusCodes.Status404NotFound);
+                                               StatusCodes.Status404NotFound);
 
                 return [resource];
             }
