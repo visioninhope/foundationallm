@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.Json;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Core.Examples.Setup;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 
 namespace FoundationaLLM.Core.Examples.Services
 {
@@ -180,16 +181,13 @@ namespace FoundationaLLM.Core.Examples.Services
             // All test agents should have a corresponding prompt in the catalog.
             // Retrieve the agent and prompt from the test catalog.
             var agent = AgentCatalog.GetAllAgents().FirstOrDefault(a => a.Name == agentName);
-            var prompt = PromptCatalog.GetAllPrompts().FirstOrDefault(p => p.Name == agentName);
+            
             
             if (agent == null)
             {
                 throw new InvalidOperationException($"The agent {agentName} was not found.");
             }
-            if (prompt == null)
-            {
-                throw new InvalidOperationException($"The prompt for the agent {agentName} was not found.");
-            }
+            
 
             // Resolve App Config values for the endpoint configuration as necessary.
             // Note: This is a temporary workaround until we have the Models and Endpoints resource provider in place.
@@ -204,15 +202,9 @@ namespace FoundationaLLM.Core.Examples.Services
                 }
             }
 
-            // Create the prompt for the agent.
-            var promptObjectId = await UpsertResourceAsync(
-                instanceSettings.Value.Id,
-                ResourceProviderNames.FoundationaLLM_Prompt,
-                $"prompts/{agentName}",
-                prompt);
-
+            var agentPrommpt = await CreatePrompt(agentName);
             // Add the prompt ObjectId to the agent.
-            agent.PromptObjectId = promptObjectId;
+            agent.PromptObjectId = agentPrommpt.ObjectId;
 
             // TODO: Create any other dependencies for the agent here.
 
@@ -234,10 +226,7 @@ namespace FoundationaLLM.Core.Examples.Services
             // Delete the agent and its dependencies.
 
             // Delete the agent's prompt.
-            await DeleteResourceAsync(
-                instanceSettings.Value.Id,
-                ResourceProviderNames.FoundationaLLM_Prompt,
-                $"prompts/{agentName}");
+            await DeletePrompt(agentName);
 
             // TODO: Delete other dependencies for the agent here.
 
@@ -246,6 +235,32 @@ namespace FoundationaLLM.Core.Examples.Services
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Agent,
                 $"agents/{agentName}");
+        }
+
+        /// <inheritdoc/>
+        public async Task<PromptBase> CreatePrompt(string promptName)
+        {
+            var prompt = PromptCatalog.GetAllPrompts().FirstOrDefault(p => p.Name == promptName);
+            if (prompt == null)
+            {
+                throw new InvalidOperationException($"The prompt {promptName} was not found.");
+            }            
+            prompt.ObjectId = await UpsertResourceAsync(
+                instanceSettings.Value.Id,
+                ResourceProviderNames.FoundationaLLM_Prompt,
+                $"prompts/{promptName}",
+                prompt);
+
+            return prompt;
+        }
+
+        /// <inheritdoc/>
+        public async Task DeletePrompt(string promptName)
+        {
+            await DeleteResourceAsync(
+                  instanceSettings.Value.Id,
+                  ResourceProviderNames.FoundationaLLM_Prompt,
+                  $"prompts/{promptName}");
         }
 
         /// <inheritdoc/>

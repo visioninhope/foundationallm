@@ -116,6 +116,8 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                         _dataSourceReferences.Values
                             .Where(dsr => !dsr.Deleted)
                             .Select(dsr => LoadDataSource(dsr))))
+                    .Where(ds => ds != null)
+                    .ToList()
                 ];
             }
             else
@@ -124,7 +126,11 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 if (!_dataSourceReferences.TryGetValue(instance.ResourceId, out var dataSourceReference))
                 {
                     dataSource = await LoadDataSource(null, instance.ResourceId);
-                    return [dataSource];
+                    if (dataSource != null)
+                    {
+                        return [dataSource];
+                    }
+                    return [];
                 }
 
                 if (dataSourceReference.Deleted)
@@ -136,11 +142,15 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
                 dataSource = await LoadDataSource(dataSourceReference);
 
-                return [dataSource];
+                if (dataSource != null)
+                {
+                    return [dataSource];
+                }
+                return [];
             }
         }
 
-        private async Task<DataSourceBase> LoadDataSource(DataSourceReference? dataSourceReference, string? resourceId = null)
+        private async Task<DataSourceBase?> LoadDataSource(DataSourceReference? dataSourceReference, string? resourceId = null)
         {
             if (dataSourceReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
@@ -168,6 +178,13 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                     }
 
                     return dataSource;
+                }
+
+                if (string.IsNullOrWhiteSpace(resourceId))
+                {
+                    // Remove the reference from the dictionary since the file does not exist.
+                    _dataSourceReferences.TryRemove(dataSourceReference.Name, out _);
+                    return null;
                 }
             }
             throw new ResourceProviderException($"Could not locate the {dataSourceReference.Name} data source resource.",
