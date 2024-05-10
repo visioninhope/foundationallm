@@ -115,6 +115,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
                         _agentReferences.Values
                             .Where(ar => !ar.Deleted)
                             .Select(ar => LoadAgent(ar))))
+                    .Where(agent => agent != null)
+                    .ToList()
                 ];
             }
             else
@@ -123,7 +125,11 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference))
                 {
                     agent = await LoadAgent(null, instance.ResourceId);
-                    return [agent];
+                    if (agent != null)
+                    {
+                        return [agent];
+                    }
+                    return [];
                 }
                 if (agentReference.Deleted)
                 {
@@ -133,11 +139,15 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
                 agent = await LoadAgent(agentReference);
 
-                return [agent];
+                if (agent != null)
+                {
+                    return [agent];
+                }
+                return [];
             }
         }
 
-        private async Task<AgentBase> LoadAgent(AgentReference? agentReference, string? resourceId = null)
+        private async Task<AgentBase?> LoadAgent(AgentReference? agentReference, string? resourceId = null)
         {
             // agentReference is null for legacy agents
             if (agentReference != null || !string.IsNullOrWhiteSpace(resourceId))
@@ -167,6 +177,13 @@ namespace FoundationaLLM.Agent.ResourceProviders
                     }
 
                     return agent;
+                }
+
+                if (string.IsNullOrWhiteSpace(resourceId))
+                {
+                    // Remove the reference from the dictionary since the file does not exist.
+                    _agentReferences.TryRemove(agentReference.Name, out _);
+                    return null;
                 }
             }
 
