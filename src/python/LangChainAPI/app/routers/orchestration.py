@@ -5,10 +5,10 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Header, Request, Body
 from foundationallm.config import Context
 from foundationallm.models.orchestration import (
-    CompletionRequestBase,
-    KnowledgeManagementCompletionRequest,
+    CompletionRequestBase,    
     CompletionResponse
 )
+from foundationallm.models.agents import KnowledgeManagementCompletionRequest
 from foundationallm.langchain.orchestration import OrchestrationManager
 from foundationallm.telemetry import Telemetry
 from app.dependencies import handle_exception, validate_api_key_header

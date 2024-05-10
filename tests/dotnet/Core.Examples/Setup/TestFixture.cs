@@ -16,8 +16,9 @@ namespace FoundationaLLM.Core.Examples.Setup
 		public TestFixture()
 		{
 			var serviceCollection = new ServiceCollection();
+            DefaultAuthentication.Initialize(false, string.Empty);
 
-			var configRoot = new ConfigurationBuilder()
+            var configRoot = new ConfigurationBuilder()
 				.AddJsonFile("testsettings.json", true)
 				.AddEnvironmentVariables()
 				.AddUserSecrets<Environment>()
@@ -30,9 +31,9 @@ namespace FoundationaLLM.Core.Examples.Setup
 					}
 					options.Connect(connectionString)
 						.ConfigureKeyVault(kv =>
-						{
-							kv.SetCredential(DefaultAuthentication.GetAzureCredential());
-						})
+                        {
+                            kv.SetCredential(DefaultAuthentication.AzureCredential);
+                        })
                         // Select the configuration sections to load:
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Instance)
 						.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs)
@@ -40,7 +41,10 @@ namespace FoundationaLLM.Core.Examples.Setup
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Management_Entra)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB)
 						.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio)
-						.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI)
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization)
+						.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources)
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
 				})
 				.Build();
 

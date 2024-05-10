@@ -1,4 +1,8 @@
-﻿using FoundationaLLM.Common.Models.Agents;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
+using FoundationaLLM.Core.Examples.Exceptions;
 
 namespace FoundationaLLM.Core.Examples.Interfaces;
 
@@ -23,6 +27,20 @@ public interface IManagementAPITestManager
     Task DeleteAgent(string agentName);
 
     /// <summary>
+    /// Creates a prompt.
+    /// </summary>
+    /// <param name="promptName">The name of the prompt to retrieve from the test catalog.</param>
+    /// <returns>The created prompt.</returns>
+    Task<PromptBase> CreatePrompt(string promptName);
+
+    /// <summary>
+    /// Deletes a prompt.
+    /// </summary>
+    /// <param name="promptName">The name of the prompt to delete.</param>
+    /// <returns></returns>
+    Task DeletePrompt(string promptName);
+
+    /// <summary>
     /// Retrieves one or more resources.
     /// </summary>
     /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
@@ -30,7 +48,7 @@ public interface IManagementAPITestManager
     /// <param name="resourcePath">The logical path of the resource type.</param>
     /// <returns></returns>
     /// <exception cref="FoundationaLLMException"></exception>
-    Task<object?> GetResourcesAsync(string instanceId, string resourceProvider, string resourcePath);
+    Task<T?> GetResourcesAsync<T>(string instanceId, string resourceProvider, string resourcePath);
 
     /// <summary>
     /// Creates or updates resources.
@@ -46,7 +64,7 @@ public interface IManagementAPITestManager
         object resource);
 
     /// <summary>
-    /// Deletes a resource.
+    /// Deletes a resource then purges it, so we can reuse the name.
     /// </summary>
     /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
     /// <param name="resourceProvider">The name of the resource provider that should handle the request.</param>
@@ -54,4 +72,35 @@ public interface IManagementAPITestManager
     /// <returns></returns>
     /// <exception cref="FoundationaLLMException"></exception>
     Task DeleteResourceAsync(string instanceId, string resourceProvider, string resourcePath);
+
+    Task CreateAppConfiguration(AppConfigurationKeyValue appConfigurationKeyValue);
+
+    Task CreateDataSource(string name);
+
+    Task CreateTextPartitioningProfile(string name);
+
+    Task CreateTextEmbeddingProfile(string name);
+
+    Task CreateIndexingProfile(string name);
+
+    Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest vectorizationRequest);
+
+    Task<string> CreateVectorizationRequest(VectorizationRequest vectorizationRequest);
+
+    Task<VectorizationResult> ProcessVectorizationRequestAsync(VectorizationRequest vectorizationRequest);
+
+    Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest);
+        
+    Task DeleteDataSource(string name);
+
+    Task DeleteTextPartitioningProfile(string name);
+
+    Task DeleteIndexingProfile(string name);
+
+    Task DeleteTextEmbeddingProfile(string name);
+    Task<IndexingProfile> GetIndexingProfile(string name);
+
+    Task<TextEmbeddingProfile> GetTextEmbeddingProfile(string name);
+
+    Task<TextPartitioningProfile> GetTextPartitioningProfile(string name);
 }

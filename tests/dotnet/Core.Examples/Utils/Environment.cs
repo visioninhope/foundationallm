@@ -8,7 +8,7 @@ using FoundationaLLM.Core.Examples.Exceptions;
 
 namespace FoundationaLLM.Core.Examples.Utils
 {
-	internal sealed class Environment
+	public sealed class Environment
 	{
 		/// <summary>
 		/// Simple helper used to load env vars and secrets like credentials,
@@ -16,7 +16,7 @@ namespace FoundationaLLM.Core.Examples.Utils
 		/// </summary>
 		/// <param name="name">Secret name / Environment var name.</param>
 		/// <returns>Value found in Secret Manager or Environment Variable.</returns>
-		internal static string Variable(string name)
+		public static string Variable(string name)
 		{
 			var configuration = new ConfigurationBuilder()
 				.AddUserSecrets<Environment>()

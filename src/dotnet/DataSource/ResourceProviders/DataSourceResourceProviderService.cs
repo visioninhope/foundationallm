@@ -113,38 +113,80 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 var dataSources = (await Task.WhenAll(
                         _dataSourceReferences.Values
                             .Where(dsr => !dsr.Deleted)
-                            .Select(dsr => LoadDataSource(dsr)))).ToList();
+                            .Select(dsr => LoadDataSource(dsr))))
+                        .Where(ds => ds != null)
+                        .ToList();
 
                 return dataSources.Select(dataSource => new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }).ToList();
             }
             else
             {
-                if (!_dataSourceReferences.TryGetValue(instance.ResourceId, out var dataSourceReference)
-                    || dataSourceReference.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} data source resource.",
+                DataSourceBase? dataSource;
+                if (!_dataSourceReferences.TryGetValue(instance.ResourceId, out var dataSourceReference))
+                {
+                    dataSource = await LoadDataSource(null, instance.ResourceId);
+                    if (dataSource != null)
+                    {
+                        return [new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }];
+                    }
+                    return [];
+                }
+
+                if (dataSourceReference.Deleted)
+                {
+                    throw new ResourceProviderException(
+                        $"Could not locate the {instance.ResourceId} data source resource.",
                         StatusCodes.Status404NotFound);
+                }
 
-                var dataSource = await LoadDataSource(dataSourceReference!);
-
-                return [new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }];
+                dataSource = await LoadDataSource(dataSourceReference);
+                if (dataSource != null)
+                {
+                    return [new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }];
+                }
+                return [];
             }
         }
 
-        private async Task<DataSourceBase> LoadDataSource(DataSourceReference dataSourceReference)
+        private async Task<DataSourceBase?> LoadDataSource(DataSourceReference? dataSourceReference, string? resourceId = null)
         {
-            if (await _storageService.FileExistsAsync(_storageContainerName, dataSourceReference.Filename, default))
+            if (dataSourceReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, dataSourceReference.Filename, default);
-                return JsonSerializer.Deserialize(
-                    Encoding.UTF8.GetString(fileContent.ToArray()),
-                    dataSourceReference.DataSourceType,
-                    _serializerSettings) as DataSourceBase
-                    ?? throw new ResourceProviderException($"Failed to load the data source {dataSourceReference.Name}.",
-                        StatusCodes.Status400BadRequest);
+                dataSourceReference ??= new DataSourceReference
+                {
+                    Name = resourceId!,
+                    Type = DataSourceTypes.Basic,
+                    Filename = $"/{_name}/{resourceId}.json",
+                    Deleted = false
+                };
+                if (await _storageService.FileExistsAsync(_storageContainerName, dataSourceReference.Filename, default))
+                {
+                    var fileContent = await _storageService.ReadFileAsync(_storageContainerName, dataSourceReference.Filename, default);
+                    var dataSource = JsonSerializer.Deserialize(
+                               Encoding.UTF8.GetString(fileContent.ToArray()),
+                               dataSourceReference.DataSourceType,
+                               _serializerSettings) as DataSourceBase
+                           ?? throw new ResourceProviderException($"Failed to load the data source {dataSourceReference.Name}.",
+                               StatusCodes.Status400BadRequest);
+
+                    if (!string.IsNullOrWhiteSpace(resourceId))
+                    {
+                        dataSourceReference.Type = dataSource.Type!;
+                        _dataSourceReferences.AddOrUpdate(dataSourceReference.Name, dataSourceReference, (k, v) => dataSourceReference);
+                    }
+
+                    return dataSource;
+                }
+
+                if (string.IsNullOrWhiteSpace(resourceId))
+                {
+                    // Remove the reference from the dictionary since the file does not exist.
+                    _dataSourceReferences.TryRemove(dataSourceReference.Name, out _);
+                    return null;
+                }
             }
-            else
-                throw new ResourceProviderException($"Could not locate the {dataSourceReference.Name} data source resource.",
-                    StatusCodes.Status404NotFound);
+            throw new ResourceProviderException($"Could not locate the {dataSourceReference.Name} data source resource.",
+                StatusCodes.Status404NotFound);
         }
 
         #endregion

@@ -31,7 +31,7 @@ namespace FoundationaLLM.Core.Examples
 			if (agentPrompts == null || agentPrompts.Length == 0)
 			{
 				WriteLine("No agent prompts found. Make sure you enter them in testsettings.json.");
-				return;
+                Assert.True(agentPrompts is {Length: > 0}, "Failed to run the test because there are no configured agent prompts.");
 			}
 			foreach (var agentPrompt in agentPrompts)
 			{
@@ -58,7 +58,8 @@ namespace FoundationaLLM.Core.Examples
             try
             {
                 var output = await _agentConversationTestService.RunAgentCompletionWithQualityMeasurements(agentPrompt.AgentName,
-                    agentPrompt.UserPrompt, agentPrompt.ExpectedCompletion, agentPrompt.SessionConfiguration?.SessionId ?? null);
+                    agentPrompt.UserPrompt, agentPrompt.ExpectedCompletion, agentPrompt.SessionConfiguration?.SessionId ?? null,
+                    agentPrompt.CreateAgent);
 
                 WriteLine($"Azure AI evaluation Job ID -> {output.JobID}");
 

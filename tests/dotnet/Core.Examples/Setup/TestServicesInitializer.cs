@@ -7,13 +7,17 @@ using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services;
+using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Core.Examples.Exceptions;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Examples.Services;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Services;
+using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
+using FoundationaLLM.SemanticKernel.Core.Services;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Configuration;
@@ -36,20 +40,35 @@ namespace FoundationaLLM.Core.Examples.Setup
 		{
 			TestConfiguration.Initialize(configRoot, services);
 
-			RegisterInstance(services, configRoot);
+            services.AddOptions<BlobStorageServiceSettings>(
+                    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
+                .Bind(configRoot.GetSection("FoundationaLLM:Vectorization:ResourceProviderService:Storage"));
+
+            RegisterInstance(services, configRoot);
 			RegisterHttpClients(services, configRoot);
 			RegisterCosmosDb(services, configRoot);
             RegisterAzureAIService(services, configRoot);
             RegisterLogging(services);
 			RegisterServiceManagers(services);
-		}
+            RegisterSearchIndex(services, configRoot);
+        }
 
         private static void RegisterInstance(IServiceCollection services, IConfiguration configuration)
         {
             services.AddOptions<InstanceSettings>()
                 .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
         }
-        
+
+		private static void RegisterSearchIndex(IServiceCollection services, IConfiguration configuration)
+		{
+            services.AddOptions<AzureAISearchIndexingServiceSettings>()
+                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
+
+            services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
+
+        }
+
         private static void RegisterHttpClients(IServiceCollection services, IConfiguration configuration)
 		{
 			services.Configure<HttpClientOptions>(HttpClients.CoreAPI, options =>
@@ -58,6 +77,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                 options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes]!;
                 options.Timeout = TimeSpan.FromSeconds(120);
             });
+            
             services.Configure<HttpClientOptions>(HttpClients.ManagementAPI, options =>
             {
                 options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!;
@@ -65,6 +85,24 @@ namespace FoundationaLLM.Core.Examples.Setup
                 options.Timeout = TimeSpan.FromSeconds(120);
             });
 
+            services.Configure<HttpClientOptions>(HttpClients.VectorizationAPI, options =>
+            {
+                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!;
+                options.Timeout = TimeSpan.FromSeconds(120);
+            });
+
+            var vectorizationAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!,
+                APIKey = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey]!
+            };
+            var downstreamAPISettings = new DownstreamAPISettings
+            {
+                DownstreamAPIs = []
+            };
+
+            downstreamAPISettings.DownstreamAPIs[HttpClients.VectorizationAPI] = vectorizationAPISettings;
+            
             services.AddHttpClient(HttpClients.CoreAPI)
                 .ConfigureHttpClient((serviceProvider, client) =>
                 {
@@ -81,13 +119,33 @@ namespace FoundationaLLM.Core.Examples.Setup
                 .ConfigureHttpClient((serviceProvider, client) =>
                 {
                     var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.ManagementAPI);
-                    client.BaseAddress = new Uri(options.BaseUri!);
+                    client.BaseAddress = new Uri(options.BaseUri!);                   
                     if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
                 })
                 .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
                 {
                     CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                 });
+
+            services.AddHttpClient(HttpClients.VectorizationAPI)
+                 .ConfigureHttpClient((serviceProvider, client) =>
+                 {
+                     var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.VectorizationAPI);
+                     client.DefaultRequestHeaders.Add("X-API-KEY", vectorizationAPISettings.APIKey);
+                     client.BaseAddress = new Uri(options.BaseUri!);                     
+                     if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
+                 })
+                 .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
+                 {
+                     CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+                 });
+
+            services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
+
+            services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
+                => new DownstreamAPIService(HttpClients.VectorizationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
+
+            services.Configure<DownstreamAPISettings>(configuration.GetSection("DownstreamAPIs"));
         }
 
 		private static void RegisterCosmosDb(IServiceCollection services, IConfiguration configuration)
@@ -98,7 +156,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 			services.AddSingleton<CosmosClient>(serviceProvider =>
 			{
 				var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
-				return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.GetAzureCredential())
+				return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.AzureCredential)
 					.WithSerializerOptions(new CosmosSerializationOptions
 					{
 						PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
@@ -112,13 +170,28 @@ namespace FoundationaLLM.Core.Examples.Setup
 
 		private static void RegisterAzureAIService(IServiceCollection services, IConfiguration configuration)
 		{
-			services.AddOptions<AzureAISettings>()
-				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio));
-			services.AddOptions<BlobStorageServiceSettings>()
-				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings));
+            try
+            {
+                var completionQualityMeasurementConfiguration = TestConfiguration.CompletionQualityMeasurementConfiguration;
+                if (completionQualityMeasurementConfiguration is { AgentPrompts: not null })
+                {
+                    services.AddOptions<AzureAISettings>()
+                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio));
+                    services.AddOptions<BlobStorageServiceSettings>()
+                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings));
 
-			services.AddScoped<IAzureAIService, AzureAIService>();
-			services.AddSingleton<IStorageService, BlobStorageService>();
+                    services.AddScoped<IAzureAIService, AzureAIService>();
+                    services.AddSingleton<IStorageService, BlobStorageService>();
+                }
+                else
+                {
+                    Console.WriteLine($"Skipping Azure AI Service initialization. No agent prompts defined in the {nameof(CompletionQualityMeasurementConfiguration)} configuration section.");
+                }
+            }
+            catch (ConfigurationNotFoundException cex)
+            {
+                Console.WriteLine($"Skipping Azure AI Service initialization. {cex.Message}");
+            }
 		}
 
 		private static void RegisterLogging(IServiceCollection services)
@@ -132,9 +205,10 @@ namespace FoundationaLLM.Core.Examples.Setup
         private static void RegisterServiceManagers(IServiceCollection services)
         {
             services.AddScoped<ICoreAPITestManager, CoreAPITestManager>();
-			services.AddScoped<IManagementAPITestManager, ManagementAPITestManager>();
+			services.AddScoped<IManagementAPITestManager, ManagementAPITestManager>();            
             services.AddScoped<IHttpClientManager, HttpClientManager>();
 			services.AddScoped<IAgentConversationTestService, AgentConversationTestService>();
+            services.AddScoped<IVectorizationTestService, VectorizationTestService>();
         }
     }
 }

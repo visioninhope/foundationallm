@@ -8,7 +8,8 @@ from foundationallm.models.agents import (
     AgentGatekeeperSettings,
     AgentConversationHistorySettings
 )
-from foundationallm.models.orchestration import KnowledgeManagementCompletionRequest, OrchestrationSettings
+from foundationallm.models.agents import KnowledgeManagementCompletionRequest
+from foundationallm.models.orchestration import OrchestrationSettings
 from foundationallm.models.language_models import LanguageModelType, LanguageModelProvider
 from foundationallm.langchain.language_models import LanguageModelFactory
 from foundationallm.langchain.agents import LangChainKnowledgeManagementAgent

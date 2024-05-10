@@ -7,9 +7,9 @@ from foundationallm.langchain.agents import LangChainAgentBase
 from foundationallm.langchain.exceptions import LangChainException
 from foundationallm.langchain.retrievers import RetrieverFactory, CitationRetrievalBase
 from foundationallm.models.orchestration import (
-    CompletionResponse,
-    KnowledgeManagementCompletionRequest
+    CompletionResponse
 )
+from foundationallm.models.agents import KnowledgeManagementCompletionRequest
 
 class LangChainKnowledgeManagementAgent(LangChainAgentBase):
     """

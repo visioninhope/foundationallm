@@ -115,19 +115,35 @@ namespace FoundationaLLM.Agent.ResourceProviders
             {
                 agents = (await Task.WhenAll(_agentReferences.Values
                                     .Where(ar => !ar.Deleted)
-                                    .Select(ar => LoadAgent(ar, userIdentity))))
+                                    .Select(ar => LoadAgent(ar))))
+                                    .Where(agent => agent != null)
                                     .ToList();
             }
             else
             {
-                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference)
-                    || agentReference.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
-                        StatusCodes.Status404NotFound);
+                AgentBase? agent;
+                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference))
+                {
+                    agent = await LoadAgent(null, instance.ResourceId);
+                    if (agent != null)
+                    {
+                        agents.Add(agent);
+                    }
+                }
+                else
+                {
+                    if (agentReference.Deleted)
+                    {
+                        throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
+                            StatusCodes.Status404NotFound);
+                    }
 
-                var agent = await LoadAgent(agentReference!, userIdentity);
-
-                agents.Add(agent);
+                    agent = await LoadAgent(agentReference);
+                    if (agent != null)
+                    {
+                        agents.Add(agent);
+                    }
+                }
             }
 
             var rolesWithActions = await _authorizationService.ProcessGetRolesWithActions(
@@ -156,11 +172,18 @@ namespace FoundationaLLM.Agent.ResourceProviders
             return results;
         }
 
-        private async Task<AgentBase> LoadAgent(AgentReference agentReference, UnifiedUserIdentity userIdentity)
+        private async Task<AgentBase?> LoadAgent(AgentReference? agentReference, string? resourceId = null)
         {
             // agentReference is null for legacy agents
-            if (agentReference != null)
+            if (agentReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
+                agentReference ??= new AgentReference
+                {
+                    Name = resourceId!,
+                    Type = AgentTypes.Basic,
+                    Filename = $"/{_name}/{resourceId}.json",
+                    Deleted = false
+                };
                 if (await _storageService.FileExistsAsync(_storageContainerName, agentReference.Filename, default))
                 {
                     var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentReference.Filename, default);
@@ -172,7 +195,21 @@ namespace FoundationaLLM.Agent.ResourceProviders
                         ?? throw new ResourceProviderException($"Failed to load the agent {agentReference.Name}.",
                             StatusCodes.Status400BadRequest);
 
+                    if (!string.IsNullOrWhiteSpace(resourceId))
+                    {
+                        // The agent file exists, but the agent reference is not in the dictionary. Update the dictionary with the missing reference.
+                        agentReference.Type = agent.Type!;
+                        _agentReferences.AddOrUpdate(agentReference.Name, agentReference, (k, v) => agentReference);
+                    }
+
                     return agent;
+                }
+
+                if (string.IsNullOrWhiteSpace(resourceId))
+                {
+                    // Remove the reference from the dictionary since the file does not exist.
+                    _agentReferences.TryRemove(agentReference.Name, out _);
+                    return null;
                 }
             }
 
