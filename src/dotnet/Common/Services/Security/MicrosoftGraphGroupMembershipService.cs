@@ -1,7 +1,9 @@
 ﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Services.Security.Graph;
 using Microsoft.Graph;
-using System.Collections.Generic;
+using Microsoft.Graph.Models;
+using Microsoft.Graph.Models.ODataErrors;
 
 namespace FoundationaLLM.Common.Services.Security
 {
@@ -12,34 +14,31 @@ namespace FoundationaLLM.Common.Services.Security
     {
         private readonly GraphServiceClient _graphClient = new GraphServiceClient(
             DefaultAuthentication.AzureCredential);
+        private readonly IGraphPrincipalWithGroups[] _graphPrincipalsWithGroups;
+
+        public MicrosoftGraphGroupMembershipService() =>
+            _graphPrincipalsWithGroups = [
+                new ServicePrincipals(_graphClient),
+                new Users(_graphClient)
+            ];
 
         /// <inheritdoc/>
         public async Task<List<string>> GetGroupsForPrincipal(string userIdentifier)
         {
-            var groupMembership = new List<Microsoft.Graph.Models.Group>();
-            var groups = await _graphClient.Users[userIdentifier].TransitiveMemberOf.GraphGroup.GetAsync(requestConfiguration =>
-            {
-                requestConfiguration.QueryParameters.Top = 500;
-            }).ConfigureAwait(false);
+            var groupMembership = new List<Group>();
 
-            while (groups?.Value != null)
+            foreach (var graphPrincipalWithGroups in _graphPrincipalsWithGroups)
             {
-                foreach (var group in groups.Value)
+                try
                 {
-                    groupMembership.Add(group);
+                    groupMembership = await graphPrincipalWithGroups.GetGroups(userIdentifier);
+                }
+                catch (ODataError)
+                {
+                    continue;
                 }
 
-                // Invoke paging if required.
-                if (!string.IsNullOrEmpty(groups.OdataNextLink))
-                {
-                    groups = await _graphClient.Users[userIdentifier].TransitiveMemberOf.GraphGroup
-                        .WithUrl(groups.OdataNextLink)
-                        .GetAsync();
-                }
-                else
-                {
-                    break;
-                }
+                if (groupMembership.Count > 0) break;
             }
 
             return groupMembership.Count == 0
