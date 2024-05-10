@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Core.Examples.Exceptions;
 
 namespace FoundationaLLM.Core.Examples.Interfaces;
@@ -22,6 +23,20 @@ public interface IManagementAPITestManager
     /// <param name="agentName">The name of the agent and its dependencies to delete.</param>
     /// <returns></returns>
     Task DeleteAgent(string agentName);
+
+    /// <summary>
+    /// Creates a prompt.
+    /// </summary>
+    /// <param name="promptName">The name of the prompt to retrieve from the test catalog.</param>
+    /// <returns>The created prompt.</returns>
+    Task<PromptBase> CreatePrompt(string promptName);
+
+    /// <summary>
+    /// Deletes a prompt.
+    /// </summary>
+    /// <param name="promptName">The name of the prompt to delete.</param>
+    /// <returns></returns>
+    Task DeletePrompt(string promptName);
 
     /// <summary>
     /// Retrieves one or more resources.
