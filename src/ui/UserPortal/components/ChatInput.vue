@@ -87,7 +87,6 @@ export default {
 		disabled: {
 			handler(newValue) {
 				if (!newValue) {
-					// Place the cursor at the beginning of the text area
 					this.$nextTick(() => {
 						const textInput = this.$refs.inputRef as HTMLTextAreaElement;
 						textInput.focus();
