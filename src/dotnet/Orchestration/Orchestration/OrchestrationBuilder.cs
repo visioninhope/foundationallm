@@ -1,10 +1,10 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Authentication;
-using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Orchestration.Core.Interfaces;
@@ -25,7 +25,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <param name="callContext">The call context of the request being handled.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
         /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
-        /// <param name="orchestrationServices"></param>
+        /// <param name="llmOrchestrationServiceManager">The <see cref="ILLMOrchestrationServiceManager"/> that manages internal and external orchestration services.</param>
+        /// <param name="serviceProvider">The <see cref="IServiceProvider"/> provding dependency injection services for the current scope.</param>
         /// <param name="loggerFactory">The logger factory used to create new loggers.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
@@ -34,7 +35,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             ICallContext callContext,
             IConfiguration configuration,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
-            IEnumerable<ILLMOrchestrationService> orchestrationServices,
+            ILLMOrchestrationServiceManager llmOrchestrationServiceManager,
+            IServiceProvider serviceProvider,
             ILoggerFactory loggerFactory)
         {
             var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
@@ -44,15 +46,11 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             
             if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
             {
-                var orchestrationType = string.IsNullOrWhiteSpace(agentBase.OrchestrationSettings?.Orchestrator)
-                    ? LLMOrchestrationService.LangChain.ToString()
+                var orchestrationName = string.IsNullOrWhiteSpace(agentBase.OrchestrationSettings?.Orchestrator)
+                    ? LLMOrchestrationServiceNames.LangChain
                     : agentBase.OrchestrationSettings?.Orchestrator;
 
-                var validType = Enum.TryParse(orchestrationType, out LLMOrchestrationService llmOrchestrationType);
-                if (!validType)
-                    throw new ArgumentException($"The orchestration does not support the {orchestrationType} orchestration type.");
-
-                var orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
+                var orchestrationService = llmOrchestrationServiceManager.GetService(orchestrationName!, serviceProvider, callContext);
                 
                 var kmOrchestration = new KnowledgeManagementOrchestration(
                     (KnowledgeManagementAgent)agentBase,
@@ -82,22 +80,21 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProvider))
                 throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
 
-            var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{agentName}", currentUserIdentity);
-            var agentBase = ((List<AgentBase>)agents)[0];
+            var agentBase = await agentResourceProvider.GetResource<AgentBase>(
+                $"/{AgentResourceTypeNames.Agents}/{agentName}",
+                currentUserIdentity);
 
             if (agentBase.OrchestrationSettings!.AgentParameters == null)
                 agentBase.OrchestrationSettings.AgentParameters = [];
 
-            var prompt = await GetResource<PromptBase>(
+            var prompt = await promptResourceProvider.GetResource<PromptBase>(
                 agentBase.PromptObjectId!,
-                PromptResourceTypeNames.Prompts,
-                promptResourceProvider,
                 currentUserIdentity);
 
             agentBase.OrchestrationSettings.AgentParameters[agentBase.PromptObjectId!] = prompt;
 
-            var allAgents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}", currentUserIdentity);
-            var allAgentsDescriptions = ((List<AgentBase>)allAgents)
+            var allAgents = await agentResourceProvider.GetResources<AgentBase>(currentUserIdentity);
+            var allAgentsDescriptions = allAgents
                 .Where(a => !string.IsNullOrWhiteSpace(a.Description) && a.Name != agentBase.Name)
                 .Select(a => new
                 {
@@ -114,10 +111,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 {
                     if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.IndexingProfileObjectId))
                     {
-                        var indexingProfile = await GetResource<VectorizationProfileBase>(
+                        var indexingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
                             kmAgent.Vectorization.IndexingProfileObjectId,
-                            VectorizationResourceTypeNames.IndexingProfiles,
-                            vectorizationResourceProvider,
                             currentUserIdentity);
 
                         kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.IndexingProfileObjectId!] = indexingProfile;
@@ -125,54 +120,25 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
                     if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.TextEmbeddingProfileObjectId))
                     {
-                        var textEmbeddingProfile = await GetResource<VectorizationProfileBase>(
+                        var textEmbeddingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
                             kmAgent.Vectorization.TextEmbeddingProfileObjectId,
-                            VectorizationResourceTypeNames.TextEmbeddingProfiles,
-                            vectorizationResourceProvider,
                             currentUserIdentity);
 
                         kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfile;
+                    }
+
+                    foreach(var profileId in kmAgent.Vectorization.IndexingProfileObjectIds)
+                    {
+                        var profile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
+                                                       profileId,
+                                                                                  currentUserIdentity);
+
+                        kmAgent.OrchestrationSettings!.AgentParameters![profileId] = profile;
                     }
                 }
             }
 
             return agentBase;
-        }
-
-        private static async Task<T> GetResource<T>(string objectId, string resourceTypeName, IResourceProviderService resourceProviderService, UnifiedUserIdentity currentUserIdentity)
-            where T : ResourceBase
-        {
-            var result = await resourceProviderService.HandleGetAsync(
-                $"/{resourceTypeName}/{objectId.Split("/").Last()}",
-                currentUserIdentity);
-            return (result as List<T>)!.First();
-        }
-
-        /// <summary>
-        /// Used to select the orchestration service for the agent.
-        /// </summary>
-        /// <param name="orchestrationType"></param>
-        /// <param name="orchestrationServices"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
-        private static ILLMOrchestrationService SelectOrchestrationService(
-            LLMOrchestrationService orchestrationType,
-            IEnumerable<ILLMOrchestrationService> orchestrationServices)
-        {
-            Type? orchestrationServiceType = null;
-
-            orchestrationServiceType = orchestrationType switch
-            {
-                LLMOrchestrationService.AzureAIDirect => typeof(IAzureAIDirectService),
-                LLMOrchestrationService.AzureOpenAIDirect => typeof(IAzureOpenAIDirectService),
-                LLMOrchestrationService.LangChain => typeof(ILangChainService),
-                LLMOrchestrationService.SemanticKernel => typeof(ISemanticKernelService),
-                _ => throw new ArgumentException($"The orchestration type {orchestrationType} is not supported."),
-            };
-
-            var orchestrationService = orchestrationServices.FirstOrDefault(x => orchestrationServiceType.IsAssignableFrom(x.GetType()));
-            return orchestrationService
-                ?? throw new ArgumentException($"There is no orchestration service available for orchestration type {orchestrationType}.");
         }
     }
 }

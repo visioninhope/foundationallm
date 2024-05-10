@@ -29,5 +29,10 @@
         /// Process a vectorization request.
         /// </summary>
         public const string Process = "process";
+
+        /// <summary>
+        /// Purges a soft-deleted resource.
+        /// </summary>
+        public const string Purge = "purge";
     }
 }

@@ -7,15 +7,15 @@ from foundationallm.langchain.agents import LangChainAgentBase
 from foundationallm.langchain.exceptions import LangChainException
 from foundationallm.langchain.retrievers import RetrieverFactory, CitationRetrievalBase
 from foundationallm.models.orchestration import (
-    CompletionResponse,
-    KnowledgeManagementCompletionRequest
+    CompletionResponse
 )
+from foundationallm.models.agents import KnowledgeManagementCompletionRequest
 
 class LangChainKnowledgeManagementAgent(LangChainAgentBase):
     """
     The LangChain Knowledge Management agent.
     """
-    
+
     def invoke(self, request: KnowledgeManagementCompletionRequest) -> CompletionResponse:
         """
         Executes a completion request by querying the vector index with the user prompt.
@@ -24,7 +24,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         ----------
         request : KnowledgeManagementCompletionRequest
             The completion request to execute.
-        
+
         Returns
         -------
         CompletionResponse
@@ -35,7 +35,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         agent = request.agent
 
         prompt = self._get_prompt_from_object_id(agent.prompt_object_id, agent.orchestration_settings.agent_parameters)
-        
+
         with get_openai_callback() as cb:
             try:
                 prompt_builder = ''
@@ -52,7 +52,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                         conversation_history.max_history)
 
                 # Insert the context into the template.
-                prompt_builder += '{context}'   
+                prompt_builder += '{context}'
 
                 # Add the suffix, if it exists.
                 if prompt.suffix is not None:
@@ -61,24 +61,28 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 # Get the vector document retriever, if it exists.
                 retriever = None
                 if request.agent.vectorization is not None:
-                    indexing_profile = self._get_indexing_profile_from_object_id(
-                        agent.vectorization.indexing_profile_object_id,
-                        agent.orchestration_settings.agent_parameters)
 
                     text_embedding_profile = self._get_text_embedding_profile_from_object_id(
                         agent.vectorization.text_embedding_profile_object_id,
                         agent.orchestration_settings.agent_parameters)
 
-                    if (indexing_profile is not None) and (text_embedding_profile is not None):
+                    indexing_profiles = []
+
+                    for profile_id in agent.vectorization.indexing_profile_object_ids:
+                        indexing_profiles.append(self._get_indexing_profile_from_object_id(
+                            profile_id,
+                            agent.orchestration_settings.agent_parameters))
+
+                    if (agent.vectorization.indexing_profile_object_ids is not None) and (text_embedding_profile is not None):
                         retriever_factory = RetrieverFactory(
-                                        indexing_profile,
+                                        indexing_profiles,
                                         text_embedding_profile,
                                         self.config,
                                         request.settings)
                         retriever = retriever_factory.get_retriever()
 
                 # Insert the user prompt into the template.
-                if retriever is not None:    
+                if retriever is not None:
                     prompt_builder += "\n\nQuestion: {question}"
 
                 # Create the prompt template.
@@ -102,7 +106,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 citations = []
                 if isinstance(retriever, CitationRetrievalBase):
                     citations = retriever.get_document_citations()
-                    
+
                 return CompletionResponse(
                     completion = completion,
                     citations = citations,
@@ -114,4 +118,4 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     total_cost = cb.total_cost
                 )
             except Exception as e:
-                raise LangChainException(f"An unexpected exception occurred when executing the completion request: {str(e)}", 500) 
+                raise LangChainException(f"An unexpected exception occurred when executing the completion request: {str(e)}", 500)

@@ -1,5 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.Chat;
+﻿using FoundationaLLM.Common.Models.Chat;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration

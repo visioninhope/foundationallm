@@ -186,7 +186,7 @@ namespace FoundationaLLM
             {
                 var keyVaultUri = builder.Configuration[keyVaultUriConfigurationKeyName];
                 clientBuilder.AddSecretClient(new Uri(keyVaultUri!))
-                    .WithCredential(DefaultAuthentication.GetAzureCredential());
+                    .WithCredential(DefaultAuthentication.AzureCredential);
             });
 
             // Configure logging to filter out Azure Core and Azure Key Vault informational logs.

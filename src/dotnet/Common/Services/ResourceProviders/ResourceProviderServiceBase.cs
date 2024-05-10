@@ -83,6 +83,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <inheritdoc/>
         public bool IsInitialized  => _isInitialized;
 
+        /// <inheritdoc/>
+        public Dictionary<string, ResourceTypeDescriptor> AllowedResourceTypes => _allowedResourceTypes;
+
         /// <summary>
         /// Creates a new instance of the resource provider.
         /// </summary>

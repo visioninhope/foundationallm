@@ -4,10 +4,14 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.AzureAI;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Core.Examples.Interfaces;
+using FoundationaLLM.Core.Examples.Models;
+using FoundationaLLM.Core.Examples.Services;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Services;
 using Microsoft.Azure.Cosmos;
@@ -32,30 +36,59 @@ namespace FoundationaLLM.Core.Examples.Setup
 		{
 			TestConfiguration.Initialize(configRoot, services);
 
-			RegisterHttpClients(services);
+			RegisterInstance(services, configRoot);
+			RegisterHttpClients(services, configRoot);
 			RegisterCosmosDb(services, configRoot);
-			RegisterLogging(services);
-			RegisterAzureAIService(services, configRoot);
+            RegisterAzureAIService(services, configRoot);
+            RegisterLogging(services);
+			RegisterServiceManagers(services);
 		}
 
-		private static void RegisterHttpClients(IServiceCollection services)
+        private static void RegisterInstance(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddOptions<InstanceSettings>()
+                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
+        }
+        
+        private static void RegisterHttpClients(IServiceCollection services, IConfiguration configuration)
 		{
-			var coreApiUri = TestConfiguration.GetAppConfigValueAsync(AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl).GetAwaiter().GetResult();
-			
-			services
-				.AddHttpClient(
-					HttpClients.CoreAPI,
-					client => { 
-						client.BaseAddress = new Uri(coreApiUri);
-						client.Timeout = TimeSpan.FromSeconds(120);
-					})
-				.AddResilienceHandler(
-					"DownstreamPipeline",
-					static strategyBuilder =>
-					{
-						CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
-					});
-		}
+			services.Configure<HttpClientOptions>(HttpClients.CoreAPI, options =>
+            {
+                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!;
+                options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes]!;
+                options.Timeout = TimeSpan.FromSeconds(120);
+            });
+            services.Configure<HttpClientOptions>(HttpClients.ManagementAPI, options =>
+            {
+                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!;
+                options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_Scopes]!;
+                options.Timeout = TimeSpan.FromSeconds(120);
+            });
+
+            services.AddHttpClient(HttpClients.CoreAPI)
+                .ConfigureHttpClient((serviceProvider, client) =>
+                {
+                    var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.CoreAPI);
+                    client.BaseAddress = new Uri(options.BaseUri!);
+                    if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
+                })
+                .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
+                {
+                    CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+                });
+
+            services.AddHttpClient(HttpClients.ManagementAPI)
+                .ConfigureHttpClient((serviceProvider, client) =>
+                {
+                    var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.ManagementAPI);
+                    client.BaseAddress = new Uri(options.BaseUri!);
+                    if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
+                })
+                .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
+                {
+                    CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+                });
+        }
 
 		private static void RegisterCosmosDb(IServiceCollection services, IConfiguration configuration)
 		{
@@ -65,7 +98,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 			services.AddSingleton<CosmosClient>(serviceProvider =>
 			{
 				var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
-				return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.GetAzureCredential())
+				return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.AzureCredential)
 					.WithSerializerOptions(new CosmosSerializationOptions
 					{
 						PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
@@ -95,6 +128,13 @@ namespace FoundationaLLM.Core.Examples.Setup
 				builder.AddConsole();
 			});
 		}
-	}
 
+        private static void RegisterServiceManagers(IServiceCollection services)
+        {
+            services.AddScoped<ICoreAPITestManager, CoreAPITestManager>();
+			services.AddScoped<IManagementAPITestManager, ManagementAPITestManager>();
+            services.AddScoped<IHttpClientManager, HttpClientManager>();
+			services.AddScoped<IAgentConversationTestService, AgentConversationTestService>();
+        }
+    }
 }

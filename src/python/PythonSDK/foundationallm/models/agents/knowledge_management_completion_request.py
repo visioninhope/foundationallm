@@ -3,8 +3,8 @@ Class Name: KnowledgeManagementCompletionRequest
 Description: Encapsulates the metadata required to complete a knowledge management orchestration request.
 """
 from typing import Optional
-from foundationallm.models.agents import KnowledgeManagementAgent
-from .completion_request_base import CompletionRequestBase
+from .knowledge_management_agent import KnowledgeManagementAgent
+from foundationallm.models.orchestration import CompletionRequestBase
 
 class KnowledgeManagementCompletionRequest(CompletionRequestBase):
     """

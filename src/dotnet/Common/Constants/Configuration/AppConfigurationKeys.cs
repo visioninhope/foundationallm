@@ -766,6 +766,10 @@
         /// </summary>
         public const string FoundationaLLM_APIs = "FoundationaLLM:APIs:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:ExternalAPIs:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_ExternalAPIs = "FoundationaLLM:ExternalAPIs:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:APIs:VectorizationAPI:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_APIs_VectorizationAPI = "FoundationaLLM:APIs:VectorizationAPI:*";
@@ -789,6 +793,14 @@
         /// The key filter for the FoundationaLLM:ManagementAPI:Entra:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_ManagementAPI_Entra = "FoundationaLLM:ManagementAPI:Entra:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Chat:Entra:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Chat_Entra = "FoundationaLLM:Chat:Entra:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Management:Entra:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Management_Entra = "FoundationaLLM:Management:Entra:*";
         /// <summary>
         /// The key filter for the FoundationaLLM:Orchestration:* app configuration settings.
         /// </summary>
@@ -922,6 +934,10 @@
         /// The key section for the FoundationaLLM:APIs:GatewayAPI app configuration settings.
         /// </summary>
         public const string FoundationaLLM_APIs_GatewayAPI = "FoundationaLLM:APIs:GatewayAPI";
+        /// <summary>
+        /// The key section for the FoundationaLLM:ExternalAPIs app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_ExternalAPIs = "FoundationaLLM:ExternalAPIs";
         /// <summary>
         /// The key section for the FoundationaLLM:Orchestration app configuration settings.
         /// </summary>

@@ -1,5 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.Orchestration;
+﻿using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 
 namespace FoundationaLLM.Common.Tests.Models.Orchestration
 {

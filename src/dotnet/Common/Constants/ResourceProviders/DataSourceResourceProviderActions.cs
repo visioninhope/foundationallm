@@ -13,5 +13,9 @@
         /// Apply a filter for data source retrieval.
         /// </summary>
         public const string Filter = "filter";
+        /// <summary>
+        /// Purges a soft-deleted resource.
+        /// </summary>
+        public const string Purge = "purge";
     }
 }

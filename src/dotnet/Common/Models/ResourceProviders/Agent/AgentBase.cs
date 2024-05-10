@@ -1,10 +1,8 @@
 ﻿using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Models.Metadata;
 using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Models.ResourceProviders;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Agents
+namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
 {
     /// <summary>
     /// Base agent metadata model.

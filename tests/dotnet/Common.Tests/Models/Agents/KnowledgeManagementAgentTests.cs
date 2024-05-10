@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Agents;
+﻿using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 
 namespace FoundationaLLM.Common.Tests.Models.Agents
 {
@@ -23,7 +23,7 @@ namespace FoundationaLLM.Common.Tests.Models.Agents
         public void KnowledgeManagementAgent_IndexingProfile_DefaultIsNull()
         {
             // Assert
-            Assert.Null(_knowledgeManagementAgent.Vectorization.IndexingProfileObjectId);
+            Assert.Null(_knowledgeManagementAgent.Vectorization.IndexingProfileObjectIds);
         }
 
         [Fact]

@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace FoundationaLLM.Common.Models.Agents
+namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
 {
     /// <summary>
     /// Vectorization settings related to a knowledge management agent.
@@ -29,6 +29,12 @@ namespace FoundationaLLM.Common.Models.Agents
         /// </summary>
         [JsonPropertyName("indexing_profile_object_id")]
         public string? IndexingProfileObjectId { get; set; }
+
+        /// <summary>
+        /// The vectorization indexing profile resource paths.
+        /// </summary>
+        [JsonPropertyName("indexing_profile_object_ids")]
+        public List<string>? IndexingProfileObjectIds { get; set; }
 
         /// <summary>
         /// The vectorization text embedding profile resource path.

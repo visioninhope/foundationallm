@@ -105,4 +105,12 @@
     }
     ```
 
+11. External orchestration APIs must be configured using the `FoundationaLLM:ExternalAPIs` configuration namespace. For example, the `BaselineTradingGlobalMacro` external API has the following configurations:
+    - `FoundationaLLM:ExternalAPIs:BaselineTradingGlobalMacro:APIUrl`
+    - `FoundationaLLM:ExternalAPIs:BaselineTradingGlobalMacro:APIKey`
+
+> [!NOTE]
+> These entries do not need to be created as part of the deployment process. 
+
+
 11. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.

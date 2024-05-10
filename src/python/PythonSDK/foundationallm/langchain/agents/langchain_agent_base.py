@@ -325,7 +325,6 @@ class LangChainAgentBase():
                 langauge_model = (
                     AzureChatOpenAI(
                         azure_endpoint=endpoint_settings.endpoint,
-                        open_api_type=endpoint_settings.api_type,
                         api_key=endpoint_settings.api_key,
                         api_version=endpoint_settings.api_version,
                         azure_deployment=deployment_name

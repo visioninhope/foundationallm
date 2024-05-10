@@ -96,13 +96,12 @@
 			<!-- Knowledge source -->
 			<div class="step-section-header span-2">Knowledge Source</div>
 
-			<div class="step-header span-2">Do you want this agent to have a dedicated pipeline?</div>
-
+			<div class="step-header span-2">Does this agent have an inline context?</div>
 			<div class="span-2">
 				<div class="d-flex align-center mt-2">
 					<span>
 						<ToggleButton
-							v-model="dedicated_pipeline"
+							v-model="inline_context"
 							on-label="Yes"
 							on-icon="pi pi-check-circle"
 							off-label="No"
@@ -112,215 +111,233 @@
 				</div>
 			</div>
 
-			<div v-if="dedicated_pipeline">
-				<div class="step-header">Where is the data?</div>
-			</div>
-			<div class="step-header">Where should the data be indexed?</div>
-			<div v-if="!dedicated_pipeline">
-				<div class="step-header">How should the data be processed for indexing?</div>
-			</div>
+			<template v-if="!inline_context">
+				<div class="step-header span-2">Do you want this agent to have a dedicated pipeline?</div>
+				<div class="span-2">
+					<div class="d-flex align-center mt-2">
+						<span>
+							<ToggleButton
+								v-model="dedicated_pipeline"
+								on-label="Yes"
+								on-icon="pi pi-check-circle"
+								off-label="No"
+								off-icon="pi pi-times-circle"
+							/>
+						</span>
+					</div>
+				</div>
 
-			<!-- Data source -->
-			<div v-if="dedicated_pipeline">
-				<CreateAgentStepItem v-model="editDataSource">
-					<template v-if="selectedDataSource">
-						<div class="step-container__header">{{ selectedDataSource.type }}</div>
-						<div>
-							<div v-if="selectedDataSource.object_id !== ''">
-								<span class="step-option__header">Name:</span>
-							</div>
-							<span>{{ selectedDataSource.name }}</span>
-						</div>
-						<!-- <div>
-							<span class="step-option__header">Container name:</span>
-							<span>{{ selectedDataSource.Container.Name }}</span>
-						</div> -->
+				<div v-if="dedicated_pipeline">
+					<div class="step-header">Where is the data?</div>
+				</div>
+				<div class="step-header">Where should the data be indexed?</div>
+				<div v-if="!dedicated_pipeline">
+					<div class="step-header">How should the data be processed for indexing?</div>
+				</div>
 
-						<!-- <div>
-							<span class="step-option__header">Data Format(s):</span>
-							<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
-								{{ format }}
-							</span>
-						</div> -->
-					</template>
-					<template v-else>Please select a data source.</template>
-
-					<template #edit>
-						<div class="step-container__edit__header">Please select a data source.</div>
-
-						<div v-for="(group, type) in groupedDataSources" :key="type">
-							<div class="step-container__edit__group-header">{{ type }}</div>
-
-							<div
-								v-for="dataSource in group"
-								:key="dataSource.name"
-								class="step-container__edit__option"
-								:class="{
-									'step-container__edit__option--selected':
-										dataSource.name === selectedDataSource?.name,
-								}"
-								@click.stop="handleDataSourceSelected(dataSource)"
-							>
-								<div>
-									<div v-if="dataSource.object_id !== ''">
-										<span class="step-option__header">Name:</span>
-									</div>
-									<span>{{ dataSource.name }}</span>
+				<!-- Data source -->
+				<div v-if="dedicated_pipeline">
+					<CreateAgentStepItem v-model="editDataSource">
+						<template v-if="selectedDataSource">
+							<div class="step-container__header">{{ selectedDataSource.type }}</div>
+							<div>
+								<div v-if="selectedDataSource.object_id !== ''">
+									<span class="step-option__header">Name:</span>
 								</div>
-								<!-- <div>
-									<span class="step-option__header">Container name:</span>
-									<span>{{ dataSource.Container.Name }}</span>
-								</div> -->
-
-								<!-- <div>
-									<span class="step-option__header">Data Format(s):</span>
-									<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
-										{{ format }}
-									</span>
-								</div> -->
+								<span>{{ selectedDataSource.name }}</span>
 							</div>
-						</div>
-					</template>
-				</CreateAgentStepItem>
-			</div>
+							<!-- <div>
+								<span class="step-option__header">Container name:</span>
+								<span>{{ selectedDataSource.Container.Name }}</span>
+							</div> -->
 
-			<!-- Index source -->
-			<CreateAgentStepItem v-model="editIndexSource">
-				<template v-if="selectedIndexSource">
-					<div v-if="selectedIndexSource.object_id !== ''">
-						<div class="step-container__header">{{ selectedIndexSource.name }}</div>
-						<div>
-							<span class="step-option__header">URL:</span>
-							<span>{{ selectedIndexSource.configuration_references.Endpoint }}</span>
-						</div>
-						<div>
-							<span class="step-option__header">Index Name:</span>
-							<span>{{ selectedIndexSource.settings.IndexName }}</span>
-						</div>
-					</div>
-					<div v-else>
-						<div class="step-container__header">DEFAULT</div>
-						{{ selectedIndexSource.name }}
-					</div>
-				</template>
-				<template v-else>Please select an index source.</template>
+							<!-- <div>
+								<span class="step-option__header">Data Format(s):</span>
+								<span v-for="format in selectedDataSource.Formats" :key="format" class="mr-1">
+									{{ format }}
+								</span>
+							</div> -->
+						</template>
+						<template v-else>Please select a data source.</template>
 
-				<template #edit>
-					<div class="step-container__edit__header">Please select an index source.</div>
-					<div
-						v-for="indexSource in indexSources"
-						:key="indexSource.name"
-						class="step-container__edit__option"
-						:class="{
-							'step-container__edit__option--selected':
-								indexSource.name === selectedIndexSource?.name,
-						}"
-						@click.stop="handleIndexSourceSelected(indexSource)"
-					>
-						<div v-if="indexSource.object_id !== ''">
-							<div class="step-container__header">{{ indexSource.name }}</div>
-							<div v-if="indexSource.configuration_references.Endpoint">
+						<template #edit>
+							<div class="step-container__edit__header">Please select a data source.</div>
+
+							<div v-for="(group, type) in groupedDataSources" :key="type">
+								<div class="step-container__edit__group-header">{{ type }}</div>
+
+								<div
+									v-for="dataSource in group"
+									:key="dataSource.name"
+									class="step-container__edit__option"
+									:class="{
+										'step-container__edit__option--selected':
+											dataSource.name === selectedDataSource?.name,
+									}"
+									@click.stop="handleDataSourceSelected(dataSource)"
+								>
+									<div>
+										<div v-if="dataSource.object_id !== ''">
+											<span class="step-option__header">Name:</span>
+										</div>
+										<span>{{ dataSource.name }}</span>
+									</div>
+									<!-- <div>
+										<span class="step-option__header">Container name:</span>
+										<span>{{ dataSource.Container.Name }}</span>
+									</div> -->
+
+									<!-- <div>
+										<span class="step-option__header">Data Format(s):</span>
+										<span v-for="format in dataSource.Formats" :key="format" class="mr-1">
+											{{ format }}
+										</span>
+									</div> -->
+								</div>
+							</div>
+						</template>
+					</CreateAgentStepItem>
+				</div>
+
+				<!-- Index source -->
+				<CreateAgentStepItem v-model="editIndexSource">
+					<template v-if="selectedIndexSource">
+						<div v-if="selectedIndexSource.object_id !== ''">
+							<div class="step-container__header">{{ selectedIndexSource.name }}</div>
+							<div>
 								<span class="step-option__header">URL:</span>
-								<span>{{ indexSource.configuration_references.Endpoint }}</span>
+								<span>{{ selectedIndexSource.configuration_references.Endpoint }}</span>
 							</div>
-							<div v-if="indexSource.settings.IndexName">
+							<div>
 								<span class="step-option__header">Index Name:</span>
-								<span>{{ indexSource.settings.IndexName }}</span>
+								<span>{{ selectedIndexSource.settings.IndexName }}</span>
 							</div>
 						</div>
 						<div v-else>
 							<div class="step-container__header">DEFAULT</div>
-							{{ indexSource.name }}
+							{{ selectedIndexSource.name }}
 						</div>
-					</div>
-				</template>
-			</CreateAgentStepItem>
+					</template>
+					<template v-else>Please select an index source.</template>
 
-			<div v-if="dedicated_pipeline">
-				<div class="step-header">How should the data be processed for indexing?</div>
-			</div>
-			<div v-if="dedicated_pipeline">
-				<div class="step-header">When should the data be indexed?</div>
-			</div>
+					<template #edit>
+						<div class="step-container__edit__header">Please select an index source.</div>
+						<div
+							v-for="indexSource in indexSources"
+							:key="indexSource.name"
+							class="step-container__edit__option"
+							:class="{
+								'step-container__edit__option--selected':
+									indexSource.name === selectedIndexSource?.name,
+							}"
+							@click.stop="handleIndexSourceSelected(indexSource)"
+						>
+							<div v-if="indexSource.object_id !== ''">
+								<div class="step-container__header">{{ indexSource.name }}</div>
+								<div v-if="indexSource.configuration_references.Endpoint">
+									<span class="step-option__header">URL:</span>
+									<span>{{ indexSource.configuration_references.Endpoint }}</span>
+								</div>
+								<div v-if="indexSource.settings.IndexName">
+									<span class="step-option__header">Index Name:</span>
+									<span>{{ indexSource.settings.IndexName }}</span>
+								</div>
+							</div>
+							<div v-else>
+								<div class="step-container__header">DEFAULT</div>
+								{{ indexSource.name }}
+							</div>
+						</div>
+					</template>
+				</CreateAgentStepItem>
 
-			<!-- Process indexing -->
-			<CreateAgentStepItem>
-				<div class="step-container__header">Splitting & Chunking</div>
-
-				<div>
-					<span class="step-option__header">Chunk size:</span>
-					<span>{{ chunkSize }}</span>
+				<div v-if="dedicated_pipeline">
+					<div class="step-header">How should the data be processed for indexing?</div>
+				</div>
+				<div v-if="dedicated_pipeline">
+					<div class="step-header">When should the data be indexed?</div>
 				</div>
 
-				<div>
-					<span class="step-option__header">Overlap size:</span>
-					<span>{{ overlapSize == 0 ? 'No Overlap' : overlapSize }}</span>
-				</div>
-
-				<template #edit>
+				<!-- Process indexing -->
+				<CreateAgentStepItem>
 					<div class="step-container__header">Splitting & Chunking</div>
 
 					<div>
 						<span class="step-option__header">Chunk size:</span>
-						<InputText v-model="chunkSize" type="number" class="mt-2" />
+						<span>{{ chunkSize }}</span>
 					</div>
 
 					<div>
 						<span class="step-option__header">Overlap size:</span>
-						<InputText v-model="overlapSize" type="number" class="mt-2" />
-					</div>
-				</template>
-			</CreateAgentStepItem>
-
-			<!-- Trigger -->
-			<div v-if="dedicated_pipeline">
-				<CreateAgentStepItem>
-					<div class="step-container__header">Trigger</div>
-					<div>Runs every time a new item is added to the data source.</div>
-
-					<div class="mt-2">
-						<span class="step-option__header">Frequency:</span>
-						<span>{{ triggerFrequency }}</span>
-					</div>
-
-					<div v-if="triggerFrequency === 'Schedule' && triggerFrequencyScheduled">
-						<span class="step-option__header">Schedule:</span>
-						<span>{{ triggerFrequencyScheduled }}</span>
+						<span>{{ overlapSize == 0 ? 'No Overlap' : overlapSize }}</span>
 					</div>
 
 					<template #edit>
+						<div class="step-container__header">Splitting & Chunking</div>
+
+						<div>
+							<span class="step-option__header">Chunk size:</span>
+							<InputText v-model="chunkSize" type="number" class="mt-2" />
+						</div>
+
+						<div>
+							<span class="step-option__header">Overlap size:</span>
+							<InputText v-model="overlapSize" type="number" class="mt-2" />
+						</div>
+					</template>
+				</CreateAgentStepItem>
+
+				<!-- Trigger -->
+				<div v-if="dedicated_pipeline">
+					<CreateAgentStepItem>
 						<div class="step-container__header">Trigger</div>
 						<div>Runs every time a new item is added to the data source.</div>
 
 						<div class="mt-2">
 							<span class="step-option__header">Frequency:</span>
-							<Dropdown
-								v-model="triggerFrequency"
-								class="dropdown--agent"
-								:options="triggerFrequencyOptions"
-								placeholder="--Select--"
-							/>
+							<span>{{ triggerFrequency }}</span>
 						</div>
 
-						<div v-if="triggerFrequency === 'Schedule'" class="mt-2">
-							<CronLight
-								v-model="triggerFrequencyScheduled"
-								format="quartz"
-								@error="error = $event"
-							/>
-							<!-- editable cron expression -->
-							<InputText
-								class="mt-4"
-								label="cron expression"
-								:model-value="triggerFrequencyScheduled"
-								:error-messages="error"
-								@update:model-value="triggerFrequencyNextScheduled = $event"
-								@blur="triggerFrequencyScheduled = triggerFrequencyNextScheduled"
-							/>
+						<div v-if="triggerFrequency === 'Schedule' && triggerFrequencyScheduled">
+							<span class="step-option__header">Schedule:</span>
+							<span>{{ triggerFrequencyScheduled }}</span>
 						</div>
-					</template>
-				</CreateAgentStepItem>
-			</div>
+
+						<template #edit>
+							<div class="step-container__header">Trigger</div>
+							<div>Runs every time a new item is added to the data source.</div>
+
+							<div class="mt-2">
+								<span class="step-option__header">Frequency:</span>
+								<Dropdown
+									v-model="triggerFrequency"
+									class="dropdown--agent"
+									:options="triggerFrequencyOptions"
+									placeholder="--Select--"
+								/>
+							</div>
+
+							<div v-if="triggerFrequency === 'Schedule'" class="mt-2">
+								<CronLight
+									v-model="triggerFrequencyScheduled"
+									format="quartz"
+									@error="error = $event"
+								/>
+								<!-- editable cron expression -->
+								<InputText
+									class="mt-4"
+									label="cron expression"
+									:model-value="triggerFrequencyScheduled"
+									:error-messages="error"
+									@update:model-value="triggerFrequencyNextScheduled = $event"
+									@blur="triggerFrequencyScheduled = triggerFrequencyNextScheduled"
+								/>
+							</div>
+						</template>
+					</CreateAgentStepItem>
+				</div>
+			</template>
+			<!-- End of Knowledge Source -->
 
 			<!-- Agent configuration -->
 			<div class="step-section-header span-2">Agent Configuration</div>
@@ -571,6 +588,7 @@ const getDefaultFormValues = () => {
 		vectorization_data_pipeline_object_id: '',
 		prompt_object_id: '',
 		dedicated_pipeline: true,
+		inline_context: false,
 		agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 		editDataSource: false as boolean,
@@ -770,27 +788,28 @@ export default {
 			this.agentDescription = agent.description || this.agentDescription;
 			this.agentType = agent.type || this.agentType;
 			this.object_id = agent.object_id || this.object_id;
+			this.inline_context = agent.inline_context || this.inline_context;
 
 			this.orchestration_settings.orchestrator =
 				agent.orchestration_settings?.orchestrator || this.orchestration_settings.orchestrator;
 			this.orchestration_settings.endpoint_configuration.endpoint =
-				agent.orchestration_settings?.endpoint_configuration.endpoint ||
+				agent.orchestration_settings?.endpoint_configuration?.endpoint ||
 				this.orchestration_settings.endpoint_configuration.endpoint;
 			this.orchestration_settings.endpoint_configuration.api_key =
-				agent.orchestration_settings?.endpoint_configuration.api_key ||
+				agent.orchestration_settings?.endpoint_configuration?.api_key ||
 				this.orchestration_settings.endpoint_configuration.api_key;
 			this.orchestration_settings.endpoint_configuration.api_version =
-				agent.orchestration_settings?.endpoint_configuration.api_version ||
+				agent.orchestration_settings?.endpoint_configuration?.api_version ||
 				this.orchestration_settings.endpoint_configuration.api_version;
 			this.orchestration_settings.endpoint_configuration.operation_type =
-				agent.orchestration_settings?.endpoint_configuration.operation_type ||
+				agent.orchestration_settings?.endpoint_configuration?.operation_type ||
 				this.orchestration_settings.endpoint_configuration.operation_type;
 
 			this.orchestration_settings.model_parameters.deployment_name =
-				agent.orchestration_settings?.model_parameters.deployment_name ||
+				agent.orchestration_settings?.model_parameters?.deployment_name ||
 				this.orchestration_settings.model_parameters.deployment_name;
 			this.orchestration_settings.model_parameters.temperature =
-				agent.orchestration_settings?.model_parameters.temperature ||
+				agent.orchestration_settings?.model_parameters?.temperature ||
 				this.orchestration_settings.model_parameters.temperature;
 
 			// this.resolved_orchestration_settings = agent.resolved_orchestration_settings || this.resolved_orchestration_settings;
@@ -964,28 +983,34 @@ export default {
 					promptObjectId = promptResponse.objectId;
 				}
 
-				// Handle TextPartitioningProfile creation/update.
-				const tokenTextPartitionResponse = await api.createOrUpdateTextPartitioningProfile(
-					this.agentName,
-					tokenTextPartitionRequest,
-				);
-				const textPartitioningProfileObjectId = tokenTextPartitionResponse.objectId;
+				let textPartitioningProfileObjectId = '';
+				let dataSourceObjectId = '';
+				let indexingProfileObjectId = '';
 
-				// Select the default data source, if any.
-				let dataSourceObjectId = this.selectedDataSource?.object_id ?? '';
-				if (dataSourceObjectId === '') {
-					const defaultDataSource = await api.getDefaultDataSource();
-					if (defaultDataSource !== null) {
-						dataSourceObjectId = defaultDataSource.object_id;
+				if (!this.inline_context) {
+					// Handle TextPartitioningProfile creation/update.
+					const tokenTextPartitionResponse = await api.createOrUpdateTextPartitioningProfile(
+						this.agentName,
+						tokenTextPartitionRequest,
+					);
+					textPartitioningProfileObjectId = tokenTextPartitionResponse.objectId;
+
+					// Select the default data source, if any.
+					dataSourceObjectId = this.selectedDataSource?.object_id ?? '';
+					if (dataSourceObjectId === '') {
+						const defaultDataSource = await api.getDefaultDataSource();
+						if (defaultDataSource !== null) {
+							dataSourceObjectId = defaultDataSource.object_id;
+						}
 					}
-				}
 
-				// Select the default indexing profile, if any.
-				let indexingProfileObjectId = this.selectedIndexSource?.object_id ?? '';
-				if (indexingProfileObjectId === '') {
-					const defaultAgentIndex = await api.getDefaultAgentIndex();
-					if (defaultAgentIndex !== null) {
-						indexingProfileObjectId = defaultAgentIndex.object_id;
+					// Select the default indexing profile, if any.
+					indexingProfileObjectId = this.selectedIndexSource?.object_id ?? '';
+					if (indexingProfileObjectId === '') {
+						const defaultAgentIndex = await api.getDefaultAgentIndex();
+						if (defaultAgentIndex !== null) {
+							indexingProfileObjectId = defaultAgentIndex.object_id;
+						}
 					}
 				}
 
@@ -994,6 +1019,7 @@ export default {
 					name: this.agentName,
 					description: this.agentDescription,
 					object_id: this.object_id,
+					inline_context: this.inline_context,
 
 					vectorization: {
 						dedicated_pipeline: this.dedicated_pipeline,

@@ -1,12 +1,12 @@
-﻿using System.Net;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
+﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
 using FoundationaLLM.Orchestration.Core.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
+using System.Net;
 using Xunit;
 
 namespace FoundationaLLM.Orchestration.Tests.Services

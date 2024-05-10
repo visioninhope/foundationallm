@@ -75,6 +75,21 @@ namespace FoundationaLLM.Authorization.Constants
         /// </summary>
         public const string FoundationaLLM_Configuration_KeyVaultSecrets_Delete = "FoundationaLLM.Configuration/keyVaultSecrets/delete";
 
+        /// <summary>
+        /// Read external orchestration services.
+        /// </summary>
+        public const string FoundationaLLM_Configuration_ExternalOrchestrationServices_Read = "FoundationaLLM.Configuration/externalOrchestrationServices/read";
+
+        /// <summary>
+        /// Create or update external orchestration services.
+        /// </summary>
+        public const string FoundationaLLM_Configuration_ExternalOrchestrationServices_Write = "FoundationaLLM.Configuration/externalOrchestrationServices/write";
+
+        /// <summary>
+        /// Delete external orchestration services.
+        /// </summary>
+        public const string FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete = "FoundationaLLM.Configuration/externalOrchestrationServices/delete";
+
         #endregion
 
         #region DataSource

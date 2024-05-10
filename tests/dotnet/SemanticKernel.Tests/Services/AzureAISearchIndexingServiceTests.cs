@@ -23,7 +23,7 @@ namespace FoundationaLLM.SemanticKernel.Tests.Services
             var endpoint = Environment.GetEnvironmentVariable("AzureAISearchIndexingServiceTestsSearchEndpoint") ?? "";
             _searchIndexClient = new SearchIndexClient(
                 new Uri(endpoint),
-                DefaultAuthentication.GetAzureCredential()
+                DefaultAuthentication.AzureCredential
             );
             _indexingService = new AzureAISearchIndexingService(
                 Options.Create(

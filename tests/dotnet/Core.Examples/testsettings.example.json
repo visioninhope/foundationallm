@@ -3,6 +3,7 @@
     "AgentPrompts": [
       {
         "AgentName": "FoundationaLLM",
+        "CreateAgent": false,
         "SessionConfiguration": {
           "Sessionless": false,
           "CreateNewSession": true,

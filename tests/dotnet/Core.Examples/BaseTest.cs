@@ -22,7 +22,7 @@ namespace FoundationaLLM.Core.Examples
 		}
 
 		/// <summary>
-		/// This method can be substituted by Console.WriteLine when used in Console apps.
+		/// This method can be substituted by Console.WriteLine when used in a Console apps.
 		/// </summary>
 		/// <param name="target">Target object to write</param>
 		protected void WriteLine(object? target = null)
@@ -31,7 +31,8 @@ namespace FoundationaLLM.Core.Examples
 		}
 
 		/// <summary>
-		/// Current interface ITestOutputHelper does not have a Write method. This extension method adds it to make it analogous to Console.Write when used in Console apps.
+		/// Current interface ITestOutputHelper does not have a Write method. This extension
+		/// method adds it to make it analogous to Console.Write when used in a Console apps.
 		/// </summary>
 		/// <param name="target">Target object to write</param>
 		protected void Write(object? target = null)

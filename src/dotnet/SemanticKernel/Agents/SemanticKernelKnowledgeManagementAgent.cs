@@ -1,8 +1,8 @@
 ﻿using Azure.AI.OpenAI;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.SemanticKernel.Core.Exceptions;
@@ -182,7 +182,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
         private Kernel BuildKernel()
         {
-            var credential = DefaultAuthentication.GetAzureCredential();
+            var credential = DefaultAuthentication.AzureCredential;
 
             var builder = Kernel.CreateBuilder();
             builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);

@@ -31,9 +31,10 @@ namespace FoundationaLLM.Orchestration.Tests.Services
         {
             _orchestrationService = new OrchestrationService(
                 _resourceProviderServices,
-                _orchestrationServices,
+                null,
                 _callContext,
                 _configuration,
+                null,
                 _loggerFactory
             );
         }

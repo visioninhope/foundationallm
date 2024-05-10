@@ -9,14 +9,18 @@ using FoundationaLLM.Common.Models.Configuration.AppConfiguration;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.ResourceProviders;
+using FoundationaLLM.Configuration.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Collections.Concurrent;
+using System.Text;
 using System.Text.Json;
 
 namespace FoundationaLLM.Configuration.Services
@@ -57,7 +61,17 @@ namespace FoundationaLLM.Configuration.Services
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration
             ])
     {
+        /// <inheritdoc/>
+        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+            ConfigurationResourceProviderMetadata.AllowedResourceTypes;
+
+        private ConcurrentDictionary<string, ExternalOrchestrationServiceReference> _externalOrchestrationServiceReferences = [];
+
         private const string KEY_VAULT_REFERENCE_CONTENT_TYPE = "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8";
+
+        private const string EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_NAME = "_external-orchestration-service-references.json";
+        private const string EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_PATH =
+            $"/{ResourceProviderNames.FoundationaLLM_Configuration}/{EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_NAME}";
 
         private readonly IAzureAppConfigurationService _appConfigurationService = appConfigurationService;
         private readonly IAzureKeyVaultService _keyVaultService = keyVaultService;
@@ -67,12 +81,39 @@ namespace FoundationaLLM.Configuration.Services
         protected override string _name => ResourceProviderNames.FoundationaLLM_Configuration;
 
         /// <inheritdoc/>
-        protected override async Task InitializeInternal() =>
-            await Task.CompletedTask;
+        protected override async Task InitializeInternal()
+        {
+            _logger.LogInformation("Starting to initialize the {ResourceProvider} resource provider...", _name);
 
-        /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
-            ConfigurationResourceProviderMetadata.AllowedResourceTypes;
+            if (await _storageService.FileExistsAsync(_storageContainerName, EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_PATH, default))
+            {
+                var fileContent = await _storageService.ReadFileAsync(
+                    _storageContainerName,
+                    EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_PATH,
+                    default);
+
+                var resourceReferenceStore =
+                    JsonSerializer.Deserialize<ResourceReferenceStore<ExternalOrchestrationServiceReference>>(
+                        Encoding.UTF8.GetString(fileContent.ToArray()));
+
+                _externalOrchestrationServiceReferences = new ConcurrentDictionary<string, ExternalOrchestrationServiceReference>(
+                        resourceReferenceStore!.ToDictionary());
+            }
+            else
+            {
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(new ResourceReferenceStore<ExternalOrchestrationServiceReference>
+                    {
+                        ResourceReferences = []
+                    }),
+                    default,
+                    default);
+            }
+
+            _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
+        }
 
         #region Support for Management API
 
@@ -81,6 +122,7 @@ namespace FoundationaLLM.Configuration.Services
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 ConfigurationResourceTypeNames.AppConfigurations => await LoadAppConfigurationKeys(resourcePath.ResourceTypeInstances[0]),
+                ConfigurationResourceTypeNames.ExternalOrchestrationServices => await LoadExternalOrchestrationServices(resourcePath.ResourceTypeInstances[0]),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
@@ -126,6 +168,48 @@ namespace FoundationaLLM.Configuration.Services
             return result;
         }
 
+        private async Task<List<ExternalOrchestrationService>> LoadExternalOrchestrationServices(ResourceTypeInstance instance)
+        {
+            if (instance.ResourceId == null)
+            {
+                return
+                [
+                    .. (await Task.WhenAll(
+                        _externalOrchestrationServiceReferences.Values
+                            .Where(eosr => !eosr.Deleted)
+                            .Select(eosr => LoadExternalOrchestrationService(eosr))))
+                ];
+            }
+            else
+            {
+                if (!_externalOrchestrationServiceReferences.TryGetValue(instance.ResourceId, out var resourceReference)
+                    || resourceReference.Deleted)
+                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} external orchestration service resource.",
+                        StatusCodes.Status404NotFound);
+
+                var externalOrchestrationService = await LoadExternalOrchestrationService(resourceReference);
+
+                return [externalOrchestrationService];
+            }
+        }
+
+        private async Task<ExternalOrchestrationService> LoadExternalOrchestrationService(
+            ExternalOrchestrationServiceReference resourceReference)
+        {
+            if (await _storageService.FileExistsAsync(_storageContainerName, resourceReference.Filename, default))
+            {
+                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, resourceReference.Filename, default);
+                return JsonSerializer.Deserialize<ExternalOrchestrationService>(
+                    Encoding.UTF8.GetString(fileContent.ToArray()),
+                    _serializerSettings)
+                    ?? throw new ResourceProviderException($"Failed to load the external orchestration service {resourceReference.Name}.",
+                        StatusCodes.Status400BadRequest);
+            }
+
+            throw new ResourceProviderException($"Could not locate the {resourceReference.Name} external orchestration service resource.",
+                StatusCodes.Status404NotFound);
+        }
+
         #endregion
 
         /// <inheritdoc/>
@@ -160,12 +244,8 @@ namespace FoundationaLLM.Configuration.Services
                 var kvAppConfig = JsonSerializer.Deserialize<AppConfigurationKeyVaultReference>(serializedAppConfig)
                     ?? throw new ResourceProviderException("Invalid key vault reference value.", StatusCodes.Status400BadRequest);
 
-                if (string.IsNullOrWhiteSpace(kvAppConfig.KeyVaultUri))
-                    throw new ResourceProviderException("The key vault URI is invalid.", StatusCodes.Status400BadRequest);
-
-                if ((new Uri(_keyVaultService.KeyVaultUri)).Host.ToLower().CompareTo((new Uri(kvAppConfig.KeyVaultUri)).Host.ToLower()) != 0)
-                    throw new ResourceProviderException("The key vault URI does not match the key vault URI of the key vault service.", StatusCodes.Status400BadRequest);
-
+                kvAppConfig.KeyVaultUri = _keyVaultService.KeyVaultUri;
+                
                 if (string.IsNullOrWhiteSpace(kvAppConfig.KeyVaultSecretName))
                     throw new ResourceProviderException("The key vault secret name is invalid.", StatusCodes.Status400BadRequest);
 

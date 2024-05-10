@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Orchestration;
+﻿using FoundationaLLM.Common.Models.Infrastructure;
+using FoundationaLLM.Common.Models.Orchestration;
 
 namespace FoundationaLLM.Orchestration.Core.Interfaces;
 
@@ -8,9 +9,9 @@ namespace FoundationaLLM.Orchestration.Core.Interfaces;
 public interface IOrchestrationService
 {
     /// <summary>
-    /// Status value to return when the APIs status endpoint is called.
+    /// Get the aggredated status of all orchestration services.
     /// </summary>
-    string Status { get; }
+    Task<ServiceStatusInfo> GetStatus();
 
     /// <summary>
     /// Retrieve a completion from the configured orchestration service.

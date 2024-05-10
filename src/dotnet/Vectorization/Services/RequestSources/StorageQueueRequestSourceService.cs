@@ -34,7 +34,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             _settings = settings;
             _logger = logger;
 
-            var queueServiceClient = new QueueServiceClient(new Uri($"https://{_settings.AccountName}.queue.core.windows.net"), DefaultAuthentication.GetAzureCredential());
+            var queueServiceClient = new QueueServiceClient(new Uri($"https://{_settings.AccountName}.queue.core.windows.net"), DefaultAuthentication.AzureCredential);
             _queueClient = queueServiceClient.GetQueueClient(_settings.Name);
         }
 

@@ -239,7 +239,7 @@ namespace FoundationaLLM.Common.Services
             //https://ai.azure.com
             httpClient.BaseAddress = new Uri(_settings.BaseUrl);
 
-            var credentials = DefaultAuthentication.GetAzureCredential();
+            var credentials = DefaultAuthentication.AzureCredential;
             var tokenResult = await credentials.GetTokenAsync(
                 new(["https://management.core.windows.net/"]),
                 default);

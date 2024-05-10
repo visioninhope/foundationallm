@@ -8,6 +8,13 @@ namespace FoundationaLLM.Common.Models.Orchestration.Direct
     public class AzureOpenAICompletionRequest : AzureOpenAICompletionParameters
     {
         /// <summary>
+        /// Any data sources that should be used
+        /// </summary>
+        [JsonPropertyName("dataSources")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public List<DataSource>? DataSources { get; set; }
+
+        /// <summary>
         /// The prompt for which to generate completions.
         /// </summary>
         [JsonPropertyName("prompt")]

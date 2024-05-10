@@ -1,5 +1,4 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders;
+﻿using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 
 namespace FoundationaLLM.Common.Constants.ResourceProviders
@@ -27,6 +26,9 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                     Actions = [
                             new ResourceTypeAction("checkname", false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
+                            ]),
+                            new ResourceTypeAction(PromptResourceProviderActions.Purge, true, false, [
+                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]
                 }

@@ -143,7 +143,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 builder.AddAzureOpenAITextEmbeddingGeneration(
                     _settings.DeploymentName,
                     _settings.Endpoint,
-                    DefaultAuthentication.GetAzureCredential());
+                    DefaultAuthentication.AzureCredential);
             }
             else
             {

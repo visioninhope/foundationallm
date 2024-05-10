@@ -97,6 +97,27 @@ namespace FoundationaLLM.Authorization.Models
                         "Configuration")
                 },
                 {
+                    AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read,
+                        "Read external orchestration services.",
+                        "Configuration")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write,
+                        "Create or update external orchestration services.",
+                        "Configuration")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete,
+                        "Delete external orchestration services.",
+                        "Configuration")
+                },
+                {
                     AuthorizableActionNames.FoundationaLLM_DataSource_DataSources_Read,
                     new AuthorizableAction(
                         AuthorizableActionNames.FoundationaLLM_DataSource_DataSources_Read,

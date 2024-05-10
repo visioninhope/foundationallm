@@ -62,4 +62,9 @@ public static class HttpClients
     /// Named client with matching configuration for the Authorization API.
     /// </summary>
     public const string AuthorizationAPI = "AuthorizationAPI";
+
+    /// <summary>
+    /// Named client with matching configuration for the Management API.
+    /// </summary>
+    public const string ManagementAPI = "ManagementAPI";
 }
