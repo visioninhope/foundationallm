@@ -20,7 +20,8 @@ namespace FoundationaLLM.Common.Services.Security
             }
             return new UnifiedUserIdentity
             {
-                Name = userPrincipal.FindFirstValue(ClaimConstants.Name),
+                // Use OID (Object ID) in place of Name for Service Principals
+                Name = userPrincipal.FindFirstValue(ClaimConstants.Name) ?? userPrincipal.FindFirstValue(ClaimConstants.Oid),
                 Username = ResolveUsername(userPrincipal),
                 UPN = ResolveUsername(userPrincipal),
                 UserId = userPrincipal.FindFirstValue(ClaimConstants.Oid) ?? userPrincipal.FindFirstValue(ClaimConstants.ObjectId)

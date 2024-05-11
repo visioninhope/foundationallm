@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Services.Security.Graph;
+using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using Microsoft.Graph.Models;
 using Microsoft.Graph.Models.ODataErrors;
@@ -14,6 +15,9 @@ namespace FoundationaLLM.Common.Services.Security
     {
         private readonly GraphServiceClient _graphClient = new GraphServiceClient(
             DefaultAuthentication.AzureCredential);
+        private readonly ILogger<MicrosoftGraphGroupMembershipService> _logger = LoggerFactory
+            .Create(builder => builder.AddConsole())
+            .CreateLogger<MicrosoftGraphGroupMembershipService>();
         private readonly IGraphPrincipalWithGroups[] _graphPrincipalsWithGroups;
 
         public MicrosoftGraphGroupMembershipService() =>
@@ -33,8 +37,9 @@ namespace FoundationaLLM.Common.Services.Security
                 {
                     groupMembership = await graphPrincipalWithGroups.GetGroups(userIdentifier);
                 }
-                catch (ODataError)
+                catch (ODataError error)
                 {
+                    _logger.LogError(error, "Error getting group membership for {UserIdentifier}", userIdentifier);
                     continue;
                 }
 

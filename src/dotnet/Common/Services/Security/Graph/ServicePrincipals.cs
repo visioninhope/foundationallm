@@ -10,34 +10,15 @@ namespace FoundationaLLM.Common.Services.Security.Graph
 
         public async Task<List<Group>> GetGroups(string principalId)
         {
-            var groups = await _graphServiceClient.ServicePrincipals[principalId].TransitiveMemberOf.GraphGroup.GetAsync(requestConfiguration =>
-            {
-                requestConfiguration.QueryParameters.Top = 500;
-            }).ConfigureAwait(false);
-
-            var groupMembership = new List<Group>();
-
-            while (groups?.Value != null)
-            {
-                foreach (var group in groups.Value)
+            var groups = await _graphServiceClient.ServicePrincipals[principalId].GetMemberGroups.PostAsGetMemberGroupsPostResponseAsync(
+                new Microsoft.Graph.ServicePrincipals.Item.GetMemberGroups.GetMemberGroupsPostRequestBody
                 {
-                    groupMembership.Add(group);
+                    SecurityEnabledOnly = true
                 }
-
-                // Invoke paging if required.
-                if (!string.IsNullOrEmpty(groups.OdataNextLink))
-                {
-                    groups = await _graphServiceClient.ServicePrincipals[principalId].TransitiveMemberOf.GraphGroup
-                        .WithUrl(groups.OdataNextLink)
-                        .GetAsync();
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            return groupMembership;
+            );
+            if (groups == null || groups.Value == null)
+                return [];
+            return groups.Value.Select(group => new Group { Id = group }).ToList();
         }
     }
 }
