@@ -24,6 +24,9 @@ from foundationallm.models.resource_providers.vectorization import (
     AzureOpenAIEmbeddingProfile
 )
 
+from foundationallm.completions import AzureGatewayOpenAI
+from foundationallm.embeddings import AzureGatewayEmbeddings
+
 class LangChainAgentBase():
     """
     Implements the base functionality for a LangChain agent.
@@ -44,7 +47,7 @@ class LangChainAgentBase():
     def invoke(self, request: CompletionRequestBase) -> CompletionResponse:
         """
         Gets the completion for the request.
-        
+
         Parameters
         ----------
         request : CompletionRequestBase
@@ -65,12 +68,12 @@ class LangChainAgentBase():
 
         if prompt_object_id is None or prompt_object_id == '':
             raise LangChainException("Invalid prompt object id.", 400)
-        
+
         try:
             prompt = MultipartPrompt(**agent_parameters.get(prompt_object_id))
         except Exception as e:
             raise LangChainException(f"The prompt object provided in the agent parameters is invalid. {str(e)}", 400)
-        
+
         if prompt is None:
             raise LangChainException("The prompt object is missing in the agent parameters.", 400)
 
@@ -84,12 +87,12 @@ class LangChainAgentBase():
 
         if indexing_profile_object_id is None or indexing_profile_object_id == '':
             return None
-        
+
         try:
             indexing_profile = AzureAISearchIndexingProfile(**self.__translate_keys(agent_parameters.get(indexing_profile_object_id)))
         except Exception as e:
             raise LangChainException(f"The indexing profile object provided in the agent parameters is invalid. {str(e)}", 400)
-        
+
         if indexing_profile is None:
             raise LangChainException("The indexing object is missing in the agent parameters.", 400)
 
@@ -103,32 +106,32 @@ class LangChainAgentBase():
 
         if text_embedding_profile_object_id is None or text_embedding_profile_object_id == '':
             return None
-        
+
         try:
             text_embedding_profile = AzureOpenAIEmbeddingProfile(**self.__translate_keys(agent_parameters.get(text_embedding_profile_object_id)))
         except Exception as e:
             raise LangChainException(f"The text embedding profile object provided in the agent parameters is invalid. {str(e)}", 400)
-        
+
         if text_embedding_profile is None:
             raise LangChainException("The text embedding profile object is missing in the agent parameters.", 400)
 
         return text_embedding_profile
 
-    def __pascal_to_snake(self, name):  
-        # Convert PascalCase or camelCase to snake_case  
-        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)  
-        return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()  
+    def __pascal_to_snake(self, name):
+        # Convert PascalCase or camelCase to snake_case
+        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+        return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
-    def __translate_keys(self, obj):  
-        if isinstance(obj, dict):  
-            new_dict = {}  
-            for key, value in obj.items():  
-                new_key = self.__pascal_to_snake(key)  
-                new_dict[new_key] = self.__translate_keys(value)  # Recursively apply to values  
-            return new_dict  
-        elif isinstance(obj, list):  
-            return [self.__translate_keys(item) for item in obj]  # Apply to each item in the list  
-        else:  
+    def __translate_keys(self, obj):
+        if isinstance(obj, dict):
+            new_dict = {}
+            for key, value in obj.items():
+                new_key = self.__pascal_to_snake(key)
+                new_dict[new_key] = self.__translate_keys(value)  # Recursively apply to values
+            return new_dict
+        elif isinstance(obj, list):
+            return [self.__translate_keys(item) for item in obj]  # Apply to each item in the list
+        else:
             return obj  # Return the item itself if it's not a dict or list
 
     def _validate_request(self, request: CompletionRequestBase):
@@ -142,13 +145,13 @@ class LangChainAgentBase():
         """
         if request.agent is None:
             raise LangChainException("The Agent property of the completion request cannot be null.", 400)
-        
+
         if request.agent.orchestration_settings is None:
             raise LangChainException("The OrchestrationSettings property of the agent cannot be null.", 400)
-        
+
         if request.agent.orchestration_settings.endpoint_configuration is None:
             raise LangChainException("The EndpointConfiguration property of the OrchestrationSettings cannot be null.", 400)
-        
+
         if request.agent.orchestration_settings.endpoint_configuration.get('endpoint') is None:
             raise LangChainException("The Endpoint property of the agent's OrchestrationSettings.EndpointConfiguration property cannot be null.", 400)
 
@@ -160,7 +163,7 @@ class LangChainAgentBase():
             AuthenticationTypes(autentication_type)
         except ValueError:
             raise LangChainException(f"The authentication type {autentication_type} is not supported.", 400)
-        
+
         provider = request.agent.orchestration_settings.endpoint_configuration.get('provider')
         if provider is None:
             raise LangChainException("The Provider property of the agent's OrchestrationSettings.EndpointConfiguration property cannot be null.", 400)
@@ -174,7 +177,7 @@ class LangChainAgentBase():
             # Verify the endpoint_configuration inludes the api_version property for Azure OpenAI models.
             if request.agent.orchestration_settings.endpoint_configuration.get('api_version') is None:
                 raise LangChainException("The ApiVersion property of the agent's OrchestrationSettings.EndpointConfiguration property cannot be null.", 400)
-            
+
             # model_parameters is required to provide the deployment_name for Azure OpenAI models.
             if request.agent.orchestration_settings.model_parameters is None:
                 raise LangChainException("The ModelParameters property of the OrchestrationSettings cannot be null.", 400)
@@ -213,7 +216,7 @@ class LangChainAgentBase():
         ----------
         prompt : str
             The prompt that is populated with context.
-        
+
         Returns
         -------
         str
@@ -257,7 +260,7 @@ class LangChainAgentBase():
                 raise ValueError(f"API Key is required for completion requests using {endpoint_settings.authentication_type}-based authentication.")
 
         return endpoint_settings
-        
+
 
     def _get_language_model(
             self,
@@ -281,7 +284,7 @@ class LangChainAgentBase():
             Returns an API connector for a chat completion model.
         """
         endpoint_settings = self.__extract_endpoint_configuration(agent_orchestration_settings.endpoint_configuration)
-                
+
         langauge_model:BaseLanguageModel = None
 
         if endpoint_settings.provider == LanguageModelProvider.MICROSOFT:
@@ -302,7 +305,7 @@ class LangChainAgentBase():
                         DefaultAzureCredential(exclude_environment_credential=True),
                         'https://cognitiveservices.azure.com/.default'
                     )
-                
+
                     langauge_model = (
                         AzureChatOpenAI(
                             azure_endpoint=endpoint_settings.endpoint,
@@ -336,6 +339,14 @@ class LangChainAgentBase():
                         azure_deployment=deployment_name
                     )
                 )
+        elif endpoint_settings.provider == LanguageModelProvider.GATEWAY:
+            langauge_model = AzureGatewayOpenAI(
+                            azure_endpoint=endpoint_settings.endpoint,
+                            api_version=endpoint_settings.api_version,
+                            openai_api_type=endpoint_settings.api_type,
+                            azure_ad_token_provider=token_provider,
+                            azure_deployment=deployment_name
+                        )
         else:
             langauge_model = (
                 ChatOpenAI(base_url=endpoint_settings.endpoint, api_key=endpoint_settings.api_key)
@@ -349,7 +360,7 @@ class LangChainAgentBase():
                 setattr(langauge_model, key, value)
 
         # Override model parameters from completion request settings, if any exist.
-        if model_override_settings is not None and model_override_settings.model_parameters is not None:            
+        if model_override_settings is not None and model_override_settings.model_parameters is not None:
             for key, value in model_override_settings.model_parameters.items():
                 if hasattr(langauge_model, key):
                     setattr(langauge_model, key, value)

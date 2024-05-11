@@ -1,16 +1,13 @@
-using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Instrumentation;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Azure;
+using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Vectorization;
-using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Gateway.Exceptions;
 using FoundationaLLM.Gateway.Instrumentation;
 using FoundationaLLM.Gateway.Interfaces;
 using FoundationaLLM.Gateway.Models;
 using FoundationaLLM.Gateway.Models.Configuration;
-using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using FoundationaLLM.SemanticKernel.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -42,6 +39,8 @@ namespace FoundationaLLM.Gateway.Services
         private Dictionary<string, EmbeddingModelContext> _embeddingModels = [];
 
         private ConcurrentDictionary<string, EmbeddingOperationContext> _embeddingOperations = [];
+
+        private Dictionary<string, SlidingWindowRateLimiter> _modelLimits = [];
 
         /// <inheritdoc/>
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -75,16 +74,39 @@ namespace FoundationaLLM.Gateway.Services
                                     {
                                         ModelName = deployment.ModelName,
                                         DeploymentContexts = [embeddingModelContext],
-                                        EmbeddingOperationIds = [],
                                         RequestCount = new SlidingWindowRateLimiter(deployment.RequestRateLimit, deployment.RequestRateRenewalPeriod, "embeddings.request.count"),
                                         TokenCount = new SlidingWindowRateLimiter(deployment.TokenRateLimit / 6, deployment.TokenRateRenewalPeriod / 6, "embeddings.token.count")
                                     };
                                 else
                                     _embeddingModels[deployment.ModelName].DeploymentContexts.Add(embeddingModelContext);
 
-                                _gatewayInstrumentation.EmbeddingModels.Add(deployment.ModelName, _embeddingModels[deployment.ModelName]);
+                                //_gatewayInstrumentation.EmbeddingModels.Add(deployment.ModelName, _embeddingModels[deployment.ModelName]);
 
-                                _gatewayInstrumentation.AddEmbeddingModel(_embeddingModels[deployment.ModelName]);
+                                //_gatewayInstrumentation.AddEmbeddingModel(_embeddingModels[deployment.ModelName]);
+                            }
+
+                            if (deployment.CanDoCompletions)
+                            {
+                                var embeddingModelContext = new EmbeddingModelDeploymentContext(
+                                    deployment,
+                                    _loggerFactory);
+
+                                if (!_embeddingModels.ContainsKey(deployment.ModelName))
+                                    _embeddingModels[deployment.ModelName] = new EmbeddingModelContext(
+                                        _embeddingOperations,
+                                        _loggerFactory.CreateLogger<EmbeddingModelContext>())
+                                    {
+                                        ModelName = deployment.ModelName,
+                                        DeploymentContexts = [embeddingModelContext],
+                                        RequestCount = new SlidingWindowRateLimiter(deployment.RequestRateLimit, deployment.RequestRateRenewalPeriod, "completions.request.count"),
+                                        TokenCount = new SlidingWindowRateLimiter(deployment.TokenRateLimit / 6, deployment.TokenRateRenewalPeriod / 6, "completions.token.count")
+                                    };
+                                else
+                                    _embeddingModels[deployment.ModelName].DeploymentContexts.Add(embeddingModelContext);
+
+                                //_gatewayInstrumentation.EmbeddingModels.Add(deployment.ModelName, _embeddingModels[deployment.ModelName]);
+
+                                //_gatewayInstrumentation.AddEmbeddingModel(_embeddingModels[deployment.ModelName]);
                             }
                         }
                     }
@@ -123,43 +145,6 @@ namespace FoundationaLLM.Gateway.Services
                 .ToArray();
 
             await Task.WhenAll(modelTasks);
-        }
-
-        private async Task ExecuteForModelAsync(EmbeddingModelContext modelContext, CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("The Gateway core started the processor for the {ModelName} model.", modelContext.ModelName);
-
-            while (true)
-            {
-                if (cancellationToken.IsCancellationRequested) return;
-
-                var operationId  = string.Empty;
-                var operationContext = default(EmbeddingOperationContext);
-
-                try
-                {
-
-                    if (modelContext.EmbeddingOperationIds.TryDequeue(out operationId)
-                        && _embeddingOperations.TryGetValue(operationId, out operationContext))
-                    {
-                        var embeddingService = modelContext.SelectTextEmbeddingService();
-                        var result = await embeddingService.GetEmbeddingsAsync(operationContext.Request.TextChunks);
-
-                        operationContext.SetEmbeddings(result.TextChunks);
-                        operationContext.SetComplete();
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "The embedding operation with id {EmbeddingOperationId} encountered an error and was cancelled.",
-                        operationId);
-
-                    operationContext!.SetError(ex.Message);
-                }
-
-                await Task.Delay(TimeSpan.FromSeconds(10));
-            }
         }
 
         /// <inheritdoc/>
@@ -230,15 +215,66 @@ namespace FoundationaLLM.Gateway.Services
                 return await Task.FromResult(operationContext.Result);
         }
 
-        private ITextEmbeddingService CreateTextEmbeddingService(string endpoint, string deploymentName)
-            =>  new SemanticKernelTextEmbeddingService(
-                Options.Create<SemanticKernelTextEmbeddingServiceSettings>(new SemanticKernelTextEmbeddingServiceSettings
+        public Task<CompletionResponse> StartCompletionOperation(CompletionRequest completionRequest)
+        {
+            if (!_initialized)
+                throw new GatewayException("The Gateway service is not initialized.");
+
+            if (!_embeddingModels.TryGetValue(completionRequest.Settings.ModelParameters["model_name"].ToString(), out var embeddingModel))
+                throw new GatewayException("The requested embedding model is not available.", StatusCodes.Status404NotFound);
+
+            var operationId = Guid.NewGuid().ToString().ToLower();
+
+            return default;
+        }
+
+        public Task<CompletionResponse> GetCompletionOperationResult(string operationId) => throw new NotImplementedException();
+
+        public async Task<bool> AddModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod)
+        {
+            EmbeddingModelContext model;
+
+            if (!_gatewayInstrumentation.EmbeddingModels.TryGetValue(modelId, out model))
+            {
+                model = new EmbeddingModelContext(_embeddingOperations,
+                                        _loggerFactory.CreateLogger<EmbeddingModelContext>())
                 {
-                    AuthenticationType = AzureOpenAIAuthenticationTypes.AzureIdentity,
-                    Endpoint = endpoint,
-                    DeploymentName = deploymentName
-                }),
-                _loggerFactory.CreateLogger<SemanticKernelTextEmbeddingService>(),
-                _gatewayInstrumentation);
+                    ModelName = modelId,
+                    DeploymentContexts = [],
+                    RequestCount = new SlidingWindowRateLimiter(requestRateLimit, requestRateRenewalPeriod, "embeddings.request.count"),
+                    TokenCount = new SlidingWindowRateLimiter(tokenRateLimit / 6, tokenRateRenewalPeriod / 6, "embeddings.token.count")
+                };
+
+                _gatewayInstrumentation.EmbeddingModels.Add(modelId, model);
+            }
+
+            return true;
+        }
+
+
+        public async Task<bool> TryConsume(string modelId, int tokenCount)
+        {
+            if (!_initialized)
+                throw new GatewayException("The Gateway service is not initialized.");
+
+            EmbeddingModelContext model;
+
+            if ( !_gatewayInstrumentation.EmbeddingModels.TryGetValue(modelId, out model))
+            {
+                throw new Exception("Model was not found, call AddModel first.");
+            }
+            
+            bool requestValid = model.RequestCount.TryConsume(1);
+            bool tokenValid = model.TokenCount.TryConsume(tokenCount);
+
+            if ( requestValid && tokenValid)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

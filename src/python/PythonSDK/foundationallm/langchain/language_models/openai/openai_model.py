@@ -8,6 +8,7 @@ from foundationallm.models.language_models import (
     EmbeddingModel,
     LanguageModelProvider
 )
+from foundationallm.embeddings import AzureGatewayEmbeddings
 
 class OpenAIModel(LanguageModelBase):
     """OpenAI Completion model."""
@@ -16,7 +17,7 @@ class OpenAIModel(LanguageModelBase):
     def __init__(self, config: Configuration):
         """
         Initializes an OpenAI completion language model.
-        
+
         Parameters
         ----------
         language_model: LanguageModel
@@ -29,7 +30,7 @@ class OpenAIModel(LanguageModelBase):
     # def get_completion_model(self, language_model: LanguageModel) -> BaseLanguageModel:
     #     """
     #     Returns an OpenAI completion model.
-        
+
     #     Returns
     #     -------
     #     BaseLanguageModel
@@ -45,7 +46,7 @@ class OpenAIModel(LanguageModelBase):
     #     azure_deployment_name = language_model.deployment
     #     temperature = language_model.temperature or 0.0
 
-    #     if language_model.provider == LanguageModelProvider.MICROSOFT:        
+    #     if language_model.provider == LanguageModelProvider.MICROSOFT:
     #         if use_chat:
     #             return AzureChatOpenAI(
     #                 api_key = openai_api_key,
@@ -82,7 +83,7 @@ class OpenAIModel(LanguageModelBase):
     def get_embedding_model(self, embedding_model: EmbeddingModel) -> Embeddings:
         """
         Retrieves the OpenAI embedding model.
-        
+
         Returns
         -------
         Embeddings
@@ -99,11 +100,22 @@ class OpenAIModel(LanguageModelBase):
                 azure_endpoint = self.config.get_value(embedding_model.api_endpoint),
                 chunk_size = embedding_model.chunk_size
             )
-        else:
+        elif embedding_model.provider == LanguageModelProvider.GATEWAY:
+            return AzureGatewayEmbeddings(
+                api_key = self.config.get_value(embedding_model.api_key),
+                api_version = self.config.get_value(embedding_model.api_version),
+                azure_endpoint = self.config.get_value(embedding_model.api_endpoint),
+                chunk_size = embedding_model.chunk_size or 1000,
+                deployment = self.config.get_value(embedding_model.deployment),
+                model = self.config.get_value(embedding_model.model),
+                gateway_api_key = self.config.get_value("FoundationaLLM:APIs:GatewayAPI:APIKey"),
+                gateway_api_url = self.config.get_value("FoundationaLLM:APIs:GatewayAPI:APIUrl")
+            )
+        elif embedding_model.provider == LanguageModelProvider.OPENAI:
             return OpenAIEmbeddings(
                 api_key = self.config.get_value(embedding_model.api_key),
                 api_version = self.config.get_value(embedding_model.api_version),
-                base_url = self.config.get_value(embedding_model.api_endpoint),
+                azure_endpoint = self.config.get_value(embedding_model.api_endpoint),
                 chunk_size = embedding_model.chunk_size or 1000,
                 deployment = self.config.get_value(embedding_model.deployment),
                 model = self.config.get_value(embedding_model.model)

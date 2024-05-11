@@ -1,6 +1,4 @@
 ﻿using FoundationaLLM.Common.Instrumentation;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Metadata;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
@@ -141,10 +139,5 @@ namespace FoundationaLLM.Gateway.Models
         public SlidingWindowRateLimiter RequestCount { get; set; }
 
         public SlidingWindowRateLimiter TokenCount { get; set; }
-
-        public ITextEmbeddingService SelectTextEmbeddingService() =>
-            // For now, we are using the first model in the list, which is supposed to always be from the primary account.
-            // In the future, we will add load balancing approach to offload work to other accounts as welll.
-            DeploymentContexts.First().TextEmbeddingService;
     }
 }

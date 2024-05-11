@@ -1,6 +1,8 @@
 ﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Gateway.Interfaces;
+using FoundationaLLM.Gateway.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FoundationaLLM.Vectorization.Services.Text
 {
@@ -24,5 +26,6 @@ namespace FoundationaLLM.Vectorization.Services.Text
         /// <inheritdoc/>
         public async Task<TextEmbeddingResult> GetEmbeddingsAsync(string operationId) =>
             await _gatewayService.GetEmbeddingOperationResult(operationId);
+
     }
 }

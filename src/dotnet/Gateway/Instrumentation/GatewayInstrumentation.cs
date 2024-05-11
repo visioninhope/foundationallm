@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.Gateway.Models;
-using Microsoft.Graph.Models;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 
@@ -7,8 +6,8 @@ namespace FoundationaLLM.Gateway.Instrumentation
 {
     public class GatewayInstrumentation : IDisposable
     {
-        internal const string ActivitySourceName = "FoundationaLLM.GatewayAPI";
-        internal const string MeterName = "FoundationaLLM.GatewayAPI.AzureOpenAI";
+        public const string ActivitySourceName = "FoundationaLLM.GatewayAPI";
+        public const string MeterName = "FoundationaLLM.GatewayAPI.AzureOpenAI";
         public Meter Meter { get; }
 
         public Dictionary<string, EmbeddingModelContext> EmbeddingModels { get; set; }

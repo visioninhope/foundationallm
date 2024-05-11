@@ -7,7 +7,6 @@ using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Linq;
 using System.Text.Json;
 
 namespace FoundationaLLM.Gateway.Models

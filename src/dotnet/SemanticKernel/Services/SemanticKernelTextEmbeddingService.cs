@@ -1,16 +1,13 @@
 ﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Instrumentation;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
-using FoundationaLLM.Gateway.Instrumentation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Http.Resilience;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Graph.Models;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Embeddings;
 using System.Net;
@@ -29,7 +26,6 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         private readonly ILogger<SemanticKernelTextEmbeddingService> _logger;
         private readonly Kernel _kernel;
         private readonly ITextEmbeddingGenerationService _textEmbeddingService;
-        private GatewayInstrumentation _gatewayInstrumentation;
 
         /// <summary>
         /// Creates a new <see cref="SemanticKernelTextEmbeddingService"/> instance.
@@ -38,22 +34,18 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to create loggers for logging.</param>
         public SemanticKernelTextEmbeddingService(
             IOptions<SemanticKernelTextEmbeddingServiceSettings> options,
-            ILoggerFactory loggerFactory,
-            ILogger<SemanticKernelTextEmbeddingService> logger,
-            GatewayInstrumentation gatewayInstrumentation)
+            ILoggerFactory loggerFactory)
         {
             _settings = options.Value;
             _loggerFactory = loggerFactory;
             _logger = _loggerFactory.CreateLogger<SemanticKernelTextEmbeddingService>();
             _kernel = CreateKernel();
             _textEmbeddingService = _kernel.GetRequiredService<ITextEmbeddingGenerationService>();
-            _gatewayInstrumentation = gatewayInstrumentation;
         }
 
         /// <inheritdoc/>
         public async Task<TextEmbeddingResult> GetEmbeddingsAsync(IList<TextChunk> textChunks, string modelName = "text-embedding-ada-002")
         {
-            try
             List<ReadOnlyMemory<float>> embeddings = new List<ReadOnlyMemory<float>>();
 
             foreach(TextChunk tc in textChunks)
@@ -69,12 +61,14 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                     while (true)
                     {
                         //add a request to the counter
-                        _gatewayInstrumentation.EmbeddingsRequests.Add(0.5);
-                        bool allowRequests = _gatewayInstrumentation.EmbeddingModels[modelName].RequestCount.TryConsume(1);
+                        //_gatewayInstrumentation.EmbeddingsRequests.Add(0.5);
+                        //bool allowRequests = _gatewayInstrumentation.EmbeddingModels[modelName].RequestCount.TryConsume(1);
 
                         //add up all the tokens that were sent
-                        _gatewayInstrumentation.EmbeddingsTokens.Add(tc.TokensCount / 2);
-                        bool allowTokens = _gatewayInstrumentation.EmbeddingModels[modelName].TokenCount.TryConsume(tc.TokensCount);
+                        //_gatewayInstrumentation.EmbeddingsTokens.Add(tc.TokensCount / 2);
+                        //bool allowTokens = _gatewayInstrumentation.EmbeddingModels[modelName].TokenCount.TryConsume(tc.TokensCount);
+                        bool allowRequests = true;
+                        bool allowTokens = true;
 
                         if (allowRequests && allowTokens)
                         {
@@ -103,9 +97,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
 
             //var embeddings = await _textEmbeddingService.GenerateEmbeddingsAsync(textChunks.Select(tc => tc.Content!).ToList());
 
-            return new TextEmbeddingResult
+            try
             {
-                var embeddings = await _textEmbeddingService.GenerateEmbeddingsAsync(textChunks.Select(tc => tc.Content!).ToList());
                 return new TextEmbeddingResult
                 {
                     InProgress = false,

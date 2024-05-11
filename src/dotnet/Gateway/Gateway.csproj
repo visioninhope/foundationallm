@@ -13,8 +13,4 @@
     <ProjectReference Include="..\SemanticKernel\SemanticKernel.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Instrumentation\" />
-  </ItemGroup>
-
 </Project>

@@ -57,6 +57,10 @@
             (Capabilities?.ContainsKey("embeddings") ?? false)
             && (Capabilities["embeddings"] == "true");
 
+        public bool CanDoCompletions =>
+            (Capabilities?.ContainsKey("chatCompletion") ?? false)
+            && (Capabilities["chatCompletion"] == "true");
+
         /// <summary>
         /// The maximum number of inputs that can be sent to the model for embeddings.
         /// </summary>

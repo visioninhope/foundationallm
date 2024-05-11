@@ -2,18 +2,15 @@
 using Azure.Monitor.OpenTelemetry.Exporter;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Instrumentation;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Security;
-using FoundationaLLM.Gateway.Instrumentation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
-using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -59,7 +56,6 @@ namespace FoundationaLLM
                 .WithTracing(builder=>
                 {
                     builder
-                    .AddSource(GatewayInstrumentation.ActivitySourceName)
                     .SetSampler(new AlwaysOnSampler())
                     .AddHttpClientInstrumentation()
                     .AddAspNetCoreInstrumentation();
@@ -71,7 +67,6 @@ namespace FoundationaLLM
                 .WithMetrics(builder =>
                 {
                     builder
-                    .AddMeter(GatewayInstrumentation.MeterName)
                     //.AddRuntimeInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddAspNetCoreInstrumentation();

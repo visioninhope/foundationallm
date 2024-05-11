@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Vectorization;
+﻿using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Vectorization;
 
 namespace FoundationaLLM.Gateway.Interfaces
 {
@@ -20,5 +21,13 @@ namespace FoundationaLLM.Gateway.Interfaces
         /// <param name="operationId">The unique identifier of the text embedding operation.</param>
         /// <returns>A <see cref="TextEmbeddingResult"/> object with the outcome of the operation.</returns>
         Task<TextEmbeddingResult> GetEmbeddingOperationResult(string operationId);
+
+        Task<CompletionResponse> StartCompletionOperation(CompletionRequest completionRequest);
+
+        Task<CompletionResponse> GetCompletionOperationResult(string operationId);
+
+        Task<bool> TryConsume(string modelId, int tokenCount);
+
+        Task<bool> AddModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod);
     }
 }
