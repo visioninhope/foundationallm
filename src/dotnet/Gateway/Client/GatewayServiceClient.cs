@@ -73,9 +73,9 @@ namespace FoundationaLLM.Gateway.Client
             return false;
         }
 
-        public async Task<CompletionResponse> GetCompletionOperationResult(string operationId)
+        public async Task<CompletionResult> GetCompletionOperationResult(string operationId)
         {
-            CompletionResponse fallback = default;
+            CompletionResult fallback = default;
 
             var client = GetHttpClient();
             var response = await client.GetAsync($"completions?operationId={operationId}");
@@ -83,7 +83,7 @@ namespace FoundationaLLM.Gateway.Client
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var embeddingResult = JsonSerializer.Deserialize<CompletionResponse>(responseContent);
+                var embeddingResult = JsonSerializer.Deserialize<CompletionResult>(responseContent);
 
                 return embeddingResult ?? fallback;
             }
@@ -113,9 +113,9 @@ namespace FoundationaLLM.Gateway.Client
             return fallback;
         }
 
-        public async Task<CompletionResponse> StartCompletionOperation(CompletionRequest completionRequest)
+        public async Task<CompletionResult> StartCompletionOperation(GatewayCompletionRequest completionRequest)
         {
-            CompletionResponse fallback = default;
+            CompletionResult fallback = default;
 
             var client = GetHttpClient();
             var serializedRequest = JsonSerializer.Serialize(completionRequest);
@@ -128,7 +128,7 @@ namespace FoundationaLLM.Gateway.Client
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var embeddingResult = JsonSerializer.Deserialize<CompletionResponse>(responseContent);
+                var embeddingResult = JsonSerializer.Deserialize<CompletionResult>(responseContent);
 
                 return embeddingResult ?? fallback;
             }

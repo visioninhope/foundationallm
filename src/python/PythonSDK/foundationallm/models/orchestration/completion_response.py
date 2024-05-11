@@ -1,4 +1,4 @@
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Dict
 from pydantic import BaseModel
 from .citation import Citation
 
@@ -11,6 +11,7 @@ class CompletionResponse(BaseModel):
     completion: Union[str, set, List[str]]
     citations: Optional[List[Citation]] = []
     user_prompt_embedding: Optional[List[float]] = []
+    meta_data: Optional[Dict] = None
     prompt_tokens: int = 0
     completion_tokens: int = 0
     total_tokens: int = 0

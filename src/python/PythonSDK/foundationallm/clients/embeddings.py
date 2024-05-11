@@ -9,6 +9,18 @@ from typing_extensions import Literal
 import httpx
 import openai
 
+from openai import _legacy_response
+from openai.types import CreateEmbeddingResponse, embedding_create_params
+from openai._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from openai._utils import is_given, maybe_transform
+from openai._compat import cached_property
+from openai._extras import numpy as np, has_numpy
+from openai._resource import SyncAPIResource, AsyncAPIResource
+from openai._response import to_streamed_response_wrapper, async_to_streamed_response_wrapper
+from openai._base_client import (
+    make_request_options,
+)
+
 __all__ = ["Embeddings", "AsyncEmbeddings"]
 
 class Embeddings(SyncAPIResource):

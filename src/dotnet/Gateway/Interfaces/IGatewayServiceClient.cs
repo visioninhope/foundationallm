@@ -22,9 +22,9 @@ namespace FoundationaLLM.Gateway.Interfaces
         /// <returns>A <see cref="TextEmbeddingResult"/> object with the outcome of the operation.</returns>
         Task<TextEmbeddingResult> GetEmbeddingOperationResult(string operationId);
 
-        Task<CompletionResponse> StartCompletionOperation(CompletionRequest completionRequest);
+        Task<CompletionResult> StartCompletionOperation(GatewayCompletionRequest completionRequest);
 
-        Task<CompletionResponse> GetCompletionOperationResult(string operationId);
+        Task<CompletionResult> GetCompletionOperationResult(string operationId);
 
         Task<bool> TryConsume(string modelId, int tokenCount);
 

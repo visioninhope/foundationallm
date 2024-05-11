@@ -1,7 +1,7 @@
 from typing import List, Optional
 from pydantic import BaseModel
 
-from foundationallm.embeddings import TextChunk
+from .text_chunk import TextChunk
 
 class TextEmbeddingResult(BaseModel):
     in_progress: Optional[bool] = False

@@ -10,10 +10,10 @@ namespace FoundationaLLM.Gateway.Models
     /// <param name="embeddingOperations">The global dictionary of <see cref="EmbeddingOperationContext"/> objects indexed by operation identifier.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
     public class EmbeddingModelContext(
-        ConcurrentDictionary<string, EmbeddingOperationContext> embeddingOperations,
+        ConcurrentDictionary<string, EmbeddingOperationContext> operations,
         ILogger<EmbeddingModelContext> logger)
     {
-        private readonly ConcurrentDictionary<string, EmbeddingOperationContext> _embeddingOperations = embeddingOperations;
+        private readonly ConcurrentDictionary<string, EmbeddingOperationContext> _embeddingOperations = operations;
         private readonly ILogger<EmbeddingModelContext> _logger = logger;
         private readonly object _syncRoot = new();
 
@@ -30,9 +30,9 @@ namespace FoundationaLLM.Gateway.Models
         /// <summary>
         /// The list of active embedding operation identifiers.
         /// </summary>
-        private readonly List<string> _embeddingOperationIds = [];
+        private readonly List<string> _operationIds = [];
 
-        public void AddEmbeddingOperationContext(EmbeddingOperationContext embeddingOperationContext)
+        public void AddOperationContext(EmbeddingOperationContext embeddingOperationContext)
         {
             _embeddingOperations.AddOrUpdate(
                 embeddingOperationContext.Result.OperationId!,
@@ -41,7 +41,7 @@ namespace FoundationaLLM.Gateway.Models
 
             lock (_syncRoot)
             {
-                _embeddingOperationIds.Add(embeddingOperationContext.Result.OperationId!);
+                _operationIds.Add(embeddingOperationContext.Result.OperationId!);
             }
         }
 
@@ -65,10 +65,11 @@ namespace FoundationaLLM.Gateway.Models
                         var currentDeploymentContextIndex = 0;
                         var capacityReached = false;
 
-                        foreach (var operationId in _embeddingOperationIds)
+                        foreach (var operationId in _operationIds)
                         {
                             if (_embeddingOperations.TryGetValue(operationId, out var operationContext)
                                 && operationContext.Result.InProgress)
+
                                 foreach (var inputTextChunk in operationContext.Result.TextChunks
                                     .Where(tc => tc.Embedding == null)
                                     .Select(tc => operationContext.InputTextChunks[tc.Position - 1]))
@@ -124,7 +125,7 @@ namespace FoundationaLLM.Gateway.Models
                         lock (_syncRoot)
                         {
                             if (!_embeddingOperations[successfulOperation.OperationId!].Result.InProgress)
-                            _embeddingOperationIds.Remove(successfulOperation.OperationId!);
+                                _operationIds.Remove(successfulOperation.OperationId!);
                         }
                     }
                 }

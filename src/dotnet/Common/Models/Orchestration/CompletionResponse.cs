@@ -56,6 +56,12 @@ public class CompletionResponse
     public int CompletionTokens { get; set; } = 0;
 
     /// <summary>
+    /// The operation meta data
+    /// </summary>
+    [JsonPropertyName("meta_data")]
+    public Dictionary<string, object> MetaData { get; set; }
+
+    /// <summary>
     /// The total number of tokens.
     /// </summary>
     [JsonPropertyName("total_tokens")]

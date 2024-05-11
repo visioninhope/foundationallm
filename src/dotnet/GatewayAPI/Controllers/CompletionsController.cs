@@ -1,6 +1,5 @@
 ﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Gateway.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,20 +14,20 @@ namespace FoundationaLLM.Gateway.API.Controllers
         readonly IGatewayCore _gatewayCore = gatewayCore;
 
         /// <summary>
-        /// Handles an incoming text embedding request by starting a new embedding operation.
+        /// Handles an incoming text completion request by starting a new completion operation.
         /// </summary>
-        /// <param name="embeddingRequest">The <see cref="TextEmbeddingRequest"/> object with the details of the embedding request.</param>
-        /// <returns>A <see cref="TextEmbeddingResult"/> object with the outcome of the operation.</returns>
+        /// <param name="embeddingRequest">The <see cref="GatewayCompletionRequest"/> object with the details of the completion request.</param>
+        /// <returns>A <see cref="GatewayCompletionResult"/> object with the outcome of the operation.</returns>
         [HttpPost]
         public async Task<IActionResult> StartCompletionOperation(
-            [FromBody] CompletionRequest embeddingRequest) =>
+            [FromBody] GatewayCompletionRequest embeddingRequest) =>
             new OkObjectResult(await _gatewayCore.StartCompletionOperation(embeddingRequest));
 
         /// <summary>
-        /// Retrieves the outcome of a text embedding operation.
+        /// Retrieves the outcome of a text completion operation.
         /// </summary>
-        /// <param name="operationId">The unique identifier of the text embedding operation.</param>
-        /// <returns>A <see cref="TextEmbeddingResult"/> object with the outcome of the operation.</returns>
+        /// <param name="operationId">The unique identifier of the text completion operation.</param>
+        /// <returns>A <see cref="GatewayCompletionResult"/> object with the outcome of the operation.</returns>
         [HttpGet]
         public async Task<IActionResult> GetCompletionOperationResult(string operationId) =>
             new OkObjectResult(await _gatewayCore.GetCompletionOperationResult(operationId));

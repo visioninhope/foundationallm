@@ -9,16 +9,17 @@ from typing import List, Union, Iterable, cast
 from typing_extensions import Literal
 
 import httpx
-
 import openai
+
 from langchain_core.pydantic_v1 import Field, root_validator
 from langchain_core.utils import get_from_dict_or_env
 
 from langchain_openai.embeddings.base import OpenAIEmbeddings
-from foundationallm.clients.gateway_client import GatewayClient
-from foundationallm.embeddings import EmbeddingRequest, TextChunk
 
-class AzureGatewayEmbeddings(OpenAIEmbeddings):
+from foundationallm.models.embedding import TextChunk, EmbeddingRequest
+from foundationallm.clients import GatewayClient
+
+class GatewayAzureEmbeddings(OpenAIEmbeddings):
     """`Azure OpenAI` Embeddings API."""
 
     gateway_api_key: Union[str, None] = None
@@ -216,7 +217,5 @@ class AzureGatewayEmbeddings(OpenAIEmbeddings):
 
         request = EmbeddingRequest(text_chunks=text_chunks, embedding_model_name=self.model)
         res = self.client.get_embedding(request)
-
-
 
         return res

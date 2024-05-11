@@ -6,7 +6,7 @@ namespace FoundationaLLM.Gateway.Models
     /// <summary>
     /// Maintains the context for an embedding operation.
     /// </summary>
-    public class EmbeddingOperationContext
+    public class EmbeddingOperationContext : OperationContext
     {
         private readonly object _syncRoot = new();
 

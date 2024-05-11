@@ -131,6 +131,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             ValidateEndpoint(_settings.Endpoint);
 
             var builder = Kernel.CreateBuilder();
+
             if (_settings.AuthenticationType == AzureOpenAIAuthenticationTypes.AzureIdentity)
             {
                 builder.AddAzureOpenAITextEmbeddingGeneration(

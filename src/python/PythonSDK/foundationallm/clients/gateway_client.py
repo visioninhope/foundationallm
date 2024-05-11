@@ -3,14 +3,21 @@ import openai
 import json
 import os
 import httpx
+import tiktoken
+import time
 
-from typing import Union, Mapping, Literal, List, Iterable, Optional, cast
+from typing import Union, Mapping, Literal, List, Iterable, Optional, cast, Set, Sequence
 from httpx import Timeout
 
 from openai.types import CreateEmbeddingResponse
 
-from foundationallm.models.orchestration import CompletionRequestBase, CompletionResponse
-from foundationallm.embeddings import EmbeddingRequest, TextEmbeddingResult
+from foundationallm.models.orchestration import CompletionRequestBase, CompletionResponse, GatewayCompletionRequest, OrchestrationSettings
+from foundationallm.models.embedding import EmbeddingRequest, TextEmbeddingResult
+from foundationallm.models.completion import CompletionResult
+
+from .chat import Chat
+from .completions import Completions
+from .embeddings import Embeddings
 
 RAW_RESPONSE_HEADER = "X-Stainless-Raw-Response"
 OVERRIDE_CAST_TO_HEADER = "____stainless_override_cast_to"
@@ -64,10 +71,9 @@ class GatewayClient:
         """
         #self._default_stream_cls = Stream
 
-        #self.completions = resources.Completions(self)
-        #self.chat = resources.Chat(self)
-        #self.embeddings = resources.Embeddings(self)
-        #self.embeddings = Embeddings(self)
+        self.completions = Completions(self)
+        self.chat = Chat(self)
+        self.embeddings = Embeddings(self)
         #self.files = resources.Files(self)
         #self.images = resources.Images(self)
         #self.audio = resources.Audio(self)
@@ -100,29 +106,37 @@ class GatewayClient:
 
         return response.json()
 
-    def get_completion(self, request:CompletionRequestBase)->CompletionResponse:
+    def get_completion(self, request:GatewayCompletionRequest, timeout=60)->CompletionResult:
         url = f'{self.gateway_api_url}/completions'
-        headers = {'x-api-key': self.gateway_api_key}
+        headers = {'x-api-key': self.gateway_api_key, 'Content-Type': 'application/json'}
 
         data = request.model_dump()
 
-        response = requests.post(url, headers=headers, json=data)
+        response = requests.post(url, headers=headers, json=data, verify=False)
 
-        return response.json()
+        result = CompletionResult(**response.json())
 
-    def get_completion_result(self, request : CompletionRequestBase)->CompletionResponse:
+        #only wait for the timeout in seconds
+        timeout = time.time() + timeout
 
-        url = f'{self.gateway_api_url}/embeddings?operationId={request.operation_id}'
-        headers = {'x-api-key': self.gateway_api_key}
+        while(result.in_progress and result.error_message == None and time.time() < timeout):
+            result = self.get_completion_result(result)
+
+        return result
+
+    def get_completion_result(self, request : GatewayCompletionRequest)->CompletionResult:
+
+        url = f'{self.gateway_api_url}/completions?operationId={request.operation_id}'
+        headers = {'x-api-key': self.gateway_api_key, 'Content-Type': 'application/json'}
 
         data = request.model_dump()
 
         response = requests.get(url, headers=headers, verify=False)
-        result = CompletionRequestBase(**response.json())
+        result = CompletionResult(**response.json())
 
         return result
 
-    def get_embedding(self, request : EmbeddingRequest)->TextEmbeddingResult:
+    def get_embedding(self, request : EmbeddingRequest, timeout=60)->TextEmbeddingResult:
 
         url = f'{self.gateway_api_url}/embeddings'
         headers = {'x-api-key': self.gateway_api_key}
@@ -133,7 +147,10 @@ class GatewayClient:
 
         result = TextEmbeddingResult(**response.json())
 
-        while(result.in_progress):
+        #only wait for the timeout in seconds
+        timeout = time.time() + timeout
+
+        while(result.in_progress and result.error_message == None and time.time() < timeout):
             result = self.get_embedding_result(result)
 
         return result
@@ -209,4 +226,57 @@ class GatewayClient:
             "encoding_format": encoding_format,
         }
 
+        return None
+
+    def get(self, url, options=None, cast_to=None, stream=None, stream_cls=None):
+        url = f'{self.gateway_api_url}/{url}'
+        headers = {'x-api-key': self.gateway_api_key}
+        response = requests.get(url, headers=headers, verify=False)
+        return response
+
+    def post(self, url, body, options=None, cast_to=None, stream=None, stream_cls=None):
+
+        #get the tokens
+        model = "cl100k_base"
+        encoding = tiktoken.get_encoding(model)
+        allowed_special: Union[Literal["all"], Set[str]] = set()
+        disallowed_special: Union[Literal["all"], Set[str], Sequence[str]] = "all"
+        token = encoding.encode(
+                text=body['user_prompt'],
+                allowed_special=allowed_special,
+                disallowed_special=disallowed_special,
+            )
+
+        body['tokens_count'] = len(token)
+
+        if ( url == "completions" or url == "chat"):
+            url = "completions"
+            req = GatewayCompletionRequest(**body)
+            req.settings = OrchestrationSettings()
+            req.settings.model_parameters = {"model_name": body['model']}
+            data = req.model_dump()
+            result = self.get_completion(req)
+            return result
+
+        return None
+
+    def patch(self, url, body, options=None, cast_to=None, stream=None, stream_cls=None):
+        url = f'{self.gateway_api_url}/{url}'
+        headers = {'x-api-key': self.gateway_api_key}
+        response = requests.patch(url, headers=headers, json=data, verify=False)
+        return response
+
+    def put(self, url, body, options=None, cast_to=None, stream=None, stream_cls=None):
+        url = f'{self.gateway_api_url}/{url}'
+        headers = {'x-api-key': self.gateway_api_key}
+        response = requests.put(url, headers=headers, json=data, verify=False)
+        return response
+
+    def delete(self, url, body, options=None, cast_to=None, stream=None, stream_cls=None):
+        url = f'{self.gateway_api_url}/{url}'
+        headers = {'x-api-key': self.gateway_api_key}
+        response = requests.delete(url, headers=headers, json=data, verify=False)
+        return response
+
+    def get_api_list(self):
         return None

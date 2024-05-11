@@ -1,3 +1,2 @@
-"""OpenAI language model module"""
-from .gateway_completions import GatewayCompletions
-from .gateway_azure_openai import AzureGatewayOpenAI
+from .gateway_azure_completions_openai import GatewayAzureOpenAI
+from .gateway_azure_chat_openai import GatewayAzureChatOpenAI

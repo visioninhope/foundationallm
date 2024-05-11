@@ -3,19 +3,47 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import Any, Callable, Dict, List, Union
+from typing import Any, Callable, Dict, List, Union, Optional
 
 import openai
 from langchain_core.outputs import ChatResult
 from langchain_core.pydantic_v1 import BaseModel, Field, root_validator
 from langchain_core.utils import get_from_dict_or_env
 
-from langchain_openai.chat_models.base import ChatOpenAI
+from langchain_core.callbacks import (
+    AsyncCallbackManagerForLLMRun,
+    CallbackManagerForLLMRun,
+)
+from langchain_core.language_models import LanguageModelInput
+from langchain_core.language_models.chat_models import (
+    BaseChatModel,
+    agenerate_from_stream,
+    generate_from_stream,
+)
+from langchain_core.messages import (
+    AIMessage,
+    AIMessageChunk,
+    BaseMessage,
+    BaseMessageChunk,
+    ChatMessage,
+    ChatMessageChunk,
+    FunctionMessage,
+    FunctionMessageChunk,
+    HumanMessage,
+    HumanMessageChunk,
+    SystemMessage,
+    SystemMessageChunk,
+    ToolMessage,
+    ToolMessageChunk,
+)
+
+from langchain_openai import AzureChatOpenAI, AzureOpenAI, ChatOpenAI, OpenAI
+
+from foundationallm.clients import GatewayClient
 
 logger = logging.getLogger(__name__)
 
-
-class AzureGatewayOpenAI(ChatOpenAI):
+class GatewayAzureOpenAI(OpenAI):
     """`Azure OpenAI` Chat Completion API.
 
     To use this class you
@@ -177,10 +205,13 @@ class AzureGatewayOpenAI(ChatOpenAI):
             "default_query": values["default_query"],
             "http_client": values["http_client"],
         }
-        values["client"] = openai.AzureOpenAI(**client_params).chat.completions
-        values["async_client"] = openai.AsyncAzureOpenAI(
-            **client_params
-        ).chat.completions
+
+        values["client"] = GatewayClient(**client_params).completions
+        values["async_client"] = GatewayClient(**client_params).completions
+
+        #values["client"] = openai.AzureOpenAI(**client_params).chat.completions
+        #values["async_client"] = openai.AsyncAzureOpenAI(**client_params).chat.completions
+
         return values
 
     @property
@@ -221,3 +252,32 @@ class AzureGatewayOpenAI(ChatOpenAI):
                 chat_result.llm_output["model_name"] = model
 
         return chat_result
+
+    def _generate(
+        self,
+        messages: List[BaseMessage],
+        stop: Optional[List[str]] = None,
+        run_manager: Optional[CallbackManagerForLLMRun] = None,
+        stream: Optional[bool] = None,
+        **kwargs: Any,
+    ) -> ChatResult:
+        should_stream = stream if stream is not None else self.streaming
+
+        if should_stream:
+            stream_iter = self._stream(
+                messages, stop=stop, run_manager=run_manager, **kwargs
+            )
+            return generate_from_stream(stream_iter)
+        message_dicts, params = self._create_message_dicts(messages, stop)
+        params = {
+            **params,
+            **({"stream": stream} if stream is not None else {}),
+            **kwargs,
+        }
+
+        response = self.client.create(messages=message_dicts, **params)
+
+        return self._create_chat_result(response)
+
+    def _create_chat_result(response):
+        pass

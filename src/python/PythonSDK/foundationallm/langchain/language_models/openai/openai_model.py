@@ -8,7 +8,7 @@ from foundationallm.models.language_models import (
     EmbeddingModel,
     LanguageModelProvider
 )
-from foundationallm.embeddings import AzureGatewayEmbeddings
+from foundationallm.embeddings import GatewayAzureEmbeddings
 
 class OpenAIModel(LanguageModelBase):
     """OpenAI Completion model."""
@@ -101,7 +101,7 @@ class OpenAIModel(LanguageModelBase):
                 chunk_size = embedding_model.chunk_size
             )
         elif embedding_model.provider == LanguageModelProvider.GATEWAY:
-            return AzureGatewayEmbeddings(
+            return GatewayAzureEmbeddings(
                 api_key = self.config.get_value(embedding_model.api_key),
                 api_version = self.config.get_value(embedding_model.api_version),
                 azure_endpoint = self.config.get_value(embedding_model.api_endpoint),

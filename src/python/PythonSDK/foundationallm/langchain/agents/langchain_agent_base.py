@@ -24,8 +24,8 @@ from foundationallm.models.resource_providers.vectorization import (
     AzureOpenAIEmbeddingProfile
 )
 
-from foundationallm.completions import AzureGatewayOpenAI
-from foundationallm.embeddings import AzureGatewayEmbeddings
+from foundationallm.completions import GatewayAzureOpenAI, GatewayAzureChatOpenAI
+from foundationallm.embeddings import GatewayAzureEmbeddings
 
 class LangChainAgentBase():
     """
@@ -287,13 +287,14 @@ class LangChainAgentBase():
 
         langauge_model:BaseLanguageModel = None
 
-        if endpoint_settings.provider == LanguageModelProvider.MICROSOFT:
-            # Get Azure OpenAI Chat model settings
-            deployment_name = (model_override_settings.model_parameters.get('deployment_name')
+        deployment_name = (model_override_settings.model_parameters.get('deployment_name')
                                 if model_override_settings is not None
                                     and model_override_settings.model_parameters is not None
                                     and model_override_settings.model_parameters.get('deployment_name') is not None
                                 else agent_orchestration_settings.model_parameters.get('deployment_name'))
+
+        if endpoint_settings.provider == LanguageModelProvider.MICROSOFT:
+            # Get Azure OpenAI Chat model settings
             if deployment_name is None:
                 raise ValueError("Deployment name is required for Azure OpenAI completion requests.")
 
@@ -340,12 +341,24 @@ class LangChainAgentBase():
                     )
                 )
         elif endpoint_settings.provider == LanguageModelProvider.GATEWAY:
-            langauge_model = AzureGatewayOpenAI(
+            langauge_model = GatewayAzureChatOpenAI(
                             azure_endpoint=endpoint_settings.endpoint,
-                            api_version=endpoint_settings.api_version,
+                            deployment_name=deployment_name,
+                            model=agent_orchestration_settings.model_parameters.get('model'),
+                            model_version = "",
                             openai_api_type=endpoint_settings.api_type,
-                            azure_ad_token_provider=token_provider,
-                            azure_deployment=deployment_name
+                            validate_base_url = False,
+                            gateway_api_key = self.config.get_value("FoundationaLLM:APIs:GatewayAPI:APIKey"),
+                            gateway_api_url = self.config.get_value("FoundationaLLM:APIs:GatewayAPI:APIUrl")
+                        ) if endpoint_settings.operation_type == OperationTypes.CHAT else GatewayAzureOpenAI(
+                            azure_endpoint=endpoint_settings.endpoint,
+                            deployment_name=deployment_name,
+                            model=agent_orchestration_settings.model_parameters.get('model'),
+                            model_version = "",
+                            openai_api_type=endpoint_settings.api_type,
+                            validate_base_url = False,
+                            gateway_api_key = self.config.get_value("FoundationaLLM:APIs:GatewayAPI:APIKey"),
+                            gateway_api_url = self.config.get_value("FoundationaLLM:APIs:GatewayAPI:APIUrl")
                         )
         else:
             langauge_model = (
