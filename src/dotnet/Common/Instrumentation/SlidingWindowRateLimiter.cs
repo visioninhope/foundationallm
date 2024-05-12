@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FoundationaLLM.Common.Models.Gateway;
 
 namespace FoundationaLLM.Common.Instrumentation
 {
@@ -18,13 +13,15 @@ namespace FoundationaLLM.Common.Instrumentation
         private readonly int capacity;
         private readonly int windowInSeconds;
         private readonly Queue<SingleCount> window;
+        private readonly ModelContext parent;
 
-        public SlidingWindowRateLimiter(int capacity, int windowInSeconds, string name)
+        public SlidingWindowRateLimiter(int capacity, int windowInSeconds, string name, ModelContext parent)
         {
             this.name = name;
             this.capacity = capacity;
             this.windowInSeconds = windowInSeconds;
             this.window = new Queue<SingleCount>();
+            this.parent = parent;
         }
 
         public bool TryConsume(int val)

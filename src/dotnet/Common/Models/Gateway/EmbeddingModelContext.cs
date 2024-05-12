@@ -1,31 +1,55 @@
 ﻿using FoundationaLLM.Common.Instrumentation;
+using FoundationaLLM.Common.Models.Azure;
+using FoundationaLLM.Common.Models.Gateway;
+using FoundationaLLM.Gateway.Models;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
-namespace FoundationaLLM.Gateway.Models
+namespace FoundationaLLM.Common.Models.Gateway
 {
     /// <summary>
     /// Provides context associated with an embedding model.
     /// </summary>
-    /// <param name="embeddingOperations">The global dictionary of <see cref="EmbeddingOperationContext"/> objects indexed by operation identifier.</param>
+    /// <param name="operations">The global dictionary of <see cref="EmbeddingOperationContext"/> objects indexed by operation identifier.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
-    public class EmbeddingModelContext(
-        ConcurrentDictionary<string, EmbeddingOperationContext> operations,
-        ILogger<EmbeddingModelContext> logger)
+    public class EmbeddingModelContext : ModelContext        
     {
-        private readonly ConcurrentDictionary<string, EmbeddingOperationContext> _embeddingOperations = operations;
-        private readonly ILogger<EmbeddingModelContext> _logger = logger;
-        private readonly object _syncRoot = new();
+        private AzureOpenAIAccountDeployment _deployment;
+        private readonly ConcurrentDictionary<string, EmbeddingOperationContext> _operations;
+        private readonly ILogger<EmbeddingModelContext> _logger;
+
+        public EmbeddingModelContext(
+                       AzureOpenAIAccountDeployment deployment,
+                                  ConcurrentDictionary<string, EmbeddingOperationContext> operations,
+                                             ILogger<EmbeddingModelContext> logger)
+        {
+            _deployment = deployment;
+            _operations = operations;
+            _logger = logger;
+
+            ModelName = deployment.ModelName;
+            RequestCount = new SlidingWindowRateLimiter(deployment.RequestRateLimit, deployment.RequestRateRenewalPeriod, "embeddings.request.count", this);
+            TokenCount = new SlidingWindowRateLimiter(deployment.TokenRateLimit / 6, deployment.TokenRateRenewalPeriod / 6, "embeddings.token.count", this);
+        }
+
+        public EmbeddingModelContext(
+            string modelName,
+            int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod,
+            ConcurrentDictionary<string, EmbeddingOperationContext> operations,
+            ILogger<EmbeddingModelContext> logger)
+        {
+            _logger = logger;
+            _operations = operations;
+
+            ModelName = modelName;
+            RequestCount = new SlidingWindowRateLimiter(requestRateLimit, requestRateRenewalPeriod, "completions.request.count", this);
+            TokenCount = new SlidingWindowRateLimiter(tokenRateLimit / 6, tokenRateRenewalPeriod / 6, "completions.token.count", this);
+        }
 
         /// <summary>
-        /// The name of the embedding model.
+        /// A list of <see cref="EmbeddingModelDeploymentContextBase"/> objects providing contexts for the available deployments for the model.
         /// </summary>
-        public required string ModelName { get; set; }
-
-        /// <summary>
-        /// A list of <see cref="EmbeddingModelDeploymentContext"/> objects providing contexts for the available deployments for the model.
-        /// </summary>
-        public List<EmbeddingModelDeploymentContext> DeploymentContexts { get; set; } = [];
+        public List<EmbeddingModelDeploymentContextBase> DeploymentContexts { get; set; } = [];
 
         /// <summary>
         /// The list of active embedding operation identifiers.
@@ -34,7 +58,7 @@ namespace FoundationaLLM.Gateway.Models
 
         public void AddOperationContext(EmbeddingOperationContext embeddingOperationContext)
         {
-            _embeddingOperations.AddOrUpdate(
+            _operations.AddOrUpdate(
                 embeddingOperationContext.Result.OperationId!,
                 embeddingOperationContext,
             (k, v) => v);
@@ -67,7 +91,7 @@ namespace FoundationaLLM.Gateway.Models
 
                         foreach (var operationId in _operationIds)
                         {
-                            if (_embeddingOperations.TryGetValue(operationId, out var operationContext)
+                            if (_operations.TryGetValue(operationId, out var operationContext)
                                 && operationContext.Result.InProgress)
 
                                 foreach (var inputTextChunk in operationContext.Result.TextChunks
@@ -120,11 +144,11 @@ namespace FoundationaLLM.Gateway.Models
                             TextChunks = g.ToList()
                         }))
                     {
-                        _embeddingOperations[successfulOperation.OperationId!].SetEmbeddings(successfulOperation.TextChunks);
+                        _operations[successfulOperation.OperationId!].SetEmbeddings(successfulOperation.TextChunks);
 
                         lock (_syncRoot)
                         {
-                            if (!_embeddingOperations[successfulOperation.OperationId!].Result.InProgress)
+                            if (!_operations[successfulOperation.OperationId!].Result.InProgress)
                                 _operationIds.Remove(successfulOperation.OperationId!);
                         }
                     }
@@ -136,9 +160,6 @@ namespace FoundationaLLM.Gateway.Models
 
                 await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
             }
-        }
-        public SlidingWindowRateLimiter RequestCount { get; set; }
-
-        public SlidingWindowRateLimiter TokenCount { get; set; }
+        }        
     }
 }

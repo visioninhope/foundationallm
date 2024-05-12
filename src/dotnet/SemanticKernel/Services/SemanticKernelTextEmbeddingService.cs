@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Gateway.Instrumentation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Http.Resilience;
@@ -26,6 +27,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         private readonly ILogger<SemanticKernelTextEmbeddingService> _logger;
         private readonly Kernel _kernel;
         private readonly ITextEmbeddingGenerationService _textEmbeddingService;
+        private readonly GatewayInstrumentation _gatewayInstrumentation;
 
         /// <summary>
         /// Creates a new <see cref="SemanticKernelTextEmbeddingService"/> instance.
@@ -34,13 +36,15 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to create loggers for logging.</param>
         public SemanticKernelTextEmbeddingService(
             IOptions<SemanticKernelTextEmbeddingServiceSettings> options,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            GatewayInstrumentation gatewayInstrumentation)
         {
             _settings = options.Value;
             _loggerFactory = loggerFactory;
             _logger = _loggerFactory.CreateLogger<SemanticKernelTextEmbeddingService>();
             _kernel = CreateKernel();
             _textEmbeddingService = _kernel.GetRequiredService<ITextEmbeddingGenerationService>();
+            _gatewayInstrumentation = gatewayInstrumentation;
         }
 
         /// <inheritdoc/>
@@ -61,15 +65,13 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                     while (true)
                     {
                         //add a request to the counter
-                        //_gatewayInstrumentation.EmbeddingsRequests.Add(0.5);
-                        //bool allowRequests = _gatewayInstrumentation.EmbeddingModels[modelName].RequestCount.TryConsume(1);
+                        _gatewayInstrumentation.EmbeddingsRequests[modelName].Add(1);
+                        bool allowRequests = _gatewayInstrumentation.EmbeddingModels[modelName].RequestCount.TryConsume(1);
 
                         //add up all the tokens that were sent
-                        //_gatewayInstrumentation.EmbeddingsTokens.Add(tc.TokensCount / 2);
-                        //bool allowTokens = _gatewayInstrumentation.EmbeddingModels[modelName].TokenCount.TryConsume(tc.TokensCount);
-                        bool allowRequests = true;
-                        bool allowTokens = true;
-
+                        _gatewayInstrumentation.EmbeddingsTokens[modelName].Add(tc.TokensCount);
+                        bool allowTokens = _gatewayInstrumentation.EmbeddingModels[modelName].TokenCount.TryConsume(tc.TokensCount);
+                        
                         if (allowRequests && allowTokens)
                         {
                             ReadOnlyMemory<float> item = await _textEmbeddingService.GenerateEmbeddingAsync(tc.Content);
@@ -130,6 +132,11 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             ValidateDeploymentName(_settings.DeploymentName);
             ValidateEndpoint(_settings.Endpoint);
 
+            var httpClient = new HttpClient
+            {
+                Timeout = TimeSpan.FromSeconds(600)
+            };
+
             var builder = Kernel.CreateBuilder();
 
             if (_settings.AuthenticationType == AzureOpenAIAuthenticationTypes.AzureIdentity)
@@ -137,7 +144,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 builder.AddAzureOpenAITextEmbeddingGeneration(
                     _settings.DeploymentName,
                     _settings.Endpoint,
-                    DefaultAuthentication.AzureCredential);
+                    DefaultAuthentication.AzureCredential,
+                    httpClient: httpClient);
             }
             else
             {
@@ -145,7 +153,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 builder.AddAzureOpenAITextEmbeddingGeneration(
                     _settings.DeploymentName,
                     _settings.Endpoint,
-                    _settings.APIKey!);
+                    _settings.APIKey!,
+                    httpClient : httpClient);
             }
 
             builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);

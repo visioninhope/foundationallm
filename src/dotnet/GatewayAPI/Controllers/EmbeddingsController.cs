@@ -40,9 +40,13 @@ namespace FoundationaLLM.Gateway.API.Controllers
         public async Task<IActionResult> TryConsume(string modelId, int tokenCount) =>
             new OkObjectResult(await _gatewayCore.TryConsume(modelId, tokenCount));
 
-        [HttpGet("AddModel")]
-        public async Task<IActionResult> AddModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod) =>
-            new OkObjectResult(await _gatewayCore.AddModel(modelId, requestRateLimit, requestRateRenewalPeriod, tokenRateLimit, tokenRateRenewalPeriod));
+        [HttpGet("AddCompletionModel")]
+        public async Task<IActionResult> AddCompletionModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod) =>
+            new OkObjectResult(await _gatewayCore.AddCompletionModel(modelId, requestRateLimit, requestRateRenewalPeriod, tokenRateLimit, tokenRateRenewalPeriod));
+
+        [HttpGet("AddEmbeddingModel")]
+        public async Task<IActionResult> AddEmbeddingModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod) =>
+            new OkObjectResult(await _gatewayCore.AddEmbeddingModel(modelId, requestRateLimit, requestRateRenewalPeriod, tokenRateLimit, tokenRateRenewalPeriod));
 
     }
 }

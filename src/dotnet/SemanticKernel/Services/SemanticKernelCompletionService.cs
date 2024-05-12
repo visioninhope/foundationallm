@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Gateway.Instrumentation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Http.Resilience;
@@ -28,6 +29,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         private readonly ILogger<SemanticKernelCompletionService> _logger;
         private readonly Kernel _kernel;
         private readonly IChatCompletionService _completionService;
+        private readonly GatewayInstrumentation _gatewayInstrumentation;
 
         /// <summary>
         /// Creates a new <see cref="SemanticKernelCompletionService"/> instance.
@@ -36,13 +38,15 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
         /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to create loggers for logging.</param>
         public SemanticKernelCompletionService(
             IOptions<SemanticKernelCompletionServiceSettings> options,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            GatewayInstrumentation gatewayInstrumentation)
         {
             _settings = options.Value;
             _loggerFactory = loggerFactory;
             _logger = _loggerFactory.CreateLogger<SemanticKernelCompletionService>();
             _kernel = CreateKernel();
             _completionService = _kernel.GetRequiredService<IChatCompletionService>();
+            _gatewayInstrumentation = gatewayInstrumentation;
         }
 
         /// <inheritdoc/>
@@ -71,14 +75,15 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 while (true)
                 {
                     //add a request to the counter
-                    //_gatewayInstrumentation.EmbeddingsRequests.Add(0.5);
-                    //bool allowRequests = _gatewayInstrumentation.EmbeddingModels[modelName].RequestCount.TryConsume(1);
+                    _gatewayInstrumentation.CompletionRequests[modelName].Add(1);
+                    bool allowRequests = _gatewayInstrumentation.CompletionModels[modelName].RequestCount.TryConsume(1);
 
                     //add up all the tokens that were sent
-                    //_gatewayInstrumentation.EmbeddingsTokens.Add(tc.TokensCount / 2);
-                    //bool allowTokens = _gatewayInstrumentation.EmbeddingModels[modelName].TokenCount.TryConsume(tc.TokensCount);
-                    bool allowRequests = true;
-                    bool allowTokens = true;
+                    _gatewayInstrumentation.CompletionTokens[modelName].Add(request.TokensCount);
+                    bool allowTokens = _gatewayInstrumentation.CompletionModels[modelName].TokenCount.TryConsume(request.TokensCount);
+
+                    //bool allowRequests = true;
+                    //bool allowTokens = true;
 
                     if (allowRequests && allowTokens)
                     {
@@ -100,6 +105,9 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                             },
                             TokenCount = usage.CompletionTokens + usage.PromptTokens                            
                         };
+
+                        //add the completion tokens to the counter
+                        _gatewayInstrumentation.CompletionModels[modelName].TokenCount.TryConsume(usage.CompletionTokens);
 
                         return result;
 
@@ -136,6 +144,11 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             ValidateDeploymentName(_settings.DeploymentName);
             ValidateEndpoint(_settings.Endpoint);
 
+            var httpClient = new HttpClient
+            {
+                Timeout = TimeSpan.FromSeconds(600)
+            };
+
             var builder = Kernel.CreateBuilder();
 
             if (_settings.AuthenticationType == AzureOpenAIAuthenticationTypes.AzureIdentity)
@@ -143,7 +156,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 builder.AddAzureOpenAIChatCompletion(
                     _settings.DeploymentName,
                     _settings.Endpoint,
-                    DefaultAuthentication.AzureCredential);
+                    DefaultAuthentication.AzureCredential,
+                    httpClient: httpClient);
             }
             else
             {
@@ -151,12 +165,14 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 builder.AddAzureOpenAIChatCompletion(
                     _settings.DeploymentName,
                     _settings.Endpoint,
-                    _settings.APIKey!);
+                    _settings.APIKey!,
+                    httpClient : httpClient);
             }
 
             builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);
             builder.Services.ConfigureHttpClientDefaults(c =>
             {
+               
                 // Use a standard resiliency policy configured to retry on 429 (too many requests).
                 c.AddStandardResilienceHandler().Configure(o =>
                 {

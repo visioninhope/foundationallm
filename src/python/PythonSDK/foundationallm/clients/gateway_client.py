@@ -106,7 +106,7 @@ class GatewayClient:
 
         return response.json()
 
-    def get_completion(self, request:GatewayCompletionRequest, timeout=60)->CompletionResult:
+    def get_completion(self, request:GatewayCompletionRequest, timeout=300)->CompletionResult:
         url = f'{self.gateway_api_url}/completions'
         headers = {'x-api-key': self.gateway_api_key, 'Content-Type': 'application/json'}
 
@@ -121,6 +121,10 @@ class GatewayClient:
 
         while(result.in_progress and result.error_message == None and time.time() < timeout):
             result = self.get_completion_result(result)
+            time.sleep(0.5)
+
+        if ( result.in_progress or result.error_message != None):
+            raise Exception(f"Completion failed/timeout")
 
         return result
 
@@ -136,7 +140,7 @@ class GatewayClient:
 
         return result
 
-    def get_embedding(self, request : EmbeddingRequest, timeout=60)->TextEmbeddingResult:
+    def get_embedding(self, request : EmbeddingRequest, timeout=300)->TextEmbeddingResult:
 
         url = f'{self.gateway_api_url}/embeddings'
         headers = {'x-api-key': self.gateway_api_key}
@@ -152,6 +156,10 @@ class GatewayClient:
 
         while(result.in_progress and result.error_message == None and time.time() < timeout):
             result = self.get_embedding_result(result)
+            time.sleep(0.5)
+
+        if ( result.in_progress or result.error_message != None):
+            raise Exception(f"Completion failed/timeout")
 
         return result
 

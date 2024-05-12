@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Gateway.Instrumentation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -26,12 +27,14 @@ namespace FoundationaLLM.Vectorization.Services.Text
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IResourceProviderService vectorizationResourceProviderService,
         IConfiguration configuration,
         IServiceProvider serviceProvider,
-        ILoggerFactory loggerFactory) : IVectorizationServiceFactory<ITextEmbeddingService>
+        ILoggerFactory loggerFactory,
+        GatewayInstrumentation gatewayInstrumentation) : IVectorizationServiceFactory<ITextEmbeddingService>
     {
         private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
         private readonly IConfiguration _configuration = configuration;
         private readonly IServiceProvider _serviceProvider = serviceProvider;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
+        private readonly GatewayInstrumentation _gatewayInstrumentation = gatewayInstrumentation;
 
         /// <inheritdoc/>
         public ITextEmbeddingService GetService(string serviceName)
@@ -82,9 +85,10 @@ namespace FoundationaLLM.Vectorization.Services.Text
                 {
                     AuthenticationType = AzureOpenAIAuthenticationTypes.AzureIdentity,
                     Endpoint = _configuration[endpointConfigurationItem]!,
-                    DeploymentName = deploymentName!
+                    DeploymentName = deploymentName!,
                 }),
-                _loggerFactory);
+                _loggerFactory,
+                _gatewayInstrumentation);
         }
 
         private ITextEmbeddingService CreateGatewayTextEmbeddingService()

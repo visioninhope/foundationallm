@@ -28,6 +28,8 @@ namespace FoundationaLLM.Gateway.Interfaces
 
         Task<bool> TryConsume(string modelId, int tokenCount);
 
-        Task<bool> AddModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod);
+        Task<bool> AddCompletionModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod);
+
+        Task<bool> AddEmbeddingModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod);
     }
 }

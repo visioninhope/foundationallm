@@ -1,13 +1,13 @@
 ﻿using FoundationaLLM.Common.Instrumentation;
 
-namespace FoundationaLLM.Gateway.Models
+namespace FoundationaLLM.Common.Models.Gateway
 {
     public class ModelContext(
         )
     {
         protected readonly object _syncRoot = new();
 
-        public required string ModelName { get; set; }
+        public string ModelName { get; set; }
 
         public SlidingWindowRateLimiter RequestCount { get; set; }
 

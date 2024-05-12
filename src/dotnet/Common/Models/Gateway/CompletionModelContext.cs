@@ -1,32 +1,53 @@
 ﻿using FoundationaLLM.Common.Instrumentation;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Azure;
+using FoundationaLLM.Gateway.Models;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
-namespace FoundationaLLM.Gateway.Models
+namespace FoundationaLLM.Common.Models.Gateway
 {
     /// <summary>
     /// Provides context associated with an embedding model.
     /// </summary>
     /// <param name="operations">The global dictionary of <see cref="CompletionOperationContext"/> objects indexed by operation identifier.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
-    public class CompletionModelContext(
-        ConcurrentDictionary<string, CompletionOperationContext> operations,
-        ILogger<CompletionModelContext> logger)
+    public class CompletionModelContext : ModelContext
     {
-        private readonly ConcurrentDictionary<string, CompletionOperationContext> _operations = operations;
-        private readonly ILogger<CompletionModelContext> _logger = logger;
+        private readonly ConcurrentDictionary<string, CompletionOperationContext> _operations;
+        private readonly ILogger<CompletionModelContext> _logger;
         private readonly object _syncRoot = new();
 
-        /// <summary>
-        /// The name of the embedding model.
-        /// </summary>
-        public required string ModelName { get; set; }
+        public CompletionModelContext(
+            AzureOpenAIAccountDeployment deployment,
+            ConcurrentDictionary<string, CompletionOperationContext> operations,
+            ILogger<CompletionModelContext> logger)
+        {
+            _logger = logger;
+            _operations = operations;
+
+            ModelName = deployment.ModelName;
+            RequestCount = new SlidingWindowRateLimiter(deployment.RequestRateLimit, deployment.RequestRateRenewalPeriod, "completions.request.count", this);
+            TokenCount = new SlidingWindowRateLimiter(deployment.TokenRateLimit / 6, deployment.TokenRateRenewalPeriod / 6, "completions.token.count", this);
+        }
+
+        public CompletionModelContext(
+            string modelName,
+            int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod,
+            ConcurrentDictionary<string, CompletionOperationContext> operations,
+            ILogger<CompletionModelContext> logger)
+        {
+            _logger = logger;
+            _operations = operations;
+
+            ModelName = modelName;
+            RequestCount = new SlidingWindowRateLimiter(requestRateLimit, requestRateRenewalPeriod, "completions.request.count", this);
+            TokenCount = new SlidingWindowRateLimiter(tokenRateLimit / 6, tokenRateRenewalPeriod / 6, "completions.token.count", this);
+        }
 
         /// <summary>
-        /// A list of <see cref="CompletionModelDeploymentContext"/> objects providing contexts for the available deployments for the model.
+        /// A list of <see cref="CompletionModelDeploymentContextBase"/> objects providing contexts for the available deployments for the model.
         /// </summary>
-        public List<CompletionModelDeploymentContext> DeploymentContexts { get; set; } = [];
+        public List<CompletionModelDeploymentContextBase> DeploymentContexts { get; set; } = [];
 
         /// <summary>
         /// The list of active embedding operation identifiers.
@@ -95,7 +116,7 @@ namespace FoundationaLLM.Gateway.Models
 
                     // Record all failed operations
                     foreach (var failedOperation in results
-                        .Where(r => r.Failed)
+                        .Where(r => r != null && r.Failed)
                         .GroupBy(x => x.OperationId)
                         .Select(g => new
                         {
@@ -107,7 +128,7 @@ namespace FoundationaLLM.Gateway.Models
 
                     // Set the response for all successful operations.
                     foreach (var successfulOperation in results
-                        .Where(r => !r.InProgress)
+                        .Where(r => r != null && !r.InProgress)
                         .GroupBy(x => x.OperationId)
                         .Select(r => new {
                             OperationId = r.Key,
@@ -131,8 +152,5 @@ namespace FoundationaLLM.Gateway.Models
                 await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
             }
         }
-        public SlidingWindowRateLimiter RequestCount { get; set; }
-
-        public SlidingWindowRateLimiter TokenCount { get; set; }
     }
 }

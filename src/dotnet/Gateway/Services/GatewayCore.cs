@@ -1,6 +1,7 @@
 using FoundationaLLM.Common.Instrumentation;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Azure;
+using FoundationaLLM.Common.Models.Gateway;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Gateway.Exceptions;
@@ -68,48 +69,42 @@ namespace FoundationaLLM.Gateway.Services
                             {
                                 var embeddingModelContext = new EmbeddingModelDeploymentContext(
                                     deployment,
-                                    _loggerFactory);
+                                    _loggerFactory,
+                                    _gatewayInstrumentation);
 
                                 if (!_embeddingModels.ContainsKey(deployment.ModelName))
                                     _embeddingModels[deployment.ModelName] = new EmbeddingModelContext(
+                                        deployment,
                                         _embeddingOperations,
                                         _loggerFactory.CreateLogger<EmbeddingModelContext>())
                                     {
-                                        ModelName = deployment.ModelName,
-                                        DeploymentContexts = [embeddingModelContext],
-                                        RequestCount = new SlidingWindowRateLimiter(deployment.RequestRateLimit, deployment.RequestRateRenewalPeriod, "embeddings.request.count"),
-                                        TokenCount = new SlidingWindowRateLimiter(deployment.TokenRateLimit / 6, deployment.TokenRateRenewalPeriod / 6, "embeddings.token.count")
+                                        DeploymentContexts = [embeddingModelContext]
                                     };
                                 else
                                     _embeddingModels[deployment.ModelName].DeploymentContexts.Add(embeddingModelContext);
 
-                                //_gatewayInstrumentation.EmbeddingModels.Add(deployment.ModelName, _embeddingModels[deployment.ModelName]);
-
-                                //_gatewayInstrumentation.AddEmbeddingModel(_embeddingModels[deployment.ModelName]);
+                                _gatewayInstrumentation.AddEmbeddingModel(_embeddingModels[deployment.ModelName]);
                             }
 
                             if (deployment.CanDoCompletions)
                             {
                                 var modelContext = new CompletionModelDeploymentContext(
                                     deployment,
-                                    _loggerFactory);
+                                    _loggerFactory,
+                                    _gatewayInstrumentation);
 
                                 if (!_completionModels.ContainsKey(deployment.ModelName))
                                     _completionModels[deployment.ModelName] = new CompletionModelContext(
+                                        deployment,
                                         _completionOperations,
                                         _loggerFactory.CreateLogger<CompletionModelContext>())
                                     {
-                                        ModelName = deployment.ModelName,
-                                        DeploymentContexts = [modelContext],
-                                        RequestCount = new SlidingWindowRateLimiter(deployment.RequestRateLimit, deployment.RequestRateRenewalPeriod, "completions.request.count"),
-                                        TokenCount = new SlidingWindowRateLimiter(deployment.TokenRateLimit / 6, deployment.TokenRateRenewalPeriod / 6, "completions.token.count")
+                                        DeploymentContexts = [modelContext]
                                     };
                                 else
                                     _completionModels[deployment.ModelName].DeploymentContexts.Add(modelContext);
 
-                                //_gatewayInstrumentation.EmbeddingModels.Add(deployment.ModelName, _embeddingModels[deployment.ModelName]);
-
-                                //_gatewayInstrumentation.AddEmbeddingModel(_embeddingModels[deployment.ModelName]);
+                                _gatewayInstrumentation.AddCompletionModel(_completionModels[deployment.ModelName]);
                             }
                         }
                     }
@@ -284,19 +279,38 @@ namespace FoundationaLLM.Gateway.Services
                 return await Task.FromResult(operationContext.Result);
         }
 
-        public async Task<bool> AddModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod)
+        public async Task<bool> AddCompletionModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod)
+        {
+            CompletionModelContext model;
+
+            if (!_gatewayInstrumentation.CompletionModels.TryGetValue(modelId, out model))
+            {
+                model = new CompletionModelContext(modelId,
+                    requestRateLimit, requestRateRenewalPeriod, tokenRateLimit, tokenRateRenewalPeriod,
+                    _completionOperations,
+                                        _loggerFactory.CreateLogger<CompletionModelContext>())
+                {
+                    DeploymentContexts = []                    
+                };
+
+                _gatewayInstrumentation.CompletionModels.Add(modelId, model);
+            }
+
+            return true;
+        }
+
+        public async Task<bool> AddEmbeddingModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod)
         {
             EmbeddingModelContext model;
 
             if (!_gatewayInstrumentation.EmbeddingModels.TryGetValue(modelId, out model))
             {
-                model = new EmbeddingModelContext(_embeddingOperations,
+                model = new EmbeddingModelContext(modelId,
+                    requestRateLimit, requestRateRenewalPeriod, tokenRateLimit, tokenRateRenewalPeriod,
+                    _embeddingOperations,
                                         _loggerFactory.CreateLogger<EmbeddingModelContext>())
                 {
-                    ModelName = modelId,
-                    DeploymentContexts = [],
-                    RequestCount = new SlidingWindowRateLimiter(requestRateLimit, requestRateRenewalPeriod, "embeddings.request.count"),
-                    TokenCount = new SlidingWindowRateLimiter(tokenRateLimit / 6, tokenRateRenewalPeriod / 6, "embeddings.token.count")
+                    DeploymentContexts = []                    
                 };
 
                 _gatewayInstrumentation.EmbeddingModels.Add(modelId, model);

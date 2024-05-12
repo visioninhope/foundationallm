@@ -55,6 +55,10 @@ class RetrieverFactory:
             api_key = self.text_embedding_profile.configuration_references.api_key,
             api_version = self.text_embedding_profile.configuration_references.api_version
         )
+
+        if (self.text_embedding_profile.text_embedding == "GatewayTextEmbedding"):
+            e_model.provider = "gateway"
+
         oai_model = OpenAIModel(config = self.config)
         embedding_model = oai_model.get_embedding_model(e_model)
 

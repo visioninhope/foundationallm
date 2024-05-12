@@ -49,7 +49,31 @@ namespace FoundationaLLM.Gateway.Client
             return false;
         }
 
-        public async Task<bool> AddModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod)
+        public async Task<bool> AddEmbeddingModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod)
+        {
+            try
+            {
+                var client = GetHttpClient();
+
+                var responseMessage = await client.GetAsync($"embeddings/AddModel?modelId={modelId}&requestRateLimit={requestRateLimit}&requestRateRenewalPeriod={requestRateRenewalPeriod}&tokenRateLimit={tokenRateLimit}&tokenRateRenewalPeriod={tokenRateRenewalPeriod}");
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var responseContent = await responseMessage.Content.ReadAsStringAsync();
+                    var response = JsonSerializer.Deserialize<bool>(responseContent);
+                    return response!;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error adding gateway model.");
+                throw;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> AddCompletionModel(string modelId, int requestRateLimit, int requestRateRenewalPeriod, int tokenRateLimit, int tokenRateRenewalPeriod)
         {
             try
             {

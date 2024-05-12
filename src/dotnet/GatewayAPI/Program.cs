@@ -36,8 +36,13 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
+/*
 builder.AddOpenTelemetry(
     AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString,
+    ServiceNames.GatewayAPI);
+*/
+
+builder.AddGatewayOpenTelemetry(AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString,
     ServiceNames.GatewayAPI);
 
 builder.Services.AddSingleton<GatewayInstrumentation>();

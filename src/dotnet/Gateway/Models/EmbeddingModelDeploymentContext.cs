@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Models.Azure;
 using FoundationaLLM.Common.Models.Gateway;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Gateway.Instrumentation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using Microsoft.Extensions.Logging;
@@ -18,15 +19,12 @@ namespace FoundationaLLM.Gateway.Models
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to create loggers for logging.</param>
     public class EmbeddingModelDeploymentContext(
         AzureOpenAIAccountDeployment deployment,
-        ILoggerFactory loggerFactory)
+        ILoggerFactory loggerFactory,
+        GatewayInstrumentation gatewayInstrumentation) : EmbeddingModelDeploymentContextBase(deployment, loggerFactory)
     {
-        private const int OPENAI_MAX_INPUT_SIZE_TOKENS = 8191;
-
-        private readonly AzureOpenAIAccountDeployment _deployment = deployment;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
         private readonly ILogger<EmbeddingModelDeploymentContext> _logger = loggerFactory.CreateLogger<EmbeddingModelDeploymentContext>();
-        private List<TextChunk> _inputTextChunks = [];
-
+        
         private readonly ITextEmbeddingService _textEmbeddingService = new SemanticKernelTextEmbeddingService(
                 Options.Create(new SemanticKernelTextEmbeddingServiceSettings
                 {
@@ -34,53 +32,11 @@ namespace FoundationaLLM.Gateway.Models
                     Endpoint = deployment.AccountEndpoint,
                     DeploymentName = deployment.Name
                 }),
-                loggerFactory);
+                loggerFactory,
+                gatewayInstrumentation);
 
-        private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
 
-        /// <summary>
-        /// The cummulated number of tokens for the current token rate window.
-        /// </summary>
-        private int _tokenRateWindowTokenCount = 0;
-        /// <summary>
-        /// The cummulated number of requests for the current request rate window.
-        /// </summary>
-        private int _requestRateWindowRequestCount = 0;
-        /// <summary>
-        /// The start timestamp of the current token rate window.
-        /// </summary>
-        private DateTime _tokenRateWindowStart = DateTime.MinValue;
-        /// <summary>
-        /// The start timestamp of the current request rate window.
-        /// </summary>
-        private DateTime _requestRateWindowStart = DateTime.MinValue;
-
-        private int _currentRequestTokenCount = 0;
-
-        public bool HasInput =>
-            _inputTextChunks.Count > 0;
-
-        public bool TryAddInputTextChunk(TextChunk textChunk)
-        {
-            UpdateRateWindows();
-
-            if (_tokenRateWindowTokenCount + textChunk.TokensCount > _deployment.TokenRateLimit
-                || _currentRequestTokenCount + textChunk.TokensCount > OPENAI_MAX_INPUT_SIZE_TOKENS)
-                // Adding a new text chunk would either push us over to the token rate limit or exceed the maximum input size, so we need to refuse.
-                return false;
-
-            if (_requestRateWindowRequestCount == _deployment.RequestRateLimit)
-                // We have already reached the allowed number of requests, so we need to refuse.
-                return false;
-
-            _inputTextChunks.Add(textChunk);
-            _tokenRateWindowTokenCount += textChunk.TokensCount;
-            _currentRequestTokenCount += textChunk.TokensCount;
-
-            return true;
-        }
-
-        public async Task<TextEmbeddingResult> GetEmbeddingsForInputTextChunks()
+        override public async Task<TextEmbeddingResult> GetEmbeddingsForInputTextChunks()
         {
             try
             {
@@ -126,7 +82,7 @@ namespace FoundationaLLM.Gateway.Models
             }
         }
 
-        private void UpdateRateWindows()
+        override protected void UpdateRateWindows()
         {
             var refTime = DateTime.UtcNow;
 
