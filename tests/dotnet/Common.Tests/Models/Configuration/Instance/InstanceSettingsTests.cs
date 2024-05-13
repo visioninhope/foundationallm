@@ -9,9 +9,10 @@ namespace FoundationaLLM.Common.Tests.Models.Configuration.Instance
         {
             // Arrange
             string expectedId = "123e4567-e89b-12d3-a456-426614174000";
+            string version = "0.6.0";
 
             // Act
-            var instanceSettings = new InstanceSettings { Id = expectedId };
+            var instanceSettings = new InstanceSettings { Id = expectedId, Version =  version};
 
             // Assert
             Assert.Equal(expectedId, instanceSettings.Id);

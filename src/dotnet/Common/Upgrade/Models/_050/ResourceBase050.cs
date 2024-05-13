@@ -1,11 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.ResourceProviders
+namespace FoundationaLLM.Common.Upgrade.Models._050
 {
-    /// <summary>
-    /// Basic properties for all resources.
-    /// </summary>
-    public class ResourceBase : ResourceName
+    public class ResourceBase050 : ResourceName050
     {
         /// <summary>
         /// The unique identifier of the resource.
@@ -28,12 +25,13 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
         [JsonPropertyOrder(-2)]
         public string? Description { get; set; }
 
+
         /// <summary>
-        /// The version of the resource.
+        /// The description of the resource.
         /// </summary>
         [JsonPropertyName("version")]
         [JsonPropertyOrder(-2)]
-        public Version? Version { get; set; }
+        public Version? Version { get; set; } = new Version("0.5.0");
 
         /// <summary>
         /// The time at which the security role definition was created.
