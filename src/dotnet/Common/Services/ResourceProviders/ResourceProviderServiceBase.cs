@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Immutable;
 using System.Text.Json;
+using Microsoft.Graph.Models;
 
 namespace FoundationaLLM.Common.Services.ResourceProviders
 {
@@ -230,7 +231,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                             PrincipalId = userIdentity.UserId!,
                             PrincipalType = PrincipalTypes.User,
                             RoleDefinitionId = $"/providers/{ResourceProviderNames.FoundationaLLM_Authorization}/{AuthorizationResourceTypeNames.RoleDefinitions}/1301f8d4-3bea-4880-945f-315dbd2ddb46", // TODO: get the Owner role definition ID
-                            Scope = $"/instances/{_instanceSettings.Id}/{upsertResult!.ObjectId}"
+                            Scope = upsertResult!.ObjectId ?? throw new ResourceProviderException($"The {roleAssignmentDescription} could not be assigned. Could not set the scope for the resource.")
                         });
 
                     if (!roleAssignmentResult.Success)
