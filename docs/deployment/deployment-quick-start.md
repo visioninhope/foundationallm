@@ -31,6 +31,11 @@ You will use the following tools during deployment:
 
 - **[Docker Desktop](https://www.docker.com/products/docker-desktop/)**
 
+> [!IMPORTANT]
+> The perception of the `main` branch in GitHub, or any version control system, can vary depending on the development workflow adopted by a particular team or organization. The Foundationa**LLM** team uses the `main` branch as the primary **development** branch. In this case, the `main` branch might indeed be considered a **work in progress**, with developers regularly pushing changes and updates directly to it. It is where ongoing development work happens. 
+So for deployment purposes, it is recommended to use the latest release branch, which is considered stable and tested. The release branch is a snapshot of the `main` branch at a specific point in time, where the code is considered stable and ready for deployment. The release branch is tagged with a version number, such as `0.6.0`, and is the recommended branch for deployment.  Please find our latest releases [here](https://github.com/solliancenet/foundationallm/releases)
+
+
 ## Deployment steps
 
 Follow the steps below to deploy the solution to your Azure subscription.
