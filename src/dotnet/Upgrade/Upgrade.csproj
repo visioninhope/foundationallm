@@ -14,6 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Infrastructure\Identity\" />
+    <Folder Include="Infrastructure\ContentSafety\" />
+    <Folder Include="Infrastructure\EventHubs\" />
+    <Folder Include="Infrastructure\Vectorization\" />
+    <Folder Include="Infrastructure\Search\" />
+    <Folder Include="Infrastructure\OpenAI\" />
+    <Folder Include="Infrastructure\Storage\" />
     <Folder Include="Vectorization\Extraction\" />
   </ItemGroup>
 
