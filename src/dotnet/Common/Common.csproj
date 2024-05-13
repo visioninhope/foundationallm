@@ -10,10 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Upgrade\DataSource\DataSource_051_060.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="C:\Users\ciprian.jichici\.nuget\packages\azure.messaging.eventgrid\4.22.0-beta.1\contentFiles\any\netstandard2.0\EventGridClient.xml" />
     <Content Remove="C:\Users\CiprianJichici\.nuget\packages\azure.messaging.eventgrid\4.22.0-beta.1\contentFiles\any\netstandard2.0\EventGridClient.xml" />
   </ItemGroup>
@@ -44,12 +40,6 @@
   
   <ItemGroup>
     <Folder Include="Models\Agent\" />
-    <Folder Include="Upgrade\Authorization\" />
-    <Folder Include="Upgrade\Vectorization\Indexing\" />
-    <Folder Include="Upgrade\Vectorization\Embedding\" />
-    <Folder Include="Upgrade\Vectorization\Extraction\" />
-    <Folder Include="Upgrade\Vectorization\State\" />
-    <Folder Include="Upgrade\Vectorization\Partitioning\" />
   </ItemGroup>
   
 </Project>

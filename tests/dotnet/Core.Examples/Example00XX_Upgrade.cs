@@ -2,13 +2,18 @@
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services.Storage;
-using FoundationaLLM.Common.Upgrade.Agent;
-using FoundationaLLM.Common.Upgrade.Datasource;
 using FoundationaLLM.Core.Examples.Setup;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Xunit.Abstractions;
+using FoundationaLLM.Upgrade.Configuration;
+using FoundationaLLM.Upgrade.Agent;
+using FoundationaLLM.Upgrade.DataSource;
+using FoundationaLLM.Upgrade.Prompts;
+using FoundationaLLM.Upgrade.Cosmos;
+using FoundationaLLM.Upgrade.Vectorization.Indexing;
+using FoundationaLLM.Upgrade.Authorization;
 
 namespace FoundationaLLM.Core.Examples
 {
@@ -59,11 +64,11 @@ namespace FoundationaLLM.Core.Examples
 
             //upgrade configuration
             ConfigurationUpgrade configUpgrade = new ConfigurationUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
-            await configUpgrade.UpgradeAsync();
+            //await configUpgrade.UpgradeAsync();
 
             //upgrade data sources
             DatasourceUpgrade dsUpgrade = new DatasourceUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
-            await dsUpgrade.UpgradeAsync();
+            //await dsUpgrade.UpgradeAsync();
 
             //upgrade prompts
             PromptUpgrade promptUpgrade = new PromptUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
@@ -72,20 +77,34 @@ namespace FoundationaLLM.Core.Examples
             //upgrade vectorization
 
             //upgrade vectorization (content sources)
+            ContentSourceProfileUpgrade contentSourceProfileUpgrade = new ContentSourceProfileUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
+            //contentSourceProfileUpgrade.UpgradeAsync().Wait();
 
             //upgrade vectorization (indexing)
+            IndexingProfileUpgrade indexingProfileUpgrade = new IndexingProfileUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
+            //indexingProfileUpgrade.UpgradeAsync().Wait();
 
             //upgrade indexes
 
             //upgrade vectorization (embedding)
+            EmbeddingProfileUpgrade embeddingProfileUpgrade = new EmbeddingProfileUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
+            //embeddingProfileUpgrade.UpgradeAsync().Wait();
 
             //upgrade vectorization (partitioning)
+            PartitioningProfileUpgrade paritioningProfileUpgrade = new PartitioningProfileUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
+            //paritioningProfileUpgrade.UpgradeAsync().Wait();
 
             //upgrade vectorization (state)
+            StateUpgrade stateUpgrade = new StateUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
+            //stateUpgrade.UpgradeAsync().Wait();
 
             //upgrade cosmos db
+            CosmosUpgrade cosmosUpgrade = new CosmosUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
+            //await cosmosUpgrade.UpgradeAsync();
 
             //upgrade authorization
+            AuthorizationUpgrade authorizationUpgrade = new AuthorizationUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
+            //await authorizationUpgrade.UpgradeAsync();
         }
     }
 }

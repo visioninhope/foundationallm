@@ -2,8 +2,6 @@
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services.Storage;
-using FoundationaLLM.Common.Upgrade.Agent;
-using FoundationaLLM.Common.Upgrade.Datasource;
 using FoundationaLLM.Core.Examples.Setup;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>FoundationaLLM.Upgrade</RootNamespace>
+    <AssemblyName>FoundationaLLM.Upgrade</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\Configuration\Configuration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Vectorization\Extraction\" />
+  </ItemGroup>
+
+</Project>
