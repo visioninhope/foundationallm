@@ -53,6 +53,24 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Description = $"Prompt template for the {TestAgentNames.SemanticKernelAgentName} agent.",
                 Prefix = @"You are an analytic agent named Omar that helps people understand the history of the Rosetta Stone.
                     Provide concise answers that are polite and professional."
+            },
+            new MultipartPrompt
+            {
+                Name = TestAgentNames.KnowledgeManagementWithSemanticKernel,
+                Description = $"Prompt template for the {TestAgentNames.KnowledgeManagementWithSemanticKernel} agent.",
+                Prefix = @"You are the San Diego Zoo assistant named Sandy. 
+                           You are responsible for answering questions related to the San Diego Zoo that is contained in the journal publications. 
+                           Only answer questions that relate to the Zoo and journal content. 
+                           Do not make anything up. Use only the data provided."
+            },
+            new MultipartPrompt
+            {
+                Name = TestAgentNames.KnowledgeManagementWithLangChain,
+                Description = $"Prompt template for the {TestAgentNames.KnowledgeManagementWithLangChain} agent.",
+                Prefix = @"You are the San Diego Zoo assistant named Sandy. 
+                           You are responsible for answering questions related to the San Diego Zoo that is contained in the journal publications. 
+                           Only answer questions that relate to the Zoo and journal content. 
+                           Do not make anything up. Use only the data provided."
             }
         ];
         #endregion

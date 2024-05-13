@@ -9,6 +9,7 @@
         /// The name of the FoundationaLLM agent.
         /// </summary>
         public const string FoundationaLLMAgentName = "FoundationaLLM";
+
         /// <summary>
         /// The name of the generic inline context agent.
         /// </summary>
@@ -30,5 +31,15 @@
         /// </summary>
         public const string LangChainAgentName = "KMAgentWithLangChain";
 
+
+        /// <summary>
+        /// The name of the Knowledge Management agent with SemanticKernel.
+        /// </summary>
+        public const string KnowledgeManagementWithSemanticKernel = "KnowledgeManagementWithSemanticKernel";
+
+        /// <summary>
+        /// The name of the Knowledge Management agent with LangChain.
+        /// </summary>
+        public const string KnowledgeManagementWithLangChain = "KnowledgeManagementWithLangChain";
     }
 }
