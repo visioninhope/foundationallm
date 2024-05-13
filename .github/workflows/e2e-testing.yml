@@ -20,7 +20,7 @@ on:
       enableTeardown:
         description: Enable teardown of environment
         type: boolean
-        default: false
+        default: true
 
 jobs:
   generate_matrix:
