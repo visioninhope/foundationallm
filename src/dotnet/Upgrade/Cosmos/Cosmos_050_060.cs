@@ -1,25 +1,26 @@
 ﻿using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Services.Storage;
+using FoundationaLLM.Upgrade.Configuration;
+using FoundationaLLM.Upgrade.Cosmos;
 using FoundationaLLM.Upgrade.Models._040;
 using FoundationaLLM.Upgrade.Models._050;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace FoundationaLLM.Upgrade.Authorization
+namespace FoundationaLLM.Upgrade.Cosmos
 {
-    public class Authorization_040_050 : AuthorizationUpgrade
+    public class Cosmos_050_060 : CosmosUpgrade
     {
-        public Authorization_040_050(BlobStorageService blobStorageService,
+        public Cosmos_050_060(
             InstanceSettings settings,
-            ILoggerFactory loggerFactory) : base(blobStorageService, settings, loggerFactory)
+            ILoggerFactory loggerFactory) : base(settings, loggerFactory)
         {
-            _blobStorageService = blobStorageService;
-            _logger = loggerFactory.CreateLogger<Authorization_040_050>();
+            _logger = loggerFactory.CreateLogger<Cosmos_050_060>();
 
             SourceInstanceVersion = Version.Parse("0.4.0");
         }
 
-        private ILogger<Authorization_040_050> _logger;
+        private ILogger<Cosmos_050_060> _logger;
 
         public void ConfigureDefaultValues() => base.ConfigureDefaultValues();
 

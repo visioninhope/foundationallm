@@ -99,7 +99,7 @@ namespace FoundationaLLM.Core.Examples
             //stateUpgrade.UpgradeAsync().Wait();
 
             //upgrade cosmos db
-            CosmosUpgrade cosmosUpgrade = new CosmosUpgrade(blobStorageService, _instanceSettings, _loggerFactory);
+            CosmosUpgrade cosmosUpgrade = new CosmosUpgrade(_instanceSettings, _loggerFactory);
             //await cosmosUpgrade.UpgradeAsync();
 
             //upgrade authorization

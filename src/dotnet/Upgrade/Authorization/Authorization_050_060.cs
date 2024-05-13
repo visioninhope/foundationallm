@@ -7,19 +7,19 @@ using System.Text.Json;
 
 namespace FoundationaLLM.Upgrade.Authorization
 {
-    public class Authorization_040_050 : AuthorizationUpgrade
+    public class Authorization_050_060 : AuthorizationUpgrade
     {
-        public Authorization_040_050(BlobStorageService blobStorageService,
+        public Authorization_050_060(BlobStorageService blobStorageService,
             InstanceSettings settings,
             ILoggerFactory loggerFactory) : base(blobStorageService, settings, loggerFactory)
         {
             _blobStorageService = blobStorageService;
-            _logger = loggerFactory.CreateLogger<Authorization_040_050>();
+            _logger = loggerFactory.CreateLogger<Authorization_050_060>();
 
-            SourceInstanceVersion = Version.Parse("0.4.0");
+            SourceInstanceVersion = Version.Parse("0.5.0");
         }
 
-        private ILogger<Authorization_040_050> _logger;
+        private ILogger<Authorization_050_060> _logger;
 
         public void ConfigureDefaultValues() => base.ConfigureDefaultValues();
 

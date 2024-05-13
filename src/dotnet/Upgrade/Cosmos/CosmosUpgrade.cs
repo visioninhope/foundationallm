@@ -7,13 +7,12 @@ namespace FoundationaLLM.Upgrade.Cosmos
 {
     public class CosmosUpgrade : Upgrade
     {
-        public CosmosUpgrade(BlobStorageService blobStorageService,
+        public CosmosUpgrade(
             InstanceSettings instanceSettings,
             ILoggerFactory loggerFactory)
         {
             ObjectStartUpgradeVersion = Version.Parse("0.4.0");
 
-            _blobStorageService = blobStorageService;
             _datasources = new Dictionary<string, string>();
             _dataSourceObjects = new Dictionary<string, object>();
             _instanceSettings = instanceSettings;
@@ -27,8 +26,7 @@ namespace FoundationaLLM.Upgrade.Cosmos
         }
 
         protected ILogger<CosmosUpgrade> _logger;
-        protected BlobStorageService _blobStorageService;
-
+        
         protected Dictionary<string, string> _datasources { get; set; }
         protected Dictionary<string, object> _dataSourceObjects { get; set; }
 
@@ -85,7 +83,7 @@ namespace FoundationaLLM.Upgrade.Cosmos
                             continue;
                         }
 
-                        var upgrader = (Upgrade)Activator.CreateInstance(t, new object[] { _blobStorageService, _instanceSettings, _loggerFactory });
+                        var upgrader = (Upgrade)Activator.CreateInstance(t, new object[] {_instanceSettings, _loggerFactory });
 
                         source = await upgrader.UpgradeDoWorkAsync(source);
 
