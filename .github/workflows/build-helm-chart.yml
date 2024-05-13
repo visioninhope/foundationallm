@@ -1,0 +1,39 @@
+name: Helm Chart Build and Push
+
+on:
+  workflow_call:
+    inputs:
+      registry:
+        type: string
+        default: ghcr.io
+      chart:
+        type: string
+        required: true
+      tag:
+        type: string
+        required: true
+
+jobs:
+  helm_build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ secrets.FLLM_ACR_USERNAME }}
+        password: ${{ secrets.FLLM_ACR_PASSWORD }}
+
+    - name: Helm Chart Update, Package, and Push
+      run: |
+        cd ./deploy/common/helm/${{ inputs.chart }}
+        sed -i "s/version\: 0\.0\.0/version\: ${{ inputs.tag }}/" Chart.yaml
+        sed -i "s/tag\: latest/tag\: ${{ inputs.tag }}/" values.yaml
+        helm package . --app-version ${{ inputs.tag }}
+        helm push ${{ inputs.chart }}-${{ inputs.tag }}.tgz oci://${{ inputs.registry }}/helm
