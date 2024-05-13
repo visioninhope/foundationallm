@@ -55,6 +55,125 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                         { "deployment_name", "completions" }
                     }
                 }
+            },
+            new KnowledgeManagementAgent
+            {
+                Name = TestAgentNames.SemanticKernelInlineContextAgentName,
+                Description = "SemanticKernel agent that can handle inline context completions.",
+                InlineContext = true,
+                SessionsEnabled = true,
+                Vectorization = new AgentVectorizationSettings
+                {
+                    DedicatedPipeline = false,
+                    IndexingProfileObjectId = null,
+                    TextEmbeddingProfileObjectId = null,
+                },
+                ConversationHistory = new ConversationHistory
+                {
+                    Enabled = true,
+                    MaxHistory = 10
+                },
+                Gatekeeper = new Gatekeeper
+                {
+                    UseSystemSetting = false
+                },
+                OrchestrationSettings = new OrchestrationSettings
+                {
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
+                    EndpointConfiguration = new Dictionary<string, object>
+                        {
+                            { "auth_type", "key" },
+                            { "provider", "microsoft" },
+                            { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
+                            { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
+                            { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
+                        },
+                    ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0 },
+                            { "deployment_name", "completions" }
+                        }
+                }
+            },
+            new KnowledgeManagementAgent
+            {
+                Name = TestAgentNames.SemanticKernelAgentName,
+                Description = "SemanticKernel agent that can handle completions.",
+                InlineContext = true,
+                SessionsEnabled = true,
+                Vectorization = new AgentVectorizationSettings
+                {
+                    DedicatedPipeline = false,
+                    IndexingProfileObjectId = null,
+                    TextEmbeddingProfileObjectId = null,
+                    DataSourceObjectId = null
+                },
+                ConversationHistory = new ConversationHistory
+                {
+                    Enabled = true,
+                    MaxHistory = 10
+                },
+                Gatekeeper = new Gatekeeper
+                {
+                    UseSystemSetting = false
+                },
+                OrchestrationSettings = new OrchestrationSettings
+                {
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
+                    EndpointConfiguration = new Dictionary<string, object>
+                        {
+                            { "auth_type", "key" },
+                            { "provider", "microsoft" },
+                            { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
+                            { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
+                            { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
+                        },
+                    ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0 },
+                            { "deployment_name", "completions" }
+                        }
+                }
+            },
+            new KnowledgeManagementAgent
+            {
+                Name = TestAgentNames.LangChainAgentName,
+                Description = "LangChain agent that can handle completions.",
+                InlineContext = true,
+                SessionsEnabled = true,
+                Vectorization = new AgentVectorizationSettings
+                {
+                    DedicatedPipeline = false,
+                    IndexingProfileObjectId = null,
+                    TextEmbeddingProfileObjectId = null,
+                    DataSourceObjectId = null
+                },
+                ConversationHistory = new ConversationHistory
+                {
+                    Enabled = true,
+                    MaxHistory = 10
+                },
+                Gatekeeper = new Gatekeeper
+                {
+                    UseSystemSetting = false
+                },
+                OrchestrationSettings = new OrchestrationSettings
+                {
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
+                    EndpointConfiguration = new Dictionary<string, object>
+                        {
+                            { "auth_type", "key" },
+                            { "provider", "microsoft" },
+                            { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
+                            { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
+                            { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
+                        },
+                    ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0 },
+                            { "deployment_name", "completions" }
+                        }
+                }
             }
         ];
         #endregion

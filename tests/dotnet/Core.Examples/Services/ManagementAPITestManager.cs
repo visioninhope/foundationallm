@@ -176,12 +176,12 @@ namespace FoundationaLLM.Core.Examples.Services
         }
 
         /// <inheritdoc/>
-        public async Task<AgentBase> CreateAgent(string agentName)
+        public async Task<AgentBase> CreateAgent(string agentName, string? indexingProfileName, 
+                string? textEmbeddingProfileName, string? textPartitioningProfileName)
         {
             // All test agents should have a corresponding prompt in the catalog.
             // Retrieve the agent and prompt from the test catalog.
             var agent = AgentCatalog.GetAllAgents().FirstOrDefault(a => a.Name == agentName);
-            
             
             if (agent == null)
             {
@@ -207,6 +207,19 @@ namespace FoundationaLLM.Core.Examples.Services
             agent.PromptObjectId = agentPrommpt.ObjectId;
 
             // TODO: Create any other dependencies for the agent here.
+
+            bool inlineContext = ((KnowledgeManagementAgent)agent).InlineContext;
+            if (!inlineContext)
+            {
+                if(!string.IsNullOrEmpty(indexingProfileName))
+                    ((KnowledgeManagementAgent)agent).Vectorization.IndexingProfileObjectId = (await GetIndexingProfile(indexingProfileName)).ObjectId;
+
+                if (!string.IsNullOrEmpty(textEmbeddingProfileName))
+                    ((KnowledgeManagementAgent)agent).Vectorization.TextEmbeddingProfileObjectId = (await GetTextEmbeddingProfile(textEmbeddingProfileName)).ObjectId;
+
+                if (!string.IsNullOrEmpty(textPartitioningProfileName))
+                    ((KnowledgeManagementAgent)agent).Vectorization.TextPartitioningProfileObjectId = (await GetTextPartitioningProfile(textPartitioningProfileName)).ObjectId;
+            }
 
             // Create the agent.
             var agentObjectId = await UpsertResourceAsync(

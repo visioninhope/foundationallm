@@ -17,7 +17,7 @@ public interface IManagementAPITestManager
     /// </summary>
     /// <param name="agentName">The name of the agent and its dependencies to retrieve from the test catalog and create.</param>
     /// <returns>The created agent.</returns>
-    Task<AgentBase> CreateAgent(string agentName);
+    Task<AgentBase> CreateAgent(string agentName, string? indexingProfileName = null, string? textEmbeddingProfileName = null, string? textPartitioningProfileName = null);
 
     /// <summary>
     /// Deletes an agent and its dependencies.
