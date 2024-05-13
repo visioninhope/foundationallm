@@ -32,12 +32,6 @@ resource "azurerm_key_vault_secret" "api_key" {
   value        = random_string.api_key[each.key].result
 }
 
-resource "azurerm_key_vault_secret" "storage_connection_string" {
-  name         = "foundationallm-storage-connectionstring"
-  key_vault_id = data.azurerm_key_vault.keyvault_ops.id
-  value        = module.storage.primary_connection_string
-}
-
 resource "azurerm_key_vault_secret" "content_safety_apikey" {
   name         = "foundationallm-azurecontentsafety-apikey"
   key_vault_id = data.azurerm_key_vault.keyvault_ops.id
