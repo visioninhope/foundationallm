@@ -546,6 +546,7 @@
 				<Button
 					:label="editAgent ? 'Save Changes' : 'Create Agent'"
 					severity="primary"
+					:disabled="editable === false"
 					@click="handleCreateAgent"
 				/>
 
@@ -661,6 +662,8 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
+			editable: false as boolean,
+
 			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
 			validationMessage: '' as string,
 
@@ -742,10 +745,12 @@ export default {
 
 		try {
 			this.loadingStatusText = 'Retrieving indexes...';
-			this.indexSources = await api.getAgentIndexes(true);
+			const indexSourcesResult = await api.getAgentIndexes(true);
+			this.indexSources = indexSourcesResult.map(result => result.resource);
 
 			this.loadingStatusText = 'Retrieving data sources...';
-			this.dataSources = await api.getAgentDataSources(true);
+			const agentDataSourcesResult = await api.getAgentDataSources(true);
+			this.dataSources = agentDataSourcesResult.map(result => result.resource);
 		} catch (error) {
 			this.$toast.add({
 				severity: 'error',
@@ -755,22 +760,24 @@ export default {
 
 		if (this.editAgent) {
 			this.loadingStatusText = `Retrieving agent "${this.editAgent}"...`;
-			const agent = await api.getAgent(this.editAgent);
+			const agentGetResult = await api.getAgent(this.editAgent);
+			this.editable = agentGetResult.actions.includes('FoundationaLLM.Agent/agents/write');
+			const agent = agentGetResult.resource;
 			if (agent.vectorization && agent.vectorization.text_partitioning_profile_object_id) {
 				this.loadingStatusText = `Retrieving text partitioning profile...`;
 				const textPartitioningProfile = await api.getTextPartitioningProfile(
 					agent.vectorization.text_partitioning_profile_object_id,
 				);
-				if (textPartitioningProfile) {
-					this.chunkSize = Number(textPartitioningProfile.settings.ChunkSizeTokens);
-					this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
+				if (textPartitioningProfile && textPartitioningProfile.resource) {
+					this.chunkSize = Number(textPartitioningProfile.resource.settings.ChunkSizeTokens);
+					this.overlapSize = Number(textPartitioningProfile.resource.settings.OverlapSizeTokens);
 				}
 			}
 			if (agent.prompt_object_id !== '') {
 				this.loadingStatusText = `Retrieving prompt...`;
 				const prompt = await api.getPrompt(agent.prompt_object_id);
-				if (prompt) {
-					this.systemPrompt = prompt.prefix;
+				if (prompt && prompt.resource) {
+					this.systemPrompt = prompt.resource.prefix;
 				}
 			}
 			this.loadingStatusText = `Mapping agent values to form...`;
@@ -930,7 +937,7 @@ export default {
 				if (textEmbeddingProfiles.length === 0) {
 					errors.push('No vectorization text embedding profiles found.');
 				} else {
-					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].resource.object_id;
 				}
 			}
 
