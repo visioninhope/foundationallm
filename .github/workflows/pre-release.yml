@@ -3,7 +3,7 @@ name: Pre-release Build
 on:
   push:
     branches:
-    - main
+    - release/*
   workflow_dispatch:
     inputs: {}
 
@@ -13,7 +13,6 @@ jobs:
     outputs:
       registry: ${{ steps.set-registry.outputs.result }}
       service_matrix: ${{ steps.set-service-matrix.outputs.result }}
-      test_matrix: ${{ steps.set-test-matrix.outputs.result }}
       docker_tag: ${{ steps.docker-tag.outputs.docker_tag }}
     steps:
     - name: Checkout code
@@ -26,20 +25,9 @@ jobs:
         result-encoding: string
         script: |
           const fs = require('fs')
-          const jsonString = fs.readFileSync('./tests/config/e2e-test-manifest.json')
+          const jsonString = fs.readFileSync('./tests/config/pre-release-manifest.json')
           var data = JSON.parse(jsonString)
           return JSON.stringify(data.service_matrix)
-    
-    - name: Set Test Matrix
-      uses: actions/github-script@v7
-      id: set-test-matrix
-      with:
-        result-encoding: string
-        script: |
-          const fs = require('fs')
-          const jsonString = fs.readFileSync('./tests/config/e2e-test-manifest.json')
-          var data = JSON.parse(jsonString)
-          return JSON.stringify(data.test_matrix)
     
     - name: Set Container registry
       uses: actions/github-script@v7
@@ -48,7 +36,7 @@ jobs:
         result-encoding: string
         script: |
           const fs = require('fs')
-          const jsonString = fs.readFileSync('./tests/config/e2e-test-manifest.json')
+          const jsonString = fs.readFileSync('./tests/config/pre-release-manifest.json')
           var data = JSON.parse(jsonString)
           return data.registry
 
