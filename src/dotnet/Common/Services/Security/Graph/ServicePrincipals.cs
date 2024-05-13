@@ -8,6 +8,7 @@ namespace FoundationaLLM.Common.Services.Security.Graph
     {
         public ServicePrincipals(GraphServiceClient graphServiceClient) : base(graphServiceClient) { }
 
+        /// <inheritdoc/>
         public async Task<List<Group>> GetGroups(string principalId)
         {
             var groups = await _graphServiceClient.ServicePrincipals[principalId].GetMemberGroups.PostAsGetMemberGroupsPostResponseAsync(
