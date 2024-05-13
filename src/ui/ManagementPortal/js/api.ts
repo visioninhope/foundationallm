@@ -472,9 +472,14 @@ export default {
 	},
 
 	// Prompts
-	async getPrompt(promptId: string): Promise<ResourceProviderGetResult<Prompt>> {
-		const data = await this.fetch(`${promptId}?api-version=${this.apiVersion}`);
-		return data[0];
+	async getPrompt(promptId: string): Promise<ResourceProviderGetResult<Prompt> | null> {
+		// Attempt to retrieve the prompt. If it doesn't exist, return an empty object.
+		try {
+			const data = await this.fetch(`${promptId}?api-version=${this.apiVersion}`);
+			return data[0];
+		} catch (error) {
+			return null;
+		}
 	},
 
 	async createOrUpdatePrompt(agentId: string, request: CreatePromptRequest): Promise<any> {
