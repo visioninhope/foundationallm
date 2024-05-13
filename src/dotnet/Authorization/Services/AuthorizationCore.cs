@@ -279,6 +279,7 @@ namespace FoundationaLLM.Authorization.Services
 
                         // Duplicated actions might exist when a pricipal has multiple roles with overlapping permissions.
                         result[scope].Actions = result[scope].Actions.Distinct().ToList();
+                        result[scope].Roles = result[scope].Roles.Distinct().ToList();
                     }
                 }
                 catch (Exception ex)
