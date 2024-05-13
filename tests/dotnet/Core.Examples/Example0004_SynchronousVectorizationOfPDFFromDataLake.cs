@@ -20,12 +20,14 @@ namespace FoundationaLLM.Core.Examples
     ///     FoundationaLLM:DataSources:datalake_vectorization_input:AccountName
     /// Expects the following document in the storage account:
     ///     /vectorization-input/SDZWA-Journal-January-2024.pdf
+    /// References:
+    ///     PDF public source: https://sandiegozoowildlifealliance.org/Journal/january-2024
     /// </summary>
     public class Example0004_SynchronousVectorizationOfPDFFromDataLake: BaseTest, IClassFixture<TestFixture>
     {
         private readonly IVectorizationTestService _vectorizationTestService;
         private InstanceSettings _instanceSettings;
-        private string containerName = "vectorization-input";
+        private string containerName = "vectorization-input";        
         private string blobName = "SDZWA-Journal-January-2024.pdf";
         private string dataSourceName = "datalake_vectorization_input";
         private string dataSourceObjectId = String.Empty;
