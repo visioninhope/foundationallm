@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 
 namespace FoundationaLLM.Vectorization.Models.Configuration
 {
@@ -14,6 +14,11 @@ namespace FoundationaLLM.Vectorization.Models.Configuration
 
         /// <summary>
         /// The name of the storage account.
+        /// </summary>
+        public required string AccountName { get; set; }
+
+        /// <summary>
+        /// The name of the configuration setting holding connection information
         /// </summary>
         public required string AccountName { get; set; }
 
