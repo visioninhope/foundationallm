@@ -13,7 +13,7 @@ namespace FoundationaLLM.Vectorization.Models.Configuration
         public required string Name { get; set; }
        
         /// <summary>
-        /// The name of the configuration setting holding connection information
+        /// The name of the storage account
         /// </summary>
         public required string AccountName { get; set; }
 
