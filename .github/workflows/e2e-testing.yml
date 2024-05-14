@@ -21,6 +21,13 @@ on:
         description: Enable teardown of environment
         type: boolean
         default: false
+      target:
+        description: Select target tenant/subscription
+        type: choice
+        options:
+        - sandbox
+        - e2e
+        default: e2e
 
 jobs:
   generate_matrix:
@@ -113,12 +120,20 @@ jobs:
     if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')
     runs-on: ubuntu-latest
     env:
-      AZURE_CLIENT_ID: ${{ secrets.FLLM_E2E_SP_CLIENT_ID }}
-      AZURE_TENANT_ID: ${{ secrets.FLLM_E2E_TENANT_ID }}
-      AZURE_SUBSCRIPTION_ID: ${{ secrets.FLLM_E2E_SUBSCRIPTION_ID }}
-      AZURE_CREDENTIALS: ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
+      AZURE_ENV_NAME: ${{ inputs.environment }}
+      AZURE_LOCATION: ${{ inputs.location }}
     needs: [generate_matrix, docker_build]
     steps:
+    - name: Sets Credentials for E2E
+      run: |
+        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}"
+      if: inputs.target == 'e2e'
+    
+    - name: Sets Credentials for Sandbox
+      run: |
+        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}"
+      if: inputs.target == 'sandbox'
+    
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -151,8 +166,6 @@ jobs:
           --application-id "$($info.clientId)" `
           --tenant-id "$($info.tenantId)"
       shell: pwsh
-      env:
-        AZURE_CREDENTIALS: ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
 
     - name: Provision App Registrations
       id: provision-app-registrations
@@ -162,12 +175,10 @@ jobs:
         ./Create-FllmEntraIdApps.ps1
         Pop-Location
       shell: pwsh
-      env:
-        AZURE_ENV_NAME: ${{ inputs.environment }}
-        AZURE_LOCATION: ${{ inputs.location }}
 
     - name: Provision Admin Group
       id: provision-admin-group
+      if: ${{ env.AZURE_CREDENTIALS != '' }}
       run: |
         $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
         Write-Host "::add-mask::$($info.clientSecret)"
@@ -179,13 +190,10 @@ jobs:
         ./Create-FllmAdminGroup.ps1 -spObjectId $spObjectId
         Pop-Location
       shell: pwsh
-      env:
-        AZURE_ENV_NAME: ${{ inputs.environment }}
-        AZURE_LOCATION: ${{ inputs.location }}
-        AZURE_CREDENTIALS: ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
 
     - name: Update AZD Environment
       id: update-azd-environment
+      if: ${{ env.AZURE_CREDENTIALS != '' }}
       run: |
         $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
         Write-Host "::add-mask::$($info.clientSecret)"
@@ -221,29 +229,21 @@ jobs:
           -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176
         Pop-Location
       shell: pwsh
-      env:
-        AZURE_ENV_NAME: ${{ inputs.environment }}
-        AZURE_LOCATION: ${{ inputs.location }}
-        AZURE_CREDENTIALS: ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
 
     - name: Provision Infrastructure
       run: |
-        cd ./deploy/quick-start
+        Push-Location ./deploy/quick-start
         azd provision --no-prompt
         azd env get-values
-      env:
-        AZURE_ENV_NAME: ${{ inputs.environment }}
-        AZURE_LOCATION: ${{ inputs.location }}
-        AZURE_SUBSCRIPTION_ID: ${{ secrets.FLLM_E2E_SUBSCRIPTION_ID }}
+        Pop-Location
+      shell: pwsh
 
     - name: Deploy Application
       run: |
-        cd ./deploy/quick-start
+        Push-Location ./deploy/quick-start
         azd deploy --no-prompt
-      env:
-        AZURE_ENV_NAME: ${{ inputs.environment }}
-        AZURE_LOCATION: ${{ inputs.location }}
-        AZURE_SUBSCRIPTION_ID: ${{ secrets.FLLM_E2E_SUBSCRIPTION_ID }}
+        Pop-Location
+      shell: pwsh
     
     - name: Update App Registration OAuth Callbacks
       id: update-app-reg-oauth
@@ -253,9 +253,6 @@ jobs:
         pwsh -File ../../tests/scripts/Update-OAuthCallbackUris.ps1
         Pop-Location
       shell: pwsh
-      env:
-        AZURE_ENV_NAME: ${{ inputs.environment }}
-        AZURE_LOCATION: ${{ inputs.location }}
 
     - name: Apply MS Graph API Role Assignments
       id: apply-ms-graph-api-roles
@@ -268,6 +265,7 @@ jobs:
 
     - name: Apply Cosmos DB RBAC to Service Principal
       id: apply-cosmos-db-rbac
+      if: ${{ env.AZURE_CREDENTIALS != '' }}
       run: |
         $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
         Write-Host "::add-mask::$($info.clientSecret)"
@@ -294,22 +292,31 @@ jobs:
           --principal-id $spObjectId
         Pop-Location
       shell: pwsh
-      env:
-        AZURE_ENV_NAME: ${{ inputs.environment }}
-        AZURE_LOCATION: ${{ inputs.location }}
-        AZURE_CREDENTIALS: ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
 
   run_e2e_tests:
     name: Run End to End Tests
     if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')
     continue-on-error: true
     runs-on: ubuntu-latest
+    env:
+      AZURE_ENV_NAME: ${{ inputs.environment }}
+      AZURE_LOCATION: ${{ inputs.location }}
     needs: [generate_matrix,deploy_quickstart]
     strategy:
       fail-fast: false
       matrix:
         object: ${{ fromJson(needs.generate_matrix.outputs.test_matrix) }}
     steps:
+    - name: Sets Credentials for E2E
+      run: |
+        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}"
+      if: inputs.target == 'e2e'
+    
+    - name: Sets Credentials for Sandbox
+      run: |
+        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}"
+      if: inputs.target == 'sandbox'
+    
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -338,10 +345,6 @@ jobs:
           --tenant "$($info.tenantId)" `
           --scope api://FoundationaLLM-E2E/.default
       shell: pwsh
-      env:
-        AZURE_CREDENTIALS: ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
-        AZURE_ENV_NAME: ${{ inputs.environment }}
-        AZURE_LOCATION: ${{ inputs.location }}
 
     - name: Running End to End Tests
       id: e2e-test-exec
@@ -380,17 +383,26 @@ jobs:
         echo "Running End to End Test: ${{ matrix.object.name }}"
         dotnet test --filter "FullyQualifiedName=${{ matrix.object.namespace }}.${{ matrix.object.task_name }}" ${{ matrix.object.target }}
       shell: pwsh
-      env:
-        AZURE_CREDENTIALS: ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
-        AZURE_ENV_NAME: ${{ inputs.environment }}
-        AZURE_LOCATION: ${{ inputs.location }}
 
   teardown_quickstart:
     name: Tear Down Quick Start
     if: inputs.enableTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/'))
     runs-on: ubuntu-latest
+    env:
+      AZURE_ENV_NAME: ${{ inputs.environment }}
+      AZURE_LOCATION: ${{ inputs.location }}
     needs: [deploy_quickstart,run_e2e_tests]
     steps:
+    - name: Sets Credentials for E2E
+      run: |
+        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}"
+      if: inputs.target == 'e2e'
+    
+    - name: Sets Credentials for Sandbox
+      run: |
+        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}"
+      if: inputs.target == 'sandbox'
+    
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -417,8 +429,6 @@ jobs:
           --password "$($info.clientSecret)" `
           --tenant "$($info.tenantId)"
       shell: pwsh
-      env:
-        AZURE_CREDENTIALS: ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
 
     - name: Tearing Down AZD Deployment
       id: azd-down
@@ -448,7 +458,3 @@ jobs:
         ./Remove-EntraIdApps.ps1 -interactiveMode $false
         Pop-Location
       shell: pwsh
-      env:
-        AZURE_CREDENTIALS: ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
-        AZURE_ENV_NAME: ${{ inputs.environment }}
-        AZURE_LOCATION: ${{ inputs.location }}
