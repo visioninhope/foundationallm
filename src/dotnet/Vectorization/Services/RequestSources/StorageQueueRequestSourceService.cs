@@ -1,4 +1,4 @@
-﻿using Azure.Storage.Queues;
+using Azure.Storage.Queues;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;

@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 
 namespace FoundationaLLM.Vectorization.Models.Configuration
 {
@@ -11,9 +11,9 @@ namespace FoundationaLLM.Vectorization.Models.Configuration
         /// The name of the request source.
         /// </summary>
         public required string Name { get; set; }
-
+       
         /// <summary>
-        /// The name of the storage account.
+        /// The name of the storage account
         /// </summary>
         public required string AccountName { get; set; }
 
