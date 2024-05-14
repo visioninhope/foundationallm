@@ -6,8 +6,8 @@ namespace FoundationaLLM.Core.Examples.Catalogs
     {
         public static readonly List<DataSourceBase> Items =
         [
-            new AzureDataLakeDataSource { Name = "datalake_vectorization_input", DisplayName = "datalake_vectorization_input", ConfigurationReferences = new Dictionary<string, string> { { "AuthenticationType", "FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType" }, { "AccountName", "FoundationaLLM:DataSources:datalake_vectorization_input:AccountName" } }, Folders = new List<string> { "vectorization-input" } }
-            
+            new AzureDataLakeDataSource { Name = "datalake_vectorization_input", DisplayName = "datalake_vectorization_input", ConfigurationReferences = new Dictionary<string, string> { { "AuthenticationType", "FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType" }, { "AccountName", "FoundationaLLM:DataSources:datalake_vectorization_input:AccountName" } }, Folders = new List<string> { "vectorization-input" } },
+            new SharePointOnlineSiteDataSource { Name = "sharepoint_fllm", DisplayName="sharepoint_fllm", SiteUrl="https://fllm.sharepoint.com/sites/FoundationaLLM", DocumentLibraries=["/documents02"], ConfigurationReferences = new Dictionary<string, string>{ {"ClientId", "FoundationaLLM:DataSources:sharepoint_fllm:ClientId" },{"TenantId", "FoundationaLLM:DataSources:sharepoint_fllm:TenantId" },{"CertificateName", "FoundationaLLM:DataSources:sharepoint_fllm:CertificateName" },{ "KeyVaultURL", "FoundationaLLM:DataSources:sharepoint_fllm:KeyVaultURL" } } }
         ];
 
         public static List<DataSourceBase> GetDataSources()
