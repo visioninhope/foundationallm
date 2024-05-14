@@ -122,8 +122,8 @@ namespace FoundationaLLM.Core.API
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_TenantId,
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId,
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Scopes,
-                allowACLAuthorization: true,
-                requireScopes: false
+                requireScopes: false,
+                allowACLAuthorization: true
             );
 
             // Add OpenTelemetry.
