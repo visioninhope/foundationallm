@@ -1,8 +1,5 @@
-﻿using FoundationaLLM.Common.Authentication;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Services.Security.Graph;
+﻿using FoundationaLLM.Common.Interfaces;
 using Microsoft.Extensions.Logging;
-using Microsoft.Graph;
 using Microsoft.Graph.Models;
 using Microsoft.Graph.Models.ODataErrors;
 
@@ -11,19 +8,18 @@ namespace FoundationaLLM.Common.Services.Security
     /// <summary>
     /// Implements group membership services using the Microsoft Graph API.
     /// </summary>
-    public class MicrosoftGraphGroupMembershipService : IGroupMembershipService
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="MicrosoftGraphGroupMembershipService"/> class.
+    /// </remarks>
+    public class MicrosoftGraphGroupMembershipService(
+        ILogger<MicrosoftGraphGroupMembershipService> logger,
+        IGraphPrincipalWithGroups servicePrincipalsService,
+        IGraphPrincipalWithGroups usersService) : IGroupMembershipService
     {
-        private readonly GraphServiceClient _graphClient = new GraphServiceClient(
-            DefaultAuthentication.AzureCredential);
-        private readonly ILogger<MicrosoftGraphGroupMembershipService> _logger = LoggerFactory
-            .Create(builder => builder.AddConsole())
-            .CreateLogger<MicrosoftGraphGroupMembershipService>();
-        private readonly IGraphPrincipalWithGroups[] _graphPrincipalsWithGroups;
-
-        public MicrosoftGraphGroupMembershipService() =>
-            _graphPrincipalsWithGroups = [
-                new ServicePrincipals(_graphClient),
-                new Users(_graphClient)
+        private readonly IGraphPrincipalWithGroups[] _graphPrincipalsWithGroups =
+            [
+                servicePrincipalsService,
+                usersService
             ];
 
         /// <inheritdoc/>
@@ -39,7 +35,7 @@ namespace FoundationaLLM.Common.Services.Security
                 }
                 catch (ODataError error)
                 {
-                    _logger.LogError(error, "Error getting group membership for {UserIdentifier}", userIdentifier);
+                    logger.LogError(error, "Error getting group membership for {UserIdentifier}", userIdentifier);
                     continue;
                 }
 
