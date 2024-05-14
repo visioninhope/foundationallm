@@ -94,11 +94,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 minimumVersion: "0.4.0",
                 description:
                 "The API key for the Azure Event Grid service."
-            ),
-            new (
-                secretName: KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAPI_APIKey,
-                minimumVersion: "0.6.0",
-                description: "The API key of the Gateway API"
             )
         ];
 
