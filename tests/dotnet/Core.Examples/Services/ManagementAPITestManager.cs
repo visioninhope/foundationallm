@@ -135,7 +135,7 @@ namespace FoundationaLLM.Core.Examples.Services
                 var processResult = JsonSerializer.Deserialize<VectorizationResult>(responseContent, _jsonSerializerOptions);
                 return processResult!;
             }
-            throw new FoundationaLLMException($"Failed to upsert resource. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
+            throw new FoundationaLLMException($"Failed to process vectorization request. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
         }
 
         public async Task DeleteVectorizationRequest(VectorizationRequest vectorizationRequest)

@@ -1,59 +1,51 @@
-﻿using FoundationaLLM.Common.Constants.Configuration;
-using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.Configuration.Instance;
-using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Examples.Setup;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Xunit.Abstractions;
 
 namespace FoundationaLLM.Core.Examples
 {
     /// <summary>
-    /// Example class for running asynchronous vectorization over a PDF file in the Azure Data Lake storage account.
+    /// Example class for running asynchronous vectorization over a PDF file in a SharePoint Online Site document library.
     /// Expects the following configuration values:
-    ///     FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType
-    ///     FoundationaLLM:DataSources:datalake_vectorization_input:AccountName
-    /// Expects the following document in the storage account:
-    ///     /vectorization-input/SDZWA-Journal-January-2024.pdf
+    ///     FoundationaLLM:DataSources:sharepoint_fllm:ClientId
+    ///     FoundationaLLM:DataSources:sharepoint_fllm:TenantId
+    ///     FoundationaLLM:DataSources:sharepoint_fllm:CertificateName
+    ///     FoundationaLLM:DataSources:sharepoint_fllm:KeyVaultURL
     /// References:
     ///     PDF public source: https://sandiegozoowildlifealliance.org/Journal/january-2024
     /// </summary>
-    public class Example0005_AsynchronousVectorizationOfPDFFromDataLake: BaseTest, IClassFixture<TestFixture>
+    public class Example0009_AsynchronousVectorizationOfPDFFromSharePoint: BaseTest, IClassFixture<TestFixture>
     {
         private readonly IVectorizationTestService _vectorizationTestService;
-        private InstanceSettings _instanceSettings;
-        private string containerName = "vectorization-input";        
-        private string blobName = "SDZWA-Journal-January-2024.pdf";
-        private string dataSourceName = "datalake_vectorization_input";
+        private InstanceSettings _instanceSettings;       
+        private string dataSourceName = "sharepoint_fllm";
         private string dataSourceObjectId = String.Empty;
         private string textPartitioningProfileName = "text_partition_profile";
         private string textEmbeddingProfileName = "text_embedding_profile_generic";
         private string indexingProfileName = "indexing_profile_pdf";
         private string searchString = "Kurt and Ollie";
         private string id = String.Empty;
-        private BlobStorageServiceSettings? _settings;
+        private SharePointVectorizationConfiguration _sharePointVectorizationConfiguration;
 
-        public Example0005_AsynchronousVectorizationOfPDFFromDataLake(ITestOutputHelper output, TestFixture fixture)
+        public Example0009_AsynchronousVectorizationOfPDFFromSharePoint(ITestOutputHelper output, TestFixture fixture)
             : base(output, fixture.ServiceProvider)
         {
             _vectorizationTestService = GetService<IVectorizationTestService>();
             _instanceSettings = _vectorizationTestService.InstanceSettings;
             dataSourceObjectId = $"/instances/{_instanceSettings.Id}/providers/FoundationaLLM.DataSource/dataSources/{dataSourceName}";
             id = Guid.NewGuid().ToString();
-            _settings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-            
+            _sharePointVectorizationConfiguration = TestConfiguration.SharePointVectorizationConfiguration;
         }
 
         [Fact]
         public async Task RunAsync()
         {
-            WriteLine("============ Asynchronous Vectorization of a PDF from Data Lake ============");
+            WriteLine("============ Asynchronous Vectorization of a PDF from SharePoint Online ============");
             await RunExampleAsync();
         }
 
@@ -63,7 +55,7 @@ namespace FoundationaLLM.Core.Examples
             await _vectorizationTestService.CreateDataSource(dataSourceName);
 
             Thread.Sleep(5000); // processing too quickly, pause after the creation of the data source
-
+            
             WriteLine($"Create the vectorization text partitioning profile: {textPartitioningProfileName} via the Management API");
             await _vectorizationTestService.CreateTextPartitioningProfile(textPartitioningProfileName);
                         
@@ -73,16 +65,20 @@ namespace FoundationaLLM.Core.Examples
             WriteLine($"Create the vectorization indexing profile: {indexingProfileName} via the Management API");
             await _vectorizationTestService.CreateIndexingProfile(indexingProfileName);
 
+            // used for defining the canonical id, optionally remove the file extension
+            var fileNameWithoutExtension = _sharePointVectorizationConfiguration.FileName.Substring(0, _sharePointVectorizationConfiguration.FileName.LastIndexOf('.'));
+
             ContentIdentifier ci = new ContentIdentifier
             {
                 DataSourceObjectId = dataSourceObjectId,
                 MultipartId = new List<string>
                 {
-                    $"{_settings!.AccountName}.blob.core.windows.net",
-                    containerName,
-                    blobName
+                    _sharePointVectorizationConfiguration.HostName,
+                    _sharePointVectorizationConfiguration.SitePath,
+                    _sharePointVectorizationConfiguration.FolderPath,
+                    _sharePointVectorizationConfiguration.FileName
                 },
-                CanonicalId = containerName + "/" + blobName.Substring(0, blobName.LastIndexOf('.'))
+                CanonicalId = $"{_sharePointVectorizationConfiguration.FolderPath}/{fileNameWithoutExtension}"
             };
 
             WriteLine($"Create the vectorization request: {id} via the Management API");
@@ -97,7 +93,7 @@ namespace FoundationaLLM.Core.Examples
             {
                 RemainingSteps = new List<string> { "extract", "partition", "embed", "index" },
                 CompletedSteps = new List<string>(),
-                ProcessingType = VectorizationProcessingType.Synchronous,
+                ProcessingType = VectorizationProcessingType.Asynchronous,
                 ContentIdentifier = ci,
                 Id = id,
                 Steps = steps,
@@ -149,14 +145,12 @@ namespace FoundationaLLM.Core.Examples
 
             WriteLine($"Vectorization request: {id} completed successfully.");
 
-            //perform a search - this PDF yields 27 documents
             WriteLine($"Verify a search yields 27 documents.");
             TestSearchResult result = await _vectorizationTestService.QueryIndex(indexingProfileName, textEmbeddingProfileName, searchString);
-            if(result.QueryResult.TotalCount!=27)
+            if (result.QueryResult.TotalCount != 27)
                 throw new Exception($"Query did not return the expected number of query results. Expected: 27, Retrieved: {result.QueryResult.TotalCount}");
-            if(result.VectorResults.TotalCount!=27)
+            if (result.VectorResults.TotalCount != 27)
                 throw new Exception($"Query did not return the expected number of vector results. Expected: 27, Retrieved: {result.VectorResults.TotalCount}");
-
 
             WriteLine($"Delete the data source: {dataSourceName} via the Management API");
             await _vectorizationTestService.DeleteDataSource(dataSourceName);
@@ -167,8 +161,8 @@ namespace FoundationaLLM.Core.Examples
             WriteLine($"Delete the vectorization text embedding profile: {textEmbeddingProfileName} via the Management API");
             await _vectorizationTestService.DeleteTextEmbeddingProfile(textEmbeddingProfileName);
 
-            WriteLine($"Delete the vectorization indexing profile: {indexingProfileName} via the Management API along with the index");
-            await _vectorizationTestService.DeleteIndexingProfile(indexingProfileName, true);
+            WriteLine($"Delete the vectorization indexing profile: {indexingProfileName} via the Management API and delete the created index");
+            await _vectorizationTestService.DeleteIndexingProfile(indexingProfileName, true);            
         }
     }
 }
