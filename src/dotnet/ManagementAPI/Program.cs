@@ -110,7 +110,9 @@ namespace FoundationaLLM.Management.API
                 AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Instance,
                 AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_TenantId,
                 AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId,
-                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes);
+                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes,
+                requireScopes: false,
+                allowACLAuthorization: true);
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
