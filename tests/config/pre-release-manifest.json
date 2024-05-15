@@ -79,11 +79,11 @@
             "azd_env_key": "SERVICE_MANAGEMENTUI_IMAGE"
         },
         {
-            "name": "orchestration-api",
+            "name": "agent-factory-api",
             "context": "./src",
-            "dockerfile": "./src/dotnet/OrchestrationAPI/Dockerfile",
-            "helm_chart": "./deploy/common/helm/orchestration-api",
-            "azd_env_key": "SERVICE_ORCHESTRATIONAPI_IMAGE"
+            "dockerfile": "./src/dotnet/AgentFactoryAPI/Dockerfile",
+            "helm_chart": "./deploy/common/helm/agent-factory-api",
+            "azd_env_key": "SERVICE_AGENTFACTORYAPI_IMAGE"
         },
         {
             "name": "prompt-hub-api",
