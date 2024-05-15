@@ -97,7 +97,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<ResourceProviderGetResult<MultipartPrompt>>> LoadPrompts(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<PromptBase>>> LoadPrompts(ResourceTypeInstance instance)
         {
             if (instance.ResourceId == null)
             {
@@ -108,17 +108,17 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                   .Where(pr => pr != null)
                   .ToList();
 
-                return prompts.Select(prompt => new ResourceProviderGetResult<MultipartPrompt>() { Resource = prompt, Actions = [], Roles = [] }).ToList();
+                return prompts.Select(prompt => new ResourceProviderGetResult<PromptBase>() { Resource = prompt, Actions = [], Roles = [] }).ToList();
             }
             else
             {
-                MultipartPrompt? prompt;
+                PromptBase? prompt;
                 if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference))
                 {
                     prompt = await LoadPrompt(null, instance.ResourceId);
                     if (prompt != null)
                     {
-                        return [new ResourceProviderGetResult<MultipartPrompt>() { Resource = prompt, Actions = [], Roles = [] }];
+                        return [new ResourceProviderGetResult<PromptBase>() { Resource = prompt, Actions = [], Roles = [] }];
                     }
                     return [];
                 }
@@ -133,13 +133,13 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 prompt = await LoadPrompt(promptReference);
                 if (prompt != null)
                 {
-                    return [new ResourceProviderGetResult<MultipartPrompt>() { Resource = prompt, Actions = [], Roles = [] }];
+                    return [new ResourceProviderGetResult<PromptBase>() { Resource = prompt, Actions = [], Roles = [] }];
                 }
                 return [];
             }
         }
 
-        private async Task<MultipartPrompt?> LoadPrompt(PromptReference? promptReference, string? resourceId = null)
+        private async Task<PromptBase?> LoadPrompt(PromptReference? promptReference, string? resourceId = null)
         {
             if (promptReference != null || !string.IsNullOrEmpty(resourceId))
             {
@@ -157,7 +157,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                     var prompt = JsonSerializer.Deserialize(
                                Encoding.UTF8.GetString(fileContent.ToArray()),
                                promptReference.PromptType,
-                               _serializerSettings) as MultipartPrompt
+                               _serializerSettings) as PromptBase
                            ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.",
                                StatusCodes.Status400BadRequest);
 
