@@ -229,7 +229,7 @@ namespace FoundationaLLM.Authorization.Services
                         roleAssignmentStore.RoleAssignments.Add(roleAssignment);
                         _roleAssignmentStores.AddOrUpdate(instanceId, roleAssignmentStore, (k, v) => roleAssignmentStore);
                         roleAssignmentStore.EnrichRoleAssignments();
-                        _roleAssignmentCaches.AddOrUpdate(instanceId, new RoleAssignmentCache(_roleAssignmentStores[instanceId]), (k, v) => v);
+                        _roleAssignmentCaches[instanceId].AddOrUpdateRoleAssignment(roleAssignment);
 
                         await _storageService.WriteFileAsync(
                                 ROLE_ASSIGNMENTS_CONTAINER_NAME,
