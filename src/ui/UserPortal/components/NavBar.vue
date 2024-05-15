@@ -127,7 +127,9 @@ export default {
 			value: agent,
 		}));
 
-		const publicAgentOptions = this.agentOptions.filter((agent) => !agent.my_agent);
+		// const publicAgentOptions = this.agentOptions.filter((agent) => !agent.my_agent);
+		// Show all agents in the first group, including "my agents".
+		const publicAgentOptions = this.agentOptions;
 		const privateAgentOptions = this.agentOptions.filter((agent) => agent.my_agent);
 		const noAgentOptions = [{ label: 'None', value: null, disabled: true }];
 
