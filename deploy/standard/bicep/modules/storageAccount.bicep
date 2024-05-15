@@ -105,7 +105,7 @@ resource main 'Microsoft.Storage/storageAccounts@2023-01-01' = {
     accessTier: 'Hot'
     allowBlobPublicAccess: false
     allowCrossTenantReplication: true
-    allowSharedKeyAccess: false
+    allowSharedKeyAccess: true
     defaultToOAuthAuthentication: true
     isHnsEnabled: enableHns
     isNfsV3Enabled: false
