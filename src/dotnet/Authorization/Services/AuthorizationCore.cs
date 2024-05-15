@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
-using FoundationaLLM.Authorization.Constants;
 using FoundationaLLM.Authorization.Interfaces;
 using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Authorization.Models.Configuration;
 using FoundationaLLM.Authorization.ResourceProviders;
 using FoundationaLLM.Authorization.Utils;
+using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authorization;

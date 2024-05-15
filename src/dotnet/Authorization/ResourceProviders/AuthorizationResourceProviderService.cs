@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FoundationaLLM.Authorization.Constants;
 using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;

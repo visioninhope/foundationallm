@@ -2,6 +2,7 @@
 using FluentValidation;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -158,7 +159,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             var results = new List<ResourceProviderGetResult<AgentBase>>();
             foreach (var agent in agents)
             {
-                if (rolesWithActions[agent.ObjectId!].Actions.Contains($"{Name}/{AgentResourceTypeNames.Agents}/read"))
+                if (rolesWithActions[agent.ObjectId!].Actions.Contains(AuthorizableActionNames.FoundationaLLM_Agent_Agents_Read))
                 {
                     results.Add(new ResourceProviderGetResult<AgentBase>()
                     {
