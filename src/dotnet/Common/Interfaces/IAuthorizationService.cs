@@ -23,7 +23,9 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="roleAssignmentRequest">The role assignment request.</param>
         /// <returns></returns>
-        Task<RoleAssignmentResult> ProcessRoleAssignmentRequest(string instanceId, RoleAssignmentRequest roleAssignmentRequest);
+        Task<RoleAssignmentResult> ProcessRoleAssignmentRequest(
+            string instanceId,
+            RoleAssignmentRequest roleAssignmentRequest);
 
         /// <summary>
         /// Returns a list of role names and a list of allowed actions for the specified scope.
@@ -31,6 +33,8 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="request">The get roles with actions request.</param>
         /// <returns>The get roles and actions result.</returns>
-        Task<Dictionary<string, GetRolesWithActionsResult>> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request);
+        Task<Dictionary<string, RoleAssignmentsWithactionsResult>> ProcessRoleAssignmentsWithActionsRequest(
+            string instanceId,
+            RoleAssignmentsWithActionsRequest request);
     }
 }

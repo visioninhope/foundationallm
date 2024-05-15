@@ -13,6 +13,6 @@
         /// <summary>
         /// A flag denoting whether the upserted resource already exists.
         /// </summary>
-        public bool? ResourceAlreadyExists { get; set; }
+        public bool? ResourceExists { get; set; }
     }
 }

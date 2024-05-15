@@ -33,8 +33,6 @@ builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactor
 // Authorization core.
 builder.AddAuthorizationCore();
 
-builder.Services.AddScoped<IRoleManagementService, RoleManagementService>();
-
 // CORS policies
 builder.AddCorsPolicies();
 

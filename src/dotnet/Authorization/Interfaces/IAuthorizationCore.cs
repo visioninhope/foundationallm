@@ -28,16 +28,16 @@ namespace FoundationaLLM.Authorization.Interfaces
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="roleAssignmentRequest">The role assignment request.</param>
-        /// <returns></returns>
+        /// <returns>The role assignment result.</returns>
         Task<RoleAssignmentResult> AssignRole(string instanceId, RoleAssignmentRequest roleAssignmentRequest);
 
         /// <summary>
         /// Revokes a role from an Entra ID user or group.
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
-        /// <param name="roleAssignmentRequest">The role assignment request.</param>
-        /// <returns></returns>
-        Task<RoleAssignmentResult> RevokeRole(string instanceId, RoleAssignmentRequest roleAssignmentRequest);
+        /// <param name="roleAssignment">The role assignment object identifier.</param>
+        /// <returns>The role assignment result.</returns>
+        Task<RoleAssignmentResult> RevokeRole(string instanceId, string roleAssignment);
 
         /// <summary>
         /// Returns a list of role names and a list of allowed actions for the specified scope.
@@ -45,6 +45,6 @@ namespace FoundationaLLM.Authorization.Interfaces
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="request">The get roles with actions request.</param>
         /// <returns>The get roles and actions result.</returns>
-        Dictionary<string, GetRolesWithActionsResult> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request);
+        Dictionary<string, RoleAssignmentsWithactionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request);
     }
 }

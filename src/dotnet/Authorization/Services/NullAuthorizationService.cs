@@ -23,9 +23,9 @@ namespace FoundationaLLM.Authorization.Services
             return new RoleAssignmentResult { Success = true };
         }
 
-        public async Task<Dictionary<string, GetRolesWithActionsResult>> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request)
+        public async Task<Dictionary<string, RoleAssignmentsWithactionsResult>> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)
         {
-            var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new GetRolesWithActionsResult() { Actions = [], Roles = [] });
+            var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new RoleAssignmentsWithactionsResult() { Actions = [], Roles = [] });
 
             await Task.CompletedTask;
             return defaultResults;

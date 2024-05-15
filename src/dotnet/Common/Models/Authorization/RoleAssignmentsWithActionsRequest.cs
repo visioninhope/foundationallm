@@ -5,7 +5,7 @@ namespace FoundationaLLM.Common.Models.Authorization
     /// <summary>
     /// Represents a request to fetch the roles and allowed actions for a resource scope.
     /// </summary>
-    public class GetRolesWithActionsRequest
+    public class RoleAssignmentsWithActionsRequest
     {
         /// <summary>
         /// The id of the security principal requesting authorization.

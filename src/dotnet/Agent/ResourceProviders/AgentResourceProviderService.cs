@@ -146,9 +146,9 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 }
             }
 
-            var rolesWithActions = await _authorizationService.ProcessGetRolesWithActions(
+            var rolesWithActions = await _authorizationService.ProcessRoleAssignmentsWithActionsRequest(
                 _instanceSettings.Id,
-                new GetRolesWithActionsRequest()
+                new RoleAssignmentsWithActionsRequest()
                 {
                     Scopes = agents.Select(x => x.ObjectId!).ToList(),
                     PrincipalId = userIdentity.UserId!,
@@ -318,7 +318,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             return new ResourceProviderUpsertResult
             {
                 ObjectId = agent!.ObjectId,
-                ResourceAlreadyExists = existingAgentReference != null
+                ResourceExists = existingAgentReference != null
             };
         }
 

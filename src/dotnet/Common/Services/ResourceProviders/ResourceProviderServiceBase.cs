@@ -217,7 +217,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
                 var upsertResult = resource as ResourceProviderUpsertResult;
 
-                if (upsertResult!.ResourceAlreadyExists == false && Name != ResourceProviderNames.FoundationaLLM_Authorization)
+                if (upsertResult!.ResourceExists == false && Name != ResourceProviderNames.FoundationaLLM_Authorization)
                 {
                     var roleAssignmentName = Guid.NewGuid().ToString();
                     var roleAssignmentDescription = $"Owner role for {userIdentity.Name}";

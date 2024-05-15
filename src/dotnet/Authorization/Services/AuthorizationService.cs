@@ -66,7 +66,7 @@ namespace FoundationaLLM.Authorization.Services
             {
                 var httpClient = await CreateHttpClient();
                 var response = await httpClient.PostAsync(
-                    $"/instances/{instanceId}/security/roles/assign",
+                    $"/instances/{instanceId}/roleassignments/querywithactions",
                     JsonContent.Create(roleAssignmentRequest));
 
                 if (response.IsSuccessStatusCode)
@@ -91,9 +91,9 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Dictionary<string, GetRolesWithActionsResult>> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request)
+        public async Task<Dictionary<string, RoleAssignmentsWithactionsResult>> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)
         {
-            var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new GetRolesWithActionsResult() { Actions = [], Roles = [] });
+            var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new RoleAssignmentsWithactionsResult() { Actions = [], Roles = [] });
 
             try
             {
@@ -105,7 +105,7 @@ namespace FoundationaLLM.Authorization.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<Dictionary<string, GetRolesWithActionsResult>>(responseContent)!;
+                    return JsonSerializer.Deserialize<Dictionary<string, RoleAssignmentsWithactionsResult>>(responseContent)!;
                 }
 
                 _logger.LogError("The call to the Authorization API returned an error: {StatusCode} - {ReasonPhrase}.", response.StatusCode, response.ReasonPhrase);

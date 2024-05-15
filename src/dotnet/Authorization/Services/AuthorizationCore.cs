@@ -247,12 +247,12 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public Task<RoleAssignmentResult> RevokeRole(string instanceId, RoleAssignmentRequest roleAssignmentRequest) => throw new NotImplementedException();
+        public Task<RoleAssignmentResult> RevokeRole(string instanceId, string roleAssignment) => throw new NotImplementedException();
 
         /// <inheritdoc/>
-        public Dictionary<string, GetRolesWithActionsResult> ProcessGetRolesWithActions(string instanceId, GetRolesWithActionsRequest request)
+        public Dictionary<string, RoleAssignmentsWithactionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)
         {
-            var result = request.Scopes.Distinct().ToDictionary(scp => scp, res => new GetRolesWithActionsResult() { Actions = [], Roles = [] });
+            var result = request.Scopes.Distinct().ToDictionary(scp => scp, res => new RoleAssignmentsWithactionsResult() { Actions = [], Roles = [] });
 
             foreach (var scope in request.Scopes)
             {
