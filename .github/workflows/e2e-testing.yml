@@ -20,7 +20,7 @@ on:
       enableTeardown:
         description: Enable teardown of environment
         type: boolean
-        default: false
+        default: true
       target:
         description: Select target tenant/subscription
         type: choice
@@ -126,24 +126,37 @@ jobs:
     steps:
     - name: Sets Credentials for E2E
       run: |
-        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}"
+        {
+          echo 'AZURE_CREDENTIALS<<EOF'
+          echo "$FLLM_E2E_AZURE_CREDENTIALS"
+          echo EOF
+        } >> "$GITHUB_ENV"
       if: inputs.target == 'e2e'
+      env:
+        FLLM_E2E_AZURE_CREDENTIALS: |
+          ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
     
     - name: Sets Credentials for Sandbox
       run: |
-        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}"
+        {
+          echo 'AZURE_CREDENTIALS<<EOF'
+          echo "$FLLM_SBX_AZURE_CREDENTIALS"
+          echo EOF
+        } >> "$GITHUB_ENV"
       if: inputs.target == 'sandbox'
-    
+      env:
+        FLLM_SBX_AZURE_CREDENTIALS: |
+          ${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}
+
     - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Install azd
       uses: Azure/setup-azd@v1.0.0
       with:
-        version: '1.9.0'
+        version: '1.9.1'
 
     - name: Log in with Azure (Client Credentials)
-      if: ${{ env.AZURE_CREDENTIALS != '' }}
       run: |
         $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
         Write-Host "::add-mask::$($info.clientSecret)"
@@ -178,7 +191,6 @@ jobs:
 
     - name: Provision Admin Group
       id: provision-admin-group
-      if: ${{ env.AZURE_CREDENTIALS != '' }}
       run: |
         $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
         Write-Host "::add-mask::$($info.clientSecret)"
@@ -193,7 +205,6 @@ jobs:
 
     - name: Update AZD Environment
       id: update-azd-environment
-      if: ${{ env.AZURE_CREDENTIALS != '' }}
       run: |
         $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
         Write-Host "::add-mask::$($info.clientSecret)"
@@ -232,6 +243,11 @@ jobs:
 
     - name: Provision Infrastructure
       run: |
+        $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+        Write-Host "::add-mask::$($info.clientSecret)"
+
+        $env:AZURE_SUBSCRIPTION_ID=$($info.subscriptionId)
+
         Push-Location ./deploy/quick-start
         azd provision --no-prompt
         azd env get-values
@@ -240,6 +256,11 @@ jobs:
 
     - name: Deploy Application
       run: |
+        $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+        Write-Host "::add-mask::$($info.clientSecret)"
+
+        $env:AZURE_SUBSCRIPTION_ID=$($info.subscriptionId)
+
         Push-Location ./deploy/quick-start
         azd deploy --no-prompt
         Pop-Location
@@ -265,7 +286,6 @@ jobs:
 
     - name: Apply Cosmos DB RBAC to Service Principal
       id: apply-cosmos-db-rbac
-      if: ${{ env.AZURE_CREDENTIALS != '' }}
       run: |
         $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
         Write-Host "::add-mask::$($info.clientSecret)"
@@ -309,24 +329,37 @@ jobs:
     steps:
     - name: Sets Credentials for E2E
       run: |
-        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}"
+        {
+          echo 'AZURE_CREDENTIALS<<EOF'
+          echo "$FLLM_E2E_AZURE_CREDENTIALS"
+          echo EOF
+        } >> "$GITHUB_ENV"
       if: inputs.target == 'e2e'
+      env:
+        FLLM_E2E_AZURE_CREDENTIALS: |
+          ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
     
     - name: Sets Credentials for Sandbox
       run: |
-        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}"
+        {
+          echo 'AZURE_CREDENTIALS<<EOF'
+          echo "$FLLM_SBX_AZURE_CREDENTIALS"
+          echo EOF
+        } >> "$GITHUB_ENV"
       if: inputs.target == 'sandbox'
-    
+      env:
+        FLLM_SBX_AZURE_CREDENTIALS: |
+          ${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}
+      
     - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Install azd
       uses: Azure/setup-azd@v1.0.0
       with:
-        version: '1.9.0'
+        version: '1.9.1'
 
     - name: Log in with Azure (Client Credentials)
-      if: ${{ env.AZURE_CREDENTIALS != '' }}
       run: |
         $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
         Write-Host "::add-mask::$($info.clientSecret)"
@@ -395,24 +428,37 @@ jobs:
     steps:
     - name: Sets Credentials for E2E
       run: |
-        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}"
+        {
+          echo 'AZURE_CREDENTIALS<<EOF'
+          echo "$FLLM_E2E_AZURE_CREDENTIALS"
+          echo EOF
+        } >> "$GITHUB_ENV"
       if: inputs.target == 'e2e'
+      env:
+        FLLM_E2E_AZURE_CREDENTIALS: |
+          ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
     
     - name: Sets Credentials for Sandbox
       run: |
-        echo "AZURE_CREDENTIALS=${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}"
+        {
+          echo 'AZURE_CREDENTIALS<<EOF'
+          echo "$FLLM_SBX_AZURE_CREDENTIALS"
+          echo EOF
+        } >> "$GITHUB_ENV"
       if: inputs.target == 'sandbox'
-    
+      env:
+        FLLM_SBX_AZURE_CREDENTIALS: |
+          ${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}
+  
     - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Install azd
       uses: Azure/setup-azd@v1.0.0
       with:
-        version: '1.9.0'
+        version: '1.9.1'
 
     - name: Log in with Azure (Client Credentials)
-      if: ${{ env.AZURE_CREDENTIALS != '' }}
       run: |
         $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
         Write-Host "::add-mask::$($info.clientSecret)"
