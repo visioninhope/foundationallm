@@ -1063,18 +1063,6 @@ export default {
 						].filter((option) => option !== null),
 					},
 
-					language_model: {
-						type: 'openai',
-						provider: 'microsoft',
-						temperature: 0,
-						use_chat: true,
-						api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
-						api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
-						api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
-						version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
-						deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
-					},
-
 					sessions_enabled: true,
 
 					prompt_object_id: promptObjectId,
