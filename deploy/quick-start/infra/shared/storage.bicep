@@ -20,7 +20,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
     isHnsEnabled: true
     minimumTlsVersion: 'TLS1_2'
     supportsHttpsTrafficOnly: true
-    allowSharedKeyAccess: false
+    allowSharedKeyAccess: true
   }
 }
 
