@@ -618,16 +618,24 @@ const getDefaultFormValues = () => {
 		orchestration_settings: {
 			orchestrator: 'LangChain' as string,
 			endpoint_configuration: {
-				endpoint: '' as string,
-				api_key: '' as string,
-				api_version: '' as string,
-				operation_type: 'chat' as string,
+				auth_type: 'key' as string,
+				provider: 'microsoft' as string,
+				endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint' as string,
+				api_key: 'FoundationaLLM:AzureOpenAI:API:Key' as string,
+				api_version: 'FoundationaLLM:AzureOpenAI:API:Version' as string,
+				//operation_type: 'chat' as string,
 			} as object,
 			model_parameters: {
-				deployment_name: '' as string,
+				deployment_name: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName' as string,
 				temperature: 0 as number,
 			} as object,
 		},
+
+		api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
+						api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
+						api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
+						version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
+						deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
 
 		// resolved_orchestration_settings: {
 		// 	endpoint_configuration: {
@@ -782,6 +790,9 @@ export default {
 			}
 			this.loadingStatusText = `Mapping agent values to form...`;
 			this.mapAgentToForm(agent);
+		}
+		else {
+			this.editable = true;
 		}
 
 		this.debouncedCheckName = debounce(this.checkName, 500);

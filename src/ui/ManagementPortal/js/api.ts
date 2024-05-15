@@ -326,9 +326,12 @@ export default {
 	},
 
 	async getAgents(): Promise<ResourceProviderGetResult<Agent>[]> {
-		return await this.fetch(
+		const agents = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`,
 		) as ResourceProviderGetResult<Agent>[];
+		// Sort the agents by name.
+		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
+		return agents;
 	},
 
 	async getAgent(agentId: string): Promise<ResourceProviderGetResult<Agent>> {
@@ -393,50 +396,41 @@ export default {
 
 	async upsertAgent(agentId: string, agentData: CreateAgentRequest): Promise<any> {
 		// Deep copy the agent object to prevent modifiying its references
-		const agent = JSON.parse(JSON.stringify(agentData));
+		const agent = JSON.parse(JSON.stringify(agentData)) as CreateAgentRequest;
 
-		// const orchestratorTypeToKeyMap = {
-		// 	LangChain: 'LangChain',
-		// 	AzureOpenAIDirect: 'AzureOpenAI',
-		// 	AzureAIDirect: 'AzureAI',
-		// };
+		if (agent.orchestration_settings.orchestrator.toLowerCase() === 'langchain' ||
+			agent.orchestration_settings.orchestrator.toLowerCase() === 'semantickernel') {
+			for (const [propertyName, propertyValue] of Object.entries(
+				agent.orchestration_settings.endpoint_configuration,
+			)) {
+				if (!propertyValue) {
+					continue;
+				}
 
-		// const orchestratorTypeKey = orchestratorTypeToKeyMap[agent.orchestration_settings.orchestrator];
-		// const keyVaultUri = await this.getAppConfig('FoundationaLLM:Configuration:KeyVaultURI');
+				if (propertyValue.startsWith('FoundationaLLM:') &&
+					propertyName !== 'api_key') {
+					// Get the static value from the app config.
+					const appConfigResult = await this.getAppConfig(propertyValue);
+					// Set the static value to the endpoint configuration.
+					agent.orchestration_settings.endpoint_configuration[propertyName] = appConfigResult.resource.value;
+				}
+			}
+		}
 
-		// for (const [propertyName, propertyValue] of Object.entries(
-		// 	agent.orchestration_settings.endpoint_configuration,
-		// )) {
-		// 	if (!propertyValue) {
-		// 		continue;
-		// 	}
+		for (const [propertyName, propertyValue] of Object.entries(
+			agent.orchestration_settings.model_parameters,
+		)) {
+			if (!propertyValue) {
+				continue;
+			}
 
-		// 	const appConfigKey = `FoundationaLLM:${orchestratorTypeKey}:${agent.name}:API:${propertyName}`;
-		// 	let appConfig: AppConfigUnion = {
-		// 		name: appConfigKey,
-		// 		display_name: appConfigKey,
-		// 		description: '',
-		// 		key: appConfigKey,
-		// 		value: propertyValue,
-		// 	};
-
-		// 	const keyVaultSecretName =
-		// 		`foundationallm-agents-${agent.name}-${propertyName}`.toLowerCase();
-		// 	const metadata = agent.orchestration_settings_metadata?.[propertyName];
-
-		// 	if (metadata && metadata.isKeyVaultBacked) {
-		// 		appConfig = convertToAppConfigKeyVault({
-		// 			...appConfig,
-		// 			key_vault_uri: keyVaultUri.value,
-		// 			key_vault_secret_name: keyVaultSecretName,
-		// 		});
-		// 	} else {
-		// 		appConfig = convertToAppConfig(appConfig);
-		// 	}
-
-		// 	await this.upsertAppConfig(appConfig);
-		// 	agent.orchestration_settings.endpoint_configuration[propertyName] = appConfigKey;
-		// }
+			if (propertyValue.startsWith('FoundationaLLM:')) {
+				// Get the static value from the app config.
+				const appConfigResult = await this.getAppConfig(propertyValue);
+				// Set the static value to the endpoint configuration.
+				agent.orchestration_settings.model_parameters[propertyName] = appConfigResult.resource.value;
+			}
+		}
 
 		return await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`,
