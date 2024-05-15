@@ -66,7 +66,7 @@ namespace FoundationaLLM.Authorization.Services
             {
                 var httpClient = await CreateHttpClient();
                 var response = await httpClient.PostAsync(
-                    $"/instances/{instanceId}/roleassignments/querywithactions",
+                    $"/instances/{instanceId}/roleassignments",
                     JsonContent.Create(roleAssignmentRequest));
 
                 if (response.IsSuccessStatusCode)
@@ -99,7 +99,7 @@ namespace FoundationaLLM.Authorization.Services
             {
                 var httpClient = await CreateHttpClient();
                 var response = await httpClient.PostAsync(
-                    $"/instances/{instanceId}/roleassignments",
+                    $"/instances/{instanceId}/roleassignments/querywithactions",
                     JsonContent.Create(request));
 
                 if (response.IsSuccessStatusCode)
