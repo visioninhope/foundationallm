@@ -260,11 +260,6 @@ namespace FoundationaLLM.Core.Examples.Services
                 throw new InvalidOperationException($"The prompt {promptName} was not found.");
             }
             
-            if (prompt is MultipartPrompt multiPartPrompt)
-            {
-                multiPartPrompt.Prefix = await EnrichPrompt(multiPartPrompt.Prefix!);
-            }
-
             prompt.ObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Prompt,
@@ -358,26 +353,6 @@ namespace FoundationaLLM.Core.Examples.Services
         async public Task<TextPartitioningProfile> GetTextPartitioningProfile(string name)
         {
             return await GetResourcesAsync<TextPartitioningProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textPartitioningProfiles/{name}");
-        }
-
-        private async Task<string> EnrichPrompt(string promptTemplate)
-        {
-            using var sr = new StringReader(promptTemplate);
-            var result = new StringBuilder();
-            string line;
-            while ((line = sr.ReadLine()!) != null)
-            {
-                if (line.Length > 0)
-                    line = line.Trim();
-                if (line.StartsWith("__RESOURCE"))
-                {
-                    var resourceName = line.Split(':')[1];
-                    line = EmbeddedResource.Read(resourceName).Replace("{", "{{").Replace("}", "}}");
-                }
-                result.AppendLine(line);
-            }
-
-            return result.ToString();
         }
     }
 }
