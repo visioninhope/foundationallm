@@ -54,7 +54,7 @@ If you are upgrading from a previous version, like `0.5.0`, please refer to the 
     git checkout release/0.6.0
     ```
 
-3. Run the following script to install the deployment utilities, like `AzCopy`, locally.
+3. **For release 0.7.0+:** Run the following script to install the deployment utilities, including `AzCopy`, locally.
 
     ```cmd
     ./scripts/bootstrap.ps1
