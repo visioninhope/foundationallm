@@ -62,7 +62,7 @@
             "context": "./src",
             "dockerfile": "./src/dotnet/GatewayAPI/Dockerfile",
             "helm_chart": "./deploy/common/helm/gateway-api", 
-            "azd_env_key": "SERVICE_GATEKEEPERAPI_IMAGE"
+            "azd_env_key": "SERVICE_GATEWAYAPI_IMAGE"
         },
         {
             "name": "langchain-api",
