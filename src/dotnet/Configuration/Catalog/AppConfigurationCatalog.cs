@@ -509,7 +509,7 @@ namespace FoundationaLLM.Configuration.Catalog
 
             new(
                 key: AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_APIUrl,
-                minimumVersion: "0.6.0",
+                minimumVersion: "0.8.0",
                 defaultValue: "",
                 description: "The URL of the Gateway API.",
                 keyVaultSecretName: "",
@@ -519,7 +519,7 @@ namespace FoundationaLLM.Configuration.Catalog
 
             new(
                 key: AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_APIKey,
-                minimumVersion: "0.6.0",
+                minimumVersion: "0.8.0",
                 defaultValue: "Key Vault secret name: `foundationallm-apis-gatewayapi-apikey`",
                 description: "The API key of the Gateway API.",
                 keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAPI_APIKey,
@@ -530,7 +530,7 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: AppConfigurationKeys
                     .FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString,
-                minimumVersion: "0.6.0",
+                minimumVersion: "0.8.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description:
                 "The connection string to the Application Insights instance used by the vectorization API.",
