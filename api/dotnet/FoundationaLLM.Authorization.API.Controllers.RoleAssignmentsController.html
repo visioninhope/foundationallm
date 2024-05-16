@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class OrchestrationController | FoundationaLLM </title>
+      <title>Class RoleAssignmentsController | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class OrchestrationController | FoundationaLLM ">
+      <meta name="title" content="Class RoleAssignmentsController | FoundationaLLM ">
       
-      <meta name="description" content="Methods for orchestration services exposed by the Gatekeeper API service.">
+      <meta name="description" content="Provides security endpoints.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Core_API_Controllers_OrchestrationController.md&amp;value=---%0Auid%3A%20FoundationaLLM.Core.API.Controllers.OrchestrationController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController.md&amp;value=---%0Auid%3A%20FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,28 +84,30 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Core.API.Controllers.OrchestrationController">
+        <article data-uid="FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController">
 
 
 
-  <h1 id="FoundationaLLM_Core_API_Controllers_OrchestrationController" data-uid="FoundationaLLM.Core.API.Controllers.OrchestrationController" class="text-break">
-Class OrchestrationController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/OrchestrationController.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController" data-uid="FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController" class="text-break">
+Class RoleAssignmentsController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AuthorizationAPI/Controllers/RoleAssignmentsController.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Core.html">Core</a>.<a class="xref" href="FoundationaLLM.Core.API.html">API</a>.<a class="xref" href="FoundationaLLM.Core.API.Controllers.html">Controllers</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>FoundationaLLM.Core.API.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Authorization.html">Authorization</a>.<a class="xref" href="FoundationaLLM.Authorization.API.html">API</a>.<a class="xref" href="FoundationaLLM.Authorization.API.Controllers.html">Controllers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>FoundationaLLM.Authorization.API.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Methods for orchestration services exposed by the Gatekeeper API service.</p>
+  <div class="markdown summary"><p>Provides security endpoints.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Authorize(Policy = &quot;DefaultPolicy&quot;)]
+    <pre><code class="lang-csharp hljs">[Authorize(Policy = &quot;RequiredClaims&quot;)]
 [ApiController]
-[Route(&quot;[controller]&quot;)]
-public class OrchestrationController : ControllerBase</code></pre>
+[Consumes(&quot;application/json&quot;, new string[] { })]
+[Produces(&quot;application/json&quot;, new string[] { })]
+[Route(&quot;instances/{instanceId}/roleassignments&quot;)]
+public class RoleAssignmentsController : Controller, IActionFilter, IAsyncActionFilter, IFilterMetadata, IDisposable</code></pre>
   </div>
 
 
@@ -116,15 +118,91 @@ public class OrchestrationController : ControllerBase</code></pre>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controllerbase">ControllerBase</a></div>
-      <div><span class="xref">OrchestrationController</span></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller">Controller</a></div>
+      <div><span class="xref">RoleAssignmentsController</span></div>
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.filters.iactionfilter">IActionFilter</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncactionfilter">IAsyncActionFilter</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.filters.ifiltermetadata">IFilterMetadata</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.view#microsoft-aspnetcore-mvc-controller-view">Controller.View()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.view#microsoft-aspnetcore-mvc-controller-view(system-string)">Controller.View(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.view#microsoft-aspnetcore-mvc-controller-view(system-object)">Controller.View(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.view#microsoft-aspnetcore-mvc-controller-view(system-string-system-object)">Controller.View(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.partialview#microsoft-aspnetcore-mvc-controller-partialview">Controller.PartialView()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.partialview#microsoft-aspnetcore-mvc-controller-partialview(system-string)">Controller.PartialView(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.partialview#microsoft-aspnetcore-mvc-controller-partialview(system-object)">Controller.PartialView(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.partialview#microsoft-aspnetcore-mvc-controller-partialview(system-string-system-object)">Controller.PartialView(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewcomponent#microsoft-aspnetcore-mvc-controller-viewcomponent(system-string)">Controller.ViewComponent(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewcomponent#microsoft-aspnetcore-mvc-controller-viewcomponent(system-type)">Controller.ViewComponent(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewcomponent#microsoft-aspnetcore-mvc-controller-viewcomponent(system-string-system-object)">Controller.ViewComponent(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewcomponent#microsoft-aspnetcore-mvc-controller-viewcomponent(system-type-system-object)">Controller.ViewComponent(Type, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.json#microsoft-aspnetcore-mvc-controller-json(system-object)">Controller.Json(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.json#microsoft-aspnetcore-mvc-controller-json(system-object-system-object)">Controller.Json(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.onactionexecuting">Controller.OnActionExecuting(ActionExecutingContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.onactionexecuted">Controller.OnActionExecuted(ActionExecutedContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.onactionexecutionasync">Controller.OnActionExecutionAsync(ActionExecutingContext, ActionExecutionDelegate)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.dispose#microsoft-aspnetcore-mvc-controller-dispose">Controller.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.dispose#microsoft-aspnetcore-mvc-controller-dispose(system-boolean)">Controller.Dispose(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewdata">Controller.ViewData</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.tempdata">Controller.TempData</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controller.viewbag">Controller.ViewBag</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.statuscode#microsoft-aspnetcore-mvc-controllerbase-statuscode(system-int32)">ControllerBase.StatusCode(int)</a>
     </div>
@@ -677,45 +755,31 @@ public class OrchestrationController : ControllerBase</code></pre>
 
 
 
-  <h2 id="FoundationaLLM_Core_API_Controllers_OrchestrationController_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>Constructor for the Orchestration Controller.</p>
-</div>
 
 
   <h2 class="section" id="constructors">Constructors
 </h2>
 
 
-  <a id="FoundationaLLM_Core_API_Controllers_OrchestrationController__ctor_" data-uid="FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor*"></a>
+  <a id="FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController__ctor_" data-uid="FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Core_API_Controllers_OrchestrationController__ctor_FoundationaLLM_Core_Interfaces_ICoreService_FoundationaLLM_Common_Interfaces_ICallContext_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_API_Controllers_OrchestrationController__" data-uid="FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Core.Interfaces.ICoreService,FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.OrchestrationController})">
-  OrchestrationController(ICoreService, ICallContext, IEnumerable&lt;IResourceProviderService&gt;, ILogger&lt;OrchestrationController&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/OrchestrationController.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController__ctor_FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_" data-uid="FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.#ctor(FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)">
+  RoleAssignmentsController(IAuthorizationCore)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AuthorizationAPI/Controllers/RoleAssignmentsController.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Methods for orchestration services exposed by the Gatekeeper API service.</p>
+  <div class="markdown level1 summary"><p>Provides security endpoints.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public OrchestrationController(ICoreService coreService, ICallContext callContext, IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices, ILogger&lt;OrchestrationController&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public RoleAssignmentsController(IAuthorizationCore authorizationCore)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>coreService</code> <a class="xref" href="FoundationaLLM.Core.Interfaces.ICoreService.html">ICoreService</a></dt>
-    <dd><p>The Core service provides methods for getting
-completions from the orchestrator.</p>
-</dd>
-    <dt><code>callContext</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a></dt>
-    <dd><p>The call context for the request.</p>
-</dd>
-    <dt><code>resourceProviderServices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a>&gt;</dt>
-    <dd><p>The list of <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a> resource provider services.</p>
-</dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Core.API.Controllers.OrchestrationController.html">OrchestrationController</a>&gt;</dt>
-    <dd><p>The logging interface used to log under the
-<a class="xref" href="FoundationaLLM.Core.API.Controllers.OrchestrationController.html">OrchestrationController</a> type name.</p>
+    <dt><code>authorizationCore</code> <a class="xref" href="FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html">IAuthorizationCore</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html">IAuthorizationCore</a> service used to process authorization requests.</p>
 </dd>
   </dl>
 
@@ -726,9 +790,6 @@ completions from the orchestrator.</p>
 
 
 
-  <h4 class="section" id="FoundationaLLM_Core_API_Controllers_OrchestrationController__ctor_FoundationaLLM_Core_Interfaces_ICoreService_FoundationaLLM_Common_Interfaces_ICallContext_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_API_Controllers_OrchestrationController___remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Constructor for the Orchestration Controller.</p>
-</div>
 
 
 
@@ -737,66 +798,123 @@ completions from the orchestrator.</p>
 </h2>
 
 
-  <a id="FoundationaLLM_Core_API_Controllers_OrchestrationController_GetAgents_" data-uid="FoundationaLLM.Core.API.Controllers.OrchestrationController.GetAgents*"></a>
+  <a id="FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_AssignRole_" data-uid="FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.AssignRole*"></a>
 
-  <h3 id="FoundationaLLM_Core_API_Controllers_OrchestrationController_GetAgents" data-uid="FoundationaLLM.Core.API.Controllers.OrchestrationController.GetAgents">
-  GetAgents()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/OrchestrationController.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_AssignRole_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_" data-uid="FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.AssignRole(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)">
+  AssignRole(string, RoleAssignmentRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AuthorizationAPI/Controllers/RoleAssignmentsController.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Retrieves a list of global and private agents.</p>
+  <div class="markdown level1 summary"><p>Assigns a role to an Entra ID user or group.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpGet(&quot;agents&quot;, Name = &quot;GetAgents&quot;)]
-public Task&lt;IEnumerable&lt;ResourceProviderGetResult&lt;AgentBase&gt;&gt;&gt; GetAgents()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderGetResult-1.html">ResourceProviderGetResult</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html">AgentBase</a>&gt;&gt;&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Core_API_Controllers_OrchestrationController_GetCompletion_" data-uid="FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion*"></a>
-
-  <h3 id="FoundationaLLM_Core_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
-  GetCompletion(CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/OrchestrationController.cs/#L63"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Requests a completion from the downstream APIs.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost(&quot;completion&quot;, Name = &quot;GetCompletion&quot;)]
-public Task&lt;IActionResult&gt; GetCompletion(CompletionRequest directCompletionRequest)</code></pre>
+    <pre><code class="lang-csharp hljs">[HttpPost]
+public Task&lt;IActionResult&gt; AssignRole(string instanceId, RoleAssignmentRequest roleAssignmentRequest)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>directCompletionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html">CompletionRequest</a></dt>
-    <dd><p>The user prompt for which to generate a completion.</p>
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance identifier.</p>
+</dd>
+    <dt><code>roleAssignmentRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.html">RoleAssignmentRequest</a></dt>
+    <dd><p>The role assignment request.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a>&gt;</dt>
-    <dd></dd>
+    <dd><p>The role assignment result.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_ProcessRoleAssignmentsWithActionsRequest_" data-uid="FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.ProcessRoleAssignmentsWithActionsRequest*"></a>
+
+  <h3 id="FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_ProcessRoleAssignmentsWithActionsRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsRequest_" data-uid="FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)">
+  ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AuthorizationAPI/Controllers/RoleAssignmentsController.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a list of role names and a list of allowed actions for the specified scope.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[HttpPost(&quot;querywithactions&quot;)]
+public IActionResult ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance identifier.</p>
+</dd>
+    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest.html">RoleAssignmentsWithActionsRequest</a></dt>
+    <dd><p>The get roles with actions request.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a></dt>
+    <dd><p>The get roles and actions result.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_RevokeRole_" data-uid="FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRole*"></a>
+
+  <h3 id="FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_RevokeRole_System_String_System_String_" data-uid="FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRole(System.String,System.String)">
+  RevokeRole(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AuthorizationAPI/Controllers/RoleAssignmentsController.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Revokes a role from an Entra ID user or group.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[HttpDelete(&quot;{*roleAssignment}&quot;)]
+public Task&lt;IActionResult&gt; RevokeRole(string instanceId, string roleAssignment)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance identifier.</p>
+</dd>
+    <dt><code>roleAssignment</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The role assignment object identifier.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.iactionresult">IActionResult</a>&gt;</dt>
+    <dd><p>The role assignment result.</p>
+</dd>
   </dl>
 
 
@@ -813,7 +931,7 @@ public Task&lt;IActionResult&gt; GetCompletion(CompletionRequest directCompletio
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/OrchestrationController.cs/#L21" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AuthorizationAPI/Controllers/RoleAssignmentsController.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 
