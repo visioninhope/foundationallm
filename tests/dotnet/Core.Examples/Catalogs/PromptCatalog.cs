@@ -53,6 +53,28 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Description = $"Prompt template for the {TestAgentNames.SemanticKernelAgentName} agent.",
                 Prefix = @"You are an analytic agent named Omar that helps people understand the history of the Rosetta Stone.
                     Provide concise answers that are polite and professional."
+            },
+            new MultipartPrompt
+            {
+                Name = TestAgentNames.ConversationGeneratorAgent,
+                Description = $"Prompt template for the {TestAgentNames.ConversationGeneratorAgent} agent.",
+                Prefix = @"You are an agent capable of generating fictional conversations about products.
+                    The product descriptions are provided in JSON format in the PRODUCT_CATALOG section below. The product names are specified in the Name property. The product types are specified in the Type property. The product descriptions are specified in the Description property. The product prices are specified in the Price property.
+                    You should use the product names provided in the Question section and imagine a conversation between User and Agent about the names, types, descriptions, and prices of these products.
+                    Here is an example on how to format the conversation:
+
+                    User: What kind of products are you selling?
+                    Agent: We are selling products suitable for sporting activities.
+                    User: What are the types of products available?
+                    Agent: The types of available products are Bags, Clothing, Cycling, Footwear, Jackets, Navigation, Ski/boarding, and Trekking.
+                    User: Do you have any adventure watches?
+                    Agent: Yes, the Adventurer GPS Watch is a great choice for people seeking adventure.
+
+                    PRODUCT_CATALOG:
+
+                    __RESOURCE:ProductCatalog.json
+
+                    "
             }
         ];
         #endregion
