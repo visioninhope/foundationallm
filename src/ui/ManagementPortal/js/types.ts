@@ -1,4 +1,20 @@
 // import type { AccountEntity } from "@azure/msal-browser";
+export type ResourceProviderGetResult<T> = {
+	/**
+	 * Represents the result of a fetch operation.
+	 */
+	resource: T;
+
+	/**
+	 * List of authorized actions on the resource.
+	 */
+	actions: string[];
+
+	/**
+	 * List of roles on the resource.
+	 */
+	roles: string[];
+};
 
 export type Agent = {
 	name: string;

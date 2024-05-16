@@ -2,11 +2,13 @@
 using FluentValidation;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProviders;
@@ -18,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
+using System.Data;
 using System.Text;
 using System.Text.Json;
 
@@ -98,26 +101,24 @@ namespace FoundationaLLM.Agent.ResourceProviders
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                AgentResourceTypeNames.Agents => await LoadAgents(resourcePath.ResourceTypeInstances[0]),
+                AgentResourceTypeNames.Agents => await LoadAgents(resourcePath.ResourceTypeInstances[0], userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<AgentBase>> LoadAgents(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<AgentBase>>> LoadAgents(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
+            var agents = new List<AgentBase>();
+
             if (instance.ResourceId == null)
             {
-                return
-                [
-                    .. (await Task.WhenAll(
-                        _agentReferences.Values
-                            .Where(ar => !ar.Deleted)
-                            .Select(ar => LoadAgent(ar))))
-                    .Where(agent => agent != null)
-                    .ToList()
-                ];
+                agents = (await Task.WhenAll(_agentReferences.Values
+                                    .Where(ar => !ar.Deleted)
+                                    .Select(ar => LoadAgent(ar))))
+                                    .Where(agent => agent != null)
+                                    .ToList();
             }
             else
             {
@@ -127,24 +128,49 @@ namespace FoundationaLLM.Agent.ResourceProviders
                     agent = await LoadAgent(null, instance.ResourceId);
                     if (agent != null)
                     {
-                        return [agent];
+                        agents.Add(agent);
                     }
-                    return [];
                 }
-                if (agentReference.Deleted)
+                else
                 {
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
-                        StatusCodes.Status404NotFound);
-                }
+                    if (agentReference.Deleted)
+                    {
+                        throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
+                            StatusCodes.Status404NotFound);
+                    }
 
-                agent = await LoadAgent(agentReference);
-
-                if (agent != null)
-                {
-                    return [agent];
+                    agent = await LoadAgent(agentReference);
+                    if (agent != null)
+                    {
+                        agents.Add(agent);
+                    }
                 }
-                return [];
             }
+
+            var rolesWithActions = await _authorizationService.ProcessRoleAssignmentsWithActionsRequest(
+                _instanceSettings.Id,
+                new RoleAssignmentsWithActionsRequest()
+                {
+                    Scopes = agents.Select(x => x.ObjectId!).ToList(),
+                    PrincipalId = userIdentity.UserId!,
+                    SecurityGroupIds = userIdentity.GroupIds
+                });
+
+            var results = new List<ResourceProviderGetResult<AgentBase>>();
+            foreach (var agent in agents)
+            {
+                if (rolesWithActions[agent.ObjectId!].Actions.Contains(AuthorizableActionNames.FoundationaLLM_Agent_Agents_Read))
+                {
+                    results.Add(new ResourceProviderGetResult<AgentBase>()
+                    {
+                        Resource = agent,
+                        Actions = rolesWithActions[agent.ObjectId!].Actions,
+                        Roles = rolesWithActions[agent.ObjectId!].Roles
+                    });
+                }
+            }
+
+            return results;
         }
 
         private async Task<AgentBase?> LoadAgent(AgentReference? agentReference, string? resourceId = null)
@@ -162,13 +188,14 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 if (await _storageService.FileExistsAsync(_storageContainerName, agentReference.Filename, default))
                 {
                     var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentReference.Filename, default);
+
                     var agent = JsonSerializer.Deserialize(
                         Encoding.UTF8.GetString(fileContent.ToArray()),
                         agentReference.AgentType,
                         _serializerSettings) as AgentBase
                         ?? throw new ResourceProviderException($"Failed to load the agent {agentReference.Name}.",
                             StatusCodes.Status400BadRequest);
-                    
+
                     if (!string.IsNullOrWhiteSpace(resourceId))
                     {
                         // The agent file exists, but the agent reference is not in the dictionary. Update the dictionary with the missing reference.
@@ -291,7 +318,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
             return new ResourceProviderUpsertResult
             {
-                ObjectId = (agent as AgentBase)!.ObjectId
+                ObjectId = agent!.ObjectId,
+                ResourceExists = existingAgentReference != null
             };
         }
 
@@ -457,9 +485,9 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 Deleted = false
             };
 
-            var agent = await LoadAgent(agentReference);
-            agentReference.Name = agent.Name;
-            agentReference.Type = agent.Type;
+            var getAgentResult = await LoadAgent(agentReference, null);
+            agentReference.Name = getAgentResult.Name;
+            agentReference.Type = getAgentResult.Type;
 
             _agentReferences.AddOrUpdate(
                 agentReference.Name,
