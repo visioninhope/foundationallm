@@ -78,6 +78,7 @@
           "data-source-hub-api": "${SERVICE_DATASOURCEHUBAPI_RESOURCE_EXISTS=false}",
           "gatekeeper-api": "${SERVICE_GATEKEEPERAPI_RESOURCE_EXISTS=false}",
           "gatekeeper-integration-api": "${SERVICE_GATEKEEPERINTEGRATIONAPI_RESOURCE_EXISTS=false}",
+          "gateway-api": "${SERVICE_GATEWAYAPI_RESOURCE_EXISTS=false}",
           "langchain-api": "${SERVICE_LANGCHAINAPI_RESOURCE_EXISTS=false}",
           "management-api": "${SERVICE_MANAGEMENTAPI_RESOURCE_EXISTS=false}",
           "management-ui": "${SERVICE_MANAGEMENTUI_RESOURCE_EXISTS=false}",
