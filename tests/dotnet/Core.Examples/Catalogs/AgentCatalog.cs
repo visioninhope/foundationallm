@@ -177,15 +177,15 @@ namespace FoundationaLLM.Core.Examples.Catalogs
             },
             new KnowledgeManagementAgent
             {
-                Name = TestAgentNames.KnowledgeManagementWithSemanticKernel,
+                Name = TestAgentNames.SemanticKernelSDZWA,
                 Description = "Knowledge Management Agent that queries the San Diego Zoo Wildlife Alliance journals using SemanticKernel.",
                 InlineContext = false,
                 SessionsEnabled = true,
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
-                    TextEmbeddingProfileObjectId = null
+                    IndexingProfileObjectId = "/instances/c1921f77-3369-4e1c-a51d-2c7381e2f53d/providers/FoundationaLLM.Vectorization/indexingProfiles/indexing_profile_sdzwa",
+                    TextEmbeddingProfileObjectId = "/instances/c1921f77-3369-4e1c-a51d-2c7381e2f53d/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/text_embedding_profile_generic",
                 },
                 ConversationHistory = new ConversationHistory
                 {
@@ -216,15 +216,15 @@ namespace FoundationaLLM.Core.Examples.Catalogs
             },
             new KnowledgeManagementAgent
             {
-                Name = TestAgentNames.KnowledgeManagementWithLangChain,
+                Name = TestAgentNames.LangChainSDZWA,
                 Description = "Knowledge Management Agent that queries the San Diego Zoo Wildlife Alliance journals using LangChain.",
                 InlineContext = false,
                 SessionsEnabled = true,
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
-                    TextEmbeddingProfileObjectId = null
+                    IndexingProfileObjectId = "/instances/c1921f77-3369-4e1c-a51d-2c7381e2f53d/providers/FoundationaLLM.Vectorization/indexingProfiles/indexing_profile_sdzwa",
+                    TextEmbeddingProfileObjectId = "/instances/c1921f77-3369-4e1c-a51d-2c7381e2f53d/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/text_embedding_profile_generic",
                 },
                 ConversationHistory = new ConversationHistory
                 {

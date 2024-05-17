@@ -27,7 +27,7 @@ namespace FoundationaLLM.Core.Examples
 
         private async Task RunExampleAsync()
         {
-            var agentName = TestAgentNames.KnowledgeManagementWithLangChain;
+            var agentName = TestAgentNames.LangChainSDZWA;
             var userPrompts = new List<string>
             {
                 "Who are you?",
