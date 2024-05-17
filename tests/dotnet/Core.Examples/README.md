@@ -218,7 +218,7 @@ This example demonstrates a synchronous vectorization request for a file located
 
 #### Setup
 
-This example expects a service principal to be created using the following guidance: [Create a service principal with access to SharePoint Online](https://learn.microsoft.com/en-us/azure/data-factory/connector-sharepoint-online-list?tabs=data-factory#prerequisites) REFER TO THE **Prerequisites** SECTION ONLY.
+This example expects a service principal to be created using the following guidance: [Sharepoint: Setting up an Azure AD app for app-only access](https://learn.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azuread#setting-up-an-azure-ad-app-for-app-only-access).
 
 The certificate used to authenticate the service principal needs to be uploaded to the Azure Key Vault.
 
@@ -241,7 +241,7 @@ The test settings file provides information to the vectorization service about t
   "SharePointVectorizationConfiguration": {
 	"HostName": "fllm.sharepoint.com",
 	"SitePath": "sites/FoundationaLLM",
-	"FolderPath": "SDZWA/Journals",
+	"FolderPath": "Shared Documents/SDZWA/Journals",
 	"FileName": "SDZWA-Journal-January-2024.pdf"
   }
 }
@@ -310,7 +310,7 @@ The test settings file provides information to the vectorization service about t
   "SharePointVectorizationConfiguration": {
 	"HostName": "fllm.sharepoint.com",
 	"SitePath": "sites/FoundationaLLM",
-	"FolderPath": "SDZWA/Journals",
+	"FolderPath": "Shared Documents/SDZWA/Journals",
 	"FileName": "SDZWA-Journal-January-2024.pdf"
   }
 }
