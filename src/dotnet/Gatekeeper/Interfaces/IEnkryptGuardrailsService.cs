@@ -1,9 +1,9 @@
 ﻿namespace FoundationaLLM.Gatekeeper.Core.Interfaces
 {
     /// <summary>
-    /// Interface for calling the Encrypt AI Guardrails service.
+    /// Interface for calling the Enkrypt Guardrails service.
     /// </summary>
-    public interface IGuardrailsService
+    public interface IEnkryptGuardrailsService
     {
         /// <summary>
         /// Detects attempted prompt injections and jailbreaks in user prompts.

@@ -45,7 +45,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var results = JsonSerializer.Deserialize<AnalyzePromptInjectionResult>(responseContent);
+                var results = JsonSerializer.Deserialize<PromptInjectionResult>(responseContent);
                 var promptinjectionResult = results!.Results.FirstOrDefault();
 
                 if (promptinjectionResult != null && promptinjectionResult.Flagged)

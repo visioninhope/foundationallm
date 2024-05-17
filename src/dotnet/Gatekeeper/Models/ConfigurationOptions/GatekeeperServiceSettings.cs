@@ -21,8 +21,8 @@
         public required bool EnableLakeraGuard { get; init; }
 
         /// <summary>
-        /// Flag for enabling or disabling the Encrypt AI Guardrails feature.
+        /// Flag for enabling or disabling the Enkrypt Guardrails feature.
         /// </summary>
-        public required bool EnableEncryptAIGuardrails { get; init; }
+        public required bool EnableEnkryptGuardrails { get; init; }
     }
 }

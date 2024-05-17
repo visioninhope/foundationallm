@@ -15,6 +15,7 @@ namespace Gatekeeper.Tests.Services
 
         private readonly IContentSafetyService _contentSafetyService = Substitute.For<IContentSafetyService>();
         private readonly ILakeraGuardService _lakeraGuardService = Substitute.For<ILakeraGuardService>();
+        private readonly IEnkryptGuardrailsService _enkryptGuardrailsService = Substitute.For<IEnkryptGuardrailsService>();
         private readonly IDownstreamAPIService _orchestrationAPIService = Substitute.For<IDownstreamAPIService>();
         private readonly IRefinementService _refinementService = Substitute.For<IRefinementService>();
         private readonly IGatekeeperIntegrationAPIService _gatekeeperIntegrationAPIService = Substitute.For<IGatekeeperIntegrationAPIService>();
@@ -27,12 +28,14 @@ namespace Gatekeeper.Tests.Services
                 EnableAzureContentSafety = true,
                 EnableMicrosoftPresidio = true,
                 EnableLakeraGuard = true,
+                EnableEnkryptGuardrails = true,
             });
 
             _testedService = new GatekeeperService(
                 _orchestrationAPIService,
                 _contentSafetyService,
                 _lakeraGuardService,
+                _enkryptGuardrailsService,
                 _gatekeeperIntegrationAPIService,
                 _gatekeeperServiceSettings);
         }

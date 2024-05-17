@@ -1,11 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Gatekeeper.Core.Models.Guardrails
+namespace FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails
 {
     /// <summary>
     /// Recognizes patterns that may indicate an prompt injection attack or jailbreak attempt protecting the system from malicious inputs.
     /// </summary>
-    public class DetectPromptInjectionResult
+    public class DetectResult
     {
         /// <summary>
         /// Detection summary.
@@ -41,13 +41,13 @@ namespace FoundationaLLM.Gatekeeper.Core.Models.Guardrails
         /// Prompt injection or jailbreak confidence levels.
         /// </summary>
         [JsonPropertyName("injection_attack")]
-        public DetectInjectionAttack? InjectionAttack { get; set; }
+        public InjectionAttack? InjectionAttack { get; set; }
     }
 
     /// <summary>
     /// Prompt injection or jailbreak confidence levels.
     /// </summary>
-    public class DetectInjectionAttack
+    public class InjectionAttack
     {
         /// <summary>
         /// Confidence level for safe.

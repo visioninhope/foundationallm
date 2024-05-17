@@ -959,9 +959,9 @@
         /// </summary>
         public const string FoundationaLLM_LakeraGuard = "FoundationaLLM:LakeraGuard";
         /// <summary>
-        /// The key section for the FoundationaLLM:EncryptAIGuardrails app configuration settings.
+        /// The key section for the FoundationaLLM:EnkryptGuardrails app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_EncryptAIGuardrails = "FoundationaLLM:EncryptAIGuardrails";
+        public const string FoundationaLLM_EnkryptGuardrails = "FoundationaLLM:EnkryptGuardrails";
         /// <summary>
         /// The key section for the FoundationaLLM:BlobStorageMemorySource app configuration settings.
         /// </summary>

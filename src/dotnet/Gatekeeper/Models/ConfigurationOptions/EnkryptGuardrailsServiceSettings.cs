@@ -1,17 +1,17 @@
 ﻿namespace FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions
 {
     /// <summary>
-    /// Provides configuration options for the Encrypt AI Guardrails service.
+    /// Provides configuration options for the Enkrypt Guardrails service.
     /// </summary>
-    public record GuardrailsServiceSettings
+    public record EnkryptGuardrailsServiceSettings
     {
         /// <summary>
-        /// The Encrypt AI Guardrails service endpoint.
+        /// The Enkrypt Guardrails service endpoint.
         /// </summary>
         public required string APIUrl { get; init; }
 
         /// <summary>
-        /// The Encrypt AI Guardrails service key.
+        /// The Enkrypt Guardrails service key.
         /// </summary>
         public required string APIKey { get; init; }
     }

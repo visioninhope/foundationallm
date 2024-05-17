@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Gatekeeper.Core.Interfaces;
 using FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions;
-using FoundationaLLM.Gatekeeper.Core.Models.Guardrails;
+using FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text;
@@ -9,12 +9,12 @@ using System.Text.Json;
 namespace FoundationaLLM.Gatekeeper.Core.Services
 {
     /// <summary>
-    /// Implements the <see cref="IGuardrailsService"/> interface.
+    /// Implements the <see cref="IEnkryptGuardrailsService"/> interface.
     /// </summary>
-    public class GuardrailsService : IGuardrailsService
+    public class EnkryptGuardrailsService : IEnkryptGuardrailsService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly GuardrailsServiceSettings _settings;
+        private readonly EnkryptGuardrailsServiceSettings _settings;
         private readonly ILogger _logger;
 
         /// <summary>
@@ -23,10 +23,10 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         /// <param name="httpClientFactory">The HTTP client factory.</param>
         /// <param name="options">The configuration options for the Azure Content Safety service.</param>
         /// <param name="logger">The logger for the Azure Content Safety service.</param>
-        public GuardrailsService(
+        public EnkryptGuardrailsService(
             IHttpClientFactory httpClientFactory,
-            IOptions<GuardrailsServiceSettings> options,
-            ILogger<GuardrailsService> logger)
+            IOptions<EnkryptGuardrailsServiceSettings> options,
+            ILogger<EnkryptGuardrailsService> logger)
         {
             _httpClientFactory = httpClientFactory;
             _settings = options.Value;
@@ -55,7 +55,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var results = JsonSerializer.Deserialize<DetectPromptInjectionResult>(responseContent);
+                var results = JsonSerializer.Deserialize<DetectResult>(responseContent);
                 var promptinjectionResult = results!.Summary.InjectionAttack;
 
                 if (promptinjectionResult != 0)
