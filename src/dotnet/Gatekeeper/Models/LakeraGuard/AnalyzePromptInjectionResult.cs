@@ -5,7 +5,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard
     /// <summary>
     /// Prompt injection result.
     /// </summary>
-    public class PromptInjectionResult
+    public class AnalyzePromptInjectionResult
     {
         /// <summary>
         /// The model identifier string of the model used for analysis.
@@ -17,13 +17,13 @@ namespace FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard
         /// A list of results with an object containing each category that the prompt injection endpoint supports.
         /// </summary>
         [JsonPropertyName("results")]
-        public required List<PromptInjection> Results { get; set; }
+        public required List<PromptInjectionResult> Results { get; set; }
     }
 
     /// <summary>
     /// Detailed prompt injection result.
     /// </summary>
-    public class PromptInjection
+    public class PromptInjectionResult
     {
         /// <summary>
         /// A dictionary of detectors that the endpoint analyzed with a boolean decision of whether the input contains the analyzed category.
