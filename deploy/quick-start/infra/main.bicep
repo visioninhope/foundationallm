@@ -594,6 +594,18 @@ module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
   }
 ]
 
+module openAiRoles './shared/roleAssignments.bicep' = {
+  scope: rg
+  name: 'gateway-api-openai-roles'
+  params: {
+    principalId: acaServices[indexOf(serviceNames, 'gateway-api')].outputs.miPrincipalId
+    roleDefinitionNames: [
+      'Cognitive Services OpenAI User'
+      'Reader'
+    ]
+  }
+}
+
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
 output AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME string = authStore.outputs.name
 output AZURE_COGNITIVE_SEARCH_ENDPOINT string = cogSearch.outputs.endpoint
