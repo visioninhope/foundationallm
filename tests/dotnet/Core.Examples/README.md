@@ -126,7 +126,7 @@ This example demonstrates a synchronous vectorization request for a file located
 
 #### Setup
 
-This example expects the following file named [`SDZWA-Journal-January-2024.pdf`](https://sandiegozoowildlifealliance.org/Journal/january-2024) to be located in the lakehouse files.
+This example expects the following file named [`SDZWA-Journal-January-2024.pdf`](https://sandiegozoowildlifealliance.org/Journal/january-2024) to be located in the `FoundationaLLM` workspace and `FoundationaLLM` lakehouse files.
 
 ##### Permissions
 
@@ -171,7 +171,7 @@ This example demonstrates a synchronous vectorization request for a file located
 
 #### Setup
 
-This example expects the following file named [`SDZWA-Journal-January-2024.pdf`](https://sandiegozoowildlifealliance.org/Journal/january-2024) to be located in the lakehouse files.
+This example expects the following file named [`SDZWA-Journal-January-2024.pdf`](https://sandiegozoowildlifealliance.org/Journal/january-2024) to be located in the `FoundationaLLM` workspace and `FoundationaLLM` lakehouse files.
 
 ##### Permissions
 
