@@ -88,6 +88,10 @@ namespace FoundationaLLM.Gatekeeper.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_LakeraGuard));
             builder.Services.AddScoped<ILakeraGuardService, LakeraGuardService>();
 
+            builder.Services.AddOptions<GuardrailsServiceSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_EncryptAIGuardrails));
+            builder.Services.AddScoped<IGuardrailsService, GuardrailsService>();
+
             builder.Services.AddOptions<AzureContentSafetySettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureContentSafety));
             builder.Services.AddScoped<IContentSafetyService, AzureContentSafetyService>();
