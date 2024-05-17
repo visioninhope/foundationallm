@@ -28,7 +28,7 @@ namespace FoundationaLLM.Core.Examples
         private readonly IVectorizationTestService _vectorizationTestService;
         private InstanceSettings _instanceSettings;
         private string workspaceName = "FoundationaLLM";
-        private string lakehouseFilePath = "FoundationaLLM.Lakehouse/Files/";
+        private string lakehouseFilePath = "FoundationaLLM.Lakehouse/Files";
         private string blobName = "SDZWA-Journal-January-2024.pdf";
         private string dataSourceName = "onelake_fllm";
         private string dataSourceObjectId = String.Empty;
@@ -60,6 +60,7 @@ namespace FoundationaLLM.Core.Examples
 
         private async Task RunExampleAsync()
         {
+            
             WriteLine($"Create the data source: {dataSourceName} via the Management API");
             await _vectorizationTestService.CreateDataSource(dataSourceName);
 
@@ -70,7 +71,7 @@ namespace FoundationaLLM.Core.Examples
                         
             WriteLine($"Create the vectorization text embedding profile: {textEmbeddingProfileName} via the Management API");
             await _vectorizationTestService.CreateTextEmbeddingProfile(textEmbeddingProfileName);
-            /*
+            
             WriteLine($"Create the vectorization indexing profile: {indexingProfileName} via the Management API");
             await _vectorizationTestService.CreateIndexingProfile(indexingProfileName);
 
@@ -79,7 +80,7 @@ namespace FoundationaLLM.Core.Examples
                 DataSourceObjectId = dataSourceObjectId,
                 MultipartId = new List<string>
                 {
-                    $"onelake.blob.core.windows.net",
+                    $"onelake.dfs.fabric.microsoft.com",
                     workspaceName,
                     lakehouseFilePath +"/"+ blobName                    
                 },
@@ -126,7 +127,7 @@ namespace FoundationaLLM.Core.Examples
                 throw new Exception($"Vectorization request failed to complete successfully. Message(s):\n{string.Join("\n", resource.ErrorMessages)}");
             }             
 
-            WriteLine($"Vectorization request: {id} completed successfully.");
+            WriteLine($"Vectorization request: {id} completed successfully.");            
 
             //perform a search - this PDF yields 27 documents
             WriteLine($"Verify a search yields 27 documents.");
@@ -134,8 +135,7 @@ namespace FoundationaLLM.Core.Examples
             if(result.QueryResult.TotalCount!=27)
                 throw new Exception($"Query did not return the expected number of query results. Expected: 27, Retrieved: {result.QueryResult.TotalCount}");
             if(result.VectorResults.TotalCount!=27)
-                throw new Exception($"Query did not return the expected number of vector results. Expected: 27, Retrieved: {result.VectorResults.TotalCount}");
-            */
+                throw new Exception($"Query did not return the expected number of vector results. Expected: 27, Retrieved: {result.VectorResults.TotalCount}");            
 
             WriteLine($"Delete the data source: {dataSourceName} via the Management API");
             await _vectorizationTestService.DeleteDataSource(dataSourceName);
