@@ -10,7 +10,7 @@ using Xunit.Abstractions;
 namespace FoundationaLLM.Core.Examples
 {
     /// <summary>
-    /// Example class for running synchronous vectorization over a PDF file in a OneLake Lakehouse.
+    /// Example class for running asynchronous vectorization over a PDF file in a OneLake Lakehouse.
     /// Expects the following configuration values:
     ///     FoundationaLLM:DataSources:onelake_foundationallm:AuthenticationType
     ///     FoundationaLLM:DataSources:onelake_foundationallm:AccountName
@@ -19,7 +19,7 @@ namespace FoundationaLLM.Core.Examples
     /// References:
     ///     PDF public source: https://sandiegozoowildlifealliance.org/Journal/january-2024
     /// </summary>
-    public class Example0006_SynchronousVectorizationOfPDFFromOneLake : BaseTest, IClassFixture<TestFixture>
+    public class Example0007_AsynchronousVectorizationOfPDFFromOneLake : BaseTest, IClassFixture<TestFixture>
     {
         private readonly IVectorizationTestService _vectorizationTestService;
         private InstanceSettings _instanceSettings;
@@ -32,9 +32,9 @@ namespace FoundationaLLM.Core.Examples
         private string textEmbeddingProfileName = "text_embedding_profile_generic";
         private string indexingProfileName = "indexing_profile_pdf";
         private string searchString = "Kurt and Ollie";
-        private string id = String.Empty;
-        
-        public Example0006_SynchronousVectorizationOfPDFFromOneLake(ITestOutputHelper output, TestFixture fixture)
+        private string id = String.Empty;       
+
+        public Example0007_AsynchronousVectorizationOfPDFFromOneLake(ITestOutputHelper output, TestFixture fixture)
             : base(output, fixture.ServiceProvider)
         {
             _vectorizationTestService = GetService<IVectorizationTestService>();
@@ -46,7 +46,7 @@ namespace FoundationaLLM.Core.Examples
         [Fact]
         public async Task RunAsync()
         {
-            WriteLine("============ Synchronous Vectorization of a PDF from OneLake ============");
+            WriteLine("============ Asynchronous Vectorization of a PDF from OneLake ============");
             await RunExampleAsync();
         }
 
@@ -91,7 +91,7 @@ namespace FoundationaLLM.Core.Examples
             {
                 RemainingSteps = new List<string> { "extract", "partition", "embed", "index" },
                 CompletedSteps = new List<string>(),
-                ProcessingType = VectorizationProcessingType.Synchronous,
+                ProcessingType = VectorizationProcessingType.Asynchronous,
                 ContentIdentifier = ci,
                 Id = id,
                 Steps = steps,
@@ -117,7 +117,29 @@ namespace FoundationaLLM.Core.Examples
                 //retrieve more verbose error logging from resource....
                 resource = await _vectorizationTestService.GetVectorizationRequest(request);
                 throw new Exception($"Vectorization request failed to complete successfully. Message(s):\n{string.Join("\n", resource.ErrorMessages)}");
-            }             
+            }
+
+            WriteLine($"Get the initial processing state for the vectorization request: {id} via the Management API");
+            //As this is an asynchronous request, poll the status of the vectorization request until it has completed (or failed). Retrieve initial state.
+            resource = await _vectorizationTestService.GetVectorizationRequest(request);
+
+            // The finalized state of the vectorization request is either "Completed" or "Failed"
+            // Give it a max of 10 minutes to complete, then exit loop and fail the test.
+            WriteLine($"Polling the processing state of the async vectorization request: {id} by retrieving the request from the Management API");
+            int timeRemainingMilliseconds = 600000;
+            var pollDurationMilliseconds = 30000; //poll duration of 30 seconds
+            while (resource.ProcessingState != VectorizationProcessingState.Completed && resource.ProcessingState != VectorizationProcessingState.Failed && timeRemainingMilliseconds > 0)
+            {
+                Thread.Sleep(pollDurationMilliseconds);
+                timeRemainingMilliseconds -= pollDurationMilliseconds;
+                resource = await _vectorizationTestService.GetVectorizationRequest(request);
+            }
+
+            if (resource.ProcessingState == VectorizationProcessingState.Failed)
+                throw new Exception($"Vectorization request failed to complete successfully. Error Messages:\n{string.Join("\n", resource.ErrorMessages)}");
+
+            if (timeRemainingMilliseconds <= 0)
+                throw new Exception("Vectorization request failed to complete successfully. Timeout exceeded.");
 
             WriteLine($"Vectorization request: {id} completed successfully.");            
 
