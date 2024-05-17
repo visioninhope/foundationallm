@@ -117,13 +117,19 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
             // Add authentication configuration.
+            var isE2ETestEnvironment = false;
+            var e2ETestEnvironmentValue = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_E2E_Test_Environment);
+            if (!string.IsNullOrEmpty(e2ETestEnvironmentValue) && e2ETestEnvironmentValue.Equals("true", StringComparison.CurrentCultureIgnoreCase))
+            {
+                isE2ETestEnvironment = true;
+            }
             builder.AddAuthenticationConfiguration(
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Instance,
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_TenantId,
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId,
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Scopes,
-                requireScopes: false,
-                allowACLAuthorization: true
+                requireScopes: !isE2ETestEnvironment,
+                allowACLAuthorization: isE2ETestEnvironment
             );
 
             // Add OpenTelemetry.
