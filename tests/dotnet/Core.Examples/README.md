@@ -49,12 +49,6 @@ This example expects the following file named [`SDZWA-Journal-January-2024.pdf`]
 | --- | --- | --- |
 | `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. |
 | `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | N/A | Account name of the storage account. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey` | N/A | The API key for the text embedding service, ex. OpenAI API Key. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion` | N/A | The API version for the text embedding service. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType` | `APIKey` | The authentication method for the text embedding service. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName` | N/A | The deployment name for the text embedding model |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint` | N/A | The endpoint for the text embedding service. |
-
 
 #### Running the example
 
@@ -96,11 +90,6 @@ This example expects the following file named [`SDZWA-Journal-January-2024.pdf`]
 | --- | --- | --- |
 | `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. |
 | `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | N/A | Account name of the storage account. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey` | N/A | The API key for the text embedding service, ex. OpenAI API Key. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion` | N/A | The API version for the text embedding service. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType` | `APIKey` | The authentication method for the text embedding service. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName` | N/A | The deployment name for the text embedding model |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint` | N/A | The endpoint for the text embedding service. |
 
 #### Running the example
 
@@ -148,11 +137,6 @@ The vectorization api and vectorization job managed identities need to have `Con
 | --- | --- | --- |
 | `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
 | `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | `onelake` | Account name - this will always be `onelake`. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIKey` | N/A | The API key for the text embedding service, ex. OpenAI API Key. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:APIVersion` | N/A | The API version for the text embedding service. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType` | `APIKey` | The authentication method for the text embedding service. |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:DeploymentName` | N/A | The deployment name for the text embedding model |
-| `FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:Endpoint` | N/A | The endpoint for the text embedding service. |
 
 #### Running the example
 
@@ -200,7 +184,6 @@ This example expects the following file named [`SDZWA-Journal-January-2024.pdf`]
 | `FoundationaLLM:DataSources:sharepoint_fllm:TenantId` | N/A | The TenantId of the serivce principal accessing SharePoint Online. |
 | `FoundationaLLM:DataSources:sharepoint_fllm:CertificateName` | N/A | The name of the certificate in the Azure Key Vault used to authenticate the service principal. |
 | `FoundationaLLM:DataSources:sharepoint_fllm:KeyVaultURL` | N/A | The URL of the Azure Key Vault where the certificate is stored. |
-
 
 ##### `testsettings.json` settings
 
@@ -270,7 +253,6 @@ This example expects the following file named [`SDZWA-Journal-January-2024.pdf`]
 | `FoundationaLLM:DataSources:sharepoint_fllm:TenantId` | N/A | The TenantId of the serivce principal accessing SharePoint Online. |
 | `FoundationaLLM:DataSources:sharepoint_fllm:CertificateName` | N/A | The name of the certificate in the Azure Key Vault used to authenticate the service principal. |
 | `FoundationaLLM:DataSources:sharepoint_fllm:KeyVaultURL` | N/A | The URL of the Azure Key Vault where the certificate is stored. |
-
 
 ##### `testsettings.json` settings
 
