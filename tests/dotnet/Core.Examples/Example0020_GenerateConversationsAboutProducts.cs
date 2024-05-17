@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Core.Examples.Constants;
+﻿using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Core.Examples.Constants;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Resources;
 using FoundationaLLM.Core.Examples.Setup;
@@ -28,6 +29,7 @@ namespace FoundationaLLM.Core.Examples
             public required string Tone { get; set; }
             public required List<Product> TargetProducts { get; set; }
             public required List<ConversationMessage> Messages { get; set; }
+            public required double TimeToGenerate { get; set; }
         }
 
         private record ConversationMessage
@@ -48,7 +50,10 @@ namespace FoundationaLLM.Core.Examples
             "concise",
             "verbose"
         ];
-        private readonly int _conversationsCount = 1000;
+        private readonly int _conversationsCount = 15;
+        private readonly object _syncRoot = new object();
+        private readonly List<Conversation> _conversations = [];
+        private readonly int _threadCount = 5;
 
 		public Example0020_GenerateConversationsAboutProducts(ITestOutputHelper output, TestFixture fixture)
 			: base(output, fixture.ServiceProvider)
@@ -72,23 +77,10 @@ namespace FoundationaLLM.Core.Examples
                 .Select(i => GetConversationStarter(i + 1))
                 .ToList();
 
-            foreach (var conversationStarter in conversationStarters)
-            {
-                var conversation = conversationStarter.Conversation;
-                WriteLine($"Asking the agent {agentName} agent to create conversation # {conversation.Id}...");
-                var response = await _agentConversationTestService.RunAgentCompletionWithNoSession(
-                    agentName, conversationStarter.UserPrompt, createAgent: false);
-                
-                conversation.Messages = ParseConversation(response.Text!);
-                foreach (var message in conversation.Messages)
-                    Assert.True(message.Answer != TestResponseMessages.FailedCompletionResponse, $"An invalid agent response was found.");
-                WriteLine($"Conversation # {conversation.Id} was created successfully.");
-            }
+            var conversationStaterBuckets = conversationStarters.GroupBy(x => x.Conversation.Id % _threadCount);
 
-            var conversations = conversationStarters.Select(cs => cs.Conversation).ToList();
-            File.WriteAllText(
-                "e://temp//cosmosdb-conversation-analytics-data.json",
-                JsonSerializer.Serialize(conversations, _jsonSerializerOptions));
+            await Task.WhenAll(conversationStaterBuckets
+                .Select(csb => Task.Run(() => CreateConversation(agentName, [.. csb]))).ToArray());
         }
 
         private (Conversation Conversation, string UserPrompt) GetConversationStarter(int id)
@@ -109,7 +101,8 @@ namespace FoundationaLLM.Core.Examples
                 Id = id,
                 Tone = _questionTones[Random.Shared.Next(_questionTones.Count)],
                 TargetProducts = selectedProducts,
-                Messages = []
+                Messages = [],
+                TimeToGenerate = 0
             };
 
             var prompt = string.Join(Environment.NewLine, [
@@ -120,6 +113,27 @@ namespace FoundationaLLM.Core.Examples
             ]);
 
             return new(conversation, prompt);
+        }
+
+        private async Task CreateConversation(string agentName, List<(Conversation Conversation, string UserPrompt)> conversationStarters)
+        {
+            foreach (var conversationStarter in conversationStarters)
+            {
+                var conversation = conversationStarter.Conversation;
+                WriteLine($"Asking the agent {agentName} agent to create conversation # {conversation.Id}...");
+
+                var startTime = DateTimeOffset.UtcNow;
+                var response = await _agentConversationTestService.RunAgentCompletionWithNoSession(
+                    agentName, conversationStarter.UserPrompt, createAgent: false);
+
+                conversation.Messages = ParseConversation(response.Text!);
+                foreach (var message in conversation.Messages)
+                    Assert.True(message.Answer != TestResponseMessages.FailedCompletionResponse, $"An invalid agent response was found.");
+                WriteLine($"Conversation # {conversation.Id} was created successfully.");
+                conversation.TimeToGenerate = (DateTimeOffset.UtcNow - startTime).TotalSeconds;
+
+                SaveConversation(conversation);
+            }
         }
 
         private List<ConversationMessage> ParseConversation(string text)
@@ -167,6 +181,17 @@ namespace FoundationaLLM.Core.Examples
             }
 
             return result;
+        }
+
+        private void SaveConversation(Conversation conversation)
+        {
+            lock (_syncRoot)
+            {
+                _conversations.Add(conversation);
+                File.WriteAllText(
+                    "e://temp//cosmosdb-conversation-analytics-data.json",
+                    JsonSerializer.Serialize(_conversations.OrderBy(x => x.Id).ToList(), _jsonSerializerOptions));
+            }
         }
     }
 }

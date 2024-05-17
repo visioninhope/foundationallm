@@ -266,7 +266,10 @@ namespace FoundationaLLM.Core.API
 
             builder.Services
                     .AddHttpClient(HttpClients.GatekeeperAPI,
-                        client => { client.BaseAddress = new Uri(gatekeeperAPISettings.APIUrl); })
+                        client => {
+                            client.BaseAddress = new Uri(gatekeeperAPISettings.APIUrl);
+                            client.Timeout = TimeSpan.FromSeconds(800);
+                        })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>
@@ -284,7 +287,10 @@ namespace FoundationaLLM.Core.API
 
             builder.Services
                     .AddHttpClient(HttpClients.OrchestrationAPI,
-                        client => { client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl); })
+                        client => {
+                            client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl);
+                            client.Timeout = TimeSpan.FromSeconds(800);
+                        })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>

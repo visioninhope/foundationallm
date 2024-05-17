@@ -63,7 +63,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     You should use the product names provided in the TARGET_PRODUCTS section and imagine a conversation between User and Agent about the names, types, descriptions, and prices of these products.
                     You should use the tone specified in the TONE section for the User questions.
                     You should generate User questions that include short explanations on the reasons the question is asked.
-                    The conversations should include between five and ten questions and answers.
+                    The conversations should include at least ten and no more than sixteen questions and answers in total.
                     Here is an example on how to format the conversation:
 
                     User:

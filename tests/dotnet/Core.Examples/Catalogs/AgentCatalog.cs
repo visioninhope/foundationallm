@@ -209,7 +209,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     },
                     ModelParameters = new Dictionary<string, object>
                     {
-                        { "temperature", 0 },
+                        { "temperature", 0.5 },
                         { "deployment_name", "completions-gpt-4-32k" }
                     }
                 }
