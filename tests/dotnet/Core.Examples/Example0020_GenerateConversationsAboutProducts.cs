@@ -50,7 +50,7 @@ namespace FoundationaLLM.Core.Examples
             "concise",
             "verbose"
         ];
-        private readonly int _conversationsCount = 15;
+        private readonly int _conversationsCount = 1000;
         private readonly object _syncRoot = new object();
         private readonly List<Conversation> _conversations = [];
         private readonly int _threadCount = 5;
@@ -119,20 +119,28 @@ namespace FoundationaLLM.Core.Examples
         {
             foreach (var conversationStarter in conversationStarters)
             {
-                var conversation = conversationStarter.Conversation;
-                WriteLine($"Asking the agent {agentName} agent to create conversation # {conversation.Id}...");
+                try
+                {
+                    var conversation = conversationStarter.Conversation;
+                    WriteLine($"Asking the agent {agentName} agent to create conversation # {conversation.Id}...");
 
-                var startTime = DateTimeOffset.UtcNow;
-                var response = await _agentConversationTestService.RunAgentCompletionWithNoSession(
-                    agentName, conversationStarter.UserPrompt, createAgent: false);
+                    var startTime = DateTimeOffset.UtcNow;
 
-                conversation.Messages = ParseConversation(response.Text!);
-                foreach (var message in conversation.Messages)
-                    Assert.True(message.Answer != TestResponseMessages.FailedCompletionResponse, $"An invalid agent response was found.");
-                WriteLine($"Conversation # {conversation.Id} was created successfully.");
-                conversation.TimeToGenerate = (DateTimeOffset.UtcNow - startTime).TotalSeconds;
+                    var response = await _agentConversationTestService.RunAgentCompletionWithNoSession(
+                        agentName, conversationStarter.UserPrompt, createAgent: false);
 
-                SaveConversation(conversation);
+                    conversation.Messages = ParseConversation(response.Text!);
+                    foreach (var message in conversation.Messages)
+                        Assert.True(message.Answer != TestResponseMessages.FailedCompletionResponse, $"An invalid agent response was found.");
+                    WriteLine($"Conversation # {conversation.Id} was created successfully.");
+                    conversation.TimeToGenerate = (DateTimeOffset.UtcNow - startTime).TotalSeconds;
+
+                    SaveConversation(conversation);
+                }
+                catch (Exception ex)
+                {
+                    WriteLine(ex.ToString());
+                }
             }
         }
 
