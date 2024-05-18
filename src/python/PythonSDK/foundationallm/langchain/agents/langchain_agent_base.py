@@ -373,9 +373,10 @@ class LangChainAgentBase():
                 )
         
         # Set model parameters from agent orchestration settings.
-        for key, value in agent_orchestration_settings.model_parameters.items():
-            if hasattr(language_model, key):
-                setattr(language_model, key, value)
+        if agent_orchestration_settings.model_parameters is not None:
+            for key, value in agent_orchestration_settings.model_parameters.items():
+                if hasattr(language_model, key):
+                    setattr(language_model, key, value)
                  
         # Override model parameters from completion request settings, if any exist.
         if model_override_settings is not None and model_override_settings.model_parameters is not None:            
