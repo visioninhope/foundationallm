@@ -148,7 +148,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
                 // Use observability features to capture the fully rendered prompt.
                 var promptFilter = new DefaultPromptFilter();
-                kernel.PromptFilters.Add(promptFilter);
+                kernel.PromptRenderFilters.Add(promptFilter);                
 
                 var arguments = new KernelArguments()
                 {

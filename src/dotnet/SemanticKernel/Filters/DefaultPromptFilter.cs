@@ -7,7 +7,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Filters
     /// <summary>
     /// Provides the default behavior for filtering actions during prompt rendering.
     /// </summary>
-    public class DefaultPromptFilter : IPromptFilter
+    public class DefaultPromptFilter : IPromptRenderFilter
     {
         /// <summary>
         /// The rendered prompt.
@@ -15,14 +15,13 @@ namespace FoundationaLLM.SemanticKernel.Core.Filters
         public string RenderedPrompt => _renderedPrompt;
 
         private string _renderedPrompt = string.Empty;
+       
+        public async Task OnPromptRenderAsync(PromptRenderContext context, Func<PromptRenderContext, Task> next)
+        {
+            await next(context);
 
-        /// <inheritdoc/>
-        public void OnPromptRendered(PromptRenderedContext context) =>
             _renderedPrompt = context.RenderedPrompt;
 
-        /// <inheritdoc/>
-        public void OnPromptRendering(PromptRenderingContext context)
-        {
         }
     }
 }
