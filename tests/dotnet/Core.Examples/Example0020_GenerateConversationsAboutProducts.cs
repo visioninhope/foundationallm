@@ -50,7 +50,7 @@ namespace FoundationaLLM.Core.Examples
             "concise",
             "verbose"
         ];
-        private readonly int _conversationsCount = 1000;
+        private readonly int _conversationsCount = 5;
         private readonly object _syncRoot = new object();
         private readonly List<Conversation> _conversations = [];
         private readonly int _threadCount = 5;
@@ -197,7 +197,7 @@ namespace FoundationaLLM.Core.Examples
             {
                 _conversations.Add(conversation);
                 File.WriteAllText(
-                    "e://temp//cosmosdb-conversation-analytics-data.json",
+                    "d://temp//cosmosdb-conversation-analytics-data.json",
                     JsonSerializer.Serialize(_conversations.OrderBy(x => x.Id).ToList(), _jsonSerializerOptions));
             }
         }
