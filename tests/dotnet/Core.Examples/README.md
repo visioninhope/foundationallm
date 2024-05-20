@@ -31,7 +31,6 @@ You will see an output similar to the following after the test is completed:
 
 ![The completed test is displayed.](media/example-1-completed-test.png)
 
-
 ### Example 4: Synchronous vectorization of a file located in Azure Data Lake Storage Gen2
 
 **Purpose**: Run synchronous vectorization of a file located in Azure Data Lake Storage Gen2.
@@ -116,6 +115,98 @@ Delete the vectorization text embedding profile: text_embedding_profile_generic 
 Delete the vectorization indexing profile: indexing_profile_pdf via the Management API along with the index
 ```
 
+### Example 6: Synchronous vectorization of a file located in a OneLake Lakehouse
+
+**Purpose**: Run synchronous vectorization of a file located in a OneLake Lakehouse.
+
+**File**: [Example0006_SynchronousVectorizationOfPDFFromOneLake.cs](Example0006_SynchronousVectorizationOfPDFFromOneLake.cs)
+
+This example demonstrates a synchronous vectorization request for a file located in a OneLake Lakehouse.
+
+#### Setup
+
+This example expects the following file named [`SDZWA-Journal-January-2024.pdf`](https://sandiegozoowildlifealliance.org/Journal/january-2024) to be located in the `FoundationaLLM` workspace and `FoundationaLLM` lakehouse files.
+
+##### Permissions
+
+The vectorization api and vectorization job managed identities need to have `Contributor` permissions on the workspace.
+
+##### App Config settings
+| Key | Value | Description |
+| --- | --- | --- |
+| `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
+| `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | `onelake` | Account name - this will always be `onelake`. |
+
+#### Running the example
+
+Run the example by running a test on the `Example0006_SynchronousVectorizationOfPDFFromOneLake.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example0006_SynchronousVectorizationOfPDFFromOneLake.cs` file and selecting **Run Tests**.
+
+You will see an output similar to the following after the test is completed:
+
+```text
+============ Synchronous Vectorization of a PDF from OneLake ============
+Create the data source: onelake_fllm via the Management API
+Create the vectorization text partitioning profile: text_partition_profile via the Management API
+Create the vectorization text embedding profile: text_embedding_profile_generic via the Management API
+Create the vectorization indexing profile: indexing_profile_pdf via the Management API
+Create the vectorization request: f9eddadd-82a8-4068-8956-8669e0c1b020 via the Management API
+Verify the vectorization request f9eddadd-82a8-4068-8956-8669e0c1b020 was created by retrieving it from the Management API
+Issue the process action on the vectorization request: f9eddadd-82a8-4068-8956-8669e0c1b020 via the Management API
+Vectorization request: f9eddadd-82a8-4068-8956-8669e0c1b020 completed successfully.
+Verify a search yields 27 documents.
+Delete the data source: onelake_fllm via the Management API
+Delete the vectorization text partitioning profile: text_partition_profile via the Management API
+Delete the vectorization text embedding profile: text_embedding_profile_generic via the Management API
+Delete the vectorization indexing profile: indexing_profile_pdf via the Management API and delete the created index
+```
+
+### Example 7: Asynchronous vectorization of a file located in a OneLake Lakehouse
+
+**Purpose**: Run asynchronous vectorization of a file located in a OneLake Lakehouse.
+
+**File**: [Example0007_AsynchronousVectorizationOfPDFFromOneLake.cs](Example0007_AsynchronousVectorizationOfPDFFromOneLake.cs)
+
+This example demonstrates a synchronous vectorization request for a file located in a OneLake Lakehouse.
+
+#### Setup
+
+This example expects the following file named [`SDZWA-Journal-January-2024.pdf`](https://sandiegozoowildlifealliance.org/Journal/january-2024) to be located in the `FoundationaLLM` workspace and `FoundationaLLM` lakehouse files.
+
+##### Permissions
+
+The vectorization api and vectorization job managed identities need to have `Contributor` permissions on the workspace.
+
+##### App Config settings
+| Key | Value | Description |
+| --- | --- | --- |
+| `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
+| `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | `onelake` | Account name - this will always be `onelake`. |
+
+#### Running the example
+
+Run the example by running a test on the `Example0007_AsynchronousVectorizationOfPDFFromOneLake.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example0007_AsynchronousVectorizationOfPDFFromOneLake.cs` file and selecting **Run Tests**.
+
+You will see an output similar to the following after the test is completed:
+
+```text
+============ Asynchronous Vectorization of a PDF from OneLake ============
+Create the data source: onelake_fllm via the Management API
+Create the vectorization text partitioning profile: text_partition_profile via the Management API
+Create the vectorization text embedding profile: text_embedding_profile_generic via the Management API
+Create the vectorization indexing profile: indexing_profile_pdf via the Management API
+Create the vectorization request: d698a965-d3a7-4211-9b61-08d445a8fc31 via the Management API
+Verify the vectorization request d698a965-d3a7-4211-9b61-08d445a8fc31 was created by retrieving it from the Management API
+Issue the process action on the vectorization request: d698a965-d3a7-4211-9b61-08d445a8fc31 via the Management API
+Get the initial processing state for the vectorization request: d698a965-d3a7-4211-9b61-08d445a8fc31 via the Management API
+Polling the processing state of the async vectorization request: d698a965-d3a7-4211-9b61-08d445a8fc31 by retrieving the request from the Management API
+Vectorization request: d698a965-d3a7-4211-9b61-08d445a8fc31 completed successfully.
+Verify a search yields 27 documents.
+Delete the data source: onelake_fllm via the Management API
+Delete the vectorization text partitioning profile: text_partition_profile via the Management API
+Delete the vectorization text embedding profile: text_embedding_profile_generic via the Management API
+Delete the vectorization indexing profile: indexing_profile_pdf via the Management API and delete the created index
+```
+
 ### Example 8: Synchronous vectorization of a file located in SharePoint Online
 
 **Purpose**: Run synchronous vectorization of a file located SharePoint Online.
@@ -126,7 +217,7 @@ This example demonstrates a synchronous vectorization request for a file located
 
 #### Setup
 
-This example expects a service principal to be created using the following guidance: [Create a service principal with access to SharePoint Online](https://learn.microsoft.com/en-us/azure/data-factory/connector-sharepoint-online-list?tabs=data-factory#prerequisites) REFER TO THE **Prerequisites** SECTION ONLY.
+This example expects a service principal to be created using the following guidance: [Sharepoint: Setting up an Azure AD app for app-only access](https://learn.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azuread#setting-up-an-azure-ad-app-for-app-only-access).
 
 The certificate used to authenticate the service principal needs to be uploaded to the Azure Key Vault.
 
@@ -140,7 +231,6 @@ This example expects the following file named [`SDZWA-Journal-January-2024.pdf`]
 | `FoundationaLLM:DataSources:sharepoint_fllm:CertificateName` | N/A | The name of the certificate in the Azure Key Vault used to authenticate the service principal. |
 | `FoundationaLLM:DataSources:sharepoint_fllm:KeyVaultURL` | N/A | The URL of the Azure Key Vault where the certificate is stored. |
 
-
 ##### `testsettings.json` settings
 
 The test settings file provides information to the vectorization service about the location and file name of the document to vectorize. The following is an example of the `testsettings.json` file for this example:
@@ -150,7 +240,7 @@ The test settings file provides information to the vectorization service about t
   "SharePointVectorizationConfiguration": {
 	"HostName": "fllm.sharepoint.com",
 	"SitePath": "sites/FoundationaLLM",
-	"FolderPath": "SDZWA/Journals",
+	"FolderPath": "Shared Documents/SDZWA/Journals",
 	"FileName": "SDZWA-Journal-January-2024.pdf"
   }
 }
@@ -196,7 +286,7 @@ This example demonstrates an asynchronous vectorization request for a file locat
 
 #### Setup
 
-This example expects a service principal to be created using the following guidance: [Create a service principal with access to SharePoint Online](https://learn.microsoft.com/en-us/azure/data-factory/connector-sharepoint-online-list?tabs=data-factory#prerequisites) REFER TO THE **Prerequisites** SECTION ONLY.
+This example expects a service principal to be created using the following guidance: [Sharepoint: Setting up an Azure AD app for app-only access](https://learn.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azuread#setting-up-an-azure-ad-app-for-app-only-access).
 
 The certificate used to authenticate the service principal needs to be uploaded to the Azure Key Vault.
 
@@ -210,7 +300,6 @@ This example expects the following file named [`SDZWA-Journal-January-2024.pdf`]
 | `FoundationaLLM:DataSources:sharepoint_fllm:CertificateName` | N/A | The name of the certificate in the Azure Key Vault used to authenticate the service principal. |
 | `FoundationaLLM:DataSources:sharepoint_fllm:KeyVaultURL` | N/A | The URL of the Azure Key Vault where the certificate is stored. |
 
-
 ##### `testsettings.json` settings
 
 The test settings file provides information to the vectorization service about the location and file name of the document to vectorize. The following is an example of the `testsettings.json` file for this example:
@@ -220,7 +309,7 @@ The test settings file provides information to the vectorization service about t
   "SharePointVectorizationConfiguration": {
 	"HostName": "fllm.sharepoint.com",
 	"SitePath": "sites/FoundationaLLM",
-	"FolderPath": "SDZWA/Journals",
+	"FolderPath": "Shared Documents/SDZWA/Journals",
 	"FileName": "SDZWA-Journal-January-2024.pdf"
   }
 }
