@@ -31,7 +31,6 @@ You will see an output similar to the following after the test is completed:
 
 ![The completed test is displayed.](media/example-1-completed-test.png)
 
-
 ### Example 4: Synchronous vectorization of a file located in Azure Data Lake Storage Gen2
 
 **Purpose**: Run synchronous vectorization of a file located in Azure Data Lake Storage Gen2.
@@ -161,11 +160,11 @@ Delete the vectorization text embedding profile: text_embedding_profile_generic 
 Delete the vectorization indexing profile: indexing_profile_pdf via the Management API and delete the created index
 ```
 
-### Example 6: Synchronous vectorization of a file located in a OneLake Lakehouse
+### Example 7: Asynchronous vectorization of a file located in a OneLake Lakehouse
 
-**Purpose**: Run synchronous vectorization of a file located in a OneLake Lakehouse.
+**Purpose**: Run asynchronous vectorization of a file located in a OneLake Lakehouse.
 
-**File**: [Example0009_AsynchronousVectorizationOfPDFFromOneLake.cs](Example0007_AsynchronousVectorizationOfPDFFromOneLake.cs)
+**File**: [Example0007_AsynchronousVectorizationOfPDFFromOneLake.cs](Example0007_AsynchronousVectorizationOfPDFFromOneLake.cs)
 
 This example demonstrates a synchronous vectorization request for a file located in a OneLake Lakehouse.
 
