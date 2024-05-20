@@ -1,11 +1,12 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
@@ -229,20 +230,8 @@ public partial class CoreService(
         if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Agent, out var agentResourceProvider))
             throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
 
-        AgentBase? agentBase = default;
-        if (!string.IsNullOrWhiteSpace(agentName))
-        {
-            try
-            {
-                var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{agentName}", _callContext.CurrentUserIdentity);
-                agentBase = ((List<AgentBase>)agents)[0];
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "The agent resource provider failed to properly retrieve the agent: /{Agents}/{AgentName}",
-                    AgentResourceTypeNames.Agents, agentName);
-            }
-        }
+        var agentBase = await agentResourceProvider.GetResource<AgentBase>($"/{AgentResourceTypeNames.Agents}/{agentName}", _callContext.CurrentUserIdentity ??
+            throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving the agent settings."));
 
         if (agentBase?.Gatekeeper?.UseSystemSetting == false)
         {
