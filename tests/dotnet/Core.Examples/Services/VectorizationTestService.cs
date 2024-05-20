@@ -79,11 +79,19 @@ namespace FoundationaLLM.Core.Examples.Services
         {
             //embed the query
             string oaiEndpoint = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["Endpoint"]);
-            string authType = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["AuthenticationType"]);
-            string apiVersion = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["APIVersion"]);
-            AzureKeyCredential credentials = new(await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["APIKey"]));
-
-            OpenAIClient openAIClient = new(new Uri(oaiEndpoint), credentials);
+            string authType = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["AuthenticationType"]);            
+            OpenAIClient openAIClient;
+            switch(authType)
+            {
+                case "AzureIdentity":
+                    openAIClient = new OpenAIClient(new Uri(oaiEndpoint), new DefaultAzureCredential());
+                    break;
+                case "ApiKey":
+                    openAIClient = new OpenAIClient(new Uri(oaiEndpoint), new AzureKeyCredential(await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["APIKey"])));
+                    break;
+                default:
+                    throw new Exception("Invalid authentication type");
+            }    
 
             EmbeddingsOptions embeddingOptions = new()
             {
