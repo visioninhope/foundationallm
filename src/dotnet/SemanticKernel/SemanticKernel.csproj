@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Authorization\Authorization.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Connectors\AzureML\Models\" />
+  </ItemGroup>
+
 </Project>
