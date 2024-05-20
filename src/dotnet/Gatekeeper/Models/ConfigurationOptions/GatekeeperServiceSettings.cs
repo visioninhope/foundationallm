@@ -19,5 +19,10 @@
         /// Flag for enabling or disabling the Lakera Guard feature.
         /// </summary>
         public required bool EnableLakeraGuard { get; init; }
+
+        /// <summary>
+        /// Flag for enabling or disabling the Enkrypt Guardrails feature.
+        /// </summary>
+        public required bool EnableEnkryptGuardrails { get; init; }
     }
 }

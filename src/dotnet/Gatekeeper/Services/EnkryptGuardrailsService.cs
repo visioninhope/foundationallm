@@ -1,21 +1,20 @@
 ﻿using FoundationaLLM.Gatekeeper.Core.Interfaces;
 using FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions;
-using FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard;
+using FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
 namespace FoundationaLLM.Gatekeeper.Core.Services
 {
     /// <summary>
-    /// Implements the <see cref="ILakeraGuardService"/> interface.
+    /// Implements the <see cref="IEnkryptGuardrailsService"/> interface.
     /// </summary>
-    public class LakeraGuardService : ILakeraGuardService
+    public class EnkryptGuardrailsService : IEnkryptGuardrailsService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly LakeraGuardServiceSettings _settings;
+        private readonly EnkryptGuardrailsServiceSettings _settings;
         private readonly ILogger _logger;
 
         /// <summary>
@@ -24,10 +23,10 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         /// <param name="httpClientFactory">The HTTP client factory.</param>
         /// <param name="options">The configuration options for the Azure Content Safety service.</param>
         /// <param name="logger">The logger for the Azure Content Safety service.</param>
-        public LakeraGuardService(
+        public EnkryptGuardrailsService(
             IHttpClientFactory httpClientFactory,
-            IOptions<LakeraGuardServiceSettings> options,
-            ILogger<LakeraGuardService> logger)
+            IOptions<EnkryptGuardrailsServiceSettings> options,
+            ILogger<EnkryptGuardrailsService> logger)
         {
             _httpClientFactory = httpClientFactory;
             _settings = options.Value;
@@ -39,22 +38,29 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         {
             var client = CreateHttpClient();
 
-            var response = await client.PostAsync("prompt_injection",
-                new StringContent(JsonSerializer.Serialize(new { input = content }), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("/api/guardrails/detect",
+                new StringContent(JsonSerializer.Serialize(new
+                {
+                    text = content,
+                    detectors = new
+                    {
+                        injection_attack = new
+                        {
+                            enabled = true
+                        }
+                    }
+                }),
+                Encoding.UTF8, "application/json"));
 
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var results = JsonSerializer.Deserialize<AnalyzePromptInjectionResult>(responseContent);
-                var promptinjectionResult = results!.Results.FirstOrDefault();
+                var results = JsonSerializer.Deserialize<DetectResult>(responseContent);
+                var promptinjectionResult = results!.Summary.InjectionAttack;
 
-                if (promptinjectionResult != null && promptinjectionResult.Flagged)
+                if (promptinjectionResult != 0)
                 {
-                    if (promptinjectionResult.Categories["prompt_injection"])
-                        return "The prompt text did not pass the safety filter. Reason: Prompt injection detected.";
-
-                    if (promptinjectionResult.Categories["jailbreak"])
-                        return "The prompt text did not pass the safety filter. Reason: Prompt jailbreak detected.";
+                    return "The prompt text did not pass the safety filter. Reason: Prompt injection or jailbreak detected.";
                 }
             }
 
@@ -66,8 +72,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             var httpClient = _httpClientFactory.CreateClient();
 
             httpClient.BaseAddress = new Uri(_settings.APIUrl);
-            httpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", _settings.APIKey);
+            httpClient.DefaultRequestHeaders.Add("api_key", _settings.APIKey);
 
             return httpClient;
         }

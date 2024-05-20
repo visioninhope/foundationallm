@@ -1,9 +1,9 @@
 ﻿namespace FoundationaLLM.Gatekeeper.Core.Interfaces
 {
     /// <summary>
-    /// Interface for calling the Lakera Guard service.
+    /// Interface for calling the Enkrypt Guardrails service.
     /// </summary>
-    public interface ILakeraGuardService
+    public interface IEnkryptGuardrailsService
     {
         /// <summary>
         /// Detects attempted prompt injections and jailbreaks in user prompts.
