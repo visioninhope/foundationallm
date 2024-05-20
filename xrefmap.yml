@@ -4322,6 +4322,36 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.FileExtensions.Word
   fullName: FoundationaLLM.Common.Constants.FileExtensions.Word
   nameWithType: FileExtensions.Word
+- uid: FoundationaLLM.Common.Constants.GatekeeperOptionNames
+  name: GatekeeperOptionNames
+  href: api/dotnet/FoundationaLLM.Common.Constants.GatekeeperOptionNames.html
+  commentId: T:FoundationaLLM.Common.Constants.GatekeeperOptionNames
+  fullName: FoundationaLLM.Common.Constants.GatekeeperOptionNames
+  nameWithType: GatekeeperOptionNames
+- uid: FoundationaLLM.Common.Constants.GatekeeperOptionNames.AzureContentSafety
+  name: AzureContentSafety
+  href: api/dotnet/FoundationaLLM.Common.Constants.GatekeeperOptionNames.html#FoundationaLLM_Common_Constants_GatekeeperOptionNames_AzureContentSafety
+  commentId: F:FoundationaLLM.Common.Constants.GatekeeperOptionNames.AzureContentSafety
+  fullName: FoundationaLLM.Common.Constants.GatekeeperOptionNames.AzureContentSafety
+  nameWithType: GatekeeperOptionNames.AzureContentSafety
+- uid: FoundationaLLM.Common.Constants.GatekeeperOptionNames.EnkryptGuardrails
+  name: EnkryptGuardrails
+  href: api/dotnet/FoundationaLLM.Common.Constants.GatekeeperOptionNames.html#FoundationaLLM_Common_Constants_GatekeeperOptionNames_EnkryptGuardrails
+  commentId: F:FoundationaLLM.Common.Constants.GatekeeperOptionNames.EnkryptGuardrails
+  fullName: FoundationaLLM.Common.Constants.GatekeeperOptionNames.EnkryptGuardrails
+  nameWithType: GatekeeperOptionNames.EnkryptGuardrails
+- uid: FoundationaLLM.Common.Constants.GatekeeperOptionNames.LakeraGuard
+  name: LakeraGuard
+  href: api/dotnet/FoundationaLLM.Common.Constants.GatekeeperOptionNames.html#FoundationaLLM_Common_Constants_GatekeeperOptionNames_LakeraGuard
+  commentId: F:FoundationaLLM.Common.Constants.GatekeeperOptionNames.LakeraGuard
+  fullName: FoundationaLLM.Common.Constants.GatekeeperOptionNames.LakeraGuard
+  nameWithType: GatekeeperOptionNames.LakeraGuard
+- uid: FoundationaLLM.Common.Constants.GatekeeperOptionNames.MicrosoftPresidio
+  name: MicrosoftPresidio
+  href: api/dotnet/FoundationaLLM.Common.Constants.GatekeeperOptionNames.html#FoundationaLLM_Common_Constants_GatekeeperOptionNames_MicrosoftPresidio
+  commentId: F:FoundationaLLM.Common.Constants.GatekeeperOptionNames.MicrosoftPresidio
+  fullName: FoundationaLLM.Common.Constants.GatekeeperOptionNames.MicrosoftPresidio
+  nameWithType: GatekeeperOptionNames.MicrosoftPresidio
 - uid: FoundationaLLM.Common.Constants.HttpClients
   name: HttpClients
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html
@@ -13110,6 +13140,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.AgentName
   nameWithType: OrchestrationRequest.AgentName
+- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
+  name: GatekeeperOptions
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_GatekeeperOptions
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
+  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
+  nameWithType: OrchestrationRequest.GatekeeperOptions
+- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions*
+  name: GatekeeperOptions
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_GatekeeperOptions_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
+  nameWithType: OrchestrationRequest.GatekeeperOptions
 - uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.SessionId
   name: SessionId
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_SessionId
@@ -20714,15 +20757,15 @@ references:
   commentId: T:FoundationaLLM.Core.Services.CoreService
   fullName: FoundationaLLM.Core.Services.CoreService
   nameWithType: CoreService
-- uid: FoundationaLLM.Core.Services.CoreService.#ctor(FoundationaLLM.Core.Interfaces.ICosmosDbService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IDownstreamAPIService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CoreService},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CoreServiceSettings},FoundationaLLM.Common.Interfaces.ICallContext)
-  name: CoreService(ICosmosDbService, IEnumerable<IDownstreamAPIService>, ILogger<CoreService>, IOptions<ClientBrandingConfiguration>, IOptions<CoreServiceSettings>, ICallContext)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService__ctor_FoundationaLLM_Core_Interfaces_ICosmosDbService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IDownstreamAPIService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_Services_CoreService__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Core_Models_Configuration_CoreServiceSettings__FoundationaLLM_Common_Interfaces_ICallContext_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.#ctor(FoundationaLLM.Core.Interfaces.ICosmosDbService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IDownstreamAPIService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CoreService},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CoreServiceSettings},FoundationaLLM.Common.Interfaces.ICallContext)
-  name.vb: New(ICosmosDbService, IEnumerable(Of IDownstreamAPIService), ILogger(Of CoreService), IOptions(Of ClientBrandingConfiguration), IOptions(Of CoreServiceSettings), ICallContext)
-  fullName: FoundationaLLM.Core.Services.CoreService.CoreService(FoundationaLLM.Core.Interfaces.ICosmosDbService, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IDownstreamAPIService>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.Services.CoreService>, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration>, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Core.Models.Configuration.CoreServiceSettings>, FoundationaLLM.Common.Interfaces.ICallContext)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.New(FoundationaLLM.Core.Interfaces.ICosmosDbService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IDownstreamAPIService), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.Services.CoreService), Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration), Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Core.Models.Configuration.CoreServiceSettings), FoundationaLLM.Common.Interfaces.ICallContext)
-  nameWithType: CoreService.CoreService(ICosmosDbService, IEnumerable<IDownstreamAPIService>, ILogger<CoreService>, IOptions<ClientBrandingConfiguration>, IOptions<CoreServiceSettings>, ICallContext)
-  nameWithType.vb: CoreService.New(ICosmosDbService, IEnumerable(Of IDownstreamAPIService), ILogger(Of CoreService), IOptions(Of ClientBrandingConfiguration), IOptions(Of CoreServiceSettings), ICallContext)
+- uid: FoundationaLLM.Core.Services.CoreService.#ctor(FoundationaLLM.Core.Interfaces.ICosmosDbService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IDownstreamAPIService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CoreService},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CoreServiceSettings},FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
+  name: CoreService(ICosmosDbService, IEnumerable<IDownstreamAPIService>, ILogger<CoreService>, IOptions<ClientBrandingConfiguration>, IOptions<CoreServiceSettings>, ICallContext, IEnumerable<IResourceProviderService>)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService__ctor_FoundationaLLM_Core_Interfaces_ICosmosDbService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IDownstreamAPIService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_Services_CoreService__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Core_Models_Configuration_CoreServiceSettings__FoundationaLLM_Common_Interfaces_ICallContext_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__
+  commentId: M:FoundationaLLM.Core.Services.CoreService.#ctor(FoundationaLLM.Core.Interfaces.ICosmosDbService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IDownstreamAPIService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CoreService},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CoreServiceSettings},FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
+  name.vb: New(ICosmosDbService, IEnumerable(Of IDownstreamAPIService), ILogger(Of CoreService), IOptions(Of ClientBrandingConfiguration), IOptions(Of CoreServiceSettings), ICallContext, IEnumerable(Of IResourceProviderService))
+  fullName: FoundationaLLM.Core.Services.CoreService.CoreService(FoundationaLLM.Core.Interfaces.ICosmosDbService, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IDownstreamAPIService>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.Services.CoreService>, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration>, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Core.Models.Configuration.CoreServiceSettings>, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.New(FoundationaLLM.Core.Interfaces.ICosmosDbService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IDownstreamAPIService), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.Services.CoreService), Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration), Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Core.Models.Configuration.CoreServiceSettings), FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService))
+  nameWithType: CoreService.CoreService(ICosmosDbService, IEnumerable<IDownstreamAPIService>, ILogger<CoreService>, IOptions<ClientBrandingConfiguration>, IOptions<CoreServiceSettings>, ICallContext, IEnumerable<IResourceProviderService>)
+  nameWithType.vb: CoreService.New(ICosmosDbService, IEnumerable(Of IDownstreamAPIService), ILogger(Of CoreService), IOptions(Of ClientBrandingConfiguration), IOptions(Of CoreServiceSettings), ICallContext, IEnumerable(Of IResourceProviderService))
 - uid: FoundationaLLM.Core.Services.CoreService.#ctor*
   name: CoreService
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService__ctor_
@@ -22416,28 +22459,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.DetectPromptInjection
   nameWithType: ILakeraGuardService.DetectPromptInjection
-- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService
-  name: IRefinementService
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.html
-  commentId: T:FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService
-  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService
-  nameWithType: IRefinementService
-- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.RefineUserPrompt(System.String)
-  name: RefineUserPrompt(string)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IRefinementService_RefineUserPrompt_System_String_
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.RefineUserPrompt(System.String)
-  name.vb: RefineUserPrompt(String)
-  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.RefineUserPrompt(string)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.RefineUserPrompt(String)
-  nameWithType: IRefinementService.RefineUserPrompt(string)
-  nameWithType.vb: IRefinementService.RefineUserPrompt(String)
-- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.RefineUserPrompt*
-  name: RefineUserPrompt
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IRefinementService_RefineUserPrompt_
-  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.RefineUserPrompt
-  isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IRefinementService.RefineUserPrompt
-  nameWithType: IRefinementService.RefineUserPrompt
 - uid: FoundationaLLM.Gatekeeper.Core.Models
   name: FoundationaLLM.Gatekeeper.Core.Models
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.html
@@ -22653,12 +22674,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
   nameWithType: LakeraGuardServiceSettings.APIUrl
-- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings
-  name: RefinementServiceSettings
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings.html
-  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings
-  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings
-  nameWithType: RefinementServiceSettings
 - uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety
   name: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.html
@@ -23317,47 +23332,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.DetectPromptInjection
   nameWithType: LakeraGuardService.DetectPromptInjection
-- uid: FoundationaLLM.Gatekeeper.Core.Services.RefinementService
-  name: RefinementService
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.RefinementService.html
-  commentId: T:FoundationaLLM.Gatekeeper.Core.Services.RefinementService
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.RefinementService
-  nameWithType: RefinementService
-- uid: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.RefinementService})
-  name: RefinementService(IOptions<RefinementServiceSettings>, ILogger<RefinementService>)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.RefinementService.html#FoundationaLLM_Gatekeeper_Core_Services_RefinementService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_RefinementServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_RefinementService__
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.RefinementService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.RefinementService})
-  name.vb: New(IOptions(Of RefinementServiceSettings), ILogger(Of RefinementService))
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.RefinementService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.RefinementService>)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.RefinementServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.RefinementService))
-  nameWithType: RefinementService.RefinementService(IOptions<RefinementServiceSettings>, ILogger<RefinementService>)
-  nameWithType.vb: RefinementService.New(IOptions(Of RefinementServiceSettings), ILogger(Of RefinementService))
-- uid: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.#ctor*
-  name: RefinementService
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.RefinementService.html#FoundationaLLM_Gatekeeper_Core_Services_RefinementService__ctor_
-  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.RefinementService.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.RefinementService
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.New
-  nameWithType: RefinementService.RefinementService
-  nameWithType.vb: RefinementService.New
-- uid: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.RefineUserPrompt(System.String)
-  name: RefineUserPrompt(string)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.RefinementService.html#FoundationaLLM_Gatekeeper_Core_Services_RefinementService_RefineUserPrompt_System_String_
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.RefinementService.RefineUserPrompt(System.String)
-  name.vb: RefineUserPrompt(String)
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.RefineUserPrompt(string)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.RefineUserPrompt(String)
-  nameWithType: RefinementService.RefineUserPrompt(string)
-  nameWithType.vb: RefinementService.RefineUserPrompt(String)
-- uid: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.RefineUserPrompt*
-  name: RefineUserPrompt
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.RefinementService.html#FoundationaLLM_Gatekeeper_Core_Services_RefinementService_RefineUserPrompt_
-  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.RefinementService.RefineUserPrompt
-  isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.RefinementService.RefineUserPrompt
-  nameWithType: RefinementService.RefineUserPrompt
 - uid: FoundationaLLM.Gateway
   name: FoundationaLLM.Gateway
   href: api/dotnet/FoundationaLLM.Gateway.html
