@@ -4632,6 +4632,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService.yml",
       "output": {
         ".html": {
@@ -4692,6 +4702,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.yml",
       "output": {
         ".html": {
@@ -4746,6 +4766,56 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.html"
         }
       },
       "version": ""
@@ -4856,6 +4926,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.html"
         }
       },
       "version": ""

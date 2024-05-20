@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService" data-uid="FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService" class="text-break">
-Class GatekeeperService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/GatekeeperService.cs/#L20"><i class="bi bi-code-slash"></i></a>
+Class GatekeeperService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/GatekeeperService.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -171,9 +171,9 @@ Class GatekeeperService  <a class="header-action link-secondary" title="View sou
 
   <a id="FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_" data-uid="FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_FoundationaLLM_Common_Interfaces_IDownstreamAPIService_FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_FoundationaLLM_Gatekeeper_Core_Interfaces_ILakeraGuardService_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings__" data-uid="FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Common.Interfaces.IDownstreamAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})">
-  GatekeeperService(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IGatekeeperIntegrationAPIService, IOptions&lt;GatekeeperServiceSettings&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/GatekeeperService.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_FoundationaLLM_Common_Interfaces_IDownstreamAPIService_FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_FoundationaLLM_Gatekeeper_Core_Interfaces_ILakeraGuardService_FoundationaLLM_Gatekeeper_Core_Interfaces_IEnkryptGuardrailsService_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings__" data-uid="FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Common.Interfaces.IDownstreamAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService,FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})">
+  GatekeeperService(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IEnkryptGuardrailsService, IGatekeeperIntegrationAPIService, IOptions&lt;GatekeeperServiceSettings&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/GatekeeperService.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Implements the <a class="xref" href="FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html">IGatekeeperService</a> interface.</p>
@@ -181,7 +181,7 @@ Class GatekeeperService  <a class="header-action link-secondary" title="View sou
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public GatekeeperService(IDownstreamAPIService orchestrationAPIService, IContentSafetyService contentSafetyService, ILakeraGuardService lakeraGuardService, IGatekeeperIntegrationAPIService gatekeeperIntegrationAPIService, IOptions&lt;GatekeeperServiceSettings&gt; gatekeeperServiceSettings)</code></pre>
+    <pre><code class="lang-csharp hljs">public GatekeeperService(IDownstreamAPIService orchestrationAPIService, IContentSafetyService contentSafetyService, ILakeraGuardService lakeraGuardService, IEnkryptGuardrailsService guardrailsService, IGatekeeperIntegrationAPIService gatekeeperIntegrationAPIService, IOptions&lt;GatekeeperServiceSettings&gt; gatekeeperServiceSettings)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -194,6 +194,9 @@ Class GatekeeperService  <a class="header-action link-secondary" title="View sou
 </dd>
     <dt><code>lakeraGuardService</code> <a class="xref" href="FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.html">ILakeraGuardService</a></dt>
     <dd><p>The Lakera Guard service.</p>
+</dd>
+    <dt><code>guardrailsService</code> <a class="xref" href="FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.html">IEnkryptGuardrailsService</a></dt>
+    <dd><p>The Enkrypt Guardrails service.</p>
 </dd>
     <dt><code>gatekeeperIntegrationAPIService</code> <a class="xref" href="FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService.html">IGatekeeperIntegrationAPIService</a></dt>
     <dd><p>The Gatekeeper Integration API client.</p>
@@ -210,7 +213,7 @@ Class GatekeeperService  <a class="header-action link-secondary" title="View sou
 
 
 
-  <h4 class="section" id="FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_FoundationaLLM_Common_Interfaces_IDownstreamAPIService_FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_FoundationaLLM_Gatekeeper_Core_Interfaces_ILakeraGuardService_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings___remarks">Remarks</h4>
+  <h4 class="section" id="FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_FoundationaLLM_Common_Interfaces_IDownstreamAPIService_FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_FoundationaLLM_Gatekeeper_Core_Interfaces_ILakeraGuardService_FoundationaLLM_Gatekeeper_Core_Interfaces_IEnkryptGuardrailsService_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings___remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>Constructor for the Gatekeeper service.</p>
 </div>
 
@@ -225,7 +228,7 @@ Class GatekeeperService  <a class="header-action link-secondary" title="View sou
 
   <h3 id="FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
   GetCompletion(CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/GatekeeperService.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/GatekeeperService.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a completion from the Gatekeeper service.</p>
@@ -264,7 +267,7 @@ Class GatekeeperService  <a class="header-action link-secondary" title="View sou
 
   <h3 id="FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetSummary_FoundationaLLM_Common_Models_Orchestration_SummaryRequest_" data-uid="FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)">
   GetSummary(SummaryRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/GatekeeperService.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/GatekeeperService.cs/#L83"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a summary from the Gatekeeper service.</p>
@@ -303,7 +306,7 @@ Class GatekeeperService  <a class="header-action link-secondary" title="View sou
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/GatekeeperService.cs/#L20" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/GatekeeperService.cs/#L21" class="edit-link">Edit this page</a>
         </div>
 
 

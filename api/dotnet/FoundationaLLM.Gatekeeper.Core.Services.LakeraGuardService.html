@@ -168,8 +168,8 @@ Class LakeraGuardService  <a class="header-action link-secondary" title="View so
 
   <a id="FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_" data-uid="FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings__" data-uid="FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings})">
-  LakeraGuardService(IHttpClientFactory, IOptions&lt;LakeraGuardServiceSettings&gt;, ILogger&lt;LakeraGuardServiceSettings&gt;)
+  <h3 id="FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__" data-uid="FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService})">
+  LakeraGuardService(IHttpClientFactory, IOptions&lt;LakeraGuardServiceSettings&gt;, ILogger&lt;LakeraGuardService&gt;)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/LakeraGuardService.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -178,7 +178,7 @@ Class LakeraGuardService  <a class="header-action link-secondary" title="View so
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LakeraGuardService(IHttpClientFactory httpClientFactory, IOptions&lt;LakeraGuardServiceSettings&gt; options, ILogger&lt;LakeraGuardServiceSettings&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public LakeraGuardService(IHttpClientFactory httpClientFactory, IOptions&lt;LakeraGuardServiceSettings&gt; options, ILogger&lt;LakeraGuardService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -189,7 +189,7 @@ Class LakeraGuardService  <a class="header-action link-secondary" title="View so
     <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html">LakeraGuardServiceSettings</a>&gt;</dt>
     <dd><p>The configuration options for the Azure Content Safety service.</p>
 </dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html">LakeraGuardServiceSettings</a>&gt;</dt>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html">LakeraGuardService</a>&gt;</dt>
     <dd><p>The logger for the Azure Content Safety service.</p>
 </dd>
   </dl>
@@ -216,7 +216,7 @@ Class LakeraGuardService  <a class="header-action link-secondary" title="View so
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/LakeraGuardService.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Detect attempted prompt injections and jailbreaks in user prompts.</p>
+  <div class="markdown level1 summary"><p>Detects attempted prompt injections and jailbreaks in user prompts.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 

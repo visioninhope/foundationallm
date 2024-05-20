@@ -2708,6 +2708,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_DataSources
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_DataSources
   nameWithType: AppConfigurationKeySections.FoundationaLLM_DataSources
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_EnkryptGuardrails
+  name: FoundationaLLM_EnkryptGuardrails
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_EnkryptGuardrails
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_EnkryptGuardrails
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_EnkryptGuardrails
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_EnkryptGuardrails
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService
   name: FoundationaLLM_Events_AzureEventGridEventService
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Events_AzureEventGridEventService
@@ -22296,6 +22302,28 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.AnalyzeText
   nameWithType: IContentSafetyService.AnalyzeText
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService
+  name: IEnkryptGuardrailsService
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService
+  nameWithType: IEnkryptGuardrailsService
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.DetectPromptInjection(System.String)
+  name: DetectPromptInjection(string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IEnkryptGuardrailsService_DetectPromptInjection_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.DetectPromptInjection(System.String)
+  name.vb: DetectPromptInjection(String)
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.DetectPromptInjection(string)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.DetectPromptInjection(String)
+  nameWithType: IEnkryptGuardrailsService.DetectPromptInjection(string)
+  nameWithType.vb: IEnkryptGuardrailsService.DetectPromptInjection(String)
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.DetectPromptInjection*
+  name: DetectPromptInjection
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IEnkryptGuardrailsService_DetectPromptInjection_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.DetectPromptInjection
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.DetectPromptInjection
+  nameWithType: IEnkryptGuardrailsService.DetectPromptInjection
 - uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService
   name: IGatekeeperIntegrationAPIService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService.html
@@ -22503,6 +22531,38 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings.ViolenceSeverity
   nameWithType: AzureContentSafetySettings.ViolenceSeverity
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings
+  name: EnkryptGuardrailsServiceSettings
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings
+  nameWithType: EnkryptGuardrailsServiceSettings
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings_APIKey
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey
+  nameWithType: EnkryptGuardrailsServiceSettings.APIKey
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey*
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings_APIKey_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey
+  nameWithType: EnkryptGuardrailsServiceSettings.APIKey
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl
+  name: APIUrl
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings_APIUrl
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl
+  nameWithType: EnkryptGuardrailsServiceSettings.APIUrl
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl*
+  name: APIUrl
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings_APIUrl_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl
+  nameWithType: EnkryptGuardrailsServiceSettings.APIUrl
 - uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings
   name: GatekeeperServiceSettings
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html
@@ -22522,6 +22582,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableAzureContentSafety
   nameWithType: GatekeeperServiceSettings.EnableAzureContentSafety
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableEnkryptGuardrails
+  name: EnableEnkryptGuardrails
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings_EnableEnkryptGuardrails
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableEnkryptGuardrails
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableEnkryptGuardrails
+  nameWithType: GatekeeperServiceSettings.EnableEnkryptGuardrails
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableEnkryptGuardrails*
+  name: EnableEnkryptGuardrails
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings_EnableEnkryptGuardrails_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableEnkryptGuardrails
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableEnkryptGuardrails
+  nameWithType: GatekeeperServiceSettings.EnableEnkryptGuardrails
 - uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.EnableLakeraGuard
   name: EnableLakeraGuard
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings_EnableLakeraGuard
@@ -22624,6 +22697,114 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextFilterResult.Safe
   nameWithType: AnalyzeTextFilterResult.Safe
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails
+  name: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.html
+  commentId: N:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails
+  nameWithType: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails
+  name: DetectDetails
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails
+  nameWithType: DetectDetails
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.InjectionAttack
+  name: InjectionAttack
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_DetectDetails_InjectionAttack
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.InjectionAttack
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.InjectionAttack
+  nameWithType: DetectDetails.InjectionAttack
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.InjectionAttack*
+  name: InjectionAttack
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_DetectDetails_InjectionAttack_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.InjectionAttack
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectDetails.InjectionAttack
+  nameWithType: DetectDetails.InjectionAttack
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult
+  name: DetectResult
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult
+  nameWithType: DetectResult
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Details
+  name: Details
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_DetectResult_Details
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Details
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Details
+  nameWithType: DetectResult.Details
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Details*
+  name: Details
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_DetectResult_Details_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Details
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Details
+  nameWithType: DetectResult.Details
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Summary
+  name: Summary
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_DetectResult_Summary
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Summary
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Summary
+  nameWithType: DetectResult.Summary
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Summary*
+  name: Summary
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_DetectResult_Summary_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Summary
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectResult.Summary
+  nameWithType: DetectResult.Summary
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary
+  name: DetectSummary
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary
+  nameWithType: DetectSummary
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.InjectionAttack
+  name: InjectionAttack
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_DetectSummary_InjectionAttack
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.InjectionAttack
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.InjectionAttack
+  nameWithType: DetectSummary.InjectionAttack
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.InjectionAttack*
+  name: InjectionAttack
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_DetectSummary_InjectionAttack_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.InjectionAttack
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.DetectSummary.InjectionAttack
+  nameWithType: DetectSummary.InjectionAttack
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack
+  name: InjectionAttack
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack
+  nameWithType: InjectionAttack
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Attack
+  name: Attack
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_InjectionAttack_Attack
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Attack
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Attack
+  nameWithType: InjectionAttack.Attack
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Attack*
+  name: Attack
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_InjectionAttack_Attack_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Attack
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Attack
+  nameWithType: InjectionAttack.Attack
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Safe
+  name: Safe
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_InjectionAttack_Safe
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Safe
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Safe
+  nameWithType: InjectionAttack.Safe
+- uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Safe*
+  name: Safe
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.html#FoundationaLLM_Gatekeeper_Core_Models_EnkryptGuardrails_InjectionAttack_Safe_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Safe
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.InjectionAttack.Safe
+  nameWithType: InjectionAttack.Safe
 - uid: FoundationaLLM.Gatekeeper.Core.Models.Integration
   name: FoundationaLLM.Gatekeeper.Core.Models.Integration
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.Integration.html
@@ -22946,6 +23127,47 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.AnalyzeText
   nameWithType: AzureContentSafetyService.AnalyzeText
+- uid: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService
+  name: EnkryptGuardrailsService
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService
+  nameWithType: EnkryptGuardrailsService
+- uid: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService})
+  name: EnkryptGuardrailsService(IHttpClientFactory, IOptions<EnkryptGuardrailsServiceSettings>, ILogger<EnkryptGuardrailsService>)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.html#FoundationaLLM_Gatekeeper_Core_Services_EnkryptGuardrailsService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_EnkryptGuardrailsService__
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService})
+  name.vb: New(IHttpClientFactory, IOptions(Of EnkryptGuardrailsServiceSettings), ILogger(Of EnkryptGuardrailsService))
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.EnkryptGuardrailsService(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService>)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService))
+  nameWithType: EnkryptGuardrailsService.EnkryptGuardrailsService(IHttpClientFactory, IOptions<EnkryptGuardrailsServiceSettings>, ILogger<EnkryptGuardrailsService>)
+  nameWithType.vb: EnkryptGuardrailsService.New(IHttpClientFactory, IOptions(Of EnkryptGuardrailsServiceSettings), ILogger(Of EnkryptGuardrailsService))
+- uid: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.#ctor*
+  name: EnkryptGuardrailsService
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.html#FoundationaLLM_Gatekeeper_Core_Services_EnkryptGuardrailsService__ctor_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.EnkryptGuardrailsService
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.New
+  nameWithType: EnkryptGuardrailsService.EnkryptGuardrailsService
+  nameWithType.vb: EnkryptGuardrailsService.New
+- uid: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.DetectPromptInjection(System.String)
+  name: DetectPromptInjection(string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.html#FoundationaLLM_Gatekeeper_Core_Services_EnkryptGuardrailsService_DetectPromptInjection_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.DetectPromptInjection(System.String)
+  name.vb: DetectPromptInjection(String)
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.DetectPromptInjection(string)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.DetectPromptInjection(String)
+  nameWithType: EnkryptGuardrailsService.DetectPromptInjection(string)
+  nameWithType.vb: EnkryptGuardrailsService.DetectPromptInjection(String)
+- uid: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.DetectPromptInjection*
+  name: DetectPromptInjection
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.html#FoundationaLLM_Gatekeeper_Core_Services_EnkryptGuardrailsService_DetectPromptInjection_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.DetectPromptInjection
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.DetectPromptInjection
+  nameWithType: EnkryptGuardrailsService.DetectPromptInjection
 - uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService
   name: GatekeeperIntegrationAPIService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.html
@@ -23009,15 +23231,15 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService
   fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService
   nameWithType: GatekeeperService
-- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Common.Interfaces.IDownstreamAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})
-  name: GatekeeperService(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IGatekeeperIntegrationAPIService, IOptions<GatekeeperServiceSettings>)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_FoundationaLLM_Common_Interfaces_IDownstreamAPIService_FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_FoundationaLLM_Gatekeeper_Core_Interfaces_ILakeraGuardService_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings__
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Common.Interfaces.IDownstreamAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})
-  name.vb: New(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IGatekeeperIntegrationAPIService, IOptions(Of GatekeeperServiceSettings))
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GatekeeperService(FoundationaLLM.Common.Interfaces.IDownstreamAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService, FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService, FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings>)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.New(FoundationaLLM.Common.Interfaces.IDownstreamAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService, FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService, FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings))
-  nameWithType: GatekeeperService.GatekeeperService(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IGatekeeperIntegrationAPIService, IOptions<GatekeeperServiceSettings>)
-  nameWithType.vb: GatekeeperService.New(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IGatekeeperIntegrationAPIService, IOptions(Of GatekeeperServiceSettings))
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Common.Interfaces.IDownstreamAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService,FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})
+  name: GatekeeperService(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IEnkryptGuardrailsService, IGatekeeperIntegrationAPIService, IOptions<GatekeeperServiceSettings>)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_FoundationaLLM_Common_Interfaces_IDownstreamAPIService_FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_FoundationaLLM_Gatekeeper_Core_Interfaces_ILakeraGuardService_FoundationaLLM_Gatekeeper_Core_Interfaces_IEnkryptGuardrailsService_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperIntegrationAPIService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_GatekeeperServiceSettings__
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor(FoundationaLLM.Common.Interfaces.IDownstreamAPIService,FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService,FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService,FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService,FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings})
+  name.vb: New(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IEnkryptGuardrailsService, IGatekeeperIntegrationAPIService, IOptions(Of GatekeeperServiceSettings))
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GatekeeperService(FoundationaLLM.Common.Interfaces.IDownstreamAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService, FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService, FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService, FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings>)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.New(FoundationaLLM.Common.Interfaces.IDownstreamAPIService, FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService, FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService, FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService, FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperIntegrationAPIService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings))
+  nameWithType: GatekeeperService.GatekeeperService(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IEnkryptGuardrailsService, IGatekeeperIntegrationAPIService, IOptions<GatekeeperServiceSettings>)
+  nameWithType.vb: GatekeeperService.New(IDownstreamAPIService, IContentSafetyService, ILakeraGuardService, IEnkryptGuardrailsService, IGatekeeperIntegrationAPIService, IOptions(Of GatekeeperServiceSettings))
 - uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.#ctor*
   name: GatekeeperService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService__ctor_
@@ -23060,15 +23282,15 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService
   fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService
   nameWithType: LakeraGuardService
-- uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings})
-  name: LakeraGuardService(IHttpClientFactory, IOptions<LakeraGuardServiceSettings>, ILogger<LakeraGuardServiceSettings>)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings__
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings})
-  name.vb: New(IHttpClientFactory, IOptions(Of LakeraGuardServiceSettings), ILogger(Of LakeraGuardServiceSettings))
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.LakeraGuardService(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings>)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings))
-  nameWithType: LakeraGuardService.LakeraGuardService(IHttpClientFactory, IOptions<LakeraGuardServiceSettings>, ILogger<LakeraGuardServiceSettings>)
-  nameWithType.vb: LakeraGuardService.New(IHttpClientFactory, IOptions(Of LakeraGuardServiceSettings), ILogger(Of LakeraGuardServiceSettings))
+- uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService})
+  name: LakeraGuardService(IHttpClientFactory, IOptions<LakeraGuardServiceSettings>, ILogger<LakeraGuardService>)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService})
+  name.vb: New(IHttpClientFactory, IOptions(Of LakeraGuardServiceSettings), ILogger(Of LakeraGuardService))
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.LakeraGuardService(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService>)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService))
+  nameWithType: LakeraGuardService.LakeraGuardService(IHttpClientFactory, IOptions<LakeraGuardServiceSettings>, ILogger<LakeraGuardService>)
+  nameWithType.vb: LakeraGuardService.New(IHttpClientFactory, IOptions(Of LakeraGuardServiceSettings), ILogger(Of LakeraGuardService))
 - uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor*
   name: LakeraGuardService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_
