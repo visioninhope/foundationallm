@@ -151,20 +151,20 @@
             "apiKeySecretName": "foundationallm-apis-gatekeeperapi-apikey"
           },
           {
-            "name": "gateway-api",
-            "useEndpoint": true,
-            "hasIngress": true,
-            "image": "${SERVICE_GATEWAYAPI_IMAGE=cropseastus2svinternal.azurecr.io/gateway-api:${FLLM_VERSION}}",
-            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-gatewayapi-apikey"
-          },
-          {
             "name": "gatekeeper-integration-api",
             "useEndpoint": true,
             "hasIngress": true,
             "image": "${SERVICE_GATEKEEPERINTEGRATIONAPI_IMAGE=cropseastus2svinternal.azurecr.io/gatekeeper-integration-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
             "apiKeySecretName": "foundationallm-apis-gatekeeperintegrationapi-apikey"
+          },
+          {
+            "name": "gateway-api",
+            "useEndpoint": true,
+            "hasIngress": true,
+            "image": "${SERVICE_GATEWAYAPI_IMAGE=cropseastus2svinternal.azurecr.io/gateway-api:${FLLM_VERSION}}",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
+            "apiKeySecretName": "foundationallm-apis-gatewayapi-apikey"
           },
           {
             "name": "langchain-api",

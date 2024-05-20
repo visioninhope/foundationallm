@@ -36,7 +36,6 @@ var env = union(
 )
 
 var secretNames = [
-  '${serviceName}-apikey'
   apiKeySecretName
 ]
 
