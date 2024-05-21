@@ -184,8 +184,8 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = "/instances/c1921f77-3369-4e1c-a51d-2c7381e2f53d/providers/FoundationaLLM.Vectorization/indexingProfiles/indexing_profile_sdzwa",
-                    TextEmbeddingProfileObjectId = "/instances/c1921f77-3369-4e1c-a51d-2c7381e2f53d/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/text_embedding_profile_generic",
+                    IndexingProfileObjectId = "/instances/c1921f77-3369-4e1c-a51d-2c7381e2f53d/providers/FoundationaLLM.Vectorization/indexingProfiles/indexing_profile_pdf",
+                    TextEmbeddingProfileObjectId = "/instances/c1921f77-3369-4e1c-a51d-2c7381e2f53d/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/AzureOpenAI_Embedding",
                 },
                 ConversationHistory = new ConversationHistory
                 {
