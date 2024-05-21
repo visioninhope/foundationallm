@@ -21,9 +21,6 @@ Param(
 
 # Try block to handle potential errors during the execution
 try {
-    # Define the name of the Azure AD group
-    $groupName = "FLLM-E2E-Admins"
-
     # Build the command to create the Azure AD group using Azure CLI
     $createGroupCommand = "az ad group create --display-name $groupName --mail-nickname $groupName"
 
