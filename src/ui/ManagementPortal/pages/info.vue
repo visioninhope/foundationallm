@@ -38,9 +38,7 @@
           { name: 'gatekeeperApiUrl', displayName: 'Gatekeeper API', url: this.$appConfigStore.gatekeeperApiUrl },
           { name: 'gatekeeperIntegrationApiUrl', displayName: 'Gatekeeper Integration API', url: this.$appConfigStore.gatekeeperIntegrationApiUrl },
           { name: 'gatewayApiUrl', displayName: 'Gateway API', url: this.$appConfigStore.gatewayApiUrl },
-          { name: 'langChainApiUrl', displayName: 'LangChain API', url: this.$appConfigStore.langChainApiUrl },
           { name: 'orchestrationApiUrl', displayName: 'Orchestration API', url: this.$appConfigStore.orchestrationApiUrl },
-          { name: 'semanticKernelApiUrl', displayName: 'Semantic Kernel API', url: this.$appConfigStore.semanticKernelApiUrl },
           { name: 'vectorizationApiUrl', displayName: 'Vectorization API', url: this.$appConfigStore.vectorizationApiUrl },
           { name: 'vectorizationWorkerApiUrl', displayName: 'Vectorization Worker API', url: this.$appConfigStore.vectorizationWorkerApiUrl },
         ];
