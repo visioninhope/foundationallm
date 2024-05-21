@@ -37,9 +37,18 @@ jobs:
       service_matrix: ${{ steps.set-service-matrix.outputs.result }}
       test_matrix: ${{ steps.set-test-matrix.outputs.result }}
       docker_tag: ${{ steps.docker-tag.outputs.docker_tag }}
+      unique_id: ${{ steps.set-unique-id.outputs.digest }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Generate Unique ID
+      uses: pplanel/hash-calculator-action@v1.3.1
+      id: set-unique-id
+      with:
+        input: ${{ inputs.environment }}
+        method: SHA256
+        output_len: 8
 
     - name: Set Service Matrix
       uses: actions/github-script@v7
@@ -185,7 +194,12 @@ jobs:
       run: |
         Write-Host "Provision App Registrations"  
         Push-Location ./tests/scripts
-        ./Create-FllmEntraIdApps.ps1
+        ./Create-FllmEntraIdApps.ps1 `
+          -authAppName FoundationaLLM-Authorization-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+          -coreAppName FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+          -coreClientAppName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
+          -mgmtAppName FoundationaLLM-Management-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+          -mgmtClientAppName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }}
         Pop-Location
       shell: pwsh
 
@@ -199,7 +213,9 @@ jobs:
         Push-Location ./tests/scripts
         $spObjectId = $(az ad sp list --filter "appId eq '$($info.clientId)'" --query '[].id' --output tsv)
         Write-Host "SP Object Id: $spObjectId"
-        ./Create-FllmAdminGroup.ps1 -spObjectId $spObjectId
+        ./Create-FllmAdminGroup.ps1 `
+          -groupName FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
+          -spObjectId $spObjectId
         Pop-Location
       shell: pwsh
 
@@ -237,7 +253,13 @@ jobs:
         ../../tests/scripts/Set-AzdEnv.ps1 `
           -tenantId $($info.tenantId) `
           -principalType ServicePrincipal `
-          -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176
+          -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176 `
+          -fllmApiName FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+          -fllmClientName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
+          -fllmMgmtApiName FoundationaLLM-Management-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+          -fllmMgmtClientName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
+          -fllmAuthApiName FoundationaLLM-Authorization-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+          -fllmAdminGroupName FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }}
         Pop-Location
       shell: pwsh
 
@@ -250,7 +272,6 @@ jobs:
 
         Push-Location ./deploy/quick-start
         azd provision --no-prompt
-        azd env get-values
         Pop-Location
       shell: pwsh
 
@@ -271,7 +292,9 @@ jobs:
       run: |
         Write-Host "Update App Registration OAuth Callbacks"
         Push-Location ./deploy/quick-start
-        pwsh -File ../../tests/scripts/Update-OAuthCallbackUris.ps1
+        pwsh -File ../../tests/scripts/Update-OAuthCallbackUris.ps1 `
+          -fllmChatUiName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
+          -fllmMgmtUiName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }}
         Pop-Location
       shell: pwsh
 
