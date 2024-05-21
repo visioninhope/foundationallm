@@ -175,7 +175,7 @@ jobs:
     - name: Install azd
       uses: Azure/setup-azd@v1.0.0
       with:
-        version: '1.9.1'
+        version: '1.9.3'
 
     - name: Log in with Azure (Client Credentials)
       run: |
@@ -399,7 +399,7 @@ jobs:
     - name: Install azd
       uses: Azure/setup-azd@v1.0.0
       with:
-        version: '1.9.1'
+        version: '1.9.3'
 
     - name: Log in with Azure (Client Credentials)
       run: |
@@ -498,7 +498,7 @@ jobs:
     - name: Install azd
       uses: Azure/setup-azd@v1.0.0
       with:
-        version: '1.9.1'
+        version: '1.9.3'
 
     - name: Log in with Azure (Client Credentials)
       run: |
