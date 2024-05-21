@@ -7745,6 +7745,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "deployment/custom-domains.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/custom-domains.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "deployment/deployment-configuration.md",
       "output": {
         ".html": {
@@ -7819,6 +7829,46 @@
       "output": {
         "resource": {
           "relative_path": "deployment/media/appconfig-add-role-assignment-role.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/media/custom-domains-dns.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/media/custom-domains-dns.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/media/custom-domains-redirect-uri.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/media/custom-domains-redirect-uri.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/media/custom-domains-validated.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/media/custom-domains-validated.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/media/custom-domains.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/media/custom-domains.png"
         }
       },
       "version": ""
