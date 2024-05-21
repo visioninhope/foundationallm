@@ -1,6 +1,6 @@
-﻿using FoundationaLLM.Common.Models.ResourceProviders.Agent;
-using FoundationaLLM.Core.Examples.Constants;
+﻿using FoundationaLLM.Core.Examples.Constants;
 using FoundationaLLM.Core.Examples.Interfaces;
+using FoundationaLLM.Core.Examples.Models;
 using FoundationaLLM.Core.Examples.Resources;
 using FoundationaLLM.Core.Examples.Setup;
 using System.Text.Json;
@@ -50,10 +50,9 @@ namespace FoundationaLLM.Core.Examples
             "concise",
             "verbose"
         ];
-        private readonly int _conversationsCount = 5;
         private readonly object _syncRoot = new object();
         private readonly List<Conversation> _conversations = [];
-        private readonly int _threadCount = 5;
+        private readonly GenerateConversationsConfiguration _settings;
 
 		public Example0020_GenerateConversationsAboutProducts(ITestOutputHelper output, TestFixture fixture)
 			: base(output, fixture.ServiceProvider)
@@ -61,6 +60,7 @@ namespace FoundationaLLM.Core.Examples
             _agentConversationTestService = GetService<IAgentConversationTestService>();
             _products = JsonSerializer.Deserialize<List<Product>>(
                 EmbeddedResource.Read("ProductCatalog.json"))!;
+            _settings = TestConfiguration.GenerateConversationsConfiguration;
         }
 
 		[Fact]
@@ -73,11 +73,11 @@ namespace FoundationaLLM.Core.Examples
 		private async Task RunExampleAsync()
         {
             var agentName = TestAgentNames.ConversationGeneratorAgent;
-            var conversationStarters = Enumerable.Range(0, _conversationsCount)
+            var conversationStarters = Enumerable.Range(0, _settings.ConversationCount)
                 .Select(i => GetConversationStarter(i + 1))
                 .ToList();
 
-            var conversationStaterBuckets = conversationStarters.GroupBy(x => x.Conversation.Id % _threadCount);
+            var conversationStaterBuckets = conversationStarters.GroupBy(x => x.Conversation.Id % _settings.ConversationCount);
 
             await Task.WhenAll(conversationStaterBuckets
                 .Select(csb => Task.Run(() => CreateConversation(agentName, [.. csb]))).ToArray());
@@ -196,9 +196,10 @@ namespace FoundationaLLM.Core.Examples
             lock (_syncRoot)
             {
                 _conversations.Add(conversation);
-                File.WriteAllText(
-                    "d://temp//cosmosdb-conversation-analytics-data.json",
-                    JsonSerializer.Serialize(_conversations.OrderBy(x => x.Id).ToList(), _jsonSerializerOptions));
+                if (!string.IsNullOrWhiteSpace(_settings.ResultFolderPath))
+                    File.WriteAllText(
+                        $"{_settings.ResultFolderPath}//synthetic-conversations.json",
+                        JsonSerializer.Serialize(_conversations.OrderBy(x => x.Id).ToList(), _jsonSerializerOptions));
             }
         }
     }

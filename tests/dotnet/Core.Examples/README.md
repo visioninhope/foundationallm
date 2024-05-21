@@ -338,3 +338,51 @@ Property definitions:
 2. The test will send the user prompt to the Core API completions endpoint and send the results and embedding information to Azure AI Studio for measuring the completion quality. To view the completion quality measurements, navigate to the [Azure AI Studio portal](https://ai.azure.com/) and select the project associated with the Azure AI Studio deployment. Select **Evaluation** in the left-hand menu and select the latest evaluation run to view the completion quality measurements.
 
     ![The completion quality measurements are displayed in the Azure AI Studio portal.](media/example-16-azure-ai-studio.png)
+
+### Example 20: Generate synthetic user-agent conversations based on prodct descriptions
+
+**Purpose**: Test an agent that generates synthetic user-agent conversations using a registry of fictional e-shop products.
+
+**File**: [Example0020_GenerateConversationsAboutProducts.cs](./Example0020_GenerateConversationsAboutProducts.cs)
+
+This example demonstrates calling an agent that generates synthetic user-agent conversations.
+
+#### Setup
+
+This example does not require any specific setup.
+
+##### App Config settings
+
+This example does not require any specific App Config settings.
+
+##### `testsettings.json` settings
+
+The test settings file provides details about the conversation generation process. The following is a sample of the `testsettings.json` file for this example:
+
+```json
+{
+  "GenerateConversationsConfiguration": {
+    "ResultFolderPath": null,
+    "ConversationCount": 1,
+    "ThreadCount":  5
+  }
+}
+```
+
+Property definitions:
+
+- `ResultFolderPath`: The path to a local folder where the generated conversations will be saved. If `null`, the conversations will not be saved locally. When saved locally, the resulting file name is `synthetic-conversations.json`. Default value is `null`.
+- `ConversationCount`: The number of conversations to generate. Default value is `1`.
+- `ThreadCount`: The number of threads to use for generating conversations in parallel. Default value is `5`.
+
+#### Running the example
+
+Run the example by running a test on the `Example0020_GenerateConversationsAboutProducts.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example0020_GenerateConversationsAboutProducts.cs` file and selecting **Run Tests**.
+
+You will see an output similar to the following after the test is completed:
+
+```text
+============ Generate conversations about products ============
+Asking the agent ConversationGeneratorAgent agent to create conversation # 1...
+Conversation # 1 was created successfully.
+```
