@@ -117,12 +117,8 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
             // Add authentication configuration.
-            var isE2ETestEnvironment = false;
-            var e2ETestEnvironmentValue = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_E2E_Test_Environment);
-            if (!string.IsNullOrEmpty(e2ETestEnvironmentValue) && e2ETestEnvironmentValue.Equals("true", StringComparison.CurrentCultureIgnoreCase))
-            {
-                isE2ETestEnvironment = true;
-            }
+            var e2ETestEnvironmentValue = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Environment) ?? string.Empty;
+            var isE2ETestEnvironment = e2ETestEnvironmentValue.Equals(EnvironmentTypes.E2ETest, StringComparison.CurrentCultureIgnoreCase);
             builder.AddAuthenticationConfiguration(
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Instance,
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_TenantId,

@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Common.Interfaces;
 using Microsoft.Extensions.Logging;
+using Microsoft.Graph;
 using Microsoft.Graph.Models;
-using Microsoft.Graph.Models.ODataErrors;
 
 namespace FoundationaLLM.Common.Services.Security
 {
@@ -11,35 +11,40 @@ namespace FoundationaLLM.Common.Services.Security
     /// <remarks>
     /// Initializes a new instance of the <see cref="MicrosoftGraphGroupMembershipService"/> class.
     /// </remarks>
+    /// <param name="graphServiceClient">The GraphServiceClient to be used for API interactions.</param>
+    /// <param name="logger">The logger used for logging.</param>
     public class MicrosoftGraphGroupMembershipService(
-        ILogger<MicrosoftGraphGroupMembershipService> logger,
-        IGraphPrincipalWithGroups servicePrincipalsService,
-        IGraphPrincipalWithGroups usersService) : IGroupMembershipService
+        GraphServiceClient graphServiceClient,
+        ILogger<MicrosoftGraphGroupMembershipService> logger) : IGroupMembershipService
     {
-        private readonly IGraphPrincipalWithGroups[] _graphPrincipalsWithGroups =
-            [
-                servicePrincipalsService,
-                usersService
-            ];
+        private readonly GraphServiceClient _graphServiceClient = graphServiceClient;
+        private readonly ILogger<MicrosoftGraphGroupMembershipService> _logger = logger;
 
         /// <inheritdoc/>
         public async Task<List<string>> GetGroupsForPrincipal(string userIdentifier)
         {
+            var groups = await _graphServiceClient.Users[userIdentifier].TransitiveMemberOf.GraphGroup.GetAsync(requestConfiguration =>
+            {
+                requestConfiguration.QueryParameters.Top = 500;
+            }).ConfigureAwait(false);
+
             var groupMembership = new List<Group>();
 
-            foreach (var graphPrincipalWithGroups in _graphPrincipalsWithGroups)
+            while (groups?.Value != null)
             {
-                try
-                {
-                    groupMembership = await graphPrincipalWithGroups.GetGroups(userIdentifier);
-                }
-                catch (ODataError error)
-                {
-                    logger.LogError(error, "Error getting group membership for {UserIdentifier}", userIdentifier);
-                    continue;
-                }
+                groupMembership.AddRange(groups.Value);
 
-                if (groupMembership.Count > 0) break;
+                // Invoke paging if required.
+                if (!string.IsNullOrEmpty(groups.OdataNextLink))
+                {
+                    groups = await _graphServiceClient.Users[userIdentifier].TransitiveMemberOf.GraphGroup
+                        .WithUrl(groups.OdataNextLink)
+                        .GetAsync();
+                }
+                else
+                {
+                    break;
+                }
             }
 
             return groupMembership.Count == 0
