@@ -81,6 +81,10 @@ Foundationa**LLM** provides a simple command line driven approach to getting you
 
 Follow the [Quick Start Deployment instructions](./docs/deployment/deployment-quick-start.md) to get Foundationa**LLM** deployed in your Azure subscription.
 
+## Reporting Issues and Support
+
+If you encounter any issues with Foundationa**LLM**, please [open an issue](https://github.com/solliancenet/foundationallm/issues) on GitHub. We will respond to your issue as soon as possible. Please use the Labels (`bug`, `documentation`, `general question`, `release x.x.x`) to categorize your issue and provide as much detail as possible to help us understand and resolve the issue.
+
 ## Contributing to Foundationa**LLM**
 
 We are happy to accept contributions to the FoundationaLLM project in the form of feedback, bug reports, and pull requests. Please see [Contributing to FoundationaLLM](./CONTRIBUTING.md) for instructions.

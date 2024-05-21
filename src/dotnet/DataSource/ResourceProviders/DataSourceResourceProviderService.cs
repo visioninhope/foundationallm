@@ -106,19 +106,18 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<DataSourceBase>> LoadDataSources(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<DataSourceBase>>> LoadDataSources(ResourceTypeInstance instance)
         {
             if (instance.ResourceId == null)
             {
-                return
-                [
-                    .. (await Task.WhenAll(
+                var dataSources = (await Task.WhenAll(
                         _dataSourceReferences.Values
                             .Where(dsr => !dsr.Deleted)
                             .Select(dsr => LoadDataSource(dsr))))
-                    .Where(ds => ds != null)
-                    .ToList()
-                ];
+                        .Where(ds => ds != null)
+                        .ToList();
+
+                return dataSources.Select(dataSource => new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }).ToList();
             }
             else
             {
@@ -128,7 +127,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                     dataSource = await LoadDataSource(null, instance.ResourceId);
                     if (dataSource != null)
                     {
-                        return [dataSource];
+                        return [new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }];
                     }
                     return [];
                 }
@@ -141,10 +140,9 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 }
 
                 dataSource = await LoadDataSource(dataSourceReference);
-
                 if (dataSource != null)
                 {
-                    return [dataSource];
+                    return [new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }];
                 }
                 return [];
             }

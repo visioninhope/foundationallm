@@ -394,7 +394,8 @@ export default {
 
 		if (this.editId) {
 			this.loadingStatusText = `Retrieving data source "${this.editId}"...`;
-			const dataSource = await api.getDataSource(this.editId);
+			const dataSourceResult = await api.getDataSource(this.editId);
+			const dataSource = dataSourceResult.resource;
 			this.dataSource = dataSource;
 
 			if (this.dataSource.folders) {

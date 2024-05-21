@@ -21,6 +21,7 @@ namespace FoundationaLLM.Core.Examples.Setup
         private static ConfigurationClient? _client;
         private readonly ChainedTokenCredential _tokenCredential;
         public static CompletionQualityMeasurementConfiguration CompletionQualityMeasurementConfiguration => LoadSection<CompletionQualityMeasurementConfiguration>();
+		public static SharePointVectorizationConfiguration SharePointVectorizationConfiguration => LoadSection<SharePointVectorizationConfiguration>();
 
 		private TestConfiguration(IConfigurationRoot configRoot)
         {
