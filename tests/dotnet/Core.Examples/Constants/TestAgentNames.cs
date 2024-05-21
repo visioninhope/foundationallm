@@ -29,6 +29,9 @@
         /// The name of the lang chain agent.
         /// </summary>
         public const string LangChainAgentName = "KMAgentWithLangChain";
-
+        /// <summary>
+        /// The name of the agent that is used to generate conversations about products.
+        /// </summary>
+        public const string ConversationGeneratorAgent = "ConversationGeneratorAgent";
     }
 }

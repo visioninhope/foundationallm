@@ -14,6 +14,7 @@ using System.Text.Json;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Core.Examples.Setup;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
+using FoundationaLLM.Core.Examples.Resources;
 
 namespace FoundationaLLM.Core.Examples.Services
 {
@@ -257,7 +258,8 @@ namespace FoundationaLLM.Core.Examples.Services
             if (prompt == null)
             {
                 throw new InvalidOperationException($"The prompt {promptName} was not found.");
-            }            
+            }
+            
             prompt.ObjectId = await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Prompt,
