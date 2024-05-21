@@ -20,18 +20,20 @@ namespace FoundationaLLM.Core.Examples
     ///     FoundationaLLM:DataSources:datalake_vectorization_input:AccountName
     /// Expects the following document in the storage account:
     ///     /vectorization-input/SDZWA-Journal-January-2024.pdf
+    /// References:
+    ///     PDF public source: https://sandiegozoowildlifealliance.org/Journal/january-2024
     /// </summary>
     public class Example0005_AsynchronousVectorizationOfPDFFromDataLake: BaseTest, IClassFixture<TestFixture>
     {
         private readonly IVectorizationTestService _vectorizationTestService;
         private InstanceSettings _instanceSettings;
-        private string containerName = "vectorization-input";
+        private string containerName = "vectorization-input";        
         private string blobName = "SDZWA-Journal-January-2024.pdf";
         private string dataSourceName = "datalake_vectorization_input";
         private string dataSourceObjectId = String.Empty;
         private string textPartitioningProfileName = "text_partition_profile";
         private string textEmbeddingProfileName = "text_embedding_profile_generic";
-        private string indexingProfileName = "indexing_profile_pdf_datalake";
+        private string indexingProfileName = "indexing_profile_pdf";
         private string searchString = "Kurt and Ollie";
         private string id = String.Empty;
         private BlobStorageServiceSettings? _settings;
@@ -59,6 +61,8 @@ namespace FoundationaLLM.Core.Examples
         {
             WriteLine($"Create the data source: {dataSourceName} via the Management API");
             await _vectorizationTestService.CreateDataSource(dataSourceName);
+
+            Thread.Sleep(5000); // processing too quickly, pause after the creation of the data source
 
             WriteLine($"Create the vectorization text partitioning profile: {textPartitioningProfileName} via the Management API");
             await _vectorizationTestService.CreateTextPartitioningProfile(textPartitioningProfileName);
@@ -163,7 +167,7 @@ namespace FoundationaLLM.Core.Examples
             WriteLine($"Delete the vectorization text embedding profile: {textEmbeddingProfileName} via the Management API");
             await _vectorizationTestService.DeleteTextEmbeddingProfile(textEmbeddingProfileName);
 
-            WriteLine($"Delete the vectorization indexing profile: {indexingProfileName} via the Management API");
+            WriteLine($"Delete the vectorization indexing profile: {indexingProfileName} via the Management API along with the index");
             await _vectorizationTestService.DeleteIndexingProfile(indexingProfileName, true);
         }
     }

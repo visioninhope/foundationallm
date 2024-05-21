@@ -546,6 +546,7 @@
 				<Button
 					:label="editAgent ? 'Save Changes' : 'Create Agent'"
 					severity="primary"
+					:disabled="editable === false"
 					@click="handleCreateAgent"
 				/>
 
@@ -617,16 +618,24 @@ const getDefaultFormValues = () => {
 		orchestration_settings: {
 			orchestrator: 'LangChain' as string,
 			endpoint_configuration: {
-				endpoint: '' as string,
-				api_key: '' as string,
-				api_version: '' as string,
-				operation_type: 'chat' as string,
+				auth_type: 'key' as string,
+				provider: 'microsoft' as string,
+				endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint' as string,
+				api_key: 'FoundationaLLM:AzureOpenAI:API:Key' as string,
+				api_version: 'FoundationaLLM:AzureOpenAI:API:Version' as string,
+				//operation_type: 'chat' as string,
 			} as object,
 			model_parameters: {
-				deployment_name: '' as string,
+				deployment_name: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName' as string,
 				temperature: 0 as number,
 			} as object,
 		},
+
+		api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
+						api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
+						api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
+						version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
+						deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
 
 		// resolved_orchestration_settings: {
 		// 	endpoint_configuration: {
@@ -660,6 +669,8 @@ export default {
 
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
+
+			editable: false as boolean,
 
 			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
 			validationMessage: '' as string,
@@ -742,10 +753,12 @@ export default {
 
 		try {
 			this.loadingStatusText = 'Retrieving indexes...';
-			this.indexSources = await api.getAgentIndexes(true);
+			const indexSourcesResult = await api.getAgentIndexes(true);
+			this.indexSources = indexSourcesResult.map(result => result.resource);
 
 			this.loadingStatusText = 'Retrieving data sources...';
-			this.dataSources = await api.getAgentDataSources(true);
+			const agentDataSourcesResult = await api.getAgentDataSources(true);
+			this.dataSources = agentDataSourcesResult.map(result => result.resource);
 		} catch (error) {
 			this.$toast.add({
 				severity: 'error',
@@ -755,26 +768,31 @@ export default {
 
 		if (this.editAgent) {
 			this.loadingStatusText = `Retrieving agent "${this.editAgent}"...`;
-			const agent = await api.getAgent(this.editAgent);
+			const agentGetResult = await api.getAgent(this.editAgent);
+			this.editable = agentGetResult.actions.includes('FoundationaLLM.Agent/agents/write');
+			const agent = agentGetResult.resource;
 			if (agent.vectorization && agent.vectorization.text_partitioning_profile_object_id) {
 				this.loadingStatusText = `Retrieving text partitioning profile...`;
 				const textPartitioningProfile = await api.getTextPartitioningProfile(
 					agent.vectorization.text_partitioning_profile_object_id,
 				);
-				if (textPartitioningProfile) {
-					this.chunkSize = Number(textPartitioningProfile.settings.ChunkSizeTokens);
-					this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
+				if (textPartitioningProfile && textPartitioningProfile.resource) {
+					this.chunkSize = Number(textPartitioningProfile.resource.settings.ChunkSizeTokens);
+					this.overlapSize = Number(textPartitioningProfile.resource.settings.OverlapSizeTokens);
 				}
 			}
 			if (agent.prompt_object_id !== '') {
 				this.loadingStatusText = `Retrieving prompt...`;
 				const prompt = await api.getPrompt(agent.prompt_object_id);
-				if (prompt) {
-					this.systemPrompt = prompt.prefix;
+				if (prompt && prompt.resource) {
+					this.systemPrompt = prompt.resource.prefix;
 				}
 			}
 			this.loadingStatusText = `Mapping agent values to form...`;
 			this.mapAgentToForm(agent);
+		}
+		else {
+			this.editable = true;
 		}
 
 		this.debouncedCheckName = debounce(this.checkName, 500);
@@ -930,7 +948,7 @@ export default {
 				if (textEmbeddingProfiles.length === 0) {
 					errors.push('No vectorization text embedding profiles found.');
 				} else {
-					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].resource.object_id;
 				}
 			}
 
@@ -1043,18 +1061,6 @@ export default {
 							this.gatekeeperContentSafety.value as unknown as string,
 							this.gatekeeperDataProtection.value as unknown as string,
 						].filter((option) => option !== null),
-					},
-
-					language_model: {
-						type: 'openai',
-						provider: 'microsoft',
-						temperature: 0,
-						use_chat: true,
-						api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
-						api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
-						api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
-						version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
-						deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
 					},
 
 					sessions_enabled: true,

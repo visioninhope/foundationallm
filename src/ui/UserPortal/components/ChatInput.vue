@@ -15,11 +15,13 @@
 			>
 				<textarea
 					ref="inputRef"
+					id="chat-input"
 					v-model="text"
 					class="input"
 					:disabled="disabled"
 					placeholder="What would you like to ask?"
 					@keydown="handleKeydown"
+					autofocus
 				/>
 				<template #no-result>
 					<div class="dim">No result</div>
@@ -79,6 +81,17 @@ export default {
 		text: {
 			handler() {
 				this.adjustTextareaHeight();
+			},
+			immediate: true,
+		},
+		disabled: {
+			handler(newValue) {
+				if (!newValue) {
+					this.$nextTick(() => {
+						const textInput = this.$refs.inputRef as HTMLTextAreaElement;
+						textInput.focus();
+					});
+				}
 			},
 			immediate: true,
 		},
