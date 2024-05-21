@@ -3938,6 +3938,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps
   fullName: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps
   nameWithType: DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps
+- uid: FoundationaLLM.Common.Constants.Configuration.EnvironmentTypes
+  name: EnvironmentTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.EnvironmentTypes.html
+  commentId: T:FoundationaLLM.Common.Constants.Configuration.EnvironmentTypes
+  fullName: FoundationaLLM.Common.Constants.Configuration.EnvironmentTypes
+  nameWithType: EnvironmentTypes
+- uid: FoundationaLLM.Common.Constants.Configuration.EnvironmentTypes.E2ETest
+  name: E2ETest
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.EnvironmentTypes.html#FoundationaLLM_Common_Constants_Configuration_EnvironmentTypes_E2ETest
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.EnvironmentTypes.E2ETest
+  fullName: FoundationaLLM.Common.Constants.Configuration.EnvironmentTypes.E2ETest
+  nameWithType: EnvironmentTypes.E2ETest
 - uid: FoundationaLLM.Common.Constants.Configuration.EnvironmentVariables
   name: EnvironmentVariables
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.EnvironmentVariables.html
@@ -3962,6 +3974,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.EnvironmentVariables.FoundationaLLM_AuthorizationAPI_KeyVaultURI
   fullName: FoundationaLLM.Common.Constants.Configuration.EnvironmentVariables.FoundationaLLM_AuthorizationAPI_KeyVaultURI
   nameWithType: EnvironmentVariables.FoundationaLLM_AuthorizationAPI_KeyVaultURI
+- uid: FoundationaLLM.Common.Constants.Configuration.EnvironmentVariables.FoundationaLLM_Environment
+  name: FoundationaLLM_Environment
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.EnvironmentVariables.html#FoundationaLLM_Common_Constants_Configuration_EnvironmentVariables_FoundationaLLM_Environment
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.EnvironmentVariables.FoundationaLLM_Environment
+  fullName: FoundationaLLM.Common.Constants.Configuration.EnvironmentVariables.FoundationaLLM_Environment
+  nameWithType: EnvironmentVariables.FoundationaLLM_Environment
 - uid: FoundationaLLM.Common.Constants.Configuration.EnvironmentVariables.FoundationaLLM_Version
   name: FoundationaLLM_Version
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.EnvironmentVariables.html#FoundationaLLM_Common_Constants_Configuration_EnvironmentVariables_FoundationaLLM_Version
@@ -6918,6 +6936,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetUserIdentity
   nameWithType: IUserClaimsProviderService.GetUserIdentity
+- uid: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.IsServicePrincipal(System.Security.Claims.ClaimsPrincipal)
+  name: IsServicePrincipal(ClaimsPrincipal)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.html#FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_IsServicePrincipal_System_Security_Claims_ClaimsPrincipal_
+  commentId: M:FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.IsServicePrincipal(System.Security.Claims.ClaimsPrincipal)
+  fullName: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.IsServicePrincipal(System.Security.Claims.ClaimsPrincipal)
+  nameWithType: IUserClaimsProviderService.IsServicePrincipal(ClaimsPrincipal)
+- uid: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.IsServicePrincipal*
+  name: IsServicePrincipal
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.html#FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_IsServicePrincipal_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.IsServicePrincipal
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.IsServicePrincipal
+  nameWithType: IUserClaimsProviderService.IsServicePrincipal
 - uid: FoundationaLLM.Common.Middleware
   name: FoundationaLLM.Common.Middleware
   href: api/dotnet/FoundationaLLM.Common.Middleware.html
@@ -18052,12 +18083,44 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.GetUserIdentity
   nameWithType: EntraUserClaimsProviderService.GetUserIdentity
+- uid: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.IsServicePrincipal(System.Security.Claims.ClaimsPrincipal)
+  name: IsServicePrincipal(ClaimsPrincipal)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.html#FoundationaLLM_Common_Services_Security_EntraUserClaimsProviderService_IsServicePrincipal_System_Security_Claims_ClaimsPrincipal_
+  commentId: M:FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.IsServicePrincipal(System.Security.Claims.ClaimsPrincipal)
+  fullName: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.IsServicePrincipal(System.Security.Claims.ClaimsPrincipal)
+  nameWithType: EntraUserClaimsProviderService.IsServicePrincipal(ClaimsPrincipal)
+- uid: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.IsServicePrincipal*
+  name: IsServicePrincipal
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.html#FoundationaLLM_Common_Services_Security_EntraUserClaimsProviderService_IsServicePrincipal_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.IsServicePrincipal
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.IsServicePrincipal
+  nameWithType: EntraUserClaimsProviderService.IsServicePrincipal
 - uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService
   name: MicrosoftGraphGroupMembershipService
   href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.html
   commentId: T:FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService
   fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService
   nameWithType: MicrosoftGraphGroupMembershipService
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.#ctor(Microsoft.Graph.GraphServiceClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService})
+  name: MicrosoftGraphGroupMembershipService(GraphServiceClient, ILogger<MicrosoftGraphGroupMembershipService>)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphGroupMembershipService__ctor_Microsoft_Graph_GraphServiceClient_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_Security_MicrosoftGraphGroupMembershipService__
+  commentId: M:FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.#ctor(Microsoft.Graph.GraphServiceClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService})
+  name.vb: New(GraphServiceClient, ILogger(Of MicrosoftGraphGroupMembershipService))
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.MicrosoftGraphGroupMembershipService(Microsoft.Graph.GraphServiceClient, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService>)
+  fullName.vb: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.New(Microsoft.Graph.GraphServiceClient, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService))
+  nameWithType: MicrosoftGraphGroupMembershipService.MicrosoftGraphGroupMembershipService(GraphServiceClient, ILogger<MicrosoftGraphGroupMembershipService>)
+  nameWithType.vb: MicrosoftGraphGroupMembershipService.New(GraphServiceClient, ILogger(Of MicrosoftGraphGroupMembershipService))
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.#ctor*
+  name: MicrosoftGraphGroupMembershipService
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphGroupMembershipService__ctor_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.MicrosoftGraphGroupMembershipService
+  fullName.vb: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.New
+  nameWithType: MicrosoftGraphGroupMembershipService.MicrosoftGraphGroupMembershipService
+  nameWithType.vb: MicrosoftGraphGroupMembershipService.New
 - uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal(System.String)
   name: GetGroupsForPrincipal(string)
   href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphGroupMembershipService_GetGroupsForPrincipal_System_String_
@@ -18096,6 +18159,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.GetUserIdentity
   nameWithType: NoOpUserClaimsProviderService.GetUserIdentity
+- uid: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.IsServicePrincipal(System.Security.Claims.ClaimsPrincipal)
+  name: IsServicePrincipal(ClaimsPrincipal)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.html#FoundationaLLM_Common_Services_Security_NoOpUserClaimsProviderService_IsServicePrincipal_System_Security_Claims_ClaimsPrincipal_
+  commentId: M:FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.IsServicePrincipal(System.Security.Claims.ClaimsPrincipal)
+  fullName: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.IsServicePrincipal(System.Security.Claims.ClaimsPrincipal)
+  nameWithType: NoOpUserClaimsProviderService.IsServicePrincipal(ClaimsPrincipal)
+- uid: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.IsServicePrincipal*
+  name: IsServicePrincipal
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.html#FoundationaLLM_Common_Services_Security_NoOpUserClaimsProviderService_IsServicePrincipal_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.IsServicePrincipal
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.IsServicePrincipal
+  nameWithType: NoOpUserClaimsProviderService.IsServicePrincipal
 - uid: FoundationaLLM.Common.Services.Storage
   name: FoundationaLLM.Common.Services.Storage
   href: api/dotnet/FoundationaLLM.Common.Services.Storage.html
