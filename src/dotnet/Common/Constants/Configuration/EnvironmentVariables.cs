@@ -30,6 +30,6 @@
         /// <summary>
         /// Indicates whether the application is running in an end-to-end test environment. The string value should be either "true" or "false".
         /// </summary>
-        public const string FoundationaLLM_E2E_Test_Environment = "FoundationaLLM_E2E_Test_Environment";
+        public const string FoundationaLLM_Environment = "FOUNDATIONALLM_ENVIRONMENT";
     }
 }

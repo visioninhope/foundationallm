@@ -1,8 +1,6 @@
-﻿using Azure.Identity;
-using FoundationaLLM.Common.Authentication;
+﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Services.Security;
-using FoundationaLLM.Common.Services.Security.Graph;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Graph;
@@ -23,9 +21,7 @@ namespace FoundationaLLM
             // Register the Microsoft Graph API client.
             builder.Services.AddSingleton(provider => new GraphServiceClient(DefaultAuthentication.AzureCredential));
 
-            // Register graph and group membership services.
-            builder.Services.AddSingleton<IGraphPrincipalWithGroups, ServicePrincipalsService>();
-            builder.Services.AddSingleton<IGraphPrincipalWithGroups, UsersService>();
+            // Register the group membership service.
             builder.Services.AddScoped<IGroupMembershipService, MicrosoftGraphGroupMembershipService>();
         }
     }
