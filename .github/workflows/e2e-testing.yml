@@ -59,8 +59,8 @@ jobs:
       id: set-unique-id
       with:
         input: ${{ inputs.environment }}
-        method: SHA256
-        output_len: 8
+        method: SHA3
+        output_len: 32
 
     - name: Set Service Matrix
       uses: actions/github-script@v7
