@@ -183,7 +183,7 @@ namespace FoundationaLLM.Core.Examples.Services
         {
             TestSearchResult searchResult = new();
 
-            searchResult.VectorResults = await PerformVectorSearch(indexProfile, embedProfile, query, new List<string> { "Id", "Text"}, new List<string> { "Embedding" });
+            searchResult.VectorResults = await PerformVectorSearch(indexProfile, embedProfile, query, new List<string> { "Name", "Text"}, new List<string> { "Embedding" });
             searchResult.QueryResult = await PerformQuerySearch(indexProfile, query);
 
             return searchResult;

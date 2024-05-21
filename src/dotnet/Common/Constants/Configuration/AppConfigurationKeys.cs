@@ -6,10 +6,10 @@
     public static class AppConfigurationKeys
     {
         /// <summary>
-        /// The key for the FoundationaLLM:Instance:Id app configuration setting.
+        /// The key for the FoundationaLLM:Instance:Name app configuration setting.
         /// The value should be a GUID represents a unique instance of the FoundationaLLM instance.
         /// </summary>
-        public const string FoundationaLLM_Instance_Id = "FoundationaLLM:Instance:Id";
+        public const string FoundationaLLM_Instance_Id = "FoundationaLLM:Instance:Name";
         /// <summary>
         /// Key for the FoundationaLLM:Configuration:KeyVaultURI app configuration setting.
         /// This value should be the URI of the Azure Key Vault that contains the application's secrets.
