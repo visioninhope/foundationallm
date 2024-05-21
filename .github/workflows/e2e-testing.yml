@@ -7,6 +7,18 @@ on:
         description: AZD Environment Name
         type: string
         default: fllm-e2e-aca
+      deployOpenAi:
+        description: Deploy a new OpenAI Instance
+        type: boolean
+        default: false
+      openAiName:
+        description: Shared OpenAI Instance Name
+        type: string
+        default: fllm-01
+      openAiResourceGroup:
+        description: Shared OpenAI Resource Group
+        type: string
+        default: fllm-shared-01
       location:
         description: AZD Target Location
         type: choice
@@ -235,6 +247,13 @@ jobs:
         Push-Location ./deploy/quick-start
         azd env new ${{ inputs.environment }}
         azd env set PIPELINE_DEPLOY "$true"
+
+        if (${{ inputs.deployOpenAi }}) {
+          azd env set OPENAI_NAME ${{ inputs.openAiName }}
+          azd env set OPENAI_RESOURCE_GROUP ${{ inputs.openAiResourceGroup }}
+          azd env set OPENAI_SUBSCRIPTION_ID $($info.subscriptionId)
+        }
+        
         Pop-Location
 
         Write-Host "Update AZD Environment with Service Docker Image Names"
