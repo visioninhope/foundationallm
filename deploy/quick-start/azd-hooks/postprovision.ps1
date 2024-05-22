@@ -156,18 +156,21 @@ Invoke-AndRequireSuccess "Loading AppConfig Values" {
 
 if ($IsWindows) {
     $os = "windows"
+    $separator = ";"
 }
 elseif ($IsMacOS) {
     $os = "mac"
+    $separator = ":"
 }
 elseif ($IsLinux) {
     $os = "linux"
+    $separator = ":"
 }
 
 if ($env:PIPELINE_DEPLOY) {
     Write-Host "Using agent provided AzCopy"
 } else {
-    $env:PATH="$($env:PATH):$($pwd.Path)/tools/azcopy_${os}_amd64_${AZCOPY_VERSION}"
+    $env:PATH = $env:PATH, "$($pwd.Path)/tools/azcopy_${os}_amd64_${AZCOPY_VERSION}" -join $separator
 }
 
 $status = (azcopy login status)
