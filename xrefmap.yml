@@ -14189,6 +14189,19 @@ references:
   commentId: T:FoundationaLLM.Common.Models.ResourceProviders.ResourceBase
   fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceBase
   nameWithType: ResourceBase
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.CostCenter
+  name: CostCenter
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_CostCenter
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.CostCenter
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.CostCenter
+  nameWithType: ResourceBase.CostCenter
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.CostCenter*
+  name: CostCenter
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_CostCenter_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.CostCenter
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.CostCenter
+  nameWithType: ResourceBase.CostCenter
 - uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.CreatedBy
   name: CreatedBy
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_CreatedBy
@@ -15390,6 +15403,25 @@ references:
   commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest
   nameWithType: VectorizationRequest
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.#ctor
+  name: VectorizationRequest()
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest__ctor
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.VectorizationRequest()
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.New()
+  nameWithType: VectorizationRequest.VectorizationRequest()
+  nameWithType.vb: VectorizationRequest.New()
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.#ctor*
+  name: VectorizationRequest
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.VectorizationRequest
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.New
+  nameWithType: VectorizationRequest.VectorizationRequest
+  nameWithType.vb: VectorizationRequest.New
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.Complete
   name: Complete
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_Complete
@@ -15507,19 +15539,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.Expired
   nameWithType: VectorizationRequest.Expired
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.Id
-  name: Id
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_Id
-  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.Id
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.Id
-  nameWithType: VectorizationRequest.Id
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.Id*
-  name: Id
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_Id_
-  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.Id
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.Id
-  nameWithType: VectorizationRequest.Id
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.Item(System.String)
   name: this[string]
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_Item_System_String_
@@ -15565,19 +15584,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.MoveToNextStep
   nameWithType: VectorizationRequest.MoveToNextStep
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.ObjectId
-  name: ObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_ObjectId
-  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.ObjectId
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.ObjectId
-  nameWithType: VectorizationRequest.ObjectId
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.ObjectId*
-  name: ObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_ObjectId_
-  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.ObjectId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.ObjectId
-  nameWithType: VectorizationRequest.ObjectId
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.PipelineExecutionId
   name: PipelineExecutionId
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_PipelineExecutionId
