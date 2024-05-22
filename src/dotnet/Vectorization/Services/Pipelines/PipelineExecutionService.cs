@@ -159,6 +159,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                             Name = Guid.NewGuid().ToString(),
                                             PipelineExecutionId = pipelineExecutionId,
                                             PipelineObjectId = activePipeline.ObjectId!,
+                                            CostCenter = activePipeline.CostCenter,
                                             ContentIdentifier = new ContentIdentifier()
                                             {
                                                 DataSourceObjectId = dataSource.ObjectId!,
