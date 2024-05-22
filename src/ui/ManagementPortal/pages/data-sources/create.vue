@@ -257,6 +257,17 @@
 						</template>
 					</div>
 				</div>
+
+			</div>
+
+			<div class="step-header span-2">Would you like to assign this data source to a cost center?</div>
+			<div class="span-2">
+				<InputText
+					v-model="dataSource.cost_center"
+					placeholder="Enter cost center name"
+					type="text"
+					class="w-50"
+				/>
 			</div>
 
 			<!-- Buttons -->
@@ -328,8 +339,10 @@ export default {
 			dataSource: {
 				type: 'azure-data-lake',
 				name: '',
+				display_name: '',
 				object_id: '',
 				description: '',
+				cost_center: '',
 				resolved_configuration_references: {
 					AuthenticationType: '',
 					ConnectionString: '',
@@ -415,8 +428,10 @@ export default {
 			const newDataSource: DataSource = {
 				type: 'azure-data-lake',
 				name: '',
+				display_name: '',
 				object_id: '',
 				description: '',
+				cost_center: '',
 				resolved_configuration_references: {
 					AuthenticationType: '',
 					ConnectionString: '',

@@ -479,6 +479,16 @@
 				/>
 			</div>
 
+			<div class="step-header span-2">Would you like to assign this agent to a cost center?</div>
+			<div class="span-2">
+				<InputText
+					v-model="cost_center"
+					placeholder="Enter cost center name"
+					type="text"
+					class="w-50"
+				/>
+			</div>
+
 			<!-- <div class="step-header span-2">What are the orchestrator connection details?</div>
 			<div
 				v-if="
@@ -591,6 +601,8 @@ const getDefaultFormValues = () => {
 		dedicated_pipeline: true,
 		inline_context: false,
 		agentType: 'knowledge-management' as CreateAgentRequest['type'],
+
+		cost_center: '',
 
 		editDataSource: false as boolean,
 		selectedDataSource: null as null | AgentDataSource,
@@ -807,6 +819,7 @@ export default {
 			this.agentType = agent.type || this.agentType;
 			this.object_id = agent.object_id || this.object_id;
 			this.inline_context = agent.inline_context || this.inline_context;
+			this.cost_center = agent.cost_center || this.cost_center;
 
 			this.orchestration_settings.orchestrator =
 				agent.orchestration_settings?.orchestrator || this.orchestration_settings.orchestrator;
@@ -976,6 +989,7 @@ export default {
 			const promptRequest = {
 				type: 'multipart',
 				name: this.agentName,
+				cost_center: this.cost_center,
 				description: `System prompt for the ${this.agentName} agent`,
 				prefix: this.systemPrompt,
 				suffix: '',
@@ -1038,6 +1052,7 @@ export default {
 					description: this.agentDescription,
 					object_id: this.object_id,
 					inline_context: this.inline_context,
+					cost_center: this.cost_center,
 
 					vectorization: {
 						dedicated_pipeline: this.dedicated_pipeline,
