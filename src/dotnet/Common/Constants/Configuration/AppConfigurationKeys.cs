@@ -521,11 +521,6 @@
         /// </summary>
         public const string FoundationaLLM_LangChain_Summary_ModelName = "FoundationaLLM:LangChain:Summary:ModelName";
         /// <summary>
-        /// The key for the FoundationaLLM:LangChainAPI:Key app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_LangChainAPI_Key = "FoundationaLLM:LangChainAPI:Key";
-        /// <summary>
         /// The key for the FoundationaLLM:Management:Entra:CallbackPath app configuration setting.
         /// </summary>
         public const string FoundationaLLM_Management_Entra_CallbackPath = "FoundationaLLM:Management:Entra:CallbackPath";
