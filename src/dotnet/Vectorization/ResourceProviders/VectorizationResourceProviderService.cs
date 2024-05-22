@@ -652,9 +652,13 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (typeof(T) != typeof(VectorizationRequest))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
 
-            var vectorizationRequest = LoadVectorizationRequestResource(resourcePath.ResourceTypeInstances[0].ResourceId!).Result;            
-            return vectorizationRequest as T
-                ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+            var vectorizationRequestList = (LoadVectorizationRequestResource(resourcePath.ResourceTypeInstances[0].ResourceId!).Result) as List<T>;
+            if (vectorizationRequestList is not null && vectorizationRequestList.Count == 1)
+            {
+                return vectorizationRequestList.First() as T;
+            }
+            
+            throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");            
         }
 
         #endregion
