@@ -943,7 +943,7 @@ export default {
 				errors.push(this.validationMessage);
 			}
 
-			if (this.text_embedding_profile_object_id === '') {
+			if (!this.inline_context && this.text_embedding_profile_object_id === '') {
 				const textEmbeddingProfiles = await api.getTextEmbeddingProfiles();
 				if (textEmbeddingProfiles.length === 0) {
 					errors.push('No vectorization text embedding profiles found.');
