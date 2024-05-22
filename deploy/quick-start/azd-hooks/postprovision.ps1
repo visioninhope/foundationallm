@@ -167,7 +167,7 @@ elseif ($IsLinux) {
 if ($env:PIPELINE_DEPLOY) {
     Write-Host "Using agent provided AzCopy"
 } else {
-    $env:PATH="$($env:PATH);$($pwd.Path)/tools/azcopy_${os}_amd64_${AZCOPY_VERSION}"
+    $env:PATH="$($env:PATH):$($pwd.Path)/tools/azcopy_${os}_amd64_${AZCOPY_VERSION}"
 }
 
 $status = (azcopy login status)
