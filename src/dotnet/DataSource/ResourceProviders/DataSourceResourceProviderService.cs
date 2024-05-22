@@ -1,11 +1,13 @@
 ﻿using Azure.Messaging;
 using FluentValidation;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProviders;
@@ -99,25 +101,25 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                DataSourceResourceTypeNames.DataSources => await LoadDataSources(resourcePath.ResourceTypeInstances[0]),
+                DataSourceResourceTypeNames.DataSources => await LoadDataSources(resourcePath.ResourceTypeInstances[0], userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<ResourceProviderGetResult<DataSourceBase>>> LoadDataSources(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<DataSourceBase>>> LoadDataSources(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
+            var dataSources = new List<DataSourceBase>();
+
             if (instance.ResourceId == null)
             {
-                var dataSources = (await Task.WhenAll(
-                        _dataSourceReferences.Values
-                            .Where(dsr => !dsr.Deleted)
-                            .Select(dsr => LoadDataSource(dsr))))
-                        .Where(ds => ds != null)
-                        .ToList();
-
-                return dataSources.Select(dataSource => new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }).ToList();
+                dataSources = (await Task.WhenAll(_dataSourceReferences.Values
+                                         .Where(dsr => !dsr.Deleted)
+                                         .Select(dsr => LoadDataSource(dsr))))
+                                             .Where(ds => ds != null)
+                                             .Select(ds => ds!)
+                                             .ToList();
             }
             else
             {
@@ -126,26 +128,42 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 {
                     dataSource = await LoadDataSource(null, instance.ResourceId);
                     if (dataSource != null)
-                    {
-                        return [new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }];
-                    }
-                    return [];
+                        dataSources.Add(dataSource);
                 }
-
-                if (dataSourceReference.Deleted)
+                else
                 {
-                    throw new ResourceProviderException(
-                        $"Could not locate the {instance.ResourceId} data source resource.",
-                        StatusCodes.Status404NotFound);
-                }
+                    if (dataSourceReference.Deleted)
+                        throw new ResourceProviderException(
+                            $"Could not locate the {instance.ResourceId} data source resource.",
+                            StatusCodes.Status404NotFound);
 
-                dataSource = await LoadDataSource(dataSourceReference);
-                if (dataSource != null)
-                {
-                    return [new ResourceProviderGetResult<DataSourceBase>() { Resource = dataSource, Actions = [], Roles = [] }];
+                    dataSource = await LoadDataSource(dataSourceReference);
+                    if (dataSource != null)
+                        dataSources.Add(dataSource);
                 }
-                return [];
             }
+
+            var rolesWithActions = await _authorizationService.ProcessRoleAssignmentsWithActionsRequest(
+                _instanceSettings.Id,
+                new RoleAssignmentsWithActionsRequest()
+                {
+                    Scopes = dataSources.Select(x => x.ObjectId!).ToList(),
+                    PrincipalId = userIdentity.UserId!,
+                    SecurityGroupIds = userIdentity.GroupIds
+                });
+
+            var results = new List<ResourceProviderGetResult<DataSourceBase>>();
+
+            foreach (var dataSource in dataSources)
+                if (rolesWithActions[dataSource.ObjectId!].Actions.Contains(AuthorizableActionNames.FoundationaLLM_DataSource_DataSources_Read))
+                    results.Add(new ResourceProviderGetResult<DataSourceBase>()
+                    {
+                        Resource = dataSource,
+                        Actions = rolesWithActions[dataSource.ObjectId!].Actions,
+                        Roles = rolesWithActions[dataSource.ObjectId!].Roles
+                    });
+
+            return results;
         }
 
         private async Task<DataSourceBase?> LoadDataSource(DataSourceReference? dataSourceReference, string? resourceId = null)

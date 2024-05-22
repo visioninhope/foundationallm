@@ -117,8 +117,9 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 agents = (await Task.WhenAll(_agentReferences.Values
                                     .Where(ar => !ar.Deleted)
                                     .Select(ar => LoadAgent(ar))))
-                                    .Where(agent => agent != null)
-                                    .ToList();
+                                        .Where(agent => agent != null)
+                                        .Select(agent => agent!)
+                                        .ToList();
             }
             else
             {
@@ -127,23 +128,17 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 {
                     agent = await LoadAgent(null, instance.ResourceId);
                     if (agent != null)
-                    {
                         agents.Add(agent);
-                    }
                 }
                 else
                 {
                     if (agentReference.Deleted)
-                    {
                         throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
                             StatusCodes.Status404NotFound);
-                    }
 
                     agent = await LoadAgent(agentReference);
                     if (agent != null)
-                    {
                         agents.Add(agent);
-                    }
                 }
             }
 
@@ -157,18 +152,15 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 });
 
             var results = new List<ResourceProviderGetResult<AgentBase>>();
+
             foreach (var agent in agents)
-            {
                 if (rolesWithActions[agent.ObjectId!].Actions.Contains(AuthorizableActionNames.FoundationaLLM_Agent_Agents_Read))
-                {
                     results.Add(new ResourceProviderGetResult<AgentBase>()
                     {
                         Resource = agent,
                         Actions = rolesWithActions[agent.ObjectId!].Actions,
                         Roles = rolesWithActions[agent.ObjectId!].Roles
                     });
-                }
-            }
 
             return results;
         }
