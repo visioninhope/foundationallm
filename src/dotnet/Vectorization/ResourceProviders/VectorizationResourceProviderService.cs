@@ -284,8 +284,8 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
             
-            if (resourcePath.ResourceTypeInstances[0].ResourceId != resource.Id)
-                throw new ResourceProviderException("The resource path does not match the object definition (Id mismatch).",
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != resource.Name)
+                throw new ResourceProviderException("The resource path does not match the object definition (Name mismatch).",
                     StatusCodes.Status400BadRequest);
 
             var validator = _resourceValidatorFactory.GetValidator<VectorizationRequest>();
@@ -698,7 +698,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                     throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}",
                                                StatusCodes.Status400BadRequest);
                 }                
-                request.ResourceFilePath = $"{REQUEST_RESOURCES_DIRECTORY_NAME}/{request.Id}-{DateTime.UtcNow:yyyyMMdd}.json";
+                request.ResourceFilePath = $"{REQUEST_RESOURCES_DIRECTORY_NAME}/{request.Name}-{DateTime.UtcNow:yyyyMMdd}.json";
 
                 // validate the data source at request creation time.
                 ValidateContentIdentifierWithDataSource(request);
@@ -773,8 +773,8 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (string.IsNullOrWhiteSpace(request.ResourceFilePath))
             {
                 // retrieve listing of requests
-                var resourceFilePaths = await GetRequestResourceFilePaths(request.Id);
-                request.ResourceFilePath = resourceFilePaths.Where(f => f.Contains(request!.Id!)).FirstOrDefault();               
+                var resourceFilePaths = await GetRequestResourceFilePaths(request.Name);
+                request.ResourceFilePath = resourceFilePaths.Where(f => f.Contains(request!.Name!)).FirstOrDefault();               
             }
         }
 
