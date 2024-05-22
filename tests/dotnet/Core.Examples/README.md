@@ -347,6 +347,43 @@ Delete the vectorization text embedding profile: text_embedding_profile_generic 
 Delete the vectorization indexing profile: indexing_profile_pdf via the Management API and delete the created index
 ```
 
+### Example 11: Knowledge Management agent with Semantic Kernel on the SDZWA journal
+
+**Purpose**: Verify that the Knowledge Management agent with Semantic Kernel can respond to user queries using the SDZWA journals.
+
+**File**: [Example0011_KnowledgeManagementAgentWithSemanticKernel.cs](Example0011_KnowledgeManagementAgentWithSemanticKernel.cs)
+
+This example demonstrates how to use the Management API to create an the agent and how to use the Core API to send user prompts to the agent and receive completions.
+
+#### Running the example
+
+Run the example by running a test on the `Example0011_KnowledgeManagementAgentWithSemanticKernel.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example0011_KnowledgeManagementAgentWithSemanticKernel.cs` file and selecting **Run Tests**.
+
+You will see an output similar to the following after the test is completed:
+
+```text
+============ Knowledge Management agent with Semantic Kernel on SDZWA ============
+Send questions to the KMAgentWithSemanticKernelSDZWA agent.
+```
+
+### Example 12: Knowledge Management agent with Lang Chain on the SDZWA journal
+
+**Purpose**: Verify that the Knowledge Management agent with Lang Chain can respond to user queries using the SDZWA journals.
+
+**File**: [Example0012_KnowledgeManagementAgentWithLangChain.cs](Example0012_KnowledgeManagementAgentWithLangChain.cs)
+
+This example demonstrates how to use the Management API to create an the agent and how to use the Core API to send user prompts to the agent and receive completions.
+
+#### Running the example
+
+Run the example by running a test on the `Example0012_KnowledgeManagementAgentWithLangChain.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example0011_KnowledgeManagementAgentWithSemanticKernel.cs` file and selecting **Run Tests**.
+
+You will see an output similar to the following after the test is completed:
+
+```text
+============ Knowledge Management agent with Lang Chain on SDZWA ============
+Send questions to the KMAgentWithLangChainSDZWA agent.
+```
 
 ### Example 16: Completion quality measurements with Azure AI Studio
 

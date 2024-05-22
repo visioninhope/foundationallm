@@ -21,13 +21,13 @@ namespace FoundationaLLM.Core.Examples
         [Fact]
         public async Task RunAsync()
         {
-            WriteLine("============ Knowledge Management agent using LangChain ============");
+            WriteLine("============ Knowledge Management agent with Semantic Kernel on SDZWA ============");
             await RunExampleAsync();
         }
 
         private async Task RunExampleAsync()
         {
-            var agentName = TestAgentNames.LangChainSDZWA;
+            var agentName = TestAgentNames.SemanticKernelSDZWA;
             var userPrompts = new List<string>
             {
                 "Who are you?",
