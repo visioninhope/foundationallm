@@ -877,14 +877,14 @@
     },
     {
       "key": "FoundationaLLM:LangChainAPI:Key",
-      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/langchain-api-apikey\"}",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-langchainapi-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
       "key": "FoundationaLLM:Management:Entra:CallbackPath",
-      "value": "/management/signin-oidc",
+      "value": "/signin-oidc",
       "label": null,
       "content_type": "",
       "tags": {}
