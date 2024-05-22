@@ -56,6 +56,9 @@
       "instanceId": {
         "value": "${FOUNDATIONALLM_INSTANCE_ID=''}"
       },
+      "isE2ETest": {
+        "value": "${FOUNDATIONALLM_E2E_TEST=false}"
+      },
       "location": {
         "value": "${AZURE_LOCATION}"
       },
