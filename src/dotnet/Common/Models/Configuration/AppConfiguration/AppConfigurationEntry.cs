@@ -19,7 +19,7 @@ namespace FoundationaLLM.Common.Models.Configuration.AppConfiguration
     /// <param name="canBeEmpty"></param>
     public class AppConfigurationEntry(string key, string? minimumVersion, string? keyVaultSecretName = null,
         string? description = null, string? defaultValue = null, string? contentType = null,
-        object? sampleObject = null, bool canBeEmpty = false)
+        object? sampleObject = null, bool canBeEmpty = false, bool instanceSpecific = false)
     {
         /// <summary>
         /// The App Configuration key.
@@ -53,6 +53,10 @@ namespace FoundationaLLM.Common.Models.Configuration.AppConfiguration
         /// A sample object that represents the configuration entry.
         /// </summary>
         public object? SampleObject { get; } = sampleObject;
+        /// <summary>
+        /// If the configuration is instance specific
+        /// </summary>
+        public bool? InstanceSpecific { get; } = instanceSpecific;
     }
 
 }

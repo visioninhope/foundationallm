@@ -7,13 +7,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Xunit.Abstractions;
-using FoundationaLLM.Upgrade.Configuration;
-using FoundationaLLM.Upgrade.Agent;
-using FoundationaLLM.Upgrade.DataSource;
-using FoundationaLLM.Upgrade.Prompts;
-using FoundationaLLM.Upgrade.Cosmos;
-using FoundationaLLM.Upgrade.Vectorization.Indexing;
-using FoundationaLLM.Upgrade.Authorization;
+using FoundationaLLM.Utility.Upgrade.Vectorization.ContentSource;
+using FoundationaLLM.Utility.Upgrade.Vectorization.Embedding;
+using FoundationaLLM.Utility.Upgrade.Vectorization.Indexing;
+using FoundationaLLM.Utility.Upgrade.Vectorization.Partitioning;
+using FoundationaLLM.Utility.Upgrade.Vectorization.State;
+using FoundationaLLM.Utility.Upgrade.Agent;
+using FoundationaLLM.Utility.Upgrade.Configuration;
+using FoundationaLLM.Utility.Upgrade.DataSource;
+using FoundationaLLM.Utility.Upgrade.Prompts;
+using FoundationaLLM.Utility.Upgrade.Cosmos;
+using FoundationaLLM.Utility.Upgrade.Authorization;
 
 namespace FoundationaLLM.Core.Examples
 {

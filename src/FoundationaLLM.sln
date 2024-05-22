@@ -101,7 +101,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayAPI", "dotnet\Gatewa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Examples", "..\tests\dotnet\Core.Examples\Core.Examples.csproj", "{6230C568-E97B-4959-8ECE-33D97D1BBD4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Upgrade", "dotnet\Upgrade\Upgrade.csproj", "{07BC8407-0EBB-4746-9CB9-1A5C6A954CB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "dotnet\Upgrade\Utility.csproj", "{07BC8407-0EBB-4746-9CB9-1A5C6A954CB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -31,12 +31,14 @@ namespace FoundationaLLM.Core.Examples.Setup
 					}
 					options.Connect(connectionString)
 						.ConfigureKeyVault(kv =>
-                        {
-                            kv.SetCredential(DefaultAuthentication.AzureCredential);
-                        })
+						{
+							kv.SetCredential(DefaultAuthentication.AzureCredential);
+						});
                         // Select the configuration sections to load:
+						/*
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Instance)
-						.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs)
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration)
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_APIs)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Management_Entra)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB)
@@ -45,6 +47,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization)
 						.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
+						*/
 				})
 				.Build();
 

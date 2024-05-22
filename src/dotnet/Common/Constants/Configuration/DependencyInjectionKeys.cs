@@ -45,6 +45,11 @@
         /// </summary>
         public const string FoundationaLLM_Vectorization_Steps = "FoundationaLLM:Vectorization:Steps";
 
+        /// <summary>
+        /// The dependency injection key for the backup configuration section.
+        /// </summary>
+        public const string FoundationaLLM_Backup = "FoundationaLLM:Backup";
+
         #region Resource providers
 
         /// <summary>

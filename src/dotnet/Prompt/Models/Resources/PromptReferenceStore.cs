@@ -1,9 +1,11 @@
-﻿namespace FoundationaLLM.Prompt.Models.Resources
+﻿using FoundationaLLM.Common.Models.ResourceProviders;
+
+namespace FoundationaLLM.Prompt.Models.Resources
 {
     /// <summary>
     /// Models the content of the prompt reference store managed by the FoundationaLLM.Prompt resource provider.
     /// </summary>
-    public class PromptReferenceStore
+    public class PromptReferenceStore : ReferenceStore
     {
         /// <summary>
         /// The list of all prompts registered in the system.

@@ -1,9 +1,11 @@
-﻿namespace FoundationaLLM.Agent.Models.Resources
+﻿using FoundationaLLM.Common.Models.ResourceProviders;
+
+namespace FoundationaLLM.Agent.Models.Resources
 {
     /// <summary>
     /// Models the content of the agent reference store managed by the FoundationaLLM.Agent resource provider.
     /// </summary>
-    public class AgentReferenceStore
+    public class AgentReferenceStore : ReferenceStore
     {
         /// <summary>
         /// The list of all agents registered in the system.

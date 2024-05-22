@@ -40,9 +40,22 @@ namespace FoundationaLLM.Core.Examples.Setup
 		{
 			TestConfiguration.Initialize(configRoot, services);
 
+            services.AddSingleton<IConfigurationRoot>(configRoot);
+
             services.AddOptions<BlobStorageServiceSettings>(
                     DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
                 .Bind(configRoot.GetSection("FoundationaLLM:Vectorization:ResourceProviderService:Storage"));
+
+            services.AddOptions<BlobStorageServiceSettings>(
+                    DependencyInjectionKeys.FoundationaLLM_Backup)
+                .Bind(configRoot.GetSection("FoundationaLLM:Vectorization:ResourceProviderService:Storage"));
+
+            services.AddOptions<BlobStorageServiceSettings>(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Authorization).Configure(
+                configureOptions =>
+                {
+                    configureOptions.AuthenticationType = BlobStorageAuthenticationTypes.AzureIdentity;
+                    configureOptions.AccountName = configRoot[KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Storage_AccountName];
+                });
 
             RegisterInstance(services, configRoot);
 			RegisterHttpClients(services, configRoot);

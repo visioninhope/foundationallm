@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>FoundationaLLM.Utility</RootNamespace>
+    <AssemblyName>FoundationaLLM.Utility</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\Prompt\Prompt.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Upgrade\Infrastructure\Identity\" />
+    <Folder Include="Upgrade\Infrastructure\ContentSafety\" />
+    <Folder Include="Upgrade\Infrastructure\EventHubs\" />
+    <Folder Include="Upgrade\Infrastructure\Vectorization\" />
+    <Folder Include="Upgrade\Infrastructure\Search\" />
+    <Folder Include="Upgrade\Infrastructure\OpenAI\" />
+    <Folder Include="Upgrade\Infrastructure\Storage\" />
+    <Folder Include="Upgrade\Vectorization\Extraction\" />
+  </ItemGroup>
+
+</Project>
