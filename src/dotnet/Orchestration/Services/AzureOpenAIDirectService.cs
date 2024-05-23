@@ -72,7 +72,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
                         throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
 
-                    var prompt = await promptResourceProvider.GetResource<MultipartPrompt>(agent.PromptObjectId, _callContext.CurrentUserIdentity!);
+                    var prompt = await promptResourceProvider.GetResource<PromptBase>(agent.PromptObjectId, _callContext.CurrentUserIdentity!) as MultipartPrompt;
 
                     systemPrompt = new SystemCompletionMessage
                     {
