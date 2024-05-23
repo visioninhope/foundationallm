@@ -424,7 +424,7 @@ jobs:
           --username "$($info.clientId)" `
           --password "$($info.clientSecret)" `
           --tenant "$($info.tenantId)" `
-          --scope api://FoundationaLLM-E2E/.default
+          --scope api://FoundationaLLM-Core-E2E/.default
       shell: pwsh
 
     - name: Running End to End Tests
