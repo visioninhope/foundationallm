@@ -3560,12 +3560,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Instance_Id
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Instance_Id
   nameWithType: AppConfigurationKeys.FoundationaLLM_Instance_Id
-- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_LangChainAPI_Key
-  name: FoundationaLLM_LangChainAPI_Key
-  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_LangChainAPI_Key
-  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_LangChainAPI_Key
-  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_LangChainAPI_Key
-  nameWithType: AppConfigurationKeys.FoundationaLLM_LangChainAPI_Key
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_LangChain_CSVFile_URL
   name: FoundationaLLM_LangChain_CSVFile_URL
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_LangChain_CSVFile_URL
@@ -19364,12 +19358,6 @@ references:
   commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.LangChain
   fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.LangChain
   nameWithType: AppConfigurationCatalog.LangChain
-- uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.LangChainAPI
-  name: LangChainAPI
-  href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_LangChainAPI
-  commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.LangChainAPI
-  fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.LangChainAPI
-  nameWithType: AppConfigurationCatalog.LangChainAPI
 - uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Management
   name: Management
   href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_Management
