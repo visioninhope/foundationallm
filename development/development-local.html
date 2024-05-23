@@ -78,7 +78,7 @@
 <li>Environment variables:
 <ul>
 <li>Create an environment variable for the Application Configuration Service connection string named <code>FoundationaLLM_AppConfig_ConnectionString</code>. This is used by the .NET projects.</li>
-<li>Create an environment variable for the Application Configuration Service URI named <code>foundationallm-app-configuration-uri</code>. This is used by the Python projects.</li>
+<li>Create an environment variable for the Application Configuration Service URI named <code>FOUNDATIONALLM_APP_CONFIGURATION_URI</code>. This is used by the Python projects.</li>
 <li>Create an environment variable named <code>FOUNDATIONALLM_VERSION</code> and set it to the version of the FoundationaLLM deployment you are working with. This is used by the .NET projects to validate your environment configuration based on the version.</li>
 </ul>
 </li>
@@ -398,7 +398,7 @@
 </code></pre>
 <h2 id="python-projects">Python projects</h2>
 <h3 id="python-environment-variables">Python Environment Variables</h3>
-<p>Create a local environment variable named <code>foundationallm-app-configuration-uri</code>. The value should be the URI of the Azure App Configuration service and <em>not</em> the connection string. We use role-based access controls (RBAC) to access the Azure App Configuration service, so the connection string is not required.</p>
+<p>Create a local environment variable named <code>FOUNDATIONALLM_APP_CONFIGURATION_URI</code>. The value should be the URI of the Azure App Configuration service and <em>not</em> the connection string. We use role-based access controls (RBAC) to access the Azure App Configuration service, so the connection string is not required.</p>
 <table>
 <thead>
 <tr>
@@ -409,7 +409,7 @@
 </thead>
 <tbody>
 <tr>
-<td>foundationallm-app-configuration-uri</td>
+<td>FOUNDATIONALLM_APP_CONFIGURATION_URI</td>
 <td>REDACTED</td>
 <td>Azure App Configuration URI</td>
 </tr>
