@@ -216,6 +216,12 @@ jobs:
         ./Create-FllmAdminGroup.ps1 `
           -groupName FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
           -spObjectId $spObjectId
+
+        if (${{ inputs.target }} -eq 'sandbox') {
+          ./Create-FllmAdminGroup.ps1 `
+            -groupName FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
+            -spObjectId d3bd4e8e-d413-477d-a420-0792b0504adf
+        }
         Pop-Location
       shell: pwsh
 
