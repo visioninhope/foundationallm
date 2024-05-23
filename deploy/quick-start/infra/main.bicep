@@ -159,6 +159,10 @@ module authKeyvault './shared/keyvault.bicep' = {
         name: 'foundationallm-authorizationapi-instanceids'
         value: instanceId
       }
+      {
+        name: 'foundationallm-authorizationapi-appinsights-connectionstring'
+        value: monitoring.outputs.applicationInsightsConnectionString
+      }
     ]
   }
   scope: authRg
