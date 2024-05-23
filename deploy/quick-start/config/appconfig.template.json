@@ -1185,7 +1185,7 @@
     },
     {
       "key": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
-      "value": "APIKey",
+      "value": "AzureIdentity",
       "label": null,
       "content_type": "",
       "tags": {}
