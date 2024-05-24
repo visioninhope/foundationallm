@@ -34,9 +34,9 @@ namespace FoundationaLLM.Core.Examples
             var userPrompts = new List<string>
             {
                 "Who are you?",
-                "What are some interesting facts about the San Diego Zoo?",
-                "Which animal in the San Diego Zoo is the oldest?",
-                "How does San Diego Zoo treat illness among it's inhabitants?"
+                "Tell me one interesting facts about the San Diego Zoo?",
+                "How many animals does the San Diego Zoo host?",
+                "What does the San Diego Zoo do to treat illness among it's inhabitants?"
             };
 
             WriteLine($"Send questions to the {agentName} agent.");

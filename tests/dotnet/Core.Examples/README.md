@@ -398,8 +398,17 @@ Run the example by running a test on the `Example0011_KnowledgeManagementAgentWi
 You will see an output similar to the following after the test is completed:
 
 ```text
-============ Knowledge Management agent with Semantic Kernel on SDZWA ============
-Send questions to the KMAgentWithSemanticKernelSDZWA agent.
+============ Knowledge Management agent with Lang Chain on SDZWA ============
+Send questions to the KMAgentWithLangChainSDZWA agent.
+Agent conversation history:
+- User: Who are you?
+- Assistant: I am Sandy, the San Diego Zoo assistant.
+- User: Tell me one interesting facts about the San Diego Zoo?
+- Assistant: One interesting fact about the San Diego Zoo is that between the botanical gardens at the San Diego Zoo and the Safari Park, they care for 2 million plants.
+- User: How many animals does the San Diego Zoo host?
+- Assistant: The journal does not provide information about the number of animals hosted by the San Diego Zoo.
+- User: What does the San Diego Zoo do to treat illness among it's inhabitants?
+- Assistant: The journal mentions that the San Diego Zoo provides efficient and effective health care for its animals. The care and health decisions are based on the best available scientific data.
 ```
 
 ### Example 12: Knowledge Management agent with Lang Chain on the SDZWA journal
@@ -419,6 +428,15 @@ You will see an output similar to the following after the test is completed:
 ```text
 ============ Knowledge Management agent with Lang Chain on SDZWA ============
 Send questions to the KMAgentWithLangChainSDZWA agent.
+Agent conversation history:
+- User: Who are you?
+- Assistant: I am Sandy, the San Diego Zoo assistant.
+- User: Tell me one interesting facts about the San Diego Zoo?
+- Assistant: One interesting fact about the San Diego Zoo is that between the botanical gardens at the San Diego Zoo and the Safari Park, they care for 2 million plants.
+- User: How many animals does the San Diego Zoo host?
+- Assistant: The journal does not provide information about the number of animals hosted by the San Diego Zoo.
+- User: What does the San Diego Zoo do to treat illness among it's inhabitants?
+- Assistant: The journal mentions that the San Diego Zoo provides efficient and effective health care for its animals. The care and health decisions are based on the best available scientific data.
 ```
 
 ### Example 16: Completion quality measurements with Azure AI Studio
