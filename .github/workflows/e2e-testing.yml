@@ -69,7 +69,7 @@ jobs:
         result-encoding: string
         script: |
           const fs = require('fs')
-          const jsonString = fs.readFileSync('./tests/config/e2e-test-manifest.json')
+          const jsonString = fs.readFileSync('./tests/config/${{ inputs.target }}-test-manifest.json')
           var data = JSON.parse(jsonString)
           return JSON.stringify(data.service_matrix)
     
@@ -80,7 +80,7 @@ jobs:
         result-encoding: string
         script: |
           const fs = require('fs')
-          const jsonString = fs.readFileSync('./tests/config/e2e-test-manifest.json')
+          const jsonString = fs.readFileSync('./tests/config/${{ inputs.target }}-test-manifest.json')
           var data = JSON.parse(jsonString)
           return JSON.stringify(data.test_matrix)
     
@@ -91,7 +91,7 @@ jobs:
         result-encoding: string
         script: |
           const fs = require('fs')
-          const jsonString = fs.readFileSync('./tests/config/e2e-test-manifest.json')
+          const jsonString = fs.readFileSync('./tests/config/${{ inputs.target }}-test-manifest.json')
           var data = JSON.parse(jsonString)
           return data.registry
 
@@ -117,7 +117,8 @@ jobs:
       chart: ${{ matrix.object.name }}
       registry: ${{ needs.generate_matrix.outputs.registry }}
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
-    secrets: inherit
+      username: ${{ (inputs.target == 'sandbox') ?? secrets.FLLM_ACR_USERNAME || secrets.FLLM_E2E_ACR_USERNAME }}
+      password: ${{ (inputs.target == 'sandbox') ?? secrets.FLLM_ACR_PASSWORD || secrets.FLLM_E2E_ACR_PASSWORD }}
 
   docker_build:
     name: Build Docker Images
@@ -134,7 +135,8 @@ jobs:
       dockerfile: ${{ matrix.object.dockerfile }}
       registry: ${{ needs.generate_matrix.outputs.registry }}
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
-    secrets: inherit
+      username: ${{ (inputs.target == 'sandbox') ?? secrets.FLLM_ACR_USERNAME || secrets.FLLM_E2E_ACR_USERNAME }}
+      password: ${{ (inputs.target == 'sandbox') ?? secrets.FLLM_ACR_PASSWORD || secrets.FLLM_E2E_ACR_PASSWORD }}
 
   deploy_quickstart:
     name: Deploy Quick Start
@@ -257,7 +259,7 @@ jobs:
         Pop-Location
 
         Write-Host "Update AZD Environment with Service Docker Image Names"
-        $configPath = "./tests/config/e2e-test-manifest.json"
+        $configPath = "./tests/config/${{ inputs.target }}-test-manifest.json"
         $config = Get-content $configPath | ConvertFrom-Json
 
         Push-Location ./deploy/quick-start
