@@ -252,7 +252,6 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                         { "deployment_name", "completions" }
                     }
                 }
-            }
             },
             new KnowledgeManagementAgent
             {
