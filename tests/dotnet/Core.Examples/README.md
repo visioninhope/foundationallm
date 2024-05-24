@@ -31,6 +31,42 @@ You will see an output similar to the following after the test is completed:
 
 ![The completed test is displayed.](media/example-1-completed-test.png)
 
+### Example 3: Knowledge Management inline context agent with a LangChain orchestrator
+
+**Purpose**: Create and use a Knowledge Management agent with an inline context that uses LangChain as the LLM orchestrator.
+
+**File**: [Example0003_KnowledgeManagementInlineContextAgentWithLangChain.cs](Example0003_KnowledgeManagementInlineContextAgentWithLangChain.cs)
+
+This example demonstrates creating a Knowledge Management agent with an inline context that uses LangChain as the LLM orchestrator. The agent's Prompt contains the data context about the Rosetta Stone, which the orchestrator sends to LangChain as part of the composed system prompt that provides the context the LLM uses to provide appropriate reponses to the user. The example sends questions about the Rosetta Stone to the agent and receives responses.
+
+#### Setup
+
+This example does not require any specific setup.
+
+##### App Config settings
+
+This example does not require any specific App Config settings.
+
+#### Running the example
+
+Run the example by running a test on the `Example0003_KnowledgeManagementInlineContextAgentWithLangChain.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example0003_KnowledgeManagementInlineContextAgentWithLangChain.cs` file and selecting **Run Tests**.
+
+You will see an output similar to the following after the test is completed:
+
+```text
+============ Knowledge Management with inline context agent using LangChain ============
+Send Rosetta Stone questions to the FLLMGenericInlineContextTest agent.
+Agent conversation history:
+- User: Who are you?
+- Assistant: I am Omar, an analytic agent here to help you understand the history of the Rosetta Stone.
+- User: What is the significance of the Rosetta Stone in the history of linguistics?
+- Assistant: The Rosetta Stone is of great significance in the history of linguistics because it played a crucial role in deciphering Egyptian hieroglyphs. The stone provided the key to understanding a script that had been lost for centuries, allowing scholars to unlock the language and gain insights into ancient Egyptian history and culture. This breakthrough opened up new avenues for studying and understanding ancient languages and scripts.
+- User: What was the Rosetta Stone's role in ancient political dynamics?
+- Assistant: The Rosetta Stone's role in ancient political dynamics was primarily as a decree affirming the royal cult of Pharaoh Ptolemy V. It was composed by a council of priests to honor the young pharaoh and likely served to reinforce his authority and legitimacy. The broader implications of the decree and its impact on Egyptian society during Ptolemy V's reign are still subjects of ongoing research and debate.
+- User: How did the decipherment of the Rosetta Stone impact the study of ancient Egypt?
+- Assistant: The decipherment of the Rosetta Stone had a significant impact on the study of ancient Egypt. It provided scholars with the key to understanding Egyptian hieroglyphs, which had previously been a mystery. This breakthrough allowed for the translation of numerous ancient Egyptian texts, providing valuable insights into their history, culture, religion, and daily life. The decipherment of the Rosetta Stone opened up new avenues for studying and interpreting ancient Egyptian civilization.
+```
+
 ### Example 4: Synchronous vectorization of a file located in Azure Data Lake Storage Gen2
 
 **Purpose**: Run synchronous vectorization of a file located in Azure Data Lake Storage Gen2.
@@ -134,8 +170,8 @@ The vectorization api and vectorization job managed identities need to have `Con
 ##### App Config settings
 | Key | Value | Description |
 | --- | --- | --- |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | `onelake` | Account name - this will always be `onelake`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AccountName` | `onelake` | Account name - this will always be `onelake`. |
 
 #### Running the example
 
@@ -179,8 +215,8 @@ The vectorization api and vectorization job managed identities need to have `Con
 ##### App Config settings
 | Key | Value | Description |
 | --- | --- | --- |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | `onelake` | Account name - this will always be `onelake`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AccountName` | `onelake` | Account name - this will always be `onelake`. |
 
 #### Running the example
 
@@ -464,3 +500,51 @@ Property definitions:
 2. The test will send the user prompt to the Core API completions endpoint and send the results and embedding information to Azure AI Studio for measuring the completion quality. To view the completion quality measurements, navigate to the [Azure AI Studio portal](https://ai.azure.com/) and select the project associated with the Azure AI Studio deployment. Select **Evaluation** in the left-hand menu and select the latest evaluation run to view the completion quality measurements.
 
     ![The completion quality measurements are displayed in the Azure AI Studio portal.](media/example-16-azure-ai-studio.png)
+
+### Example 20: Generate synthetic user-agent conversations based on prodct descriptions
+
+**Purpose**: Test an agent that generates synthetic user-agent conversations using a registry of fictional e-shop products.
+
+**File**: [Example0020_GenerateConversationsAboutProducts.cs](./Example0020_GenerateConversationsAboutProducts.cs)
+
+This example demonstrates calling an agent that generates synthetic user-agent conversations.
+
+#### Setup
+
+This example does not require any specific setup.
+
+##### App Config settings
+
+This example does not require any specific App Config settings.
+
+##### `testsettings.json` settings
+
+The test settings file provides details about the conversation generation process. The following is a sample of the `testsettings.json` file for this example:
+
+```json
+{
+  "GenerateConversationsConfiguration": {
+    "ResultFolderPath": null,
+    "ConversationCount": 1,
+    "ThreadCount":  5
+  }
+}
+```
+
+Property definitions:
+
+- `ResultFolderPath`: The path to a local folder where the generated conversations will be saved. If `null`, the conversations will not be saved locally. When saved locally, the resulting file name is `synthetic-conversations.json`. Default value is `null`.
+- `ConversationCount`: The number of conversations to generate. Default value is `1`.
+- `ThreadCount`: The number of threads to use for generating conversations in parallel. Default value is `5`.
+
+#### Running the example
+
+Run the example by running a test on the `Example0020_GenerateConversationsAboutProducts.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example0020_GenerateConversationsAboutProducts.cs` file and selecting **Run Tests**.
+
+You will see an output similar to the following after the test is completed:
+
+```text
+============ Generate conversations about products ============
+Asking the agent ConversationGeneratorAgent agent to create conversation # 1...
+Conversation # 1 was created successfully.
+```

@@ -5,6 +5,7 @@ param adminGroupObjectId string
 param authAppRegistration object
 param timestamp string = utcNow()
 param appRegistrations array
+param isE2ETest bool = false
 
 param createDate string = utcNow('u')
 
@@ -157,6 +158,10 @@ module authKeyvault './shared/keyvault.bicep' = {
       {
         name: 'foundationallm-authorizationapi-instanceids'
         value: instanceId
+      }
+      {
+        name: 'foundationallm-authorizationapi-appinsights-connectionstring'
+        value: monitoring.outputs.applicationInsightsConnectionString
       }
     ]
   }
@@ -554,14 +559,21 @@ module acaServices './app/acaService.bicep' = [
       serviceName: service.name
       tags: tags
 
-      envSettings: service.useEndpoint
+      envSettings: union(service.useEndpoint
         ? [
             {
               name: service.appConfigEnvironmentVarName
               value: appConfig.outputs.endpoint
             }
           ]
-        : []
+        : [], isE2ETest
+        ? [
+            {
+              name: 'FOUNDATIONALLM_ENVIRONMENT'
+              value: 'E2ETest'
+            }
+          ]
+        : [])
 
       secretSettings: service.useEndpoint
         ? []

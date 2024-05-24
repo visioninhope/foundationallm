@@ -70,6 +70,33 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     You are responsible for answering questions related to the San Diego Zoo that is contained in the journal publications. 
                     Only answer questions that relate to the Zoo and journal content. 
                     Do not make anything up. Use only the data provided."
+            },
+            new MultipartPrompt
+            {
+                Name = TestAgentNames.ConversationGeneratorAgent,
+                Description = $"Prompt template for the {TestAgentNames.ConversationGeneratorAgent} agent.",
+                Prefix = @"You are an agent capable of generating fictional conversations about products.
+                    The product descriptions are provided in JSON format in the TARGET_PRODUCTS section below. The product names are specified in the Name property. The product types are specified in the Type property. The product descriptions are specified in the Description property. The product prices are specified in the Price property.
+                    You should use the product names provided in the TARGET_PRODUCTS section and imagine a conversation between User and Agent about the names, types, descriptions, and prices of these products.
+                    You should use the tone specified in the TONE section for the User questions.
+                    You should generate User questions that include short explanations on the reasons the question is asked.
+                    The conversations should include at least ten and no more than sixteen questions and answers in total.
+                    Here is an example on how to format the conversation:
+
+                    User:
+                    What kind of products are you selling?
+                    Agent:
+                    We are selling products suitable for sporting activities.
+                    User:
+                    What are the types of products available?
+                    Agent:
+                    The types of available products are Bags, Clothing, Cycling, Footwear, Jackets, Navigation, Ski/boarding, and Trekking.
+                    User:
+                    Do you have any adventure watches?
+                    Agent:
+                    Yes, the Adventurer GPS Watch is a great choice for people seeking adventure.
+
+                    "
             }
         ];
 

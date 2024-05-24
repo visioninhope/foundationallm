@@ -43,7 +43,7 @@
     <Compile Include="foundationallm\models\agents\agent_conversation_history_settings.py" />
     <Compile Include="foundationallm\models\agents\agent_gatekeeper_settings.py" />
     <Compile Include="foundationallm\models\agents\agent_vectorization_settings.py" />
-    <Compile Include="foundationallm\models\agents\operation_types.py" />
+    <Compile Include="foundationallm\models\orchestration\operation_types.py" />
     <Compile Include="foundationallm\models\agents\__init__.py" />
     <Compile Include="foundationallm\models\authentication\authentication_types.py" />
     <Compile Include="foundationallm\models\authentication\__init__.py" />

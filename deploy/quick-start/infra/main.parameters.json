@@ -56,6 +56,9 @@
       "instanceId": {
         "value": "${FOUNDATIONALLM_INSTANCE_ID=''}"
       },
+      "isE2ETest": {
+        "value": "${FOUNDATIONALLM_E2E_TEST=false}"
+      },
       "location": {
         "value": "${AZURE_LOCATION}"
       },
@@ -107,7 +110,7 @@
             "useEndpoint": true,
             "hasIngress": true,
             "image": "${SERVICE_AGENTHUBAPI_IMAGE=cropseastus2svinternal.azurecr.io/agent-hub-api:${FLLM_VERSION}}",
-            "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
+            "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
             "apiKeySecretName": "foundationallm-apis-agenthubapi-apikey"
           },
           {
@@ -139,7 +142,7 @@
             "useEndpoint": true,
             "hasIngress": true,
             "image": "${SERVICE_DATASOURCEHUBAPI_IMAGE=cropseastus2svinternal.azurecr.io/data-source-hub-api:${FLLM_VERSION}}",
-            "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
+            "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
             "apiKeySecretName": "foundationallm-apis-datasourcehubapi-apikey"
           },
           {
@@ -155,7 +158,7 @@
             "useEndpoint": true,
             "hasIngress": true,
             "image": "${SERVICE_GATEKEEPERINTEGRATIONAPI_IMAGE=cropseastus2svinternal.azurecr.io/gatekeeper-integration-api:${FLLM_VERSION}}",
-            "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
+            "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
             "apiKeySecretName": "foundationallm-apis-gatekeeperintegrationapi-apikey"
           },
           {
@@ -171,7 +174,7 @@
             "useEndpoint": true,
             "hasIngress": true,
             "image": "${SERVICE_LANGCHAINAPI_IMAGE=cropseastus2svinternal.azurecr.io/langchain-api:${FLLM_VERSION}}",
-            "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
+            "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
             "apiKeySecretName": "foundationallm-apis-langchainapi-apikey"
           },
           {
@@ -203,7 +206,7 @@
             "useEndpoint": true,
             "hasIngress": true,
             "image": "${SERVICE_PROMPTHUBAPI_IMAGE=cropseastus2svinternal.azurecr.io/prompt-hub-api:${FLLM_VERSION}}",
-            "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
+            "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
             "apiKeySecretName": "foundationallm-apis-prompthubapi-apikey"
           },
           {

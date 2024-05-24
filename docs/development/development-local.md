@@ -4,7 +4,7 @@
 
 - Environment variables:
   - Create an environment variable for the Application Configuration Service connection string named `FoundationaLLM_AppConfig_ConnectionString`. This is used by the .NET projects.
-  - Create an environment variable for the Application Configuration Service URI named `foundationallm-app-configuration-uri`. This is used by the Python projects.
+  - Create an environment variable for the Application Configuration Service URI named `FOUNDATIONALLM_APP_CONFIGURATION_URI`. This is used by the Python projects.
   - Create an environment variable named `FOUNDATIONALLM_VERSION` and set it to the version of the FoundationaLLM deployment you are working with. This is used by the .NET projects to validate your environment configuration based on the version.
 
 > [!TIP]
@@ -337,11 +337,11 @@ The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB cha
 
 ### Python Environment Variables
 
-Create a local environment variable named `foundationallm-app-configuration-uri`. The value should be the URI of the Azure App Configuration service and _not_ the connection string. We use role-based access controls (RBAC) to access the Azure App Configuration service, so the connection string is not required.
+Create a local environment variable named `FOUNDATIONALLM_APP_CONFIGURATION_URI`. The value should be the URI of the Azure App Configuration service and _not_ the connection string. We use role-based access controls (RBAC) to access the Azure App Configuration service, so the connection string is not required.
 
 | Name | Value | Description |
 | ---- | ----- | ----------- |
-| foundationallm-app-configuration-uri | REDACTED | Azure App Configuration URI |
+| FOUNDATIONALLM_APP_CONFIGURATION_URI | REDACTED | Azure App Configuration URI |
 
 ## Running the solution locally
 

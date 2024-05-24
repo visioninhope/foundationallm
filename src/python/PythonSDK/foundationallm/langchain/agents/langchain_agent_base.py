@@ -7,7 +7,7 @@ from langchain_core.language_models import BaseLanguageModel
 from langchain_openai import AzureChatOpenAI, AzureOpenAI, ChatOpenAI, OpenAI
 from foundationallm.config.configuration import Configuration
 from foundationallm.langchain.exceptions import LangChainException
-from foundationallm.models.agents import OperationTypes
+from foundationallm.models.orchestration import OperationTypes
 from foundationallm.models.agents import AgentBase
 from foundationallm.models.authentication import AuthenticationTypes
 from foundationallm.models.language_models import LanguageModelProvider

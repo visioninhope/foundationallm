@@ -1,4 +1,12 @@
 // import type { AccountEntity } from "@azure/msal-browser";
+
+interface ResourceBase {
+	object_id: string;
+	display_name: string;
+	description: string;
+	cost_center: string;
+};
+
 export type ResourceProviderGetResult<T> = {
 	/**
 	 * Represents the result of a fetch operation.
@@ -16,10 +24,8 @@ export type ResourceProviderGetResult<T> = {
 	roles: string[];
 };
 
-export type Agent = {
+export type Agent = ResourceBase & {
 	name: string;
-	object_id: string;
-	description: string;
 	type: 'knowledge-management' | 'analytics';
 	inline_context: boolean;
 
@@ -73,7 +79,7 @@ export type Agent = {
 	prompt_object_id: string;
 };
 
-export type Prompt = {
+export type Prompt = ResourceBase & {
 	type: string;
 	name: string;
 	object_id: string;
@@ -82,7 +88,7 @@ export type Prompt = {
 	suffix: string;
 };
 
-export type AgentDataSource = {
+export type AgentDataSource = ResourceBase & {
 	name: string;
 	content_source: string;
 	object_id: string;
@@ -93,11 +99,9 @@ export interface ConfigurationReferenceMetadata {
 }
 
 // Data sources
-interface BaseDataSource {
+interface BaseDataSource extends ResourceBase {
 	type: string;
 	name: string;
-	object_id: string;
-	description: string;
 	configuration_references: { [key: string]: string };
 	// The resolved configuration references are used to store the resolved values for displaying in the UI and updating the configuration.
 	resolved_configuration_references: { [key: string]: string | null };
@@ -157,11 +161,9 @@ export type DataSource =
 // End data sources
 
 // App Configuration
-export interface AppConfigBase {
+export interface AppConfigBase extends ResourceBase {
 	type: string;
 	name: string;
-	object_id: string;
-	display_name: string;
 	description: string | null;
 	key: string;
 	value: string;
@@ -183,10 +185,8 @@ export interface AppConfigKeyVault extends AppConfigBase {
 export type AppConfigUnion = AppConfig | AppConfigKeyVault;
 // End App Configuration
 
-export type AgentIndex = {
+export type AgentIndex = ResourceBase & {
 	name: string;
-	object_id: string;
-	description: string;
 	indexer: string;
 	settings: {
 		IndexName: string;
@@ -202,10 +202,9 @@ export type AgentIndex = {
 	};
 };
 
-export type TextPartitioningProfile = {
+export type TextPartitioningProfile = ResourceBase & {
 	text_splitter: string;
 	name: string;
-	object_id: string;
 	settings: {
 		Tokenizer: string;
 		TokenizerEncoder: string;
@@ -214,11 +213,10 @@ export type TextPartitioningProfile = {
 	};
 };
 
-export type TextEmbeddingProfile = {
+export type TextEmbeddingProfile = ResourceBase & {
 	type: string;
 	text_embedding: string;
 	name: string;
-	object_id: string;
 	configuration_references: {
 		APIKey: string;
 		APIVersion: string;
@@ -266,11 +264,9 @@ export type MockCreateAgentRequest = {
 	prompt: string;
 };
 
-export type CreateAgentRequest = {
+export type CreateAgentRequest = ResourceBase & {
 	type: 'knowledge-management' | 'analytics';
 	name: string;
-	description: string;
-	object_id: string;
 	inline_context: boolean;
 
 	language_model: {
@@ -321,19 +317,16 @@ export type CreateAgentRequest = {
 	prompt_object_id: string;
 };
 
-export type CreatePromptRequest = {
+export type CreatePromptRequest = ResourceBase & {
 	type: 'basic' | 'multipart';
 	name: string;
-	object_id: string;
-	description: string;
 	prefix: string;
 	suffix: string;
 };
 
-export type CreateTextPartitioningProfileRequest = {
+export type CreateTextPartitioningProfileRequest = ResourceBase & {
 	text_splitter: string;
 	name: string;
-	object_id?: string;
 	settings: {
 		Tokenizer: string;
 		TokenizerEncoder: string;
@@ -380,6 +373,7 @@ export function convertDataSourceToAzureDataLake(dataSource: DataSource): AzureD
 		type: 'azure-data-lake',
 		name: dataSource.name,
 		object_id: dataSource.object_id,
+		cost_center: dataSource.cost_center,
 		description: dataSource.description,
 		folders: dataSource.folders || [],
 		configuration_references: {
@@ -405,6 +399,7 @@ export function convertDataSourceToOneLake(dataSource: DataSource): OneLakeDataS
 		type: 'onelake',
 		name: dataSource.name,
 		object_id: dataSource.object_id,
+		cost_center: dataSource.cost_center,
 		description: dataSource.description,
 		workspaces: dataSource.workspaces || [],
 		configuration_references: {
@@ -432,6 +427,7 @@ export function convertDataSourceToSharePointOnlineSite(
 		type: 'sharepoint-online-site',
 		name: dataSource.name,
 		object_id: dataSource.object_id,
+		cost_center: dataSource.cost_center,
 		description: dataSource.description,
 		site_url: dataSource.site_url || '',
 		document_libraries: dataSource.document_libraries || [],
@@ -458,6 +454,7 @@ export function convertDataSourceToAzureSQLDatabase(
 		type: 'azure-sql-database',
 		name: dataSource.name,
 		object_id: dataSource.object_id,
+		cost_center: dataSource.cost_center,
 		description: dataSource.description,
 		tables: dataSource.tables || [],
 		configuration_references: {

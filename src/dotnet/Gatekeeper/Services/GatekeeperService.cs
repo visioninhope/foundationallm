@@ -67,6 +67,11 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
 
             if (_gatekeeperServiceSettings.EnableAzureContentSafety)
             {
+                var promptInjectionResult = await _contentSafetyService.DetectPromptInjection(completionRequest.UserPrompt!);
+
+                if (!string.IsNullOrWhiteSpace(promptInjectionResult))
+                    return new CompletionResponse() { Completion = promptInjectionResult };
+
                 var contentSafetyResult = await _contentSafetyService.AnalyzeText(completionRequest.UserPrompt!);
 
                 if (!contentSafetyResult.Safe)
