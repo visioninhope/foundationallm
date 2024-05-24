@@ -22437,6 +22437,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.AnalyzeText
   nameWithType: IContentSafetyService.AnalyzeText
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.DetectPromptInjection(System.String)
+  name: DetectPromptInjection(string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_DetectPromptInjection_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.DetectPromptInjection(System.String)
+  name.vb: DetectPromptInjection(String)
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.DetectPromptInjection(string)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.DetectPromptInjection(String)
+  nameWithType: IContentSafetyService.DetectPromptInjection(string)
+  nameWithType.vb: IContentSafetyService.DetectPromptInjection(String)
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.DetectPromptInjection*
+  name: DetectPromptInjection
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_DetectPromptInjection_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.DetectPromptInjection
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.DetectPromptInjection
+  nameWithType: IContentSafetyService.DetectPromptInjection
 - uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService
   name: IEnkryptGuardrailsService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IEnkryptGuardrailsService.html
@@ -22804,6 +22820,57 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextFilterResult.Safe
   nameWithType: AnalyzeTextFilterResult.Safe
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails
+  name: PromptShieldDetails
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails
+  nameWithType: PromptShieldDetails
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.AttackDetected
+  name: AttackDetected
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_PromptShieldDetails_AttackDetected
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.AttackDetected
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.AttackDetected
+  nameWithType: PromptShieldDetails.AttackDetected
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.AttackDetected*
+  name: AttackDetected
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_PromptShieldDetails_AttackDetected_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.AttackDetected
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.AttackDetected
+  nameWithType: PromptShieldDetails.AttackDetected
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult
+  name: PromptShieldResult
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult
+  nameWithType: PromptShieldResult
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.DocumentsAnalysis
+  name: DocumentsAnalysis
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_PromptShieldResult_DocumentsAnalysis
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.DocumentsAnalysis
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.DocumentsAnalysis
+  nameWithType: PromptShieldResult.DocumentsAnalysis
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.DocumentsAnalysis*
+  name: DocumentsAnalysis
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_PromptShieldResult_DocumentsAnalysis_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.DocumentsAnalysis
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.DocumentsAnalysis
+  nameWithType: PromptShieldResult.DocumentsAnalysis
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.UserPromptAnalysis
+  name: UserPromptAnalysis
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_PromptShieldResult_UserPromptAnalysis
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.UserPromptAnalysis
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.UserPromptAnalysis
+  nameWithType: PromptShieldResult.UserPromptAnalysis
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.UserPromptAnalysis*
+  name: UserPromptAnalysis
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_PromptShieldResult_UserPromptAnalysis_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.UserPromptAnalysis
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.UserPromptAnalysis
+  nameWithType: PromptShieldResult.UserPromptAnalysis
 - uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails
   name: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.html
@@ -23199,15 +23266,15 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService
   fullName: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService
   nameWithType: AzureContentSafetyService
-- uid: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService})
-  name: AzureContentSafetyService(IOptions<AzureContentSafetySettings>, ILogger<AzureContentSafetyService>)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.html#FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_AzureContentSafetySettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService})
-  name.vb: New(IOptions(Of AzureContentSafetySettings), ILogger(Of AzureContentSafetyService))
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.AzureContentSafetyService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService>)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService))
-  nameWithType: AzureContentSafetyService.AzureContentSafetyService(IOptions<AzureContentSafetySettings>, ILogger<AzureContentSafetyService>)
-  nameWithType.vb: AzureContentSafetyService.New(IOptions(Of AzureContentSafetySettings), ILogger(Of AzureContentSafetyService))
+- uid: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService})
+  name: AzureContentSafetyService(IHttpClientFactory, IOptions<AzureContentSafetySettings>, ILogger<AzureContentSafetyService>)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.html#FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_AzureContentSafetySettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService})
+  name.vb: New(IHttpClientFactory, IOptions(Of AzureContentSafetySettings), ILogger(Of AzureContentSafetyService))
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.AzureContentSafetyService(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService>)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService))
+  nameWithType: AzureContentSafetyService.AzureContentSafetyService(IHttpClientFactory, IOptions<AzureContentSafetySettings>, ILogger<AzureContentSafetyService>)
+  nameWithType.vb: AzureContentSafetyService.New(IHttpClientFactory, IOptions(Of AzureContentSafetySettings), ILogger(Of AzureContentSafetyService))
 - uid: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor*
   name: AzureContentSafetyService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.html#FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__ctor_
@@ -23234,6 +23301,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.AnalyzeText
   nameWithType: AzureContentSafetyService.AnalyzeText
+- uid: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.DetectPromptInjection(System.String)
+  name: DetectPromptInjection(string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.html#FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService_DetectPromptInjection_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.DetectPromptInjection(System.String)
+  name.vb: DetectPromptInjection(String)
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.DetectPromptInjection(string)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.DetectPromptInjection(String)
+  nameWithType: AzureContentSafetyService.DetectPromptInjection(string)
+  nameWithType.vb: AzureContentSafetyService.DetectPromptInjection(String)
+- uid: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.DetectPromptInjection*
+  name: DetectPromptInjection
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.html#FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService_DetectPromptInjection_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.DetectPromptInjection
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.DetectPromptInjection
+  nameWithType: AzureContentSafetyService.DetectPromptInjection
 - uid: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService
   name: EnkryptGuardrailsService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.html

@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService" data-uid="FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService" class="text-break">
-Class AzureContentSafetyService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/AzureContentSafetyService.cs/#L15"><i class="bi bi-code-slash"></i></a>
+Class AzureContentSafetyService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/AzureContentSafetyService.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -168,9 +168,9 @@ Class AzureContentSafetyService  <a class="header-action link-secondary" title="
 
   <a id="FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__ctor_" data-uid="FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_AzureContentSafetySettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__" data-uid="FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService})">
-  AzureContentSafetyService(IOptions&lt;AzureContentSafetySettings&gt;, ILogger&lt;AzureContentSafetyService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/AzureContentSafetyService.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_AzureContentSafetySettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__" data-uid="FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService})">
+  AzureContentSafetyService(IHttpClientFactory, IOptions&lt;AzureContentSafetySettings&gt;, ILogger&lt;AzureContentSafetyService&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/AzureContentSafetyService.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Constructor for the Azure Content Safety service.</p>
@@ -178,11 +178,14 @@ Class AzureContentSafetyService  <a class="header-action link-secondary" title="
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AzureContentSafetyService(IOptions&lt;AzureContentSafetySettings&gt; options, ILogger&lt;AzureContentSafetyService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public AzureContentSafetyService(IHttpClientFactory httpClientFactory, IOptions&lt;AzureContentSafetySettings&gt; options, ILogger&lt;AzureContentSafetyService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>httpClientFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory">IHttpClientFactory</a></dt>
+    <dd><p>The HTTP client factory.</p>
+</dd>
     <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings.html">AzureContentSafetySettings</a>&gt;</dt>
     <dd><p>The configuration options for the Azure Content Safety service.</p>
 </dd>
@@ -210,7 +213,7 @@ Class AzureContentSafetyService  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService_AnalyzeText_System_String_" data-uid="FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.AnalyzeText(System.String)">
   AnalyzeText(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/AzureContentSafetyService.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/AzureContentSafetyService.cs/#L44"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if a text is safe or not based on pre-configured content filters.</p>
@@ -246,11 +249,50 @@ In case the content is unsafe, also returns the reason.</p>
 
 
 
+  <a id="FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService_DetectPromptInjection_" data-uid="FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.DetectPromptInjection*"></a>
+
+  <h3 id="FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService_DetectPromptInjection_System_String_" data-uid="FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.DetectPromptInjection(System.String)">
+  DetectPromptInjection(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/AzureContentSafetyService.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Detects attempted prompt injections and jailbreaks in user prompts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string?&gt; DetectPromptInjection(string content)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The text content that needs to be analyzed.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>The text analysis restult, which includes flags that represents if the content contains prompt injections or jailbreaks.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/AzureContentSafetyService.cs/#L15" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Services/AzureContentSafetyService.cs/#L18" class="edit-link">Edit this page</a>
         </div>
 
 

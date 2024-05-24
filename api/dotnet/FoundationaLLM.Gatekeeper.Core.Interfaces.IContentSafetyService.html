@@ -168,6 +168,45 @@ In case the content is unsafe, also returns the reason.</p>
 
 
 
+  <a id="FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_DetectPromptInjection_" data-uid="FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.DetectPromptInjection*"></a>
+
+  <h3 id="FoundationaLLM_Gatekeeper_Core_Interfaces_IContentSafetyService_DetectPromptInjection_System_String_" data-uid="FoundationaLLM.Gatekeeper.Core.Interfaces.IContentSafetyService.DetectPromptInjection(System.String)">
+  DetectPromptInjection(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Interfaces/IContentSafetyService.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Detects attempted prompt injections and jailbreaks in user prompts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;string?&gt; DetectPromptInjection(string content)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The text content that needs to be analyzed.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>The text analysis restult, which includes flags that represents if the content contains prompt injections or jailbreaks.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 

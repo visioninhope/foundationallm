@@ -4772,6 +4772,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.yml",
       "output": {
         ".html": {
