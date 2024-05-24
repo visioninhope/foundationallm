@@ -11,7 +11,7 @@ namespace FoundationaLLM.Common.Extensions
     public static class AuthorizationServiceExtensions
     {
         /// <summary>
-        /// Gets the list of resources with read permission.
+        /// Filters the list of resources based on the authorizable action.
         /// </summary>
         /// <typeparam name="T">The object type of the resource being retrieved.</typeparam>
         /// <param name="authorizationService">The <see cref="IAuthorizationService"/> service.</param>
@@ -19,7 +19,7 @@ namespace FoundationaLLM.Common.Extensions
         /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <param name="resources">The list of all resources.</param>
         /// <param name="authorizableAction">The authorizable action to be checked.</param>
-        /// <returns>A list of resources with read permission.</returns>
+        /// <returns>A list of resources on which the user identity is allowed to perform the authorizable action.</returns>
         public static async Task<List<ResourceProviderGetResult<T>>> FilterResourcesByAuthorizableAction<T>(
              this IAuthorizationService authorizationService,
              string instanceId,
