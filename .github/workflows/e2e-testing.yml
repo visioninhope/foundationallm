@@ -106,7 +106,6 @@ jobs:
           passwords['e2e'] = process.env.E2E_ACR_PASSWORD
           passwords['sandbox'] = process.env.SBX_ACR_PASSWORD
           return passwords['${{ inputs.target }}']
-        secrets: inherit
       env:
         E2E_ACR_PASSWORD: ${{ secrets.FLLM_E2E_ACR_PASSWORD }}
         SBX_ACR_PASSWORD: ${{ secrets.FLLM_ACR_PASSWORD }}
@@ -133,7 +132,7 @@ jobs:
       chart: ${{ matrix.object.name }}
       registry: ${{ needs.generate_matrix.outputs.registry }}.azurecr.io
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
-      username: ${{ needs.generate_matrix.outputs.registry }}
+      username: e2e-token
       password: ${{ needs.generate_matrix.outputs.registry_password }}
     secrets: inherit
 
@@ -152,7 +151,7 @@ jobs:
       dockerfile: ${{ matrix.object.dockerfile }}
       registry: ${{ needs.generate_matrix.outputs.registry }}.azurecr.io
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
-      username: ${{ needs.generate_matrix.outputs.registry }}
+      username: e2e-token
       password: ${{ needs.generate_matrix.outputs.registry_password }}
     secrets: inherit
     
