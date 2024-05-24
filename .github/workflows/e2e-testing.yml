@@ -93,8 +93,10 @@ jobs:
         result-encoding: string
         script: |
           const fs = require('fs')
-          const jsonString = fs.readFileSync('./tests/config/${{ inputs.target }}-test-manifest.json')
+          var manifest = './tests/config/${{ inputs.target }}-test-manifest.json'
+          const jsonString = fs.readFileSync(manifest)
           var data = JSON.parse(jsonString)
+          console.log(data)
           console.log(data.registry)
           return data.registry
 
