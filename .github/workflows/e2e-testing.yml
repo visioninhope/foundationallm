@@ -103,10 +103,12 @@ jobs:
         result-encoding: string
         script: |
           var passwords = new Map()
-          passwords['e2e'] = '${{ secrets.FLLM_E2E_ACR_PASSWORD }}'
-          passwords['sandbox'] = '${{ secrets.FLLM_ACR_PASSWORD }}'
+          passwords['e2e'] = process.env.E2E_ACR_PASSWORD
+          passwords['sandbox'] = process.env.SBX_ACR_PASSWORD
           return passwords['${{ inputs.target }}']
-        secrets: inherit
+      env:
+        E2E_ACR_PASSWORD: ${{ secrets.FLLM_E2E_ACR_PASSWORD }}
+        SBX_ACR_PASSWORD: ${{ secrets.FLLM_ACR_PASSWORD }}
 
     - name: Set Git and Helm Tag
       id: docker-tag
