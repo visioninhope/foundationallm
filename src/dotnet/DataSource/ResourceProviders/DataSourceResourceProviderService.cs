@@ -1,13 +1,12 @@
 ﻿using Azure.Messaging;
 using FluentValidation;
 using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
-using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProviders;
@@ -143,27 +142,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 }
             }
 
-            var rolesWithActions = await _authorizationService.ProcessRoleAssignmentsWithActionsRequest(
-                _instanceSettings.Id,
-                new RoleAssignmentsWithActionsRequest()
-                {
-                    Scopes = dataSources.Select(x => x.ObjectId!).ToList(),
-                    PrincipalId = userIdentity.UserId!,
-                    SecurityGroupIds = userIdentity.GroupIds
-                });
-
-            var results = new List<ResourceProviderGetResult<DataSourceBase>>();
-
-            foreach (var dataSource in dataSources)
-                if (rolesWithActions[dataSource.ObjectId!].Actions.Contains(AuthorizableActionNames.FoundationaLLM_DataSource_DataSources_Read))
-                    results.Add(new ResourceProviderGetResult<DataSourceBase>()
-                    {
-                        Resource = dataSource,
-                        Actions = rolesWithActions[dataSource.ObjectId!].Actions,
-                        Roles = rolesWithActions[dataSource.ObjectId!].Roles
-                    });
-
-            return results;
+            return await _authorizationService.ResourcesWithReadPermissions(_instanceSettings.Id, userIdentity, dataSources);
         }
 
         private async Task<DataSourceBase?> LoadDataSource(DataSourceReference? dataSourceReference, string? resourceId = null)
