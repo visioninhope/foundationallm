@@ -24,6 +24,9 @@
 			<div class="step-header span-2">What is the name of the data source?</div>
 			<div class="span-2">
 				<div class="mb-2">Data source name:</div>
+				<div class="mb-2">
+					No special characters or spaces, use letters and numbers with dashes and underscores only.
+				</div>
 				<div class="input-wrapper">
 					<InputText
 						v-model="dataSource.name"
@@ -135,8 +138,11 @@
 						/>
 					</div>
 
-					<div class="mb-2 mt-2">Folder(s):</div>
-					<Chips v-model="folders" class="w-100" separator="," />
+					<div class="step-header mb-2 mt-2">Folder(s):</div>
+					<div class="mb-2">
+						Press <strong>Enter</strong> or <strong>,</strong> after typing each folder name.
+					</div>
+					<Chips v-model="folders" class="w-100" separator="," v-create-chip-on-blur:folders />
 				</div>
 
 				<!-- OneLake -->
@@ -196,8 +202,11 @@
 						/>
 					</div>
 
-					<div class="mb-2 mt-2">Workspace(s):</div>
-					<Chips v-model="workspaces" class="w-100" separator="," />
+					<div class="step-header mb-2 mt-2">Workspace(s):</div>
+					<div class="mb-2">
+						Press <strong>Enter</strong> or <strong>,</strong> after typing each workspace name.
+					</div>
+					<Chips v-model="workspaces" class="w-100" separator="," v-create-chip-on-blur:workspaces />
 				</div>
 
 				<!-- Azure SQL database -->
@@ -211,8 +220,11 @@
 						/>
 
 						<template v-if="dataSource.tables">
-							<div class="mb-2 mt-2">Table Name(s):</div>
-							<Chips v-model="tables" class="w-100" separator="," />
+							<div class="step-header mb-2 mt-2">Table Name(s):</div>
+							<div class="mb-2">
+								Press <strong>Enter</strong> or <strong>,</strong> after typing each table name.
+							</div>
+							<Chips v-model="tables" class="w-100" separator="," v-create-chip-on-blur:tables />
 						</template>
 					</div>
 				</div>
@@ -252,8 +264,11 @@
 						<InputText v-model="dataSource.site_url" class="w-100" type="text" />
 
 						<template v-if="dataSource.document_libraries">
-							<div class="mb-2 mt-2">Document Library(s):</div>
-							<Chips v-model="documentLibraries" class="w-100" separator="," />
+							<div class="step-header mb-2 mt-2">Document Library(s):</div>
+							<div class="mb-2">
+								Press <strong>Enter</strong> or <strong>,</strong> after typing each document library name.
+							</div>
+							<Chips v-model="documentLibraries" class="w-100" separator="," v-create-chip-on-blur:documentLibraries />
 						</template>
 					</div>
 				</div>
