@@ -13,7 +13,7 @@ namespace FoundationaLLM.Core.Examples
         private readonly IAgentConversationTestService _agentConversationTestService;
 
         private string textEmbeddingProfileName = "text_embedding_profile_generic";
-        private string indexingProfileName = "indexing_profile_dune";
+        private string indexingProfileName = "indexing_profile_sdzwa";
 
         public Example0012_KnowledgeManagementAgentWithLangChain(ITestOutputHelper output, TestFixture fixture)
             : base(output, fixture.ServiceProvider)

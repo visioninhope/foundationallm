@@ -13,7 +13,7 @@ namespace FoundationaLLM.Core.Examples
         private readonly IAgentConversationTestService _agentConversationTestService;
 
         private string textEmbeddingProfileName = "text_embedding_profile_generic";
-        private string indexingProfileName = "indexing_profile_dune";
+        private string indexingProfileName = "indexing_profile_sdzwa";
 
         public Example0011_KnowledgeManagementAgentWithSemanticKernel(ITestOutputHelper output, TestFixture fixture)
             : base(output, fixture.ServiceProvider)
@@ -42,7 +42,7 @@ namespace FoundationaLLM.Core.Examples
             WriteLine($"Send questions to the {agentName} agent.");
 
             var response = await _agentConversationTestService.RunAgentConversationWithSession(
-                agentName, userPrompts, null, true);
+                agentName, userPrompts, null, true, indexingProfileName, textEmbeddingProfileName);
 
             WriteLine($"Agent conversation history:");
 
