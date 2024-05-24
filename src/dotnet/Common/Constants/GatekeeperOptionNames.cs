@@ -24,5 +24,10 @@
         /// The name of the Enkrypt Guardrails option.
         /// </summary>
         public const string EnkryptGuardrails = "EnkryptGuardrails";
+
+        /// <summary>
+        /// The name of the Azure Content Safety Prompt Shield option.
+        /// </summary>
+        public const string AzureContentSafetyPromptShield = "PromptShield";
     }
 }
