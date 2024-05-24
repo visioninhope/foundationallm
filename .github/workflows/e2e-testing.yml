@@ -113,6 +113,8 @@ jobs:
             }
           }
           var targetCredentials = credentials.${{ inputs.target }}
+          console.log(JSON.stringify(credentials))
+          console.log(JSON.stringify(targetCredentials))
           return JSON.stringify(targetCredentials)
 
     - name: Set Git and Helm Tag
