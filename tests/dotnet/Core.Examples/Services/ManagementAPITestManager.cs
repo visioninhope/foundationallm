@@ -339,18 +339,19 @@ namespace FoundationaLLM.Core.Examples.Services
 
         async public Task<IndexingProfile> GetIndexingProfile(string name)
         {
-            return await GetResourcesAsync< IndexingProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"indexingProfiles/{name}");
+           
+            return (await GetResourcesAsync<ResourceProviderGetResult<IndexingProfile>>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"indexingProfiles/{name}")).Resource;
 
         }
 
         async public Task<TextEmbeddingProfile> GetTextEmbeddingProfile(string name)
         {
-            return await GetResourcesAsync< TextEmbeddingProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textEmbeddingProfiles/{name}");
+            return (await GetResourcesAsync<ResourceProviderGetResult<TextEmbeddingProfile>>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textEmbeddingProfiles/{name}")).Resource;
         }
 
         async public Task<TextPartitioningProfile> GetTextPartitioningProfile(string name)
         {
-            return await GetResourcesAsync<TextPartitioningProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textPartitioningProfiles/{name}");
+            return (await GetResourcesAsync<ResourceProviderGetResult<TextPartitioningProfile>>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textPartitioningProfiles/{name}")).Resource;
         }
     }
 }
