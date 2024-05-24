@@ -65,13 +65,16 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                     return new CompletionResponse() { Completion = promptInjectionResult };
             }
 
-            if (_gatekeeperServiceSettings.EnableAzureContentSafety)
+            if (_gatekeeperServiceSettings.EnableAzureContentSafetyPromptShield)
             {
                 var promptInjectionResult = await _contentSafetyService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
                     return new CompletionResponse() { Completion = promptInjectionResult };
+            }
 
+            if (_gatekeeperServiceSettings.EnableAzureContentSafety)
+            {
                 var contentSafetyResult = await _contentSafetyService.AnalyzeText(completionRequest.UserPrompt!);
 
                 if (!contentSafetyResult.Safe)

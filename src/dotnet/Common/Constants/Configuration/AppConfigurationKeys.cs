@@ -179,6 +179,11 @@
         /// </summary>
         public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafety = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafety";
         /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield app configuration setting.
+        /// By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration enabled. To disable this feature, set this value to false.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptyShield = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield";
+        /// <summary>
         /// The key for the FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableMicrosoftPresidio app configuration setting.
         /// By default, the Gatekeeper API has Microsoft Presidio integration enabled. To disable this feature, set this value to false.
         /// </summary>

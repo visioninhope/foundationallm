@@ -11,6 +11,11 @@
         public required bool EnableAzureContentSafety { get; set; }
 
         /// <summary>
+        /// Flag for enabling or disabling the Azure Content Safety Prompt Shields.
+        /// </summary>
+        public required bool EnableAzureContentSafetyPromptShield { get; set; }
+
+        /// <summary>
         /// Flag for enabling or disabling the Microsoft Presidio feature.
         /// </summary>
         public required bool EnableMicrosoftPresidio { get; set; }
