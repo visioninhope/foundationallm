@@ -6,9 +6,9 @@ using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
-using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProviders;
@@ -117,8 +117,9 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 agents = (await Task.WhenAll(_agentReferences.Values
                                     .Where(ar => !ar.Deleted)
                                     .Select(ar => LoadAgent(ar))))
-                                    .Where(agent => agent != null)
-                                    .ToList();
+                                        .Where(agent => agent != null)
+                                        .Select(agent => agent!)
+                                        .ToList();
             }
             else
             {
@@ -127,50 +128,23 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 {
                     agent = await LoadAgent(null, instance.ResourceId);
                     if (agent != null)
-                    {
                         agents.Add(agent);
-                    }
                 }
                 else
                 {
                     if (agentReference.Deleted)
-                    {
                         throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
                             StatusCodes.Status404NotFound);
-                    }
 
                     agent = await LoadAgent(agentReference);
                     if (agent != null)
-                    {
                         agents.Add(agent);
-                    }
                 }
             }
 
-            var rolesWithActions = await _authorizationService.ProcessRoleAssignmentsWithActionsRequest(
-                _instanceSettings.Id,
-                new RoleAssignmentsWithActionsRequest()
-                {
-                    Scopes = agents.Select(x => x.ObjectId!).ToList(),
-                    PrincipalId = userIdentity.UserId!,
-                    SecurityGroupIds = userIdentity.GroupIds
-                });
-
-            var results = new List<ResourceProviderGetResult<AgentBase>>();
-            foreach (var agent in agents)
-            {
-                if (rolesWithActions[agent.ObjectId!].Actions.Contains(AuthorizableActionNames.FoundationaLLM_Agent_Agents_Read))
-                {
-                    results.Add(new ResourceProviderGetResult<AgentBase>()
-                    {
-                        Resource = agent,
-                        Actions = rolesWithActions[agent.ObjectId!].Actions,
-                        Roles = rolesWithActions[agent.ObjectId!].Roles
-                    });
-                }
-            }
-
-            return results;
+            return await _authorizationService.FilterResourcesByAuthorizableAction(
+                _instanceSettings.Id, userIdentity, agents,
+                AuthorizableActionNames.FoundationaLLM_Agent_Agents_Read);
         }
 
         private async Task<AgentBase?> LoadAgent(AgentReference? agentReference, string? resourceId = null)
