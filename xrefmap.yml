@@ -5784,6 +5784,28 @@ references:
   commentId: N:FoundationaLLM.Common.Extensions
   fullName: FoundationaLLM.Common.Extensions
   nameWithType: FoundationaLLM.Common.Extensions
+- uid: FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions
+  name: AuthorizationServiceExtensions
+  href: api/dotnet/FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions.html
+  commentId: T:FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions
+  fullName: FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions
+  nameWithType: AuthorizationServiceExtensions
+- uid: FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions.FilterResourcesByAuthorizableAction*
+  name: FilterResourcesByAuthorizableAction
+  href: api/dotnet/FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions.html#FoundationaLLM_Common_Extensions_AuthorizationServiceExtensions_FilterResourcesByAuthorizableAction_
+  commentId: Overload:FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions.FilterResourcesByAuthorizableAction
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions.FilterResourcesByAuthorizableAction
+  nameWithType: AuthorizationServiceExtensions.FilterResourcesByAuthorizableAction
+- uid: FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions.FilterResourcesByAuthorizableAction``1(FoundationaLLM.Common.Interfaces.IAuthorizationService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,System.Collections.Generic.List{``0},System.String)
+  name: FilterResourcesByAuthorizableAction<T>(IAuthorizationService, string, UnifiedUserIdentity, List<T>, string)
+  href: api/dotnet/FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions.html#FoundationaLLM_Common_Extensions_AuthorizationServiceExtensions_FilterResourcesByAuthorizableAction__1_FoundationaLLM_Common_Interfaces_IAuthorizationService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_System_Collections_Generic_List___0__System_String_
+  commentId: M:FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions.FilterResourcesByAuthorizableAction``1(FoundationaLLM.Common.Interfaces.IAuthorizationService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,System.Collections.Generic.List{``0},System.String)
+  name.vb: FilterResourcesByAuthorizableAction(Of T)(IAuthorizationService, String, UnifiedUserIdentity, List(Of T), String)
+  fullName: FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions.FilterResourcesByAuthorizableAction<T>(FoundationaLLM.Common.Interfaces.IAuthorizationService, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, System.Collections.Generic.List<T>, string)
+  fullName.vb: FoundationaLLM.Common.Extensions.AuthorizationServiceExtensions.FilterResourcesByAuthorizableAction(Of T)(FoundationaLLM.Common.Interfaces.IAuthorizationService, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, System.Collections.Generic.List(Of T), String)
+  nameWithType: AuthorizationServiceExtensions.FilterResourcesByAuthorizableAction<T>(IAuthorizationService, string, UnifiedUserIdentity, List<T>, string)
+  nameWithType.vb: AuthorizationServiceExtensions.FilterResourcesByAuthorizableAction(Of T)(IAuthorizationService, String, UnifiedUserIdentity, List(Of T), String)
 - uid: FoundationaLLM.Common.Extensions.BlobStorageExtensions
   name: BlobStorageExtensions
   href: api/dotnet/FoundationaLLM.Common.Extensions.BlobStorageExtensions.html
