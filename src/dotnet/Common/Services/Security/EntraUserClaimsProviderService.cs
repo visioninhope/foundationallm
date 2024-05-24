@@ -30,7 +30,8 @@ namespace FoundationaLLM.Common.Services.Security
         /// <inheritdoc/>
         public bool IsServicePrincipal(ClaimsPrincipal userPrincipal) =>
             // Service Principal tokens do not have a "scp" claim
-            userPrincipal.FindFirstValue(ClaimConstants.Scp) == null;
+            userPrincipal.FindFirstValue(ClaimConstants.Scp) == null &&
+            userPrincipal.FindFirstValue(ClaimConstants.Scope) == null;
 
         /// <summary>
         /// Resolves the username from the provided <see cref="ClaimsPrincipal"/> object.
