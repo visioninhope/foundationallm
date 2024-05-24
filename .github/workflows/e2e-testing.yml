@@ -145,6 +145,7 @@ jobs:
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
       username: ${{ needs.generate_matrix.outputs.registry_username }}
       password: ${{ needs.generate_matrix.outputs.registry_password }}
+    secrets: inherit
 
   docker_build:
     name: Build Docker Images
@@ -163,6 +164,7 @@ jobs:
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
       username: ${{ needs.generate_matrix.outputs.registryCredentials.username }}
       password: ${{ needs.generate_matrix.outputs.registryCredentials.password }}
+    secrets: inherit
     
 
   deploy_quickstart:
