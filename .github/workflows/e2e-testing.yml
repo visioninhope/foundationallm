@@ -117,8 +117,8 @@ jobs:
       chart: ${{ matrix.object.name }}
       registry: ${{ needs.generate_matrix.outputs.registry }}
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
-      username: ${{ (inputs.target == 'sandbox') ?? secrets.FLLM_ACR_USERNAME || secrets.FLLM_E2E_ACR_USERNAME }}
-      password: ${{ (inputs.target == 'sandbox') ?? secrets.FLLM_ACR_PASSWORD || secrets.FLLM_E2E_ACR_PASSWORD }}
+      username: ${{ (inputs.target == 'sandbox') && secrets.FLLM_ACR_USERNAME || secrets.FLLM_E2E_ACR_USERNAME }}
+      password: ${{ (inputs.target == 'sandbox') && secrets.FLLM_ACR_PASSWORD || secrets.FLLM_E2E_ACR_PASSWORD }}
 
   docker_build:
     name: Build Docker Images
