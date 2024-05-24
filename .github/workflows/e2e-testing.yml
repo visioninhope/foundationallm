@@ -149,9 +149,9 @@ jobs:
       image: ${{ matrix.object.name }}
       context: ${{ matrix.object.context }}
       dockerfile: ${{ matrix.object.dockerfile }}
-      registry: ${{ needs.generate_matrix.outputs.registry }}
+      registry: ${{ needs.generate_matrix.outputs.registry }}.azurecr.io
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
-      username: ${{ needs.generate_matrix.outputs.registry_username }}
+      username: ${{ needs.generate_matrix.outputs.registry }}
       password: ${{ needs.generate_matrix.outputs.registry_password }}
     secrets: inherit
     
