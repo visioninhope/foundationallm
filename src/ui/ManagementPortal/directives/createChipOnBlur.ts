@@ -6,7 +6,6 @@ const createChipOnBlur = {
       const input = el.querySelector('input');
       if (input) {
         input.addEventListener('blur', () => {
-          console.info('create-chip-on-blur directive blur event');
           const value = input.value.trim();
 
           if (value) {
