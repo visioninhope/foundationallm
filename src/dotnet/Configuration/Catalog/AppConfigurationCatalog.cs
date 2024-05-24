@@ -281,7 +281,7 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: AppConfigurationKeys
                     .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptShield,
-                minimumVersion: "0.3.0",
+                minimumVersion: "0.7.0",
                 defaultValue: "true",
                 description:
                 "By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration enabled. To disable this feature, set this value to false.",
