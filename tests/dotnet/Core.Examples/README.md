@@ -134,8 +134,8 @@ The vectorization api and vectorization job managed identities need to have `Con
 ##### App Config settings
 | Key | Value | Description |
 | --- | --- | --- |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | `onelake` | Account name - this will always be `onelake`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AccountName` | `onelake` | Account name - this will always be `onelake`. |
 
 #### Running the example
 
@@ -179,8 +179,8 @@ The vectorization api and vectorization job managed identities need to have `Con
 ##### App Config settings
 | Key | Value | Description |
 | --- | --- | --- |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | `onelake` | Account name - this will always be `onelake`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AccountName` | `onelake` | Account name - this will always be `onelake`. |
 
 #### Running the example
 
