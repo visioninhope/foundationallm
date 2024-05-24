@@ -112,7 +112,7 @@ jobs:
               password: "${{ secrets.FLLM_ACR_PASSWORD }}"
             }
           }
-          var targetCredentials = credentials[${{ inputs.target }}]
+          var targetCredentials = credentials.${{ inputs.target }}
           return JSON.stringify(targetCredentials)
 
     - name: Set Git and Helm Tag
