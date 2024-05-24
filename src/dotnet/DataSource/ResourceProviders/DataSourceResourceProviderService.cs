@@ -1,6 +1,7 @@
 ﻿using Azure.Messaging;
 using FluentValidation;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -142,7 +143,9 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 }
             }
 
-            return await _authorizationService.ResourcesWithReadPermissions(_instanceSettings.Id, userIdentity, dataSources);
+            return await _authorizationService.FilterResourcesByAuthorizableAction(
+                _instanceSettings.Id, userIdentity, dataSources,
+                AuthorizableActionNames.FoundationaLLM_DataSource_DataSources_Read);
         }
 
         private async Task<DataSourceBase?> LoadDataSource(DataSourceReference? dataSourceReference, string? resourceId = null)

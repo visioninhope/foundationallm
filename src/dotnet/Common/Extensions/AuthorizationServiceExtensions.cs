@@ -1,5 +1,4 @@
-﻿using FoundationaLLM.Common.Constants.Authorization;
-using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.ResourceProviders;
@@ -19,12 +18,14 @@ namespace FoundationaLLM.Common.Extensions
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <param name="resources">The list of all resources.</param>
+        /// <param name="authorizableAction">The authorizable action to be checked.</param>
         /// <returns>A list of resources with read permission.</returns>
-        public static async Task<List<ResourceProviderGetResult<T>>> ResourcesWithReadPermissions<T>(
+        public static async Task<List<ResourceProviderGetResult<T>>> FilterResourcesByAuthorizableAction<T>(
              this IAuthorizationService authorizationService,
              string instanceId,
              UnifiedUserIdentity userIdentity,
-             List<T> resources)
+             List<T> resources,
+             string authorizableAction)
              where T : ResourceBase
         {
             var rolesWithActions = await authorizationService.ProcessRoleAssignmentsWithActionsRequest(
@@ -39,7 +40,7 @@ namespace FoundationaLLM.Common.Extensions
             var results = new List<ResourceProviderGetResult<T>>();
 
             foreach (var resource in resources)
-                if (rolesWithActions[resource.ObjectId!].Actions.Contains(AuthorizableActionNames.FoundationaLLM_Agent_Agents_Read))
+                if (rolesWithActions[resource.ObjectId!].Actions.Contains(authorizableAction))
                     results.Add(new ResourceProviderGetResult<T>()
                     {
                         Resource = resource,

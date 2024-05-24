@@ -2,6 +2,7 @@
 using FluentValidation;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -141,7 +142,9 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 }
             }
 
-            return await _authorizationService.ResourcesWithReadPermissions(_instanceSettings.Id, userIdentity, agents);
+            return await _authorizationService.FilterResourcesByAuthorizableAction(
+                _instanceSettings.Id, userIdentity, agents,
+                AuthorizableActionNames.FoundationaLLM_Agent_Agents_Read);
         }
 
         private async Task<AgentBase?> LoadAgent(AgentReference? agentReference, string? resourceId = null)
