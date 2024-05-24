@@ -95,6 +95,7 @@ jobs:
           const fs = require('fs')
           const jsonString = fs.readFileSync('./tests/config/${{ inputs.target }}-test-manifest.json')
           var data = JSON.parse(jsonString)
+          console.log(data.registry)
           return data.registry
 
     - name: Set Container Registry Username
@@ -107,6 +108,7 @@ jobs:
             e2e: "${{ secrets.FLLM_E2E_ACR_USERNAME }}",
             sandbox: "${{ secrets.FLLM_ACR_USERNAME }}"
           }
+          console.log(credentials.${{ inputs.target }})
           return credentials.${{ inputs.target }}
 
     - name: Set Container Registry Password
@@ -119,6 +121,7 @@ jobs:
             e2e: "${{ secrets.FLLM_E2E_ACR_PASSWORD }}",
             sandbox: "${{ secrets.FLLM_ACR_PASSWORD }}"
           }
+          console.log(credentials.${{ inputs.target }})
           return credentials.${{ inputs.target }}
 
     - name: Set Git and Helm Tag
@@ -162,8 +165,8 @@ jobs:
       dockerfile: ${{ matrix.object.dockerfile }}
       registry: ${{ needs.generate_matrix.outputs.registry }}
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
-      username: ${{ needs.generate_matrix.outputs.registryCredentials.username }}
-      password: ${{ needs.generate_matrix.outputs.registryCredentials.password }}
+      username: ${{ needs.generate_matrix.outputs.registry_username }}
+      password: ${{ needs.generate_matrix.outputs.registry_password }}
     secrets: inherit
     
 
