@@ -280,7 +280,7 @@ namespace FoundationaLLM.Configuration.Catalog
 
             new(
                 key: AppConfigurationKeys
-                    .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptyShield,
+                    .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptShield,
                 minimumVersion: "0.3.0",
                 defaultValue: "true",
                 description:
