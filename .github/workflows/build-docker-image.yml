@@ -18,6 +18,12 @@ on:
       tag:
         type: string
         required: true
+      username:
+        type: string
+        required: true
+      password:
+        type: string
+        required: true
 
 jobs:
   docker_image_build_and_push:
@@ -33,8 +39,8 @@ jobs:
       uses: docker/login-action@v3
       with:
         registry: ${{ inputs.registry }}
-        username: ${{ secrets.FLLM_ACR_USERNAME }}
-        password: ${{ secrets.FLLM_ACR_PASSWORD }}
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta

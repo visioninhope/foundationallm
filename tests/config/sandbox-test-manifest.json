@@ -1,5 +1,5 @@
 {
-    "registry": "crfllme2eops.azurecr.io",
+    "registry": "cropseastus2svinternal.azurecr.io",
     "service_matrix": [
         {
             "name": "agent-hub-api",
