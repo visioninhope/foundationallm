@@ -106,6 +106,7 @@ jobs:
           passwords['e2e'] = process.env.E2E_ACR_PASSWORD
           passwords['sandbox'] = process.env.SBX_ACR_PASSWORD
           return passwords['${{ inputs.target }}']
+        secrets: inherit
       env:
         E2E_ACR_PASSWORD: ${{ secrets.FLLM_E2E_ACR_PASSWORD }}
         SBX_ACR_PASSWORD: ${{ secrets.FLLM_ACR_PASSWORD }}
