@@ -12,6 +12,9 @@ namespace FoundationaLLM.Core.Examples
     {
         private readonly IAgentConversationTestService _agentConversationTestService;
 
+        private string textEmbeddingProfileName = "text_embedding_profile_generic";
+        private string indexingProfileName = "indexing_profile_dune";
+
         public Example0011_KnowledgeManagementAgentWithSemanticKernel(ITestOutputHelper output, TestFixture fixture)
             : base(output, fixture.ServiceProvider)
         {

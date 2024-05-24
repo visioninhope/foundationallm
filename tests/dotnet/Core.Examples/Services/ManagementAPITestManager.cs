@@ -26,10 +26,10 @@ namespace FoundationaLLM.Core.Examples.Services
 
         public async Task CreateAppConfiguration(AppConfigurationKeyValue appConfigurationKeyValue)
         {
-            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);
+            var managementClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);
             var serializedRequest = JsonSerializer.Serialize(appConfigurationKeyValue, _jsonSerializerOptions);
 
-            var response = await coreClient.PostAsync($"instances/{instanceSettings.Value.Id}/providers/{ResourceProviderNames.FoundationaLLM_Configuration}/appConfigurations",
+            var response = await managementClient.PostAsync($"instances/{instanceSettings.Value.Id}/providers/{ResourceProviderNames.FoundationaLLM_Configuration}/appConfigurations",
                                               new StringContent(serializedRequest, Encoding.UTF8, "application/json"));
 
             if (response.IsSuccessStatusCode)
@@ -339,13 +339,12 @@ namespace FoundationaLLM.Core.Examples.Services
 
         async public Task<IndexingProfile> GetIndexingProfile(string name)
         {
-            return await GetResourcesAsync< IndexingProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"indexingProfiles/{name}");
-
+            return await GetResourcesAsync<IndexingProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"indexingProfiles/{name}");
         }
 
         async public Task<TextEmbeddingProfile> GetTextEmbeddingProfile(string name)
         {
-            return await GetResourcesAsync< TextEmbeddingProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textEmbeddingProfiles/{name}");
+            return await GetResourcesAsync<TextEmbeddingProfile>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textEmbeddingProfiles/{name}");
         }
 
         async public Task<TextPartitioningProfile> GetTextPartitioningProfile(string name)
