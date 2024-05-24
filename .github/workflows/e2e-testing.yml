@@ -46,7 +46,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       registry: ${{ steps.set-registry.outputs.result }}
-      registryCredentials: ${{ steps.set-registry-credentials.outputs.result }}
+      registry_username: ${{ steps.set-registry-username.outputs.result }}
+      registry_password: ${{ steps.set-registry-password.outputs.result }}
       service_matrix: ${{ steps.set-service-matrix.outputs.result }}
       test_matrix: ${{ steps.set-test-matrix.outputs.result }}
       docker_tag: ${{ steps.docker-tag.outputs.docker_tag }}
@@ -96,26 +97,29 @@ jobs:
           var data = JSON.parse(jsonString)
           return data.registry
 
-    - name: Set Container Registry Credentials
+    - name: Set Container Registry Username
       uses: actions/github-script@v7
-      id: set-registry-credentials
+      id: set-registry-username
       with:
         result-encoding: string
         script: |
           var credentials = {
-            e2e: {
-              username: "${{ secrets.FLLM_E2E_ACR_USERNAME }}",
-              password: "${{ secrets.FLLM_E2E_ACR_PASSWORD }}"
-            },
-            sandbox: {
-              username: "${{ secrets.FLLM_ACR_USERNAME }}",
-              password: "${{ secrets.FLLM_ACR_PASSWORD }}"
-            }
+            e2e: "${{ secrets.FLLM_E2E_ACR_USERNAME }}",
+            sandbox: "${{ secrets.FLLM_ACR_USERNAME }}"
           }
-          var targetCredentials = credentials.${{ inputs.target }}
-          console.log(JSON.stringify(credentials))
-          console.log(JSON.stringify(targetCredentials))
-          return JSON.stringify(targetCredentials)
+          return credentials.${{ inputs.target }}
+
+    - name: Set Container Registry Password
+      uses: actions/github-script@v7
+      id: set-registry-password
+      with:
+        result-encoding: string
+        script: |
+          var credentials = {
+            e2e: "${{ secrets.FLLM_E2E_ACR_PASSWORD }}",
+            sandbox: "${{ secrets.FLLM_ACR_PASSWORD }}"
+          }
+          return credentials.${{ inputs.target }}
 
     - name: Set Git and Helm Tag
       id: docker-tag
@@ -139,8 +143,8 @@ jobs:
       chart: ${{ matrix.object.name }}
       registry: ${{ needs.generate_matrix.outputs.registry }}
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
-      username: ${{ fromJson(needs.generate_matrix.outputs.registryCredentials).username }}
-      password: ${{ fromJson(needs.generate_matrix.outputs.registryCredentials).password }}
+      username: ${{ needs.generate_matrix.outputs.registry_username }}
+      password: ${{ needs.generate_matrix.outputs.registry_password }}
 
   docker_build:
     name: Build Docker Images
