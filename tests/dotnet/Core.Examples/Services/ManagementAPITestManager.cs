@@ -27,10 +27,10 @@ namespace FoundationaLLM.Core.Examples.Services
 
         public async Task CreateAppConfiguration(AppConfigurationKeyValue appConfigurationKeyValue)
         {
-            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);
+            var managementClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);
             var serializedRequest = JsonSerializer.Serialize(appConfigurationKeyValue, _jsonSerializerOptions);
 
-            var response = await coreClient.PostAsync($"instances/{instanceSettings.Value.Id}/providers/{ResourceProviderNames.FoundationaLLM_Configuration}/appConfigurations",
+            var response = await managementClient.PostAsync($"instances/{instanceSettings.Value.Id}/providers/{ResourceProviderNames.FoundationaLLM_Configuration}/appConfigurations",
                                               new StringContent(serializedRequest, Encoding.UTF8, "application/json"));
 
             if (response.IsSuccessStatusCode)
