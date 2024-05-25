@@ -25,6 +25,7 @@ The root section of the Deployment Manifest defines the general properties of th
 | `k8sNamespace`     | The Kubernetes namespace for the FLLM Helm deployments.              | String               | `fllm`                                 |
 | `letsEncryptEmail` | The email address for Let's Encrypt notifications.                   | Email Address        | `admin@example.com`                    |
 | `location`         | The Azure region where the deployment resources will be created.     | Azure Region         | `eastus2`, `francecentral`             |
+| `networkName`      | The name of the network pre-provisioned before the deployment.       | String               | `fllm-network`                         |
 | `project`          | A token for naming deployment resources in the environment.          | String               | `ai`, `fllm`, `rd`, `fred`, `sally`    |
 | `subscription`     | The Azure subscription ID for the deployment.                        | GUID                 | `ad82622e-458a-4a48-8023-6b18eed1cf79` |
 
@@ -48,6 +49,8 @@ The root section of the Deployment Manifest defines the general properties of th
     | **Sweden Central** | X                          | X                   | X                    | X              |
     | **UK South**       | X                          | X                   | X                    | X              |
     | West US            | X                          |                     | X                    |                |
+
+- `networkName` is the name of the network pre-provisioned before the deployment.  The deployment will create the requird subnets and other networking resources in this network.  If you do not have a pre-provisioned network, the template will create one for you.  The network should be created in the networking resource group described later in the manifest.
 
 ## Entra Client IDs
 
