@@ -294,7 +294,7 @@ Check the Azure Portal for status.
 "@
         Write-Host -ForegroundColor Blue $deleteMessage
 
-        if($count -eq 0) {
+        if ($count -eq 0) {
             Write-Host -ForegroundColor Green "All resource groups have been deleted."
             break
         }
@@ -323,6 +323,11 @@ task Configuration {
     $script:subscription = $manifest.subscription
     $script:vectorizationApiClientSecret = "VEC-API-CLIENT-SECRET"
     $script:instanceId = $manifest.instanceId
+
+    $script:networkName = $null
+    if ($manifest.PSobject.Properties.Name -contains "networkName") {
+        $script:networkName = $manifest.networkName
+    }
 
     $script:tenantId = $(
         az account show `
@@ -417,7 +422,7 @@ task Networking -depends ResourceGroups, Configuration {
     Write-Host -ForegroundColor Green "Resource Group: $($script:resourceGroups.net)"
 
     $templateFile = "networking-rg.bicep"
-    $paramsFile = New-Bicepparams -templateFile $templateFile -parameters @{
+    $parameters = @{
         createVpnGateway = @{
             type  = "bool"
             value = $script:createVpnGateway
@@ -435,6 +440,15 @@ task Networking -depends ResourceGroups, Configuration {
             value = $script:project
         }
     }
+
+    if ($script:networkName -ne $null) {
+        $parameters.Add("networkName", @{
+                type  = "string"
+                value = $script:networkName
+            })
+    }
+
+    $paramsFile = New-Bicepparams -templateFile $templateFile -parameters $parameters
 
     az deployment group create `
         --name $script:deployments["net"] `
