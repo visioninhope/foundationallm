@@ -47,7 +47,7 @@ jobs:
           return passwords['${{ inputs.target }}']
       env:
         E2E_ACR_PASSWORD: ${{ secrets.FLLM_E2E_ACR_PASSWORD }}
-        SBX_ACR_PASSWORD: ${{ secrets.FLLM_ACR_PASSWORD }}
+        SBX_ACR_PASSWORD: ${{ secrets.FLLM_SBX_ACR_PASSWORD }}
 
     - name: Log in to the Container registry
       uses: docker/login-action@v3
