@@ -142,6 +142,12 @@
 <td><code>eastus2</code>, <code>francecentral</code></td>
 </tr>
 <tr>
+<td><code>networkName</code></td>
+<td>The name of the network pre-provisioned before the deployment.</td>
+<td>String</td>
+<td><code>fllm-network</code></td>
+</tr>
+<tr>
 <td><code>project</code></td>
 <td>A token for naming deployment resources in the environment.</td>
 <td>String</td>
@@ -241,6 +247,8 @@
 </tr>
 </tbody>
 </table>
+</li>
+<li><p><code>networkName</code> is the name of the network pre-provisioned before the deployment.  The deployment will create the requird subnets and other networking resources in this network.  If you do not have a pre-provisioned network, the template will create one for you.  The network should be created in the networking resource group described later in the manifest.</p>
 </li>
 </ul>
 <h2 id="entra-client-ids">Entra Client IDs</h2>
