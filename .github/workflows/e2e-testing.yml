@@ -46,7 +46,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       registry: ${{ steps.set-registry.outputs.result }}
-      registry_password: ${{ steps.set-registry-password.outputs.result }}
       service_matrix: ${{ steps.set-service-matrix.outputs.result }}
       test_matrix: ${{ steps.set-test-matrix.outputs.result }}
       docker_tag: ${{ steps.docker-tag.outputs.docker_tag }}
@@ -276,7 +275,7 @@ jobs:
 
         Push-Location ./deploy/quick-start
         foreach ($service in $($config.service_matrix)) {
-          $imageName = "$($config.registry)/$($service.name):${{ needs.generate_matrix.outputs.docker_tag }}"
+          $imageName = "${{ needs.generate_matrix.outputs.registry }}.azurecr.io/$($service.name):${{ needs.generate_matrix.outputs.docker_tag }}"
           Write-Host "Setting $($service.azd_env_key) to $($imageName)..."
           azd env set $($service.azd_env_key) "$($imageName)"
 
