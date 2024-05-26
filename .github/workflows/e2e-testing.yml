@@ -235,9 +235,18 @@ jobs:
           -spObjectId $spObjectId
 
         if ('${{ inputs.target }}' -eq 'sandbox') {
-          az ad group member add `
+          $assignmentExists = $(az ad group member check `
             --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
-            --member-id d3bd4e8e-d413-477d-a420-0792b0504adf
+            --member-id d3bd4e8e-d413-477d-a420-0792b0504adf `
+            --output json | ConvertFrom-Json).value
+
+          if (-not $assignmentExists)
+          {
+            az ad group member add `
+            --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
+            --member-id d3bd4e8e-d413-477d-a420-0792b0504adf `
+            --output json
+          }
         }
         Pop-Location
       shell: pwsh
