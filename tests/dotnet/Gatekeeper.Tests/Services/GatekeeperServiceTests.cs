@@ -26,6 +26,7 @@ namespace Gatekeeper.Tests.Services
             {
                 EnableAzureContentSafety = true,
                 EnableMicrosoftPresidio = true,
+                EnableAzureContentSafetyPromptShield = true,
                 EnableLakeraGuard = true,
                 EnableEnkryptGuardrails = true,
             });

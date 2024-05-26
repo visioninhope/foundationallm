@@ -3,9 +3,9 @@
 ## Prerequisites
 
 - Environment variables:
-  - Create an environment variable for the Application Configuration Service connection string named `FoundationaLLM_AppConfig_ConnectionString`. This is used by the .NET projects.
-  - Create an environment variable for the Application Configuration Service URI named `FOUNDATIONALLM_APP_CONFIGURATION_URI`. This is used by the Python projects.
-  - Create an environment variable named `FOUNDATIONALLM_VERSION` and set it to the version of the FoundationaLLM deployment you are working with. This is used by the .NET projects to validate your environment configuration based on the version.
+  - Create a *system* environment variable for the Application Configuration Service connection string named `FoundationaLLM_AppConfig_ConnectionString`. This is used by the .NET projects.
+  - Create a *system* environment variable for the Application Configuration Service URI named `FOUNDATIONALLM_APP_CONFIGURATION_URI`. This is used by the Python projects.
+  - Create a *system* environment variable named `FOUNDATIONALLM_VERSION` and set it to the version of the FoundationaLLM deployment you are working with. This is used by the .NET projects to validate your environment configuration based on the version.
 
 > [!TIP]
 > You can view the FoundationaLLM release versions by viewing the [branches in the FoundationaLLM repository](https://github.com/solliancenet/foundationallm/branches/all?query=release). The format is `release/n.n.n`, where `n.n.n` is the version number. The `FOUNDATIONALLM_VERSION` environment variable should be set to the version number without the `release/` prefix (example: `0.4.0`).
