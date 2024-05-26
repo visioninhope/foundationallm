@@ -561,6 +561,9 @@ jobs:
         azd down --force --purge --no-prompt
         Pop-Location
 
+        Write-Host "Remove Admin Group"
+        az ad group delete --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} --output json
+
         Write-Host "Tear down App Registrations"
         Push-Location ./tests/scripts
         ./Remove-EntraIdApps.ps1 `
