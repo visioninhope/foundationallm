@@ -40,13 +40,6 @@ public class ContentIdentifier
     public Dictionary<string, object>? Metadata { get; set; }
 
     /// <summary>
-    /// The name of the vectorization content source profile that provides settings to connect to the content source.
-    /// </summary>
-    [JsonPropertyOrder(4)]
-    [JsonPropertyName("attachment_object_id")]
-    public string AttachmentObjectId { get; set; } = "";
-
-    /// <summary>
     /// The unique identifier of the content (i.e., document) being vectorized.
     /// The identifier is determined by concatenating the parts from <see cref="MultipartId"/>.
     /// </summary>

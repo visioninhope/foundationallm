@@ -22,12 +22,6 @@ namespace FoundationaLLM.Common.Models.Vectorization
         public required string DataSourceObjectId { get; set; }
 
         /// <summary>
-        /// The object identifier of the attachment used to retrieve content for vectorization.
-        /// </summary>
-        [JsonPropertyName("attachment_object_id")]
-        public required string AttachmentObjectId { get; set; }
-
-        /// <summary>
         /// The object identifier of the text partitioning profile used to split text.
         /// </summary>
         [JsonPropertyName("text_partitioning_profile_object_id")]
