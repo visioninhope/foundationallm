@@ -18,7 +18,8 @@ namespace FoundationaLLM.Attachment.Models
         public Type AttachmentType =>
             Type switch
             {
-                AttachmentTypes.Audio => typeof(AudioBase),
+                AttachmentTypes.Basic => typeof(AttachmentBase),
+                AttachmentTypes.Audio => typeof(AudioAttachment),
                 _ => throw new ResourceProviderException($"The attachment type {Type} is not supported.")
             };
     }

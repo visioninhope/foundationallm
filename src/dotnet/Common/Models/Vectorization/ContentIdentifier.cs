@@ -17,13 +17,6 @@ public class ContentIdentifier
     public required string DataSourceObjectId { get; set; }
 
     /// <summary>
-    /// The name of the vectorization content source profile that provides settings to connect to the content source.
-    /// </summary>
-    [JsonPropertyOrder(0)]
-    [JsonPropertyName("attachment_object_id")]
-    public required string AttachmentObjectId { get; set; }
-
-    /// <summary>
     /// The multipart unique identifier of the the content (i.e. document) being vectorized.
     /// </summary>
     [JsonInclude]
@@ -45,6 +38,13 @@ public class ContentIdentifier
     [JsonPropertyOrder(3)]
     [JsonPropertyName("metadata")]
     public Dictionary<string, object>? Metadata { get; set; }
+
+    /// <summary>
+    /// The name of the vectorization content source profile that provides settings to connect to the content source.
+    /// </summary>
+    [JsonPropertyOrder(4)]
+    [JsonPropertyName("attachment_object_id")]
+    public string AttachmentObjectId { get; set; } = "";
 
     /// <summary>
     /// The unique identifier of the content (i.e., document) being vectorized.

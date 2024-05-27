@@ -17,5 +17,9 @@
         /// Purges a soft-deleted resource.
         /// </summary>
         public const string Purge = "purge";
+        /// <summary>
+        /// Loads a resource for creating embeddings
+        /// </summary>
+        public const string Load = "load";
     }
 }

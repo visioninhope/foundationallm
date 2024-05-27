@@ -273,6 +273,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                     AttachmentResourceProviderActions.CheckName => CheckAttachmentName(serializedAction),
                     AttachmentResourceProviderActions.Filter => await Filter(serializedAction),
                     AttachmentResourceProviderActions.Purge => await PurgeResource(resourcePath),
+                    AttachmentResourceProviderActions.Load => await Filter(serializedAction),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
