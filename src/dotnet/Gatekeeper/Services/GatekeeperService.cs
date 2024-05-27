@@ -47,6 +47,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 _gatekeeperServiceSettings.EnableMicrosoftPresidio = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.MicrosoftPresidio);
                 _gatekeeperServiceSettings.EnableLakeraGuard = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.LakeraGuard);
                 _gatekeeperServiceSettings.EnableEnkryptGuardrails = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.EnkryptGuardrails);
+                _gatekeeperServiceSettings.EnableAzureContentSafetyPromptShield = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.AzureContentSafetyPromptShield);
             }
 
             if (_gatekeeperServiceSettings.EnableLakeraGuard)
@@ -65,13 +66,16 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                     return new CompletionResponse() { Completion = promptInjectionResult };
             }
 
-            if (_gatekeeperServiceSettings.EnableAzureContentSafety)
+            if (_gatekeeperServiceSettings.EnableAzureContentSafetyPromptShield)
             {
                 var promptInjectionResult = await _contentSafetyService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
                     return new CompletionResponse() { Completion = promptInjectionResult };
+            }
 
+            if (_gatekeeperServiceSettings.EnableAzureContentSafety)
+            {
                 var contentSafetyResult = await _contentSafetyService.AnalyzeText(completionRequest.UserPrompt!);
 
                 if (!contentSafetyResult.Safe)
@@ -104,6 +108,14 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             if (_gatekeeperServiceSettings.EnableEnkryptGuardrails)
             {
                 var promptInjectionResult = await _enkryptGuardrailsService.DetectPromptInjection(summaryRequest.UserPrompt!);
+
+                if (!string.IsNullOrWhiteSpace(promptInjectionResult))
+                    return new SummaryResponse() { Summary = promptInjectionResult };
+            }
+
+            if (_gatekeeperServiceSettings.EnableAzureContentSafetyPromptShield)
+            {
+                var promptInjectionResult = await _contentSafetyService.DetectPromptInjection(summaryRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
                     return new SummaryResponse() { Summary = promptInjectionResult };
