@@ -32,6 +32,10 @@ namespace FoundationaLLM.Common.Constants
         /// </summary>
         public const string DataSourceHubAPI = "DataSourceHubAPI";
         /// <summary>
+        /// The name of the Attachment Hub API service.
+        /// </summary>
+        public const string AttachmentHubAPI = "AttachmentHubAPI";
+        /// <summary>
         /// The name of the Gatekeeper API service.
         /// </summary>
         public const string GatekeeperAPI = "GatekeeperAPI";

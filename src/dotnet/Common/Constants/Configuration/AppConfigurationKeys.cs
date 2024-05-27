@@ -160,6 +160,30 @@
         /// </summary>
         public const string FoundationaLLM_APIs_DataSourceHubAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:DataSourceHubAPI:AppInsightsConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType app configuration setting.
+        /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType = "FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType";
+        /// <summary>
+        /// The key for the FoundationaLLM:Attachment:ResourceProviderService:Storage:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the data source resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_ResourceProviderService_Storage_ConnectionString = "FoundationaLLM:Attachment:ResourceProviderService:Storage:ConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:AttachmentHubAPI:APIKey app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_AttachmentHubAPI_APIKey = "FoundationaLLM:APIs:AttachmentHubAPI:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:AttachmentHubAPI:APIUrl app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_AttachmentHubAPI_APIUrl = "FoundationaLLM:APIs:AttachmentHubAPI:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:AttachmentHubAPI:AppInsightsConnectionString app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_AttachmentHubAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:AttachmentHubAPI:AppInsightsConnectionString";
+        /// <summary>
         /// The key for the FoundationaLLM:APIs:GatekeeperAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>
@@ -508,6 +532,20 @@
         /// </summary>
         public const string FoundationaLLM_DataSources_AboutFoundationaLLM_BlobStorage_ConnectionString = "FoundationaLLM:DataSources:AboutFoundationaLLM:BlobStorage:ConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:AttachmentHub:AttachmentMetadata:StorageContainer app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_AttachmentHub_AttachmentMetadata_StorageContainer = "FoundationaLLM:AttachmentHub:AttachmentMetadata:StorageContainer";
+        /// <summary>
+        /// The key for the FoundationaLLM:AttachmentHub:StorageManager:BlobStorage:ConnectionString app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_AttachmentHub_StorageManager_BlobStorage_ConnectionString = "FoundationaLLM:AttachmentHub:StorageManager:BlobStorage:ConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:Attachments:AboutFoundationaLLM:BlobStorage:ConnectionString app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_Attachments_AboutFoundationaLLM_BlobStorage_ConnectionString = "FoundationaLLM:Attachments:AboutFoundationaLLM:BlobStorage:ConnectionString";
+        /// <summary>
         /// The key for the FoundationaLLM:LangChain:CSVFile:URL app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>
@@ -848,6 +886,16 @@
         /// </summary>
         public const string FoundationaLLM_DataSources = "FoundationaLLM:DataSources:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:Attachment:* app configuration settings.
+        /// This supports the Attachment resource provider settings.
+        /// </summary>
+        public const string FoundationaLLM_Attachment = "FoundationaLLM:Attachment:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Attachments:* app configuration settings.
+        /// This supports data source settings created by the Management API.
+        /// </summary>
+        public const string FoundationaLLM_Attachments = "FoundationaLLM:Attachments:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:AzureOpenAI:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AzureOpenAI = "FoundationaLLM:AzureOpenAI:*";
@@ -983,6 +1031,10 @@
         /// </summary>
         public const string FoundationaLLM_DataSources = "FoundationaLLM:DataSources";
         /// <summary>
+        /// The key section for the FoundationaLLM:Attachments app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Attachments = "FoundationaLLM:Attachments";
+        /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService";
@@ -1030,6 +1082,10 @@
         /// </summary>
         public const string FoundationaLLM_DataSource_ResourceProviderService_Storage = "FoundationaLLM:DataSource:ResourceProviderService:Storage";
 
+        /// <summary>
+        /// The key section for the FoundationaLLM:Attachment:ResourceProviderService:Storage app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_ResourceProviderService_Storage = "FoundationaLLM:Attachment:ResourceProviderService:Storage";
         #endregion
 
         #region Event Grid events

@@ -246,6 +246,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                             Active = true,
                             Description = $"Vectorization data pipeline dedicated to the {kmAgent.Name} agent.",
                             DataSourceObjectId = kmAgent.Vectorization.DataSourceObjectId!,
+                            AttachmentObjectId = kmAgent.Vectorization.AttachmentObjectId!,
                             TextPartitioningProfileObjectId = kmAgent.Vectorization.TextPartitioningProfileObjectId!,
                             TextEmbeddingProfileObjectId = kmAgent.Vectorization.TextEmbeddingProfileObjectId!,
                             IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectId!,

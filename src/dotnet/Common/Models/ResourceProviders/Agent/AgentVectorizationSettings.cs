@@ -25,6 +25,12 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         public string? DataSourceObjectId { get; set; }
 
         /// <summary>
+        /// The attachment resource path.
+        /// </summary>
+        [JsonPropertyName("attachment_object_id")]
+        public string? AttachmentObjectId { get; set; }
+
+        /// <summary>
         /// The vectorization indexing profile resource path.
         /// </summary>
         [JsonPropertyName("indexing_profile_object_id")]
@@ -37,7 +43,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         public string? TextEmbeddingProfileObjectId { get; set; }
 
         /// <summary>
-        /// The vectorization text partitioning profile resource path. 
+        /// The vectorization text partitioning profile resource path.
         /// </summary>
         [JsonPropertyName("text_partitioning_profile_object_id")]
         public string? TextPartitioningProfileObjectId { get; set; }

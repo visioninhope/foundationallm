@@ -17,6 +17,13 @@ public class ContentIdentifier
     public required string DataSourceObjectId { get; set; }
 
     /// <summary>
+    /// The name of the vectorization content source profile that provides settings to connect to the content source.
+    /// </summary>
+    [JsonPropertyOrder(0)]
+    [JsonPropertyName("attachment_object_id")]
+    public required string AttachmentObjectId { get; set; }
+
+    /// <summary>
     /// The multipart unique identifier of the the content (i.e. document) being vectorized.
     /// </summary>
     [JsonInclude]
