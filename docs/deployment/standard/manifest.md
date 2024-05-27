@@ -34,22 +34,14 @@ The root section of the Deployment Manifest defines the general properties of th
 - `createVpnGateway` is a boolean value that determines whether a VPN Gateway should be created as part of the deployment.  Set this value to `true` if you want to create a VPN Gateway.  You do not need to create a VPN gateway if your networking environment already has a VPN gateway that you want to use or a similar solution like Express Route.
 - `instanceId` is a GUID that uniquely identifies the deployment instance.  You can generate a GUID using PowerShell or other tools.  Each deployment instance should have a unique `instanceId`, this value is used by the authorization system when determining access to resources.  This is similar to the subscription ID in Azure.
 - `letsEncryptEmail` is the email address that will be used for Let's Encrypt notifications.  Let's Encrypt is used to generate SSL certificates for the deployment.  You do not need to provide this value unless you plan to use the optional pre-deployment script to generate certificates.  If you already have certificates, or you plan to use a different certificate provider, you can leave this value blank.  The deployment instructions will cover how to provide certificates during deployment.
-- `location` is the Azure region where the deployment resources will be created.  You should choose a region that supports OpenAI and the models needed by Foundationa**LLM**.
-
-    We reccomend the regions noted with an `X` in the `FoundationaLLM` column:
-
-    | Location           | text-embedding-ada-002 (2) | gpt-35-turbo (0613) | gpt-4 (1106-Preview) | FoundationaLLM |
-    | ------------------ | -------------------------- | ------------------- | -------------------- | -------------- |
-    | **Australia East** | X                          | X                   | X                    | X              |
-    | **Canada East**    | X                          | X                   | X                    | X              |
-    | **East US 2**      | X                          | X                   | X                    | X              |
-    | **France Central** | X                          | X                   | X                    | X              |
-    | Norway East        | X                          |                     | X                    |                |
-    | South India        |                            |                     | X                    |                |
-    | **Sweden Central** | X                          | X                   | X                    | X              |
-    | **UK South**       | X                          | X                   | X                    | X              |
-    | West US            | X                          |                     | X                    |                |
-
+- `location` is the Azure region where the deployment resources will be created.  You should choose a region that supports OpenAI and the models needed by Foundationa**LLM**.  The standard deployment supports automatically deploying the following models, not all models are available in every region, the template will configure the models supported in the specified location.  Consult the [Azure documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models#model-summary-table-and-region-availability) and choose a region supporting the models you would like to use:
+  - gpt-35-turbo (0613)
+  - gpt-35-turbo (1106)
+  - gpt-4 (1106-Preview)
+  - gpt-4o (2024-05-13)
+  - text-embedding-ada-002 (2)
+  - text-embedding-3-large
+  - text-embedding-3-small
 - `networkName` is the name of the network pre-provisioned before the deployment.  The deployment will create the requird subnets and other networking resources in this network.  If you do not have a pre-provisioned network, the template will create one for you.  The network should be created in the networking resource group described later in the manifest.
 
 ## Entra Client IDs
