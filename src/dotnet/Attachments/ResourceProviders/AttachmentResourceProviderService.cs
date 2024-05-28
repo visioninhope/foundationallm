@@ -21,6 +21,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 
 namespace FoundationaLLM.Attachment.ResourceProviders
 {
@@ -58,36 +59,42 @@ namespace FoundationaLLM.Attachment.ResourceProviders
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             AttachmentResourceProviderMetadata.AllowedResourceTypes;
 
-        private ConcurrentDictionary<string, AttachmentReference> _AttachmentReferences = [];
-        private string _defaultAttachmentName = string.Empty;
-
-        private const string DATA_SOURCE_REFERENCES_FILE_NAME = "_data-source-references.json";
-        private const string DATA_SOURCE_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Attachment}/{DATA_SOURCE_REFERENCES_FILE_NAME}";
+        private ConcurrentDictionary<string, AttachmentReference> _attachmentReferences = [];
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Attachment;
+        private const string ATTACHMENT_REFERENCES_FILE_NAME = "_external-orchestration-service-references.json";
+        private const string ATTACHMENT_REFERENCES_FILE_PATH =
+            $"/{ResourceProviderNames.FoundationaLLM_Configuration}/{ATTACHMENT_REFERENCES_FILE_NAME}";
+
 
         /// <inheritdoc/>
         protected override async Task InitializeInternal()
         {
             _logger.LogInformation("Starting to initialize the {ResourceProvider} resource provider...", _name);
-
-            if (await _storageService.FileExistsAsync(_storageContainerName, DATA_SOURCE_REFERENCES_FILE_PATH, default))
+            if (await _storageService.FileExistsAsync(_storageContainerName, ATTACHMENT_REFERENCES_FILE_PATH, default))
             {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, DATA_SOURCE_REFERENCES_FILE_PATH, default);
-                var AttachmentReferenceStore = JsonSerializer.Deserialize<AttachmentReferenceStore>(
-                    Encoding.UTF8.GetString(fileContent.ToArray()));
+                var fileContent = await _storageService.ReadFileAsync(
+                    _storageContainerName,
+                    ATTACHMENT_REFERENCES_FILE_PATH,
+                    default);
 
-                _AttachmentReferences = new ConcurrentDictionary<string, AttachmentReference>(
-                    AttachmentReferenceStore!.ToDictionary());
-                _defaultAttachmentName = AttachmentReferenceStore.DefaultAttachmentName ?? string.Empty;
+                var resourceReferenceStore =
+                    JsonSerializer.Deserialize<ResourceReferenceStore<AttachmentReference>>(
+                        Encoding.UTF8.GetString(fileContent.ToArray()));
+
+                _attachmentReferences = new ConcurrentDictionary<string, AttachmentReference>(
+                        resourceReferenceStore!.ToDictionary());
             }
             else
             {
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
-                    DATA_SOURCE_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new AttachmentReferenceStore { AttachmentReferences = [] }),
+                    ATTACHMENT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(new ResourceReferenceStore<AttachmentReference>
+                    {
+                        ResourceReferences = []
+                    }),
                     default,
                     default);
             }
@@ -114,17 +121,18 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
             if (instance.ResourceId == null)
             {
-                attachments = (await Task.WhenAll(_AttachmentReferences.Values
+                attachments = (await Task.WhenAll(_attachmentReferences.Values
                                          .Where(dsr => !dsr.Deleted)
                                          .Select(dsr => LoadAttachment(dsr))))
                                              .Where(ds => ds != null)
                                              .Select(ds => ds!)
                                              .ToList();
+
             }
             else
             {
                 AttachmentBase? attachment;
-                if (!_AttachmentReferences.TryGetValue(instance.ResourceId, out var AttachmentReference))
+                if (!_attachmentReferences.TryGetValue(instance.ResourceId, out var AttachmentReference))
                 {
                     attachment = await LoadAttachment(null, instance.ResourceId);
                     if (attachment != null)
@@ -142,10 +150,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                         attachments.Add(attachment);
                 }
             }
-
-            return await _authorizationService.FilterResourcesByAuthorizableAction(
-                _instanceSettings.Id, userIdentity, attachments,
-                AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read);
+            return attachments.Select(attachment => new ResourceProviderGetResult<AttachmentBase>() { Resource = attachment, Actions = [], Roles = [] }).ToList();
         }
 
         private async Task<AttachmentBase?> LoadAttachment(AttachmentReference? AttachmentReference, string? resourceId = null)
@@ -172,7 +177,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                     if (!string.IsNullOrWhiteSpace(resourceId))
                     {
                         AttachmentReference.Type = attachment.Type!;
-                        _AttachmentReferences.AddOrUpdate(AttachmentReference.Name, AttachmentReference, (k, v) => AttachmentReference);
+                        _attachmentReferences.AddOrUpdate(AttachmentReference.Name, AttachmentReference, (k, v) => AttachmentReference);
                     }
 
                     return attachment;
@@ -181,7 +186,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 if (string.IsNullOrWhiteSpace(resourceId))
                 {
                     // Remove the reference from the dictionary since the file does not exist.
-                    _AttachmentReferences.TryRemove(AttachmentReference.Name, out _);
+                    _attachmentReferences.TryRemove(AttachmentReference.Name, out _);
                     return null;
                 }
             }
@@ -191,24 +196,35 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         #endregion
 
-        /// <inheritdoc/>
-        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) =>
-            resourcePath.ResourceTypeInstances[0].ResourceType switch
+
+        protected override async Task UpsertResourceAsync<T>(ResourcePath resourcePath, T resource) 
+        {
+
+            //TODO: generalize for other attachment types
+            var audioAttachment = resource as AudioAttachmentStreamed;
+            if (audioAttachment == null)
+                throw new ResourceProviderException($"Invalid resource type");
+
+            if (resourcePath.ResourceTypeInstances[0].ResourceType != AttachmentResourceTypeNames.Attachments)
             {
-                AttachmentResourceTypeNames.Attachments => await UpdateAttachment(resourcePath, serializedResource),
-                _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
-                    StatusCodes.Status400BadRequest)
-            };
+                throw new ResourceProviderException(
+                        $"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
+                        StatusCodes.Status400BadRequest);
+            }
+            await UpdateAttachment(resourcePath, audioAttachment);
+        }
+
+
+
+        /// <inheritdoc/>
+        protected override Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) => null;
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateAttachment(ResourcePath resourcePath, string serializedAttachment)
+        private async Task<ResourceProviderUpsertResult> UpdateAttachment(ResourcePath resourcePath, AudioAttachmentStreamed attachment)
         {
-            var attachment = JsonSerializer.Deserialize<AttachmentBase>(serializedAttachment)
-                ?? throw new ResourceProviderException("The object definition is invalid.",
-                    StatusCodes.Status400BadRequest);
 
-            if (_AttachmentReferences.TryGetValue(attachment.Name!, out var existingAttachmentReference)
+            if (_attachmentReferences.TryGetValue(attachment.Name!, out var existingAttachmentReference)
                 && existingAttachmentReference!.Deleted)
                 throw new ResourceProviderException($"The attachment resource {existingAttachmentReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
@@ -246,12 +262,12 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 default,
                 default);
 
-            _AttachmentReferences.AddOrUpdate(AttachmentReference.Name, AttachmentReference, (k, v) => AttachmentReference);
+            _attachmentReferences.AddOrUpdate(AttachmentReference.Name, AttachmentReference, (k, v) => AttachmentReference);
 
             await _storageService.WriteFileAsync(
                     _storageContainerName,
-                    DATA_SOURCE_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(AttachmentReferenceStore.FromDictionary(_AttachmentReferences.ToDictionary())),
+                    ATTACHMENT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(ResourceReferenceStore<AttachmentReference>.FromDictionary(_attachmentReferences.ToDictionary())),
                     default,
                     default);
 
@@ -265,20 +281,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) =>
-            resourcePath.ResourceTypeInstances.Last().ResourceType switch
-            {
-                AttachmentResourceTypeNames.Attachments => resourcePath.ResourceTypeInstances.Last().Action switch
-                {
-                    AttachmentResourceProviderActions.CheckName => CheckAttachmentName(serializedAction),
-                    AttachmentResourceProviderActions.Filter => await Filter(serializedAction),
-                    AttachmentResourceProviderActions.Purge => await PurgeResource(resourcePath),
-                    AttachmentResourceProviderActions.Load => await Filter(serializedAction),
-                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
-                        StatusCodes.Status400BadRequest)
-                },
-                _ => throw new ResourceProviderException()
-            };
+        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) => throw new NotImplementedException();
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
         #region Helpers for ExecuteActionAsync
@@ -286,7 +289,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
         private ResourceNameCheckResult CheckAttachmentName(string serializedAction)
         {
             var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
-            return _AttachmentReferences.Values.Any(ar => ar.Name.Equals(resourceName!.Name, StringComparison.OrdinalIgnoreCase))
+            return _attachmentReferences.Values.Any(ar => ar.Name.Equals(resourceName!.Name, StringComparison.OrdinalIgnoreCase))
                 ? new ResourceNameCheckResult
                 {
                     Name = resourceName!.Name,
@@ -302,91 +305,6 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 };
         }
 
-        private async Task<List<AttachmentBase>> Filter(string serializedAction)
-        {
-            var resourceFilter = JsonSerializer.Deserialize<ResourceFilter>(serializedAction) ??
-                                 throw new ResourceProviderException("The object definition is invalid. Please provide a resource filter.",
-                                       StatusCodes.Status400BadRequest);
-            if (resourceFilter.Default.HasValue)
-            {
-                if (resourceFilter.Default.Value)
-                {
-                    if (string.IsNullOrWhiteSpace(_defaultAttachmentName))
-                        throw new ResourceProviderException("The default attachment is not set.",
-                            StatusCodes.Status404NotFound);
-
-                    if (!_AttachmentReferences.TryGetValue(_defaultAttachmentName, out var AttachmentReference)
-                        || AttachmentReference.Deleted)
-                        throw new ResourceProviderException(
-                            $"Could not locate the {_defaultAttachmentName} attachment resource.",
-                            StatusCodes.Status404NotFound);
-
-                    return [await LoadAttachment(AttachmentReference)];
-                }
-                else
-                {
-                    return
-                    [
-                        .. (await Task.WhenAll(
-                                _AttachmentReferences.Values
-                                          .Where(dsr => !dsr.Deleted && (
-                                              string.IsNullOrWhiteSpace(_defaultAttachmentName) ||
-                                              !dsr.Name.Equals(_defaultAttachmentName, StringComparison.OrdinalIgnoreCase)))
-                                          .Select(dsr => LoadAttachment(dsr))))
-                    ];
-                }
-            }
-            else
-            {
-                // TODO: Apply other filters.
-                return
-                [
-                    .. (await Task.WhenAll(
-                        _AttachmentReferences.Values
-                            .Where(dsr => !dsr.Deleted)
-                            .Select(dsr => LoadAttachment(dsr))))
-                ];
-            }
-        }
-
-        private async Task<ResourceProviderActionResult> PurgeResource(ResourcePath resourcePath)
-        {
-            var resourceName = resourcePath.ResourceTypeInstances.Last().ResourceId!;
-            if (_AttachmentReferences.TryGetValue(resourceName, out var agentReference))
-            {
-                if (agentReference.Deleted)
-                {
-                    // Delete the resource file from storage.
-                    await _storageService.DeleteFileAsync(
-                        _storageContainerName,
-                        agentReference.Filename,
-                        default);
-
-                    // Remove this resource reference from the store.
-                    _AttachmentReferences.TryRemove(resourceName, out _);
-
-                    await _storageService.WriteFileAsync(
-                        _storageContainerName,
-                        DATA_SOURCE_REFERENCES_FILE_PATH,
-                        JsonSerializer.Serialize(AttachmentReferenceStore.FromDictionary(_AttachmentReferences.ToDictionary())),
-                        default,
-                        default);
-
-                    return new ResourceProviderActionResult(true);
-                }
-                else
-                {
-                    throw new ResourceProviderException(
-                        $"The {resourceName} attachment resource is not soft-deleted and cannot be purged.",
-                        StatusCodes.Status400BadRequest);
-                }
-            }
-            else
-            {
-                throw new ResourceProviderException($"Could not locate the {resourceName} attachment resource.",
-                    StatusCodes.Status404NotFound);
-            }
-        }
 
         #endregion
 
@@ -408,7 +326,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         private async Task DeleteAttachment(List<ResourceTypeInstance> instances)
         {
-            if (_AttachmentReferences.TryGetValue(instances.Last().ResourceId!, out var AttachmentReference))
+            if (_attachmentReferences.TryGetValue(instances.Last().ResourceId!, out var AttachmentReference))
             {
                 if (!AttachmentReference.Deleted)
                 {
@@ -416,8 +334,8 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
                     await _storageService.WriteFileAsync(
                         _storageContainerName,
-                        DATA_SOURCE_REFERENCES_FILE_PATH,
-                        JsonSerializer.Serialize(AttachmentReferenceStore.FromDictionary(_AttachmentReferences.ToDictionary())),
+                        ATTACHMENT_REFERENCES_FILE_PATH,
+                        JsonSerializer.Serialize(ResourceReferenceStore<AttachmentReference>.FromDictionary(_attachmentReferences.ToDictionary())),
                         default,
                         default);
                 }
@@ -434,14 +352,15 @@ namespace FoundationaLLM.Attachment.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override T GetResourceInternal<T>(ResourcePath resourcePath) where T : class {
+        protected override T GetResourceInternal<T>(ResourcePath resourcePath) where T : class
+        {
             if (resourcePath.ResourceTypeInstances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
 
             if (typeof(T) != typeof(AttachmentBase))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
 
-            _AttachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var AttachmentReference);
+            _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var AttachmentReference);
             if (AttachmentReference == null || AttachmentReference.Deleted)
                 throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
 
@@ -495,7 +414,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             AttachmentReference.Name = attachment.Name;
             AttachmentReference.Type = attachment.Type!;
 
-            _AttachmentReferences.AddOrUpdate(
+            _attachmentReferences.AddOrUpdate(
                 AttachmentReference.Name,
                 AttachmentReference,
                 (k, v) => v);

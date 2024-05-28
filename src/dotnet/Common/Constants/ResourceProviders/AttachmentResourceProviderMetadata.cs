@@ -24,19 +24,7 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ],
                     Actions = [
-                            new ResourceTypeAction(AttachmentResourceProviderActions.CheckName, false, true, [
-                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
-                            ]),
-                            new ResourceTypeAction(DataSourceResourceProviderActions.Filter, false, true, [
-                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(AttachmentBase)])
-                            ]),
-                            new ResourceTypeAction(AttachmentResourceProviderActions.Purge, true, false, [
-                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
-                            ]),
-                            new ResourceTypeAction(AttachmentResourceProviderActions.Load, false, true, [
-                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(AttachmentBase)])
-                            ])
-                        ]
+                    ]
                 }
             }
         };

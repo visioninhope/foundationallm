@@ -114,3 +114,6 @@
 
 
 11. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.
+12. New app config entries required: 
+- `FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType`
+- `FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName`

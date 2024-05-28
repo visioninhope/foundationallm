@@ -8,10 +8,6 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Attachment
     /// </summary>
     public class AudioAttachment : AttachmentBase
     {
-        /// <summary>
-        /// Path for the attachment.
-        /// </summary>
-        public string Path { get; set; } = "";
 
         /// <summary>
         /// Creates a new instance of the <see cref="AudioAttachment"/> attachment.

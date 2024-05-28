@@ -15,9 +15,10 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Attachment
         public override string? Type { get; set; }
 
         /// <summary>
-        /// Configuration references associated with the attachment.
+        /// Path for the attachment.
         /// </summary>
-        [JsonPropertyName("configuration_references")]
-        public Dictionary<string, string>? ConfigurationReferences { get; set; } = [];
+        [JsonPropertyName("path")]
+        public string Path { get; set; } = "";
+
     }
 }

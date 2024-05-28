@@ -22,10 +22,6 @@ namespace FoundationaLLM.Attachment.Validation
                 .NotEmpty()
                 .WithMessage("The attachment path must contain a value.");
 
-            RuleFor(x => x)
-                .Must(ds => ValidConfigurationReference(ds, "AuthenticationType"))
-                .WithMessage("The AuthenticationType configuration reference is missing or has an invalid value.");
-
         }
 
 

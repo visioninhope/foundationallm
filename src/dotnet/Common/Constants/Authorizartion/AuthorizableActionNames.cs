@@ -111,25 +111,6 @@ namespace FoundationaLLM.Common.Constants.Authorization
 
         #endregion
 
-        #region Attachment
-
-        /// <summary>
-        /// Read attachment.
-        /// </summary>
-        public const string FoundationaLLM_Attachment_Attachments_Read = "FoundationaLLM.Attachment/attachments/read";
-
-        /// <summary>
-        /// Create or update data sources.
-        /// </summary>
-        public const string FoundationaLLM_Attachment_Attachments_Write = "FoundationaLLM.Attachment/attachments/write";
-
-        /// <summary>
-        /// Delete data sources.
-        /// </summary>
-        public const string FoundationaLLM_Attachment_Attachments_Delete = "FoundationaLLM.Attachment/attachments/delete";
-
-        #endregion
-
         #region Prompt
 
         /// <summary>
@@ -274,6 +255,25 @@ namespace FoundationaLLM.Common.Constants.Authorization
         /// Delete direct completions.
         /// </summary>
         public const string FoundationaLLM_Completion_DirectCompletions_Delete = "FoundationaLLM.Completion/directCompletions/delete";
+
+        #endregion
+
+        #region Attachment
+
+        /// <summary>
+        /// Read attachments.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_Attachments_Read = "FoundationaLLM.Attachment/attachments/read";
+
+        /// <summary>
+        /// Create or update attachments.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_Attachments_Write = "FoundationaLLM.Attachment/attachments/write";
+
+        /// <summary>
+        /// Delete attachments.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_Attachments_Delete = "FoundationaLLM.Attachment/attachments/delete";
 
         #endregion
     }

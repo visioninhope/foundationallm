@@ -53,6 +53,7 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);
             });
 
             if (builder.Environment.IsDevelopment())

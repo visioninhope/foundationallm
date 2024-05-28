@@ -13,14 +13,9 @@ namespace FoundationaLLM.Attachment.Validation
         /// <summary>
         /// Validates the value of a specified configuration reference.
         /// </summary>
-        /// <param name="dataSource">The attachment object being validated.</param>
-        /// <param name="configurationKey">The name of the configuration reference being validated.</param>
+        /// <param name="attachment">The attachment object being validated.</param>
         /// <returns>True if the value of the configuration reference is valid, False otherwise.</returns>
-        protected bool ValidConfigurationReference(AttachmentBase dataSource, string configurationKey) =>
-            dataSource.ConfigurationReferences!.ContainsKey(configurationKey)
-            && !string.IsNullOrWhiteSpace(dataSource.ConfigurationReferences[configurationKey])
-            && (string.Compare(
-                $"{AppConfigurationKeySections.FoundationaLLM_Attachments}:{dataSource.Name}:{configurationKey}",
-                dataSource.ConfigurationReferences![configurationKey]) == 0);
+        protected bool ValidConfigurationReference(AttachmentBase attachment) =>
+            true;
     }
 }
