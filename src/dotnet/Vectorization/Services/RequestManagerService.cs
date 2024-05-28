@@ -321,6 +321,10 @@ namespace FoundationaLLM.Vectorization.Services
                     //retrieve pipeline state file
                     var pipelineState = await _vectorizationStateService.ReadPipelineState(pipelineName, request.PipelineExecutionId);
                     pipelineState.ProcessingState = currentPipelineState;
+                    if(pipelineState.ProcessingState == VectorizationProcessingState.Completed || pipelineState.ProcessingState == VectorizationProcessingState.Failed)
+                    {
+                        pipelineState.ExecutionEnd = DateTime.UtcNow;
+                    }
                     await _vectorizationStateService.SavePipelineState(pipelineState);
                 }
 
