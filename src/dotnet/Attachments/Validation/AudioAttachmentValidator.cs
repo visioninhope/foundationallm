@@ -22,6 +22,11 @@ namespace FoundationaLLM.Attachment.Validation
                 .NotEmpty()
                 .WithMessage("The attachment path must contain a value.");
 
+            RuleFor(x => x.Content)
+                .NotNull()
+                .Must(stream => stream != null && stream.CanRead && stream.Length > 0)
+                .WithMessage("The attachment content is null");
+
         }
 
 

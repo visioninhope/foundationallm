@@ -8,6 +8,10 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Attachment
     /// </summary>
     public class AudioAttachment : AttachmentBase
     {
+        /// <summary>
+        /// Stream of binary audio file from the Core API
+        /// </summary>
+        public Stream? Content { get; set; }
 
         /// <summary>
         /// Creates a new instance of the <see cref="AudioAttachment"/> attachment.

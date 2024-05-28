@@ -122,10 +122,10 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             if (instance.ResourceId == null)
             {
                 attachments = (await Task.WhenAll(_attachmentReferences.Values
-                                         .Where(dsr => !dsr.Deleted)
-                                         .Select(dsr => LoadAttachment(dsr))))
-                                             .Where(ds => ds != null)
-                                             .Select(ds => ds!)
+                                         .Where(ar => !ar.Deleted)
+                                         .Select(ar => LoadAttachment(ar))))
+                                             .Where(a => a != null)
+                                             .Select(a => a!)
                                              .ToList();
 
             }
@@ -201,7 +201,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
         {
 
             //TODO: generalize for other attachment types
-            var audioAttachment = resource as AudioAttachmentStreamed;
+            var audioAttachment = resource as AudioAttachment;
             if (audioAttachment == null)
                 throw new ResourceProviderException($"Invalid resource type");
 
@@ -221,7 +221,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateAttachment(ResourcePath resourcePath, AudioAttachmentStreamed attachment)
+        private async Task<ResourceProviderUpsertResult> UpdateAttachment(ResourcePath resourcePath, AudioAttachment attachment)
         {
 
             if (_attachmentReferences.TryGetValue(attachment.Name!, out var existingAttachmentReference)
@@ -237,7 +237,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             {
                 Name = attachment.Name!,
                 Type = attachment.Type!,
-                Filename = $"/{_name}/{attachment.Name}.wav",
+                Filename = $"/{_name}/{attachment.Name}", // expect name to contain file extension to support multiple file types
                 Deleted = false
             };
 
@@ -258,7 +258,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 AttachmentReference.Filename,
-                JsonSerializer.Serialize<AttachmentBase>(attachment, _serializerSettings),
+                attachment.Content,
                 default,
                 default);
 
@@ -307,6 +307,10 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 if (!AttachmentReference.Deleted)
                 {
                     AttachmentReference.Deleted = true;
+
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        AttachmentReference.Filename);
 
                     await _storageService.WriteFileAsync(
                         _storageContainerName,
