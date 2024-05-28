@@ -63,9 +63,9 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Attachment;
-        private const string ATTACHMENT_REFERENCES_FILE_NAME = "_external-orchestration-service-references.json";
+        private const string ATTACHMENT_REFERENCES_FILE_NAME = "_attachment-references.json";
         private const string ATTACHMENT_REFERENCES_FILE_PATH =
-            $"/{ResourceProviderNames.FoundationaLLM_Configuration}/{ATTACHMENT_REFERENCES_FILE_NAME}";
+            $"/{ResourceProviderNames.FoundationaLLM_Attachment}/{ATTACHMENT_REFERENCES_FILE_NAME}";
 
 
         /// <inheritdoc/>
@@ -161,7 +161,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 {
                     Name = resourceId!,
                     Type = AttachmentTypes.Basic,
-                    Filename = $"/{_name}/{resourceId}.json",
+                    Filename = $"/{_name}/{resourceId}.wav",
                     Deleted = false
                 };
                 if (await _storageService.FileExistsAsync(_storageContainerName, AttachmentReference.Filename, default))
@@ -237,7 +237,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             {
                 Name = attachment.Name!,
                 Type = attachment.Type!,
-                Filename = $"/{_name}/{attachment.Name}.json",
+                Filename = $"/{_name}/{attachment.Name}.wav",
                 Deleted = false
             };
 
@@ -283,30 +283,6 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) => throw new NotImplementedException();
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
-
-        #region Helpers for ExecuteActionAsync
-
-        private ResourceNameCheckResult CheckAttachmentName(string serializedAction)
-        {
-            var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
-            return _attachmentReferences.Values.Any(ar => ar.Name.Equals(resourceName!.Name, StringComparison.OrdinalIgnoreCase))
-                ? new ResourceNameCheckResult
-                {
-                    Name = resourceName!.Name,
-                    Type = resourceName.Type,
-                    Status = NameCheckResultType.Denied,
-                    Message = "A resource with the specified name already exists or was previously deleted and not purged."
-                }
-                : new ResourceNameCheckResult
-                {
-                    Name = resourceName!.Name,
-                    Type = resourceName.Type,
-                    Status = NameCheckResultType.Allowed
-                };
-        }
-
-
-        #endregion
 
         /// <inheritdoc/>
         protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
