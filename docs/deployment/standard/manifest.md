@@ -150,6 +150,14 @@ The `resourceGroups` section of the Deployment Manifest defines the names of the
 | `storage` | The resource group for the FLLM internal storage resources.     | `rg-ai-dev-eastus2-storage` |
 | `vec`     | The resource group for the vectorization resources.             | `rg-ai-dev-eastus2-vec`     |
 
+## External Resource Group Configuration
+
+The `externalResourceGroups` section of the Deployment Manifest defines the names of the resource groups that contain resources that are external to the deployment.  When pre-provisioning resources for FLLM, be sure to remove the corresponding entry from the [`resourceGroups`](./manifest.md#resource-group-configuration) section.  The following table describes the properties of the `externalResourceGroups` section.
+
+| Name  | Description                                                          | Example                 |
+| ----- | -------------------------------------------------------------------- | ----------------------- |
+| `dns` | The resource group containing pre-provisioned Private DNS resources. | `rg-ai-shared-eastus2-dns` |
+
 
 ## Next
 
