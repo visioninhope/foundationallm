@@ -33,6 +33,10 @@ on:
         description: Enable teardown of environment
         type: boolean
         default: true
+      bypassAndTeardown:
+        description: Bypass Tests and Force Teardown
+        type: boolean
+        default: false
       target:
         description: Select target tenant/subscription
         type: choice
@@ -43,6 +47,8 @@ on:
 
 jobs:
   generate_matrix:
+    name: Generate Configuration Matrix
+    if: ${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
     runs-on: ubuntu-latest
     outputs:
       registry: ${{ steps.set-registry.outputs.result }}
@@ -90,10 +96,10 @@ jobs:
       with:
         result-encoding: string
         script: |
-          const fs = require('fs')
-          const jsonString = fs.readFileSync('./tests/config/e2e-test-manifest.json')
-          var data = JSON.parse(jsonString)
-          return data.registry
+          var registries = new Map();
+          registries['e2e'] = 'crfllme2eops'
+          registries['sandbox'] = 'cropseastus2svinternal'
+          return registries['${{ inputs.target }}']
 
     - name: Set Git and Helm Tag
       id: docker-tag
@@ -106,7 +112,7 @@ jobs:
 
   helm_build:
     name: Package Helm Charts
-    if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')
+    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
     needs: generate_matrix
     strategy:
       fail-fast: false
@@ -115,13 +121,15 @@ jobs:
     uses: ./.github/workflows/build-helm-chart.yml
     with:
       chart: ${{ matrix.object.name }}
-      registry: ${{ needs.generate_matrix.outputs.registry }}
+      registry: ${{ needs.generate_matrix.outputs.registry }}.azurecr.io
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
+      username: e2e-token
+      target: ${{ inputs.target }}
     secrets: inherit
 
   docker_build:
     name: Build Docker Images
-    if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')
+    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
     needs: generate_matrix
     strategy:
       fail-fast: false
@@ -132,13 +140,15 @@ jobs:
       image: ${{ matrix.object.name }}
       context: ${{ matrix.object.context }}
       dockerfile: ${{ matrix.object.dockerfile }}
-      registry: ${{ needs.generate_matrix.outputs.registry }}
+      registry: ${{ needs.generate_matrix.outputs.registry }}.azurecr.io
       tag: ${{ needs.generate_matrix.outputs.docker_tag }}
+      username: e2e-token
+      target: ${{ inputs.target }}
     secrets: inherit
 
   deploy_quickstart:
     name: Deploy Quick Start
-    if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')
+    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
     runs-on: ubuntu-latest
     env:
       AZURE_ENV_NAME: ${{ inputs.environment }}
@@ -226,13 +236,35 @@ jobs:
         $spObjectId = $(az ad sp list --filter "appId eq '$($info.clientId)'" --query '[].id' --output tsv)
         Write-Host "SP Object Id: $spObjectId"
         ./Create-FllmAdminGroup.ps1 `
-          -groupName FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
-          -spObjectId $spObjectId
+          -groupName FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }}
+
+        $spAssignmentExists = $(az ad group member check `
+          --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
+          --member-id $spObjectId `
+          --output json | ConvertFrom-Json).value
+
+        if (-not $spAssignmentExists)
+        {
+          az ad group member add `
+          --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
+          --member-id $spObjectId `
+          --output json
+        }
+
 
         if ('${{ inputs.target }}' -eq 'sandbox') {
-          ./Create-FllmAdminGroup.ps1 `
-            -groupName FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
-            -spObjectId d3bd4e8e-d413-477d-a420-0792b0504adf
+          $assignmentExists = $(az ad group member check `
+            --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
+            --member-id d3bd4e8e-d413-477d-a420-0792b0504adf `
+            --output json | ConvertFrom-Json).value
+
+          if (-not $assignmentExists)
+          {
+            az ad group member add `
+            --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} `
+            --member-id d3bd4e8e-d413-477d-a420-0792b0504adf `
+            --output json
+          }
         }
         Pop-Location
       shell: pwsh
@@ -243,10 +275,13 @@ jobs:
         $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
         Write-Host "::add-mask::$($info.clientSecret)"
 
+        $spObjectId = $(az ad sp list --filter "appId eq '$($info.clientId)'" --query '[].id' --output tsv)
+
         Write-Host "Create new AZD Environment"
         Push-Location ./deploy/quick-start
         azd env new ${{ inputs.environment }}
         azd env set PIPELINE_DEPLOY "$true"
+        azd env set FLLM_E2E_SP_OBJECT_ID $spObjectId
 
         if (${{ inputs.deployOpenAi }}) {
           azd env set OPENAI_NAME ${{ inputs.openAiName }}
@@ -262,7 +297,7 @@ jobs:
 
         Push-Location ./deploy/quick-start
         foreach ($service in $($config.service_matrix)) {
-          $imageName = "$($config.registry)/$($service.name):${{ needs.generate_matrix.outputs.docker_tag }}"
+          $imageName = "${{ needs.generate_matrix.outputs.registry }}.azurecr.io/$($service.name):${{ needs.generate_matrix.outputs.docker_tag }}"
           Write-Host "Setting $($service.azd_env_key) to $($imageName)..."
           azd env set $($service.azd_env_key) "$($imageName)"
 
@@ -363,7 +398,7 @@ jobs:
 
   run_e2e_tests:
     name: Run End to End Tests
-    if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')
+    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
     continue-on-error: true
     runs-on: ubuntu-latest
     env:
@@ -467,12 +502,12 @@ jobs:
 
   teardown_quickstart:
     name: Tear Down Quick Start
-    if: inputs.enableTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/'))
+    if: ${{ (cancelled() && inputs.bypassAndTeardown) || (inputs.enableTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/'))) }}
     runs-on: ubuntu-latest
     env:
       AZURE_ENV_NAME: ${{ inputs.environment }}
       AZURE_LOCATION: ${{ inputs.location }}
-    needs: [generate_matrix,deploy_quickstart,run_e2e_tests]
+    needs: [generate_matrix,run_e2e_tests]
     steps:
     - name: Sets Credentials for E2E
       run: |
@@ -546,6 +581,9 @@ jobs:
         azd env refresh --no-prompt
         azd down --force --purge --no-prompt
         Pop-Location
+
+        Write-Host "Remove Admin Group"
+        az ad group delete --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} --output json
 
         Write-Host "Tear down App Registrations"
         Push-Location ./tests/scripts

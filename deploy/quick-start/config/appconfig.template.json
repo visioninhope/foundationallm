@@ -92,6 +92,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield",
+      "value": "false",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:GatekeeperAPI:AppInsightsConnectionString",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-app-insights-connection-string\"}",
       "label": null,
