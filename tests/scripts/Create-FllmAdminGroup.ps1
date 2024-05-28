@@ -15,8 +15,7 @@
 #>
 
 Param(
-    [parameter(Mandatory = $false)][string]$groupName = "FLLM-E2E-Admins",
-    [parameter(Mandatory = $false)][string]$spObjectId = $null
+    [parameter(Mandatory = $false)][string]$groupName = "FLLM-E2E-Admins"
 )
 
 # Try block to handle potential errors during the execution
@@ -29,12 +28,6 @@ try {
 
     # If the command executes successfully, output the result
     Write-Host "Azure AD group '$groupName' created successfully."
-    Write-Output $output  # Display the details of the created group
-
-    if ($spObjectId) {
-        $addToGroupCommand = "az ad group member add --group $($output.id) --member-id $spObjectId"
-    }
-
 } 
 catch {
     # Catch block to handle and report any errors that occur during the execution
